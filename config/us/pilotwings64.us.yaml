@@ -208,8 +208,6 @@ segments:
       - [0x465B0, textbin, f3dex]
       - [0x479E0, textbin, aspMain]
 
-      - [0x475B0, data]
-      - [0x479E0, data]
       - [0x48E10, data]
       - [0x49C30, data]
       - [0x49D60, data]
