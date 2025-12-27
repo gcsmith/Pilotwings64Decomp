@@ -82,6 +82,8 @@ S_FILES := $(foreach dir,$(ASM_DIRS) $(SRC_DIRS),$(wildcard $(dir)/*.s))
 B_FILES := $(foreach dir,$(BIN_DIRS),$(wildcard $(dir)/*.bin))
 C_FILES := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
 
+LIBULTRA_DIRS := $(shell find tools/ultralib/src -type d -not -path "lib/ultralib/src/voice")
+
 # ------------------------------------------------------------------------------
 # Outputs
 # ------------------------------------------------------------------------------
@@ -138,7 +140,6 @@ GCC_FLAGS += -Wall -Wextra -Wno-missing-braces
 LD_FLAGS := -T $(LD_SCRIPT)
 LD_FLAGS += -T config/$(VERSION)/sym/hardware_regs.ld
 LD_FLAGS += -T config/$(VERSION)/sym/pif_syms.ld
-LD_FLAGS += -T config/$(VERSION)/sym/libultra_symbols.txt
 LD_FLAGS += -T config/$(VERSION)/sym/libultra_undefined_syms.txt
 LD_FLAGS += -T build/splat_out/$(VERSION)/undefined_funcs_auto.txt
 LD_FLAGS += -T build/splat_out/$(VERSION)/undefined_syms_auto.txt
@@ -169,7 +170,7 @@ default: all
 all: $(VERIFY)
 
 dirs:
-	$(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(BIN_DIRS),$(shell mkdir -p $(BUILD_DIR)/$(dir)))
+	$(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(BIN_DIRS) $(LIBULTRA_DIRS),$(shell mkdir -p $(BUILD_DIR)/$(dir)))
 
 check: .baserom.$(VERSION).ok
 

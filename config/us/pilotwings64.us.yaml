@@ -30,8 +30,8 @@ options:
   # auto_link_sections: [".data", ".rodata", ".bss"]
 
   symbol_addrs_path:
-    - config/us/sym/symbol_addrs.txt
     - config/us/sym/libultra_symbols.txt
+    - config/us/sym/symbol_addrs.txt
   reloc_addrs_path:
     - config/us/sym/reloc_addrs.txt
 

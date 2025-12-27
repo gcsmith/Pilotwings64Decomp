@@ -1,3 +1,8 @@
 // Visit https://github.com/ethteck/splat/wiki/Adding-Symbols for documentation about this file
 entrypoint = 0x80200050; // type:func
 main = 0x8022E440; // type:func
+
+rspbootTextStart = 0x80245530;//name_end:rspbootTextEnd
+gspF3DEX_fifoTextStart = 0x80245600;//name_end:gspF3DEX_fifoTextEnd
+aspMainTextStart = 0x80246A30; //name_end:aspMainTextEnd
+
