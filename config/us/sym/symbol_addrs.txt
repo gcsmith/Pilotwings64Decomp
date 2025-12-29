@@ -6,6 +6,12 @@ rspbootTextStart = 0x80245530;//name_end:rspbootTextEnd
 gspF3DEX_fifoTextStart = 0x80245600;//name_end:gspF3DEX_fifoTextEnd
 aspMainTextStart = 0x80246A30; //name_end:aspMainTextEnd
 
+Thread_1            = 0x80203DD0; // type:func
+Thread_2            = 0x8022E874; // type:func
+Thread_3            = 0x8022E920; // type:func
+Thread_4            = 0x8022E980; // type:func
+__scMain            = 0x8022B8C4; // type:func
+
 uvJanimPoseLine     = 0x80200B38; // type:func
 uvJanimPoseGrid     = 0x80200F00; // type:func
 
@@ -69,6 +75,11 @@ uvFxGetProps        = 0x8021B52C; // type:func
 uvModelGet          = 0x8021B9D0; // type:func
 _uvFxDraw           = 0x8021ED18; // type:func
 
+uvVtx               = 0x8021F264; // type:func
+uvEndTmesh          = 0x8021F3A4; // type:func
+uvEndGrid           = 0x8021F96C; // type:func
+uvVtxEndPoly        = 0x802206C0; // type:func
+
 uvGfxBegin          = 0x80220B88; // type:func
 uvGfxStateDraw      = 0x80221398; // type:func
 uvClampFunction     = 0x80221B34; // type:func
@@ -98,6 +109,7 @@ uvSysInit           = 0x8022A4F4; // type:func
 _uvJumpHeap         = 0x8022A674; // type:func
 _uvMediaCopy        = 0x8022A760; // type:func
 uvMemRead           = 0x8022A8E0; // type:func
+uvMemSet            = 0x8022AA80; // type:func
 _uvMemOverAlloc     = 0x8022AB0C; // type:func
 _uvMemAlloc         = 0x8022AC48; // type:func
 _uvMemFreeScratch   = 0x8022AD58; // type:func
@@ -110,11 +122,6 @@ uvMemLoadDS         = 0x80224CE0; // type:func
 _uvExpandTexture    = 0x802265B8; // type:func
 _uvExpandTextureImg = 0x80226A54; // type:func
 
-uvVtx               = 0x8021F264; // type:func
-uvEndTmesh          = 0x8021F3A4; // type:func
-uvEndGrid           = 0x8021F96C; // type:func
-uvVtxEndPoly        = 0x802206C0; // type:func
-
 _uvDbMstackPush     = 0x80227F5C; // type:func
 _uvDbMstackPop      = 0x80227FE4; // type:func
 uvIOUpdate          = 0x80224488; // type:func
@@ -125,6 +132,7 @@ uvFileRead          = 0x8022DFE8; // type:func
 uvSysInitEEPROM     = 0x8022E0E0; // type:func
 uvSetVideoMode      = 0x8022E36C; // type:func
 _uvDMA              = 0x8022ED30; // type:func
+_uvDebugPrintf      = 0x8022Ed14; // type:func
 
 _uvTerraDraw        = 0x8022F064; // type:func
 uvSprtDraw          = 0x80230DD4; // type:func
@@ -132,6 +140,7 @@ _uvTxtDraw          = 0x8023031C; // type:func
 uvSprtFromBitmap    = 0x80230668; // type:func
 uvSprtSetBlit       = 0x80230E68; // type:func
 uvSprtProps         = 0x80231158; // type:func
+mio0_decompress     = 0x80231a20; // type:func
 
 uvPathPoseLine      = 0x8031EAD0; // type:func
 
@@ -141,4 +150,28 @@ smoke_getprops      = 0x80336EC0; // type:func
 smoke_delete        = 0x80337154; // type:func
 smoke_puff_add      = 0x8033720C; // type:func
 smoke_create_terra  = 0x80337528; // type:func
+
+app_entrypoint      = 0x8030FE20; // type:func
+
+Mat4_SetIdentity    = 0x80228954; // type:func
+Mat4_MultOp1        = 0x802289F0; // type:func
+Mat4_MultOp2        = 0x80228E30; // type:func
+Mat4_SetUnk1        = 0x802289A4; // type:func
+Mat4_SetUnk2        = 0x80229C10; // type:func
+Mat4_SetUnk3        = 0x80229CD4; // type:func
+Mat4_SetUnk4        = 0x80229D78; // type:func
+Mat4_UnkOp1         = 0x80229270; // type:func
+Mat4_UnkOp2         = 0x80229658; // type:func
+Mat4_UnkOp3         = 0x80229798; // type:func
+Mat4_Init           = 0x802280F8; // type:func
+Mat4_Copy           = 0x80228028; // type:func
+Mat3_Copy           = 0x802280AC; // type:func
+Mat3_UnkOp1         = 0x80229A04; // type:func
+
+SqrtF               = 0x80229EA0; // type:func
+Length2D            = 0x8022A208; // type:func
+Length3D            = 0x8022A23C; // type:func
+
+szNintendoStaff     = 0x80353CA0; // type:char
+szDirector          = 0x80353CB0; // type:char
 
