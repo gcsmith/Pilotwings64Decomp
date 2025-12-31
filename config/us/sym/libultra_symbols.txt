@@ -1,7 +1,5 @@
 __rmonStopUserThreads = 0x80200308;
 osSyncPrintf = 0x80201180;
-rmonbrk_text_00AC = 0x80201B0C;
-rmonbrk_text_0A08 = 0x80201B7C;
 n_alSeqpDelete = 0x80204FC4;
 n_alSynRemovePlayer = 0x80204FE4;
 __dummy = 0x802070B0;

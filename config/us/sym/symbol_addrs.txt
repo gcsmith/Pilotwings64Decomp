@@ -12,6 +12,7 @@ Thread_App          = 0x8022E920; // type:func
 Thread_Kernel       = 0x8022E980; // type:func
 __scMain            = 0x8022B8C4; // type:func
 
+uvJanimLoad         = 0x80200350; // type:func
 uvJanimPoseLine     = 0x80200B38; // type:func
 uvJanimPoseGrid     = 0x80200F00; // type:func
 
@@ -22,6 +23,8 @@ uvEmitterTrigger    = 0x80201904; // type:func
 uvEmitterRelease    = 0x80201968; // type:func
 uvEmitterStatus     = 0x80201A0C; // type:func
 uvEmitterFlush      = 0x80201BA8; // type:func
+_uvaSoundBegin      = 0x80201B0C; // type:func
+_uvaSoundEnd        = 0x80201B7C; // type:func
 _uvaUpdatePlayList  = 0x802021D4; // type:func
 _uvaPlaylistRemove  = 0x80202678; // type:func
 _uvaPlay            = 0x80202728; // type:func
@@ -31,6 +34,7 @@ _uvaStopVoice       = 0x80202BB8; // type:func
 _uvaStatus          = 0x80202C5C; // type:func
 
 uvSysInitAudio      = 0x802038A0; // type:func
+uvGetSamples        = 0x8020411C; // type:func
 
 uvaSeqStop          = 0x8020489C; // type:func
 uvChanEnv           = 0x80204DEC; // type:func
@@ -89,13 +93,19 @@ uvGfxUnkMatrixOp2   = 0x802232DC; // type:func
 uvGfxGetCnt         = 0x80223800; // type:func
 uvGfxStatePush      = 0x802238EC; // type:func
 uvGfxStatePop       = 0x8022394C; // type:func
+uvProcessLooks      = 0x80221F8C; // type:func
 uvCopyFrameBuf      = 0x80223DEC; // type:func
+
+uvEventPost         = 0x80203088; // type:func
+uvEventRemoveCb     = 0x80203210; // type:func
+uvEventMaxCb        = 0x80202F18; // type:func
 
 _uvScDoneGfx        = 0x8022B320; // type:func
 _uvScDoneAud        = 0x8022B418; // type:func
 _uvScRunAud         = 0x8022B4B4; // type:func
 _uvScRunGfx         = 0x8022B538; // type:func
 _uvScHandleRetrace  = 0x8022B9C8; // type:func
+_uvScDlistRecover   = 0x8022B65C; // type:func
 _uvScHandleRSP      = 0x8022BCE8; // type:func
 _uvScLogCpuEvent    = 0x8022BEC4; // type:func
 _uvScLogIntoRing    = 0x8022C268; // type:func
@@ -121,6 +131,7 @@ uvMemLoadPal        = 0x80224C7C; // type:func
 uvMemLoadDS         = 0x80224CE0; // type:func
 _uvExpandTexture    = 0x802265B8; // type:func
 _uvExpandTextureImg = 0x80226A54; // type:func
+_uvExpandTextureCpy = 0x80226B20; // type:func
 
 _uvDbMstackPush     = 0x80227F5C; // type:func
 _uvDbMstackPop      = 0x80227FE4; // type:func
@@ -132,7 +143,8 @@ uvFileRead          = 0x8022DFE8; // type:func
 uvSysInitEEPROM     = 0x8022E0E0; // type:func
 uvSetVideoMode      = 0x8022E36C; // type:func
 _uvDMA              = 0x8022ED30; // type:func
-_uvDebugPrintf      = 0x8022Ed14; // type:func
+_uvDebugPrintf      = 0x8022ED14; // type:func
+_uvAssertMsg        = 0x8022EE5C; // type:func
 
 _uvTerraDraw        = 0x8022F064; // type:func
 uvSprtDraw          = 0x80230DD4; // type:func
@@ -140,7 +152,7 @@ _uvTxtDraw          = 0x8023031C; // type:func
 uvSprtFromBitmap    = 0x80230668; // type:func
 uvSprtSetBlit       = 0x80230E68; // type:func
 uvSprtProps         = 0x80231158; // type:func
-mio0_decompress     = 0x80231a20; // type:func
+mio0_decompress     = 0x80231A20; // type:func
 
 uvPathPoseLine      = 0x8031EAD0; // type:func
 
@@ -150,6 +162,7 @@ smoke_getprops      = 0x80336EC0; // type:func
 smoke_delete        = 0x80337154; // type:func
 smoke_puff_add      = 0x8033720C; // type:func
 smoke_create_terra  = 0x80337528; // type:func
+wind_render         = 0x8034CD68; // type:func
 
 app_entrypoint      = 0x8030FE20; // type:func
 
@@ -171,4 +184,25 @@ Mat3_UnkOp1         = 0x80229A04; // type:func
 SqrtF               = 0x80229EA0; // type:func
 Length2D            = 0x8022A208; // type:func
 Length3D            = 0x8022A23C; // type:func
+
+db_getstart         = 0x802E0304; // type:func
+db_getgnd           = 0x802DFE70; // type:func
+fx_create           = 0x802EA03C; // type:func
+fx_create_fire      = 0x802EA8E0; // type:func
+env_loadtpal        = 0x802E1990; // type:func
+map3d               = 0x8030FF00; // type:func
+map3d_mslot         = 0x80312684; // type:func
+splash_add          = 0x803417CC; // type:func
+sdive_below         = 0x80331B88; // type:func
+sdive_getpoints     = 0x80331A78; // type:func
+sdive_land          = 0x80331794; // type:func
+spath_create        = 0x80340610; // type:func
+spath_update        = 0x80340B74; // type:func
+spath_free          = 0x80340800; // type:func
+spath_update2       = 0x80340868; // type:func
+hsound_callback     = 0x8030A390; // type:func
+snd_makedev         = 0x8033F860; // type:func
+snd_event           = 0x8033FB44; // type:func
+snd_getpilot        = 0x8033FBCC; // type:func
+
 
