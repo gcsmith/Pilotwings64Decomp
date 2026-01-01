@@ -1,10 +1,7 @@
-#include "common.h"
+#include <uv_memory.h>
 
 s32 func_8022E2D4(s32 arg0);
 void func_8022E2DC(char arg0);
-void _uvDebugPrintf(char *arg, ...);
-void _uvDMA(s32 arg0, s32 arg1, u32 arg2);
-void _uvAssertMsg(char* arg0, char* arg1, s32 arg2);
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_2EEA0/uvFileWrite.s")
 
@@ -69,9 +66,7 @@ void Thread_Render(void* arg0) {
 }
 
 // #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_2EEA0/Thread_App.s")
-void _uvMediaCopy(void*, void*, s32);                        /* extern */
 void app_entrypoint(s32);                              /* extern */
-void uvMemSet(void*, u8, s32);                             /* extern */
 extern u8 D_51E30;
 extern s32 D_802CA900;
 extern u8 D_803571F0;
@@ -138,7 +133,7 @@ u8 func_8022EA80(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_2EEA0/func_8022EB38.s")
 
 // #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_2EEA0/_uvDebugPrintf.s")
-void _uvDebugPrintf(char *arg, ...) {
+void _uvDebugPrintf(char *fmt, ...) {
 }
 
 // #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_2EEA0/_uvDMA.s")
@@ -146,32 +141,33 @@ extern s32 D_802B9C80;
 extern OSIoMesg D_802C32A8;
 extern OSMesgQueue D_802C32C0;
 
-void _uvDMA(s32 arg0, s32 arg1, u32 arg2) {
+void _uvDMA(void* vAddr, u32 devAddr, u32 nbytes) {
+    s32 dest = vAddr;
     if (D_802B9C80 == 0) {
-        if (arg0 % 8) {
-            _uvDebugPrintf("_uvDMA: RAM address not 8 byte aligned 0x%x\n", arg0);
+        if (dest % 8) {
+            _uvDebugPrintf("_uvDMA: RAM address not 8 byte aligned 0x%x\n", dest);
             return;
         }
-        if (arg1 % 2) {
-            _uvDebugPrintf("_uvDMA: ROM address not 2 byte aligned 0x%x\n", arg1);
+        if ((s32)devAddr % 2) {
+            _uvDebugPrintf("_uvDMA: ROM address not 2 byte aligned 0x%x\n", devAddr);
             return;
         }
-        if ((u32) osMemSize < arg2) {
-            _uvDebugPrintf("_uvDMA: nbytes invalid %d\n", (s32) arg2);
+        if ((u32)osMemSize < nbytes) {
+            _uvDebugPrintf("_uvDMA: nbytes invalid %d\n", (s32) nbytes);
             return;
         }
-        if (arg2 & 1) {
-            arg2 = (arg2 + 1) & ~1;
+        if (nbytes & 1) {
+            nbytes = (nbytes + 1) & ~1;
         }
-        osWritebackDCache((void* ) arg0, (s32) arg2);
-        osPiStartDma(&D_802C32A8, 0, 0, (u32) arg1, (void* ) arg0, arg2, &D_802C32C0);
-        osInvalDCache((void* ) arg0, (s32) arg2);
+        osWritebackDCache((void* )dest, (s32)nbytes);
+        osPiStartDma(&D_802C32A8, 0, 0, devAddr, (void*) dest, nbytes, &D_802C32C0);
+        osInvalDCache((void*)dest, (s32)nbytes);
         func_8022E2DC(0);
     }
 }
 
 // #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_2EEA0/_uvAssertMsg.s")
-void _uvAssertMsg(char* arg0, char* arg1, s32 arg2) {
-    _uvDebugPrintf("%s:%d  %s\n", arg1, arg2, arg0);
+void _uvAssertMsg(char* expr, char* filename, s32 line) {
+    _uvDebugPrintf("%s:%d  %s\n", filename, line, expr);
 }
 
