@@ -1,4 +1,4 @@
-__rmonStopUserThreads = 0x80200308;
+func_80200308 = 0x80200308;
 osSyncPrintf = 0x80201180;
 alSeqpDelete = 0x80204FC4;
 alSynRemovePlayer = 0x80204FE4;
