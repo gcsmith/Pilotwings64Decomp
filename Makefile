@@ -4,6 +4,7 @@
 
 VERSION  ?= us
 BASENAME := pilotwings64
+DISPNAME := Pilotwings 64
 BASEROM  := baserom.$(VERSION).z64
 
 NO_COL  := \033[0m
@@ -282,7 +283,7 @@ $(SPLAT):
 	git submodule update --init --recursive
 
 baserom.$(VERSION).z64:
-	$(error Place the Superman 64 ROM, named '$@', in the root of this repo and try again.)
+	$(error Place the $(DISPNAME) ROM, named '$@', in the root of this repo and try again.)
 
 ### Settings
 .SECONDARY:
