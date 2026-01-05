@@ -15,6 +15,11 @@ BLUE    := \033[0;34m
 PINK    := \033[0;35m
 CYAN    := \033[0;36m
 
+VERBOSE ?= 0
+ifeq ($(VERBOSE),0)
+  V := @
+endif
+
 # ------------------------------------------------------------------------------
 # Toolchain
 # ------------------------------------------------------------------------------
@@ -86,7 +91,7 @@ C_O_FILES := $(foreach file,$(C_FILES:.c=.o),$(BUILD_DIR)/$(file))
 
 O_FILES := $(C_O_FILES) $(S_O_FILES) $(B_O_FILES)
 
-CRC := @$(TOOLS_DIR)/n64crc build/$(BASENAME).$(VERSION).z64 #Recalculating the CRC
+CRC := $(TOOLS_DIR)/n64crc
 
 OPT_FLAGS      = -O2
 LOOP_UNROLL    =
@@ -146,13 +151,13 @@ $(BUILD_DIR)/src/libultra/io/%.o: OPT_FLAGS := -O1
 
 default: all
 
-all: $(VERIFY)
+all: dirs $(VERIFY)
 
 dirs:
 	$(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(BIN_DIRS) $(LIBULTRA_DIRS),$(shell mkdir -p $(BUILD_DIR)/$(dir)))
 
 verify: $(ROM_Z64)
-	@sha1sum -c config/$(VERSION)/$(BASENAME).$(VERSION).sha1
+	$(V)sha1sum -c config/$(VERSION)/$(BASENAME).$(VERSION).sha1
 
 no_verify: $(ROM_Z64)
 	@echo "Skipping SHA1SUM check!"
@@ -168,7 +173,7 @@ extract: $(TOOLS_DIR)
 	$(SPLAT) $(SPLAT_YAML) $(SPLAT_FLAGS)
 
 dependencies: $(TOOLS_DIR)
-	@$(MAKE) -C $(TOOLS_DIR)
+	$(V)$(MAKE) -C $(TOOLS_DIR)
 
 expected:
 	mkdir -p expected/build
@@ -187,49 +192,50 @@ distclean: clean
 format:
 	$(PYTHON) $(TOOLS_DIR)/format.py -j
 
-$(ROM_ELF): dirs $(LD_SCRIPT) $(BUILD_DIR)/$(LIBULTRA) $(O_FILES) $(LANG_RNC_O_FILES) $(IMAGE_O_FILES)
-	@$(LD) $(LD_FLAGS) $(LD_FLAGS_EXTRA) -o $@
-	@printf "[$(PINK) GNU Linker $(NO_COL)]  $<\n"
+$(ROM_ELF): $(LD_SCRIPT) $(BUILD_DIR)/$(LIBULTRA) $(O_FILES) $(LANG_RNC_O_FILES) $(IMAGE_O_FILES)
+	@printf "[$(PINK) linker $(NO_COL)]  $<\n"
+	$(V)$(LD) $(LD_FLAGS) $(LD_FLAGS_EXTRA) -o $@
 
 ifndef PERMUTER
 $(GLOBAL_ASM_O_FILES): $(BUILD_DIR)/%.o: %.c
-	@$(CC_CHECK) $<
-	@printf "[$(YELLOW) GCC Syntax check $(NO_COL)] $<\n"
-	@$(ASM_PROCESSOR) $(OPT_FLAGS) $< > $(BUILD_DIR)/$<
-	@$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $(BUILD_DIR)/$<
-	@$(ASM_PROCESSOR) $(OPT_FLAGS) $< --post-process $@ \
+	@printf "[$(YELLOW) syntax $(NO_COL)]  $<\n"
+	$(V)$(CC_CHECK) $<
+	@printf "[$(GREEN) ido5.3 $(NO_COL)]  $<\n"
+	$(V)$(ASM_PROCESSOR) $(OPT_FLAGS) $< > $(BUILD_DIR)/$<
+	$(V)$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $(BUILD_DIR)/$<
+	$(V)$(ASM_PROCESSOR) $(OPT_FLAGS) $< --post-process $@ \
 		--assembler "$(AS) $(ASFLAGS)" --asm-prelude $(ASM_PROCESSOR_DIR)/prelude.inc
-	@printf "[$(GREEN) IRIS Development Option 5.3 $(NO_COL)]  $<\n"
 endif
 
 # non asm-processor recipe
 $(BUILD_DIR)/%.o: %.c
-#	@$(CC_CHECK) $<
-	@$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $<
-	@printf "[$(GREEN) IRIS Development Option 5.3 $(NO_COL)]  $<\n"
+	@printf "[$(YELLOW) syntax $(NO_COL)]  $<\n"
+	$(V)$(CC_CHECK) $<
+	@printf "[$(GREEN) ido5.3 $(NO_COL)]  $<\n"
+	$(V)$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $<
 
 $(BUILD_DIR)/$(LIBULTRA): $(LIBULTRA)
-	@mkdir -p $$(dirname $@)
-#	@cp $< $@
-#	@$(PYTHON) $(TOOLS_DIR)/set_o32abi_bit.py $@
+	$(V)mkdir -p $$(dirname $@)
+#	$(V)cp $< $@
+#	$(V)$(PYTHON) $(TOOLS_DIR)/set_o32abi_bit.py $@
 
 $(BUILD_DIR)/%.o: %.s
-	@$(AS) $(ASFLAGS) -o $@ $<
-	@printf "[$(GREEN) MIPS GNU Assembler   $(NO_COL)]  $<\n"
+	@printf "[$(GREEN)   as   $(NO_COL)]  $<\n"
+	$(V)$(AS) $(ASFLAGS) -o $@ $<
 
 $(BUILD_DIR)/%.o: %.bin
-	@$(LD) -r -b binary -o $@ $<
-	@printf "[$(PINK) MIPS GNU Linker $(NO_COL)]  $<\n"
+	@printf "[$(PINK) linker $(NO_COL)]  $<\n"
+	$(V)$(LD) -r -b binary -o $@ $<
 
 $(ROM_BIN): $(ROM_ELF)
-	@$(OBJCOPY) $(OBJCOPYFLAGS) $< $@
-	@printf "[$(CYAN) GNU Objcopy $(NO_COL)]  $<\n"
+	@printf "[$(CYAN) objcpy $(NO_COL)]  $<\n"
+	$(V)$(OBJCOPY) $(OBJCOPYFLAGS) $< $@
 
 $(ROM_Z64): $(ROM_BIN)
-	@printf "[$(CYAN) .bin -> .z64 $(NO_COL)] $<\n"
-	@cp $(ROM_BIN) $(ROM_Z64)
-	@printf "[$(GREEN) Calculating CRC $(NO_COL)]  $<\n"
-	@$(CRC)
+	@printf "[$(CYAN)bin->z64$(NO_COL)]  $<\n"
+	$(V)cp $(ROM_BIN) $(ROM_Z64)
+	@printf "[$(GREEN) n64crc $(NO_COL)]  $@\n"
+	$(V)$(CRC) $@
 
 # fake targets for better error handling
 $(SPLAT):
