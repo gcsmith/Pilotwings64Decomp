@@ -6,7 +6,7 @@ extern ALSeqPlayer* D_80248C90;
 extern ALSeqPlayer* D_80248C90;
 
 #if 1
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_5690/uvaSeqNew.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/kernel/seq/uvaSeqNew.s")
 #else
 void _uvMediaCopy(void*, void*, s32);                      /* extern */
 void uvaSeqStop(void);                                     /* extern */
@@ -35,7 +35,7 @@ void uvaSeqNew(s32 arg0) {
 }
 #endif
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_5690/uvaSeqPlay.s")
+// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/seq/uvaSeqPlay.s")
 void uvaSeqPlay(void) {
     if (alSeqpGetState(D_80248C90) != 0) {
         uvaSeqStop();
@@ -43,21 +43,21 @@ void uvaSeqPlay(void) {
     alSeqpPlay(D_80248C90);
 }
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_5690/uvaSeqSetTempo.s")
+// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/seq/uvaSeqSetTempo.s")
 void uvaSeqSetTempo(f32 arg0) {
     if (alSeqpGetState(D_80248C90) != 0) {
         alSeqpSetTempo(D_80248C90, (s32) (60000000.0 / (f64) arg0));
     }
 }
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_5690/uvaSeqSetVol.s")
+// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/seq/uvaSeqSetVol.s")
 void uvaSeqSetVol(f32 arg0) {
     if (alSeqpGetState(D_80248C90) != 0) {
         alSeqpSetVol(D_80248C90, (s16) (arg0 * 32767.0f));
     }
 }
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_5690/uvaSeqStop.s")
+// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/seq/uvaSeqStop.s")
 void uvaSeqStop(void) {
     alSeqpStop(D_80248C90);
     func_80206150(7);

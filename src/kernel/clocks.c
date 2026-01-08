@@ -4,13 +4,13 @@ extern u32 D_80263470;
 extern s32 D_80263474;
 extern uvClockState_t D_80263478[];
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_6F80/func_80205FD0.s")
+// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/clocks/func_80205FD0.s")
 void func_80205FD0(void) {
     D_80263470 = osGetCount();
     D_80263474 = 0;
 }
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_6F80/func_80205FFC.s")
+// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/clocks/func_80205FFC.s")
 void func_80205FFC(void) {
     u32 count;
 
@@ -21,9 +21,9 @@ void func_80205FFC(void) {
     D_80263470 = count;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_6F80/uvClkGetSec.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/kernel/clocks/uvClkGetSec.s")
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_6F80/func_80206150.s")
+// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/clocks/func_80206150.s")
 void func_80206150(s32 arg0) {
     uvClockState_t* temp_v0;
 
