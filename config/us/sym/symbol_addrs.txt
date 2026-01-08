@@ -142,6 +142,8 @@ _uvExpandTexture    = 0x802265B8; // type:func
 _uvExpandTextureImg = 0x80226A54; // type:func
 _uvExpandTextureCpy = 0x80226B20; // type:func
 
+_uvDbMstackReset    = 0x80227F30; // type:func
+_uvDbMstackTop      = 0x80227F40; // type:func
 _uvDbMstackPush     = 0x80227F5C; // type:func
 _uvDbMstackPop      = 0x80227FE4; // type:func
 uvIOUpdate          = 0x80224488; // type:func

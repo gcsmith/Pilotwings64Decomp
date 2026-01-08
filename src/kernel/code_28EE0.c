@@ -1,8 +1,8 @@
 #include <uv_matrix.h>
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_28EE0/func_80227F30.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_28EE0/_uvDbMstackReset.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_28EE0/func_80227F40.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_28EE0/_uvDbMstackTop.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_28EE0/_uvDbMstackPush.s")
 
