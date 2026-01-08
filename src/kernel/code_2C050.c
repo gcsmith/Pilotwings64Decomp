@@ -5,6 +5,10 @@
 #define RDP_DONE_MSG    668
 #define PRE_NMI_MSG     669
 
+extern u8 gScRspStatus;
+extern u8 gScRdpStatus;
+extern OSMesgQueue gScMsgQ;
+
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_2C050/func_8022B0A0.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_2C050/_uvScDoneGfx.s")
@@ -16,26 +20,31 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_2C050/_uvScRunGfx.s")
 
 // #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_2C050/_uvScDlistRecover.s")
-extern u8 D_802B9C69;
-extern u8 D_802B9C6A;
-extern OSMesgQueue D_802C38E8;
-
 void _uvScDlistRecover(void) {
     _uvDebugPrintf("Recovered from a bad display list\n");
+
     IO_WRITE(SP_STATUS_REG, 0x2902);
-    if (D_802B9C69 != 0) {
-        osSendMesg(&D_802C38E8, (void *)0x29B, 0);
+    if (gScRspStatus != 0) {
+        osSendMesg(&gScMsgQ, (OSMesg)RSP_DONE_MSG, 0);
     }
-    if (D_802B9C6A != 0) {
-        osSendMesg(&D_802C38E8, (void *)0x29C, 0);
+    if (gScRdpStatus != 0) {
+        osSendMesg(&gScMsgQ, (OSMesg)RDP_DONE_MSG, 0);
     }
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_2C050/_uvScCreateScheduler.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_2C050/_uvScAddClient.s")
+// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_2C050/_uvScAddClient.s")
+void _uvScAddClient(OSSched* sc, OSScClient* client, OSMesgQueue* mq) {
+    client->msgQ = mq;
+    client->next = sc->clientList;
+    sc->clientList = (OSScClient* )client;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_2C050/_uvScGetCmdQ.s")
+// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_2C050/_uvScGetCmdQ.s")
+OSMesgQueue *_uvScGetCmdQ(OSSched *s) {
+    return &s->cmdQ;
+}
 
 // #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_2C050/_uvScMain.s")
 void _uvScMain(void* arg0) {
@@ -43,7 +52,7 @@ void _uvScMain(void* arg0) {
     msg = NULL;
 
     while (1) {
-        osRecvMesg(&D_802C38E8, &msg, 1);
+        osRecvMesg(&gScMsgQ, &msg, 1);
 
         switch ((int)msg) {
         case VIDEO_MSG:

@@ -226,5 +226,9 @@ gRenderThreadStack  = 0x802BBC90;
 gAppThread          = 0x802C3398;
 gAppThreadStack     = 0x802C1C90;
 
+gScRspStatus        = 0x802B9C69;
+gScRdpStatus        = 0x802B9C6A;
+gScMsgQ             = 0x802C38E8;
+
 osViModeTable       = 0x8024B7D0;
 
