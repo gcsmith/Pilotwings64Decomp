@@ -249,6 +249,7 @@ gSchedInst          = 0x802C38A8;
 gSchedStack         = 0x802C5BA8;
 gSchedRspStatus     = 0x802B9C69;
 gSchedRdpStatus     = 0x802B9C6A;
+gSchedRingIdx       = 0x802B9C78;
 gSchedMsgQ          = 0x802C38E8;
 
 osViModeTable       = 0x8024B7D0;
