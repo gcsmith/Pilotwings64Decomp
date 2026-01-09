@@ -174,6 +174,7 @@ extract: $(TOOLS_DIR)
 
 dependencies: $(TOOLS_DIR)
 	$(V)$(MAKE) -C $(TOOLS_DIR)
+	$(V)$(PYTHON) -m pip install -r requirements.txt
 
 expected:
 	mkdir -p expected/build
