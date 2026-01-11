@@ -124,17 +124,20 @@ uvSobjLoadTerra     = 0x8022CEF8; // type:func
 uvSobjPosm          = 0x8022CFC4; // type:func
 uvSobjModel         = 0x8022D218; // type:func
 
+uvMemInitBlocks     = 0x8022A3C0; // type:func
 uvSysInit           = 0x8022A4F4; // type:func
 _uvJumpHeap         = 0x8022A674; // type:func
 _uvMediaCopy        = 0x8022A760; // type:func
 uvMemRead           = 0x8022A8E0; // type:func
 uvMemSet            = 0x8022AA80; // type:func
+uvMemCmp            = 0x8022AAB4; // type:func
 _uvMemOverAlloc     = 0x8022AB0C; // type:func
 _uvMemAlloc         = 0x8022AC48; // type:func
 _uvMemFreeScratch   = 0x8022AD58; // type:func
 _uvMemGetScratch    = 0x8022ADC4; // type:func
 _uvMemGetBlocks     = 0x8022AE70; // type:func
 uvLevelInit         = 0x8022AF04; // type:func
+_uvMemAllocAlign8   = 0x8022B078; // type:func
 
 uvMemLoadPal        = 0x80224C7C; // type:func
 uvMemLoadDS         = 0x80224CE0; // type:func
@@ -262,4 +265,3 @@ gSndVoiceTable      = 0x80261218;
 osViModeTable       = 0x8024B7D0;
 osViModeNtscLan1    = 0x8024C4A0;
 osViModePalLan1     = 0x8024C4F0;
-
