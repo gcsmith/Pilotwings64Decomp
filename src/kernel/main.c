@@ -3,8 +3,6 @@
 #include <uv_sched.h>
 #include <PR/os_internal.h>
 
-void app_firstfunc();
-
 void Thread_App(void* arg);
 void Thread_Kernel(void* arg);
 void Thread_Render(void* arg);
@@ -16,6 +14,8 @@ extern u8 app_ROM_START[];
 extern u8 app_ROM_END[];
 extern u8 app_BSS_START[];
 extern u8 app_BSS_END[];
+extern u8 app_TEXT_START[];
+extern u8 app_TEXT_END[];
 
 extern OSSched gSchedInst;
 extern OSThread gAppThread;
@@ -113,7 +113,7 @@ void Thread_Render(void* arg) {
 
 // #pragma GLOBAL_ASM("asm/nonmatchings/kernel/main/Thread_App.s")
 void Thread_App(void *arg) {
-    _uvMediaCopy((void*)app_firstfunc, app_ROM_START, app_ROM_END - app_ROM_START);
+    _uvMediaCopy(app_TEXT_START, app_ROM_START, app_ROM_END - app_ROM_START);
     uvMemSet(app_BSS_START, 0, app_BSS_END - app_BSS_START);
     app_entrypoint(arg);
 }
