@@ -173,7 +173,8 @@ uvSprtProps         = 0x80231158; // type:func
 mio0_decompress     = 0x80231A20; // type:func
 
 uvRandSeed          = 0x802315E0; // type:func
-uvRandF             = 0x80231740; // type:func
+uvRandF_RANLUX      = 0x802315EC; // type:func
+uvRandF_LCG         = 0x80231740; // type:func
 uvAbs               = 0x80231798; // type:func
 uvVec3Len           = 0x802317B0; // type:func
 uvVec2Dot           = 0x802317F0; // type:func
@@ -239,6 +240,10 @@ snd_getpilot        = 0x8033FBCC; // type:func
 app_firstfunc       = 0x802CA900; // type:func
 
 // Data
+
+gRandLcgState       = 0x8024B2C0;
+gRandluxState1      = 0x8024B2C4;
+gRandluxState2      = 0x8024B2C8;
 
 gKernelThread       = 0x802C36F8;
 gKernelThreadStack  = 0x802BDC90;

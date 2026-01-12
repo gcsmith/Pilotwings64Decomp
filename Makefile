@@ -98,7 +98,7 @@ LOOP_UNROLL    =
 
 MIPSISET       = -mips2 -32
 
-INCLUDE_CFLAGS = -I. -Iinclude -Isrc -I$(TOOLS_DIR)/ultralib/include
+INCLUDE_CFLAGS = -I. -Iinclude -Isrc -I$(TOOLS_DIR)/ultralib/include/compiler/ido -I$(TOOLS_DIR)/ultralib/include
 
 ASFLAGS        = -EB -mtune=vr4300 -march=vr4300 -mabi=32 -I include
 OBJCOPYFLAGS   = -O binary
