@@ -1,5 +1,6 @@
 #include <uv_common.h>
 #include <uv_memory.h>
+#include <uv_graphics.h>
 
 typedef struct {
     u32 start;
@@ -11,16 +12,7 @@ typedef struct {
     u32 unk4;
 } Struct802B8880;
 
-typedef struct {
-    float unk0;
-    u16 unk4;
-} Struct802B53C8;
-
 extern u8 kernel_TEXT_START[];
-
-extern u32 D_802B53C0;
-extern Struct802B53C8 D_802B53C8;
-extern u32 D_802B53F0;
 
 extern u8 D_802B6E30[];
 
@@ -42,11 +34,6 @@ extern u8 D_803805E0;
 
 extern u8 initialize_emu_text_0000[];
 
-extern void func_80223B80(void);
-extern s32 func_80223E80(s32);
-extern s32 func_80223F30(s32);
-extern s32 func_80223F7C(s32, u32*, void**, s32);
-extern void func_80230954(void);
 extern void myfree(void);
 
 //#pragma GLOBAL_ASM("asm/nonmatchings/kernel/memory/uvMemInitBlocks.s")
@@ -374,24 +361,24 @@ void uvLevelInit(void) {
     D_802B8930 = osMemSize + 0x80000000;
     D_802B8824 = 0;
     D_802B8828 = 0;
-    D_802B53C0 = 0;
+    D_802B53C0 = NULL;
     D_802B8934 = 0;
     func_8022A47C();
     uvMemSet(initialize_emu_text_0000, 0, 0x160C);
     uvMemSet(D_802B6E30, 0, 0x7D0);
     myfree();
-    temp_v0 = func_80223E80((s32) D_802B53F0);
+    temp_v0 = func_80223E80(gUVBlockOffsets.UVSY);
 
     while ((var_v0 = func_80223F7C(temp_v0, &length, &source, 0)) != 0) {
         if (var_v0 == 'COMM') { // 0x434F4D4D
-            _uvMediaCopy(&D_802B53C8, source, length);
+            _uvMediaCopy(&gUVBlockCounts, source, length);
             if (1) {} // fakematch
-            *((float*)&initialize_emu_text_0000[0x1608]) = D_802B53C8.unk0;
+            *((float*)&initialize_emu_text_0000[0x1608]) = gUVBlockCounts.unk0;
         }
     }
     func_80223F30(temp_v0);
-    if (D_802B53C8.unk4 != UV_KERNEL_VERSION) {
-        _uvDebugPrintf("uvLevelInit: dbase [ver %d] and kernel [ver %d] out of date\n", D_802B53C8.unk4, UV_KERNEL_VERSION);
+    if (gUVBlockCounts.uvVersion != UV_KERNEL_VERSION) {
+        _uvDebugPrintf("uvLevelInit: dbase [ver %d] and kernel [ver %d] out of date\n", gUVBlockCounts.uvVersion, UV_KERNEL_VERSION);
     }
 }
 

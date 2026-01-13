@@ -1,4 +1,5 @@
 #include <uv_graphics.h>
+#include <uv_memory.h>
 
 typedef struct UnkStruct_gfx_8b {
     s32 unk0;
@@ -6,10 +7,10 @@ typedef struct UnkStruct_gfx_8b {
 } UnkStruct_gfx_8b_t;
 
 typedef struct UnkStruct_gfx_16b {
-    s32 unk0;
-    s32 unk4;
-    s32 unk8;
-    s32 unkC;
+    u32 unk0;
+    u32 unk4;
+    u32 unk8;
+    u32 unkC;
 } UnkStruct_gfx_16b_t;
 
 extern s32 D_80249230;
@@ -178,7 +179,6 @@ s32 func_80223F68(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_80224170.s")
 
 // #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_8022427C.s")
-void func_8022427C(s32 arg0) {
+void func_8022427C(u32 arg0) {
     D_802B530C[arg0].unk0 = 0xC;
 }
-

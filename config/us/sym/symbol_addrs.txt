@@ -287,3 +287,6 @@ gSndVoiceTable      = 0x80261218;
 osViModeTable       = 0x8024B7D0;
 osViModeNtscLan1    = 0x8024C4A0;
 osViModePalLan1     = 0x8024C4F0;
+
+gUVBlockCounts      = 0x802B53C8;
+gUVBlockOffsets     = 0x802B53F0;
