@@ -7,7 +7,11 @@
 
 typedef struct uvaEmitter {
 /* 00 */ Mtx4F_t m1;
-/* 40 */ Mtx4F_t m2;
+/* 40 */ Vec3F_t unk40;
+/* 4C */ Vec3F_t unk4C;
+/* 58 */ Vec3F_t unk58;
+/* 64 */ Vec3F_t unk64;
+/* 70 */ Vec4F_t unk70;
 /* 80 */ f32 unk80;
 /* 84 */ f32 unk84;
 /* 88 */ s32 priority;

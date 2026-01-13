@@ -1,7 +1,6 @@
 #include "common.h"
 
-void func_802F4F90(void) {
-}
+void func_802F4F90(void) {}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_7C4C0/func_802F4F98.s")
 

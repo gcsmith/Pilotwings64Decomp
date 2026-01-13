@@ -34,7 +34,7 @@ void Mat4_MultOp2(Mtx4F_t m_dst, Mtx4F_t mat1, Mtx4F_t mat2);
 void Mat4_UnkOp1(Mtx4F_t mat, float arg1, char axis);
 void Mat4_UnkOp2(Mtx4F_t mat, float arg1, float arg2, float arg3);
 void Mat4_UnkOp3(Mtx4F_t mat, float arg1, float arg2, float arg3);
-void Mat4_UnkOp5(Mtx4F_t mat, Vec3F_t vec1, Vec3F_t vec2);
+void Mat4_UnkOp5(Mtx4F_t mat, Vec3F_t *vec1, Vec3F_t *vec2);
 void Mat4_SetUnk2(Mtx4F_t mat, float arg1, float arg2, float arg3, float arg4, float arg5, float arg6);
 void Mat4_SetUnk3(Mtx4F_t mat, float arg1, float arg2, float arg3, float arg4);
 void Mat4_SetUnk4(Mtx4F_t mat, float arg1, float arg2, float arg3, float arg4);

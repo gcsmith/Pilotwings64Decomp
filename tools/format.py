@@ -180,6 +180,8 @@ def main():
         extra_files = []
     else:
         files = glob.glob("src/**/*.c", recursive=True)
+        # do not format ultralib files as it messes with global_asm macros
+        files = list(filter(lambda file: 'src/ultralib' not in file, files))
         extra_files = glob.glob("assets/**/*.xml", recursive=True)
         extra_files += glob.glob("src/**/*.schl", recursive=True)
 

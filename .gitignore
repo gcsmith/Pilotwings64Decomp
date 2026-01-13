@@ -52,4 +52,6 @@ build/
 
 # miscellaneous
 *.swp
-
+.venv/
+src/ultralib
+tools/n64crc
