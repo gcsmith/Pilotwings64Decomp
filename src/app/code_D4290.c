@@ -1,12 +1,14 @@
 #include "common.h"
 
-void func_8034CD60(void) {}
+void func_8034CD60(void) {
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_D4290/wind_render.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_D4290/func_8034D4AC.s")
 
-void func_8034D548(void) {}
+void func_8034D548(void) {
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_D4290/func_8034D550.s")
 

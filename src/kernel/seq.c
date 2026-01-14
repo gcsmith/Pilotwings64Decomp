@@ -2,7 +2,7 @@
 #include <uv_clocks.h>
 #include <uv_util.h>
 
-extern ALSeqPlayer *gSeqPlayer;
+extern ALSeqPlayer* gSeqPlayer;
 
 #if 1
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/seq/uvaSeqNew.s")
@@ -15,14 +15,14 @@ extern u8* D_8026121C;
 extern u8* D_80261220;
 extern ALCSeq D_80261230;
 void uvaSeqNew(s32 arg0) {
-  s32 seq_count;
-  s32 seq_align;
+    s32 seq_count;
+    s32 seq_align;
 
-  seq_count = ((ALSeqFile *)(D_8026121C + arg0 * 8))->seqArray[0].len;
-  seq_align = seq_count;
-  if (seq_count & 1) {
-    seq_align = seq_count + 1;
-  }
+    seq_count = ((ALSeqFile*)(D_8026121C + arg0 * 8))->seqArray[0].len;
+    seq_align = seq_count;
+    if (seq_count & 1) {
+        seq_align = seq_count + 1;
+    }
 
     if (alSeqpGetState(gSeqPlayer) != 0) {
         uvaSeqStop();
@@ -35,10 +35,10 @@ void uvaSeqNew(s32 arg0) {
 #endif
 
 void uvaSeqPlay(void) {
-  if (alSeqpGetState(gSeqPlayer) != 0) {
-    uvaSeqStop();
-  }
-  alSeqpPlay(gSeqPlayer);
+    if (alSeqpGetState(gSeqPlayer) != 0) {
+        uvaSeqStop();
+    }
+    alSeqpPlay(gSeqPlayer);
 }
 
 void uvaSeqSetTempo(f32 tempo) {
@@ -56,12 +56,10 @@ void uvaSeqSetVol(f32 vol) {
 void uvaSeqStop(void) {
     alSeqpStop(gSeqPlayer);
     func_80206150(7);
-    if (alSeqpGetState(gSeqPlayer) != 0) {
-        do {
-            if (uvClkGetSec(7) > 2.0) {
-                _uvDebugPrintf("uvaSeqStop timed out\n");
-                return;
-            }
-        } while (alSeqpGetState(gSeqPlayer) != 0);
+    while (alSeqpGetState(gSeqPlayer)) {
+        if (uvClkGetSec(7) > 2.0) {
+            _uvDebugPrintf("uvaSeqStop timed out\n");
+            return;
+        }
     }
 }

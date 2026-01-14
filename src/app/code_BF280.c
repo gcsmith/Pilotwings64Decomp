@@ -4,7 +4,8 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_BF280/func_80337DB8.s")
 
-void func_803383FC(void) {}
+void func_803383FC(void) {
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_BF280/func_80338404.s")
 

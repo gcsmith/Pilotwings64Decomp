@@ -10,7 +10,8 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_92BF0/func_8030BA98.s")
 
-void func_8030BD20(void) {}
+void func_8030BD20(void) {
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_92BF0/func_8030BD28.s")
 

@@ -3,21 +3,21 @@
 #include <uv_memory.h>
 
 typedef struct UnkStruct_gfx_8b {
-  s32 unk0;
-  s32 unk4;
+    s32 unk0;
+    s32 unk4;
 } UnkStruct_gfx_8b_t;
 
 typedef struct UnkStruct_gfx_16b {
-  u32 address;
-  u32 tag;
-  u32 unk8;
-  u32 offset;
+    u32 address;
+    u32 tag;
+    u32 unk8;
+    u32 offset;
 } UnkStruct_gfx_16b_t;
 
 extern s32 D_80249230;
 extern f32 D_8024921C;
 extern s32 D_802491E8;
-extern UnkStruct_gfx_8b_t *D_80298AB0;
+extern UnkStruct_gfx_8b_t* D_80298AB0;
 extern UnkStruct_gfx_16b_t D_802B5300[];
 extern UnkStruct_gfx_16b_t D_802B5304[];
 extern UnkStruct_gfx_16b_t D_802B5308[];
@@ -26,7 +26,7 @@ extern UnkStruct_gfx_16b_t D_802B530C[];
 extern u16 D_8024920C;
 extern s16 D_80249218;
 extern u8 D_802A9988[0xAF00];
-extern s32 *D_80299270[2];
+extern s32* D_80299270[2];
 
 extern s32 gGfxStateStackData;
 extern u32 gGfxStateStack[];
@@ -48,11 +48,11 @@ extern const u8 D_8024DF40[]; // = "Ran out of IFF file ids.  (IFF_NIFFS==%d)";
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_80220FF8.s")
 
 void func_802210C4(s32 arg0) {
-  UnkStruct_gfx_8b_t *temp_v1;
+    UnkStruct_gfx_8b_t* temp_v1;
 
-  temp_v1 = D_80298AB0++;
-  temp_v1->unk4 = arg0;
-  temp_v1->unk0 = 0x06000000;
+    temp_v1 = D_80298AB0++;
+    temp_v1->unk4 = arg0;
+    temp_v1->unk0 = 0x06000000;
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_802210E8.s")
@@ -112,11 +112,11 @@ void func_80223408(f32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_802235A4.s")
 
 void func_802236A8(void) {
-  UnkStruct_gfx_8b_t *temp_v1;
+    UnkStruct_gfx_8b_t* temp_v1;
 
-  temp_v1 = D_80298AB0++;
-  temp_v1->unk4 = 0;
-  temp_v1->unk0 = 0xBD000000;
+    temp_v1 = D_80298AB0++;
+    temp_v1->unk4 = 0;
+    temp_v1->unk0 = 0xBD000000;
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_802236CC.s")
@@ -124,11 +124,11 @@ void func_802236A8(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/uvGfxGetCnt.s")
 
 void uvGfxStatePush(void) {
-  if (gGfxStateStackIdx >= 0x1F) {
-    _uvDebugPrintf("uvGfxStatePush: stack full\n");
-    return;
-  }
-  gGfxStateStack[gGfxStateStackIdx++] = gGfxStateStackData;
+    if (gGfxStateStackIdx >= 0x1F) {
+        _uvDebugPrintf("uvGfxStatePush: stack full\n");
+        return;
+    }
+    gGfxStateStack[gGfxStateStackIdx++] = gGfxStateStackData;
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/uvGfxStatePop.s")
@@ -152,21 +152,21 @@ void func_80223BF4(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_80223C00.s")
 
 void uvCopyFrameBuf(s32 fb_id) {
-  s32 *src;
-  s32 *dst;
+    s32* src;
+    s32* dst;
 
-  if (fb_id < 0 || fb_id > 1) {
-    _uvDebugPrintf("uvCopyFrameBuf: Buffer %d out of range\n", fb_id);
-    return;
-  }
-  if (fb_id == 1) {
-    fb_id = D_8024920C;
-  } else {
-    fb_id = D_8024920C ^ 1;
-  }
-  src = D_80299270[fb_id];
-  dst = D_80299270[fb_id ^ 1];
-  _uvMediaCopy(dst, src, 0x25800U);
+    if (fb_id < 0 || fb_id > 1) {
+        _uvDebugPrintf("uvCopyFrameBuf: Buffer %d out of range\n", fb_id);
+        return;
+    }
+    if (fb_id == 1) {
+        fb_id = D_8024920C;
+    } else {
+        fb_id = D_8024920C ^ 1;
+    }
+    src = D_80299270[fb_id];
+    dst = D_80299270[fb_id ^ 1];
+    _uvMediaCopy(dst, src, 0x25800U);
 }
 
 #ifdef NON_MATCHING
@@ -174,32 +174,32 @@ void uvCopyFrameBuf(s32 fb_id) {
 #else
 // rodata mismatch
 s32 func_80223E80(s32 addr) {
-  UnkStruct_gfx_16b_t *ptr;
-  s32 idx;
+    UnkStruct_gfx_16b_t* ptr;
+    s32 idx;
 
-  ptr = D_802B5300;
-  for (idx = 0; idx != 1; idx++) {
-    if (ptr->address == 0) {
-      break;
+    ptr = D_802B5300;
+    for (idx = 0; idx != 1; idx++) {
+        if (ptr->address == 0) {
+            break;
+        }
+        ptr++;
     }
-    ptr++;
-  }
-  if (idx == 1) {
-    _uvDebugPrintf(D_8024DF40, 1);
-    return -1;
-  }
-  ptr->address = addr;
-  ptr->unk8 = (u32)uvMemRead(addr + 4, 4) + 8;
-  ptr->tag = (u32)uvMemRead(addr + 8, 4);
-  func_8022427C(idx);
-  return idx;
+    if (idx == 1) {
+        _uvDebugPrintf(D_8024DF40, 1);
+        return -1;
+    }
+    ptr->address = addr;
+    ptr->unk8 = (u32)uvMemRead(addr + 4, 4) + 8;
+    ptr->tag = (u32)uvMemRead(addr + 8, 4);
+    func_8022427C(idx);
+    return idx;
 }
 #endif
 
 void func_80223F30(s32 arg0) {
-  if ((arg0 >= 0) && (arg0 <= 0)) {
-    D_802B5300[arg0].address = 0;
-  }
+    if ((arg0 >= 0) && (arg0 <= 0)) {
+        D_802B5300[arg0].address = 0;
+    }
 }
 
 s32 func_80223F54(s32 arg0) {
@@ -210,53 +210,50 @@ s32 func_80223F68(s32 arg0) {
     return D_802B5304[arg0].address;
 }
 
-u32 func_80223F7C(s32 idx, u32 *sizeOut, void **arg2, s32 arg3) {
-  u32 pad;
-  u32 tag;
-  u32 tmpSize;
-  u32 size;
-  void *scratchMem;
-  u8 *temp_v0;
-  void *scratchMem2;
-  UnkStruct_gfx_16b_t *dataInfo;
+u32 func_80223F7C(s32 idx, u32* sizeOut, void** arg2, s32 arg3) {
+    u32 pad;
+    u32 tag;
+    u32 tmpSize;
+    u32 size;
+    void* scratchMem;
+    u8* temp_v0;
+    void* scratchMem2;
+    UnkStruct_gfx_16b_t* dataInfo;
 
-  dataInfo = &D_802B5300[idx];
+    dataInfo = &D_802B5300[idx];
 
-  if (dataInfo->offset >= dataInfo->unk8) {
-    return 0;
-  }
-  if (sizeOut == NULL) {
-    sizeOut = &tmpSize;
-  }
-  tag = (u32)uvMemRead((void *)(dataInfo->address + dataInfo->offset), 4);
-  *sizeOut =
-      (u32)uvMemRead((void *)(dataInfo->address + dataInfo->offset + 4), 4);
-  *arg2 = (void *)(dataInfo->address + dataInfo->offset + 8);
-  if (tag == 'GZIP') { // 0x475A4950
-    size =
-        (u32)uvMemRead((void *)(dataInfo->address + dataInfo->offset + 0xC), 4);
-    if (!(arg3 & 2)) {
-      scratchMem = _uvMemGetScratch(size);
-      temp_v0 = D_80299270[D_8024920C];
-      _uvMediaCopy((void *)temp_v0, *arg2, *sizeOut);
-      mio0_decompress(&temp_v0[8], scratchMem);
-      _uvMemFreeScratch(scratchMem);
-      *arg2 = scratchMem;
-      tag =
-          (u32)uvMemRead((void *)(dataInfo->address + dataInfo->offset + 8), 4);
-      dataInfo->offset += *sizeOut + 8;
-      *sizeOut = size;
+    if (dataInfo->offset >= dataInfo->unk8) {
+        return 0;
     }
-  } else {
-    if ((((u32)*arg2 & 0x80000000) != 0) == 0 && (arg3 & 0x1)) {
-      scratchMem2 = _uvMemGetScratch(*sizeOut);
-      _uvMemFreeScratch(scratchMem2);
-      _uvMediaCopy(scratchMem2, *arg2, *sizeOut);
-      *arg2 = scratchMem2;
+    if (sizeOut == NULL) {
+        sizeOut = &tmpSize;
     }
-    dataInfo->offset += *sizeOut + 8;
-  }
-  return tag;
+    tag = (u32)uvMemRead((void*)(dataInfo->address + dataInfo->offset), 4);
+    *sizeOut = (u32)uvMemRead((void*)(dataInfo->address + dataInfo->offset + 4), 4);
+    *arg2 = (void*)(dataInfo->address + dataInfo->offset + 8);
+    if (tag == 'GZIP') { // 0x475A4950
+        size = (u32)uvMemRead((void*)(dataInfo->address + dataInfo->offset + 0xC), 4);
+        if (!(arg3 & 2)) {
+            scratchMem = _uvMemGetScratch(size);
+            temp_v0 = D_80299270[D_8024920C];
+            _uvMediaCopy((void*)temp_v0, *arg2, *sizeOut);
+            mio0_decompress(&temp_v0[8], scratchMem);
+            _uvMemFreeScratch(scratchMem);
+            *arg2 = scratchMem;
+            tag = (u32)uvMemRead((void*)(dataInfo->address + dataInfo->offset + 8), 4);
+            dataInfo->offset += *sizeOut + 8;
+            *sizeOut = size;
+        }
+    } else {
+        if ((((u32)*arg2 & 0x80000000) != 0) == 0 && (arg3 & 0x1)) {
+            scratchMem2 = _uvMemGetScratch(*sizeOut);
+            _uvMemFreeScratch(scratchMem2);
+            _uvMediaCopy(scratchMem2, *arg2, *sizeOut);
+            *arg2 = scratchMem2;
+        }
+        dataInfo->offset += *sizeOut + 8;
+    }
+    return tag;
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_80224170.s")

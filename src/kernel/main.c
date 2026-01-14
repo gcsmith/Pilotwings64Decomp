@@ -3,9 +3,9 @@
 #include <uv_memory.h>
 #include <uv_sched.h>
 
-void Thread_App(void *arg);
-void Thread_Kernel(void *arg);
-void Thread_Render(void *arg);
+void Thread_App(void* arg);
+void Thread_Kernel(void* arg);
+void Thread_Render(void* arg);
 void app_entrypoint(s32);
 void uvSetVideoMode(void);
 void func_8022E558(void);
@@ -76,7 +76,7 @@ void func_8022E2DC(char arg0) {
 }
 
 void uvSetVideoMode(void) {
-  s32 viMode;
+    s32 viMode;
 
     osCreateMesgQueue(&D_802C3B90, D_802C3B68, 0xA);
     // clang-format off: statements need to be on same line for matching
@@ -109,7 +109,7 @@ void Thread_Render(void* arg) {
     }
 }
 
-void Thread_App(void *arg) {
+void Thread_App(void* arg) {
     _uvMediaCopy(app_TEXT_START, app_ROM_START, app_ROM_END - app_ROM_START);
     uvMemSet(app_BSS_START, 0, app_BSS_END - app_BSS_START);
     app_entrypoint(arg);
@@ -126,15 +126,15 @@ void Thread_Kernel(void* arg) {
         osStartThread(&gAppThread);
     }
     osSetThreadPri(NULL, 0);
-    while(1) { }
+    while (1) { }
 }
 
 u8 func_8022EA80(void) {
-  u8 temp;
-  OSMesg sp68;
-  OSMesgQueue sp50;
-  OSTimer sp30;
-  OSMesg sp2C;
+    u8 temp;
+    OSMesg sp68;
+    OSMesgQueue sp50;
+    OSTimer sp30;
+    OSMesg sp2C;
 
     osCreateMesgQueue(&sp50, &sp68, 2);
     osSetTimer(&sp30, 0x1388, 0, &sp50, &sp68);
@@ -148,7 +148,7 @@ u8 func_8022EA80(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/main/func_8022EB38.s")
 
-void _uvDebugPrintf(char *fmt, ...) {
+void _uvDebugPrintf(char* fmt, ...) {
 }
 
 void _uvDMA(void* vAddr, u32 devAddr, u32 nbytes) {
@@ -163,14 +163,14 @@ void _uvDMA(void* vAddr, u32 devAddr, u32 nbytes) {
             return;
         }
         if ((u32)osMemSize < nbytes) {
-            _uvDebugPrintf("_uvDMA: nbytes invalid %d\n", (s32) nbytes);
+            _uvDebugPrintf("_uvDMA: nbytes invalid %d\n", (s32)nbytes);
             return;
         }
         if (nbytes & 1) {
             nbytes = (nbytes + 1) & ~1;
         }
-        osWritebackDCache((void* )dest, (s32)nbytes);
-        osPiStartDma(&gPiDmaBlockReq, 0, 0, devAddr, (void*) dest, nbytes, &gPiDmaQ);
+        osWritebackDCache((void*)dest, (s32)nbytes);
+        osPiStartDma(&gPiDmaBlockReq, 0, 0, devAddr, (void*)dest, nbytes, &gPiDmaQ);
         osInvalDCache((void*)dest, (s32)nbytes);
         func_8022E2DC(0);
     }
