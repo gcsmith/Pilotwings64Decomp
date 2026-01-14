@@ -36,7 +36,6 @@ extern u32 D_802B69E4;
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/func_80219240.s")
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/func_80219270.s")
 Unk80219270* func_80219270(s32 arg0) {
     Unk80219270* ret;
     s32 temp_v0;

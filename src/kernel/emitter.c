@@ -95,7 +95,6 @@ void uvEmitterGetMatrix(u8 obj_id, Mtx4F_t mdst) {
     }
 }
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/emitter/func_80201494.s")
 void func_80201494(u8 arg0, Vec3F_t arg1, Vec3F_t arg4) {
     Vec3F_t sp44;
     f32 temp_fv0;

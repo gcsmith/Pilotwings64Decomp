@@ -14,8 +14,8 @@ void func_8022427C(s32 arg0);
 s32 func_80223E80(s32 addr);
 void func_80223B80(void);
 void func_80223F30(s32 arg0);
-u32 func_80223F7C(s32 idx, u32* sizeOut, void** arg2, s32 arg3);
+s32 func_80223F7C(s32 idx, u32* sizeOut, void** arg2, s32 arg3);
 void func_80230954(void);
-s32 func_80224170(s32, void*, void**, s32, s32, s32);
+s32 func_80224170(s32 arg0, void* arg1, void** arg2, s32 tag, s32 palette, s32 arg5);
 
 #endif // PILOTWINGS64_UV_GRAPHICS

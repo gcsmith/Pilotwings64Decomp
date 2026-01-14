@@ -120,7 +120,7 @@ CFLAGS += $(DEFINES)
 CFLAGS += -woff 624,649,838,712,516,513,596,564,594,709,807
 CFLAGS += $(INCLUDE_CFLAGS)
 
-CHECK_WARNINGS := -Wall -Wextra -Wno-format-security -Wno-unknown-pragmas -Wunused-function -Wno-unused-parameter -Wno-unused-variable -Wno-missing-braces -Wno-int-conversion
+CHECK_WARNINGS := -Wall -Wextra -Wno-format-security -Wno-unknown-pragmas -Wunused-function -Wno-unused-parameter -Wno-unused-variable -Wno-missing-braces -Wno-int-conversion -Wno-multichar
 CC_CHECK := $(GCC_HOST) -fsyntax-only -fno-builtin -fsigned-char -std=gnu90 -m32 $(CHECK_WARNINGS) $(INCLUDE_CFLAGS) $(DEFINES)
 
 LD_FLAGS := -T $(LD_SCRIPT)

@@ -26,14 +26,14 @@ extern UnkStruct_gfx_16b_t D_802B530C[];
 extern u16 D_8024920C;
 extern s16 D_80249218;
 extern u8 D_802A9988[0xAF00];
-extern s32* D_80299270[2];
+extern u8* D_80299270[2];
 
 extern s32 gGfxStateStackData;
 extern u32 gGfxStateStack[];
 extern u8 gGfxStateStackIdx;
 
 // bss? start 0x8024DF10
-extern const u8 D_8024DF40[]; // = "Ran out of IFF file ids.  (IFF_NIFFS==%d)";
+extern char D_8024DF40[]; // = "Ran out of IFF file ids.  (IFF_NIFFS==%d)";
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_80220960.s")
 
@@ -152,8 +152,8 @@ void func_80223BF4(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_80223C00.s")
 
 void uvCopyFrameBuf(s32 fb_id) {
-    s32* src;
-    s32* dst;
+    u8* src;
+    u8* dst;
 
     if (fb_id < 0 || fb_id > 1) {
         _uvDebugPrintf("uvCopyFrameBuf: Buffer %d out of range\n", fb_id);
@@ -210,9 +210,9 @@ s32 func_80223F68(s32 arg0) {
     return D_802B5304[arg0].address;
 }
 
-u32 func_80223F7C(s32 idx, u32* sizeOut, void** arg2, s32 arg3) {
+s32 func_80223F7C(s32 idx, u32* sizeOut, void** arg2, s32 arg3) {
     u32 pad;
-    u32 tag;
+    s32 tag;
     u32 tmpSize;
     u32 size;
     void* scratchMem;
@@ -223,12 +223,12 @@ u32 func_80223F7C(s32 idx, u32* sizeOut, void** arg2, s32 arg3) {
     dataInfo = &D_802B5300[idx];
 
     if (dataInfo->offset >= dataInfo->unk8) {
-        return 0;
+        return NULL;
     }
     if (sizeOut == NULL) {
         sizeOut = &tmpSize;
     }
-    tag = (u32)uvMemRead((void*)(dataInfo->address + dataInfo->offset), 4);
+    tag = (s32)uvMemRead((void*)(dataInfo->address + dataInfo->offset), 4);
     *sizeOut = (u32)uvMemRead((void*)(dataInfo->address + dataInfo->offset + 4), 4);
     *arg2 = (void*)(dataInfo->address + dataInfo->offset + 8);
     if (tag == 'GZIP') { // 0x475A4950
@@ -256,7 +256,36 @@ u32 func_80223F7C(s32 idx, u32* sizeOut, void** arg2, s32 arg3) {
     return tag;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_80224170.s")
+s32 func_80224170(s32 arg0, void* arg1, void** arg2, s32 tag, s32 palette, s32 arg5) {
+    s32 currentPalette;
+    s32 var_s1;
+    s32 outTag;
+    u32 offsetTemp;
+    UnkStruct_gfx_16b_t* sp3C;
+
+    sp3C = &D_802B5300[arg0];
+    currentPalette = 0;
+    offsetTemp = sp3C->offset;
+    func_8022427C(arg0);
+    if (palette <= 0) {
+        var_s1 = arg5;
+    } else {
+        var_s1 = 2;
+    }
+
+    while ((outTag = func_80223F7C(arg0, (u32*)arg1, arg2, var_s1))) {
+        if (outTag == tag) {
+            if (currentPalette++ >= palette) {
+                break;
+            }
+            if (currentPalette >= palette) {
+                var_s1 = arg5;
+            }
+        }
+    }
+    sp3C->offset = offsetTemp;
+    return outTag;
+}
 
 void func_8022427C(s32 arg0) {
     D_802B530C[arg0].address = 0xC;
