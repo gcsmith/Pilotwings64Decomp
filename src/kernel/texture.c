@@ -113,6 +113,29 @@ typedef struct {
     s32 unk28;
 } Unk80225FBC_0x2C;
 
+typedef struct {
+    s16 unk0;
+    s16 unk2;
+    s16 unk4;
+    s16 unk6;
+    s32 unk8; // pointer?
+    s16 unkC;
+    s16 unkE;
+} Unk80227260_0x8;
+
+typedef struct {
+    u16 pad0;
+    s16 unk2;
+    s16 unk4;
+    s16 unk6;
+    s16 unk8;
+    s16 unkA;
+    s16 unkC;
+    s16 unkE;
+    void* unk10;
+    Unk80227260_0x8* unk14;
+} Unk80227260_0x18;
+
 // forward declarations
 void* _uvExpandTexture(void*);
 void* _uvExpandTextureCpy(void*);
@@ -125,7 +148,7 @@ Unk802255A0_10* func_802255A0(u8*);
 void* func_802256B8(u8*);
 Unk80226FD0_C* func_80226FD0(u8*);
 Unk802270BC_2C* func_802270BC(u8*);
-void* func_80227260(s32);
+Unk80227260_0x18* func_80227260(u8*);
 Unk80225FBC_0x2C* func_80227804(s32);
 Unk80219270_3C* func_802278C0(s32);
 void* func_80227938(s32);
@@ -550,7 +573,104 @@ Unk802270BC_2C* func_802270BC(u8* arg0) {
     return temp_v0;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/texture/func_80227260.s")
+Unk80227260_0x18* func_80227260(u8* arg0) {
+    s32 var_a1; // pointer?
+    u16 sp9A;
+    u16 sp98;
+    u16 sp96;
+    u16 sp94;
+    u16 sp92;
+    u16 sp90;
+    u16 sp8E;
+    s8 remainder2;
+    s8 remainder1;
+    s32 j;
+    u64 sp80;
+    s32 i;
+    Unk80227260_0x18* ret;
+    s32 sp74;
+    s32 sp70;
+    Unk80227260_0x8* temp_v0_3;
+    s32 temp;
+
+    remainder2 = 0;
+    remainder1 = 0;
+
+    _uvMediaCopy(&sp80, arg0, 4);
+    sp80 >>= 32;
+    sp9A = (sp80 & 0xFFFF0000) >> 16;
+    sp98 = sp80;
+    arg0 += 4;
+
+    _uvMediaCopy(&sp80, arg0, 4);
+    sp80 >>= 32;
+    sp96 = (sp80 & 0xFFFF0000) >> 16;
+    sp94 = sp80;
+    arg0 += 4;
+
+    _uvMediaCopy(&sp80, arg0, 4);
+    sp80 >>= 32;
+    sp92 = (sp80 & 0xFFFF0000) >> 16;
+    sp90 = sp80;
+    arg0 += 4;
+
+    _uvMediaCopy(&sp80, arg0, 4);
+    sp80 >>= 32;
+    temp = (sp80 & 0xFFFF0000) >> 16;
+    // fake, probably used to assign sp8C here as well
+    sp8E = temp & 0xFFFF & 0xFFFF & 0xFFFF;
+    arg0 += 2;
+
+    ret = _uvMemAlloc(sizeof(Unk80227260_0x18), 4);
+    ret->unk2 = sp9A;
+    ret->unk4 = sp98;
+    ret->unk6 = sp96;
+    ret->unk8 = sp92;
+    ret->unkA = sp90;
+    ret->unkC = sp8E;
+
+    ret->unk10 = _uvMemAlloc((sp94 * sp92 * sp98) / 8, 8);
+    func_80225394((void*)ret->unk10, &arg0, (sp94 * sp92 * sp98) / 8);
+
+    sp74 = sp96 / sp90;
+    sp70 = sp92 / sp8E;
+    if (sp96 % sp90) {
+        sp74++;
+        remainder1 = 1;
+    }
+    if (sp92 % sp8E) {
+        sp70++;
+        remainder2 = 1;
+    }
+    ret->unkE = sp74 * sp70;
+    ret->unk14 = _uvMemAllocAlign8(ret->unkE * sizeof(Unk80227260_0x8));
+
+    var_a1 = ret->unk10;
+    for (i = 0; i < sp70; i++) {
+        for (j = 0; j < sp74; j++) {
+            temp_v0_3 = &ret->unk14[j + i * sp74];
+            temp = i + 1;
+            if (remainder2 && sp70 == temp) {
+                temp_v0_3->unkC = sp92 % sp8E;
+            } else {
+                temp_v0_3->unkC = sp8E;
+            }
+            temp = j + 1;
+            if (remainder1 && sp74 == temp) {
+                temp_v0_3->unk0 = sp96 - (sp90 * (sp74 - 1));
+            } else {
+                temp_v0_3->unk0 = sp90;
+            }
+            temp_v0_3->unkE = 0;
+            temp_v0_3->unk6 = temp_v0_3->unkE;
+            temp_v0_3->unk4 = temp_v0_3->unkE;
+            temp_v0_3->unk2 = sp90;
+            temp_v0_3->unk8 = var_a1;
+            var_a1 += (temp_v0_3->unkC * sp90 * sp98) / 8;
+        }
+    }
+    return ret;
+}
 
 Unk80225FBC_0x2C* func_80227804(s32 arg0) {
     s32 idx;

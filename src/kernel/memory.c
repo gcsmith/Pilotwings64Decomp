@@ -374,6 +374,6 @@ void uvLevelInit(void) {
     }
 }
 
-void _uvMemAllocAlign8(u32 size) {
-    _uvMemAlloc(size, 8);
+s32 _uvMemAllocAlign8(u32 size) {
+    return _uvMemAlloc(size, 8);
 }
