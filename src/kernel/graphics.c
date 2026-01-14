@@ -1,5 +1,6 @@
 #include <uv_graphics.h>
 #include <uv_memory.h>
+#include <uv_memory.h>
 
 typedef struct UnkStruct_gfx_8b {
   s32 unk0;
@@ -46,7 +47,6 @@ extern const u8 D_8024DF40[]; // = "Ran out of IFF file ids.  (IFF_NIFFS==%d)";
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_80220FF8.s")
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_802210C4.s")
 void func_802210C4(s32 arg0) {
   UnkStruct_gfx_8b_t *temp_v1;
 
@@ -67,8 +67,9 @@ void func_802210C4(s32 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_80222100.s")
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_80222170.s")
-void func_80222170(s32 arg0) { D_80249230 = arg0; }
+void func_80222170(s32 arg0) {
+    D_80249230 = arg0;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/uvGfxEnd.s")
 
@@ -94,13 +95,13 @@ void func_80222170(s32 arg0) { D_80249230 = arg0; }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/uvGfxUnkMatrixOp2.s")
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_802233C4.s")
-void *func_802233C4(void) {
-  return &D_802A9988[(D_8024920C * 0x5780) + (D_80249218 << 6)];
+void* func_802233C4(void) {
+    return &D_802A9988[(D_8024920C * 0x5780) + (D_80249218 << 6)];
 }
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_80223408.s")
-void func_80223408(f32 arg0) { D_8024921C = arg0; }
+void func_80223408(f32 arg0) {
+    D_8024921C = arg0;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_80223414.s")
 
@@ -110,7 +111,6 @@ void func_80223408(f32 arg0) { D_8024921C = arg0; }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_802235A4.s")
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_802236A8.s")
 void func_802236A8(void) {
   UnkStruct_gfx_8b_t *temp_v1;
 
@@ -123,7 +123,6 @@ void func_802236A8(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/uvGfxGetCnt.s")
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/uvGfxStatePush.s")
 void uvGfxStatePush(void) {
   if (gGfxStateStackIdx >= 0x1F) {
     _uvDebugPrintf("uvGfxStatePush: stack full\n");
@@ -146,12 +145,12 @@ void uvGfxStatePush(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_80223BB8.s")
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_80223BF4.s")
-void func_80223BF4(s32 arg0) { D_802491E8 = arg0; }
+void func_80223BF4(s32 arg0) {
+    D_802491E8 = arg0;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_80223C00.s")
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/uvCopyFrameBuf.s")
 void uvCopyFrameBuf(s32 fb_id) {
   s32 *src;
   s32 *dst;
@@ -197,20 +196,20 @@ s32 func_80223E80(s32 addr) {
 }
 #endif
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_80223F30.s")
 void func_80223F30(s32 arg0) {
   if ((arg0 >= 0) && (arg0 <= 0)) {
     D_802B5300[arg0].address = 0;
   }
 }
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_80223F54.s")
-s32 func_80223F54(s32 arg0) { return D_802B5308[arg0].address; }
+s32 func_80223F54(s32 arg0) {
+    return D_802B5308[arg0].address;
+}
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_80223F68.s")
-s32 func_80223F68(s32 arg0) { return D_802B5304[arg0].address; }
+s32 func_80223F68(s32 arg0) {
+    return D_802B5304[arg0].address;
+}
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_80223F7C.s")
 u32 func_80223F7C(s32 idx, u32 *sizeOut, void **arg2, s32 arg3) {
   u32 pad;
   u32 tag;
@@ -262,5 +261,7 @@ u32 func_80223F7C(s32 idx, u32 *sizeOut, void **arg2, s32 arg3) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_80224170.s")
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_8022427C.s")
-void func_8022427C(s32 arg0) { D_802B530C[arg0].address = 0xC; }
+void func_8022427C(s32 arg0) {
+    D_802B530C[arg0].address = 0xC;
+}
+

@@ -16,7 +16,6 @@ extern UnkStruct_80200144_t D_80250E80[];
 void func_802000DC(u16);
 void uvEmitterFlush(u16);
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_1050/func_802000A0.s")
 void func_802000A0(void) {
   s32 var_s0;
 
@@ -25,10 +24,9 @@ void func_802000A0(void) {
   }
 }
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_1050/func_802000DC.s")
 void func_802000DC(u16 arg0) {
-  Mtx4F_t mIdent;
-  UnkStruct_80200144_t *temp_a0;
+    Mtx4F_t mIdent;
+    UnkStruct_80200144_t* temp_a0;
 
   temp_a0 = &D_80250E80[arg0];
 
@@ -39,14 +37,12 @@ void func_802000DC(u16 arg0) {
   temp_a0->vec[1] = 1.0f;
 }
 
-// #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_1050/func_80200144.s")
 void func_80200144(u16 arg0, Mtx4F_t arg1) {
   Mat4_Copy(D_80250E80[arg0].mat, arg1);
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_1050/func_80200180.s")
 
-//#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_1050/func_80200308.s")
 void func_80200308(u16 arg0) {
   uvEmitterFlush(arg0);
   uvaSeqSetVol(D_80250EC4[arg0].unk[0]);

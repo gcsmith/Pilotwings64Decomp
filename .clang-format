@@ -1,0 +1,32 @@
+IndentWidth: 4
+Language: Cpp
+UseTab: Never
+ColumnLimit: 160
+PointerAlignment: Left
+BreakBeforeBraces: Attach
+SpaceAfterCStyleCast: false
+Cpp11BracedListStyle: false
+IndentCaseLabels: false
+BinPackArguments: true
+BinPackParameters: true
+AlignAfterOpenBracket: Align
+AlignOperands: true
+BreakBeforeTernaryOperators: true
+BreakBeforeBinaryOperators: None
+AllowShortBlocksOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortCaseExpressionOnASingleLine: false
+AllowShortFunctionsOnASingleLine: false
+AlignEscapedNewlines: Left
+AlignTrailingComments: true
+SortIncludes: false
+AlignConsecutiveAssignments: None
+KeepEmptyLines:
+  AtEndOfFile: true
+  AtStartOfBlock: false
+  AtStartOfFile: false
+MaxEmptyLinesToKeep: 1
+SpaceInEmptyBlock: true
+
