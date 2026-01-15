@@ -140,6 +140,16 @@ _uvMemGetBlocks     = 0x8022AE70; // type:func
 uvLevelInit         = 0x8022AF04; // type:func
 _uvMemAllocAlign8   = 0x8022B078; // type:func
 
+uvContMesgInit            = 0x8022EA80; // type:func
+uvControllerInit          = 0x802242A0; // type:func
+uvControllerCheckInserted = 0x8022445C; // type:func
+uvIOUpdate                = 0x80224488; // type:func
+uvControllerGetStick      = 0x8022458C; // type:func
+uvControllerButtonCheck   = 0x802245B0; // type:func
+uvControllerGetButton     = 0x802245E8; // type:func
+uvControllerButtonPress   = 0x80224604; // type:func
+uvControllerButtonRelease = 0x80224650; // type:func
+
 uvConsumeBytes      = 0x80225394; // type:func
 uvMemLoadPal        = 0x80224C7C; // type:func
 uvMemLoadDS         = 0x80224CE0; // type:func
@@ -170,7 +180,6 @@ _uvDbMstackReset    = 0x80227F30; // type:func
 _uvDbMstackTop      = 0x80227F40; // type:func
 _uvDbMstackPush     = 0x80227F5C; // type:func
 _uvDbMstackPop      = 0x80227FE4; // type:func
-uvIOUpdate          = 0x80224488; // type:func
 uvDbgCnt            = 0x802334E4; // type:func
 
 uvFileWrite         = 0x8022DEF0; // type:func
@@ -222,4 +231,3 @@ uvMat4UnkOp5        = 0x80229A04; // type:func
 uvMat4SetUnk2       = 0x80229C10; // type:func
 uvMat4Viewport      = 0x80229CD4; // type:func
 uvMat4SetUnk4       = 0x80229D78; // type:func
-

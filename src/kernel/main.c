@@ -5,21 +5,13 @@
 #include <PR/os_host.h>
 #include <uv_audio.h>
 #include <uv_clocks.h>
+#include <uv_controller.h>
 #include <uv_graphics.h>
 #include <uv_matrix.h>
 #include <uv_memory.h>
 #include <uv_sched.h>
 #include <uv_texture.h>
 #include <macros.h>
-
-typedef struct {
-    s32 unk0;
-    f32 stickX;
-    f32 stickY;
-    s32 padC;
-    s32 button;
-    s32 prevButton;
-} ControllerInfo;
 
 // where is this ultralib piint.h header?
 s32 osPiRawReadIo(u32 devAddr, u32* data);
@@ -34,7 +26,6 @@ void func_8022E558(void);
 void func_80204930(void);
 void func_8020F9F4(void);
 void func_80217398(void);
-void func_802242A0(void);
 void func_80218700(void);
 void func_80218BA0(void);
 void func_80219FD0(void);
@@ -93,7 +84,7 @@ extern OSMesgQueue D_802C3B90;
 
 extern OSMesg gPiDmaBuf[];
 extern OSMesg gPiMgrCmdBuf[];
-extern OSMesg gSiContBuf[];
+extern OSMesg gSiContBuf[3];
 extern OSMesg D_802C3318[];
 extern OSMesg D_802C3B68[];
 
@@ -106,7 +97,7 @@ extern s32 D_802C32A4;
 extern s32 D_802C331C;
 
 extern s32 gEepromFound;
-extern s32 D_802C5BB4;
+extern s32 gControllerPattern;
 
 extern OSContPad gControllerPads[];
 
@@ -188,7 +179,7 @@ s32 uvSysInit(s32 arg0) {
                    D_618B70);
     // clang-format on
     osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON);
-    D_802C5BB4 = 0;
+    gControllerPattern = 0;
     func_80220960();
     func_80205FD0();
     func_802246A0();
@@ -196,7 +187,8 @@ s32 uvSysInit(s32 arg0) {
     func_80218700();
     func_8020F9F4();
     func_80217398();
-    func_802242A0();
+    uvControllerInit();
+
     func_80218BA0();
     func_80219FD0();
     func_8021F100();
@@ -360,17 +352,17 @@ void Thread_Kernel(void* arg) {
     while (1) { }
 }
 
-u8 func_8022EA80(void) {
+u8 uvContMesgInit(void) {
+    OSMesg mesgBuf[2];
+    OSMesgQueue mq;
+    OSTimer timer;
+    OSMesg dummy;
     u8 temp;
-    OSMesg sp68;
-    OSMesgQueue sp50;
-    OSTimer sp30;
-    OSMesg sp2C;
 
-    osCreateMesgQueue(&sp50, &sp68, 2);
-    osSetTimer(&sp30, 0x1388, 0, &sp50, &sp68);
-    osRecvMesg(&sp50, &sp2C, 1);
-    osCreateMesgQueue(&gSiContQ, gSiContBuf, 3);
+    osCreateMesgQueue(&mq, mesgBuf, ARRAY_COUNT(mesgBuf));
+    osSetTimer(&timer, 0x1388, 0, &mq, mesgBuf);
+    osRecvMesg(&mq, &dummy, OS_MESG_BLOCK);
+    osCreateMesgQueue(&gSiContQ, gSiContBuf, ARRAY_COUNT(gSiContBuf));
     osSetEventMesg(OS_EVENT_SI, &gSiContQ, (void*)0x33333333);
     osContInit(&gSiContQ, &gSiContPattern, &gSiContStatus);
     temp = gSiContPattern;
@@ -393,8 +385,8 @@ s32 uvReadController(ControllerInfo* contInfo, s32 contIdx) {
 
     status = osContStartReadData(&gSiContQ);
     if (status & ~CONT_OVERRUN_ERROR) {
-        contInfo->stickX = 0.0f;
-        contInfo->stickY = 0.0f;
+        contInfo->stickAxes[0] = 0.0f;
+        contInfo->stickAxes[1] = 0.0f;
         contInfo->prevButton = contInfo->button;
         contInfo->button = 0;
         return 0;
@@ -437,8 +429,8 @@ s32 uvReadController(ControllerInfo* contInfo, s32 contIdx) {
         }
         correctedY = (f32)(stickY - 7) / 63.0f;
     }
-    contInfo->stickX = correctedX;
-    contInfo->stickY = correctedY;
+    contInfo->stickAxes[0] = correctedX;
+    contInfo->stickAxes[1] = correctedY;
     contInfo->prevButton = (s32)contInfo->button;
     contInfo->button = (s32)contPad->button;
     return 1;

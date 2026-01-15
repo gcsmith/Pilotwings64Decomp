@@ -61,5 +61,8 @@ osViModePalLan1     = 0x8024C4F0;
 gUVBlockCounts      = 0x802B53C8;
 gUVBlockOffsets     = 0x802B53F0;
 
+gControllerPattern  = 0x802C5BB4;
+gControllerInfo     = 0x802B5310;
+
 gEepromFound        = 0x802C5BB0;
 gControllerPads     = 0x802C3370;
