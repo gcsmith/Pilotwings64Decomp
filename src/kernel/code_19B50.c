@@ -5,20 +5,20 @@
 typedef struct {
     u32 pad0;
     u32 pad4;
-    s32 unk8;
+    s32 imageRef;
     u32 padC;
-} Unk80219270UnkC;
+} ParsedBITM;
 
 typedef struct {
-    s32 unk0;
+    void* strg;
     u32 pad4;
     s8 unk8;
     s8 unk9;
     u16 unkA;
-    Unk80219270UnkC* unkC;
-    s32 unk10[0x2C]; // unknown size, 0x2C based on mem alloc in func_80219270
-                     // (0xC0 allocated)
-} Unk80219270;
+    ParsedBITM* bitm;
+    void* imag[0x2C]; // unknown size, 0x2C based on mem alloc in uvParseTopUVFT
+                      // (0xC0 allocated)
+} ParsedUVFT;
 
 extern u32 D_802B69E4;
 
@@ -36,38 +36,38 @@ extern u32 D_802B69E4;
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/func_80219240.s")
 
-Unk80219270* func_80219270(s32 arg0) {
-    Unk80219270* ret;
+ParsedUVFT* uvParseTopUVFT(s32 arg0) {
+    ParsedUVFT* ret;
     s32 temp_v0;
-    u32 sp64;
-    s32* sp60;
+    u32 nbytes;
+    s32* srcAddr;
     s32 i;
-    s32 var_s2;
-    s32 sp54;
+    s32 imagCount;
+    s32 bitmCount;
     s32 var_v0;
 
-    var_s2 = 0;
-    ret = (Unk80219270*)_uvMemAlloc(sizeof(Unk80219270), 4);
+    imagCount = 0;
+    ret = (ParsedUVFT*)_uvMemAlloc(sizeof(ParsedUVFT), 4);
     temp_v0 = func_80223E80((&D_802B69E4)[arg0]);
-    while ((var_v0 = func_80223F7C(temp_v0, &sp64, (void**)&sp60, 1)) != NULL) {
+    while ((var_v0 = func_80223F7C(temp_v0, &nbytes, (void**)&srcAddr, 1)) != NULL) {
         switch (var_v0) {
         case 'STRG':
-            ret->unk0 = _uvMemAlloc(sp64, 4);
-            _uvMediaCopy((void*)ret->unk0, sp60, sp64);
+            ret->strg = _uvMemAlloc(nbytes, 4);
+            _uvMediaCopy((void*)ret->strg, srcAddr, nbytes);
             break;
         case 'FRMT':
-            ret->unk8 = sp60[0];
-            ret->unk9 = sp60[1];
+            ret->unk8 = srcAddr[0];
+            ret->unk9 = srcAddr[1];
             break;
         case 'BITM':
-            sp54 = (s32)(sp64 >> 4);
-            ret->unkC = (Unk80219270UnkC*)_uvMemAlloc(sp64, 8);
-            _uvMediaCopy((void*)ret->unkC, sp60, sp64);
+            bitmCount = nbytes / sizeof(ParsedBITM);
+            ret->bitm = (ParsedBITM*)_uvMemAlloc(nbytes, 8);
+            _uvMediaCopy((void*)ret->bitm, srcAddr, nbytes);
             break;
         case 'IMAG':
-            ret->unk10[var_s2] = _uvMemAlloc(sp64, 8);
-            _uvMediaCopy((void*)ret->unk10[var_s2], sp60, sp64);
-            var_s2 += 1;
+            ret->imag[imagCount] = _uvMemAlloc(nbytes, 8);
+            _uvMediaCopy((void*)ret->imag[imagCount], srcAddr, nbytes);
+            imagCount++;
             break;
         default:
             break;
@@ -75,8 +75,9 @@ Unk80219270* func_80219270(s32 arg0) {
     }
 
     func_80223F30(temp_v0);
-    for (i = 0; i < sp54; i++) {
-        ret->unkC[i].unk8 = ret->unk10[ret->unkC[i].unk8];
+    // update indexes to pointers allocated above
+    for (i = 0; i < bitmCount; i++) {
+        ret->bitm[i].imageRef = ret->imag[ret->bitm[i].imageRef];
     }
     return ret;
 }
