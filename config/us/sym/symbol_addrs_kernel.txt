@@ -95,6 +95,8 @@ uvGfxUnkMatrixOp2   = 0x802232DC; // type:func
 uvGfxGetCnt         = 0x80223800; // type:func
 uvGfxStatePush      = 0x802238EC; // type:func
 uvGfxStatePop       = 0x8022394C; // type:func
+uvGfxSetFlags       = 0x802239B4; // type:func
+uvGfxClearFlags     = 0x802239EC; // type:func
 uvProcessLooks      = 0x80221F8C; // type:func
 uvCopyFrameBuf      = 0x80223DEC; // type:func
 
@@ -175,6 +177,7 @@ uvFileWrite         = 0x8022DEF0; // type:func
 uvFileRead          = 0x8022DFE8; // type:func
 uvSysInit           = 0x8022E0E0; // type:func
 uvSetVideoMode      = 0x8022E36C; // type:func
+uvReadController    = 0x8022EB38; // type:func
 _uvDMA              = 0x8022ED30; // type:func
 _uvDebugPrintf      = 0x8022ED14; // type:func
 _uvAssertMsg        = 0x8022EE5C; // type:func
