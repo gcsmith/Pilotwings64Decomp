@@ -1,10 +1,13 @@
 #include "common.h"
+#include <uv_janim.h>
 #include <uv_graphics.h>
 #include <uv_memory.h>
+#include <uv_texture.h>
 
 typedef struct {
     u16 unk0;
-    u16 unk4;
+    u8 unk4;
+    u8 pad6;
 } Unk80219270_4;
 
 typedef struct {
@@ -17,7 +20,7 @@ typedef struct {
     s8 unk36;
     s8 unk37;
     s32 unk38;
-} Unk80219270_3C;
+} ParsedUVEN;
 
 typedef struct {
     s16 unk0;
@@ -35,14 +38,14 @@ typedef struct {
     u8 unkA;
     u8 unkB;
     s32 unkC;
-} Unk802255A0_10;
+} ParsedUVSQ;
 
 typedef struct {
     u16 count;
     u16 unk2;
     u16* unk4;
     u16* unk8;
-} Unk80226FD0_C;
+} ParsedUVTP;
 
 typedef struct {
     s32 unk0[16];
@@ -62,7 +65,7 @@ typedef struct {
     s32 unk20;
     s32 unk24;
     Unk802270BC_48* unk28;
-} Unk802270BC_2C;
+} ParsedUVTR;
 
 typedef struct {
     s32 tag;
@@ -84,7 +87,7 @@ typedef struct {
     s32 unk0;
     u16 unk4;
     u16 unk6;
-    Gfx* unk8;
+    Gfx* dlist;
     Gfx* unkC;
     u16 unk10;
     u16 unk12;
@@ -97,7 +100,7 @@ typedef struct {
 } Unk80225FBC_0x28;
 
 typedef struct {
-    void* unk0;
+    void* vtx;
     u16 unk4;
     u16 pad6;
     void* unk8;
@@ -111,7 +114,7 @@ typedef struct {
     s32 unk20;
     s32 unk24;
     s32 unk28;
-} Unk80225FBC_0x2C;
+} ParsedUVCT;
 
 typedef struct {
     s16 unk0;
@@ -134,33 +137,32 @@ typedef struct {
     s16 unkE;
     void* unk10;
     Unk80227260_0x8* unk14;
-} Unk80227260_0x18;
+} ParsedUVBT;
 
 // forward declarations
+void* uvParseTopUVFT(s32);
+ParsedUVCT* uvParseTopUVCT(s32);
+ParsedUVEN* uvParseTopUVEN(s32);
+void* uvParseTopUVLV(s32);
+ParsedUVTP* uvParseTopUVTP(s32);
+void* uvParseTopUVLT(s32);
+void* uvParseTopUVMD(s32);
+ParsedUVTR* uvParseTopUVTR(s32);
+void* uvParseTopUVTX(s32);
+void* uvParseTopUVTI(s32);
+void* uvParseTopUVBT(s32);
+ParsedUVSQ* uvParseTopUVSQ(s32);
+
 void* _uvExpandTexture(void*);
 void* _uvExpandTextureCpy(void*);
 void* _uvExpandTextureImg(u8*);
-void* func_80219270(s32);
-void func_80225394(void* dst, u8** ptr, s32 size);
-void* func_80225470(u8*);
-Unk80219270_3C* func_802254B0(u8*);
-Unk802255A0_10* func_802255A0(u8*);
-void* func_802256B8(u8*);
-Unk80226FD0_C* func_80226FD0(u8*);
-Unk802270BC_2C* func_802270BC(u8*);
-Unk80227260_0x18* func_80227260(u8*);
-Unk80225FBC_0x2C* func_80227804(s32);
-Unk80219270_3C* func_802278C0(s32);
-void* func_80227938(s32);
-Unk80226FD0_C* func_802279B0(s32);
-void* func_80227A28(s32);
-void* func_80227AA0(s32);
-Unk802270BC_2C* func_80227B5C(s32);
-void* func_80227BD4(s32);
-void* func_80227C84(s32);
-void* func_80227D34(s32);
-Unk802255A0_10* func_80227DE4(s32);
-void* uvJanimLoad(s32);
+void* _uvParseUVLT(u8*);
+ParsedUVEN* _uvParseUVEN(u8*);
+ParsedUVSQ* _uvParseUVSQ(u8*);
+void* _uvParseUVMD(u8*);
+ParsedUVTP* _uvParseUVTP(u8*);
+ParsedUVTR* _uvParseUVTR(u8*);
+ParsedUVBT* _uvParseUVBT(u8*);
 
 // ROM offsets for file system data
 extern u8 D_DE720[];
@@ -183,7 +185,7 @@ void func_802246A0(void) {
     s32 sp64;
     s32 temp_v0;
     u32 sp5C;
-    void* sp58;
+    void* src;
     u32 var_a1;
     u8* romOffset;
     s32 tag;
@@ -193,9 +195,9 @@ void func_802246A0(void) {
     sp64 = func_80223E80(D_DE720);
     romOffset = D_DF5B0;
 
-    while ((tag = func_80223F7C(sp64, &sp5C, &sp58, 1)) != 0) {
+    while ((tag = func_80223F7C(sp64, &sp5C, &src, 1)) != 0) {
         if (tag == 'TABL') {
-            for (var_a1 = 0, var_a0 = (UVBlockHeader*)sp58; var_a1 < sp5C; var_a1 += 8, var_a0++) {
+            for (var_a1 = 0, var_a0 = (UVBlockHeader*)src; var_a1 < sp5C; var_a1 += 8, var_a0++) {
                 switch (var_a0->tag) {
                 case 0:
                     break;
@@ -262,43 +264,43 @@ void* func_80224A90(u32 tag, s32 palette) {
         if (1) { } // fakematch
         switch (tag) {
         case 'UVSQ':
-            ret = func_80227DE4(palette);
+            ret = uvParseTopUVSQ(palette);
             break;
         case 'UVEN':
-            ret = func_802278C0(palette);
+            ret = uvParseTopUVEN(palette);
             break;
         case 'UVTR':
-            ret = func_80227B5C(palette);
+            ret = uvParseTopUVTR(palette);
             break;
         case 'UVCT':
-            ret = func_80227804(palette);
+            ret = uvParseTopUVCT(palette);
             break;
         case 'UVLV':
-            ret = func_80227938(palette);
+            ret = uvParseTopUVLV(palette);
             break;
         case 'UVMD':
-            ret = func_80227AA0(palette);
+            ret = uvParseTopUVMD(palette);
             break;
         case 'UVTX':
-            ret = func_80227BD4(palette);
+            ret = uvParseTopUVTX(palette);
             break;
         case 'UVTI':
-            ret = func_80227C84(palette);
+            ret = uvParseTopUVTI(palette);
             break;
         case 'UVLT':
-            ret = func_80227A28(palette);
+            ret = uvParseTopUVLT(palette);
             break;
         case 'UVAN':
             ret = uvJanimLoad(palette);
             break;
         case 'UVFT':
-            ret = func_80219270(palette);
+            ret = uvParseTopUVFT(palette);
             break;
         case 'UVBT':
-            ret = func_80227D34(palette);
+            ret = uvParseTopUVBT(palette);
             break;
         case 'UVTP':
-            ret = func_802279B0(palette);
+            ret = uvParseTopUVTP(palette);
             break;
         }
     } while (_uvJumpHeap(&D_802B892C) == 0);
@@ -318,92 +320,92 @@ void uvMemLoadPal(s32 palette) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/texture/uvMemLoadDS.s")
 
-void func_80225394(void* dst, u8** ptr, s32 size) {
+void uvConsumeBytes(void* dst, u8** ptr, s32 size) {
     switch (size) {
     case 1:
         *(s8*)dst = uvMemRead(*ptr, size);
-        *(u8**)ptr += 1;
+        *ptr += 1;
         break;
     case 2:
         *(s16*)dst = uvMemRead(*ptr, size);
-        *(u8**)ptr += 2;
+        *ptr += 2;
         break;
     case 4:
         *(s32*)dst = uvMemRead(*ptr, size);
-        *(u8**)ptr += 4;
+        *ptr += 4;
         break;
     default:
         _uvMediaCopy(dst, *ptr, size);
-        *(u8**)ptr += size;
+        *ptr += size;
         break;
     }
 }
 
-void* func_80225470(u8* arg0) {
+void* _uvParseUVLT(u8* arg0) {
     void* ret;
     ret = (void*)_uvMemAlloc(4, 4);
-    func_80225394(ret, &arg0, 4);
+    uvConsumeBytes(ret, &arg0, 4);
     return ret;
 }
 
-Unk80219270_3C* func_802254B0(u8* arg0) {
+ParsedUVEN* _uvParseUVEN(u8* src) {
     Unk80219270_4* temp_s3;
     u8 count;
-    s32 var_s0;
-    Unk80219270_3C* temp_v0;
+    s32 i;
+    ParsedUVEN* ret;
 
-    func_80225394(&count, &arg0, 1);
-    temp_s3 = (Unk80219270_4*)_uvMemAlloc(count * 4, 4);
+    uvConsumeBytes(&count, &src, 1);
+    temp_s3 = (Unk80219270_4*)_uvMemAlloc(count * sizeof(Unk80219270_4), 4);
 
-    for (var_s0 = 0; var_s0 < (s32)count; var_s0++) {
-        func_80225394(&temp_s3[var_s0].unk0, &arg0, 2);
-        func_80225394(&temp_s3[var_s0].unk4, &arg0, 1);
+    for (i = 0; i < (s32)count; i++) {
+        uvConsumeBytes(&temp_s3[i].unk0, &src, sizeof(temp_s3[i].unk0));
+        uvConsumeBytes(&temp_s3[i].unk4, &src, sizeof(temp_s3[i].unk4));
     }
 
-    temp_v0 = (Unk80219270_3C*)_uvMemAlloc(sizeof(Unk80219270_3C), 4);
-    func_80225394(temp_v0, &arg0, sizeof(Unk80219270_3C));
-    temp_v0->count = count;
-    temp_v0->unk38 = 0;
-    temp_v0->unk30 = (temp_v0->count) ? temp_s3 : NULL;
-    return temp_v0;
+    ret = (ParsedUVEN*)_uvMemAlloc(sizeof(ParsedUVEN), 4);
+    uvConsumeBytes(ret, &src, sizeof(ParsedUVEN));
+    ret->count = count;
+    ret->unk38 = 0;
+    ret->unk30 = (ret->count) ? temp_s3 : NULL;
+    return ret;
 }
 
-Unk802255A0_10* func_802255A0(u8* arg0) {
-    u16 idx;
+ParsedUVSQ* _uvParseUVSQ(u8* src) {
+    u16 i;
     u8 count;
     Unk802255A0_8* temp_s3;
-    Unk802255A0_10* temp_v0;
+    ParsedUVSQ* ret;
 
-    func_80225394(&count, &arg0, 1);
-    temp_s3 = (Unk802255A0_8*)_uvMemAlloc(count * 8, 4);
+    uvConsumeBytes(&count, &src, 1);
+    temp_s3 = (Unk802255A0_8*)_uvMemAlloc(count * sizeof(Unk802255A0_8), 4);
 
-    for (idx = 0; idx < (s32)count; idx++) {
-        func_80225394(&temp_s3[idx].unk0, &arg0, 2);
-        func_80225394(&temp_s3[idx].unk4, &arg0, 4);
-        temp_s3[idx].unk2 = 0xFF;
+    for (i = 0; i < (s32)count; i++) {
+        uvConsumeBytes(&temp_s3[i].unk0, &src, sizeof(temp_s3[i].unk0));
+        uvConsumeBytes(&temp_s3[i].unk4, &src, sizeof(temp_s3[i].unk4));
+        temp_s3[i].unk2 = 0xFF;
     }
 
-    temp_v0 = (Unk802255A0_10*)_uvMemAlloc(sizeof(Unk802255A0_10), 4);
-    func_80225394(&temp_v0->unk8, &arg0, 1);
-    func_80225394(&temp_v0->unk9, &arg0, 1);
-    func_80225394(&temp_v0->unkC, &arg0, 4);
-    temp_v0->unk4 = temp_s3;
-    temp_v0->count = count;
-    return temp_v0;
+    ret = (ParsedUVSQ*)_uvMemAlloc(sizeof(ParsedUVSQ), 4);
+    uvConsumeBytes(&ret->unk8, &src, sizeof(ret->unk8));
+    uvConsumeBytes(&ret->unk9, &src, sizeof(ret->unk9));
+    uvConsumeBytes(&ret->unkC, &src, sizeof(ret->unkC));
+    ret->unk4 = temp_s3;
+    ret->count = count;
+    return ret;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/texture/func_802256B8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/kernel/texture/_uvParseUVMD.s")
 
-Unk80225FBC_0x2C* func_80225FBC(u8* arg0) {
-    Vtx* spAC;
+ParsedUVCT* _uvParseUVCT(u8* src) {
+    Vtx* vtx;
     Vtx* tempVtx;
     Gfx* spA4;
     Unk80225FBC_0x28* spA0;
     Unk80225FBC_0x18* tempSp98;
     Unk80225FBC_0x18* sp98;
     Unk80225FBC_0x28* tempSpA0;
-    Gfx* dl;
-    Unk80225FBC_0x2C* temp_v0;
+    Gfx* dlist;
+    ParsedUVCT* ret;
     u16 sp8A;
     u16 sp88;
     u16 sp86;
@@ -411,169 +413,167 @@ Unk80225FBC_0x2C* func_80225FBC(u8* arg0) {
     s32 j;
     u8 sp7B;
     u8 sp7A;
-    u16 sp78;
-    u16 sp76;
-    u16 sp74;
+    u16 vtxCount;
+    u16 gfxCount;
+    u16 elem;
 
-    func_80225394(&sp78, &arg0, 2);
-    func_80225394(&sp8A, &arg0, 2);
-    func_80225394(&sp86, &arg0, 2);
-    func_80225394(&sp88, &arg0, 2);
+    uvConsumeBytes(&vtxCount, &src, 2);
+    uvConsumeBytes(&sp8A, &src, 2);
+    uvConsumeBytes(&sp86, &src, 2);
+    uvConsumeBytes(&sp88, &src, 2);
 
-    spAC = (Vtx*)_uvMemAlloc(sp78 * sizeof(Vtx), 8);
-    _uvMediaCopy(spAC, arg0, sp78 * sizeof(Vtx));
-    arg0 += sp78 * sizeof(Vtx);
+    vtx = (Vtx*)_uvMemAlloc(vtxCount * sizeof(Vtx), 8);
+    _uvMediaCopy(vtx, src, vtxCount * sizeof(Vtx));
+    src += vtxCount * sizeof(Vtx);
 
-    spA4 = _uvMemAlloc(sp8A * sizeof(Gfx), 4);
-    _uvMediaCopy((void*)spA4, arg0, sp8A * sizeof(Gfx));
-    arg0 += sp8A * sizeof(Gfx);
+    spA4 = (void*)_uvMemAlloc(sp8A * sizeof(Gfx), 4);
+    _uvMediaCopy((void*)spA4, src, sp8A * sizeof(Gfx));
+    src += sp8A * sizeof(Gfx);
 
     sp98 = (Unk80225FBC_0x18*)_uvMemAlloc(sp86 * sizeof(Unk80225FBC_0x18), 4);
     for (i = 0; i < sp86; i++) {
         tempSp98 = &sp98[i];
-        func_80225394(&sp7B, &arg0, 1);
-        tempSp98->unk4 = _uvMemAlloc(sp7B * 64, 4);
-        func_80225394(tempSp98->unk4, &arg0, sp7B * 64);
+        uvConsumeBytes(&sp7B, &src, 1);
+        tempSp98->unk4 = (void*)_uvMemAlloc(sp7B * 64, 4);
+        uvConsumeBytes(tempSp98->unk4, &src, sp7B * 64);
 
-        func_80225394(&tempSp98->unk0, &arg0, 2);
-        func_80225394(&tempSp98->unk8, &arg0, 4);
-        func_80225394(&tempSp98->unkC, &arg0, 4);
-        func_80225394(&tempSp98->unk10, &arg0, 4);
-        func_80225394(&tempSp98->unk14, &arg0, 2);
-        func_80225394(&tempSp98->unk16, &arg0, 2);
+        uvConsumeBytes(&tempSp98->unk0, &src, sizeof(tempSp98->unk0));
+        uvConsumeBytes(&tempSp98->unk8, &src, sizeof(tempSp98->unk8));
+        uvConsumeBytes(&tempSp98->unkC, &src, sizeof(tempSp98->unkC));
+        uvConsumeBytes(&tempSp98->unk10, &src, sizeof(tempSp98->unk10));
+        uvConsumeBytes(&tempSp98->unk14, &src, sizeof(tempSp98->unk14));
+        uvConsumeBytes(&tempSp98->unk16, &src, sizeof(tempSp98->unk16));
     }
 
     spA0 = (Unk80225FBC_0x28*)_uvMemAlloc(sp88 * sizeof(Unk80225FBC_0x28), 4);
     for (i = 0; i < sp88; i++) {
         tempSpA0 = &spA0[i];
-        func_80225394(&tempSpA0->unk0, &arg0, 4);
-        func_80225394(&tempSpA0->unk4, &arg0, 2);
-        func_80225394(&tempSpA0->unk6, &arg0, 2);
-        func_80225394(&sp76, &arg0, 2);
-        dl = (Gfx*)_uvMemAlloc((sp76 + 1) * sizeof(Gfx), 8); // +1 for END
-        for (j = 0; j < sp76; j++) {
-            func_80225394(&sp74, &arg0, 2);
-            if (sp74 & 0x4000) {
-                gSP1Triangle(&dl[j], (sp74 & 0xF00) >> 8, (sp74 & 0xF0) >> 4, sp74 & 0xF, 0);
+        uvConsumeBytes(&tempSpA0->unk0, &src, sizeof(tempSpA0->unk0));
+        uvConsumeBytes(&tempSpA0->unk4, &src, sizeof(tempSpA0->unk4));
+        uvConsumeBytes(&tempSpA0->unk6, &src, sizeof(tempSpA0->unk6));
+        uvConsumeBytes(&gfxCount, &src, sizeof(gfxCount));
+        dlist = (Gfx*)_uvMemAlloc((gfxCount + 1) * sizeof(Gfx), 8); // +1 for G_ENDDL
+        for (j = 0; j < gfxCount; j++) {
+            uvConsumeBytes(&elem, &src, 2);
+            if (elem & 0x4000) {
+                gSP1Triangle(&dlist[j], (elem & 0xF00) >> 8, (elem & 0xF0) >> 4, elem & 0xF, 0);
             } else {
-                func_80225394(&sp7A, &arg0, 1);
-                tempVtx = &spAC[sp74 & 0x3FFF];
-                gSPVertex(&dl[j], (u32)OS_PHYSICAL_TO_K0(tempVtx), ((sp7A & 0xF0) >> 4) + 1, sp7A & 0xF);
+                uvConsumeBytes(&sp7A, &src, sizeof(sp7A));
+                tempVtx = &vtx[elem & 0x3FFF];
+                gSPVertex(&dlist[j], (u32)OS_PHYSICAL_TO_K0(tempVtx), ((sp7A & 0xF0) >> 4) + 1, sp7A & 0xF);
             }
         }
 
-        gSPEndDisplayList(&dl[j]); // G_ENDDL = 0xB8
-        tempSpA0->unk8 = dl;
+        gSPEndDisplayList(&dlist[j]); // G_ENDDL = 0xB8
+        tempSpA0->dlist = dlist;
 
-        func_80225394(&sp74, &arg0, 2);
-        tempSpA0->unkC = &spA4[sp74];
+        uvConsumeBytes(&elem, &src, 2);
+        tempSpA0->unkC = &spA4[elem];
 
-        func_80225394(&sp74, &arg0, 2);
-        tempSpA0->unk10 = sp74;
+        uvConsumeBytes(&elem, &src, 2);
+        tempSpA0->unk10 = elem;
 
-        func_80225394(&tempSpA0->unk12, &arg0, 2);
-        func_80225394(&tempSpA0->unk14, &arg0, 2);
-        func_80225394(&tempSpA0->unk18, &arg0, 4);
-        func_80225394(&tempSpA0->unk1C, &arg0, 4);
-        func_80225394(&tempSpA0->unk20, &arg0, 4);
-        func_80225394(&tempSpA0->unk24, &arg0, 4);
+        uvConsumeBytes(&tempSpA0->unk12, &src, sizeof(tempSpA0->unk12));
+        uvConsumeBytes(&tempSpA0->unk14, &src, sizeof(tempSpA0->unk14));
+        uvConsumeBytes(&tempSpA0->unk18, &src, sizeof(tempSpA0->unk18));
+        uvConsumeBytes(&tempSpA0->unk1C, &src, sizeof(tempSpA0->unk1C));
+        uvConsumeBytes(&tempSpA0->unk20, &src, sizeof(tempSpA0->unk20));
+        uvConsumeBytes(&tempSpA0->unk24, &src, sizeof(tempSpA0->unk24));
     }
 
-    temp_v0 = (Unk80225FBC_0x2C*)_uvMemAlloc(sizeof(Unk80225FBC_0x2C), 4);
-    temp_v0->unk0 = spAC;
-    temp_v0->unk4 = sp78;
-    temp_v0->unk8 = spA0;
-    temp_v0->unkC = sp88;
-    temp_v0->unk10 = sp98;
-    temp_v0->unk14 = sp86;
-    func_80225394(&temp_v0->unk18, &arg0, 4);
-    func_80225394(&temp_v0->unk1C, &arg0, 4);
-    func_80225394(&temp_v0->unk20, &arg0, 4);
-    func_80225394(&temp_v0->unk24, &arg0, 4);
-    func_80225394(&temp_v0->unk28, &arg0, 4);
-    return temp_v0;
+    ret = (ParsedUVCT*)_uvMemAlloc(sizeof(ParsedUVCT), 4);
+    ret->vtx = vtx;
+    ret->unk4 = vtxCount;
+    ret->unk8 = spA0;
+    ret->unkC = sp88;
+    ret->unk10 = sp98;
+    ret->unk14 = sp86;
+    uvConsumeBytes(&ret->unk18, &src, sizeof(ret->unk18));
+    uvConsumeBytes(&ret->unk1C, &src, sizeof(ret->unk1C));
+    uvConsumeBytes(&ret->unk20, &src, sizeof(ret->unk20));
+    uvConsumeBytes(&ret->unk24, &src, sizeof(ret->unk24));
+    uvConsumeBytes(&ret->unk28, &src, sizeof(ret->unk28));
+    return ret;
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/texture/_uvExpandTexture.s")
 
-void* _uvExpandTextureImg(u8* arg0) {
+void* _uvExpandTextureImg(u8* src) {
     void* retBuf;
     u16 sp32;
     u16 size;
-    u16 sp2E;
-    u16 sp2C;
-    u16 sp2A;
-    u16 sp28;
+    u32 sp2C;
+    u32 sp28;
 
-    func_80225394(&size, &arg0, 2);
+    uvConsumeBytes(&size, &src, 2);
     if (size > 0x1000) {
         _uvDebugPrintf("_uvExpandTextureImg: txt image too big %d bytes (4096 max)\n", size);
         size = 0x1000;
     }
-    func_80225394(&sp32, &arg0, 2);
-    func_80225394(&sp2C, &arg0, 4);
-    func_80225394(&sp28, &arg0, 4);
-    func_80225394(&sp2C, &arg0, 4);
-    func_80225394(&sp28, &arg0, 4);
+    uvConsumeBytes(&sp32, &src, sizeof(sp32));
+    uvConsumeBytes(&sp2C, &src, sizeof(sp2C));
+    uvConsumeBytes(&sp28, &src, sizeof(sp28));
+    uvConsumeBytes(&sp2C, &src, sizeof(sp2C));
+    uvConsumeBytes(&sp28, &src, sizeof(sp28));
     retBuf = (void*)_uvMemAlloc(size, 8);
-    _uvMediaCopy(retBuf, arg0, size);
+    _uvMediaCopy(retBuf, src, size);
     return retBuf;
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/texture/_uvExpandTextureCpy.s")
 
-Unk80226FD0_C* func_80226FD0(u8* arg0) {
-    Unk80226FD0_C* temp_s2;
-    u16 idx;
+ParsedUVTP* _uvParseUVTP(u8* src) {
+    ParsedUVTP* temp_s2;
+    u16 i;
     u16 count;
 
-    func_80225394(&count, &arg0, 2);
-    temp_s2 = (Unk80226FD0_C*)_uvMemAlloc(sizeof(Unk80226FD0_C), 4);
+    uvConsumeBytes(&count, &src, 2);
+    temp_s2 = (ParsedUVTP*)_uvMemAlloc(sizeof(ParsedUVTP), 4);
     temp_s2->unk4 = (u16*)_uvMemAlloc(count * 2, 4);
     temp_s2->unk8 = (u16*)_uvMemAlloc(count * 2, 4);
 
-    for (idx = 0; idx < count; idx++) {
-        func_80225394(&temp_s2->unk4[idx], &arg0, 2);
-        func_80225394(&temp_s2->unk8[idx], &arg0, 2);
+    for (i = 0; i < count; i++) {
+        uvConsumeBytes(&temp_s2->unk4[i], &src, sizeof(temp_s2->unk4[i]));
+        uvConsumeBytes(&temp_s2->unk8[i], &src, sizeof(temp_s2->unk8[i]));
     }
     temp_s2->count = count;
     return temp_s2;
 }
 
-Unk802270BC_2C* func_802270BC(u8* arg0) {
+ParsedUVTR* _uvParseUVTR(u8* src) {
     Unk802270BC_48* ptr;
-    Unk802270BC_2C* temp_v0;
+    ParsedUVTR* temp_v0;
     s32 count;
-    s32 idx;
+    s32 i;
     u8 sp47;
     u16 sp44;
 
-    temp_v0 = (Unk802270BC_2C*)_uvMemAlloc(sizeof(Unk802270BC_2C), 4);
-    func_80225394(&temp_v0->unk0, &arg0, 0x18);
-    func_80225394(&temp_v0->unk18, &arg0, 1);
-    func_80225394(&temp_v0->unk19, &arg0, 1);
-    func_80225394(&temp_v0->unk1C, &arg0, 4);
-    func_80225394(&temp_v0->unk20, &arg0, 4);
-    func_80225394(&temp_v0->unk24, &arg0, 4);
+    temp_v0 = (ParsedUVTR*)_uvMemAlloc(sizeof(ParsedUVTR), 4);
+    uvConsumeBytes(&temp_v0->unk0, &src, sizeof(temp_v0->unk0));
+    uvConsumeBytes(&temp_v0->unk18, &src, sizeof(temp_v0->unk18));
+    uvConsumeBytes(&temp_v0->unk19, &src, sizeof(temp_v0->unk19));
+    uvConsumeBytes(&temp_v0->unk1C, &src, sizeof(temp_v0->unk1C));
+    uvConsumeBytes(&temp_v0->unk20, &src, sizeof(temp_v0->unk20));
+    uvConsumeBytes(&temp_v0->unk24, &src, sizeof(temp_v0->unk24));
     count = temp_v0->unk18 * temp_v0->unk19;
     temp_v0->unk28 = (Unk802270BC_48*)_uvMemAlloc(count * sizeof(Unk802270BC_48), 4);
 
-    for (idx = 0; idx < count; idx++) {
-        ptr = &temp_v0->unk28[idx];
-        func_80225394(&sp47, &arg0, 1);
+    for (i = 0; i < count; i++) {
+        ptr = &temp_v0->unk28[i];
+        uvConsumeBytes(&sp47, &src, 1);
         if (sp47 == 0) {
             uvMemSet(ptr->unk0, 0, 0x48);
         } else {
-            func_80225394(&ptr->unk0, &arg0, 0x40);
-            func_80225394(&ptr->unk44, &arg0, 1);
-            func_80225394(&sp44, &arg0, 2);
+            uvConsumeBytes(&ptr->unk0, &src, sizeof(ptr->unk0));
+            uvConsumeBytes(&ptr->unk44, &src, sizeof(ptr->unk44));
+            uvConsumeBytes(&sp44, &src, 2);
             ptr->unk40 = *(s32*)(initialize_emu_text_0000 + (sp44 * 4) + 0x70C);
         }
     }
     return temp_v0;
 }
 
-Unk80227260_0x18* func_80227260(u8* arg0) {
+ParsedUVBT* _uvParseUVBT(u8* src) {
     s32 var_a1; // pointer?
     u16 sp9A;
     u16 sp98;
@@ -587,7 +587,7 @@ Unk80227260_0x18* func_80227260(u8* arg0) {
     s32 j;
     u64 sp80;
     s32 i;
-    Unk80227260_0x18* ret;
+    ParsedUVBT* ret;
     s32 sp74;
     s32 sp70;
     Unk80227260_0x8* temp_v0_3;
@@ -596,32 +596,32 @@ Unk80227260_0x18* func_80227260(u8* arg0) {
     remainder2 = 0;
     remainder1 = 0;
 
-    _uvMediaCopy(&sp80, arg0, 4);
+    _uvMediaCopy(&sp80, src, 4);
     sp80 >>= 32;
     sp9A = (sp80 & 0xFFFF0000) >> 16;
     sp98 = sp80;
-    arg0 += 4;
+    src += 4;
 
-    _uvMediaCopy(&sp80, arg0, 4);
+    _uvMediaCopy(&sp80, src, 4);
     sp80 >>= 32;
     sp96 = (sp80 & 0xFFFF0000) >> 16;
     sp94 = sp80;
-    arg0 += 4;
+    src += 4;
 
-    _uvMediaCopy(&sp80, arg0, 4);
+    _uvMediaCopy(&sp80, src, 4);
     sp80 >>= 32;
     sp92 = (sp80 & 0xFFFF0000) >> 16;
     sp90 = sp80;
-    arg0 += 4;
+    src += 4;
 
-    _uvMediaCopy(&sp80, arg0, 4);
+    _uvMediaCopy(&sp80, src, 4);
     sp80 >>= 32;
     temp = (sp80 & 0xFFFF0000) >> 16;
     // fake, probably used to assign sp8C here as well
     sp8E = temp & 0xFFFF & 0xFFFF & 0xFFFF;
-    arg0 += 2;
+    src += 2;
 
-    ret = _uvMemAlloc(sizeof(Unk80227260_0x18), 4);
+    ret = (ParsedUVBT*)_uvMemAlloc(sizeof(ParsedUVBT), 4);
     ret->unk2 = sp9A;
     ret->unk4 = sp98;
     ret->unk6 = sp96;
@@ -629,8 +629,8 @@ Unk80227260_0x18* func_80227260(u8* arg0) {
     ret->unkA = sp90;
     ret->unkC = sp8E;
 
-    ret->unk10 = _uvMemAlloc((sp94 * sp92 * sp98) / 8, 8);
-    func_80225394((void*)ret->unk10, &arg0, (sp94 * sp92 * sp98) / 8);
+    ret->unk10 = (void*)_uvMemAlloc((sp94 * sp92 * sp98) / 8, 8);
+    uvConsumeBytes(ret->unk10, &src, (sp94 * sp92 * sp98) / 8);
 
     sp74 = sp96 / sp90;
     sp70 = sp92 / sp8E;
@@ -643,7 +643,7 @@ Unk80227260_0x18* func_80227260(u8* arg0) {
         remainder2 = 1;
     }
     ret->unkE = sp74 * sp70;
-    ret->unk14 = _uvMemAllocAlign8(ret->unkE * sizeof(Unk80227260_0x8));
+    ret->unk14 = (Unk80227260_0x8*)_uvMemAllocAlign8(ret->unkE * sizeof(Unk80227260_0x8));
 
     var_a1 = ret->unk10;
     for (i = 0; i < sp70; i++) {
@@ -672,19 +672,19 @@ Unk80227260_0x18* func_80227260(u8* arg0) {
     return ret;
 }
 
-Unk80225FBC_0x2C* func_80227804(s32 arg0) {
+ParsedUVCT* uvParseTopUVCT(s32 arg0) {
     s32 idx;
     s32 tag;
     u32 sp3C;
-    void* sp38;
-    Unk80225FBC_0x2C* ret;
+    void* src;
+    ParsedUVCT* ret;
 
     ret = NULL;
     idx = func_80223E80(D_802B5A34[arg0]);
-    while ((tag = func_80223F7C(idx, &sp3C, &sp38, 1)) != 0) {
+    while ((tag = func_80223F7C(idx, &sp3C, &src, 1)) != 0) {
         switch (tag) {
         case 'COMM':
-            ret = func_80225FBC(sp38);
+            ret = _uvParseUVCT(src);
             break;
         default:
             break;
@@ -694,79 +694,79 @@ Unk80225FBC_0x2C* func_80227804(s32 arg0) {
     return ret;
 }
 
-Unk80219270_3C* func_802278C0(s32 palette) {
-    s32 sp2C;
+ParsedUVEN* uvParseTopUVEN(s32 palette) {
+    s32 idx;
     s32 sp28;
-    void* sp24;
-    Unk80219270_3C* ret;
+    void* src;
+    ParsedUVEN* ret;
 
     ret = NULL;
-    sp2C = func_80223E80(D_802B6404);
-    if (func_80224170(sp2C, &sp28, &sp24, 'COMM', palette, 1) != 0) {
-        ret = func_802254B0(sp24);
+    idx = func_80223E80(D_802B6404);
+    if (func_80224170(idx, &sp28, &src, 'COMM', palette, 1) != 0) {
+        ret = _uvParseUVEN(src);
     }
-    func_80223F30(sp2C);
+    func_80223F30(idx);
     return ret;
 }
 
-void* func_80227938(s32 palette) {
+void* uvParseTopUVLV(s32 palette) {
     s32 idx;
     s32 sp28;
-    void* sp24;
+    void* src;
     void* ret;
 
     ret = NULL;
     idx = func_80223E80(D_802B64E4);
-    if (func_80224170(idx, &sp28, &sp24, 'COMM', palette, 1) != 0) {
-        ret = _uvExpandTextureCpy(sp24);
+    if (func_80224170(idx, &sp28, &src, 'COMM', palette, 1) != 0) {
+        ret = _uvExpandTextureCpy(src);
     }
     func_80223F30(idx);
     return ret;
 }
 
-Unk80226FD0_C* func_802279B0(s32 palette) {
+ParsedUVTP* uvParseTopUVTP(s32 palette) {
     s32 idx;
     s32 sp28;
-    void* sp24;
-    Unk80226FD0_C* ret;
+    void* src;
+    ParsedUVTP* ret;
 
     ret = NULL;
     idx = func_80223E80(D_802B6E2C);
-    if (func_80224170(idx, &sp28, &sp24, 'COMM', palette, 1) != 0) {
-        ret = func_80226FD0(sp24);
+    if (func_80224170(idx, &sp28, &src, 'COMM', palette, 1) != 0) {
+        ret = _uvParseUVTP(src);
     }
     func_80223F30(idx);
     return ret;
 }
 
-void* func_80227A28(s32 palette) {
+void* uvParseTopUVLT(s32 palette) {
     s32 idx;
     s32 sp28;
-    void* sp24;
+    void* src;
     void* ret;
 
     ret = NULL;
     idx = func_80223E80(D_802B6484);
-    if (func_80224170(idx, &sp28, &sp24, 'COMM', palette, 1) != 0) {
-        ret = func_80225470(sp24);
+    if (func_80224170(idx, &sp28, &src, 'COMM', palette, 1) != 0) {
+        ret = _uvParseUVLT(src);
     }
     func_80223F30(idx);
     return ret;
 }
 
-void* func_80227AA0(s32 arg0) {
+void* uvParseTopUVMD(s32 arg0) {
     s32 idx;
     s32 tag;
     u32 sp3C;
-    void* sp38;
+    void* src;
     void* ret;
 
     ret = NULL;
     idx = func_80223E80(D_802B53F4[arg0]);
-    while ((tag = func_80223F7C(idx, &sp3C, &sp38, 1)) != 0) {
+    while ((tag = func_80223F7C(idx, &sp3C, &src, 1)) != 0) {
         switch (tag) {
         case 'COMM':
-            ret = func_802256B8(sp38);
+            ret = _uvParseUVMD(src);
             break;
         default:
             break;
@@ -776,33 +776,33 @@ void* func_80227AA0(s32 arg0) {
     return ret;
 }
 
-Unk802270BC_2C* func_80227B5C(s32 arg0) {
+ParsedUVTR* uvParseTopUVTR(s32 arg0) {
     s32 idx;
     s32 sp28;
-    void* sp24;
-    Unk802270BC_2C* ret;
+    void* src;
+    ParsedUVTR* ret;
 
     ret = NULL;
     idx = func_80223E80(D_802B6494);
-    if (func_80224170(idx, &sp28, &sp24, 'COMM', arg0, 1) != 0) {
-        ret = func_802270BC(sp24);
+    if (func_80224170(idx, &sp28, &src, 'COMM', arg0, 1) != 0) {
+        ret = _uvParseUVTR(src);
     }
     func_80223F30(idx);
     return ret;
 }
 
-void* func_80227BD4(s32 arg0) {
+void* uvParseTopUVTX(s32 arg0) {
     s32 idx;
     s32 tag;
     u32 sp34;
-    void* sp30;
+    void* src;
     void* ret;
 
     idx = func_80223E80(D_802B5C34[arg0]);
-    while ((tag = func_80223F7C(idx, &sp34, &sp30, 1)) != 0) {
+    while ((tag = func_80223F7C(idx, &sp34, &src, 1)) != 0) {
         switch (tag) {
         case 'COMM':
-            ret = _uvExpandTexture(sp30);
+            ret = _uvExpandTexture(src);
             break;
         default:
             break;
@@ -812,19 +812,19 @@ void* func_80227BD4(s32 arg0) {
     return ret;
 }
 
-void* func_80227C84(s32 arg0) {
+void* uvParseTopUVTI(s32 arg0) {
     s32 idx;
     s32 tag;
     u32 sp34;
-    void* sp30;
+    void* src;
     void* ret;
 
     idx = func_80223E80(D_802B5C34[arg0]);
 
-    while ((tag = func_80223F7C(idx, &sp34, &sp30, 1)) != 0) {
+    while ((tag = func_80223F7C(idx, &sp34, &src, 1)) != 0) {
         switch (tag) {
         case 'COMM':
-            ret = _uvExpandTextureImg(sp30);
+            ret = _uvExpandTextureImg(src);
             break;
         default:
             break;
@@ -834,18 +834,18 @@ void* func_80227C84(s32 arg0) {
     return ret;
 }
 
-void* func_80227D34(s32 arg0) {
+void* uvParseTopUVBT(s32 arg0) {
     s32 idx;
     s32 tag;
     u32 sp3C;
-    void* sp38;
+    void* src;
     void* ret;
 
     idx = func_80223E80(D_802B6A34[arg0]);
-    while ((tag = func_80223F7C(idx, &sp3C, &sp38, 0)) != 0) {
+    while ((tag = func_80223F7C(idx, &sp3C, &src, 0)) != 0) {
         switch (tag) {
         case 'COMM':
-            ret = func_80227260(sp38);
+            ret = _uvParseUVBT(src);
             break;
         default:
             break;
@@ -855,16 +855,16 @@ void* func_80227D34(s32 arg0) {
     return ret;
 }
 
-Unk802255A0_10* func_80227DE4(s32 palette) {
+ParsedUVSQ* uvParseTopUVSQ(s32 palette) {
     s32 idx;
     s32 sp28;
-    void* sp24;
-    Unk802255A0_10* ret;
+    void* src;
+    ParsedUVSQ* ret;
 
     ret = NULL;
     idx = func_80223E80(D_802B64BC);
-    if (func_80224170(idx, &sp28, &sp24, 'COMM', palette, 1) != 0) {
-        ret = func_802255A0(sp24);
+    if (func_80224170(idx, &sp28, &src, 'COMM', palette, 1) != 0) {
+        ret = _uvParseUVSQ(src);
     }
     func_80223F30(idx);
     return ret;
