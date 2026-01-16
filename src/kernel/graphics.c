@@ -13,6 +13,14 @@ typedef struct UnkStruct_gfx_16b {
     u32 offset;
 } UnkStruct_gfx_16b_t;
 
+typedef struct {
+    s32 unk0;
+    s16 unk4;
+    s16 unk6;
+    s32 unk8;
+    s32 unkC; // inferred from stack size, but not observed accessed
+} Unk802239B4;
+
 extern s32 D_80249230;
 extern f32 D_8024921C;
 extern s32 D_802491E8;
@@ -132,9 +140,29 @@ void uvGfxStatePush(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/uvGfxStatePop.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_802239B4.s")
+void uvGfxSetFlags(s32 flags) {
+    Unk802239B4 sp20;
+    s32 newState;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_802239EC.s")
+    newState = flags | gGfxStateStackData;
+    if (newState != gGfxStateStackData) {
+        sp20.unk0 = newState;
+        sp20.unk8 = 0;
+        uvGfxStateDraw(&sp20);
+    }
+}
+
+void uvGfxClearFlags(s32 flags) {
+    Unk802239B4 sp20;
+    s32 newState;
+
+    newState = ~flags & gGfxStateStackData;
+    if (newState != gGfxStateStackData) {
+        sp20.unk0 = newState;
+        sp20.unk8 = 0;
+        uvGfxStateDraw(&sp20);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_80223A28.s")
 

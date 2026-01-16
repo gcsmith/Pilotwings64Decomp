@@ -4,7 +4,6 @@ alSeqpDelete = 0x80204FC4;
 alSynRemovePlayer = 0x80204FE4;
 __dummy = 0x802070B0;
 osViExtendVStart = 0x802071C0;
-__osInitialize_emu = 0x8020F9F4;
 myfree = 0x802314B8;
 ptstart = 0x80232EBC;
 alSndpSetSound = 0x802344A0;

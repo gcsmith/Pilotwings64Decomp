@@ -320,7 +320,7 @@ void uvMat4SetUnk2(Mtx4F_t mat, float arg1, float arg2, float arg3, float arg4, 
     mat[0][1] = 0.0f;
 }
 
-void uvMat4SetUnk3(Mtx4F_t mat, float arg1, float arg2, float arg3, float arg4) {
+void uvMat4Viewport(Mtx4F_t mat, float arg1, float arg2, float arg3, float arg4) {
     float tmp21 = arg2 - arg1;
     float tmp43 = arg4 - arg3;
     mat[0][0] = 2.0f / tmp21;

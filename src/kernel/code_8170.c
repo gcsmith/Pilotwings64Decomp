@@ -32,7 +32,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_8020F99C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/__osInitialize_emu.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_8020F9F4.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/uvTerraGetBox.s")
 

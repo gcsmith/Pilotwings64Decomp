@@ -32,6 +32,8 @@ typedef struct uvaEmitter {
 /* AF */ u8 playTimeout;
 } uvaEmitter_t;
 
+void uvSysInitAudio(void);
+
 void uvEmitterInitTable(void);
 void uvEmitterInit(uvaEmitter_t*);
 u8 uvEmitterLookup(void);
