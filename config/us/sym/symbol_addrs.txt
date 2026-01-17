@@ -66,3 +66,11 @@ gControllerInfo     = 0x802B5310;
 
 gEepromFound        = 0x802C5BB0;
 gControllerPads     = 0x802C3370;
+
+gLevelWOBJ          = 0x80369F30;
+gLevelLPAD          = 0x8036A030;
+gLevelTPTS          = 0x8036A180;
+gLevelTOYS          = 0x8036A4C0;
+gLevelAPTS          = 0x8036A5C0;
+gLevelBNUS          = 0x8036A840;
+gLevelObjects       = 0x8036A878;

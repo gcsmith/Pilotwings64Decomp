@@ -23,7 +23,7 @@ typedef struct {
     LevelTOYS* dataTOYS;
     void* dataAPTS;
     void* dataBNUS;
-} Unk8036A878;
+} LevelObjects;
 
 void func_8030B6C0(u8 arg0, u8 arg1, u8 arg2, s32 arg3);
 void func_8030B868(void);
@@ -36,6 +36,6 @@ u8 levelGetTPTS(void** data);
 u8 levelGetAPTS(void** data);
 u8 levelGetLPAD(void** data);
 u8 levelGetBNUS(void** data);
-Unk8036A878* func_8030BDC8(u8 arg0);
+LevelObjects* func_8030BDC8(u8 arg0);
 
 #endif // UV_LEVEL_H

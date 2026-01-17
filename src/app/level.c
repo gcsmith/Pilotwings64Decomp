@@ -19,64 +19,64 @@ typedef struct {
     u8 pad8[0x70];
 } Unk8030BDC8;
 
-void func_802F1AE8(void);
-void func_802D1CE8(void);
-void func_8034BEDC(void);
-void func_802EB0D4(void);
+s32 func_80223E80(s32 addr);
+void func_80223F30(s32 arg0);
+s32 func_80223F7C(s32 idx, u32* sizeOut, void** arg2, s32 arg3);
+s32 func_802314D0(s32, s32, s32);
 void func_802D1A74(void);
-void func_802F15C8(void);
-void func_80335BE4(void);
-void func_802E79F0(void); // this is asm?
-void func_803151AC(void);
-void func_802F182C(void);
-void func_80320534(void);
-void func_80315D68(void);
-void func_80315734(void);
-void func_803363E0(void);
-void func_802F1D3C(void);
-void func_8034C964(void);
-void func_802F1FF0(void);
+void func_802D1CE8(void);
 void func_802D206C(void);
-void func_8034C0BC(void);
-void func_802E7C28(void);
-void func_802EB270(void);
-void func_8031531C(void);
-void func_8031596C(void);
-void func_80315E3C(void);
-void func_8032079C(void);
-void func_80335E44(void);
-void func_8033651C(void);
-void func_8034CB80(void);
-void func_803483AC(void); // this is asm?
 void func_802E1444(u16);
+void func_802E27A8(void*);
+void func_802E79F0(void);
+void func_802E7C28(void);
+void func_802EB0D4(void);
+void func_802EB270(void);
+void func_802F15C8(void);
+void func_802F182C(void);
+void func_802F1AE8(void);
+void func_802F1D3C(void);
+void func_802F1FF0(void);
 void func_8030BA98(u8, u8);
-void func_80348280(LevelTOYS*);
-void uvLevelInit(void);
+void func_803151AC(void);
+void func_8031531C(void);
+void func_80315734(void);
+void func_8031596C(void);
+void func_80315D68(void);
+void func_80315E3C(void);
+void func_80320534(void);
+void func_8032079C(void);
+void func_80335BE4(void);
+void func_80335E44(void);
+void func_803363E0(void);
+void func_8033651C(void);
 void func_80341F10(s32);
+void func_80348280(LevelTOYS*);
+void func_803483AC(void);
+void func_8034BEDC(void);
+void func_8034C0BC(void);
+void func_8034C964(void);
+void func_8034CB80(void);
+void uvLevelInit(void);
 void env_loadtpal(s32);
 void uvMemLoadDS(s32);
-s32 func_80223F7C(s32 idx, u32* sizeOut, void** arg2, s32 arg3);
-void func_80223F30(s32 arg0);
-void func_802E27A8(void*);
-s32 func_80223E80(s32 addr);
-s32 func_802314D0(s32, s32, s32);
 
 extern s32 D_8034F400;
 extern s32 D_8034F404;
-extern Unk8036A878* D_8034F408;
+extern LevelObjects* D_8034F408;
 extern s32 D_8034F40C;
 extern Unk8034F410 D_8034F410[];
 
 extern Unk80362690* D_80362690;
 
 // likely arrays of structs for level data
-extern s32 D_80369F30;
-extern s32 D_8036A030;
-extern s32 D_8036A180;
-extern LevelTOYS D_8036A4C0;
-extern s32 D_8036A5C0;
-extern s32 D_8036A840;
-extern Unk8036A878 D_8036A878;
+extern s32 gLevelWOBJ;
+extern s32 gLevelLPAD;
+extern s32 gLevelTPTS;
+extern LevelTOYS gLevelTOYS;
+extern s32 gLevelAPTS;
+extern s32 gLevelBNUS;
+extern LevelObjects gLevelObjects;
 
 void func_8030B6C0(u8 arg0, u8 arg1, u8 arg2, s32 arg3) {
     s32 i;
@@ -102,8 +102,8 @@ void func_8030B6C0(u8 arg0, u8 arg1, u8 arg2, s32 arg3) {
     }
     uvMemLoadDS(0x1A);
     if (arg3 != 0) {
-        for (i = 0; i < (s32)D_8036A878.countTOYS; i++) {
-            func_80348280(&D_8036A878.dataTOYS[i]);
+        for (i = 0; i < (s32)gLevelObjects.countTOYS; i++) {
+            func_80348280(&gLevelObjects.dataTOYS[i]);
         }
         D_8034F400 = 1;
     } else {
@@ -201,158 +201,76 @@ void func_8030BA98(u8 arg0, u8 arg1) {
     s32 var_a2;
 
     var_a2 = -1;
+    // clang-format off: compress switch statements
     switch (arg0) {
     case 0:
         switch (arg1) {
-        case 0:
-            var_a2 = 0x1C;
-            break;
-        case 1:
-            var_a2 = 0x22;
-            break;
-        case 2:
-            var_a2 = 0x28;
-            break;
-        case 3:
-            var_a2 = 0x2F;
-            break;
-        case 4:
-            var_a2 = 0x3B;
-            break;
-        case 6:
-            var_a2 = 0x35;
-            break;
-        case 5:
-            var_a2 = 0x41;
-            break;
+        case 0: var_a2 = 0x1C; break;
+        case 1: var_a2 = 0x22; break;
+        case 2: var_a2 = 0x28; break;
+        case 3: var_a2 = 0x2F; break;
+        case 4: var_a2 = 0x3B; break;
+        case 6: var_a2 = 0x35; break;
+        case 5: var_a2 = 0x41; break;
         }
         break;
     case 1:
         switch (arg1) {
-        case 0:
-            var_a2 = 0x1D;
-            break;
-        case 1:
-            var_a2 = 0x23;
-            break;
-        case 2:
-            var_a2 = 0x29;
-            break;
-        case 3:
-            var_a2 = 0x30;
-            break;
-        case 4:
-            var_a2 = 0x3C;
-            break;
-        case 6:
-            var_a2 = 0x36;
-            break;
-        case 5:
-            var_a2 = 0x42;
-            break;
+        case 0: var_a2 = 0x1D; break;
+        case 1: var_a2 = 0x23; break;
+        case 2: var_a2 = 0x29; break;
+        case 3: var_a2 = 0x30; break;
+        case 4: var_a2 = 0x3C; break;
+        case 6: var_a2 = 0x36; break;
+        case 5: var_a2 = 0x42; break;
         }
         break;
     case 2:
         switch (arg1) {
-        case 0:
-            var_a2 = 0x1E;
-            break;
-        case 1:
-            var_a2 = 0x24;
-            break;
-        case 2:
-            var_a2 = 0x2A;
-            break;
-        case 3:
-            var_a2 = 0x31;
-            break;
-        case 4:
-            var_a2 = 0x3D;
-            break;
-        case 6:
-            var_a2 = 0x37;
-            break;
-        case 5:
-            var_a2 = 0x43;
-            break;
+        case 0: var_a2 = 0x1E; break;
+        case 1: var_a2 = 0x24; break;
+        case 2: var_a2 = 0x2A; break;
+        case 3: var_a2 = 0x31; break;
+        case 4: var_a2 = 0x3D; break;
+        case 6: var_a2 = 0x37; break;
+        case 5: var_a2 = 0x43; break;
         }
         break;
     case 3:
         switch (arg1) {
-        case 0:
-            var_a2 = 0x1F;
-            break;
-        case 1:
-            var_a2 = 0x25;
-            break;
-        case 2:
-            var_a2 = 0x2B;
-            break;
-        case 3:
-            var_a2 = 0x32;
-            break;
-        case 4:
-            var_a2 = 0x3E;
-            break;
-        case 6:
-            var_a2 = 0x38;
-            break;
-        case 5:
-            var_a2 = 0x44;
-            break;
+        case 0: var_a2 = 0x1F; break;
+        case 1: var_a2 = 0x25; break;
+        case 2: var_a2 = 0x2B; break;
+        case 3: var_a2 = 0x32; break;
+        case 4: var_a2 = 0x3E; break;
+        case 6: var_a2 = 0x38; break;
+        case 5: var_a2 = 0x44; break;
         }
         break;
     case 4:
         switch (arg1) {
-        case 0:
-            var_a2 = 0x20;
-            break;
-        case 1:
-            var_a2 = 0x26;
-            break;
-        case 2:
-            var_a2 = 0x2C;
-            break;
-        case 3:
-            var_a2 = 0x33;
-            break;
-        case 4:
-            var_a2 = 0x3F;
-            break;
-        case 6:
-            var_a2 = 0x39;
-            break;
-        case 5:
-            var_a2 = 0x45;
-            break;
+        case 0: var_a2 = 0x20; break;
+        case 1: var_a2 = 0x26; break;
+        case 2: var_a2 = 0x2C; break;
+        case 3: var_a2 = 0x33; break;
+        case 4: var_a2 = 0x3F; break;
+        case 6: var_a2 = 0x39; break;
+        case 5: var_a2 = 0x45; break;
         }
         break;
     case 5:
         switch (arg1) {
-        case 0:
-            var_a2 = 0x21;
-            break;
-        case 1:
-            var_a2 = 0x27;
-            break;
-        case 2:
-            var_a2 = 0x2D;
-            break;
-        case 3:
-            var_a2 = 0x34;
-            break;
-        case 4:
-            var_a2 = 0x40;
-            break;
-        case 6:
-            var_a2 = 0x3A;
-            break;
-        case 5:
-            var_a2 = 0x46;
-            break;
+        case 0: var_a2 = 0x21; break;
+        case 1: var_a2 = 0x27; break;
+        case 2: var_a2 = 0x2D; break;
+        case 3: var_a2 = 0x34; break;
+        case 4: var_a2 = 0x40; break;
+        case 6: var_a2 = 0x3A; break;
+        case 5: var_a2 = 0x46; break;
         }
         break;
     }
+    // clang-format on
     if (var_a2 == -1) {
         _uvDebugPrintf("level : can't compute level append - pilsel:%d vehsel:%d\n", arg0, arg1);
     } else {
@@ -388,7 +306,7 @@ u8 levelGetBNUS(void** data) {
     return D_8034F408->countBNUS;
 }
 
-Unk8036A878* func_8030BDC8(u8 arg0) {
+LevelObjects* func_8030BDC8(u8 arg0) {
     s32 i;
     s32 idx;  // spC0
     u32 size; // spBC
@@ -396,18 +314,18 @@ Unk8036A878* func_8030BDC8(u8 arg0) {
     u8* srcPtr; // spB4
     Unk8030BDC8 sp3C;
     Unk8030BDC8* ptr;
-    Unk8036A878* temp;
+    LevelObjects* temp;
     u8 tmp8;
 
     idx = func_80223E80(func_802314D0(D_8034F410[arg0].unk0, 2, arg0));
-    temp = &D_8036A878;
-    uvMemSet((void*)temp, 0, sizeof(Unk8036A878));
-    D_8036A878.dataWOBJ = &D_80369F30;
-    D_8036A878.dataLPAD = &D_8036A030;
-    D_8036A878.dataTOYS = &D_8036A4C0;
-    D_8036A878.dataTPTS = &D_8036A180;
-    D_8036A878.dataAPTS = &D_8036A5C0;
-    D_8036A878.dataBNUS = &D_8036A840;
+    temp = &gLevelObjects;
+    uvMemSet((void*)temp, 0, sizeof(LevelObjects));
+    gLevelObjects.dataWOBJ = &gLevelWOBJ;
+    gLevelObjects.dataLPAD = &gLevelLPAD;
+    gLevelObjects.dataTOYS = &gLevelTOYS;
+    gLevelObjects.dataTPTS = &gLevelTPTS;
+    gLevelObjects.dataAPTS = &gLevelAPTS;
+    gLevelObjects.dataBNUS = &gLevelBNUS;
 
     while ((var_v0 = func_80223F7C(idx, &size, (void**)&srcPtr, 1)) != 0) {
         switch (var_v0) {
@@ -485,5 +403,5 @@ Unk8036A878* func_8030BDC8(u8 arg0) {
         }
     }
     func_80223F30(idx);
-    return &D_8036A878;
+    return &gLevelObjects;
 }
