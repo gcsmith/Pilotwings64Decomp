@@ -29,7 +29,7 @@ void func_8030B6C0(u8 arg0, u8 arg1, u8 arg2, s32 arg3);
 void func_8030B868(void);
 void func_8030B964(void);
 void func_8030BA60(void);
-void func_8030BA98(u8 arg0, u8 arg1);
+void func_8030BA98(u8 pilot, u8 vehicle);
 void func_8030BD20(void);
 u8 levelGetWOBJ(void** data);
 u8 levelGetTPTS(void** data);

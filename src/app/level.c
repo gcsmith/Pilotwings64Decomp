@@ -197,14 +197,14 @@ void func_8030BA60(void) {
     }
 }
 
-void func_8030BA98(u8 arg0, u8 arg1) {
+void func_8030BA98(u8 pilot, u8 vehicle) {
     s32 var_a2;
 
     var_a2 = -1;
     // clang-format off: compress switch statements
-    switch (arg0) {
+    switch (pilot) {
     case 0:
-        switch (arg1) {
+        switch (vehicle) {
         case 0: var_a2 = 0x1C; break;
         case 1: var_a2 = 0x22; break;
         case 2: var_a2 = 0x28; break;
@@ -215,7 +215,7 @@ void func_8030BA98(u8 arg0, u8 arg1) {
         }
         break;
     case 1:
-        switch (arg1) {
+        switch (vehicle) {
         case 0: var_a2 = 0x1D; break;
         case 1: var_a2 = 0x23; break;
         case 2: var_a2 = 0x29; break;
@@ -226,7 +226,7 @@ void func_8030BA98(u8 arg0, u8 arg1) {
         }
         break;
     case 2:
-        switch (arg1) {
+        switch (vehicle) {
         case 0: var_a2 = 0x1E; break;
         case 1: var_a2 = 0x24; break;
         case 2: var_a2 = 0x2A; break;
@@ -237,7 +237,7 @@ void func_8030BA98(u8 arg0, u8 arg1) {
         }
         break;
     case 3:
-        switch (arg1) {
+        switch (vehicle) {
         case 0: var_a2 = 0x1F; break;
         case 1: var_a2 = 0x25; break;
         case 2: var_a2 = 0x2B; break;
@@ -248,7 +248,7 @@ void func_8030BA98(u8 arg0, u8 arg1) {
         }
         break;
     case 4:
-        switch (arg1) {
+        switch (vehicle) {
         case 0: var_a2 = 0x20; break;
         case 1: var_a2 = 0x26; break;
         case 2: var_a2 = 0x2C; break;
@@ -259,7 +259,7 @@ void func_8030BA98(u8 arg0, u8 arg1) {
         }
         break;
     case 5:
-        switch (arg1) {
+        switch (vehicle) {
         case 0: var_a2 = 0x21; break;
         case 1: var_a2 = 0x27; break;
         case 2: var_a2 = 0x2D; break;
@@ -272,7 +272,7 @@ void func_8030BA98(u8 arg0, u8 arg1) {
     }
     // clang-format on
     if (var_a2 == -1) {
-        _uvDebugPrintf("level : can't compute level append - pilsel:%d vehsel:%d\n", arg0, arg1);
+        _uvDebugPrintf("level : can't compute level append - pilsel:%d vehsel:%d\n", pilot, vehicle);
     } else {
         uvMemLoadDS(var_a2);
     }
