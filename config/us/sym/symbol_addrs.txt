@@ -74,3 +74,11 @@ gLevelTOYS          = 0x8036A4C0;
 gLevelAPTS          = 0x8036A5C0;
 gLevelBNUS          = 0x8036A840;
 gLevelObjects       = 0x8036A878;
+
+gLevelClassU8       = 0x80350790;
+gLevelVehicleU8     = 0x80350794;
+gLevelTestU8        = 0x80350798;
+
+gLevelClass         = 0x8037AA78;
+gLevelTest          = 0x8037AA7C;
+gLevelVehicle       = 0x8037AA80;

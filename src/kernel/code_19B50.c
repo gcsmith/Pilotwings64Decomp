@@ -44,13 +44,13 @@ ParsedUVFT* uvParseTopUVFT(s32 arg0) {
     s32 i;
     s32 imagCount;
     s32 bitmCount;
-    s32 var_v0;
+    u32 tag;
 
     imagCount = 0;
     ret = (ParsedUVFT*)_uvMemAlloc(sizeof(ParsedUVFT), 4);
     temp_v0 = func_80223E80((&D_802B69E4)[arg0]);
-    while ((var_v0 = func_80223F7C(temp_v0, &nbytes, (void**)&srcAddr, 1)) != NULL) {
-        switch (var_v0) {
+    while ((tag = func_80223F7C(temp_v0, &nbytes, (void**)&srcAddr, 1)) != NULL) {
+        switch (tag) {
         case 'STRG':
             ret->strg = _uvMemAlloc(nbytes, 4);
             _uvMediaCopy((void*)ret->strg, srcAddr, nbytes);
