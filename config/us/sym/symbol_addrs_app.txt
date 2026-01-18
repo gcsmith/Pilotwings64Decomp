@@ -42,3 +42,8 @@ splash_add          = 0x803417CC; // type:func
 toy_animate         = 0x80347E9C; // type:func
 wind_render         = 0x8034CD68; // type:func
 
+levelGetWOBJ        = 0x8030BD28; // type:func
+levelGetTPTS        = 0x8030BD48; // type:func
+levelGetAPTS        = 0x8030BD68; // type:func
+levelGetLPAD        = 0x8030BD88; // type:func
+levelGetBNUS        = 0x8030BDA8; // type:func
