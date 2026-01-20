@@ -221,7 +221,7 @@ void func_8034D548(void);
 void uvChanTerra(u8, s32);
 void wind_render(void);
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_CBEE0/func_803449B0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/level_objects/func_803449B0.s")
 
 s32 func_80344CD0(s32 classIdx, s32 testIdx, s32 vehicle) {
     if (D_803798E0[classIdx][testIdx][vehicle].unk8 == 0xFF) {
