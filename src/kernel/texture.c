@@ -188,7 +188,7 @@ void func_802246A0(void) {
     void* src;
     u32 var_a1;
     u8* romOffset;
-    s32 tag;
+    u32 tag;
     UVBlockHeader* var_a0;
 
     uvMemSet(&gUVBlockCounts, 0, sizeof(gUVBlockCounts));
@@ -674,7 +674,7 @@ ParsedUVBT* _uvParseUVBT(u8* src) {
 
 ParsedUVCT* uvParseTopUVCT(s32 arg0) {
     s32 idx;
-    s32 tag;
+    u32 tag;
     u32 sp3C;
     void* src;
     ParsedUVCT* ret;
@@ -756,7 +756,7 @@ void* uvParseTopUVLT(s32 palette) {
 
 void* uvParseTopUVMD(s32 arg0) {
     s32 idx;
-    s32 tag;
+    u32 tag;
     u32 sp3C;
     void* src;
     void* ret;
@@ -793,7 +793,7 @@ ParsedUVTR* uvParseTopUVTR(s32 arg0) {
 
 void* uvParseTopUVTX(s32 arg0) {
     s32 idx;
-    s32 tag;
+    u32 tag;
     u32 sp34;
     void* src;
     void* ret;
@@ -814,7 +814,7 @@ void* uvParseTopUVTX(s32 arg0) {
 
 void* uvParseTopUVTI(s32 arg0) {
     s32 idx;
-    s32 tag;
+    u32 tag;
     u32 sp34;
     void* src;
     void* ret;
@@ -836,7 +836,7 @@ void* uvParseTopUVTI(s32 arg0) {
 
 void* uvParseTopUVBT(s32 arg0) {
     s32 idx;
-    s32 tag;
+    u32 tag;
     u32 sp3C;
     void* src;
     void* ret;

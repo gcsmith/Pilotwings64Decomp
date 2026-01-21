@@ -49,9 +49,9 @@ s32 func_80223F68(s32 arg0) {
     return D_802B5300[arg0].tag;
 }
 
-s32 func_80223F7C(s32 idx, u32* sizeOut, void** arg2, s32 arg3) {
+u32 func_80223F7C(s32 idx, u32* sizeOut, void** arg2, s32 arg3) {
     u32 pad;
-    s32 tag;
+    u32 tag;
     u32 tmpSize;
     u32 size;
     void* scratchMem;
@@ -67,7 +67,7 @@ s32 func_80223F7C(s32 idx, u32* sizeOut, void** arg2, s32 arg3) {
     if (sizeOut == NULL) {
         sizeOut = &tmpSize;
     }
-    tag = (s32)uvMemRead((void*)(dataInfo->address + dataInfo->offset), 4);
+    tag = (u32)uvMemRead((void*)(dataInfo->address + dataInfo->offset), 4);
     *sizeOut = (u32)uvMemRead((void*)(dataInfo->address + dataInfo->offset + 4), 4);
     *arg2 = (void*)(dataInfo->address + dataInfo->offset + 8);
     if (tag == 'GZIP') { // 0x475A4950
@@ -95,10 +95,10 @@ s32 func_80223F7C(s32 idx, u32* sizeOut, void** arg2, s32 arg3) {
     return tag;
 }
 
-s32 func_80224170(s32 arg0, void* arg1, void** arg2, s32 tag, s32 palette, s32 arg5) {
+u32 func_80224170(s32 arg0, void* arg1, void** arg2, u32 tag, s32 palette, s32 arg5) {
     s32 currentPalette;
     s32 var_s1;
-    s32 outTag;
+    u32 outTag;
     u32 offsetTemp;
     Unk802B5300* sp3C;
 

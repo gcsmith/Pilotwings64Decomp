@@ -343,7 +343,7 @@ void _uvMemGetBlocks(u32 arg0, u32 arg1) {
 
 void uvLevelInit(void) {
     s32 temp_v0;
-    s32 var_v0;
+    u32 tag;
     u32 length;
     void* source;
 
@@ -361,8 +361,8 @@ void uvLevelInit(void) {
     myfree();
     temp_v0 = func_80223E80(gUVBlockOffsets.UVSY);
 
-    while ((var_v0 = func_80223F7C(temp_v0, &length, &source, 0)) != 0) {
-        if (var_v0 == 'COMM') { // 0x434F4D4D
+    while ((tag = func_80223F7C(temp_v0, &length, &source, 0)) != 0) {
+        if (tag == 'COMM') { // 0x434F4D4D
             _uvMediaCopy(&gUVBlockCounts, source, length);
             if (1) { } // fakematch
             *((float*)&initialize_emu_text_0000[0x1608]) = gUVBlockCounts.unk0;
