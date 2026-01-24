@@ -297,6 +297,7 @@ void uvMat4UnkOp5(Mtx4F_t mat, Vec3F_t* vec1, Vec3F_t* vec2) {
     vec1->f[2] = tmp0 * mat[0][2] + tmp1 * mat[1][2] + tmp2 * mat[2][2] + mat[3][2];
 }
 
+void func_80229AA0(Mtx4F_t arg0, Mtx4F_t arg1, Mtx4F_t arg2);
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/matrix/func_80229AA0.s")
 
 void uvMat4SetUnk2(Mtx4F_t mat, float arg1, float arg2, float arg3, float arg4, float arg5, float arg6) {
