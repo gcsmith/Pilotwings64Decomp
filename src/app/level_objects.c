@@ -221,7 +221,78 @@ void func_8034D548(void);
 void uvChanTerra(u8, s32);
 void wind_render(void);
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/level_objects/func_803449B0.s")
+void func_803449B0(void) {
+    s32 classIdx, testIdx, vehIdx;
+    Unk8037A600* temp_v0;
+    Unk803798E0* temp_s0_2;
+    s32 i;
+    u8 sp88[0x28];
+    u8 sp60[0x28];
+
+    func_803465F0();
+    func_803232F0();
+    func_8034CD60();
+    func_802D22B0();
+    func_802CAD00();
+    func_80316DC0();
+    func_80344290();
+    func_803097E0();
+    func_802D2850();
+    func_80337DB8();
+    func_802E37B0();
+    func_802EB3E0();
+    func_8032FAB0();
+    func_802FAF80();
+    func_80335B94();
+    func_802E79D8();
+    func_802EB0BC();
+    func_80315474();
+    func_8034C224();
+    func_80315550();
+    func_802F1FA0();
+    func_802D20F0();
+    func_80320810();
+    func_8034C848();
+
+    for (classIdx = 0; classIdx < MAX_CLASSES; classIdx++) {
+        for (testIdx = 0; testIdx < MAX_TESTS; testIdx++) {
+            for (vehIdx = 0; vehIdx < MAX_VEHICLES; vehIdx++) {
+                D_803798E0[classIdx][testIdx][vehIdx].unk8 = 0xFF;
+                D_803798E0[classIdx][testIdx][vehIdx].unk0 = 0;
+                D_803798E0[classIdx][testIdx][vehIdx].unk4 = 0;
+            }
+        }
+    }
+
+    for (i = 0; i < 0x3D; i++) {
+        temp_v0 = func_80345CE4(i);
+        classIdx = temp_v0->comm.classNum;
+        testIdx = temp_v0->comm.testNum;
+        vehIdx = temp_v0->comm.vehNum;
+        _uvMediaCopy(sp88, (void*)temp_v0->dataNAME, 0x28);
+        if (classIdx >= MAX_CLASSES) {
+            _uvDebugPrintf("\ntask : level index out of range - current limit %d\n", MAX_CLASSES - 1);
+        }
+        if (testIdx >= MAX_TESTS) {
+            _uvDebugPrintf("\ntask : stage index out of range - current limit %d\n", MAX_TESTS - 1);
+        }
+        if (vehIdx >= MAX_VEHICLES) {
+            _uvDebugPrintf("\ntask : vehicle index out of range - current limit %d\n", MAX_VEHICLES - 1);
+        }
+        temp_s0_2 = &D_803798E0[classIdx][testIdx][vehIdx];
+        if (temp_s0_2->unk8 != 0xFF) {
+            _uvMediaCopy(sp60, (void*)temp_s0_2->unk0, 0x28);
+            _uvDebugPrintf("task : oops! redefining [%s] idx:%d veh:%d stage:%d lev:%d -> [%s]\n", sp60, temp_s0_2->unk8, vehIdx, (s32)testIdx, (s32)classIdx,
+                           sp88);
+        }
+        temp_s0_2->unk8 = i;
+        temp_s0_2->unk0 = temp_v0->dataNAME;
+        temp_s0_2->unk4 = temp_v0->dataJPTX;
+        if ((vehIdx == 6) && (testIdx == 0)) {
+            _uvMediaCopy(&D_8037AA88[classIdx], (void*)temp_v0->dataTPAD, 0x30);
+        }
+    }
+}
 
 s32 func_80344CD0(s32 classIdx, s32 testIdx, s32 vehicle) {
     if (D_803798E0[classIdx][testIdx][vehicle].unk8 == 0xFF) {
