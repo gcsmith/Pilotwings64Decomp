@@ -521,7 +521,7 @@ segments:
       - [0xD7D20, data]
       - [0xD7E10, data]
       - [0xD7EF0, data]
-      - [0xD7F20, .rodata, app/code_51E30]
+      - [0xD7F40, .rodata, app/code_51E30]
       - [0xD7F60, .rodata, app/code_52230]
       - [0xD8340, .rodata, app/code_556C0]
       - [0xD83B0, .rodata, app/code_560D0]
