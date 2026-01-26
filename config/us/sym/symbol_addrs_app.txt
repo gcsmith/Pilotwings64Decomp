@@ -67,4 +67,20 @@ levelDataGetHOPD    = 0x80346474; // type:func
 
 // not sure why this symbol doesn't get migrated...
 D_80353578 = 0x80353578; // type:f64 force_migration:True
+D_80355000 = 0x80355000; // type:f32 force_migration:True
+D_80355008 = 0x80355008; // type:f32 force_migration:True
+D_8035500C = 0x8035500C; // type:f32 force_migration:True
+D_80355010 = 0x80355010; // type:f32 force_migration:True
+D_80355014 = 0x80355014; // type:f32 force_migration:True
+D_80355018 = 0x80355018; // type:f32 force_migration:True
+D_8035501C = 0x8035501C; // type:f32 force_migration:True
+D_80355020 = 0x80355020; // type:f32 force_migration:True
+D_80355024 = 0x80355024; // type:f32 force_migration:True
+D_80355028 = 0x80355028; // type:f32 force_migration:True
+D_8035502C = 0x8035502C; // type:f32 force_migration:True
+D_80355030 = 0x80355030; // type:f32 force_migration:True
+D_80355034 = 0x80355034; // type:f32 force_migration:True
+D_80355038 = 0x80355038; // type:f32 force_migration:True
+D_8035503C = 0x8035503C; // type:f32 force_migration:True
+D_80355040 = 0x80355040; // type:f32 force_migration:True
 
