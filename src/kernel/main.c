@@ -129,7 +129,7 @@ s32 uvFileWrite(u8* dst, s32 offs, s32 nbytes) {
     return nbytes;
 }
 
-s32 uvFileRead(u8* dst, s32 offs, s32 nbytes) {
+s32 uvFileRead(void* dst, s32 offs, s32 nbytes) {
     if (gEepromFound == 0) {
         _uvDebugPrintf("uvFileRead: no eeprom detected\n");
         return 0;

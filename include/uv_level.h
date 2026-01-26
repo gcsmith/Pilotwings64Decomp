@@ -35,6 +35,8 @@ typedef struct {
     s32 unk98;
     s32 unk9C;
     u8 unkA0;
+    u8 padA1[7];
+    s32 unkA8;
 } Unk80362690;
 
 typedef struct {
@@ -81,6 +83,8 @@ typedef struct {
     void* dataAPTS;
     void* dataBNUS;
 } LevelObjects;
+
+extern Unk80362690* D_80362690;
 
 void func_8030B6C0(u8 arg0, u8 arg1, u8 arg2, s32 arg3);
 void func_8030B868(void);

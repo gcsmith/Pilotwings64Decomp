@@ -62,8 +62,6 @@ extern LevelObjects* D_8034F408;
 extern s32 D_8034F40C;
 extern Unk8034F410 D_8034F410[];
 
-extern Unk80362690* D_80362690;
-
 // likely arrays of structs for level data
 extern s32 gLevelWOBJ;
 extern s32 gLevelLPAD;

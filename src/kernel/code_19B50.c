@@ -20,6 +20,14 @@ typedef struct {
                       // (0xC0 allocated)
 } ParsedUVFT;
 
+extern u8 D_80248E64;
+extern u8 D_80248E68;
+extern u8 D_80248E6C;
+extern u8 D_80248E70;
+
+extern f32 D_80248E7C;
+extern f32 D_80248E80;
+
 extern u32 D_802B69E4;
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/func_80218BA0.s")
@@ -84,9 +92,17 @@ ParsedUVFT* uvParseTopUVFT(s32 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/uvFontSet.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/func_80219550.s")
+void func_80219550(f64 arg0, f64 arg1) {
+    D_80248E7C = (f32)arg0;
+    D_80248E80 = (f32)arg1;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/func_8021956C.s")
+void func_8021956C(u8 arg0, u8 arg1, u8 arg2, u8 arg3) {
+    D_80248E64 = arg0;
+    D_80248E68 = arg1;
+    D_80248E6C = arg2;
+    D_80248E70 = arg3;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/func_802195A0.s")
 

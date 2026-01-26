@@ -147,7 +147,6 @@ extern u8 D_8034E9E4;
 extern f32 D_8034F854;
 extern Unk803599D0 D_803599D0;
 extern f32 D_80359A24;
-extern Unk80362690* D_80362690;
 
 void uvMat4UnkOp4(Mtx4F_t, Mtx4F_t);
 f32 Length3D(f32, f32, f32);

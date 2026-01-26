@@ -1,11 +1,6 @@
 #include <uv_graphics.h>
 #include <uv_memory.h>
 
-typedef struct UnkStruct_gfx_8b {
-    s32 unk0;
-    s32 unk4;
-} UnkStruct_gfx_8b_t;
-
 typedef struct {
     s32 unk0;
     s16 unk4;
@@ -17,12 +12,18 @@ typedef struct {
 extern s32 D_80249230;
 extern f32 D_8024921C;
 extern s32 D_802491E8;
-extern UnkStruct_gfx_8b_t* D_80298AB0;
+extern Gfx* D_80298AB0;
 
 extern u16 D_8024920C;
 extern s16 D_80249218;
 extern u8 D_802A9988[0xAF00];
 extern u8* D_80299270[2];
+
+extern void* D_802491F0;
+extern s16 D_802A9980;
+extern s16 D_802A9982;
+extern s16 D_802A9984;
+extern s16 D_802A9986;
 
 extern s32 gGfxStateStackData;
 extern u32 gGfxStateStack[];
@@ -40,12 +41,8 @@ extern u8 gGfxStateStackIdx;
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_80220FF8.s")
 
-void func_802210C4(s32 arg0) {
-    UnkStruct_gfx_8b_t* temp_v1;
-
-    temp_v1 = D_80298AB0++;
-    temp_v1->unk4 = arg0;
-    temp_v1->unk0 = 0x06000000;
+void func_802210C4(s32 dl) {
+    gSPDisplayList(D_80298AB0++, dl);
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_802210E8.s")
@@ -66,7 +63,15 @@ void func_80222170(s32 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/uvGfxEnd.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_802228F0.s")
+void func_802228F0(u8 r, u8 g, u8 b, u8 a) {
+    gDPPipeSync(D_80298AB0++);
+    gDPSetCycleType(D_80298AB0++, G_CYC_FILL);
+    gDPSetColorImage(D_80298AB0++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_802491F0));
+    gDPSetFillColor(D_80298AB0++, GPACK_RGBA5551(r, g, b, a) << 16 | GPACK_RGBA5551(r, g, b, a));
+    gDPFillRectangle(D_80298AB0++, D_802A9980, (0xF0 - D_802A9986), (D_802A9982 - 1), (0xEF - D_802A9984));
+    gDPPipeSync(D_80298AB0++);
+    gDPSetCycleType(D_80298AB0++, G_CYC_2CYCLE);
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_80222A98.s")
 
@@ -105,11 +110,7 @@ void func_80223408(f32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_802235A4.s")
 
 void func_802236A8(void) {
-    UnkStruct_gfx_8b_t* temp_v1;
-
-    temp_v1 = D_80298AB0++;
-    temp_v1->unk4 = 0;
-    temp_v1->unk0 = 0xBD000000;
+    gSPPopMatrix(D_80298AB0++, 0);
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/func_802236CC.s")
