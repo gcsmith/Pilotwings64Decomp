@@ -17,6 +17,11 @@ typedef union {
     };
 } MtxF;
 
+void _uvDbMstackReset(void);
+Mtx4F_t* _uvDbMstackTop(void);
+void _uvDbMstackPush(Mtx4F_t mat);
+void _uvDbMstackPop(void);
+
 void uvMat4Copy(Mtx4F_t m_dst, Mtx4F_t m_src);
 void uvMat4CopyXYZ(Mtx4F_t m_dst, Mtx4F_t m_src);
 void uvMat4Init(Mtx *mat, Mtx init);

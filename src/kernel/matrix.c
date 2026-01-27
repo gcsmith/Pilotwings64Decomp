@@ -1,12 +1,36 @@
 #include <uv_matrix.h>
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/matrix/_uvDbMstackReset.s")
+extern s32 gMatrixStackIdx;
+extern Mtx4F_t gMatrixStack[];
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/matrix/_uvDbMstackTop.s")
+void _uvDbMstackReset(void) {
+    gMatrixStackIdx = -1;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/matrix/_uvDbMstackPush.s")
+Mtx4F_t* _uvDbMstackTop(void) {
+    return &gMatrixStack[gMatrixStackIdx];
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/matrix/_uvDbMstackPop.s")
+void _uvDbMstackPush(Mtx4F_t mat) {
+    gMatrixStackIdx = gMatrixStackIdx + 1;
+    if (gMatrixStackIdx >= 0x64) {
+        _uvDebugPrintf("_uvDbMstackPush: stack full\n");
+        return;
+    }
+    if (gMatrixStackIdx == 0) {
+        uvMat4Copy(gMatrixStack[gMatrixStackIdx], mat);
+        return;
+    }
+    uvMat4MulBA(gMatrixStack[gMatrixStackIdx], gMatrixStack[gMatrixStackIdx - 1], mat);
+}
+
+void _uvDbMstackPop(void) {
+    if (gMatrixStackIdx < 0) {
+        _uvDebugPrintf("_uvDbMstackPop: stack empty\n");
+        return;
+    }
+    gMatrixStackIdx -= 1;
+}
 
 void uvMat4Copy(Mtx4F_t m_dst, Mtx4F_t m_src) {
     m_dst[0][0] = m_src[0][0];

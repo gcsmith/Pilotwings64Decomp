@@ -11,6 +11,9 @@ aspMainTextStart = 0x80246A30; //name_end:aspMainTextEnd
 
 // data
 
+gMatrixStackIdx     = 0x8024B250;
+gMatrixStack        = 0x802B81E0;
+
 gRandLcgState       = 0x8024B2C0;
 gRanluxState1       = 0x8024B2C4;
 gRanluxState2       = 0x8024B2C8;
