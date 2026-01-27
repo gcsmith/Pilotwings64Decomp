@@ -4,9 +4,13 @@
 #include "uv_memory.h"
 #include "uv_util.h"
 
-typedef struct {
-    u8 magic[2];
-    u8 unk02[0xFE];
+typedef union {
+    struct {
+        u8 magic[2];
+        u8 unk02[0xFD];
+        u8 checksum;
+    };
+    u8 raw[0x100];
 } PilotwingsSaveFile;
 
 typedef struct {
@@ -78,7 +82,24 @@ void func_802E81BC(char* arg0) {
     }
 }
 
+#ifndef NON_MATCHING
 #pragma GLOBAL_ASM("asm/nonmatchings/app/save/func_802E8294.s")
+#else
+s32 func_802E8294(s32 arg0) {
+    uvMemSet(D_803620E0[arg0].raw, 0, sizeof(PilotwingsSaveFile));
+
+    /* i don't even know. this *should* be something more like:
+    D_803620E0[arg0].magic[0] = 'p';
+    D_803620E0[arg0].magic[1] = 'w';
+    */
+
+    D_803620E0[0].raw[arg0 * sizeof(PilotwingsSaveFile) + 0] = 'p';
+    D_803620E0[0].raw[arg0 * sizeof(PilotwingsSaveFile) + 1] = 'w';
+
+    // cast sizeof to int/u16 to match?
+    return uvFileWrite(D_803620E0[arg0].raw, arg0 * (int)sizeof(PilotwingsSaveFile), sizeof(PilotwingsSaveFile)) != sizeof(PilotwingsSaveFile);
+}
+#endif
 
 void func_802E8304(void) {
     if (uvFileRead(D_803620E0, 0, sizeof(D_803620E0)) != sizeof(D_803620E0)) {

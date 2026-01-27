@@ -75,6 +75,7 @@ void *_uvMemGetScratch(u32 size);
 void uvLevelInit(void);
 s32 _uvMemAllocAlign8(u32 size);
 
+s32 uvFileWrite(u8* dst, s32 offs, s32 nbytes);
 s32 uvFileRead(void* dst, s32 offs, s32 nbytes);
 
 #endif // PILOTWINGS64_UV_MEMORY

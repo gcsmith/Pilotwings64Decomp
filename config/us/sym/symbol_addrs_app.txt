@@ -65,6 +65,10 @@ levelDataGetPHTS    = 0x80345C3C; // type:func
 levelDataGetFALC    = 0x80345C5C; // type:func
 levelDataGetHOPD    = 0x80346474; // type:func
 
+mem_get             = 0x80312740; // type:func
+mem_init            = 0x803127BC; // type:func
+mem_remaining       = 0x803127F0; // type:func
+
 D_8035145C = 0x8035145C; // type:f32 force_migration:True
 D_80351464 = 0x80351464; // type:f32 force_migration:True
 D_80351468 = 0x80351468; // type:f32 force_migration:True

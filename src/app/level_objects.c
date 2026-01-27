@@ -4,6 +4,7 @@
 #include <uv_math.h>
 #include <uv_matrix.h>
 #include <uv_memory.h>
+#include "mem.h"
 
 typedef struct {
     s32 unk0[12];
@@ -146,8 +147,6 @@ void func_80309868(void);
 void func_80309A64(void);
 void func_80309D64(Unk80345464_Arg0*);
 void func_80309FFC(void);
-void* func_80312740(s32);
-void func_803127BC(void);
 void func_80315474(void);
 void func_80315550(void);
 void func_80316DC0(void);
@@ -731,23 +730,23 @@ Unk8037A600* func_80345CE4(u32 arg0) {
             break;
         case 'COMM': // 0x434F4D4D
             _uvMediaCopy(&dst->comm, sp24, sizeof(dst->comm));
-            func_803127BC();
-            dst->dataTPAD = func_80312740(dst->comm.countTPAD * 0x30);
-            dst->dataLPAD = func_80312740(dst->comm.countLPAD * 0x30);
-            dst->dataLSTP = func_80312740(dst->comm.countLSTP * 0x24);
-            dst->dataLWIN = func_80312740(dst->comm.countLWIN * 0x54);
-            dst->dataRNGS = func_80312740(dst->comm.countRNGS * 0x84);
-            dst->dataTHER = func_80312740(dst->comm.countTHER * 0x28);
-            dst->dataBALS = func_80312740(dst->comm.countBALS * 0x68);
-            dst->dataTARG = func_80312740(dst->comm.countTARG * 0x20);
-            dst->dataHPAD = func_80312740(dst->comm.countHPAD * 0x40);
-            dst->dataBTGT = func_80312740(dst->comm.countBTGT * 0x1C);
-            dst->dataPHTS = func_80312740(dst->comm.countPHTS * 0x14);
-            dst->dataFALC = func_80312740(dst->comm.countFALC * 0xAC);
-            dst->dataCNTG = func_80312740(dst->comm.countCNTG * 0x1C);
-            dst->dataSDFM = func_80312740(dst->comm.countSDFM * 0x4C);
-            dst->dataHOPD = func_80312740(dst->comm.countHOPD * 0x20);
-            dst->dataOBSV = (LevelOBSV*)func_80312740(dst->comm.countOBSV * sizeof(LevelOBSV));
+            mem_init();
+            dst->dataTPAD = mem_get(dst->comm.countTPAD * 0x30);
+            dst->dataLPAD = mem_get(dst->comm.countLPAD * 0x30);
+            dst->dataLSTP = mem_get(dst->comm.countLSTP * 0x24);
+            dst->dataLWIN = mem_get(dst->comm.countLWIN * 0x54);
+            dst->dataRNGS = mem_get(dst->comm.countRNGS * 0x84);
+            dst->dataTHER = mem_get(dst->comm.countTHER * 0x28);
+            dst->dataBALS = mem_get(dst->comm.countBALS * 0x68);
+            dst->dataTARG = mem_get(dst->comm.countTARG * 0x20);
+            dst->dataHPAD = mem_get(dst->comm.countHPAD * 0x40);
+            dst->dataBTGT = mem_get(dst->comm.countBTGT * 0x1C);
+            dst->dataPHTS = mem_get(dst->comm.countPHTS * 0x14);
+            dst->dataFALC = mem_get(dst->comm.countFALC * 0xAC);
+            dst->dataCNTG = mem_get(dst->comm.countCNTG * 0x1C);
+            dst->dataSDFM = mem_get(dst->comm.countSDFM * 0x4C);
+            dst->dataHOPD = mem_get(dst->comm.countHOPD * 0x20);
+            dst->dataOBSV = (LevelOBSV*)mem_get(dst->comm.countOBSV * sizeof(LevelOBSV));
             break;
         case 'THER': // 0x54484552
             _uvMediaCopy(dst->dataTHER, sp24, sp2C);

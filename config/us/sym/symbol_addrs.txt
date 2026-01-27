@@ -82,3 +82,6 @@ gLevelTestU8        = 0x80350798;
 gLevelClass         = 0x8037AA78;
 gLevelTest          = 0x8037AA7C;
 gLevelVehicle       = 0x8037AA80;
+
+gLevelObjHeapPtr    = 0x8034F840;
+gLevelObjHeap       = 0x8036AA60; // size:5000
