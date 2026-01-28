@@ -17,7 +17,8 @@ typedef struct {
     u16 unk4;
     u16 unk6;
     u16 unk8;
-    u8 unkA[0x4];
+    u8 debugFlag;
+    u8 unkB[0x3];
     u16 unkE;
     s32 unk10;
     u16 unk14;

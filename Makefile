@@ -98,6 +98,8 @@ CRC := $(TOOLS_DIR)/n64crc
 OPT_FLAGS      = -O2
 LOOP_UNROLL    =
 
+ASM_PROC_FLAGS = $(OPT_FLAGS)
+
 MIPSISET       = -mips2 -32
 
 INCLUDE_CFLAGS = -I. -Iinclude -Isrc -I$(TOOLS_DIR)/ultralib/include/compiler/ido -I$(TOOLS_DIR)/ultralib/include
@@ -146,6 +148,12 @@ $(BUILD_DIR)/src/libultra/gu/%.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/src/libultra/gu/lookathil.o: OPT_FLAGS := -O2
 $(BUILD_DIR)/src/libultra/os/osVirtualtoPhysical.o: OPT_FLAGS := -O1
 $(BUILD_DIR)/src/libultra/io/%.o: OPT_FLAGS := -O1
+
+# ideally want: -mips1 -O1 -g
+# asm_processor does not support -mips1 -g
+#$(BUILD_DIR)/src/kernel/code_32A70.o: ASM_PROC_FLAGS := -mips1 -g
+#$(BUILD_DIR)/src/kernel/code_32A70.o: OPT_FLAGS := -O1 -g
+#$(BUILD_DIR)/src/kernel/code_32A70.o: MIPSISET := -mips1 -32
 
 # ------------------------------------------------------------------------------
 # Targets
@@ -204,9 +212,9 @@ $(GLOBAL_ASM_O_FILES): $(BUILD_DIR)/%.o: %.c
 	@printf "[$(YELLOW) syntax $(NO_COL)]  $<\n"
 	$(V)$(CC_CHECK) -MMD -MP -MT $@ -MF $(BUILD_DIR)/$*.d $<
 	@printf "[$(GREEN) ido5.3 $(NO_COL)]  $<\n"
-	$(V)$(ASM_PROCESSOR) $(OPT_FLAGS) $< > $(BUILD_DIR)/$<
+	$(V)$(ASM_PROCESSOR) $(ASM_PROC_FLAGS) $< > $(BUILD_DIR)/$<
 	$(V)$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $(BUILD_DIR)/$<
-	$(V)$(ASM_PROCESSOR) $(OPT_FLAGS) $< --post-process $@ \
+	$(V)$(ASM_PROCESSOR) $(ASM_PROC_FLAGS) $< --post-process $@ \
 		--assembler "$(AS) $(ASFLAGS)" --asm-prelude $(ASM_PROCESSOR_DIR)/prelude.inc
 endif
 

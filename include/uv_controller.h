@@ -1,6 +1,7 @@
 #ifndef UV_CONTROLLER_H
 #define UV_CONTROLLER_H
 
+#include <PR/os_cont.h>
 #include <PR/ultratypes.h>
 
 typedef struct {
