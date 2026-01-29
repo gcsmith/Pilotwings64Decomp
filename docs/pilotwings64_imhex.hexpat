@@ -96,11 +96,23 @@ fn format_Vec3F(Vec3F v) {
 
 struct Vec4F {
     f32 x, y, z, w;
-} [[static]]; // size = 0x10
+} [[static, format("format_Vec4F")]]; // size = 0x10
+
+fn format_Vec4F(Vec4F v) {
+    return std::format("[ {}, {}, {}, {} ]", v.x, v.y, v.z, v.w);
+};
 
 struct Mtx4F {
     f32 m[16];
-} [[static]]; // size = 0x40
+} [[static, format("format_Mtx4F")]]; // size = 0x40
+
+fn format_Mtx4F(Mtx4F m) {
+    return std::format("| {}, {}, {}, {} |\n| {}, {}, {}, {} |\n| {}, {}, {}, {} |\n| {}, {}, {}, {} |",
+        m.m[0], m.m[1], m.m[2], m.m[3],
+        m.m[4], m.m[5], m.m[6], m.m[7],
+        m.m[8], m.m[9], m.m[10], m.m[11],
+        m.m[12], m.m[13], m.m[14], m.m[15]);
+};
 
 // --- UV kernel types
 struct UVSY {
@@ -443,7 +455,7 @@ struct LevelESND {
     Mtx4F unk0;
     Vec3F unk40;
     Vec3F unk4C;
-    s8 unk58;
+    u8 sndId;
     u8 pad59[3];
     f32 unk5C;
     f32 unk60;
@@ -916,6 +928,7 @@ struct FORM {
 N64Header N64Header @ 0x00;
 
 // --------- Filesystem
+FORM uvrm @ 0xDE720;
 FORM uvsy @ 0xDF5B0;
 FORM uven @ 0xDF5F8;
 // ignore UVLT @ 0xDFD70 because it is empty
@@ -929,7 +942,7 @@ FORM uvtx[463] @ 0x240100;
 FORM uvan[115] @ 0x3085DC;
 FORM uvft[9] @ 0x32C3F8;
 FORM upwl[4] @ 0x33020C;
-FORM spth0 @ 0x342B7C;
+FORM spth0[1] @ 0x342B7C;
 FORM upwt[61] @ 0x342E2C;
 FORM adat0 @ 0x35C08C;
 FORM spth1[5] @ 0x36E214;
