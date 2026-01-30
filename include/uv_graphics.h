@@ -2,6 +2,7 @@
 #define PILOTWINGS64_UV_GRAPHICS
 
 #include <PR/ultratypes.h>
+#include <PR/gbi.h>
 #include <uv_util.h>
 #include <uv_matrix.h>
 
@@ -25,8 +26,10 @@ void func_80223B80(void);
 void func_80223F30(s32 arg0);
 u32 func_80223F7C(s32 idx, u32* sizeOut, void** arg2, s32 arg3);
 void func_80230954(void);
+void func_802210C4(Gfx* dl);
 void func_80221A78(Mtx4F*);
 void func_80222100(Mtx4F*);
+void func_8022345C(Mtx4F*, s32);
 void func_802236A8(void);
 void uvGfxSetFlags(s32 flags);
 void uvGfxClearFlags(s32 flags);
@@ -42,4 +45,3 @@ void uvGfxMstackPush(Mtx src);
 Mtx* uvGfxMstackTop(void);
 
 #endif // PILOTWINGS64_UV_GRAPHICS
-

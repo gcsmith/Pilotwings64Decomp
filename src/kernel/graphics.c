@@ -94,7 +94,7 @@ void uvGfxPushMtxProj(Mtx arg0) {
     D_80298AD0[gGfxFbIndex]++;
 }
 
-void func_802210C4(s32 dl) {
+void func_802210C4(Gfx* dl) {
     gSPDisplayList(gGfxDisplayListHead++, dl);
 }
 

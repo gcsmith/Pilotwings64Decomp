@@ -148,12 +148,8 @@ $(BUILD_DIR)/src/libultra/gu/%.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/src/libultra/gu/lookathil.o: OPT_FLAGS := -O2
 $(BUILD_DIR)/src/libultra/os/osVirtualtoPhysical.o: OPT_FLAGS := -O1
 $(BUILD_DIR)/src/libultra/io/%.o: OPT_FLAGS := -O1
-
-# ideally want: -mips1 -O1 -g
-# asm_processor does not support -mips1 -g
-#$(BUILD_DIR)/src/kernel/code_32A70.o: ASM_PROC_FLAGS := -mips1 -g
-#$(BUILD_DIR)/src/kernel/code_32A70.o: OPT_FLAGS := -O1 -g
-#$(BUILD_DIR)/src/kernel/code_32A70.o: MIPSISET := -mips1 -32
+$(BUILD_DIR)/src/kernel/debug.o: OPT_FLAGS := -O1 -g
+$(BUILD_DIR)/src/kernel/debug.o: MIPSISET := -mips1 -32
 
 # ------------------------------------------------------------------------------
 # Targets
