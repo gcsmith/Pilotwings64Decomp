@@ -29,4 +29,4 @@ KeepEmptyLines:
   AtStartOfFile: false
 MaxEmptyLinesToKeep: 1
 SpaceInEmptyBlock: true
-
+AlignArrayOfStructures: Right
