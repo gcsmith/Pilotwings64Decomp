@@ -213,9 +213,10 @@ void uvGfx_80222D78(s32 arg0, s32 arg1) {
 
 void uvGfx_80222E90(s32 arg0) {
     if (arg0 != 0) {
-        gSPSetGeometryMode(gGfxDisplayListHead++, G_LIGHTING) return;
+        gSPSetGeometryMode(gGfxDisplayListHead++, G_LIGHTING);
+    } else {
+        gSPClearGeometryMode(gGfxDisplayListHead++, G_LIGHTING);
     }
-    gSPClearGeometryMode(gGfxDisplayListHead++, G_LIGHTING);
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/uvGfxClipViewport.s")
@@ -356,17 +357,34 @@ void uvGfx_80223B80(void) {
 void uvGfx_80223BB8(s32 arg0) {
     D_802491EC = arg0;
     if (arg0 != 0) {
-        osViSetSpecialFeatures(1U);
-        return;
+        osViSetSpecialFeatures(OS_VI_GAMMA_ON);
+    } else {
+        osViSetSpecialFeatures(OS_VI_GAMMA_OFF);
     }
-    osViSetSpecialFeatures(2U);
 }
 
 void uvGfx_80223BF4(s32 arg0) {
     D_802491E8 = arg0;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/uvGfx_80223C00.s")
+void uvGfx_80223C00(void) {
+    gDPPipeSync(gGfxDisplayListHead++);
+    gDPSetRenderMode(gGfxDisplayListHead++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
+    gDPPipeSync(gGfxDisplayListHead++);
+    gDPSetCycleType(gGfxDisplayListHead++, G_CYC_FILL);
+    gDPPipeSync(gGfxDisplayListHead++);
+    gDPSetFillColor(gGfxDisplayListHead++, 0x00000000);
+    gDPPipeSync(gGfxDisplayListHead++);
+    gDPSetColorImage(gGfxDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80299278));
+    gDPPipeSync(gGfxDisplayListHead++);
+    gDPFillRectangle(gGfxDisplayListHead++, 2, 120, 310, 235);
+    gDPPipeSync(gGfxDisplayListHead++);
+    gDPPipeSync(gGfxDisplayListHead++);
+    gDPSetCycleType(gGfxDisplayListHead++, G_CYC_2CYCLE);
+    gDPPipeSync(gGfxDisplayListHead++);
+    gDPSetColorImage(gGfxDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gGfxFbCurrPtr));
+    gDPPipeSync(gGfxDisplayListHead++);
+}
 
 void uvCopyFrameBuf(s32 fb_id) {
     u8* src;
