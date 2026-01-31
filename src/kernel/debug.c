@@ -30,181 +30,169 @@ extern s16 D_802C802C;
 extern s16 D_802C802E;
 extern s32 D_802C8030;
 
-extern u16 D_8024B2D0[]; // 50 chars supported ['*'-'Z'], u16 per char
-extern u8 D_8024B334[];  // 50 chars supported, u8 per char
+// 50 chars supported ['*'-'Z'], u16 per char
+static u16 D_8024B2D0[] = {
+    0x0FC0, 0x0840, 0x0000, 0x0040, 0x2000, 0x0500, 0x003F, 0x0006, 0x006D, 0x004F, 0x0056, 0x005B, 0x007B, 0x000E, 0x007F, 0x005F, 0x3000,
+    0x0000, 0x0600, 0x0041, 0x0180, 0x0000, 0x0000, 0x007E, 0x047B, 0x0039, 0x01B0, 0x0079, 0x0078, 0x0239, 0x0076, 0x0809, 0x0027, 0x0E00,
+    0x0031, 0x04B6, 0x02B6, 0x003F, 0x007C, 0x023F, 0x027C, 0x005B, 0x0808, 0x0037, 0x0286, 0x0336, 0x0780, 0x0580, 0x0509, 0x0000,
+};
 
-extern Vtx_t D_8024B348[];
+static u8 D_8024B334[] = {
+    0x3F, 0x06, 0x6D, 0x4F, 0x56, 0x5B, 0x7B, 0x0E, 0x7F, 0x5F, 0x7E, 0x73, 0x39, 0x67, 0x79, 0x78, 0x00, 0x00, 0x00, 0x00,
+};
 
-extern Gfx D_8024B5A8[];
-/* .data contents:
-{
-    gsSPVertex(D_8024B348, 14, 0),
+static Vtx_t D_8024B348[] = {
+    {   { 2, 2, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {   { 8, 2, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {   { 8, 6, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {   { 8, 8, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {  { 8, 12, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {  { 2, 12, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {   { 2, 8, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {   { 2, 6, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {  { 10, 7, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {   { 0, 7, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {   { 0, 0, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {  { 10, 0, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    { { 10, 14, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {  { 0, 14, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+};
+
+static Vtx_t D_8024B428[] = {
+    {  { 0, 13, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {   { 0, 1, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {   { 1, 0, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {   { 9, 0, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {  { 10, 1, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    { { 10, 13, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {  { 9, 14, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {  { 1, 14, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {   { 4, 7, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {   { 5, 6, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {   { 6, 7, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {   { 5, 8, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {   { 4, 0, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {   { 6, 0, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {  { 4, 14, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+};
+
+static Vtx_t D_8024B518[] = {
+    { { 6, 14, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+};
+
+static Vtx_t D_8024B528[] = {
+    { { 4, 12, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    { { 6, 12, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    { { 6, 10, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    { { 4, 10, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {  { 4, 2, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {  { 6, 2, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {  { 4, 4, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+    {  { 6, 4, 0 }, 0, { 0, 0 }, { 0x00, 0xFF, 0x00, 0xFF } },
+};
+
+static Gfx D_8024B5A8[] = {
+    gsSPVertex(D_8024B348, ARRAY_COUNT(D_8024B348), 0),
     gsSPEndDisplayList(),
 };
-*/
-extern Gfx D_8024B5B8[];
-/* .data contents:
-{
-    gsSPVertex(D_8024B428, 15, 0),
-    gsSPVertex(D_8024B518, 1, 15),
-    gsSPEndDisplayList(),
-};
-*/
-extern Gfx D_8024B5D0[];
-/* .data contents:
-{
-    gsSPVertex(D_8024B528, 8, 0),
-    gsSPEndDisplayList(),
-};
-*/
 
-extern Gfx D_8024B5E0[];
-/* .data contents:
-{
+static Gfx D_8024B5B8[] = {
+    gsSPVertex(D_8024B428, ARRAY_COUNT(D_8024B428), 0),
+    gsSPVertex(D_8024B518, ARRAY_COUNT(D_8024B518), 15),
+    gsSPEndDisplayList(),
+};
+
+static Gfx D_8024B5D0[] = {
+    gsSPVertex(D_8024B528, ARRAY_COUNT(D_8024B528), 0),
+    gsSPEndDisplayList(),
+};
+
+static Gfx D_8024B5E0[] = {
     gsSP1Triangle(10, 11, 1, 0),
     gsSP1Triangle(10, 1, 0, 0),
     gsSPEndDisplayList(),
 };
-*/
 
-extern Gfx D_8024B5F8[];
-/* .data contents:
-{
+static Gfx D_8024B5F8[] = {
     gsSP1Triangle(11, 8, 2, 0),
     gsSP1Triangle(11, 2, 1, 0),
     gsSPEndDisplayList(),
 };
-*/
 
-extern Gfx D_8024B610[];
-/* .data contents:
-{
+static Gfx D_8024B610[] = {
     gsSP1Triangle(8, 12, 4, 0),
     gsSP1Triangle(8, 4, 3, 0),
     gsSPEndDisplayList(),
 };
-*/
 
-extern Gfx D_8024B628[];
-/* .data contents:
-{
+static Gfx D_8024B628[] = {
     gsSP1Triangle(12, 13, 5, 0),
     gsSP1Triangle(12, 5, 4, 0),
     gsSPEndDisplayList(),
 };
-*/
 
-extern Gfx D_8024B640[];
-/* .data contents:
-{
+static Gfx D_8024B640[] = {
     gsSP1Triangle(13, 9, 6, 0),
     gsSP1Triangle(13, 6, 5, 0),
     gsSPEndDisplayList(),
 };
-*/
 
-extern Gfx D_8024B658[];
-/* .data contents:
-{
+static Gfx D_8024B658[] = {
     gsSP1Triangle(9, 10, 0, 0),
     gsSP1Triangle(9, 0, 7, 0),
     gsSPEndDisplayList(),
 };
-*/
 
-extern Gfx D_8024B670[];
-/* .data contents:
-{
-    gsSP1Triangle(6, 9, 7, 0),
-    gsSP1Triangle(2, 6, 7, 0),
-    gsSP1Triangle(2, 3, 6, 0),
-    gsSP1Triangle(2, 8, 3, 0),
-    gsSPEndDisplayList(),
+static Gfx D_8024B670[] = {
+    gsSP1Triangle(6, 9, 7, 0), gsSP1Triangle(2, 6, 7, 0), gsSP1Triangle(2, 3, 6, 0), gsSP1Triangle(2, 8, 3, 0), gsSPEndDisplayList(),
 };
-*/
 
-extern Gfx D_8024B698[];
-/* .data contents:
-{
+static Gfx D_8024B698[] = {
     gsSP1Triangle(0, 9, 11, 0),
     gsSP1Triangle(0, 11, 7, 0),
     gsSPEndDisplayList(),
 };
-*/
 
-extern Gfx D_8024B6B0[];
-/* .data contents:
-{
+static Gfx D_8024B6B0[] = {
     gsSP1Triangle(2, 9, 11, 0),
     gsSP1Triangle(2, 11, 1, 0),
     gsSPEndDisplayList(),
 };
-*/
 
-extern Gfx D_8024B6C8[];
-/* .data contents:
-{
+static Gfx D_8024B6C8[] = {
     gsSP1Triangle(4, 11, 9, 0),
     gsSP1Triangle(4, 9, 3, 0),
     gsSPEndDisplayList(),
 };
-*/
 
-extern Gfx D_8024B6E0[];
-/* .data contents:
-{
+static Gfx D_8024B6E0[] = {
     gsSP1Triangle(6, 11, 9, 0),
     gsSP1Triangle(6, 9, 5, 0),
     gsSPEndDisplayList(),
 };
-*/
 
-extern Gfx D_8024B6F8[];
-/* .data contents:
-{
+static Gfx D_8024B6F8[] = {
     gsSP1Triangle(12, 13, 15, 0),
     gsSP1Triangle(12, 15, 14, 0),
     gsSPEndDisplayList(),
 };
-*/
 
-extern Gfx D_8024B710[];
-/* .data contents:
-{
+static Gfx D_8024B710[] = {
     gsSP1Triangle(0, 2, 1, 0),
     gsSP1Triangle(0, 3, 2, 0),
     gsSPEndDisplayList(),
 };
-*/
 
-extern Gfx D_8024B728[];
-/* .data contents:
-{
+static Gfx D_8024B728[] = {
     gsSP1Triangle(4, 5, 7, 0),
     gsSP1Triangle(4, 7, 6, 0),
     gsSPEndDisplayList(),
 };
-*/
 
-extern Gfx* D_8024B740[];
-/* array of 14 DL pointers, used by the for loops in func_80233DB8
-{
-    D_8024B5E0,
-    D_8024B5F8,
-    D_8024B610,
-    D_8024B628,
-    D_8024B640,
-    D_8024B658,
-    D_8024B670,
-    D_8024B698,
-    D_8024B6B0,
-    D_8024B6C8,
-    D_8024B6E0,
-    D_8024B6F8,
-    D_8024B710,
-    D_8024B728,
+static Gfx* D_8024B740[] = {
+    D_8024B5E0, D_8024B5F8, D_8024B610, D_8024B628, D_8024B640, D_8024B658, D_8024B670,
+    D_8024B698, D_8024B6B0, D_8024B6C8, D_8024B6E0, D_8024B6F8, D_8024B710, D_8024B728,
 };
-*/
 
 // forward declarations
 f64 func_80231AC0(void);
