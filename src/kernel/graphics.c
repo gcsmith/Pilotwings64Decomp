@@ -417,7 +417,20 @@ void uvGfxStatePush(void) {
     gGfxStateStack[gGfxStateStackIdx++] = gGfxStateStackData;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/uvGfxStatePop.s")
+void uvGfxStatePop(void) {
+    u32 newState;
+    uvGfxState_t state;
+
+    if (gGfxStateStackIdx == 0) {
+        _uvDebugPrintf("uvGfxStatePop: stack empty\n");
+    } else {
+        --gGfxStateStackIdx;
+        newState = gGfxStateStack[gGfxStateStackIdx];
+        state.unk0 = newState;
+        state.unk8 = 0;
+        uvGfxStateDraw(&state);
+    }
+}
 
 void uvGfxSetFlags(s32 flags) {
     s32 newState;
