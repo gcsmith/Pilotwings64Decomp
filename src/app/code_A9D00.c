@@ -1,13 +1,13 @@
 #include "common.h"
 #include <uv_controller.h>
 #include <uv_util.h>
+#include "code_9A960.h"
+#include "code_A9D00.h"
 
-extern f32 D_8034F850;
+extern s32 D_8034FAD0;
 extern f32 D_8036DA34;
 extern f32 D_8036DA38;
-extern s32 D_8034FAD0;
-
-void func_80322DA8(s32);
+extern s32 D_8036DA40;
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_A9D00/func_803227D0.s")
 
@@ -54,7 +54,12 @@ void func_80322EBC(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_A9D00/func_80323164.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_A9D00/func_803231A0.s")
+s32 func_803231A0(s32 arg0, s32 arg1) {
+    if (D_8034FAD0 == 2) {
+        return arg1 & D_8036DA40;
+    }
+    return uvControllerButtonCheck(arg0, arg1);
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_A9D00/func_803231E0.s")
 

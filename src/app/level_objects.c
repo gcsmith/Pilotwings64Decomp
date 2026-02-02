@@ -4,6 +4,7 @@
 #include <uv_math.h>
 #include <uv_matrix.h>
 #include <uv_memory.h>
+#include "code_9A960.h"
 #include "mem.h"
 
 typedef struct {
@@ -81,8 +82,6 @@ typedef struct {
 typedef struct {
     u8 unk0[0x30];
 } Unk8037AA88;
-
-extern f32 D_8034F850;
 
 extern Unk8037A600* D_8035078C;
 extern u8 gLevelClassU8;
@@ -398,7 +397,7 @@ s32 func_80344FC8(s32 classIdx, s32 vehicle, s32 testIdx, u16* arg3, u16* arg4, 
 void func_8034528C(void) {
     u16 sp1E;
 
-    sp1E = D_80362690->unk0[D_80362690->unk9C].unkE;
+    sp1E = D_80362690->unk0[D_80362690->unk9C].unkC[1];
     D_8035079C = 1;
     wind_render();
     func_8034662C();
@@ -431,7 +430,7 @@ void func_8034536C(void) {
 void func_803453AC(void) {
     u16 sp1E;
 
-    sp1E = D_80362690->unk0[D_80362690->unk9C].unkE;
+    sp1E = D_80362690->unk0[D_80362690->unk9C].unkC[1];
     if (D_8035079C != 0) {
         func_80324A34();
         func_802CB35C();
@@ -453,7 +452,7 @@ s32 func_80345464(Unk80345464_Arg0* arg0, s32 arg1) {
     s32 sp18;
     s32 temp_v0;
 
-    sp1E = D_80362690->unk0[D_80362690->unk9C].unkE;
+    sp1E = D_80362690->unk0[D_80362690->unk9C].unkC[1];
     sp18 = 0;
     func_8034695C();
     func_8034D548();
@@ -471,24 +470,24 @@ s32 func_80345464(Unk80345464_Arg0* arg0, s32 arg1) {
     if (func_802D2E48() == 1) {
         D_803507A4 = 1;
         sp18 = 1;
-        D_80362690->unk0[0].unkE = 1;
-        if (D_80362690->unk0[0].unkE != 0) {
+        D_80362690->unk0[0].unkC[1] = 1;
+        if (D_80362690->unk0[0].unkC[1] != 0) {
             func_8033F748(9);
             func_8033F964(0);
-            func_8033FCD0(D_80362690->unk0[0].unkE);
+            func_8033FCD0(D_80362690->unk0[0].unkC[1]);
         }
     }
     if (func_803243D8(arg0) == 1) {
         D_803507A4 = 1;
         sp18 = 1;
-        D_80362690->unk0[0].unkE = 1;
-        if (D_80362690->unk0[0].unkE != 0) {
+        D_80362690->unk0[0].unkC[1] = 1;
+        if (D_80362690->unk0[0].unkC[1] != 0) {
             func_8033F748(9);
             func_8033F964(0);
-            func_8033FCD0(D_80362690->unk0[0].unkE);
+            func_8033FCD0(D_80362690->unk0[0].unkC[1]);
         }
     }
-    if ((D_80362690->unk0[D_80362690->unk9C].unkE == 5) && (func_802FB308(D_80362690->unk0[D_80362690->unk9C].unk78) == 1)) {
+    if ((D_80362690->unk0[D_80362690->unk9C].unkC[1] == 5) && (func_802FB308(D_80362690->unk0[D_80362690->unk9C].unk78) == 1)) {
         sp18 = 1;
     }
     temp_v0 = func_803456D8(arg0);
@@ -594,7 +593,7 @@ s32 func_803456D8(Unk80345464_Arg0* arg0) {
 void func_80345A24(void) {
     u16 sp1E;
 
-    sp1E = D_80362690->unk0[D_80362690->unk9C].unkE;
+    sp1E = D_80362690->unk0[D_80362690->unk9C].unkC[1];
     func_80323364();
     if ((sp1E != 3) && (sp1E != 4)) {
         func_802D22D8();

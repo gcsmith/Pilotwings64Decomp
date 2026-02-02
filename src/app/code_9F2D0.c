@@ -1,5 +1,7 @@
 #include "common.h"
 
+#include "code_9F2D0.h"
+
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_9F2D0/func_80317DA0.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_9F2D0/func_80318294.s")

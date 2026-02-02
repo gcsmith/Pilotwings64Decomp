@@ -1,6 +1,7 @@
 #include "common.h"
-#include "uv_memory.h"
-#include "uv_util.h"
+#include <uv_memory.h>
+#include <uv_util.h>
+#include "mem.h"
 
 extern u8* gLevelObjHeapPtr;
 extern u8 gLevelObjHeap[5000];

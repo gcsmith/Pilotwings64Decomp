@@ -1,12 +1,6 @@
 #include "common.h"
 #include <uv_matrix.h>
-
-typedef struct Unk802D3658_Unk230 {
-    Mtx4F unk0;
-    f32 unk40;
-    struct Unk802D3658_Unk230* unk44;
-    u8 unk48[4];
-} Unk802D3658_Unk230;
+#include "code_72010.h"
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_72010/func_802EAAE0.s")
 
