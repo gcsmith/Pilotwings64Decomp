@@ -148,8 +148,6 @@ extern f32 D_8034F854;
 extern Unk803599D0 D_803599D0;
 extern f32 D_80359A24;
 
-f32 Length3D(f32, f32, f32);
-
 void func_80204A8C(u8, s32);
 void func_80204C94(u8, f32, f32, f32, f32, f32, f32);
 void func_80204D94(u8, s16, s16, s16, s32);

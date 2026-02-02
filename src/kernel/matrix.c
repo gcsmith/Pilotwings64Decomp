@@ -87,9 +87,9 @@ void uvMat4CopyL(Mtx4F* dst, Mtx src) {
     *(long*)&dst->m[3][3] = src.m[3][3];
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/matrix/uvMat4SetUnk5.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/kernel/matrix/uvMat4CopyL2F.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/matrix/uvMat4SetUnk6.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/kernel/matrix/uvMat4CopyF2L.s")
 
 void uvMat4SetIdentity(Mtx4F* dst) {
     dst->m[0][0] = 1.0f;

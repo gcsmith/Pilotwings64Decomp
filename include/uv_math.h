@@ -18,7 +18,6 @@ typedef struct {
     };
 } Vec4F;
 
-f32 SqrtF(f32);
 void uvRandSeed(s32 seed);
 f32  uvRandF_RANLUX(void);
 f32  uvRandF_LCG(void);
@@ -32,6 +31,14 @@ void uvVec3Cross(Vec3F* vd, Vec3F* va, Vec3F* vb);
 void uvVec3Add(Vec3F *vd, Vec3F *va, Vec3F *vb);
 void uvVec3Mul(Vec3F *vd, Vec3F *va, f32 sb);
 s32  uvVec3Normal(Vec3F *vd, Vec3F *va);
+
+// from code_2AE50
+f32 SqrtF(f32);
+f32 func_80229EC0(f32 arg0);
+f32 func_8022A080(f32 arg0);
+f32 Length2D(f32 arg0, f32 arg1);
+f32 Length3D(f32, f32, f32);
+f32 func_8022A27C(f32 arg0, f32 arg1);
 
 #endif // PILOTWINGS64_UV_MATH
 

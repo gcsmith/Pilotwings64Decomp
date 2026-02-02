@@ -23,8 +23,8 @@ void _uvDbMstackPop(void);
 void uvMat4Copy(Mtx4F* dst, Mtx4F* src);
 void uvMat4CopyXYZ(Mtx4F* dst, Mtx4F* src);
 void uvMat4CopyL(Mtx4F* dst, Mtx src);
-// uvMat4SetUnk5
-// uvMat4SetUnk6
+void uvMat4CopyL2F(Mtx4F* dst, Mtx src);
+void uvMat4CopyF2L(Mtx4F* dst, Mtx4F* src);
 void uvMat4SetIdentity(Mtx4F* dst);
 void uvMat4SetUnk1(Mtx4F* dst);
 
@@ -45,10 +45,6 @@ void uvMat4UnkOp6(Mtx4F* dst, Mtx4F* src1, Mtx4F* src2);
 void uvMat4SetUnk2(Mtx4F* dst, float arg1, float arg2, float arg3, float arg4, float arg5, float arg6);
 void uvMat4Viewport(Mtx4F* dst, float arg1, float arg2, float arg3, float arg4);
 void uvMat4SetUnk4(Mtx4F* dst, float arg1, float arg2, float arg3, float arg4);
-void uvMat4SetUnk6(Mtx4F* dst, Mtx4F* src);
-
-float func_80229EC0(float);
-float func_8022A080(float);
 
 #endif // PILOTWINGS64_UV_MATRIX
 
