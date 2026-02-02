@@ -37,7 +37,7 @@ void func_802DFA18(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_66160/db_getgnd.s")
 
-s32 *func_802E02EC(void) {
+s32* func_802E02EC(void) {
     return &D_80359D70;
 }
 

@@ -9,7 +9,7 @@ extern f32 D_8034F850;
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_9A960/func_80313570.s")
 
-void func_80313640(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, Mtx4F *arg6) {
+void func_80313640(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, Mtx4F* arg6) {
     uvMat4SetIdentity(arg6);
     uvMat4RotateAxis(arg6, arg3, 0x7A);
     uvMat4RotateAxis(arg6, arg4, 0x78);

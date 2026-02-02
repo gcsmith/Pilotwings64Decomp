@@ -3,10 +3,10 @@
 void func_8022E2D4(s32);
 void func_802EB9C0(void);
 void func_802EBC30(void);
-s32  func_80311660(s32, s32);
+s32 func_80311660(s32, s32);
 void func_80311C68(s32, s32);
 void func_803122B4(s32, s32);
-s32  func_80323020(void);
+s32 func_80323020(void);
 void uvGfxEnableGamma(s32);
 void uvSysInit(s32);
 void map3d(void);
