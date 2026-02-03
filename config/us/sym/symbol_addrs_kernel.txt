@@ -321,11 +321,8 @@ uvMat4Viewport      = 0x80229CD4; // type:func
 uvMat4SetUnk4       = 0x80229D78; // type:func
 
 uvSqrtF             = 0x80229EA0; // type:func
+uvSinF              = 0x80229EC0; // type:func
+uvCosF              = 0x8022A080; // type:func
 uvLength2D          = 0x8022A208; // type:func
 uvLength3D          = 0x8022A23C; // type:func
-
-D_8024E3A0          = 0x8024E3A0; // type:f64 force_migration:True
-D_8024E3C8          = 0x8024E3C8; // type:f64 force_migration:True
-D_8024E3D0          = 0x8024E3D0; // type:f64 force_migration:True
-D_8024E3D8          = 0x8024E3D8; // type:f64 force_migration:True
-
+uvMath_8022A27C     = 0x8022A27C; // type:func

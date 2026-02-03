@@ -535,8 +535,8 @@ s32 func_803456D8(Unk80345464_Arg0* arg0) {
         sp78.y = arg0->unk34 - temp_s0->unk8_Y;
         sp78.z = arg0->unk38 - temp_s0->unkC_Z;
         if (uvVec3Len(&sp78) <= temp_s0->unk14) {
-            sp6C.x = func_8022A080((temp_s0->unk10 + 90.0f) * 0.01745329f);
-            sp6C.y = func_80229EC0((temp_s0->unk10 + 90.0f) * 0.01745329f);
+            sp6C.x = uvCosF((temp_s0->unk10 + 90.0f) * 0.01745329f);
+            sp6C.y = uvSinF((temp_s0->unk10 + 90.0f) * 0.01745329f);
             sp6C.z = 0.0f;
             temp_fv0 = uvVec3Dot(&sp6C, &sp78);
             if (temp_fv0 > 0.0f) {

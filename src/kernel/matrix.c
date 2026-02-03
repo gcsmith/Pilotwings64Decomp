@@ -204,8 +204,8 @@ void uvMat4RotateAxis(Mtx4F* dst, float angle, char axis) {
     Mtx4F temp;
 
     if (angle != 0.0f) {
-        sp6C = func_80229EC0(angle);
-        fv0 = func_8022A080(angle);
+        sp6C = uvSinF(angle);
+        fv0 = uvCosF(angle);
         switch (axis) {
         case 'x':
             temp.m[0][0] = dst->m[0][0];

@@ -152,7 +152,6 @@ extern f32 D_80359A24;
 void func_80204A8C(u8, s32);
 void func_80204C94(u8, f32, f32, f32, f32, f32, f32);
 void func_80204D94(u8, s16, s16, s16, s32);
-f32 func_8022A27C(f32, f32);
 void func_802D4514(Unk802D3658_Arg0*);
 void func_802D45C4(Unk802D3658_Arg0*, f32);
 s32 func_802D472C(Unk802D3658_Arg0*, Mtx4F*);
@@ -289,9 +288,9 @@ void func_802D3444(Unk802D3658_Arg0* arg0) {
             func_802EABAC(arg0->unk230, arg0->unk14, &sp28);
             arg0->unkD = 0;
         }
-        arg0->unk1AC = func_8022A27C(arg0->unk80.m[0][0], arg0->unk80.m[0][1]) - 1.5707963f; // almost DEG_TO_RAD(90)
-        if ((arg0->unk1AC - arg0->unk1A8) > 1.5707964f) {                                    // matches DEG_TO_RAD(90)
-            arg0->unk1A8 = arg0->unk1A8 + 6.2831855f;                                        // matches DEG_TO_RAD(360)
+        arg0->unk1AC = uvMath_8022A27C(arg0->unk80.m[0][0], arg0->unk80.m[0][1]) - 1.5707963f; // almost DEG_TO_RAD(90)
+        if ((arg0->unk1AC - arg0->unk1A8) > 1.5707964f) {                                      // matches DEG_TO_RAD(90)
+            arg0->unk1A8 = arg0->unk1A8 + 6.2831855f;                                          // matches DEG_TO_RAD(360)
         }
         if ((arg0->unk1AC - arg0->unk1A8) < -1.5707964f) { // matches DEG_TO_RAD(-90)
             arg0->unk1A8 -= 6.2831855f;                    // matches DEG_TO_RAD(360)
@@ -401,7 +400,7 @@ void func_802D3790(Unk802D3658_Arg0* arg0) {
             var_fv0 = temp_fv1_2 - 3.0f;
         }
         arg0->unk1380 = var_fv0;
-        spA4.z = (-func_80229EC0(var_fv0 * 0.0174533f) * arg0->unk1374) + spBC.z; // almost DEG_TO_RAD(1)
+        spA4.z = (-uvSinF(var_fv0 * 0.0174533f) * arg0->unk1374) + spBC.z; // almost DEG_TO_RAD(1)
         temp_fa1 = spA4.z - spBC.z;
         temp_fv0 = uvSqrtF(SQ(arg0->unk1374) + SQ(temp_fa1));
         spA4.x = (sp98.x * temp_fv0) + spBC.x;
@@ -1137,7 +1136,7 @@ void func_802D5884(Unk802D3658_Arg0* arg0, u8 arg1) {
         arg0->unk1 = arg1;
         if (arg1 == 3) {
             arg0->unk198 = 0.52359873f; // almost DEG_TO_RAD(30)
-            arg0->unk194 = func_8022A27C(arg0->unk80.m[0][0], arg0->unk80.m[0][1]);
+            arg0->unk194 = uvMath_8022A27C(arg0->unk80.m[0][0], arg0->unk80.m[0][1]);
             arg0->unkE = 1;
         }
     }
