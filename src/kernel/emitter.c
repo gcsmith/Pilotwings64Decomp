@@ -114,7 +114,7 @@ void func_80201494(u8 arg0, Vec3F arg1, Vec3F arg4) {
     sp44.z = temp_s0->unk4C.x - temp_s0->unk40.x;
     sp44.y = temp_s0->unk4C.y - temp_s0->unk40.y;
     sp44.x = temp_s0->unk4C.z - temp_s0->unk40.z;
-    temp_fv0 = SqrtF(SQ(sp44.z) + SQ(sp44.y) + SQ(sp44.x));
+    temp_fv0 = uvSqrtF(SQ(sp44.z) + SQ(sp44.y) + SQ(sp44.x));
     if (temp_fv0 != 0.0f) {
         temp_s0->unk58.x = sp44.z / temp_fv0;
         temp_s0->unk58.y = sp44.y / temp_fv0;

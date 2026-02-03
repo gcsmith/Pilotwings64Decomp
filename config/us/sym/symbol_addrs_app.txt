@@ -1,9 +1,5 @@
 // Visit https://github.com/ethteck/splat/wiki/Adding-Symbols for documentation about this file
 
-SqrtF               = 0x80229EA0; // type:func
-Length2D            = 0x8022A208; // type:func
-Length3D            = 0x8022A23C; // type:func
-
 app_firstfunc       = 0x802CA900; // type:func
 db_getgnd           = 0x802DFE70; // type:func
 db_getstart         = 0x802E0304; // type:func

@@ -3,7 +3,7 @@
 #include <uv_vector.h>
 
 f32 uvVec3Len(Vec3F* v) {
-    return SqrtF(SQ(v->x) + SQ(v->y) + SQ(v->z));
+    return uvSqrtF(SQ(v->x) + SQ(v->y) + SQ(v->z));
 }
 
 f32 uvVec2Dot(Vec3F* v0, Vec3F* v1) {
@@ -54,7 +54,7 @@ s32 uvVec3Normal(Vec3F* vd, Vec3F* va) {
     f32 ax = va->x, ay = va->y, az = va->z;
     f32 len, len_inv;
 
-    len = SqrtF(SQ(ax) + SQ(ay) + SQ(az));
+    len = uvSqrtF(SQ(ax) + SQ(ay) + SQ(az));
     if (len == 0.0f) {
         return 0;
     }

@@ -343,8 +343,8 @@ void func_802D3658(Unk802D3658_Arg0* arg0) {
 
     uvMat4UnkOp6(&sp30, &arg0->unk80, &arg0->unk108);
     uvMat4Copy(&arg0->unk108, &sp30);
-    temp_fa0 = SqrtF(SQ(arg0->unk108.m[3][0] - arg0->unk80.m[3][0]) + SQ(arg0->unk108.m[3][1] - arg0->unk80.m[3][1]) +
-                     SQ(arg0->unk108.m[3][2] - arg0->unk80.m[3][2])) -
+    temp_fa0 = uvSqrtF(SQ(arg0->unk108.m[3][0] - arg0->unk80.m[3][0]) + SQ(arg0->unk108.m[3][1] - arg0->unk80.m[3][1]) +
+                       SQ(arg0->unk108.m[3][2] - arg0->unk80.m[3][2])) -
                (2.0f * arg0->unk54);
     if (temp_fa0 < 0.0f) {
         arg0->unk108.m[3][0] += arg0->unk108.m[1][0] * temp_fa0;
@@ -403,7 +403,7 @@ void func_802D3790(Unk802D3658_Arg0* arg0) {
         arg0->unk1380 = var_fv0;
         spA4.z = (-func_80229EC0(var_fv0 * 0.0174533f) * arg0->unk1374) + spBC.z; // almost DEG_TO_RAD(1)
         temp_fa1 = spA4.z - spBC.z;
-        temp_fv0 = SqrtF(SQ(arg0->unk1374) + SQ(temp_fa1));
+        temp_fv0 = uvSqrtF(SQ(arg0->unk1374) + SQ(temp_fa1));
         spA4.x = (sp98.x * temp_fv0) + spBC.x;
         spA4.y = (sp98.y * temp_fv0) + spBC.y;
         sp98.x = spBC.x - spA4.x;
@@ -435,17 +435,17 @@ void func_802D3790(Unk802D3658_Arg0* arg0) {
         uvMat4RotateAxis(&arg0->unk108, arg0->unk7C * 0.5f, 'x');
     }
 
-    temp_fv0 = SqrtF(SQ(arg0->unk108.m[0][0]) + SQ(arg0->unk108.m[0][1]) + SQ(arg0->unk108.m[0][2]));
+    temp_fv0 = uvSqrtF(SQ(arg0->unk108.m[0][0]) + SQ(arg0->unk108.m[0][1]) + SQ(arg0->unk108.m[0][2]));
     arg0->unk108.m[0][0] /= temp_fv0;
     arg0->unk108.m[0][1] /= temp_fv0;
     arg0->unk108.m[0][2] /= temp_fv0;
 
-    temp_fv0 = SqrtF(SQ(arg0->unk108.m[1][0]) + SQ(arg0->unk108.m[1][1]) + SQ(arg0->unk108.m[1][2]));
+    temp_fv0 = uvSqrtF(SQ(arg0->unk108.m[1][0]) + SQ(arg0->unk108.m[1][1]) + SQ(arg0->unk108.m[1][2]));
     arg0->unk108.m[1][0] /= temp_fv0;
     arg0->unk108.m[1][1] /= temp_fv0;
     arg0->unk108.m[1][2] /= temp_fv0;
 
-    temp_fv0 = SqrtF(SQ(arg0->unk108.m[2][0]) + SQ(arg0->unk108.m[2][1]) + SQ(arg0->unk108.m[2][2]));
+    temp_fv0 = uvSqrtF(SQ(arg0->unk108.m[2][0]) + SQ(arg0->unk108.m[2][1]) + SQ(arg0->unk108.m[2][2]));
     arg0->unk108.m[2][0] /= temp_fv0;
     arg0->unk108.m[2][1] /= temp_fv0;
     arg0->unk108.m[2][2] /= temp_fv0;
@@ -472,7 +472,7 @@ void func_802D3BE8(Unk802D3658_Arg0* arg0) {
         sp5C = arg0->unkC8.m[3][0] - arg0->unk80.m[3][0];
         sp58 = arg0->unkC8.m[3][1] - arg0->unk80.m[3][1];
         sp54 = arg0->unkC8.m[3][2] - arg0->unk80.m[3][2];
-        temp_fv0 = SqrtF(SQ(sp5C) + SQ(sp58) + SQ(sp54));
+        temp_fv0 = uvSqrtF(SQ(sp5C) + SQ(sp58) + SQ(sp54));
         if (temp_fv0 > 0.0f) {
             sp5C /= temp_fv0;
             sp58 /= temp_fv0;
@@ -509,7 +509,7 @@ void func_802D3BE8(Unk802D3658_Arg0* arg0) {
         sp58 = arg0->unkC8.m[3][1] - arg0->unk80.m[3][1];
         sp54 = arg0->unkC8.m[3][2] - arg0->unk80.m[3][2];
 
-        temp_ft4_2 = SqrtF((SQ(sp5C) + SQ(sp58)) + SQ(sp54));
+        temp_ft4_2 = uvSqrtF((SQ(sp5C) + SQ(sp58)) + SQ(sp54));
         temp_ft5_2 = arg0->unkC8.m[3][2];
         arg0->unkC8.m[3][2] = (arg0->unk50 * ((temp_ft4_2 * 0.9659283f) + temp_ft5_2)) + ((1 - arg0->unk50) * temp_ft5_2);
     }
@@ -569,7 +569,7 @@ s32 func_802D408C(Unk802D3658_Arg0* arg0) {
         dx = sp58[i].x - argX;
         dy = sp58[i].y - argY;
         dz = sp58[i].z - argZ;
-        length = Length3D(dx, dy, dz);
+        length = uvLength3D(dx, dy, dz);
         if (length < sp58[i].unkC) {
             arg0->unk18C = length;
             break;
@@ -619,7 +619,7 @@ void func_802D4274(Unk802D3658_Arg0* arg0) {
         sp6C = arg0->unk108.m[3][0] - arg0->unk80.m[3][0];
         sp68 = arg0->unk108.m[3][1] - arg0->unk80.m[3][1];
         sp64 = arg0->unk108.m[3][2] - arg0->unk80.m[3][2];
-        var_fs0 = SqrtF(SQ(sp6C) + SQ(sp68) + SQ(sp64));
+        var_fs0 = uvSqrtF(SQ(sp6C) + SQ(sp68) + SQ(sp64));
         if (var_fs0 > 0.01f) {
             sp6C /= var_fs0;
             sp68 /= var_fs0;
@@ -776,7 +776,7 @@ s32 func_802D472C(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
     dx = sp1B4.x - sp1A8.x;
     dy = sp1B4.y - sp1A8.y;
     dz = sp1B4.z - sp1A8.z;
-    temp_fv0 = SqrtF(SQ(dx) + SQ(dy) + SQ(dz));
+    temp_fv0 = uvSqrtF(SQ(dx) + SQ(dy) + SQ(dz));
 
     if (temp_fv0 > 0.0f) {
         dx /= temp_fv0;
@@ -803,7 +803,7 @@ s32 func_802D472C(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
         dx = (sp1B4.x - sp1A8.x) * sp4C;
         dy = (sp1B4.y - sp1A8.y) * sp4C;
         dz = (sp1B4.z - sp1A8.z) * sp4C;
-        temp_fv0 = SqrtF(SQ(dx) + SQ(dy) + SQ(dz));
+        temp_fv0 = uvSqrtF(SQ(dx) + SQ(dy) + SQ(dz));
         if (arg0->unk1A0 < temp_fv0) {
             temp_fv1 = temp_fv0 - arg0->unk1A0;
             dx /= temp_fv0;
@@ -877,7 +877,7 @@ s32 func_802D4CA4(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
         temp_fv0 = arg1->m[3][0] - arg0->unk80.m[3][0];
         temp_fv1 = arg1->m[3][1] - arg0->unk80.m[3][1];
         temp_fa1 = arg1->m[3][2] - arg0->unk80.m[3][2];
-        if (arg0->unk8 < SqrtF(SQ(temp_fv0) + SQ(temp_fv1) + SQ(temp_fa1))) {
+        if (arg0->unk8 < uvSqrtF(SQ(temp_fv0) + SQ(temp_fv1) + SQ(temp_fa1))) {
             return 0;
         }
         arg0->unk18 = D_8034F850;
@@ -977,7 +977,7 @@ void func_802D50D0(Unk802D3658_Arg0* arg0) {
             temp_fv0_2 = arg0->unk108.m[3][0] - arg0->unk80.m[3][0];
             temp_fv1 = arg0->unk108.m[3][1] - arg0->unk80.m[3][1];
             temp_fa1 = arg0->unk108.m[3][2] - arg0->unk80.m[3][2];
-            var_fv1 = SqrtF(SQ(temp_fv0_2) + SQ(temp_fv1) + SQ(temp_fa1)) - arg0->unk8;
+            var_fv1 = uvSqrtF(SQ(temp_fv0_2) + SQ(temp_fv1) + SQ(temp_fa1)) - arg0->unk8;
         }
         if (arg0->unk228 < var_fv1) {
             var_fv1 = arg0->unk228;
@@ -1114,7 +1114,7 @@ void func_802D559C(Unk802D3658_Arg0* arg0) {
     tmpX = sp48.m[3][0] - arg0->unk80.m[3][0];
     tmpY = sp48.m[3][1] - arg0->unk80.m[3][1];
     tmpZ = sp48.m[3][2] - arg0->unk80.m[3][2];
-    temp_fa0_2 = SqrtF(SQ(tmpX) + SQ(tmpY) + SQ(tmpZ));
+    temp_fa0_2 = uvSqrtF(SQ(tmpX) + SQ(tmpY) + SQ(tmpZ));
     temp_fa0_2 = 0.02f * temp_fa0_2 + 0.5f;
     if (temp_fa0_2 < 1.0f) {
         temp_fa0_2 = 1.0f;
