@@ -25,7 +25,7 @@ typedef struct {
 } UVBlockCounts;
 
 typedef struct {
-    void* UVSY;
+    void* UVSY[1];
     void* UVMD[0x190];
     void* UVCT[0x80];
     void* UVTX[0x1F4];
@@ -43,6 +43,7 @@ typedef struct {
 } UVBlockOffsets;
 
 extern void* D_802B53C0;
+extern void* D_802B55F0;
 extern UVBlockCounts gUVBlockCounts; // D_802B53C8
 extern UVBlockOffsets gUVBlockOffsets; // D_802B53F0
 
@@ -81,8 +82,13 @@ s32 uvFileRead(void* dst, s32 offs, s32 nbytes);
 // TODO: from code_24E30.c (is this memory? filesystem? texture?)
 s32  func_80223E80(s32 addr);
 void func_80223F30(s32 arg0);
+s32 func_80223F54(s32 idx);
+s32 func_80223F68(s32 idx);
 u32  func_80223F7C(s32 idx, u32* sizeOut, void** arg2, s32 arg3);
-u32  func_80224170(s32 arg0, void* arg1, void** arg2, u32 tag, s32 palette, s32 arg5);
-void func_8022427C(s32 arg0);
+u32  func_80224170(s32 idx, void* arg1, void** arg2, u32 tag, s32 palette, s32 arg5);
+void func_8022427C(s32 idx);
+
+// TODO: from code_32480.c (filesystem?)
+void* func_802314D0(s32 arg0, s32 arg1);
 
 #endif // PILOTWINGS64_UV_MEMORY

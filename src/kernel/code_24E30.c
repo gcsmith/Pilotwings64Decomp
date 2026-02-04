@@ -35,18 +35,18 @@ s32 func_80223E80(s32 addr) {
     return idx;
 }
 
-void func_80223F30(s32 arg0) {
-    if ((arg0 >= 0) && (arg0 < ARRAY_COUNT(D_802B5300))) {
-        D_802B5300[arg0].address = 0;
+void func_80223F30(s32 idx) {
+    if ((idx >= 0) && (idx < ARRAY_COUNT(D_802B5300))) {
+        D_802B5300[idx].address = 0;
     }
 }
 
-s32 func_80223F54(s32 arg0) {
-    return D_802B5300[arg0].unk8;
+s32 func_80223F54(s32 idx) {
+    return D_802B5300[idx].unk8;
 }
 
-s32 func_80223F68(s32 arg0) {
-    return D_802B5300[arg0].tag;
+s32 func_80223F68(s32 idx) {
+    return D_802B5300[idx].tag;
 }
 
 u32 func_80223F7C(s32 idx, u32* sizeOut, void** arg2, s32 arg3) {
@@ -95,24 +95,24 @@ u32 func_80223F7C(s32 idx, u32* sizeOut, void** arg2, s32 arg3) {
     return tag;
 }
 
-u32 func_80224170(s32 arg0, void* arg1, void** arg2, u32 tag, s32 palette, s32 arg5) {
+u32 func_80224170(s32 idx, void* arg1, void** arg2, u32 tag, s32 palette, s32 arg5) {
     s32 currentPalette;
     s32 var_s1;
     u32 outTag;
     u32 offsetTemp;
     Unk802B5300* sp3C;
 
-    sp3C = &D_802B5300[arg0];
+    sp3C = &D_802B5300[idx];
     currentPalette = 0;
     offsetTemp = sp3C->offset;
-    func_8022427C(arg0);
+    func_8022427C(idx);
     if (palette <= 0) {
         var_s1 = arg5;
     } else {
         var_s1 = 2;
     }
 
-    while ((outTag = func_80223F7C(arg0, (u32*)arg1, arg2, var_s1))) {
+    while ((outTag = func_80223F7C(idx, (u32*)arg1, arg2, var_s1))) {
         if (outTag == tag) {
             if (currentPalette++ >= palette) {
                 break;
@@ -126,6 +126,6 @@ u32 func_80224170(s32 arg0, void* arg1, void** arg2, u32 tag, s32 palette, s32 a
     return outTag;
 }
 
-void func_8022427C(s32 arg0) {
-    D_802B5300[arg0].offset = 0xC;
+void func_8022427C(s32 idx) {
+    D_802B5300[idx].offset = 0xC;
 }

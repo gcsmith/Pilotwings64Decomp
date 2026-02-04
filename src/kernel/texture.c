@@ -202,7 +202,7 @@ void uvMemInitBlockHdr(void) {
                 case 0:
                     break;
                 case 'UVSY':
-                    gUVBlockOffsets.UVSY = romOffset;
+                    gUVBlockOffsets.UVSY[0] = romOffset;
                     break;
                 case 'UVAN':
                     gUVBlockOffsets.UVAN[gUVBlockCounts.UVAN++] = romOffset;

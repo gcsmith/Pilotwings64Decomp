@@ -1,3 +1,38 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_32480/func_802314D0.s")
+#include <uv_graphics.h>
+#include <uv_memory.h>
+
+void* func_802314D0(s32 arg0, s32 arg1) {
+    void** end;
+    void* sp38;
+    void* sp34;
+    s32 sp30;
+    s32 sp2C;
+    void** sp24;
+
+    sp24 = &gUVBlockOffsets.UVSY[arg0];
+    sp38 = gUVBlockOffsets.unk1838[arg0];
+    uvGfx_80223B80();
+    end = &D_802B55F0;
+    if (sp24 >= end) {
+        _uvDebugPrintf("Too many user files\n");
+        return NULL;
+    }
+    sp30 = func_80223E80((s32)sp38);
+    sp2C = func_80223F54(sp30);
+    if (func_80223F68(sp30) == 'UVRW') {                 // 0x55565257
+        func_80224170(sp30, &sp2C, &sp38, 'COMM', 0, 0); // 0x434F4D4DU
+    }
+    func_80223F30(sp30);
+    if (arg1 == 2) {
+        return sp38;
+    }
+    if (arg1 == 0) {
+        sp34 = (void*)_uvMemAlloc(sp2C, 8);
+    } else {
+        sp34 = (void*)0x803DA800;
+    }
+    _uvMediaCopy(sp34, sp38, sp2C);
+    return sp34;
+}

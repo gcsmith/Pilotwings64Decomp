@@ -104,7 +104,6 @@ extern s32 gLevelTest;    // code refers "stage" | Test# within class | Birdman 
 extern s32 gLevelVehicle; // vehicle selected
 extern Unk8037AA88 D_8037AA88[];
 
-s32 func_802314D0(s32, s32, s32);
 void func_802CAD00(void);
 void func_802CAF50(void);
 void func_802CB094(void);
@@ -705,7 +704,7 @@ void func_80345CC0(f32* arg0, f32* arg1) {
 }
 
 Unk8037A600* func_80345CE4(u32 arg0) {
-    s32 sp34;
+    void* sp34;
     s32 sp30;
     u32 sp2C;
     u32 tag;
@@ -713,8 +712,8 @@ Unk8037A600* func_80345CE4(u32 arg0) {
     Unk8037A600* dst;
 
     dst = &D_8037A600;
-    sp34 = func_802314D0((s32)D_803507AC[arg0], 2, arg0);
-    sp30 = func_80223E80(sp34);
+    sp34 = func_802314D0(D_803507AC[arg0], 2);
+    sp30 = func_80223E80((s32)sp34);
     uvMemSet(&D_8037A600, 0, sizeof(D_8037A600));
 
     while ((tag = func_80223F7C(sp30, &sp2C, &sp24, 2)) != 0) {

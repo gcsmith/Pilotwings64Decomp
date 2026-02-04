@@ -17,7 +17,6 @@ typedef struct {
 
 s32 func_80223E80(s32 addr);
 void func_80223F30(s32 arg0);
-s32 func_802314D0(s32, s32, s32);
 void func_802D1A74(void);
 void func_802D1CE8(void);
 void func_802D206C(void);
@@ -32,7 +31,6 @@ void func_802F182C(void);
 void func_802F1AE8(void);
 void func_802F1D3C(void);
 void func_802F1FF0(void);
-void func_8030BA98(u8, u8);
 void func_803151AC(void);
 void func_8031531C(void);
 void func_80315734(void);
@@ -308,7 +306,7 @@ LevelObjects* func_8030BDC8(u8 arg0) {
     LevelObjects* temp;
     u8 tmp8;
 
-    idx = func_80223E80(func_802314D0(D_8034F410[arg0].unk0, 2, arg0));
+    idx = func_80223E80((s32)func_802314D0(D_8034F410[arg0].unk0, 2));
     temp = &gLevelObjects;
     uvMemSet((void*)temp, 0, sizeof(LevelObjects));
     gLevelObjects.dataWOBJ = &gLevelWOBJ;

@@ -358,7 +358,7 @@ void uvLevelInit(void) {
     uvMemSet(gLevelData, 0, 0x160C);
     uvMemSet(D_802B6E30, 0, 0x7D0);
     uvSprtResetUnk();
-    temp_v0 = func_80223E80(gUVBlockOffsets.UVSY);
+    temp_v0 = func_80223E80(gUVBlockOffsets.UVSY[0]);
 
     while ((tag = func_80223F7C(temp_v0, &length, &source, 0)) != 0) {
         if (tag == 'COMM') { // 0x434F4D4D
