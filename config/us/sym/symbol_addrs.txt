@@ -5,9 +5,9 @@ bootproc = 0x8022E440; // type:func
 
 // ucode
 
-rspbootTextStart = 0x80245530;//name_end:rspbootTextEnd
-gspF3DEX_fifoTextStart = 0x80245600;//name_end:gspF3DEX_fifoTextEnd
-aspMainTextStart = 0x80246A30; //name_end:aspMainTextEnd
+rspbootTextStart        = 0x80245530; // name_end:rspbootTextEnd
+gspF3DEX_fifoTextStart  = 0x80245600; // name_end:gspF3DEX_fifoTextEnd
+aspMainTextStart        = 0x80247E60; // name_end:aspMainTextEnd
 
 // data
 
