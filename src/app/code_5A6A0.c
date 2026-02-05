@@ -1,123 +1,11 @@
 #include "common.h"
-#include "uv_level.h"
-#include "uv_math.h"
-#include "uv_matrix.h"
-#include "uv_vector.h"
-
-typedef struct Unk802D3658_Unk230 {
-    Mtx4F unk0;
-    f32 unk40;
-    struct Unk802D3658_Unk230* unk44;
-    u8 unk48[4];
-} Unk802D3658_Unk230;
-
-typedef struct {
-    s32 unk0;
-    u8 pad4[0x18];
-    Vec3F unk1C;
-    Vec3F unk28;
-} Unk802D3658_Unk1120;
-
-typedef struct {
-    s32 unk0;
-    u8 pad4[0x24];
-    Vec3F unk28;
-    Vec3F unk34;
-} Unk802D3658_Unk1228;
-
-typedef struct {
-    u8 unk0;
-    u8 unk1;
-    u8 unk2;
-    u8 unk3;
-    u16 unk4;
-    u8 unk6;
-    u8 pad7;
-    f32 unk8;
-    u8 unkC;
-    u8 unkD;
-    u8 unkE;
-    u8 unkF;
-    u8 pad10[0x14 - 0x10];
-    f32 unk14;
-    f32 unk18;
-    f32 unk1C;
-    f32 unk20;
-    s16 unk24;
-    s16 unk26;
-    s16 unk28;
-    s16 unk2A;
-    f32 unk2C;
-    f32 unk30;
-    f32 unk34;
-    f32 unk38;
-    f32 unk3C;
-    f32 unk40;
-    f32 unk44;
-    f32 unk48;
-    f32 unk4C;
-    f32 unk50;
-    f32 unk54;
-    f32 unk58;
-    f32 unk5C;
-    f32 unk60;
-    f32 unk64;
-    f32 unk68;
-    f32 unk6C;
-    f32 unk70;
-    f32 unk74;
-    f32 unk78;
-    f32 unk7C;
-    Mtx4F unk80; //  80: BF
-    f32 unkC0;
-    f32 unkC4;
-    Mtx4F unkC8;  //  C8:107
-    Mtx4F unk108; // 108:147
-    u8 unk148;
-    u8 pad149[3];
-    Mtx4F unk14C; // 14C:18B
-    f32 unk18C;
-    f32 unk190;
-    f32 unk194;
-    f32 unk198;
-    f32 unk19C;
-    f32 unk1A0;
-    f32 unk1A4;
-    f32 unk1A8;
-    f32 unk1AC;
-    f32 unk1B0;
-    f32 unk1B4;
-    f32 unk1B8;
-    Mtx4F unk1BC; // 1BC:1FB
-    f32 unk1FC;
-    f32 unk200;
-    Vec3F unk204;
-    Vec3F unk210;
-    f32 unk21C;
-    f32 unk220;
-    f32 unk224;
-    f32 unk228;
-    u8 unk22C;
-    u8 pad22D[0x230 - 0x22D];
-    Unk802D3658_Unk230 unk230[50]; // 230:1107
-    u8 pad1108[0x1114 - 0x1108];
-    u8 unk1114;
-    u8 pad1115[0x111C - 0x1115];
-
-    s32 unk111C;
-    Unk802D3658_Unk1120 unk1120[5]; // 1120:1223
-
-    s32 unk1224;
-    Unk802D3658_Unk1228 unk1228[5]; // 1228:1367
-
-    f32 unk1368;
-    f32 unk136C;
-    f32 unk1370;
-    f32 unk1374;
-    f32 unk1378;
-    s32 unk137C;
-    f32 unk1380;
-} Unk802D3658_Arg0;
+#include <uv_level.h>
+#include <uv_math.h>
+#include <uv_matrix.h>
+#include <uv_vector.h>
+#include "code_5A6A0.h"
+#include "code_72010.h"
+#include "code_9A960.h"
 
 typedef struct {
     s32 unk0;
@@ -126,23 +14,6 @@ typedef struct {
     u8 pad20[0x40 - 0x20];
 } Unk802D472C_SP60;
 
-typedef struct {
-    s32 unk0;
-    f32 unk4;
-    f32 unk8;
-    f32 unkC;
-    f32 unk10;
-    f32 unk14;
-    f32 unk18;
-    f32 unk1C;
-    f32 unk20;
-    f32 unk24;
-    f32 unk28;
-    f32 unk2C;
-    f32 unk30;
-} Unk803599D0;
-
-extern f32 D_8034F850;
 extern f32 D_8034E9E0;
 extern u8 D_8034E9E4;
 extern f32 D_8034F854;
@@ -155,7 +26,6 @@ void func_80204D94(u8, s16, s16, s16, s32);
 void func_802D4514(Unk802D3658_Arg0*);
 void func_802D45C4(Unk802D3658_Arg0*, f32);
 s32 func_802D472C(Unk802D3658_Arg0*, Mtx4F*);
-s32 func_802D4A30(Unk802D3658_Arg0*, Mtx4F*);
 s32 func_802D4CA4(Unk802D3658_Arg0*, Mtx4F*);
 void func_802D58EC(Unk802D3658_Arg0*, Mtx4F*);
 s32 func_802DB050(s32*, s32*, u16, u8, Mtx4F*);
@@ -165,7 +35,6 @@ void func_802DCA5C(Vec3F*, Vec3F*, Vec3F*, Vec3F*, Vec3F*);
 f32 func_802E1754(f32, f32, f32, Vec3F*);
 void func_802EAAE0(Unk802D3658_Unk230*);
 void func_802EABAC(Unk802D3658_Unk230*, f32, Mtx4F*);
-void func_802EAC18(Unk802D3658_Unk230*, f32, Mtx4F*);
 void func_802EAC9C(Unk802D3658_Unk230*, f32, Mtx4F*);
 void func_803134D0(f32, f32, f32, f32*, f32*, f32*);
 void func_803138A0(Mtx4F*, Mtx4F*, Mtx4F*, f32);
@@ -419,7 +288,7 @@ void func_802D3790(Unk802D3658_Arg0* arg0) {
             func_802D472C(arg0, &arg0->unk108);
         }
         if (arg0->unk0 & 0x20) {
-            func_802D4A30(arg0, &arg0->unk108);
+            (void)func_802D4A30(arg0, &arg0->unk108);
         }
         if (arg0->unk0 & 0x40) {
             func_802D4CA4(arg0, &arg0->unk108);
@@ -659,7 +528,7 @@ void func_802D4274(Unk802D3658_Arg0* arg0) {
         arg0->unk198 = var_fs0;
     }
     uvMat4UnkOp6(&arg0->unk108, &arg0->unk80, &sp70);
-    func_802D4A30(arg0, arg0->unk108.m);
+    (void)func_802D4A30(arg0, arg0->unk108.m);
 }
 #endif
 

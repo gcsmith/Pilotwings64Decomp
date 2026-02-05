@@ -1,6 +1,8 @@
 #include <uv_graphics.h>
 #include <uv_matrix.h>
 
+#include "code_66160.h"
+
 extern s32 D_80359D70;
 extern s32 D_80359D7C;
 

@@ -1,7 +1,7 @@
 #include <uv_graphics.h>
 #include <uv_matrix.h>
 
-extern f32 D_8034F850;
+#include "code_9A960.h"
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_9A960/func_80313430.s")
 

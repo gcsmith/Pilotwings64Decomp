@@ -18,8 +18,8 @@ typedef struct {
     u16 unk6;
     u16 unk8;
     u8 debugFlag;
-    u8 unkB[0x3];
-    u16 unkE;
+    u8 unkB;
+    u16 unkC[2];
     s32 unk10;
     u16 unk14;
     u8 unk16[0x62];

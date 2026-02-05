@@ -1,6 +1,23 @@
 // Visit https://github.com/ethteck/splat/wiki/Adding-Symbols for documentation about this file
 
 app_firstfunc       = 0x802CA900; // type:func
+
+cannon_802D5A90     = 0x802D5A90; // type:func
+cannonLoadLevel     = 0x802D5B50; // type:func
+cannon_802D5C5C     = 0x802D5C5C; // type:func
+cannonEndTarget     = 0x802D5E98; // type:func
+cannonMovementFrame = 0x802D5F00; // type:func
+cannonAimingFrame   = 0x802D66C4; // type:func
+cannonShoot         = 0x802D6B7C; // type:func
+cannonPilotLand     = 0x802D6CC4; // type:func
+cannonLoadPilot     = 0x802D6F38; // type:func
+cannonLoad802D77D8  = 0x802D77D8; // type:func
+cannonFrame802D7B7C = 0x802D7B7C; // type:func
+cannonLandedFrame   = 0x802D8098; // type:func
+cannonEndShot       = 0x802D8494; // type:func
+cannonEndAllTgts    = 0x802D8730; // type:func
+cannon_802D8A40     = 0x802D8A40; // type:func
+
 db_getgnd           = 0x802DFE70; // type:func
 db_getstart         = 0x802E0304; // type:func
 env_loadtpal        = 0x802E1990; // type:func
@@ -100,4 +117,3 @@ D_80355034 = 0x80355034; // type:f32 force_migration:True
 D_80355038 = 0x80355038; // type:f32 force_migration:True
 D_8035503C = 0x8035503C; // type:f32 force_migration:True
 D_80355040 = 0x80355040; // type:f32 force_migration:True
-
