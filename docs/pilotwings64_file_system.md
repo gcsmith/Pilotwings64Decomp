@@ -89,7 +89,7 @@ ROM Offset |  Length  | RAM Address           | Description
 | `UVRM` |                              |
 | `UVRW` | func_802314d0                |
 | `UVSQ` | func_802246a0, func_80224a90 | Music Sequence?
-| `UVSX` | func_802246a0                | Sound Effects (Container for .CTL/.TBL)
+| `UVSX` | func_802246a0                | Sound Bank (Container for .CTL/.TBL)
 | `UVSY` | func_802246a0                | System
 | `UVTI` | func_802246a0, func_80224a90 | Texture image?
 | `UVTP` | func_802246a0, func_80224a90 | Texture palette
