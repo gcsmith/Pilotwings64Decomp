@@ -7,31 +7,31 @@
 #define MAX_TESTS    5
 
 enum PilotId {
-    Lark = 0,
-    Goose = 1,
-    Hawk  = 2,
-    Kiwi  = 3,
-    Ibis  = 4,
-    Robin = 5,
-    MAX_PILOTS
+    PILOT_LARK = 0,
+    PILOT_GOOSE = 1,
+    PILOT_HAWK  = 2,
+    PILOT_KIWI  = 3,
+    PILOT_IBIS  = 4,
+    PILOT_ROBIN = 5,
+    PILOT_COUNT
 };
 
 enum VehicleId {
-    HangGlider = 0,
-    RocketBelt = 1,
-    Gyrocopter = 2,
-    Cannonball = 3,
-    SkyDiving = 4,
-    JumbleHopper = 5,
-    Birdman = 6,
-    MAX_VEHICLES
+    VEHICLE_HANG_GLIDER = 0,
+    VEHICLE_ROCKET_BELT = 1,
+    VEHICLE_GYROCOPTER = 2,
+    VEHICLE_CANNONBALL = 3,
+    VEHICLE_SKY_DIVING = 4,
+    VEHICLE_JUMBLE_HOPPER = 5,
+    VEHICLE_BIRDMAN = 6,
+    VEHICLE_COUNT
 };
 
 enum MapId {
-    HolidayIsland = 1,
-    CrescentIsland = 3,
-    LittleStates = 5,
-    EverFrostIsland = 10,
+    MAP_HOLIDAY_ISLAND = 1,
+    MAP_CRESCENT_ISLAND = 3,
+    MAP_LITTLE_STATES = 5,
+    MAP_EVER_FROST_ISLAND = 10,
 };
 
 typedef struct {

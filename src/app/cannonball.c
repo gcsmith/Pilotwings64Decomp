@@ -255,7 +255,7 @@ void cannonPilotLand(Unk802D5C5C_Arg0* arg0) {
 // cannonLoadPilot is invoked when loading cannonball level
 void cannonLoadPilot(u8 pilot, Unk802D5B50_Arg2* arg1) {
     switch (pilot) {
-    case Lark:
+    case PILOT_LARK:
         arg1->unk224 = -0.025f;
         arg1->unk228 = 0.097f;
         arg1->unk22C = 0.675f;
@@ -295,7 +295,7 @@ void cannonLoadPilot(u8 pilot, Unk802D5B50_Arg2* arg1) {
         arg1->unk291 = 0xC;
         arg1->unk284 = 0x3E;
         break;
-    case Goose:
+    case PILOT_GOOSE:
         arg1->unk224 = -0.001f;
         arg1->unk228 = 0.172f;
         arg1->unk22C = 0.782f;
@@ -335,7 +335,7 @@ void cannonLoadPilot(u8 pilot, Unk802D5B50_Arg2* arg1) {
         arg1->unk291 = 1;
         arg1->unk284 = 0x3F;
         break;
-    case Hawk:
+    case PILOT_HAWK:
         arg1->unk224 = 0.003f;
         arg1->unk228 = 0.187f;
         arg1->unk22C = 0.634f;
@@ -375,7 +375,7 @@ void cannonLoadPilot(u8 pilot, Unk802D5B50_Arg2* arg1) {
         arg1->unk291 = 5;
         arg1->unk284 = 0x40;
         break;
-    case Kiwi:
+    case PILOT_KIWI:
         arg1->unk224 = 0.002f;
         arg1->unk228 = 0.084f;
         arg1->unk22C = 0.706f;
@@ -415,7 +415,7 @@ void cannonLoadPilot(u8 pilot, Unk802D5B50_Arg2* arg1) {
         arg1->unk291 = 5;
         arg1->unk284 = 0x41;
         break;
-    case Ibis:
+    case PILOT_IBIS:
         arg1->unk224 = -0.002f;
         arg1->unk228 = 0.085f;
         arg1->unk22C = 0.799f;
@@ -455,7 +455,7 @@ void cannonLoadPilot(u8 pilot, Unk802D5B50_Arg2* arg1) {
         arg1->unk291 = 1;
         arg1->unk284 = 0x42;
         break;
-    case Robin:
+    case PILOT_ROBIN:
         arg1->unk224 = -0.001f;
         arg1->unk228 = 0.095f;
         arg1->unk22C = 0.844f;

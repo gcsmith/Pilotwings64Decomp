@@ -53,16 +53,16 @@ void levelLoad(u8 map, u8 pilot, u8 vehicle, s32 animateToys) {
     env_loadtpal(D_80362690->unk0[0].unk8);
     uvLevelAppend(map);
     switch (map) {
-    case HolidayIsland:
+    case MAP_HOLIDAY_ISLAND:
         D_8034F408 = levelLoadMapObjects(0);
         break;
-    case CrescentIsland:
+    case MAP_CRESCENT_ISLAND:
         D_8034F408 = levelLoadMapObjects(1);
         break;
-    case LittleStates:
+    case MAP_LITTLE_STATES:
         D_8034F408 = levelLoadMapObjects(2);
         break;
-    case EverFrostIsland:
+    case MAP_EVER_FROST_ISLAND:
         D_8034F408 = levelLoadMapObjects(3);
         break;
     }
@@ -75,7 +75,7 @@ void levelLoad(u8 map, u8 pilot, u8 vehicle, s32 animateToys) {
     } else {
         D_8034F400 = 0;
     }
-    if ((vehicle == HangGlider) || (vehicle == Birdman)) {
+    if ((vehicle == VEHICLE_HANG_GLIDER) || (vehicle == VEHICLE_BIRDMAN)) {
         uvLevelAppend(0x1B);
     }
     levelComputeAppend(pilot, vehicle);
@@ -94,24 +94,24 @@ void level_8030B868(void) {
             D_8034F404 = 1;
         }
         switch (gLevelCurMap) {
-        case HolidayIsland:
+        case MAP_HOLIDAY_ISLAND:
             func_802F1AE8();
             func_802D1CE8();
             break;
-        case CrescentIsland:
+        case MAP_CRESCENT_ISLAND:
             func_8034BEDC();
             func_802EB0D4();
             func_802D1A74();
             func_802F15C8();
             break;
-        case LittleStates:
+        case MAP_LITTLE_STATES:
             func_80335BE4();
             func_802E79F0();
             func_803151AC();
             func_802F182C();
             func_80320534();
             break;
-        case EverFrostIsland:
+        case MAP_EVER_FROST_ISLAND:
             func_80315D68();
             func_80315734();
             func_803363E0();
@@ -128,24 +128,24 @@ void level_8030B964(void) {
             D_8034F404 = 0;
         }
         switch (gLevelCurMap) {
-        case HolidayIsland:
+        case MAP_HOLIDAY_ISLAND:
             func_802F1FF0();
             func_802D206C();
             break;
-        case CrescentIsland:
+        case MAP_CRESCENT_ISLAND:
             func_8034C0BC();
             func_802EB270();
             func_802D206C();
             func_802F1FF0();
             break;
-        case LittleStates:
+        case MAP_LITTLE_STATES:
             func_80335E44();
             func_802E7C28();
             func_8031531C();
             func_802F1FF0();
             func_8032079C();
             break;
-        case EverFrostIsland:
+        case MAP_EVER_FROST_ISLAND:
             func_80315E3C();
             func_8031596C();
             func_8033651C();
@@ -169,70 +169,70 @@ void levelComputeAppend(u8 pilot, u8 vehicle) {
     var_a2 = -1;
     // clang-format off: compress switch statements
     switch (pilot) {
-    case Lark:
+    case PILOT_LARK:
         switch (vehicle) {
-        case HangGlider:   var_a2 = 0x1C; break;
-        case RocketBelt:   var_a2 = 0x22; break;
-        case Gyrocopter:   var_a2 = 0x28; break;
-        case Cannonball:   var_a2 = 0x2F; break;
-        case SkyDiving:    var_a2 = 0x3B; break;
-        case Birdman:      var_a2 = 0x35; break;
-        case JumbleHopper: var_a2 = 0x41; break;
+        case VEHICLE_HANG_GLIDER:   var_a2 = 0x1C; break;
+        case VEHICLE_ROCKET_BELT:   var_a2 = 0x22; break;
+        case VEHICLE_GYROCOPTER:   var_a2 = 0x28; break;
+        case VEHICLE_CANNONBALL:   var_a2 = 0x2F; break;
+        case VEHICLE_SKY_DIVING:    var_a2 = 0x3B; break;
+        case VEHICLE_BIRDMAN:      var_a2 = 0x35; break;
+        case VEHICLE_JUMBLE_HOPPER: var_a2 = 0x41; break;
         }
         break;
-    case Goose:
+    case PILOT_GOOSE:
         switch (vehicle) {
-        case HangGlider:   var_a2 = 0x1D; break;
-        case RocketBelt:   var_a2 = 0x23; break;
-        case Gyrocopter:   var_a2 = 0x29; break;
-        case Cannonball:   var_a2 = 0x30; break;
-        case SkyDiving:    var_a2 = 0x3C; break;
-        case Birdman:      var_a2 = 0x36; break;
-        case JumbleHopper: var_a2 = 0x42; break;
+        case VEHICLE_HANG_GLIDER:   var_a2 = 0x1D; break;
+        case VEHICLE_ROCKET_BELT:   var_a2 = 0x23; break;
+        case VEHICLE_GYROCOPTER:   var_a2 = 0x29; break;
+        case VEHICLE_CANNONBALL:   var_a2 = 0x30; break;
+        case VEHICLE_SKY_DIVING:    var_a2 = 0x3C; break;
+        case VEHICLE_BIRDMAN:      var_a2 = 0x36; break;
+        case VEHICLE_JUMBLE_HOPPER: var_a2 = 0x42; break;
         }
         break;
-    case Hawk:
+    case PILOT_HAWK:
         switch (vehicle) {
-        case HangGlider:   var_a2 = 0x1E; break;
-        case RocketBelt:   var_a2 = 0x24; break;
-        case Gyrocopter:   var_a2 = 0x2A; break;
-        case Cannonball:   var_a2 = 0x31; break;
-        case SkyDiving:    var_a2 = 0x3D; break;
-        case Birdman:      var_a2 = 0x37; break;
-        case JumbleHopper: var_a2 = 0x43; break;
+        case VEHICLE_HANG_GLIDER:   var_a2 = 0x1E; break;
+        case VEHICLE_ROCKET_BELT:   var_a2 = 0x24; break;
+        case VEHICLE_GYROCOPTER:   var_a2 = 0x2A; break;
+        case VEHICLE_CANNONBALL:   var_a2 = 0x31; break;
+        case VEHICLE_SKY_DIVING:    var_a2 = 0x3D; break;
+        case VEHICLE_BIRDMAN:      var_a2 = 0x37; break;
+        case VEHICLE_JUMBLE_HOPPER: var_a2 = 0x43; break;
         }
         break;
-    case Kiwi:
+    case PILOT_KIWI:
         switch (vehicle) {
-        case HangGlider:   var_a2 = 0x1F; break;
-        case RocketBelt:   var_a2 = 0x25; break;
-        case Gyrocopter:   var_a2 = 0x2B; break;
-        case Cannonball:   var_a2 = 0x32; break;
-        case SkyDiving:    var_a2 = 0x3E; break;
-        case Birdman:      var_a2 = 0x38; break;
-        case JumbleHopper: var_a2 = 0x44; break;
+        case VEHICLE_HANG_GLIDER:   var_a2 = 0x1F; break;
+        case VEHICLE_ROCKET_BELT:   var_a2 = 0x25; break;
+        case VEHICLE_GYROCOPTER:   var_a2 = 0x2B; break;
+        case VEHICLE_CANNONBALL:   var_a2 = 0x32; break;
+        case VEHICLE_SKY_DIVING:    var_a2 = 0x3E; break;
+        case VEHICLE_BIRDMAN:      var_a2 = 0x38; break;
+        case VEHICLE_JUMBLE_HOPPER: var_a2 = 0x44; break;
         }
         break;
-    case Ibis:
+    case PILOT_IBIS:
         switch (vehicle) {
-        case HangGlider:   var_a2 = 0x20; break;
-        case RocketBelt:   var_a2 = 0x26; break;
-        case Gyrocopter:   var_a2 = 0x2C; break;
-        case Cannonball:   var_a2 = 0x33; break;
-        case SkyDiving:    var_a2 = 0x3F; break;
-        case Birdman:      var_a2 = 0x39; break;
-        case JumbleHopper: var_a2 = 0x45; break;
+        case VEHICLE_HANG_GLIDER:   var_a2 = 0x20; break;
+        case VEHICLE_ROCKET_BELT:   var_a2 = 0x26; break;
+        case VEHICLE_GYROCOPTER:   var_a2 = 0x2C; break;
+        case VEHICLE_CANNONBALL:   var_a2 = 0x33; break;
+        case VEHICLE_SKY_DIVING:    var_a2 = 0x3F; break;
+        case VEHICLE_BIRDMAN:      var_a2 = 0x39; break;
+        case VEHICLE_JUMBLE_HOPPER: var_a2 = 0x45; break;
         }
         break;
-    case Robin:
+    case PILOT_ROBIN:
         switch (vehicle) {
-        case HangGlider:   var_a2 = 0x21; break;
-        case RocketBelt:   var_a2 = 0x27; break;
-        case Gyrocopter:   var_a2 = 0x2D; break;
-        case Cannonball:   var_a2 = 0x34; break;
-        case SkyDiving:    var_a2 = 0x40; break;
-        case Birdman:      var_a2 = 0x3A; break;
-        case JumbleHopper: var_a2 = 0x46; break;
+        case VEHICLE_HANG_GLIDER:   var_a2 = 0x21; break;
+        case VEHICLE_ROCKET_BELT:   var_a2 = 0x27; break;
+        case VEHICLE_GYROCOPTER:   var_a2 = 0x2D; break;
+        case VEHICLE_CANNONBALL:   var_a2 = 0x34; break;
+        case VEHICLE_SKY_DIVING:    var_a2 = 0x40; break;
+        case VEHICLE_BIRDMAN:      var_a2 = 0x3A; break;
+        case VEHICLE_JUMBLE_HOPPER: var_a2 = 0x46; break;
         }
         break;
     }

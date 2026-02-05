@@ -58,7 +58,7 @@ extern u8 D_803507A4;
 extern u8 gMapLookup[];
 extern u8 D_803507AC[];
 
-extern Unk803798E0 D_803798E0[MAX_CLASSES][MAX_TESTS][MAX_VEHICLES];
+extern Unk803798E0 D_803798E0[MAX_CLASSES][MAX_TESTS][VEHICLE_COUNT];
 
 extern Unk8037A600 D_8037A600;
 
@@ -103,7 +103,7 @@ void level_803449B0(void) {
 
     for (classIdx = 0; classIdx < MAX_CLASSES; classIdx++) {
         for (testIdx = 0; testIdx < MAX_TESTS; testIdx++) {
-            for (vehIdx = 0; vehIdx < MAX_VEHICLES; vehIdx++) {
+            for (vehIdx = 0; vehIdx < VEHICLE_COUNT; vehIdx++) {
                 D_803798E0[classIdx][testIdx][vehIdx].unk8 = 0xFF;
                 D_803798E0[classIdx][testIdx][vehIdx].unk0 = 0;
                 D_803798E0[classIdx][testIdx][vehIdx].unk4 = 0;
@@ -123,8 +123,8 @@ void level_803449B0(void) {
         if (testIdx >= MAX_TESTS) {
             _uvDebugPrintf("\ntask : stage index out of range - current limit %d\n", MAX_TESTS - 1);
         }
-        if (vehIdx >= MAX_VEHICLES) {
-            _uvDebugPrintf("\ntask : vehicle index out of range - current limit %d\n", MAX_VEHICLES - 1);
+        if (vehIdx >= VEHICLE_COUNT) {
+            _uvDebugPrintf("\ntask : vehicle index out of range - current limit %d\n", VEHICLE_COUNT - 1);
         }
         temp_s0_2 = &D_803798E0[classIdx][testIdx][vehIdx];
         if (temp_s0_2->unk8 != 0xFF) {
@@ -185,7 +185,7 @@ s32 levelGetTestCount(s32 classIdx, s32 vehicle) {
     if (classIdx > MAX_CLASSES) {
         return 0;
     }
-    if (vehicle > MAX_VEHICLES) {
+    if (vehicle > VEHICLE_COUNT) {
         return 0;
     }
 
@@ -207,7 +207,7 @@ s32 level_80344FC8(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* arg4, 
     if (classIdx > MAX_CLASSES) {
         return 0;
     }
-    if (vehicle > MAX_VEHICLES) {
+    if (vehicle > VEHICLE_COUNT) {
         return 0;
     }
     if (testIdx > MAX_TESTS) {
@@ -225,16 +225,16 @@ s32 level_80344FC8(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* arg4, 
 
     *map = gMapLookup[D_8035078C->comm.unk3];
     switch (*map) {
-    case CrescentIsland:
+    case MAP_CRESCENT_ISLAND:
         *arg4 = 1;
         break;
-    case LittleStates:
+    case MAP_LITTLE_STATES:
         *arg4 = 3;
         break;
-    case HolidayIsland:
+    case MAP_HOLIDAY_ISLAND:
         *arg4 = 0;
         break;
-    case EverFrostIsland:
+    case MAP_EVER_FROST_ISLAND:
         *arg4 = 7;
         break;
     default:
@@ -712,7 +712,7 @@ u8 levelGet_80346364(void) {
 s32 level_80346370(s32 terra) {
     s32 ret;
     switch (D_80362690->unk0[0].map) {
-    case CrescentIsland:
+    case MAP_CRESCENT_ISLAND:
         switch (terra) {
         case 0:
             ret = 1;
@@ -728,13 +728,13 @@ s32 level_80346370(s32 terra) {
             break;
         }
         break;
-    case LittleStates:
+    case MAP_LITTLE_STATES:
         ret = 3;
         break;
-    case HolidayIsland:
+    case MAP_HOLIDAY_ISLAND:
         ret = 0;
         break;
-    case EverFrostIsland:
+    case MAP_EVER_FROST_ISLAND:
         switch (terra) {
         case 0:
             ret = 7;

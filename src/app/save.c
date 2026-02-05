@@ -24,7 +24,7 @@ typedef struct {
 } Unk80364210_Unk0_Unk0;
 
 typedef struct {
-    Unk80364210_Unk0_Unk0 unk0[MAX_TESTS * MAX_VEHICLES]; // guess
+    Unk80364210_Unk0_Unk0 unk0[MAX_TESTS * VEHICLE_COUNT]; // guess
     s32 unk690;
 } Unk80364210_Unk0;
 
