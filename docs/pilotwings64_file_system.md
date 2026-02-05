@@ -19,8 +19,8 @@ ROM Offset |  Length  | RAM Address           | Description
 
 |  Tag   | Functions                    | Description
 |--------|------------------------------|--------------------------------------------
-| `.CTL` | func_80204438                |
-| `.TBL` | func_80204438                |
+| `.CTL` | func_80204438                | Sound Bank Parameters
+| `.TBL` | func_80204438                | Sound Bank ADPCM Wavetable data
 | `3VUE` |                              | 
 | `ADAT` |                              |
 | `APTS` | func_8030BDC8                | Audio switch points
@@ -88,8 +88,8 @@ ROM Offset |  Length  | RAM Address           | Description
 | `UVMD` | func_802246a0, func_80224a90 | Model
 | `UVRM` |                              |
 | `UVRW` | func_802314d0                |
-| `UVSQ` | func_802246a0, func_80224a90 | Sequence?
-| `UVSX` | func_802246a0                |
+| `UVSQ` | func_802246a0, func_80224a90 | Music Sequence?
+| `UVSX` | func_802246a0                | Sound Effects (Container for .CTL/.TBL)
 | `UVSY` | func_802246a0                | System
 | `UVTI` | func_802246a0, func_80224a90 | Texture image?
 | `UVTP` | func_802246a0, func_80224a90 | Texture palette
