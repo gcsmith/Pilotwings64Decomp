@@ -279,7 +279,7 @@ void func_8022E558(void) {
     uvGfxSetFlags(0x000FFF);
     uvGfxClearFlags(0xB00000);
     uvMat4Viewport(&sp74, 0.0f, 320.0f, 0.0f, 240.0f);
-    uvGfx_80222100(&sp74);
+    uvGfxMtxProjPushF(&sp74);
     uvMat4SetIdentity(&sp74);
     uvGfxPushMtxUnk(&sp74);
     uvVtxBeginPoly();
@@ -309,7 +309,7 @@ void func_8022E558(void) {
         uvVtxEndPoly();
     }
 
-    uvGfx_802236A8();
+    uvGfxMtxViewPop();
     uvGfxStatePop();
 }
 

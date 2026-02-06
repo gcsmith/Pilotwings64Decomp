@@ -13,7 +13,7 @@ void* func_802314D0(s32 arg0, s32 arg1) {
 
     sp24 = &gUVBlockOffsets.UVSY[arg0];
     sp38 = gUVBlockOffsets.unk1838[arg0];
-    uvGfx_80223B80();
+    uvGfxWaitForMesg();
     end = &D_802B55F0;
     if (sp24 >= end) {
         _uvDebugPrintf("Too many user files\n");

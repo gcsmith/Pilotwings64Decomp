@@ -590,9 +590,9 @@ void uvDbg_802333AC(UNUSED u8 arg0) {
 
     arg0 += 1;
     uvMat4Viewport(&sp20, 0.0f, 320.0f, 0.0f, 240.0f);
-    uvGfx_80222100(&sp20);
+    uvGfxMtxProjPushF(&sp20);
     uvMat4SetIdentity(&sp60);
-    uvGfx_8022345C(&sp60, 1);
+    uvGfxMtxViewLoad(&sp60, 1);
     uvDbg_8023286C();
     uvGfxStatePush();
     uvGfxSetFlags(0xFFF);
@@ -600,7 +600,7 @@ void uvDbg_802333AC(UNUSED u8 arg0) {
     uvDbg_80232EBC();
     uvDbg_80233310();
     uvGfxStatePop();
-    uvGfx_802236A8();
+    uvGfxMtxViewPop();
 }
 
 void uvDbg_8023345C(u8 arg0, u8 arg1, u8 arg2) {
@@ -713,7 +713,7 @@ void uvDbg_80233A40(s32 arg0, u16 arg1) {
 
     D_802C8030 = 0;
     uvMat4Viewport(&sp70, 0.0f, 320.0f, 0.0f, 240.0f);
-    uvGfx_80222100(&sp70);
+    uvGfxMtxProjPushF(&sp70);
     uvMat4SetIdentity(&sp30);
     sp30.m[0][0] = D_802C8024;
     sp30.m[1][1] = D_802C8028;
@@ -738,13 +738,13 @@ void uvDbg_80233A40(s32 arg0, u16 arg1) {
 
     for (sp2C = 0; sp2C < sp28; sp2C++) {
         sp2A = (u16)(arg0 % arg1);
-        uvGfx_8022345C(&sp30, 0);
+        uvGfxMtxViewLoad(&sp30, 0);
         uvDbg_80233D04(sp2A);
         sp30.m[3][0] -= (f32)D_802C802C;
         arg0 = (s32)(arg0 - sp2A) / arg1;
     }
     if (sp26 != 0) {
-        uvGfx_8022345C(&sp30, 0);
+        uvGfxMtxViewLoad(&sp30, 0);
         uvGfxDisplayList(D_8024B670);
     }
     D_802C8020 += D_802C802C * sp28;
@@ -820,7 +820,7 @@ void uvDbg_80233FC8(char* fmt, s32 arg1, ...) {
 
     D_802C8030 = 0;
     uvMat4Viewport(&sp68, 0.0f, 320.0f, 0.0f, 240.0f);
-    uvGfx_80222100(&sp68);
+    uvGfxMtxProjPushF(&sp68);
     uvMat4SetIdentity(&sp28);
     sp28.m[0][0] = D_802C8024;
     sp28.m[1][1] = D_802C8028;
@@ -830,7 +830,7 @@ void uvDbg_80233FC8(char* fmt, s32 arg1, ...) {
     idx = 0;
     ch = fmt[idx];
     while (ch != 0) {
-        uvGfx_8022345C(&sp28, 0);
+        uvGfxMtxViewLoad(&sp28, 0);
         if (ch == '%') {
             idx++;
             ch = fmt[idx];
@@ -848,7 +848,7 @@ void uvDbg_80233FC8(char* fmt, s32 arg1, ...) {
                 sp28.m[0][0] = D_802C8024;
                 sp28.m[1][1] = D_802C8028;
                 while (sp24[sp20] != 0) {
-                    uvGfx_8022345C(&sp28, 0);
+                    uvGfxMtxViewLoad(&sp28, 0);
                     sp28.m[3][0] += (f32)D_802C802C;
                     uvDbg_80233DB8(sp24[sp20]);
                     sp20 += 1;

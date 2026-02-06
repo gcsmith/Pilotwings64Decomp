@@ -1,8 +1,8 @@
 #include <uv_math.h>
 #include <uv_matrix.h>
 
-extern s32 gMatrixStackIdx;
-extern Mtx4F gMatrixStack[];
+static s32 gMatrixStackIdx = 0;
+extern Mtx4F gMatrixStack[0x64];
 
 void _uvDbMstackReset(void) {
     gMatrixStackIdx = -1;

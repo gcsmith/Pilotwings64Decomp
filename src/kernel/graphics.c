@@ -8,20 +8,61 @@
 void func_80218CA4(void);
 void func_8021A298(void);
 
-extern Gfx D_80249140[];
-extern f32 D_802491D8[];
-extern s32 D_802491E0;
-extern s32 D_802491E4;
-extern s32 D_802491E8;
-extern s32 D_802491EC;
-extern u8 D_802491F4;
-extern s8 D_802491F8;
-extern s8 D_802491FC;
-extern s32 D_80249200;
-extern f32 D_80249208;
-extern f32 D_8024921C;
-extern s32 D_80249230;
+static Gfx gGfxDList1[] = {
+    gsDPPipeSync(),
+    gsDPSetCycleType(G_CYC_2CYCLE),
+    gsDPPipelineMode(G_PM_NPRIMITIVE),
+    gsDPSetCombineMode(G_CC_SHADE, G_CC_PASS2),
+    gsDPSetCombineKey(G_CK_NONE),
+    gsDPSetAlphaCompare(G_AC_NONE),
+    gsDPSetDepthSource(G_ZS_PIXEL),
+    gsDPSetRenderMode(G_RM_OPA_SURF, G_RM_OPA_SURF2),
+    gsDPSetColorDither(G_CD_MAGICSQ),
+    gsDPSetTextureLUT(G_TT_NONE),
+    gsDPSetTexturePersp(G_TP_PERSP),
+    gsDPSetTextureConvert(G_TC_FILT),
+    gsSPTexture(0, 0, 0, G_TX_RENDERTILE, G_OFF),
+    gsSPEndDisplayList(),
+};
 
+static Gfx gGfxDList2[] = {
+    gsSPSetGeometryMode(G_SHADE), gsDPSetCycleType(G_CYC_2CYCLE), gsDPSetTextureLOD(G_TL_TILE), gsDPSetCombineMode(G_CC_SHADE, G_CC_PASS2),
+    gsSPEndDisplayList(),
+};
+
+static f32 D_802491D8[2] = { 0, 0 };
+static s32 D_802491E0 = 0;
+static s32 D_802491E4 = 0xFFFFFFFF;
+static s32 D_802491E8 = 0;
+static s32 D_802491EC = 0;
+static void* gGfxFbCurrPtr = NULL;
+static u8 D_802491F4 = 0; // [4] = { 0, 0, 0, 0 };
+static s8 D_802491F8 = 0; // [4] = { 0, 0, 0, 0 };
+static s8 D_802491FC = 1; // [4] = { 0, 0, 0, 0 };
+
+s32 D_80249200 = 0;
+s32 gGfxBeginFlag = 0;
+f32 D_80249208 = 0;
+u16 gGfxFbIndex = 0;
+s32 D_80249210 = 0;
+s32 D_80249214 = 0;
+s16 gGfxMstackIdx = 0xFFFF;
+f32 D_8024921C = -1;
+f32 D_80249220 = 1.880898581e-37;
+f32 D_80249224 = 9.367220608e-38;
+f32 D_80249228 = 1.880898581e-37;
+f32 D_8024922C = 9.367220608e-38;
+
+static uvGfxCallback_t D_80249230 = NULL;
+static s32 D_80249234 = 0x00000FA0;
+static s32 D_80249238 = 0x00000126;
+static s32 D_8024923C = 0x000000C8;
+static s32 D_80249240 = 0x00000064;
+static s32 D_80249244 = 0x00000078;
+static s32 D_80249248 = 0x00000320;
+static s32 D_8024924C = 0x00000000;
+
+extern uvGfxUnkStruct* gGfxUnkPtrs;
 extern u8 D_80296AA0[];
 extern u8 D_80296AA8[];
 extern u8* D_80298AA8;
@@ -34,11 +75,7 @@ extern s32 D_80298AD8[];
 
 typedef Mtx MtxStack_t[UV_GFX_NUM_MATRICES];
 
-extern s32 gGfxBeginFlag;
-extern void* gGfxFbCurrPtr;
-extern u16 gGfxFbIndex;
 extern s32 gGfxLookCount;
-extern s16 gGfxMstackIdx;
 extern MtxStack_t gGfxMstack[2];
 extern u8* gGfxFbPtrs[2];
 extern s32 D_8029926C;
@@ -91,7 +128,7 @@ void uvGfxInit(void) {
     // clang-format on
 
     for (i = 0; i < 2; i++) {
-        uvGfx_80223094(i, gGfxViewX0, gGfxViewX1, gGfxViewY0, gGfxViewY1);
+        uvGfxClipViewport(i, gGfxViewX0, gGfxViewX1, gGfxViewY0, gGfxViewY1);
     }
     uvMat4SetIdentity(&D_802B4888);
     gGfxStateStackIdx = 0;
@@ -112,7 +149,7 @@ void uvGfxBegin(void) {
     gSPSegment(gGfxDisplayListHead++, 0x00, 0x00000000);
     gDPSetColorImage(gGfxDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gGfxFbCurrPtr));
 
-    uvGfx_80220E0C();
+    uvGfxResetState();
     func_80218CA4();
     uvSprt_802301A4();
     uvVtxReset(1);
@@ -147,13 +184,13 @@ void uvGfxSetFogFactor(f32 arg0) {
 }
 #endif
 
-void uvGfx_80220E0C(void) {
+void uvGfxResetState(void) {
     if (D_80249208 > 0.0f) {
         gSPSetGeometryMode(gGfxDisplayListHead++, G_ZBUFFER | G_SHADE | G_CULL_BACK | G_FOG | G_SHADING_SMOOTH);
     } else {
         gSPSetGeometryMode(gGfxDisplayListHead++, G_ZBUFFER | G_SHADE | G_CULL_BACK | G_SHADING_SMOOTH);
     }
-    gSPDisplayList(gGfxDisplayListHead++, &D_80249140);
+    gSPDisplayList(gGfxDisplayListHead++, &gGfxDList1);
     gDPSetDepthImage(gGfxDisplayListHead++, D_80299278);
     gDPSetDepthImage(gGfxDisplayListHead++, osVirtualToPhysical(D_80299278));
 
@@ -164,14 +201,14 @@ void uvGfx_80220E0C(void) {
     uvGfxSetFogFactor(D_80249208);
 }
 
-void uvGfxPushMtxView(Mtx src) {
-    uvGfxMstackPush(src);
+void uvGfxMtxView(Mtx src) {
+    uvGfxMstackPushL(src);
     gSPMatrix(gGfxDisplayListHead++, osVirtualToPhysical(uvGfxMstackTop()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     D_80298AD0[gGfxFbIndex]++;
 }
 
-void uvGfxPushMtxProj(Mtx arg0) {
-    uvGfxMstackPush(arg0);
+void uvGfxMtxProj(Mtx arg0) {
+    uvGfxMstackPushL(arg0);
     gSPMatrix(gGfxDisplayListHead++, osVirtualToPhysical(uvGfxMstackTop()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
     D_80298AD0[gGfxFbIndex]++;
 }
@@ -180,7 +217,7 @@ void uvGfxDisplayList(Gfx* dl) {
     gSPDisplayList(gGfxDisplayListHead++, dl);
 }
 
-void uvGfx_802210E8(uvGfxState_t* arg0) {
+void uvGfxStateDrawDL(uvGfxState_t* arg0) {
     Mtx4F temp;
 
     gDPPipeSync(gGfxDisplayListHead++);
@@ -194,9 +231,9 @@ void uvGfx_802210E8(uvGfxState_t* arg0) {
     gDPSetColorImage(gGfxDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(D_80299278));
 
     uvMat4SetIdentity(&temp);
-    uvGfx_802234F4(&temp, 1);
+    uvGfxMtxViewMul(&temp, 1);
     gSPDisplayList(gGfxDisplayListHead++, (s32)arg0->unk8);
-    uvGfx_802236A8();
+    uvGfxMtxViewPop();
 
     gDPPipeSync(gGfxDisplayListHead++);
     gDPSetColorImage(gGfxDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, osVirtualToPhysical(gGfxFbCurrPtr));
@@ -223,7 +260,7 @@ void uvGfxPushMtxUnk(Mtx4F* arg0) {
     uvMat4RotateAxis(&sp88, -1.5707963f, 0x78);
     uvMat4Mul(&D_802B4888, &sp48, &sp88);
     uvMat4SetUnk1(&spC8);
-    uvGfxPushMtxView(*(Mtx*)&spC8);
+    uvGfxMtxView(*(Mtx*)&spC8);
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/uvGfxClampLook.s")
@@ -243,14 +280,14 @@ void uvGfxLookAt(Mtx4F* arg0) {
     gGfxLookCount += 1;
 }
 
-void uvGfx_80222100(Mtx4F* arg0) {
+void uvGfxMtxProjPushF(Mtx4F* arg0) {
     Mtx4F sp48;
     uvMat4CopyF2L(&sp48, arg0);
-    uvGfxPushMtxProj(*(Mtx*)&sp48);
+    uvGfxMtxProj(*(Mtx*)&sp48);
 }
 
-void uvGfx_80222170(s32 arg0) {
-    D_80249230 = arg0;
+void uvGfxSetCallback(uvGfxCallback_t cb) {
+    D_80249230 = cb;
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/uvGfxEnd.s")
@@ -327,18 +364,18 @@ void uvGfxEnableLighting(s32 enable) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/uvGfxClipViewport.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/uvGfxClipRect.s")
 
-void uvGfx_80223094(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
-    uvGfxClipViewport(&gGfxViewports[arg0], arg1, arg2, arg3, arg4);
+void uvGfxClipViewport(s32 vp_id, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+    uvGfxClipRect(&gGfxViewports[vp_id], arg1, arg2, arg3, arg4);
 }
 
-void uvGfx_802230CC(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
-    uvGfxClipViewport(&gGfxViewports[arg0 + 2], arg1, arg2, arg3, arg4);
-    uvGfxSetViewport(arg0 + 2);
+void uvGfxSetViewport(s32 vp_id, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+    uvGfxClipRect(&gGfxViewports[vp_id + 2], arg1, arg2, arg3, arg4);
+    uvGfxViewport(vp_id + 2);
 }
 
-void uvGfxSetViewport(s32 vp_id) {
+void uvGfxViewport(s32 vp_id) {
     uvGfxViewport_t* vp;
     vp = &gGfxViewports[vp_id];
 
@@ -350,7 +387,7 @@ void uvGfxSetViewport(s32 vp_id) {
     gGfxViewY1 = vp->y1;
 }
 
-void uvGfxMstackPushUnk(Mtx4F* src) {
+void uvGfxMstackPushF(Mtx4F* src) {
     gGfxMstackIdx += 1;
     if (gGfxMstackIdx >= UV_GFX_NUM_MATRICES) {
         _uvDebugPrintf("gfx : too many double buffered matrices [%d]\n", gGfxMstackIdx);
@@ -360,7 +397,7 @@ void uvGfxMstackPushUnk(Mtx4F* src) {
     uvMat4CopyF2L((Mtx4F*)&gGfxMstack[gGfxFbIndex][gGfxMstackIdx], src);
 }
 
-void uvGfxMstackPush(Mtx src) {
+void uvGfxMstackPushL(Mtx src) {
     gGfxMstackIdx += 1;
     if (gGfxMstackIdx >= UV_GFX_NUM_MATRICES) {
         _uvDebugPrintf("gfx : too many double buffered matrices [%d]\n", gGfxMstackIdx);
@@ -374,21 +411,21 @@ Mtx* uvGfxMstackTop(void) {
     return &gGfxMstack[gGfxFbIndex][gGfxMstackIdx];
 }
 
-void uvGfx_80223408(f32 arg0) {
+void uvGfxSetUnkStateF(f32 arg0) {
     D_8024921C = arg0;
 }
 
-f32 uvGfx_80223414(void) {
+f32 uvGfxGetUnkStateF(void) {
     if (D_8024921C > 0.0f) {
         return D_8024921C;
     }
     return D_802491D8[gGfxFbIndex ^ 1];
 }
 
-void uvGfx_8022345C(Mtx4F* src, s32 push) {
+void uvGfxMtxViewLoad(Mtx4F* src, s32 push) {
     s32 flags;
 
-    uvGfxMstackPushUnk(src);
+    uvGfxMstackPushF(src);
     if (push != 0) {
         flags = G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_PUSH;
     } else {
@@ -398,10 +435,10 @@ void uvGfx_8022345C(Mtx4F* src, s32 push) {
     D_80298AD0[gGfxFbIndex]++;
 }
 
-void uvGfx_802234F4(Mtx4F* src, s32 push) {
+void uvGfxMtxViewMul(Mtx4F* src, s32 push) {
     s32 flags;
 
-    uvGfxMstackPushUnk(src);
+    uvGfxMstackPushF(src);
     if (push != 0) {
         flags = G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH;
     } else {
@@ -415,7 +452,7 @@ void uvGfx_802234F4(Mtx4F* src, s32 push) {
 void uvGfx_802235A4(Mtx src, u8 push) {
     s32 flags;
 
-    uvGfxMstackPush(src);
+    uvGfxMstackPushL(src);
     if (push != 0) {
         flags = G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH;
     } else {
@@ -426,7 +463,7 @@ void uvGfx_802235A4(Mtx src, u8 push) {
     D_80298AD8[gGfxFbIndex]++;
 }
 
-void uvGfx_802236A8(void) {
+void uvGfxMtxViewPop(void) {
     gSPPopMatrix(gGfxDisplayListHead++, G_MTX_MODELVIEW);
 }
 
@@ -448,7 +485,7 @@ void uvGfx_802236CC(Mtx4F* arg0) {
     } else if (sp20.m[3][2] > 2.1e9f) {
         sp20.m[3][2] = 2.1e9f;
     }
-    uvGfxMstackPushUnk(&sp20);
+    uvGfxMstackPushF(&sp20);
     gSPMatrix(gGfxDisplayListHead++, osVirtualToPhysical(uvGfxMstackTop()), G_MTX_PUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     D_80298AD0[gGfxFbIndex]++;
 }
@@ -527,9 +564,34 @@ void uvGfx_80223A28(s32 flags) {
     uvGfxStateDraw(&sp20);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/uvGfx_80223A64.s")
+void uvGfx_80223A64(s32 arg0, s32 arg1) {
+    s32 var_v0;
 
-void uvGfx_80223B80(void) {
+    var_v0 = gGfxStateStackData & 0x01000000;
+    if (arg1 != 0) {
+        var_v0 ^= 0x01000000;
+    }
+    if (arg0 == 0xFFF) {
+        arg0 = gGfxStateStackData & 0xFFF;
+        if (arg0 == 0xFFFU) {
+            if (var_v0 == 0) {
+                return;
+            }
+        }
+        gSPTextureL(gGfxDisplayListHead++, 0, 0, 0, arg1, G_TX_RENDERTILE, G_OFF);
+
+    } else if (arg1 != 0) {
+        Gfx* temp_v0 = gGfxUnkPtrs->unk910[arg0]->unk4;
+        GFX_PATCH_DL(gGfxDisplayListHead, temp_v0, arg1);
+        gGfxDisplayListHead++;
+    } else if (var_v0 != 0) {
+        Gfx* temp_v0 = gGfxUnkPtrs->unk910[arg0]->unk4;
+        GFX_PATCH_DL(gGfxDisplayListHead, temp_v0, 0);
+        gGfxDisplayListHead++;
+    }
+}
+
+void uvGfxWaitForMesg(void) {
     if (D_80249200 != 0) {
         uvWaitForMesg(UV_MESG_GFX);
         D_80249200 = 0;
@@ -545,7 +607,7 @@ void uvGfxEnableGamma(s32 enable) {
     }
 }
 
-void uvGfx_80223BF4(s32 arg0) {
+void uvGfxSetUnkState0(s32 arg0) {
     D_802491E8 = arg0;
 }
 

@@ -270,7 +270,6 @@ __osSetCompare = 0x80245480;
 __osSiDeviceBusy = 0x80245490;
 __osGetCause = 0x802454C0;
 __osAtomicDec = 0x802454D0;
-__printfunc = 0x80248DD0;
 __additional_scanline = 0x80248DD8;
 alGlobals = 0x8024B780;
 aisetnextbuf_data_0000 = 0x8024B790;

@@ -56,6 +56,9 @@ gGeomFirstTmesh     = 0x80296A88;
 gGeomFirstPoly      = 0x80296A8A;
 gGeomFirstGrid      = 0x80296A8C;
 
+gGfxUnkPtrs         = 0x80248DD0;
+gGfxDList1          = 0x80249140;
+gGfxDList2          = 0x802491B0;
 gGfxFbCurrPtr       = 0x802491F0;
 gGfxBeginFlag       = 0x80249204;
 gGfxFbIndex         = 0x8024920C;

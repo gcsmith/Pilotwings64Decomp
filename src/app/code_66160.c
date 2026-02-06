@@ -21,15 +21,15 @@ void func_802DF988(void) {
     uvGfxStatePush();
     uvGfxSetFlags(0x800000);
     uvGfxClearFlags(0x600000);
-    uvGfx_802230CC(0, 0, 0x140, 0, 0xF0);
+    uvGfxSetViewport(0, 0, 0x140, 0, 0xF0);
     uvMat4Viewport(&sp20, 0.0f, 319.0f, 0.0f, 239.0f);
-    uvGfx_80222100(&sp20);
+    uvGfxMtxProjPushF(&sp20);
     uvMat4SetIdentity(&sp60);
-    uvGfx_8022345C(&sp60, 1);
+    uvGfxMtxViewLoad(&sp60, 1);
 }
 
 void func_802DFA18(void) {
-    uvGfx_802236A8();
+    uvGfxMtxViewPop();
     uvGfxStatePop();
 }
 

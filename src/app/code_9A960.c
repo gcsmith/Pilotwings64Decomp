@@ -60,18 +60,18 @@ void func_80314154(void) {
     Mtx4F sp60;
     Mtx4F sp20;
 
-    uvGfx_802230CC(0, 0, 0x140, 0, 0xF0);
+    uvGfxSetViewport(0, 0, 0x140, 0, 0xF0);
     uvMat4Viewport(&sp60, 0.0f, 319.0f, 0.0f, 239.0f);
-    uvGfx_80222100(&sp60);
+    uvGfxMtxProjPushF(&sp60);
     uvMat4SetIdentity(&sp20);
-    uvGfx_8022345C(&sp20, 1);
+    uvGfxMtxViewLoad(&sp20, 1);
     uvGfxStatePush();
     uvGfxSetFlags(0x800000);
     uvGfxClearFlags(0x600000);
 }
 
 void func_803141E4(void) {
-    uvGfx_802236A8();
+    uvGfxMtxViewPop();
     uvGfxStatePop();
 }
 

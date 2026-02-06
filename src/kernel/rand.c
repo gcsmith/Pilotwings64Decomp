@@ -1,9 +1,9 @@
 #include <stdlib.h>
 #include <uv_math.h>
 
-extern u32 gRandLcgState;
-extern s32 gRanluxState1;
-extern s32 gRanluxState2;
+static u32 gRandLcgState = 1;
+static s32 gRanluxState1 = 1;
+static s32 gRanluxState2 = 1;
 
 void uvRandSeed(s32 seed) {
     gRandLcgState = seed;
