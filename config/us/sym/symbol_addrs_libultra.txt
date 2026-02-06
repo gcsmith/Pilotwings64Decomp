@@ -1,5 +1,3 @@
-alSeqpDelete = 0x80204FC4;
-alSynRemovePlayer = 0x80204FE4;
 __dummy = 0x802070B0;
 osViExtendVStart = 0x802071C0;
 alSndpSetSound = 0x802344A0;

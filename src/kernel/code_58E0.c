@@ -104,11 +104,23 @@ u8* func_80204F9C(s32 arg0) {
     return (u8*)&D_80261730[arg0].unk374;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_58E0/alSeqpDelete.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_58E0/func_80204FC4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_58E0/alSynRemovePlayer.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_58E0/func_80204FE4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_58E0/func_80205724.s")
+void func_80205724(s32 arg0, s32 arg1, Mtx4F* arg2) {
+    switch (arg1) { /* irregular */
+    case 1:
+        uvMat4Copy(arg2, &D_80261730[arg0].unk110);
+        return;
+    case 2:
+        uvMat4Copy(arg2, &D_80261730[arg0].unk10);
+        return;
+    case 3:
+        uvMat4Copy(arg2, &D_80261730[arg0].unk190);
+        return;
+    }
+}
 
 void func_802057F4(Mtx4F* arg0, Mtx4F* arg1) {
     uvMat4UnkOp4(arg0, arg1);

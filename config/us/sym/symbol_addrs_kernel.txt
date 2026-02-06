@@ -44,6 +44,9 @@ _uvaStatus          = 0x80202C5C; // type:func
 uvSysInitAudio      = 0x802038A0; // type:func
 uvGetSamples        = 0x8020411C; // type:func
 
+func_80204FC4       = 0x80204FC4; // type:func
+func_80204FE4       = 0x80204FE4; // type:func
+
 uvaSeqNew           = 0x802046E0; // type:func
 uvaSeqPlay          = 0x802047A8; // type:func
 uvaSeqSetTempo      = 0x802047E8; // type:func
