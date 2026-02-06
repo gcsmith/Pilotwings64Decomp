@@ -277,7 +277,7 @@ f32 demoGetInputs(s32 contIdx, s32 axis) {
         if ((D_8036DA30 == NULL) || (D_8036DA30 != D_8036DA30->unk0)) {
             demoInit();
         }
-        if (axis == 0) {
+        if (axis == INPUT_AXIS_0) {
             idx = demoGetEntryIndex(D_8034F850);
             return demoRecGetStickX(&D_8036DA30->entries[idx]);
         } else {

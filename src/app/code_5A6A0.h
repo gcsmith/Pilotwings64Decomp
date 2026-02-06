@@ -155,8 +155,13 @@ typedef struct {
     u8 pad57;
     Mtx4F unk58;
     f32 unk98;
-    f32 unk9C;
-    f32 unkA0;
+    union {
+        f32 zxAxis[2];
+        struct {
+            f32 zAxis; // rotation intended here
+            f32 xAxis;
+        };
+    };
     f32 unkA4;
     u8 padA8[0xB0 - 0xA8];
     Unk802D3658_Arg0* unkB0;

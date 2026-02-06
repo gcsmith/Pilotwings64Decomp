@@ -8,6 +8,11 @@ typedef struct {
     u32 inputs;
 } DemoRecordingEntry;
 
+enum InputAxis {
+    INPUT_AXIS_0 = 0, // X or Z?
+    INPUT_AXIS_1 = 1 // X or Z?
+};
+
 f32 demoRecGetStickX(DemoRecordingEntry* entry);
 f32 demoRecGetStickY(DemoRecordingEntry* entry);
 u32 demoRecGetButtons(DemoRecordingEntry* entry);

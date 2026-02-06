@@ -4,7 +4,7 @@
 #include <uv_matrix.h>
 
 typedef struct {
-    u16 unk0;
+    u16 unk0; // Maybe some button mask?
     s16 pad2;
     s32 pad4;
     s8 unk8;

@@ -98,8 +98,8 @@ void cannon_802D5C5C(Unk802D5C5C_Arg0* arg0) {
         uvDobjPosm(arg0->unk54, 0, &arg0->unk58);
         func_80313570(&arg0->unk58, &sp54, &sp50, &sp4C, &sp48, &sp44, &sp40);
         arg0->unk98 = sp48;
-        arg0->unkA0 = 0.52359873f;
-        arg0->unk9C = 0.0f;
+        arg0->xAxis = 0.52359873f;
+        arg0->zAxis = 0.0f;
     }
     uvMat4Copy(&arg0->unk14, &arg0->unk58);
     uvDobjPosm(arg0->unk0, 0, &arg0->unk14);
@@ -136,7 +136,7 @@ void cannon_802D5C5C(Unk802D5C5C_Arg0* arg0) {
     arg0->unkB0->unk228 = 0.0f;
     uvModelGetProps(arg0->unk220, 1, &arg0->unkB0->unk8, 0);
     func_802D45C4(arg0->unkB0, arg0->unkB8);
-    D_8034E9F0 = 4.712389f;
+    D_8034E9F0 = 4.712389f; // DEG_TO_RAD(270)
     D_8034E9F4 = 0;
     D_8034E9F8 = 0;
 }
@@ -152,32 +152,314 @@ void cannonEndTarget(Unk802D5B50_Arg2* arg0) {
 }
 
 // cannonMovementFrame called every frame while aiming cannon and while in flight
-void cannonMovementFrame(Unk802D5C5C_Arg0* arg0, u8 arg1);
-#pragma GLOBAL_ASM("asm/nonmatchings/app/cannonball/cannonMovementFrame.s")
+void cannonMovementFrame(Unk802D5C5C_Arg0* arg0, u8 arg1) {
+    f32 spEC;
+    f32 spE8;
+    s32 spE4;
+    Unk802D3658_Arg0* temp_v0;
+    f32 var_fa0;
+    f32 var_fa0_2;
+    f32 var_fv0;
+    f32 var_fv0_2;
+    f32 spC8[2];
+    u8 spC7;
+    Unk80318294* spC0;
+    s32 temp_t2;
+    Mtx4F sp7C;
+    Mtx4F sp3C;
+    Mtx4F* sp2C;
+    u16 temp_v0_3;
+    u8 temp_t3;
 
-// cannonAimingFrame does not initialize sp34, likely need CC_CHECK ignores
+    if (func_802E6B5C() == 4) {
+        return;
+    }
+
+    arg0->unk8 += D_8034F854;
+    arg0->unk11D = 0;
+    if (arg1 != 6) {
+        spEC = demoGetInputs(arg0->unk10, INPUT_AXIS_0);
+        spE8 = demoGetInputs(arg0->unk10, INPUT_AXIS_1);
+        spE4 = demoGetButtons(arg0->unk10);
+    }
+    sp2C = &arg0->unk14;
+    func_802E65AC(&arg0->unk14, &D_80362690->unk0[0].unk6, &spEC, &spE8, &spE4);
+    if (arg1 != 6) {
+        spC8[0] = arg0->zAxis;
+        spC8[1] = arg0->xAxis;
+        spC7 = (arg0->unkD4 * 2) | (arg0->unkC4 & 1);
+        func_802E682C(&spC8, 2, spC7);
+    } else {
+        func_802E6870(&spC8, 2, &spC7);
+        arg0->zAxis = spC8[0];
+        arg0->xAxis = spC8[1];
+        arg0->unkD4 = spC7 >> 1;
+        arg0->unkC4 = spC7 & 1;
+    }
+    if (spEC > 0.0f) {
+        var_fv0 = spEC;
+    } else {
+        var_fv0 = -spEC;
+    }
+    arg0->unkBC = func_80313F08(&D_80359A30, var_fv0);
+    if (spEC < 0 /*.0f*/) {
+        arg0->unkBC = -arg0->unkBC;
+    }
+    if (spE8 > 0.0f) {
+        var_fv0_2 = spE8;
+    } else {
+        var_fv0_2 = -spE8;
+    }
+    arg0->unkC0 = func_80313F08(&D_80359A30, var_fv0_2);
+    if (spE8 < 0.0f) {
+        arg0->unkC0 = -arg0->unkC0;
+    }
+    if ((spE4 & 0x8000) && (D_8034F850 >= 2.0f)) {
+        arg0->unkC4 = 1;
+    }
+    if ((arg0->unkC4 != 0) && (arg0->unkC8 == 0.0f)) {
+        arg0->unkC8 = D_8034F850;
+    }
+    if (arg0->unkD4 == 0) {
+        cannonAimingFrame(arg0);
+    }
+    if ((arg1 != 6) && (arg0->unkD4 == 1)) {
+        func_802D95D8(arg0);
+    }
+    if (arg0->unkD4 == 2) {
+        cannonPilotLand(arg0);
+    }
+    func_802D8AF0(arg0);
+    uvDobjPosm(arg0->unk0, 0, sp2C);
+    if (D_8034E9F4 != 0) {
+        arg0->unkCC = 0.0f;
+    } else {
+        if (spE4 & 2) {
+            var_fa0 = 1.5707963f; // DEG_TO_RAD(90)
+        } else if (spE4 & 1) {
+            var_fa0 = -1.5707963f; // -DEG_TO_RAD(90)
+        } else {
+            var_fa0 = 0.0f;
+        }
+        arg0->unkCC = func_80313AF4(var_fa0, arg0->unkCC, 2.0f);
+    }
+    if (D_8034E9F4 != 0) {
+        arg0->unkD0 = 0.0f;
+    } else {
+        if (spE4 & 4) {
+            var_fa0_2 = 1.5707963f; // DEG_TO_RAD(90)
+        } else if (spE4 & 8) {
+            var_fa0_2 = -1.5707963f; // -DEG_TO_RAD(90)
+        } else {
+            var_fa0_2 = 0.0f;
+        }
+        arg0->unkD0 = func_80313AF4(var_fa0_2, arg0->unkD0, 2.0f);
+    }
+    if (arg1 != 6) {
+        if (arg0->unkD4 == 0 || (D_8034F850 - arg0->unkC8) < 0.5f) {
+            arg0->unkB4 = 5;
+            arg0->unkB8 = 1.0f;
+            if (demoButtonPress(arg0->unk10, R_TRIG) != 0) {
+                func_8033F758(0x6A, 1.0f, 0.5f, 0);
+                // @fake
+                if (D_8034E9F4) { }
+                D_8034E9F4 = D_8034E9F4 == 0;
+            }
+            if (D_8034E9F4 == 0) {
+                uvMat4Copy(&sp7C, &arg0->unk58);
+                uvMat4RotateAxis(&sp7C, arg0->zAxis - arg0->unkCC, 0x7A);
+                uvMat4UnkOp2(&sp7C, 0.0f, -12.0f, 2.0f);
+                uvMat4RotateAxis(&sp7C, arg0->xAxis * 0.3f, 0x78);
+                uvMat4Copy(&arg0->unkB0->unk108, &sp7C);
+            } else {
+                uvMat4Copy(&sp7C, &arg0->unk58);
+                uvMat4RotateAxis(&sp7C, arg0->zAxis, 0x7A);
+                uvMat4RotateAxis(&sp7C, arg0->xAxis, 0x78);
+                uvMat4UnkOp2(&sp7C, 0.0f, 3.6000001f, 0.0f);
+                uvMat4Copy(&arg0->unkB0->unk108, &sp7C);
+            }
+            uvMat4Copy(&sp3C, sp2C);
+            uvMat4UnkOp2(&sp3C, 0.0f, -4.0f, -1.0f);
+            temp_v0 = arg0->unkB0;
+            func_802EAC18(temp_v0->unk230, temp_v0->unk14, &sp3C);
+        } else {
+            D_8034E9F4 = 0;
+            if ((arg0->unkB4 == 5) && (arg0->unkD4 != 2)) {
+                arg0->unkB0->unkD = 0;
+                D_8034E9F8++;
+                if (D_8034E9F8 == 3) {
+                    arg0->unkB4 = 0;
+                }
+            }
+            if (demoButtonPress(arg0->unk10, R_TRIG) != 0) {
+                func_8033F758(0x6A, 1.0f, 0.5f, 0);
+                if (arg0->unkB4 == 0) {
+                    arg0->unkB4 = 8;
+                } else {
+                    arg0->unkB4 = 0;
+                    arg0->unkB8 = 1.0f;
+                }
+            }
+        }
+        arg0->unkB0->unk4 = arg0->unk0;
+        arg0->unkB0->unk6 = arg0->unk2;
+        arg0->unkB0->unk78 = arg0->unkCC;
+        arg0->unkB0->unk7C = arg0->unkD0;
+        arg0->unkB0->unk204.x = arg0->unk1C4;
+        arg0->unkB0->unk204.y = arg0->unk1C8;
+        arg0->unkB0->unk204.z = arg0->unk1CC;
+        arg0->unkB0->unk228 = arg0->unk120;
+        uvMat4Copy(&arg0->unkB0->unk80, sp2C);
+        func_802D5884(arg0->unkB0, arg0->unkB4);
+        func_802D45C4(arg0->unkB0, arg0->unkB8);
+    }
+    if (arg1 != 6) {
+        spC0 = func_80318294();
+        if (arg0->unkD4 == 0) {
+            uvMat4Copy(&spC0->unk28, &arg0->unk58);
+            uvMat4RotateAxis(&spC0->unk28, arg0->zAxis, 0x7A);
+        } else {
+            uvMat4Copy(&spC0->unk28, sp2C);
+        }
+        if ((arg0->unkB4 != 8) && (arg0->unkD4 != 2)) {
+            spC0->unk0 = 0x10;
+        } else {
+            spC0->unk0 = 0;
+        }
+        spC0->unk70 = arg0->unk14.m[3][2];
+        spC0->unk10 = arg0->unk8;
+        spC0->unk18 = arg0->unkA4;
+        spC0->unk8C = arg0->unk1CC * 4.0f * 0.7f;
+        spC0->unk80 = arg0->unk120 * 0.7f;
+        spC0->unk84 = arg0->unk14.m[3][2] * 0.7f;
+        spC0->unk88 = arg0->unk1D0 * 3.6f * 0.7f;
+        spC0->unk20 = arg0->unk98 + arg0->zAxis;
+        spC0->unk24 = arg0->xAxis;
+        spC0->unk8 = 3 - arg0->unkE;
+        if (D_8034E9F4 != 0) {
+            spC0->unk0 |= 0x200;
+        } else {
+            if (spC0->unk0 & 0x200) {
+                spC0->unk0 &= ~0x200;
+            }
+        }
+        spC0->unkC70 = 0.0f;
+        spC0->unkC6C = 0.0f;
+        spC0->unkC74 = 0;
+    }
+}
+
 #if defined(__clang__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wsometimes-uninitialized"
-#elif defined(__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
 #endif
 // cannonAimingFrame called every frame while inside cannon
 // controls the rate of rotation and Z-button presses
-void cannonAimingFrame(Unk802D5C5C_Arg0* arg0);
-#if defined(__GNUC__) || defined(__clang__)
+void cannonAimingFrame(Unk802D5C5C_Arg0* arg0) {
+    Mtx4F sp38;
+    f32 sp34;
+
+    if (D_8034F850 >= 2.0f) {
+        D_8034E9F0 += 1.2f * D_8034F854;
+    }
+    if (D_8034E9F0 > 6.2831855f) { // little more than 2*PI or DEG_TO_RAD(360)
+        D_8034E9F0 -= 6.2831855f;
+    }
+    if (D_8034E9F0 <= 1.5707964f) {                             // DEG_TO_RAD(90)
+        sp34 = D_8034E9F0 / 1.5707964f;                         // DEG_TO_RAD(90)
+    } else if (D_8034E9F0 <= 3.1415927f) {                      // PI or DEG_TO_RAD(180)
+        sp34 = 1.0f - ((D_8034E9F0 - 1.5707964f) / 1.5707964f); // - DEG_TO_RAD(90) / DEG_TO_RAD(90)
+    } else if (D_8034E9F0 <= 4.712389f) {                       // DEG_TO_RAD(270)
+        sp34 = -(D_8034E9F0 - 3.1415927f) / 1.5707964f;         // - DEG_TO_RAD(180) / DEG_TO_RAD(90)
+    } else if (D_8034E9F0 <= 6.2831855f) {                      // DEG_TO_RAD(360)
+        // this block should just be `else` since `D_8034E9F0 > 6.2831855f` above
+        sp34 = ((D_8034E9F0 - 4.712389f) / 1.5707964f) + -1.0f; // - DEG_TO_RAD(270) / DEG_TO_RAD(90)
+    } else {
+        // sp34 ends up being uninitalized here
+    }
+
+    arg0->unkA4 = (((1.5f * sp34) - (uvSinF(D_8034E9F0) * 0.5f)) * 0.5f) + 0.5f;
+    if (demoButtonCheck(0, Z_TRIG) == 0) {
+        arg0->zAxis -= 0.25f * arg0->unkBC * D_8034F854;
+        arg0->xAxis -= 0.25f * arg0->unkC0 * D_8034F854;
+
+        if (FABS(arg0->unkBC) > 0 || FABS(arg0->unkC0) > 0) {
+            arg0->unk11D = 1;
+        }
+    } else {
+        // square result, but maintain +/-
+        sp34 = SQ(arg0->unkBC);
+        if (arg0->unkBC < 0) {
+            sp34 = -sp34;
+        }
+        arg0->zAxis -= (1.0f / 2.0f) * sp34 * D_8034F854; // if 0.5f, tries to reuse reg
+        if (sp34 > 0) {
+            arg0->unk11D = 1;
+        }
+
+        // square result, but maintain +/-
+        sp34 = SQ(arg0->unkC0);
+        if (arg0->unkC0 < 0) {
+            sp34 = -sp34;
+        }
+        arg0->xAxis -= (1.0f / 2.0f) * sp34 * D_8034F854; // if 0.5f, tries to reuse reg
+        if (sp34 > 0) {
+            arg0->unk11D = 1;
+        }
+    }
+
+    if (arg0->xAxis < -0.1745329f) { // almost DEG_TO_RAD(-10.0)
+        arg0->xAxis = -0.1745329f;
+    } else if (arg0->xAxis > 1.0471975f) { // almost DEG_TO_RAD(60.0)
+        arg0->xAxis = 1.0471975f;
+    }
+    uvModelGetPosm(0x105, 1, &sp38);
+    uvMat4RotateAxis(&sp38, arg0->zAxis, 'z');
+    uvMat4RotateAxis(&sp38, arg0->xAxis, 'x');
+    uvDobjPosm(arg0->unk54, 1, &sp38);
+    uvModelGetPosm(0x105, 2, &sp38);
+    uvMat4RotateAxis(&sp38, (1.44f * arg0->zxAxis[0]) - arg0->zxAxis[1], 'x');
+    uvDobjPosm(arg0->unk54, 2, &sp38);
+    uvModelGetPosm(0x105, 3, &sp38);
+    uvMat4RotateAxis(&sp38, -arg0->xAxis - (1.44f * arg0->zAxis), 'x');
+    uvDobjPosm(arg0->unk54, 3, &sp38);
+    if (D_80359A84 == 0) {
+        switch (arg0->unkC) {
+        case 0:
+            func_8031D8E0(0x111, 0x40000000, 0);
+            break;
+        case 1:
+            func_8031D8E0(0x10, 0x40000000, 0);
+            break;
+        case 2:
+            func_8031D8E0(0xD5, 0x40000000, 0);
+            break;
+        case 3:
+            func_8031D8E0(0x1A2, 0x40000000, 0);
+            break;
+        default:
+            func_8031D8E0(0x1A2, 0x40000000, 0);
+            break;
+        }
+        D_80359A84 = 1;
+    }
+    if (arg0->unkC4 != 0) {
+        cannonShoot(arg0);
+    } else {
+        uvDobjState(arg0->unk0, 0);
+    }
+}
+#if defined(__clang__)
 #pragma GCC diagnostic pop
 #endif
-#pragma GLOBAL_ASM("asm/nonmatchings/app/cannonball/cannonAimingFrame.s")
 
 // cannonShoot called when firing the cannon
 void cannonShoot(Unk802D5C5C_Arg0* arg0) {
     Mtx4F sp50;
 
     uvMat4Copy(&sp50, &arg0->unk58);
-    uvMat4RotateAxis(&sp50, arg0->unk9C, 'z');
-    uvMat4RotateAxis(&sp50, arg0->unkA0, 'x');
+    uvMat4RotateAxis(&sp50, arg0->zAxis, 'z');
+    uvMat4RotateAxis(&sp50, arg0->xAxis, 'x');
     uvMat4UnkOp2(&sp50, 0.0f, 6.0f, 0.0f);
     func_802F9BF8(2, sp50.m[3][0], sp50.m[3][1], sp50.m[3][2], 20.0f, 0.3f, 0.0f, 1.0f, 0.8f, 0.0f, 1.0f);
     func_8033F7F8(0x4B);
