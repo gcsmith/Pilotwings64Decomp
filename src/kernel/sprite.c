@@ -29,15 +29,17 @@ void uvSprtDrawAll(void) {
     uvSprite_t* var_s1;
 
     spInit(&gGfxDisplayListHead);
+    // clang-format off: must preserve same line assignments
     var_s0 = &gSprtTable1[0]; var_s1 = &gSprtTable1[0x1F];
+    // clang-format on
     do {
         if ((var_s0->unk0 != 0) && (var_s0->unk1 != 0) && (var_s0->unkA != 0xFFF)) {
             uvSprtDisplayList(var_s0);
         }
-        var_s0 ++;
+        var_s0++;
     } while (var_s0 != var_s1);
     spFinish(&gGfxDisplayListHead);
-    gGfxDisplayListHead --;
+    gGfxDisplayListHead--;
 }
 
 void uvSprtDraw(s32 sprite_id) {
