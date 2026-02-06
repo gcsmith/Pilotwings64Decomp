@@ -24,7 +24,21 @@ extern uvSprite_t gSprtTable3[];
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/sprite/uvSprtDisplayList.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/sprite/uvSprtDrawAll.s")
+void uvSprtDrawAll(void) {
+    uvSprite_t* var_s0;
+    uvSprite_t* var_s1;
+
+    spInit(&gGfxDisplayListHead);
+    var_s0 = &gSprtTable1[0]; var_s1 = &gSprtTable1[0x1F];
+    do {
+        if ((var_s0->unk0 != 0) && (var_s0->unk1 != 0) && (var_s0->unkA != 0xFFF)) {
+            uvSprtDisplayList(var_s0);
+        }
+        var_s0 ++;
+    } while (var_s0 != var_s1);
+    spFinish(&gGfxDisplayListHead);
+    gGfxDisplayListHead --;
+}
 
 void uvSprtDraw(s32 sprite_id) {
     uvSprite_t* sprite;
@@ -45,11 +59,11 @@ void uvSprtDraw(s32 sprite_id) {
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/sprite/uvSprtSetBlit.s")
 
 s16 uvSprtGetUnk0(s32 sprite_id) {
-    return gSprtTable2[sprite_id].unk0;
+    return *(s16*)&gSprtTable2[sprite_id].unk0;
 }
 
 s16 uvSprtGetUnk1(s32 sprite_id) {
-    return gSprtTable3[sprite_id].unk0;
+    return *(s16*)&gSprtTable3[sprite_id].unk0;
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/sprite/uvSprtProps.s")

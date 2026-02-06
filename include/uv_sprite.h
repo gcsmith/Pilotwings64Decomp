@@ -5,20 +5,21 @@
 #include <uv_util.h>
 
 typedef struct {
-    u16 unk0;
-    u16 unk2;
-    u16 unk4;
-    u16 unk6;
-    u16 unk8;
-    u16 unkA;
-    u16 unkC;
-    u16 unkE;
-    u32 unk10;
-    u32 unk14;
-    u32 unk18;
-    u32 unk1C;
-    u8 pad[0x40];
-} uvSprite_t;
+/* 00 */ u8 unk0;
+/* 01 */ u8 unk1;
+/* 02 */ u16 unk2;
+/* 04 */ u16 unk4;
+/* 06 */ u16 unk6;
+/* 08 */ u16 unk8;
+/* 0A */ u16 unkA;
+/* 0C */ u16 unkC;
+/* 0E */ u16 unkE;
+/* 10 */ u32 unk10;
+/* 14 */ u32 unk14;
+/* 18 */ u32 unk18;
+/* 1C */ u32 unk1C;
+/* 20 */ u8 pad[0x40];
+} uvSprite_t; // size 0x60
 
 void uvSprt_80230130(void);
 void uvSprt_802301A4(void);
