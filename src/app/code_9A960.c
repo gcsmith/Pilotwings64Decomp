@@ -1,13 +1,38 @@
 #include <uv_graphics.h>
+#include <uv_math.h>
 #include <uv_matrix.h>
+#include "macros.h"
 
 #include "code_9A960.h"
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_9A960/func_80313430.s")
+void func_80313430(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32* arg5) {
+    f32 fake1, fake2, fake3;
+    f32 sp20;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_9A960/func_803134D0.s")
+    sp20 = uvSqrtF((arg0 * arg0) + (arg1 * arg1));
+    *arg3 = uvSqrtF((arg0 * arg0) + (arg1 * arg1) + (arg2 * arg2));
+    *arg4 = uvMath_8022A27C(arg1 / *arg3, arg0 / *arg3);
+    *arg5 = uvMath_8022A27C(arg2 / *arg3, sp20 / *arg3);
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_9A960/func_80313570.s")
+void func_803134D0(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32* arg5) {
+    f32 temp1;
+
+    temp1 = uvCosF(arg1);
+    *arg3 = uvCosF(arg2) * (arg0 * temp1);
+    temp1 = uvSinF(arg1);
+    *arg4 = uvCosF(arg2) * (arg0 * temp1);
+    *arg5 = uvSinF(arg2) * arg0;
+}
+
+void func_80313570(Mtx4F* arg0, f32* arg1, f32* arg2, f32* arg3, f32* arg4, f32* arg5, f32* arg6) {
+    *arg4 = uvMath_8022A27C(arg0->m[0][1], arg0->m[0][0]);
+    *arg5 = -uvMath_8022A27C(arg0->m[1][2], uvSqrtF(SQ(arg0->m[1][0]) + SQ(arg0->m[1][1])));
+    *arg6 = -uvMath_8022A27C(arg0->m[0][2], uvSqrtF(SQ(arg0->m[0][0]) + SQ(arg0->m[0][1])));
+    *arg1 = arg0->m[3][0];
+    *arg2 = arg0->m[3][1];
+    *arg3 = arg0->m[3][2];
+}
 
 void func_80313640(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, Mtx4F* arg6) {
     uvMat4SetIdentity(arg6);
