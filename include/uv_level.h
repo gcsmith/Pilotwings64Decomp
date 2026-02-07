@@ -41,10 +41,28 @@ typedef struct {
     f32 unk38;
 } Unk80345464_Arg0;
 
+
 typedef struct {
     u8 unk0[0x22C];
     u8 unk22C;
-} Unk80362690_Unk0_Unk7C; // this could be Unk8037A600
+} Unk80362690_Unk0_UnkC_Unk70; // this could be Unk8037A600
+
+typedef struct {
+    u16 pad0;
+    u16 unk2;
+    u16 unk4;
+    u16 unk6;
+    u16 unk8;
+    u8 padA[0x20-0xA];
+    s32 unk20;
+    u8 pad24[0x2C-0x24];
+    Unk80345464_Arg0 unk2C;
+    u32 pad68;
+    s32 unk6C;
+    Unk80362690_Unk0_UnkC_Unk70 *unk70;
+    s32 unk74;
+    u8 pad78[0x8C-0x78-0xC]; // fill out space to reach 0x84 size in parent struct
+} Unk80362690_Unk0_UnkC;
 
 typedef struct {
     s32 unk0;
@@ -53,13 +71,7 @@ typedef struct {
     u16 unk8;
     u8 debugFlag;
     u8 unkB;
-    u16 unkC[2];
-    s32 unk10;
-    u16 unk14;
-    u8 unk16[0x62];
-    s32 unk78;
-    Unk80362690_Unk0_Unk7C* unk7C;
-    u8 unk80[0xC];
+    Unk80362690_Unk0_UnkC unkC;
 } Unk80362690_Unk0;
 
 typedef struct {
@@ -216,6 +228,7 @@ Unk8037A600* level_80345CE4(u32 arg0);
 void level_803462D4(u16 idx);
 u8 levelGet_80346364(void);
 s32 level_80346370(s32 terra);
+void level_8034528C(void);
 u8 levelGet_80346468(void);
 u8 levelDataGetTHER(void** data);
 u8 levelDataGetLWIN(void** data);

@@ -2,6 +2,7 @@
 #include <uv_level.h>
 #include "code_9F2D0.h"
 #include "code_C8990.h"
+#include "code_D2B10.h"
 
 // forward declarations
 void func_8034B688(void);

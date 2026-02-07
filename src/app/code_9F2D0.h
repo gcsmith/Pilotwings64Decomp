@@ -32,6 +32,7 @@ typedef struct {
 
 Unk80318294* func_80318294(void);
 void func_803182A0(void);
-void func_8031D8E0(s32, s32, f32);
+void func_8031D8E0(s32, f32, f32);
+void func_8031D9B8(s32, f32, f32);
 
 #endif // APP_CODE_9F2D0_H

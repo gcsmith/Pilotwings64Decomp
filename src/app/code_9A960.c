@@ -36,9 +36,9 @@ void func_80313570(Mtx4F* arg0, f32* arg1, f32* arg2, f32* arg3, f32* arg4, f32*
 
 void func_80313640(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, Mtx4F* arg6) {
     uvMat4SetIdentity(arg6);
-    uvMat4RotateAxis(arg6, arg3, 0x7A);
-    uvMat4RotateAxis(arg6, arg4, 0x78);
-    uvMat4RotateAxis(arg6, arg5, 0x79);
+    uvMat4RotateAxis(arg6, arg3, 'z');
+    uvMat4RotateAxis(arg6, arg4, 'x');
+    uvMat4RotateAxis(arg6, arg5, 'y');
     arg6->m[3][0] = arg0;
     arg6->m[3][1] = arg1;
     arg6->m[3][2] = arg2;

@@ -143,7 +143,8 @@ typedef struct {
     u16 unk0;
     u8 unk2;
     u8 pad3;
-    s32 pad4;
+    u16 unk4;
+    u16 pad6;
     f32 unk8;
     u16 unkC;
     u16 unkE;
@@ -176,7 +177,8 @@ typedef struct {
     f32 unkCC;
     f32 unkD0;
     u8 unkD4;
-    u8 padD5[0x11C - 0xD5];
+    u8 unkD5;
+    u8 padD6[0x11C - 0xD6];
     u8 unk11C;
     s8 unk11D;
     f32 unk120;
@@ -210,5 +212,6 @@ void func_802D45C4(Unk802D3658_Arg0*, f32);
 s32 func_802D472C(Unk802D3658_Arg0*, Mtx4F*);
 s32 func_802D4A30(Unk802D3658_Arg0*, Mtx4F*);
 void func_802D5884(Unk802D3658_Arg0*, u8);
+void func_802D4DE8(Unk802D3658_Arg0*, u8);
 
 #endif // CODE_5A6A0_H

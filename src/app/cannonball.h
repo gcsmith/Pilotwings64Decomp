@@ -78,5 +78,7 @@ void cannonShoot(Unk802D5C5C_Arg0*);
 void cannonPilotLand(Unk802D5C5C_Arg0*);
 void cannonLoadPilot(u8 pilot, Unk802D5B50_Arg2*);
 void cannon_802D8A40(u8 arg0, Unk802D5C5C_Arg0* arg1);
+s32 cannonLoad802D77D8(Unk80362690* arg0, Unk802D3658_Arg0* arg1);
+s32 cannonFrame802D7B7C(Unk80362690* arg0);
 
 #endif // APP_CANNONBALL_H

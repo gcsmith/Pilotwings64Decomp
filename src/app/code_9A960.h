@@ -10,5 +10,7 @@ extern f32 D_8034F854; // .data = 0.1f, only ever read
 void func_80313570(Mtx4F*, f32*, f32*, f32*, f32*, f32*, f32*);
 f32 func_80313AF4(f32, f32, f32);
 f32 func_80313F08(Unk803599D0*, f32);
+void func_80313E0C(f32);
+void func_80313D74(void);
 
 #endif // APP_CODE_9A960_H

@@ -7,8 +7,8 @@ extern ALSeqPlayer* gSeqPlayer;
 #ifndef NON_MATCHING
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/seq/uvaSeqNew.s")
 #else
-void _uvMediaCopy(void*, void*, s32); /* extern */
-void uvaSeqStop(void);                /* extern */
+void _uvMediaCopy(void*, void*, s32);
+void uvaSeqStop(void);
 extern ALSeqPlayer* gSeqPlayer;
 extern ALBank* D_80261210;
 extern u8* D_8026121C;
