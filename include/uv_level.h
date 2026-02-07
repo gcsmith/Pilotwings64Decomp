@@ -60,7 +60,7 @@ typedef struct {
     u32 pad68;
     s32 unk6C;
     Unk80362690_Unk0_UnkC_Unk70 *unk70;
-    u32 unk74;
+    s32 unk74;
     u8 pad78[0x8C-0x78-0xC]; // fill out space to reach 0x84 size in parent struct
 } Unk80362690_Unk0_UnkC;
 

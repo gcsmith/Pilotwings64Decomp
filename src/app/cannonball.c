@@ -789,7 +789,87 @@ void cannonLoadPilot(u8 pilot, Unk802D5B50_Arg2* arg1) {
 }
 
 // cannonLoad802D77D8 is invoked when loading cannonball level
+#ifndef NON_EQUIVALENT
 #pragma GLOBAL_ASM("asm/nonmatchings/app/cannonball/cannonLoad802D77D8.s")
+#else
+// protos might be incorrect
+void func_802E26C0(void);
+void func_802E66F4(f32);
+void func_802E68B0(s32);
+void func_802EDD9C(void*, Mtx4F*);
+void func_80317DA0(void);
+void func_8031A2CC(void);
+void func_8031D9B8(s32, f32, f32);
+void func_8031DAA8(s32, f32);
+void func_803214E4(void);
+void func_8032B508(s32);
+s32 func_8032BD20(s32, u16, u16);
+s32 func_8032BE1C(s32, u8, u8, u8);
+void func_8034B5E0(u8, Unk802D3658_Arg0*);
+void func_8034E0B4(void);
+void uvEnvFunc(u16, s32, void*);
+extern s32 D_80359A98[];
+extern s32 D_80359AA8;
+extern s32 D_80359AAC;
+extern void func_802E0CF0(void);
+s32 cannonLoad802D77D8(Unk80362690* arg0, Unk802D3658_Arg0* arg1) {
+    s32 i;
+    Mtx4F sp3C;
+    Unk80362690_Unk0_UnkC* temp_s1_2;
+
+    temp_s1_2 = &arg0->unk0[arg0->unk9C].unkC;
+    if (temp_s1_2->unk6 == 0) {
+        D_80359AAC = func_8032BD20(temp_s1_2->unk74, temp_s1_2->unk4, temp_s1_2->unk2);
+        D_80359AA8 = 0;
+        for (i = 0; i < 4; i++) {
+            D_80359A98[i] = func_8032BE1C(temp_s1_2->unk74, temp_s1_2->unk4, i, temp_s1_2->unk2);
+            ((s16*)(temp_s1_2->unk74 + (temp_s1_2->unk4 * 0x694) + (i * 0x150) + (temp_s1_2->unk2 * 0x30)))[0x36] = 0x7F;
+            ((s16*)(temp_s1_2->unk74 + (temp_s1_2->unk4 * 0x694) + (i * 0x150) + (temp_s1_2->unk2 * 0x30)))[0x22] = 0x7F;
+        }
+    }
+    func_802E26C0();
+    func_8033F964(1);
+    func_8031DAA8(0, 0);
+    temp_s1_2->unk6 = 0;
+    func_803214E4();
+    level_80344FC8((s32) temp_s1_2->unk4, (s32) temp_s1_2->unk2, (s32) temp_s1_2->unk6, &arg0->unk0[0].map, &arg0->unk0[0].unk6, &arg0->unk0[0].unk8);
+    levelLoad(arg0->unk0[0].map, temp_s1_2->pad0, temp_s1_2->unk2, 1);
+    func_80317DA0();
+    func_8031A2CC();
+    level_8034528C();
+    func_8034E0B4();
+    uvChanTerra(temp_s1_2->unk70->unk22C, (s32) arg0->unk0[0].unk6);
+    uvEnvFunc(arg0->unk0[0].unk8, 0, func_802E0CF0);
+    func_8034B5E0(temp_s1_2->unk70->unk22C, (Unk802D3658_Arg0* ) temp_s1_2->unk70);
+    for (i = 0; i < 4; i++) {
+        ((s16*)(temp_s1_2->unk74 + (temp_s1_2->unk4 * 0x694) + (i * 0x150) + (temp_s1_2->unk2 * 0x30)))[0x22] = 0x7F;
+    }
+    temp_s1_2->unk6C = (s32) arg1;
+    cannonLoadLevel(arg0->unk9C, temp_s1_2->pad0, arg1, (Unk802D3658_Arg0* ) temp_s1_2->unk70);
+    cannon_802D5C5C((Unk802D5C5C_Arg0* ) arg1);
+    arg1->unkC = 0;
+    arg1->unkE = 0;
+    D_80359A88[0] = 0;
+    D_80359A88[1] = 0;
+    D_80359A88[2] = 0;
+    D_80359A88[3] = 0;
+    uvMat4Copy(&sp3C, (Mtx4F* ) &arg1->unk14);
+    uvMat4RotateAxis(&sp3C, 1.5707961f, 0x78);
+    func_802EDD9C(temp_s1_2, &sp3C);
+    func_802D4DE8((Unk802D3658_Arg0* ) temp_s1_2->unk70, 0U);
+    func_8032B508(temp_s1_2->unk74);
+    func_80313E0C(0.0f);
+    func_802E66F4(1.0f);
+    func_802E68B0(1);
+    func_8033F748(0x10);
+    func_8033F964(0);
+    func_8033FCD0(temp_s1_2->unk2);
+    uvEventPost(0xB, 0);
+    D_80359A84 = 0;
+    func_8031D9B8(0xDB, 1.5f, 8.0f);
+    return 5;
+}
+#endif
 
 // cannonFrame802D7B7C called every frame while aiming cannon and while in flight before landing
 #pragma GLOBAL_ASM("asm/nonmatchings/app/cannonball/cannonFrame802D7B7C.s")
