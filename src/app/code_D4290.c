@@ -223,8 +223,18 @@ void wind_render(void) {
 #pragma GCC diagnostic pop
 #endif
 
+void func_8034D4AC(void) {
+    Unk8037F518* var_s0;
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_D4290/func_8034D4AC.s")
+    for (i = 0; i < D_8037F514; i++) {
+        var_s0 = &D_8037F518[i];
+        if (var_s0->unk0 != 0xFFFF) {
+            uvDobjModel(var_s0->unk0, 0xFFFF);
+        }
+        var_s0->unk0 = 0xFFFF;
+    }
+}
 
 void func_8034D548(void) {
 }
