@@ -32,23 +32,23 @@ void uvDobjProps(s32 arg0, ...) {
     while (1) {
         a1 = va_arg(args, s32);
         switch (a1) {
-            case 0:
-                return;
-            case 3:
-                f0 = va_arg(args, f64);
-                temp_s1->unk38 = ((f32**)gGfxUnkPtrs)[temp_s1->unk0 + 50][7] * f0;
-                break;
-            case 4:
-                var_v0 = va_arg(args, s32);
-                temp_s1->unk3C &= ~(1 << var_v0);
-                break;
-            case 5:
-                var_v0 = va_arg(args, s32);
-                temp_s1->unk3C |= (1 << var_v0);
-                break;
-            default:
-                _uvDebugPrintf("uvDobjProps: unknown property [%d]\n", a1);
-                break;
+        case 0:
+            return;
+        case 3:
+            f0 = va_arg(args, f64);
+            temp_s1->unk38 = ((f32**)gGfxUnkPtrs)[temp_s1->unk0 + 50][7] * f0;
+            break;
+        case 4:
+            var_v0 = va_arg(args, s32);
+            temp_s1->unk3C &= ~(1 << var_v0);
+            break;
+        case 5:
+            var_v0 = va_arg(args, s32);
+            temp_s1->unk3C |= (1 << var_v0);
+            break;
+        default:
+            _uvDebugPrintf("uvDobjProps: unknown property [%d]\n", a1);
+            break;
         }
     }
     va_end(args);

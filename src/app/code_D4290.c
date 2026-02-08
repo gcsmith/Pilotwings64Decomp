@@ -44,19 +44,18 @@ typedef struct {
     u8 unk51;
 } Unk8037F510;
 
-
 // bss
-extern Unk8037F510* D_8037F510; 
+extern Unk8037F510* D_8037F510;
 extern u8 D_8037F514;
 extern Unk8037F518 D_8037F518[6];
 
 // forward declarations
-void func_8034D6D4(Unk8037F510*, Unk8037F518*);
-void func_8034D90C(f32, f32, f32, Unk8037F510*, Unk8037F518*, Vec3F*);
-void func_8034DA4C(f32, f32, f32, Unk8037F510*, Unk8037F518*, Vec3F*);
-void func_8034DD18(f32, f32, f32, Unk8037F510*, Unk8037F518*, Vec3F*);
-void func_8034DF58(Unk8037F510*, f32, Vec3F*);
-f32 func_8034DFC4(u8, f32);
+static void func_8034D6D4(Unk8037F510*, Unk8037F518*);
+static void func_8034D90C(f32, f32, f32, Unk8037F510*, Unk8037F518*, Vec3F*);
+static void func_8034DA4C(f32, f32, f32, Unk8037F510*, Unk8037F518*, Vec3F*);
+static void func_8034DD18(f32, f32, f32, Unk8037F510*, Unk8037F518*, Vec3F*);
+static void func_8034DF58(Unk8037F510*, f32, Vec3F*);
+static f32 func_8034DFC4(u8, f32);
 
 void func_8034CD60(void) {
 }
@@ -84,13 +83,13 @@ void wind_render(void) {
     Vec3F spB4;
     Vec3F spA8;
     Vec3F sp9C;
-    Vec3F *s2;
+    Vec3F* s2;
 
     if (D_80362690->unkA0 == 0) {
         return;
     }
 
-    D_8037F514 = levelDataGetLWIN((void** ) &D_8037F510);
+    D_8037F514 = levelDataGetLWIN((void**)&D_8037F510);
     if (D_8037F514 >= 7) {
         _uvDebugPrintf("wind : too many local winds defined in level [%d]\n", D_8037F514);
         D_8037F514 = 0;
@@ -98,9 +97,9 @@ void wind_render(void) {
     }
     for (i = 0; i < D_8037F514; i++) {
         // @fake to force correct s registers
-        if (&spA8) {}
-        if (&spC0) {}
-        if (&spB4) {}
+        if (&spA8) { }
+        if (&spC0) { }
+        if (&spB4) { }
         var_s1 = &D_8037F518[i];
         temp_s0 = &D_8037F510[i];
         uvMat4SetIdentity(&var_s1->unk4);
@@ -144,7 +143,7 @@ void wind_render(void) {
             } else {
                 var_fv1 = -spB4.f[0];
             }
-            if (var_fv1 > 0.01f || (spB4.f[1] > 0.0f ? spB4.f[1] : -spB4.f[1]) > /*0*/.01f) {
+            if (var_fv1 > 0.01f || (spB4.f[1] > 0.0f ? spB4.f[1] : -spB4.f[1]) > /*0*/ .01f) {
                 sp9C.f[0] = 0.0f;
                 sp9C.f[1] = 0.0f;
                 sp9C.f[2] = 1.0f;
@@ -221,7 +220,7 @@ void wind_render(void) {
             return;
         }
         // @fake to force stuff in this struct to be stored
-        if (&sp148) {}
+        if (&sp148) { }
         func_8034D6D4(temp_s0, var_s1);
         func_802E27A8(&spD4);
     }
@@ -269,7 +268,7 @@ void func_8034D550(f32 arg0, f32 arg1, f32 arg2, Vec3F* arg3) {
     }
 }
 
-void func_8034D6D4(Unk8037F510* arg0, Unk8037F518* arg1) {
+static void func_8034D6D4(Unk8037F510* arg0, Unk8037F518* arg1) {
     switch (arg0->unk50) {
     case 0:
         arg1->unk84.f[0] = arg0->unk0.f[0] - arg0->unk4C;
@@ -316,19 +315,31 @@ void func_8034D6D4(Unk8037F510* arg0, Unk8037F518* arg1) {
     }
 }
 
-void func_8034D90C(f32 arg0, f32 arg1, f32 arg2, Unk8037F510* arg3, Unk8037F518* arg4, Vec3F* arg5) {
+static void func_8034D90C(f32 arg0, f32 arg1, f32 arg2, Unk8037F510* arg3, Unk8037F518* arg4, Vec3F* arg5) {
     f32 f0;
     f32 f12;
     f32 f14;
     f32 temp_fv0;
     Vec3F sp1C;
 
-    if (arg0 < arg4->unk84.x) { return; }
-    if (arg4->unk90.x < arg0) { return; }
-    if (arg1 < arg4->unk84.y) { return; }
-    if (arg4->unk90.y < arg1) { return; }
-    if (arg2 < arg4->unk84.z) { return; }
-    if (arg4->unk90.z < arg2) { return; }
+    if (arg0 < arg4->unk84.x) {
+        return;
+    }
+    if (arg4->unk90.x < arg0) {
+        return;
+    }
+    if (arg1 < arg4->unk84.y) {
+        return;
+    }
+    if (arg4->unk90.y < arg1) {
+        return;
+    }
+    if (arg2 < arg4->unk84.z) {
+        return;
+    }
+    if (arg4->unk90.z < arg2) {
+        return;
+    }
 
     f0 = arg0 - arg3->unk0.x;
     f12 = arg1 - arg3->unk0.y;
@@ -343,7 +354,7 @@ void func_8034D90C(f32 arg0, f32 arg1, f32 arg2, Unk8037F510* arg3, Unk8037F518*
     }
 }
 
-void func_8034DA4C(f32 arg0, f32 arg1, f32 arg2, Unk8037F510* arg3, Unk8037F518* arg4, Vec3F* arg5) {
+static void func_8034DA4C(f32 arg0, f32 arg1, f32 arg2, Unk8037F510* arg3, Unk8037F518* arg4, Vec3F* arg5) {
     f32 sp6C;
     f32 sp68;
     f32 sp64;
@@ -358,12 +369,24 @@ void func_8034DA4C(f32 arg0, f32 arg1, f32 arg2, Unk8037F510* arg3, Unk8037F518*
     f32 sp40;
     Vec3F sp34;
 
-    if (arg0 < arg4->unk84.x) { return; }
-    if (arg4->unk90.x < arg0) { return; }
-    if (arg1 < arg4->unk84.y) { return; }
-    if (arg4->unk90.y < arg1) { return; }
-    if (arg2 < arg4->unk84.z) { return; }
-    if (arg4->unk90.z < arg2) { return; }
+    if (arg0 < arg4->unk84.x) {
+        return;
+    }
+    if (arg4->unk90.x < arg0) {
+        return;
+    }
+    if (arg1 < arg4->unk84.y) {
+        return;
+    }
+    if (arg4->unk90.y < arg1) {
+        return;
+    }
+    if (arg2 < arg4->unk84.z) {
+        return;
+    }
+    if (arg4->unk90.z < arg2) {
+        return;
+    }
 
     sp6C = arg3->unkC.f[0] - arg3->unk0.f[0];
     sp68 = arg3->unkC.f[1] - arg3->unk0.f[1];
@@ -407,7 +430,7 @@ void func_8034DA4C(f32 arg0, f32 arg1, f32 arg2, Unk8037F510* arg3, Unk8037F518*
     arg5->f[2] += sp34.f[2];
 }
 
-void func_8034DD18(f32 arg0, f32 arg1, f32 arg2, Unk8037F510* arg3, Unk8037F518* arg4, Vec3F* arg5) {
+static void func_8034DD18(f32 arg0, f32 arg1, f32 arg2, Unk8037F510* arg3, Unk8037F518* arg4, Vec3F* arg5) {
     Vec3F sp5C;
     Vec3F sp50;
     f32 temp_fa1;
@@ -417,30 +440,53 @@ void func_8034DD18(f32 arg0, f32 arg1, f32 arg2, Unk8037F510* arg3, Unk8037F518*
     f32 var_fv1;
     s32 pad[4];
 
-
-    if (arg0 < arg4->unk84.x) { return; }
-    if (arg4->unk90.x < arg0) { return; }
-    if (arg1 < arg4->unk84.y) { return; }
-    if (arg4->unk90.y < arg1) { return; }
-    if (arg2 < arg4->unk84.z) { return; }
-    if (arg4->unk90.z < arg2) { return; }
+    if (arg0 < arg4->unk84.x) {
+        return;
+    }
+    if (arg4->unk90.x < arg0) {
+        return;
+    }
+    if (arg1 < arg4->unk84.y) {
+        return;
+    }
+    if (arg4->unk90.y < arg1) {
+        return;
+    }
+    if (arg2 < arg4->unk84.z) {
+        return;
+    }
+    if (arg4->unk90.z < arg2) {
+        return;
+    }
 
     sp5C.f[0] = arg0;
     sp5C.f[1] = arg1;
     sp5C.f[2] = arg2;
     uvMat4UnkOp5(&arg4->unk44, &sp50, &sp5C);
     temp_fv0 = arg4->unk9C.f[0] * 0.5f;
-    if (sp50.f[0] < -temp_fv0) { return; }
-    if (temp_fv0 < sp50.f[0]) { return; }
+    if (sp50.f[0] < -temp_fv0) {
+        return;
+    }
+    if (temp_fv0 < sp50.f[0]) {
+        return;
+    }
 
     temp_fv0 = arg4->unk9C.f[1] * 0.5f;
-    if ((sp50.f[1] < -temp_fv0)) { return; }
-    if (temp_fv0 < sp50.f[1]) { return; }
+    if ((sp50.f[1] < -temp_fv0)) {
+        return;
+    }
+    if (temp_fv0 < sp50.f[1]) {
+        return;
+    }
 
     temp_fv0 = arg4->unk9C.f[2] * 0.5f;
 
-    if ((sp50.f[2] < -temp_fv0)) { return; }
-    if (temp_fv0 < sp50.f[2]) { return; }
+    if ((sp50.f[2] < -temp_fv0)) {
+        return;
+    }
+    if (temp_fv0 < sp50.f[2]) {
+        return;
+    }
 
     temp_fv0 = (2.0f * sp50.f[0]) / arg4->unk9C.f[0];
     temp_fv1 = (2.0f * sp50.f[1]) / arg4->unk9C.f[1];
@@ -460,6 +506,36 @@ void func_8034DD18(f32 arg0, f32 arg1, f32 arg2, Unk8037F510* arg3, Unk8037F518*
     arg5->f[2] += temp_fa1;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_D4290/func_8034DF58.s")
+static void func_8034DF58(Unk8037F510* arg0, f32 arg1, Vec3F* arg2) {
+    f32 temp_fv0;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_D4290/func_8034DFC4.s")
+    temp_fv0 = arg1 / arg0->unk4C;
+    temp_fv0 = func_8034DFC4(arg0->unk51, temp_fv0);
+    arg2->f[0] = arg0->unk40.f[0] * temp_fv0;
+    arg2->f[1] = arg0->unk40.f[1] * temp_fv0;
+    arg2->f[2] = arg0->unk40.f[2] * temp_fv0;
+}
+
+static f32 func_8034DFC4(u8 arg0, f32 arg1) {
+    f32 var_fv1;
+
+    switch (arg0) {
+    case 1:
+        var_fv1 = 1.0f - arg1;
+        break;
+    case 2:
+        var_fv1 = 1.0f - SQ(arg1);
+        break;
+    case 0:
+        var_fv1 = 1.0f;
+        break;
+    case 3:
+        if (arg1 < 0.8f) {
+            var_fv1 = 1.0f;
+        } else {
+            var_fv1 = 1.0f - ((arg1 - 0.8f) / 0.19999999f);
+        }
+        break;
+    }
+    return var_fv1;
+}
