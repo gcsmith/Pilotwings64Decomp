@@ -94,7 +94,7 @@ void demoAttGetMtxRT(Mtx4F* mat, f32* tx, f32* ty, f32* tz, f32* rz, f32* rx, f3
 }
 
 void demoAttPrintRecord(void) {
-    demoAttPrintRT(&D_80362690->unk0[D_80362690->unk9C].unk7C->unk108);
+    demoAttPrintRT(&D_80362690->unk0[D_80362690->unk9C].unkC.unk70->unk108);
 }
 
 f32 demoPositionLerp(f32 a, f32 b, f32 t) {
@@ -105,10 +105,10 @@ f32 demoAngleLerp(f32 a, f32 b, f32 t) {
     f32 diff;
 
     diff = a - b;
-    if (diff > 3.1415927f) { // PI or DEG_TO_RAD(180)
-        b = (f32)(b + 6.2831854820251465);
-    } else if (diff < -3.1415927f) {
-        a = (f32)(a + 6.2831854820251465);
+    if (diff > 3.1415927f) {               // PI or DEG_TO_RAD(180)
+        b = (f32)(b + 6.2831854820251465); // 2*PI or DEG_TO_RAD(360)
+    } else if (diff < -3.1415927f) {       // PI or DEG_TO_RAD(180)
+        a = (f32)(a + 6.2831854820251465); // 2*PI or DEG_TO_RAD(360)
     }
     return ((b - a) * t) + a;
 }
@@ -166,10 +166,10 @@ void demoAttUpdate(f32 curTime, Mtx4F* mat) {
 }
 
 void demoAtt_80320FBC(void) {
-    Unk80362690_Unk0_Unk7C* unk7C;
-    unk7C = D_80362690->unk0[D_80362690->unk9C].unk7C;
+    Unk80362690_Unk0_UnkC_Unk70* unk7C;
+    unk7C = D_80362690->unk0[D_80362690->unk9C].unkC.unk70;
     demoAttUpdate(D_8034F850, &unk7C->unk108);
-    func_80204B34(D_80362690->unk0[D_80362690->unk9C].unk7C->unk22C, &unk7C->unk108);
+    func_80204B34(D_80362690->unk0[D_80362690->unk9C].unkC.unk70->unk22C, &unk7C->unk108);
     func_802E2060();
     func_802E9FE4();
 }
