@@ -2,9 +2,13 @@
 
 #include "code_9F2D0.h"
 
+extern HUDData D_8036C5A8;
+
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_9F2D0/func_80317DA0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_9F2D0/func_80318294.s")
+HUDData* getHUDPtr(void) {
+    return &D_8036C5A8;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_9F2D0/func_803182A0.s")
 
@@ -48,7 +52,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_9F2D0/func_8031BE88.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_9F2D0/func_8031BED4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/code_9F2D0/demoShowController.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_9F2D0/func_8031C0B4.s")
 

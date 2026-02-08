@@ -8,13 +8,13 @@ extern s32 D_80359D7C;
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_66160/func_802DEC30.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_66160/func_802DED44.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/code_66160/screenDrawBox.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_66160/func_802DEE44.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_66160/func_802DF03C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/code_66160/screenDrawBox2.s")
 
-void func_802DF988(void) {
+void screenDrawBoxSetup(void) {
     Mtx4F sp60;
     Mtx4F sp20;
 

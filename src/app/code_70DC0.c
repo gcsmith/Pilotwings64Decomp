@@ -4,7 +4,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_70DC0/func_802E9980.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_70DC0/func_802E9A10.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/code_70DC0/fileSelectRender.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_70DC0/func_802E9A84.s")
 

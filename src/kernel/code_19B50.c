@@ -1,4 +1,5 @@
 #include "common.h"
+#include <uv_filesystem.h>
 #include <uv_graphics.h>
 #include <uv_memory.h>
 
@@ -76,8 +77,8 @@ ParsedUVFT* uvParseTopUVFT(s32 arg0) {
 
     imagCount = 0;
     ret = (ParsedUVFT*)_uvMemAlloc(sizeof(ParsedUVFT), 4);
-    temp_v0 = func_80223E80((&D_802B69E4)[arg0]);
-    while ((tag = func_80223F7C(temp_v0, &nbytes, (void**)&srcAddr, 1)) != NULL) {
+    temp_v0 = uvFileReadHeader((&D_802B69E4)[arg0]);
+    while ((tag = uvFileReadBlock(temp_v0, &nbytes, (void**)&srcAddr, 1)) != NULL) {
         switch (tag) {
         case 'STRG':
             ret->strg = _uvMemAlloc(nbytes, 4);
@@ -102,7 +103,7 @@ ParsedUVFT* uvParseTopUVFT(s32 arg0) {
         }
     }
 
-    func_80223F30(temp_v0);
+    uvFile_80223F30(temp_v0);
     // update indexes to pointers allocated above
     for (i = 0; i < bitmCount; i++) {
         ret->bitm[i].imageRef = ret->imag[ret->bitm[i].imageRef];

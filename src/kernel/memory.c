@@ -1,4 +1,5 @@
 #include <uv_common.h>
+#include <uv_filesystem.h>
 #include <uv_graphics.h>
 #include <uv_memory.h>
 #include <uv_graphics.h>
@@ -358,16 +359,16 @@ void uvLevelInit(void) {
     uvMemSet(gLevelData, 0, 0x160C);
     uvMemSet(D_802B6E30, 0, 0x7D0);
     uvSprtResetUnk();
-    temp_v0 = func_80223E80(gUVBlockOffsets.UVSY[0]);
+    temp_v0 = uvFileReadHeader(gUVBlockOffsets.UVSY[0]);
 
-    while ((tag = func_80223F7C(temp_v0, &length, &source, 0)) != 0) {
+    while ((tag = uvFileReadBlock(temp_v0, &length, &source, 0)) != 0) {
         if (tag == 'COMM') { // 0x434F4D4D
             _uvMediaCopy(&gUVBlockCounts, source, length);
             if (1) { } // fakematch
             *((float*)&gLevelData[0x1608]) = gUVBlockCounts.unk0;
         }
     }
-    func_80223F30(temp_v0);
+    uvFile_80223F30(temp_v0);
     if (gUVBlockCounts.uvVersion != UV_KERNEL_VERSION) {
         _uvDebugPrintf("uvLevelInit: dbase [ver %d] and kernel [ver %d] out of date\n", gUVBlockCounts.uvVersion, UV_KERNEL_VERSION);
     }

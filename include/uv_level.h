@@ -178,7 +178,7 @@ typedef struct {
     void* dataCNTG;      // ptr CNTG
     void* dataHOPD;      // ptr HOPD
     LevelOBSV* dataOBSV; // ptr OBSV
-} Unk8037A600;
+} LevelCommObjects;
 
 extern Unk80362690* D_80362690;
 
@@ -215,7 +215,7 @@ s32* levelGet_80345C90(void);
 f32 levelGet_80345CA0(void);
 s32* levelGet_80345CB0(void);
 void levelGet_80345CC0(f32* arg0, f32* arg1);
-Unk8037A600* level_80345CE4(u32 arg0);
+LevelCommObjects* levelLoadCommObj(u32 arg0);
 void level_803462D4(u16 idx);
 u8 levelGet_80346364(void);
 s32 level_80346370(s32 terra);

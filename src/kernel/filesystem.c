@@ -1,11 +1,12 @@
 #include "macros.h"
+#include <uv_filesystem.h>
 #include <uv_graphics.h>
 #include <uv_memory.h>
 
 typedef struct {
     u32 address;
     u32 tag;
-    u32 unk8;
+    u32 length;
     u32 offset;
 } Unk802B5300;
 
@@ -13,7 +14,7 @@ extern u16 gGfxFbIndex;
 extern u8* gGfxFbPtrs[2];
 extern Unk802B5300 D_802B5300[1];
 
-s32 func_80223E80(s32 addr) {
+s32 uvFileReadHeader(s32 addr) {
     Unk802B5300* ptr;
     s32 idx;
 
@@ -29,27 +30,27 @@ s32 func_80223E80(s32 addr) {
         return -1;
     }
     ptr->address = addr;
-    ptr->unk8 = (u32)uvMemRead(addr + 4, 4) + 8;
+    ptr->length = (u32)uvMemRead(addr + 4, 4) + 8;
     ptr->tag = (u32)uvMemRead(addr + 8, 4);
-    func_8022427C(idx);
+    uvFile_8022427C(idx);
     return idx;
 }
 
-void func_80223F30(s32 idx) {
+void uvFile_80223F30(s32 idx) {
     if ((idx >= 0) && (idx < ARRAY_COUNT(D_802B5300))) {
         D_802B5300[idx].address = 0;
     }
 }
 
-s32 func_80223F54(s32 idx) {
-    return D_802B5300[idx].unk8;
+u32 uvFileGetCurLength(s32 idx) {
+    return D_802B5300[idx].length;
 }
 
-s32 func_80223F68(s32 idx) {
+u32 uvFileGetCurTag(s32 idx) {
     return D_802B5300[idx].tag;
 }
 
-u32 func_80223F7C(s32 idx, u32* sizeOut, void** arg2, s32 arg3) {
+u32 uvFileReadBlock(s32 idx, u32* sizeOut, void** arg2, s32 arg3) {
     u32 pad;
     u32 tag;
     u32 tmpSize;
@@ -61,7 +62,7 @@ u32 func_80223F7C(s32 idx, u32* sizeOut, void** arg2, s32 arg3) {
 
     dataInfo = &D_802B5300[idx];
 
-    if (dataInfo->offset >= dataInfo->unk8) {
+    if (dataInfo->offset >= dataInfo->length) {
         return NULL;
     }
     if (sizeOut == NULL) {
@@ -95,7 +96,7 @@ u32 func_80223F7C(s32 idx, u32* sizeOut, void** arg2, s32 arg3) {
     return tag;
 }
 
-u32 func_80224170(s32 idx, void* arg1, void** arg2, u32 tag, s32 palette, s32 arg5) {
+u32 uvFile_80224170(s32 idx, void* arg1, void** arg2, u32 tag, s32 palette, s32 arg5) {
     s32 currentPalette;
     s32 var_s1;
     u32 outTag;
@@ -105,14 +106,14 @@ u32 func_80224170(s32 idx, void* arg1, void** arg2, u32 tag, s32 palette, s32 ar
     sp3C = &D_802B5300[idx];
     currentPalette = 0;
     offsetTemp = sp3C->offset;
-    func_8022427C(idx);
+    uvFile_8022427C(idx);
     if (palette <= 0) {
         var_s1 = arg5;
     } else {
         var_s1 = 2;
     }
 
-    while ((outTag = func_80223F7C(idx, (u32*)arg1, arg2, var_s1))) {
+    while ((outTag = uvFileReadBlock(idx, (u32*)arg1, arg2, var_s1))) {
         if (outTag == tag) {
             if (currentPalette++ >= palette) {
                 break;
@@ -126,6 +127,6 @@ u32 func_80224170(s32 idx, void* arg1, void** arg2, u32 tag, s32 palette, s32 ar
     return outTag;
 }
 
-void func_8022427C(s32 idx) {
+void uvFile_8022427C(s32 idx) {
     D_802B5300[idx].offset = 0xC;
 }

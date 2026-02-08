@@ -1,4 +1,5 @@
 #include "common.h"
+#include <uv_filesystem.h>
 #include <uv_graphics.h>
 #include <uv_level.h>
 #include <uv_math.h>
@@ -48,7 +49,7 @@ typedef struct {
     u8 unk0[0x30];
 } Unk8037AA88;
 
-extern Unk8037A600* D_8035078C;
+extern LevelCommObjects* D_8035078C;
 extern u8 gLevelClassU8;
 extern u8 gLevelVehicleU8;
 extern u8 gLevelTestU8;
@@ -60,7 +61,7 @@ extern u8 D_803507AC[];
 
 extern Unk803798E0 D_803798E0[MAX_CLASSES][MAX_TESTS][VEHICLE_COUNT];
 
-extern Unk8037A600 D_8037A600;
+extern LevelCommObjects gLevelCommObjs;
 
 // begins 0x8037AA78
 extern s32 gLevelClass;   // code refers "level" | Beg./A/B/Pilot | Bonus Level 1/2/3 | Birdman map
@@ -70,7 +71,7 @@ extern Unk8037AA88 D_8037AA88[];
 
 void level_803449B0(void) {
     s32 classIdx, testIdx, vehIdx;
-    Unk8037A600* temp_v0;
+    LevelCommObjects* obj;
     Unk803798E0* temp_s0_2;
     s32 i;
     u8 sp88[0x28];
@@ -112,11 +113,11 @@ void level_803449B0(void) {
     }
 
     for (i = 0; i < 0x3D; i++) {
-        temp_v0 = level_80345CE4(i);
-        classIdx = temp_v0->comm.classNum;
-        testIdx = temp_v0->comm.testNum;
-        vehIdx = temp_v0->comm.vehNum;
-        _uvMediaCopy(sp88, (void*)temp_v0->dataNAME, 0x28);
+        obj = levelLoadCommObj(i);
+        classIdx = obj->comm.classNum;
+        testIdx = obj->comm.testNum;
+        vehIdx = obj->comm.vehNum;
+        _uvMediaCopy(sp88, (void*)obj->dataNAME, 0x28);
         if (classIdx >= MAX_CLASSES) {
             _uvDebugPrintf("\ntask : level index out of range - current limit %d\n", MAX_CLASSES - 1);
         }
@@ -133,10 +134,10 @@ void level_803449B0(void) {
                            sp88);
         }
         temp_s0_2->unk8 = i;
-        temp_s0_2->unk0 = temp_v0->dataNAME;
-        temp_s0_2->unk4 = temp_v0->dataJPTX;
+        temp_s0_2->unk0 = obj->dataNAME;
+        temp_s0_2->unk4 = obj->dataJPTX;
         if ((vehIdx == 6) && (testIdx == 0)) {
-            _uvMediaCopy(&D_8037AA88[classIdx], (void*)temp_v0->dataTPAD, 0x30);
+            _uvMediaCopy(&D_8037AA88[classIdx], (void*)obj->dataTPAD, 0x30);
         }
     }
 }
@@ -218,7 +219,7 @@ s32 level_80344FC8(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* arg4, 
     if (tmp8 == 0xFF) {
         return 0;
     }
-    D_8035078C = level_80345CE4(tmp8);
+    D_8035078C = levelLoadCommObj(tmp8);
     gLevelClassU8 = (u8)classIdx;
     gLevelVehicleU8 = (u8)vehicle;
     gLevelTestU8 = (u8)testIdx;
@@ -344,7 +345,7 @@ s32 level_80345464(Unk80345464_Arg0* arg0, s32 arg1) {
     func_8034450C(arg0);
     func_80309D64(arg0);
     if ((sp1E != 3) && (sp1E != 4)) {
-        func_802D25AC(arg0);
+        bonusStar_802D25AC(arg0);
     }
     func_802EB424(arg0, arg1);
     func_802E344C(arg0);
@@ -583,32 +584,32 @@ void levelGet_80345CC0(f32* arg0, f32* arg1) {
     *arg1 = D_8035078C->comm.unk408;
 }
 
-Unk8037A600* level_80345CE4(u32 arg0) {
+LevelCommObjects* levelLoadCommObj(u32 arg0) {
     void* sp34;
-    s32 sp30;
-    u32 sp2C;
+    s32 idx;
+    u32 size;
     u32 tag;
-    void* sp24;
-    Unk8037A600* dst;
+    void* data;
+    LevelCommObjects* dst;
 
-    dst = &D_8037A600;
+    dst = &gLevelCommObjs;
     sp34 = func_802314D0(D_803507AC[arg0], 2);
-    sp30 = func_80223E80((s32)sp34);
-    uvMemSet(&D_8037A600, 0, sizeof(D_8037A600));
+    idx = uvFileReadHeader((s32)sp34);
+    uvMemSet(&gLevelCommObjs, 0, sizeof(gLevelCommObjs));
 
-    while ((tag = func_80223F7C(sp30, &sp2C, &sp24, 2)) != 0) {
+    while ((tag = uvFileReadBlock(idx, &size, &data, 2)) != 0) {
         switch (tag) {
         case 'JPTX': // 0x4A505458
-            dst->dataJPTX = sp24;
+            dst->dataJPTX = data;
             break;
         case 'NAME': // 0x4E414D45
-            dst->dataNAME = sp24;
+            dst->dataNAME = data;
             break;
         case 'INFO': // 0x494E464F
-            dst->dataINFO = sp24;
+            dst->dataINFO = data;
             break;
         case 'COMM': // 0x434F4D4D
-            _uvMediaCopy(&dst->comm, sp24, sizeof(dst->comm));
+            _uvMediaCopy(&dst->comm, data, sizeof(dst->comm));
             mem_init();
             dst->dataTPAD = mem_get(dst->comm.countTPAD * 0x30);
             dst->dataLPAD = mem_get(dst->comm.countLPAD * 0x30);
@@ -628,57 +629,57 @@ Unk8037A600* level_80345CE4(u32 arg0) {
             dst->dataOBSV = (LevelOBSV*)mem_get(dst->comm.countOBSV * sizeof(LevelOBSV));
             break;
         case 'THER': // 0x54484552
-            _uvMediaCopy(dst->dataTHER, sp24, sp2C);
+            _uvMediaCopy(dst->dataTHER, data, size);
             break;
         case 'LWIN': // 0x4C57494E
-            _uvMediaCopy(dst->dataLWIN, sp24, sp2C);
+            _uvMediaCopy(dst->dataLWIN, data, size);
             break;
         case 'TPAD': // 0x54504144
-            _uvMediaCopy(dst->dataTPAD, sp24, sp2C);
+            _uvMediaCopy(dst->dataTPAD, data, size);
             break;
         case 'LPAD': // 0x4C504144
-            _uvMediaCopy(dst->dataLPAD, sp24, sp2C);
+            _uvMediaCopy(dst->dataLPAD, data, size);
             break;
         case 'LSTP': // 0x4C535450
-            _uvMediaCopy(dst->dataLSTP, sp24, sp2C);
+            _uvMediaCopy(dst->dataLSTP, data, size);
             break;
         case 'RNGS': // 0x524E4753
-            _uvMediaCopy(dst->dataRNGS, sp24, sp2C);
+            _uvMediaCopy(dst->dataRNGS, data, size);
             break;
         case 'BALS': // 0x42414C53
-            _uvMediaCopy(dst->dataBALS, sp24, sp2C);
+            _uvMediaCopy(dst->dataBALS, data, size);
             break;
         case 'PHTS': // 0x50485453
-            _uvMediaCopy(dst->dataPHTS, sp24, sp2C);
+            _uvMediaCopy(dst->dataPHTS, data, size);
             break;
         case 'HOPD': // 0x484F5044
-            _uvMediaCopy(dst->dataHOPD, sp24, sp2C);
+            _uvMediaCopy(dst->dataHOPD, data, size);
             break;
         case 'TARG': // 0x54415247
-            _uvMediaCopy(dst->dataTARG, sp24, sp2C);
+            _uvMediaCopy(dst->dataTARG, data, size);
             break;
         case 'HPAD': // 0x48504144
-            _uvMediaCopy(dst->dataHPAD, sp24, sp2C);
+            _uvMediaCopy(dst->dataHPAD, data, size);
             break;
         case 'BTGT': // 0x42544754
-            _uvMediaCopy(dst->dataBTGT, sp24, sp2C);
+            _uvMediaCopy(dst->dataBTGT, data, size);
             break;
         case 'FALC': // 0x46414C43
-            _uvMediaCopy(dst->dataFALC, sp24, sp2C);
+            _uvMediaCopy(dst->dataFALC, data, size);
             break;
         case 'CNTG': // 0x434E5447
-            _uvMediaCopy(dst->dataCNTG, sp24, sp2C);
+            _uvMediaCopy(dst->dataCNTG, data, size);
             break;
         case 'SDFM': // 0x5344464D
-            _uvMediaCopy(dst->dataSDFM, sp24, sp2C);
+            _uvMediaCopy(dst->dataSDFM, data, size);
             break;
         case 'OBSV': // 0x4F425356
-            _uvMediaCopy(dst->dataOBSV, sp24, sp2C);
+            _uvMediaCopy(dst->dataOBSV, data, size);
             break;
         }
     }
-    func_80223F30(sp30);
-    return &D_8037A600;
+    uvFile_80223F30(idx);
+    return &gLevelCommObjs;
 }
 
 void level_803462D4(u16 idx) {
@@ -698,7 +699,7 @@ void levelGetClsVehTest(s16* classIdx, s16* vehIdx, s16* testIdx) {
 }
 
 u8 levelGet_80346364(void) {
-    return D_8037A600.comm.unk4;
+    return gLevelCommObjs.comm.unk4;
 }
 
 // level_80346370 does not initialize the return value `ret`

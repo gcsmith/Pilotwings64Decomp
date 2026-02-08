@@ -20,9 +20,9 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_52230/func_802CB9B4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_52230/func_802CBC9C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/code_52230/ballsCollision.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_52230/func_802CBE94.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/code_52230/ballsPhysics.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_52230/func_802CC064.s")
 

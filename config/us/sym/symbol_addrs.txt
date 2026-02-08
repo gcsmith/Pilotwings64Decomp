@@ -115,6 +115,9 @@ gLevelVehicleU8     = 0x80350794;
 gLevelTestU8        = 0x80350798;
 gMapLookup          = 0x803507A8;
 
+gTitleMenuDelay     = 0x80356A68;
+
+gLevelCommObjs      = 0x8037A600;
 gLevelClass         = 0x8037AA78;
 gLevelTest          = 0x8037AA7C;
 gLevelVehicle       = 0x8037AA80;

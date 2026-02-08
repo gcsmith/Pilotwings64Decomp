@@ -1,4 +1,5 @@
 #include "common.h"
+#include <uv_filesystem.h>
 #include <uv_graphics.h>
 #include <uv_level.h>
 #include <uv_memory.h>
@@ -50,11 +51,11 @@ void demoAttLoadPos(void) {
     idx = 0;
     gotHdr = 0;
     D_8036D328 = -1.0f;
-    sp60 = func_80223E80((s32)func_802314D0(D_8036D330, 2));
+    sp60 = uvFileReadHeader((s32)func_802314D0(D_8036D330, 2));
     D_8036D320 = 0;
     D_8036D324 = 0;
 
-    while ((tag = func_80223F7C(sp60, &size, &data, 1)) != 0) {
+    while ((tag = uvFileReadBlock(sp60, &size, &data, 1)) != 0) {
         switch (tag) {
         case 'PHDR': // 0x50484452
             phdr = (PHDR*)data;
@@ -84,7 +85,7 @@ void demoAttLoadPos(void) {
     if (idx < D_8036D324) {
         D_8036D324 = idx;
     }
-    func_80223F30(sp60);
+    uvFile_80223F30(sp60);
 }
 
 void demoAttGetMtxRT(Mtx4F* mat, f32* tx, f32* ty, f32* tz, f32* rz, f32* rx, f32* ry) {

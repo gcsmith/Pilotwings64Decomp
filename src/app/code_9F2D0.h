@@ -28,9 +28,9 @@ typedef struct {
     f32 unkC6C;
     f32 unkC70;
     s8 unkC74;
-} Unk80318294;
+} HUDData;
 
-Unk80318294* func_80318294(void);
+HUDData* getHUDPtr(void);
 void func_803182A0(void);
 void func_8031D8E0(s32, s32, f32);
 

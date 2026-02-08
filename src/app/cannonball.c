@@ -163,7 +163,7 @@ void cannonMovementFrame(Unk802D5C5C_Arg0* arg0, u8 arg1) {
     f32 var_fv0_2;
     f32 spC8[2];
     u8 spC7;
-    Unk80318294* spC0;
+    HUDData* hud;
     s32 temp_t2;
     Mtx4F sp7C;
     Mtx4F sp3C;
@@ -314,38 +314,38 @@ void cannonMovementFrame(Unk802D5C5C_Arg0* arg0, u8 arg1) {
         func_802D45C4(arg0->unkB0, arg0->unkB8);
     }
     if (arg1 != 6) {
-        spC0 = func_80318294();
+        hud = getHUDPtr();
         if (arg0->unkD4 == 0) {
-            uvMat4Copy(&spC0->unk28, &arg0->unk58);
-            uvMat4RotateAxis(&spC0->unk28, arg0->zAxis, 0x7A);
+            uvMat4Copy(&hud->unk28, &arg0->unk58);
+            uvMat4RotateAxis(&hud->unk28, arg0->zAxis, 0x7A);
         } else {
-            uvMat4Copy(&spC0->unk28, sp2C);
+            uvMat4Copy(&hud->unk28, sp2C);
         }
         if ((arg0->unkB4 != 8) && (arg0->unkD4 != 2)) {
-            spC0->unk0 = 0x10;
+            hud->unk0 = 0x10;
         } else {
-            spC0->unk0 = 0;
+            hud->unk0 = 0;
         }
-        spC0->unk70 = arg0->unk14.m[3][2];
-        spC0->unk10 = arg0->unk8;
-        spC0->unk18 = arg0->unkA4;
-        spC0->unk8C = arg0->unk1CC * 4.0f * 0.7f;
-        spC0->unk80 = arg0->unk120 * 0.7f;
-        spC0->unk84 = arg0->unk14.m[3][2] * 0.7f;
-        spC0->unk88 = arg0->unk1D0 * 3.6f * 0.7f;
-        spC0->unk20 = arg0->unk98 + arg0->zAxis;
-        spC0->unk24 = arg0->xAxis;
-        spC0->unk8 = 3 - arg0->unkE;
+        hud->unk70 = arg0->unk14.m[3][2];
+        hud->unk10 = arg0->unk8;
+        hud->unk18 = arg0->unkA4;
+        hud->unk8C = arg0->unk1CC * 4.0f * 0.7f;
+        hud->unk80 = arg0->unk120 * 0.7f;
+        hud->unk84 = arg0->unk14.m[3][2] * 0.7f;
+        hud->unk88 = arg0->unk1D0 * 3.6f * 0.7f;
+        hud->unk20 = arg0->unk98 + arg0->zAxis;
+        hud->unk24 = arg0->xAxis;
+        hud->unk8 = 3 - arg0->unkE;
         if (D_8034E9F4 != 0) {
-            spC0->unk0 |= 0x200;
+            hud->unk0 |= 0x200;
         } else {
-            if (spC0->unk0 & 0x200) {
-                spC0->unk0 &= ~0x200;
+            if (hud->unk0 & 0x200) {
+                hud->unk0 &= ~0x200;
             }
         }
-        spC0->unkC70 = 0.0f;
-        spC0->unkC6C = 0.0f;
-        spC0->unkC74 = 0;
+        hud->unkC70 = 0.0f;
+        hud->unkC6C = 0.0f;
+        hud->unkC74 = 0;
     }
 }
 
@@ -529,7 +529,7 @@ void cannonPilotLand(Unk802D5C5C_Arg0* arg0) {
     }
     (void)func_802D4A30(arg0->unkB0, &sp74);
     uvMat4Copy(&arg0->unkB0->unk108, &sp74);
-    func_80318294()->unk0 = 0;
+    getHUDPtr()->unk0 = 0;
     func_802D9220(arg0);
 }
 #endif

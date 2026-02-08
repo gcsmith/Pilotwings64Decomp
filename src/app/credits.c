@@ -19,13 +19,13 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/credits/func_8030CCFC.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/credits/func_8030CDA0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/credits/credits_8030CDA0.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/credits/func_8030D1D4.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/credits/func_8030D208.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/credits/func_8030D2F0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/credits/creditsScene.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/credits/D_80353CA0.s")
 

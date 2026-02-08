@@ -1,4 +1,5 @@
 #include "common.h"
+#include <uv_filesystem.h>
 #include <uv_graphics.h>
 #include <uv_level.h>
 #include <uv_memory.h>
@@ -283,7 +284,7 @@ LevelObjects* levelLoadMapObjects(u8 mapIdx) {
     LevelObjects* temp;
     u8 tmp8;
 
-    idx = func_80223E80((s32)func_802314D0(D_8034F410[mapIdx].unk0, 2));
+    idx = uvFileReadHeader((s32)func_802314D0(D_8034F410[mapIdx].unk0, 2));
     temp = &gLevelObjects;
     uvMemSet((void*)temp, 0, sizeof(LevelObjects));
     gLevelObjects.dataWOBJ = &gLevelWOBJ;
@@ -293,7 +294,7 @@ LevelObjects* levelLoadMapObjects(u8 mapIdx) {
     gLevelObjects.dataAPTS = &gLevelAPTS;
     gLevelObjects.dataBNUS = &gLevelBNUS;
 
-    while ((tag = func_80223F7C(idx, &size, (void**)&srcPtr, 1)) != 0) {
+    while ((tag = uvFileReadBlock(idx, &size, (void**)&srcPtr, 1)) != 0) {
         switch (tag) {
         case 'ESND': // 0x45534E44
             for (i = 0; i < temp->unk0; i++) {
@@ -368,6 +369,6 @@ LevelObjects* levelLoadMapObjects(u8 mapIdx) {
             break;
         }
     }
-    func_80223F30(idx);
+    uvFile_80223F30(idx);
     return &gLevelObjects;
 }

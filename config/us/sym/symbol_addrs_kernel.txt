@@ -163,6 +163,14 @@ uvGfxSetUnkState0   = 0x80223BF4; // type:func
 uvGfx_80223C00      = 0x80223C00; // type:func
 uvCopyFrameBuf      = 0x80223DEC; // type:func
 
+uvFileReadHeader    = 0x80223E80; // type:func
+uvFile_80223F30     = 0x80223F30; // type:func
+uvFileGetCurLength  = 0x80223F54; // type:func
+uvFileGetCurTag     = 0x80223F68; // type:func
+uvFileReadBlock     = 0x80223F7C; // type:func
+uvFile_80224170     = 0x80224170; // type:func
+uvFile_8022427C     = 0x8022427C; // type:func
+
 uvEventPost         = 0x80203088; // type:func
 uvEventRemoveCb     = 0x80203210; // type:func
 uvEventMaxCb        = 0x80202F18; // type:func

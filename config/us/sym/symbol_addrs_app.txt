@@ -2,6 +2,11 @@
 
 app_firstfunc       = 0x802CA900; // type:func
 
+ballsCollision      = 0x802CBC9C; // type:func
+ballsPhysics        = 0x802CBE94; // type:func
+
+bonusStar_802D25AC  = 0x802D25AC; // type:func
+
 cannon_802D5A90     = 0x802D5A90; // type:func
 cannonLoadLevel     = 0x802D5B50; // type:func
 cannon_802D5C5C     = 0x802D5C5C; // type:func
@@ -18,6 +23,10 @@ cannonEndShot       = 0x802D8494; // type:func
 cannonEndAllTgts    = 0x802D8730; // type:func
 cannon_802D8A40     = 0x802D8A40; // type:func
 
+screenDrawBox       = 0x802DED44; // type:func
+screenDrawBox2      = 0x802DF03C; // type:func
+screenDrawBoxSetup  = 0x802DF988; // type:func
+
 saveBitScramble     = 0x802E7FA0; // type:func
 saveFatalError      = 0x802E81BC; // type:func
 saveFileInit        = 0x802E8294; // type:func
@@ -30,12 +39,19 @@ saveFile_802E89D4   = 0x802E89D4; // type:func
 db_getgnd           = 0x802DFE70; // type:func
 db_getstart         = 0x802E0304; // type:func
 env_loadtpal        = 0x802E1990; // type:func
+fileSelectSetup     = 0x802E9098; // type:func
+fileSelectPrintText = 0x802E9338; // type:func
+fileSelectEraseFile = 0x802E94B0; // type:func
+fileSelectRender    = 0x802E9A10; // type:func
 fx_create           = 0x802EA03C; // type:func
 fx_create_fire      = 0x802EA8E0; // type:func
 hsound_callback     = 0x8030A390; // type:func
 app_entrypoint      = 0x8030FE20; // type:func
 map3d               = 0x8030FF00; // type:func
 map3d_mslot         = 0x80312684; // type:func
+
+getHUDPtr           = 0x80318294; // type:func
+demoShowController  = 0x8031BED4; // type:func
 
 sdive_land          = 0x80331794; // type:func
 sdive_getpoints     = 0x80331A78; // type:func
@@ -111,6 +127,12 @@ levelGetLPAD        = 0x8030BD88; // type:func
 levelGetBNUS        = 0x8030BDA8; // type:func
 levelLoadMapObjects = 0x8030BDC8; // type:func
 
+credits_8030CDA0    = 0x8030CDA0; // type:func
+creditsScene        = 0x8030D2F0; // type:func
+popupDialogBoxInit  = 0x8030B52C; // type:func
+
+introSceneRunner    = 0x803439B4; // type:func
+
 level_803449B0      = 0x803449B0; // type:func
 levelIsValidIndex   = 0x80344CD0; // type:func
 strToUpper          = 0x80344D40; // type:func
@@ -128,7 +150,7 @@ levelGet_80345C90   = 0x80345C90; // type:func
 levelGet_80345CA0   = 0x80345CA0; // type:func
 levelGet_80345CB0   = 0x80345CB0; // type:func
 levelGet_80345CC0   = 0x80345CC0; // type:func
-level_80345CE4      = 0x80345CE4; // type:func
+levelLoadCommObj    = 0x80345CE4; // type:func
 level_803462D4      = 0x803462D4; // type:func
 levelGetClsVehTest  = 0x8034633C; // type:func
 levelGet_80346364   = 0x80346364; // type:func

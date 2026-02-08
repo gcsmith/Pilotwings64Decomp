@@ -1,6 +1,7 @@
 #include "common.h"
-#include <uv_janim.h>
+#include <uv_filesystem.h>
 #include <uv_graphics.h>
+#include <uv_janim.h>
 #include <uv_memory.h>
 #include <uv_texture.h>
 
@@ -192,10 +193,10 @@ void uvMemInitBlockHdr(void) {
     UVBlockHeader* var_a0;
 
     uvMemSet(&gUVBlockCounts, 0, sizeof(gUVBlockCounts));
-    sp64 = func_80223E80(D_DE720);
+    sp64 = uvFileReadHeader(D_DE720);
     romOffset = D_DF5B0;
 
-    while ((tag = func_80223F7C(sp64, &sp5C, &src, 1)) != 0) {
+    while ((tag = uvFileReadBlock(sp64, &sp5C, &src, 1)) != 0) {
         if (tag == 'TABL') {
             for (var_a1 = 0, var_a0 = (UVBlockHeader*)src; var_a1 < sp5C; var_a1 += 8, var_a0++) {
                 switch (var_a0->tag) {
@@ -251,7 +252,7 @@ void uvMemInitBlockHdr(void) {
             }
         }
     }
-    func_80223F30(sp64);
+    uvFile_80223F30(sp64);
     uvLevelInit();
 }
 
@@ -680,8 +681,8 @@ ParsedUVCT* uvParseTopUVCT(s32 arg0) {
     ParsedUVCT* ret;
 
     ret = NULL;
-    idx = func_80223E80(D_802B5A34[arg0]);
-    while ((tag = func_80223F7C(idx, &sp3C, &src, 1)) != 0) {
+    idx = uvFileReadHeader(D_802B5A34[arg0]);
+    while ((tag = uvFileReadBlock(idx, &sp3C, &src, 1)) != 0) {
         switch (tag) {
         case 'COMM':
             ret = _uvParseUVCT(src);
@@ -690,7 +691,7 @@ ParsedUVCT* uvParseTopUVCT(s32 arg0) {
             break;
         }
     }
-    func_80223F30(idx);
+    uvFile_80223F30(idx);
     return ret;
 }
 
@@ -701,11 +702,11 @@ ParsedUVEN* uvParseTopUVEN(s32 palette) {
     ParsedUVEN* ret;
 
     ret = NULL;
-    idx = func_80223E80(D_802B6404);
-    if (func_80224170(idx, &sp28, &src, 'COMM', palette, 1) != 0) {
+    idx = uvFileReadHeader(D_802B6404);
+    if (uvFile_80224170(idx, &sp28, &src, 'COMM', palette, 1) != 0) {
         ret = _uvParseUVEN(src);
     }
-    func_80223F30(idx);
+    uvFile_80223F30(idx);
     return ret;
 }
 
@@ -716,11 +717,11 @@ void* uvParseTopUVLV(s32 palette) {
     void* ret;
 
     ret = NULL;
-    idx = func_80223E80(D_802B64E4);
-    if (func_80224170(idx, &sp28, &src, 'COMM', palette, 1) != 0) {
+    idx = uvFileReadHeader(D_802B64E4);
+    if (uvFile_80224170(idx, &sp28, &src, 'COMM', palette, 1) != 0) {
         ret = _uvExpandTextureCpy(src);
     }
-    func_80223F30(idx);
+    uvFile_80223F30(idx);
     return ret;
 }
 
@@ -731,11 +732,11 @@ ParsedUVTP* uvParseTopUVTP(s32 palette) {
     ParsedUVTP* ret;
 
     ret = NULL;
-    idx = func_80223E80(D_802B6E2C);
-    if (func_80224170(idx, &sp28, &src, 'COMM', palette, 1) != 0) {
+    idx = uvFileReadHeader(D_802B6E2C);
+    if (uvFile_80224170(idx, &sp28, &src, 'COMM', palette, 1) != 0) {
         ret = _uvParseUVTP(src);
     }
-    func_80223F30(idx);
+    uvFile_80223F30(idx);
     return ret;
 }
 
@@ -746,11 +747,11 @@ void* uvParseTopUVLT(s32 palette) {
     void* ret;
 
     ret = NULL;
-    idx = func_80223E80(D_802B6484);
-    if (func_80224170(idx, &sp28, &src, 'COMM', palette, 1) != 0) {
+    idx = uvFileReadHeader(D_802B6484);
+    if (uvFile_80224170(idx, &sp28, &src, 'COMM', palette, 1) != 0) {
         ret = _uvParseUVLT(src);
     }
-    func_80223F30(idx);
+    uvFile_80223F30(idx);
     return ret;
 }
 
@@ -762,8 +763,8 @@ void* uvParseTopUVMD(s32 arg0) {
     void* ret;
 
     ret = NULL;
-    idx = func_80223E80(D_802B53F4[arg0]);
-    while ((tag = func_80223F7C(idx, &sp3C, &src, 1)) != 0) {
+    idx = uvFileReadHeader(D_802B53F4[arg0]);
+    while ((tag = uvFileReadBlock(idx, &sp3C, &src, 1)) != 0) {
         switch (tag) {
         case 'COMM':
             ret = _uvParseUVMD(src);
@@ -772,7 +773,7 @@ void* uvParseTopUVMD(s32 arg0) {
             break;
         }
     }
-    func_80223F30(idx);
+    uvFile_80223F30(idx);
     return ret;
 }
 
@@ -783,11 +784,11 @@ ParsedUVTR* uvParseTopUVTR(s32 arg0) {
     ParsedUVTR* ret;
 
     ret = NULL;
-    idx = func_80223E80(D_802B6494);
-    if (func_80224170(idx, &sp28, &src, 'COMM', arg0, 1) != 0) {
+    idx = uvFileReadHeader(D_802B6494);
+    if (uvFile_80224170(idx, &sp28, &src, 'COMM', arg0, 1) != 0) {
         ret = _uvParseUVTR(src);
     }
-    func_80223F30(idx);
+    uvFile_80223F30(idx);
     return ret;
 }
 
@@ -798,8 +799,8 @@ void* uvParseTopUVTX(s32 arg0) {
     void* src;
     void* ret;
 
-    idx = func_80223E80(D_802B5C34[arg0]);
-    while ((tag = func_80223F7C(idx, &sp34, &src, 1)) != 0) {
+    idx = uvFileReadHeader(D_802B5C34[arg0]);
+    while ((tag = uvFileReadBlock(idx, &sp34, &src, 1)) != 0) {
         switch (tag) {
         case 'COMM':
             ret = _uvExpandTexture(src);
@@ -808,7 +809,7 @@ void* uvParseTopUVTX(s32 arg0) {
             break;
         }
     }
-    func_80223F30(idx);
+    uvFile_80223F30(idx);
     return ret;
 }
 
@@ -819,9 +820,9 @@ void* uvParseTopUVTI(s32 arg0) {
     void* src;
     void* ret;
 
-    idx = func_80223E80(D_802B5C34[arg0]);
+    idx = uvFileReadHeader(D_802B5C34[arg0]);
 
-    while ((tag = func_80223F7C(idx, &sp34, &src, 1)) != 0) {
+    while ((tag = uvFileReadBlock(idx, &sp34, &src, 1)) != 0) {
         switch (tag) {
         case 'COMM':
             ret = _uvExpandTextureImg(src);
@@ -830,7 +831,7 @@ void* uvParseTopUVTI(s32 arg0) {
             break;
         }
     }
-    func_80223F30(idx);
+    uvFile_80223F30(idx);
     return ret;
 }
 
@@ -841,8 +842,8 @@ void* uvParseTopUVBT(s32 arg0) {
     void* src;
     void* ret;
 
-    idx = func_80223E80(D_802B6A34[arg0]);
-    while ((tag = func_80223F7C(idx, &sp3C, &src, 0)) != 0) {
+    idx = uvFileReadHeader(D_802B6A34[arg0]);
+    while ((tag = uvFileReadBlock(idx, &sp3C, &src, 0)) != 0) {
         switch (tag) {
         case 'COMM':
             ret = _uvParseUVBT(src);
@@ -851,7 +852,7 @@ void* uvParseTopUVBT(s32 arg0) {
             break;
         }
     }
-    func_80223F30(idx);
+    uvFile_80223F30(idx);
     return ret;
 }
 
@@ -862,11 +863,11 @@ ParsedUVSQ* uvParseTopUVSQ(s32 palette) {
     ParsedUVSQ* ret;
 
     ret = NULL;
-    idx = func_80223E80(D_802B64BC);
-    if (func_80224170(idx, &sp28, &src, 'COMM', palette, 1) != 0) {
+    idx = uvFileReadHeader(D_802B64BC);
+    if (uvFile_80224170(idx, &sp28, &src, 'COMM', palette, 1) != 0) {
         ret = _uvParseUVSQ(src);
     }
-    func_80223F30(idx);
+    uvFile_80223F30(idx);
     return ret;
 }
 
