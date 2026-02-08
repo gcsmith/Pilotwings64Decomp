@@ -7,7 +7,8 @@
 extern s32 D_80359D70;
 extern s32 D_80359D7C;
 
-void func_802DEC30(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10, s32 arg11, s32 arg12, s32 arg13) {
+void func_802DEC30(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10, s32 arg11, s32 arg12,
+                   s32 arg13) {
     uvVtxBeginPoly();
     uvVtx(arg0, arg1, 0, 0, 0, arg8, arg9, arg10, 0xFF);
     uvVtx(arg2, arg3, 0, 0, 0, arg8, arg9, arg10, 0xFF);
@@ -18,10 +19,10 @@ void func_802DEC30(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s
 
 void screenDrawBox(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, u8 arg5, u8 arg6, u8 arg7) {
     uvVtxBeginPoly();
-    uvVtx(arg0, arg1, 0, 0, 0, (s32) arg4, (s32) arg5, (s32) arg6, (s32) arg7);
-    uvVtx(arg2, arg1, 0, 0, 0, (s32) arg4, (s32) arg5, (s32) arg6, (s32) arg7);
-    uvVtx(arg2, arg3, 0, 0, 0, (s32) arg4, (s32) arg5, (s32) arg6, (s32) arg7);
-    uvVtx(arg0, arg3, 0, 0, 0, (s32) arg4, (s32) arg5, (s32) arg6, (s32) arg7);
+    uvVtx(arg0, arg1, 0, 0, 0, arg4, arg5, arg6, arg7);
+    uvVtx(arg2, arg1, 0, 0, 0, arg4, arg5, arg6, arg7);
+    uvVtx(arg2, arg3, 0, 0, 0, arg4, arg5, arg6, arg7);
+    uvVtx(arg0, arg3, 0, 0, 0, arg4, arg5, arg6, arg7);
     uvVtxEndPoly();
 }
 

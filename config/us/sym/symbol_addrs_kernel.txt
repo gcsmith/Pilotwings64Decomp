@@ -113,7 +113,7 @@ uvBeginTmesh        = 0x8021F390; // type:func
 uvEndTmesh          = 0x8021F3A4; // type:func
 uvEndGridWide       = 0x8021F56C; // type:func
 uvEndGrid           = 0x8021F96C; // type:func
-uvVtx_8022052C      = 0x8022052C; // type:func
+uvVtxRect           = 0x8022052C; // type:func
 uvVtxEndPoly        = 0x802206C0; // type:func
 
 uvGfxInit           = 0x80220960; // type:func

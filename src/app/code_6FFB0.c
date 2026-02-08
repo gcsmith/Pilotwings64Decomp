@@ -2,7 +2,7 @@
 
 void func_802E92E4(void);
 void func_802E94E0(void);
-s32  fileSelectRender(void);
+s32 fileSelectRender(void);
 void func_802E9AE0(void);
 
 s32 func_802E8A80(void) {

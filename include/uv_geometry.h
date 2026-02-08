@@ -30,6 +30,7 @@ void uvBeginTmesh(void);
 void uvEndTmesh(void);
 void uvEndGridWide(s16 arg0, s16 arg1, u8 arg2, s32 arg3);
 void uvEndGrid(s32 arg0, s32 arg1, u8 arg2, u8 arg3);
+void uvVtxRect(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 void uvVtxEndPoly(void);
 
 #endif // PILOTWINGS64_UV_GEOMETRY
