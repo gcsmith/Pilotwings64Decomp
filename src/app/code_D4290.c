@@ -25,7 +25,8 @@ typedef struct {
     u16 unk0;
     Mtx4F unk4;
     Mtx4F unk44;
-    u8 pad84[0x9C-0x84];
+    Vec3F unk84;
+    Vec3F unk90;
     Vec3F unk9C;
 } Unk8037F518;
 
@@ -50,6 +51,9 @@ extern Unk8037F518 D_8037F518[6];
 
 // forward declarations
 void func_8034D6D4(Unk8037F510*, Unk8037F518*);
+void func_8034D90C(f32, f32, f32, Unk8037F510*, Unk8037F518*, Vec3F*);
+void func_8034DA4C(f32, f32, f32, Unk8037F510*, Unk8037F518*, Vec3F*);
+void func_8034DD18(f32, f32, f32, Unk8037F510*, Unk8037F518*, Vec3F*);
 
 void func_8034CD60(void) {
 }
@@ -239,9 +243,76 @@ void func_8034D4AC(void) {
 void func_8034D548(void) {
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_D4290/func_8034D550.s")
+void func_8034D550(f32 arg0, f32 arg1, f32 arg2, Vec3F* arg3) {
+    s32 i;
+    Unk8037F510* temp_a3;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_D4290/func_8034D6D4.s")
+    arg3->f[0] = 0.0f;
+    arg3->f[1] = 0.0f;
+    arg3->f[2] = 0.0f;
+    for (i = 0; i < D_8037F514; i++) {
+        temp_a3 = &D_8037F510[i];
+        switch (temp_a3->unk50) {
+        case 0:
+            func_8034D90C(arg0, arg1, arg2, temp_a3, &D_8037F518[i], arg3);
+            break;
+        case 1:
+            func_8034DA4C(arg0, arg1, arg2, temp_a3, &D_8037F518[i], arg3);
+            break;
+        case 2:
+            func_8034DD18(arg0, arg1, arg2, temp_a3, &D_8037F518[i], arg3);
+            break;
+        }
+    }
+}
+
+void func_8034D6D4(Unk8037F510* arg0, Unk8037F518* arg1) {
+    switch (arg0->unk50) {
+    case 0:
+        arg1->unk84.f[0] = arg0->unk0.f[0] - arg0->unk4C;
+        arg1->unk90.f[0] = arg0->unk0.f[0] + arg0->unk4C;
+        arg1->unk84.f[1] = arg0->unk0.f[1] - arg0->unk4C;
+        arg1->unk90.f[1] = arg0->unk0.f[1] + arg0->unk4C;
+        arg1->unk84.f[2] = arg0->unk0.f[2] - arg0->unk4C;
+        arg1->unk90.f[2] = arg0->unk0.f[2] + arg0->unk4C;
+        return;
+    case 1:
+        if (arg0->unk0.f[0] < arg0->unkC.f[0]) {
+            arg1->unk84.f[0] = arg0->unk0.f[0] - arg0->unk4C;
+            arg1->unk90.f[0] = arg0->unkC.f[0] + arg0->unk4C;
+        } else {
+            arg1->unk84.f[0] = arg0->unkC.f[0] - arg0->unk4C;
+            arg1->unk90.f[0] = arg0->unk0.f[0] + arg0->unk4C;
+        }
+
+        if (arg0->unk0.f[1] < arg0->unkC.f[1]) {
+            arg1->unk84.f[1] = arg0->unk0.f[1] - arg0->unk4C;
+            arg1->unk90.f[1] = arg0->unkC.f[1] + arg0->unk4C;
+        } else {
+            arg1->unk84.f[1] = arg0->unkC.f[1] - arg0->unk4C;
+            arg1->unk90.f[1] = arg0->unk0.f[1] + arg0->unk4C;
+        }
+
+        if (arg0->unk0.f[2] < arg0->unkC.f[2]) {
+            arg1->unk84.f[2] = arg0->unk0.f[2] - arg0->unk4C;
+            arg1->unk90.f[2] = arg0->unkC.f[2] + arg0->unk4C;
+        } else {
+            arg1->unk84.f[2] = arg0->unkC.f[2] - arg0->unk4C;
+            arg1->unk90.f[2] = arg0->unk0.f[2] + arg0->unk4C;
+        }
+        return;
+    case 2:
+        arg0->unk4C = uvSqrtF(SQ(arg0->unk30.x) + SQ(arg0->unk30.y) + SQ(arg0->unk30.z));
+        arg1->unk84.f[0] = arg0->unk18.f[0] - arg0->unk4C;
+        arg1->unk90.f[0] = arg0->unk18.f[0] + arg0->unk4C;
+        arg1->unk84.f[1] = arg0->unk18.f[1] - arg0->unk4C;
+        arg1->unk90.f[1] = arg0->unk18.f[1] + arg0->unk4C;
+        arg1->unk84.f[2] = arg0->unk18.f[2] - arg0->unk4C;
+        arg1->unk90.f[2] = arg0->unk18.f[2] + arg0->unk4C;
+        return;
+    }
+}
+
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_D4290/func_8034D90C.s")
 
