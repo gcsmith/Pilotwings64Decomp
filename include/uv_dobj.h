@@ -18,6 +18,6 @@ u16 func_8021731C(void);
 void uvDobjModel(s32, s32);
 void uvDobjPosm(u16, s32, void*);
 void uvDobjState(s32, s32);
-void uvDobjProps(s32, s32, f64, s32);
+void uvDobjProps(s32 arg0, ...);
 
 #endif // UV_DOBJ_H
