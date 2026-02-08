@@ -54,6 +54,7 @@ void func_8034D6D4(Unk8037F510*, Unk8037F518*);
 void func_8034D90C(f32, f32, f32, Unk8037F510*, Unk8037F518*, Vec3F*);
 void func_8034DA4C(f32, f32, f32, Unk8037F510*, Unk8037F518*, Vec3F*);
 void func_8034DD18(f32, f32, f32, Unk8037F510*, Unk8037F518*, Vec3F*);
+void func_8034DF58(Unk8037F510*, f32, Vec3F*);
 
 void func_8034CD60(void) {
 }
@@ -313,8 +314,32 @@ void func_8034D6D4(Unk8037F510* arg0, Unk8037F518* arg1) {
     }
 }
 
+void func_8034D90C(f32 arg0, f32 arg1, f32 arg2, Unk8037F510* arg3, Unk8037F518* arg4, Vec3F* arg5) {
+    f32 f0;
+    f32 f12;
+    f32 f14;
+    f32 temp_fv0;
+    Vec3F sp1C;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_D4290/func_8034D90C.s")
+    if (arg0 < arg4->unk84.x) { return; }
+    if (arg4->unk90.x < arg0) { return; }
+    if (arg1 < arg4->unk84.y) { return; }
+    if (arg4->unk90.y < arg1) { return; }
+    if (arg2 < arg4->unk84.z) { return; }
+    if (arg4->unk90.z < arg2) { return; }
+
+    f0 = arg0 - arg3->unk0.x;
+    f12 = arg1 - arg3->unk0.y;
+    f14 = arg2 - arg3->unk0.z;
+
+    temp_fv0 = uvLength3D(f0, f12, f14);
+    if (!(arg3->unk4C < temp_fv0)) {
+        func_8034DF58(arg3, temp_fv0, &sp1C);
+        arg5->f[0] += sp1C.f[0];
+        arg5->f[1] += sp1C.f[1];
+        arg5->f[2] += sp1C.f[2];
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_D4290/func_8034DA4C.s")
 
