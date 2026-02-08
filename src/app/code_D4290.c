@@ -1,9 +1,228 @@
 #include "common.h"
+#include "code_D4290.h"
+#include "code_69BF0.h"
+#include <uv_util.h>
+#include <uv_dobj.h>
+#include <uv_level.h>
+#include <uv_math.h>
+#include <uv_dobj.h>
+#include <uv_math.h>
+
+// This is probably part of another struct but unsure which one it is
+typedef struct {
+    s8 unk0;
+    f32 unk4;
+    f32 unk8;
+    s32 unkC;
+    f32 unk10;
+    f32 unk14;
+    s8 unk18;
+    s32 unk1C;
+} WindRenderSPStruct;
+
+// size: 0xA8
+typedef struct {
+    u16 unk0;
+    Mtx4F unk4;
+    Mtx4F unk44;
+    u8 pad84[0x9C-0x84];
+    Vec3F unk9C;
+} Unk8037F518;
+
+// size: 0x54
+typedef struct {
+    Vec3F unk0;
+    Vec3F unkC;
+    Vec3F unk18;
+    Vec3F unk24;
+    Vec3F unk30;
+    s32 unk3C;
+    Vec3F unk40;
+    f32 unk4C;
+    u8 unk50;
+} Unk8037F510;
+
+
+// bss
+extern Unk8037F510* D_8037F510; 
+extern u8 D_8037F514;
+extern Unk8037F518 D_8037F518[6];
+
+// forward declarations
+void func_8034D6D4(Unk8037F510*, Unk8037F518*);
 
 void func_8034CD60(void) {
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_D4290/wind_render.s")
+// wind_render has sp120/sp114 which are just assigned but never used
+// this is probably related to WindRenderSPStruct assignments and will be resolved once
+// the actual struct this is part of is resolved
+#if defined(__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Waddress"
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-but-set-variable"
+#endif
+void wind_render(void) {
+    s32 i;
+    Unk8037F518* var_s1;
+    Unk8037F510* temp_s0;
+    WindRenderSPStruct sp148;
+    Vec3F sp120;
+    Vec3F sp114;
+    Mtx4F spD4;
+    f32 temp_fs0;
+    f32 var_fv1;
+    Vec3F spC0;
+    Vec3F spB4;
+    Vec3F spA8;
+    Vec3F sp9C;
+    Vec3F *s2;
+
+    if (D_80362690->unkA0 == 0) {
+        return;
+    }
+
+    D_8037F514 = levelDataGetLWIN((void** ) &D_8037F510);
+    if (D_8037F514 >= 7) {
+        _uvDebugPrintf("wind : too many local winds defined in level [%d]\n", D_8037F514);
+        D_8037F514 = 0;
+        return;
+    }
+    for (i = 0; i < D_8037F514; i++) {
+        // @fake to force correct s registers
+        if (&spA8) {}
+        if (&spC0) {}
+        if (&spB4) {}
+        var_s1 = &D_8037F518[i];
+        temp_s0 = &D_8037F510[i];
+        uvMat4SetIdentity(&var_s1->unk4);
+        uvMat4SetIdentity(&spD4);
+        spD4.m[3][0] = temp_s0->unk0.f[0];
+        spD4.m[3][1] = temp_s0->unk0.f[1];
+        spD4.m[3][2] = temp_s0->unk0.f[2];
+        sp148.unk0 = 0xB;
+        sp148.unk4 = 1.0f;
+        sp148.unkC = 0;
+        sp148.unk10 = temp_s0->unk4C;
+        sp148.unk14 = sp148.unk10;
+        sp148.unk18 = temp_s0->unk3C;
+        sp148.unk8 = uvSqrtF(SQ(temp_s0->unk40.x) + SQ(temp_s0->unk40.y) + SQ(temp_s0->unk40.z)) + 0.9f;
+        if (sp148.unk8 < 0.0f) {
+            sp148.unk8 = 0.0f;
+        } else if (sp148.unk8 > 1.0f) {
+            sp148.unk8 = 1.0f;
+        }
+        s2 = &temp_s0->unkC;
+        if (temp_s0->unk50 == 0) {
+            uvMat4UnkOp3(&var_s1->unk4, temp_s0->unk4C, temp_s0->unk4C, temp_s0->unk4C);
+            var_s1->unk4.m[3][0] = temp_s0->unk0.f[0];
+            var_s1->unk4.m[3][1] = temp_s0->unk0.f[1];
+            var_s1->unk4.m[3][2] = temp_s0->unk0.f[2];
+            var_s1->unk0 = func_8021731C();
+            uvDobjModel(var_s1->unk0, 0xD5U);
+            uvDobjPosm(var_s1->unk0, 0, &var_s1->unk4);
+            uvDobjState(var_s1->unk0, 2U);
+            uvDobjProps(var_s1->unk0, 3, temp_s0->unk4C, 0);
+            sp148.unk1C = 8;
+            sp114 = temp_s0->unk0;
+            sp120 = temp_s0->unkC;
+        } else if (temp_s0->unk50 == 1) {
+            spB4.f[0] = s2->f[0] - temp_s0->unk0.f[0];
+            spB4.f[1] = s2->f[1] - temp_s0->unk0.f[1];
+            spB4.f[2] = s2->f[2] - temp_s0->unk0.f[2];
+            temp_fs0 = uvVec3Len(&spB4);
+            if (spB4.f[0] > 0.0f) {
+                var_fv1 = spB4.f[0];
+            } else {
+                var_fv1 = -spB4.f[0];
+            }
+            if (var_fv1 > 0.01f || (spB4.f[1] > 0.0f ? spB4.f[1] : -spB4.f[1]) > /*0*/.01f) {
+                sp9C.f[0] = 0.0f;
+                sp9C.f[1] = 0.0f;
+                sp9C.f[2] = 1.0f;
+                uvVec3Normal(&spB4, &spB4);
+                uvVec3Cross(&spC0, &spB4, &sp9C);
+                uvVec3Normal(&spC0, &spC0);
+                uvVec3Cross(&spA8, &spC0, &spB4);
+                uvVec3Normal(&spA8, &spA8);
+                var_s1->unk4.m[0][0] = spC0.f[0];
+                var_s1->unk4.m[0][1] = spC0.f[1];
+                var_s1->unk4.m[0][2] = spC0.f[2];
+                var_s1->unk4.m[1][0] = -spA8.f[0];
+                var_s1->unk4.m[1][1] = -spA8.f[1];
+                var_s1->unk4.m[1][2] = -spA8.f[2];
+                var_s1->unk4.m[2][0] = spB4.f[0];
+                var_s1->unk4.m[2][1] = spB4.f[1];
+                var_s1->unk4.m[2][2] = spB4.f[2];
+            }
+            uvMat4UnkOp3(&var_s1->unk4, temp_s0->unk4C, temp_s0->unk4C, temp_fs0);
+            var_s1->unk4.m[3][0] = (temp_s0->unk0.f[0] + s2->f[0]) * 0.5;
+            var_s1->unk4.m[3][1] = (temp_s0->unk0.f[1] + s2->f[1]) * 0.5;
+            var_s1->unk4.m[3][2] = (temp_s0->unk0.f[2] + s2->f[2]) * 0.5;
+            var_s1->unk0 = func_8021731C();
+            uvDobjModel(var_s1->unk0, 0xD5U);
+            uvDobjPosm(var_s1->unk0, 0, &var_s1->unk4);
+            uvDobjState(var_s1->unk0, 2U);
+            if (temp_fs0 < temp_s0->unk4C) {
+                var_fv1 = temp_s0->unk4C;
+            } else {
+                var_fv1 = temp_fs0;
+            }
+            uvDobjProps(var_s1->unk0, 3, var_fv1, 0);
+            sp148.unk1C = 0xA;
+            sp114 = temp_s0->unk0;
+            sp120 = temp_s0->unkC;
+        } else if (temp_s0->unk50 == 2) {
+            uvMat4RotateAxis(&var_s1->unk4, temp_s0->unk24.f[0] * 0.0174533f, 'z'); // almost DEG_TO_RAD(1)
+            uvMat4RotateAxis(&var_s1->unk4, temp_s0->unk24.f[1] * 0.0174533f, 'x'); // almost DEG_TO_RAD(1)
+            uvMat4RotateAxis(&var_s1->unk4, temp_s0->unk24.f[2] * 0.0174533f, 'y'); // almost DEG_TO_RAD(1)
+            var_s1->unk4.m[3][0] = temp_s0->unk18.f[0];
+            var_s1->unk4.m[3][1] = temp_s0->unk18.f[1];
+            var_s1->unk4.m[3][2] = temp_s0->unk18.f[2];
+            uvMat4UnkOp4(&var_s1->unk44, &var_s1->unk4);
+            var_s1->unk4.m[3][0] = 0;
+            var_s1->unk4.m[3][1] = 0;
+            var_s1->unk4.m[3][2] = 0;
+            uvMat4UnkOp3(&var_s1->unk4, temp_s0->unk30.f[0], temp_s0->unk30.f[1], temp_s0->unk30.f[2]);
+            var_s1->unk4.m[3][0] = temp_s0->unk18.f[0];
+            var_s1->unk4.m[3][1] = temp_s0->unk18.f[1];
+            var_s1->unk4.m[3][2] = temp_s0->unk18.f[2];
+            var_s1->unk9C.f[0] = temp_s0->unk30.f[0];
+            var_s1->unk9C.f[1] = temp_s0->unk30.f[1];
+            var_s1->unk9C.f[2] = temp_s0->unk30.f[2];
+            var_s1->unk0 = func_8021731C();
+            uvDobjModel(var_s1->unk0, 0xD6U);
+            uvDobjPosm(var_s1->unk0, 0, &var_s1->unk4);
+            uvDobjState(var_s1->unk0, 2U);
+            if (temp_s0->unk30.f[1] < temp_s0->unk30.f[0]) {
+                var_fv1 = temp_s0->unk30.f[0];
+            } else {
+                var_fv1 = temp_s0->unk30.f[1];
+            }
+            uvDobjProps(var_s1->unk0, 3, var_fv1, 0);
+            sp148.unk1C = 0xA;
+            sp114.f[0] = temp_s0->unk18.f[0];
+            sp114.f[1] = temp_s0->unk18.f[1];
+            sp114.f[2] = temp_s0->unk18.f[2];
+            sp120.f[0] = temp_s0->unk30.f[0];
+            sp120.f[1] = temp_s0->unk30.f[1];
+            sp120.f[2] = temp_s0->unk30.f[2];
+            sp148.unk14 = sp148.unk10 = uvSqrtF(SQ(temp_s0->unk30.x) + SQ(temp_s0->unk30.y) + SQ(temp_s0->unk30.z)) * 0.50;
+        } else {
+            _uvDebugPrintf("wind : unknown wind shape [%d]\n", temp_s0->unk50);
+            return;
+        }
+        // @fake to force stuff in this struct to be stored
+        if (&sp148) {}
+        func_8034D6D4(temp_s0, var_s1);
+        func_802E27A8(&spD4);
+    }
+}
+#if defined(__GNUC__)
+#pragma GCC diagnostic pop
+#endif
+
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_D4290/func_8034D4AC.s")
 

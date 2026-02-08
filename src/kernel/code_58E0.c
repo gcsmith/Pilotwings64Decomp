@@ -11,7 +11,6 @@ typedef struct {
     u8 pad0[0x3C];
     s32 unk44;
 } uvChanUnk_t;
-extern s32* gGfxUnkPtrs;
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_58E0/func_80204930.s")
 

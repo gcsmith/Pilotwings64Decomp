@@ -1,6 +1,7 @@
 #include "common.h"
+#include <uv_graphics.h>
 
-s32 gGfxUnkPtrs = 0x00000000;
+uvGfxUnkStruct *gGfxUnkPtrs = NULL;
 s32 D_80248DD4 = 0xFFFFFFFF;
 s32 __additional_scanline[] = { 0x00000000, 0x00000000 };
 

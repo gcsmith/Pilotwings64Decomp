@@ -118,7 +118,7 @@ void cannon_802D5C5C(Unk802D5C5C_Arg0* arg0) {
     arg0->unk8 = 0.0f;
     arg0->unk2 = 2;
     arg0->unk56 = 2;
-    uvDobjState(arg0->unk0, 2 & 0xFF);
+    uvDobjState(arg0->unk0, arg0->unk2);
     uvDobjState(arg0->unk54, arg0->unk56);
     arg0->unkB4 = 5;
     arg0->unkB8 = 1.0f;

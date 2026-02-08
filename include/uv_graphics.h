@@ -52,6 +52,7 @@ typedef struct {
 } uvGfxUnkStruct;
 
 extern Gfx* gGfxDisplayListHead;
+extern uvGfxUnkStruct* gGfxUnkPtrs;
 
 void uvGfxInit(void);
 void uvGfxBegin(void);
