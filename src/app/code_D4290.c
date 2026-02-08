@@ -341,7 +341,70 @@ void func_8034D90C(f32 arg0, f32 arg1, f32 arg2, Unk8037F510* arg3, Unk8037F518*
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_D4290/func_8034DA4C.s")
+void func_8034DA4C(f32 arg0, f32 arg1, f32 arg2, Unk8037F510* arg3, Unk8037F518* arg4, Vec3F* arg5) {
+    f32 sp6C;
+    f32 sp68;
+    f32 sp64;
+    f32 sp60;
+    f32 sp5C;
+    f32 sp58;
+    f32 sp54;
+    f32 sp50;
+    f32 sp4C;
+    f32 sp24;
+    f32 temp_fv0_3;
+    f32 sp40;
+    Vec3F sp34;
+
+    
+    if (arg0 < arg4->unk84.x) { return; }
+    if (arg4->unk90.x < arg0) { return; }
+    if (arg1 < arg4->unk84.y) { return; }
+    if (arg4->unk90.y < arg1) { return; }
+    if (arg2 < arg4->unk84.z) { return; }
+    if (arg4->unk90.z < arg2) { return; }
+
+    sp6C = arg3->unkC.f[0] - arg3->unk0.f[0];
+    sp68 = arg3->unkC.f[1] - arg3->unk0.f[1];
+    sp64 = arg3->unkC.f[2] - arg3->unk0.f[2];
+    sp60 = arg0 - arg3->unk0.f[0];
+    sp5C = arg1 - arg3->unk0.f[1];
+    sp58 = arg2 - arg3->unk0.f[2];
+    if (((sp6C * sp60) + (sp68 * sp5C) + (sp64 * sp58)) < 0.0f) {
+        return;
+    }
+
+    sp6C = -sp6C;
+    sp68 = -sp68;
+    sp64 = -sp64;
+    sp60 = arg0 - arg3->unkC.f[0];
+    sp5C = arg1 - arg3->unkC.f[1];
+    sp58 = arg2 - arg3->unkC.f[2];
+    sp24 = (sp6C * sp60) + (sp68 * sp5C) + (sp64 * sp58);
+    if (sp24 < 0.0f) {
+        return;
+    }
+
+    sp40 = uvSqrtF(SQ(sp6C) + SQ(sp68) + SQ(sp64));
+    if (sp40 > 0.00001f) {
+        temp_fv0_3 = sp24 / sp40;
+        sp54 = (arg3->unkC.f[0] + ((sp6C / sp40) * temp_fv0_3)) - arg0;
+        sp50 = (arg3->unkC.f[1] + ((sp68 / sp40) * temp_fv0_3)) - arg1;
+        sp4C = (arg3->unkC.f[2] + ((sp64 / sp40) * temp_fv0_3)) - arg2;
+        sp24 = uvSqrtF(SQ(sp54) + SQ(sp50) + SQ(sp4C));
+    } else {
+        sp24 = 0.0f;
+    }
+
+    if (arg3->unk4C < sp24) {
+        return;
+    }
+
+    func_8034DF58(arg3, sp24, &sp34);
+    arg5->f[0] += sp34.f[0];
+    arg5->f[1] += sp34.f[1];
+    arg5->f[2] += sp34.f[2];
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_D4290/func_8034DD18.s")
 

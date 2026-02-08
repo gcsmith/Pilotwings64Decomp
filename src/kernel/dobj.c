@@ -12,7 +12,6 @@ extern u16 D_80269F0A;
 void uvDobjProps(s32 arg0, ...) {
     s16 a1;
     f32 f0;
-    s32 new_var2;
     Unk80263780* temp_s1;
     s32 var_v0;
     s32 var_v1;
@@ -23,11 +22,9 @@ void uvDobjProps(s32 arg0, ...) {
         return;
     }
 
-    // FAKE
-    new_var2 = arg0;
     temp_s1 = &D_80263780[arg0];
     if (temp_s1->unk0 == 0xFFFF) {
-        _uvDebugPrintf("uvDobjProps: cannot be set before mod id\n", new_var2);
+        _uvDebugPrintf("uvDobjProps: cannot be set before mod id\n");
         return;
     }
 
