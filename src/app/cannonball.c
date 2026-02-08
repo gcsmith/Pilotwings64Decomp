@@ -518,10 +518,10 @@ void cannonPilotLand(Unk802D5C5C_Arg0* arg0) {
     }
     arg0->unkB4 = 5;
     func_802D5884(arg0->unkB0, arg0->unkB4);
-    
+
     spB8 = D_8034E9FC * 0.5f;
     if (spB8 < 0.0f) {
-       spB8 = 0.0f;
+        spB8 = 0.0f;
     } else if (spB8 > 0.99f) {
         spB8 = 0.99f;
     }
@@ -832,31 +832,31 @@ s32 cannonLoad802D77D8(Unk80362690* arg0, Unk802D3658_Arg0* arg1) {
     func_8031DAA8(0, 0);
     temp_s1_2->unk6 = 0;
     func_803214E4();
-    level_80344FC8((s32) temp_s1_2->unk4, (s32) temp_s1_2->unk2, (s32) temp_s1_2->unk6, &arg0->unk0[0].map, &arg0->unk0[0].unk6, &arg0->unk0[0].unk8);
+    level_80344FC8((s32)temp_s1_2->unk4, (s32)temp_s1_2->unk2, (s32)temp_s1_2->unk6, &arg0->unk0[0].map, &arg0->unk0[0].unk6, &arg0->unk0[0].unk8);
     levelLoad(arg0->unk0[0].map, temp_s1_2->pad0, temp_s1_2->unk2, 1);
     func_80317DA0();
     func_8031A2CC();
     level_8034528C();
     func_8034E0B4();
-    uvChanTerra(temp_s1_2->unk70->unk22C, (s32) arg0->unk0[0].unk6);
+    uvChanTerra(temp_s1_2->unk70->unk22C, (s32)arg0->unk0[0].unk6);
     uvEnvFunc(arg0->unk0[0].unk8, 0, func_802E0CF0);
-    func_8034B5E0(temp_s1_2->unk70->unk22C, (Unk802D3658_Arg0* ) temp_s1_2->unk70);
+    func_8034B5E0(temp_s1_2->unk70->unk22C, (Unk802D3658_Arg0*)temp_s1_2->unk70);
     for (i = 0; i < 4; i++) {
         ((s16*)(temp_s1_2->unk74 + (temp_s1_2->unk4 * 0x694) + (i * 0x150) + (temp_s1_2->unk2 * 0x30)))[0x22] = 0x7F;
     }
-    temp_s1_2->unk6C = (s32) arg1;
-    cannonLoadLevel(arg0->unk9C, temp_s1_2->pad0, arg1, (Unk802D3658_Arg0* ) temp_s1_2->unk70);
-    cannon_802D5C5C((Unk802D5C5C_Arg0* ) arg1);
+    temp_s1_2->unk6C = (s32)arg1;
+    cannonLoadLevel(arg0->unk9C, temp_s1_2->pad0, arg1, (Unk802D3658_Arg0*)temp_s1_2->unk70);
+    cannon_802D5C5C((Unk802D5C5C_Arg0*)arg1);
     arg1->unkC = 0;
     arg1->unkE = 0;
     D_80359A88[0] = 0;
     D_80359A88[1] = 0;
     D_80359A88[2] = 0;
     D_80359A88[3] = 0;
-    uvMat4Copy(&sp3C, (Mtx4F* ) &arg1->unk14);
+    uvMat4Copy(&sp3C, (Mtx4F*)&arg1->unk14);
     uvMat4RotateAxis(&sp3C, 1.5707961f, 0x78);
     func_802EDD9C(temp_s1_2, &sp3C);
-    func_802D4DE8((Unk802D3658_Arg0* ) temp_s1_2->unk70, 0U);
+    func_802D4DE8((Unk802D3658_Arg0*)temp_s1_2->unk70, 0U);
     func_8032B508(temp_s1_2->unk74);
     func_80313E0C(0.0f);
     func_802E66F4(1.0f);
