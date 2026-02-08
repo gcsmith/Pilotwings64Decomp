@@ -117,6 +117,9 @@ gMapLookup          = 0x803507A8;
 
 gTitleMenuDelay     = 0x80356A68;
 
+gHudState           = 0x8036C5A8;
+gHudShowController  = 0x8036D220;
+
 gLevelCommObjs      = 0x8037A600;
 gLevelClass         = 0x8037AA78;
 gLevelTest          = 0x8037AA7C;

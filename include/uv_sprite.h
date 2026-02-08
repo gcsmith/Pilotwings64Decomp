@@ -34,7 +34,7 @@ void uvSprtDraw(s32 sprite_id);
 void uvSprtSetBlit(uvSprite_t* sprite, s32 arg1);
 s16  uvSprtGetUnk0(s32 sprite_id);
 s16  uvSprtGetUnk1(s32 sprite_id);
-// void uvSprtProps(s32 arg0, ? arg1, ? arg2, ? arg3);
+void uvSprtProps(s32 sprite_id, ...);
 void uvSprtUpdateUnk(uvSprite_t* sprite);
 void uvSprtResetUnk(void);
 

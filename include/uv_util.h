@@ -2,7 +2,8 @@
 #define PILOTWINGS64_UV_UTIL
 
 void _uvDebugPrintf(char* fmt, ...);
-void _uvAssertMsg(char* expr, char* filename, s32 line);
+void _uvAssertMsg(const char* expr, const char* filename, int line);
+void uvSprintf(char* str, const char* fmt, ...);
 
 #endif // PILOTWINGS64_UV_UTIL
 

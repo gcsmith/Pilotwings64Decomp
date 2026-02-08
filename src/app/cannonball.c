@@ -21,13 +21,13 @@
 #include "code_72B70.h"
 #include "code_7FED0.h"
 #include "code_9A960.h"
-#include "code_9F2D0.h"
 #include "code_B2900.h"
 #include "code_B5280.h"
 #include "code_C9440.h"
 #include "code_D2B10.h"
 #include "demo.h"
 #include "fdr.h"
+#include "hud.h"
 #include "save.h"
 #include "snd.h"
 
@@ -168,7 +168,7 @@ void cannonMovementFrame(Unk802D5C5C_Arg0* arg0, u8 arg1) {
     f32 var_fv0_2;
     f32 spC8[2];
     u8 spC7;
-    HUDData* hud;
+    HUDState* hud;
     s32 temp_t2;
     Mtx4F sp7C;
     Mtx4F sp3C;
@@ -319,7 +319,7 @@ void cannonMovementFrame(Unk802D5C5C_Arg0* arg0, u8 arg1) {
         func_802D45C4(arg0->unkB0, arg0->unkB8);
     }
     if (arg1 != 6) {
-        hud = getHUDPtr();
+        hud = hudGetState();
         if (arg0->unkD4 == 0) {
             uvMat4Copy(&hud->unk28, &arg0->unk58);
             uvMat4RotateAxis(&hud->unk28, arg0->zAxis, 0x7A);
@@ -431,19 +431,19 @@ void cannonAimingFrame(Unk802D5C5C_Arg0* arg0) {
     if (D_80359A84 == 0) {
         switch (arg0->unkC) {
         case 0:
-            func_8031D8E0(0x111, 2.0f, 0);
+            hudText_8031D8E0(0x111, 2.0f, 0);
             break;
         case 1:
-            func_8031D8E0(0x10, 2.0f, 0);
+            hudText_8031D8E0(0x10, 2.0f, 0);
             break;
         case 2:
-            func_8031D8E0(0xD5, 2.0f, 0);
+            hudText_8031D8E0(0xD5, 2.0f, 0);
             break;
         case 3:
-            func_8031D8E0(0x1A2, 2.0f, 0);
+            hudText_8031D8E0(0x1A2, 2.0f, 0);
             break;
         default:
-            func_8031D8E0(0x1A2, 2.0f, 0);
+            hudText_8031D8E0(0x1A2, 2.0f, 0);
             break;
         }
         D_80359A84 = 1;
@@ -537,7 +537,7 @@ void cannonPilotLand(Unk802D5C5C_Arg0* arg0) {
     }
     func_802D4A30(arg0->unkB0, &sp74);
     uvMat4Copy(&arg0->unkB0->unk108, &sp74);
-    getHUDPtr()->unk0 = 0;
+    hudGetState()->unk0 = 0;
     func_802D9220(arg0);
 }
 #endif
@@ -797,9 +797,7 @@ void func_802E26C0(void);
 void func_802E66F4(f32);
 void func_802E68B0(s32);
 void func_802EDD9C(void*, Mtx4F*);
-void func_80317DA0(void);
 void func_8031A2CC(void);
-void func_8031D9B8(s32, f32, f32);
 void func_8031DAA8(s32, f32);
 void func_803214E4(void);
 void func_8032B508(s32);
@@ -834,7 +832,7 @@ s32 cannonLoad802D77D8(Unk80362690* arg0, Unk802D3658_Arg0* arg1) {
     func_803214E4();
     level_80344FC8((s32)temp_s1_2->unk4, (s32)temp_s1_2->unk2, (s32)temp_s1_2->unk6, &arg0->unk0[0].map, &arg0->unk0[0].unk6, &arg0->unk0[0].unk8);
     levelLoad(arg0->unk0[0].map, temp_s1_2->pad0, temp_s1_2->unk2, 1);
-    func_80317DA0();
+    hudInit();
     func_8031A2CC();
     level_8034528C();
     func_8034E0B4();
@@ -866,7 +864,7 @@ s32 cannonLoad802D77D8(Unk80362690* arg0, Unk802D3658_Arg0* arg1) {
     func_8033FCD0(temp_s1_2->unk2);
     uvEventPost(0xB, 0);
     D_80359A84 = 0;
-    func_8031D9B8(0xDB, 1.5f, 8.0f);
+    hudWarningText(0xDB, 1.5f, 8.0f);
     return 5;
 }
 #endif
@@ -908,12 +906,12 @@ s32 cannonLandedFrame(Unk802D5C5C_Arg0* arg0) {
             var_a2 = 0;
         }
         if (!sp27) {
-            func_8031D8E0(0x14D, 2.0f, 8.0f);
+            hudText_8031D8E0(0x14D, 2.0f, 8.0f);
         } else {
             func_80342404(func_80342198(0x1AC), var_a2, 2, 0);
-            func_8031D8E0(0x1AC, 2.0f, 8.0f);
+            hudText_8031D8E0(0x1AC, 2.0f, 8.0f);
             if (var_a2 == 0x19) {
-                func_8031D9B8(0x16F, 2.0f, 8.0f);
+                hudWarningText(0x16F, 2.0f, 8.0f);
                 func_8033F964(1);
                 func_8033F7F8(0x11U);
             } else {
@@ -944,8 +942,8 @@ s32 cannonLandedFrame(Unk802D5C5C_Arg0* arg0) {
     if (cannonEndShot(arg0) != 0) {
         return 5;
     }
-    func_8031D8E0(-1, 0, 0.0f);
-    func_8031D9B8(-1, 0.0f, 0.0f);
+    hudText_8031D8E0(-1, 0, 0.0f);
+    hudWarningText(-1, 0.0f, 0.0f);
     return 0xD;
 }
 

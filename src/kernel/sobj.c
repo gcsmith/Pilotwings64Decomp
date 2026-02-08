@@ -32,6 +32,6 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/sobj/func_8022DA6C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/sobj/func_8022DA9C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/kernel/sobj/uvSprintf.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/sobj/func_8022DE64.s")

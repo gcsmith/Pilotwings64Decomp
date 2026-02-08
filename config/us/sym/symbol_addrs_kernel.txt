@@ -196,6 +196,8 @@ uvSobjLoadTerra     = 0x8022CEF8; // type:func
 uvSobjPosm          = 0x8022CFC4; // type:func
 uvSobjModel         = 0x8022D218; // type:func
 
+uvSprintf           = 0x8022DA9C; // type:func
+
 uvMemInitBlocks     = 0x8022A3C0; // type:func
 uvMemScanBlocks     = 0x8022A4F4; // type:func
 _uvJumpHeap         = 0x8022A674; // type:func

@@ -460,6 +460,6 @@ void _uvDMA(void* vAddr, u32 devAddr, u32 nbytes) {
     }
 }
 
-void _uvAssertMsg(char* expr, char* filename, s32 line) {
+void _uvAssertMsg(const char* expr, const char* filename, int line) {
     _uvDebugPrintf("%s:%d  %s\n", filename, line, expr);
 }

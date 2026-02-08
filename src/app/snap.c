@@ -66,6 +66,6 @@ void func_803383FC(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/snap/func_8033F050.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/snap/func_8033F618.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/snap/snapGetPhotoCount.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/snap/func_8033F62C.s")

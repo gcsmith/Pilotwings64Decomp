@@ -1,8 +1,8 @@
 #include <uv_debug.h>
 #include <uv_level.h>
-#include "code_9F2D0.h"
 #include "code_C8990.h"
 #include "code_D2B10.h"
+#include "hud.h"
 
 // forward declarations
 void func_8034B688(void);
@@ -20,7 +20,7 @@ void func_8034B6F8(void) {
     func_8034B688();
     var_v0 = D_80362690->unk0[0].debugFlag;
     if (var_v0 < 5) {
-        func_803182A0();
+        hudMainRender();
         var_v0 = D_80362690->unk0[0].debugFlag;
     }
     switch (var_v0) {
