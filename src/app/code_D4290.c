@@ -41,6 +41,7 @@ typedef struct {
     Vec3F unk40;
     f32 unk4C;
     u8 unk50;
+    u8 unk51;
 } Unk8037F510;
 
 
@@ -55,6 +56,7 @@ void func_8034D90C(f32, f32, f32, Unk8037F510*, Unk8037F518*, Vec3F*);
 void func_8034DA4C(f32, f32, f32, Unk8037F510*, Unk8037F518*, Vec3F*);
 void func_8034DD18(f32, f32, f32, Unk8037F510*, Unk8037F518*, Vec3F*);
 void func_8034DF58(Unk8037F510*, f32, Vec3F*);
+f32 func_8034DFC4(u8, f32);
 
 void func_8034CD60(void) {
 }
@@ -356,7 +358,6 @@ void func_8034DA4C(f32 arg0, f32 arg1, f32 arg2, Unk8037F510* arg3, Unk8037F518*
     f32 sp40;
     Vec3F sp34;
 
-    
     if (arg0 < arg4->unk84.x) { return; }
     if (arg4->unk90.x < arg0) { return; }
     if (arg1 < arg4->unk84.y) { return; }
@@ -406,7 +407,58 @@ void func_8034DA4C(f32 arg0, f32 arg1, f32 arg2, Unk8037F510* arg3, Unk8037F518*
     arg5->f[2] += sp34.f[2];
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_D4290/func_8034DD18.s")
+void func_8034DD18(f32 arg0, f32 arg1, f32 arg2, Unk8037F510* arg3, Unk8037F518* arg4, Vec3F* arg5) {
+    Vec3F sp5C;
+    Vec3F sp50;
+    f32 temp_fa1;
+    f32 temp_fv0;
+    f32 temp_fv1;
+    f32 var_fa0;
+    f32 var_fv1;
+    s32 pad[4];
+
+
+    if (arg0 < arg4->unk84.x) { return; }
+    if (arg4->unk90.x < arg0) { return; }
+    if (arg1 < arg4->unk84.y) { return; }
+    if (arg4->unk90.y < arg1) { return; }
+    if (arg2 < arg4->unk84.z) { return; }
+    if (arg4->unk90.z < arg2) { return; }
+
+    sp5C.f[0] = arg0;
+    sp5C.f[1] = arg1;
+    sp5C.f[2] = arg2;
+    uvMat4UnkOp5(&arg4->unk44, &sp50, &sp5C);
+    temp_fv0 = arg4->unk9C.f[0] * 0.5f;
+    if (sp50.f[0] < -temp_fv0) { return; }
+    if (temp_fv0 < sp50.f[0]) { return; }
+
+    temp_fv0 = arg4->unk9C.f[1] * 0.5f;
+    if ((sp50.f[1] < -temp_fv0)) { return; }
+    if (temp_fv0 < sp50.f[1]) { return; }
+
+    temp_fv0 = arg4->unk9C.f[2] * 0.5f;
+
+    if ((sp50.f[2] < -temp_fv0)) { return; }
+    if (temp_fv0 < sp50.f[2]) { return; }
+
+    temp_fv0 = (2.0f * sp50.f[0]) / arg4->unk9C.f[0];
+    temp_fv1 = (2.0f * sp50.f[1]) / arg4->unk9C.f[1];
+    temp_fa1 = (2.0f * sp50.f[2]) / arg4->unk9C.f[2];
+    var_fv1 = uvSqrtF(SQ(temp_fv0) + SQ(temp_fv1) + SQ(temp_fa1));
+    if (var_fv1 < 0.0f) {
+        var_fv1 = 0.0f;
+    } else if (var_fv1 > 1.0f) {
+        var_fv1 = 1.0f;
+    }
+    temp_fv0 = func_8034DFC4(arg3->unk51, var_fv1);
+    var_fv1 = arg3->unk40.f[0] * temp_fv0;
+    var_fa0 = arg3->unk40.f[1] * temp_fv0;
+    temp_fa1 = arg3->unk40.f[2] * temp_fv0;
+    arg5->f[0] += var_fv1;
+    arg5->f[1] += var_fa0;
+    arg5->f[2] += temp_fa1;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_D4290/func_8034DF58.s")
 
