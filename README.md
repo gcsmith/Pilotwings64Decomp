@@ -2,7 +2,7 @@
 [![Code](https://decomp.dev/gcsmith/Pilotwings64Decomp/us.svg?mode=shield&measure=code&label=Code%20Bytes)](https://decomp.dev/gcsmith/Pilotwings64Decomp)
 [![Data](https://decomp.dev/gcsmith/Pilotwings64Decomp/us.svg?mode=shield&measure=data&label=Data%20Bytes)](https://decomp.dev/gcsmith/Pilotwings64Decomp)
 [![Functions](https://decomp.dev/gcsmith/Pilotwings64Decomp/us.svg?mode=shield&measure=matched_functions&label=Functions)](https://decomp.dev/gcsmith/Pilotwings64Decomp)
-[![Discord](https://img.shields.io/discord/1465499203831730191?color=%237289DA&logo=discord&logoColor=%23FFFFFF)](https://discord.gg/F3mZdvHv)
+[![Discord](https://img.shields.io/discord/1465499203831730191?color=%237289DA&logo=discord&logoColor=%23FFFFFF)](https://discord.gg/bkrYXSjrKE)
 
 # Pilotwings64Decomp
 
