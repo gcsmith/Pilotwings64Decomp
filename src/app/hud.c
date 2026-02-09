@@ -5,7 +5,7 @@
 #include <uv_level.h>
 #include <uv_math.h>
 #include <uv_sprite.h>
-#include <uv_util.h>
+#include <uv_string.h>
 #include "code_C9440.h"
 #include "hud.h"
 #include "snap.h"

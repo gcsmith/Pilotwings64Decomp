@@ -3,7 +3,5 @@
 
 void _uvDebugPrintf(char* fmt, ...);
 void _uvAssertMsg(const char* expr, const char* filename, int line);
-void uvSprintf(char* str, const char* fmt, ...);
 
 #endif // PILOTWINGS64_UV_UTIL
-

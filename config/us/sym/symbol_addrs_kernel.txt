@@ -196,15 +196,15 @@ uvSobjLoadTerra     = 0x8022CEF8; // type:func
 uvSobjPosm          = 0x8022CFC4; // type:func
 uvSobjModel         = 0x8022D218; // type:func
 
-strchr              = 0x8022D2B0; // type:func
-strlen              = 0x8022D300; // type:func
-strcmp              = 0x8022D338; // type:func
+uvStrchr            = 0x8022D2B0; // type:func
+uvStrlen            = 0x8022D300; // type:func
+uvStrcmp            = 0x8022D338; // type:func
 strFormatInt        = 0x8022D4D4; // type:func
 strFormatFloat      = 0x8022D810; // type:func
 strDigitToChar      = 0x8022DA40; // type:func
 strCharToDigit      = 0x8022DA6C; // type:func
 uvSprintf           = 0x8022DA9C; // type:func
-atoi                = 0x8022DE64; // type:func
+uvAtoi              = 0x8022DE64; // type:func
 
 uvMemInitBlocks     = 0x8022A3C0; // type:func
 uvMemScanBlocks     = 0x8022A4F4; // type:func

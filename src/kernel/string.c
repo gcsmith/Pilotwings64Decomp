@@ -1,17 +1,17 @@
 #include "common.h"
 #include <libc/stdarg.h>
 #include <PR/ultratypes.h>
+#include <uv_string.h>
 
 // forward declarations
 void strFormatFloat(f32, s32*, char*, s32);
 void strFormatInt(s32, s32 base, s32*, char*, s32, s32, s32);
-int atoi(const char*);
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/string/strchr.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/kernel/string/uvStrchr.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/string/strlen.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/kernel/string/uvStrlen.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/string/strcmp.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/kernel/string/uvStrcmp.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/string/strFormatInt.s")
 
@@ -21,7 +21,7 @@ int atoi(const char*);
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/string/strCharToDigit.s")
 
-void uvSprintf(char* dest, char* fmt, ...) {
+void uvSprintf(char* dest, const char* fmt, ...) {
     s32 srcBufPos;
     s32 j;
     s32 destBufPos;
@@ -77,7 +77,7 @@ void uvSprintf(char* dest, char* fmt, ...) {
                     c = fmt[srcBufPos];
                 }
                 padStrBuf[j] = '\0';
-                padCount = atoi(padStrBuf);
+                padCount = uvAtoi(padStrBuf);
             }
             if (c == '\0') {
                 break;
@@ -128,4 +128,4 @@ void uvSprintf(char* dest, char* fmt, ...) {
     va_end(args);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/string/atoi.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/kernel/string/uvAtoi.s")
