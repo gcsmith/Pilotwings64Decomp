@@ -4,12 +4,12 @@
 #include <uv_matrix.h>
 
 typedef struct {
-    u16 unk0; // Maybe some button mask?
+    u16 unk0;
     s16 pad2;
     s32 unk4;
     s8 unk8;
     s8 pad9[0xC - 9];
-    s32 padC;
+    s32 unkC;
     f32 unk10;
     f32 unk14;
     f32 unk18;
@@ -17,14 +17,20 @@ typedef struct {
     f32 unk20;
     f32 unk24;
     Mtx4F unk28;
-    u8 pad68[0x70 - 0x68];
+    f32 unk68;
+    f32 unk6C;
     f32 unk70;
-    u8 pad74[0x80 - 0x74];
+    f32 unk74;
+    f32 unk78;
+    f32 unk7C;
     f32 unk80;
     f32 unk84;
     f32 unk88;
     f32 unk8C;
-    u8 pad90[0xB40 - 0x90];
+    f32 unk90;
+    u8 pad94[0xB38 - 0x94];
+    f32 unkB38;
+    f32 unkB3C;
     s16 unkB40[0x3C];
     f32 unkBB8;
     f32 unkBBC;
@@ -59,5 +65,6 @@ HUDState* hudGetState(void);
 void hudMainRender(void);
 void hudText_8031D8E0(s16, f32, f32);
 void hudWarningText(s16, f32, f32);
+void hudDemoControllerEn(u8 enable);
 
 #endif // APP_HUD_H

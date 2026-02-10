@@ -5,6 +5,7 @@
 #include <uv_matrix.h>
 #include <uv_vector.h>
 #include "code_5A6A0.h"
+#include "code_68220.h"
 #include "code_72010.h"
 #include "code_9A960.h"
 #include "demo.h"
@@ -32,7 +33,6 @@ s32 func_802DB050(s32*, s32*, u16, u8, Mtx4F*);
 s32 func_802DB224(s32*, s32, u16, u8, Vec3F*, Vec3F*);
 void func_802DBE64(void*, void*, s32, Mtx4F*);
 void func_802DCA5C(Vec3F*, Vec3F*, Vec3F*, Vec3F*, Vec3F*);
-f32 func_802E1754(f32, f32, f32, Vec3F*);
 void func_802EAAE0(Unk802D3658_Unk230*);
 void func_802EABAC(Unk802D3658_Unk230*, f32, Mtx4F*);
 void func_802EAC9C(Unk802D3658_Unk230*, f32, Mtx4F*);

@@ -6,6 +6,13 @@
 
 typedef struct {
     union {
+        struct { f32 x, y; };
+        f32 f[2];
+    };
+} Vec2F;
+
+typedef struct {
+    union {
         struct { f32 x, y, z; };
         f32 f[3];
     };
