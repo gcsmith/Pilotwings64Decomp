@@ -36,6 +36,7 @@ void uvMat4Mul(Mtx4F* dst, Mtx4F* src1, Mtx4F* src2);
 // if dst is either mat1 or mat2, uses stack matrix
 void uvMat4MulBA(Mtx4F* dst, Mtx4F* src1, Mtx4F* src2);
 
+// axis is usually defined as the string 'x', 'y' or 'z' which is hex 0x78, 0x79 and 0x7A respectively
 void uvMat4RotateAxis(Mtx4F* dst, float angle, char axis);
 void uvMat4UnkOp2(Mtx4F* dst, float arg1, float arg2, float arg3);
 void uvMat4UnkOp3(Mtx4F* dst, float arg1, float arg2, float arg3);

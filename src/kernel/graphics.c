@@ -257,7 +257,7 @@ void uvGfxPushMtxUnk(Mtx4F* arg0) {
     uvMat4Copy(&D_802B4888, arg0);
     uvMat4Copy(&sp48, &D_802B4888);
     uvMat4SetIdentity(&sp88);
-    uvMat4RotateAxis(&sp88, -1.5707963f, 0x78);
+    uvMat4RotateAxis(&sp88, -1.5707963f, 'x');
     uvMat4Mul(&D_802B4888, &sp48, &sp88);
     uvMat4SetUnk1(&spC8);
     uvGfxMtxView(*(Mtx*)&spC8);

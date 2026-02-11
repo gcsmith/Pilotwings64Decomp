@@ -17,6 +17,7 @@ typedef struct {
 extern Unk80263780 D_80263780[8];
 
 s32 func_8021731C(void);
+// arg1 might be the model id? 0xFFFF / -1 is..?
 void uvDobjModel(s32, s32);
 void uvDobjPosm(s32, s32, Mtx4F*);
 void uvDobjState(s32, s32);

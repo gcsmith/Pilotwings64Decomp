@@ -34,13 +34,13 @@ static void func_8034C2E0(s32 arg0) {
     uvMat4SetIdentity(&sp30);
     uvMat4UnkOp2(&sp30, D_8037F450[arg0].unk8.x, D_8037F450[arg0].unk8.y, D_8037F450[arg0].unk8.z);
     uvMat4UnkOp2(&sp30, 0.0f, 0.0f, D_8037F450[arg0].unk20);
-    uvMat4RotateAxis(&sp30, D_8037F450[arg0].unk1C * 0.01745329f, 0x7A);
+    uvMat4RotateAxis(&sp30, D_8037F450[arg0].unk1C * 0.01745329f, 'z');
     uvMat4UnkOp2(&sp30, D_8037F450[arg0].unk14, 0.0f, 0.0f);
     uvDobjPosm(D_8037F450[arg0].unk0, 0, &sp30);
     if (D_8037F450[arg0].unk4 != 0xFFFF) {
         uvMat4SetIdentity(&sp30);
         uvMat4UnkOp2(&sp30, D_8037F450[arg0].unk8.x, D_8037F450[arg0].unk8.y, D_8037F450[arg0].unk8.z);
-        uvMat4RotateAxis(&sp30, D_8037F450[arg0].unk1C * 0.01745329f, 0x7A);
+        uvMat4RotateAxis(&sp30, D_8037F450[arg0].unk1C * 0.01745329f, 'z');
         uvMat4UnkOp2(&sp30, D_8037F450[arg0].unk14, 0.0f, 0.0f);
         uvDobjPosm(D_8037F450[arg0].unk4, 0, &sp30);
     }

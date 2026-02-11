@@ -322,7 +322,7 @@ void cannonMovementFrame(Unk802D5C5C_Arg0* arg0, u8 arg1) {
         hud = hudGetState();
         if (arg0->unkD4 == 0) {
             uvMat4Copy(&hud->unk28, &arg0->unk58);
-            uvMat4RotateAxis(&hud->unk28, arg0->zAxis, 0x7A);
+            uvMat4RotateAxis(&hud->unk28, arg0->zAxis, 'z');
         } else {
             uvMat4Copy(&hud->unk28, sp2C);
         }
@@ -852,7 +852,7 @@ s32 cannonLoad802D77D8(Unk80362690* arg0, Unk802D3658_Arg0* arg1) {
     D_80359A88[2] = 0;
     D_80359A88[3] = 0;
     uvMat4Copy(&sp3C, (Mtx4F*)&arg1->unk14);
-    uvMat4RotateAxis(&sp3C, 1.5707961f, 0x78);
+    uvMat4RotateAxis(&sp3C, 1.5707961f, 'x');
     func_802EDD9C(temp_s1_2, &sp3C);
     func_802D4DE8((Unk802D3658_Arg0*)temp_s1_2->unk70, 0U);
     func_8032B508(temp_s1_2->unk74);
