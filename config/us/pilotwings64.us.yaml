@@ -442,7 +442,7 @@ segments:
       - [0xD2D50, c, app/code_D2D50]
       - [0xD3810, c, app/code_D3810]
       - [0xD4290, c, app/code_D4290]
-      - [0xD55B0, c, app/code_D55B0]
+      - [0xD55B0, c, app/wind_objects]
 
       - [0xD5C40, data]
       - [0xD5CD0, data]
@@ -604,7 +604,7 @@ segments:
       - [0xDE5F0, .rodata, app/code_D2D50]
       - [0xDE600, .rodata, app/code_D3810]
       - [0xDE640, .rodata, app/code_D4290]
-      - [0xDE6B0, .rodata, app/code_D55B0]
+      - [0xDE6B0, .rodata, app/wind_objects]
 
       - { type: bss, start: 0xDE720, vram: 0x803571F0, name: app_bss }
 

@@ -257,6 +257,7 @@ D_80355038 = 0x80355038; // type:f32 force_migration:True
 D_8035503C = 0x8035503C; // type:f32 force_migration:True
 D_80355040 = 0x80355040; // type:f32 force_migration:True
 
-sWindObjectsData = 0x8037F910;
+windObjectsInit     = 0x8034E080; // type:func
+sWindObjectsData    = 0x8037F910;
 sWindObjectsInLevel = 0x8037F914;
-sWindObjects = 0x8037F918;
+sWindObjects        = 0x8037F918;
