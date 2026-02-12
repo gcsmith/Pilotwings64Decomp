@@ -486,12 +486,12 @@ void level_80345A24(void) {
     func_802FAFF0();
 }
 
-u8 levelDataGetTHER(void** data) {
+s32 levelDataGetTHER(void** data) {
     *data = D_8035078C->dataTHER;
     return D_8035078C->comm.countTHER;
 }
 
-u8 levelDataGetLWIN(void** data) {
+s32 levelDataGetLWIN(void** data) {
     *data = D_8035078C->dataLWIN;
     return D_8035078C->comm.countLWIN;
 }
@@ -500,63 +500,63 @@ s32* func_80345AEC(void) {
     return &D_8035078C->comm.unk10;
 }
 
-u8 levelDataGetTPAD(void** data) {
+s32 levelDataGetTPAD(void** data) {
     *data = D_8035078C->dataTPAD;
     return D_8035078C->comm.countTPAD;
 }
 
-u8 levelDataGetCNTG(void** data) {
+s32 levelDataGetCNTG(void** data) {
     *data = D_8035078C->dataCNTG;
     return D_8035078C->comm.countCNTG;
 }
 
-u8 levelDataGetOBSV(LevelOBSV** data) {
+s32 levelDataGetOBSV(LevelOBSV** data) {
     *data = D_8035078C->dataOBSV;
     return D_8035078C->comm.countOBSV;
 }
 
 // TODO: how is this different than levelGetLPAD from level.c?
-u8 levelDataGetLPAD(void** data) {
+s32 levelDataGetLPAD(void** data) {
     *data = D_8035078C->dataLPAD;
     return D_8035078C->comm.countLPAD;
 }
 
-u8 levelDataGetLSTP(void** data) {
+s32 levelDataGetLSTP(void** data) {
     *data = D_8035078C->dataLSTP;
     return D_8035078C->comm.countLSTP;
 }
 
-u8 levelDataGetRNGS(void** data) {
+s32 levelDataGetRNGS(void** data) {
     *data = D_8035078C->dataRNGS;
     return D_8035078C->comm.countRNGS;
 }
 
-u8 levelDataGetBALS(void** data) {
+s32 levelDataGetBALS(void** data) {
     *data = D_8035078C->dataBALS;
     return D_8035078C->comm.countBALS;
 }
 
-u8 levelDataGetTARG(void** data) {
+s32 levelDataGetTARG(void** data) {
     *data = D_8035078C->dataTARG;
     return D_8035078C->comm.countTARG;
 }
 
-u8 levelDataGetHPAD(void** data) {
+s32 levelDataGetHPAD(void** data) {
     *data = D_8035078C->dataHPAD;
     return D_8035078C->comm.countHPAD;
 }
 
-u8 levelDataGetBTGT(LevelBTGT** data) {
+s32 levelDataGetBTGT(LevelBTGT** data) {
     *data = D_8035078C->dataBTGT;
     return D_8035078C->comm.countBTGT;
 }
 
-u8 levelDataGetPHTS(void** data) {
+s32 levelDataGetPHTS(void** data) {
     *data = D_8035078C->dataPHTS;
     return D_8035078C->comm.countPHTS;
 }
 
-u8 levelDataGetFALC(void** data) {
+s32 levelDataGetFALC(void** data) {
     if (data != NULL) {
         *data = D_8035078C->dataFALC;
     }
@@ -762,7 +762,7 @@ u8 levelGet_80346468(void) {
     return D_803507A4;
 }
 
-u8 levelDataGetHOPD(LevelHOPD** data) {
+s32 levelDataGetHOPD(LevelHOPD** data) {
     *data = D_8035078C->dataHOPD;
     return D_8035078C->comm.countHOPD;
 }

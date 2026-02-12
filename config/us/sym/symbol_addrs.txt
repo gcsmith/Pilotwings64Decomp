@@ -120,7 +120,7 @@ gTitleMenuDelay     = 0x80356A68;
 gRadarThermCirc     = 0x8036C520; // size:0x88
 gHudState           = 0x8036C5A8; // size:0xC7C
 
-gLevelCommObjs      = 0x8037A600;
+gLevelCommObjs      = 0x8037A600; // size:0x478
 gLevelClass         = 0x8037AA78;
 gLevelTest          = 0x8037AA7C;
 gLevelVehicle       = 0x8037AA80;
