@@ -26,6 +26,41 @@
 #define HUD_CAM_RENDER_SHUTTER 0x40000000
 
 typedef struct {
+    f32 unk0;
+    f32 unk4;
+    f32 unk8;
+    u8 padC[8];
+    s32 unk14;
+    s32 unk18;
+    u8 unk1C;
+    u8 pad1D[3];
+} HUDRadar_Waypoint;
+
+typedef struct {
+    f32 x;
+    f32 y;
+    f32 unk8;
+    s32 unkC;
+} HUDRadar_Goals;
+
+typedef struct {
+    f32 unk0;
+    f32 unk4;
+    f32 unk8;
+    f32 unkC;
+} HUDRadar_Unk968;
+
+typedef struct {
+    s32 goalCount;
+    s32 unk4;
+    HUDRadar_Goals goals[10];
+    HUDRadar_Waypoint waypoints[70];
+    HUDRadar_Unk968 unk968[20];
+    f32 unkAA8;
+    f32 unkAAC;
+} HUDRadar;
+
+typedef struct {
     u16 renderFlags;
     s16 pad2;
     union {
@@ -33,11 +68,11 @@ typedef struct {
         s32 cloudFade;   // skydiving cloud fade
     };
     s8 unk8;
-    s8 pad9[0xC - 9];
+    s8 pad9[3];
     s32 unkC;
     f32 elapsedTime;
     f32 unk14;
-    f32 unk18;
+    f32 power;
     s32 fuel;
     f32 unk20;
     f32 unk24;
@@ -52,10 +87,7 @@ typedef struct {
     f32 altSeaLevel;
     f32 speed;
     f32 unk8C;
-    f32 unk90;
-    u8 pad94[0xB38 - 0x94];
-    f32 unkB38;
-    f32 unkB3C;
+    HUDRadar radar;
     s16 unkB40[0x3C];
     f32 unkBB8;
     f32 unkBBC;

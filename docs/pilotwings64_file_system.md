@@ -181,13 +181,13 @@ HOPD is the target area for the jumble hopper missions.
 
 Offset | Type | Description
 -------|------|------------
-0x0    | f32  | X position
-0x4    | f32  | Y position
-0x8    | f32  | Z position
-0xC    | ??   | TBD
-0x13   | u8   | TBD (0x01
-0x14   | f32  | scale
-0x18   | f32  | height
+0x0    | ??   | TBD
+0x4    | f32  | X position
+0x8    | f32  | Y position
+0xC    | f32  | Z position
+0x10   | s32  | TBD (always 0x01)
+0x14   | f32  | scale (either 40.0 or 30.0)
+0x18   | f32  | height (always 50.0)
 0x1C   | ??   | TBD
 0x20   |      | **Total length**
 

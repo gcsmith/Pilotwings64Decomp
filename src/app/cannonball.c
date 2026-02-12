@@ -333,7 +333,7 @@ void cannonMovementFrame(Unk802D5C5C_Arg0* arg0, u8 arg1) {
         }
         hud->radarUnk70 = arg0->unk14.m[3][2];
         hud->elapsedTime = arg0->unk8;
-        hud->unk18 = arg0->unkA4;
+        hud->power = arg0->unkA4;
         hud->unk8C = arg0->unk1CC * 4.0f * 0.7f;
         hud->altitude = arg0->unk120 * 0.7f;
         hud->altSeaLevel = arg0->unk14.m[3][2] * 0.7f;
