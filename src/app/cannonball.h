@@ -2,6 +2,7 @@
 #define APP_CANNONBALL_H
 
 #include <PR/ultratypes.h>
+#include <uv_level.h>
 #include <uv_matrix.h>
 #include "code_5A6A0.h"
 

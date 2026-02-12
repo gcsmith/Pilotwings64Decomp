@@ -3,6 +3,33 @@
 
 #include <uv_level.h>
 
+typedef struct {
+    u8 unk0[4];
+    f32 x;
+    f32 y;
+    s32 unkC;
+    u8 unk10[4];
+    u8 unk14;
+    u8 pad15[3];
+} Unk8036C2E8;
+
+typedef struct {
+    f32 unk0;
+    f32 unk4;
+    u8 pad8[4];
+    f32 unkC;
+    f32 unk10;
+    u8 pad14[0x10];
+    f32 x;
+    f32 y;
+    u8 unk2C[0x10];
+} Unk8036C438;
+
+extern u8 D_8036C2B9; // count of D_8036C2E8, related to objects shown on radar
+extern u8 D_8036C2BA; // count of D_8036C438, related to objects shown on radar
+extern Unk8036C2E8 D_8036C2E8[]; // landing pads?
+extern Unk8036C438 D_8036C438[]; // landing strips?
+
 void func_80316DC0(void);
 void func_80316E40(void);
 void func_80317634(Unk80345464_Arg0*);

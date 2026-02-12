@@ -7,6 +7,7 @@
 extern f32 D_8034F850; // .data related to time
 extern f32 D_8034F854; // .data = 0.1f, only ever read
 
+void func_80313430(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32* arg5);
 void func_80313570(Mtx4F*, f32*, f32*, f32*, f32*, f32*, f32*);
 void func_80313640(f32 tx, f32 ty, f32 tz, f32 rz, f32 rx, f32 ry, Mtx4F* mat);
 f32 func_80313AF4(f32, f32, f32);

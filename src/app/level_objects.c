@@ -546,7 +546,7 @@ u8 levelDataGetHPAD(void** data) {
     return D_8035078C->comm.countHPAD;
 }
 
-u8 levelDataGetBTGT(void** data) {
+u8 levelDataGetBTGT(LevelBTGT** data) {
     *data = D_8035078C->dataBTGT;
     return D_8035078C->comm.countBTGT;
 }
@@ -762,7 +762,7 @@ u8 levelGet_80346468(void) {
     return D_803507A4;
 }
 
-u8 levelDataGetHOPD(void** data) {
+u8 levelDataGetHOPD(LevelHOPD** data) {
     *data = D_8035078C->dataHOPD;
     return D_8035078C->comm.countHOPD;
 }

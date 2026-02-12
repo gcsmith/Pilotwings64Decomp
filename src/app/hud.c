@@ -11,7 +11,9 @@
 #include "demo.h"
 #include "code_68220.h"
 #include "code_9A960.h"
+#include "code_9E2F0.h"
 #include "code_C9440.h"
+#include "code_CDB20.h"
 #include "hud.h"
 #include "snap.h"
 #include "snd.h"
@@ -35,8 +37,8 @@ extern Unk8034F93C D_8034F95C[4];
 
 extern HUDState gHudState;
 
-extern u8 D_8036D224;
 extern Vec2F gRadarThermCirc[17];
+extern u8 D_8036D224;
 
 // forward declarations
 void hud_8031A378(void);
@@ -60,7 +62,7 @@ void hudDrawAltimeter(s32 x, s32 y, s32);
 void hudDrawCamera(HUDState* hud);
 void hudDrawFuel(s32 x, s32 y, s32);
 void hudDrawRadar(s32 x, s32 y, f32, f32, f32, f32, void*);
-void hudDrawThrottle(s32 x, s32 y, f32);
+void hudDrawThrottle(s32 x, s32 y, f32 power);
 void hudDrawAimReticle(s32 x, s32 y, s32 flag);
 void hudDrawTimer(s32 x, s32 y, f32 timeSecF);
 void hudDemoContButton(s32 spriteId, s32 x, s32 y);
@@ -151,23 +153,22 @@ void hudMainRender(void) {
             }
             func_802E1754(gHudState.radarUnk68, gHudState.radarUnk6C, gHudState.radarUnk70, &sp4C);
             if ((sp4C.x == 0.0f) && (sp4C.y == 0.0f)) {
-                gHudState.unkB38 = 0.0f;
-                gHudState.unkB3C = (f32)gHudState.unkB38;
+                gHudState.radar.unkAAC = gHudState.radar.unkAA8 = 0.0f;
             } else {
-                gHudState.unkB3C = uvSqrtF((sp4C.x * sp4C.x) + (sp4C.y * sp4C.y));
-                gHudState.unkB38 = uvAtan2F(-sp4C.x / gHudState.unkB3C, sp4C.y / gHudState.unkB3C);
-                gHudState.unkB3C = (f32)(gHudState.unkB3C / 5.0f);
-                if (gHudState.unkB3C < 0.0f) {
-                    gHudState.unkB3C = 0.0f;
-                } else if (gHudState.unkB3C > 0.88945f) {
-                    gHudState.unkB3C = 0.88945f;
+                gHudState.radar.unkAAC = uvSqrtF((sp4C.x * sp4C.x) + (sp4C.y * sp4C.y));
+                gHudState.radar.unkAA8 = uvAtan2F(-sp4C.x / gHudState.radar.unkAAC, sp4C.y / gHudState.radar.unkAAC);
+                gHudState.radar.unkAAC /= 5.0f;
+                if (gHudState.radar.unkAAC < 0.0f) {
+                    gHudState.radar.unkAAC = 0.0f;
+                } else if (gHudState.radar.unkAAC > 0.88945f) {
+                    gHudState.radar.unkAAC = 0.88945f;
                 }
-                gHudState.unkB38 = (f32)(gHudState.unkB38 - gHudState.radarUnk74);
-                if (gHudState.unkB38 > 3.1415927f) {
-                    gHudState.unkB38 = (f32)(gHudState.unkB38 - 6.2831855f);
+                gHudState.radar.unkAA8 -= gHudState.radarUnk74;
+                if (gHudState.radar.unkAA8 > 3.1415927f) {
+                    gHudState.radar.unkAA8 -= 6.2831855f;
                 }
-                if (gHudState.unkB38 <= 3.1415927f) {
-                    gHudState.unkB38 = (f32)(gHudState.unkB38 + 6.2831855f);
+                if (gHudState.radar.unkAA8 <= 3.1415927f) {
+                    gHudState.radar.unkAA8 += 6.2831855f;
                 }
             }
         }
@@ -214,7 +215,7 @@ void hudDrawHangGlider(HUDState* hud) {
     hudDrawSpeed(27, 37, (s32)hud->speed, 1);
     hudSeaLevel(235, 37, (s32)hud->altSeaLevel);
     hudDrawAltimeter(250, 129, (s32)hud->altitude);
-    hudDrawRadar(215, 222, hud->radarUnk68, hud->radarUnk6C, hud->radarUnk70, hud->radarUnk74, &hud->unk90);
+    hudDrawRadar(215, 222, hud->radarUnk68, hud->radarUnk6C, hud->radarUnk70, hud->radarUnk74, &hud->radar);
     hudDrawTimer(27, 222, hud->elapsedTime);
     hudDrawCamera(hud);
 }
@@ -222,7 +223,7 @@ void hudDrawHangGlider(HUDState* hud) {
 void hudDrawRocketPack(HUDState* hud) {
     hudSeaLevel(235, 37, (s32)hud->altSeaLevel);
     hudDrawAltimeter(250, 129, (s32)hud->altitude);
-    hudDrawRadar(215, 222, hud->radarUnk68, hud->radarUnk6C, hud->radarUnk70, hud->radarUnk74, &hud->unk90);
+    hudDrawRadar(215, 222, hud->radarUnk68, hud->radarUnk6C, hud->radarUnk70, hud->radarUnk74, &hud->radar);
     hudDrawSpeed(27, 37, (s32)hud->speed, 0);
     hudDrawFuel(98, 37, hud->fuel);
     hudDrawTimer(27, 222, hud->elapsedTime);
@@ -247,7 +248,7 @@ void hudDrawSkyDiving(HUDState* hud) {
         hudDrawAltimeter(250, 129, (s32)hud->altitude);
         hudSeaLevel(235, 37, (s32)hud->altSeaLevel);
         hudDrawTimer(27, 222, hud->elapsedTime);
-        hudDrawRadar(215, 222, hud->radarUnk68, hud->radarUnk6C, hud->radarUnk70, hud->radarUnk74, &hud->unk90);
+        hudDrawRadar(215, 222, hud->radarUnk68, hud->radarUnk6C, hud->radarUnk70, hud->radarUnk74, &hud->radar);
     }
 }
 
@@ -255,7 +256,7 @@ void hudDrawJumbleHopper(HUDState* hud) {
     hudDrawSpeed(27, 37, (s32)hud->speed, 0);
     hudSeaLevel(235, 37, (s32)hud->altSeaLevel);
     hudDrawAltimeter(250, 129, (s32)hud->altitude);
-    hudDrawRadar(215, 222, hud->radarUnk68, hud->radarUnk6C, hud->radarUnk70, hud->radarUnk74, &hud->unk90);
+    hudDrawRadar(215, 222, hud->radarUnk68, hud->radarUnk6C, hud->radarUnk70, hud->radarUnk74, &hud->radar);
     hudDrawTimer(27, 222, hud->elapsedTime);
 }
 
@@ -302,9 +303,9 @@ void hudDrawGyrocopter(HUDState* hud) {
     hudDrawSpeed(27, 37, (s32)hud->speed, 0);
     hudSeaLevel(235, 37, (s32)hud->altSeaLevel);
     hudDrawAltimeter(250, 129, (s32)hud->altitude);
-    hudDrawRadar(215, 222, hud->radarUnk68, hud->radarUnk6C, hud->radarUnk70, hud->radarUnk74, &hud->unk90);
+    hudDrawRadar(215, 222, hud->radarUnk68, hud->radarUnk6C, hud->radarUnk70, hud->radarUnk74, &hud->radar);
     hudDrawFuel(98, 37, hud->fuel);
-    hudDrawThrottle(27, 82, hud->unk18);
+    hudDrawThrottle(27, 82, hud->power);
     hudDrawTimer(27, 222, hud->elapsedTime);
     if (hud->renderFlags & HUD_RENDER_RETICLE) {
         hudDrawAimReticle((s32)hud->unkC6C, (s32)hud->unkC70, 0);
@@ -323,23 +324,240 @@ void hudGenThermCircle(void) {
     gRadarThermCirc[ARRAY_COUNT(gRadarThermCirc) - 1] = gRadarThermCirc[0];
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/hud/hud_8031A2CC.s")
+void hud_8031A2CC(void) {
+    HUDRadar* radar = &gHudState.radar;
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/hud/hud_8031A378.s")
+    radar->unk4 = 0;
+    D_8036D224 = 1;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/hud/hud_8031A66C.s")
+    for (i = 0; i < ARRAY_COUNT(radar->waypoints); i++) {
+        radar->waypoints[i].unk1C = 0xFE;
+        radar->waypoints[i].unk14 = 0;
+        radar->waypoints[i].unk18 = 0xFF;
+    }
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/hud/hud_8031A6C8.s")
+void hud_8031A378(void) {
+    HUDRadar* radar = &gHudState.radar;
+    s32 idx;
+    f32 sp74;
+    f32 sp70;
+    f32 sp6C;
+    s32 i;
+    LevelHOPD* hopd;
+    LevelBTGT* btgt;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/hud/hud_8031A794.s")
+    idx = 0;
+    for (i = 0; i < levelDataGetHOPD(&hopd); i++) {
+        radar->goals[idx].x = hopd[i].pos.x;
+        radar->goals[idx].y = hopd[i].pos.y;
+        radar->goals[idx].unkC = 0;
+        idx++;
+    }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/hud/hud_8031A810.s")
+    for (i = 0; i < levelDataGetBTGT(&btgt); i++) {
+        radar->goals[idx].x = btgt[i].pos.x;
+        radar->goals[idx].y = btgt[i].pos.y;
+        radar->goals[idx].unkC = 0;
+        idx++;
+    }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/hud/hud_8031A874.s")
+    for (i = 0; i < D_8036C2B9; i++) {
+        if (D_8036C2E8[i].unk14 == 0) {
+            continue;
+        }
+        radar->goals[idx].x = D_8036C2E8[i].x;
+        radar->goals[idx].y = D_8036C2E8[i].y;
+        radar->goals[idx].unkC = 0;
+        idx++;
+    }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/hud/hud_8031A8E0.s")
+    for (i = 0; i < D_8036C2BA; i++) {
+        radar->goals[idx].x = D_8036C438[i].x;
+        radar->goals[idx].y = D_8036C438[i].y;
+        func_80313430(D_8036C438[i].unkC - D_8036C438[i].unk0, D_8036C438[i].unk10 - D_8036C438[i].unk4, 0.0f, &sp74, &sp70, &sp6C);
+        radar->goals[idx].unk8 = sp70;
+        radar->goals[idx].unkC = 1;
+        idx++;
+    }
+    radar->goalCount = idx;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/hud/hudDrawThrottle.s")
+    for (i = 0; i < D_8037AB54; i++) {
+        radar->unk968[i].unk0 = D_8037AB58[i].unk4;
+        radar->unk968[i].unk4 = D_8037AB58[i].unk8;
+        radar->unk968[i].unk8 = D_8037AB58[i].unkC;
+        radar->unk968[i].unkC = D_8037AB58[i].unk14;
+    }
+
+    hudGenThermCircle();
+}
+
+void hud_8031A66C(s32 idx, s32 arg1) {
+    HUDRadar* radar = &gHudState.radar;
+    s32 temp_v0;
+    s32 var_v1;
+
+    if (radar->waypoints[idx].unk14 > 0) {
+        var_v1 = radar->waypoints[idx].unk14;
+    } else {
+        var_v1 = -radar->waypoints[idx].unk14;
+    }
+
+    if (var_v1 != arg1) {
+        radar->waypoints[idx].unk14 = arg1;
+        if (arg1 == 0) {
+            radar->waypoints[idx].unk18 = 0xFF;
+        }
+    }
+}
+
+s32 hud_8031A6C8(f32 arg0, f32 arg1, f32 arg2) {
+    HUDRadar* radar = &gHudState.radar;
+    s32 idx;
+    s32 i;
+
+    idx = -1;
+    for (i = 0; i < ARRAY_COUNT(gHudState.radar.waypoints); i++) {
+        if (radar->waypoints[i].unk1C == 0xFE) {
+            idx = i;
+            break;
+        }
+    }
+
+    if (idx == -1) {
+        _uvDebugPrintf("Panel: Too many radar targets requested (%d)\n", ARRAY_COUNT(gHudState.radar.waypoints));
+        return 0xFF;
+    }
+
+    radar->waypoints[idx].unk0 = arg0;
+    radar->waypoints[idx].unk4 = arg1;
+    radar->waypoints[idx].unk14 = 0;
+    radar->waypoints[idx].unk18 = 0xFF;
+    radar->waypoints[idx].unk8 = arg2;
+    radar->waypoints[idx].unk1C = D_8036D224 - 1;
+    if (radar->unk4 < idx) {
+        radar->unk4 = idx;
+    }
+    return idx;
+}
+
+void hud_8031A794(s32 idx, f32 arg1, f32 arg2, f32 arg3) {
+    HUDRadar* radar = &gHudState.radar;
+
+    if ((idx >= ARRAY_COUNT(gHudState.radar.waypoints)) || (idx < 0)) {
+        _uvDebugPrintf("Panel: Bad index passed to movetarget %d\n", idx);
+        return;
+    }
+
+    if (radar->waypoints[idx].unk1C != 0xFE) {
+        radar->waypoints[idx].unk0 = arg1;
+        radar->waypoints[idx].unk4 = arg2;
+        radar->waypoints[idx].unk8 = arg3;
+    }
+}
+
+void hud_8031A810(s32 idx) {
+    HUDRadar* radar = &gHudState.radar;
+
+    if ((idx >= ARRAY_COUNT(gHudState.radar.waypoints)) || (idx < 0)) {
+        _uvDebugPrintf("Panel: Bad index passed to movetarget %d\n", idx);
+        return;
+    }
+
+    if (radar->waypoints[idx].unk1C != 0xFE) {
+        radar->waypoints[idx].unk1C = 0xFF;
+    }
+}
+
+void hud_8031A874(s32 idx) {
+    HUDRadar* radar = &gHudState.radar;
+
+    if ((idx >= ARRAY_COUNT(gHudState.radar.waypoints)) || (idx < 0)) {
+        _uvDebugPrintf("Panel: Bad index passed to movetarget %d\n", idx);
+        return;
+    }
+
+    if (radar->waypoints[idx].unk1C == 0xFF) {
+        radar->waypoints[idx].unk1C = D_8036D224 - 1;
+    }
+}
+
+void hud_8031A8E0(s32 idx) {
+    HUDRadar* radar = &gHudState.radar;
+
+    if ((idx >= ARRAY_COUNT(gHudState.radar.waypoints)) || (idx < 0)) {
+        _uvDebugPrintf("Panel: Bad index passed to movetarget %d\n", idx);
+        return;
+    }
+
+    if (radar->waypoints[idx].unk1C != 0xFE) {
+        radar->waypoints[idx].unk1C = 0xFE;
+    } else {
+        _uvDebugPrintf("Panel: Target removed which did not exist (%d)\n", idx);
+    }
+}
+
+void hudDrawThrottle(s32 x, s32 y, f32 power) {
+    Mtx4F rot;
+    UNUSED s16* fakePtr;
+    s16 y1;
+    s16 y2;
+    s16 pad;
+    s16 xOffset;
+    s16 yOffset;
+    f32 angle;
+
+    // fakematch
+    fakePtr = &y2;
+    fakePtr = &y1;
+
+    uvSprtProps(1, 2, x, y, 0);
+    uvSprtProps(2, 2, x + 31, y, 0);
+    uvSprtDraw(1);
+    uvSprtDraw(2);
+
+    xOffset = x + 18;
+    yOffset = y - 18;
+    uvMat4SetIdentity(&rot);
+    uvMat4UnkOp2(&rot, (f32)xOffset, (f32)yOffset, 0.0f);
+    angle = (power - 0.5f) * 3.1415927f; // angle in range [-pi/2, pi/2]
+    uvMat4RotateAxis(&rot, -angle, 'z');
+    uvGfxMtxViewLoad(&rot, 1);
+
+    // needle black rect + tri
+    uvVtxBeginPoly();
+    uvVtx(-2, -3, 0, 0, 0, 0, 0, 0, 0xFF);
+    uvVtx(2, -3, 0, 0, 0, 0, 0, 0, 0xFF);
+    uvVtx(2, 6, 0, 0, 0, 0, 0, 0, 0xFF);
+    uvVtx(-2, 6, 0, 0, 0, 0, 0, 0, 0xFF);
+    uvVtxEndPoly();
+
+    y1 = 6;
+    y2 = 10;
+    uvVtxBeginPoly();
+    uvVtx(-4, y1, 0, 0, 0, 0, 0, 0, 0xFF);
+    uvVtx(4, y1, 0, 0, 0, 0, 0, 0, 0xFF);
+    uvVtx(0, y2, 0, 0, 0, 0, 0, 0, 0xFF);
+    uvVtxEndPoly();
+
+    // needle white rect + tri
+    uvVtxBeginPoly();
+    uvVtx(-1, -2, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtx(1, -2, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtx(1, 6, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtx(-1, 6, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtxEndPoly();
+
+    y1 = 6;
+    y2 = 9;
+    uvVtxBeginPoly();
+    uvVtx(-3, y1, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtx(3, y1, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtx(0, y2, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtxEndPoly();
+    uvGfxMtxViewPop();
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/hud/hudDrawRadar.s")
 
@@ -428,7 +646,124 @@ void hudDrawSpeed(s32 x, s32 y, s32 speed, s32 highlightLowSpeed) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/hud/hudDrawFuel.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/hud/hudDrawAltimeter.s")
+void hudDrawAltimeter(s32 x, s32 y, s32 altitude) {
+    s32 pad32;
+    s16 sp72;
+    s16 pad16;
+    s16 curY;
+    s16 sp6C;
+    s16 curX;
+    s16 dx;
+    s16 dy;
+    s16 curX2;
+    s16 curY2;
+    s32 sp40;
+    f32 altNorm;
+    char str[12];
+
+    if (altitude <= 99.0f) {
+        curY = y - 85;
+        uvGfxStatePush();
+        uvGfxSetFlags(0x800000);
+        uvGfxClearFlags(0x600000);
+        uvGfx_80223A28(0xFFF);
+        uvVtxBeginPoly();
+        dx = x;
+        dy = y;
+        curX = dx + 22;
+        curX2 = dx + 38;
+        curY2 = dy + 6;
+        uvVtx(curX, curY, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0x00);
+        uvVtx(curX2, curY, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0x00);
+        uvVtx(curX2, curY2, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0x00);
+        uvVtx(curX, curY2, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0x00);
+        uvVtxEndPoly();
+        uvGfxStatePop();
+
+        uvSprtProps(3, 2, x + 27, y, 0);
+        uvSprtDraw(3);
+
+        uvGfxStatePush();
+        uvGfxClearFlags(0xE00000);
+        altNorm = altitude / 99.0f;
+        if (altNorm > 1.0f) {
+            altNorm = 1.0f;
+        }
+        if (altNorm < 0.0f) {
+            altNorm = 0.0f;
+        }
+        uvVtxBeginPoly();
+        curX = dx + 27;
+        curY2 = ((s32)(altNorm * 81.0f) + y) - 0x51;
+        sp40 = (s32)curY2;
+        uvVtx(curX, curY2, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+        curX2 = dx + 33;
+        uvVtx(curX2, curY2, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+        curY = curY2 + 1;
+        uvVtx(curX2, curY, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+        uvVtx(curX, curY, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+        uvVtxEndPoly();
+
+        curY = y - 81;
+        uvVtxBeginPoly();
+        curX = dx + 28;
+        uvVtx(curX, curY, 0, 0, 0, 0xC8, 0x00, 0x00, 0xFF);
+        curX2 = dx + 32;
+        uvVtx(curX2, curY, 0, 0, 0, 0xC8, 0x00, 0x00, 0xFF);
+        uvVtx(curX2, curY2, 0, 0, 0, 0xC8, 0x00, 0x00, 0xFF);
+        uvVtx(curX, curY2, 0, 0, 0, 0xC8, 0x00, 0x00, 0xFF);
+        uvVtxEndPoly();
+
+        uvGfxStatePop();
+        if (altitude <= 50.0f) {
+            sp72 = dx - 9;
+            sp6C = sp40 + 14;
+        } else {
+            sp72 = dx + 1;
+            sp6C = sp40 + 9;
+        }
+        uvGfxStatePush();
+        uvGfxSetFlags(0x800000);
+        uvGfxClearFlags(0x600000);
+        uvGfx_80223A28(0xFFF);
+        uvVtxBeginPoly();
+        uvVtx(sp72 - 5, sp40 - 5, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0);
+        curX = dx + 23;
+        uvVtx(curX + 5, sp40 - 5, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0);
+        uvVtx(curX + 5, sp6C + 5, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0);
+        uvVtx(sp72 - 5, sp6C + 5, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0);
+        uvVtxEndPoly();
+        uvGfxStatePop();
+
+        uvGfxStatePush();
+        uvGfxClearFlags(0xE00000);
+        uvGfx_80223A28(0xFFF);
+        uvVtxBeginPoly();
+        uvVtx(sp72, sp40, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+        uvVtx(curX, sp40, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+        uvVtx(curX, sp6C, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+        uvVtx(sp72, sp6C, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+        uvVtxEndPoly();
+
+        uvVtxBeginPoly();
+        uvVtx(curX, sp40, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+        uvVtx((s16)(dx + 26), sp40, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+        uvVtx(curX, (s16)(sp40 + 3), 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+        uvVtxEndPoly();
+        uvGfxStatePop();
+
+        uvFontSet(1);
+        uvFont_8021956C(0xC8, 0x00, 0x00, 0xFF); // red
+        uvSprintf(str, "%2dm", altitude);
+        if (altitude <= 50.0f) {
+            uvFont_80219550(1.5, 1.5);
+            uvFont_80219ACC(dx - 6, sp40 - 1, str);
+        } else {
+            uvFont_80219550(1.0, 1.0);
+            uvFont_80219ACC(dx + 3, sp40 - 1, str);
+        }
+    }
+}
 
 void hudSeaLevel(s32 x, s32 y, s32 alt) {
     char str[12];

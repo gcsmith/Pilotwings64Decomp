@@ -92,6 +92,22 @@ typedef struct {
 } Unk80362690;
 
 typedef struct {
+    Vec3F pos;
+    Vec3F angle;
+    u8 unk18;
+    u8 padC[3];
+} LevelBTGT;
+
+typedef struct {
+    u8 pad0[4];
+    Vec3F pos;
+    s32 unk10;
+    f32 scale;
+    f32 height;
+    u8 pad1C[4];
+} LevelHOPD;
+
+typedef struct {
     f32 x;
     f32 y;
     f32 z;
@@ -246,9 +262,9 @@ u8 levelDataGetRNGS(void** data);
 u8 levelDataGetBALS(void** data);
 u8 levelDataGetTARG(void** data);
 u8 levelDataGetHPAD(void** data);
-u8 levelDataGetBTGT(void** data);
+u8 levelDataGetBTGT(LevelBTGT** data);
 u8 levelDataGetPHTS(void** data);
 u8 levelDataGetFALC(void** data);
-u8 levelDataGetHOPD(void** data);
+u8 levelDataGetHOPD(LevelHOPD** data);
 
 #endif // UV_LEVEL_H
