@@ -281,9 +281,9 @@ void uvGfxLookAt(Mtx4F* arg0) {
 }
 
 void uvGfxMtxProjPushF(Mtx4F* arg0) {
-    Mtx4F sp48;
+    Mtx sp48;
     uvMat4CopyF2L(&sp48, arg0);
-    uvGfxMtxProj(*(Mtx*)&sp48);
+    uvGfxMtxProj(sp48);
 }
 
 void uvGfxSetCallback(uvGfxCallback_t cb) {
@@ -394,7 +394,7 @@ void uvGfxMstackPushF(Mtx4F* src) {
         gGfxMstackIdx -= 1;
         return;
     }
-    uvMat4CopyF2L((Mtx4F*)&gGfxMstack[gGfxFbIndex][gGfxMstackIdx], src);
+    uvMat4CopyF2L(&gGfxMstack[gGfxFbIndex][gGfxMstackIdx], src);
 }
 
 void uvGfxMstackPushL(Mtx src) {
@@ -404,7 +404,7 @@ void uvGfxMstackPushL(Mtx src) {
         gGfxMstackIdx -= 1;
         return;
     }
-    uvMat4CopyL((Mtx4F*)&gGfxMstack[gGfxFbIndex][gGfxMstackIdx], src);
+    uvMat4CopyL(&gGfxMstack[gGfxFbIndex][gGfxMstackIdx], src);
 }
 
 Mtx* uvGfxMstackTop(void) {
