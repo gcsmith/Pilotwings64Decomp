@@ -1,4 +1,13 @@
 #include "common.h"
+#include "code_6ACE0.h"
+
+typedef struct {
+    u8 pad0[0x254];
+    u8 unk254;
+    u8 pad255[0x258 - 0x255];
+} Unk8035A5F8;
+
+extern Unk8035A5F8 D_8035A5F8[];
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_6ACE0/func_802E37B0.s")
 
@@ -28,7 +37,16 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_6ACE0/func_802E55A0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_6ACE0/func_802E57C4.s")
+s32 func_802E57C4(void) {
+    s32 ret;
+    s32 i;
+
+    ret = 0;
+    for (i = 0; i < D_8035A5F0; i++) {
+        ret += D_8035A5F8[i].unk254;
+    }
+    return ret;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_6ACE0/func_802E5818.s")
 

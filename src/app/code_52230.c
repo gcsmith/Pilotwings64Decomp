@@ -1,4 +1,5 @@
 #include "common.h"
+#include "code_52230.h"
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_52230/func_802CAD00.s")
 
@@ -30,7 +31,19 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_52230/func_802CC13C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_52230/func_802CC15C.s")
+u8 func_802CC15C(void) {
+    s32 i;
+    s32 ret;
+
+    ret = 1;
+    for (i = 0; i < D_80357210 + D_80357211; i++) {
+        if (D_80357218[i].unk94 == 0) {
+            ret = 0;
+            break;
+        }
+    }
+    return ret;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_52230/func_802CC1B0.s")
 
