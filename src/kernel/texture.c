@@ -161,18 +161,15 @@ typedef struct unk_UVMD_10 {
     u8 unk_04;
     u8 unk_05;
     u8 unk_06;
-    u8 unk_07[0x1];
     unk_UVMD_24* unk_08;
     u8 unk_0C;
     u8 unk_0D;
-    u8 unk_0E[0x2];
 } unk_UVMD_10; // size = 0x10
 
 typedef struct unk_UVMD_8 {
     unk_UVMD_10* unk_00;
     u8 unk_04;
     u8 unk_05;
-    u8 unk_06[0x2];
 } unk_UVMD_8; // size = 0x8
 
 typedef struct unk_UVMD_6 {
