@@ -29,7 +29,8 @@ typedef struct {
     f32 unk0;
     f32 unk4;
     f32 unk8;
-    u8 padC[8];
+    f32 unkC;
+    f32 unk10;
     s32 unk14;
     s32 unk18;
     u8 unk1C;
@@ -44,21 +45,26 @@ typedef struct {
 } HUDRadar_Goals;
 
 typedef struct {
-    f32 unk0;
-    f32 unk4;
-    f32 unk8;
-    f32 unkC;
-} HUDRadar_Unk968;
+    Vec3F pos;
+    f32 scale;
+} HUDRadar_Thermal;
 
 typedef struct {
     s32 goalCount;
     s32 unk4;
     HUDRadar_Goals goals[10];
     HUDRadar_Waypoint waypoints[70];
-    HUDRadar_Unk968 unk968[20];
-    f32 unkAA8;
-    f32 unkAAC;
+    HUDRadar_Thermal therms[20];
+    f32 windDir; // angle wind arrow points on HUD radar (0.0 is up, pi/2 is left)
+    f32 windSpeed; // wind arrow length normalized [0.0, 1.0]
 } HUDRadar;
+
+typedef struct {
+    f32 x;
+    f32 y;
+    f32 heading;
+    f32 pitch;
+} HUDAttitude;
 
 typedef struct {
     u16 renderFlags;
@@ -73,14 +79,11 @@ typedef struct {
     f32 elapsedTime;
     f32 unk14;
     f32 power;
-    s32 fuel;
+    f32 fuel;
     f32 unk20;
     f32 unk24;
     Mtx4F unk28;
-    f32 radarUnk68;
-    f32 radarUnk6C;
-    f32 radarUnk70;
-    f32 radarUnk74;
+    HUDAttitude att;
     f32 unk78;
     f32 unk7C;
     f32 altitude;

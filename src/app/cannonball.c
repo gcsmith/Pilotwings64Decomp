@@ -331,7 +331,7 @@ void cannonMovementFrame(Unk802D5C5C_Arg0* arg0, u8 arg1) {
         } else {
             hud->renderFlags = 0;
         }
-        hud->radarUnk70 = arg0->unk14.m[3][2];
+        hud->att.heading = arg0->unk14.m[3][2];
         hud->elapsedTime = arg0->unk8;
         hud->power = arg0->unkA4;
         hud->unk8C = arg0->unk1CC * 4.0f * 0.7f;

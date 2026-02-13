@@ -11,12 +11,12 @@
 #include "demo.h"
 #include "code_68220.h"
 #include "code_9A960.h"
-#include "code_9E2F0.h"
 #include "code_C9440.h"
-#include "code_CDB20.h"
 #include "hud.h"
+#include "pads.h"
 #include "snap.h"
 #include "snd.h"
+#include "thermals.h"
 
 // number of frames to render for camera shutter animation
 #define CAMERA_SHUTTER_FRAMES 3
@@ -55,13 +55,16 @@ void hudDrawLowFuel(HUDState*);
 void hudDrawRocketPack(HUDState*);
 void hudDrawSkyDiving(HUDState*);
 void hudDrawStartText(HUDState*);
+void hudDrawRect(s32 x, s32 y, s32 width, s32 height, s32 penWidth, u8 r, u8 g, u8 b, u8 a);
 void hudDrawPhotoCount(void);
+void hudRadarWaypoint(f32 dist, f32 bearing, s32 type, s32 below, f32 heading, u8 alpha);
+void hudRadarThermal(f32 xOff, f32 yOff, f32 scale, u8 r, u8 g, u8 b, u8 a, f32 arg7);
 void hudSeaLevel(s32 x, s32 y, s32 alt);
 void hudDrawSpeed(s32 x, s32 y, s32 speed, s32 highlightLowSpeed);
 void hudDrawAltimeter(s32 x, s32 y, s32);
 void hudDrawCamera(HUDState* hud);
-void hudDrawFuel(s32 x, s32 y, s32);
-void hudDrawRadar(s32 x, s32 y, f32, f32, f32, f32, void*);
+void hudDrawFuel(s32 x, s32 y, f32 fuel);
+void hudDrawRadar(s32 x, s32 y, f32, f32, f32, f32, HUDRadar*);
 void hudDrawThrottle(s32 x, s32 y, f32 power);
 void hudDrawAimReticle(s32 x, s32 y, s32 flag);
 void hudDrawTimer(s32 x, s32 y, f32 timeSecF);
@@ -125,7 +128,7 @@ HUDState* hudGetState(void) {
 void hudMainRender(void) {
     Mtx4F sp98;
     Mtx4F sp58;
-    Vec3F sp4C;
+    Vec3F windVec;
     HUDState* hud;
     s32 pad[2];
 
@@ -141,34 +144,30 @@ void hudMainRender(void) {
         }
         if (gHudState.renderFlags & HUD_RENDER_ANY_VEHICLE) {
             if (gHudState.unk28.m[0][0] != 0.0f) {
-                func_80313570(&gHudState.unk28, &gHudState.radarUnk68, &gHudState.radarUnk6C, &gHudState.radarUnk70, &gHudState.radarUnk74, &gHudState.unk78,
+                func_80313570(&gHudState.unk28, &gHudState.att.x, &gHudState.att.y, &gHudState.att.heading, &gHudState.att.pitch, &gHudState.unk78,
                               &gHudState.unk7C);
             } else {
-                gHudState.radarUnk70 = 0.0f;
-                gHudState.unk7C = 0.0f;
-                gHudState.radarUnk6C = (f32)gHudState.radarUnk70;
-                gHudState.unk78 = (f32)gHudState.unk7C;
-                gHudState.radarUnk68 = (f32)gHudState.radarUnk6C;
-                gHudState.radarUnk74 = (f32)gHudState.unk78;
+                gHudState.att.x = gHudState.att.y = gHudState.att.heading = 0.0f;
+                gHudState.att.pitch = gHudState.unk78 = gHudState.unk7C = 0.0f;
             }
-            func_802E1754(gHudState.radarUnk68, gHudState.radarUnk6C, gHudState.radarUnk70, &sp4C);
-            if ((sp4C.x == 0.0f) && (sp4C.y == 0.0f)) {
-                gHudState.radar.unkAAC = gHudState.radar.unkAA8 = 0.0f;
+            func_802E1754(gHudState.att.x, gHudState.att.y, gHudState.att.heading, &windVec);
+            if ((windVec.x == 0.0f) && (windVec.y == 0.0f)) {
+                gHudState.radar.windSpeed = gHudState.radar.windDir = 0.0f;
             } else {
-                gHudState.radar.unkAAC = uvSqrtF((sp4C.x * sp4C.x) + (sp4C.y * sp4C.y));
-                gHudState.radar.unkAA8 = uvAtan2F(-sp4C.x / gHudState.radar.unkAAC, sp4C.y / gHudState.radar.unkAAC);
-                gHudState.radar.unkAAC /= 5.0f;
-                if (gHudState.radar.unkAAC < 0.0f) {
-                    gHudState.radar.unkAAC = 0.0f;
-                } else if (gHudState.radar.unkAAC > 0.88945f) {
-                    gHudState.radar.unkAAC = 0.88945f;
+                gHudState.radar.windSpeed = uvSqrtF((windVec.x * windVec.x) + (windVec.y * windVec.y));
+                gHudState.radar.windDir = uvAtan2F(-windVec.x / gHudState.radar.windSpeed, windVec.y / gHudState.radar.windSpeed);
+                gHudState.radar.windSpeed /= 5.0f;
+                if (gHudState.radar.windSpeed < 0.0f) {
+                    gHudState.radar.windSpeed = 0.0f;
+                } else if (gHudState.radar.windSpeed > 0.88945f) {
+                    gHudState.radar.windSpeed = 0.88945f;
                 }
-                gHudState.radar.unkAA8 -= gHudState.radarUnk74;
-                if (gHudState.radar.unkAA8 > 3.1415927f) {
-                    gHudState.radar.unkAA8 -= 6.2831855f;
+                gHudState.radar.windDir -= gHudState.att.pitch;
+                if (gHudState.radar.windDir > 3.1415927f) {
+                    gHudState.radar.windDir -= 6.2831855f;
                 }
-                if (gHudState.radar.unkAA8 <= 3.1415927f) {
-                    gHudState.radar.unkAA8 += 6.2831855f;
+                if (gHudState.radar.windDir <= 3.1415927f) {
+                    gHudState.radar.windDir += 6.2831855f;
                 }
             }
         }
@@ -215,7 +214,7 @@ void hudDrawHangGlider(HUDState* hud) {
     hudDrawSpeed(27, 37, (s32)hud->speed, 1);
     hudSeaLevel(235, 37, (s32)hud->altSeaLevel);
     hudDrawAltimeter(250, 129, (s32)hud->altitude);
-    hudDrawRadar(215, 222, hud->radarUnk68, hud->radarUnk6C, hud->radarUnk70, hud->radarUnk74, &hud->radar);
+    hudDrawRadar(215, 222, hud->att.x, hud->att.y, hud->att.heading, hud->att.pitch, &hud->radar);
     hudDrawTimer(27, 222, hud->elapsedTime);
     hudDrawCamera(hud);
 }
@@ -223,7 +222,7 @@ void hudDrawHangGlider(HUDState* hud) {
 void hudDrawRocketPack(HUDState* hud) {
     hudSeaLevel(235, 37, (s32)hud->altSeaLevel);
     hudDrawAltimeter(250, 129, (s32)hud->altitude);
-    hudDrawRadar(215, 222, hud->radarUnk68, hud->radarUnk6C, hud->radarUnk70, hud->radarUnk74, &hud->radar);
+    hudDrawRadar(215, 222, hud->att.x, hud->att.y, hud->att.heading, hud->att.pitch, &hud->radar);
     hudDrawSpeed(27, 37, (s32)hud->speed, 0);
     hudDrawFuel(98, 37, hud->fuel);
     hudDrawTimer(27, 222, hud->elapsedTime);
@@ -248,7 +247,7 @@ void hudDrawSkyDiving(HUDState* hud) {
         hudDrawAltimeter(250, 129, (s32)hud->altitude);
         hudSeaLevel(235, 37, (s32)hud->altSeaLevel);
         hudDrawTimer(27, 222, hud->elapsedTime);
-        hudDrawRadar(215, 222, hud->radarUnk68, hud->radarUnk6C, hud->radarUnk70, hud->radarUnk74, &hud->radar);
+        hudDrawRadar(215, 222, hud->att.x, hud->att.y, hud->att.heading, hud->att.pitch, &hud->radar);
     }
 }
 
@@ -256,7 +255,7 @@ void hudDrawJumbleHopper(HUDState* hud) {
     hudDrawSpeed(27, 37, (s32)hud->speed, 0);
     hudSeaLevel(235, 37, (s32)hud->altSeaLevel);
     hudDrawAltimeter(250, 129, (s32)hud->altitude);
-    hudDrawRadar(215, 222, hud->radarUnk68, hud->radarUnk6C, hud->radarUnk70, hud->radarUnk74, &hud->radar);
+    hudDrawRadar(215, 222, hud->att.x, hud->att.y, hud->att.heading, hud->att.pitch, &hud->radar);
     hudDrawTimer(27, 222, hud->elapsedTime);
 }
 
@@ -303,7 +302,7 @@ void hudDrawGyrocopter(HUDState* hud) {
     hudDrawSpeed(27, 37, (s32)hud->speed, 0);
     hudSeaLevel(235, 37, (s32)hud->altSeaLevel);
     hudDrawAltimeter(250, 129, (s32)hud->altitude);
-    hudDrawRadar(215, 222, hud->radarUnk68, hud->radarUnk6C, hud->radarUnk70, hud->radarUnk74, &hud->radar);
+    hudDrawRadar(215, 222, hud->att.x, hud->att.y, hud->att.heading, hud->att.pitch, &hud->radar);
     hudDrawFuel(98, 37, hud->fuel);
     hudDrawThrottle(27, 82, hud->power);
     hudDrawTimer(27, 222, hud->elapsedTime);
@@ -363,31 +362,31 @@ void hud_8031A378(void) {
         idx++;
     }
 
-    for (i = 0; i < D_8036C2B9; i++) {
-        if (D_8036C2E8[i].unk14 == 0) {
+    for (i = 0; i < gLandingPadCount; i++) {
+        if (gLandingPads[i].unk14 == 0) {
             continue;
         }
-        radar->goals[idx].x = D_8036C2E8[i].x;
-        radar->goals[idx].y = D_8036C2E8[i].y;
+        radar->goals[idx].x = gLandingPads[i].x;
+        radar->goals[idx].y = gLandingPads[i].y;
         radar->goals[idx].unkC = 0;
         idx++;
     }
 
-    for (i = 0; i < D_8036C2BA; i++) {
-        radar->goals[idx].x = D_8036C438[i].x;
-        radar->goals[idx].y = D_8036C438[i].y;
-        func_80313430(D_8036C438[i].unkC - D_8036C438[i].unk0, D_8036C438[i].unk10 - D_8036C438[i].unk4, 0.0f, &sp74, &sp70, &sp6C);
+    for (i = 0; i < gLandingStripCount; i++) {
+        radar->goals[idx].x = gLandingStrips[i].x;
+        radar->goals[idx].y = gLandingStrips[i].y;
+        func_80313430(gLandingStrips[i].unkC - gLandingStrips[i].unk0, gLandingStrips[i].unk10 - gLandingStrips[i].unk4, 0.0f, &sp74, &sp70, &sp6C);
         radar->goals[idx].unk8 = sp70;
         radar->goals[idx].unkC = 1;
         idx++;
     }
     radar->goalCount = idx;
 
-    for (i = 0; i < D_8037AB54; i++) {
-        radar->unk968[i].unk0 = D_8037AB58[i].unk4;
-        radar->unk968[i].unk4 = D_8037AB58[i].unk8;
-        radar->unk968[i].unk8 = D_8037AB58[i].unkC;
-        radar->unk968[i].unkC = D_8037AB58[i].unk14;
+    for (i = 0; i < gThermalCount; i++) {
+        radar->therms[i].pos.x = gThermals[i].pos.x;
+        radar->therms[i].pos.y = gThermals[i].pos.y;
+        radar->therms[i].pos.z = gThermals[i].pos.z;
+        radar->therms[i].scale = gThermals[i].scale;
     }
 
     hudGenThermCircle();
@@ -559,7 +558,260 @@ void hudDrawThrottle(s32 x, s32 y, f32 power) {
     uvGfxMtxViewPop();
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/hud/hudDrawRadar.s")
+void hudDrawRadar(s32 x, s32 y, f32 xOff, f32 yOff, f32 heading, f32 pitch, HUDRadar* radar) {
+    Mtx4F sp108;
+    Mtx4F spC8;
+    f32 temp_fa0;
+    f32 temp_fa1_2;
+    f32 temp_fs0;
+    f32 dist;
+    f32 temp_fv0_3;
+    f32 temp_fv1;
+    s32 spAC;
+    f32 tmpF1;
+    f32 tmpF2;
+    f32 var_fa1;
+    f32 var_fv1;
+    f32 sp98;
+    f32 sp94;
+    f32 sp90;
+    s32 temp_s0;
+    s32 temp_ft1;
+    s32 temp_ft3;
+    s32 temp_ft3_2;
+    f32 sp58;
+    s32 pad4;
+    f32 sp74;
+    f32 sp70;
+    s32 i;
+    s32 j;
+    s16 tmp;
+    s32 idx;
+
+    uvMat4SetIdentity(&spC8);
+    uvMat4UnkOp2(&spC8, (f32)(x + 35), (f32)(y - 35), 0);
+    uvGfxMtxViewLoad(&spC8, 1);
+
+    uvGfxStatePush();
+    uvGfxSetFlags(0x800000);
+    uvGfxClearFlags(0x600000);
+    uvGfx_80223A28(0x124);
+    uvVtxBeginPoly();
+    uvVtx(-35, -35, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtx(0, -35, 0, 1088, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtx(0, 0, 0, 1088, 1088, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtx(-35, 0, 0, 0, 1088, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtxEndPoly();
+
+    uvGfx_80223A28(0x125);
+    uvVtxBeginPoly();
+    uvVtx(0, -35, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtx(35, -35, 0, 1088, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtx(35, 0, 0, 1088, 1088, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtx(0, 0, 0, 0, 1088, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtxEndPoly();
+
+    uvGfx_80223A28(0x123);
+    uvVtxBeginPoly();
+    uvVtx(0, 0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtx(35, 0, 0, 1088, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtx(35, 35, 0, 1088, 1088, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtx(0, 35, 0, 0, 1088, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtxEndPoly();
+
+    uvGfx_80223A28(0x122);
+    uvVtxBeginPoly();
+    uvVtx(-35, 0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtx(0, 0, 0, 1088, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtx(0, 35, 0, 1088, 1088, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtx(-35, 35, 0, 0, 1088, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtxEndPoly();
+    uvGfxStatePop();
+
+    uvMat4SetIdentity(&sp108);
+    sp58 = -pitch;
+    uvMat4RotateAxis(&sp108, sp58, 'z');
+    uvGfxMtxViewMul(&sp108, 1);
+
+    uvGfxStatePush();
+    uvGfxSetFlags(0x800000);
+    uvGfxClearFlags(0x600000);
+    uvVtxBeginPoly();
+    uvVtx(0, 0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtx(1, 0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtx(1, 20, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtx(0, 20, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtxEndPoly();
+    uvGfxStatePop();
+    uvGfxMtxViewPop();
+
+    temp_fs0 = (s16)(uvSinF(sp58) * -25.0f);
+    temp_fv1 = (s16)(uvCosF(sp58) * 25.0f);
+    temp_ft3 = temp_fv1 - 4.0f;
+    spAC = temp_fv1 + 4.0f;
+    uvGfxStatePush();
+    uvGfxSetFlags(0x800000);
+    uvGfxClearFlags(0x600000);
+    uvGfx_80223A28(0x136);
+    uvVtxBeginPoly();
+    uvVtx(temp_fs0 - 4.0f, temp_ft3, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtx(temp_fs0 + 4.0f, temp_ft3, 0, 224, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtx(temp_fs0 + 4.0f, spAC, 0, 224, 224, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtx(temp_fs0 - 4.0f, spAC, 0, 0, 224, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtxEndPoly();
+    uvGfxStatePop();
+
+    if (radar->windSpeed > 0.0f) {
+        uvMat4SetIdentity(&sp108);
+        uvMat4RotateAxis(&sp108, radar->windDir, 'z');
+        uvGfxMtxViewMul(&sp108, 1);
+        tmp = radar->windSpeed * 30.0f;
+        temp_s0 = tmp;
+        uvGfxStatePush();
+        uvGfxClearFlags(0x600000);
+        uvVtxBeginPoly();
+        uvVtx(-2, -1, 0, 0, 0, 0x00, 0x2E, 0x4D, 0xFF);
+        uvVtx(2, -1, 0, 0, 0, 0x00, 0x2E, 0x4D, 0xFF);
+        uvVtx(2, temp_s0 + 1, 0, 0, 0, 0x00, 0x2E, 0x4D, 0xFF);
+        uvVtx(-2, temp_s0 + 1, 0, 0, 0, 0x00, 0x2E, 0x4D, 0xFF);
+        uvVtxEndPoly();
+
+        uvVtxBeginPoly();
+        uvVtx(-4, temp_s0, 0, 0, 0, 0x00, 0x2E, 0x4D, 0xFF);
+        uvVtx(4, temp_s0, 0, 0, 0, 0x00, 0x2E, 0x4D, 0xFF);
+        uvVtx(0, temp_s0 + 6, 0, 0, 0, 0x00, 0x2E, 0x4D, 0xFF);
+        uvVtxEndPoly();
+
+        uvVtxBeginPoly();
+        uvVtx(-1, -1, 0, 0, 0, 0x00, 0xA2, 0xFF, 0xFF);
+        uvVtx(1, -1, 0, 0, 0, 0x00, 0xA2, 0xFF, 0xFF);
+        uvVtx(1, temp_s0 + 1, 0, 0, 0, 0x00, 0xA2, 0xFF, 0xFF);
+        uvVtx(-1, temp_s0 + 1, 0, 0, 0, 0x00, 0xA2, 0xFF, 0xFF);
+        uvVtxEndPoly();
+
+        uvVtxBeginPoly();
+        uvVtx(-2, temp_s0, 0, 0, 0, 0x00, 0xA2, 0xFF, 0xFF);
+        uvVtx(2, temp_s0, 0, 0, 0, 0x00, 0xA2, 0xFF, 0xFF);
+        uvVtx(0, temp_s0 + 5, 0, 0, 0, 0x00, 0xA2, 0xFF, 0xFF);
+        uvVtxEndPoly();
+
+        uvVtxBeginPoly();
+        uvVtx(0, 0, 0, 0, 0, 0x00, 0xFF, 0xFF, 0xFF);
+        uvVtx(1, 0, 0, 0, 0, 0x00, 0xFF, 0xFF, 0xFF);
+        uvVtx(1, temp_s0 + 3, 0, 0, 0, 0x00, 0xFF, 0xFF, 0xFF);
+        uvVtx(0, temp_s0 + 3, 0, 0, 0, 0x00, 0xFF, 0xFF, 0xFF);
+        uvVtxEndPoly();
+        uvGfxStatePop();
+        uvGfxMtxViewPop();
+    }
+
+    uvGfxStatePush();
+    uvGfxSetFlags(0x800000);
+    uvGfxClearFlags(0x600000);
+    for (i = 0; i < gThermalCount; i++) {
+        temp_fs0 = radar->therms[i].pos.x - xOff;
+        sp70 = radar->therms[i].scale;
+        sp74 = radar->therms[i].pos.y - yOff;
+        dist = uvSqrtF(SQ(temp_fs0) + SQ(sp74)) - sp70;
+        if (dist < 800.0f) {
+            temp_fs0 *= 0.0375f;
+            sp74 *= 0.0375f;
+            sp70 *= 0.0375f;
+            hudRadarThermal(temp_fs0, sp74, sp70, 0xFF, 0x64, 0, 0x96, sp58);
+        }
+    }
+    uvGfxStatePop();
+
+    for (i = 0; i <= radar->unk4; i++) {
+        temp_fa0 = radar->waypoints[i].unk0 - xOff;
+        var_fa1 = radar->waypoints[i].unk4 - yOff;
+        if ((temp_fa0 == 0.0f) && (var_fa1 == 0.0f)) {
+            sp94 = 0.0f;
+            sp98 = 0.001f;
+        } else {
+            func_80313430(temp_fa0, var_fa1, 0, &sp98, &sp94, &sp90);
+        }
+        sp94 -= pitch;
+        sp94 -= 1.5707963f;
+        if (sp94 > 3.1415927f) {
+            sp94 -= 6.2831855f;
+        }
+        if (sp94 <= -3.1415927f) {
+            sp94 += 6.2831855f;
+        }
+        radar->waypoints[i].unkC = sp98;
+        radar->waypoints[i].unk10 = sp94;
+    }
+
+    D_8036D224++;
+    if (D_8036D224 > 0xFD) {
+        D_8036D224 = 1;
+    }
+
+    for (i = 0; i < 10; i++) {
+        var_fv1 = 50000.0f;
+        for (j = 0; j <= radar->unk4; j++) {
+            if (radar->waypoints[j].unk1C != 0xFE && radar->waypoints[j].unk1C != 0xFF && D_8036D224 != radar->waypoints[j].unk1C) {
+                if (radar->waypoints[j].unkC < var_fv1) {
+                    var_fv1 = radar->waypoints[j].unkC;
+                    idx = j;
+                }
+            }
+        }
+
+        if (var_fv1 == 50000.0f) {
+            break;
+        }
+
+        temp_fv0_3 = radar->waypoints[idx].unk8 - heading;
+        if (radar->waypoints[idx].unk14 > 0) {
+            radar->waypoints[idx].unk18 -= 50;
+            if (radar->waypoints[idx].unk18 < 0) {
+                radar->waypoints[idx].unk14 = -1;
+                radar->waypoints[idx].unk18 = 0;
+            }
+        } else if (radar->waypoints[idx].unk14 < 0) {
+            radar->waypoints[idx].unk18 += 50;
+            if (radar->waypoints[idx].unk18 > 0xFF) {
+                radar->waypoints[idx].unk14 = 1;
+                radar->waypoints[idx].unk18 = 0xFF;
+            }
+        }
+        hudRadarWaypoint(radar->waypoints[idx].unkC, radar->waypoints[idx].unk10, 0, temp_fv0_3 >= 0.0f ? 0 : 1, 0.0f, (u8)radar->waypoints[idx].unk18);
+        radar->waypoints[idx].unk1C = D_8036D224;
+    }
+
+    for (i = 0; i < radar->goalCount; i++) {
+        tmpF1 = radar->goals[i].x - xOff;
+        tmpF2 = radar->goals[i].y - yOff;
+        func_80313430(tmpF1, tmpF2, 0, &sp98, &sp94, &sp90);
+        sp94 -= pitch;
+        sp94 -= 1.5707963f;
+        if (sp94 > 3.1415927f) {
+            sp94 -= 6.2831855f;
+        }
+        if (sp94 <= -3.1415927f) {
+            sp94 += 6.2831855f;
+        }
+        if (radar->goals[i].unkC == 1) {
+            temp_fv0_3 = radar->goals[i].unk8;
+            temp_fv0_3 -= pitch;
+            temp_fv0_3 -= 1.5707963f;
+            if (temp_fv0_3 > 3.1415927f) {
+                sp94 -= 6.2831855f;
+            }
+            if (temp_fv0_3 <= -3.1415927f) {
+                sp94 += 6.2831855f;
+            }
+            hudRadarWaypoint(sp98, sp94, 2, 0, temp_fv0_3, 0xFF);
+        } else {
+            hudRadarWaypoint(sp98, sp94, 1, 0, 0.0f, 0xFF);
+        }
+    }
+    uvSprtProps(0, 2, x + 31, y - 33, 0);
+    uvSprtDraw(0);
+    uvGfxMtxViewPop();
+}
 
 void hudDemoContButton(s32 spriteId, s32 x, s32 y) {
     uvSprtProps(spriteId, 2, x + 20, 200 - y, 0);
@@ -644,7 +896,87 @@ void hudDrawSpeed(s32 x, s32 y, s32 speed, s32 highlightLowSpeed) {
     uvFont_80219ACC(x + 33, y - 16, "k");
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/hud/hudDrawFuel.s")
+void hudDrawFuel(s32 x, s32 y, f32 fuel) {
+    s16 curX1;
+    s16 curX2;
+    s16 curY1;
+    s16 curY2;
+    s16 curY3;
+    s16 sy;
+    s16 sx;
+    s16 fuelScale;
+    s32 pad2;
+
+    sy = y - 8;
+    sx = x;
+    curX1 = sx - 3;
+    curY1 = sy - 3;
+    curY2 = sy + 11;
+    curX2 = sx + 130;
+    uvGfxStatePush();
+    uvGfxSetFlags(0x800000);
+    uvGfxClearFlags(0x600000);
+    uvGfx_80223A28(0xFFF);
+    uvVtxBeginPoly();
+    uvVtx(curX1, curY1, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0x00);
+    uvVtx(curX2, curY1, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0x00);
+    uvVtx(curX2, curY2, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0x00);
+    uvVtx(curX1, curY2, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0x00);
+    uvVtxEndPoly();
+    uvGfxStatePop();
+
+    curX1 = sx + 127;
+    curY1 = sy + 8;
+    curX2 = sx;
+    curY2 = sy;
+    uvGfxStatePush();
+    uvGfxClearFlags(0xE00000);
+    uvVtxBeginPoly();
+    uvVtx(curX2, curY2, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtx(curX1, curY2, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtx(curX1, curY1, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtx(curX2, curY1, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+    uvVtxEndPoly();
+
+    curX1 = sx + 1;
+    curY1 = sy + 1;
+    curY3 = sy + 7;
+    curY2 = ((s32)(curY3 - curY1) / 2) + curY1;
+    fuelScale = (s16)(fuel * 125.0f);
+    curX2 = sx + fuelScale + 1;
+    uvVtxBeginPoly();
+    uvVtx(curX1, curY1, 0, 0, 0, 0xC6, 0xB5, 0x00, 0xFF);
+    uvVtx(curX2, curY1, 0, 0, 0, 0xC6, 0xB5, 0x00, 0xFF);
+    uvVtx(curX2, curY2, 0, 0, 0, 0xFE, 0xF7, 0x32, 0xFF);
+    uvVtx(curX1, curY2, 0, 0, 0, 0xFE, 0xF7, 0x32, 0xFF);
+    uvVtxEndPoly();
+
+    uvVtxBeginPoly();
+    uvVtx(curX1, curY2, 0, 0, 0, 0xFE, 0xF7, 0x32, 0xFF);
+    uvVtx(curX2, curY2, 0, 0, 0, 0xFE, 0xF7, 0x32, 0xFF);
+    uvVtx(curX2, curY3, 0, 0, 0, 0xEA, 0xD5, 0x00, 0xFF);
+    uvVtx(curX1, curY3, 0, 0, 0, 0xEA, 0xD5, 0x00, 0xFF);
+    uvVtxEndPoly();
+
+    curX1 = sx + 126;
+    uvVtxBeginPoly();
+    uvVtx(curX2, curY1, 0, 0, 0, 0x01, 0x00, 0x9B, 0xFF);
+    uvVtx(curX1, curY1, 0, 0, 0, 0x01, 0x00, 0x9B, 0xFF);
+    uvVtx(curX1, curY2, 0, 0, 0, 0x00, 0x6B, 0xFF, 0xFF);
+    uvVtx(curX2, curY2, 0, 0, 0, 0x00, 0x6B, 0xFF, 0xFF);
+    uvVtxEndPoly();
+
+    uvVtxBeginPoly();
+    uvVtx(curX2, curY2, 0, 0, 0, 0x00, 0x6B, 0xFF, 0xFF);
+    uvVtx(curX1, curY2, 0, 0, 0, 0x00, 0x6B, 0xFF, 0xFF);
+    uvVtx(curX1, curY3, 0, 0, 0, 0x01, 0x00, 0xBA, 0xFF);
+    uvVtx(curX2, curY3, 0, 0, 0, 0x01, 0x00, 0xBA, 0xFF);
+    uvVtxEndPoly();
+    uvGfxStatePop();
+
+    uvSprtProps(7, 2, x, y - 10, 7, 0xFF, 0xFF, 0xFF, 0xFF, 0);
+    uvSprtDraw(7);
+}
 
 void hudDrawAltimeter(s32 x, s32 y, s32 altitude) {
     s32 pad32;
@@ -1030,7 +1362,7 @@ void hudDrawStartText(HUDState* hud) {
     }
 }
 
-void hudRadarThermal(f32 arg0, f32 arg1, f32 arg2, u8 r, u8 g, u8 b, u8 a, f32 arg7) {
+void hudRadarThermal(f32 xOff, f32 yOff, f32 scale, u8 r, u8 g, u8 b, u8 a, f32 arg7) {
     s32 var_s0;
     s32 var_s1;
     s32 var_s2;
@@ -1051,8 +1383,8 @@ void hudRadarThermal(f32 arg0, f32 arg1, f32 arg2, u8 r, u8 g, u8 b, u8 a, f32 a
     do {
         if (var_s2 != 0) {
             temp_v0 = &gRadarThermCirc[var_s0];
-            temp_fv0 = (temp_v0->x * arg2) + arg0;
-            temp_fv1 = (temp_v0->y * arg2) + arg1;
+            temp_fv0 = (temp_v0->x * scale) + xOff;
+            temp_fv1 = (temp_v0->y * scale) + yOff;
             vx = (temp_fv0 * temp_fs1) - (temp_fv1 * temp_fs0);
             vy = (temp_fv0 * temp_fs0) + (temp_fv1 * temp_fs1);
             hud_8031E628(31.0f, &vx, &vy);
@@ -1067,8 +1399,8 @@ void hudRadarThermal(f32 arg0, f32 arg1, f32 arg2, u8 r, u8 g, u8 b, u8 a, f32 a
                 var_s1 = 0;
             }
             temp_v0 = &gRadarThermCirc[var_s1];
-            temp_fv0 = (temp_v0->x * arg2) + arg0;
-            temp_fv1 = (temp_v0->y * arg2) + arg1;
+            temp_fv0 = (temp_v0->x * scale) + xOff;
+            temp_fv1 = (temp_v0->y * scale) + yOff;
             vx = (temp_fv0 * temp_fs1) - (temp_fv1 * temp_fs0);
             vy = (temp_fv0 * temp_fs0) + (temp_fv1 * temp_fs1);
             hud_8031E628(31.0f, &vx, &vy);
@@ -1209,34 +1541,35 @@ void hud_8031E628(f32 arg0, f32* arg1, f32* arg2) {
     }
 }
 
-void hud_8031E69C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, u8 arg5, u8 arg6, u8 arg7, u8 arg8) {
+// draws open rectangle at location+bounds and pen width+color
+void hudDrawRect(s32 x, s32 y, s32 width, s32 height, s32 penWidth, u8 r, u8 g, u8 b, u8 a) {
     uvVtxBeginPoly();
-    uvVtx(arg0, arg1, 0, 0, 0, arg5, arg6, arg7, arg8);
-    uvVtx(arg0 + arg2, arg1, 0, 0, 0, arg5, arg6, arg7, arg8);
-    uvVtx(arg0 + arg2, arg1 + arg4, 0, 0, 0, arg5, arg6, arg7, arg8);
-    uvVtx(arg0, arg1 + arg4, 0, 0, 0, arg5, arg6, arg7, arg8);
+    uvVtx(x, y, 0, 0, 0, r, g, b, a);
+    uvVtx(x + width, y, 0, 0, 0, r, g, b, a);
+    uvVtx(x + width, y + penWidth, 0, 0, 0, r, g, b, a);
+    uvVtx(x, y + penWidth, 0, 0, 0, r, g, b, a);
     uvVtxEndPoly();
 
     uvVtxBeginPoly();
-    uvVtx(arg0, arg1, 0, 0, 0, arg5, arg6, arg7, arg8);
-    uvVtx(arg0 + arg4, arg1, 0, 0, 0, arg5, arg6, arg7, arg8);
-    uvVtx(arg0 + arg4, arg1 + arg3, 0, 0, 0, arg5, arg6, arg7, arg8);
-    uvVtx(arg0, arg1 + arg3, 0, 0, 0, arg5, arg6, arg7, arg8);
+    uvVtx(x, y, 0, 0, 0, r, g, b, a);
+    uvVtx(x + penWidth, y, 0, 0, 0, r, g, b, a);
+    uvVtx(x + penWidth, y + height, 0, 0, 0, r, g, b, a);
+    uvVtx(x, y + height, 0, 0, 0, r, g, b, a);
     uvVtxEndPoly();
 
     uvVtxBeginPoly();
-    uvVtx(arg0, arg1 + arg3 - arg4, 0, 0, 0, arg5, arg6, arg7, arg8);
-    uvVtx(arg0 + arg2, arg1 + arg3 - arg4, 0, 0, 0, arg5, arg6, arg7, arg8);
-    uvVtx(arg0 + arg2, arg1 + arg3, 0, 0, 0, arg5, arg6, arg7, arg8);
-    uvVtx(arg0, arg1 + arg3, 0, 0, 0, arg5, arg6, arg7, arg8);
+    uvVtx(x, y + height - penWidth, 0, 0, 0, r, g, b, a);
+    uvVtx(x + width, y + height - penWidth, 0, 0, 0, r, g, b, a);
+    uvVtx(x + width, y + height, 0, 0, 0, r, g, b, a);
+    uvVtx(x, y + height, 0, 0, 0, r, g, b, a);
     uvVtxEndPoly();
 
     if (1) { // fakematch
         uvVtxBeginPoly();
-        uvVtx(arg0 + arg2 - arg4, arg1, 0, 0, 0, arg5, arg6, arg7, arg8);
-        uvVtx(arg0 + arg2, arg1, 0, 0, 0, arg5, arg6, arg7, arg8);
-        uvVtx(arg0 + arg2, arg1 + arg3, 0, 0, 0, arg5, arg6, arg7, arg8);
-        uvVtx(arg0 + arg2 - arg4, arg1 + arg3, 0, 0, 0, arg5, arg6, arg7, arg8);
+        uvVtx(x + width - penWidth, y, 0, 0, 0, r, g, b, a);
+        uvVtx(x + width, y, 0, 0, 0, r, g, b, a);
+        uvVtx(x + width, y + height, 0, 0, 0, r, g, b, a);
+        uvVtx(x + width - penWidth, y + height, 0, 0, 0, r, g, b, a);
         uvVtxEndPoly();
     }
 }

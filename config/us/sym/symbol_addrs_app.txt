@@ -92,7 +92,7 @@ hudRadarThermal     = 0x8031DD0C; // type:func
 hudSetCameraState   = 0x8031DF68; // type:func
 hudRadarWaypoint    = 0x8031DF74; // type:func
 hud_8031E628        = 0x8031E628; // type:func
-hud_8031E69C        = 0x8031E69C; // type:func
+hudDrawRect         = 0x8031E69C; // type:func
 hudDrawPhotoCount   = 0x8031E9F8; // type:func
 hudDemoControllerEn = 0x8031EABC; // type:func
 

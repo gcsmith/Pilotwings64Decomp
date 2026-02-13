@@ -23,20 +23,20 @@
 #include "code_905C0.h"
 #include "code_9A960.h"
 #include "code_9C080.h"
-#include "code_9E2F0.h"
 #include "code_A7460.h"
 #include "code_B2900.h"
 #include "code_B6FE0.h"
 #include "code_BB820.h"
 #include "code_CB7C0.h"
-#include "code_CDB20.h"
 #include "code_D2D50.h"
 #include "code_D3810.h"
 #include "code_D4290.h"
 #include "mem.h"
+#include "pads.h"
 #include "rings.h"
 #include "snap.h"
 #include "snd.h"
+#include "thermals.h"
 
 typedef struct {
     void* unk0;

@@ -1,5 +1,5 @@
-#ifndef APP_CODE_9E2F0_H
-#define APP_CODE_9E2F0_H
+#ifndef APP_PADS_H
+#define APP_PADS_H
 
 #include <uv_level.h>
 
@@ -11,7 +11,7 @@ typedef struct {
     u8 unk10[4];
     u8 unk14;
     u8 pad15[3];
-} Unk8036C2E8;
+} LandingPad;
 
 typedef struct {
     f32 unk0;
@@ -23,16 +23,16 @@ typedef struct {
     f32 x;
     f32 y;
     u8 unk2C[0x10];
-} Unk8036C438;
+} LandingStrip;
 
-extern u8 D_8036C2B9; // count of D_8036C2E8, related to objects shown on radar
-extern u8 D_8036C2BA; // count of D_8036C438, related to objects shown on radar
-extern Unk8036C2E8 D_8036C2E8[]; // landing pads?
-extern Unk8036C438 D_8036C438[]; // landing strips?
+extern u8 gLandingPadCount; // count of gLandingPads
+extern u8 gLandingStripCount; // count of gLandingStrips
+extern LandingPad gLandingPads[14]; // parsed landing pad data, also copied to HUD
+extern LandingStrip gLandingStrips[2]; // parsed landing strip data, also copied to HUD
 
 void func_80316DC0(void);
 void func_80316E40(void);
 void func_80317634(Unk80345464_Arg0*);
 void func_8031776C(void);
 
-#endif // APP_CODE_9E2F0_H
+#endif // APP_PADS_H
