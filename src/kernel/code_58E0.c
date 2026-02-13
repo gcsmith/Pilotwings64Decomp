@@ -89,7 +89,7 @@ void func_80204D94(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
 }
 
 void uvChanEnv(s32 arg0, s32 arg1) {
-    if ((arg1 != 0xFFFF) && ((uvChanUnk_t*)((s32*)gGfxUnkPtrs + arg1))->unk44 == 0) {
+    if ((arg1 != 0xFFFF) && (gGfxUnkPtrs->unk44[arg1] == NULL)) {
         _uvDebugPrintf("uvChanEnv: environment %d not in level\n", arg1);
         return;
     }
@@ -97,7 +97,7 @@ void uvChanEnv(s32 arg0, s32 arg1) {
 }
 
 void uvChanTerra(s32 arg0, s32 arg1) {
-    if (((uvChanUnk_t*)((s32*)gGfxUnkPtrs + arg1))->unk4 == 0) {
+    if (gGfxUnkPtrs->unk4[arg1] == NULL) {
         _uvDebugPrintf("uvChanTerra: terra %d not in level\n");
         return;
     }

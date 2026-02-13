@@ -337,7 +337,9 @@ segments:
       - [0x51370, rodata]
       - [0x51B70, rodata]
 
-      - { type: bss, start: 0x51E30, vram: 0x80250E80, name: kernel_bss }
+      - { type: bss, vram: 0x80250E80, name: kernel_bss }
+      - { type: .bss, vram: 0x802C5FD0, name: kernel/sprite }
+      - { type: bss, vram: 0x802C8020, name: kernel_bss2 }
 
   - name: app
     type: code

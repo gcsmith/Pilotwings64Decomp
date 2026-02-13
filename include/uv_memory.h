@@ -92,7 +92,7 @@ typedef struct LevelData {
     s32 modelCount;
     void* contours[LEVEL_CONTOUR_COUNT];
     s32 contourCount;
-    uvSprite_t* textures[LEVEL_TEXTURE_COUNT];
+    ParsedUVTX* textures[LEVEL_TEXTURE_COUNT];
     s32 textureCount;
     void* sequences[LEVEL_SEQUENCE_COUNT];
     s32 sequenceCount;
@@ -102,13 +102,13 @@ typedef struct LevelData {
     s32 fontCount;
     void* blits[LEVEL_BLIT_COUNT];
     s32 blitCount;
-    f32 unk_1608;
+    f32 unk1608;
 } LevelData; // size = 0x160C
 
 typedef struct unk_802B53C0 {
-    u16 unk_00;
-    u16* unk_04;
-    u16* unk_08;
+    u16 unk0;
+    u16* unk4;
+    u16* unk8;
 } unk_802B53C0; // size >= 0x8
 
 extern void* D_802B6E30[LEVEL_TEXTURE_COUNT];

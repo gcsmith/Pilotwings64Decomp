@@ -312,7 +312,6 @@ seq_rodata_0008 = 0x8024FB88;
 osAfterPreNMI = 0x802639AC;
 MusFxBankSetPtrBank = 0x8026AD0C;
 alSynFreeFX = 0x802902E4;
-__rmonHitBreak = 0x802C6094;
 sprite_bss_0000 = 0x802C8040;
 sprite_bss_0004 = 0x802C8044;
 sprite_bss_0008 = 0x802C8048;

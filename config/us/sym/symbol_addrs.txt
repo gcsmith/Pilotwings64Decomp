@@ -97,9 +97,7 @@ gControllerPads     = 0x802C3370;
 
 gSprtUnkIndex       = 0x802C64D0;
 gSprtUnkTable       = 0x802C64D8;
-gSprtTable1         = 0x802C7478;
-gSprtTable2         = 0x802C747A;
-gSprtTable3         = 0x802C747C;
+gSprtTable1         = 0x802C7478; // size:0xBA0
 
 gLevelData          = 0x802C1C98;
 gLevelWOBJ          = 0x80369F30;

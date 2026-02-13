@@ -361,7 +361,7 @@ void uvLevelInit(void) {
         if (tag == 'COMM') { // 0x434F4D4D
             _uvMediaCopy(&gUVBlockCounts, source, length);
             if (1) { } // fakematch
-            gLevelData.unk_1608 = gUVBlockCounts.unk0;
+            gLevelData.unk1608 = gUVBlockCounts.unk0;
         }
     }
     uvFile_80223F30(temp_v0);
