@@ -121,11 +121,11 @@ typedef struct {
 /* 008 */ u32 unk8;
 /* 00C */ u32 unkC;
 /* 010 */ Mtx4F unk10;
-/* 050 */ Mtx4F unk50;
+/* 050 */ Mtx unk50;
 /* 090 */ Mtx4F unk90;
-/* 0D0 */ Mtx4F unkD0;
+/* 0D0 */ Mtx unkD0;
 /* 110 */ Mtx4F unk110;
-/* 150 */ Mtx4F unk150;
+/* 150 */ Mtx unk150;
 /* 190 */ Mtx4F unk190;
 /* 1D0 */ f32 unk1D0;
 /* 1D4 */ f32 unk1D4;

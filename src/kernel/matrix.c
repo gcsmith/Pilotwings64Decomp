@@ -69,28 +69,171 @@ void uvMat4CopyXYZ(Mtx4F* dst, Mtx4F* src) {
     dst->m[2][2] = src->m[2][2];
 }
 
-void uvMat4CopyL(Mtx4F* dst, Mtx src) {
-    *(long*)&dst->m[0][0] = src.m[0][0];
-    *(long*)&dst->m[0][1] = src.m[0][1];
-    *(long*)&dst->m[0][2] = src.m[0][2];
-    *(long*)&dst->m[0][3] = src.m[0][3];
-    *(long*)&dst->m[1][0] = src.m[1][0];
-    *(long*)&dst->m[1][1] = src.m[1][1];
-    *(long*)&dst->m[1][2] = src.m[1][2];
-    *(long*)&dst->m[1][3] = src.m[1][3];
-    *(long*)&dst->m[2][0] = src.m[2][0];
-    *(long*)&dst->m[2][1] = src.m[2][1];
-    *(long*)&dst->m[2][2] = src.m[2][2];
-    *(long*)&dst->m[2][3] = src.m[2][3];
-    *(long*)&dst->m[3][0] = src.m[3][0];
-    *(long*)&dst->m[3][1] = src.m[3][1];
-    *(long*)&dst->m[3][2] = src.m[3][2];
-    *(long*)&dst->m[3][3] = src.m[3][3];
+void uvMat4CopyL(Mtx* dst, Mtx src) {
+    dst->m[0][0] = src.m[0][0];
+    dst->m[0][1] = src.m[0][1];
+    dst->m[0][2] = src.m[0][2];
+    dst->m[0][3] = src.m[0][3];
+    dst->m[1][0] = src.m[1][0];
+    dst->m[1][1] = src.m[1][1];
+    dst->m[1][2] = src.m[1][2];
+    dst->m[1][3] = src.m[1][3];
+    dst->m[2][0] = src.m[2][0];
+    dst->m[2][1] = src.m[2][1];
+    dst->m[2][2] = src.m[2][2];
+    dst->m[2][3] = src.m[2][3];
+    dst->m[3][0] = src.m[3][0];
+    dst->m[3][1] = src.m[3][1];
+    dst->m[3][2] = src.m[3][2];
+    dst->m[3][3] = src.m[3][3];
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/matrix/uvMat4CopyL2F.s")
+typedef struct Mtx_u {
+    u16 i[4][4];
+    u16 f[4][4];
+} Mtx_u;
+#define MTX_TO_PART(mtx) (*(Mtx_u*)&(mtx))
+#define L2F(mtx, i1, i2) ((((s16)MTX_TO_PART(mtx).i[(i1)][(i2)] << 0x10) | ((s16)MTX_TO_PART(mtx).f[(i1)][(i2)] & 0xFFFF)) / 65536.0f)
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/matrix/uvMat4CopyF2L.s")
+void uvMat4CopyL2F(Mtx4F* dst, Mtx src) {
+    Mtx4F* dst2 = dst;
+    s32 pad;
+    Mtx4F sp18;
+
+    if (dst2 == (Mtx4F*)&src) {
+        dst2 = &sp18;
+    }
+    dst2->m[0][0] = L2F(src, 0, 0);
+    dst2->m[0][1] = L2F(src, 0, 1);
+    dst2->m[0][2] = L2F(src, 0, 2);
+    dst2->m[0][3] = L2F(src, 0, 3);
+    dst2->m[1][0] = L2F(src, 1, 0);
+    dst2->m[1][1] = L2F(src, 1, 1);
+    dst2->m[1][2] = L2F(src, 1, 2);
+    dst2->m[1][3] = L2F(src, 1, 3);
+    dst2->m[2][0] = L2F(src, 2, 0);
+    dst2->m[2][1] = L2F(src, 2, 1);
+    dst2->m[2][2] = L2F(src, 2, 2);
+    dst2->m[2][3] = L2F(src, 2, 3);
+    dst2->m[3][0] = L2F(src, 3, 0);
+    dst2->m[3][1] = L2F(src, 3, 1);
+    dst2->m[3][2] = L2F(src, 3, 2);
+    dst2->m[3][3] = L2F(src, 3, 3);
+
+    if (dst2 == (Mtx4F*)&src) {
+        uvMat4Copy(dst, &sp18);
+    }
+}
+
+void uvMat4CopyF2L(Mtx* dst, Mtx4F* src) {
+    Mtx_u* dst2;
+    Mtx spA0;
+    s32 xx;
+    s32 yx;
+    s32 zx;
+    s32 wx;
+    s32 xy;
+    s32 yy;
+    s32 zy;
+    s32 wy;
+    s32 xz;
+    s32 yz;
+    s32 zz;
+    s32 wz;
+    s32 xw;
+    s32 yw;
+    s32 zw;
+    s32 ww;
+
+    dst2 = (Mtx_u*)dst;
+    if ((Mtx4F*)dst2 == src) {
+        dst2 = (Mtx_u*)&spA0;
+    }
+    xx = (s32)((src->m[0][0] * 65536.0f) + 0.5f);
+    dst2->i[0][0] = xx >> 0x10;
+    dst2->f[0][0] = xx & 0xFFFF;
+    yx = (s32)((src->m[0][1] * 65536.0f) + 0.5f);
+    dst2->i[0][1] = yx >> 0x10;
+    dst2->f[0][1] = yx & 0xFFFF;
+    zx = (s32)((src->m[0][2] * 65536.0f) + 0.5f);
+    dst2->i[0][2] = zx >> 0x10;
+    dst2->f[0][2] = zx & 0xFFFF;
+    wx = (s32)((src->m[0][3] * 65536.0f) + 0.5f);
+    dst2->i[0][3] = wx >> 0x10;
+    dst2->f[0][3] = wx & 0xFFFF;
+    xy = (s32)((src->m[1][0] * 65536.0f) + 0.5f);
+    dst2->i[1][0] = xy >> 0x10;
+    dst2->f[1][0] = xy & 0xFFFF;
+    yy = (s32)((src->m[1][1] * 65536.0f) + 0.5f);
+    dst2->i[1][1] = yy >> 0x10;
+    dst2->f[1][1] = yy & 0xFFFF;
+    zy = (s32)((src->m[1][2] * 65536.0f) + 0.5f);
+    dst2->i[1][2] = zy >> 0x10;
+    dst2->f[1][2] = zy & 0xFFFF;
+    wy = (s32)((src->m[1][3] * 65536.0f) + 0.5f);
+    dst2->i[1][3] = wy >> 0x10;
+    dst2->f[1][3] = wy & 0xFFFF;
+    xz = (s32)((src->m[2][0] * 65536.0f) + 0.5f);
+    dst2->i[2][0] = xz >> 0x10;
+    dst2->f[2][0] = xz & 0xFFFF;
+    yz = (s32)((src->m[2][1] * 65536.0f) + 0.5f);
+    dst2->i[2][1] = yz >> 0x10;
+    dst2->f[2][1] = yz & 0xFFFF;
+    zz = (s32)((src->m[2][2] * 65536.0f) + 0.5f);
+    dst2->i[2][2] = zz >> 0x10;
+    dst2->f[2][2] = zz & 0xFFFF;
+    wz = (s32)((src->m[2][3] * 65536.0f) + 0.5f);
+    dst2->i[2][3] = wz >> 0x10;
+    dst2->f[2][3] = wz & 0xFFFF;
+
+    if (src->m[3][0] > 32767.0f) {
+        dst2->i[3][0] = 0x7FFF;
+        _uvDebugPrintf("s+12 overfow: %f\n", src->m[3][0]);
+        *(s16*)1 = 0;
+    } else if (src->m[3][0] < -32767.0f) {
+        *(s16*)&dst2->i[3][0] = -0x8000;
+        _uvDebugPrintf("s+12 overfow: %f\n", src->m[3][0]);
+        *(s16*)1 = 0;
+    } else {
+        xw = (s32)((src->m[3][0] * 65536.0f) + 0.5f);
+        dst2->i[3][0] = xw >> 0x10;
+        dst2->f[3][0] = xw & 0xFFFF;
+    }
+
+    if (src->m[3][1] > 32767.0f) {
+        dst2->i[3][1] = 0x7FFF;
+        _uvDebugPrintf("s+13 overfow: %f\n", src->m[3][1]);
+        *(s16*)1 = 0;
+    } else if (src->m[3][1] < -32767.0f) {
+        *(s16*)&dst2->i[3][1] = -0x8000;
+        _uvDebugPrintf("s+13 overfow: %f\n", src->m[3][1]);
+        *(s16*)1 = 0;
+    } else {
+        yw = (s32)((src->m[3][1] * 65536.0f) + 0.5f);
+        dst2->i[3][1] = yw >> 0x10;
+        dst2->f[3][1] = yw & 0xFFFF;
+    }
+
+    if (src->m[3][2] > 32767.0f) {
+        dst2->i[3][2] = 0x7FFF;
+        _uvDebugPrintf("s+14 overfow: %f\n", src->m[3][2]);
+        *(s16*)1 = 0;
+    } else if (src->m[3][2] < -32767.0f) {
+        *(s16*)&dst2->i[3][2] = -0x8000;
+        _uvDebugPrintf("s+14 overfow: %f\n", src->m[3][2]);
+        *(s16*)1 = 0;
+    } else {
+        zw = (s32)((src->m[3][2] * 65536.0f) + 0.5f);
+        dst2->i[3][2] = zw >> 0x10;
+        dst2->f[3][2] = zw & 0xFFFF;
+    }
+    ww = (s32)((src->m[3][3] * 65536.0f) + 0.5f);
+    dst2->i[3][3] = ww >> 0x10;
+    dst2->f[3][3] = ww & 0xFFFF;
+    if ((Mtx4F*)dst2 == src) {
+        uvMat4CopyL(dst, spA0);
+    }
+}
 
 void uvMat4SetIdentity(Mtx4F* dst) {
     dst->m[0][0] = 1.0f;
@@ -311,7 +454,26 @@ void uvMat4UnkOp3(Mtx4F* dst, float arg1, float arg2, float arg3) {
     uvMat4Copy(dst, &scaled);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/matrix/uvMat4UnkOp4.s")
+void uvMat4UnkOp4(Mtx4F* dst, Mtx4F* mat2) {
+    Mtx4F sp50;
+    s32 i;
+    s32 j;
+
+    uvMat4Copy(&sp50, mat2);
+
+    for (i = 0; i < 3; i++) {
+        for (j = 0; j < i; j++) {
+            sp50.m[i][j] = mat2->m[j][i];
+            sp50.m[j][i] = mat2->m[i][j];
+        }
+    }
+
+    sp50.m[3][0] = 0.0f;
+    sp50.m[3][1] = 0.0f;
+    sp50.m[3][2] = 0.0f;
+    uvMat4UnkOp2(&sp50, -mat2->m[3][0], -mat2->m[3][1], -mat2->m[3][2]);
+    uvMat4Copy(dst, &sp50);
+}
 
 void uvMat4UnkOp5(Mtx4F* dst, Vec3F* vec1, Vec3F* vec2) {
     float tmp0 = vec2->f[0];

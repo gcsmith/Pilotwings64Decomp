@@ -22,9 +22,9 @@ void _uvDbMstackPop(void);
 
 void uvMat4Copy(Mtx4F* dst, Mtx4F* src);
 void uvMat4CopyXYZ(Mtx4F* dst, Mtx4F* src);
-void uvMat4CopyL(Mtx4F* dst, Mtx src);
+void uvMat4CopyL(Mtx* dst, Mtx src);
 void uvMat4CopyL2F(Mtx4F* dst, Mtx src);
-void uvMat4CopyF2L(Mtx4F* dst, Mtx4F* src);
+void uvMat4CopyF2L(Mtx* dst, Mtx4F* src);
 void uvMat4SetIdentity(Mtx4F* dst);
 void uvMat4SetUnk1(Mtx4F* dst);
 
