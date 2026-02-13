@@ -3,6 +3,7 @@
 
 #include <ultra64.h>
 #include <uv_util.h>
+#include <uv_sprite.h>
 
 typedef struct {
     float unk0;
@@ -42,7 +43,78 @@ typedef struct {
     void* UVTP[1];
 } UVBlockOffsets;
 
-extern void* D_802B53C0;
+
+#define LEVEL_LIGHT_COUNT 4
+#define LEVEL_ENVIRONMENT_COUNT 32
+#define LEVEL_MODEL_COUNT 400
+#define LEVEL_CONTOUR_COUNT 128
+#define LEVEL_TEXTURE_COUNT 500
+#define LEVEL_TERRA_COUNT 10
+#define LEVEL_SEQUENCE_COUNT 10
+#define LEVEL_ANIMATION_COUNT 170
+#define LEVEL_FONT_COUNT 20
+#define LEVEL_BLIT_COUNT 125
+
+#define LEVEL_OBJECT_COUNT 1000
+
+typedef struct ParsedUVLV {
+    /* 0x00 */ u16* terraIds;
+    /* 0x04 */ u16 terraCount;
+    /* 0x08 */ u16* lightIds;
+    /* 0x0C */ u16 lightCount;
+    /* 0x10 */ u16* environmentIds;
+    /* 0x14 */ u16 environmentCount;
+    /* 0x18 */ u16* modelIds;
+    /* 0x1C */ u16 modelCount;
+    /* 0x20 */ u16* contourIds;
+    /* 0x24 */ u16 contourCount;
+    /* 0x28 */ u16* textureIds;
+    /* 0x2C */ u16 textureCount;
+    /* 0x30 */ u16* sequenceIds;
+    /* 0x34 */ u16 sequenceCount;
+    /* 0x38 */ u16* animationIds;
+    /* 0x3C */ u16 animationCount;
+    /* 0x40 */ u16* fontIds;
+    /* 0x44 */ u16 fontCount;
+    /* 0x48 */ u16* blitIds;
+    /* 0x4C */ u16 blitCount;
+} ParsedUVLV; // size = 0x4E
+
+typedef struct LevelData {
+    ParsedUVLV* level;
+    void* terras[LEVEL_TERRA_COUNT];
+    s32 terraCount;
+    void* lights[LEVEL_LIGHT_COUNT];
+    s32 lightCount;
+    void* environments[LEVEL_ENVIRONMENT_COUNT];
+    s32 environmentCount;
+    void* models[LEVEL_MODEL_COUNT];
+    s32 modelCount;
+    void* contours[LEVEL_CONTOUR_COUNT];
+    s32 contourCount;
+    uvSprite_t* textures[LEVEL_TEXTURE_COUNT];
+    s32 textureCount;
+    void* sequences[LEVEL_SEQUENCE_COUNT];
+    s32 sequenceCount;
+    void* animations[LEVEL_ANIMATION_COUNT];
+    s32 animationCount;
+    void* fonts[LEVEL_FONT_COUNT];
+    s32 fontCount;
+    void* blits[LEVEL_BLIT_COUNT];
+    s32 blitCount;
+    f32 unk_1608;
+} LevelData; // size = 0x160C
+
+typedef struct unk_802B53C0 {
+    u16 unk_00;
+    u16* unk_04;
+    u16* unk_08;
+} unk_802B53C0; // size >= 0x8
+
+extern void* D_802B6E30[LEVEL_TEXTURE_COUNT];
+extern LevelData gLevelData;
+extern unk_802B53C0* D_802B53C0;
+
 extern void* D_802B55F0;
 extern UVBlockCounts gUVBlockCounts; // D_802B53C8
 extern UVBlockOffsets gUVBlockOffsets; // D_802B53F0

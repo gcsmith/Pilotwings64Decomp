@@ -47,8 +47,18 @@ typedef struct {
 } uvGfxUnkStruct2;
 
 typedef struct {
-    u8 pad0[0x910];
+    u8 pad0[0x4];
+    uvGfxUnkStruct2 *unk4[1];
+    u8 pad8[0x28];
+    uvGfxUnkStruct2 *unk30[1];
+    u8 pad34[0x10];
+    uvGfxUnkStruct2 *unk44[1];
+    u8 pad48[0x80];
+    uvGfxUnkStruct2 *unkC8[1];
+    u8 padCC[0x844];
     uvGfxUnkStruct2 *unk910[1];
+    u8 pad914[0x7D0];
+    uvGfxUnkStruct2 *unk10E4[1];
 } uvGfxUnkStruct;
 
 extern Gfx* gGfxDisplayListHead;
