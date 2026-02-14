@@ -256,6 +256,7 @@ segments:
 
       - [0x464E0, textbin, rspboot]
       - [0x465B0, textbin, f3dex]
+      - [0x479E0, textbin, fast3d]
       - [0x48E10, textbin, aspMain]
 
       - [0x49C30, .data, kernel/audio]
@@ -333,8 +334,8 @@ segments:
       - [0x50AD0, .rodata, ultralib/src/audio/env]
       - [0x50B30, .rodata, ultralib/src/audio/seq]
       - [0x50B40, .rodata, ultralib/src/audio/reverb]
-      - [0x50B70, rodata]
-      - [0x51370, rodata]
+      - [0x50B70, rodata, f3dex]
+      - [0x51370, rodata, fast3d]
       - [0x51B70, rodata]
 
       - { type: bss, vram: 0x80250E80, name: kernel_bss }

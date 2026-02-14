@@ -1,9 +1,13 @@
+#include <uv_clocks.h>
+#include <uv_dobj.h>
 #include <uv_event.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>
 #include <uv_memory.h>
 #include <uv_sched.h>
 #include <uv_sprite.h>
+#include <macros.h>
+#include <libc/stdint.h>
 
 void func_80218CA4(void);
 void func_8021A298(void);
@@ -44,7 +48,7 @@ s32 D_80249200 = 0;
 s32 gGfxBeginFlag = 0;
 f32 D_80249208 = 0;
 u16 gGfxFbIndex = 0;
-s32 D_80249210 = 0;
+s32 gGfxElementCount = 0;
 s32 D_80249214 = 0;
 s16 gGfxMstackIdx = 0xFFFF;
 f32 D_8024921C = -1;
@@ -54,19 +58,12 @@ f32 D_80249228 = 1.880898581e-37;
 f32 D_8024922C = 9.367220608e-38;
 
 static uvGfxCallback_t D_80249230 = NULL;
-static s32 D_80249234 = 0x00000FA0;
-static s32 D_80249238 = 0x00000126;
-static s32 D_8024923C = 0x000000C8;
-static s32 D_80249240 = 0x00000064;
-static s32 D_80249244 = 0x00000078;
-static s32 D_80249248 = 0x00000320;
-static s32 D_8024924C = 0x00000000;
 
 extern uvGfxUnkStruct* gGfxUnkPtrs;
 extern u8 D_80296AA0[];
 extern u8 D_80296AA8[];
-extern u8* D_80298AA8;
-extern u8* D_80298AAC;
+extern u8* gGfxTaskOutputBufferStart;
+extern u8* gGfxTaskOutputBufferEnd;
 extern s32 D_80298AB8[];
 extern s32 D_80298AC0[];
 extern s32 D_80298AC8[];
@@ -78,7 +75,7 @@ typedef Mtx MtxStack_t[UV_GFX_NUM_MATRICES];
 extern s32 gGfxLookCount;
 extern MtxStack_t gGfxMstack[2];
 extern u8* gGfxFbPtrs[2];
-extern s32 D_8029926C;
+extern u32 D_8029926C;
 extern u8* D_80299278;
 
 extern uvGfxViewport_t gGfxViewports[];
@@ -106,6 +103,22 @@ extern UnkStruct_uvGfxInit D_802B4950[];
 
 typedef Gfx uvDisplayListBuf_t[0x1068];
 extern uvDisplayListBuf_t gGfxDisplayListBase[2];
+
+extern OSMesgQueue D_802C3B90;
+extern s32 D_8024B260;
+extern u64 gGfxDramStack[];
+extern u8 gGfxYieldData[];
+extern OSSched gSchedInst;
+extern u8 D_80269B80[300];
+extern s16 gGeomVertexCount;
+
+typedef struct {
+    u8 pad0[0x4];
+    u8 unk4;
+    u8 pad5[0xAB];
+} unk8028B400;
+
+extern unk8028B400 D_8028B400[120];
 
 void uvGfxInit(void) {
     u8 i;
@@ -135,8 +148,8 @@ void uvGfxInit(void) {
     D_802491D8[1] = 0.0f;
     D_802491D8[0] = (f32)D_802491D8[1];
     uvGfxEnableGamma(0);
-    D_80298AA8 = ((s32)&D_80296AA0 & 0xF) ? D_80296AA8 : D_80296AA0;
-    D_80298AAC = D_80298AA8 + 0x2000;
+    gGfxTaskOutputBufferStart = ((s32)&D_80296AA0 & 0xF) ? D_80296AA8 : D_80296AA0;
+    gGfxTaskOutputBufferEnd = gGfxTaskOutputBufferStart + 0x2000;
 }
 
 void uvGfxBegin(void) {
@@ -163,9 +176,6 @@ void uvGfxBegin(void) {
     gGfxLookCount = 0;
 }
 
-#ifndef NON_MATCHING
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/uvGfxSetFogFactor.s")
-#else
 void uvGfxSetFogFactor(f32 arg0) {
     if (arg0 < 0.0f) {
         arg0 = 0.0f;
@@ -176,13 +186,11 @@ void uvGfxSetFogFactor(f32 arg0) {
     D_80249208 = arg0;
     if (arg0 > 0.0f) {
         gSPSetGeometryMode(gGfxDisplayListHead++, G_FOG);
-        gSPFogFactor(gGfxDisplayListHead++, (((s32)(D_80249208 * 1000.0f) * -0x100) + 0x1F400) / (s32)(0x3E8 - (s32)(D_80249208 * 1000.0f)),
-                     0x1F400 / (s32)(0x3E8 - (s32)(D_80249208 * 1000.0f)));
+        gSPFogPosition(gGfxDisplayListHead++, (s32)(D_80249208 * 1000.0f), 1000);
     } else {
         gSPClearGeometryMode(gGfxDisplayListHead++, G_FOG);
     }
 }
-#endif
 
 void uvGfxResetState(void) {
     if (D_80249208 > 0.0f) {
@@ -247,7 +255,201 @@ void uvGfxStateDrawDL(uvGfxState_t* arg0) {
     D_80298AC0[gGfxFbIndex] += arg0->unk6 * 2;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/uvGfxStateDraw.s")
+void uvGfxStateDraw(uvGfxState_t* arg0) {
+    u32 clearMode;
+    u32 setMode;
+    u16 var_t2;
+    uvGfxUnkStruct2* sp68;
+    u16 var_t1;
+    s32 sp60;
+    u32 var_a1_2;
+    u32 renderMode1;
+    u32 renderMode2;
+    u32 var_a3;
+
+    var_a3 = arg0->unk0;
+    if (D_80249208 > 0.0f) {
+        var_a3 |= 0x80020000;
+    }
+    var_a3 |= D_802491E0;
+    var_a3 &= D_802491E4;
+
+    if (var_a3 & 0x02000000) {
+        uvGfxStateDrawDL(arg0);
+        return;
+    }
+    if (var_a3 != (u32)gGfxStateStackData) {
+        gDPPipeSync(gGfxDisplayListHead++);
+        if ((var_a3 & 0x883E0000) != (gGfxStateStackData & 0x883E0000)) {
+            setMode = 0;
+            clearMode = 0;
+            if (var_a3 & 0x08000000) {
+                setMode = G_TEXTURE_GEN | G_LIGHTING;
+            } else {
+                clearMode = G_TEXTURE_GEN | G_LIGHTING;
+            }
+            if (var_a3 & 0x100000) {
+                setMode |= G_CULL_BACK;
+            } else {
+                clearMode |= G_CULL_BACK;
+            }
+            if (var_a3 & 0x80000) {
+                setMode |= G_CULL_FRONT;
+            } else {
+                clearMode |= G_CULL_FRONT;
+            }
+            if (var_a3 & 0x20000) {
+                setMode |= G_SHADING_SMOOTH;
+            } else {
+                clearMode |= G_SHADING_SMOOTH;
+            }
+            if (var_a3 & 0x200000) {
+                setMode |= G_ZBUFFER;
+            } else {
+                clearMode |= G_ZBUFFER;
+            }
+            if (var_a3 & 0x80000000) {
+                setMode |= G_FOG;
+            } else {
+                clearMode |= G_FOG;
+            }
+            if (clearMode != 0) {
+                gSPClearGeometryMode(gGfxDisplayListHead++, clearMode);
+            }
+            if (setMode != 0) {
+                gSPSetGeometryMode(gGfxDisplayListHead++, setMode);
+            }
+        }
+        var_t2 = var_a3 & 0xFFF;
+
+        if (var_t2 == 0xFFE) {
+            var_t2++;
+        }
+
+        if (var_t2 >= 0xFFF) {
+            var_t1 = 0xFFF;
+        } else {
+            sp68 = gGfxUnkPtrs->unk910[var_t2];
+            if (sp68 == NULL) {
+                _uvDebugPrintf("uvGfxStateDraw: texture %d not in level\n", var_t2);
+                var_t1 = 0xFFF;
+                var_t2 = 0xFFF;
+            } else {
+                var_t1 = (sp68->unk12 & 0xF000) | var_t2;
+            }
+        }
+
+        if (D_8029926C != var_t1) {
+            if (var_t2 >= 0xFFE) {
+                gSPDisplayList(gGfxDisplayListHead++, gGfxDList2);
+            } else {
+                _uvTxtDraw(var_t2);
+                D_80298AC8[gGfxFbIndex]++;
+                if (var_a3 & 0x08000000) {
+                    gDPSetCombineMode(gGfxDisplayListHead++, G_CC_DECALRGB, G_CC_DECALRGB2);
+                    gSPTexture(gGfxDisplayListHead++, 0x7C0, 0x7C0, 0, 1, G_ON);
+                }
+            }
+        }
+        if (var_a3 & 0x01000000) {
+            var_a1_2 = 0x10;
+        } else {
+            var_a1_2 = 0;
+        }
+
+        uvGfx_80223A64(var_t2, var_a1_2);
+
+        sp60 = 0x01E00000;
+        switch (var_a3 & sp60) {
+        case 0x1C00000:
+        case 0x1E00000:
+            renderMode2 = G_RM_AA_ZB_XLU_DECAL2;
+            break;
+        case 0x1800000:
+        case 0x1A00000:
+            renderMode2 = G_RM_ZB_XLU_DECAL2;
+            break;
+        case 0x1400000:
+        case 0x1600000:
+            renderMode2 = G_RM_AA_ZB_OPA_DECAL2;
+            break;
+        case 0x1000000:
+        case 0x1200000:
+            renderMode2 = G_RM_ZB_OPA_DECAL2;
+            break;
+        case 0xE00000:
+            if (var_t2 == 0xFFF) {
+                renderMode2 = G_RM_AA_ZB_XLU_INTER2;
+            } else if ((sp68->unk12 & 0x8000) || (sp68->unk22 == 1) || (var_a3 & 0x04000000)) {
+                renderMode2 = G_RM_AA_ZB_XLU_SURF2;
+            } else {
+                renderMode2 = G_RM_AA_ZB_TEX_TERR2;
+            }
+            break;
+        case 0xC00000:
+            if (var_t2 == 0xFFF) {
+                renderMode2 = G_RM_AA_XLU_SURF2;
+            } else if (sp68->unk12 & 0x8000) {
+                renderMode2 = G_RM_AA_XLU_SURF2;
+            } else {
+                renderMode2 = G_RM_AA_TEX_TERR2;
+            }
+            break;
+        case 0xA00000:
+            if (var_t2 == 0xFFF) {
+                renderMode2 = G_RM_ZB_XLU_SURF2;
+            } else {
+                renderMode2 = G_RM_ZB_XLU_SURF2;
+            }
+            break;
+        case 0x600000:
+            renderMode2 = G_RM_AA_ZB_OPA_TERR2;
+            break;
+        case 0x200000:
+            renderMode2 = G_RM_ZB_OPA_SURF2;
+            break;
+        case 0x400000:
+            renderMode2 = G_RM_AA_OPA_TERR2;
+            break;
+        case 0x800000:
+            renderMode2 = G_RM_XLU_SURF2;
+            break;
+        case 0x0:
+            renderMode2 = G_RM_OPA_SURF2;
+            break;
+        default:
+            _uvDebugPrintf("uvGfxStateDraw: unknown case 0x%x\n", var_a3 & sp60);
+            renderMode2 = G_RM_OPA_SURF2;
+            break;
+        }
+        if (var_a3 & 0x80000000) {
+            renderMode1 = G_RM_FOG_SHADE_A;
+        } else {
+            renderMode1 = G_RM_PASS;
+        }
+        if (var_a3 & 0x10000000) {
+            renderMode2 = Z_CMP | Z_UPD | IM_RD | CLR_ON_CVG | CVG_DST_SAVE | ZMODE_OPA | GBL_c2(G_BL_CLR_MEM, G_BL_A_FOG, G_BL_CLR_MEM, G_BL_A_MEM);
+        }
+
+        gDPSetRenderMode(gGfxDisplayListHead++, renderMode1, renderMode2);
+
+        D_8029926C = var_t1;
+        gGfxStateStackData = var_a3;
+    }
+    if ((var_a3 & 0x80000000) && ((var_a3 & sp60) == 0xE00000)) {
+        if (var_t2 == 0xFFF) {
+            gDPSetCombineMode(gGfxDisplayListHead++, G_CC_SHADE, G_CC_PASS2);
+        } else {
+            gDPSetCombineMode(gGfxDisplayListHead++, G_CC_MODULATEIDECALA, G_CC_PASS2);
+        }
+    }
+    if (arg0->unk8 != NULL) {
+        gSPDisplayList(gGfxDisplayListHead++, arg0->unk8);
+
+        D_80298AB8[gGfxFbIndex] += arg0->unk4;
+        D_80298AC0[gGfxFbIndex] += arg0->unk6;
+    }
+}
 
 void uvGfxPushMtxUnk(Mtx4F* arg0) {
     Mtx4F spC8;
@@ -263,7 +465,91 @@ void uvGfxPushMtxUnk(Mtx4F* arg0) {
     uvGfxMtxView(*(Mtx*)&spC8);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/uvGfxClampLook.s")
+void uvGfxClampLook(LookAt* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9) {
+    f32 sp5C;
+    f32 sp58;
+    f32 sp54;
+    f32 sp50;
+    f32 sp4C;
+    f32 sp48;
+    f32 sp44;
+    f32 temp_fv0_2;
+
+    sp58 = arg4 - arg1;
+    sp54 = arg5 - arg2;
+    sp50 = arg6 - arg3;
+
+    temp_fv0_2 = sqrtf(SQ(sp58) + SQ(sp54) + SQ(sp50));
+    if (temp_fv0_2 != 0.0f) {
+        sp5C = -1.0f / temp_fv0_2;
+    } else {
+        // clang-format off
+        sp5C = -255.0f; \
+        _uvDebugPrintf("clamping 1\n");
+        // clang-format on
+    }
+    sp58 *= sp5C;
+    sp54 *= sp5C;
+    sp50 *= sp5C;
+
+    sp4C = (arg8 * sp50) - (arg9 * sp54);
+    sp48 = (arg9 * sp58) - (arg7 * sp50);
+    sp44 = (arg7 * sp54) - (arg8 * sp58);
+
+    temp_fv0_2 = sqrtf(SQ(sp4C) + SQ(sp48) + SQ(sp44));
+    if (temp_fv0_2 != 0.0f) {
+        sp5C = 1.0f / temp_fv0_2;
+    } else {
+        // clang-format off
+        sp5C = 255.0f; \
+        _uvDebugPrintf("clamping 1\n");
+        // clang-format on
+    }
+    sp4C *= sp5C;
+    sp48 *= sp5C;
+    sp44 *= sp5C;
+
+    arg7 = (sp54 * sp44) - (sp50 * sp48);
+    arg8 = (sp50 * sp4C) - (sp58 * sp44);
+    arg9 = (sp58 * sp48) - (sp54 * sp4C);
+
+    temp_fv0_2 = sqrtf(SQ(arg7) + SQ(arg8) + SQ(arg9));
+    if (temp_fv0_2 != 0.0f) {
+        sp5C = 1.0f / temp_fv0_2;
+    } else {
+        // clang-format off
+        sp5C = 255.0f; \
+        _uvDebugPrintf("clamping 1\n");
+        // clang-format on
+    }
+    arg7 *= sp5C;
+    arg8 *= sp5C;
+    arg9 *= sp5C;
+
+    arg0->l[0].l.dir[0] = (s32)MIN(sp4C * 128.0, 127.0) & 0xFF;
+    arg0->l[0].l.dir[1] = (s32)MIN(sp48 * 128.0, 127.0) & 0xFF;
+    arg0->l[0].l.dir[2] = (s32)MIN(sp44 * 128.0, 127.0) & 0xFF;
+
+    arg0->l[1].l.dir[0] = (s32)MIN(arg7 * 128.0, 127.0) & 0xFF;
+    arg0->l[1].l.dir[1] = (s32)MIN(arg8 * 128.0, 127.0) & 0xFF;
+    arg0->l[1].l.dir[2] = (s32)MIN(arg9 * 128.0, 127.0) & 0xFF;
+    arg0->l[0].l.col[0] = 0;
+    arg0->l[0].l.col[1] = 0;
+    arg0->l[0].l.col[2] = 0;
+    arg0->l[0].l.pad1 = 0;
+    arg0->l[0].l.colc[0] = 0;
+    arg0->l[0].l.colc[1] = 0;
+    arg0->l[0].l.colc[2] = 0;
+    arg0->l[0].l.pad2 = 0;
+    arg0->l[1].l.col[0] = 0;
+    arg0->l[1].l.col[1] = 0x80;
+    arg0->l[1].l.col[2] = 0;
+    arg0->l[1].l.pad1 = 0;
+    arg0->l[1].l.colc[0] = 0;
+    arg0->l[1].l.colc[1] = 0x80;
+    arg0->l[1].l.colc[2] = 0;
+    arg0->l[1].l.pad2 = 0;
+}
 
 void uvGfxLookAt(Mtx4F* arg0) {
     Mtx4F temp;
@@ -290,7 +576,165 @@ void uvGfxSetCallback(uvGfxCallback_t cb) {
     D_80249230 = cb;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/uvGfxEnd.s")
+void uvGfxEnd(void) {
+    static s32 D_80249234 = 0x00000FA0;
+    static s32 D_80249238 = 0x00000126;
+    static s32 D_8024923C = 0x000000C8;
+    static s32 D_80249240 = 0x00000064;
+    static s32 D_80249244 = 0x00000078;
+    static s32 D_80249248 = 0x00000320;
+    static s32 D_8024924C = 0x00000000;
+    s32 i;
+    s32 pad[4];
+    u8* fb;
+    s32 var_a2;
+    s32 var_t0;
+    s32 var_t1;
+    s32 var_a1;
+    OSTask* task;
+
+    if (gGfxBeginFlag == 0) {
+        _uvDebugPrintf("uvGfxEnd: must be called after a uvGfxBegin()\n");
+        return;
+    }
+    gGfxBeginFlag = 0;
+    gDPFullSync(gGfxDisplayListHead++);
+    gSPEndDisplayList(gGfxDisplayListHead++);
+    gGfxElementCount = (gGfxDisplayListHead - (gGfxDisplayListBase[gGfxFbIndex]));
+
+    if (gGfxElementCount >= 4200) {
+        _uvDebugPrintf("display list overflow %d / %d\n", gGfxElementCount, 4200);
+        return;
+    }
+    D_802B494C->fb = gGfxFbPtrs[gGfxFbIndex];
+    D_802B494C->unk0 = 0;
+    D_802B494C->msgQueue = &D_802C3B90;
+    D_802B494C->unk54 = &D_8024B260;
+    D_802B494C->unk8 = 0x53;
+    task = &D_802B4950[gGfxFbIndex].task;
+    task->t.type = M_GFXTASK;
+    task->t.flags = 0;
+    task->t.ucode_boot = (u64*)rspbootTextStart;
+    task->t.ucode_boot_size = (uintptr_t)rspbootTextEnd - (uintptr_t)rspbootTextStart;
+    task->t.ucode = (u64*)gspF3DEX_fifoTextStart;
+    task->t.ucode_data = (u64*)gspF3DEX_fifoDataStart;
+    task->t.ucode_size = SP_UCODE_SIZE;
+    task->t.ucode_data_size = SP_UCODE_DATA_SIZE;
+    task->t.dram_stack = gGfxDramStack;
+    task->t.dram_stack_size = SP_DRAM_STACK_SIZE8;
+    task->t.data_ptr = (u64*)gGfxDisplayListBase[gGfxFbIndex];
+    task->t.data_size = gGfxElementCount * sizeof(Gfx);
+    task->t.yield_data_ptr = (u64*)gGfxYieldData;
+    task->t.yield_data_size = OS_YIELD_DATA_SIZE;
+    task->t.ucode = (u64*)gspFast3DTextStart;
+    task->t.ucode_data = (u64*)gspFast3DDataStart;
+    task->t.output_buff = (u64*)gGfxTaskOutputBufferStart;
+    task->t.output_buff_size = (u64*)gGfxTaskOutputBufferEnd;
+    func_8022C3C0(0, 0x2B);
+    osSendMesg(_uvScGetCmdQ(&gSchedInst), D_802B494C, 1);
+    uvEventPost(1, 0);
+    if (D_80249214 == 0) {
+        osViBlack(FALSE);
+    } else if (D_80249200 != 0) {
+        uvWaitForMesg(4);
+    }
+    D_80249200 = 1;
+    fb = gGfxFbPtrs[gGfxFbIndex ^ 1];
+    if (D_80249230 != NULL) {
+        D_80249230(fb, D_80299278);
+        osWritebackDCache(fb, 0x25800);
+    }
+    D_802491D8[gGfxFbIndex] = (f32)uvClkGetSec(3);
+    uvClkReset(3);
+    func_8022C3C0(0, 0x2A);
+    var_a2 = 0;
+    var_t0 = 0;
+    var_t1 = 0;
+    var_a1 = FALSE;
+
+    for (i = 0; i < 300; i++) {
+        if (D_80269B80[i] != 0) {
+            var_a2++;
+        }
+    }
+
+    for (i = 0; i < 100; i++) {
+        if (D_80263780[i].unk0 != 0xFFFF) {
+            var_t0++;
+        }
+    }
+
+    for (i = 0; i < 120; i++) {
+        if (D_8028B400[i].unk4 != 0) {
+            var_t1++;
+        }
+    }
+    if (D_80249234 < gGfxElementCount) {
+        D_80249234 = gGfxElementCount;
+        var_a1 = TRUE;
+    }
+    if (D_80249238 < gGfxMstackIdx) {
+        D_80249238 = gGfxMstackIdx;
+        var_a1 = TRUE;
+    }
+    if (D_8024923C < var_a2) {
+        D_8024923C = var_a2;
+        var_a1 = TRUE;
+    }
+    if (D_80249240 < var_t0) {
+        D_80249240 = var_t0;
+        var_a1 = TRUE;
+    }
+    if (D_80249244 < var_t1) {
+        D_80249244 = var_t1;
+        var_a1 = TRUE;
+    }
+    if (D_80249248 < gGeomVertexCount) {
+        D_80249248 = gGeomVertexCount;
+        var_a1 = TRUE;
+    }
+    if (var_a1) {
+        _uvDebugPrintf("\nGFXEND :\n");
+        _uvDebugPrintf("DL_ELEMENTS :  %d", D_80249234);
+        if (D_80249234 == gGfxElementCount) {
+            _uvDebugPrintf(" <==== WINNER");
+        }
+
+        _uvDebugPrintf("\n");
+        _uvDebugPrintf("DL_NDBMTXS  :  %d", D_80249238);
+        if (D_80249238 == gGfxMstackIdx) {
+            _uvDebugPrintf(" <==== WINNER");
+        }
+        _uvDebugPrintf("\n");
+        _uvDebugPrintf("OBJ_NPXFMS  :  %d", D_8024923C);
+        if (var_a2 == D_8024923C) {
+            _uvDebugPrintf(" <==== WINNER");
+        }
+        _uvDebugPrintf("\n");
+        _uvDebugPrintf("OBJ_NDOBJS  :  %d", D_80249240);
+        if (var_t0 == D_80249240) {
+            _uvDebugPrintf(" <==== WINNER");
+        }
+        _uvDebugPrintf("\n");
+        _uvDebugPrintf("FX_NFX      :  %d", D_80249244);
+        if (var_t1 == D_80249244) {
+            _uvDebugPrintf(" <==== WINNER");
+        }
+        _uvDebugPrintf("\n");
+        _uvDebugPrintf("GEOM_NDBVTXS:  %d", D_80249248);
+        if (D_80249248 == gGeomVertexCount) {
+            _uvDebugPrintf(" <==== WINNER");
+        }
+        _uvDebugPrintf("\n");
+    }
+
+    gGfxFbIndex ^= 1;
+    gGfxMstackIdx = -1;
+    D_802B494C = &D_802B4950[gGfxFbIndex];
+    gGfxFbCurrPtr = gGfxFbPtrs[gGfxFbIndex];
+    gGfxDisplayListHead = gGfxDisplayListBase[gGfxFbIndex];
+    D_80249214++;
+}
 
 void uvGfxClearScreen(u8 r, u8 g, u8 b, u8 a) {
     gDPPipeSync(gGfxDisplayListHead++);
@@ -364,7 +808,71 @@ void uvGfxEnableLighting(s32 enable) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/uvGfxClipRect.s")
+void uvGfxClipRect(uvGfxViewport_t* arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+    s32 var_a2;
+    s32 var_a3;
+
+    arg0->x0 = arg1;
+    arg0->x1 = arg2;
+    arg0->y0 = arg3;
+    arg0->y1 = arg4;
+    if (arg0->x0 < 0) {
+        arg0->x0 = 0;
+    } else if (arg0->x0 > 320) {
+        arg0->x0 = 320;
+    }
+
+    if (arg0->x1 < 0) {
+        arg0->x1 = 0;
+    } else if (arg0->x1 > 320) {
+        arg0->x1 = 320;
+    }
+
+    if (arg0->y1 < 0) {
+        arg0->y1 = 0;
+    } else if (arg0->y1 > 240) {
+        arg0->y1 = 240;
+    }
+
+    if (arg0->y0 < 0) {
+        arg0->y0 = 0;
+    } else if (arg0->y0 > 240) {
+        arg0->y0 = 240;
+    }
+
+    arg0->unk0 = arg0->x0 - 5;
+    if (arg0->unk0 < 0) {
+        arg0->unk0 = 0;
+    }
+    arg0->unk2 = arg0->x1 + 5;
+    if (arg0->unk2 > 319) {
+        arg0->unk2 = 319;
+    }
+    arg0->unk4 = arg0->y0 - 5;
+    if (arg0->unk4 < 0) {
+        arg0->unk4 = 0;
+    }
+    arg0->unk6 = arg0->y1 + 5;
+    if (arg0->unk6 > 239) {
+        arg0->unk6 = 239;
+    }
+
+    var_a2 = arg0->unk2 - arg0->unk0;
+    var_a3 = arg0->unk6 - arg0->unk4;
+
+    arg0->vp.vp.vscale[0] = (var_a2 << 1);
+    arg0->vp.vp.vscale[1] = (var_a3 << 1);
+    arg0->vp.vp.vscale[2] = 0x1FF;
+    arg0->vp.vp.vscale[3] = 0;
+    arg0->vp.vp.vtrans[0] = (u16)((arg0->unk0 + (var_a2 >> 1)) & 0xFFFF) << 2;
+    arg0->vp.vp.vtrans[1] = (u16)(((240 - arg0->unk4) - (var_a3 >> 1)) & 0xFFFF) << 2;
+    arg0->vp.vp.vtrans[2] = 0x1FF;
+    arg0->vp.vp.vtrans[3] = 0;
+    gGfxViewX0 = arg0->x0;
+    gGfxViewX1 = arg0->x1;
+    gGfxViewY0 = arg0->y0;
+    gGfxViewY1 = arg0->y1;
+}
 
 void uvGfxClipViewport(s32 vp_id, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     uvGfxClipRect(&gGfxViewports[vp_id], arg1, arg2, arg3, arg4);
@@ -566,14 +1074,15 @@ void uvGfx_80223A28(s32 flags) {
 
 void uvGfx_80223A64(s32 arg0, s32 arg1) {
     s32 var_v0;
+    u32 var_a0;
 
     var_v0 = gGfxStateStackData & 0x01000000;
     if (arg1 != 0) {
         var_v0 ^= 0x01000000;
     }
     if (arg0 == 0xFFF) {
-        arg0 = gGfxStateStackData & 0xFFF;
-        if (arg0 == 0xFFFU) {
+        var_a0 = gGfxStateStackData & 0xFFF;
+        if (var_a0 == 0xFFF) {
             if (var_v0 == 0) {
                 return;
             }
@@ -645,6 +1154,6 @@ void uvCopyFrameBuf(s32 fb_id) {
     }
     src = gGfxFbPtrs[fb_id];
     dst = gGfxFbPtrs[fb_id ^ 1];
-    _uvMediaCopy(dst, src, 0x25800U);
+    _uvMediaCopy(dst, src, 0x25800);
 }
 

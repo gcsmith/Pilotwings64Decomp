@@ -375,136 +375,148 @@ uvAtan2F            = 0x8022A27C; // type:func
 
 rspbootTextStart        = 0x80245530; // name_end:rspbootTextEnd
 gspF3DEX_fifoTextStart  = 0x80245600; // name_end:gspF3DEX_fifoTextEnd
+gspFast3DTextStart      = 0x80246A30; // name_end:gspFast3DTextEnd
 aspMainTextStart        = 0x80247E60; // name_end:aspMainTextEnd
+
+gspF3DEX_fifoDataStart  = 0x8024FBC0; // name_end:gspF3DEX_fifoDataEnd
+gspFast3DDataStart      = 0x802503C0; // name_end:gspFast3DDataEnd
 
 // -----------------------------------------------------------------------------
 // Data Symbols
 // -----------------------------------------------------------------------------
 
-gMatrixStackIdx     = 0x8024B250;
-gMatrixStack        = 0x802B81E0;
+gMatrixStackIdx           = 0x8024B250;
+gMatrixStack              = 0x802B81E0;
 
-gRandLcgState       = 0x8024B2C0;
-gRanluxState1       = 0x8024B2C4;
-gRanluxState2       = 0x8024B2C8;
+gRandLcgState             = 0x8024B2C0;
+gRanluxState1             = 0x8024B2C4;
+gRanluxState2             = 0x8024B2C8;
 
-gKernelThread       = 0x802C36F8;
-gKernelThreadStack  = 0x802BDC90;
+gKernelThread             = 0x802C36F8;
+gKernelThreadStack        = 0x802BDC90;
 
-gRenderThread       = 0x802C3548;
-gRenderThreadStack  = 0x802BBC90;
+gRenderThread             = 0x802C3548;
+gRenderThreadStack        = 0x802BBC90;
 
-gAppThread          = 0x802C3398;
-gAppThreadStack     = 0x802C1C90;
+gAppThread                = 0x802C3398;
+gAppThreadStack           = 0x802C1C90;
 
-gNmiAsserted        = 0x802B9C80;
+gNmiAsserted              = 0x802B9C80;
 
-gPiMgrCmdQ          = 0x802C3340;
-gPiMgrCmdBuf        = 0x802C3320;
+gPiMgrCmdQ                = 0x802C3340;
+gPiMgrCmdBuf              = 0x802C3320;
 
-gPiDmaQ             = 0x802C32C0;
-gPiDmaBuf           = 0x802C32BC;
-gPiDmaBlockReq      = 0x802C32A8;
+gPiDmaQ                   = 0x802C32C0;
+gPiDmaBuf                 = 0x802C32BC;
+gPiDmaBlockReq            = 0x802C32A8;
 
-gSiContQ            = 0x802C32E8;
-gSiContBuf          = 0x802C32D8;
-gSiContStatus       = 0x802C3358;
-gSiContPattern      = 0x802C3394;
+gSiContQ                  = 0x802C32E8;
+gSiContBuf                = 0x802C32D8;
+gSiContStatus             = 0x802C3358;
+gSiContPattern            = 0x802C3394;
 
-gSchedInst          = 0x802C38A8;
-gSchedStack         = 0x802C5BA8;
-gSchedRspStatus     = 0x802B9C69;
-gSchedRdpStatus     = 0x802B9C6A;
-gSchedRingIdx       = 0x802B9C78;
-gSchedMsgQ          = 0x802C38E8;
+gSchedInst                = 0x802C38A8;
+gSchedStack               = 0x802C5BA8;
+gSchedRspStatus           = 0x802B9C69;
+gSchedRdpStatus           = 0x802B9C6A;
+gSchedRingIdx             = 0x802B9C78;
+gSchedMsgQ                = 0x802C38E8;
 
-gGeomVertexData     = 0x80290680;
-gGeomVertexToggle   = 0x80296A84;
-gGeomVertexCount    = 0x80296A86;
-gGeomVertexPtrs     = 0x80296A80;
-gGeomFirstTmesh     = 0x80296A88;
-gGeomFirstPoly      = 0x80296A8A;
-gGeomFirstGrid      = 0x80296A8C;
+D_8028B400                = 0x8028B400; // size:0x5280
+gGeomVertexData           = 0x80290680;
+gGeomVertexToggle         = 0x80296A84;
+gGeomVertexCount          = 0x80296A86;
+gGeomVertexPtrs           = 0x80296A80;
+gGeomFirstTmesh           = 0x80296A88;
+gGeomFirstPoly            = 0x80296A8A;
+gGeomFirstGrid            = 0x80296A8C;
 
-gGfxUnkPtrs         = 0x80248DD0;
-gGfxDList1          = 0x80249140;
-gGfxDList2          = 0x802491B0;
-gGfxFbCurrPtr       = 0x802491F0;
-gGfxBeginFlag       = 0x80249204;
-gGfxFbIndex         = 0x8024920C;
-gGfxMstackIdx       = 0x80249218;
-gGfxDisplayListHead = 0x80298AB0;
-gGfxLookCount       = 0x80298AE0;
-gGfxStateStackData  = 0x80299268;
-gGfxFbPtrs          = 0x80299270;
-gGfxDisplayListBase = 0x80299280;
-gGfxViewports       = 0x802A9900;
-gGfxViewX0          = 0x802A9980;
-gGfxViewX1          = 0x802A9982;
-gGfxViewY0          = 0x802A9984;
-gGfxViewY1          = 0x802A9986;
-gGfxMstack          = 0x802A9988;
-gGfxStateStack      = 0x802B48C8;
-gGfxStateStackIdx   = 0x802B4948;
+gGfxUnkPtrs               = 0x80248DD0;
+gGfxDList1                = 0x80249140;
+gGfxDList2                = 0x802491B0;
+gGfxFbCurrPtr             = 0x802491F0;
+gGfxBeginFlag             = 0x80249204;
+gGfxFbIndex               = 0x8024920C;
+gGfxMstackIdx             = 0x80249218;
+gGfxTaskOutputBufferStart = 0x80298AA8;
+gGfxTaskOutputBufferEnd   = 0x80298AAC;
+gGfxDisplayListHead       = 0x80298AB0;
+gGfxLookCount             = 0x80298AE0;
+gGfxStateStackData        = 0x80299268;
+gGfxFbPtrs                = 0x80299270;
+gGfxDisplayListBase       = 0x80299280;
+gGfxViewports             = 0x802A9900;
+gGfxViewX0                = 0x802A9980;
+gGfxViewX1                = 0x802A9982;
+gGfxViewY0                = 0x802A9984;
+gGfxViewY1                = 0x802A9986;
+gGfxMstack                = 0x802A9988;
+gGfxStateStack            = 0x802B48C8;
+gGfxStateStackIdx         = 0x802B4948;
+gGfxYieldData             = 0x802B4A00;
+gGfxDramStack             = 0x802B7DE0;
 
-gSeqPlayer          = 0x80248C90;
-gSndPlayer          = 0x80248C94;
-gSndEmitterTable    = 0x80250EF8;
-gSndVoiceTable      = 0x80261218;
+gSeqPlayer                = 0x80248C90;
+gSndPlayer                = 0x80248C94;
+gSndEmitterTable          = 0x80250EF8;
+gSndVoiceTable            = 0x80261218;
 
-osViModeTable       = 0x8024B7D0;
-osViModeNtscLan1    = 0x8024C4A0;
-osViModePalLan1     = 0x8024C4F0;
+D_80263780                = 0x80263780; // size:0x1900
+D_80269B80                = 0x80269B80; // size:0x12C
 
-gUVBlockCounts      = 0x802B53C8;
-gUVBlockOffsets     = 0x802B53F0;
+osViModeTable             = 0x8024B7D0;
+osViModeNtscLan1          = 0x8024C4A0;
+osViModePalLan1           = 0x8024C4F0;
 
-gControllerPattern  = 0x802C5BB4;
-gControllerInfo     = 0x802B5310;
+gUVBlockCounts            = 0x802B53C8;
+gUVBlockOffsets           = 0x802B53F0;
 
-gEepromFound        = 0x802C5BB0;
-gControllerPads     = 0x802C3370;
+gControllerPattern        = 0x802C5BB4;
+gControllerInfo           = 0x802B5310;
 
-gSprtUnkIndex       = 0x802C64D0;
-gSprtUnkTable       = 0x802C64D8;
-gSprtTable1         = 0x802C7478; // size:0xBA0
+gEepromFound              = 0x802C5BB0;
+gControllerPads           = 0x802C3370;
 
-gLevelData          = 0x802C1C98;
-gLevelWOBJ          = 0x80369F30;
-gLevelLPAD          = 0x8036A030;
-gLevelTPTS          = 0x8036A180;
-gLevelTOYS          = 0x8036A4C0;
-gLevelAPTS          = 0x8036A5C0;
-gLevelBNUS          = 0x8036A840;
-gLevelObjects       = 0x8036A878;
+gSprtUnkIndex             = 0x802C64D0;
+gSprtUnkTable             = 0x802C64D8;
+gSprtTable1               = 0x802C7478; // size:0xBA0
 
-gLevelClassU8       = 0x80350790;
-gLevelVehicleU8     = 0x80350794;
-gLevelTestU8        = 0x80350798;
-gMapLookup          = 0x803507A8;
+gLevelData                = 0x802C1C98;
+gLevelWOBJ                = 0x80369F30;
+gLevelLPAD                = 0x8036A030;
+gLevelTPTS                = 0x8036A180;
+gLevelTOYS                = 0x8036A4C0;
+gLevelAPTS                = 0x8036A5C0;
+gLevelBNUS                = 0x8036A840;
+gLevelObjects             = 0x8036A878;
 
-gTitleMenuDelay     = 0x80356A68;
+gLevelClassU8             = 0x80350790;
+gLevelVehicleU8           = 0x80350794;
+gLevelTestU8              = 0x80350798;
+gMapLookup                = 0x803507A8;
 
-gLandingPadCount    = 0x8036C2B9;
-gLandingStripCount  = 0x8036C2BA;
-gLandingPads        = 0x8036C2E8; // size:0x150
-gLandingStrips      = 0x8036C438; // size:0x78
+gTitleMenuDelay           = 0x80356A68;
 
-gRadarThermCirc     = 0x8036C520; // size:0x88
-gHudState           = 0x8036C5A8; // size:0xC7C
+gLandingPadCount          = 0x8036C2B9;
+gLandingStripCount        = 0x8036C2BA;
+gLandingPads              = 0x8036C2E8; // size:0x150
+gLandingStrips            = 0x8036C438; // size:0x78
 
-gLevelCommObjs      = 0x8037A600; // size:0x478
-gLevelClass         = 0x8037AA78;
-gLevelTest          = 0x8037AA7C;
-gLevelVehicle       = 0x8037AA80;
+gRadarThermCirc           = 0x8036C520; // size:0x88
+gHudState                 = 0x8036C5A8; // size:0xC7C
 
-gThermalCount       = 0x8037AB54;
-gThermals           = 0x8037AB58; // size:0x180
+gLevelCommObjs            = 0x8037A600; // size:0x478
+gLevelClass               = 0x8037AA78;
+gLevelTest                = 0x8037AA7C;
+gLevelVehicle             = 0x8037AA80;
 
-gLevelCurMap        = 0x8034F40C;
-gLevelObjHeapPtr    = 0x8034F840;
-gLevelObjHeap       = 0x8036AA60; // size:5000
+gThermalCount             = 0x8037AB54;
+gThermals                 = 0x8037AB58; // size:0x180
 
-sWindObjectsData    = 0x8037F910;
-sWindObjectsInLevel = 0x8037F914;
-sWindObjects        = 0x8037F918;
+gLevelCurMap              = 0x8034F40C;
+gLevelObjHeapPtr          = 0x8034F840;
+gLevelObjHeap             = 0x8036AA60; // size:5000
+
+sWindObjectsData          = 0x8037F910;
+sWindObjectsInLevel       = 0x8037F914;
+sWindObjects              = 0x8037F918;
