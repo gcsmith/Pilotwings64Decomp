@@ -266,5 +266,6 @@ s32 levelDataGetBTGT(LevelBTGT** data);
 s32 levelDataGetPHTS(void** data);
 s32 levelDataGetFALC(void** data);
 s32 levelDataGetHOPD(LevelHOPD** data);
+void levelGetClsVehTest(u16* classIdx, u16* vehIdx, u16* testIdx);
 
 #endif // UV_LEVEL_H

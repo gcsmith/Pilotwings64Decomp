@@ -692,10 +692,10 @@ void level_803462D4(u16 idx) {
     _uvMediaCopy((void*)D_8035078C->dataTPAD, src, 0x30);
 }
 
-void levelGetClsVehTest(s16* classIdx, s16* vehIdx, s16* testIdx) {
-    *classIdx = (s16)gLevelClass;
-    *vehIdx = (s16)gLevelVehicle;
-    *testIdx = (s16)gLevelTest;
+void levelGetClsVehTest(u16* classIdx, u16* vehIdx, u16* testIdx) {
+    *classIdx = gLevelClass;
+    *vehIdx = gLevelVehicle;
+    *testIdx = gLevelTest;
 }
 
 u8 levelGet_80346364(void) {
