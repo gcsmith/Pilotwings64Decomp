@@ -482,6 +482,7 @@ gLevelClassU8       = 0x80350790;
 gLevelVehicleU8     = 0x80350794;
 gLevelTestU8        = 0x80350798;
 gMapLookup          = 0x803507A8;
+gThermShouldDisable = 0x803507F0;
 
 gTitleMenuDelay     = 0x80356A68;
 
@@ -498,8 +499,10 @@ gLevelClass         = 0x8037AA78;
 gLevelTest          = 0x8037AA7C;
 gLevelVehicle       = 0x8037AA80;
 
+gLevelTHER          = 0x8037AB50;
 gThermalCount       = 0x8037AB54;
 gThermals           = 0x8037AB58; // size:0x180
+gThermReady         = 0x8037ACD8;
 
 gLevelCurMap        = 0x8034F40C;
 gLevelObjHeapPtr    = 0x8034F840;

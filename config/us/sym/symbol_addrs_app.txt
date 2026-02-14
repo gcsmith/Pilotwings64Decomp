@@ -221,6 +221,13 @@ levelDataGetPHTS    = 0x80345C3C; // type:func
 levelDataGetFALC    = 0x80345C5C; // type:func
 levelDataGetHOPD    = 0x80346474; // type:func
 
+thermInit           = 0x803465F0; // type:func
+therm_8034662C      = 0x8034662C; // type:func
+therm_8034695C      = 0x8034695C; // type:func
+therm_80346B84      = 0x80346B84; // type:func
+therm_80346C08      = 0x80346C08; // type:func
+therm_80346E04      = 0x80346E04; // type:func
+
 windObjectsInit     = 0x8034E080; // type:func
 
 mem_get             = 0x80312740; // type:func
