@@ -10,13 +10,13 @@
 #include "proxanim.h"
 
 // .data
-extern s32 D_803509C0; // = 0xFFFF
-extern s32 D_803509C4; // = 0xFFFF
-extern s32 D_803509C8; // = 0xFF
-extern s32 D_803509CC; // = 0
-extern f32 D_803509D0; // = 0.0f
-extern f32 D_803509D4; // = 0
-extern s32 D_803509D8; // = 0
+extern s32 D_803509C0;   // = 0xFFFF
+extern s32 D_803509C4;   // = 0xFFFF
+extern s32 D_803509C8;   // = 0xFF
+extern s32 D_803509CC;   // = 0
+extern f32 D_803509D0;   // = 0.0f
+extern f32 D_803509D4;   // = 0
+extern s32 D_803509D8;   // = 0
 extern Vec3F D_803509DC; // { 750.0f, 100.0f, 4.5f }
 
 // .bss
@@ -59,7 +59,7 @@ static void func_8034B82C(void) {
     uvDobjPosm(D_803509C0, 0, &D_8037F400);
 
     v0 = (D_803509D0 + 15.0f) / 30;
-    v1 = (s32) (D_803509D0 + 15.0f) % 30;
+    v1 = (s32)(D_803509D0 + 15.0f) % 30;
     if (v0 % 2) {
         sp24 = (30.0f - v1) / 30.0f;
     } else {
@@ -77,9 +77,9 @@ static void func_8034B82C(void) {
 static void func_8034BA68(void) {
     if (D_8037F440 == 1.0f) {
         D_803509D4 += 4.0f * D_8034F854;
-        if (D_803509D4 > 0/*.0f*/) {
+        if (D_803509D4 > 0 /*.0f*/) {
             D_8037F440 = 0.0f;
-            D_803509D4 = 0/*.0f*/;
+            D_803509D4 = 0 /*.0f*/;
         }
         D_803509D0 += 10.0f * D_8034F854;
         if (D_803509D0 > 360.0f) {
@@ -243,7 +243,7 @@ void func_8034C1CC(f32 arg0) {
     if (D_803509C0 != 0xFFFF) {
         D_8037F440 = 0.0f;
         D_803509D0 = arg0 * 360.0f;
-        D_803509D4 = 0/*.0f*/;
+        D_803509D4 = 0 /*.0f*/;
         func_8034B82C();
     }
 }
