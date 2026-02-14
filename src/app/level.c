@@ -24,12 +24,6 @@ typedef struct {
     s32 unk0;
 } Unk8034F410;
 
-typedef struct {
-    u8 unk0[7];
-    u8 pad7;
-    u8 pad8[0x70];
-} Unk8030BDC8;
-
 extern s32 D_8034F400;
 extern s32 D_8034F404;
 extern LevelObjects* D_8034F408;
@@ -279,8 +273,8 @@ LevelObjects* levelLoadMapObjects(u8 mapIdx) {
     u32 size; // spBC
     u32 tag;
     u8* srcPtr; // spB4
-    Unk8030BDC8 sp3C;
-    Unk8030BDC8* ptr;
+    Unk802E27A8_Arg0 sp3C;
+    LevelLEVL* ptr;
     LevelObjects* temp;
     u8 tmp8;
 
@@ -297,7 +291,7 @@ LevelObjects* levelLoadMapObjects(u8 mapIdx) {
     while ((tag = uvFileReadBlock(idx, &size, (void**)&srcPtr, 1)) != 0) {
         switch (tag) {
         case 'ESND': // 0x45534E44
-            for (i = 0; i < temp->unk0; i++) {
+            for (i = 0; i < temp->countESND; i++) {
                 _uvMediaCopy(&sp3C, srcPtr, sizeof(sp3C));
                 srcPtr += sizeof(sp3C);
                 func_802E27A8(&sp3C);
@@ -322,46 +316,46 @@ LevelObjects* levelLoadMapObjects(u8 mapIdx) {
             _uvMediaCopy(temp->dataBNUS, srcPtr, size);
             break;
         case 'LEVL': // 0x4C45564C
-            ptr = (Unk8030BDC8*)srcPtr;
-            temp->unk0 = ptr->unk0[0];
-            if (temp->unk0 >= 255) {
-                _uvAssertMsg("dst_level -> level . nenvsnds < NENV_SNDS", "level.c", 0x27F);
+            ptr = (LevelLEVL*)srcPtr;
+            temp->countESND = ptr->countESND;
+            if (temp->countESND >= 255) {
+                _uvAssertMsg("dst_level -> level . nenvsnds < NENV_SNDS", "level.c", 639);
             }
 
-            temp->countWOBJ = ptr->unk0[1];
+            temp->countWOBJ = ptr->countWOBJ;
             if (temp->countWOBJ >= 16) {
-                _uvAssertMsg("dst_level -> level . nwobjs < LEVEL_NWOBJS", "level.c", 0x282);
+                _uvAssertMsg("dst_level -> level . nwobjs < LEVEL_NWOBJS", "level.c", 642);
             }
             if (temp->countWOBJ >= 17) {
                 _uvDebugPrintf("level : too many wind objects defined in level [%d]\n", temp->countWOBJ);
                 temp->countWOBJ = 0;
             }
 
-            temp->countLPAD = ptr->unk0[2];
+            temp->countLPAD = ptr->countLPAD;
             if (temp->countLPAD >= 15) {
                 _uvDebugPrintf("level : too many potential landing pads defined in level [%d]\n", temp->countLPAD);
                 temp->countLPAD = 0;
             }
 
-            temp->countTOYS = ptr->unk0[3];
+            temp->countTOYS = ptr->countTOYS;
             if (temp->countTOYS >= 17) {
                 _uvDebugPrintf("level : too many toys in level [%d]\n", temp->countTOYS);
                 temp->countTOYS = 0;
             }
 
-            temp->countTPTS = ptr->unk0[4];
+            temp->countTPTS = ptr->countTPTS;
             if (temp->countTPTS >= 17) {
                 _uvDebugPrintf("level : too many terra switch points in level [%d]\n", temp->countTPTS);
                 temp->countTPTS = 0;
             }
 
-            temp->countAPTS = ptr->unk0[5];
+            temp->countAPTS = ptr->countAPTS;
             if (temp->countAPTS >= 21) {
                 _uvDebugPrintf("level : too many audio switch points in level [%d]\n", temp->countAPTS);
                 temp->countAPTS = 0;
             }
 
-            temp->countBNUS = ptr->unk0[6];
+            temp->countBNUS = ptr->countBNUS;
             if (temp->countBNUS >= 3) {
                 _uvDebugPrintf("level : too many bonus objects level [%d]\n", temp->countBNUS);
                 temp->countBNUS = 0;

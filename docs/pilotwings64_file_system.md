@@ -287,8 +287,11 @@ Offset | Type | Description
 0x8    | f32  | Z position
 0xC    | f32  | scale
 0x10   | f32  | height
-0x14   | ??   | TBD
+0x14   | s32  | TBD
 0x18   | f32  | TBD
+0x1C   | f32  | TBD
+0x20   | f32  | TBD
+0x24   | f32  | TBD
 0x28   |      | **Total length**
 
 ### TPAD / takeoff pad
