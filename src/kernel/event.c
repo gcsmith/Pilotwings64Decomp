@@ -14,16 +14,16 @@ void func_80202DA0(void) {
     s32 i;
     s32 j;
 
-    for (i = 0; i < 30; i++) {
-        for (j = 0; j < 4; j++) {
+    for (i = 0; i < ARRAY_COUNT(D_8025BF00); i++) {
+        for (j = 0; j < ARRAY_COUNT(D_8025BF00[i].unk0); j++) {
             D_8025BF00[i].unk0[j].unk0 = NULL;
             D_8025BF00[i].unk0[j].unk4 = 0;
         }
         D_8025BF00[i].count = 0;
     }
 
-    for (i = 0; i < 5; i++) {
-        for (j = 0; j < 10; j++) {
+    for (i = 0; i < ARRAY_COUNT(D_8025C3F0); i++) {
+        for (j = 0; j < ARRAY_COUNT(D_8025C3F0[i].unk0); j++) {
             D_8025C3F0[i].unk0[j].unk0 = NULL;
             D_8025C3F0[i].unk0[j].unk4 = 0;
             D_8025C3F0[i].count = 0;
