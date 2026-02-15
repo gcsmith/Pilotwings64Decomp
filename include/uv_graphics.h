@@ -63,8 +63,33 @@ typedef struct {
     u8 unk22;
 } uvGfxUnkStruct2;
 
+typedef struct uvGfxUnkStruct10 {
+    uvGfxState_t* unk0;
+    u8 unk4;
+    u8 pad5[0x1];
+    u8 unk6;
+    u8 pad7[0x6];
+    u8 unkD;
+    u8 padE[0x2];
+} uvGfxUnkStruct10;
+
+typedef struct uvGfxUnkStruct8 {
+    uvGfxUnkStruct10* unk0;
+    u8 unk4;
+    u8 unk5;
+    u8 pad6[0x2];
+} uvGfxUnkStruct8;
+
 typedef struct {
-    u8 pad0[0x1C];
+    u8 pad0[0x8];
+    uvGfxUnkStruct8* unk8;
+    f32* unkC;
+    u8 unk10;
+    u8 unk11;
+    u8 pad12[0x2];
+    void* unk14;
+    u8 unk18;
+    u8 pad19[0x3];
     f32 unk1C;
     f32 unk20;
 } uvGfxUnkStructC8;
@@ -187,7 +212,9 @@ typedef struct {
 /* 1F4 */ f32 unk1F4;
 /* 1F8 */ f32 unk1F8;
 /* 1FC */ f32 unk1FC;
-/* 200 */ u8 pad1A4[0xE0];
+/* 200 */ u8 pad200[0x4];
+/* 204 */ f32 unk204;
+/* 208 */ u8 pad208[0xD8];
 /* 2E0 */ u8 unk2E0[0x90];
 /* 370 */ s32 unk370;
 /* 374 */ s32 unk374;
