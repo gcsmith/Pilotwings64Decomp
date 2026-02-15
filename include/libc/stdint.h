@@ -26,4 +26,4 @@ typedef u32 uintptr_t;
 #define UINTPTR_MAX 0xFFFFFFFF
 
 
-#endif /* STDINT_H */
+#endif /* LIBC_STDINT_H */
