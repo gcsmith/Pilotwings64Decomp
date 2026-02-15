@@ -5,9 +5,11 @@
 #include <uv_matrix.h>
 #include <uv_vector.h>
 #include "code_5A6A0.h"
+#include "code_61A60.h"
 #include "code_68220.h"
 #include "code_72010.h"
 #include "code_9A960.h"
+#include "code_D1ED0.h"
 #include "demo.h"
 
 typedef struct {
@@ -22,41 +24,19 @@ extern u8 D_8034E9E4;
 extern Unk803599D0 D_803599D0;
 extern f32 D_80359A24;
 
-void func_80204C94(u8, f32, f32, f32, f32, f32, f32);
-void func_802D4514(Unk802D3658_Arg0*);
-void func_802D45C4(Unk802D3658_Arg0*, f32);
-s32 func_802D472C(Unk802D3658_Arg0*, Mtx4F*);
-s32 func_802D4CA4(Unk802D3658_Arg0*, Mtx4F*);
-void func_802D58EC(Unk802D3658_Arg0*, Mtx4F*);
-s32 func_802DB050(s32*, s32*, u16, u8, Mtx4F*);
-s32 func_802DB224(s32*, s32, u16, u8, Vec3F*, Vec3F*);
-void func_802DBE64(void*, void*, s32, Mtx4F*);
-void func_802DCA5C(Vec3F*, Vec3F*, Vec3F*, Vec3F*, Vec3F*);
-void func_802EAAE0(Unk802D3658_Unk230*);
-void func_802EABAC(Unk802D3658_Unk230*, f32, Mtx4F*);
-void func_802EAC9C(Unk802D3658_Unk230*, f32, Mtx4F*);
-void func_803134D0(f32, f32, f32, f32*, f32*, f32*);
-void func_803138A0(Mtx4F*, Mtx4F*, Mtx4F*, f32);
-f32 func_80313AF4(f32, f32, f32);
-void func_80313E18(Vec3F*, Mtx4F*);
-f32 func_80313F08(Unk803599D0*, f32);
-void func_8034ABB0(Mtx4F*, Vec3F*, Vec3F*);
-void func_8034AD6C(f32, f32, f32, Mtx4F*);
-void func_8034B210(Vec3F, Vec3F, Mtx4F*);
-void func_8034B2B0(Vec3F*);
-void func_8034B4DC(Vec3F, Mtx4F*);
-
 // forward declarations
-s32 func_802D408C(Unk802D3658_Arg0* arg0);
-void func_802D3658(Unk802D3658_Arg0* arg0);
-void func_802D3790(Unk802D3658_Arg0* arg0);
-void func_802D3BE8(Unk802D3658_Arg0* arg0);
-void func_802D3FA4(Unk802D3658_Arg0* arg0);
-void func_802D41D8(Unk802D3658_Arg0* arg0);
+static s32 func_802D408C(Unk802D3658_Arg0* arg0);
+static void func_802D3658(Unk802D3658_Arg0* arg0);
+static void func_802D3790(Unk802D3658_Arg0* arg0);
+static void func_802D3BE8(Unk802D3658_Arg0* arg0);
+static void func_802D3FA4(Unk802D3658_Arg0* arg0);
+static void func_802D41D8(Unk802D3658_Arg0* arg0);
+static void func_802D46A4(Unk802D3658_Arg0* arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4);
+static void func_802D532C(Unk802D3658_Arg0* arg0);
+static void func_802D559C(Unk802D3658_Arg0* arg0);
+static s32 func_802D4CA4(Unk802D3658_Arg0*, Mtx4F*);
+static void func_802D58EC(Unk802D3658_Arg0*, Mtx4F*);
 void func_802D4274(Unk802D3658_Arg0* arg0);
-void func_802D46A4(Unk802D3658_Arg0* arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4);
-void func_802D532C(Unk802D3658_Arg0* arg0);
-void func_802D559C(Unk802D3658_Arg0* arg0);
 
 void func_802D3170(u8 arg0, Unk802D3658_Arg0* arg1) {
     f32 one;
@@ -203,7 +183,7 @@ void func_802D3444(Unk802D3658_Arg0* arg0) {
     }
 }
 
-void func_802D3658(Unk802D3658_Arg0* arg0) {
+static void func_802D3658(Unk802D3658_Arg0* arg0) {
     Mtx4F sp30;
     f32 temp_fa0;
 
@@ -229,7 +209,7 @@ void func_802D3658(Unk802D3658_Arg0* arg0) {
     }
 }
 
-void func_802D3790(Unk802D3658_Arg0* arg0) {
+static void func_802D3790(Unk802D3658_Arg0* arg0) {
     Vec3F spBC;
     Vec3F spB0;
     Vec3F spA4;
@@ -317,7 +297,7 @@ void func_802D3790(Unk802D3658_Arg0* arg0) {
     arg0->unk108.m[2][2] /= temp_fv0;
 }
 
-void func_802D3BE8(Unk802D3658_Arg0* arg0) {
+static void func_802D3BE8(Unk802D3658_Arg0* arg0) {
     Mtx4F sp60;
     f32 sp5C;
     f32 sp58;
@@ -394,7 +374,7 @@ void func_802D3BE8(Unk802D3658_Arg0* arg0) {
     }
 }
 
-void func_802D3FA4(Unk802D3658_Arg0* arg0) {
+static void func_802D3FA4(Unk802D3658_Arg0* arg0) {
     Vec3F sp24;
 
     uvMat4Copy(&arg0->unk108, &arg0->unk80);
@@ -412,7 +392,7 @@ void func_802D3FA4(Unk802D3658_Arg0* arg0) {
     (void)func_802D4A30(arg0, &arg0->unk108);
 }
 
-s32 func_802D408C(Unk802D3658_Arg0* arg0) {
+static s32 func_802D408C(Unk802D3658_Arg0* arg0) {
     f32 argX;
     f32 argY;
     f32 argZ;
@@ -454,7 +434,7 @@ s32 func_802D408C(Unk802D3658_Arg0* arg0) {
     return 0;
 }
 
-void func_802D41D8(Unk802D3658_Arg0* arg0) {
+static void func_802D41D8(Unk802D3658_Arg0* arg0) {
     f32 var_fv0;
 
     uvMat4UnkOp6(&arg0->unk108, &arg0->unk80, &arg0->unk14C);
@@ -591,7 +571,7 @@ void func_802D45C4(Unk802D3658_Arg0* arg0, f32 arg1) {
     }
 }
 
-void func_802D46A4(Unk802D3658_Arg0* arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
+static void func_802D46A4(Unk802D3658_Arg0* arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
     s16 temp_a1;
     s16 temp_a2;
     s16 temp_a3;
@@ -733,7 +713,7 @@ s32 func_802D4A30(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
     return 1;
 }
 
-s32 func_802D4CA4(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
+static s32 func_802D4CA4(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
     Mtx4F sp30;
     f32 temp_fa1;
     f32 temp_fv0;
@@ -876,7 +856,7 @@ void func_802D50D0(Unk802D3658_Arg0* arg0) {
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
 #endif
-void func_802D532C(Unk802D3658_Arg0* arg0) {
+static void func_802D532C(Unk802D3658_Arg0* arg0) {
     Mtx4F sp80; // 80:BF
     Mtx4F sp40; // 40:7F
     f32 var_fa0;
@@ -937,7 +917,7 @@ void func_802D532C(Unk802D3658_Arg0* arg0) {
 #pragma GCC diagnostic pop
 #endif
 
-void func_802D559C(Unk802D3658_Arg0* arg0) {
+static void func_802D559C(Unk802D3658_Arg0* arg0) {
     Mtx4F sp48; // 48:87
     f32 temp_fa0;
     f32 temp_fa0_2;
@@ -1009,7 +989,7 @@ void func_802D5884(Unk802D3658_Arg0* arg0, u8 arg1) {
     }
 }
 
-void func_802D58EC(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
+static void func_802D58EC(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
     Mtx4F sp88; // 88:C7
     Mtx4F sp48; // 48:87
     Vec3F sp3C;

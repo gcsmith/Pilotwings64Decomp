@@ -1,29 +1,45 @@
 #include <uv_debug.h>
 #include <uv_level.h>
+#include <uv_graphics.h>
+#include <uv_geometry.h>
+#include "code_5A6A0.h"
 #include "code_C8990.h"
 #include "code_D2B10.h"
 #include "hud.h"
 
 // forward declarations
-void func_8034B688(void);
+void func_8034B6F8(void);
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_D2B10/func_8034B5E0.s")
+void func_8034B5E0(u8 arg0, Unk802D3658_Arg0* arg1) {
+    func_802D3170(arg0, arg1);
+    func_80204AB0(arg1->unk22C, 1, func_8034B6F8);
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_D2B10/func_8034B624.s")
+void func_8034B624(Unk802D3658_Arg0* arg0) {
+    func_802D3444(arg0);
+    func_802D50D0(arg0);
+    func_80204B34(arg0->unk22C, &arg0->unk108);
+    func_80204BD4(arg0->unk22C, 1, arg0->unk20);
+    func_80204BD4(arg0->unk22C, 0, arg0->unk20);
+    func_80204FC4(arg0->unk22C);
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_D2B10/func_8034B688.s")
+void func_8034B688(void) {
+    uvGfx_80223A28(0xFFF);
+    uvVtxRect(0, 0x12, 0x13F, 0);
+    uvVtxRect(0, 0xEF, 0x13F, 0xE8);
+    uvVtxRect(0, 0xE8, 0xA, 0x12);
+    uvVtxRect(0x136, 0xE8, 0x13F, 0x12);
+}
 
 void func_8034B6F8(void) {
-    s32 var_v0;
-
     func_803415C8();
     func_8034B688();
-    var_v0 = D_80362690->unk0[0].debugFlag;
-    if (var_v0 < 5) {
+    if (D_80362690->unk0[0].debugFlag < 5) {
         hudMainRender();
-        var_v0 = D_80362690->unk0[0].debugFlag;
     }
-    switch (var_v0) {
+
+    switch (D_80362690->unk0[0].debugFlag) {
     case 1:
         uvDbg_8023345C(7, 1, 1);
         break;

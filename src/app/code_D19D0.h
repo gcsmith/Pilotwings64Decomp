@@ -2,6 +2,7 @@
 #define APP_CODE_D19D0_H
 
 #include <PR/ultratypes.h>
+#include <uv_vector.h>
 #include "code_A6000.h"
 
 // size: 0x2DC

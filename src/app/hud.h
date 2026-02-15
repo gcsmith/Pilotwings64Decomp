@@ -127,5 +127,9 @@ void hudText_8031D8E0(s16, f32, f32);
 void hudWarningText(s16, f32, f32);
 void hudDemoControllerEn(u8 enable);
 void hudSetCameraState(s32 state);
+void hud_8031A794(s32 idx, f32 arg1, f32 arg2, f32 arg3);
+void hud_8031A874(s32 idx);
+s32 hud_8031A6C8(f32 arg0, f32 arg1, f32 arg2);
+void hud_8031A8E0(s32 idx);
 
 #endif // APP_HUD_H

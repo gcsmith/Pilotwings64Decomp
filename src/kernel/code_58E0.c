@@ -18,18 +18,18 @@ void func_80204A8C(s32 arg0, s32 arg1) {
     D_80261730[arg0].unk0 = arg1;
 }
 
-void func_80204AB0(s32 arg0, s32 arg1, s32 arg2) {
+void func_80204AB0(s32 arg0, s32 arg1, void (*arg2)(void)) {
     if (arg1 != 0) {
         if (arg1 == 1) {
-            *(s32*)&D_80261ACC[arg0] = arg2;
+            D_80261730[arg0].unk39C = arg2;
         }
     } else {
-        *(s32*)&D_80261AC8[arg0] = arg2;
+        D_80261730[arg0].unk398 = arg2;
     }
 }
 
 void func_80204B08(s32 arg0, s32 arg1, s32 arg2) {
-    *((s16*)&D_80261736[arg0] + arg1) = arg2;
+    D_80261730[arg0].unk6[arg1] = arg2;
 }
 
 void func_80204B34(s32 arg0, Mtx4F* arg1) {
@@ -50,10 +50,10 @@ void func_80204B34(s32 arg0, Mtx4F* arg1) {
 void func_80204BD4(s32 arg0, s32 arg1, f32 arg2) {
     switch (arg1) {
     case 0:
-        *(f32*)&D_80261930[arg0] = 1.0f / arg2;
+        D_80261730[arg0].unk200 = 1.0f / arg2;
         break;
     case 1:
-        *(f32*)&D_80261934[arg0] = 1.0f / arg2;
+        D_80261730[arg0].unk204 = 1.0f / arg2;
         break;
     }
 }
@@ -93,7 +93,7 @@ void uvChanEnv(s32 arg0, s32 arg1) {
         _uvDebugPrintf("uvChanEnv: environment %d not in level\n", arg1);
         return;
     }
-    *(s16*)&D_80261732[arg0] = arg1;
+    D_80261730[arg0].unk2 = arg1;
 }
 
 void uvChanTerra(s32 arg0, s32 arg1) {
@@ -101,7 +101,7 @@ void uvChanTerra(s32 arg0, s32 arg1) {
         _uvDebugPrintf("uvChanTerra: terra %d not in level\n");
         return;
     }
-    *(s16*)&D_80261734[arg0] = arg1;
+    D_80261730[arg0].unk4 = arg1;
 }
 
 s32 func_80204EC0(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {

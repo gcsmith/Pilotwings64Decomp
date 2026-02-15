@@ -26,7 +26,6 @@ void app_entrypoint(s32);
 void uvSetVideoMode(void);
 void func_8022E558(void);
 
-void func_80204930(void);
 void func_8020F9F4(void);
 void func_80217398(void);
 void func_80218700(void);

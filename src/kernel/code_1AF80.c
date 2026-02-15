@@ -1,4 +1,5 @@
 #include "common.h"
+#include "kernel/code_1AF80.h"
 
 // clang-format off
 static u16 D_80248EA0[] = {
