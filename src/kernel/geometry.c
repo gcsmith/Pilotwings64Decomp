@@ -116,10 +116,10 @@ void uvEndTmesh(void) {
     }
     var_t4 = gGeomFirstTmesh;
     while (var_t3 > 0) {
-        if (var_t3 < 0x10) {
+        if (var_t3 < 16) {
             var_a3 = var_t3;
         } else {
-            var_a3 = 0x10;
+            var_a3 = 16;
         }
 
         gSPVertex(gGfxDisplayListHead++, OS_PHYSICAL_TO_K0(&gGeomVertexPtrs[var_t4]), var_a3, 0);
@@ -192,7 +192,6 @@ void uvEndGridWide(s16 arg0, s16 arg1, u8 arg2, u8 arg3) {
             gSPVertex(gGfxDisplayListHead++, OS_PHYSICAL_TO_K0(&gGeomVertexPtrs[var_s4]), 1, var_t1);
             var_t3++;
             gSP1Triangle(gGfxDisplayListHead++, temp_a3, var_t2, var_t1, 0);
-
 
             temp_a3 = var_t2;
             var_t2 = var_t1;
@@ -272,7 +271,7 @@ void uvEndGrid(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
         spC0 += spC7;
         spC3 ^= 1;
     }
-    
+
     if (spC4) {
         gSPVertex(gGfxDisplayListHead++, OS_PHYSICAL_TO_K0(&gGeomVertexPtrs[gGeomFirstGrid]), spC7, spBC[0]);
 
@@ -280,7 +279,7 @@ void uvEndGrid(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
             gSP1Triangle(gGfxDisplayListHead++, j + spC7, j, j + 1, 0);
             gSP1Triangle(gGfxDisplayListHead++, j + spC7, j + 1, j + spC7 + 1, 0);
         }
-    
+
         if (spC5) {
             gSP1Triangle(gGfxDisplayListHead++, j + spC7, 0, spC7, 0);
             gSP1Triangle(gGfxDisplayListHead++, j + spC7, j, 0, 0);
@@ -344,7 +343,7 @@ void uvVtxEndPoly(void) {
                 var_v0 = 15;
                 gSPVertex(gGfxDisplayListHead++, OS_PHYSICAL_TO_K0(&gGeomVertexPtrs[var_t5]), 14, 1);
                 gSP1Triangle(gGfxDisplayListHead++, 0, 15, 1, 0);
-                gSPVertex(gGfxDisplayListHead++, (((u32)(&gGeomVertexPtrs[var_t5])+0x80000000)) + 14 * sizeof(Vtx), 1, 15);
+                gSPVertex(gGfxDisplayListHead++, (((u32)(&gGeomVertexPtrs[var_t5]) + 0x80000000)) + 14 * sizeof(Vtx), 1, 15);
             } else {
                 var_v0 = var_t4;
                 gSPVertex(gGfxDisplayListHead++, OS_PHYSICAL_TO_K0(&gGeomVertexPtrs[var_t5]), var_v0, 1);
