@@ -1,5 +1,5 @@
-#ifndef APP_CODE_D55B0
-#define APP_CODE_D55B0
+#ifndef APP_WIND_OBJECTS_H
+#define APP_WIND_OBJECTS_H
 
 #include <PR/ultratypes.h>
 
@@ -9,4 +9,4 @@ void func_8034E274(void);
 void func_8034E628(void);
 s32 func_8034E6AC(s32 modelId);
 
-#endif // APP_CODE_D55B0
+#endif // APP_WIND_OBJECTS_H

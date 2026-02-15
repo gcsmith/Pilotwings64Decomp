@@ -211,5 +211,8 @@ void func_80204FE4(s32 arg0);
 void func_802057F4(Mtx4F *arg0, Mtx4F *arg1);
 void func_80204AB0(s32 arg0, s32 arg1, void (*arg2)(void));
 void func_80204BD4(s32 arg0, s32 arg1, f32 arg2);
+void func_80204930(void);
+void func_80205724(s32, s32, Mtx4F*);
+void func_80204C94(s32, f32, f32, f32, f32, f32, f32);
 
 #endif // PILOTWINGS64_UV_GRAPHICS
