@@ -5,8 +5,8 @@
 #include <uv_util.h>
 
 typedef struct uvClockState {
-    s32 unk0;
-    s32 unk4;
+    u32 unk0;
+    u32 unk4;
 } uvClockState_t;
 
 void uvClkInit(void);
