@@ -77,7 +77,7 @@ void level_803449B0(void) {
     u8 sp88[0x28];
     u8 sp60[0x28];
 
-    func_803465F0();
+    thermInit();
     func_803232F0();
     func_8034CD60();
     func_802D22B0();
@@ -245,7 +245,7 @@ s32 level_80344FC8(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* arg4, 
         break;
     }
 
-    func_803465F0();
+    thermInit();
     func_803232F0();
     func_8034CD60();
     func_802D22B0();
@@ -282,7 +282,7 @@ void level_8034528C(void) {
     sp1E = D_80362690->unk0[D_80362690->unk9C].unkC.unk2;
     D_8035079C = 1;
     wind_render();
-    func_8034662C();
+    therm_8034662C();
     func_80316E40();
     func_802E1278();
     func_802EB598();
@@ -303,7 +303,7 @@ void level_8034528C(void) {
 
 void level_8034536C(void) {
     level_803453AC();
-    func_80346B84();
+    therm_80346B84();
     func_8034D4AC();
     func_8031776C();
     func_802EB5E4();
@@ -336,7 +336,7 @@ s32 level_80345464(Unk80345464_Arg0* arg0, s32 arg1) {
 
     sp1E = D_80362690->unk0[D_80362690->unk9C].unkC.unk2;
     sp18 = 0;
-    func_8034695C();
+    therm_8034695C();
     func_8034D548();
     func_802E15F0();
     func_802CB3F8();
@@ -486,7 +486,7 @@ void level_80345A24(void) {
     func_802FAFF0();
 }
 
-s32 levelDataGetTHER(void** data) {
+s32 levelDataGetTHER(LevelTHER** data) {
     *data = D_8035078C->dataTHER;
     return D_8035078C->comm.countTHER;
 }
@@ -616,7 +616,7 @@ LevelCommObjects* levelLoadCommObj(u32 arg0) {
             dst->dataLSTP = mem_get(dst->comm.countLSTP * 0x24);
             dst->dataLWIN = mem_get(dst->comm.countLWIN * 0x54);
             dst->dataRNGS = mem_get(dst->comm.countRNGS * 0x84);
-            dst->dataTHER = mem_get(dst->comm.countTHER * 0x28);
+            dst->dataTHER = mem_get(dst->comm.countTHER * sizeof(LevelTHER));
             dst->dataBALS = mem_get(dst->comm.countBALS * 0x68);
             dst->dataTARG = mem_get(dst->comm.countTARG * 0x20);
             dst->dataHPAD = mem_get(dst->comm.countHPAD * 0x40);
@@ -626,7 +626,7 @@ LevelCommObjects* levelLoadCommObj(u32 arg0) {
             dst->dataCNTG = mem_get(dst->comm.countCNTG * 0x1C);
             dst->dataSDFM = mem_get(dst->comm.countSDFM * 0x4C);
             dst->dataHOPD = mem_get(dst->comm.countHOPD * 0x20);
-            dst->dataOBSV = (LevelOBSV*)mem_get(dst->comm.countOBSV * sizeof(LevelOBSV));
+            dst->dataOBSV = mem_get(dst->comm.countOBSV * sizeof(LevelOBSV));
             break;
         case 'THER': // 0x54484552
             _uvMediaCopy(dst->dataTHER, data, size);
