@@ -374,8 +374,8 @@ segments:
       - [0x6DAA0, c, app/fdr]
       - [0x6ECD0, c, app/code_6ECD0]
       - [0x6F4D0, c, app/save]
-      - [0x6FFB0, c, app/code_6FFB0]
-      - [0x70DC0, c, app/code_70DC0]
+      - [0x6FFB0, c, app/file_menu]
+      - [0x71500, c, app/code_71500]
       - [0x72010, c, app/code_72010]
       - [0x722D0, c, app/code_722D0]
       - [0x72910, c, app/code_72910]
@@ -471,6 +471,7 @@ segments:
       - [0xD6510, data]
       - [0xD6540, data]
       - [0xD65F0, data]
+      - [0xD6610, .data, app/file_menu]
       - [0xD6650, data]
       - [0xD6660, data]
       - [0xD6680, data]
@@ -542,8 +543,8 @@ segments:
       - [0xD9360, .rodata, app/fdr]
       - [0xD94F0, .rodata, app/code_6ECD0]
       - [0xD9510, .rodata, app/save]
-      - [0xD95D0, .rodata, app/code_6FFB0]
-      - [0xD95F0, .rodata, app/code_70DC0]
+      - [0xD95D0, .rodata, app/file_menu]
+      - [0xD95F0, .rodata, app/code_71500]
       - [0xD9810, .rodata, app/code_722D0]
       - [0xD9830, .rodata, app/code_72910]
       - [0xD9840, .rodata, app/code_72B70]
@@ -615,6 +616,8 @@ segments:
       - [0xDE6B0, .rodata, app/wind_objects]
 
       - { type: bss, vram: 0x803571F0, name: app_bss_803571F0 }
+      - { type: .bss, vram: 0x803624E0, name: app/file_menu }
+      - { type: bss, vram: 0x80362500, name: app_bss_80362500 }
       - { type: .bss, vram: 0x80369F10, name: app/menu }
       - { type: bss, vram: 0x80369F30, name: app_bss_80369F10 }
       - { type: .bss, vram: 0x8037AB50, name: app/thermals }

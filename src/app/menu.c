@@ -58,8 +58,8 @@ void menuCreateItems(s32 x, s32 y, s32 arg2, f32 xscale, f32 yscale, s32* items,
     }
 }
 
-void menu_8030B50C(void) {
-    func_80312908();
+s32 menu_8030B50C(void) {
+    return func_80312908();
 }
 
 void menuInit(void) {
@@ -84,8 +84,8 @@ static void menuDrawItem(s16 arg0, s16 arg1, s16 idx) {
     }
 }
 
-void menu_8030B668(void) {
-    func_80312F38();
+s32 menu_8030B668(void) {
+    return func_80312F38();
 }
 
 void menuSetItem(s32 idx, s16* str) {

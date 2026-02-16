@@ -7,9 +7,6 @@
 #include "code_D2B10.h"
 #include "hud.h"
 
-// forward declarations
-void func_8034B6F8(void);
-
 void func_8034B5E0(u8 arg0, Unk802D3658_Arg0* arg1) {
     func_802D3170(arg0, arg1);
     func_80204AB0(arg1->unk22C, 1, func_8034B6F8);

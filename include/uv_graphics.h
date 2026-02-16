@@ -207,6 +207,8 @@ typedef struct {
 
 extern UnkStruct_80204D94 D_80261730[];
 
+void uvChanTerra(s32, s32);
+void uvChanEnv(s32 arg0, s32 arg1);
 void func_80204A8C(s32 arg0, s32 arg1);
 void func_80204B08(s32 arg0, s32 arg1, s32 arg2);
 void func_80204B34(s32 arg0, Mtx4F* arg1);

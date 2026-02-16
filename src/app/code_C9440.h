@@ -4,6 +4,8 @@
 #include <PR/ultratypes.h>
 
 void func_80341F10(s32);
+
+// gets reference to string from id
 s16* func_80342198(s32);
 void func_80342404(s16*, s32, s32, s32);
 

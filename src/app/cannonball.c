@@ -13,7 +13,6 @@
 #include "cannonball.h"
 #include "cbsound.h"
 #include "code_5A6A0.h"
-#include "code_58E0.h"
 #include "code_60020.h"
 #include "code_66160.h"
 #include "code_68220.h"
@@ -801,7 +800,6 @@ void func_8031A2CC(void);
 void func_8031DAA8(s32, f32);
 void func_803214E4(void);
 void func_8032B508(s32);
-s32 func_8032BD20(s32, u16, u16);
 s32 func_8032BE1C(s32, u8, u8, u8);
 void func_8034B5E0(u8, Unk802D3658_Arg0*);
 void func_8034E0B4(void);

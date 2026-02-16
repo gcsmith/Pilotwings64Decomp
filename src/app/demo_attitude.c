@@ -6,9 +6,10 @@
 #include <uv_util.h>
 #include <uv_vector.h>
 #include "code_68220.h"
-#include "code_70DC0.h"
+#include "code_71500.h"
 #include "code_9A960.h"
 #include "demo_attitude.h"
+#include "file_menu.h"
 
 typedef struct {
     Vec3F pos;

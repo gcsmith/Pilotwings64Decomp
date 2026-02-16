@@ -513,6 +513,7 @@ gMenuCountVarHeight       = 0x80369F28;
 
 gFcnDrawMenuItem          = 0x8036BE08;
 
+
 gLevelCommObjs            = 0x8037A600; // size:0x478
 gLevelClass               = 0x8037AA78;
 gLevelTest                = 0x8037AA7C;
@@ -522,6 +523,21 @@ gLevelTHER                = 0x8037AB50;
 gThermalCount             = 0x8037AB54;
 gThermals                 = 0x8037AB58; // size:0x180
 gThermReady               = 0x8037ACD8;
+
+sFileMenuTextIds          = 0x8034F0E0; // size:0xC
+sFileMenuConfirm          = 0x8034F0EC; // size:0x8
+sFileMenuCurMenu          = 0x8034F0F4;
+sFileMenu_8034F0F8        = 0x8034F0F8;
+sFileMenuFadeTime         = 0x8034F114;
+sFileMenuFadeRate         = 0x8034F118;
+sFileMenu_803624E0        = 0x803624E0; // size:0x3
+sFileMenu_803624E3        = 0x803624E3;
+sFileColorR1              = 0x803624E4;
+sFileColorR2              = 0x803624E8;
+sFileColorG1              = 0x803624EC;
+sFileColorG2              = 0x803624F0;
+sFileColorB1              = 0x803624F4;
+sFileColorB2              = 0x803624F8;
 
 gLevelCurMap              = 0x8034F40C;
 gLevelObjHeapPtr          = 0x8034F840;
