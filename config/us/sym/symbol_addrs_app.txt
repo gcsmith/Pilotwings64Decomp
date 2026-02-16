@@ -178,7 +178,16 @@ levelLoadMapObjects = 0x8030BDC8; // type:func
 
 credits_8030CDA0    = 0x8030CDA0; // type:func
 creditsScene        = 0x8030D2F0; // type:func
-popupDialogBoxInit  = 0x8030B52C; // type:func
+
+menuInit            = 0x8030B52C; // type:func
+menuCreate          = 0x8030B2E0; // type:func
+menuCreateVarHeight = 0x8030B38C; // type:func
+menuCreateItems     = 0x8030B48C; // type:func
+menu_8030B50C       = 0x8030B50C; // type:func
+menuSetProps        = 0x8030B54C; // type:func
+menu_8030B668       = 0x8030B668; // type:func
+menuSetItem         = 0x8030B688; // type:func
+menu_8030B69C       = 0x8030B69C; // type:func
 
 introSceneRunner    = 0x803439B4; // type:func
 
