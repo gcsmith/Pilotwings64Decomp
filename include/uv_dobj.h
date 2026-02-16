@@ -14,7 +14,7 @@ typedef struct {
     s32 unk3C;
 } Unk80263780;
 
-extern Unk80263780 D_80263780[8];
+extern Unk80263780 D_80263780[100];
 
 s32 func_8021731C(void);
 // arg1 might be the model id? 0xFFFF / -1 is..?

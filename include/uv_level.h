@@ -108,11 +108,32 @@ typedef struct {
 } LevelHOPD;
 
 typedef struct {
+    u8 countESND;
+    u8 countWOBJ;
+    u8 countLPAD;
+    u8 countTOYS;
+    u8 countTPTS;
+    u8 countAPTS;
+    u8 countBNUS;
+} LevelLEVL;
+
+typedef struct {
     f32 x;
     f32 y;
     f32 z;
     f32 unkC;
 } LevelOBSV;
+
+typedef struct {
+    Vec3F pos;
+    f32 scale;
+    f32 height;
+    s32 unk14;
+    f32 unk18;
+    f32 unk1C;
+    f32 unk20;
+    f32 unk24;
+} LevelTHER;
 
 typedef struct {
     u8 unk0;
@@ -136,7 +157,7 @@ typedef struct {
 } LevelTOYS;
 
 typedef struct {
-    u8 unk0;
+    u8 countESND;
     u8 countWOBJ;
     u8 countLPAD;
     u8 countTOYS;
@@ -192,7 +213,7 @@ typedef struct {
     void* dataNAME;      // ptr NAME
     void* dataINFO;      // ptr INFO
     void* dataJPTX;      // ptr JPTX
-    void* dataTHER;      // ptr THER
+    LevelTHER* dataTHER; // ptr THER
     void* dataLWIN;      // ptr LWIN
     void* dataTPAD;      // ptr TPAD
     void* dataLPAD;      // ptr LPAD
@@ -251,7 +272,7 @@ u8 levelGet_80346364(void);
 s32 level_80346370(s32 terra);
 void level_8034528C(void);
 u8 levelGet_80346468(void);
-s32 levelDataGetTHER(void** data);
+s32 levelDataGetTHER(LevelTHER** data);
 s32 levelDataGetLWIN(void** data);
 s32 levelDataGetTPAD(void** data);
 s32 levelDataGetCNTG(void** data);

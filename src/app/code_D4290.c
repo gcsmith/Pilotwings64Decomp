@@ -8,18 +8,6 @@
 #include <uv_dobj.h>
 #include <uv_math.h>
 
-// This is probably part of another struct but unsure which one it is
-typedef struct {
-    s8 unk0;
-    f32 unk4;
-    f32 unk8;
-    s32 unkC;
-    f32 unk10;
-    f32 unk14;
-    s8 unk18;
-    s32 unk1C;
-} WindRenderSPStruct;
-
 // size: 0xA8
 typedef struct {
     u16 unk0;
@@ -60,23 +48,11 @@ static f32 func_8034DFC4(u8, f32);
 void func_8034CD60(void) {
 }
 
-// wind_render has sp120/sp114 which are just assigned but never used
-// this is probably related to WindRenderSPStruct assignments and will be resolved once
-// the actual struct this is part of is resolved
-#if defined(__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Waddress"
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-but-set-variable"
-#endif
 void wind_render(void) {
     s32 i;
     Unk8037F518* var_s1;
     Unk8037F510* temp_s0;
-    WindRenderSPStruct sp148;
-    Vec3F sp120;
-    Vec3F sp114;
-    Mtx4F spD4;
+    Unk802E27A8_Arg0 spD4;
     f32 temp_fs0;
     f32 var_fv1;
     Vec3F spC0;
@@ -96,28 +72,24 @@ void wind_render(void) {
         return;
     }
     for (i = 0; i < D_8037F514; i++) {
-        // @fake to force correct s registers
-        if (&spA8) { }
-        if (&spC0) { }
-        if (&spB4) { }
         var_s1 = &D_8037F518[i];
         temp_s0 = &D_8037F510[i];
         uvMat4SetIdentity(&var_s1->unk4);
-        uvMat4SetIdentity(&spD4);
-        spD4.m[3][0] = temp_s0->unk0.f[0];
-        spD4.m[3][1] = temp_s0->unk0.f[1];
-        spD4.m[3][2] = temp_s0->unk0.f[2];
-        sp148.unk0 = 0xB;
-        sp148.unk4 = 1.0f;
-        sp148.unkC = 0;
-        sp148.unk10 = temp_s0->unk4C;
-        sp148.unk14 = sp148.unk10;
-        sp148.unk18 = temp_s0->unk3C;
-        sp148.unk8 = uvSqrtF(SQ(temp_s0->unk40.x) + SQ(temp_s0->unk40.y) + SQ(temp_s0->unk40.z)) + 0.9f;
-        if (sp148.unk8 < 0.0f) {
-            sp148.unk8 = 0.0f;
-        } else if (sp148.unk8 > 1.0f) {
-            sp148.unk8 = 1.0f;
+        uvMat4SetIdentity(&spD4.unk0);
+        spD4.unk0.m[3][0] = temp_s0->unk0.f[0];
+        spD4.unk0.m[3][1] = temp_s0->unk0.f[1];
+        spD4.unk0.m[3][2] = temp_s0->unk0.f[2];
+        spD4.unk58 = 0xB;
+        spD4.unk5C = 1.0f;
+        spD4.unk64 = 0;
+        spD4.unk68 = temp_s0->unk4C;
+        spD4.unk6C = spD4.unk68;
+        spD4.unk70 = temp_s0->unk3C;
+        spD4.unk60 = uvSqrtF(SQ(temp_s0->unk40.x) + SQ(temp_s0->unk40.y) + SQ(temp_s0->unk40.z)) + 0.9f;
+        if (spD4.unk60 < 0.0f) {
+            spD4.unk60 = 0.0f;
+        } else if (spD4.unk60 > 1.0f) {
+            spD4.unk60 = 1.0f;
         }
         s2 = &temp_s0->unkC;
         if (temp_s0->unk50 == 0) {
@@ -130,9 +102,9 @@ void wind_render(void) {
             uvDobjPosm(var_s1->unk0, 0, &var_s1->unk4);
             uvDobjState(var_s1->unk0, 2U);
             uvDobjProps(var_s1->unk0, 3, temp_s0->unk4C, 0);
-            sp148.unk1C = 8;
-            sp114 = temp_s0->unk0;
-            sp120 = temp_s0->unkC;
+            spD4.unk74 = 8;
+            spD4.unk40 = temp_s0->unk0;
+            spD4.unk4C = temp_s0->unkC;
         } else if (temp_s0->unk50 == 1) {
             spB4.f[0] = s2->f[0] - temp_s0->unk0.f[0];
             spB4.f[1] = s2->f[1] - temp_s0->unk0.f[1];
@@ -176,9 +148,9 @@ void wind_render(void) {
                 var_fv1 = temp_fs0;
             }
             uvDobjProps(var_s1->unk0, 3, var_fv1, 0);
-            sp148.unk1C = 0xA;
-            sp114 = temp_s0->unk0;
-            sp120 = temp_s0->unkC;
+            spD4.unk74 = 0xA;
+            spD4.unk40 = temp_s0->unk0;
+            spD4.unk4C = temp_s0->unkC;
         } else if (temp_s0->unk50 == 2) {
             uvMat4RotateAxis(&var_s1->unk4, temp_s0->unk24.f[0] * 0.0174533f, 'z'); // almost DEG_TO_RAD(1)
             uvMat4RotateAxis(&var_s1->unk4, temp_s0->unk24.f[1] * 0.0174533f, 'x'); // almost DEG_TO_RAD(1)
@@ -207,27 +179,22 @@ void wind_render(void) {
                 var_fv1 = temp_s0->unk30.f[1];
             }
             uvDobjProps(var_s1->unk0, 3, var_fv1, 0);
-            sp148.unk1C = 0xA;
-            sp114.f[0] = temp_s0->unk18.f[0];
-            sp114.f[1] = temp_s0->unk18.f[1];
-            sp114.f[2] = temp_s0->unk18.f[2];
-            sp120.f[0] = temp_s0->unk30.f[0];
-            sp120.f[1] = temp_s0->unk30.f[1];
-            sp120.f[2] = temp_s0->unk30.f[2];
-            sp148.unk14 = sp148.unk10 = uvSqrtF(SQ(temp_s0->unk30.x) + SQ(temp_s0->unk30.y) + SQ(temp_s0->unk30.z)) * 0.50;
+            spD4.unk74 = 0xA;
+            spD4.unk40.f[0] = temp_s0->unk18.f[0];
+            spD4.unk40.f[1] = temp_s0->unk18.f[1];
+            spD4.unk40.f[2] = temp_s0->unk18.f[2];
+            spD4.unk4C.f[0] = temp_s0->unk30.f[0];
+            spD4.unk4C.f[1] = temp_s0->unk30.f[1];
+            spD4.unk4C.f[2] = temp_s0->unk30.f[2];
+            spD4.unk6C = spD4.unk68 = uvSqrtF(SQ(temp_s0->unk30.x) + SQ(temp_s0->unk30.y) + SQ(temp_s0->unk30.z)) * 0.50;
         } else {
             _uvDebugPrintf("wind : unknown wind shape [%d]\n", temp_s0->unk50);
             return;
         }
-        // @fake to force stuff in this struct to be stored
-        if (&sp148) { }
         func_8034D6D4(temp_s0, var_s1);
         func_802E27A8(&spD4);
     }
 }
-#if defined(__GNUC__)
-#pragma GCC diagnostic pop
-#endif
 
 void func_8034D4AC(void) {
     Unk8037F518* var_s0;

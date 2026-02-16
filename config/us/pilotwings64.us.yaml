@@ -256,6 +256,7 @@ segments:
 
       - [0x464E0, textbin, rspboot]
       - [0x465B0, textbin, f3dex]
+      - [0x479E0, textbin, fast3d]
       - [0x48E10, textbin, aspMain]
 
       - [0x49C30, .data, kernel/audio]
@@ -333,11 +334,13 @@ segments:
       - [0x50AD0, .rodata, ultralib/src/audio/env]
       - [0x50B30, .rodata, ultralib/src/audio/seq]
       - [0x50B40, .rodata, ultralib/src/audio/reverb]
-      - [0x50B70, rodata]
-      - [0x51370, rodata]
+      - [0x50B70, rodata, f3dex]
+      - [0x51370, rodata, fast3d]
       - [0x51B70, rodata]
 
       - { type: bss, vram: 0x80250E80, name: kernel_bss }
+      - { type: .bss, vram: 0x8025BF00, name: kernel/event }
+      - { type: bss, vram: 0x8025C5B0 }
       - { type: .bss, vram: 0x80290680, name: kernel/geometry }
       - { type: bss, vram: 0x80296AA0 }
       - { type: .bss, vram: 0x802C5FD0, name: kernel/sprite }
@@ -513,7 +516,8 @@ segments:
       - [0xD7AF0, data]
       - [0xD7B80, data]
       - [0xD7BC0, data]
-      - [0xD7D20, data]
+      - [0xD7D20, .data, app/thermals]
+      - [0xD7D30, data]
       - [0xD7E10, data]
       - [0xD7EF0, data]
       - [0xD7F40, .rodata, app/code_51E30]
@@ -610,7 +614,9 @@ segments:
       - [0xDE640, .rodata, app/code_D4290]
       - [0xDE6B0, .rodata, app/wind_objects]
 
-      - { type: bss, start: 0xDE720, vram: 0x803571F0, name: app_bss }
+      - { type: bss, vram: 0x803571F0, name: app_bss_803571F0 }
+      - { type: .bss, vram: 0x8037AB50, name: app/thermals }
+      - { type: bss, vram: 0x8037ACE0, name: app_bss_8037ACD8 }
 
   - name: bin_DE720
     type: bin
