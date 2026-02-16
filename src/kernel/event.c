@@ -34,7 +34,7 @@ void func_80202DA0(void) {
     D_8025C598.unk4 = 0;
     D_8025BF00[0].unk0[D_8025BF00[0].count] = D_8025C598;
     D_8025BF00[0].count++;
-    
+
     D_8025C5A0.unk0 = func_802035AC;
     D_8025C5A0.unk4 = 0;
     D_8025BF00[1].unk0[D_8025BF00[1].count] = D_8025C5A0;
@@ -100,7 +100,7 @@ void uvEventPost(s32 arg0, s32 arg1) {
     for (i = 0; i < count; i++) {
         sp64[i] = temp_t3->unk0[i];
     }
-    
+
     for (i = 0; i < count; i++) {
         sp64[i].unk0(arg0, sp64[i].unk4, arg1);
     }
@@ -163,14 +163,14 @@ void func_80203434(s32 arg0, s32 arg1, s32 arg2) {
     s32 count;
     s32 i;
     EventCallbackInfo sp64[10];
-    
+
     temp_t3 = &D_8025C3F0[arg0];
     count = temp_t3->count;
 
     for (i = 0; i < count; i++) {
         sp64[i] = temp_t3->unk0[i];
     }
-    
+
     for (i = 0; i < count; i++) {
         sp64[i].unk0(arg0, sp64[i].unk4, arg2);
     }
@@ -181,14 +181,14 @@ void func_802035AC(s32 arg0, s32 arg1, s32 arg2) {
     s32 count;
     s32 i;
     EventCallbackInfo sp64[10];
-    
+
     temp_t3 = &D_8025C3F0[arg0];
     count = temp_t3->count;
 
     for (i = 0; i < count; i++) {
         sp64[i] = temp_t3->unk0[i];
     }
-    
+
     for (i = 0; i < count; i++) {
         sp64[i].unk0(arg0, sp64[i].unk4, arg2);
     }
@@ -199,14 +199,14 @@ void func_80203724(s32 arg0, s32 arg1, s32 arg2) {
     s32 count;
     s32 i;
     EventCallbackInfo sp64[10];
-    
+
     temp_t3 = &D_8025C3F0[arg0];
     count = temp_t3->count;
 
     for (i = 0; i < count; i++) {
         sp64[i] = temp_t3->unk0[i];
     }
-    
+
     for (i = 0; i < count; i++) {
         sp64[i].unk0(arg0, sp64[i].unk4, arg2);
     }
