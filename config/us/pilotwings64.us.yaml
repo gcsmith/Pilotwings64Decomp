@@ -339,8 +339,12 @@ segments:
       - [0x51B70, rodata]
 
       - { type: bss, vram: 0x80250E80, name: kernel_bss }
+      - { type: .bss, vram: 0x8025BF00, name: kernel/event }
+      - { type: bss, vram: 0x8025C5B0, name: kernel_bss2 }
+      - { type: .bss, vram: 0x80290680, name: kernel/geometry }
+      - { type: bss, vram: 0x80296AA0, name: kernel_bss3 }
       - { type: .bss, vram: 0x802C5FD0, name: kernel/sprite }
-      - { type: bss, vram: 0x802C8020, name: kernel_bss2 }
+      - { type: bss, vram: 0x802C8020, name: kernel_bss4 }
 
   - name: app
     type: code
@@ -391,7 +395,7 @@ segments:
       - [0x905C0, c, app/code_905C0]
       - [0x915B0, c, app/code_915B0]
       - [0x91670, c, app/hsound]
-      - [0x92810, c, app/code_92810]
+      - [0x92810, c, app/menu]
       - [0x92BF0, c, app/level]
       - [0x936F0, c, app/credits]
       - [0x94E60, c, app/code_94E60]
@@ -512,7 +516,8 @@ segments:
       - [0xD7AF0, data]
       - [0xD7B80, data]
       - [0xD7BC0, data]
-      - [0xD7D20, data]
+      - [0xD7D20, .data, app/thermals]
+      - [0xD7D30, data]
       - [0xD7E10, data]
       - [0xD7EF0, data]
       - [0xD7F40, .rodata, app/code_51E30]
@@ -557,7 +562,7 @@ segments:
       - [0xDAC60, .rodata, app/code_905C0]
       - [0xDADB0, .rodata, app/code_915B0]
       - [0xDAE00, .rodata, app/hsound]
-      - [0xDAF00, .rodata, app/code_92810]
+      - [0xDAF00, .rodata, app/menu]
       - [0xDAF30, .rodata, app/level]
       - [0xDB1D0, .rodata, app/credits]
       - [0xDB750, .rodata, app/code_94E60]
@@ -609,7 +614,11 @@ segments:
       - [0xDE640, .rodata, app/code_D4290]
       - [0xDE6B0, .rodata, app/wind_objects]
 
-      - { type: bss, start: 0xDE720, vram: 0x803571F0, name: app_bss }
+      - { type: bss, vram: 0x803571F0, name: app_bss_803571F0 }
+      - { type: .bss, vram: 0x80369F10, name: app/menu }
+      - { type: bss, vram: 0x80369F30, name: app_bss_80369F10 }
+      - { type: .bss, vram: 0x8037AB50, name: app/thermals }
+      - { type: bss, vram: 0x8037ACE0, name: app_bss_8037ACD8 }
 
   - name: bin_DE720
     type: bin

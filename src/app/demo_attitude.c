@@ -166,7 +166,7 @@ void demoAttUpdate(f32 curTime, Mtx4F* mat) {
 }
 
 void demoAtt_80320FBC(void) {
-    Unk80362690_Unk0_UnkC_Unk70* unk7C;
+    Unk802D3658_Arg0* unk7C;
     unk7C = D_80362690->unk0[D_80362690->unk9C].unkC.unk70;
     demoAttUpdate(D_8034F850, &unk7C->unk108);
     func_80204B34(D_80362690->unk0[D_80362690->unk9C].unkC.unk70->unk22C, &unk7C->unk108);

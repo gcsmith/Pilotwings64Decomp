@@ -188,11 +188,9 @@ void uvFont_80219ACC(s32, s32, char*);
 typedef struct {
 /* 000 */ u8 unk0;
 /* 001 */ u8 unk1;
-/* 002 */ u8 unk2;
-/* 003 */ u8 unk3;
-/* 004 */ u32 unk4;
-/* 008 */ u32 unk8;
-/* 00C */ u32 unkC;
+/* 002 */ u16 unk2;
+/* 004 */ u16 unk4;
+/* 006 */ u16 unk6[5]; // unknown size, might be up to 0x6 - 0x10
 /* 010 */ Mtx4F unk10;
 /* 050 */ Mtx unk50;
 /* 090 */ Mtx4F unk90;
@@ -212,7 +210,7 @@ typedef struct {
 /* 1F4 */ f32 unk1F4;
 /* 1F8 */ f32 unk1F8;
 /* 1FC */ f32 unk1FC;
-/* 200 */ u8 pad200[0x4];
+/* 200 */ f32 unk200;
 /* 204 */ f32 unk204;
 /* 208 */ u8 pad208[0xD8];
 /* 2E0 */ u8 unk2E0[0x90];
@@ -227,17 +225,12 @@ typedef struct {
 /* 38E */ s16 unk38E;
 /* 390 */ s16 unk390;
 /* 392 */ s16 unk392;
-/* 394 */ u8 pad394[0xC];
+/* 394 */ u32 pad394;
+/* 398 */ void (*unk398)(void);
+/* 39C */ void (*unk39C)(void);
 } UnkStruct_80204D94; // size 3A0
 
 extern UnkStruct_80204D94 D_80261730[];
-extern UnkStruct_80204D94 D_80261732[];
-extern UnkStruct_80204D94 D_80261734[];
-extern UnkStruct_80204D94 D_80261736[];
-extern UnkStruct_80204D94 D_80261930[];
-extern UnkStruct_80204D94 D_80261934[];
-extern UnkStruct_80204D94 D_80261AC8[];
-extern UnkStruct_80204D94 D_80261ACC[];
 
 void func_80204A8C(s32 arg0, s32 arg1);
 void func_80204B08(s32 arg0, s32 arg1, s32 arg2);
@@ -248,5 +241,10 @@ u8*  func_80204F9C(s32 arg0);
 void func_80204FC4(s32 arg0);
 void func_80204FE4(s32 arg0);
 void func_802057F4(Mtx4F *arg0, Mtx4F *arg1);
+void func_80204AB0(s32 arg0, s32 arg1, void (*arg2)(void));
+void func_80204BD4(s32 arg0, s32 arg1, f32 arg2);
+void func_80204930(void);
+void func_80205724(s32, s32, Mtx4F*);
+void func_80204C94(s32, f32, f32, f32, f32, f32, f32);
 
 #endif // PILOTWINGS64_UV_GRAPHICS
