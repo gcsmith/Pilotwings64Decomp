@@ -3,11 +3,19 @@
 
 #include <ultra64.h>
 #include <PR/sched.h>
+#include <uv_matrix.h>
 #include <uv_util.h>
 
 #define UV_MESG_DMA     0
 #define UV_MESG_SCHED   2
 #define UV_MESG_GFX     4
+
+typedef struct Unk8022B0A0 {
+    f32 unk0;
+    f32 unk4;
+    f32 unk8;
+    f32 unkC;
+} Unk8022B0A0; // size: 0x10
 
 void uvWaitForMesg(char msg_type);
 
@@ -26,8 +34,9 @@ void _uvScHandleRDP(void);
 void _uvScHandleNMI(void);
 void _uvScLogCpuEvent(s32 ring);
 void _uvScLogIntoRing(void);
-void func_8022C34C(void);
+void func_8022B0A0(Unk8022B0A0* arg0, Mtx4F* arg1);
 void func_8022BEB8(s32 arg0);
+void func_8022C34C(void);
 void func_8022C3C0(u8 arg0, s32 arg1);
 
 #endif // PILOTWINGS64_UV_SCHED

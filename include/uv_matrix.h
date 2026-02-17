@@ -15,6 +15,20 @@ typedef union {
     };
 } Mtx4F;
 
+typedef struct Mtx_u {
+    u16 i[4][4];
+    u16 f[4][4];
+} Mtx_u;
+
+typedef union {
+    Mtx_t m;
+    Mtx_u u;
+    long long int force_structure_alignment;
+} uvMtx;
+
+#define MTX_TO_PART(mtx) (*(Mtx_u*)&(mtx))
+#define L2F(mtx, i1, i2) ((((s16)MTX_TO_PART(mtx).i[(i1)][(i2)] << 0x10) | ((s16)MTX_TO_PART(mtx).f[(i1)][(i2)] & 0xFFFF)) / 65536.0f)
+
 void _uvDbMstackReset(void);
 Mtx4F* _uvDbMstackTop(void);
 void _uvDbMstackPush(Mtx4F* src);

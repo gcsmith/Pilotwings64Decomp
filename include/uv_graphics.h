@@ -47,6 +47,31 @@ typedef struct {
     void* unk54;
 } UnkStruct_uvGfxInit; // size: 0x58
 
+typedef struct UnkTileStruct40 {
+    u8 pad0[0x10];
+    struct UnkSobjDraw* unk10;
+} UnkTileStruct40;
+
+typedef struct uvUnkTileStruct {
+    u8 pad0[0x40];
+    UnkTileStruct40* unk40;
+    u8 pad44[0x4];
+} uvUnkTileStruct;
+
+typedef struct uvGfxUnkStructTerra {
+    f32 unk0;
+    f32 unk4;
+    u8 pad8[0x4];
+    f32 unkC;
+    f32 unk10;
+    u8 pad14[0x4];
+    u8 unk18;
+    f32 unk1C;
+    f32 unk20;
+    u8 pad24[0x4];
+    uvUnkTileStruct* unk28;
+} uvGfxUnkStructTerra;
+
 typedef struct {
     void* unk0;
     Gfx *unk4;
@@ -61,13 +86,38 @@ typedef struct {
     struct unk_UVTX_1C* unk1C;
     u8 pad20[0x2];
     u8 unk22;
-} uvGfxUnkStruct2;
+} uvGfxUnkStructTexture;
+
+typedef struct uvGfxUnkStruct10 {
+    uvGfxState_t* unk0;
+    u8 unk4;
+    u8 pad5[0x1];
+    u8 unk6;
+    u8 pad7[0x6];
+    u8 unkD;
+    u8 padE[0x2];
+} uvGfxUnkStruct10;
+
+typedef struct uvGfxUnkStruct8 {
+    uvGfxUnkStruct10* unk0;
+    u8 unk4;
+    u8 unk5;
+    u8 pad6[0x2];
+} uvGfxUnkStruct8;
 
 typedef struct {
-    u8 pad0[0x1C];
+    u8 pad0[0x8];
+    uvGfxUnkStruct8* unk8;
+    f32* unkC;
+    u8 unk10;
+    u8 unk11;
+    u8 pad12[0x2];
+    void* unk14;
+    u8 unk18;
+    u8 pad19[0x3];
     f32 unk1C;
     f32 unk20;
-} uvGfxUnkStructC8;
+} uvGfxUnkStructModel;
 
 typedef struct {
     u8 pad0[0x2];
@@ -80,23 +130,25 @@ typedef struct {
     s16 nbitmaps;
     u8 pad10[0x4];
     Bitmap* bitmap;
-} uvGfxUnkStruct1410;
+} uvGfxUnkStructBlit;
 
 typedef struct {
     u8 pad0[0x4];
-    void *unk4[1];
+    uvGfxUnkStructTerra *unk4[1];
     u8 pad8[0x28];
     void *unk30[1];
     u8 pad34[0x10];
     void *unk44[1];
     u8 pad48[0x80];
-    uvGfxUnkStructC8 *unkC8[1];
+    uvGfxUnkStructModel *unkC8[1];
     u8 padCC[0x844];
-    uvGfxUnkStruct2 *unk910[1];
+    uvGfxUnkStructTexture *unk910[1];
     u8 pad914[0x7D0];
     void *unk10E4[1];
     u8 pad10E8[0x328];
-    uvGfxUnkStruct1410* unk1410[1];
+    uvGfxUnkStructBlit* unk1410[1];
+    u8 pad1414[0x1F4];
+    f32 unk1608;
 } uvGfxUnkStruct;
 
 extern Gfx* gGfxDisplayListHead;
@@ -187,7 +239,7 @@ typedef struct {
 /* 1FC */ f32 unk1FC;
 /* 200 */ f32 unk200;
 /* 204 */ f32 unk204;
-/* 208 */ u8 pad208[0x2E0 - 0x208];
+/* 208 */ u8 pad208[0xD8];
 /* 2E0 */ u8 unk2E0[0x90];
 /* 370 */ s32 unk370;
 /* 374 */ s32 unk374;

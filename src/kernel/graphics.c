@@ -259,7 +259,7 @@ void uvGfxStateDraw(uvGfxState_t* arg0) {
     u32 clearMode;
     u32 setMode;
     u16 var_t2;
-    uvGfxUnkStruct2* sp68;
+    uvGfxUnkStructTexture* sp68;
     u16 var_t1;
     s32 sp60;
     u32 var_a1_2;

@@ -9,7 +9,7 @@ typedef struct {
     u16 unk0;
     u16 unk2[1]; // unknown size, might take up everything till unk34
     u8 pad4[0x34-0x4];
-    s8 unk34;
+    u8 unk34;
     f32 unk38;
     s32 unk3C;
 } Unk80263780;

@@ -1,5 +1,23 @@
 #include <uv_graphics.h>
 #include <uv_math.h>
+#include <libc/stdarg.h>
+
+typedef struct UnkSortAdd {
+    s8 unk0;
+    s8 unk1;
+    s8 unk2;
+    f32 unk4;
+    f32 unk8;
+    f32 unkC;
+    void* unk10;
+    u16 unk14;
+    s32 unk18;
+} UnkSortAdd;
+
+extern UnkSortAdd D_80261ED8[];
+extern UnkSortAdd D_802629C8[];
+extern s32 D_80263058;
+extern s32 D_8026305C;
 
 // from kernel/code_7150
 void func_802061A0(void*);
@@ -147,7 +165,71 @@ void func_802057F4(Mtx4F* arg0, Mtx4F* arg1) {
     uvMat4UnkOp4(arg0, arg1);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_58E0/_uvSortAdd.s")
+void _uvSortAdd(s32 arg0, f32 arg1, void* arg2, UnkStruct_80204D94* arg3, f32 arg4, f32 arg5, ...) {
+    UnkSortAdd* var_a1;
+    uvGfxUnkStructTerra* var_v0;
+    s32 var_v1;
+    s32 var_a0;
+    va_list args;
+
+    if (arg0 > 0) {
+        if (D_80263058 >= 100) {
+            _uvDebugPrintf("_uvSortAdd: sort list full %d\n", 100);
+            return;
+        }
+        var_a1 = &D_80261ED8[D_80263058];
+        D_80263058++;
+    } else {
+        if (D_8026305C >= 60) {
+            _uvDebugPrintf("_uvSortAdd: dobj list full for %d\n", 60);
+            return;
+        }
+
+        var_a1 = &D_802629C8[D_8026305C];
+        D_8026305C++;
+        arg0 = -arg0;
+    }
+    var_a1->unk0 = arg0;
+    var_a1->unk4 = arg1;
+    var_a1->unk10 = arg2;
+    if (arg3->unk0 & 2) {
+        var_v0 = gGfxUnkPtrs->unk4[arg3->unk4];
+    } else {
+        var_v0 = NULL;
+    }
+    if (var_v0 != NULL) {
+        if ((arg4 < var_v0->unk0) || (var_v0->unkC <= arg4) || (arg5 < var_v0->unk4) || (var_v0->unk10 <= arg5)) {
+            var_a1->unk14 = 0xFFFF;
+        } else {
+            var_v1 = (s32)(arg4 - var_v0->unk0) / (s32)var_v0->unk1C;
+            var_a0 = (s32)(arg5 - var_v0->unk4) / (s32)var_v0->unk20;
+            var_a1->unk14 = var_v1 + var_v0->unk18 * var_a0;
+        }
+    } else {
+        var_a1->unk14 = 0xFFFF;
+    }
+
+    va_start(args, arg5);
+    switch (arg0) {
+    case 1:
+        break;
+    case 2:
+        var_a1->unk1 = va_arg(args, s32);
+        break;
+    case 3:
+        var_a1->unk1 = va_arg(args, s32);
+        var_a1->unk8 = va_arg(args, f64);
+        var_a1->unkC = va_arg(args, f64);
+        break;
+    case 4:
+        var_a1->unk8 = va_arg(args, f64);
+        var_a1->unkC = va_arg(args, f64);
+        var_a1->unk18 = va_arg(args, s32);
+        var_a1->unk2 = va_arg(args, s32);
+        var_a1->unk1 = va_arg(args, s32);
+        break;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_58E0/func_80205BFC.s")
 

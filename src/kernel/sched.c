@@ -1,4 +1,5 @@
 #include <uv_clocks.h>
+#include <uv_math.h>
 #include <uv_sched.h>
 
 #define VIDEO_MSG 666
@@ -31,7 +32,57 @@ extern s32 D_802B9C7C;
 extern s32 D_802B9C84;
 extern s32 D_802B9C88;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/sched/func_8022B0A0.s")
+void func_8022B0A0(Unk8022B0A0* arg0, Mtx4F* arg1) {
+    f32 temp_fa1;
+    f32 temp_fv0;
+    f32 temp_fv1;
+    s32 var_v0;
+
+    temp_fa1 = arg1->m[0][0] + arg1->m[1][1] + arg1->m[2][2];
+
+    if (temp_fa1 >= 0.0f) {
+        temp_fv0 = uvSqrtF(temp_fa1 + 1.0f);
+        temp_fv1 = 0.5f / temp_fv0;
+        arg0->unkC = temp_fv0 * 0.5f;
+        arg0->unk0 = (arg1->m[2][1] - arg1->m[1][2]) * temp_fv1;
+        arg0->unk4 = (arg1->m[0][2] - arg1->m[2][0]) * temp_fv1;
+        arg0->unk8 = (arg1->m[1][0] - arg1->m[0][1]) * temp_fv1;
+        return;
+    }
+    var_v0 = 0;
+    if (arg1->m[0][0] < arg1->m[1][1]) {
+        var_v0 = 1;
+    }
+    if (arg1->m[var_v0][var_v0] < arg1->m[2][2]) {
+        var_v0 = 2;
+    }
+    switch (var_v0) {
+    case 0:
+        temp_fv0 = uvSqrtF((arg1->m[0][0] - (arg1->m[1][1] + arg1->m[2][2])) + 1.0f);
+        temp_fv1 = 0.5f / temp_fv0;
+        arg0->unk0 = temp_fv0 * 0.5f;
+        arg0->unk4 = (arg1->m[0][1] + arg1->m[1][0]) * temp_fv1;
+        arg0->unk8 = (arg1->m[2][0] + arg1->m[0][2]) * temp_fv1;
+        arg0->unkC = (arg1->m[2][1] - arg1->m[1][2]) * temp_fv1;
+        break;
+    case 1:
+        temp_fv0 = uvSqrtF((arg1->m[1][1] - (arg1->m[2][2] + arg1->m[0][0])) + 1.0f);
+        temp_fv1 = 0.5f / temp_fv0;
+        arg0->unk4 = temp_fv0 * 0.5f;
+        arg0->unk8 = (arg1->m[1][2] + arg1->m[2][1]) * temp_fv1;
+        arg0->unk0 = (arg1->m[0][1] + arg1->m[1][0]) * temp_fv1;
+        arg0->unkC = (arg1->m[0][2] - arg1->m[2][0]) * temp_fv1;
+        break;
+    case 2:
+        temp_fv0 = uvSqrtF((arg1->m[2][2] - (arg1->m[0][0] + arg1->m[1][1])) + 1.0f);
+        temp_fv1 = 0.5f / temp_fv0;
+        arg0->unk8 = temp_fv0 * 0.5f;
+        arg0->unk0 = (arg1->m[2][0] + arg1->m[0][2]) * temp_fv1;
+        arg0->unk4 = (arg1->m[1][2] + arg1->m[2][1]) * temp_fv1;
+        arg0->unkC = (arg1->m[1][0] - arg1->m[0][1]) * temp_fv1;
+        break;
+    }
+}
 
 void _uvScDoneGfx(void) {
     OSScTask* scTask = D_802B9C60[D_802B9C6E];
