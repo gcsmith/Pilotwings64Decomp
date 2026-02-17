@@ -62,8 +62,8 @@ typedef struct {
 void uvSprt_80230130(void);
 void uvSprt_802301A4(void);
 void _uvTxtDraw(s32 arg0);
-void uvSprtFromBitmap(uvSprite_t* arg0, uvGfxUnkStruct2* arg1);
-void uvSprt_80230750(uvSprite_t* arg0, uvGfxUnkStruct2* arg1);
+void uvSprtFromBitmap(uvSprite_t* arg0, uvGfxUnkStructTexture* arg1);
+void uvSprt_80230750(uvSprite_t* arg0, uvGfxUnkStructTexture* arg1);
 s32  uvSprt_80230898(void);
 void uvSprtInit(void);
 void uvSprtDisplayList(uvSprite_t* arg0);

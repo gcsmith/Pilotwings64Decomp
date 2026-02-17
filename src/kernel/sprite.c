@@ -76,7 +76,7 @@ void uvSprt_802301A4(void) {
 
 void _uvTxtDraw(s32 textureId) {
     unk_UVTX_1C* temp_a1;
-    uvGfxUnkStruct2* temp_a2;
+    uvGfxUnkStructTexture* temp_a2;
     s32 temp_a3;
     s32 temp_t1;
     s32 temp_ft1;
@@ -123,7 +123,7 @@ void _uvTxtDraw(s32 textureId) {
     }
 }
 
-void uvSprtFromBitmap(uvSprite_t* arg0, uvGfxUnkStruct2* arg1) {
+void uvSprtFromBitmap(uvSprite_t* arg0, uvGfxUnkStructTexture* arg1) {
     if (arg0->textureId == 0xFFFF) {
         _uvDebugPrintf("Warning: Bitmap sprite switched to texture sprite w/o uvMemReset\n");
         arg0->bitmap = NULL;
@@ -144,7 +144,7 @@ void uvSprtFromBitmap(uvSprite_t* arg0, uvGfxUnkStruct2* arg1) {
     arg0->bitmap->LUToffset = 0;
 }
 
-void uvSprt_80230750(uvSprite_t* arg0, uvGfxUnkStruct2* arg1) {
+void uvSprt_80230750(uvSprite_t* arg0, uvGfxUnkStructTexture* arg1) {
     Sprite* sprite = &arg0->sprite;
 
     if (arg1 != NULL) {
@@ -293,7 +293,7 @@ void uvSprtDraw(s32 sprite_id) {
 }
 
 void uvSprtSetBlit(uvSprite_t* arg0, s32 arg1) {
-    uvGfxUnkStruct1410* var_v1;
+    uvGfxUnkStructBlit* var_v1;
     Sprite* sprite = &arg0->sprite;
 
     var_v1 = gGfxUnkPtrs->unk1410[arg1];
@@ -385,7 +385,7 @@ s16 uvSprtGetHeight(s32 sprite_id) {
 }
 
 void uvSprtProps(s32 sprite_id, ...) {
-    uvGfxUnkStruct2* temp_s2;
+    uvGfxUnkStructTexture* temp_s2;
     uvSprite_t* temp_s1;
     va_list args;
     s32 token;

@@ -25,12 +25,12 @@ typedef struct Unk80371120 {
     s32 unk1AC;
 } Unk80371120; // size: 0x1B0
 
-void _uvSortAdd(s32, f32, Unk80263780*, UnkStruct_80204D94*, f32, f32, ...);
-u8 func_80217AB4(uvGfxUnkStructC8*, f32);
-void func_80217B4C(Unk80263780*, uvGfxUnkStructC8*, u8);
-void func_80217E24(Unk80263780*, uvGfxUnkStructC8*, u8, f32, f32);
+void _uvSortAdd(s32, f32, void*, UnkStruct_80204D94*, f32, f32, ...);
+u8 func_80217AB4(uvGfxUnkStructModel*, f32);
+void func_80217B4C(Unk80263780*, uvGfxUnkStructModel*, u8);
+void func_80217E24(Unk80263780*, uvGfxUnkStructModel*, u8, f32, f32);
 s32 func_80206F64(void*, f32, f32, f32, f32);
-void func_80215E7C(uvGfxUnkStructC8*);
+void func_80215E7C(uvGfxUnkStructModel*);
 
 extern u8 D_80269B80[300];
 extern u16 D_80269CB0[100];
@@ -39,7 +39,7 @@ extern u16 D_80269F0A;
 extern Mtx4F D_80265080[300];
 
 void uvDobjModel(s32 objId, s32 arg1) {
-    uvGfxUnkStructC8** temp_a3;
+    uvGfxUnkStructModel** temp_a3;
     Unk80263780* var_t2;
     s32 var_v0_3;
     s32 i;
@@ -185,7 +185,7 @@ void uvDobjProps(s32 arg0, ...) {
 }
 
 void uvDobjPosm(s32 objId, s32 part, Mtx4F* arg2) {
-    uvGfxUnkStructC8* temp_v1;
+    uvGfxUnkStructModel* temp_v1;
     Unk80263780* temp_v0;
     f32 temp_fv0;
 
@@ -224,7 +224,7 @@ void uvDobjPosm(s32 objId, s32 part, Mtx4F* arg2) {
 
 void uvDobjGetPosm(s32 objId, s32 arg1, Mtx4F* arg2) {
     Unk80263780* sp24;
-    uvGfxUnkStructC8* temp_v0;
+    uvGfxUnkStructModel* temp_v0;
 
     if (objId >= 0x65) {
         _uvDebugPrintf("uvDobjPosm - invalid object id number [%d]\n", objId);
@@ -346,7 +346,7 @@ void _uvDobjsDraw(UnkStruct_80204D94* arg0, s32 arg1) {
     f32 spA0;
     f32 sp9C;
     f32 sp98;
-    uvGfxUnkStructC8* temp_s1;
+    uvGfxUnkStructModel* temp_s1;
     Mtx4F* temp_v0_2;
 
     D_80269F08 = 0;
@@ -411,7 +411,7 @@ void _uvDobjsDraw(UnkStruct_80204D94* arg0, s32 arg1) {
 }
 
 void func_8021771C(UnkStruct_80204D94* arg0) {
-    uvGfxUnkStructC8* temp_s0;
+    uvGfxUnkStructModel* temp_s0;
     Unk80263780* temp_s1;
     s32 i;
     s32 pad;
@@ -485,7 +485,7 @@ void func_8021771C(UnkStruct_80204D94* arg0) {
     }
 }
 
-u8 func_80217AB4(uvGfxUnkStructC8* arg0, f32 arg1) {
+u8 func_80217AB4(uvGfxUnkStructModel* arg0, f32 arg1) {
     u8 temp_v1;
     u8 i;
     f32* temp_v0;
@@ -513,7 +513,7 @@ s32 func_80217B34(s32** arg0) {
 
 extern s32 D_80248DD8;
 
-void func_80217B4C(Unk80263780* arg0, uvGfxUnkStructC8* arg1, u8 arg2) {
+void func_80217B4C(Unk80263780* arg0, uvGfxUnkStructModel* arg1, u8 arg2) {
     uvGfxUnkStruct10* temp_s2;
     uvGfxUnkStruct8* temp_s7;
     s32 i;
@@ -572,7 +572,7 @@ void func_80217B4C(Unk80263780* arg0, uvGfxUnkStructC8* arg1, u8 arg2) {
     }
 }
 
-void func_80217E24(Unk80263780* arg0, uvGfxUnkStructC8* arg1, u8 arg2, f32 arg3, f32 arg4) {
+void func_80217E24(Unk80263780* arg0, uvGfxUnkStructModel* arg1, u8 arg2, f32 arg3, f32 arg4) {
     uvGfxUnkStruct10* temp_s2;
     uvGfxUnkStruct8* temp_s5;
     Mtx4F* temp_s7;
@@ -638,7 +638,7 @@ void func_80217E24(Unk80263780* arg0, uvGfxUnkStructC8* arg1, u8 arg2, f32 arg3,
 void func_802180DC(s32 arg0, Unk80371120* arg1) {
     Unk80263780* var_s2;
     s32 i;
-    uvGfxUnkStructC8* temp_v0;
+    uvGfxUnkStructModel* temp_v0;
     Unk8022B0A0* var_s3;
 
     var_s2 = &D_80263780[arg0];
