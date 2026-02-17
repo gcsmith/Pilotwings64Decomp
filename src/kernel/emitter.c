@@ -3,10 +3,10 @@
 #include <uv_math.h>
 #include <libc/stdarg.h>
 
-#define MAX_EMITTERS 16
+#define VOICE_PLAYLIST_COUNT 16
 
-u8 sEmitterPlaylistObjects[MAX_EMITTERS];
-u8 sEmitterVoiceObjects[MAX_EMITTERS];
+u8 sEmitterPlaylistObjects[VOICE_PLAYLIST_COUNT];
+u8 sEmitterVoiceObjects[VOICE_PLAYLIST_COUNT];
 s32 sNumPlaylistEmitters;
 uvaEmitter_t gSndEmitterTable[256];
 
@@ -250,7 +250,7 @@ void _uvaSoundBegin(void) {
 
     uvEmitterPrintf("\nsoundBegin\n");
 
-    for (i = 0; i < MAX_EMITTERS; i++) {
+    for (i = 0; i < VOICE_PLAYLIST_COUNT; i++) {
         sEmitterPlaylistObjects[i] = 255;
         sEmitterVoiceObjects[i] = 255;
     }
@@ -444,7 +444,7 @@ void _uvaUpdatePlayList(u8 obj_id) {
         if (priority >= newPriority) {
             var_s7 = TRUE;
             uvEmitterPrintf("inserting in playlist\n");
-            if (sNumPlaylistEmitters == MAX_EMITTERS) {
+            if (sNumPlaylistEmitters == VOICE_PLAYLIST_COUNT) {
                 uvEmitterPrintf("flushing last item in playlist - %d\n", sEmitterPlaylistObjects[sNumPlaylistEmitters - 1]);
 
                 if (gSndEmitterTable[sEmitterPlaylistObjects[sNumPlaylistEmitters - 1]].playVoice != 0x11) {
@@ -464,7 +464,7 @@ void _uvaUpdatePlayList(u8 obj_id) {
             }
         }
     }
-    if (!var_s7 && (i == MAX_EMITTERS)) {
+    if (!var_s7 && (i == VOICE_PLAYLIST_COUNT)) {
         uvEmitterPrintf("object %d flushed\n", obj_id);
         if (gSndEmitterTable[obj_id].playVoice != 0x11) {
             sEmitterVoiceObjects[gSndEmitterTable[obj_id].playVoice] = 0xFF;
@@ -483,7 +483,7 @@ void _uvaUpdatePlayList(u8 obj_id) {
         uvEmitterPrintf("_uvaUpdatePlayList finished for object %d\n", obj_id);
         return;
     }
-    if (sNumPlaylistEmitters < MAX_EMITTERS) {
+    if (sNumPlaylistEmitters < VOICE_PLAYLIST_COUNT) {
         sNumPlaylistEmitters++;
     }
     uvEmitterPrintf("%d used voices\n", sNumPlaylistEmitters);
@@ -585,7 +585,7 @@ void _uvaUpdateVoice(u8 obj_id) {
 }
 
 void _uvaStopVoice(u8 voice_id) {
-    if (voice_id < MAX_EMITTERS) {
+    if (voice_id < VOICE_PLAYLIST_COUNT) {
         uvEmitterPrintf("stopping voice%d\n", voice_id);
         alSndpSetSound(gSndPlayer, gSndVoiceTable[voice_id]);
         if (alSndpGetState(gSndPlayer) == 1) {
