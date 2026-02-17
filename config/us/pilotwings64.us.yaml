@@ -437,7 +437,7 @@ segments:
       - [0xC7370, c, app/snow]
       - [0xC7B40, c, app/spath]
       - [0xC8990, c, app/code_C8990]
-      - [0xC9440, c, app/code_C9440]
+      - [0xC9440, c, app/text_data]
       - [0xC9B60, c, app/code_C9B60]
       - [0xCB7C0, c, app/code_CB7C0]
       - [0xCBEE0, c, app/level_objects]
@@ -622,6 +622,8 @@ segments:
       - { type: bss, vram: 0x80362500, name: app_bss_80362500 }
       - { type: .bss, vram: 0x80369F10, name: app/menu }
       - { type: bss, vram: 0x80369F30, name: app_bss_80369F10 }
+      - { type: .bss, vram: 0x80377F10, name: app/text_data }
+      - { type: bss, vram: 0x80378CE0, name: app_bss_80378CE0 }
       - { type: .bss, vram: 0x8037AB50, name: app/thermals }
       - { type: bss, vram: 0x8037ACE0, name: app_bss_8037ACD8 }
 

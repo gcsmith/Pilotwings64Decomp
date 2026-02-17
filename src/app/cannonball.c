@@ -22,13 +22,13 @@
 #include "code_9A960.h"
 #include "code_B2900.h"
 #include "code_B5280.h"
-#include "code_C9440.h"
 #include "code_D2B10.h"
 #include "demo.h"
 #include "fdr.h"
 #include "hud.h"
 #include "save.h"
 #include "snd.h"
+#include "text_data.h"
 
 // .data likely owned by this file
 extern f32 D_8034E9F0;
@@ -906,7 +906,7 @@ s32 cannonLandedFrame(Unk802D5C5C_Arg0* arg0) {
         if (!sp27) {
             hudText_8031D8E0(0x14D, 2.0f, 8.0f);
         } else {
-            func_80342404(func_80342198(0x1AC), var_a2, 2, 0);
+            textFmtIntAt(textGetDataByIdx(0x1AC), var_a2, 2, 0);
             hudText_8031D8E0(0x1AC, 2.0f, 8.0f);
             if (var_a2 == 0x19) {
                 hudWarningText(0x16F, 2.0f, 8.0f);
