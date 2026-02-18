@@ -29,18 +29,15 @@ static s32 sFileMenuConfirm[] = {
 static s32 sFileMenuCurMenu = 0;
 static s32 sFileMenu_8034F0F8 = 0;
 static f32 sFileMenu_8034F0FC[6] = { -68.080002f, -302.140015f, 10.740000f, -0.0174533f, 0.1f, 0.0f };
-static f32 sFileMenuFadeTime = 0.0f; // current time for text color fading
-static f32 sFileMenuFadeRate = 1.6f; // rate at which text fades
 
-// can make static once fileMenu_802E9AE0 is matched
-/* static */ u8 sFileMenu_803624E0[3];
-/* static */ u8 sFileMenu_803624E3;
-/* static */ f32 sFileColorR1;
-/* static */ f32 sFileColorR2;
-/* static */ f32 sFileColorG1;
-/* static */ f32 sFileColorG2;
-/* static */ f32 sFileColorB1;
-/* static */ f32 sFileColorB2;
+static u8 sFileMenu_803624E0[3];
+static u8 sFileMenu_803624E3;
+static f32 sFileColorR1;
+static f32 sFileColorR2;
+static f32 sFileColorG1;
+static f32 sFileColorG2;
+static f32 sFileColorB1;
+static f32 sFileColorB2;
 
 s32 fileMenuTopRender(void) {
     s32 temp_v0;
@@ -394,17 +391,15 @@ void fileMenuColorLerp(f32 v, f32 x1, f32 y1, f32 z1, f32 x2, f32 y2, f32 z2, f3
     *zout = ((z2 - z1) * v) + z1;
 }
 
-#ifndef NON_MATCHING
-#pragma GLOBAL_ASM("asm/nonmatchings/app/file_menu/fileMenu_802E9AE0.s")
-#else
 void fileMenu_802E9AE0(void) {
-    f32 var_fa0;
-    s32 i; // var_s0;
-    f32 sp54;
-    f32 sp50;
-    f32 sp4C;
-    s16* sp48; // where does sp48 get set?
-    s16* var_s0_3;
+    static f32 sFileMenuFadeTime = 0.0f; // current time for text color fading
+    static f32 sFileMenuFadeRate = 1.6f; // rate at which text fades
+    s32 i;
+    s32 pad;
+    f32 r;
+    f32 g;
+    f32 b;
+    s16* titleStr;
     Unk802D3658_Arg0* unk70;
 
     unk70 = D_80362690->unk0[D_80362690->unk9C].unkC.unk70;
@@ -428,7 +423,6 @@ void fileMenu_802E9AE0(void) {
     for (i = 0; i < 12; i++) {
         uvSprtDraw(i);
     }
-
     for (i = 0; i < 3; i++) {
         if (sFileMenu_803624E0[i] != 0) {
             uvSprtDraw(i + 0xC);
@@ -439,36 +433,30 @@ void fileMenu_802E9AE0(void) {
     uvFontSet(6);
     uvFont_80219550(1.0, 1.0);
 
-    var_fa0 = sFileMenuFadeTime + uvGfxGetUnkStateF() * sFileMenuFadeRate;
+    sFileMenuFadeTime += sFileMenuFadeRate * uvGfxGetUnkStateF();
 
-    if (0) { } // fakematching
-    if (var_fa0 > 1.0f) {
-        var_fa0 = 1.0f;
+    if (sFileMenuFadeTime > 1.0f) {
+        sFileMenuFadeTime = 1.0f;
         sFileMenuFadeRate = -sFileMenuFadeRate;
-    } else if (var_fa0 < 0.0f) {
-        var_fa0 = 0.0f;
+    } else if (sFileMenuFadeTime < 0.0f) {
+        sFileMenuFadeTime = 0.0f;
         sFileMenuFadeRate = -sFileMenuFadeRate;
     }
-    sFileMenuFadeTime = var_fa0;
 
-    fileMenuColorLerp(sFileMenuFadeTime, sFileColorR1, sFileColorG1, sFileColorB1, sFileColorR2, sFileColorG2, sFileColorB2, &sp54, &sp50, &sp4C);
-    uvFont_8021956C((u32)sp54, (u32)sp50, (u32)sp4C, 0xFF);
+    fileMenuColorLerp(sFileMenuFadeTime, sFileColorR1, sFileColorG1, sFileColorB1, sFileColorR2, sFileColorG2, sFileColorB2, &r, &g, &b);
+    uvFont_8021956C((u8)r, (u8)g, (u8)b, 0xFF);
     switch (sFileMenuCurMenu) {
-    default:
-        var_s0_3 = sp48;
-        break;
     case 0:
-        var_s0_3 = func_80342198(0x23);
+        titleStr = func_80342198(0x23); // SELECT FILE
         break;
     case 1:
-        var_s0_3 = func_80342198(0xBA);
+        titleStr = func_80342198(0xBA); // Which file will be erased?
         break;
     case 2:
-        var_s0_3 = func_80342198(0x101);
+        titleStr = func_80342198(0x101); // Are you sure?
         break;
     }
-    func_80219874(160 - (func_802196B0(var_s0_3) / 2), 206, var_s0_3, 0x3C, 0xFFE);
+    func_80219874(160 - (func_802196B0(titleStr) / 2), 206, titleStr, 0x3C, 0xFFE);
     uvFont_80219EA8();
     func_8034B6F8();
 }
-#endif

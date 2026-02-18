@@ -458,7 +458,7 @@ gGfxDramStack             = 0x802B7DE0;
 
 gSeqPlayer                = 0x80248C90;
 gSndPlayer                = 0x80248C94;
-gSndEmitterTable          = 0x80250EF8;
+gSndEmitterTable          = 0x80250EF8; // size:0xB000
 gSndVoiceTable            = 0x80261218;
 
 D_80263780                = 0x80263780; // size:0x1900

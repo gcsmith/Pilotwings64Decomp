@@ -338,7 +338,9 @@ segments:
       - [0x51370, rodata, fast3d]
       - [0x51B70, rodata]
 
-      - { type: bss, vram: 0x80250E80, name: kernel_bss }
+
+      - { type: .bss, vram: 0x80250E80, name: kernel/code_1050 }
+      - { type: .bss, vram: 0x80250ED0, name: kernel/emitter }
       - { type: .bss, vram: 0x8025BF00, name: kernel/event }
       - { type: bss, vram: 0x8025C5B0, name: kernel_bss2 }
       - { type: .bss, vram: 0x80290680, name: kernel/geometry }

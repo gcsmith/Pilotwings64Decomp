@@ -6,13 +6,27 @@
 
 # Pilotwings64Decomp
 
-An early, work-in-progress **matching decompilation** of Pilotwings 64. 
+This repo contains a work-in-progress **matching decompilation** of Pilotwings 64, currently supporting the following releases: North America (U).
 
 The purpose of this project is to produce a reconstruction of the high-level source code through reverse engineering.
 
 > [!IMPORTANT]
 > This repository does not contain any game assets, assembly code, or other copyrighted materials.
 > You must provide your own legally-obtained copy of the game in order to extract the assets necessary to build this repository.
+
+## Quick Start
+See the [Development](#development) section below for full details on different systems. For Debian/Ubuntu, the following steps can be taken to quickly get going:
+```bash
+$ sudo apt install binutils-mips-linux-gnu gcc git make python3 python3-pip
+$ git clone --recurse-submodules https://github.com/gcsmith/Pilotwings64Decomp.git
+$ cd Pilotwings64Decomp
+$ python3 -m venv .venv
+$ source ./.venv/bin/activate
+$ python3 -m pip install -r requirements.txt
+$ cp <path-to-ROM> ./baserom.us.z64
+$ make dependencies
+$ make init
+```
 
 ## Development
 
@@ -27,24 +41,38 @@ When pulling updates, you can update all submodules with `git submodule update -
 
 #### System packages
 
-##### Linux / Windows Subsystem for Linux
+##### Debian/Ubuntu Linux (also under WSL)
 The following packages should be all you need to compile this project:
-- binutils-mips-linux-gnu
+- binutils-mips-linux-gnu (or similar, e.g. mips64-elf-binutils)
 - gcc
 - git
+- make
 - python3
 - python3-pip
 
-#### Python3 packages / venv
+#### macOS
+Under macOS, ensure the Xcode command line tools are installed and the following homebrew packages:
+- make
+- tehzz/n64-dev/mips64-elf-binutils
 
+#### Python3 packages / venv
+This project has python3 dependencies defined in the repo's requirements.txt. These can be managed through a python virtual environment and pip or through uv.
+
+Example setup with python3 venv/pip
 ```bash
-python3 -m venv .venv
-source ./.venv/bin/activate
-python3 -m pip install -r requirements.txt
+$ python3 -m venv .venv
+$ source ./.venv/bin/activate
+$ python3 -m pip install -r requirements.txt
+```
+
+Example setup with uv:
+```bash
+$ uv venv
+$ uv pip install -r requirements.txt
 ```
 
 ### Setup
-1. Place an unmodified Pilot Wings 64 ROM into the root of the repository as `baserom.us.z64` (SHA1SUM: `ec771aedf54ee1b214c25404fb4ec51cfd43191a`).
+1. Place an unmodified Pilotwings 64 ROM into the root of the repository as `baserom.us.z64` (SHA1SUM: `ec771aedf54ee1b214c25404fb4ec51cfd43191a`).
 2. Set up dependencies
     - `make dependencies`
 3. Init project
@@ -55,3 +83,6 @@ python3 -m pip install -r requirements.txt
     - `make extract`
 2. Rebuild the ROM:
     - `make -j`
+
+## Contributing
+Pull requests are welcome. You can help with decompilation, renaming, documentation, and tooling. PRs are subject to code formatting checks, so there is an additional dependency of `clang-format` (provided by clang). Run `make format` to format your changes prior to starting the PR.

@@ -32,6 +32,16 @@ typedef struct uvaEmitter {
 /* AF */ u8 playTimeout;
 } uvaEmitter_t;
 
+typedef struct UnkStruct_80200144 {
+    Mtx4F mat;
+    f32 unk40;
+    f32 unk44;
+    f32 unk48;
+    s32 unk4C;
+} UnkStruct_80200144_t;
+
+extern UnkStruct_80200144_t D_80250E80[];
+
 void uvSysInitAudio(void);
 
 void uvEmitterPrintf(const char* fmt, ...);
@@ -47,15 +57,15 @@ f32  uvEmitterGetUnk70(u8 obj_id);
 void uvEmitterSetUnk78(u8 obj_id, f32 arg1);
 void uvEmitterSetUnk74(u8 obj_id, f32 arg1);
 void uvEmitterSetPri(u8 obj_id, s32 pri);
-void uvEmitterProp(u8 obj_id, s32 arg1, s32 arg2, s32 arg3);
+void uvEmitterProp(u8 obj_id, ...);
 void uvEmitterTrigger(u8 obj_id);
 void uvEmitterRelease(u8 obj_id);
-void uvEmitterStatus(s32 arg0);
+void uvEmitterStatus(u8 arg0);
 
 void _uvaSoundBegin(void);
 void _uvaSoundEnd(void);
-void uvEmitterFlush(s32 arg0);
-void uvEmitter_80201D08(s32 arg0, s32 arg1);
+void uvEmitterFlush(u16 arg0);
+void uvEmitter_80201D08(u8 arg0, u16 arg1);
 void _uvaUpdatePlayList(u8 arg0);
 void _uvaPlaylistRemove(u8 arg0);
 void _uvaPlay(void);
