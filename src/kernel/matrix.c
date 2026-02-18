@@ -250,26 +250,26 @@ void uvMat4SetIdentity(Mtx4F* dst) {
     dst->m[3][3] = 1.0f;
 }
 
-void uvMat4SetUnk1(Mtx4F* dst) {
-    *(long*)&dst->m[0][0] = 0x10000;
-    *(long*)&dst->m[0][1] = 0;
-    *(long*)&dst->m[0][2] = 1;
-    *(long*)&dst->m[0][3] = 0;
+void uvMat4SetUnk1(Mtx* dst) {
+    dst->m[0][0] = 0x10000;
+    dst->m[0][1] = 0;
+    dst->m[0][2] = 1;
+    dst->m[0][3] = 0;
 
-    *(long*)&dst->m[1][1] = 0x10000;
-    *(long*)&dst->m[1][0] = 0;
-    *(long*)&dst->m[1][3] = 1;
-    *(long*)&dst->m[1][2] = 0;
+    dst->m[1][1] = 0x10000;
+    dst->m[1][0] = 0;
+    dst->m[1][3] = 1;
+    dst->m[1][2] = 0;
 
-    *(long*)&dst->m[2][0] = 0;
-    *(long*)&dst->m[2][1] = 0;
-    *(long*)&dst->m[2][2] = 0;
-    *(long*)&dst->m[2][3] = 0;
+    dst->m[2][0] = 0;
+    dst->m[2][1] = 0;
+    dst->m[2][2] = 0;
+    dst->m[2][3] = 0;
 
-    *(long*)&dst->m[3][0] = 0;
-    *(long*)&dst->m[3][1] = 0;
-    *(long*)&dst->m[3][2] = 0;
-    *(long*)&dst->m[3][3] = 0;
+    dst->m[3][0] = 0;
+    dst->m[3][1] = 0;
+    dst->m[3][2] = 0;
+    dst->m[3][3] = 0;
 }
 
 void uvMat4Mul(Mtx4F* dst, Mtx4F* src1, Mtx4F* src2) {

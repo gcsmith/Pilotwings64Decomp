@@ -40,7 +40,7 @@ void uvMat4CopyL(Mtx* dst, Mtx src);
 void uvMat4CopyL2F(Mtx4F* dst, Mtx src);
 void uvMat4CopyF2L(Mtx* dst, Mtx4F* src);
 void uvMat4SetIdentity(Mtx4F* dst);
-void uvMat4SetUnk1(Mtx4F* dst);
+void uvMat4SetUnk1(Mtx* dst);
 
 // matrix multiplication: dst = mat1 x mat2
 // if dst is either mat1 or mat2, uses stack matrix

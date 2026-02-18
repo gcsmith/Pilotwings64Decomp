@@ -542,10 +542,10 @@ void func_80217B4C(Unk80263780* arg0, uvGfxUnkStructModel* arg1, u8 arg2) {
         if (!(arg0->unk3C & (1 << i))) {
             for (j = 0; j < temp_s2->unk4; j++) {
                 if (arg0->unk34 & 0x20) {
-                    temp_s3 = temp_s2->unk0[j].unk0;
-                    temp_s2->unk0[j].unk0 |= 0x10000000;
+                    temp_s3 = temp_s2->unk0[j].state;
+                    temp_s2->unk0[j].state |= GFX_STATE_10000000;
                     uvGfxStateDraw(&temp_s2->unk0[j]);
-                    temp_s2->unk0[j].unk0 = temp_s3;
+                    temp_s2->unk0[j].state = temp_s3;
                 } else {
                     uvGfxStateDraw(&temp_s2->unk0[j]);
                 }

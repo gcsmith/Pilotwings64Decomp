@@ -370,45 +370,45 @@ void uvDbg_80232554(u8 arg0) {
     uvDbg_802338A8(6.0f, 8.0f);
     if (arg0 & 0x01) {
         uvDbg_80233878(xPos, yPos);
-        uvDbg_80233FC8("v: %d", uvGfxGetCnt(0));
+        uvDbg_80233FC8("v: %d", uvGfxGetCnt(GFX_COUNT_VTX_TRANSFORMS));
         yPos += 14;
     }
     if (arg0 & 0x02) {
         uvDbg_80233878(xPos, yPos);
-        uvDbg_80233FC8("p: %d", uvGfxGetCnt(1));
+        uvDbg_80233FC8("p: %d", uvGfxGetCnt(GFX_COUNT_TRIS));
         yPos += 14;
     }
     if (arg0 & 0x04) {
         uvDbg_80233878(xPos, yPos);
-        uvDbg_80233FC8("l: %d", uvGfxGetCnt(2));
+        uvDbg_80233FC8("l: %d", uvGfxGetCnt(GFX_COUNT_MTX_LOADS));
         yPos += 14;
     }
     if (arg0 & 0x10) {
         uvDbg_80233878(xPos, yPos);
-        uvDbg_80233FC8("t: %d", uvGfxGetCnt(4));
+        uvDbg_80233FC8("t: %d", uvGfxGetCnt(GFX_COUNT_TXT_LOADS));
         yPos += 14;
     }
     if (arg0 & 0x08) {
         uvDbg_80233878(xPos, yPos);
-        uvDbg_80233FC8("m: %d", uvGfxGetCnt(3));
+        uvDbg_80233FC8("m: %d", uvGfxGetCnt(GFX_COUNT_MTX_LOAD_MULTS));
     }
 }
 
 void uvDbg_80232738(u8 arg0) {
     if (arg0 & 0x02) {
-        _uvDebugPrintf("tris: %d   ", uvGfxGetCnt(1));
+        _uvDebugPrintf("tris: %d   ", uvGfxGetCnt(GFX_COUNT_TRIS));
     }
     if (arg0 & 0x01) {
-        _uvDebugPrintf("vtx xfms: %d   ", uvGfxGetCnt(0));
+        _uvDebugPrintf("vtx xfms: %d   ", uvGfxGetCnt(GFX_COUNT_VTX_TRANSFORMS));
     }
     if (arg0 & 0x04) {
-        _uvDebugPrintf("mtx loads: %d   ", uvGfxGetCnt(2));
+        _uvDebugPrintf("mtx loads: %d   ", uvGfxGetCnt(GFX_COUNT_MTX_LOADS));
     }
     if (arg0 & 0x10) {
-        uvDbg_80233FC8("txt loads: %d   ", uvGfxGetCnt(4));
+        uvDbg_80233FC8("txt loads: %d   ", uvGfxGetCnt(GFX_COUNT_TXT_LOADS));
     }
     if (arg0 & 0x08) {
-        _uvDebugPrintf("mtx load-mults: %d   ", uvGfxGetCnt(3));
+        _uvDebugPrintf("mtx load-mults: %d   ", uvGfxGetCnt(GFX_COUNT_MTX_LOAD_MULTS));
     }
     if (arg0 != 0x00) {
         _uvDebugPrintf("\n");
@@ -430,59 +430,59 @@ void uvDbg_8023286C(void) {
     uvGfxClearFlags(0x80F00000);
 
     uvBeginTmesh();
-    uvVtx(sp36, 0x3C, 0, 0, 0, 0, 0, 0, 0xFF);
-    uvVtx(sp36, 0x1E, 0, 0, 0, 0, 0, 0, 0xFF);
+    uvVtx(sp36, 60, 0, 0, 0, 0, 0, 0, 255);
+    uvVtx(sp36, 30, 0, 0, 0, 0, 0, 0, 255);
     sp36 = 0x75;
-    uvVtx(sp36, 0x3C, 0, 0, 0, 0, 0, 0, 0xFF);
-    uvVtx(sp36, 0x1E, 0, 0, 0, 0, 0, 0, 0xFF);
+    uvVtx(sp36, 60, 0, 0, 0, 0, 0, 0, 255);
+    uvVtx(sp36, 30, 0, 0, 0, 0, 0, 0, 255);
     uvEndTmesh();
 
     uvBeginTmesh();
-    uvVtx(sp36, 0x3C, 0, 0, 0, 0x28, 0x28, 0x28, 0xFF);
-    uvVtx(sp36, 0x1E, 0, 0, 0, 0x28, 0x28, 0x28, 0xFF);
+    uvVtx(sp36, 60, 0, 0, 0, 40, 40, 40, 255);
+    uvVtx(sp36, 30, 0, 0, 0, 40, 40, 40, 255);
     sp36 = 0x97;
-    uvVtx(sp36, 0x3C, 0, 0, 0, 0x28, 0x28, 0x28, 0xFF);
-    uvVtx(sp36, 0x1E, 0, 0, 0, 0x28, 0x28, 0x28, 0xFF);
+    uvVtx(sp36, 60, 0, 0, 0, 40, 40, 40, 255);
+    uvVtx(sp36, 30, 0, 0, 0, 40, 40, 40, 255);
     uvEndTmesh();
 
     uvBeginTmesh();
-    uvVtx(sp36, 0x3C, 0, 0, 0, 0, 0, 0, 0xFF);
-    uvVtx(sp36, 0x1E, 0, 0, 0, 0, 0, 0, 0xFF);
+    uvVtx(sp36, 60, 0, 0, 0, 0, 0, 0, 255);
+    uvVtx(sp36, 30, 0, 0, 0, 0, 0, 0, 255);
     sp36 = 0xB9;
-    uvVtx(sp36, 0x3C, 0, 0, 0, 0, 0, 0, 0xFF);
-    uvVtx(sp36, 0x1E, 0, 0, 0, 0, 0, 0, 0xFF);
+    uvVtx(sp36, 60, 0, 0, 0, 0, 0, 0, 255);
+    uvVtx(sp36, 30, 0, 0, 0, 0, 0, 0, 255);
     uvEndTmesh();
 
     uvBeginTmesh();
-    uvVtx(sp36, 0x3C, 0, 0, 0, 0x28, 0x28, 0x28, 0xFF);
-    uvVtx(sp36, 0x1E, 0, 0, 0, 0x28, 0x28, 0x28, 0xFF);
+    uvVtx(sp36, 60, 0, 0, 0, 40, 40, 40, 255);
+    uvVtx(sp36, 30, 0, 0, 0, 40, 40, 40, 255);
     sp36 = 0xD9;
-    uvVtx(sp36, 0x3C, 0, 0, 0, 0x28, 0x28, 0x28, 0xFF);
-    uvVtx(sp36, 0x1E, 0, 0, 0, 0x28, 0x28, 0x28, 0xFF);
+    uvVtx(sp36, 60, 0, 0, 0, 40, 40, 40, 255);
+    uvVtx(sp36, 30, 0, 0, 0, 40, 40, 40, 255);
     uvEndTmesh();
 
     uvBeginTmesh();
-    uvVtx(sp36, 0x3C, 0, 0, 0, 0, 0, 0, 0xFF);
-    uvVtx(sp36, 0x1E, 0, 0, 0, 0, 0, 0, 0xFF);
+    uvVtx(sp36, 60, 0, 0, 0, 0, 0, 0, 255);
+    uvVtx(sp36, 30, 0, 0, 0, 0, 0, 0, 255);
     sp36 = 0xFB;
-    uvVtx(sp36, 0x3C, 0, 0, 0, 0, 0, 0, 0xFF);
-    uvVtx(sp36, 0x1E, 0, 0, 0, 0, 0, 0, 0xFF);
+    uvVtx(sp36, 60, 0, 0, 0, 0, 0, 0, 255);
+    uvVtx(sp36, 30, 0, 0, 0, 0, 0, 0, 255);
     uvEndTmesh();
 
     uvBeginTmesh();
-    uvVtx(sp36, 0x3C, 0, 0, 0, 0x28, 0x28, 0x28, 0xFF);
-    uvVtx(sp36, 0x1E, 0, 0, 0, 0x28, 0x28, 0x28, 0xFF);
+    uvVtx(sp36, 60, 0, 0, 0, 40, 40, 40, 255);
+    uvVtx(sp36, 30, 0, 0, 0, 40, 40, 40, 255);
     sp36 = 0x11D;
-    uvVtx(sp36, 0x3C, 0, 0, 0, 0x28, 0x28, 0x28, 0xFF);
-    uvVtx(sp36, 0x1E, 0, 0, 0, 0x28, 0x28, 0x28, 0xFF);
+    uvVtx(sp36, 60, 0, 0, 0, 40, 40, 40, 255);
+    uvVtx(sp36, 30, 0, 0, 0, 40, 40, 40, 255);
     uvEndTmesh();
 
     uvBeginTmesh();
-    uvVtx(sp36, 0x3C, 0, 0, 0, 0, 0, 0, 0xFF);
-    uvVtx(sp36, 0x1E, 0, 0, 0, 0, 0, 0, 0xFF);
+    uvVtx(sp36, 60, 0, 0, 0, 0, 0, 0, 255);
+    uvVtx(sp36, 30, 0, 0, 0, 0, 0, 0, 255);
     sp36 = 0x13D;
-    uvVtx(sp36, 0x3C, 0, 0, 0, 0, 0, 0, 0xFF);
-    uvVtx(sp36, 0x1E, 0, 0, 0, 0, 0, 0, 0xFF);
+    uvVtx(sp36, 0x3C, 0, 0, 0, 0, 0, 0, 255);
+    uvVtx(sp36, 0x1E, 0, 0, 0, 0, 0, 0, 255);
     uvEndTmesh();
     uvGfxStatePop();
 }

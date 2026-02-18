@@ -6,8 +6,27 @@
 #include <uv_util.h>
 #include <uv_matrix.h>
 
+#define SCREEN_WIDTH 320
+#define SCREEN_HEIGHT 240
+
 #define UV_GFX_NUM_MATRICES 0x15E
 #define UV_GFX_NUM_LOOKS 0x1E
+
+#define GFX_STATE_20000 (1 << 17)
+#define GFX_STATE_40000 (1 << 18)
+#define GFX_STATE_80000 (1 << 19)
+#define GFX_STATE_100000 (1 << 20)
+#define GFX_STATE_200000 (1 << 21)
+#define GFX_STATE_400000 (1 << 22)
+#define GFX_STATE_800000 (1 << 23)
+#define GFX_STATE_1000000 (1 << 24)
+#define GFX_STATE_2000000 (1 << 25)
+#define GFX_STATE_4000000 (1 << 26)
+#define GFX_STATE_8000000 (1 << 27)
+#define GFX_STATE_10000000 (1 << 28)
+#define GFX_STATE_20000000 (1 << 29)
+#define GFX_STATE_40000000 (1 << 30)
+#define GFX_STATE_80000000 (1 << 31)
 
 #define GFX_PATCH_DL(pkt, patchDL, patchArg)                                   \
 {                                                                              \
@@ -16,13 +35,21 @@
     _g->words.w1 = patchDL->words.w1;                                          \
 }
 
+typedef enum {
+    /* 0 */ GFX_COUNT_VTX_TRANSFORMS,
+    /* 1 */ GFX_COUNT_TRIS,
+    /* 2 */ GFX_COUNT_MTX_LOADS,
+    /* 3 */ GFX_COUNT_MTX_LOAD_MULTS,
+    /* 4 */ GFX_COUNT_TXT_LOADS,
+} uvGfxCntType;
+
 typedef void (*uvGfxCallback_t)(void *, s32); 
 
 typedef struct {
-    s32 unk0;
+    s32 state;
     s16 unk4;
     s16 unk6;
-    s32 unk8;
+    Gfx* unk8;
 } uvGfxState_t;
 
 typedef struct {
