@@ -3,6 +3,7 @@
 
 #include <PR/ultratypes.h>
 #include <uv_matrix.h>
+#include <uv_sched.h>
 
 // size: 0x40
 typedef struct {
@@ -13,6 +14,14 @@ typedef struct {
     f32 unk38;
     s32 unk3C;
 } Unk80263780;
+
+typedef struct Unk80371120 {
+    Unk8022B0A0 unk0[1];
+    u8 pad10[0x180];
+    u8 unk190[1];
+    u8 pad191[0x1B];
+    s32 unk1AC;
+} Unk80371120; // size: 0x1B0
 
 extern Unk80263780 D_80263780[100];
 

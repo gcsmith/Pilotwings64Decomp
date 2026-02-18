@@ -44,31 +44,25 @@ s32 uvControllerCheckInserted(s32 contIdx) {
 
 s32 uvIOUpdate(void) {
     s32 i;
-    s32 fakematch1;
-    s32 fakematch2;
 
     if (gControllerPattern == 0) {
         _uvDebugPrintf("uvIOUpdate: please plug in controller and restart game\n");
         return 1;
     }
 
-    fakematch1 = 0;
     for (i = 0; i < ARRAY_COUNT(gControllerInfo); i++) {
-        if (gControllerInfo[i].unk18 != 0) {
-            if (gControllerInfo[i].unk0 == 1) {
-                if (func_80224548(i) == 0) {
-                    return 0;
-                }
-            } else {
-                _uvDebugPrintf("Unknown controller %d\n", i);
+        if (gControllerInfo[i].unk18 == 0) {
+            continue;
+        }
+        if (gControllerInfo[i].unk0 == 1) {
+            if (func_80224548(i) == 0) {
                 return 0;
             }
+            continue;
         }
+        _uvDebugPrintf("Unknown controller %d\n", i);
+        return 0;
     }
-
-    // fakematch
-    fakematch2 = !fakematch1;
-    if ((fakematch2 && fakematch2) && fakematch2) { }
 
     return 1;
 }

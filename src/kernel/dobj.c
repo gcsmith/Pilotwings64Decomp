@@ -17,14 +17,6 @@
         _g->words.w1 = (s);                         \
     }
 
-typedef struct Unk80371120 {
-    Unk8022B0A0 unk0[1];
-    u8 pad10[0x180];
-    u8 unk190[1];
-    u8 pad191[0x1B];
-    s32 unk1AC;
-} Unk80371120; // size: 0x1B0
-
 void _uvSortAdd(s32, f32, void*, UnkStruct_80204D94*, f32, f32, ...);
 u8 func_80217AB4(uvGfxUnkStructModel*, f32);
 void func_80217B4C(Unk80263780*, uvGfxUnkStructModel*, u8);

@@ -320,7 +320,6 @@ void* uvMemLoadDS(u32 tag, s32 palette) {
     ret = NULL;
     _uvJumpHeap(&D_802B892C);
     do {
-        if (1) { } // fakematch
         switch (tag) {
         case 'UVSQ':
             ret = uvParseTopUVSQ(palette);
@@ -360,6 +359,8 @@ void* uvMemLoadDS(u32 tag, s32 palette) {
             break;
         case 'UVTP':
             ret = uvParseTopUVTP(palette);
+            break;
+        default:
             break;
         }
     } while (_uvJumpHeap(&D_802B892C) == 0);

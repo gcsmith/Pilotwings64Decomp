@@ -82,15 +82,14 @@ void uvMemScanBlocks(void) {
 
     for (i = 0; i < D_802B8820; i++) {
         for (j = 0; j < D_802B8820; j++) {
-            if (i != j) {
-                if ((D_802B8830[j].start < D_802B8830[i].end) && (D_802B8830[i].start < D_802B8830[j].end)) {
-                    if (1) { // fakematch
-                        _uvDebugPrintf("uvSysInit: memory overlap with blocks %d and %d\n", i, j);
-                        _uvDebugPrintf("           [ 0x%x , 0x%x ] and [ 0x%x , 0x%x ]\n", D_802B8830[i].start, D_802B8830[i].end, D_802B8830[j].start,
-                                       D_802B8830[j].end);
-                    }
-                    break;
-                }
+            if (i == j) {
+                continue;
+            }
+            if ((D_802B8830[j].start < D_802B8830[i].end) && (D_802B8830[i].start < D_802B8830[j].end)) {
+                _uvDebugPrintf("uvSysInit: memory overlap with blocks %d and %d\n", i, j);
+                _uvDebugPrintf("           [ 0x%x , 0x%x ] and [ 0x%x , 0x%x ]\n", D_802B8830[i].start, D_802B8830[i].end, D_802B8830[j].start,
+                               D_802B8830[j].end);
+                break;
             }
         }
     }
@@ -358,10 +357,13 @@ void uvLevelInit(void) {
     temp_v0 = uvFileReadHeader(gUVBlockOffsets.UVSY[0]);
 
     while ((tag = uvFileReadBlock(temp_v0, &length, &source, 0)) != 0) {
-        if (tag == 'COMM') { // 0x434F4D4D
+        switch (tag) {
+        case 'COMM':
             _uvMediaCopy(&gUVBlockCounts, source, length);
-            if (1) { } // fakematch
             gLevelData.unk1608 = gUVBlockCounts.unk0;
+            break;
+        default:
+            break;
         }
     }
     uvFile_80223F30(temp_v0);
