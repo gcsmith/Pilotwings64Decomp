@@ -15,7 +15,7 @@ Mtx4F* _uvDbMstackTop(void) {
 
 void _uvDbMstackPush(Mtx4F* src) {
     gMatrixStackIdx = gMatrixStackIdx + 1;
-    if (gMatrixStackIdx >= 100) {
+    if (gMatrixStackIdx >= ARRAY_COUNT(gMatrixStack)) {
         _uvDebugPrintf("_uvDbMstackPush: stack full\n");
         return;
     }
