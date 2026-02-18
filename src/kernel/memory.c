@@ -305,7 +305,7 @@ void _uvMemFreeScratch(void* addr) {
 }
 
 void* _uvMemGetScratch(u32 size) {
-    if (size >= 0x25800) {
+    if (size >= SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(u16)) {
         _uvDebugPrintf("_uvMemGetScratch: size too big ( %d bytes )\n", size);
     } else {
         // clang-format off:returns need to be on same line to match reordering

@@ -280,11 +280,11 @@ void uvDbg_80231F04(f32 arg0, f32 arg1, s16 arg2, u8 arg3, u8 arg4, u8 arg5) {
     if (sp32 < sp34) {
         return;
     }
-    if (sp34 > 320) {
+    if (sp34 > SCREEN_WIDTH) {
         return;
     }
-    if (sp32 >= 320) {
-        sp32 = 319;
+    if (sp32 >= SCREEN_WIDTH) {
+        sp32 = SCREEN_WIDTH - 1;
     }
     if (sp34 == sp32) {
         sp32 = sp34 + 1;
@@ -427,7 +427,7 @@ void uvDbg_8023286C(void) {
     sp36 = 0x55;
     uvGfxStatePush();
     uvGfxSetFlags(0xFFF);
-    uvGfxClearFlags(0x80F00000);
+    uvGfxClearFlags(GFX_STATE_80000000 | GFX_STATE_800000 | GFX_STATE_400000 | GFX_STATE_200000 | GFX_STATE_100000);
 
     uvBeginTmesh();
     uvVtx(sp36, 60, 0, 0, 0, 0, 0, 0, 255);
@@ -589,14 +589,14 @@ void uvDbg_802333AC(UNUSED u8 arg0) {
     Mtx4F sp20;
 
     arg0 += 1;
-    uvMat4SetOrtho(&sp20, 0.0f, 320.0f, 0.0f, 240.0f);
+    uvMat4SetOrtho(&sp20, 0.0f, SCREEN_WIDTH, 0.0f, SCREEN_HEIGHT);
     uvGfxMtxProjPushF(&sp20);
     uvMat4SetIdentity(&sp60);
     uvGfxMtxViewLoad(&sp60, 1);
     uvDbg_8023286C();
     uvGfxStatePush();
     uvGfxSetFlags(0xFFF);
-    uvGfxClearFlags(0xF00000);
+    uvGfxClearFlags(GFX_STATE_800000 | GFX_STATE_400000 | GFX_STATE_200000 | GFX_STATE_100000);
     uvDbg_80232EBC();
     uvDbg_80233310();
     uvGfxStatePop();
@@ -712,7 +712,7 @@ void uvDbg_80233A40(s32 arg0, u16 arg1) {
     u16 sp26;
 
     D_802C8030 = 0;
-    uvMat4SetOrtho(&sp70, 0.0f, 320.0f, 0.0f, 240.0f);
+    uvMat4SetOrtho(&sp70, 0.0f, SCREEN_WIDTH, 0.0f, SCREEN_HEIGHT);
     uvGfxMtxProjPushF(&sp70);
     uvMat4SetIdentity(&sp30);
     sp30.m[0][0] = D_802C8024;
@@ -819,7 +819,7 @@ void uvDbg_80233FC8(char* fmt, s32 arg1, ...) {
     s32 sp20;
 
     D_802C8030 = 0;
-    uvMat4SetOrtho(&sp68, 0.0f, 320.0f, 0.0f, 240.0f);
+    uvMat4SetOrtho(&sp68, 0.0f, SCREEN_WIDTH, 0.0f, SCREEN_HEIGHT);
     uvGfxMtxProjPushF(&sp68);
     uvMat4SetIdentity(&sp28);
     sp28.m[0][0] = D_802C8024;

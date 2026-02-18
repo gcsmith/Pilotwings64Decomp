@@ -519,7 +519,6 @@ void uvMat4UnkOp6(Mtx4F* dst, Mtx4F* src1, Mtx4F* src2) {
 }
 
 void uvMat4SetFrustrum(Mtx4F* dst, float left, float right, float top, float bottom, float near, float far) {
-
     dst->m[0][0] = (2.0f * near) / (right - left);
     dst->m[1][1] = (2.0f * near) / (bottom - top);
     dst->m[2][0] = (right + left) / (right - left);
@@ -532,7 +531,6 @@ void uvMat4SetFrustrum(Mtx4F* dst, float left, float right, float top, float bot
 }
 
 void uvMat4SetOrtho(Mtx4F* dst, float left, float right, float top, float bottom) {
-
     dst->m[0][0] = 2.0f / (right - left);
     dst->m[1][1] = 2.0f / (bottom - top);
     dst->m[2][2] = -1.0f;

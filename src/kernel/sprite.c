@@ -249,7 +249,7 @@ void uvSprtDisplayList(uvSprite_t* arg0) {
     sprite->green = arg0->green;
     sprite->blue = arg0->blue;
     sprite->alpha = arg0->alpha;
-    spMove(sprite, arg0->unk6, (s16)(240 - arg0->unk8));
+    spMove(sprite, arg0->unk6, (s16)(SCREEN_HEIGHT - arg0->unk8));
     dlist = spDraw(sprite);
     if (dlist != NULL) {
         gSPDisplayList(gGfxDisplayListHead++, dlist);
