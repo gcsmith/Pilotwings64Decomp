@@ -54,7 +54,7 @@ void screenDrawBoxSetup(void) {
     uvGfxSetFlags(0x800000);
     uvGfxClearFlags(0x600000);
     uvGfxSetViewport(0, 0, 0x140, 0, 0xF0);
-    uvMat4Viewport(&sp20, 0.0f, 319.0f, 0.0f, 239.0f);
+    uvMat4SetOrtho(&sp20, 0.0f, 319.0f, 0.0f, 239.0f);
     uvGfxMtxProjPushF(&sp20);
     uvMat4SetIdentity(&sp60);
     uvGfxMtxViewLoad(&sp60, 1);

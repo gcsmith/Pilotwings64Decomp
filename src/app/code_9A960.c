@@ -88,7 +88,7 @@ void func_80314154(void) {
     Mtx4F sp20;
 
     uvGfxSetViewport(0, 0, 0x140, 0, 0xF0);
-    uvMat4Viewport(&sp60, 0.0f, 319.0f, 0.0f, 239.0f);
+    uvMat4SetOrtho(&sp60, 0.0f, 319.0f, 0.0f, 239.0f);
     uvGfxMtxProjPushF(&sp60);
     uvMat4SetIdentity(&sp20);
     uvGfxMtxViewLoad(&sp20, 1);

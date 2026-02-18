@@ -445,11 +445,11 @@ void uvGfxPushMtxUnk(Mtx4F* arg0) {
     uvMat4SetIdentity(&sp88);
     uvMat4RotateAxis(&sp88, -1.5707963f, 'x');
     uvMat4Mul(&D_802B4888, &sp48, &sp88);
-    uvMat4SetUnk1(&spC8);
+    uvMat4SetIdentityL(&spC8);
     uvGfxMtxView(spC8);
 }
 
-void uvGfxClampLook(LookAt* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9) {
+void uvGfxClampLook(LookAt* lookAt, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9) {
     f32 sp5C;
     f32 sp58;
     f32 sp54;
@@ -510,29 +510,29 @@ void uvGfxClampLook(LookAt* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 ar
     arg8 *= sp5C;
     arg9 *= sp5C;
 
-    arg0->l[0].l.dir[0] = (s32)MIN(sp4C * 128.0, 127.0) & 0xFF;
-    arg0->l[0].l.dir[1] = (s32)MIN(sp48 * 128.0, 127.0) & 0xFF;
-    arg0->l[0].l.dir[2] = (s32)MIN(sp44 * 128.0, 127.0) & 0xFF;
+    lookAt->l[0].l.dir[0] = (s32)MIN(sp4C * 128.0, 127.0) & 0xFF;
+    lookAt->l[0].l.dir[1] = (s32)MIN(sp48 * 128.0, 127.0) & 0xFF;
+    lookAt->l[0].l.dir[2] = (s32)MIN(sp44 * 128.0, 127.0) & 0xFF;
 
-    arg0->l[1].l.dir[0] = (s32)MIN(arg7 * 128.0, 127.0) & 0xFF;
-    arg0->l[1].l.dir[1] = (s32)MIN(arg8 * 128.0, 127.0) & 0xFF;
-    arg0->l[1].l.dir[2] = (s32)MIN(arg9 * 128.0, 127.0) & 0xFF;
-    arg0->l[0].l.col[0] = 0;
-    arg0->l[0].l.col[1] = 0;
-    arg0->l[0].l.col[2] = 0;
-    arg0->l[0].l.pad1 = 0;
-    arg0->l[0].l.colc[0] = 0;
-    arg0->l[0].l.colc[1] = 0;
-    arg0->l[0].l.colc[2] = 0;
-    arg0->l[0].l.pad2 = 0;
-    arg0->l[1].l.col[0] = 0;
-    arg0->l[1].l.col[1] = 0x80;
-    arg0->l[1].l.col[2] = 0;
-    arg0->l[1].l.pad1 = 0;
-    arg0->l[1].l.colc[0] = 0;
-    arg0->l[1].l.colc[1] = 0x80;
-    arg0->l[1].l.colc[2] = 0;
-    arg0->l[1].l.pad2 = 0;
+    lookAt->l[1].l.dir[0] = (s32)MIN(arg7 * 128.0, 127.0) & 0xFF;
+    lookAt->l[1].l.dir[1] = (s32)MIN(arg8 * 128.0, 127.0) & 0xFF;
+    lookAt->l[1].l.dir[2] = (s32)MIN(arg9 * 128.0, 127.0) & 0xFF;
+    lookAt->l[0].l.col[0] = 0;
+    lookAt->l[0].l.col[1] = 0;
+    lookAt->l[0].l.col[2] = 0;
+    lookAt->l[0].l.pad1 = 0;
+    lookAt->l[0].l.colc[0] = 0;
+    lookAt->l[0].l.colc[1] = 0;
+    lookAt->l[0].l.colc[2] = 0;
+    lookAt->l[0].l.pad2 = 0;
+    lookAt->l[1].l.col[0] = 0;
+    lookAt->l[1].l.col[1] = 128;
+    lookAt->l[1].l.col[2] = 0;
+    lookAt->l[1].l.pad1 = 0;
+    lookAt->l[1].l.colc[0] = 0;
+    lookAt->l[1].l.colc[1] = 128;
+    lookAt->l[1].l.colc[2] = 0;
+    lookAt->l[1].l.pad2 = 0;
 }
 
 void uvGfxLookAt(Mtx4F* arg0) {
@@ -543,7 +543,7 @@ void uvGfxLookAt(Mtx4F* arg0) {
         return;
     }
 
-    uvMat4UnkOp4(&temp, &D_802B4888);
+    uvMat4InvertTranslationRotation(&temp, &D_802B4888);
     uvGfxClampLook(&D_80298AE8[gGfxFbIndex][gGfxLookCount], temp.m[3][0], temp.m[3][1], temp.m[3][2], arg0->m[3][0], arg0->m[3][1], arg0->m[3][2], 0.0f, 1.0f,
                    0.0f);
     gSPLookAt(gGfxDisplayListHead++, &D_80298AE8[gGfxFbIndex][gGfxLookCount]);

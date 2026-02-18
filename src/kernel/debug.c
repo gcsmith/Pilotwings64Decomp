@@ -589,7 +589,7 @@ void uvDbg_802333AC(UNUSED u8 arg0) {
     Mtx4F sp20;
 
     arg0 += 1;
-    uvMat4Viewport(&sp20, 0.0f, 320.0f, 0.0f, 240.0f);
+    uvMat4SetOrtho(&sp20, 0.0f, 320.0f, 0.0f, 240.0f);
     uvGfxMtxProjPushF(&sp20);
     uvMat4SetIdentity(&sp60);
     uvGfxMtxViewLoad(&sp60, 1);
@@ -712,7 +712,7 @@ void uvDbg_80233A40(s32 arg0, u16 arg1) {
     u16 sp26;
 
     D_802C8030 = 0;
-    uvMat4Viewport(&sp70, 0.0f, 320.0f, 0.0f, 240.0f);
+    uvMat4SetOrtho(&sp70, 0.0f, 320.0f, 0.0f, 240.0f);
     uvGfxMtxProjPushF(&sp70);
     uvMat4SetIdentity(&sp30);
     sp30.m[0][0] = D_802C8024;
@@ -819,7 +819,7 @@ void uvDbg_80233FC8(char* fmt, s32 arg1, ...) {
     s32 sp20;
 
     D_802C8030 = 0;
-    uvMat4Viewport(&sp68, 0.0f, 320.0f, 0.0f, 240.0f);
+    uvMat4SetOrtho(&sp68, 0.0f, 320.0f, 0.0f, 240.0f);
     uvGfxMtxProjPushF(&sp68);
     uvMat4SetIdentity(&sp28);
     sp28.m[0][0] = D_802C8024;

@@ -141,7 +141,7 @@ void func_8022C8D0(UnkSobjDraw* arg0, uvGfxUnkStructModel* arg1, u8 arg2, Mtx4F*
     if (D_80248DD8 != 0) {
         uvMat4CopyL2F(&spD4, arg0->unk4[0]);
 
-        uvMat4UnkOp3(&spD4, arg1->unk20, arg1->unk20, arg1->unk20);
+        uvMat4Scale(&spD4, arg1->unk20, arg1->unk20, arg1->unk20);
         uvMat4CopyF2L(&sp90, &spD4);
         uvGfx_802235A4(sp90, 1);
         func_80215E7C(arg1);

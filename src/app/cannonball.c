@@ -272,18 +272,18 @@ void cannonMovementFrame(Unk802D5C5C_Arg0* arg0, u8 arg1) {
             if (D_8034E9F4 == 0) {
                 uvMat4Copy(&sp7C, &arg0->unk58);
                 uvMat4RotateAxis(&sp7C, arg0->zAxis - arg0->unkCC, 'z');
-                uvMat4UnkOp2(&sp7C, 0.0f, -12.0f, 2.0f);
+                uvMat4LocalTranslate(&sp7C, 0.0f, -12.0f, 2.0f);
                 uvMat4RotateAxis(&sp7C, arg0->xAxis * 0.3f, 'x');
                 uvMat4Copy(&arg0->unkB0->unk108, &sp7C);
             } else {
                 uvMat4Copy(&sp7C, &arg0->unk58);
                 uvMat4RotateAxis(&sp7C, arg0->zAxis, 'z');
                 uvMat4RotateAxis(&sp7C, arg0->xAxis, 'x');
-                uvMat4UnkOp2(&sp7C, 0.0f, 3.6000001f, 0.0f);
+                uvMat4LocalTranslate(&sp7C, 0.0f, 3.6000001f, 0.0f);
                 uvMat4Copy(&arg0->unkB0->unk108, &sp7C);
             }
             uvMat4Copy(&sp3C, sp2C);
-            uvMat4UnkOp2(&sp3C, 0.0f, -4.0f, -1.0f);
+            uvMat4LocalTranslate(&sp3C, 0.0f, -4.0f, -1.0f);
             temp_v0 = arg0->unkB0;
             func_802EAC18(temp_v0->unk230, temp_v0->unk14, &sp3C);
         } else {
@@ -464,7 +464,7 @@ void cannonShoot(Unk802D5C5C_Arg0* arg0) {
     uvMat4Copy(&sp50, &arg0->unk58);
     uvMat4RotateAxis(&sp50, arg0->zAxis, 'z');
     uvMat4RotateAxis(&sp50, arg0->xAxis, 'x');
-    uvMat4UnkOp2(&sp50, 0.0f, 6.0f, 0.0f);
+    uvMat4LocalTranslate(&sp50, 0.0f, 6.0f, 0.0f);
     func_802F9BF8(2, sp50.m[3][0], sp50.m[3][1], sp50.m[3][2], 20.0f, 0.3f, 0.0f, 1.0f, 0.8f, 0.0f, 1.0f);
     func_8033F7F8(0x4B);
     uvEmitterTrigger(arg0->unk2B4);

@@ -172,7 +172,7 @@ void hudMainRender(void) {
             }
         }
         uvGfxSetViewport(0, 0, 320, 0, 240);
-        uvMat4Viewport(&sp98, -0.5f, 319.5f, -0.5f, 239.5f);
+        uvMat4SetOrtho(&sp98, -0.5f, 319.5f, -0.5f, 239.5f);
         uvGfxMtxProjPushF(&sp98);
         uvMat4SetIdentity(&sp58);
         uvGfxMtxViewLoad(&sp58, 1);
@@ -519,7 +519,7 @@ void hudDrawThrottle(s32 x, s32 y, f32 power) {
     xOffset = x + 18;
     yOffset = y - 18;
     uvMat4SetIdentity(&rot);
-    uvMat4UnkOp2(&rot, (f32)xOffset, (f32)yOffset, 0.0f);
+    uvMat4LocalTranslate(&rot, (f32)xOffset, (f32)yOffset, 0.0f);
     angle = (power - 0.5f) * 3.1415927f; // angle in range [-pi/2, pi/2]
     uvMat4RotateAxis(&rot, -angle, 'z');
     uvGfxMtxViewLoad(&rot, 1);
@@ -589,7 +589,7 @@ void hudDrawRadar(s32 x, s32 y, f32 xOff, f32 yOff, f32 heading, f32 pitch, HUDR
     s32 idx;
 
     uvMat4SetIdentity(&spC8);
-    uvMat4UnkOp2(&spC8, (f32)(x + 35), (f32)(y - 35), 0);
+    uvMat4LocalTranslate(&spC8, (f32)(x + 35), (f32)(y - 35), 0);
     uvGfxMtxViewLoad(&spC8, 1);
 
     uvGfxStatePush();
@@ -1445,7 +1445,7 @@ void hudRadarWaypoint(f32 dist, f32 bearing, s32 type, s32 below, f32 heading, u
     if (dist > 800.0f) {
         uvMat4SetIdentity(&sp70);
         uvMat4RotateAxis(&sp70, bearing, 'z');
-        uvMat4UnkOp2(&sp70, 0.0f, 30.0f, 0.0f);
+        uvMat4LocalTranslate(&sp70, 0.0f, 30.0f, 0.0f);
         uvGfxMtxViewMul(&sp70, 1);
         if (dist >= 1000.0f) {
             uvVtxBeginPoly();
@@ -1505,7 +1505,7 @@ void hudRadarWaypoint(f32 dist, f32 bearing, s32 type, s32 below, f32 heading, u
             }
         } else {
             uvMat4SetIdentity(&sp70);
-            uvMat4UnkOp2(&sp70, (f32)wptX, (f32)wptY, 0.0f);
+            uvMat4LocalTranslate(&sp70, (f32)wptX, (f32)wptY, 0.0f);
             uvMat4RotateAxis(&sp70, heading, 'z');
             uvGfxMtxViewMul(&sp70, 1);
 

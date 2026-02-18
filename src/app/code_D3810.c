@@ -32,16 +32,16 @@ static void func_8034C2E0(s32 arg0) {
     f32 sp24;
 
     uvMat4SetIdentity(&sp30);
-    uvMat4UnkOp2(&sp30, D_8037F450[arg0].unk8.x, D_8037F450[arg0].unk8.y, D_8037F450[arg0].unk8.z);
-    uvMat4UnkOp2(&sp30, 0.0f, 0.0f, D_8037F450[arg0].unk20);
+    uvMat4LocalTranslate(&sp30, D_8037F450[arg0].unk8.x, D_8037F450[arg0].unk8.y, D_8037F450[arg0].unk8.z);
+    uvMat4LocalTranslate(&sp30, 0.0f, 0.0f, D_8037F450[arg0].unk20);
     uvMat4RotateAxis(&sp30, D_8037F450[arg0].unk1C * 0.01745329f, 'z');
-    uvMat4UnkOp2(&sp30, D_8037F450[arg0].unk14, 0.0f, 0.0f);
+    uvMat4LocalTranslate(&sp30, D_8037F450[arg0].unk14, 0.0f, 0.0f);
     uvDobjPosm(D_8037F450[arg0].unk0, 0, &sp30);
     if (D_8037F450[arg0].unk4 != 0xFFFF) {
         uvMat4SetIdentity(&sp30);
-        uvMat4UnkOp2(&sp30, D_8037F450[arg0].unk8.x, D_8037F450[arg0].unk8.y, D_8037F450[arg0].unk8.z);
+        uvMat4LocalTranslate(&sp30, D_8037F450[arg0].unk8.x, D_8037F450[arg0].unk8.y, D_8037F450[arg0].unk8.z);
         uvMat4RotateAxis(&sp30, D_8037F450[arg0].unk1C * 0.01745329f, 'z');
-        uvMat4UnkOp2(&sp30, D_8037F450[arg0].unk14, 0.0f, 0.0f);
+        uvMat4LocalTranslate(&sp30, D_8037F450[arg0].unk14, 0.0f, 0.0f);
         uvDobjPosm(D_8037F450[arg0].unk4, 0, &sp30);
     }
 
@@ -55,7 +55,7 @@ static void func_8034C2E0(s32 arg0) {
     }
     func_80200B00(D_8037F450[arg0].unk0, 0, 1.0f - sp24);
     uvModelGetPosm(0xD7, 1, &sp30);
-    uvMat4UnkOp3(&sp30, 2.0 * sp24, 2.0 * sp24, 2.0 * sp24);
+    uvMat4Scale(&sp30, 2.0 * sp24, 2.0 * sp24, 2.0 * sp24);
     uvDobjPosm(D_8037F450[arg0].unk0, 1, &sp30);
 }
 

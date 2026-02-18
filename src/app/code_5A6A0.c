@@ -129,7 +129,7 @@ void func_802D3444(Unk802D3658_Arg0* arg0) {
     arg0->unk14 += D_8034F854;
     if (arg0->unk1 != 5) {
         uvMat4Copy(&sp28, &arg0->unk80);
-        uvMat4UnkOp2(&sp28, arg0->unk5C, arg0->unk60, arg0->unk64);
+        uvMat4LocalTranslate(&sp28, arg0->unk5C, arg0->unk60, arg0->unk64);
         func_802EAC18(arg0->unk230, arg0->unk14, &sp28);
         if (arg0->unkD != 0) {
             func_802EABAC(arg0->unk230, arg0->unk14, &sp28);
@@ -276,7 +276,7 @@ static void func_802D3790(Unk802D3658_Arg0* arg0) {
         arg0->unk108.m[3][0] = spBC.x;
         arg0->unk108.m[3][1] = spBC.y;
         arg0->unk108.m[3][2] = spBC.z;
-        uvMat4UnkOp2(&arg0->unk108, arg0->unk68, arg0->unk6C, arg0->unk70);
+        uvMat4LocalTranslate(&arg0->unk108, arg0->unk68, arg0->unk6C, arg0->unk70);
         uvMat4RotateAxis(&arg0->unk108, arg0->unk78 * 0.5f, 'z');
         uvMat4RotateAxis(&arg0->unk108, arg0->unk7C * 0.5f, 'x');
     }
@@ -378,7 +378,7 @@ static void func_802D3FA4(Unk802D3658_Arg0* arg0) {
     Vec3F sp24;
 
     uvMat4Copy(&arg0->unk108, &arg0->unk80);
-    uvMat4UnkOp2(&arg0->unk108, arg0->unk68, arg0->unk6C, arg0->unk70);
+    uvMat4LocalTranslate(&arg0->unk108, arg0->unk68, arg0->unk6C, arg0->unk70);
     uvMat4RotateAxis(&arg0->unk108, arg0->unk74, 'x');
     if (arg0->unk0 & 0x04) {
         sp24.x = arg0->unk108.m[2][0] * 0.2f;
@@ -688,7 +688,7 @@ s32 func_802D4A30(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
     spF0.m[3][1] = 0.0f;
     spF0.m[3][0] = 0.0f;
     spF0.m[3][2] = 0.0f;
-    uvMat4UnkOp4(&spB0, &spF0);
+    uvMat4InvertTranslationRotation(&spB0, &spF0);
 
     for (i = 0; i < sp2A4; i++) {
         var_s3 = &arg0->unk1228[i];
@@ -699,7 +699,7 @@ s32 func_802D4A30(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
         sp13C.y = arg1->m[3][1] + (arg1->m[1][1] * 1.5f * arg0->unk3C);
         sp13C.z = arg1->m[3][2] + (arg1->m[1][2] * 1.5f * arg0->unk3C);
         uvMat4Copy(&sp70, arg1);
-        uvMat4UnkOp2(&sp70, sp148.x, sp148.y, sp148.z);
+        uvMat4LocalTranslate(&sp70, sp148.x, sp148.y, sp148.z);
         sp130.x = sp70.m[3][0] + (arg1->m[1][0] * 1.5f * arg0->unk3C);
         sp130.y = sp70.m[3][1] + (arg1->m[1][1] * 1.5f * arg0->unk3C);
         sp130.z = sp70.m[3][2] + (arg1->m[1][2] * 1.5f * arg0->unk3C);
@@ -707,7 +707,7 @@ s32 func_802D4A30(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
         if (sp154 > 0) {
             return -1;
         }
-        uvMat4UnkOp2(arg1, sp148.x, sp148.y, sp148.z);
+        uvMat4LocalTranslate(arg1, sp148.x, sp148.y, sp148.z);
     }
 
     return 1;
@@ -755,7 +755,7 @@ void func_802D4DE8(Unk802D3658_Arg0* arg0, u8 arg1) {
         arg0->unk1A0 = 0.1f;
         arg0->unk1FC = -100.0f;
         uvMat4Copy(&sp20, &arg0->unk80);
-        uvMat4UnkOp2(&sp20, arg0->unk5C, arg0->unk60, arg0->unk64);
+        uvMat4LocalTranslate(&sp20, arg0->unk5C, arg0->unk60, arg0->unk64);
         func_802EABAC(arg0->unk230, 0.0f, &sp20);
         uvMat4Copy(&sp20, &arg0->unk1BC);
         arg0->unk1114 = 1;
@@ -881,7 +881,7 @@ static void func_802D532C(Unk802D3658_Arg0* arg0) {
     }
     uvMat4RotateAxis(&sp80, -var_fa0_2, 'z');
     uvMat4RotateAxis(&sp80, -arg0->unk1B0, 'x');
-    uvMat4UnkOp2(&sp80, 0.0f, -arg0->unk1B4, 0.0f);
+    uvMat4LocalTranslate(&sp80, 0.0f, -arg0->unk1B4, 0.0f);
     if (arg0->unk0 & 0x08) {
         sp38 = func_802D472C(arg0, &sp80);
     }
@@ -1000,8 +1000,8 @@ static void func_802D58EC(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
     uvMat4Copy(&sp88, arg1);
     sp88.m[3][0] = sp88.m[3][1] = sp88.m[3][2] = 0.0f;
 
-    uvMat4UnkOp4(&sp48, &sp88);
-    uvMat4UnkOp5(&sp48, &sp30, &sp3C);
+    uvMat4InvertTranslationRotation(&sp48, &sp88);
+    uvMat4LocalToWorld(&sp48, &sp30, &sp3C);
 
     var_fa0 = func_80313F08(&D_803599D0, FABS(2.5f * sp30.x)) * arg0->unk224;
     if (sp30.x < 0.0f) {

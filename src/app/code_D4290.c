@@ -93,7 +93,7 @@ void wind_render(void) {
         }
         s2 = &temp_s0->unkC;
         if (temp_s0->unk50 == 0) {
-            uvMat4UnkOp3(&var_s1->unk4, temp_s0->unk4C, temp_s0->unk4C, temp_s0->unk4C);
+            uvMat4Scale(&var_s1->unk4, temp_s0->unk4C, temp_s0->unk4C, temp_s0->unk4C);
             var_s1->unk4.m[3][0] = temp_s0->unk0.f[0];
             var_s1->unk4.m[3][1] = temp_s0->unk0.f[1];
             var_s1->unk4.m[3][2] = temp_s0->unk0.f[2];
@@ -134,7 +134,7 @@ void wind_render(void) {
                 var_s1->unk4.m[2][1] = spB4.f[1];
                 var_s1->unk4.m[2][2] = spB4.f[2];
             }
-            uvMat4UnkOp3(&var_s1->unk4, temp_s0->unk4C, temp_s0->unk4C, temp_fs0);
+            uvMat4Scale(&var_s1->unk4, temp_s0->unk4C, temp_s0->unk4C, temp_fs0);
             var_s1->unk4.m[3][0] = (temp_s0->unk0.f[0] + s2->f[0]) * 0.5;
             var_s1->unk4.m[3][1] = (temp_s0->unk0.f[1] + s2->f[1]) * 0.5;
             var_s1->unk4.m[3][2] = (temp_s0->unk0.f[2] + s2->f[2]) * 0.5;
@@ -158,11 +158,11 @@ void wind_render(void) {
             var_s1->unk4.m[3][0] = temp_s0->unk18.f[0];
             var_s1->unk4.m[3][1] = temp_s0->unk18.f[1];
             var_s1->unk4.m[3][2] = temp_s0->unk18.f[2];
-            uvMat4UnkOp4(&var_s1->unk44, &var_s1->unk4);
+            uvMat4InvertTranslationRotation(&var_s1->unk44, &var_s1->unk4);
             var_s1->unk4.m[3][0] = 0;
             var_s1->unk4.m[3][1] = 0;
             var_s1->unk4.m[3][2] = 0;
-            uvMat4UnkOp3(&var_s1->unk4, temp_s0->unk30.f[0], temp_s0->unk30.f[1], temp_s0->unk30.f[2]);
+            uvMat4Scale(&var_s1->unk4, temp_s0->unk30.f[0], temp_s0->unk30.f[1], temp_s0->unk30.f[2]);
             var_s1->unk4.m[3][0] = temp_s0->unk18.f[0];
             var_s1->unk4.m[3][1] = temp_s0->unk18.f[1];
             var_s1->unk4.m[3][2] = temp_s0->unk18.f[2];
@@ -429,7 +429,7 @@ static void func_8034DD18(f32 arg0, f32 arg1, f32 arg2, Unk8037F510* arg3, Unk80
     sp5C.f[0] = arg0;
     sp5C.f[1] = arg1;
     sp5C.f[2] = arg2;
-    uvMat4UnkOp5(&arg4->unk44, &sp50, &sp5C);
+    uvMat4LocalToWorld(&arg4->unk44, &sp50, &sp5C);
     temp_fv0 = arg4->unk9C.f[0] * 0.5f;
     if (sp50.f[0] < -temp_fv0) {
         return;

@@ -213,7 +213,7 @@ void uvDobjPosm(s32 objId, s32 part, Mtx4F* arg2) {
     if (part == 0) {
         if (temp_v1->unk20 != 1.0f) {
             temp_fv0 = 1.0f / temp_v1->unk20;
-            uvMat4UnkOp3(&D_80265080[temp_v0->unk2[part]], temp_fv0, temp_fv0, temp_fv0);
+            uvMat4Scale(&D_80265080[temp_v0->unk2[part]], temp_fv0, temp_fv0, temp_fv0);
         }
     } else {
         D_80265080[temp_v0->unk2[part]].m[3][0] *= temp_v1->unk20;
@@ -239,7 +239,7 @@ void uvDobjGetPosm(s32 objId, s32 arg1, Mtx4F* arg2) {
     temp_v0 = gGfxUnkPtrs->unkC8[sp24->unk0];
     if (arg1 == 0) {
         if (temp_v0->unk20 != 1.0f) {
-            uvMat4UnkOp3(arg2, temp_v0->unk20, temp_v0->unk20, temp_v0->unk20);
+            uvMat4Scale(arg2, temp_v0->unk20, temp_v0->unk20, temp_v0->unk20);
         }
     } else {
         arg2->m[3][0] /= temp_v0->unk20;
@@ -461,7 +461,7 @@ void func_8021771C(UnkStruct_80204D94* arg0) {
         temp_fa0_x = arg0->unk1EC * (var_fs0 / arg0->unk1F8);
         temp_ft4_x = arg0->unk1F4 * (var_fs0 / arg0->unk1F8);
         temp_fa1_x = arg0->unk1F0 * (var_fs0 / arg0->unk1F8);
-        uvMat4SetUnk2(&sp128, temp_fv1_x, temp_fa0_x, temp_fa1_x, temp_ft4_x, var_fs0, temp_fs2);
+        uvMat4SetFrustrum(&sp128, temp_fv1_x, temp_fa0_x, temp_fa1_x, temp_ft4_x, var_fs0, temp_fs2);
         uvMat4CopyF2L(&spE8, &sp128);
         uvGfxMtxProj(spE8);
         gSPPerspNormalize(gGfxDisplayListHead++, (s16)(131072.0f / (temp_fs2 + var_fs0)));
@@ -565,7 +565,7 @@ void func_80217B4C(Unk80263780* arg0, uvGfxUnkStructModel* arg1, u8 arg2) {
     }
     if (D_80248DD8 != 0) {
         uvMat4Copy(&sp50, &D_80265080[arg0->unk2[0]]);
-        uvMat4UnkOp3(&sp50, arg1->unk20, arg1->unk20, arg1->unk20);
+        uvMat4Scale(&sp50, arg1->unk20, arg1->unk20, arg1->unk20);
         uvGfx_802236CC(&sp50);
         func_80215E7C(arg1);
         uvGfxMtxViewPop();

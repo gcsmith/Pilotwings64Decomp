@@ -53,7 +53,7 @@ static void func_8034B82C(void) {
         uvDobjPosm(D_803509C4, 0, &D_8037F400);
     }
     uvMat4SetIdentity(&spF0);
-    uvMat4UnkOp2(&spF0, 0.0f, 0.0f, D_803509D4);
+    uvMat4LocalTranslate(&spF0, 0.0f, 0.0f, D_803509D4);
     uvMat4Mul(&sp30, &spB0, &spF0);
     uvMat4Mul(&D_8037F400, &sp30, &D_8037F3C0);
     uvDobjPosm(D_803509C0, 0, &D_8037F400);
@@ -70,7 +70,7 @@ static void func_8034B82C(void) {
         hud_8031A794(D_803509C8, D_8037F430, D_8037F434, D_8037F438);
     }
     uvModelGetPosm(0xD7, 1, &spB0);
-    uvMat4UnkOp3(&spB0, 2.0 * sp24, 2.0 * sp24, 2.0 * sp24);
+    uvMat4Scale(&spB0, 2.0 * sp24, 2.0 * sp24, 2.0 * sp24);
     uvDobjPosm(D_803509C0, 1, &spB0);
 }
 
@@ -117,9 +117,9 @@ static s32 func_8034BC68(s32 arg0, s32 arg1, s32 arg2) {
             uvDobjState(D_803509C4, 0x22);
         }
         uvMat4SetIdentity(&D_8037F380);
-        uvMat4UnkOp2(&D_8037F380, 75.0f, 0.0f, 0.0f);
+        uvMat4LocalTranslate(&D_8037F380, 75.0f, 0.0f, 0.0f);
         uvMat4SetIdentity(&D_8037F3C0);
-        uvMat4UnkOp2(&D_8037F3C0, 750.0f, 100.0f, 4.5f);
+        uvMat4LocalTranslate(&D_8037F3C0, 750.0f, 100.0f, 4.5f);
         func_8034B82C();
         break;
     case 2:
