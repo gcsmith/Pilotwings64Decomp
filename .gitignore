@@ -56,3 +56,6 @@ nonmatchings/
 .venv/
 src/ultralib
 tools/n64crc
+.vscode/
+ctx.c
+__pycache__/
