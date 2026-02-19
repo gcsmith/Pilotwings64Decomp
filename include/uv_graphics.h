@@ -119,11 +119,8 @@ typedef struct {
     f32 unk20;
 } uvGfxUnkStructModel;
 
-typedef struct unk0_sub {
-    f32 unk0;
-    f32 unk4;
-    f32 unk8;
-    f32 unkC;
+typedef struct {
+    Vec4F unk0;
     union {
         s16 unk10;
         struct {
@@ -135,14 +132,14 @@ typedef struct unk0_sub {
             u32 pad12_8 : 8;
         };
     };
-} unk0_sub; // size = 0x14
+} Unk8037DCA0_UnkC; // size = 0x14
 
 typedef struct uvGfxUnkStructAnim0 {
     struct uvGfxUnkStructAnim0* unk0;
     u16 unk4;
     u8 pad6[0x2];
     s32 unk8;
-    unk0_sub* unkC;
+    Unk8037DCA0_UnkC* unkC;
 } uvGfxUnkStructAnim0;
 
 typedef struct {

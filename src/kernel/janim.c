@@ -7,49 +7,49 @@
 #include <uv_model.h>
 #include <uv_filesystem.h>
 
-typedef struct unk2 {
-    struct unk2* unk0;
+typedef struct UnkJAnimStruct2 {
+    struct UnkJAnimStruct2* unk0;
     u16 unk4;
     u32 unk8;
-    unk0_sub* unkC;
-} unk2; // size = 0x10
+    Unk8037DCA0_UnkC* unkC;
+} UnkJAnimStruct2; // size = 0x10
 
-typedef struct unk1 {
-    struct unk2* unk0;
+typedef struct UnkJAnimStruct1 {
+    struct UnkJAnimStruct2* unk0;
     u16 unk4;
     u16 unk6;
     u8 unk8;
     u8 unk9;
-} unk1; // size = 0xC
+} UnkJAnimStruct1; // size = 0xC
 
-typedef struct unk0_1 {
+typedef struct UnkCommStruct {
     s32 unk0;
     s32 unk4;
     s32 unk8;
     s32 unkC;
     s32 unk10;
-} unk0_1;
+} UnkCommStruct;
 
-typedef struct unk0_2 {
+typedef struct UnkPartStruct {
     s32 count;
     s32 unk4;
-    unk0_sub unk8[1];
-} unk0_2;
+    Unk8037DCA0_UnkC unk8[1];
+} UnkPartStruct;
 
 void* uvJanimLoad(s32 arg0) {
-    unk1* var_s3; // sp84
+    UnkJAnimStruct1* var_s3; // sp84
     s32 temp_v0;
-    unk2* temp_v0_3;
+    UnkJAnimStruct2* temp_v0_3;
     u32 sp78;
     void* sp74;
     s32 var_s2;
-    unk2* var_s4;
+    UnkJAnimStruct2* var_s4;
     u32 i;
     u32 var_v0;
-    unk1* temp_v0_2;
-    unk0_sub* var_v0_2;
-    unk0_1* temp1;
-    unk0_2* temp2;
+    UnkJAnimStruct1* temp_v0_2;
+    Unk8037DCA0_UnkC* var_v0_2;
+    UnkCommStruct* temp1;
+    UnkPartStruct* temp2;
 
     var_s4 = NULL;
     var_s2 = 0;
@@ -59,7 +59,7 @@ void* uvJanimLoad(s32 arg0) {
         switch (var_v0) {
         case 'COMM':
             temp1 = sp74;
-            var_s3 = _uvMemAlloc(sizeof(unk1), 4);
+            var_s3 = _uvMemAlloc(sizeof(UnkJAnimStruct1), 4);
             var_s3->unk4 = temp1->unk10;
             var_s3->unk6 = 0;
             if (sp78 > 0x10) {
@@ -80,7 +80,7 @@ void* uvJanimLoad(s32 arg0) {
             break;
         case 'PART':
             temp2 = sp74;
-            temp_v0_3 = _uvMemAlloc(0x10, 4);
+            temp_v0_3 = _uvMemAlloc(sizeof(UnkJAnimStruct2), 4);
             if (var_s4 != NULL) {
                 var_s4->unk0 = temp_v0_3;
                 var_s4 = temp_v0_3;
@@ -92,16 +92,16 @@ void* uvJanimLoad(s32 arg0) {
             temp_v0_3->unk8 = temp2->count;
             temp_v0_3->unk4 = temp2->unk4;
             temp_v0_3->unk0 = NULL;
-            temp_v0_3->unkC = _uvMemAlloc(temp_v0_3->unk8 * sizeof(unk0_sub), 4);
+            temp_v0_3->unkC = _uvMemAlloc(temp_v0_3->unk8 * sizeof(Unk8037DCA0_UnkC), 4);
             if (temp2->unk8[0].unk12_5 != 1) {
                 _uvDebugPrintf("ERROR: Animation data not quaternion format\n");
             }
             var_v0_2 = temp2->unk8;
             for (i = 0; i < var_s4->unk8; i++) {
-                temp_v0_3->unkC[i].unk0 = var_v0_2[i].unk0;
-                temp_v0_3->unkC[i].unk4 = var_v0_2[i].unk4;
-                temp_v0_3->unkC[i].unk8 = var_v0_2[i].unk8;
-                temp_v0_3->unkC[i].unkC = var_v0_2[i].unkC;
+                temp_v0_3->unkC[i].unk0.x = var_v0_2[i].unk0.x;
+                temp_v0_3->unkC[i].unk0.y = var_v0_2[i].unk0.y;
+                temp_v0_3->unkC[i].unk0.z = var_v0_2[i].unk0.z;
+                temp_v0_3->unkC[i].unk0.w = var_v0_2[i].unk0.w;
                 temp_v0_3->unkC[i].unk10_0 = var_v0_2[i].unk10 - var_s2;
                 temp_v0_3->unkC[i].unk10_15 = var_v0_2[i].unk12_4;
 
@@ -264,10 +264,10 @@ void uvJanimPoseLine(Unk80371120* arg0, s32 arg1, f32 arg2) {
     s32 temp_ft1;
     s32 var_v1_2;
     u8* var_s2;
-    unk0_sub* temp_v0;
-    unk0_sub* var_a0;
-    unk0_sub* var_a2;
-    unk0_sub* var_v0;
+    Unk8037DCA0_UnkC* temp_v0;
+    Unk8037DCA0_UnkC* var_a0;
+    Unk8037DCA0_UnkC* var_a2;
+    Unk8037DCA0_UnkC* var_v0;
     uvGfxUnkStructAnim0* var_s1;
     uvGfxUnkStructAnimation* temp_s4;
     s32 i;
@@ -335,10 +335,10 @@ void uvJanimPoseLine(Unk80371120* arg0, s32 arg1, f32 arg2) {
             var_fv0 = (sp5C - arg2) * (1.0f / (sp5C - sp60));
             var_fv1 = 1.0f - var_fv0;
         }
-        var_s0->unk0 = (var_a2->unk0 * var_fv1) + (var_a0->unk0 * var_fv0);
-        var_s0->unk4 = (var_a2->unk4 * var_fv1) + (var_a0->unk4 * var_fv0);
-        var_s0->unk8 = (var_a2->unk8 * var_fv1) + (var_a0->unk8 * var_fv0);
-        var_s0->unkC = (var_a2->unkC * var_fv1) + (var_a0->unkC * var_fv0);
+        var_s0->unk0 = (var_a2->unk0.x * var_fv1) + (var_a0->unk0.x * var_fv0);
+        var_s0->unk4 = (var_a2->unk0.y * var_fv1) + (var_a0->unk0.y * var_fv0);
+        var_s0->unk8 = (var_a2->unk0.z * var_fv1) + (var_a0->unk0.z * var_fv0);
+        var_s0->unkC = (var_a2->unk0.w * var_fv1) + (var_a0->unk0.w * var_fv0);
         if (var_a0->unk10_15) {
             temp_fv1 = uvSqrtF(SQ(var_s0->unkC) + (SQ(var_s0->unk0) + SQ(var_s0->unk4) + SQ(var_s0->unk8)));
             if (temp_fv1 != 0.0f) {

@@ -3,13 +3,7 @@
 
 #include <PR/ultratypes.h>
 #include <uv_vector.h>
-
-// size: 0x14
-typedef struct {
-    Vec4F unk0;
-    u16 unk10_8: 15; // bitfield incorrect, I think
-    u16 unk10_0: 1;
-} Unk8037DCA0_UnkC;
+#include <uv_graphics.h>
 
 // size: 0x354
 typedef struct {
