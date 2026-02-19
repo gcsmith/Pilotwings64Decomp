@@ -50,61 +50,61 @@ Unk8037DCA0* func_8034A4F8(s32 arg0) {
     var_v0 = uvFileReadBlock(temp_v0_2, &sp8C, &sp88, 1);
     while (var_v0) {
         switch (var_v0) {
-            case 'COMM':
-                temp1 = sp88;
-                var_s3 = temp1->unk0;
-                temp_v1 = temp1->unk4;
-                temp_s0->unk22 = temp1->unkC;
-                temp_s0->unk3C = temp1->unk10;
-                temp_s0->unk20 = (temp_v1 - var_s3) + 1;
-                temp_s0->unk24 = temp1->unk14;
-                temp_s0->unk23 = temp_s0->unk20;
-                break;
-            case 'QUAT':
-                temp2 = sp88;
-                temp_s0->unk8 = temp2->count;
-                temp_s0->unk4 = temp2->unk4;
-                temp_s0->unk0 = 0;
-                temp_s0->unkC = _uvMemAllocAlign8(temp_s0->unk8 * 0x14);
+        case 'COMM':
+            temp1 = sp88;
+            var_s3 = temp1->unk0;
+            temp_v1 = temp1->unk4;
+            temp_s0->unk22 = temp1->unkC;
+            temp_s0->unk3C = temp1->unk10;
+            temp_s0->unk20 = (temp_v1 - var_s3) + 1;
+            temp_s0->unk24 = temp1->unk14;
+            temp_s0->unk23 = temp_s0->unk20;
+            break;
+        case 'QUAT':
+            temp2 = sp88;
+            temp_s0->unk8 = temp2->count;
+            temp_s0->unk4 = temp2->unk4;
+            temp_s0->unk0 = 0;
+            temp_s0->unkC = _uvMemAllocAlign8(temp_s0->unk8 * 0x14);
 
-                var_v1 = temp2->unk8;
-                for (i = 0; i < temp_s0->unk8; i++) {
-                    temp_s0->unkC[i].unk0.x = var_v1[i].unk0.x;
-                    temp_s0->unkC[i].unk0.y = var_v1[i].unk0.y;
-                    temp_s0->unkC[i].unk0.z = var_v1[i].unk0.z;
-                    temp_s0->unkC[i].unk0.w = var_v1[i].unk0.w;
-                    temp_s0->unkC[i].unk10_0 = var_v1[i].unk10 - var_s3;
-                    temp_s0->unkC[i].unk10_15 = 1;
-                    if (temp_s0->unk20 <= (var_v1[i].unk10 - var_s3) + 1) {
-                        temp_s0->unk20 = (var_v1[i].unk10 - var_s3) + 1;
+            var_v1 = temp2->unk8;
+            for (i = 0; i < temp_s0->unk8; i++) {
+                temp_s0->unkC[i].unk0.x = var_v1[i].unk0.x;
+                temp_s0->unkC[i].unk0.y = var_v1[i].unk0.y;
+                temp_s0->unkC[i].unk0.z = var_v1[i].unk0.z;
+                temp_s0->unkC[i].unk0.w = var_v1[i].unk0.w;
+                temp_s0->unkC[i].unk10_0 = var_v1[i].unk10 - var_s3;
+                temp_s0->unkC[i].unk10_15 = 1;
+                if (temp_s0->unk20 <= (var_v1[i].unk10 - var_s3) + 1) {
+                    temp_s0->unk20 = (var_v1[i].unk10 - var_s3) + 1;
+                }
+            }
+            break;
+        case 'XLAT':
+            temp3 = sp88;
+            temp_s0->unk18 = temp3->count;
+            temp_s0->unk14 = temp3->unk4;
+            temp_s0->unk10 = 0;
+            temp_s0->unk1C = _uvMemAllocAlign8(temp_s0->unk18 * 0x10);
+            var_a1 = temp3->unk8;
+            for (i = 0; i < temp_s0->unk18; i++) {
+                temp_s0->unk1C[i].unk0.x = var_a1[i].unk0.x;
+                temp_s0->unk1C[i].unk0.y = var_a1[i].unk0.y;
+                temp_s0->unk1C[i].unk0.z = var_a1[i].unk0.z;
+                temp_s0->unk1C[i].unkC = var_a1[i].unkC - var_s3;
+                if (i == 0) {
+                    for (j = 0; j < 3; j++) {
+                        temp_s0->unk1DC.f[j] = var_a1[i].unk0.f[j];
                     }
                 }
-                break;
-            case 'XLAT':
-                temp3 = sp88;
-                temp_s0->unk18 = temp3->count;
-                temp_s0->unk14 = temp3->unk4;
-                temp_s0->unk10 = 0;
-                temp_s0->unk1C = _uvMemAllocAlign8(temp_s0->unk18 * 0x10);
-                var_a1 = temp3->unk8;
-                for (i = 0; i < temp_s0->unk18; i++) {
-                    temp_s0->unk1C[i].unk0.x = var_a1[i].unk0.x;
-                    temp_s0->unk1C[i].unk0.y = var_a1[i].unk0.y;
-                    temp_s0->unk1C[i].unk0.z = var_a1[i].unk0.z;
-                    temp_s0->unk1C[i].unkC = var_a1[i].unkC - var_s3;
-                    if (i == 0) {
-                        for (j = 0; j < 3; j++) {
-                            temp_s0->unk1DC.f[j] = var_a1[i].unk0.f[j];
-                        }
-                    }
 
-                    if (temp_s0->unk20 <= (var_a1[i].unkC - var_s3) + 1) {
-                        temp_s0->unk20 = (var_a1[i].unkC - var_s3) + 1;
-                    }
+                if (temp_s0->unk20 <= (var_a1[i].unkC - var_s3) + 1) {
+                    temp_s0->unk20 = (var_a1[i].unkC - var_s3) + 1;
                 }
-                break;
-            default:
-                break;
+            }
+            break;
+        default:
+            break;
         }
         var_v0 = uvFileReadBlock(temp_v0_2, &sp8C, &sp88, 1);
     }
