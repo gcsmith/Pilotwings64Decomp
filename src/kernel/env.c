@@ -48,16 +48,16 @@ void uvEnvProps(s32 arg0, ...) {
             temp_s1->unkB = va_arg(args, s32);
             break;
         case 1:
-            temp_s1->unk4 = va_arg(args, s32);
-            temp_s1->unk5 = va_arg(args, s32);
-            temp_s1->unk6 = va_arg(args, s32);
-            temp_s1->unk7 = va_arg(args, s32);
+            temp_s1->fogR = va_arg(args, s32);
+            temp_s1->fogG = va_arg(args, s32);
+            temp_s1->fogB = va_arg(args, s32);
+            temp_s1->fogA = va_arg(args, s32);
             break;
         case 2:
-            temp_s1->unk0 = va_arg(args, s32);
-            temp_s1->unk1 = va_arg(args, s32);
-            temp_s1->unk2 = va_arg(args, s32);
-            temp_s1->unk3 = va_arg(args, s32);
+            temp_s1->screenR = va_arg(args, s32);
+            temp_s1->screenG = va_arg(args, s32);
+            temp_s1->screenB = va_arg(args, s32);
+            temp_s1->screenA = va_arg(args, s32);
             break;
         default:
             _uvDebugPrintf("uvEnvProps: unknown property %d\n", property);
@@ -99,16 +99,17 @@ void uvEnvProps2(s32 arg0, ...) {
             *va_arg(args, u8*) = temp_s1->unkB;
             break;
         case 1:
-            *va_arg(args, u8*) = temp_s1->unk4;
-            *va_arg(args, u8*) = temp_s1->unk5;
-            *va_arg(args, u8*) = temp_s1->unk6;
-            *va_arg(args, u8*) = temp_s1->unk7;
+            *va_arg(args, u8*) = temp_s1->fogR;
+            *va_arg(args, u8*) = temp_s1->fogG;
+            *va_arg(args, u8*) = temp_s1->fogB;
+            *va_arg(args, u8*) = temp_s1->fogA;
             break;
         case 2:
-            *va_arg(args, u8*) = temp_s1->unk0;
-            *va_arg(args, u8*) = temp_s1->unk0;
-            *va_arg(args, u8*) = temp_s1->unk0;
-            *va_arg(args, u8*) = temp_s1->unk0;
+            //! @bug All values set to the red value?
+            *va_arg(args, u8*) = temp_s1->screenR;
+            *va_arg(args, u8*) = temp_s1->screenR;
+            *va_arg(args, u8*) = temp_s1->screenR;
+            *va_arg(args, u8*) = temp_s1->screenR;
             break;
         default:
             _uvDebugPrintf("uvEnvProps: unknown property %d\n", property);
@@ -166,7 +167,7 @@ void _uvEnvDraw(s32 arg0, s32 arg1) {
     uvGfxSetFogFactor(var_fs1);
 
     if (temp_s7->unk2E != 0) {
-        uvGfxClearScreen(temp_s7->unk0, temp_s7->unk1, temp_s7->unk2, temp_s7->unk3);
+        uvGfxClearScreen(temp_s7->screenR, temp_s7->screenG, temp_s7->screenB, temp_s7->screenA);
     }
 
     var_v0 = &D_80261730[arg0];
@@ -187,7 +188,7 @@ void _uvEnvDraw(s32 arg0, s32 arg1) {
             D_80248DE0.m[3][0] = D_80248DE0.m[3][1] = 0.0f;
         }
 
-        gDPSetFogColor(gGfxDisplayListHead++, temp_s7->unk4, temp_s7->unk5, temp_s7->unk6, 255);
+        gDPSetFogColor(gGfxDisplayListHead++, temp_s7->fogR, temp_s7->fogG, temp_s7->fogB, 255);
         if (temp_s1 & 4) {
             uvGfxSetFogFactor(var_fs1);
         } else {

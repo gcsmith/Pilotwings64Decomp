@@ -78,14 +78,14 @@ typedef struct UnkGfxEnv_Unk30 {
 } UnkGfxEnv_Unk30;
 
 typedef struct uvGfxUnkStructEnv {
-    u8 unk0;
-    u8 unk1;
-    u8 unk2;
-    u8 unk3;
-    u8 unk4;
-    u8 unk5;
-    u8 unk6;
-    u8 unk7;
+    u8 screenR;
+    u8 screenG;
+    u8 screenB;
+    u8 screenA;
+    u8 fogR;
+    u8 fogG;
+    u8 fogB;
+    u8 fogA;
     u8 unk8;
     u8 unk9;
     u8 unkA;
