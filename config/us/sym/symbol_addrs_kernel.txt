@@ -469,7 +469,7 @@ osViModeNtscLan1          = 0x8024C4A0;
 osViModePalLan1           = 0x8024C4F0;
 
 gUVBlockCounts            = 0x802B53C8;
-gUVBlockOffsets           = 0x802B53F0;
+gUVBlockOffsets           = 0x802B53F0; // size:0x1a40
 
 gControllerPattern        = 0x802C5BB4;
 gControllerInfo           = 0x802B5310;

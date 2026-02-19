@@ -7,23 +7,13 @@
 #include <uv_model.h>
 #include <uv_filesystem.h>
 
-extern void* D_802B673C[];
-
-typedef struct unk3 {
-    f32 unk0;
-    f32 unk4;
-    f32 unk8;
-    f32 unkC;
-    u32 unk10_0 : 15;
-    u32 unk10_15 : 1;
-} unk3; // size = 0x14
-
 typedef struct unk2 {
     struct unk2* unk0;
     u16 unk4;
     u32 unk8;
-    struct unk3* unkC;
+    unk0_sub* unkC;
 } unk2; // size = 0x10
+
 typedef struct unk1 {
     struct unk2* unk0;
     u16 unk4;
@@ -47,7 +37,6 @@ typedef struct unk0_2 {
     unk0_sub unk8[1];
 } unk0_2;
 
-
 void* uvJanimLoad(s32 arg0) {
     unk1* var_s3; // sp84
     s32 temp_v0;
@@ -65,13 +54,13 @@ void* uvJanimLoad(s32 arg0) {
 
     var_s4 = NULL;
     var_s2 = 0;
-    temp_v0 = uvFileReadHeader(D_802B673C[arg0]);
+    temp_v0 = uvFileReadHeader(gUVBlockOffsets.UVAN[arg0]);
     var_v0 = uvFileReadBlock(temp_v0, &sp78, &sp74, 1);
     while (var_v0) {
         switch (var_v0) {
             case 'COMM':
                 temp1 = sp74;
-                var_s3 = _uvMemAlloc(0xC, 4);
+                var_s3 = _uvMemAlloc(sizeof(unk1), 4);
                 var_s3->unk4 = temp1->unk10;
                 var_s3->unk6 = 0;
                 if (sp78 > 0x10) {
@@ -104,7 +93,7 @@ void* uvJanimLoad(s32 arg0) {
                 temp_v0_3->unk8 = temp2->count;
                 temp_v0_3->unk4 = temp2->unk4;
                 temp_v0_3->unk0 = NULL;
-                temp_v0_3->unkC = _uvMemAlloc(temp_v0_3->unk8 * 0x14, 4);
+                temp_v0_3->unkC = _uvMemAlloc(temp_v0_3->unk8 * sizeof(unk0_sub), 4);
                 if (temp2->unk8[0].unk12_5 != 1) {
                     _uvDebugPrintf("ERROR: Animation data not quaternion format\n");
                 }

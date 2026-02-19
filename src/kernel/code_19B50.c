@@ -49,8 +49,6 @@ static u32 D_80248E90 = 0;
 static u32 D_80248E94 = 0;
 // clang-format on
 
-extern u32 D_802B69E4;
-
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/func_80218BA0.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/func_80218CA4.s")
@@ -77,7 +75,7 @@ ParsedUVFT* uvParseTopUVFT(s32 arg0) {
 
     imagCount = 0;
     ret = (ParsedUVFT*)_uvMemAlloc(sizeof(ParsedUVFT), 4);
-    temp_v0 = uvFileReadHeader((&D_802B69E4)[arg0]);
+    temp_v0 = uvFileReadHeader(gUVBlockOffsets.UVFT[arg0]);
     while ((tag = uvFileReadBlock(temp_v0, &nbytes, (void**)&srcAddr, 1)) != NULL) {
         switch (tag) {
         case 'STRG':
