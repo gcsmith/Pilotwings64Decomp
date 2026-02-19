@@ -14,13 +14,8 @@ typedef struct unk3 {
     f32 unk4;
     f32 unk8;
     f32 unkC;
-    union {
-        u16 unk10;
-        struct {
-          u8 pad10;  
-          u8 unk11;
-        };
-    };
+    u32 unk10_0 : 15;
+    u32 unk10_15 : 1;
 } unk3; // size = 0x14
 
 typedef struct unk2 {
@@ -119,8 +114,8 @@ void* uvJanimLoad(s32 arg0) {
                     temp_v0_3->unkC[i].unk4 = var_v0_2[i].unk4;
                     temp_v0_3->unkC[i].unk8 = var_v0_2[i].unk8;
                     temp_v0_3->unkC[i].unkC = var_v0_2[i].unkC;
-                    temp_v0_3->unkC[i].unk10 = (((temp_v0_3->unkC[i].unk10 & 1)) | ((((var_v0_2[i].unk10 - var_s2) & 0xFFFF) << 1) & 0xFFFE));
-                    temp_v0_3->unkC[i].unk11 = ((temp_v0_3->unkC[i].unk11 & 0xFFFE) | (var_v0_2[i].unk12_4 & 1));
+                    temp_v0_3->unkC[i].unk10_0 = var_v0_2[i].unk10 - var_s2;
+                    temp_v0_3->unkC[i].unk10_15 = var_v0_2[i].unk12_4;
 
                     if (var_s3->unk6 <= (var_v0_2[i].unk10 - var_s2) + 1) {
                         var_s3->unk6 = (var_v0_2[i].unk10 - var_s2) + 1;
