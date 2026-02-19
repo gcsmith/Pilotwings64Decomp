@@ -22,7 +22,6 @@ typedef struct unk1 {
     u8 unk9;
 } unk1; // size = 0xC
 
-
 typedef struct unk0_1 {
     s32 unk0;
     s32 unk4;
@@ -58,60 +57,59 @@ void* uvJanimLoad(s32 arg0) {
     var_v0 = uvFileReadBlock(temp_v0, &sp78, &sp74, 1);
     while (var_v0) {
         switch (var_v0) {
-            case 'COMM':
-                temp1 = sp74;
-                var_s3 = _uvMemAlloc(sizeof(unk1), 4);
-                var_s3->unk4 = temp1->unk10;
-                var_s3->unk6 = 0;
-                if (sp78 > 0x10) {
-                    var_s3->unk8 = temp1->unkC;
-                } else {
-                    var_s3->unk8 = 1;
-                }
-
+        case 'COMM':
+            temp1 = sp74;
+            var_s3 = _uvMemAlloc(sizeof(unk1), 4);
+            var_s3->unk4 = temp1->unk10;
+            var_s3->unk6 = 0;
+            if (sp78 > 0x10) {
                 var_s3->unk8 = temp1->unkC;
-                if (var_s3->unk8 <= 0) {
-                    var_s3->unk8 = 1;
-                }
-                var_s3->unk9 = (s8) ((s32) ((temp1->unk4 - temp1->unk0) + 1) / var_s3->unk8);
-                if (var_s3->unk8 <= 0) {
-                    var_s3->unk8 = 1;
-                }
-                var_s2 = temp1->unk0;
-                break;
-            case 'PART':
-                temp2 = sp74;
-                temp_v0_3 = _uvMemAlloc(0x10, 4);
-                if (var_s4 != NULL) {
-                    var_s4->unk0 = temp_v0_3;
-                    var_s4 = temp_v0_3;
-                } else {
-                    var_s3->unk0 = temp_v0_3;
-                    var_s4 = temp_v0_3;
-                }
+            } else {
+                var_s3->unk8 = 1;
+            }
 
-                temp_v0_3->unk8 = temp2->count;
-                temp_v0_3->unk4 = temp2->unk4;
-                temp_v0_3->unk0 = NULL;
-                temp_v0_3->unkC = _uvMemAlloc(temp_v0_3->unk8 * sizeof(unk0_sub), 4);
-                if (temp2->unk8[0].unk12_5 != 1) {
-                    _uvDebugPrintf("ERROR: Animation data not quaternion format\n");
-                }
-                var_v0_2 = temp2->unk8;
-                for (i = 0; i < var_s4->unk8; i++) {
-                    temp_v0_3->unkC[i].unk0 = var_v0_2[i].unk0;
-                    temp_v0_3->unkC[i].unk4 = var_v0_2[i].unk4;
-                    temp_v0_3->unkC[i].unk8 = var_v0_2[i].unk8;
-                    temp_v0_3->unkC[i].unkC = var_v0_2[i].unkC;
-                    temp_v0_3->unkC[i].unk10_0 = var_v0_2[i].unk10 - var_s2;
-                    temp_v0_3->unkC[i].unk10_15 = var_v0_2[i].unk12_4;
+            var_s3->unk8 = temp1->unkC;
+            if (var_s3->unk8 <= 0) {
+                var_s3->unk8 = 1;
+            }
+            var_s3->unk9 = (s8)((s32)((temp1->unk4 - temp1->unk0) + 1) / var_s3->unk8);
+            if (var_s3->unk8 <= 0) {
+                var_s3->unk8 = 1;
+            }
+            var_s2 = temp1->unk0;
+            break;
+        case 'PART':
+            temp2 = sp74;
+            temp_v0_3 = _uvMemAlloc(0x10, 4);
+            if (var_s4 != NULL) {
+                var_s4->unk0 = temp_v0_3;
+                var_s4 = temp_v0_3;
+            } else {
+                var_s3->unk0 = temp_v0_3;
+                var_s4 = temp_v0_3;
+            }
 
-                    if (var_s3->unk6 <= (var_v0_2[i].unk10 - var_s2) + 1) {
-                        var_s3->unk6 = (var_v0_2[i].unk10 - var_s2) + 1;
-                    }
+            temp_v0_3->unk8 = temp2->count;
+            temp_v0_3->unk4 = temp2->unk4;
+            temp_v0_3->unk0 = NULL;
+            temp_v0_3->unkC = _uvMemAlloc(temp_v0_3->unk8 * sizeof(unk0_sub), 4);
+            if (temp2->unk8[0].unk12_5 != 1) {
+                _uvDebugPrintf("ERROR: Animation data not quaternion format\n");
+            }
+            var_v0_2 = temp2->unk8;
+            for (i = 0; i < var_s4->unk8; i++) {
+                temp_v0_3->unkC[i].unk0 = var_v0_2[i].unk0;
+                temp_v0_3->unkC[i].unk4 = var_v0_2[i].unk4;
+                temp_v0_3->unkC[i].unk8 = var_v0_2[i].unk8;
+                temp_v0_3->unkC[i].unkC = var_v0_2[i].unkC;
+                temp_v0_3->unkC[i].unk10_0 = var_v0_2[i].unk10 - var_s2;
+                temp_v0_3->unkC[i].unk10_15 = var_v0_2[i].unk12_4;
 
+                if (var_s3->unk6 <= (var_v0_2[i].unk10 - var_s2) + 1) {
+                    var_s3->unk6 = (var_v0_2[i].unk10 - var_s2) + 1;
                 }
-                break;
+            }
+            break;
         }
         var_v0 = uvFileReadBlock(temp_v0, &sp78, &sp74, 1);
     }
@@ -157,13 +155,13 @@ void func_802006FC(Unk80371120* arg0, Unk80371120* arg1, Unk80371120* arg2, f32 
     } else {
         var_ft5 = arg3;
     }
-    
+
     if (var_ft5 < 0.0f) {
         var_ft5 = 0.0f;
     }
 
     temp_fs0 = temp_fs2 = 1.0f - var_ft5;
-    
+
     var_s0 = arg0->unk0;
     var_v0 = arg1->unk0;
     var_v1 = arg2->unk0;
@@ -282,10 +280,10 @@ void uvJanimPoseLine(Unk80371120* arg0, s32 arg1, f32 arg2) {
     }
     temp_fv0 = temp_s4->unk6 - 1;
     if (arg2 < 0.0f) {
-        arg2 = (arg2 + 1.0f) - (s32) arg2;
+        arg2 = (arg2 + 1.0f) - (s32)arg2;
     }
     if (arg2 > 1.0f) {
-        arg2 -= (s32) arg2;
+        arg2 -= (s32)arg2;
     }
     arg2 *= temp_fv0;
     arg0->unk1AC = 0;
@@ -297,8 +295,8 @@ void uvJanimPoseLine(Unk80371120* arg0, s32 arg1, f32 arg2) {
         var_a0 = NULL;
         var_a2 = NULL;
         if (temp_a1 == temp_s4->unk6) {
-            temp_ft1 = (s32) arg2;
-            sp60 = (f32) temp_ft1;
+            temp_ft1 = (s32)arg2;
+            sp60 = (f32)temp_ft1;
             if (temp_a1 == temp_ft1 + 1) {
                 var_v1_2 = temp_a1 - 1;
             } else {
@@ -383,16 +381,16 @@ void uvJanimPoseGrid(Unk80371120* arg0, s32 arg1, f32 arg2, f32 arg3) {
         return;
     }
     if (arg2 < 0.0f) {
-        arg2 = (arg2 + 1.0f) - (s32) arg2;
+        arg2 = (arg2 + 1.0f) - (s32)arg2;
     }
     if (arg2 > 1.0f) {
-        arg2 -= (s32) arg2;
+        arg2 -= (s32)arg2;
     }
     if (arg3 < 0.0f) {
-        arg3 = (arg3 + 1.0f) - (s32) arg3;
+        arg3 = (arg3 + 1.0f) - (s32)arg3;
     }
     if (arg3 > 1.0f) {
-        arg3 -= (s32) arg3;
+        arg3 -= (s32)arg3;
     }
 
     arg2 *= (temp_a3->unk9 - 1);
@@ -410,8 +408,8 @@ void uvJanimPoseGrid(Unk80371120* arg0, s32 arg1, f32 arg2, f32 arg3) {
         }
     }
 
-    sp3C = (f32) (temp_a3->unk9 * var_a2) + arg2;
-    sp38 = (f32) (temp_a3->unk9 * var_a0) + arg2;
+    sp3C = (f32)(temp_a3->unk9 * var_a2) + arg2;
+    sp38 = (f32)(temp_a3->unk9 * var_a0) + arg2;
 
     if (temp_a3->unk6 < 2) {
         uvJanimPoseLine(arg0, arg1, 0.0f);
@@ -419,5 +417,5 @@ void uvJanimPoseGrid(Unk80371120* arg0, s32 arg1, f32 arg2, f32 arg3) {
     }
     uvJanimPoseLine(&sp1F0, arg1, sp3C / (temp_a3->unk6 - 1));
     uvJanimPoseLine(&sp40, arg1, sp38 / (temp_a3->unk6 - 1));
-    func_802006FC(arg0, &sp1F0, &sp40, arg3 - (s32) arg3);
+    func_802006FC(arg0, &sp1F0, &sp40, arg3 - (s32)arg3);
 }
