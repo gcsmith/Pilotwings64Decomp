@@ -7,8 +7,7 @@
 #include "code_A6000.h"
 #include "code_D19D0.h"
 
-// can be static as soon as func_8034A4F8 is matched
-/* static */ s32 func_8034A4A0(void) {
+static s32 func_8034A4A0(void) {
     s32 i;
 
     for (i = 0; i < 6; i++) {
@@ -27,7 +26,7 @@ Unk8037DCA0* func_8034A4F8(s32 arg0) {
     u32 sp8C;
     void* sp88;
     s32 temp_v0_2;
-    s32 var_a2;
+    s32 pad;
     s32 var_s3;
     s32 j;
     s32 var_v0;
@@ -88,7 +87,6 @@ Unk8037DCA0* func_8034A4F8(s32 arg0) {
                 temp_s0->unk10 = 0;
                 temp_s0->unk1C = _uvMemAllocAlign8(temp_s0->unk18 * 0x10);
                 var_a1 = temp3->unk8;
-                var_a2 = 0;
                 for (i = 0; i < temp_s0->unk18; i++) {
                     temp_s0->unk1C[i].unk0.x = var_a1[i].unk0.x;
                     temp_s0->unk1C[i].unk0.y = var_a1[i].unk0.y;
