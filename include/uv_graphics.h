@@ -121,17 +121,9 @@ typedef struct {
 
 typedef struct {
     Vec4F unk0;
-    union {
-        s16 unk10;
-        struct {
-            u32 unk10_0 : 15;
-            u32 unk10_15 : 1;
-            u32 pad12_0 : 4;
-            u32 unk12_4 : 1;
-            u32 unk12_5 : 3;
-            u32 pad12_8 : 8;
-        };
-    };
+    u32 unk10_0 : 15;
+    u32 unk10_15 : 1;
+    u32 pad12_0 : 16;
 } Unk8037DCA0_UnkC; // size = 0x14
 
 typedef struct uvGfxUnkStructAnim0 {

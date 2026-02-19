@@ -22,20 +22,6 @@ typedef struct UnkJAnimStruct1 {
     u8 unk9;
 } UnkJAnimStruct1; // size = 0xC
 
-typedef struct UnkCommStruct {
-    s32 unk0;
-    s32 unk4;
-    s32 unk8;
-    s32 unkC;
-    s32 unk10;
-} UnkCommStruct;
-
-typedef struct UnkPartStruct {
-    s32 count;
-    s32 unk4;
-    Unk8037DCA0_UnkC unk8[1];
-} UnkPartStruct;
-
 void* uvJanimLoad(s32 arg0) {
     UnkJAnimStruct1* var_s3; // sp84
     s32 temp_v0;
@@ -47,7 +33,7 @@ void* uvJanimLoad(s32 arg0) {
     u32 i;
     u32 var_v0;
     UnkJAnimStruct1* temp_v0_2;
-    Unk8037DCA0_UnkC* var_v0_2;
+    UnkPartStruct_Unk8* var_v0_2;
     UnkCommStruct* temp1;
     UnkPartStruct* temp2;
 
@@ -92,8 +78,8 @@ void* uvJanimLoad(s32 arg0) {
             temp_v0_3->unk8 = temp2->count;
             temp_v0_3->unk4 = temp2->unk4;
             temp_v0_3->unk0 = NULL;
-            temp_v0_3->unkC = _uvMemAlloc(temp_v0_3->unk8 * sizeof(Unk8037DCA0_UnkC), 4);
-            if (temp2->unk8[0].unk12_5 != 1) {
+            temp_v0_3->unkC = _uvMemAlloc(temp_v0_3->unk8 * sizeof(UnkPartStruct_Unk8), 4);
+            if ((u32)temp2->unk8[0].unk12_5 != 1) {
                 _uvDebugPrintf("ERROR: Animation data not quaternion format\n");
             }
             var_v0_2 = temp2->unk8;
