@@ -119,6 +119,40 @@ typedef struct {
     f32 unk20;
 } uvGfxUnkStructModel;
 
+typedef struct unk0_sub {
+    f32 unk0;
+    f32 unk4;
+    f32 unk8;
+    f32 unkC;
+    union {
+        s16 unk10;
+        struct {
+            u16 unk10_0 : 15;
+            u16 unk10_15 : 1;
+        };
+    };
+    u32 pad12_0 : 4;
+    u32 unk12_4 : 1;
+    u32 unk12_5 : 3;
+    u32 pad12_8 : 8;
+} unk0_sub; // size = 0x14
+
+typedef struct uvGfxUnkStructAnim0 {
+    struct uvGfxUnkStructAnim0* unk0;
+    u16 unk4;
+    u8 pad6[0x2];
+    s32 unk8;
+    unk0_sub* unkC;
+} uvGfxUnkStructAnim0;
+
+typedef struct {
+    struct uvGfxUnkStructAnim0* unk0;
+    u8 pad4[0x2];
+    u16 unk6;
+    u8 unk8;
+    u8 unk9;
+} uvGfxUnkStructAnimation;
+
 typedef struct {
     u8 pad0[0x2];
     s16 bmfmt;
@@ -145,7 +179,9 @@ typedef struct {
     uvGfxUnkStructTexture *unk910[1];
     u8 pad914[0x7D0];
     void *unk10E4[1];
-    u8 pad10E8[0x328];
+    u8 pad10E8[0x28];
+    uvGfxUnkStructAnimation* unk1110[1];
+    u8 pad1114[0x2FC];
     uvGfxUnkStructBlit* unk1410[1];
     u8 pad1414[0x1F4];
     f32 unk1608;
