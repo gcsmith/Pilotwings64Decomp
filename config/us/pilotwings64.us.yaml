@@ -453,10 +453,9 @@ segments:
       - [0xD4290, c, app/code_D4290]
       - [0xD55B0, c, app/wind_objects]
 
-      - [0xD5C40, data]
-      - [0xD5CD0, data]
-      - [0xD5D40, data]
-      - [0xD5D50, data]
+      - [0xD5C40, data] # app/code_51E30
+      - [0xD5D40, .data, app/code_52230]
+      - [0xD5D50, .data, app/code_560D0]
       - [0xD5F10, data]
       - [0xD5F20, data]
       - [0xD5F40, data]
