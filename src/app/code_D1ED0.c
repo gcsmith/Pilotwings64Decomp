@@ -5,7 +5,7 @@
 #include <uv_model.h>
 #include <uv_graphics.h>
 #include "code_D1ED0.h"
-#include "kernel/code_1AF80.h"
+#include <uv_fx.h>
 
 f32 func_8034A9A0(f32 arg0, f32 arg1) {
     f32 temp_fv0;

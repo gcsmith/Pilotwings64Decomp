@@ -112,14 +112,6 @@ extern OSSched gSchedInst;
 extern u8 D_80269B80[300];
 extern s16 gGeomVertexCount;
 
-typedef struct {
-    u8 pad0[0x4];
-    u8 unk4;
-    u8 pad5[0xAB];
-} unk8028B400;
-
-extern unk8028B400 D_8028B400[120];
-
 void uvGfxInit(void) {
     u8 i;
 
