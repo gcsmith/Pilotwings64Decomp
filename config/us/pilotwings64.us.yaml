@@ -457,7 +457,7 @@ segments:
       - [0xD5D40, .data, app/code_52230]
       - [0xD5D50, .data, app/code_560D0]
       - [0xD5F10, .data, app/code_5A6A0]
-      - [0xD5F20, data]
+      - [0xD5F20, .data, app/cannonball]
       - [0xD5F40, data]
       - [0xD5F60, data]
       - [0xD5F70, data]

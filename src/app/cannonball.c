@@ -30,11 +30,12 @@
 #include "save.h"
 #include "snd.h"
 
-// .data likely owned by this file
-extern f32 D_8034E9F0;
-extern u8 D_8034E9F4;
-extern s32 D_8034E9F8;
-extern f32 D_8034EA00;
+// .data
+f32 D_8034E9F0 = 0.0f;
+u8 D_8034E9F4 = 0;
+s32 D_8034E9F8 = 0;
+f32 D_8034E9FC = 0.0f; // used in cannonPilotLand
+f32 D_8034EA00 = 0.0f;
 
 // .bss likely owned by this file
 extern Unk803599D0 D_80359A30;
