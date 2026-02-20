@@ -288,7 +288,7 @@ void uvFont_80219550(f64, f64);
 void uvFont_8021956C(u8, u8, u8, u8);
 s32 uvFontWidth(char*);
 s32 func_802196B0(void*);
-void func_80219874(s32, s32, void*, s32, s32);
+s32 func_80219874(s32 x, s32 y, void*, s32, s32);
 void uvFont_80219EA8(void);
 void uvFont_80219ACC(s32, s32, char*);
 

@@ -21,13 +21,13 @@
 #include "code_7FED0.h"
 #include "code_9A960.h"
 #include "code_B2900.h"
-#include "code_B5280.h"
 #include "code_D2B10.h"
 #include "demo.h"
 #include "fdr.h"
 #include "hud.h"
 #include "save.h"
 #include "snd.h"
+#include "results.h"
 #include "text_data.h"
 
 // .data likely owned by this file

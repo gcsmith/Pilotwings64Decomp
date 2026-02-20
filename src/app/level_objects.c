@@ -574,8 +574,8 @@ f32 levelGet_80345CA0(void) {
     return D_8035078C->comm.unk44;
 }
 
-s32* levelGet_80345CB0(void) {
-    return &D_8035078C->comm.unk8;
+u8* levelGet_80345CB0(void) {
+    return D_8035078C->comm.unk8;
 }
 
 void levelGet_80345CC0(f32* arg0, f32* arg1) {
