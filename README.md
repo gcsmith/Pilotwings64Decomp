@@ -84,5 +84,20 @@ $ uv pip install -r requirements.txt
 2. Rebuild the ROM:
     - `make -j`
 
+### Docker
+If you prefer to develop inside of a Docker container instead of installing everything in your local environment, use the provided Dockerfile in the root of the repository.
+
+Example usage:
+```bash
+# Create image
+docker build -t pw64decomp --build-arg login=$USER --build-arg uid=$UID .
+
+# Enter a bash prompt
+docker run --rm -it -v $(pwd):/pw64 pw64decomp bash
+
+# Run a one-off command
+docker run --rm -it -v $(pwd):/pw64 pw64decomp pw64 build
+```
+
 ## Contributing
 Pull requests are welcome. You can help with decompilation, renaming, documentation, and tooling. PRs are subject to code formatting checks, so there is an additional dependency of `clang-format` (provided by clang). Run `make format` to format your changes prior to starting the PR.
