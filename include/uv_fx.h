@@ -37,7 +37,6 @@ typedef struct UnkModelTrail {
     s32 unk1E8;
     u8 unk1EC;
 } UnkModelTrail; // size = 0x1F0
-extern UnkModelTrail D_8028AC40[];
 
 typedef struct UnkModelDebrisStructure {
     Vec3F unk0[20];
@@ -48,7 +47,6 @@ typedef struct UnkModelDebrisStructure {
     u8 unk2D0[20];
     u8 unk2E4;
 } UnkModelDebrisStructure; // size = 0x2E8
-extern UnkModelDebrisStructure D_8028A0A0[];
 
 typedef struct {
     u8 unk0;
@@ -95,6 +93,9 @@ typedef struct {
     void* unkA8;
     f32 unkAC;
 } UnkFxStruct; // size = 0xB0
+
+extern UnkModelDebrisStructure D_8028A0A0[4];
+extern UnkModelTrail D_8028AC40[4];
 extern UnkFxStruct D_8028B400[120];
 
 void func_8021A038(UnkModelTrail* arg0);

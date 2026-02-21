@@ -8,6 +8,10 @@
 #include <libc/stdarg.h>
 #include "kernel/code_58E0.h"
 
+UnkModelDebrisStructure D_8028A0A0[4];
+UnkModelTrail D_8028AC40[4];
+UnkFxStruct D_8028B400[120];
+
 // clang-format off
 typedef struct Unk80248EA0 {
     s16 unk0;
@@ -17,12 +21,8 @@ typedef struct Unk80248EA0 {
 static Unk80248EA0 D_80248EA0[] = {
     { 0, 0 }, { 100, 0 }, { 71, -71 }, { 0, -100 },
     { -71, -71 }, { -100, 0 }, { -71, 71 }, { 0, 100 },
-    { 71, 71 }, { 100, 0 },
-};
-
-static u16 D_80248ECC[] = {
-    0xFF9C, 0x0000, 0x0064, 0x0000, 0x0064, 0x00C8,
-    0xFF9C, 0x00C8,
+    { 71, 71 }, { 100, 0 }, { -100, 0 }, { 100, 0 },
+    { 100, 200 }, { -100, 200 }
 };
 
 static Unk80248EA0 D_80248ED8[] = {
@@ -77,10 +77,6 @@ static Unk80248F34 D_80248F34[] = {
     {  25,  57, 0.0f }, {  25,  71, 0.0f },
     {  25,  86, 0.0f }, {  25, 100, 0.0f },
 };
-
-static u32 D_80249134[] = {
-    0x00000000, 0x00000000, 0x00000000,
-};
 // clang-format on
 
 #define FLT_MAX 340282346638528859811704183484516925440.0f
@@ -88,11 +84,11 @@ static u32 D_80249134[] = {
 void func_80219FD0(void) {
     s32 i;
 
-    for (i = 0; i < 120; i++) {
+    for (i = 0; i < ARRAY_COUNT(D_8028B400); i++) {
         D_8028B400[i].unk4 = 0;
     }
 
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < ARRAY_COUNT(D_8028AC40); i++) {
         func_8021A038(&D_8028AC40[i]);
     }
 }
@@ -107,7 +103,7 @@ void func_8021A038(UnkModelTrail* arg0) {
     arg0->unk1D0 = 17.0f / 6.0f;
     arg0->unk1E4 = 10;
 
-    for (i = 0; i < 10; i++) {
+    for (i = 0; i < ARRAY_COUNT(arg0->unkF0); i++) {
         arg0->unkF0[i].x = 0.0f;
         arg0->unkF0[i].y = 0.0f;
         arg0->unkF0[i].z = 0.0f;
@@ -117,7 +113,7 @@ void func_8021A038(UnkModelTrail* arg0) {
 void func_8021A0CC(UnkModelDebrisStructure* arg0) {
     s32 i;
 
-    for (i = 0; i < 20; i++) {
+    for (i = 0; i < ARRAY_COUNT(arg0->unk0); i++) {
         arg0->unk1E0[i] = ((2.0f * uvRandF_LCG()) - 1.0f) * 6.2831855f;
         arg0->unk280[i] = (uvRandF_LCG() * 3.2f) + 0.4f;
         arg0->unk230[i] = (uvRandF_LCG() * 5.8f) + 0.1f;
@@ -139,7 +135,7 @@ void func_8021A298(void) {
     s32 i;
 
     // clang-format off
-    for (i = 0; i < 120; i++) { D_8028B400[i].unk5 = 0; }
+    for (i = 0; i < ARRAY_COUNT(D_8028B400); i++) { D_8028B400[i].unk5 = 0; }
     // clang-format on
 }
 
@@ -163,7 +159,7 @@ s32 func_8021A334(f32 arg0, f32 arg1, f32 arg2, f32 arg3, u16 arg4) {
     UnkFxStruct* var_v0;
     s32 i;
 
-    for (i = 0; i < 120; i++) {
+    for (i = 0; i < ARRAY_COUNT(D_8028B400); i++) {
         var_v0 = &D_8028B400[i];
         if ((var_v0->unk4 == 0) || !(var_v0->unk5C & arg4)) {
             continue;
@@ -514,7 +510,7 @@ s32 uvModelGet(s32 fxId, s32 modelId) {
         var_v1->unk57 = 128;
         var_v1->unk58 = 128;
         var_v1->unk59 = 0;
-        for (i = 0; i < 4; i++) {
+        for (i = 0; i < ARRAY_COUNT(D_8028AC40); i++) {
             if (D_8028AC40[i].unk1EC == 0) {
                 func_8021A038(&D_8028AC40[i]);
                 var_v1->unkA8 = &D_8028AC40[i];
@@ -523,7 +519,7 @@ s32 uvModelGet(s32 fxId, s32 modelId) {
             }
         }
 
-        if (i == 4) {
+        if (i == ARRAY_COUNT(D_8028AC40)) {
             _uvDebugPrintf("uvModelGet: no more trails available\n");
             return 0;
         }
@@ -567,7 +563,7 @@ s32 uvModelGet(s32 fxId, s32 modelId) {
         var_v1->unk58 = 128;
         var_v1->unk59 = 0;
 
-        for (i = 0; i < 4; i++) {
+        for (i = 0; i < ARRAY_COUNT(D_8028A0A0); i++) {
             if (D_8028A0A0[i].unk2E4 == 0) {
                 func_8021A0CC(&D_8028A0A0[i]);
                 var_v1->unkA8 = &D_8028A0A0[i];
@@ -576,7 +572,7 @@ s32 uvModelGet(s32 fxId, s32 modelId) {
             }
         }
 
-        if (i == 4) {
+        if (i == ARRAY_COUNT(D_8028A0A0)) {
             _uvDebugPrintf("uvModelGet: no more debris structures available\n");
             return 0;
         }
@@ -735,14 +731,14 @@ void func_8021C4F8(u16 arg0) {
         uvGfxClearFlags(temp_s0->unk64);
     }
 
-    for (i = 0; i < 20; i++) {
+    for (i = 0; i < ARRAY_COUNT(temp_fp->unk0); i++) {
         if (temp_fp->unk2D0[i] != 0) {
             uvMat4SetIdentity(&sp80);
             sp80.m[3][0] = temp_fp->unk0[i].x;
             sp80.m[3][1] = temp_fp->unk0[i].y;
             sp80.m[3][2] = temp_fp->unk0[i].z;
             uvMat4RotateAxis(&sp80, temp_fp->unk1E0[i] * 0.2f, 122);
-            uvMat4RotateAxis(&sp80, temp_fp->unk1E0[i] * 0.37f, 120);
+            uvMat4RotateAxis(&sp80, temp_fp->unk1E0[i] * 0.37f, ARRAY_COUNT(D_8028B400));
             uvGfxMtxViewMul(&sp80, 1);
             uvVtxBeginPoly();
             uvVtx(0, 2, 0, 0, 0, spC3, spC2, spC1, 230);
@@ -768,7 +764,7 @@ void func_8021C74C(u16 arg0) {
     temp_fv0 = uvGfxGetUnkStateF();
     var_t1 = TRUE;
 
-    for (i = 0; i < 20; i++) {
+    for (i = 0; i < ARRAY_COUNT(temp_a2->unk0); i++) {
         if (temp_a2->unk2D0[i] != 0) {
             var_t1 = FALSE;
             temp_a2->unk0[i].x += temp_a2->unkF0[i].x * temp_fv0;
@@ -933,7 +929,7 @@ void func_8021D700(UnkModelTrail* arg0) {
         return;
     }
 
-    for (i = 0; i < 10; i++) {
+    for (i = 0; i < ARRAY_COUNT(arg0->unk168); i++) {
         if (arg0->unk168[i] > 0.0f) {
             arg0->unk168[i] -= arg0->unk1D0;
         }
@@ -973,7 +969,7 @@ void func_8021D8E0(u16 fxId) {
     uvMat4UnkOp3(&sp54, spA0, 1.0f, sp9C);
     uvGfx_802236CC(&sp54);
     uvBeginGrid();
-    for (i = 0; i < 64; i++) {
+    for (i = 0; i < ARRAY_COUNT(D_80248F34); i++) {
         temp_fv0 = D_80248F34[i].unk4 * var_fs0;
         uvVtx(D_80248F34[i].unk0, 0, D_80248F34[i].unk2, 0, 0, temp_s1->unk52, temp_s1->unk53, (s32)temp_s1->unk54, (u8)(temp_fv0));
     }
@@ -1146,7 +1142,7 @@ void func_8021E608(u16 fxId) {
     }
     uvVtxBeginPoly();
     uvVtx(D_80248F1C[0].unk0, 0, D_80248F1C[0].unk2, 0, 0, temp_s1->unk52, temp_s1->unk53, temp_s1->unk54, temp_s1->unk55);
-    for (i = 5; i > 0; i--) {
+    for (i = ARRAY_COUNT(D_80248F1C) - 1; i > 0; i--) {
         uvVtx(D_80248F1C[i].unk0, 0, D_80248F1C[i].unk2, 0, 0, temp_s1->unk56, temp_s1->unk57, temp_s1->unk58, temp_s1->unk59);
     }
     uvVtxEndPoly();
@@ -1179,7 +1175,7 @@ void func_8021E7E0(u16 fxId) {
     sp98 = temp_s2->unk1C * 20.0f;
     uvVtxBeginPoly();
     uvVtx(D_80248ED8[0].unk0, D_80248ED8[0].unk2, 0, 0, 0, temp_s2->unk52, temp_s2->unk53, temp_s2->unk54, temp_s2->unk55);
-    for (i = 1; i < 17; i++) {
+    for (i = 1; i < ARRAY_COUNT(D_80248ED8); i++) {
         temp_t0 = ((temp_s2->unk55 >> 2) << ((sp98 + i) % 4));
         uvVtx(D_80248ED8[i].unk0, D_80248ED8[i].unk2, 0, 0, 0, temp_s2->unk52, temp_s2->unk53, temp_s2->unk54, temp_t0);
     }
@@ -1200,7 +1196,7 @@ void func_8021EA38(UnkStruct_80204D94* arg0) {
 
     uvGfxResetState();
     i = 0;
-    for (i = 0; i < 120; i++) {
+    for (i = 0; i < ARRAY_COUNT(D_8028B400); i++) {
         var_s0 = &D_8028B400[i];
         if (var_s0->unk4 == 0) {
             continue;
@@ -1345,27 +1341,27 @@ s32 func_8021EFF0(s32 type) {
     u16 i;
 
     if (type == 4) {
-        for (i = 0; i < 4; i++) {
+        for (i = 0; i < ARRAY_COUNT(D_8028AC40); i++) {
             if (D_8028AC40[i].unk1EC == 0) {
                 break;
             }
         }
-        if (i == 4) {
+        if (i == ARRAY_COUNT(D_8028AC40)) {
             return 0xFF;
         }
     }
     if (type == 8) {
-        for (i = 0; i < 4; i++) {
+        for (i = 0; i < ARRAY_COUNT(D_8028A0A0); i++) {
             if (D_8028A0A0[i].unk2E4 == 0) {
                 break;
             }
         }
-        if (i == 4) {
+        if (i == ARRAY_COUNT(D_8028A0A0)) {
             return 0xFF;
         }
     }
 
-    for (i = 0; i < 120; i++) {
+    for (i = 0; i < ARRAY_COUNT(D_8028B400); i++) {
         if (D_8028B400[i].unk4 == 0) {
             return i;
         }
