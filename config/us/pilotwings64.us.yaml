@@ -91,7 +91,8 @@ segments:
       - [0x177A0, c, kernel/dobj]
       - [0x19170, c, kernel/env]
       - [0x19B50, c, kernel/code_19B50]
-      - [0x1AF80, c, kernel/code_1AF80]
+      - [0x1A1F0, c, kernel/font]
+      - [0x1AF80, c, kernel/fx]
       - [0x200B0, c, kernel/geometry]
       - [0x21910, c, kernel/graphics]
       - [0x24E30, c, kernel/filesystem]
@@ -263,8 +264,8 @@ segments:
       - [0x49D60, .data, kernel/code_7150]
       - [0x49D80, .data, kernel/code_8170]
       - [0x49D90, .data, kernel/env]
-      - [0x49DD0, .data, kernel/code_19B50]
-      - [0x49E50, .data, kernel/code_1AF80]
+      - [0x49DD0, .data, kernel/font]
+      - [0x49E50, .data, kernel/fx]
       - [0x4A0F0, .data, kernel/graphics]
       - [0x4A200, .data, kernel/code_2FE40]
       - [0x4C200, .data, kernel/matrix]
@@ -304,7 +305,8 @@ segments:
       - [0x4E370, .rodata, kernel/dobj]
       - [0x4E620, .rodata, kernel/env]
       - [0x4E780, .rodata, kernel/code_19B50]
-      - [0x4E830, .rodata, kernel/code_1AF80]
+      - [0x4E830, .rodata, kernel/font]
+      - [0x4E870, .rodata, kernel/fx]
       - [0x4EB30, .rodata, kernel/geometry]
       - [0x4EBD0, .rodata, kernel/graphics]
       - [0x4EEF0, .rodata, kernel/filesystem]
@@ -343,6 +345,7 @@ segments:
       - { type: .bss, vram: 0x80250ED0, name: kernel/emitter }
       - { type: .bss, vram: 0x8025BF00, name: kernel/event }
       - { type: bss, vram: 0x8025C5B0, name: kernel_bss2 }
+      - { type: .bss, vram: 0x8028A0A0, name: kernel/fx }
       - { type: .bss, vram: 0x80290680, name: kernel/geometry }
       - { type: bss, vram: 0x80296AA0, name: kernel_bss3 }
       - { type: .bss, vram: 0x802C5FD0, name: kernel/sprite }

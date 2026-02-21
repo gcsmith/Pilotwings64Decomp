@@ -7,6 +7,7 @@
 #include <uv_util.h>
 #include <libc/stdarg.h>
 #include <uv_graphics.h>
+#include "kernel/code_58E0.h"
 
 // TODO FIXME fix for gSPPerspNormalize, due to older f3d ucode
 #undef gSPPerspNormalize
@@ -18,7 +19,6 @@
         _g->words.w1 = (s);                         \
     }
 
-void _uvSortAdd(s32, f32, void*, UnkStruct_80204D94*, f32, f32, ...);
 s32 func_80206F64(void*, f32, f32, f32, f32);
 void func_80215E7C(uvGfxUnkStructModel*);
 

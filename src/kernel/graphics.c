@@ -1,6 +1,7 @@
 #include <uv_clocks.h>
 #include <uv_dobj.h>
 #include <uv_event.h>
+#include <uv_fx.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>
 #include <uv_memory.h>
@@ -111,14 +112,6 @@ extern u8 gGfxYieldData[];
 extern OSSched gSchedInst;
 extern u8 D_80269B80[300];
 extern s16 gGeomVertexCount;
-
-typedef struct {
-    u8 pad0[0x4];
-    u8 unk4;
-    u8 pad5[0xAB];
-} unk8028B400;
-
-extern unk8028B400 D_8028B400[120];
 
 void uvGfxInit(void) {
     u8 i;
@@ -1063,7 +1056,7 @@ void uvGfxClearFlags(s32 flags) {
     }
 }
 
-void uvGfx_80223A28(s32 flags) {
+void uvGfx_80223A28(u32 flags) {
     uvGfxState_t sp20;
     s32 pad;
 
