@@ -524,7 +524,7 @@ s32 uvModelGet(s32 fxId, s32 modelId) {
             return 0;
         }
         uvMat4SetIdentity(&var_v1->unk68);
-        uvMat4UnkOp3(&var_v1->unk68, 0.5f, 0.5f, 0.5f);
+        uvMat4Scale(&var_v1->unk68, 0.5f, 0.5f, 0.5f);
         break;
     case 6:
         var_v1->unk0 = 2;
@@ -966,7 +966,7 @@ void func_8021D8E0(u16 fxId) {
     spA0 = temp_s1->unk30 * temp_fv1 * 0.01f;
     sp9C = temp_s1->unk38 * temp_fv1 * 0.01f;
     uvMat4Copy(&sp54, &temp_s1->unk68);
-    uvMat4UnkOp3(&sp54, spA0, 1.0f, sp9C);
+    uvMat4Scale(&sp54, spA0, 1.0f, sp9C);
     uvGfx_802236CC(&sp54);
     uvBeginGrid();
     for (i = 0; i < ARRAY_COUNT(D_80248F34); i++) {

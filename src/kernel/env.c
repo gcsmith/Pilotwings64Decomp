@@ -202,12 +202,12 @@ void _uvEnvDraw(s32 arg0, s32 arg1) {
         uvGfx_802236CC(&D_80248DE0);
 
         for (j = 0; j < temp_s2->unk4; j++) {
-            temp_a0_2 = temp_s2->unk0[j].unk0;
+            temp_a0_2 = temp_s2->unk0[j].state;
             if (!(temp_s1 & 1)) {
-                temp_s2->unk0[j].unk0 &= ~0x200000;
+                temp_s2->unk0[j].state &= ~0x200000;
             }
             uvGfxStateDraw(&temp_s2->unk0[j]);
-            temp_s2->unk0[j].unk0 = temp_a0_2;
+            temp_s2->unk0[j].state = temp_a0_2;
         }
         if (temp_s1 & 2) {
             uvGfxMtxProj(var_v0->unk50);

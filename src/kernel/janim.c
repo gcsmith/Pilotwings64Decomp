@@ -116,7 +116,7 @@ void func_80200638(s32 arg0, Unk80371120* arg1) {
 
     for (i = 0; i < temp_s4; i++, var_s1++) {
         uvModelGetPosm(temp_s5, arg1->unk190[i], &sp58);
-        uvMat4SetUnk4(&sp58, var_s1->unk0, var_s1->unk4, var_s1->unk8, var_s1->unkC);
+        uvMat4SetQuaternionRotation(&sp58, var_s1->unk0, var_s1->unk4, var_s1->unk8, var_s1->unkC);
         uvDobjPosm(arg0, arg1->unk190[i], &sp58);
     }
 }
