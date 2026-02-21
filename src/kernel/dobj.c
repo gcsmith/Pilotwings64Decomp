@@ -6,6 +6,7 @@
 #include <uv_util.h>
 #include <libc/stdarg.h>
 #include <uv_graphics.h>
+#include "kernel/code_58E0.h"
 
 // TODO FIXME fix for gSPPerspNormalize, due to older f3d ucode
 #undef gSPPerspNormalize
@@ -25,11 +26,9 @@ typedef struct Unk80371120 {
     s32 unk1AC;
 } Unk80371120; // size: 0x1B0
 
-void _uvSortAdd(s32, f32, void*, UnkStruct_80204D94*, f32, f32, ...);
 u8 func_80217AB4(uvGfxUnkStructModel*, f32);
 void func_80217B4C(Unk80263780*, uvGfxUnkStructModel*, u8);
 void func_80217E24(Unk80263780*, uvGfxUnkStructModel*, u8, f32, f32);
-s32 func_80206F64(void*, f32, f32, f32, f32);
 void func_80215E7C(uvGfxUnkStructModel*);
 
 extern u8 D_80269B80[300];

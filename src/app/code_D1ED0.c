@@ -238,7 +238,7 @@ void func_8034B354(s32 arg0, Vec3F arg1, Vec3F* arg4) {
 s32 func_8034B464(s32 arg0) {
     s32 sp1C;
 
-    sp1C = func_8021EFF0();
+    sp1C = func_8021EFF0(arg0);
     if (sp1C == 0xFF) {
         return 0xFF;
     }

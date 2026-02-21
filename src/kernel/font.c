@@ -1,6 +1,7 @@
 #include "common.h"
 #include <uv_filesystem.h>
 #include <uv_memory.h>
+#include <uv_font.h>
 
 // clang-format off
 static s16 D_80248E20 = 0x0000;

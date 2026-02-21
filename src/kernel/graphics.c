@@ -1,6 +1,7 @@
 #include <uv_clocks.h>
 #include <uv_dobj.h>
 #include <uv_event.h>
+#include <uv_fx.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>
 #include <uv_memory.h>
@@ -1055,7 +1056,7 @@ void uvGfxClearFlags(s32 flags) {
     }
 }
 
-void uvGfx_80223A28(s32 flags) {
+void uvGfx_80223A28(u32 flags) {
     uvGfxState_t sp20;
     s32 pad;
 

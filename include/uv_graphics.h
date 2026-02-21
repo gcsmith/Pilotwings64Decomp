@@ -193,7 +193,7 @@ void uvGfxStatePush(void);
 void uvGfxStatePop(void);
 void uvGfxSetFlags(s32 flags);
 void uvGfxClearFlags(s32 flags);
-void uvGfx_80223A28(s32 flags);
+void uvGfx_80223A28(u32 flags);
 void uvGfx_80223A64(s32 arg0, s32 arg1);
 void uvGfxWaitForMesg(void);
 void uvGfxEnableGamma(s32 enable);
@@ -257,54 +257,7 @@ typedef struct {
 /* 39C */ void (*unk39C)(void);
 } UnkStruct_80204D94; // size 3A0
 
-typedef struct {
-    u8 unk0;
-    u8 unk1;
-    u16 unk2;
-    u8 unk4;
-    u8 unk5;
-    u8 unk6;
-    u8 unk7;
-    f32 unk8;
-    f32 unkC;
-    f32 unk10;
-    f32 unk14;
-    f32 unk18;
-    f32 unk1C;
-    f32 unk20;
-    f32 unk24;
-    f32 unk28;
-    u8 pad2C[0x4];
-    f32 unk30;
-    f32 unk34;
-    f32 unk38;
-    f32 unk3C;
-    f32 unk40;
-    f32 unk44;
-    f32 unk48;
-    f32 unk4C;
-    u16 unk50;
-    u8 unk52;
-    u8 unk53;
-    u8 unk54;
-    u8 unk55;
-    u8 unk56;
-    u8 unk57;
-    u8 unk58;
-    u8 unk59;
-    u8 unk5A;
-    u8 pad5B[0x1];
-    u16 unk5C;
-    u8 pad5E[0x2];
-    s32 unk60;
-    s32 unk64;
-    Mtx4F unk68;
-    void* unkA8;
-    f32 unkAC;
-} UnkFxStruct; // size = 0xB0
-
 extern UnkStruct_80204D94 D_80261730[];
-extern UnkFxStruct D_8028B400[120];
 
 void uvChanTerra(s32, s32);
 void uvChanEnv(s32 arg0, s32 arg1);
