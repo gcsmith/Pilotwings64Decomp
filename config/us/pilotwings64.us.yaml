@@ -462,7 +462,7 @@ segments:
       - [0xD5F70, data] # app/code_61A60
       - [0xD6030, .data, app/code_64070]
       - [0xD62D0, .data, app/code_64730]
-      - [0xD6410, data] # app/code_68220
+      - [0xD6410, .data, app/code_68220]
       - [0xD6450, data] # app/code_69BF0
       - [0xD64D0, data] # app/code_6ACE0
       - [0xD6540, data] # app/code_6ACE0
