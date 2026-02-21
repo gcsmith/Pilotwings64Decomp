@@ -11,11 +11,11 @@
 #include "demo.h"
 #include "code_68220.h"
 #include "code_9A960.h"
-#include "code_C9440.h"
 #include "hud.h"
 #include "pads.h"
 #include "snap.h"
 #include "snd.h"
+#include "text_data.h"
 #include "thermals.h"
 
 // number of frames to render for camera shutter animation
@@ -1255,7 +1255,7 @@ void hudText_8031D8E0(s16 arg0, f32 arg1, f32 arg2) {
         return;
     }
 
-    temp_v0 = func_80342198(arg0);
+    temp_v0 = textGetDataByIdx(arg0);
     gHudState.unkC5E = arg0;
     if (gHudState.unkBD0[0] != -1) {
         gHudState.unkC58 = gHudState.unk14 + 0.2f;
@@ -1288,7 +1288,7 @@ void hudWarningText(s16 arg0, f32 arg1, f32 arg2) {
         return;
     }
 
-    temp_v0 = func_80342198(arg0);
+    temp_v0 = textGetDataByIdx(arg0);
     gHudState.unkBCE = arg0;
     if (gHudState.unkB40[0] != -1) {
         gHudState.unkBC8 = gHudState.unk14 + 0.2f;

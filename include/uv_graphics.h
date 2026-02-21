@@ -72,6 +72,35 @@ typedef struct uvGfxUnkStructTerra {
     uvUnkTileStruct* unk28;
 } uvGfxUnkStructTerra;
 
+typedef struct UnkGfxEnv_Unk30 {
+    u16 modelId;
+    u8 flag;
+} UnkGfxEnv_Unk30;
+
+typedef struct uvGfxUnkStructEnv {
+    u8 screenR;
+    u8 screenG;
+    u8 screenB;
+    u8 screenA;
+    u8 fogR;
+    u8 fogG;
+    u8 fogB;
+    u8 fogA;
+    u8 unk8;
+    u8 unk9;
+    u8 unkA;
+    u8 unkB;
+    u8 padC[0x8];
+    f32 unk14;
+    f32 unk18;
+    u8 unk1C;
+    u8 pad1D[0x11];
+    u8 unk2E;
+    struct UnkGfxEnv_Unk30* unk30;
+    u8 unk34;
+    void (*unk38)(void);
+} uvGfxUnkStructEnv;
+
 typedef struct {
     void* unk0;
     Gfx *unk4;
@@ -161,7 +190,7 @@ typedef struct {
     u8 pad8[0x28];
     void *unk30[1];
     u8 pad34[0x10];
-    void *unk44[1];
+    uvGfxUnkStructEnv *unk44[1];
     u8 pad48[0x80];
     uvGfxUnkStructModel *unkC8[1];
     u8 padCC[0x844];
@@ -218,7 +247,7 @@ void uvGfxStatePush(void);
 void uvGfxStatePop(void);
 void uvGfxSetFlags(s32 flags);
 void uvGfxClearFlags(s32 flags);
-void uvGfx_80223A28(s32 flags);
+void uvGfx_80223A28(u32 flags);
 void uvGfx_80223A64(s32 arg0, s32 arg1);
 void uvGfxWaitForMesg(void);
 void uvGfxEnableGamma(s32 enable);

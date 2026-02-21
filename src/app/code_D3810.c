@@ -180,12 +180,12 @@ void func_8034C964(void) {
 
     D_803509F0 = func_80321210(func_8034C7F0, func_8034C6CC, sp70, 1750.0f, 0.0f, 0);
     for (i = 0; i < ARRAY_COUNT(D_8037F450); i++) {
-        D_8037F450[i].unk4 = func_8021731C();
+        D_8037F450[i].unk4 = uvDobjAllocIdx();
         if (D_8037F450[i].unk4 != 0xFFFF) {
             uvDobjModel(D_8037F450[i].unk4, 0xD8);
             uvDobjState(D_8037F450[i].unk4, 0);
         }
-        D_8037F450[i].unk0 = func_8021731C();
+        D_8037F450[i].unk0 = uvDobjAllocIdx();
         if (D_8037F450[i].unk0 == 0xFFFF) {
             if (D_8037F450[i].unk4 != 0xFFFF) {
                 uvDobjModel(D_8037F450[i].unk4, 0xFFFF);

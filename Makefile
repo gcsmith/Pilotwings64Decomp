@@ -42,8 +42,14 @@ AS       := $(CROSS)as
 LD       := $(CROSS)ld
 OBJCOPY  := $(CROSS)objcopy
 PYTHON   := python3
-GCC_HOST := gcc
 GREP     := grep -rl
+# prefer clang as host compiler if installed on the system.
+# this allows certain 32-bit CC_CHECK flags to work on arm hosts
+ifneq (,$(call find-command,clang))
+  CC_CHECK  := clang
+else
+  CC_CHECK  := gcc
+endif
 
 CC := $(TOOLS_DIR)/ido-static-recomp/build/5.3/out/cc
 
@@ -122,8 +128,13 @@ CFLAGS += $(DEFINES)
 CFLAGS += -woff 624,649,838,712,516,513,596,564,594,709,807
 CFLAGS += $(INCLUDE_CFLAGS)
 
+# -m32 has compiler treat code as 32-bit, but only works on clang and x86_64 gcc
+# other architectures may need to rely on clang or a cross-compiler
+ifeq ($(shell getconf LONG_BIT),64)
+  CHECK_ARCH := -m32
+endif
 CHECK_WARNINGS := -Wall -Wextra -Wno-format-security -Wno-unknown-pragmas -Wunused-function -Wno-unused-parameter -Wno-unused-variable -Wno-missing-braces -Wno-int-conversion -Wno-multichar
-CC_CHECK := $(GCC_HOST) -fsyntax-only -fno-builtin -fsigned-char -std=gnu90 -m32 $(CHECK_WARNINGS) $(INCLUDE_CFLAGS) $(DEFINES)
+CHECK_CFLAGS := -fsyntax-only -fno-builtin -fsigned-char -std=gnu90 $(CHECK_ARCH) $(CHECK_WARNINGS) $(INCLUDE_CFLAGS) $(DEFINES)
 
 LD_FLAGS := -T $(LD_SCRIPT)
 LD_FLAGS += -T config/$(VERSION)/sym/hardware_regs.ld
@@ -171,7 +182,7 @@ no_verify: $(ROM_Z64)
 init: $(TOOLS_DIR)
 	$(MAKE) clean
 	$(MAKE) extract
-	$(MAKE) -j
+	$(MAKE) -j$(nproc)
 
 extract: $(TOOLS_DIR)
 	rm -rf asm
@@ -206,7 +217,7 @@ $(ROM_ELF): $(LD_SCRIPT) $(BUILD_DIR)/$(LIBULTRA) $(O_FILES) $(LANG_RNC_O_FILES)
 ifndef PERMUTER
 $(GLOBAL_ASM_O_FILES): $(BUILD_DIR)/%.o: %.c
 	@printf "[$(YELLOW) syntax $(NO_COL)]  $<\n"
-	$(V)$(CC_CHECK) -MMD -MP -MT $@ -MF $(BUILD_DIR)/$*.d $<
+	$(V)$(CC_CHECK) $(CHECK_CFLAGS) -MMD -MP -MT $@ -MF $(BUILD_DIR)/$*.d $<
 	@printf "[$(GREEN) ido5.3 $(NO_COL)]  $<\n"
 	$(V)$(ASM_PROCESSOR) $(ASM_PROC_FLAGS) $< > $(BUILD_DIR)/$<
 	$(V)$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $(BUILD_DIR)/$<
@@ -217,7 +228,7 @@ endif
 # non asm-processor recipe
 $(BUILD_DIR)/%.o: %.c
 	@printf "[$(YELLOW) syntax $(NO_COL)]  $<\n"
-	$(V)$(CC_CHECK) -MMD -MP -MT $@ -MF $(BUILD_DIR)/$*.d $<
+	$(V)$(CC_CHECK) $(CHECK_CFLAGS) -MMD -MP -MT $@ -MF $(BUILD_DIR)/$*.d $<
 	@printf "[$(GREEN) ido5.3 $(NO_COL)]  $<\n"
 	$(V)$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $<
 

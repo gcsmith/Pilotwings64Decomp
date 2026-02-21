@@ -169,7 +169,17 @@ void uvEmitterProp(u8 obj_id, ...) {
         return;
     }
     obj = &gSndEmitterTable[obj_id];
+
+    // passing an object that undergoes default argument promotion to 'va_start'
+    // has undefined behavior (e.g. u8, u16, f32)
+#if defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wvarargs"
+#endif
     va_start(args, obj_id);
+#if defined(__clang__)
+#pragma GCC diagnostic pop
+#endif
 
     while (TRUE) {
         propertyType = va_arg(args, s32);
@@ -289,6 +299,14 @@ void uvEmitterFlush(u16 arg0) {
     }
 }
 
+// variable 'sp84' is used uninitialized whenever 'if' condition is true. see @bug below
+#if defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wsometimes-uninitialized"
+#elif defined(__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
+#endif
 void uvEmitter_80201D08(u8 obj_id, u16 arg1) {
     s32 pan;
     f32 spB8;
@@ -399,6 +417,9 @@ void uvEmitter_80201D08(u8 obj_id, u16 arg1) {
     obj->playPitch = obj->unk70.y;
     obj->playVolume = (s32)(spB8 * sp38 * 32767.0f);
 }
+#if defined(__GNUC__) || defined(__clang__)
+#pragma GCC diagnostic pop
+#endif
 
 void _uvaUpdatePlayList(u8 obj_id) {
     s32 i;

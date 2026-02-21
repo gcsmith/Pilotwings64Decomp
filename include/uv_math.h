@@ -1,7 +1,7 @@
 #ifndef PILOTWINGS64_UV_MATH
 #define PILOTWINGS64_UV_MATH
 
-#include <ultra64.h>
+#include <PR/ultratypes.h>
 
 // from kernel/rand
 void uvRandSeed(s32 seed);
