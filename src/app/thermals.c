@@ -53,7 +53,7 @@ void therm_8034662C(void) {
             for (i = 0; i < gThermalCount; i++) {
                 levlTher = &gLevelTHER[i];
                 therm = &gThermals[i];
-                therm->unk0 = func_8021731C();
+                therm->unk0 = uvDobjAllocIdx();
                 uvDobjModel(therm->unk0, 0x101);
                 uvDobjState(therm->unk0, 2);
                 uvVec3Copy(&gThermals[i].pos, &levlTher->pos);

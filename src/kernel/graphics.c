@@ -208,8 +208,8 @@ void uvGfxMtxView(Mtx src) {
     D_80298AD0[gGfxFbIndex]++;
 }
 
-void uvGfxMtxProj(Mtx arg0) {
-    uvGfxMstackPushL(arg0);
+void uvGfxMtxProj(Mtx src) {
+    uvGfxMstackPushL(src);
     gSPMatrix(gGfxDisplayListHead++, osVirtualToPhysical(uvGfxMstackTop()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
     D_80298AD0[gGfxFbIndex]++;
 }

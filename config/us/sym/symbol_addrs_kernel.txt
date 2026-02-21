@@ -89,8 +89,16 @@ uvDobjPosm          = 0x80216E08; // type:func
 uvDobjGetPosm       = 0x80216FD8; // type:func
 uvDobjState         = 0x8021711C; // type:func
 uvDobjSetState      = 0x80217268; // type:func
-uvDobjSetState2     = 0x802172C0; // type:func
+uvDobjClearState    = 0x802172C0; // type:func
+uvDobjAllocIdx      = 0x8021731C; // type:func
+uvDobjInit          = 0x80217398; // type:func
 _uvDobjsDraw        = 0x8021744C; // type:func
+uvDobj_8021771C     = 0x8021771C; // type:func
+uvDobj_80217AB4     = 0x80217AB4; // type:func
+uvDobj_80217B34     = 0x80217B34; // type:func
+uvDobj_80217B4C     = 0x80217B4C; // type:func
+uvDobj_80217E24     = 0x80217E24; // type:func
+uvDobj_802180DC     = 0x802180DC; // type:func
 
 uvEnvProps          = 0x802181C0; // type:func
 uvEnvProps2         = 0x80218470; // type:func
@@ -199,8 +207,13 @@ _uvScLogCpuEvent    = 0x8022BEC4; // type:func
 _uvScLogIntoRing    = 0x8022C268; // type:func
 
 uvSobjsDraw         = 0x8022C4E0; // type:func
+uvSobj_8022C7B8     = 0x8022C7B8; // type:func
+uvSobj_8022C8D0     = 0x8022C8D0; // type:func
+uvSobj_8022CC28     = 0x8022CC28; // type:func
 uvSobjLoadTerra     = 0x8022CEF8; // type:func
 uvSobjPosm          = 0x8022CFC4; // type:func
+uvSobj_8022D168     = 0x8022D168; // type:func
+uvSobj_8022D1E4     = 0x8022D1E4; // type:func
 uvSobjModel         = 0x8022D218; // type:func
 
 uvStrchr            = 0x8022D2B0; // type:func

@@ -2,8 +2,8 @@
 #include <uv_graphics.h>
 #include <uv_sprite.h>
 #include "code_99D40.h"
-#include "code_C9440.h"
 #include "menu.h"
+#include "text_data.h"
 
 // forward declarations
 static void menuCreate(s32 x, s32 y, s32 arg2, f32 xscale, f32 yscale, s32 itemCount);
@@ -54,7 +54,7 @@ void menuCreateItems(s32 x, s32 y, s32 arg2, f32 xscale, f32 yscale, s32* items,
     menuCreate(x, y, arg2, xscale, yscale, itemCount);
 
     for (i = 0; i < itemCount; i++) {
-        gMenuItems[i] = func_80342198(items[i]);
+        gMenuItems[i] = textGetDataByIdx(items[i]);
     }
 }
 

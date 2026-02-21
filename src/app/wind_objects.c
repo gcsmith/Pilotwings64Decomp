@@ -58,7 +58,7 @@ void func_8034E0B4(void) {
     for (i = 0; i < sWindObjectsInLevel; i++) {
         windObject = &sWindObjects[i];
         windObjectData = &sWindObjectsData[i];
-        windObject->modelId = func_8021731C();
+        windObject->modelId = uvDobjAllocIdx();
         switch (windObjectData->unkC) {
         case 0:
             uvDobjModel(windObject->modelId, 0x40);

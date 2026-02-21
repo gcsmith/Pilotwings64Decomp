@@ -30,12 +30,12 @@ f32 uvRandF_RANLUX(void) {
     return (f32)(var_v1 - 1) / 2.1474835e9f;
 }
 
+// Linear congruential generator with ANSI C base and multiplier
 f32 uvRandF_LCG(void) {
-    gRandLcgState = (gRandLcgState * 0x41C64E6D) + 0x3039;
-    if (((gRandLcgState >> 0x10) & 0x7FFF) < 0) {
-        return ((gRandLcgState >> 0x10) & 0x7FFF) + 4294967296.0f;
-    }
-    return ((gRandLcgState >> 0x10) & 0x7FFF) / 32767.0f;
+    u32 val;
+    gRandLcgState = (gRandLcgState * 1103515245) + 12345;
+    val = (gRandLcgState >> 16) & 0x7FFF;
+    return (f32)val / 0x7FFF;
 }
 
 s32 uvAbs(s32 x) {

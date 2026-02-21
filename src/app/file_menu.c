@@ -6,12 +6,12 @@
 #include "code_99D40.h"
 #include "code_9A960.h"
 #include "code_B2900.h"
-#include "code_C9440.h"
 #include "code_D2B10.h"
 #include "credits.h"
 #include "file_menu.h"
 #include "menu.h"
 #include "save.h"
+#include "text_data.h"
 
 // forward declarations
 static s32 fileMenuPrintText(s32*, s32);
@@ -201,7 +201,7 @@ static s32 fileMenuPrintText(s32* arg0, s32 arg1) {
     uvFontSet(6);
     uvFont_80219550(1.0, 1.0);
     for (i = 0; i < arg1; i++) {
-        curVal = func_802196B0(func_80342198(arg0[i])) - 16;
+        curVal = func_802196B0(textGetDataByIdx(arg0[i])) - 16;
         if (curVal > maxVal) {
             maxVal = curVal;
         }
@@ -248,7 +248,7 @@ void fileMenu_802E94E0(void) {
     uvLevelAppend(0x48);
     uvLevelAppend(1);
     uvLevelAppend(0x72);
-    func_80341F10(0x42);
+    textLoadBlock(0x42);
     uvSprtProps(0x10, 3, 1, 9, 0x49, 0);
     uvSprtProps(0x10, 2, 0x2A, uvSprtGetHeight(0x10) + 0x17, 0);
     uvSprtProps(0x11, 3, 1, 9, 0x4A, 0);
@@ -447,13 +447,13 @@ void fileMenu_802E9AE0(void) {
     uvFont_8021956C((u8)r, (u8)g, (u8)b, 0xFF);
     switch (sFileMenuCurMenu) {
     case 0:
-        titleStr = func_80342198(0x23); // SELECT FILE
+        titleStr = textGetDataByIdx(0x23); // SELECT FILE
         break;
     case 1:
-        titleStr = func_80342198(0xBA); // Which file will be erased?
+        titleStr = textGetDataByIdx(0xBA); // Which file will be erased?
         break;
     case 2:
-        titleStr = func_80342198(0x101); // Are you sure?
+        titleStr = textGetDataByIdx(0x101); // Are you sure?
         break;
     }
     func_80219874(160 - (func_802196B0(titleStr) / 2), 206, titleStr, 0x3C, 0xFFE);

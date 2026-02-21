@@ -62,9 +62,9 @@ void uvSobjsDraw(UnkStruct_80204D94* arg0, Mtx4F* arg1, u16 arg2, u16 arg3, UnkS
         }
         temp_fv0 = uvSqrtF(SQ(temp_fs1) + SQ(temp_fs2) + SQ(temp_fs0));
         if (arg0->unk200 == 1.0f) {
-            var_s1 = var_v0 = func_8022C7B8(temp_s0, temp_fv0);
+            var_s1 = var_v0 = uvSobj_8022C7B8(temp_s0, temp_fv0);
         } else {
-            var_s1 = var_v0 = func_8022C7B8(temp_s0, arg0->unk200 * temp_fv0);
+            var_s1 = var_v0 = uvSobj_8022C7B8(temp_s0, arg0->unk200 * temp_fv0);
         }
         if (var_v0 == 0xFF) {
             continue;
@@ -72,14 +72,14 @@ void uvSobjsDraw(UnkStruct_80204D94* arg0, Mtx4F* arg1, u16 arg2, u16 arg3, UnkS
         if (temp_s0->unk11 & 1) {
             _uvSortAdd(4, temp_fv0, var_s2, arg0, arg1->m[3][0], arg1->m[3][1], temp_fs1, temp_fs2, arg1, arg7, var_s1);
         } else if (temp_s0->unk8[var_v0].unk5 != 0) {
-            func_8022CC28(var_s2, temp_s0, var_s1, temp_fs1, temp_fs2);
+            uvSobj_8022CC28(var_s2, temp_s0, var_s1, temp_fs1, temp_fs2);
         } else {
-            func_8022C8D0(var_s2, temp_s0, var_s1, arg1);
+            uvSobj_8022C8D0(var_s2, temp_s0, var_s1, arg1);
         }
     }
 }
 
-u8 func_8022C7B8(uvGfxUnkStructModel* arg0, f32 arg1) {
+u8 uvSobj_8022C7B8(uvGfxUnkStructModel* arg0, f32 arg1) {
     s32 temp_v1;
     s32 i;
     f32* temp_v0;
@@ -98,7 +98,7 @@ u8 func_8022C7B8(uvGfxUnkStructModel* arg0, f32 arg1) {
     return 0;
 }
 
-void func_8022C8D0(UnkSobjDraw* arg0, uvGfxUnkStructModel* arg1, u8 arg2, Mtx4F* arg3) {
+void uvSobj_8022C8D0(UnkSobjDraw* arg0, uvGfxUnkStructModel* arg1, u8 arg2, Mtx4F* arg3) {
     uvGfxUnkStruct8* temp_s3;
     uvGfxUnkStruct10* temp_s2;
     s32 temp_v0;
@@ -148,7 +148,7 @@ void func_8022C8D0(UnkSobjDraw* arg0, uvGfxUnkStructModel* arg1, u8 arg2, Mtx4F*
     }
 }
 
-void func_8022CC28(UnkSobjDraw* arg0, uvGfxUnkStructModel* arg1, u8 arg2, f32 arg3, f32 arg4) {
+void uvSobj_8022CC28(UnkSobjDraw* arg0, uvGfxUnkStructModel* arg1, u8 arg2, f32 arg3, f32 arg4) {
     uvMtx* temp_s6;
     s32 temp_v1;
     s32 i;
@@ -213,90 +213,90 @@ void func_8022CC28(UnkSobjDraw* arg0, uvGfxUnkStructModel* arg1, u8 arg2, f32 ar
     temp_s6->m[2][2] = sp88.m[2][2];
 }
 
-UnkSobjDraw* uvSobjLoadTerra(u32 arg0) {
+UnkSobjDraw* uvSobjLoadTerra(u32 soid) {
     UnkSobjDraw* temp_a0;
     uvGfxUnkStructTerra* temp_v0;
     uvUnkTileStruct* temp_v1;
 
-    temp_v0 = gGfxUnkPtrs->unk4[(arg0 >> 0x18) & 0xFF];
+    temp_v0 = gGfxUnkPtrs->unk4[(soid >> 0x18) & 0xFF];
     if (temp_v0 == NULL) {
-        _uvDebugPrintf("Sobj: terra %d not in level\n", (arg0 >> 0x18) & 0xFF);
+        _uvDebugPrintf("Sobj: terra %d not in level\n", (soid >> 0x18) & 0xFF);
         return NULL;
     }
 
-    temp_v1 = &temp_v0->unk28[(arg0 >> 0xC) & 0xFFF];
+    temp_v1 = &temp_v0->unk28[(soid >> 0xC) & 0xFFF];
     if (temp_v1 == NULL) {
-        _uvDebugPrintf("Sobj: bad soid 0x%x, tile not found in terra\n", arg0);
+        _uvDebugPrintf("Sobj: bad soid 0x%x, tile not found in terra\n", soid);
         return NULL;
     }
 
-    temp_a0 = &temp_v1->unk40->unk10[arg0 & 0xFFF];
+    temp_a0 = &temp_v1->unk40->unk10[soid & 0xFFF];
     if (temp_a0 == NULL) {
-        _uvDebugPrintf("Sobj: bad soid, sobj %d not in terra %d, tile %d\n", (arg0 >> 0x18) & 0xFF, (arg0 >> 0xC) & 0xFFF, arg0 & 0xFFF);
+        _uvDebugPrintf("Sobj: bad soid, sobj %d not in terra %d, tile %d\n", (soid >> 0x18) & 0xFF, (soid >> 0xC) & 0xFFF, soid & 0xFFF);
         return NULL;
     }
     return temp_a0;
 }
 
-void uvSobjPosm(u32 arg0, s32 arg1, Mtx4F* arg2) {
+void uvSobjPosm(u32 soid, s32 dstIdx, Mtx4F* src) {
     UnkSobjDraw* temp_v0;
     f32 temp_fa0;
     f32 temp_fa1;
     f32 temp_ft4;
 
-    temp_v0 = uvSobjLoadTerra(arg0);
+    temp_v0 = uvSobjLoadTerra(soid);
     if (temp_v0 == NULL) {
         return;
     }
 
-    temp_fa0 = arg2->m[3][0] / gGfxUnkPtrs->unk1608;
-    temp_fa1 = arg2->m[3][1] / gGfxUnkPtrs->unk1608;
-    temp_ft4 = arg2->m[3][2] / gGfxUnkPtrs->unk1608;
+    temp_fa0 = src->m[3][0] / gGfxUnkPtrs->unk1608;
+    temp_fa1 = src->m[3][1] / gGfxUnkPtrs->unk1608;
+    temp_ft4 = src->m[3][2] / gGfxUnkPtrs->unk1608;
 
-    if (arg1 == 0 && (FABS(temp_fa0 - temp_v0->unk8) > 0.01f || FABS(temp_fa1 - temp_v0->unkC) > 0.01f || FABS(temp_ft4 - temp_v0->unk10) > 0.01f)) {
+    if (dstIdx == 0 && (FABS(temp_fa0 - temp_v0->unk8) > 0.01f || FABS(temp_fa1 - temp_v0->unkC) > 0.01f || FABS(temp_ft4 - temp_v0->unk10) > 0.01f)) {
         _uvDebugPrintf("uvSobjPosm: warning, trying to translate part 0\n");
         _uvDebugPrintf("            new %f , %f , %f\n", temp_fa0, temp_fa1, temp_ft4);
         _uvDebugPrintf("            old %f , %f , %f\n", temp_v0->unk8, temp_v0->unkC, temp_v0->unk10);
     } else {
-        uvMat4CopyF2L(&temp_v0->unk4[arg1], arg2);
+        uvMat4CopyF2L(&temp_v0->unk4[dstIdx], src);
     }
 }
 
-void func_8022D168(u32 arg0, s32 arg1, Mtx4F* arg2) {
+void uvSobj_8022D168(u32 soid, s32 srcIdx, Mtx4F* dst) {
     UnkSobjDraw* temp_v0;
 
-    temp_v0 = uvSobjLoadTerra(arg0);
+    temp_v0 = uvSobjLoadTerra(soid);
     if (temp_v0 != NULL) {
-        uvMat4CopyL2F(arg2, temp_v0->unk4[arg1]);
+        uvMat4CopyL2F(dst, temp_v0->unk4[srcIdx]);
     }
 }
 
-u16 func_8022D1E4(u32 arg0) {
+u16 uvSobj_8022D1E4(u32 soid) {
     UnkSobjDraw* temp_v0;
 
-    temp_v0 = uvSobjLoadTerra(arg0);
+    temp_v0 = uvSobjLoadTerra(soid);
     if (temp_v0 == NULL) {
         return 0xFFFF;
     }
     return temp_v0->unk0;
 }
 
-void uvSobjModel(u32 arg0, s32 arg1) {
+void uvSobjModel(u32 soid, s32 mdlId) {
     UnkSobjDraw* temp_v0;
     uvGfxUnkStructModel* temp_v1;
 
-    temp_v0 = uvSobjLoadTerra(arg0);
+    temp_v0 = uvSobjLoadTerra(soid);
     if (temp_v0 == NULL) {
         return;
     }
-    temp_v1 = gGfxUnkPtrs->unkC8[arg1];
+    temp_v1 = gGfxUnkPtrs->unkC8[mdlId];
     if (temp_v1 == NULL) {
-        _uvDebugPrintf("uvSobjModel: model %d not in level\n", arg1);
+        _uvDebugPrintf("uvSobjModel: model %d not in level\n", mdlId);
         return;
     }
     if (temp_v1->unk8->unk4 != gGfxUnkPtrs->unkC8[temp_v0->unk0]->unk8->unk4) {
-        _uvDebugPrintf("uvSobjModel: new model %d had different  heirarchy\n", arg1);
+        _uvDebugPrintf("uvSobjModel: new model %d had different  heirarchy\n", mdlId);
         return;
     }
-    temp_v0->unk0 = arg1;
+    temp_v0->unk0 = mdlId;
 }
