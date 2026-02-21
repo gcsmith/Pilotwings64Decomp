@@ -22,13 +22,13 @@
 #include "code_9A960.h"
 #include "code_B2900.h"
 #include "code_B5280.h"
-#include "code_C9440.h"
 #include "code_D2B10.h"
 #include "demo.h"
 #include "fdr.h"
 #include "hud.h"
 #include "save.h"
 #include "snd.h"
+#include "text_data.h"
 
 // .data likely owned by this file
 extern f32 D_8034E9F0;
@@ -68,12 +68,12 @@ void cannon_802D5A90(void) {
 void cannonLoadLevel(u8 arg0, u8 pilot, Unk802D5B50_Arg2* arg2, Unk802D3658_Arg0* arg3) {
     uvMemSet(arg2, 0, sizeof(*arg2));
     cannonLoadPilot(pilot, arg2);
-    arg2->unk0 = func_8021731C();
+    arg2->unk0 = uvDobjAllocIdx();
     arg2->unk2 = 2;
     uvDobjModel(arg2->unk0, arg2->unk220);
     uvDobjPosm(arg2->unk0, 0, &arg2->unk14);
     uvDobjState(arg2->unk0, arg2->unk2);
-    arg2->unk54 = func_8021731C();
+    arg2->unk54 = uvDobjAllocIdx();
     arg2->unk56 = 2;
     uvDobjModel(arg2->unk54, 0x105);
     uvDobjPosm(arg2->unk54, 0, &arg2->unk58);
@@ -906,7 +906,7 @@ s32 cannonLandedFrame(Unk802D5C5C_Arg0* arg0) {
         if (!sp27) {
             hudText_8031D8E0(0x14D, 2.0f, 8.0f);
         } else {
-            func_80342404(func_80342198(0x1AC), var_a2, 2, 0);
+            textFmtIntAt(textGetDataByIdx(0x1AC), var_a2, 2, 0);
             hudText_8031D8E0(0x1AC, 2.0f, 8.0f);
             if (var_a2 == 0x19) {
                 hudWarningText(0x16F, 2.0f, 8.0f);

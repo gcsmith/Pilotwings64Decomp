@@ -1,4 +1,5 @@
 #include "common.h"
+#include "macros.h"
 #include <uv_dobj.h>
 #include <uv_math.h>
 #include <uv_model.h>
@@ -6,6 +7,7 @@
 #include <uv_util.h>
 #include <libc/stdarg.h>
 #include <uv_graphics.h>
+#include "kernel/code_58E0.h"
 
 // TODO FIXME fix for gSPPerspNormalize, due to older f3d ucode
 #undef gSPPerspNormalize
@@ -17,18 +19,6 @@
         _g->words.w1 = (s);                         \
     }
 
-typedef struct Unk80371120 {
-    Unk8022B0A0 unk0[1];
-    u8 pad10[0x180];
-    u8 unk190[1];
-    u8 pad191[0x1B];
-    s32 unk1AC;
-} Unk80371120; // size: 0x1B0
-
-void _uvSortAdd(s32, f32, void*, UnkStruct_80204D94*, f32, f32, ...);
-u8 func_80217AB4(uvGfxUnkStructModel*, f32);
-void func_80217B4C(Unk80263780*, uvGfxUnkStructModel*, u8);
-void func_80217E24(Unk80263780*, uvGfxUnkStructModel*, u8, f32, f32);
 s32 func_80206F64(void*, f32, f32, f32, f32);
 void func_80215E7C(uvGfxUnkStructModel*);
 
@@ -38,7 +28,7 @@ extern u16 D_80269F08;
 extern u16 D_80269F0A;
 extern Mtx4F D_80265080[300];
 
-void uvDobjModel(s32 objId, s32 arg1) {
+void uvDobjModel(s32 objId, s32 mdlId) {
     uvGfxUnkStructModel** temp_a3;
     Unk80263780* var_t2;
     s32 var_v0_3;
@@ -50,7 +40,7 @@ void uvDobjModel(s32 objId, s32 arg1) {
     var_t2 = &D_80263780[objId];
     temp_a3 = gGfxUnkPtrs->unkC8;
 
-    if (arg1 == var_t2->unk0) {
+    if (mdlId == var_t2->unk0) {
         return;
     }
 
@@ -58,7 +48,7 @@ void uvDobjModel(s32 objId, s32 arg1) {
         _uvDebugPrintf("uvDobjModel - invalid object id number [%d]\n", objId);
         return;
     }
-    if (arg1 == 0xFFFF) {
+    if (mdlId == 0xFFFF) {
         temp_t0 = temp_a3[var_t2->unk0]->unk18;
 
         for (i = 0; i < temp_t0; i++) {
@@ -75,12 +65,12 @@ void uvDobjModel(s32 objId, s32 arg1) {
             }
         }
     } else {
-        if (gGfxUnkPtrs->unkC8[arg1] == NULL) {
-            _uvDebugPrintf("uvDobjModel ( %d, %d ) -- model does not exist in level\n", objId, arg1);
+        if (gGfxUnkPtrs->unkC8[mdlId] == NULL) {
+            _uvDebugPrintf("uvDobjModel ( %d, %d ) -- model does not exist in level\n", objId, mdlId);
             return;
         }
         var_t2->unk3C = 0;
-        var_t2->unk38 = temp_a3[arg1]->unk1C;
+        var_t2->unk38 = temp_a3[mdlId]->unk1C;
 
         if (var_t2->unk0 == 0xFFFF) {
             temp_t0 = 0;
@@ -101,7 +91,7 @@ void uvDobjModel(s32 objId, s32 arg1) {
             }
         }
 
-        var_a3_2 = temp_a3[arg1]->unk18;
+        var_a3_2 = temp_a3[mdlId]->unk18;
 
         if (var_a3_2 < temp_t0) {
             for (i = temp_t0 - 1; i >= var_a3_2; i--) {
@@ -132,14 +122,14 @@ void uvDobjModel(s32 objId, s32 arg1) {
         var_t2->unk2[var_a3_2] = 0;
 
         for (i = 0; i < var_a3_2; i++) {
-            uvMat4Copy(&D_80265080[var_t2->unk2[i]], (u32)temp_a3[arg1]->unk14 + i * sizeof(Mtx4F));
+            uvMat4Copy(&D_80265080[var_t2->unk2[i]], (u32)temp_a3[mdlId]->unk14 + i * sizeof(Mtx4F));
         }
-        var_t2->unk0 = arg1;
+        var_t2->unk0 = mdlId;
         var_t2->unk34 = 3;
     }
 }
 
-void uvDobjProps(s32 arg0, ...) {
+void uvDobjProps(s32 objId, ...) {
     s16 a1;
     f32 f0;
     Unk80263780* temp_s1;
@@ -147,18 +137,18 @@ void uvDobjProps(s32 arg0, ...) {
     s32 var_v1;
     va_list args;
 
-    if (arg0 >= 0x64) {
-        _uvDebugPrintf("uvDobjProps - invalid object id number [%d]\n", arg0);
+    if (objId >= 0x64) {
+        _uvDebugPrintf("uvDobjProps - invalid object id number [%d]\n", objId);
         return;
     }
 
-    temp_s1 = &D_80263780[arg0];
+    temp_s1 = &D_80263780[objId];
     if (temp_s1->unk0 == 0xFFFF) {
         _uvDebugPrintf("uvDobjProps: cannot be set before mod id\n");
         return;
     }
 
-    va_start(args, arg0);
+    va_start(args, objId);
     while (1) {
         a1 = va_arg(args, s32);
         switch (a1) {
@@ -184,7 +174,7 @@ void uvDobjProps(s32 arg0, ...) {
     va_end(args);
 }
 
-void uvDobjPosm(s32 objId, s32 part, Mtx4F* arg2) {
+void uvDobjPosm(s32 objId, s32 part, Mtx4F* src) {
     uvGfxUnkStructModel* temp_v1;
     Unk80263780* temp_v0;
     f32 temp_fv0;
@@ -199,7 +189,7 @@ void uvDobjPosm(s32 objId, s32 part, Mtx4F* arg2) {
         return;
     }
 
-    uvMat4Copy(&D_80265080[temp_v0->unk2[part]], arg2);
+    uvMat4Copy(&D_80265080[temp_v0->unk2[part]], src);
 
     temp_v1 = gGfxUnkPtrs->unkC8[temp_v0->unk0];
     if (temp_v1 == NULL) {
@@ -222,7 +212,7 @@ void uvDobjPosm(s32 objId, s32 part, Mtx4F* arg2) {
     }
 }
 
-void uvDobjGetPosm(s32 objId, s32 arg1, Mtx4F* arg2) {
+void uvDobjGetPosm(s32 objId, s32 arg1, Mtx4F* dst) {
     Unk80263780* sp24;
     uvGfxUnkStructModel* temp_v0;
 
@@ -235,16 +225,16 @@ void uvDobjGetPosm(s32 objId, s32 arg1, Mtx4F* arg2) {
         _uvDebugPrintf("uvDobjGetPosm: null object id %d\n", objId);
         return;
     }
-    uvMat4Copy(arg2, &D_80265080[sp24->unk2[arg1]]);
+    uvMat4Copy(dst, &D_80265080[sp24->unk2[arg1]]);
     temp_v0 = gGfxUnkPtrs->unkC8[sp24->unk0];
     if (arg1 == 0) {
         if (temp_v0->unk20 != 1.0f) {
-            uvMat4Scale(arg2, temp_v0->unk20, temp_v0->unk20, temp_v0->unk20);
+            uvMat4Scale(dst, temp_v0->unk20, temp_v0->unk20, temp_v0->unk20);
         }
     } else {
-        arg2->m[3][0] /= temp_v0->unk20;
-        arg2->m[3][1] /= temp_v0->unk20;
-        arg2->m[3][2] /= temp_v0->unk20;
+        dst->m[3][0] /= temp_v0->unk20;
+        dst->m[3][1] /= temp_v0->unk20;
+        dst->m[3][2] /= temp_v0->unk20;
     }
 }
 
@@ -279,28 +269,28 @@ void uvDobjState(s32 objId, s32 arg1) {
     D_80263780[objId].unk34 = arg1;
 }
 
-void uvDobjSetState(s32 objId, s32 arg1) {
+void uvDobjSetState(s32 objId, s32 flags) {
     if (objId >= 0x65) {
         _uvDebugPrintf("uvDobjSetState: no dobj %d\n", objId);
         return;
     }
 
-    D_80263780[objId].unk34 |= arg1;
+    D_80263780[objId].unk34 |= flags;
 }
 
-void uvDobjSetState2(s32 objId, s32 arg1) {
+void uvDobjClearState(s32 objId, s32 flags) {
     if (objId >= 0x65) {
         _uvDebugPrintf("uvDobjSetState: no dobj %d\n", objId);
         return;
     }
 
-    D_80263780[objId].unk34 &= ~arg1;
+    D_80263780[objId].unk34 &= ~flags;
 }
 
-s32 func_8021731C(void) {
+s32 uvDobjAllocIdx(void) {
     s32 i;
 
-    for (i = 0; i < 100; i++) {
+    for (i = 0; i < ARRAY_COUNT(D_80263780); i++) {
         if (D_80263780[i].unk0 == 0xFFFF) {
             return i;
         }
@@ -308,22 +298,22 @@ s32 func_8021731C(void) {
     return 0xFFFF;
 }
 
-void func_80217398(void) {
+void uvDobjInit(void) {
     s32 i;
 
-    for (i = 0; i < 100; i++) {
+    for (i = 0; i < ARRAY_COUNT(D_80263780); i++) {
         D_80263780[i].unk0 = 0xFFFF;
     }
 
-    for (i = 0; i < 100; i++) {
+    for (i = 0; i < ARRAY_COUNT(D_80269CB0); i++) {
         D_80269CB0[i] = 0xFFFF;
     }
 
-    for (i = 0; i < 300; i++) {
+    for (i = 0; i < ARRAY_COUNT(D_80269B80); i++) {
         D_80269B80[i] = 0;
     }
 
-    for (i = 0; i < 300; i++) {
+    for (i = 0; i < ARRAY_COUNT(D_80265080); i++) {
         uvMat4SetIdentity(&D_80265080[i]);
     }
     D_80269F0A = 0;
@@ -382,15 +372,15 @@ void _uvDobjsDraw(UnkStruct_80204D94* arg0, s32 arg1) {
         temp_fv1 = var_s2->unk38;
         if ((temp_fv0_2 < (arg0->unk1FC + temp_fv1)) && (func_80206F64(arg0->unk2E0, temp_fs1, temp_fs2, temp_fs0, temp_fv1) != 0)) {
             if (arg0->unk204 == 1.0f) {
-                var_v1 = func_80217AB4(temp_s1, temp_fv0_2);
+                var_v1 = uvDobj_80217AB4(temp_s1, temp_fv0_2);
             } else {
-                var_v1 = func_80217AB4(temp_s1, arg0->unk204 * temp_fv0_2);
+                var_v1 = uvDobj_80217AB4(temp_s1, arg0->unk204 * temp_fv0_2);
             }
             if (var_v1 == 0xFF) {
                 continue;
             }
             if (arg1 != 0) {
-                func_80217B4C(var_s2, temp_s1, var_v1);
+                uvDobj_80217B4C(var_s2, temp_s1, var_v1);
             } else if (temp_s1->unk8[var_v1].unk5 != 0) {
                 if (temp_s1->unk11 & 1) {
                     var_a0 = 3;
@@ -410,7 +400,7 @@ void _uvDobjsDraw(UnkStruct_80204D94* arg0, s32 arg1) {
     }
 }
 
-void func_8021771C(UnkStruct_80204D94* arg0) {
+void uvDobj_8021771C(UnkStruct_80204D94* arg0) {
     uvGfxUnkStructModel* temp_s0;
     Unk80263780* temp_s1;
     s32 i;
@@ -467,9 +457,9 @@ void func_8021771C(UnkStruct_80204D94* arg0) {
         gSPPerspNormalize(gGfxDisplayListHead++, (s16)(131072.0f / (temp_fs2 + var_fs0)));
 
         if (arg0->unk204 == 1.0f) {
-            var_v0 = func_80217AB4(temp_s0, temp_fv0_2);
+            var_v0 = uvDobj_80217AB4(temp_s0, temp_fv0_2);
         } else {
-            var_v0 = func_80217AB4(temp_s0, arg0->unk204 * temp_fv0_2);
+            var_v0 = uvDobj_80217AB4(temp_s0, arg0->unk204 * temp_fv0_2);
         }
 
         if (var_v0 == 0xFF) {
@@ -477,15 +467,15 @@ void func_8021771C(UnkStruct_80204D94* arg0) {
         }
 
         if (temp_s0->unk8[var_v0].unk5 != 0) {
-            func_80217E24(temp_s1, temp_s0, var_v0, temp_fs3, temp_fs4);
+            uvDobj_80217E24(temp_s1, temp_s0, var_v0, temp_fs3, temp_fs4);
         } else {
-            func_80217B4C(temp_s1, temp_s0, var_v0);
+            uvDobj_80217B4C(temp_s1, temp_s0, var_v0);
         }
         gSPPopMatrix(gGfxDisplayListHead++, G_MTX_PROJECTION);
     }
 }
 
-u8 func_80217AB4(uvGfxUnkStructModel* arg0, f32 arg1) {
+u8 uvDobj_80217AB4(uvGfxUnkStructModel* arg0, f32 arg1) {
     u8 temp_v1;
     u8 i;
     f32* temp_v0;
@@ -506,14 +496,14 @@ u8 func_80217AB4(uvGfxUnkStructModel* arg0, f32 arg1) {
 
 extern s32 D_80269D78[];
 
-s32 func_80217B34(s32** arg0) {
+s32 uvDobj_80217B34(s32** arg0) {
     *arg0 = D_80269D78;
     return D_80269F08;
 }
 
 extern s32 D_80248DD8;
 
-void func_80217B4C(Unk80263780* arg0, uvGfxUnkStructModel* arg1, u8 arg2) {
+void uvDobj_80217B4C(Unk80263780* arg0, uvGfxUnkStructModel* arg1, u8 arg2) {
     uvGfxUnkStruct10* temp_s2;
     uvGfxUnkStruct8* temp_s7;
     s32 i;
@@ -572,7 +562,7 @@ void func_80217B4C(Unk80263780* arg0, uvGfxUnkStructModel* arg1, u8 arg2) {
     }
 }
 
-void func_80217E24(Unk80263780* arg0, uvGfxUnkStructModel* arg1, u8 arg2, f32 arg3, f32 arg4) {
+void uvDobj_80217E24(Unk80263780* arg0, uvGfxUnkStructModel* arg1, u8 arg2, f32 arg3, f32 arg4) {
     uvGfxUnkStruct10* temp_s2;
     uvGfxUnkStruct8* temp_s5;
     Mtx4F* temp_s7;
@@ -635,7 +625,7 @@ void func_80217E24(Unk80263780* arg0, uvGfxUnkStructModel* arg1, u8 arg2, f32 ar
     temp_s7->m[1][1] = sp44;
 }
 
-void func_802180DC(s32 arg0, Unk80371120* arg1) {
+void uvDobj_802180DC(s32 arg0, Unk80371120* arg1) {
     Unk80263780* var_s2;
     s32 i;
     uvGfxUnkStructModel* temp_v0;

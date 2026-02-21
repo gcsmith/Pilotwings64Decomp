@@ -4,9 +4,9 @@
 #include <uv_matrix.h>
 #include <uv_model.h>
 #include <uv_level.h>
-#include "app/hud.h"
 #include "code_9A960.h"
 #include "code_D2D50.h"
+#include "hud.h"
 #include "proxanim.h"
 
 // .data
@@ -178,12 +178,12 @@ void func_8034BEDC(void) {
     s32 var_v1;
     Vec3F sp30 = D_803509DC;
 
-    D_803509C4 = func_8021731C();
+    D_803509C4 = uvDobjAllocIdx();
     if (D_803509C4 != 0xFFFF) {
         uvDobjModel(D_803509C4, 0xD8);
         uvDobjState(D_803509C4, 0);
     }
-    D_803509C0 = func_8021731C();
+    D_803509C0 = uvDobjAllocIdx();
     if (D_803509C0 == 0xFFFF) {
         if (D_803509C4 != 0xFFFF) {
             uvDobjModel(D_803509C4, 0xFFFF);

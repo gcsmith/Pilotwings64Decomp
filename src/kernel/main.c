@@ -6,6 +6,7 @@
 #include <uv_audio.h>
 #include <uv_clocks.h>
 #include <uv_controller.h>
+#include <uv_dobj.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>
 #include <uv_level.h>
@@ -27,7 +28,6 @@ void uvSetVideoMode(void);
 void func_8022E558(void);
 
 void func_8020F9F4(void);
-void func_80217398(void);
 void func_80218700(void);
 void func_80218BA0(void);
 void func_80219FD0(void);
@@ -181,7 +181,7 @@ s32 uvSysInit(s32 arg0) {
     func_80204930();
     func_80218700();
     func_8020F9F4();
-    func_80217398();
+    uvDobjInit();
     uvControllerInit();
 
     func_80218BA0();

@@ -1,6 +1,7 @@
 #include <uv_clocks.h>
 #include <uv_dobj.h>
 #include <uv_event.h>
+#include <uv_fx.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>
 #include <uv_memory.h>
@@ -94,14 +95,6 @@ extern u64 gGfxDramStack[];
 extern OSSched gSchedInst;
 extern u8 D_80269B80[300];
 extern s16 gGeomVertexCount;
-
-typedef struct {
-    u8 pad0[0x4];
-    u8 unk4;
-    u8 pad5[0xAB];
-} unk8028B400;
-
-extern unk8028B400 D_8028B400[120];
 
 #define ALIGNED_BUFFER(buffer) (((uintptr_t)(buffer) & 0xF) ? buffer + 8 : buffer)
 
@@ -199,8 +192,8 @@ void uvGfxMtxView(Mtx src) {
     D_80298AD0[gGfxFbIndex]++;
 }
 
-void uvGfxMtxProj(Mtx arg0) {
-    uvGfxMstackPushL(arg0);
+void uvGfxMtxProj(Mtx src) {
+    uvGfxMstackPushL(src);
     gSPMatrix(gGfxDisplayListHead++, osVirtualToPhysical(uvGfxMstackTop()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
     D_80298AD0[gGfxFbIndex]++;
 }
@@ -1049,7 +1042,7 @@ void uvGfxClearFlags(s32 flags) {
     }
 }
 
-void uvGfx_80223A28(s32 flags) {
+void uvGfx_80223A28(u32 flags) {
     uvGfxState_t sp20;
     s32 pad;
 

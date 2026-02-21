@@ -99,6 +99,35 @@ typedef struct uvGfxUnkStructTerra {
     uvUnkTileStruct* unk28;
 } uvGfxUnkStructTerra;
 
+typedef struct UnkGfxEnv_Unk30 {
+    u16 modelId;
+    u8 flag;
+} UnkGfxEnv_Unk30;
+
+typedef struct uvGfxUnkStructEnv {
+    u8 screenR;
+    u8 screenG;
+    u8 screenB;
+    u8 screenA;
+    u8 fogR;
+    u8 fogG;
+    u8 fogB;
+    u8 fogA;
+    u8 unk8;
+    u8 unk9;
+    u8 unkA;
+    u8 unkB;
+    u8 padC[0x8];
+    f32 unk14;
+    f32 unk18;
+    u8 unk1C;
+    u8 pad1D[0x11];
+    u8 unk2E;
+    struct UnkGfxEnv_Unk30* unk30;
+    u8 unk34;
+    void (*unk38)(void);
+} uvGfxUnkStructEnv;
+
 typedef struct {
     void* unk0;
     Gfx *unk4;
@@ -147,6 +176,29 @@ typedef struct {
 } uvGfxUnkStructModel;
 
 typedef struct {
+    Vec4F unk0;
+    u32 unk10_0 : 15;
+    u32 unk10_15 : 1;
+    u32 pad12_0 : 16;
+} Unk8037DCA0_UnkC; // size = 0x14
+
+typedef struct uvGfxUnkStructAnim0 {
+    struct uvGfxUnkStructAnim0* unk0;
+    u16 unk4;
+    u8 pad6[0x2];
+    s32 unk8;
+    Unk8037DCA0_UnkC* unkC;
+} uvGfxUnkStructAnim0;
+
+typedef struct {
+    struct uvGfxUnkStructAnim0* unk0;
+    u8 pad4[0x2];
+    u16 unk6;
+    u8 unk8;
+    u8 unk9;
+} uvGfxUnkStructAnimation;
+
+typedef struct {
     u8 pad0[0x2];
     s16 bmfmt;
     s16 bitdepth;
@@ -165,14 +217,16 @@ typedef struct {
     u8 pad8[0x28];
     void *unk30[1];
     u8 pad34[0x10];
-    void *unk44[1];
+    uvGfxUnkStructEnv *unk44[1];
     u8 pad48[0x80];
     uvGfxUnkStructModel *unkC8[1];
     u8 padCC[0x844];
     uvGfxUnkStructTexture *unk910[1];
     u8 pad914[0x7D0];
     void *unk10E4[1];
-    u8 pad10E8[0x328];
+    u8 pad10E8[0x28];
+    uvGfxUnkStructAnimation* unk1110[1];
+    u8 pad1114[0x2FC];
     uvGfxUnkStructBlit* unk1410[1];
     u8 pad1414[0x1F4];
     f32 unk1608;
@@ -220,7 +274,7 @@ void uvGfxStatePush(void);
 void uvGfxStatePop(void);
 void uvGfxSetFlags(s32 flags);
 void uvGfxClearFlags(s32 flags);
-void uvGfx_80223A28(s32 flags);
+void uvGfx_80223A28(u32 flags);
 void uvGfx_80223A64(s32 arg0, s32 arg1);
 void uvGfxWaitForMesg(void);
 void uvGfxEnableGamma(s32 enable);

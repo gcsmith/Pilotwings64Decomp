@@ -1,3 +1,4 @@
+#include <macros.h>
 #include <uv_graphics.h>
 #include <uv_math.h>
 #include <libc/stdarg.h>
@@ -116,7 +117,7 @@ void uvChanEnv(s32 arg0, s32 arg1) {
 
 void uvChanTerra(s32 arg0, s32 arg1) {
     if (gGfxUnkPtrs->unk4[arg1] == NULL) {
-        _uvDebugPrintf("uvChanTerra: terra %d not in level\n");
+        _uvDebugPrintf("uvChanTerra: terra %d not in level\n", arg1);
         return;
     }
     D_80261730[arg0].unk4 = arg1;
@@ -131,7 +132,7 @@ s32 func_80204EC0(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     y = arg2 - temp_v0->unk110.m[3][1];
     z = arg3 - temp_v0->unk110.m[3][2];
     w = arg4;
-    if ((temp_v0->unk1FC + w) < uvSqrtF(x * x + y * y + z * z)) {
+    if ((temp_v0->unk1FC + w) < uvSqrtF(SQ(x) + SQ(y) + SQ(z))) {
         return 0;
     }
     return func_80206F64(temp_v0->unk2E0, x, y, z, w);
@@ -209,7 +210,17 @@ void _uvSortAdd(s32 arg0, f32 arg1, void* arg2, UnkStruct_80204D94* arg3, f32 ar
         var_a1->unk14 = 0xFFFF;
     }
 
+    // passing an object that undergoes default argument promotion to 'va_start'
+    // has undefined behavior (e.g. u8, u16, f32)
+#if defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wvarargs"
+#endif
     va_start(args, arg5);
+#if defined(__clang__)
+#pragma GCC diagnostic pop
+#endif
+
     switch (arg0) {
     case 1:
         break;

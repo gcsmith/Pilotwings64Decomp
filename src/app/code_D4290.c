@@ -97,7 +97,7 @@ void wind_render(void) {
             var_s1->unk4.m[3][0] = temp_s0->unk0.f[0];
             var_s1->unk4.m[3][1] = temp_s0->unk0.f[1];
             var_s1->unk4.m[3][2] = temp_s0->unk0.f[2];
-            var_s1->unk0 = func_8021731C();
+            var_s1->unk0 = uvDobjAllocIdx();
             uvDobjModel(var_s1->unk0, 0xD5U);
             uvDobjPosm(var_s1->unk0, 0, &var_s1->unk4);
             uvDobjState(var_s1->unk0, 2U);
@@ -138,7 +138,7 @@ void wind_render(void) {
             var_s1->unk4.m[3][0] = (temp_s0->unk0.f[0] + s2->f[0]) * 0.5;
             var_s1->unk4.m[3][1] = (temp_s0->unk0.f[1] + s2->f[1]) * 0.5;
             var_s1->unk4.m[3][2] = (temp_s0->unk0.f[2] + s2->f[2]) * 0.5;
-            var_s1->unk0 = func_8021731C();
+            var_s1->unk0 = uvDobjAllocIdx();
             uvDobjModel(var_s1->unk0, 0xD5U);
             uvDobjPosm(var_s1->unk0, 0, &var_s1->unk4);
             uvDobjState(var_s1->unk0, 2U);
@@ -169,7 +169,7 @@ void wind_render(void) {
             var_s1->unk9C.f[0] = temp_s0->unk30.f[0];
             var_s1->unk9C.f[1] = temp_s0->unk30.f[1];
             var_s1->unk9C.f[2] = temp_s0->unk30.f[2];
-            var_s1->unk0 = func_8021731C();
+            var_s1->unk0 = uvDobjAllocIdx();
             uvDobjModel(var_s1->unk0, 0xD6U);
             uvDobjPosm(var_s1->unk0, 0, &var_s1->unk4);
             uvDobjState(var_s1->unk0, 2U);

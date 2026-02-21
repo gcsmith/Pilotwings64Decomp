@@ -38,7 +38,16 @@ void func_80200180(u16 arg0, ...) {
 
     temp_a2 = &D_80250E80[arg0];
 
+    // passing an object that undergoes default argument promotion to 'va_start'
+    // has undefined behavior (e.g. u8, u16, f32)
+#if defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wvarargs"
+#endif
     va_start(args, arg0);
+#if defined(__clang__)
+#pragma GCC diagnostic pop
+#endif
 
     while (TRUE) {
         propertyType = va_arg(args, s32);

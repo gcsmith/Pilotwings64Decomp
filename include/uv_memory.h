@@ -115,7 +115,6 @@ extern void* D_802B6E30[LEVEL_TEXTURE_COUNT];
 extern LevelData gLevelData;
 extern unk_802B53C0* D_802B53C0;
 
-extern void* D_802B55F0;
 extern UVBlockCounts gUVBlockCounts; // D_802B53C8
 extern UVBlockOffsets gUVBlockOffsets; // D_802B53F0
 

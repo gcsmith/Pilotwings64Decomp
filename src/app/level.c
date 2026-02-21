@@ -15,10 +15,10 @@
 #include "code_A7460.h"
 #include "code_BB820.h"
 #include "code_BD670.h"
-#include "code_C9440.h"
 #include "code_CE4F0.h"
 #include "code_D2D50.h"
 #include "code_D3810.h"
+#include "text_data.h"
 
 typedef struct {
     s32 unk0;
@@ -44,7 +44,7 @@ void levelLoad(u8 map, u8 pilot, u8 vehicle, s32 animateToys) {
 
     gLevelCurMap = map;
     uvLevelInit();
-    func_80341F10(0x42);
+    textLoadBlock(0x42);
     env_loadtpal(D_80362690->unk0[0].unk8);
     uvLevelAppend(map);
     switch (map) {

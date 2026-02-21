@@ -201,6 +201,12 @@ menu_8030B668       = 0x8030B668; // type:func
 menuSetItem         = 0x8030B688; // type:func
 menu_8030B69C       = 0x8030B69C; // type:func
 
+textLoadBlock       = 0x80341F10; // type:func
+textGetDataByName   = 0x803420F4; // type:func
+textGetDataByIdx    = 0x80342198; // type:func
+textFmtInt          = 0x803421CC; // type:func
+textFmtIntAt        = 0x80342404; // type:func
+
 introSceneRunner    = 0x803439B4; // type:func
 
 level_803449B0      = 0x803449B0; // type:func
@@ -294,3 +300,8 @@ D_80355034 = 0x80355034; // type:f32 force_migration:True
 D_80355038 = 0x80355038; // type:f32 force_migration:True
 D_8035503C = 0x8035503C; // type:f32 force_migration:True
 D_80355040 = 0x80355040; // type:f32 force_migration:True
+
+sTextName                 = 0x80377F10; // size:0x6E0
+sTextData                 = 0x803785F0; // size:0x6DC
+sTextDataCount            = 0x80378CCC;
+sTextNameCount            = 0x80378CD0;
