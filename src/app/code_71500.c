@@ -1,6 +1,8 @@
 #include "common.h"
 #include "code_71500.h"
 
+s32 D_8034F120 = 0xFFFFFFFF;
+
 // .bss
 extern s32 D_80362620;
 extern s32 D_80362624;

@@ -468,7 +468,7 @@ segments:
       - [0xD6540, data] # also part of app/code_6ACE0
       - [0xD65F0, .data, app/code_6ECD0]
       - [0xD6610, .data, app/file_menu]
-      - [0xD6650, data] # app/code_71500
+      - [0xD6650, .data, app/code_71500]
       - [0xD6660, data] # app/code_722D0
       - [0xD6680, data] # app/code_72910
       - [0xD6690, data] # app/code_72B70
