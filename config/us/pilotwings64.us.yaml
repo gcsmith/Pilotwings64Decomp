@@ -470,9 +470,9 @@ segments:
       - [0xD6610, .data, app/file_menu]
       - [0xD6650, .data, app/code_71500]
       - [0xD6660, .data, app/code_722D0]
-      - [0xD6680, data] # app/code_72910
-      - [0xD6690, data] # app/code_72B70
-      - [0xD66E0, data] # app/code_75A60
+      - [0xD6680, .data, app/code_72910]
+      - [0xD6690, .data, app/code_72B70]
+      - [0xD66E0, .data, app/code_75A60]
       - [0xD66F0, data] # app/code_796C0
       - [0xD68A0, data] # app/code_7C4C0
       - [0xD68B0, data] # app/code_7CF30
