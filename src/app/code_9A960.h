@@ -4,8 +4,8 @@
 #include <uv_matrix.h>
 #include "code_5A6A0.h"
 
-extern f32 D_8034F850; // .data related to time
-extern f32 D_8034F854; // .data ≈ 0.017, dynamic frame time?
+extern f32 D_8034F850; // related to time
+extern f32 D_8034F854; // dynamic frame time?
 
 void func_80313430(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32* arg5);
 void func_80313570(Mtx4F*, f32*, f32*, f32*, f32*, f32*, f32*);

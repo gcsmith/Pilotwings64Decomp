@@ -5,6 +5,10 @@
 
 #include "code_9A960.h"
 
+f32 D_8034F850 = 0.0f;
+f32 D_8034F854 = 0.1000000015f;
+s32 D_8034F858 = 0;
+
 void func_80313430(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32* arg5) {
     f32 fake1, fake2, fake3;
     f32 sp20;

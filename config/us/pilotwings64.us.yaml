@@ -484,10 +484,11 @@ segments:
       - [0xD6930, .data, app/level]
       - [0xD6950, .data, app/credits]
       - [0xD6CD0, .data, app/code_94E60]
-      - [0xD6D20, data] # app/map3d
-      - [0xD6D80, data] # app/code_9A960?
-      - [0xD6D90, data] # app/code_9C080
-      - [0xD6DE0, data] # app/code_9CF50
+      - [0xD6D20, .data, app/map3d]
+      - [0xD6D70, .data, app/mem]
+      - [0xD6D80, .data, app/code_9A960]
+      - [0xD6D90, .data, app/code_9C080]
+      - [0xD6DE0, .data, app/code_9CF50]
       - [0xD6E00, data] # app/code_9D3C0
       - [0xD6E30, data] # app/pads
       - [0xD6E40, data] # app/hud

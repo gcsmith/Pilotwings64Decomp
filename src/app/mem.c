@@ -3,8 +3,11 @@
 #include <uv_util.h>
 #include "mem.h"
 
-extern u8* gLevelObjHeapPtr;
+// .bss
 extern u8 gLevelObjHeap[5000];
+
+// .data
+u8* gLevelObjHeapPtr = gLevelObjHeap;
 
 void* mem_get(s32 size) {
     u8* ret;
