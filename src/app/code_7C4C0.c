@@ -1,5 +1,8 @@
 #include "common.h"
 
+f32 D_8034F370 = 0.0f;
+f32 D_8034F374 = 0.5f;
+
 void func_802F4F90(void) {
 }
 

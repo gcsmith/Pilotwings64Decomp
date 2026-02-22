@@ -1,5 +1,9 @@
 #include "common.h"
 
+s32 D_8034F3B0[3] = { 0 };
+s32 D_8034F3BC[3] = { 0 };
+f32 D_8034F3C8[3] = { 0, 0, -1.0f };
+
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_82B90/func_802FB660.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_82B90/func_802FB784.s")

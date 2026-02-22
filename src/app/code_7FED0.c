@@ -1,6 +1,7 @@
 #include "common.h"
-
 #include "code_7FED0.h"
+
+s32 D_8034F390 = 0;
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_7FED0/func_802F89A0.s")
 

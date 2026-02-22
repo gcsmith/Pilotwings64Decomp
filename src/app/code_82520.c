@@ -2,6 +2,8 @@
 #include <uv_level.h>
 #include "code_82520.h"
 
+u8 D_8034F3A0 = 0;
+
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_82520/func_802FAFF0.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_82520/func_802FB0DC.s")

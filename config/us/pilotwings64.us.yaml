@@ -474,11 +474,11 @@ segments:
       - [0xD6690, .data, app/code_72B70]
       - [0xD66E0, .data, app/code_75A60]
       - [0xD66F0, .data, app/code_796C0]
-      - [0xD68A0, data] # app/code_7C4C0
-      - [0xD68B0, data] # app/code_7CF30
-      - [0xD68C0, data] # app/code_7FED0 (or part of app/code_7CF30)
-      - [0xD68D0, data] # app/code_82520
-      - [0xD68E0, data] # app/code_82B90
+      - [0xD68A0, .data, app/code_7C4C0]
+      - [0xD68B0, .data, app/code_7CF30]
+      - [0xD68C0, .data, app/code_7FED0]
+      - [0xD68D0, .data, app/code_82520]
+      - [0xD68E0, .data, app/code_82B90]
       - [0xD6910, data] # app/code_8A760
       - [0xD6920, data] # app/code_905C0
       - [0xD6930, data] # app/level
