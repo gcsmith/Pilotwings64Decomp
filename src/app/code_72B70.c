@@ -24,26 +24,9 @@ s32 func_802EC05C(s32);
 s32 func_802EC0A8(s32);
 s32 func_802EC0C8(s32);
 
-UnkD_8034F168 D_8034F168[]= {
-    func_802EBC94,
-    func_802EC0F4,
-    func_802EC148,
-    func_802EC338,
-    func_802EC50C,
-    func_802ED048,
-    func_802ECA2C,
-    func_802EBD2C,
-    func_802EBE10,
-    func_802EBEA8,
-    func_802EBF38,
-    func_802EBEDC,
-    func_802EBFF4,
-    func_802EC05C,
-    func_802EC0A8,
-    func_802EC0C8,
-    NULL,
-    NULL
-};
+UnkD_8034F168 D_8034F168[] = { func_802EBC94, func_802EC0F4, func_802EC148, func_802EC338, func_802EC50C, func_802ED048,
+                               func_802ECA2C, func_802EBD2C, func_802EBE10, func_802EBEA8, func_802EBF38, func_802EBEDC,
+                               func_802EBFF4, func_802EC05C, func_802EC0A8, func_802EC0C8, NULL,          NULL };
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_72B70/func_802EB640.s")
 

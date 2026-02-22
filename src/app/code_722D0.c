@@ -5,13 +5,7 @@ s32 D_8034F130 = 0xFFFF;
 s32 D_8034F134 = 0xFF;
 s32 D_8034F138 = 0;
 
-f32 D_8034F13C[] = {
-    -288.0f,
-    -99.0f,
-    5.75f,
-    0.0f,
-    0.0f
-};
+f32 D_8034F13C[] = { -288.0f, -99.0f, 5.75f, 0.0f, 0.0f };
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_722D0/func_802EADA0.s")
 

@@ -473,7 +473,7 @@ segments:
       - [0xD6680, .data, app/code_72910]
       - [0xD6690, .data, app/code_72B70]
       - [0xD66E0, .data, app/code_75A60]
-      - [0xD66F0, data] # app/code_796C0
+      - [0xD66F0, .data, app/code_796C0]
       - [0xD68A0, data] # app/code_7C4C0
       - [0xD68B0, data] # app/code_7CF30
       - [0xD68C0, data] # app/code_7FED0 (or part of app/code_7CF30)
