@@ -4,10 +4,10 @@
 #include <libc/stdarg.h>
 #include "common.h"
 
-unk_UVTX_1C D_802C5FD0[10];
+UnkUVTX_1C D_802C5FD0[10];
 u16 D_802C60E8[500];
 s32 gSprtUnkIndex;
-unk_UVTX_1C* gSprtUnkTable[1000];
+UnkUVTX_1C* gSprtUnkTable[1000];
 uvSprite_t gSprtTable1[31];
 
 void uvSprt_80230130(void) {
@@ -26,7 +26,7 @@ void uvSprt_80230130(void) {
 }
 
 void uvSprt_802301A4(void) {
-    unk_UVTX_1C* var_v0;
+    UnkUVTX_1C* var_v0;
     s32 i;
     f32 temp_fv0;
 
@@ -70,14 +70,14 @@ void uvSprt_802301A4(void) {
 }
 
 void _uvTxtDraw(s32 textureId) {
-    unk_UVTX_1C* temp_a1;
-    uvGfxUnkStructTexture* temp_a2;
+    UnkUVTX_1C* temp_a1;
+    ParsedUVTX* temp_a2;
     s32 temp_a3;
     s32 temp_t1;
     s32 temp_ft1;
     s32 temp_ft0;
 
-    temp_a2 = gGfxUnkPtrs->unk910[textureId];
+    temp_a2 = gGfxUnkPtrs->textures[textureId];
     if (temp_a2 == NULL) {
         _uvDebugPrintf("_uvTxtDraw: texture id %d not in current level\n", textureId);
         return;
@@ -97,8 +97,8 @@ void _uvTxtDraw(s32 textureId) {
     if (temp_a2->unk1C != NULL) {
         temp_a1 = temp_a2->unk1C;
         if (temp_a1->unk18 != 0) {
-            temp_a3 = gGfxUnkPtrs->unk910[temp_a2->unk14]->width;
-            temp_t1 = gGfxUnkPtrs->unk910[temp_a2->unk14]->height;
+            temp_a3 = gGfxUnkPtrs->textures[temp_a2->unk14]->width;
+            temp_t1 = gGfxUnkPtrs->textures[temp_a2->unk14]->height;
 
             temp_ft1 = temp_a1->unk10 * temp_a3 * 4.0f;
             temp_ft0 = temp_a1->unk14 * temp_t1 * 4.0f;
@@ -118,7 +118,7 @@ void _uvTxtDraw(s32 textureId) {
     }
 }
 
-void uvSprtFromBitmap(uvSprite_t* arg0, uvGfxUnkStructTexture* arg1) {
+void uvSprtFromBitmap(uvSprite_t* arg0, ParsedUVTX* arg1) {
     if (arg0->textureId == 0xFFFF) {
         _uvDebugPrintf("Warning: Bitmap sprite switched to texture sprite w/o uvMemReset\n");
         arg0->bitmap = NULL;
@@ -139,7 +139,7 @@ void uvSprtFromBitmap(uvSprite_t* arg0, uvGfxUnkStructTexture* arg1) {
     arg0->bitmap->LUToffset = 0;
 }
 
-void uvSprt_80230750(uvSprite_t* arg0, uvGfxUnkStructTexture* arg1) {
+void uvSprt_80230750(uvSprite_t* arg0, ParsedUVTX* arg1) {
     Sprite* sprite = &arg0->sprite;
 
     if (arg1 != NULL) {
@@ -234,8 +234,8 @@ void uvSprtDisplayList(uvSprite_t* arg0) {
     sprite->rsp_dl_next = sprite->rsp_dl;
 
     if (arg0->textureId != 0xFFFF) {
-        temp_fv0 = (f32)arg0->width / gGfxUnkPtrs->unk910[arg0->textureId]->width;
-        temp_fv1 = (f32)arg0->height / gGfxUnkPtrs->unk910[arg0->textureId]->height;
+        temp_fv0 = (f32)arg0->width / gGfxUnkPtrs->textures[arg0->textureId]->width;
+        temp_fv1 = (f32)arg0->height / gGfxUnkPtrs->textures[arg0->textureId]->height;
         spScale(sprite, temp_fv0, temp_fv1);
     } else {
         spScale(sprite, 1.0f, 1.0f);
@@ -288,10 +288,10 @@ void uvSprtDraw(s32 sprite_id) {
 }
 
 void uvSprtSetBlit(uvSprite_t* arg0, s32 arg1) {
-    uvGfxUnkStructBlit* var_v1;
+    ParsedUVBT* var_v1;
     Sprite* sprite = &arg0->sprite;
 
-    var_v1 = gGfxUnkPtrs->unk1410[arg1];
+    var_v1 = gGfxUnkPtrs->blits[arg1];
     if ((arg0->textureId == 0xFFFF) || (arg0->textureId != 0xFFF)) {
         if (arg0->width != var_v1->width || arg0->height != var_v1->height) {
             _uvDebugPrintf("uvSprtSetBlit: Warning: sprite %d size change, dl space leaked\n", gSprtTable1 - arg0);
@@ -380,7 +380,7 @@ s16 uvSprtGetHeight(s32 sprite_id) {
 }
 
 void uvSprtProps(s32 sprite_id, ...) {
-    uvGfxUnkStructTexture* temp_s2;
+    ParsedUVTX* temp_s2;
     uvSprite_t* temp_s1;
     va_list args;
     s32 token;
@@ -432,7 +432,7 @@ void uvSprtProps(s32 sprite_id, ...) {
         case 5:
             temp_s1->textureId = va_arg(args, s32);
             if (temp_s1->textureId != 0xFFF) {
-                temp_s2 = gGfxUnkPtrs->unk910[temp_s1->textureId];
+                temp_s2 = gGfxUnkPtrs->textures[temp_s1->textureId];
                 if (temp_s2 == NULL) {
                     _uvDebugPrintf(" uvSprtProps: texture id %d not in level\n", temp_s1->textureId);
                     temp_s1->textureId = 0xFFF;

@@ -7,7 +7,7 @@
 
 extern s32 D_80248DD8;
 
-void func_80215E7C(uvGfxUnkStructModel*);
+void func_80215E7C(ParsedUVMD*);
 void func_80214840(s16, f32*, f32*);
 
 void uvSobjsDraw(UnkStruct_80204D94* arg0, Mtx4F* arg1, u16 arg2, u16 arg3, UnkSobjDraw* arg4, u16 arg5, u8 arg6, s32 arg7) {
@@ -18,8 +18,8 @@ void uvSobjsDraw(UnkStruct_80204D94* arg0, Mtx4F* arg1, u16 arg2, u16 arg3, UnkS
     f32 temp_fv0;
     u32 var_v0;
     u8 var_s1;
-    uvGfxUnkStructModel* temp_s0;
-    uvGfxUnkStructModel** temp_fp;
+    ParsedUVMD* temp_s0;
+    ParsedUVMD** temp_fp;
     f32 spB8;
     f32 spB4;
     f32 spB0;
@@ -32,7 +32,7 @@ void uvSobjsDraw(UnkStruct_80204D94* arg0, Mtx4F* arg1, u16 arg2, u16 arg3, UnkS
     spA8 = arg0->unk1D8 - arg1->m[3][2];
     func_80214840(arg6, &spB0, &spAC);
 
-    temp_fp = gGfxUnkPtrs->unkC8;
+    temp_fp = gGfxUnkPtrs->models;
     for (i = 0; i < arg5; i++) {
         var_s2 = &arg4[i];
 
@@ -79,7 +79,7 @@ void uvSobjsDraw(UnkStruct_80204D94* arg0, Mtx4F* arg1, u16 arg2, u16 arg3, UnkS
     }
 }
 
-u8 uvSobj_8022C7B8(uvGfxUnkStructModel* arg0, f32 arg1) {
+u8 uvSobj_8022C7B8(ParsedUVMD* arg0, f32 arg1) {
     s32 temp_v1;
     s32 i;
     f32* temp_v0;
@@ -98,9 +98,9 @@ u8 uvSobj_8022C7B8(uvGfxUnkStructModel* arg0, f32 arg1) {
     return 0;
 }
 
-void uvSobj_8022C8D0(UnkSobjDraw* arg0, uvGfxUnkStructModel* arg1, u8 arg2, Mtx4F* arg3) {
-    uvGfxUnkStruct8* temp_s3;
-    uvGfxUnkStruct10* temp_s2;
+void uvSobj_8022C8D0(UnkSobjDraw* arg0, ParsedUVMD* arg1, u8 arg2, Mtx4F* arg3) {
+    UnkUVMD_8* temp_s3;
+    UnkUVMD_10* temp_s2;
     s32 temp_v0;
     s32 i;
     s32 j;
@@ -148,16 +148,16 @@ void uvSobj_8022C8D0(UnkSobjDraw* arg0, uvGfxUnkStructModel* arg1, u8 arg2, Mtx4
     }
 }
 
-void uvSobj_8022CC28(UnkSobjDraw* arg0, uvGfxUnkStructModel* arg1, u8 arg2, f32 arg3, f32 arg4) {
+void uvSobj_8022CC28(UnkSobjDraw* arg0, ParsedUVMD* arg1, u8 arg2, f32 arg3, f32 arg4) {
     uvMtx* temp_s6;
     s32 temp_v1;
     s32 i;
     s32 j;
     Mtx sp88;
     f32 temp_fv0;
-    uvGfxUnkStruct10* temp_s2;
-    uvGfxUnkStruct10* temp_v0;
-    uvGfxUnkStruct8* temp_s4;
+    UnkUVMD_10* temp_s2;
+    UnkUVMD_10* temp_v0;
+    UnkUVMD_8* temp_s4;
     s32 pad;
     f32 sp70;
 
@@ -215,10 +215,10 @@ void uvSobj_8022CC28(UnkSobjDraw* arg0, uvGfxUnkStructModel* arg1, u8 arg2, f32 
 
 UnkSobjDraw* uvSobjLoadTerra(u32 soid) {
     UnkSobjDraw* temp_a0;
-    uvGfxUnkStructTerra* temp_v0;
+    ParsedUVTR* temp_v0;
     uvUnkTileStruct* temp_v1;
 
-    temp_v0 = gGfxUnkPtrs->unk4[(soid >> 0x18) & 0xFF];
+    temp_v0 = gGfxUnkPtrs->terras[(soid >> 0x18) & 0xFF];
     if (temp_v0 == NULL) {
         _uvDebugPrintf("Sobj: terra %d not in level\n", (soid >> 0x18) & 0xFF);
         return NULL;
@@ -283,18 +283,18 @@ u16 uvSobj_8022D1E4(u32 soid) {
 
 void uvSobjModel(u32 soid, s32 mdlId) {
     UnkSobjDraw* temp_v0;
-    uvGfxUnkStructModel* temp_v1;
+    ParsedUVMD* temp_v1;
 
     temp_v0 = uvSobjLoadTerra(soid);
     if (temp_v0 == NULL) {
         return;
     }
-    temp_v1 = gGfxUnkPtrs->unkC8[mdlId];
+    temp_v1 = gGfxUnkPtrs->models[mdlId];
     if (temp_v1 == NULL) {
         _uvDebugPrintf("uvSobjModel: model %d not in level\n", mdlId);
         return;
     }
-    if (temp_v1->unk8->unk4 != gGfxUnkPtrs->unkC8[temp_v0->unk0]->unk8->unk4) {
+    if (temp_v1->unk8->unk4 != gGfxUnkPtrs->models[temp_v0->unk0]->unk8->unk4) {
         _uvDebugPrintf("uvSobjModel: new model %d had different  heirarchy\n", mdlId);
         return;
     }

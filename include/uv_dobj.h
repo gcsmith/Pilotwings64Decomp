@@ -36,10 +36,10 @@ void uvDobjClearState(s32 objId, s32 flags);
 s32 uvDobjAllocIdx(void);
 void uvDobjInit(void);
 void uvDobj_8021771C(UnkStruct_80204D94*);
-u8 uvDobj_80217AB4(uvGfxUnkStructModel*, f32);
+u8 uvDobj_80217AB4(ParsedUVMD*, f32);
 s32 uvDobj_80217B34(s32**);
-void uvDobj_80217B4C(Unk80263780*, uvGfxUnkStructModel*, u8);
-void uvDobj_80217E24(Unk80263780*, uvGfxUnkStructModel*, u8, f32, f32);
+void uvDobj_80217B4C(Unk80263780*, ParsedUVMD*, u8);
+void uvDobj_80217E24(Unk80263780*, ParsedUVMD*, u8, f32, f32);
 void uvDobj_802180DC(s32, Unk80371120*);
 
 #endif // UV_DOBJ_H

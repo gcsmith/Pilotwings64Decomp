@@ -236,7 +236,7 @@ void uvGfxStateDraw(uvGfxState_t* arg0) {
     u32 clearMode;
     u32 setMode;
     u16 textureId;
-    uvGfxUnkStructTexture* sp68;
+    ParsedUVTX* sp68;
     u16 var_t1;
     s32 renderMask;
     u32 var_a1_2;
@@ -308,7 +308,7 @@ void uvGfxStateDraw(uvGfxState_t* arg0) {
         if (textureId >= 0xFFF) {
             var_t1 = 0xFFF;
         } else {
-            sp68 = gGfxUnkPtrs->unk910[textureId];
+            sp68 = gGfxUnkPtrs->textures[textureId];
             if (sp68 == NULL) {
                 _uvDebugPrintf("uvGfxStateDraw: texture %d not in level\n", textureId);
                 var_t1 = 0xFFF;
@@ -1069,11 +1069,11 @@ void uvGfx_80223A64(s32 arg0, s32 arg1) {
         gSPTextureL(gGfxDisplayListHead++, 0, 0, 0, arg1, G_TX_RENDERTILE, G_OFF);
 
     } else if (arg1 != 0) {
-        Gfx* temp_v0 = gGfxUnkPtrs->unk910[arg0]->unk4;
+        Gfx* temp_v0 = gGfxUnkPtrs->textures[arg0]->unk4;
         GFX_PATCH_DL(gGfxDisplayListHead, temp_v0, arg1);
         gGfxDisplayListHead++;
     } else if (var_v0 != 0) {
-        Gfx* temp_v0 = gGfxUnkPtrs->unk910[arg0]->unk4;
+        Gfx* temp_v0 = gGfxUnkPtrs->textures[arg0]->unk4;
         GFX_PATCH_DL(gGfxDisplayListHead, temp_v0, 0);
         gGfxDisplayListHead++;
     }

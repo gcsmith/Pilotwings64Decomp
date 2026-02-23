@@ -74,37 +74,77 @@ typedef struct {
     void* unk54;
 } UnkStruct_uvGfxInit; // size: 0x58
 
-typedef struct UnkTileStruct40 {
-    u8 pad0[0x10];
+typedef struct {
+    u16 unk0;
+    u16 unk2;
+    u16 unk4;
+    u16 unk6;
+} Unk80225FBC_0x28_UnkC; // size = 0x10
+
+typedef struct {
+    s32 unk0;
+    u16 unk4;
+    u16 unk6;
+    Gfx* dlist;
+    Unk80225FBC_0x28_UnkC* unkC;
+    u16 unk10;
+    u16 unk12;
+    u16 unk14;
+    u16 pad16;
+    s32 unk18;
+    s32 unk1C;
+    s32 unk20;
+    s32 unk24;
+} Unk80225FBC_0x28;
+
+typedef struct {
+    Vtx* vtx;
+    u16 vtxCount;
+    u16 pad6;
+    Unk80225FBC_0x28* unk8;
+    u16 unkC;
+    u16 padE;
     struct UnkSobjDraw* unk10;
-} UnkTileStruct40;
+    u16 unk14;
+    u16 pad16;
+    s32 unk18;
+    s32 unk1C;
+    s32 unk20;
+    s32 unk24;
+    f32 unk28;
+} ParsedUVCT; // size = 0x28
 
 typedef struct uvUnkTileStruct {
-    u8 pad0[0x40];
-    UnkTileStruct40* unk40;
-    u8 pad44[0x4];
-} uvUnkTileStruct;
+    u8 unk0[0x40];
+    ParsedUVCT* unk40;
+    u8 unk44;
+} uvUnkTileStruct; // size = 0x48
 
-typedef struct uvGfxUnkStructTerra {
+typedef struct uvUnkTeraStruct {
     f32 unk0;
     f32 unk4;
     u8 pad8[0x4];
     f32 unkC;
     f32 unk10;
     u8 pad14[0x4];
+} uvUnkTeraStruct; // size = 0x18
+
+typedef struct ParsedUVTR {
+    uvUnkTeraStruct unk0;
     u8 unk18;
+    u8 unk19;
     f32 unk1C;
     f32 unk20;
-    u8 pad24[0x4];
+    f32 unk24;
     uvUnkTileStruct* unk28;
-} uvGfxUnkStructTerra;
+} ParsedUVTR; // size = 0x2C
 
 typedef struct UnkGfxEnv_Unk30 {
     u16 modelId;
     u8 flag;
 } UnkGfxEnv_Unk30;
 
-typedef struct uvGfxUnkStructEnv {
+typedef struct ParsedUVEN {
     u8 screenR;
     u8 screenG;
     u8 screenB;
@@ -124,69 +164,98 @@ typedef struct uvGfxUnkStructEnv {
     u8 pad1D[0x11];
     u8 unk2E;
     struct UnkGfxEnv_Unk30* unk30;
-    u8 unk34;
+    u8 count;
     void (*unk38)(void);
-} uvGfxUnkStructEnv;
+} ParsedUVEN; // size = 0x3C
 
-typedef struct {
-    void* unk0;
-    Gfx *unk4;
-    u8 pad8[0x2];
-    u16 width;
-    u16 height;
-    u8 unkE;
-    u8 padF[0x3];
-    u16 unk12;
-    u16 unk14;
-    struct unk_UVTX_1C* unk18;
-    struct unk_UVTX_1C* unk1C;
-    u8 pad20[0x2];
-    u8 unk22;
-} uvGfxUnkStructTexture;
+typedef struct UnkUVMD_6 {
+    u16 unk0;
+    u16 unk2;
+    u16 unk4;
+} UnkUVMD_6; // size = 0x6
 
-typedef struct uvGfxUnkStruct10 {
+typedef struct UnkUVMD_24 {
+    u8 unk0;
+    u8 unk4[0x1B];
+    u16 unk1C;
+    UnkUVMD_6* unk20;
+} UnkUVMD_24; // size = 0x24
+
+typedef struct UnkUVMD_10 {
     uvGfxState_t* unk0;
     u8 unk4;
-    u8 pad5[0x1];
+    u8 unk5;
     u8 unk6;
-    u8 pad7[0x6];
+    UnkUVMD_24* unk8;
+    u8 unkC;
     u8 unkD;
-    u8 padE[0x2];
-} uvGfxUnkStruct10;
+} UnkUVMD_10; // size = 0x10
 
-typedef struct uvGfxUnkStruct8 {
-    uvGfxUnkStruct10* unk0;
+typedef struct UnkUVMD_8 {
+    UnkUVMD_10* unk0;
     u8 unk4;
     u8 unk5;
-    u8 pad6[0x2];
-} uvGfxUnkStruct8;
+} UnkUVMD_8; // size = 0x8
 
-typedef struct {
-    u8 pad0[0x8];
-    uvGfxUnkStruct8* unk8;
+typedef struct ParsedUVMD {
+    Vtx* vtx;
+    u16 vtxCount;
+    UnkUVMD_8* unk8;
     f32* unkC;
     u8 unk10;
     u8 unk11;
-    u8 pad12[0x2];
-    void* unk14;
+    Mtx4F* unk14;
     u8 unk18;
-    u8 pad19[0x3];
     f32 unk1C;
     f32 unk20;
-} uvGfxUnkStructModel;
+    f32 unk24;
+} ParsedUVMD; // size = 0x28
 
-typedef struct uvGfxUnkStructSequence_Unk4 {
-    u16 unk0;
+typedef struct UnkUVTX_1C {
+    f32 unk0;
     f32 unk4;
-} uvGfxUnkStructSequence_Unk4; // size = 0x8
+    f32 unk8;
+    f32 unkC;
+    f32 unk10;
+    f32 unk14;
+    u8 unk18;
+} UnkUVTX_1C; // size = 0x1C
 
-typedef struct uvGfxUnkStructSequence {
-    u8 unk0;
-    uvGfxUnkStructSequence_Unk4* unk4;
+typedef struct ParsedUVTX {
+    void* unk0;
+    Gfx* unk4;
+    u16 size;
+    u16 width;
+    u16 height;
+    u8 unkE;
+    u8 unkF;
+    u8 unk10;
+    u16 unk12;
+    u16 unk14;
+    UnkUVTX_1C* unk18;
+    UnkUVTX_1C* unk1C;
+    u16 unk20;
+    u8 unk22;
+    u8 unk23;
+    u8 unk24;
+    u8 unk25;
+    u8 unk26;
+    f32 unk28;
+} ParsedUVTX; // size = 0x2C
+
+typedef struct ParsedUVSQ_Unk4 {
+    u16 unk0;
+    u8 unk2;
+    f32 unk4;
+} ParsedUVSQ_Unk4; // size = 0x8
+
+typedef struct ParsedUVSQ {
+    u8 count;
+    ParsedUVSQ_Unk4* unk4;
     u8 unk8;
     u8 unk9;
     f32 unkC;
-} uvGfxUnkStructSequence;
+} ParsedUVSQ;
 
 typedef struct {
     Vec4F unk0;
@@ -195,29 +264,30 @@ typedef struct {
     u32 pad12_0 : 16;
 } Unk8037DCA0_UnkC; // size = 0x14
 
-typedef struct uvGfxUnkStructAnim0 {
-    struct uvGfxUnkStructAnim0* unk0;
+typedef struct ParsedUVAN_Unk0 {
+    struct ParsedUVAN_Unk0* unk0;
     u16 unk4;
     u8 pad6[0x2];
     s32 unk8;
     Unk8037DCA0_UnkC* unkC;
-} uvGfxUnkStructAnim0;
+} ParsedUVAN_Unk0;
 
 typedef struct {
-    struct uvGfxUnkStructAnim0* unk0;
-    u8 pad4[0x2];
+    struct ParsedUVAN_Unk0* unk0;
+    u16 unk4;
     u16 unk6;
     u8 unk8;
     u8 unk9;
-} uvGfxUnkStructAnimation;
+} ParsedUVAN;
 
-typedef struct uvGfxUnkStructFont {
-    char* unk0;
+typedef struct ParsedUVFT {
+    char* str;
     u8 pad4[0x4];
     u8 bmfmt;
     u8 bmsiz;
-    Bitmap* unkC;
-} uvGfxUnkStructFont;
+    Bitmap* bitmap;
+    void* imag[0x2C];
+} ParsedUVFT; // size = 0x80
 
 typedef struct {
     u8 pad0[0x2];
@@ -225,38 +295,74 @@ typedef struct {
     s16 bitdepth;
     s16 width;
     s16 height;
-    u8 padA[0x2];
+    s16 unkA;
     s16 texelHeight;
     s16 nbitmaps;
-    u8 pad10[0x4];
+    void* buf;
     Bitmap* bitmap;
-} uvGfxUnkStructBlit;
+} ParsedUVBT;
 
-typedef struct {
-    u8 pad0[0x4];
-    uvGfxUnkStructTerra *unk4[1];
-    u8 pad8[0x28];
-    void *unk30[1];
-    u8 pad34[0x10];
-    uvGfxUnkStructEnv *unk44[1];
-    u8 pad48[0x80];
-    uvGfxUnkStructModel *unkC8[1];
-    u8 padCC[0x844];
-    uvGfxUnkStructTexture *unk910[1];
-    u8 pad914[0x7D0];
-    uvGfxUnkStructSequence *unk10E4[1];
-    u8 pad10E8[0x28];
-    uvGfxUnkStructAnimation* unk1110[1];
-    u8 pad1114[0x2A8];
-    uvGfxUnkStructFont* unk13BC[1];
-    u8 pad13C0[0x50];
-    uvGfxUnkStructBlit* unk1410[1];
-    u8 pad1414[0x1F4];
-    f32 unk1608;
-} uvGfxUnkStruct;
+typedef struct ParsedUVLV {
+    /* 0x00 */ u16* terraIds;
+    /* 0x04 */ u16 terraCount;
+    /* 0x08 */ u16* lightIds;
+    /* 0x0C */ u16 lightCount;
+    /* 0x10 */ u16* environmentIds;
+    /* 0x14 */ u16 environmentCount;
+    /* 0x18 */ u16* modelIds;
+    /* 0x1C */ u16 modelCount;
+    /* 0x20 */ u16* contourIds;
+    /* 0x24 */ u16 contourCount;
+    /* 0x28 */ u16* textureIds;
+    /* 0x2C */ u16 textureCount;
+    /* 0x30 */ u16* sequenceIds;
+    /* 0x34 */ u16 sequenceCount;
+    /* 0x38 */ u16* animationIds;
+    /* 0x3C */ u16 animationCount;
+    /* 0x40 */ u16* fontIds;
+    /* 0x44 */ u16 fontCount;
+    /* 0x48 */ u16* blitIds;
+    /* 0x4C */ u16 blitCount;
+} ParsedUVLV; // size = 0x4E
+
+#define LEVEL_LIGHT_COUNT 4
+#define LEVEL_ENVIRONMENT_COUNT 32
+#define LEVEL_MODEL_COUNT 400
+#define LEVEL_CONTOUR_COUNT 128
+#define LEVEL_TEXTURE_COUNT 500
+#define LEVEL_TERRA_COUNT 10
+#define LEVEL_SEQUENCE_COUNT 10
+#define LEVEL_ANIMATION_COUNT 170
+#define LEVEL_FONT_COUNT 20
+#define LEVEL_BLIT_COUNT 125
+
+typedef struct LevelData {
+    /* 0x0000 */ ParsedUVLV* level;
+    /* 0x0004 */ ParsedUVTR* terras[LEVEL_TERRA_COUNT];
+    /* 0x002C */ s32 terraCount;
+    /* 0x0030 */ void* lights[LEVEL_LIGHT_COUNT];
+    /* 0x0040 */ s32 lightCount;
+    /* 0x0044 */ ParsedUVEN* environments[LEVEL_ENVIRONMENT_COUNT];
+    /* 0x00C4 */ s32 environmentCount;
+    /* 0x00C8 */ ParsedUVMD* models[LEVEL_MODEL_COUNT];
+    /* 0x0708 */ s32 modelCount;
+    /* 0x070C */ ParsedUVCT* contours[LEVEL_CONTOUR_COUNT];
+    /* 0x090C */ s32 contourCount;
+    /* 0x0910 */ ParsedUVTX* textures[LEVEL_TEXTURE_COUNT];
+    /* 0x10E0 */ s32 textureCount;
+    /* 0x10E4 */ ParsedUVSQ* sequences[LEVEL_SEQUENCE_COUNT];
+    /* 0x110C */ s32 sequenceCount;
+    /* 0x1110 */ ParsedUVAN* animations[LEVEL_ANIMATION_COUNT];
+    /* 0x13B8 */ s32 animationCount;
+    /* 0x13BC */ ParsedUVFT* fonts[LEVEL_FONT_COUNT];
+    /* 0x140C */ s32 fontCount;
+    /* 0x1410 */ ParsedUVBT* blits[LEVEL_BLIT_COUNT];
+    /* 0x1604 */ s32 blitCount;
+    /* 0x1608 */ f32 unk1608;
+} LevelData; // size = 0x160C
 
 extern Gfx* gGfxDisplayListHead;
-extern uvGfxUnkStruct* gGfxUnkPtrs;
+extern LevelData* gGfxUnkPtrs;
 extern u16 gGfxFbIndex;
 extern u32 gGfxStateStackData;
 extern u32 D_8029926C;

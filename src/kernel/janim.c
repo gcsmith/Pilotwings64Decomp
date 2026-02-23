@@ -7,32 +7,17 @@
 #include <uv_model.h>
 #include <uv_filesystem.h>
 
-typedef struct UnkJAnimStruct2 {
-    struct UnkJAnimStruct2* unk0;
-    u16 unk4;
-    u32 unk8;
-    Unk8037DCA0_UnkC* unkC;
-} UnkJAnimStruct2; // size = 0x10
-
-typedef struct UnkJAnimStruct1 {
-    struct UnkJAnimStruct2* unk0;
-    u16 unk4;
-    u16 unk6;
-    u8 unk8;
-    u8 unk9;
-} UnkJAnimStruct1; // size = 0xC
-
 void* uvJanimLoad(s32 arg0) {
-    UnkJAnimStruct1* var_s3; // sp84
+    ParsedUVAN* var_s3;
     s32 temp_v0;
-    UnkJAnimStruct2* temp_v0_3;
+    ParsedUVAN_Unk0* temp_v0_3;
     u32 sp78;
     void* sp74;
     s32 var_s2;
-    UnkJAnimStruct2* var_s4;
+    ParsedUVAN_Unk0* var_s4;
     u32 i;
     u32 var_v0;
-    UnkJAnimStruct1* temp_v0_2;
+    ParsedUVAN* temp_v0_2;
     UnkPartStruct_Unk8* var_v0_2;
     UnkCommStruct* temp1;
     UnkPartStruct* temp2;
@@ -45,7 +30,7 @@ void* uvJanimLoad(s32 arg0) {
         switch (var_v0) {
         case 'COMM':
             temp1 = sp74;
-            var_s3 = _uvMemAlloc(sizeof(UnkJAnimStruct1), 4);
+            var_s3 = _uvMemAlloc(sizeof(ParsedUVAN), 4);
             var_s3->unk4 = temp1->unk10;
             var_s3->unk6 = 0;
             if (sp78 > 0x10) {
@@ -66,7 +51,7 @@ void* uvJanimLoad(s32 arg0) {
             break;
         case 'PART':
             temp2 = sp74;
-            temp_v0_3 = _uvMemAlloc(sizeof(UnkJAnimStruct2), 4);
+            temp_v0_3 = _uvMemAlloc(sizeof(ParsedUVAN_Unk0), 4);
             if (var_s4 != NULL) {
                 var_s4->unk0 = temp_v0_3;
                 var_s4 = temp_v0_3;
@@ -254,12 +239,12 @@ void uvJanimPoseLine(Unk80371120* arg0, s32 arg1, f32 arg2) {
     Unk8037DCA0_UnkC* var_a0;
     Unk8037DCA0_UnkC* var_a2;
     Unk8037DCA0_UnkC* var_v0;
-    uvGfxUnkStructAnim0* var_s1;
-    uvGfxUnkStructAnimation* temp_s4;
+    ParsedUVAN_Unk0* var_s1;
+    ParsedUVAN* temp_s4;
     s32 i;
     f32 temp_fv0;
 
-    temp_s4 = gGfxUnkPtrs->unk1110[arg1];
+    temp_s4 = gGfxUnkPtrs->animations[arg1];
     if (temp_s4 == NULL) {
         _uvDebugPrintf("uvJanimPoseLine : animation [%d] not defined in level\n", arg1);
         return;
@@ -355,12 +340,12 @@ void uvJanimPoseGrid(Unk80371120* arg0, s32 arg1, f32 arg2, f32 arg3) {
     Unk80371120 sp40;
     f32 sp3C;
     f32 sp38;
-    uvGfxUnkStructAnimation* temp_a3;
+    ParsedUVAN* temp_a3;
     s32 var_a0;
     s32 var_a2;
     s32 pad;
 
-    temp_a3 = gGfxUnkPtrs->unk1110[arg1];
+    temp_a3 = gGfxUnkPtrs->animations[arg1];
 
     if (temp_a3 == NULL) {
         _uvDebugPrintf("uvJanimPoseGrid : animation [%d] not defined in level\n", arg1);

@@ -264,7 +264,7 @@ void uvFxProps(s32 fxId, ...) {
             break;
         case 8:
             var_a2->unk50 = va_arg(args, s32);
-            if ((var_a2->unk50 != 0xFFF) && (gGfxUnkPtrs->unk910[var_a2->unk50] == NULL)) {
+            if ((var_a2->unk50 != 0xFFF) && (gGfxUnkPtrs->textures[var_a2->unk50] == NULL)) {
                 _uvDebugPrintf(" uvFxProps: texture id %d not in level\n", var_a2->unk50);
                 var_a2->unk50 = 0xFFF;
             }
@@ -828,9 +828,9 @@ void func_8021C87C(u16 arg0) {
 
     uvGfx_802236CC(&sp70->unk68);
 
-    if ((sp70->unk50 != 0xFFF) && (gGfxUnkPtrs->unk910[sp70->unk50] != NULL)) {
-        sp82 = gGfxUnkPtrs->unk910[sp70->unk50]->width << 5;
-        sp80 = gGfxUnkPtrs->unk910[sp70->unk50]->height << 5;
+    if ((sp70->unk50 != 0xFFF) && (gGfxUnkPtrs->textures[sp70->unk50] != NULL)) {
+        sp82 = gGfxUnkPtrs->textures[sp70->unk50]->width << 5;
+        sp80 = gGfxUnkPtrs->textures[sp70->unk50]->height << 5;
         uvGfx_80223A28(sp70->unk50);
     } else {
         uvGfxSetFlags(0xFFF);
@@ -1024,8 +1024,8 @@ void func_8021DAF8(u16 fxId) {
 void func_8021DD30(u16 fxId) {
     UnkFxStruct* temp_s0;
     Mtx4F sp94;
-    uvGfxUnkStructTexture* sp90;
-    uvGfxUnkStructTexture* sp8C;
+    ParsedUVTX* sp90;
+    ParsedUVTX* sp8C;
     u8 sp8B;
     u16 var_a0;
     u16 sp86;
@@ -1052,7 +1052,7 @@ void func_8021DD30(u16 fxId) {
             var_a0 = 0xFFF;
         }
     }
-    if ((var_a0 != 0xFFF) && ((sp90 = gGfxUnkPtrs->unk910[var_a0]) != NULL)) {
+    if ((var_a0 != 0xFFF) && ((sp90 = gGfxUnkPtrs->textures[var_a0]) != NULL)) {
         sp8C = sp90;
         uvGfx_80223A28(var_a0);
         if (temp_s0->unk4C == 0.0f) {

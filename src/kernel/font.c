@@ -28,24 +28,6 @@ static u32 D_80248E88 = 8;
 static s32 D_80248E8C = 0;
 // clang-format on
 
-typedef struct {
-    u32 pad0;
-    u32 pad4;
-    s32 imageRef;
-    u32 padC;
-} ParsedBITM;
-
-typedef struct {
-    void* strg;
-    u32 pad4;
-    s8 unk8;
-    s8 unk9;
-    u16 unkA;
-    ParsedBITM* bitm;
-    void* imag[0x2C]; // unknown size, 0x2C based on mem alloc in uvParseTopUVFT
-                      // (0xC0 allocated)
-} ParsedUVFT;
-
 ParsedUVFT* uvParseTopUVFT(s32 arg0) {
     ParsedUVFT* ret;
     s32 temp_v0;
@@ -62,17 +44,17 @@ ParsedUVFT* uvParseTopUVFT(s32 arg0) {
     while ((tag = uvFileReadBlock(temp_v0, &nbytes, (void**)&srcAddr, 1)) != NULL) {
         switch (tag) {
         case 'STRG':
-            ret->strg = _uvMemAlloc(nbytes, 4);
-            _uvMediaCopy((void*)ret->strg, srcAddr, nbytes);
+            ret->str = _uvMemAlloc(nbytes, 4);
+            _uvMediaCopy((void*)ret->str, srcAddr, nbytes);
             break;
         case 'FRMT':
-            ret->unk8 = srcAddr[0];
-            ret->unk9 = srcAddr[1];
+            ret->bmfmt = srcAddr[0];
+            ret->bmsiz = srcAddr[1];
             break;
         case 'BITM':
-            bitmCount = nbytes / sizeof(ParsedBITM);
-            ret->bitm = (ParsedBITM*)_uvMemAlloc(nbytes, 8);
-            _uvMediaCopy((void*)ret->bitm, srcAddr, nbytes);
+            bitmCount = nbytes / sizeof(Bitmap);
+            ret->bitmap = (Bitmap*)_uvMemAlloc(nbytes, 8);
+            _uvMediaCopy((void*)ret->bitmap, srcAddr, nbytes);
             break;
         case 'IMAG':
             ret->imag[imagCount] = _uvMemAlloc(nbytes, 8);
@@ -87,18 +69,18 @@ ParsedUVFT* uvParseTopUVFT(s32 arg0) {
     uvFile_80223F30(temp_v0);
     // update indexes to pointers allocated above
     for (i = 0; i < bitmCount; i++) {
-        ret->bitm[i].imageRef = ret->imag[ret->bitm[i].imageRef];
+        ret->bitmap[i].buf = ret->imag[(u32)ret->bitmap[i].buf];
     }
     return ret;
 }
 
 void uvFontSet(s32 arg0) {
-    if (gGfxUnkPtrs->unk13BC[arg0] != NULL) {
+    if (gGfxUnkPtrs->fonts[arg0] != NULL) {
         D_80248E84 = arg0;
     } else {
         _uvDebugPrintf("uvFontSet ( %d ) -- font does not exist in level\n", arg0);
     }
-    D_80248E88 = gGfxUnkPtrs->unk13BC[D_80248E84]->unkC->width;
+    D_80248E88 = gGfxUnkPtrs->fonts[D_80248E84]->bitmap->width;
 }
 
 void uvFont_80219550(f64 arg0, f64 arg1) {
@@ -123,7 +105,7 @@ s32 func_802195A0(s16* arg0) {
     return i;
 }
 
-s32 func_802195DC(uvGfxUnkStructFont* arg0, s16* arg1) {
+s32 func_802195DC(ParsedUVFT* arg0, s16* arg1) {
     s32 temp_v0;
     s32 i;
     s32 var_v1;
@@ -137,7 +119,7 @@ s32 func_802195DC(uvGfxUnkStructFont* arg0, s16* arg1) {
             return var_v1;
         }
         if ((arg1[j] >= 0) && (arg1[j] != 0xFFF) && (arg1[j] != 0xFFE)) {
-            var_v1 += arg0->unkC[arg1[j]].width;
+            var_v1 += arg0->bitmap[arg1[j]].width;
         } else {
             var_v1 += D_80248E88;
         }
@@ -147,10 +129,10 @@ s32 func_802195DC(uvGfxUnkStructFont* arg0, s16* arg1) {
 }
 
 s32 func_802196B0(s16* arg0) {
-    return func_802195DC(gGfxUnkPtrs->unk13BC[D_80248E84], arg0);
+    return func_802195DC(gGfxUnkPtrs->fonts[D_80248E84], arg0);
 }
 
-s32 func_802196EC(uvGfxUnkStructFont* arg0, char* arg1) {
+s32 func_802196EC(ParsedUVFT* arg0, char* arg1) {
     s32 temp_v0;
     char* temp_v0_2;
     s32 var_s0;
@@ -167,9 +149,9 @@ s32 func_802196EC(uvGfxUnkStructFont* arg0, char* arg1) {
         if (arg1[j] == '\n') {
             continue;
         }
-        temp_v0_2 = uvStrchr(arg0->unk0, arg1[j]);
+        temp_v0_2 = uvStrchr(arg0->str, arg1[j]);
         if (temp_v0_2 != 0) {
-            var_s0 += arg0->unkC[temp_v0_2 - arg0->unk0].width;
+            var_s0 += arg0->bitmap[temp_v0_2 - arg0->str].width;
         } else {
             var_s0 += D_80248E88;
         }
@@ -179,12 +161,12 @@ s32 func_802196EC(uvGfxUnkStructFont* arg0, char* arg1) {
 }
 
 s32 uvFontWidth(char* arg0) {
-    return func_802196EC(gGfxUnkPtrs->unk13BC[D_80248E84], arg0);
+    return func_802196EC(gGfxUnkPtrs->fonts[D_80248E84], arg0);
 }
 
 s32 func_80219828(void) {
-    uvGfxUnkStructFont* temp_v1 = gGfxUnkPtrs->unk13BC[D_80248E84];
-    return temp_v1->unkC[1].actualHeight * D_80248E80;
+    ParsedUVFT* temp_v1 = gGfxUnkPtrs->fonts[D_80248E84];
+    return temp_v1->bitmap[1].actualHeight * D_80248E80;
 }
 
 s32 func_80219874(s32 arg0, s32 arg1, s16* arg2, s32 arg3, s32 arg4) {
@@ -192,12 +174,12 @@ s32 func_80219874(s32 arg0, s32 arg1, s16* arg2, s32 arg3, s32 arg4) {
     s32 i;
     s32 sp24;
     s32 ret;
-    uvGfxUnkStructFont* temp_v1;
+    ParsedUVFT* temp_v1;
     s32 temp_s3 = arg4;
 
-    temp_v1 = gGfxUnkPtrs->unk13BC[D_80248E84];
+    temp_v1 = gGfxUnkPtrs->fonts[D_80248E84];
 
-    arg1 += (s32)(temp_v1->unkC[1].actualHeight * D_80248E80);
+    arg1 += (s32)(temp_v1->bitmap[1].actualHeight * D_80248E80);
     arg1 = SCREEN_HEIGHT - arg1;
     D_80289380[D_80248E8C].x = arg0;
     D_80289380[D_80248E8C].y = arg1;
@@ -207,7 +189,7 @@ s32 func_80219874(s32 arg0, s32 arg1, s16* arg2, s32 arg3, s32 arg4) {
     D_80289380[D_80248E8C].a = D_80248E70;
     D_80289380[D_80248E8C].scaleX = D_80248E7C;
     D_80289380[D_80248E8C].scaleY = D_80248E80;
-    D_80289380[D_80248E8C].unk6C = gGfxUnkPtrs->unk13BC[D_80248E84];
+    D_80289380[D_80248E8C].unk6C = gGfxUnkPtrs->fonts[D_80248E84];
     if (arg3 > 44) {
         arg3 = 44;
     }
@@ -240,7 +222,7 @@ s32 func_80219874(s32 arg0, s32 arg1, s16* arg2, s32 arg3, s32 arg4) {
             D_80289380[D_80248E8C].scaleY = D_80248E80;
             D_80289380[D_80248E8C].x = arg2[var_a0 + 1];
             D_80289380[D_80248E8C].y = arg1;
-            D_80289380[D_80248E8C].unk6C = gGfxUnkPtrs->unk13BC[D_80248E84];
+            D_80289380[D_80248E8C].unk6C = gGfxUnkPtrs->fonts[D_80248E84];
             i = 0;
             var_a0 += 3;
         } else {
@@ -268,11 +250,11 @@ s32 func_80219874(s32 arg0, s32 arg1, s16* arg2, s32 arg3, s32 arg4) {
 void uvFont_80219ACC(s32 x, s32 y, char* arg2) {
     char* temp_v0_3;
     s32 var_s7;
-    uvGfxUnkStructFont* temp_s3;
+    ParsedUVFT* temp_s3;
     s32 i;
 
-    temp_s3 = gGfxUnkPtrs->unk13BC[D_80248E84];
-    y += (s32)(temp_s3->unkC[1].actualHeight * D_80248E80);
+    temp_s3 = gGfxUnkPtrs->fonts[D_80248E84];
+    y += (s32)(temp_s3->bitmap[1].actualHeight * D_80248E80);
     y = SCREEN_HEIGHT - y;
 
     D_80289380[D_80248E8C].x = x;
@@ -290,20 +272,20 @@ void uvFont_80219ACC(s32 x, s32 y, char* arg2) {
     }
 
     for (i = 0; i < var_s7; i++) {
-        temp_v0_3 = uvStrchr(temp_s3->unk0, arg2[i]);
+        temp_v0_3 = uvStrchr(temp_s3->str, arg2[i]);
         if (temp_v0_3 != 0) {
-            D_80289380[D_80248E8C].unk14[i] = temp_v0_3 - temp_s3->unk0;
+            D_80289380[D_80248E8C].unk14[i] = temp_v0_3 - temp_s3->str;
         } else {
             D_80289380[D_80248E8C].unk14[i] = -2;
         }
     }
 
     D_80289380[D_80248E8C].unk14[var_s7] = -1;
-    D_80289380[D_80248E8C].unk6C = gGfxUnkPtrs->unk13BC[D_80248E84];
+    D_80289380[D_80248E8C].unk6C = gGfxUnkPtrs->fonts[D_80248E84];
     D_80248E8C++;
 }
 
-s32 func_80219CC0(Sprite* arg0, s16* arg1, uvGfxUnkStructFont* arg2) {
+s32 func_80219CC0(Sprite* arg0, s16* arg1, ParsedUVFT* arg2) {
     s32 var_a3;
     s32 i;
     Bitmap* bitmap;
@@ -311,12 +293,12 @@ s32 func_80219CC0(Sprite* arg0, s16* arg1, uvGfxUnkStructFont* arg2) {
     bitmap = arg0->bitmap;
     for (i = 0, var_a3 = 0; arg1[i] != -1; i++) {
         if ((arg1[i] == -2) || (arg1[i] == -3)) {
-            bitmap[i] = arg2->unkC[0];
+            bitmap[i] = arg2->bitmap[0];
             bitmap[i].buf = NULL;
-            var_a3 += arg2->unkC[0].width;
+            var_a3 += arg2->bitmap[0].width;
         } else {
-            bitmap[i] = arg2->unkC[arg1[i]];
-            var_a3 += arg2->unkC[arg1[i]].width;
+            bitmap[i] = arg2->bitmap[arg1[i]];
+            var_a3 += arg2->bitmap[arg1[i]].width;
         }
     }
     arg0->nbitmaps = i;
@@ -327,7 +309,7 @@ void func_80219DA4(Unk80289380* arg0) {
     Gfx* dlist;
     Sprite* sprite = &D_80248E20;
 
-    sprite->height = arg0->unk6C->unkC[1].actualHeight;
+    sprite->height = arg0->unk6C->bitmap[1].actualHeight;
     sprite->width = func_80219CC0(sprite, arg0->unk14, arg0->unk6C);
     sprite->bmfmt = arg0->unk6C->bmfmt;
     sprite->bmsiz = arg0->unk6C->bmsiz;

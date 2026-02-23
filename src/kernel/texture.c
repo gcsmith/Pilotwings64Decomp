@@ -5,44 +5,9 @@
 #include <uv_janim.h>
 #include <uv_memory.h>
 #include <uv_sched.h>
+#include <uv_sobj.h>
 #include <uv_sprite.h>
 #include <uv_texture.h>
-
-typedef struct {
-    u16 unk0;
-    u8 unk4;
-    u8 pad6;
-} Unk80219270_4;
-
-typedef struct {
-    s32 unk0[4];
-    s32 unk10[4];
-    s32 unk20[4];
-    void* unk30;
-    u8 count;
-    s8 unk35;
-    s8 unk36;
-    s8 unk37;
-    s32 unk38;
-} ParsedUVEN;
-
-typedef struct {
-    s16 unk0;
-    u8 unk2;
-    u8 pad;
-    s32 unk4;
-} Unk802255A0_8;
-
-typedef struct {
-    u8 count;
-    u8 pad[3];
-    Unk802255A0_8* unk4;
-    u8 unk8;
-    u8 unk9;
-    u8 unkA;
-    u8 unkB;
-    s32 unkC;
-} ParsedUVSQ;
 
 typedef struct {
     u16 count;
@@ -52,159 +17,22 @@ typedef struct {
 } ParsedUVTP;
 
 typedef struct {
-    s32 unk0[16];
-    s32 unk40;
-    u8 unk44;
-    u8 unk45;
-    u8 unk46;
-    u8 unk47;
-} Unk802270BC_48;
-
-typedef struct {
-    s32 unk0[6];
-    u8 unk18;
-    u8 unk19;
-    u16 unk1A;
-    s32 unk1C;
-    s32 unk20;
-    s32 unk24;
-    Unk802270BC_48* unk28;
-} ParsedUVTR;
-
-typedef struct {
     s32 tag;
     s32 size;
 } UVBlockHeader;
 
-typedef struct {
-    u16 unk0;
-    u16 pad2;
-    void* unk4;
-    s32 unk8;
-    s32 unkC;
-    s32 unk10;
-    u16 unk14;
-    u16 unk16;
-} Unk80225FBC_0x18;
-
-typedef struct {
-    s32 unk0;
-    u16 unk4;
-    u16 unk6;
-    Gfx* dlist;
-    Gfx* unkC;
-    u16 unk10;
-    u16 unk12;
-    u16 unk14;
-    u16 pad16;
-    s32 unk18;
-    s32 unk1C;
-    s32 unk20;
-    s32 unk24;
-} Unk80225FBC_0x28;
-
-typedef struct {
-    void* vtx;
-    u16 unk4;
-    u16 pad6;
-    void* unk8;
-    u16 unkC;
-    u16 padE;
-    void* unk10;
-    u16 unk14;
-    u16 pad16;
-    s32 unk18;
-    s32 unk1C;
-    s32 unk20;
-    s32 unk24;
-    s32 unk28;
-} ParsedUVCT;
-
-typedef struct {
-    s16 unk0;
-    s16 unk2;
-    s16 unk4;
-    s16 unk6;
-    s32 unk8; // pointer?
-    s16 unkC;
-    s16 unkE;
-} Unk80227260_0x8;
-
-typedef struct {
-    u16 pad0;
-    s16 unk2;
-    s16 unk4;
-    s16 unk6;
-    s16 unk8;
-    s16 unkA;
-    s16 unkC;
-    s16 unkE;
-    void* unk10;
-    Unk80227260_0x8* unk14;
-} ParsedUVBT;
-
-typedef struct unk_UVMD_24 {
-    u8 unk0;
-    u8 unk4[0x1B];
-    u16 unk1C;
-    s32 unk20;
-} unk_UVMD_24; // size = 0x24
-
-typedef struct unk_UVMD_C {
-    s32 unk0;
-    u16 unk4;
-    u16 unk6;
-    Gfx* unk8;
-} unk_UVMD_C; // size = 0xC
-
-typedef struct unk_UVMD_10 {
-    unk_UVMD_C* unk0;
-    u8 unk4;
-    u8 unk5;
-    u8 unk6;
-    unk_UVMD_24* unk8;
-    u8 unkC;
-    u8 unkD;
-} unk_UVMD_10; // size = 0x10
-
-typedef struct unk_UVMD_8 {
-    unk_UVMD_10* unk0;
-    u8 unk4;
-    u8 unk5;
-} unk_UVMD_8; // size = 0x8
-
-typedef struct unk_UVMD_6 {
-    u16 unk0;
-    u16 unk2;
-    u16 unk4;
-} unk_UVMD_6; // size = 0x6
-
-typedef struct ParsedUVMD {
-    Vtx* unk0;
-    u16 unk4;
-    unk_UVMD_8* unk8;
-    s32* unkC;
-    u8 unk10;
-    u8 unk11;
-    Mtx* unk14; // this is a guess
-    u8 unk18;
-    s32 unk1C;
-    s32 unk20;
-    s32 unk24;
-} ParsedUVMD; // size = 0x28
-
 // forward declarations
-void* uvParseTopUVFT(s32);
+ParsedUVFT* uvParseTopUVFT(s32);
 ParsedUVCT* uvParseTopUVCT(s32);
 ParsedUVEN* uvParseTopUVEN(s32);
 ParsedUVLV* uvParseTopUVLV(s32);
 ParsedUVTP* uvParseTopUVTP(s32);
 void* uvParseTopUVLT(s32);
-void* uvParseTopUVMD(s32);
+ParsedUVMD* uvParseTopUVMD(s32);
 ParsedUVTR* uvParseTopUVTR(s32);
 ParsedUVTX* uvParseTopUVTX(s32);
 void* uvParseTopUVTI(s32);
-void* uvParseTopUVBT(s32);
+ParsedUVBT* uvParseTopUVBT(s32);
 ParsedUVSQ* uvParseTopUVSQ(s32);
 
 ParsedUVTX* _uvExpandTexture(u8*);
@@ -568,17 +396,17 @@ void* _uvParseUVLT(u8* arg0) {
 }
 
 ParsedUVEN* _uvParseUVEN(u8* src) {
-    Unk80219270_4* temp_s3;
+    UnkGfxEnv_Unk30* temp_s3;
     u8 count;
     s32 i;
     ParsedUVEN* ret;
 
     uvConsumeBytes(&count, &src, 1);
-    temp_s3 = (Unk80219270_4*)_uvMemAlloc(count * sizeof(Unk80219270_4), 4);
+    temp_s3 = (UnkGfxEnv_Unk30*)_uvMemAlloc(count * sizeof(UnkGfxEnv_Unk30), 4);
 
     for (i = 0; i < (s32)count; i++) {
-        uvConsumeBytes(&temp_s3[i].unk0, &src, sizeof(temp_s3[i].unk0));
-        uvConsumeBytes(&temp_s3[i].unk4, &src, sizeof(temp_s3[i].unk4));
+        uvConsumeBytes(&temp_s3[i].modelId, &src, sizeof(u16));
+        uvConsumeBytes(&temp_s3[i].flag, &src, sizeof(u8));
     }
 
     ret = (ParsedUVEN*)_uvMemAlloc(sizeof(ParsedUVEN), 4);
@@ -592,22 +420,22 @@ ParsedUVEN* _uvParseUVEN(u8* src) {
 ParsedUVSQ* _uvParseUVSQ(u8* src) {
     u16 i;
     u8 count;
-    Unk802255A0_8* temp_s3;
+    ParsedUVSQ_Unk4* temp_s3;
     ParsedUVSQ* ret;
 
     uvConsumeBytes(&count, &src, 1);
-    temp_s3 = (Unk802255A0_8*)_uvMemAlloc(count * sizeof(Unk802255A0_8), 4);
+    temp_s3 = (ParsedUVSQ_Unk4*)_uvMemAlloc(count * sizeof(ParsedUVSQ_Unk4), 4);
 
     for (i = 0; i < (s32)count; i++) {
-        uvConsumeBytes(&temp_s3[i].unk0, &src, sizeof(temp_s3[i].unk0));
-        uvConsumeBytes(&temp_s3[i].unk4, &src, sizeof(temp_s3[i].unk4));
+        uvConsumeBytes(&temp_s3[i].unk0, &src, sizeof(u16));
+        uvConsumeBytes(&temp_s3[i].unk4, &src, sizeof(f32));
         temp_s3[i].unk2 = 0xFF;
     }
 
     ret = (ParsedUVSQ*)_uvMemAlloc(sizeof(ParsedUVSQ), 4);
-    uvConsumeBytes(&ret->unk8, &src, sizeof(ret->unk8));
-    uvConsumeBytes(&ret->unk9, &src, sizeof(ret->unk9));
-    uvConsumeBytes(&ret->unkC, &src, sizeof(ret->unkC));
+    uvConsumeBytes(&ret->unk8, &src, sizeof(u8));
+    uvConsumeBytes(&ret->unk9, &src, sizeof(u8));
+    uvConsumeBytes(&ret->unkC, &src, sizeof(f32));
     ret->unk4 = temp_s3;
     ret->count = count;
     return ret;
@@ -616,21 +444,21 @@ ParsedUVSQ* _uvParseUVSQ(u8* src) {
 ParsedUVMD* _uvParseUVMD(u8* src) {
     Vtx* vtx;
     ParsedUVMD* ret;
-    unk_UVMD_8* spB4;
+    UnkUVMD_8* spB4;
     Gfx* dlist;
-    unk_UVMD_24* var_s6;
-    unk_UVMD_10* spA8;
-    s32* spA4;
+    UnkUVMD_24* var_s6;
+    UnkUVMD_10* spA8;
+    f32* spA4;
     Vtx* tempVtx;
     s32 var_s0;
-    unk_UVMD_24* var_s0_4;
-    Mtx* mtx;
-    unk_UVMD_C* sp58;
-    unk_UVMD_6* sp8C;
+    UnkUVMD_24* var_s0_4;
+    Mtx4F* mtx;
+    uvGfxState_t* sp58;
+    UnkUVMD_6* sp8C;
     s32 i;
     s32 j;
     s32 k;
-    unk_UVMD_6* temp_v0_12;
+    UnkUVMD_6* temp_v0_12;
     u8 sp7B;
     u8 sp7A;
     u8 sp79;
@@ -651,27 +479,27 @@ ParsedUVMD* _uvParseUVMD(u8* src) {
     vtx = (Vtx*)_uvMemAlloc(vtxCount * sizeof(Vtx), 8);
     _uvMediaCopy(vtx, src, vtxCount * sizeof(Vtx));
     src += vtxCount * sizeof(Vtx);
-    spA4 = (s32*)_uvMemAlloc(sp79 * sizeof(s32), 4);
-    spB4 = (unk_UVMD_8*)_uvMemAlloc(sp79 * sizeof(unk_UVMD_8), 4);
+    spA4 = (f32*)_uvMemAlloc(sp79 * sizeof(f32), 4);
+    spB4 = (UnkUVMD_8*)_uvMemAlloc(sp79 * sizeof(UnkUVMD_8), 4);
 
     for (i = 0; i < sp79; i++) {
         uvConsumeBytes(&spB4[i].unk4, &src, sizeof(u8));
         uvConsumeBytes(&spB4[i].unk5, &src, sizeof(u8));
-        spA8 = (unk_UVMD_10*)_uvMemAlloc(spB4[i].unk4 * sizeof(unk_UVMD_10), 4);
+        spA8 = (UnkUVMD_10*)_uvMemAlloc(spB4[i].unk4 * sizeof(UnkUVMD_10), 4);
 
         for (j = 0; j < spB4[i].unk4; j++) {
             sp76 = 0;
             uvConsumeBytes(&spA8[j].unk4, &src, sizeof(u8));
             uvConsumeBytes(&spA8[j].unk5, &src, sizeof(u8));
             uvConsumeBytes(&spA8[j].unk6, &src, sizeof(u8));
-            spA8[j].unk0 = (unk_UVMD_C*)_uvMemAlloc(spA8[j].unk4 * sizeof(unk_UVMD_C), 8);
+            spA8[j].unk0 = (uvGfxState_t*)_uvMemAlloc(spA8[j].unk4 * sizeof(uvGfxState_t), 8);
             sp58 = spA8[j].unk0;
             for (k = 0; k < spA8[j].unk4; k++) {
-                uvConsumeBytes(&sp58[k].unk0, &src, sizeof(s32));
+                uvConsumeBytes(&sp58[k].state, &src, sizeof(s32));
                 uvConsumeBytes(&sp58[k].unk4, &src, sizeof(u16));
                 uvConsumeBytes(&sp58[k].unk6, &src, sizeof(u16));
                 uvConsumeBytes(&gfxCount, &src, sizeof(u16));
-                if (sp58[k].unk0 & 0x08000000) {
+                if (sp58[k].state & GFX_STATE_8000000) {
                     sp76 = 1;
                 }
 
@@ -693,25 +521,25 @@ ParsedUVMD* _uvParseUVMD(u8* src) {
             spA8[j].unkD = sp76;
         }
         spB4[i].unk0 = spA8;
-        uvConsumeBytes(&spA4[i], &src, 4);
+        uvConsumeBytes(&spA4[i], &src, sizeof(f32));
     }
 
-    mtx = (Mtx*)_uvMemAlloc(sp7B * sizeof(Mtx), 4);
-    uvConsumeBytes(mtx, &src, sp7B * sizeof(Mtx));
+    mtx = (Mtx4F*)_uvMemAlloc(sp7B * sizeof(Mtx4F), 4);
+    uvConsumeBytes(mtx, &src, sp7B * sizeof(Mtx4F));
     if (sp7A) {
-        var_s6 = (unk_UVMD_24*)_uvMemAlloc(sp7A * sizeof(unk_UVMD_24), 4);
+        var_s6 = (UnkUVMD_24*)_uvMemAlloc(sp7A * sizeof(UnkUVMD_24), 4);
 
         for (i = 0; i < sp7A; i++) {
-            uvConsumeBytes(&var_s6[i], &src, sizeof(unk_UVMD_24));
+            uvConsumeBytes(&var_s6[i], &src, sizeof(UnkUVMD_24));
         }
     } else {
         var_s6 = NULL;
     }
     ret = (ParsedUVMD*)_uvMemAlloc(sizeof(ParsedUVMD), 4);
-    uvConsumeBytes(&ret->unk1C, &src, sizeof(s32));
-    uvConsumeBytes(&ret->unk20, &src, sizeof(s32));
-    uvConsumeBytes(&ret->unk24, &src, sizeof(s32));
-    temp_v0_12 = (unk_UVMD_6*)_uvMemAlloc(sp6E * sizeof(unk_UVMD_6), 4);
+    uvConsumeBytes(&ret->unk1C, &src, sizeof(f32));
+    uvConsumeBytes(&ret->unk20, &src, sizeof(f32));
+    uvConsumeBytes(&ret->unk24, &src, sizeof(f32));
+    temp_v0_12 = (UnkUVMD_6*)_uvMemAlloc(sp6E * sizeof(UnkUVMD_6), 4);
 
     for (i = 0; i < sp6E; i++) {
         uvConsumeBytes(&temp_v0_12[i].unk0, &src, sizeof(u16));
@@ -738,8 +566,8 @@ ParsedUVMD* _uvParseUVMD(u8* src) {
         }
     }
 
-    ret->unk0 = vtx;
-    ret->unk4 = vtxCount;
+    ret->vtx = vtx;
+    ret->vtxCount = vtxCount;
     ret->unk8 = spB4;
     ret->unkC = spA4;
     ret->unk10 = sp79;
@@ -779,10 +607,10 @@ ParsedUVMD* _uvParseUVMD(u8* src) {
 ParsedUVCT* _uvParseUVCT(u8* src) {
     Vtx* vtx;
     Vtx* tempVtx;
-    Gfx* spA4;
+    Unk80225FBC_0x28_UnkC* spA4;
     Unk80225FBC_0x28* spA0;
-    Unk80225FBC_0x18* tempSp98;
-    Unk80225FBC_0x18* sp98;
+    UnkSobjDraw* tempSp98;
+    UnkSobjDraw* sp98;
     Unk80225FBC_0x28* tempSpA0;
     Gfx* dlist;
     ParsedUVCT* ret;
@@ -806,31 +634,31 @@ ParsedUVCT* _uvParseUVCT(u8* src) {
     _uvMediaCopy(vtx, src, vtxCount * sizeof(Vtx));
     src += vtxCount * sizeof(Vtx);
 
-    spA4 = (void*)_uvMemAlloc(sp8A * sizeof(Gfx), 4);
-    _uvMediaCopy((void*)spA4, src, sp8A * sizeof(Gfx));
+    spA4 = (void*)_uvMemAlloc(sp8A * sizeof(Unk80225FBC_0x28_UnkC), 4);
+    _uvMediaCopy((void*)spA4, src, sp8A * sizeof(Unk80225FBC_0x28_UnkC));
     src += sp8A * sizeof(Gfx);
 
-    sp98 = (Unk80225FBC_0x18*)_uvMemAlloc(sp86 * sizeof(Unk80225FBC_0x18), 4);
+    sp98 = (UnkSobjDraw*)_uvMemAlloc(sp86 * sizeof(UnkSobjDraw), 4);
     for (i = 0; i < sp86; i++) {
         tempSp98 = &sp98[i];
         uvConsumeBytes(&sp7B, &src, 1);
         tempSp98->unk4 = (void*)_uvMemAlloc(sp7B * 64, 4);
         uvConsumeBytes(tempSp98->unk4, &src, sp7B * 64);
 
-        uvConsumeBytes(&tempSp98->unk0, &src, sizeof(tempSp98->unk0));
-        uvConsumeBytes(&tempSp98->unk8, &src, sizeof(tempSp98->unk8));
-        uvConsumeBytes(&tempSp98->unkC, &src, sizeof(tempSp98->unkC));
-        uvConsumeBytes(&tempSp98->unk10, &src, sizeof(tempSp98->unk10));
-        uvConsumeBytes(&tempSp98->unk14, &src, sizeof(tempSp98->unk14));
-        uvConsumeBytes(&tempSp98->unk16, &src, sizeof(tempSp98->unk16));
+        uvConsumeBytes(&tempSp98->unk0, &src, sizeof(u16));
+        uvConsumeBytes(&tempSp98->unk8, &src, sizeof(f32));
+        uvConsumeBytes(&tempSp98->unkC, &src, sizeof(f32));
+        uvConsumeBytes(&tempSp98->unk10, &src, sizeof(f32));
+        uvConsumeBytes(&tempSp98->unk14, &src, sizeof(u16));
+        uvConsumeBytes(&tempSp98->unk16, &src, sizeof(u16));
     }
 
     spA0 = (Unk80225FBC_0x28*)_uvMemAlloc(sp88 * sizeof(Unk80225FBC_0x28), 4);
     for (i = 0; i < sp88; i++) {
         tempSpA0 = &spA0[i];
-        uvConsumeBytes(&tempSpA0->unk0, &src, sizeof(tempSpA0->unk0));
-        uvConsumeBytes(&tempSpA0->unk4, &src, sizeof(tempSpA0->unk4));
-        uvConsumeBytes(&tempSpA0->unk6, &src, sizeof(tempSpA0->unk6));
+        uvConsumeBytes(&tempSpA0->unk0, &src, sizeof(s32));
+        uvConsumeBytes(&tempSpA0->unk4, &src, sizeof(u16));
+        uvConsumeBytes(&tempSpA0->unk6, &src, sizeof(u16));
         uvConsumeBytes(&gfxCount, &src, sizeof(gfxCount));
         dlist = (Gfx*)_uvMemAlloc((gfxCount + 1) * sizeof(Gfx), 8); // +1 for G_ENDDL
         for (j = 0; j < gfxCount; j++) {
@@ -838,7 +666,7 @@ ParsedUVCT* _uvParseUVCT(u8* src) {
             if (elem & 0x4000) {
                 gSP1Triangle(&dlist[j], (elem & 0xF00) >> 8, (elem & 0xF0) >> 4, elem & 0xF, 0);
             } else {
-                uvConsumeBytes(&sp7A, &src, sizeof(sp7A));
+                uvConsumeBytes(&sp7A, &src, sizeof(u8));
                 tempVtx = &vtx[elem & 0x3FFF];
                 gSPVertex(&dlist[j], (u32)OS_PHYSICAL_TO_K0(tempVtx), ((sp7A & 0xF0) >> 4) + 1, sp7A & 0xF);
             }
@@ -853,32 +681,32 @@ ParsedUVCT* _uvParseUVCT(u8* src) {
         uvConsumeBytes(&elem, &src, 2);
         tempSpA0->unk10 = elem;
 
-        uvConsumeBytes(&tempSpA0->unk12, &src, sizeof(tempSpA0->unk12));
-        uvConsumeBytes(&tempSpA0->unk14, &src, sizeof(tempSpA0->unk14));
-        uvConsumeBytes(&tempSpA0->unk18, &src, sizeof(tempSpA0->unk18));
-        uvConsumeBytes(&tempSpA0->unk1C, &src, sizeof(tempSpA0->unk1C));
-        uvConsumeBytes(&tempSpA0->unk20, &src, sizeof(tempSpA0->unk20));
-        uvConsumeBytes(&tempSpA0->unk24, &src, sizeof(tempSpA0->unk24));
+        uvConsumeBytes(&tempSpA0->unk12, &src, sizeof(u16));
+        uvConsumeBytes(&tempSpA0->unk14, &src, sizeof(u16));
+        uvConsumeBytes(&tempSpA0->unk18, &src, sizeof(s32));
+        uvConsumeBytes(&tempSpA0->unk1C, &src, sizeof(s32));
+        uvConsumeBytes(&tempSpA0->unk20, &src, sizeof(s32));
+        uvConsumeBytes(&tempSpA0->unk24, &src, sizeof(s32));
     }
 
     ret = (ParsedUVCT*)_uvMemAlloc(sizeof(ParsedUVCT), 4);
     ret->vtx = vtx;
-    ret->unk4 = vtxCount;
+    ret->vtxCount = vtxCount;
     ret->unk8 = spA0;
     ret->unkC = sp88;
     ret->unk10 = sp98;
     ret->unk14 = sp86;
-    uvConsumeBytes(&ret->unk18, &src, sizeof(ret->unk18));
-    uvConsumeBytes(&ret->unk1C, &src, sizeof(ret->unk1C));
-    uvConsumeBytes(&ret->unk20, &src, sizeof(ret->unk20));
-    uvConsumeBytes(&ret->unk24, &src, sizeof(ret->unk24));
-    uvConsumeBytes(&ret->unk28, &src, sizeof(ret->unk28));
+    uvConsumeBytes(&ret->unk18, &src, sizeof(s32));
+    uvConsumeBytes(&ret->unk1C, &src, sizeof(s32));
+    uvConsumeBytes(&ret->unk20, &src, sizeof(s32));
+    uvConsumeBytes(&ret->unk24, &src, sizeof(s32));
+    uvConsumeBytes(&ret->unk28, &src, sizeof(f32));
     return ret;
 }
 
 ParsedUVTX* _uvExpandTexture(u8* src) {
     void* sp6C;
-    unk_UVTX_8* sp68;
+    Gfx* sp68;
     ParsedUVTX* temp_v0;
     s32 i;
     s32 var_a0;
@@ -886,11 +714,11 @@ ParsedUVTX* _uvExpandTexture(u8* src) {
     u8 temp_v0_2;
     u16 sp54;
     u16 size;
-    unk_UVTX_1C* sp4C;
-    unk_UVTX_1C* sp48;
+    UnkUVTX_1C* sp4C;
+    UnkUVTX_1C* sp48;
     f32 sp44;
     f32 sp40;
-    unk_UVTX_8* temp_v1;
+    Gfx* temp_v1;
     u16 temp_t2;
     u32 temp_t0;
 
@@ -903,7 +731,7 @@ ParsedUVTX* _uvExpandTexture(u8* src) {
     uvConsumeBytes(&sp44, &src, sizeof(f32));
     uvConsumeBytes(&sp40, &src, sizeof(f32));
     if ((sp44 != 0.0f) || (sp40 != 0.0f)) {
-        sp4C = (unk_UVTX_1C*)_uvMemAlloc(sizeof(unk_UVTX_1C), 4);
+        sp4C = (UnkUVTX_1C*)_uvMemAlloc(sizeof(UnkUVTX_1C), 4);
         sp4C->unk0 = 1.0f;
         sp4C->unk4 = 1.0f;
         sp4C->unk8 = sp44;
@@ -917,7 +745,7 @@ ParsedUVTX* _uvExpandTexture(u8* src) {
     uvConsumeBytes(&sp44, &src, 4);
     uvConsumeBytes(&sp40, &src, 4);
     if ((sp44 != 0.0f) || (sp40 != 0.0f)) {
-        sp48 = (unk_UVTX_1C*)_uvMemAlloc(sizeof(unk_UVTX_1C), 4);
+        sp48 = (UnkUVTX_1C*)_uvMemAlloc(sizeof(UnkUVTX_1C), 4);
         sp48->unk0 = 1.0f;
         sp48->unk4 = 1.0f;
         sp48->unk8 = sp44;
@@ -929,13 +757,13 @@ ParsedUVTX* _uvExpandTexture(u8* src) {
         sp48 = NULL;
     }
     src += size;
-    sp68 = (unk_UVTX_8*)_uvMemAlloc(sp54 * sizeof(unk_UVTX_8), 8);
+    sp68 = (Gfx*)_uvMemAlloc(sp54 * sizeof(Gfx), 8);
 
-    uvConsumeBytes(sp68, &src, sp54 * sizeof(unk_UVTX_8));
+    uvConsumeBytes(sp68, &src, sp54 * sizeof(Gfx));
 
     temp_v0 = (ParsedUVTX*)_uvMemAlloc(sizeof(ParsedUVTX), 4);
-    uvConsumeBytes(&temp_v0->unkA, &src, sizeof(u16));
-    uvConsumeBytes(&temp_v0->unkC, &src, sizeof(u16));
+    uvConsumeBytes(&temp_v0->width, &src, sizeof(u16));
+    uvConsumeBytes(&temp_v0->height, &src, sizeof(u16));
     uvConsumeBytes(&temp_v0->unkE, &src, sizeof(u8));
     uvConsumeBytes(&temp_v0->unkF, &src, sizeof(u8));
     uvConsumeBytes(&temp_v0->unk10, &src, sizeof(u8));
@@ -947,7 +775,7 @@ ParsedUVTX* _uvExpandTexture(u8* src) {
     uvConsumeBytes(&temp_v0->unk24, &src, sizeof(u8));
     uvConsumeBytes(&temp_v0->unk25, &src, sizeof(u8));
     uvConsumeBytes(&temp_v0->unk26, &src, sizeof(u8));
-    uvConsumeBytes(&temp_v0->unk28, &src, sizeof(s32));
+    uvConsumeBytes(&temp_v0->unk28, &src, sizeof(f32));
     temp_v0->size = size;
     temp_t2 = temp_v0->unk12;
     id = temp_v0->unk12 & 0xFFF;
@@ -976,12 +804,12 @@ ParsedUVTX* _uvExpandTexture(u8* src) {
     for (i = 0; i < sp54; i++) {
         temp_v1 = &sp68[i];
 
-        temp_v0_2 = temp_v1->unk0;
-        if (temp_v0_2 == 0xFD) {
+        temp_v0_2 = temp_v1->setimg.cmd;
+        if (temp_v0_2 == G_SETTIMG) {
             if (var_a0 == 0) {
-                temp_v1->unk4 |= (u32)OS_PHYSICAL_TO_K0(temp_t0);
+                temp_v1->setimg.dram |= (u32)OS_PHYSICAL_TO_K0(temp_t0);
             } else {
-                temp_v1->unk4 |= (u32)OS_PHYSICAL_TO_K0(D_802B6E30[temp_v0->unk14]);
+                temp_v1->setimg.dram |= (u32)OS_PHYSICAL_TO_K0(D_802B6E30[temp_v0->unk14]);
             }
             var_a0++;
         }
@@ -1002,11 +830,11 @@ void* _uvExpandTextureImg(u8* src) {
         _uvDebugPrintf("_uvExpandTextureImg: txt image too big %d bytes (4096 max)\n", size);
         size = 0x1000;
     }
-    uvConsumeBytes(&sp32, &src, sizeof(sp32));
-    uvConsumeBytes(&sp2C, &src, sizeof(sp2C));
-    uvConsumeBytes(&sp28, &src, sizeof(sp28));
-    uvConsumeBytes(&sp2C, &src, sizeof(sp2C));
-    uvConsumeBytes(&sp28, &src, sizeof(sp28));
+    uvConsumeBytes(&sp32, &src, sizeof(u16));
+    uvConsumeBytes(&sp2C, &src, sizeof(u32));
+    uvConsumeBytes(&sp28, &src, sizeof(u32));
+    uvConsumeBytes(&sp2C, &src, sizeof(u32));
+    uvConsumeBytes(&sp28, &src, sizeof(u32));
     retBuf = (void*)_uvMemAlloc(size, 8);
     _uvMediaCopy(retBuf, src, size);
     return retBuf;
@@ -1131,15 +959,15 @@ ParsedUVTP* _uvParseUVTP(u8* src) {
     temp_s2->unk8 = (u16*)_uvMemAlloc(count * 2, 4);
 
     for (i = 0; i < count; i++) {
-        uvConsumeBytes(&temp_s2->unk4[i], &src, sizeof(temp_s2->unk4[i]));
-        uvConsumeBytes(&temp_s2->unk8[i], &src, sizeof(temp_s2->unk8[i]));
+        uvConsumeBytes(&temp_s2->unk4[i], &src, sizeof(u16));
+        uvConsumeBytes(&temp_s2->unk8[i], &src, sizeof(u16));
     }
     temp_s2->count = count;
     return temp_s2;
 }
 
 ParsedUVTR* _uvParseUVTR(u8* src) {
-    Unk802270BC_48* ptr;
+    uvUnkTileStruct* ptr;
     ParsedUVTR* temp_v0;
     s32 count;
     s32 i;
@@ -1147,24 +975,24 @@ ParsedUVTR* _uvParseUVTR(u8* src) {
     u16 sp44;
 
     temp_v0 = (ParsedUVTR*)_uvMemAlloc(sizeof(ParsedUVTR), 4);
-    uvConsumeBytes(&temp_v0->unk0, &src, sizeof(temp_v0->unk0));
-    uvConsumeBytes(&temp_v0->unk18, &src, sizeof(temp_v0->unk18));
-    uvConsumeBytes(&temp_v0->unk19, &src, sizeof(temp_v0->unk19));
-    uvConsumeBytes(&temp_v0->unk1C, &src, sizeof(temp_v0->unk1C));
-    uvConsumeBytes(&temp_v0->unk20, &src, sizeof(temp_v0->unk20));
-    uvConsumeBytes(&temp_v0->unk24, &src, sizeof(temp_v0->unk24));
+    uvConsumeBytes(&temp_v0->unk0, &src, sizeof(uvUnkTeraStruct));
+    uvConsumeBytes(&temp_v0->unk18, &src, sizeof(u8));
+    uvConsumeBytes(&temp_v0->unk19, &src, sizeof(u8));
+    uvConsumeBytes(&temp_v0->unk1C, &src, sizeof(f32));
+    uvConsumeBytes(&temp_v0->unk20, &src, sizeof(f32));
+    uvConsumeBytes(&temp_v0->unk24, &src, sizeof(f32));
     count = temp_v0->unk18 * temp_v0->unk19;
-    temp_v0->unk28 = (Unk802270BC_48*)_uvMemAlloc(count * sizeof(Unk802270BC_48), 4);
+    temp_v0->unk28 = (uvUnkTileStruct*)_uvMemAlloc(count * sizeof(uvUnkTileStruct), 4);
 
     for (i = 0; i < count; i++) {
         ptr = &temp_v0->unk28[i];
         uvConsumeBytes(&sp47, &src, 1);
         if (sp47 == 0) {
-            uvMemSet(ptr->unk0, 0, 0x48);
+            uvMemSet(ptr, 0, sizeof(uvUnkTileStruct));
         } else {
             uvConsumeBytes(&ptr->unk0, &src, sizeof(ptr->unk0));
-            uvConsumeBytes(&ptr->unk44, &src, sizeof(ptr->unk44));
-            uvConsumeBytes(&sp44, &src, 2);
+            uvConsumeBytes(&ptr->unk44, &src, sizeof(u8));
+            uvConsumeBytes(&sp44, &src, sizeof(u16));
             ptr->unk40 = gLevelData.contours[sp44];
         }
     }
@@ -1172,7 +1000,7 @@ ParsedUVTR* _uvParseUVTR(u8* src) {
 }
 
 ParsedUVBT* _uvParseUVBT(u8* src) {
-    s32 var_a1; // pointer?
+    u8* var_a1;
     u16 sp9A;
     u16 sp98;
     u16 sp96;
@@ -1188,7 +1016,7 @@ ParsedUVBT* _uvParseUVBT(u8* src) {
     ParsedUVBT* ret;
     s32 sp74;
     s32 sp70;
-    Unk80227260_0x8* temp_v0_3;
+    Bitmap* temp_v0_3;
     s32 temp;
 
     remainder2 = 0;
@@ -1220,15 +1048,15 @@ ParsedUVBT* _uvParseUVBT(u8* src) {
     src += 2;
 
     ret = (ParsedUVBT*)_uvMemAlloc(sizeof(ParsedUVBT), 4);
-    ret->unk2 = sp9A;
-    ret->unk4 = sp98;
-    ret->unk6 = sp96;
-    ret->unk8 = sp92;
+    ret->bmfmt = sp9A;
+    ret->bitdepth = sp98;
+    ret->width = sp96;
+    ret->height = sp92;
     ret->unkA = sp90;
-    ret->unkC = sp8E;
+    ret->texelHeight = sp8E;
 
-    ret->unk10 = (void*)_uvMemAlloc((sp94 * sp92 * sp98) / 8, 8);
-    uvConsumeBytes(ret->unk10, &src, (sp94 * sp92 * sp98) / 8);
+    ret->buf = (void*)_uvMemAlloc((sp94 * sp92 * sp98) / 8, 8);
+    uvConsumeBytes(ret->buf, &src, (sp94 * sp92 * sp98) / 8);
 
     sp74 = sp96 / sp90;
     sp70 = sp92 / sp8E;
@@ -1240,31 +1068,32 @@ ParsedUVBT* _uvParseUVBT(u8* src) {
         sp70++;
         remainder2 = 1;
     }
-    ret->unkE = sp74 * sp70;
-    ret->unk14 = (Unk80227260_0x8*)_uvMemAllocAlign8(ret->unkE * sizeof(Unk80227260_0x8));
+    ret->nbitmaps = sp74 * sp70;
+    ret->bitmap = (Bitmap*)_uvMemAllocAlign8(ret->nbitmaps * sizeof(Bitmap));
 
-    var_a1 = ret->unk10;
+    var_a1 = ret->buf;
     for (i = 0; i < sp70; i++) {
         for (j = 0; j < sp74; j++) {
-            temp_v0_3 = &ret->unk14[j + i * sp74];
+            temp_v0_3 = &ret->bitmap[j + i * sp74];
             temp = i + 1;
             if (remainder2 && sp70 == temp) {
-                temp_v0_3->unkC = sp92 % sp8E;
+                temp_v0_3->actualHeight = sp92 % sp8E;
             } else {
-                temp_v0_3->unkC = sp8E;
+                temp_v0_3->actualHeight = sp8E;
             }
             temp = j + 1;
             if (remainder1 && sp74 == temp) {
-                temp_v0_3->unk0 = sp96 - (sp90 * (sp74 - 1));
+                temp_v0_3->width = sp96 - (sp90 * (sp74 - 1));
             } else {
-                temp_v0_3->unk0 = sp90;
+                temp_v0_3->width = sp90;
             }
-            temp_v0_3->unkE = 0;
-            temp_v0_3->unk6 = temp_v0_3->unkE;
-            temp_v0_3->unk4 = temp_v0_3->unkE;
-            temp_v0_3->unk2 = sp90;
-            temp_v0_3->unk8 = var_a1;
-            var_a1 += (temp_v0_3->unkC * sp90 * sp98) / 8;
+            // fake, should chain assign
+            temp_v0_3->LUToffset = 0;
+            temp_v0_3->t = temp_v0_3->LUToffset;
+            temp_v0_3->s = temp_v0_3->LUToffset;
+            temp_v0_3->width_img = sp90;
+            temp_v0_3->buf = var_a1;
+            var_a1 += (temp_v0_3->actualHeight * sp90 * sp98) / 8;
         }
     }
     return ret;
@@ -1352,7 +1181,7 @@ void* uvParseTopUVLT(s32 palette) {
     return ret;
 }
 
-void* uvParseTopUVMD(s32 arg0) {
+ParsedUVMD* uvParseTopUVMD(s32 arg0) {
     s32 idx;
     u32 tag;
     u32 sp3C;
@@ -1432,7 +1261,7 @@ void* uvParseTopUVTI(s32 arg0) {
     return ret;
 }
 
-void* uvParseTopUVBT(s32 arg0) {
+ParsedUVBT* uvParseTopUVBT(s32 arg0) {
     s32 idx;
     u32 tag;
     u32 sp3C;
@@ -1473,22 +1302,22 @@ s32 func_80227E5C(s32 arg0, s32 arg1) {
 
     switch (arg0) {
     case 1:
-        var_v0 = gGfxUnkPtrs->unk4[arg1];
+        var_v0 = gGfxUnkPtrs->terras[arg1];
         break;
     case 2:
-        var_v0 = gGfxUnkPtrs->unk30[arg1];
+        var_v0 = gGfxUnkPtrs->lights[arg1];
         break;
     case 3:
-        var_v0 = gGfxUnkPtrs->unk44[arg1];
+        var_v0 = gGfxUnkPtrs->environments[arg1];
         break;
     case 4:
-        var_v0 = gGfxUnkPtrs->unkC8[arg1];
+        var_v0 = gGfxUnkPtrs->models[arg1];
         break;
     case 5:
-        var_v0 = gGfxUnkPtrs->unk910[arg1];
+        var_v0 = gGfxUnkPtrs->textures[arg1];
         break;
     case 6:
-        var_v0 = gGfxUnkPtrs->unk10E4[arg1];
+        var_v0 = gGfxUnkPtrs->sequences[arg1];
         break;
     }
     if (var_v0 != NULL) {

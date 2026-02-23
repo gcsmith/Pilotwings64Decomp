@@ -14,7 +14,7 @@ typedef struct Unk80289380 {
     u8 b;
     u8 a;
     s16 unk14[44];
-    uvGfxUnkStructFont* unk6C;
+    ParsedUVFT* unk6C;
 } Unk80289380; // size = 0x70
 
 void uvFontSet(s32);

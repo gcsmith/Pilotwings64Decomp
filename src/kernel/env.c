@@ -11,10 +11,10 @@ extern Mtx D_80269F10;
 void uvEnvProps(s32 arg0, ...) {
     f32 temp_fs0;
     s32 property;
-    uvGfxUnkStructEnv* temp_s1;
+    ParsedUVEN* temp_s1;
     va_list args;
 
-    temp_s1 = gGfxUnkPtrs->unk44[arg0];
+    temp_s1 = gGfxUnkPtrs->environments[arg0];
     va_start(args, arg0);
     if (temp_s1 == NULL) {
         _uvDebugPrintf("uvEnvProps: env %d not in level\n", arg0);
@@ -69,10 +69,10 @@ void uvEnvProps(s32 arg0, ...) {
 void uvEnvProps2(s32 arg0, ...) {
     f32 var_fv1;
     s32 property;
-    uvGfxUnkStructEnv* temp_s1;
+    ParsedUVEN* temp_s1;
     va_list args;
 
-    temp_s1 = gGfxUnkPtrs->unk44[arg0];
+    temp_s1 = gGfxUnkPtrs->environments[arg0];
     va_start(args, arg0);
     if (temp_s1 == NULL) {
         _uvDebugPrintf("uvEnvProps: env %d not in level\n", arg0);
@@ -119,9 +119,9 @@ void uvEnvProps2(s32 arg0, ...) {
 }
 
 void uvEnvFunc(s32 envId, s32 flag, void (*arg2)(void)) {
-    uvGfxUnkStructEnv* temp_v0;
+    ParsedUVEN* temp_v0;
 
-    temp_v0 = gGfxUnkPtrs->unk44[envId];
+    temp_v0 = gGfxUnkPtrs->environments[envId];
     if (temp_v0 == NULL) {
         _uvDebugPrintf("uvEnvFunc: environment %d not in level\n", envId);
         return;
@@ -139,22 +139,22 @@ void func_80218700(void) {
 }
 
 void _uvEnvDraw(s32 arg0, s32 arg1) {
-    uvGfxUnkStruct8* temp_v1;
+    UnkUVMD_8* temp_v1;
     f32 var_fs1;
     s32 temp_a0_2;
     u8 temp_s1;
-    uvGfxUnkStruct10* temp_s2;
-    uvGfxUnkStructEnv* temp_s7;
+    UnkUVMD_10* temp_s2;
+    ParsedUVEN* temp_s7;
     u32 i;
     u32 j;
-    uvGfxUnkStructModel* temp_a0;
+    ParsedUVMD* temp_a0;
     UnkStruct_80204D94* var_v0;
 
     if (arg1 == 0xFFFF) {
         return;
     }
 
-    temp_s7 = gGfxUnkPtrs->unk44[arg1];
+    temp_s7 = gGfxUnkPtrs->environments[arg1];
     if (temp_s7 == NULL) {
         uvGfxClearScreen(0, 0, 0, 255);
         return;
@@ -171,8 +171,8 @@ void _uvEnvDraw(s32 arg0, s32 arg1) {
     }
 
     var_v0 = &D_80261730[arg0];
-    for (i = 0; i < temp_s7->unk34; i++) {
-        temp_a0 = gGfxUnkPtrs->unkC8[temp_s7->unk30[i].modelId];
+    for (i = 0; i < temp_s7->count; i++) {
+        temp_a0 = gGfxUnkPtrs->models[temp_s7->unk30[i].modelId];
         if (temp_a0 == NULL) {
             _uvDebugPrintf("_uvEnvDraw: model %d not in level\n", temp_s7->unk30[i].modelId);
             return;

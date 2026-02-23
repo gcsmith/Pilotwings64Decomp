@@ -108,7 +108,7 @@ void func_80204D94(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
 }
 
 void uvChanEnv(s32 arg0, s32 arg1) {
-    if ((arg1 != 0xFFFF) && (gGfxUnkPtrs->unk44[arg1] == NULL)) {
+    if ((arg1 != 0xFFFF) && (gGfxUnkPtrs->environments[arg1] == NULL)) {
         _uvDebugPrintf("uvChanEnv: environment %d not in level\n", arg1);
         return;
     }
@@ -116,7 +116,7 @@ void uvChanEnv(s32 arg0, s32 arg1) {
 }
 
 void uvChanTerra(s32 arg0, s32 arg1) {
-    if (gGfxUnkPtrs->unk4[arg1] == NULL) {
+    if (gGfxUnkPtrs->terras[arg1] == NULL) {
         _uvDebugPrintf("uvChanTerra: terra %d not in level\n", arg1);
         return;
     }
@@ -168,7 +168,7 @@ void func_802057F4(Mtx4F* arg0, Mtx4F* arg1) {
 
 void _uvSortAdd(s32 arg0, f32 arg1, void* arg2, UnkStruct_80204D94* arg3, f32 arg4, f32 arg5, ...) {
     UnkSortAdd* var_a1;
-    uvGfxUnkStructTerra* var_v0;
+    ParsedUVTR* var_v0;
     s32 var_v1;
     s32 var_a0;
     va_list args;
@@ -194,16 +194,16 @@ void _uvSortAdd(s32 arg0, f32 arg1, void* arg2, UnkStruct_80204D94* arg3, f32 ar
     var_a1->unk4 = arg1;
     var_a1->unk10 = arg2;
     if (arg3->unk0 & 2) {
-        var_v0 = gGfxUnkPtrs->unk4[arg3->unk4];
+        var_v0 = gGfxUnkPtrs->terras[arg3->unk4];
     } else {
         var_v0 = NULL;
     }
     if (var_v0 != NULL) {
-        if ((arg4 < var_v0->unk0) || (var_v0->unkC <= arg4) || (arg5 < var_v0->unk4) || (var_v0->unk10 <= arg5)) {
+        if ((arg4 < var_v0->unk0.unk0) || (var_v0->unk0.unkC <= arg4) || (arg5 < var_v0->unk0.unk4) || (var_v0->unk0.unk10 <= arg5)) {
             var_a1->unk14 = 0xFFFF;
         } else {
-            var_v1 = (s32)(arg4 - var_v0->unk0) / (s32)var_v0->unk1C;
-            var_a0 = (s32)(arg5 - var_v0->unk4) / (s32)var_v0->unk20;
+            var_v1 = (s32)(arg4 - var_v0->unk0.unk0) / (s32)var_v0->unk1C;
+            var_a0 = (s32)(arg5 - var_v0->unk0.unk4) / (s32)var_v0->unk20;
             var_a1->unk14 = var_v1 + var_v0->unk18 * var_a0;
         }
     } else {

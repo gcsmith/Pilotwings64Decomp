@@ -5,43 +5,6 @@
 #include <uv_util.h>
 #include <uv_graphics.h>
 
-typedef struct unk_UVTX_1C {
-    f32 unk0;
-    f32 unk4;
-    f32 unk8;
-    f32 unkC;
-    f32 unk10;
-    f32 unk14;
-    u8 unk18;
-} unk_UVTX_1C; // size = 0x1C
-
-typedef struct unk_UVTX_8 {
-    u8 unk0;
-    s32 unk4;
-} unk_UVTX_8; // size = 0x8
-
-typedef struct ParsedUVTX {
-    void* unk0;
-    unk_UVTX_8* unk4;
-    u16 size;
-    u16 unkA;
-    u16 unkC;
-    u8 unkE;
-    u8 unkF;
-    u8 unk10;
-    u16 unk12;
-    u16 unk14;
-    unk_UVTX_1C* unk18;
-    unk_UVTX_1C* unk1C;
-    u16 unk20;
-    u8 unk22;
-    u8 unk23;
-    u8 unk24;
-    u8 unk25;
-    u8 unk26;
-    s32 unk28;
-} ParsedUVTX; // size = 0x2C
-
 typedef struct {
 /* 00 */ u8 unk0;
 /* 01 */ u8 unk1;
@@ -62,8 +25,8 @@ typedef struct {
 void uvSprt_80230130(void);
 void uvSprt_802301A4(void);
 void _uvTxtDraw(s32 textureId);
-void uvSprtFromBitmap(uvSprite_t* arg0, uvGfxUnkStructTexture* arg1);
-void uvSprt_80230750(uvSprite_t* arg0, uvGfxUnkStructTexture* arg1);
+void uvSprtFromBitmap(uvSprite_t* arg0, ParsedUVTX* arg1);
+void uvSprt_80230750(uvSprite_t* arg0, ParsedUVTX* arg1);
 s32  uvSprt_80230898(void);
 void uvSprtInit(void);
 void uvSprtDisplayList(uvSprite_t* arg0);
