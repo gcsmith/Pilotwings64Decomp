@@ -158,10 +158,10 @@ typedef struct {
 } Unk802D3658_Arg0;
 
 typedef struct {
-    u16 pad0;
-    u16 unk2;
-    u16 unk4;
-    u16 unk6;
+    u16 pilot; // PilotId
+    u16 veh; // VehicleId
+    u16 cls; // Beg/A/B/Pilot (or level for bonus)
+    u16 test; // test number (or target for CB)
     u16 unk8;
     u8 padA[0x20-0xA];
     s32 unk20;

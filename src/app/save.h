@@ -8,11 +8,8 @@ typedef struct {
     u8 unk0[0x8];
     s32 unk8;
     s16 unkC;
-    u8 padE[0x10-0xE];
-    s16 unk10;
-    u8 pad12[2];
-    s16 unk14;
-    u8 pad16[0x30-0x16];
+    u8 padE[2];
+    s16 scores[16];
 } Unk80364210_Unk0_Unk0;
 
 typedef struct {

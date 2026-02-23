@@ -1,8 +1,12 @@
-#ifndef APP_CODE_B5280_H
-#define APP_CODE_B5280_H
+#ifndef APP_RESULTS_H
+#define APP_RESULTS_H
 
 #include <PR/ultratypes.h>
 
-s32 func_8032DD50(s32);
+s32 resultHandler(s32);
+void resultSumTally(s32);
+void result_8032E698(void);
+s32 resultMenuChoose(s32);
+void resultDrawTally(s32);
 
-#endif // APP_CODE_B5280_H
+#endif // APP_RESULTS_H
