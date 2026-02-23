@@ -5,7 +5,6 @@
 // -----------------------------------------------------------------------------
 
 __dummy = 0x802070B0;
-osViExtendVStart = 0x802071C0;
 alSndpSetSound = 0x802344A0;
 alSndpGetState = 0x802344C0;
 alSndpStop = 0x802344E0;
