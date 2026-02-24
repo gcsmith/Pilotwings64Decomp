@@ -151,10 +151,10 @@ demoButtonRelease   = 0x80323240; // type:func
 demoRandF           = 0x803232A0; // type:func
 
 resultHandler       = 0x8032DD50; // type:func
-resultSumTally      = 0x8032E060; // type:func
+resultInit          = 0x8032E060; // type:func
 resultMenuChoose    = 0x8032E6B8; // type:func
 resultDrawTally     = 0x8032E940; // type:func
-result_8032E698     = 0x8032E698; // type:func
+resultDeinit        = 0x8032E698; // type:func
 resultGenTipText    = 0x8032EF10; // type:func
 
 smoke_create        = 0x80336934; // type:func
@@ -261,6 +261,15 @@ therm_8034695C      = 0x8034695C; // type:func
 therm_80346B84      = 0x80346B84; // type:func
 therm_80346C08      = 0x80346C08; // type:func
 therm_80346E04      = 0x80346E04; // type:func
+
+totResult_80346FC0  = 0x80346FC0; // type:func
+totResultHandler    = 0x803470EC; // type:func
+totResult_80347150  = 0x80347150; // type:func
+totResultInit       = 0x80347270; // type:func
+totResultCreateMenu = 0x8034754C; // type:func
+totResultDeinit     = 0x80347694; // type:func
+totResultMenuChoose = 0x8034769C; // type:func
+totResultDrawTally  = 0x80347780; // type:func
 
 windObjectsInit     = 0x8034E080; // type:func
 

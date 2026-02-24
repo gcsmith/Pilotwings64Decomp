@@ -5,6 +5,7 @@
 #include "code_6ACE0.h"
 #include "code_82520.h"
 #include "code_915B0.h"
+#include "code_94E60.h"
 #include "code_B2900.h"
 #include "code_CB7C0.h"
 #include "rings.h"
@@ -37,7 +38,32 @@ u8 func_8032BF54(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_B2900/func_8032C080.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_B2900/func_8032C174.s")
+s32 func_8032C174(s32* arg0, u16 arg1, u8 arg2) {
+    Unk80362690_Unk0_UnkC* unkC;
+    s32 i;
+    u16 val;
+
+    unkC = &D_80362690->unk0[D_80362690->unk9C].unkC;
+
+    for (i = 0; i < 3; i++) {
+        val = D_8034FBD4[arg2].unk0[i];
+        if (val > arg1) {
+            break;
+        }
+    }
+
+    if (i == 3) {
+        if (unkC->veh < 3) {
+            *arg0 = 100 * levelGetTestCount(arg2, unkC->veh) - arg1;
+        } else {
+            *arg0 = 100 - arg1;
+        }
+        return 3;
+    } else {
+        *arg0 = val - arg1;
+        return i;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_B2900/func_8032C27C.s")
 

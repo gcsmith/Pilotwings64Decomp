@@ -8,7 +8,6 @@
 #include "code_99D40.h"
 #include "code_9A960.h"
 #include "code_B3A70.h"
-#include "code_CE4F0.h"
 #include "code_CFC40.h"
 #include "demo.h"
 #include "menu.h"
@@ -18,6 +17,7 @@
 #include "snd.h"
 #include "results.h"
 #include "text_data.h"
+#include "total_results.h"
 
 static s16 sPtsTally0[8];
 static s16 sPtsTally1[8];
@@ -159,8 +159,8 @@ static s32 sReplayTipSet = FALSE;
 static s32 sVehTipIsInit = FALSE;
 
 // forward declarations
-void resultSumTally(s32);
-void result_8032E698(void);
+void resultInit(s32);
+void resultDeinit(void);
 s32 resultMenuChoose(s32);
 void resultDrawTally(s32);
 void resultGenTipText(s32);
@@ -170,16 +170,15 @@ s32 resultHandler(s32 arg0) {
     s32 var_v1;
 
     unkC = &D_80362690->unk0[D_80362690->unk9C].unkC;
-    resultSumTally(arg0);
 
+    resultInit(arg0);
     while ((var_v1 = resultMenuChoose(arg0)) == 0) {
         uvGfxBegin();
         func_80204FC4((s32)unkC->unk70->unk22C);
         resultDrawTally(arg0);
         uvGfxEnd();
     }
-
-    result_8032E698();
+    resultDeinit();
 
     // FIXME: Unk80362690_Unk0_UnkC is wrong, indexing 15 in 4-byte buffer to match
     // was: temp_sw->pad8B
@@ -253,14 +252,14 @@ s32 resultMenuItemLookup(s32 idx) {
     }
 }
 
-void resultSumTally(s32 arg0) {
+void resultInit(s32 arg0) {
     s32 val;
     Unk80362690_Unk0_UnkC* unkC;
     s32 i;
     const char* var_s0;
     s32 pts;
     s32 ptsTotal;
-    s16* scores;
+    TestResult* res;
     s32 ptType;
     s32 strIdx;
 
@@ -290,55 +289,55 @@ void resultSumTally(s32 arg0) {
         for (i = 0; i < ARRAY_COUNT(sPtsTallyStr); i++) {
             ptType = sResultPtTypes[unkC->veh][unkC->cls][unkC->test][i];
             // unkC->unk4 is class, p40->unk6 * unkC->unk2 is test * vehicle?
-            scores = D_80364210[D_80362690->unk9C].unk0[unkC->cls].unk0[unkC->test][unkC->veh + 1].scores;
+            res = &D_80364210[D_80362690->unk9C].unk0[unkC->cls].unk0[unkC->test][unkC->veh + 1].result;
             sPtsTallyStr[i][0] = sPtsTallyStr[i][1] = sPtsTallyStr[i][2] = -3;
             sPtsTallyStr[i][3] = 0xFFE;
             sPtsTallyStr[i][4] = -1;
             switch (ptType) {
             case 1:
-                pts = scores[3];
+                pts = res->scores[2];
                 break;
             case 2:
-                pts = scores[2];
+                pts = res->scores[1];
                 break;
             case 3:
-                pts = scores[6];
+                pts = res->scores[5];
                 break;
             case 4:
-                pts = scores[7];
+                pts = res->scores[6];
                 break;
             case 5:
-                pts = scores[11];
+                pts = res->scores[10];
                 break;
             case 6:
-                pts = scores[5];
+                pts = res->scores[4];
                 break;
             case 7:
-                pts = scores[10];
+                pts = res->scores[9];
                 break;
             case 8:
-                pts = scores[16];
+                pts = res->scores[15];
                 break;
             case 9:
-                pts = scores[15];
+                pts = res->scores[14];
                 break;
             case 11:
-                pts = scores[14];
+                pts = res->scores[13];
                 break;
             case 12:
-                pts = D_80364210[D_80362690->unk9C].unk0[unkC->cls].unk0[0][unkC->veh + 1].scores[2];
+                pts = D_80364210[D_80362690->unk9C].unk0[unkC->cls].unk0[0][unkC->veh + 1].result.scores[1];
                 break;
             case 13:
-                pts = D_80364210[D_80362690->unk9C].unk0[unkC->cls].unk0[1][unkC->veh + 1].scores[2];
+                pts = D_80364210[D_80362690->unk9C].unk0[unkC->cls].unk0[1][unkC->veh + 1].result.scores[1];
                 break;
             case 14:
-                pts = D_80364210[D_80362690->unk9C].unk0[unkC->cls].unk0[2][unkC->veh + 1].scores[2];
+                pts = D_80364210[D_80362690->unk9C].unk0[unkC->cls].unk0[2][unkC->veh + 1].result.scores[1];
                 break;
             case 15:
-                pts = D_80364210[D_80362690->unk9C].unk0[unkC->cls].unk0[3][unkC->veh + 1].scores[2];
+                pts = D_80364210[D_80362690->unk9C].unk0[unkC->cls].unk0[3][unkC->veh + 1].result.scores[1];
                 break;
             case 16:
-                pts = scores[13];
+                pts = res->scores[12];
                 break;
             default:
                 continue;
@@ -358,8 +357,8 @@ void resultSumTally(s32 arg0) {
             textFmtInt(sPtsDeductedStr, -D_80364210[D_80362690->unk9C].unk0[0].unk0[0][1].unk8, 3);
             ptsTotal += D_80364210[D_80362690->unk9C].unk0[0].unk0[0][1].unk8; // unk38
         } else {
-            textFmtInt(sPtsDeductedStr, -scores[12], 3);
-            ptsTotal += scores[12];
+            textFmtInt(sPtsDeductedStr, -res->scores[11], 3);
+            ptsTotal += res->scores[11];
         }
         if (ptsTotal < 0) {
             ptsTotal = 0;
@@ -371,7 +370,7 @@ void resultSumTally(s32 arg0) {
     sReplayTipSet = FALSE;
 }
 
-void result_8032E698(void) {
+void resultDeinit(void) {
     func_80312FF8(7);
 }
 
@@ -398,7 +397,7 @@ s32 resultMenuChoose(s32 arg0) {
             menuSetProps();
             // FIXME: unkC->pad8B
             if (((unkC->veh != VEHICLE_CANNONBALL) || (unkC->pad7C[0xF] != 0)) && (unkC->veh != VEHICLE_BIRDMAN)) {
-                ret = func_803470EC();
+                ret = totResultHandler();
             } else {
                 ret = 2;
             }

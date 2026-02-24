@@ -4,8 +4,8 @@
 #include <PR/ultratypes.h>
 #include <uv_matrix.h>
 
-#define MAX_CLASSES  8
-#define MAX_TESTS    5
+#define MAX_CLASSES  8 // maximum supported classes for some structs, this is > CLASS_COUNT
+#define MAX_TESTS    5 // max tests per stage for some structs, this is > real count of 4
 
 enum PilotId {
     PILOT_LARK = 0,
@@ -26,6 +26,14 @@ enum VehicleId {
     VEHICLE_JUMBLE_HOPPER = 5,
     VEHICLE_BIRDMAN = 6,
     VEHICLE_COUNT
+};
+
+enum ClassId {
+    CLASS_BEGINNER = 0,
+    CLASS_A = 1,
+    CLASS_B = 2,
+    CLASS_PILOT = 3,
+    CLASS_COUNT
 };
 
 enum MapId {
