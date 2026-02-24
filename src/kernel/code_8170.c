@@ -1,6 +1,7 @@
 #include "common.h"
 #include <uv_dobj.h>
 #include <uv_graphics.h>
+#include <uv_math.h>
 #include <uv_memory.h>
 #include <uv_sobj.h>
 #include <libc/stdarg.h>
@@ -30,17 +31,24 @@ extern s32 D_802B8934;
 
 extern u32 D_802634C0;
 
+void uvComputeLineEndP(s16*, s16*, u16*, f32, f32, f32, f32, f32, f32, f32, s32, f32, f32);
+s32 func_8022F62C(s32, s32, s32, s32);
+
 s32 func_80212480(f32, f32, Vtx*, u16, u16, u16, f32);
-s32 func_80212FF4(ParsedUVTR*, f32, f32, f32, f32*, f32*, f32*, u16*, u16*, s32);
+s32 func_80212FF4(ParsedUVTR*, f32, f32, f32, f32*, f32*, f32*, u16*, u16*, u8);
 s32 _uvSurfGetNorm(Vtx*, s32, s32, s32, Vec3F*);
 void func_80214840(s16, f32*, f32*);
-s32 func_80213364(f32, f32, f32, f32, f32, f32, f32);
+u8 func_80213364(f32, f32, f32, f32, f32, f32, f32);
 s32 func_802134F8(f32, f32, f32, UnkSobjDraw*);
-s32 func_80213364(f32, f32, f32, f32, f32, f32, f32);
 s32 func_80213790(f32, f32, f32, Unk80263780*);
-void func_802139C8(f32, f32, f32, f32, f32, f32, Unk80263780*);
-s32 func_80214C64(f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32*);
+s32 func_802139C8(f32, f32, f32, f32, f32, f32, Unk80263780*);
+u8 func_80214C64(f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32*);
 void func_80215BC4(f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, Vec3F*);
+s32 func_80215CBC(f32, f32, f32, UnkUVMD_24_Unk4*);
+s32 _uvSegInMboxs(f32, f32, f32, f32, f32, f32, Mtx4F*, UnkUVMD_24*, u8, ParsedUVMD*);
+u16 func_80214B3C(f32, f32, uvUnkTileStruct*, f32, f32);
+void func_80215D7C(Mtx4F*, s16, Vec3F*);
+u8 func_802153D8(f32, f32, f32, f32, f32, f32, UnkUVMD_24_Unk4*, f32*, f32*, s16*, s16*);
 
 void func_802071C0(s32 arg0) {
     D_80248DD8 = arg0;
@@ -75,7 +83,6 @@ void _uvDbSortHits(void) {
     }
     for (i = 0; i < D_802634C4; i++) {
         for (j = i; j < D_802634C4; j++) {
-
             if (D_80263548[j] < D_80263548[i]) {
                 temp_fv0 = D_80263548[i];
                 D_80263548[i] = D_80263548[j];
@@ -124,42 +131,42 @@ void func_80207410(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32* arg5
     }
 
     arg0 *= 6.0f;
-    temp_ft3 = (s32) arg0;
+    temp_ft3 = (s32)arg0;
     temp_ft1 = arg0 - temp_ft3;
-    
+
     switch (temp_ft3) {
-        case 0:
-            *arg3 = arg2;
-            *arg4 = (1.0f - (arg1 * (1.0f - temp_ft1))) * arg2;
-            *arg5 = (1.0f - arg1) * arg2;
-            break;
-        case 1:
-            *arg3 = (1.0f - (arg1 * temp_ft1)) * arg2;
-            *arg4 = arg2;
-            *arg5 = (1.0f - arg1) * arg2;
-            break;
-        case 2:
-            *arg3 = (1.0f - arg1) * arg2;
-            *arg4 = arg2;
-            *arg5 = (1.0f - (arg1 * (1.0f - temp_ft1))) * arg2;
-            break;
-        case 3:
-            *arg3 = (1.0f - arg1) * arg2;
-            *arg4 = (1.0f - (arg1 * temp_ft1)) * arg2;
-            *arg5 = arg2;
-            break;
-        case 4:
-            *arg3 = (1.0f - (arg1 * (1.0f - temp_ft1))) * arg2;
-            *arg4 = (1.0f - arg1) * arg2;
-            *arg5 = arg2;
-            break;
-        case 5:
-            *arg3 = arg2;
-            *arg4 = (1.0f - arg1) * arg2;
-            *arg5 = (1.0f - (arg1 * temp_ft1)) * arg2;
-            break;
-        default:
-            break;
+    case 0:
+        *arg3 = arg2;
+        *arg4 = (1.0f - (arg1 * (1.0f - temp_ft1))) * arg2;
+        *arg5 = (1.0f - arg1) * arg2;
+        break;
+    case 1:
+        *arg3 = (1.0f - (arg1 * temp_ft1)) * arg2;
+        *arg4 = arg2;
+        *arg5 = (1.0f - arg1) * arg2;
+        break;
+    case 2:
+        *arg3 = (1.0f - arg1) * arg2;
+        *arg4 = arg2;
+        *arg5 = (1.0f - (arg1 * (1.0f - temp_ft1))) * arg2;
+        break;
+    case 3:
+        *arg3 = (1.0f - arg1) * arg2;
+        *arg4 = (1.0f - (arg1 * temp_ft1)) * arg2;
+        *arg5 = arg2;
+        break;
+    case 4:
+        *arg3 = (1.0f - (arg1 * (1.0f - temp_ft1))) * arg2;
+        *arg4 = (1.0f - arg1) * arg2;
+        *arg5 = arg2;
+        break;
+    case 5:
+        *arg3 = arg2;
+        *arg4 = (1.0f - arg1) * arg2;
+        *arg5 = (1.0f - (arg1 * temp_ft1)) * arg2;
+        break;
+    default:
+        break;
     }
 }
 
@@ -234,78 +241,78 @@ void func_802077BC(s32 arg0, s32 arg1, s32 arg2, void* arg3, f32 arg4, f32 arg5,
     }
 
     switch (arg0) {
+    case 4:
+        arg4 *= (1.0f - arg7) * 31.0f;
+        arg5 *= (1.0f - arg8) * 31.0f;
+        arg6 *= (1.0f - arg9) * 31.0f;
+        var_a1 = arg3;
+        for (i = 0; i < arg2 / 2; i++) {
+            r = ((var_a1[i] & 0xF800) >> 11);
+            g = ((var_a1[i] & 0x7C0) >> 6);
+            b = ((var_a1[i] & 0x3E) >> 1);
+            var_a1[i] = ((s32)((arg7 * r) + arg4) << 11) | ((s32)((arg8 * g) + arg5) << 6) | ((s32)((arg9 * b) + arg6) << 1) | (var_a1[i] & 1);
+        }
+        break;
+    case 2:
+        switch (arg1) {
         case 4:
-            arg4 *= (1.0f - arg7) * 31.0f;
-            arg5 *= (1.0f - arg8) * 31.0f;
-            arg6 *= (1.0f - arg9) * 31.0f;
+            var_fv0 *= (1.0f - var_fv1) * 7.0f;
+            var_a0 = arg3;
+            for (i = 0; i < arg2; i++) {
+                temp_fa0 = (var_a0[i] & 0xE) >> 1;
+                var_a0[i] = (var_a0[i] & 0xF1) | ((s32)((var_fv1 * temp_fa0) + var_fv0) << 1);
+                temp_fa0 = (var_a0[i] & 0xE0) >> 5;
+                var_a0[i] = ((s32)((var_fv1 * temp_fa0) + var_fv0) << 5) | (var_a0[i] & 0x1F);
+            }
+            break;
+        case 8:
+            var_fv0 *= (1.0f - var_fv1) * 15.0f;
+            var_a0 = arg3;
+            for (i = 0; i < arg2; i++) {
+                temp_fa0 = (var_a0[i] & 0xF0) >> 4;
+                var_a0[i] = (((s32)((var_fv1 * temp_fa0) + var_fv0) & 0xF) << 4) | (var_a0[i] & 0xF);
+            }
+            break;
+        case 16:
+            var_fv0 *= (1.0f - var_fv1) * 255.0f;
             var_a1 = arg3;
             for (i = 0; i < arg2 / 2; i++) {
-                r = ((var_a1[i] & 0xF800) >> 11);
-                g = ((var_a1[i] & 0x7C0) >> 6);
-                b = ((var_a1[i] & 0x3E) >> 1);
-                var_a1[i] = ((s32) ((arg7 * r) + arg4) << 11) | ((s32) ((arg8 * g) + arg5) << 6) | ((s32) ((arg9 * b) + arg6) << 1) | (var_a1[i] & 1);
+                temp_fa0 = (var_a1[i] & 0xFF00) >> 8;
+                var_a1[i] = (((s32)((var_fv1 * temp_fa0) + var_fv0) & 0xFF) << 8) | (var_a1[i] & 0xFF);
             }
             break;
-        case 2:
-            switch (arg1) {
-                case 4:
-                    var_fv0 *= (1.0f - var_fv1) * 7.0f;
-                    var_a0 = arg3;
-                    for (i = 0; i < arg2; i++) {
-                        temp_fa0 = (var_a0[i] & 0xE) >> 1;
-                        var_a0[i] = (var_a0[i] & 0xF1) | ((s32) ((var_fv1 * temp_fa0) + var_fv0) << 1);
-                        temp_fa0 = (var_a0[i] & 0xE0) >> 5;
-                        var_a0[i] = ((s32) ((var_fv1 * temp_fa0) + var_fv0) << 5) | (var_a0[i] & 0x1F);
-                    }
-                    break;
-                case 8:
-                    var_fv0 *= (1.0f - var_fv1) * 15.0f;
-                    var_a0 = arg3;
-                    for (i = 0; i < arg2; i++) {
-                        temp_fa0 = (var_a0[i] & 0xF0) >> 4;
-                        var_a0[i] = (((s32) ((var_fv1 * temp_fa0) + var_fv0) & 0xF) << 4) | (var_a0[i] & 0xF);
-                    }
-                    break;
-                case 16:
-                    var_fv0 *= (1.0f - var_fv1) * 255.0f;
-                    var_a1 = arg3;
-                    for (i = 0; i < arg2 / 2; i++) {
-                        temp_fa0 = (var_a1[i] & 0xFF00) >> 8;
-                        var_a1[i] = (((s32) ((var_fv1 * temp_fa0) + var_fv0) & 0xFF) << 8) | (var_a1[i] & 0xFF);
-                    }
-                    break;
+        }
+        break;
+    case 1:
+        switch (arg1) {
+        case 4:
+            var_fv0 *= (1.0f - var_fv1) * 15.0f;
+            var_a0 = arg3;
+            for (i = 0; i < arg2; i++) {
+                temp_fa0 = (var_a0[i] & 0xF);
+                var_a0[i] = (var_a0[i] & 0xF0) | ((s32)((var_fv1 * temp_fa0) + var_fv0) & 0xF);
+                temp_fa0 = (var_a0[i] & 0xF0) >> 4;
+                var_a0[i] = (((s32)((var_fv1 * temp_fa0) + var_fv0) & 0xF) << 4) | (var_a0[i] & 0xF);
             }
             break;
-        case 1:
-            switch (arg1) {
-                case 4:
-                    var_fv0 *= (1.0f - var_fv1) * 15.0f;
-                    var_a0 = arg3;
-                    for (i = 0; i < arg2; i++) {
-                        temp_fa0 = (var_a0[i] & 0xF);
-                        var_a0[i] = (var_a0[i] & 0xF0) | ((s32) ((var_fv1 * temp_fa0) + var_fv0) & 0xF);
-                        temp_fa0 = (var_a0[i] & 0xF0) >> 4;
-                        var_a0[i] = (((s32) ((var_fv1 * temp_fa0) + var_fv0) & 0xF) << 4) | (var_a0[i] & 0xF);
-                    }
-                    break;
-                case 8:
-                    var_fv0 *= (1.0f - var_fv1) * 255.0f;
-                    var_a0 = arg3;
-                    for (i = 0; i < arg2; i++) {
-                        temp_fa0 = var_a0[i];
-                        var_a0[i] = (var_fv1 * temp_fa0) + var_fv0;
-                    }
-                    break;
-                case 16:
-                    var_fv0 *= (1.0f - var_fv1) * 65535.0f;
-                    var_a1 = arg3;
-                    for (i = 0; i < arg2 / 2; i++) {
-                        temp_fa0 = var_a1[i];
-                        var_a1[i] = (var_fv1 * temp_fa0) + var_fv0;
-                    }
-                    break;
+        case 8:
+            var_fv0 *= (1.0f - var_fv1) * 255.0f;
+            var_a0 = arg3;
+            for (i = 0; i < arg2; i++) {
+                temp_fa0 = var_a0[i];
+                var_a0[i] = (var_fv1 * temp_fa0) + var_fv0;
             }
             break;
+        case 16:
+            var_fv0 *= (1.0f - var_fv1) * 65535.0f;
+            var_a1 = arg3;
+            for (i = 0; i < arg2 / 2; i++) {
+                temp_fa0 = var_a1[i];
+                var_a1[i] = (var_fv1 * temp_fa0) + var_fv0;
+            }
+            break;
+        }
+        break;
     }
 }
 
@@ -329,81 +336,82 @@ void func_8020921C(s32 arg0, s32 arg1, s32 arg2, void* arg3, f32 arg4, f32 arg5,
     s32 pad2[2];
 
     switch (arg0) {
+    case 4:
+        var_s0 = arg3;
+        sp50 = (1.0f - arg7) * arg4;
+        sp4C = (1.0f - arg8) * arg5;
+        sp48 = (1.0f - arg9) * arg6;
+        for (i = 0; i < arg2 / 2; i++) {
+            func_80207630((f32)((s32)(var_s0[i] & 0xF800) >> 0xB) / 31.0f, (f32)((s32)(var_s0[i] & 0x7C0) >> 6) / 31.0f,
+                          (f32)((s32)(var_s0[i] & 0x3E) >> 1) / 31.0f, &spB0, &spAC, &spA8);
+            func_80207410((arg7 * spB0) + sp50, (arg8 * spAC) + sp4C, (arg9 * spA8) + sp48, &sp80, &sp7C, &sp78);
+            sp80 *= 31.0f;
+            sp7C *= 31.0f;
+            sp78 *= 31.0f;
+            var_s0[i] = ((s32)sp80 << 11) | ((s32)sp7C << 6) | ((s32)sp78 << 1) | (var_s0[i] & 1);
+        }
+        break;
+    case 2:
+        switch (arg1) {
         case 4:
+            temp_fv1 = (1.0f - arg9) * arg6 * 7.0f;
+            var_v0 = arg3;
+            for (i = 0; i < arg2; i++) {
+                temp_fa0 = (var_v0[i] & 0xE) >> 1;
+                var_v0[i] = (var_v0[i] & 0xF1) | (((s32)((arg9 * temp_fa0) + temp_fv1)) << 1);
+                temp_fa0 = (var_v0[i] & 0xE0) >> 5;
+                //! @bug sp84 uninitialised!
+                var_v0[i] = (((s32)((arg9 * temp_fa0) + sp84)) << 5) | (var_v0[i] & 0x1F);
+            }
+            break;
+        case 8:
+            temp_fv1 = (1.0f - arg9) * arg6 * 15.0f;
+            var_v0 = arg3;
+            for (i = 0; i < arg2; i++) {
+                temp_fa0 = (var_v0[i] & 0xF0) >> 4;
+                var_v0[i] = ((((s32)((arg9 * temp_fa0) + temp_fv1)) & 0xF) << 4) | (var_v0[i] & 0xF);
+            }
+            break;
+        case 16:
+            temp_fv1 = (1.0f - arg9) * arg6 * 255.0f;
             var_s0 = arg3;
-            sp50 = (1.0f - arg7) * arg4;
-            sp4C = (1.0f - arg8) * arg5;
-            sp48 = (1.0f - arg9) * arg6;
             for (i = 0; i < arg2 / 2; i++) {
-                func_80207630((f32) ((s32) (var_s0[i] & 0xF800) >> 0xB) / 31.0f, (f32) ((s32) (var_s0[i] & 0x7C0) >> 6) / 31.0f, (f32) ((s32) (var_s0[i] & 0x3E) >> 1) / 31.0f, &spB0, &spAC, &spA8);
-                func_80207410((arg7 * spB0) + sp50, (arg8 * spAC) + sp4C, (arg9 * spA8) + sp48, &sp80, &sp7C, &sp78);
-                sp80 *= 31.0f;
-                sp7C *= 31.0f;
-                sp78 *= 31.0f;
-                var_s0[i] = ((s32)sp80 << 11) | ((s32)sp7C << 6) | ((s32)sp78 << 1) | (var_s0[i] & 1);
+                temp_fa0 = (var_s0[i] & 0xFF00) >> 8;
+                var_s0[i] = ((((s32)((arg9 * temp_fa0) + temp_fv1)) & 0xFF) << 8) | (var_s0[i] & 0xFF);
             }
             break;
-        case 2:
-            switch (arg1) {
-                case 4:
-                    temp_fv1 = (1.0f - arg9) * arg6 * 7.0f;
-                    var_v0 = arg3;
-                    for (i = 0; i < arg2; i++) {
-                        temp_fa0 = (var_v0[i] & 0xE) >> 1;
-                        var_v0[i] = (var_v0[i] & 0xF1) | (((s32) ((arg9 * temp_fa0) + temp_fv1)) << 1);
-                        temp_fa0 = (var_v0[i] & 0xE0) >> 5;
-                        //! @bug sp84 uninitialised!
-                        var_v0[i] = (((s32) ((arg9 * temp_fa0) + sp84)) << 5) | (var_v0[i] & 0x1F);
-                    }
-                    break;
-                case 8:
-                    temp_fv1 = (1.0f - arg9) * arg6 * 15.0f;
-                    var_v0 = arg3;
-                    for (i = 0; i < arg2; i++) {
-                        temp_fa0 = (var_v0[i] & 0xF0) >> 4;
-                        var_v0[i] = ((((s32) ((arg9 * temp_fa0) + temp_fv1)) & 0xF) << 4) | (var_v0[i] & 0xF);
-                    }
-                    break;
-                case 16:
-                    temp_fv1 = (1.0f - arg9) * arg6 * 255.0f;
-                    var_s0 = arg3;
-                    for (i = 0; i < arg2 / 2; i++) {
-                        temp_fa0 = (var_s0[i] & 0xFF00) >> 8;
-                        var_s0[i] = ((((s32) ((arg9 * temp_fa0) + temp_fv1)) & 0xFF) << 8) | (var_s0[i] & 0xFF);
-                    }
-                    break;
+        }
+        break;
+    case 1:
+        switch (arg1) {
+        case 4:
+            temp_fv1 = (1.0f - arg9) * arg6 * 15.0f;
+            var_v0 = arg3;
+            for (i = 0; i < arg2; i++) {
+                temp_fa0 = var_v0[i] & 0xF;
+                var_v0[i] = (var_v0[i] & 0xF0) | (((s32)((arg9 * temp_fa0) + temp_fv1)) & 0xF);
+                temp_fa0 = (var_v0[i] & 0xF0) >> 4;
+                var_v0[i] = ((((s32)((arg9 * temp_fa0) + temp_fv1)) & 0xF) << 4) | (var_v0[i] & 0xF);
             }
             break;
-        case 1:
-            switch (arg1) {
-                case 4:
-                    temp_fv1 = (1.0f - arg9) * arg6 * 15.0f;
-                    var_v0 = arg3;
-                    for (i = 0; i < arg2; i++) {
-                        temp_fa0 = var_v0[i] & 0xF;
-                        var_v0[i] = (var_v0[i] & 0xF0) | (((s32) ((arg9 * temp_fa0) + temp_fv1)) & 0xF);
-                        temp_fa0 = (var_v0[i] & 0xF0) >> 4;
-                        var_v0[i] = ((((s32) ((arg9 * temp_fa0) + temp_fv1)) & 0xF) << 4) | (var_v0[i] & 0xF);
-                    }
-                    break;
-                case 8:
-                    temp_fv1 = (1.0f - arg9) * arg6 * 255.0f;
-                    var_v0 = arg3;
-                    for (i = 0; i < arg2; i++) {
-                        temp_fa0 = var_v0[i];
-                        var_v0[i] = (arg9 * temp_fa0) + temp_fv1;
-                    }
-                    break;
-                case 16:
-                    temp_fv1 = (1.0f - arg9) * arg6 * 65535.0f;
-                    var_s0 = arg3;
-                    for (i = 0; i < arg2 / 2; i++) {
-                        temp_fa0 = var_s0[i];
-                        var_s0[i] = (arg9 * temp_fa0) + temp_fv1;
-                    }
-                    break;
+        case 8:
+            temp_fv1 = (1.0f - arg9) * arg6 * 255.0f;
+            var_v0 = arg3;
+            for (i = 0; i < arg2; i++) {
+                temp_fa0 = var_v0[i];
+                var_v0[i] = (arg9 * temp_fa0) + temp_fv1;
             }
             break;
+        case 16:
+            temp_fv1 = (1.0f - arg9) * arg6 * 65535.0f;
+            var_s0 = arg3;
+            for (i = 0; i < arg2 / 2; i++) {
+                temp_fa0 = var_s0[i];
+                var_s0[i] = (arg9 * temp_fa0) + temp_fv1;
+            }
+            break;
+        }
+        break;
     }
 }
 
@@ -531,61 +539,61 @@ void func_8020B894(s32 arg0, s32 arg1, s32 arg2, void* arg3, f32 arg4, f32 arg5,
                     r = (var_a1[i] & 0xF800) >> 11;
                     g = (var_a1[i] & 0x7C0) >> 6;
                     b = (var_a1[i] & 0x3E) >> 1;
-                    var_a1[i] = ((s32) (r * arg4) << 11) | ((s32) (g * arg5) << 6) | ((s32) (b * arg6) << 1) | (var_a1[i] & 1);
+                    var_a1[i] = ((s32)(r * arg4) << 11) | ((s32)(g * arg5) << 6) | ((s32)(b * arg6) << 1) | (var_a1[i] & 1);
                 }
             }
         } else {
             switch (arg1) {
-                case 4:
-                    var_a0 = arg3;
-                    for (i = 0; i < arg2; i++) {
-                        temp_fa0 = (var_a0[i] & 0xE) >> 1;
-                        var_a0[i] = (var_a0[i] & 0xF1) | (((s32) (var_fv1 * temp_fa0)) << 1);
-                        temp_fa0 = (var_a0[i] & 0xE0) >> 5;
-                        var_a0[i] = (((s32) (var_fv1 * temp_fa0)) << 5) | (var_a0[i] & 0x1F);
-                    }
-                    break;
-                case 8:
-                    var_a0 = arg3;
-                    for (i = 0; i < arg2; i++) {
-                        temp_fa0 = (var_a0[i] & 0xF0) >> 4;
-                        var_a0[i] = ((((s32) (var_fv1 * temp_fa0)) & 0xF) << 4) | (var_a0[i] & 0xF);
-                    }
-                    break;
-                case 16:
-                    var_a1 = arg3;
-                    for (i = 0; i < arg2 / 2; i++) {
-                        temp_fa0 = (var_a1[i] & 0xFF00) >> 8;
-                        var_a1[i] = ((((s32) (var_fv1 * temp_fa0)) & 0xFF) << 8) | (var_a1[i] & 0xFF);
-                    }
-                    break;
-            }
-        }
-    } else {
-        switch (arg1) {
             case 4:
                 var_a0 = arg3;
                 for (i = 0; i < arg2; i++) {
-                    temp_fa0 = var_a0[i] & 0xF;
-                    var_a0[i] = (var_a0[i] & 0xF0) | (((s32) (var_fv1 * temp_fa0)) & 0xF);
-                    temp_fa0 = (var_a0[i] & 0xF0) >> 4;
-                    var_a0[i] = ((((s32) (var_fv1 * temp_fa0)) & 0xF) << 4) | (var_a0[i] & 0xF);
+                    temp_fa0 = (var_a0[i] & 0xE) >> 1;
+                    var_a0[i] = (var_a0[i] & 0xF1) | (((s32)(var_fv1 * temp_fa0)) << 1);
+                    temp_fa0 = (var_a0[i] & 0xE0) >> 5;
+                    var_a0[i] = (((s32)(var_fv1 * temp_fa0)) << 5) | (var_a0[i] & 0x1F);
                 }
                 break;
             case 8:
                 var_a0 = arg3;
                 for (i = 0; i < arg2; i++) {
-                    temp_fa0 = var_a0[i];
-                    var_a0[i] = var_fv1 * temp_fa0;
+                    temp_fa0 = (var_a0[i] & 0xF0) >> 4;
+                    var_a0[i] = ((((s32)(var_fv1 * temp_fa0)) & 0xF) << 4) | (var_a0[i] & 0xF);
                 }
                 break;
             case 16:
                 var_a1 = arg3;
                 for (i = 0; i < arg2 / 2; i++) {
-                    temp_fa0 = var_a1[i];
-                    var_a1[i] = var_fv1 * temp_fa0;
+                    temp_fa0 = (var_a1[i] & 0xFF00) >> 8;
+                    var_a1[i] = ((((s32)(var_fv1 * temp_fa0)) & 0xFF) << 8) | (var_a1[i] & 0xFF);
                 }
                 break;
+            }
+        }
+    } else {
+        switch (arg1) {
+        case 4:
+            var_a0 = arg3;
+            for (i = 0; i < arg2; i++) {
+                temp_fa0 = var_a0[i] & 0xF;
+                var_a0[i] = (var_a0[i] & 0xF0) | (((s32)(var_fv1 * temp_fa0)) & 0xF);
+                temp_fa0 = (var_a0[i] & 0xF0) >> 4;
+                var_a0[i] = ((((s32)(var_fv1 * temp_fa0)) & 0xF) << 4) | (var_a0[i] & 0xF);
+            }
+            break;
+        case 8:
+            var_a0 = arg3;
+            for (i = 0; i < arg2; i++) {
+                temp_fa0 = var_a0[i];
+                var_a0[i] = var_fv1 * temp_fa0;
+            }
+            break;
+        case 16:
+            var_a1 = arg3;
+            for (i = 0; i < arg2 / 2; i++) {
+                temp_fa0 = var_a1[i];
+                var_a1[i] = var_fv1 * temp_fa0;
+            }
+            break;
         }
     }
 }
@@ -606,71 +614,72 @@ void func_8020D0D8(s32 arg0, s32 arg1, s32 arg2, void* arg3, f32 arg4, f32 arg5,
     s32 pad2[2];
 
     switch (arg0) {
+    case 4:
+        var_s0 = arg3;
+        for (i = 0; i < arg2 / 2; i++) {
+            func_80207630(((s32)(var_s0[i] & 0xF800) >> 0xB) / 31.0f, ((s32)(var_s0[i] & 0x7C0) >> 6) / 31.0f, ((s32)(var_s0[i] & 0x3E) >> 1) / 31.0f, &sp90,
+                          &sp8C, &sp88);
+            func_80207410(arg4 * sp90, arg5 * sp8C, arg6 * sp88, &sp70, &sp6C, &sp68);
+            sp70 *= 31.0f;
+            sp6C *= 31.0f;
+            sp68 *= 31.0f;
+            var_s0[i] = ((s32)sp70 << 11) | ((s32)sp6C << 6) | ((s32)sp68 << 1) | (var_s0[i] & 1);
+        }
+        break;
+    case 2:
+        switch (arg1) {
         case 4:
+            var_v0 = arg3;
+            for (i = 0; i < arg2; i++) {
+                temp_fa0 = (var_v0[i] & 0xE) >> 1;
+                var_v0[i] = (var_v0[i] & 0xF1) | (((s32)(arg6 * temp_fa0)) << 1);
+                temp_fa0 = (var_v0[i] & 0xE0) >> 5;
+                var_v0[i] = (((s32)(arg6 * temp_fa0)) << 5) | (var_v0[i] & 0x1F);
+            }
+            break;
+        case 8:
+            var_v0 = arg3;
+            for (i = 0; i < arg2; i++) {
+                temp_fa0 = (var_v0[i] & 0xF0) >> 4;
+                var_v0[i] = ((((s32)(arg6 * temp_fa0)) & 0xF) << 4) | (var_v0[i] & 0xF);
+            }
+            break;
+        case 16:
             var_s0 = arg3;
             for (i = 0; i < arg2 / 2; i++) {
-                func_80207630(((s32) (var_s0[i] & 0xF800) >> 0xB) / 31.0f, ((s32) (var_s0[i] & 0x7C0) >> 6) / 31.0f, ((s32) (var_s0[i] & 0x3E) >> 1) / 31.0f, &sp90, &sp8C, &sp88);
-                func_80207410(arg4 * sp90, arg5 * sp8C, arg6 * sp88, &sp70, &sp6C, &sp68);
-                sp70 *= 31.0f;
-                sp6C *= 31.0f;
-                sp68 *= 31.0f;
-                var_s0[i] = ((s32)sp70 << 11) | ((s32)sp6C << 6) | ((s32)sp68 << 1) | (var_s0[i] & 1);
+                temp_fa0 = (var_s0[i] & 0xFF00) >> 8;
+                var_s0[i] = ((((s32)(arg6 * temp_fa0)) & 0xFF) << 8) | (var_s0[i] & 0xFF);
             }
             break;
-        case 2:
-            switch (arg1) {
-                case 4:
-                    var_v0 = arg3;
-                    for (i = 0; i < arg2; i++) {
-                        temp_fa0 = (var_v0[i] & 0xE) >> 1;
-                        var_v0[i] = (var_v0[i] & 0xF1) | (((s32) (arg6 * temp_fa0)) << 1);
-                        temp_fa0 = (var_v0[i] & 0xE0) >> 5;
-                        var_v0[i] = (((s32) (arg6 * temp_fa0)) << 5) | (var_v0[i] & 0x1F);
-                    }
-                    break;
-                case 8:
-                    var_v0 = arg3;
-                    for (i = 0; i < arg2; i++) {
-                        temp_fa0 = (var_v0[i] & 0xF0) >> 4;
-                        var_v0[i] = ((((s32) (arg6 * temp_fa0)) & 0xF) << 4) | (var_v0[i] & 0xF);
-                    }
-                    break;
-                case 16:
-                    var_s0 = arg3;
-                    for (i = 0; i < arg2 / 2; i++) {
-                        temp_fa0 = (var_s0[i] & 0xFF00) >> 8;
-                        var_s0[i] = ((((s32) (arg6 * temp_fa0)) & 0xFF) << 8) | (var_s0[i] & 0xFF);
-                    }
-                    break;
+        }
+        break;
+    case 1:
+        switch (arg1) {
+        case 4:
+            var_v0 = arg3;
+            for (i = 0; i < arg2; i++) {
+                temp_fa0 = var_v0[i] & 0xF;
+                var_v0[i] = (var_v0[i] & 0xF0) | (((s32)(arg6 * temp_fa0)) & 0xF);
+                temp_fa0 = (var_v0[i] & 0xF0) >> 4;
+                var_v0[i] = ((((s32)(arg6 * temp_fa0)) & 0xF) << 4) | (var_v0[i] & 0xF);
             }
             break;
-        case 1:
-            switch (arg1) {
-                case 4:
-                    var_v0 = arg3;
-                    for (i = 0; i < arg2; i++) {
-                        temp_fa0 = var_v0[i] & 0xF;
-                        var_v0[i] = (var_v0[i] & 0xF0) | (((s32) (arg6 * temp_fa0)) & 0xF);
-                        temp_fa0 = (var_v0[i] & 0xF0) >> 4;
-                        var_v0[i] = ((((s32) (arg6 * temp_fa0)) & 0xF) << 4) | (var_v0[i] & 0xF);
-                    }
-                    break;
-                case 8:
-                    var_v0 = arg3;
-                    for (i = 0; i < arg2; i++) {
-                        temp_fa0 = var_v0[i];
-                        var_v0[i] = arg6 * temp_fa0;
-                    }
-                    break;
-                case 16:
-                    var_s0 = arg3;
-                    for (i = 0; i < arg2 / 2; i++) {
-                        temp_fa0 = var_s0[i];
-                        var_s0[i] = arg6 * temp_fa0;
-                    }
-                    break;
+        case 8:
+            var_v0 = arg3;
+            for (i = 0; i < arg2; i++) {
+                temp_fa0 = var_v0[i];
+                var_v0[i] = arg6 * temp_fa0;
             }
             break;
+        case 16:
+            var_s0 = arg3;
+            for (i = 0; i < arg2 / 2; i++) {
+                temp_fa0 = var_s0[i];
+                var_s0[i] = arg6 * temp_fa0;
+            }
+            break;
+        }
+        break;
     }
 }
 
@@ -958,37 +967,37 @@ void uvModelGetProps(s32 arg0, ...) {
     while (TRUE) {
         property = va_arg(args, s32);
         switch (property) {
-            case 0:
-                return;
-            case 2:
-                *va_arg(args, s32*) = temp_s2->unk10;
-                break;
-            case 5:
-                if (temp_s2->unk8->unk0->unk0->state & 0x02000000) {
-                    var_v0 = 1;
-                } else {
-                    var_v0 = 0;
-                }
+        case 0:
+            return;
+        case 2:
+            *va_arg(args, s32*) = temp_s2->unk10;
+            break;
+        case 5:
+            if (temp_s2->unk8->unk0->unk0->state & 0x02000000) {
+                var_v0 = 1;
+            } else {
+                var_v0 = 0;
+            }
 
-                *va_arg(args, u8*) = var_v0;
-                break;
-            case 4:
-                *va_arg(args, s32*) = temp_s2->unk8->unk4;
-                break;
-            case 3:
-                var_a0 = 0;
-                for (i = 0; i < temp_s2->unk8->unk4; i++) {
-                    var_a0 += temp_s2->unk8->unk0[i].unkC;
-                }
+            *va_arg(args, u8*) = var_v0;
+            break;
+        case 4:
+            *va_arg(args, s32*) = temp_s2->unk8->unk4;
+            break;
+        case 3:
+            var_a0 = 0;
+            for (i = 0; i < temp_s2->unk8->unk4; i++) {
+                var_a0 += temp_s2->unk8->unk0[i].unkC;
+            }
 
-                *va_arg(args, s32*) = var_a0;
-                break;
-            case 1:
-                *va_arg(args, f32*) = temp_s2->unk1C;
-                break;
-            default:
-                _uvDebugPrintf("uvModelGetProps: Unknown property type %d\n", property);
-                break;
+            *va_arg(args, s32*) = var_a0;
+            break;
+        case 1:
+            *va_arg(args, f32*) = temp_s2->unk1C;
+            break;
+        default:
+            _uvDebugPrintf("uvModelGetProps: Unknown property type %d\n", property);
+            break;
         }
     }
 }
@@ -1428,7 +1437,8 @@ s32 func_80212604(f32 arg0, f32 arg1, Vtx* arg2, u16 arg3, u16 arg4, u16 arg5, f
     return 1;
 }
 
-s32 func_80212788(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9, f32 arg10, f32 arg11, f32 arg12, f32 arg13, f32 arg14) {
+s32 func_80212788(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9, f32 arg10, f32 arg11, f32 arg12,
+                  f32 arg13, f32 arg14) {
     s32 pad;
     f32 temp_fa0;
     f32 temp_fa1;
@@ -1443,7 +1453,8 @@ s32 func_80212788(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f3
     temp_fa1 = arg9 - arg6;
     temp_ft4 = arg10 - arg7;
     temp_ft5 = arg11 - arg8;
-    if ((((((temp_fv1 * temp_ft5) - (temp_fa0 * temp_ft4)) * arg3) - (((temp_fv0 * temp_ft5) - (temp_fa0 * temp_fa1)) * arg4)) + (((temp_fv0 * temp_ft4) - (temp_fv1 * temp_fa1)) * arg5)) > 0.0f) {
+    if ((((((temp_fv1 * temp_ft5) - (temp_fa0 * temp_ft4)) * arg3) - (((temp_fv0 * temp_ft5) - (temp_fa0 * temp_fa1)) * arg4)) +
+         (((temp_fv0 * temp_ft4) - (temp_fv1 * temp_fa1)) * arg5)) > 0.0f) {
         return 0;
     }
 
@@ -1453,7 +1464,8 @@ s32 func_80212788(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f3
     temp_fa1 = arg12 - arg9;
     temp_ft4 = arg13 - arg10;
     temp_ft5 = arg14 - arg11;
-    if ((((((temp_fv1 * temp_ft5) - (temp_fa0 * temp_ft4)) * arg3) - (((temp_fv0 * temp_ft5) - (temp_fa0 * temp_fa1)) * arg4)) + (((temp_fv0 * temp_ft4) - (temp_fv1 * temp_fa1)) * arg5)) > 0.0f) {
+    if ((((((temp_fv1 * temp_ft5) - (temp_fa0 * temp_ft4)) * arg3) - (((temp_fv0 * temp_ft5) - (temp_fa0 * temp_fa1)) * arg4)) +
+         (((temp_fv0 * temp_ft4) - (temp_fv1 * temp_fa1)) * arg5)) > 0.0f) {
         return 0;
     }
 
@@ -1463,54 +1475,966 @@ s32 func_80212788(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f3
     temp_fa1 = arg6 - arg12;
     temp_ft4 = arg7 - arg13;
     temp_ft5 = arg8 - arg14;
-    if ((((((temp_fv1 * temp_ft5) - (temp_fa0 * temp_ft4)) * arg3) - (((temp_fv0 * temp_ft5) - (temp_fa0 * temp_fa1)) * arg4)) + (((temp_fv0 * temp_ft4) - (temp_fv1 * temp_fa1)) * arg5)) > 0.0f) {
+    if ((((((temp_fv1 * temp_ft5) - (temp_fa0 * temp_ft4)) * arg3) - (((temp_fv0 * temp_ft5) - (temp_fa0 * temp_fa1)) * arg4)) +
+         (((temp_fv0 * temp_ft4) - (temp_fv1 * temp_fa1)) * arg5)) > 0.0f) {
         return 0;
     }
-    
+
     return 1;
 }
 
+s32 func_802129B0(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, Vtx* vtx, u16 arg7, u16 arg8, u16 arg9, f32 arg10, f32* arg11);
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_802129B0.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_80212FF4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_80213364.s")
+u8 func_80213364(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
+    if ((SQ(arg0 - arg3) + SQ(arg1 - arg4) + SQ(arg2 - arg5)) <= SQ(arg6)) {
+        return 1;
+    }
+    return 0;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_802133C8.s")
+s16 func_802133C8(f32 arg0, f32 arg1, f32 arg2, Mtx4F* arg3, UnkUVMD_24* arg4, u8 arg5) {
+    Mtx4F sp60;
+    Vec3F sp54;
+    UnkUVMD_24* temp_s1;
+    u16 i;
+    s16 var_s3;
+    s32 pad[2];
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_802134F8.s")
+    if (arg4 == NULL) {
+        return -1;
+    }
+    if (arg5 == 0) {
+        return -1;
+    }
+    sp54.x = arg0;
+    sp54.y = arg1;
+    sp54.z = arg2;
+    uvMat4InvertTranslationRotation(&sp60, arg3);
+    uvMat4LocalToWorld(&sp60, &sp54, &sp54);
+    var_s3 = -1;
+    for (i = 0; i < arg5; i++) {
+        temp_s1 = &arg4[i];
+        if (func_80215CBC(sp54.x, sp54.y, sp54.z, &temp_s1->unk4) == 0) {
+            i += temp_s1->unk1;
+            continue;
+        }
+        if (temp_s1->unk2 != 0) {
+            var_s3 = -1;
+        } else {
+            var_s3 = i;
+        }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_80213790.s")
+        if (temp_s1->unk1 == 0) {
+            break;
+        }
+    }
+    return var_s3;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_802139C8.s")
+s32 func_802134F8(f32 arg0, f32 arg1, f32 arg2, UnkSobjDraw* arg3) {
+    ParsedUVMD* temp_fp;
+    UnkUVMD_8* temp_s6;
+    s32 temp_s5;
+    s16 i;
+    s16 j;
+    f32 temp_fv0;
+    Mtx4F spA4;
+    s16 temp_s1;
+    s16 temp_v0;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_80213C24.s")
+    temp_fp = gGfxUnkPtrs->models[arg3->unk0];
+    temp_s6 = temp_fp->unk8;
+    temp_s5 = temp_s6->unk4;
+    _uvDbMstackReset();
+
+    for (i = 0; i < temp_s5; i++) {
+        uvMat4CopyL2F(&spA4, arg3->unk4[i]);
+        if (i == 0) {
+            temp_fv0 = temp_fp->unk20 / gGfxUnkPtrs->unk1608;
+            uvMat4Scale(&spA4, temp_fv0, temp_fv0, temp_fv0);
+            spA4.m[3][0] /= gGfxUnkPtrs->unk1608;
+            spA4.m[3][1] /= gGfxUnkPtrs->unk1608;
+            spA4.m[3][2] /= gGfxUnkPtrs->unk1608;
+        } else {
+            spA4.m[3][0] = 0.0f;
+            spA4.m[3][1] = 0.0f;
+            spA4.m[3][2] = 0.0f;
+        }
+        _uvDbMstackPush(&spA4);
+        temp_v0 = func_802133C8(arg0, arg1, arg2, _uvDbMstackTop(), temp_s6->unk0[i].unk8, temp_s6->unk0[i].unkC);
+        if (temp_v0 >= 0) {
+            return temp_v0;
+        }
+        if (i == temp_s5 - 1) {
+            break;
+        }
+        temp_s1 = temp_s6->unk0[i].unk6 - temp_s6->unk0[i + 1].unk6;
+        for (j = 0; j <= temp_s1; j++) {
+            _uvDbMstackPop();
+        }
+    }
+
+    temp_s1 = temp_s6->unk0[temp_s6->unk4 - 1].unk6;
+    for (i = 0; i <= temp_s1; i++) {
+        _uvDbMstackPop();
+    }
+    return -1;
+}
+
+s32 func_80213790(f32 arg0, f32 arg1, f32 arg2, Unk80263780* arg3) {
+    ParsedUVMD* temp_s5;
+    UnkUVMD_8* temp_fp;
+    s32 temp_s6;
+    s16 i;
+    s16 j;
+    f32 temp_fv0;
+    Mtx4F sp74;
+    s16 temp_s1;
+    s16 temp_v0;
+
+    temp_s5 = gGfxUnkPtrs->models[arg3->unk0];
+    temp_fp = temp_s5->unk8;
+    temp_s6 = temp_fp->unk4;
+    _uvDbMstackReset();
+
+    for (i = 0; i < temp_s6; i++) {
+        uvMat4Copy(&sp74, &D_80265080[arg3->unk2[i]]);
+        if (i == 0) {
+            temp_fv0 = temp_s5->unk20 * (arg3->unk38 / temp_s5->unk1C);
+            uvMat4Scale(&sp74, temp_fv0, temp_fv0, temp_fv0);
+        } else {
+            sp74.m[3][0] = 0.0f;
+            sp74.m[3][1] = 0.0f;
+            sp74.m[3][2] = 0.0f;
+        }
+        _uvDbMstackPush(&sp74);
+        temp_v0 = func_802133C8(arg0, arg1, arg2, _uvDbMstackTop(), temp_fp->unk0[i].unk8, temp_fp->unk0[i].unkC);
+        if (temp_v0 >= 0) {
+            return temp_v0;
+        }
+        if (i == temp_s6 - 1) {
+            break;
+        }
+
+        temp_s1 = temp_fp->unk0[i].unk6 - temp_fp->unk0[i + 1].unk6;
+        for (j = 0; j <= temp_s1; j++) {
+            _uvDbMstackPop();
+        }
+    }
+
+    temp_s1 = temp_fp->unk0[temp_fp->unk4 - 1].unk6;
+    for (i = 0; i <= temp_s1; i++) {
+        _uvDbMstackPop();
+    }
+    return -1;
+}
+
+s32 func_802139C8(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, Unk80263780* arg6) {
+    s16 spE6;
+    s16 temp_s1;
+    ParsedUVMD* temp_s5;
+    UnkUVMD_8* temp_s6;
+    s16 i;
+    s16 j;
+    Mtx4F sp98;
+    f32 temp_fv0;
+
+    temp_s5 = gGfxUnkPtrs->models[arg6->unk0];
+    temp_s6 = temp_s5->unk8;
+    spE6 = temp_s6->unk4;
+    _uvDbMstackReset();
+
+    for (i = 0; i < spE6; i++) {
+        uvMat4Copy(&sp98, &D_80265080[arg6->unk2[i]]);
+        if (i == 0) {
+            temp_fv0 = temp_s5->unk20 * (arg6->unk38 / temp_s5->unk1C);
+            uvMat4Scale(&sp98, temp_fv0, temp_fv0, temp_fv0);
+        } else {
+            sp98.m[3][0] = 0.0f;
+            sp98.m[3][1] = 0.0f;
+            sp98.m[3][2] = 0.0f;
+        }
+        _uvDbMstackPush(&sp98);
+        _uvSegInMboxs(arg0, arg1, arg2, arg3, arg4, arg5, _uvDbMstackTop(), temp_s6->unk0[i].unk8, temp_s6->unk0[i].unkC, temp_s5);
+        if (i == spE6 - 1) {
+            break;
+        }
+        temp_s1 = temp_s6->unk0[i].unk6 - temp_s6->unk0[i + 1].unk6;
+        for (j = 0; j <= temp_s1; j++) {
+            _uvDbMstackPop();
+        }
+    }
+    temp_s1 = temp_s6->unk0[temp_s6->unk4 - 1].unk6;
+    for (i = 0; i <= temp_s1; i++) {
+        _uvDbMstackPop();
+    }
+
+    return -1;
+}
+
+s32 func_80213C24(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, UnkSobjDraw* arg6) {
+    s16 sp106;
+    s16 temp_s1;
+    ParsedUVMD* temp_s6;
+    UnkUVMD_8* temp_s5;
+    s16 i;
+    s16 j;
+    Mtx4F spB8;
+    f32 temp_fv0;
+
+    temp_s6 = gGfxUnkPtrs->models[arg6->unk0];
+    temp_s5 = temp_s6->unk8;
+    sp106 = temp_s5->unk4;
+    _uvDbMstackReset();
+
+    for (i = 0; i < sp106; i++) {
+        uvMat4CopyL2F(&spB8, arg6->unk4[i]);
+        if (i == 0) {
+            temp_fv0 = temp_s6->unk20 / gGfxUnkPtrs->unk1608;
+            uvMat4Scale(&spB8, temp_fv0, temp_fv0, temp_fv0);
+            spB8.m[3][0] /= gGfxUnkPtrs->unk1608;
+            spB8.m[3][1] /= gGfxUnkPtrs->unk1608;
+            spB8.m[3][2] /= gGfxUnkPtrs->unk1608;
+        } else {
+            spB8.m[3][0] = 0.0f;
+            spB8.m[3][1] = 0.0f;
+            spB8.m[3][2] = 0.0f;
+        }
+        _uvDbMstackPush(&spB8);
+        _uvSegInMboxs(arg0, arg1, arg2, arg3, arg4, arg5, _uvDbMstackTop(), temp_s5->unk0[i].unk8, temp_s5->unk0[i].unkC, temp_s6);
+        if (i == sp106 - 1) {
+            break;
+        }
+
+        temp_s1 = temp_s5->unk0[i].unk6 - temp_s5->unk0[i + 1].unk6;
+        for (j = 0; j <= temp_s1; j++) {
+            _uvDbMstackPop();
+        }
+    }
+
+    temp_s1 = temp_s5->unk0[temp_s5->unk4 - 1].unk6;
+    for (i = 0; i <= temp_s1; i++) {
+        _uvDbMstackPop();
+    }
+    return -1;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_80213EE0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_802140BC.s")
+s32 func_802140BC(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {
+    if (arg0 < arg2) {
+        if (arg2 < arg4) {
+            return 0;
+        }
+        if (arg5 < arg0) {
+            return 0;
+        }
+    } else {
+        if (arg0 < arg4) {
+            return 0;
+        }
+        if (arg5 < arg2) {
+            return 0;
+        }
+    }
+    if (arg1 < arg3) {
+        if (arg3 < arg6) {
+            return 0;
+        }
+        if (arg7 < arg1) {
+            return 0;
+        }
+    } else {
+        if (arg1 < arg6) {
+            return 0;
+        }
+        if (arg7 < arg3) {
+            return 0;
+        }
+    }
+    return 1;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_802141CC.s")
+void func_802141CC(f32* arg0, f32* arg1, f32* arg2, f32* arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {
+    f32 temp_ft5;
+    f32 sp10;
+    f32 var_fa0;
+    f32 var_fa1;
+    f32 var_fv0;
+    f32 var_fv1;
+
+    var_fv0 = *arg0;
+    var_fv1 = *arg1;
+    var_fa0 = *arg2;
+    var_fa1 = *arg3;
+    if (var_fa0 == var_fv0) {
+        if (var_fv0 < arg4) {
+            var_fa0 = arg4;
+            var_fv0 = arg4;
+        } else if (arg5 < var_fv0) {
+            var_fa0 = arg5;
+            var_fv0 = arg5;
+        }
+        if (var_fv1 < arg6) {
+            var_fv1 = arg6;
+        } else if (arg7 < var_fv1) {
+            var_fv1 = arg7;
+        }
+        if (var_fa1 < arg6) {
+            var_fa1 = arg6;
+        } else if (arg7 < var_fa1) {
+            var_fa1 = arg7;
+        }
+        *arg0 = var_fv0;
+        *arg1 = var_fv1;
+        *arg2 = var_fa0;
+        *arg3 = var_fa1;
+    } else {
+        temp_ft5 = (var_fa1 - var_fv1) / (var_fa0 - var_fv0);
+        sp10 = var_fa1 - (temp_ft5 * var_fa0);
+        if (var_fv0 < arg4) {
+            var_fv1 = (temp_ft5 * arg4) + sp10;
+            var_fv0 = arg4;
+        } else if (arg5 < var_fv0) {
+            var_fv1 = (temp_ft5 * arg5) + sp10;
+            var_fv0 = arg5;
+        }
+        if (var_fv1 < arg6) {
+            var_fv1 = arg6;
+            if (temp_ft5 != 0.0f) {
+                var_fv0 = (arg6 - sp10) / temp_ft5;
+            }
+        } else if (arg7 < var_fv1) {
+            var_fv1 = arg7;
+            if (temp_ft5 != 0.0f) {
+                var_fv0 = (arg7 - sp10) / temp_ft5;
+            }
+        }
+        if (var_fa0 < arg4) {
+            var_fa0 = arg4;
+            var_fa1 = (temp_ft5 * arg4) + sp10;
+        } else if (arg5 < var_fa0) {
+            var_fa0 = arg5;
+            var_fa1 = (temp_ft5 * arg5) + sp10;
+        }
+        if (var_fa1 < arg6) {
+            var_fa1 = arg6;
+            if (temp_ft5 != 0.0f) {
+                var_fa0 = (arg6 - sp10) / temp_ft5;
+            }
+        } else if (arg7 < var_fa1) {
+            var_fa1 = arg7;
+            if (temp_ft5 != 0.0f) {
+                var_fa0 = (arg7 - sp10) / temp_ft5;
+            }
+        }
+        *arg0 = var_fv0;
+        *arg1 = var_fv1;
+        *arg2 = var_fa0;
+        *arg3 = var_fa1;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_80214450.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_80214840.s")
+void func_80214840(s16 arg0, f32* arg1, f32* arg2) {
+    f32 temp_fv0;
+    f32 temp_fv1;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_80214900.s")
+    // clang-format off
+    temp_fv0 = *arg1; \
+    temp_fv1 = *arg2;
+    // clang-format on
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_80214B3C.s")
+    if (arg0 < 0) {
+        arg0 += 4;
+    } else if (arg0 >= 4) {
+        arg0 %= 4;
+    }
+    switch (arg0) {
+    case 0:
+        *arg1 = temp_fv0;
+        *arg2 = temp_fv1;
+        break;
+    case 1:
+        *arg1 = temp_fv1;
+        *arg2 = -temp_fv0;
+        break;
+    case 2:
+        *arg1 = -temp_fv0;
+        *arg2 = -temp_fv1;
+        break;
+    case 3:
+        *arg1 = -temp_fv1;
+        *arg2 = temp_fv0;
+        break;
+    }
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_80214C64.s")
+u16 func_80214900(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9, f32 arg10, f32 arg11,
+                  uvUnkTileStruct* arg12) {
+    f32 sp50;
+    f32 sp4C;
+    f32 sp40;
+    f32 sp38;
+    f32 temp_fa0;
+    f32 temp_fa1;
+    f32 temp_fv0;
+    f32 var_fs0;
+    f32 var_fs1;
+    f32 var_fs2;
+    f32 var_ft4;
+    f32 var_ft5;
+    s32 i;
+    u16 sp5A;
+    u16 sp58;
+    u16 temp_v0;
+    u16 temp_t4;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/_uvSegInMboxs.s")
+    sp5A = 0;
+    sp58 = 0;
+    sp50 = arg9 - arg8;
+    sp4C = arg10 - arg11;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_802153D8.s")
+    if (arg4 < arg6) {
+        var_ft5 = arg4;
+        var_fs0 = arg6;
+    } else {
+        var_ft5 = arg6;
+        var_fs0 = arg4;
+    }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_80215BC4.s")
+    if (arg5 < arg7) {
+        var_fs1 = arg5;
+        var_fs2 = arg7;
+    } else {
+        var_fs1 = arg7;
+        var_fs2 = arg5;
+    }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_80215CBC.s")
+    temp_fa0 = 0.25f * sp50;
+    var_ft4 = 2.0f * temp_fa0;
+    sp38 = -temp_fa0;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_80215D7C.s")
+    temp_fa1 = 0.25f * sp4C;
+    sp40 = -temp_fa1;
+
+    for (i = 0; (sp38 <= var_ft4) && (i < 4); i++) {
+        if ((var_ft5 <= sp38) && ((sp38 - temp_fa0) <= var_fs0)) {
+            sp58 |= 0x8888 >> i;
+        }
+        sp38 += temp_fa0;
+    }
+    temp_fv0 = 2.0f * temp_fa1;
+
+    for (i = 0; (sp40 <= temp_fv0) && (i < 4); i++) {
+        if ((var_fs1 <= sp40) && ((sp40 - temp_fa1) <= var_fs2)) {
+            sp5A |= 0xF000 >> (i * 4);
+        }
+        sp40 += temp_fa1;
+    }
+    if (arg2 != arg0) {
+        sp40 = (arg3 - arg1) / (arg2 - arg0);
+        var_ft4 = arg3 - (sp40 * arg2);
+    } else {
+        sp40 = 2140143600.0f;
+        var_ft4 = arg2;
+    }
+
+    temp_t4 = sp5A & sp58;
+    temp_v0 = func_80214B3C(sp50, sp4C, arg12, sp40, var_ft4);
+
+    return temp_t4 & temp_v0;
+}
+
+u16 func_80214B3C(f32 arg0, f32 arg1, uvUnkTileStruct* arg2, f32 arg3, f32 arg4) {
+    s32 pad[2];
+    f32 sp64;
+    f32 sp60;
+    f32 sp5C;
+    f32 sp58;
+    s32 pad2;
+    u16 sp52;
+    s16 sp50;
+    s16 sp4E;
+
+    sp52 = -1;
+
+    sp64 = arg2->unk0.unk30 - (0.5f * arg0);
+    sp60 = arg2->unk0.unk30 + (0.5f * arg0);
+    sp5C = arg2->unk0.unk34 + (0.5f * arg1);
+    sp58 = arg2->unk0.unk34 - (0.5f * arg1);
+    uvComputeLineEndP(&sp50, &sp4E, &sp52, sp64, sp60, sp5C, sp58, arg4, arg3, 1.0f / arg3, 0, 15.0f / arg0, 15.0f / arg1);
+    if (sp50 >= 0) {
+        sp52 &= func_8022F62C(arg2->unk44, sp50, sp4E, 0);
+        sp52 &= func_8022F62C(arg2->unk44, sp50, sp4E, 1);
+    }
+    return sp52;
+}
+
+u8 func_80214C64(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9, f32* arg10) {
+    f32 a;
+    f32 b;
+    f32 c;
+    f32 root1;
+    f32 root2;
+    f32 discriminant;
+    s32 temp_v0;
+    s32 var_v1;
+    s32 pad[2];
+    s32 sp44;
+    s32 pad2[2];
+
+    a = SQ(arg3 - arg0) + SQ(arg4 - arg1) + SQ(arg5 - arg2);
+
+    if (a == 0.0f) {
+        temp_v0 = func_80213364(arg0, arg1, arg2, arg6, arg7, arg8, arg9);
+        if (temp_v0 != 0) {
+            *arg10 = 0.0f;
+        }
+        return temp_v0;
+    }
+    b = 2.0f * (((arg3 - arg0) * (arg0 - arg6)) + ((arg4 - arg1) * (arg1 - arg7)) + ((arg5 - arg2) * (arg2 - arg8)));
+
+    c = (SQ(arg0 - arg6) + SQ(arg1 - arg7) + SQ(arg2 - arg8)) - SQ(arg9);
+
+    sp44 = 0;
+    if (uvSqrtF(SQ(arg0 - arg6) + SQ(arg1 - arg7) + SQ(arg2 - arg8)) < arg9) {
+        sp44 = 1;
+    }
+
+    if ((uvSqrtF(SQ(arg3 - arg6) + SQ(arg4 - arg7) + SQ(arg5 - arg8)) < arg9) && (sp44 != 0)) {
+        *arg10 = 0.0f;
+        return 1;
+    }
+
+    if (SQ(b) < (4.0f * a * c)) {
+        return 0;
+    }
+    discriminant = uvSqrtF(SQ(b) - (4.0f * a * c));
+
+    root1 = (-b - discriminant) / (2.0f * a);
+    root2 = (-b + discriminant) / (2.0f * a);
+
+    sp44 = 0;
+    var_v1 = 0;
+    if ((root1 >= 0.0f) && (root1 <= 1.0f)) {
+        sp44 = 1;
+    }
+    if ((root2 >= 0.0f) && (root2 <= 1.0f)) {
+        var_v1 = 1;
+    }
+    if ((sp44 != 0) && (var_v1 != 0)) {
+        if (root1 < root2) {
+            *arg10 = root1;
+        } else {
+            *arg10 = root2;
+        }
+        return 1;
+    }
+    if (sp44 != 0) {
+        *arg10 = root1;
+        return 1;
+    }
+
+    if (var_v1 != 0) {
+        *arg10 = root2;
+        return 1;
+    }
+
+    return 0;
+}
+
+s32 _uvSegInMboxs(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, Mtx4F* arg6, UnkUVMD_24* arg7, u8 arg8, ParsedUVMD* arg9) {
+    Mtx4F spB8;
+    Vec3F spAC;
+    Vec3F spA0;
+    UnkUVMD_24* temp_s3;
+    Vec3F* temp_a1;
+    s32 var_v0;
+    f32 sp90;
+    f32 sp8C;
+    f32 sp88;
+    s16 sp86;
+    s16 i;
+    s16 j;
+    s16 sp80;
+    s16 sp7E;
+    u8 temp_s0;
+
+    if (arg7 == NULL) {
+        return -1;
+    }
+    if (arg8 == 0) {
+        return -1;
+    }
+
+    uvMat4InvertTranslationRotation(&spB8, arg6);
+    spAC.x = arg0;
+    spAC.y = arg1;
+    spAC.z = arg2;
+    spA0.x = arg3;
+    spA0.y = arg4;
+    spA0.z = arg5;
+    uvMat4LocalToWorld(&spB8, &spAC, &spAC);
+    uvMat4LocalToWorld(&spB8, &spA0, &spA0);
+
+    for (i = 0; i < arg8; i++) {
+        if (arg7[i].unk2 != 0) {
+            _uvDebugPrintf("_uvSegInMboxs: warning, hollow no longer supported\n");
+            return -1;
+        }
+    }
+
+    sp86 = 0;
+    for (i = 0; i < arg8; i++) {
+        temp_s3 = &arg7[i];
+        temp_s0 = func_802153D8(spAC.x, spAC.y, spAC.z, spA0.x, spA0.y, spA0.z, &temp_s3->unk4, &sp8C, &sp88, &sp80, &sp7E);
+
+        if (temp_s0 == 0) {
+            i += temp_s3->unk1;
+            continue;
+        }
+
+        if (temp_s3->unk1 != 0) {
+            continue;
+        }
+
+        if (temp_s3->unk1C != 0) {
+            for (j = 0; j < temp_s3->unk1C; j++) {
+                if (func_802129B0(spAC.x, spAC.y, spAC.z, spA0.x, spA0.y, spA0.z, arg9->vtx, temp_s3->unk20[j].unk0, temp_s3->unk20[j].unk2,
+                                  temp_s3->unk20[j].unk4, arg9->unk20, &sp90) != 0) {
+                    D_802634C8[D_802634C4] = D_802634C0;
+                    D_80263548[D_802634C4] = sp90;
+                    _uvSurfGetNorm(arg9->vtx, temp_s3->unk20[j].unk0, temp_s3->unk20[j].unk2, temp_s3->unk20[j].unk4, &D_802635C8[D_802634C4]);
+                    arg6->m[3][0] = 0.0f;
+                    arg6->m[3][1] = 0.0f;
+                    arg6->m[3][2] = 0.0f;
+                    uvMat4LocalToWorld(arg6, &D_802635C8[D_802634C4], &D_802635C8[D_802634C4]);
+                    D_802634C4++;
+                    sp86++;
+                }
+            }
+        } else {
+            func_80215D7C(arg6, sp80, &D_802635C8[D_802634C4]);
+
+            D_802634C8[D_802634C4] = D_802634C0;
+            if (temp_s0 == 1) {
+                D_80263548[D_802634C4] = sp8C;
+            } else if (temp_s0 == 2) {
+                D_80263548[D_802634C4] = sp8C;
+                D_802634C4++;
+                D_802634C8[D_802634C4] = D_802634C0;
+                func_80215D7C(arg6, sp7E, &D_802635C8[D_802634C4]);
+                D_80263548[D_802634C4] = sp88;
+            } else if (temp_s0 == 3) {
+                D_80263548[D_802634C4] = 1.0f;
+            }
+            D_802634C4++;
+            sp86++;
+        }
+    }
+
+    if (sp86 != 0) {
+        return sp86;
+    }
+    return -1;
+}
+
+u8 func_802153D8(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, UnkUVMD_24_Unk4* arg6, f32* arg7, f32* arg8, s16* arg9, s16* arg10) {
+    s32 i;
+    f32* sp5C[2];
+    s16* sp54[2];
+    s32 pad[2];
+    f32 var_fa0;
+    f32 sp44;
+    f32 sp40;
+    f32 var_fa1;
+    f32 sp38;
+    f32 sp34;
+    f32 var_fv1;
+    f32 temp_fv0;
+    f32 temp_fv1;
+    f32 temp_fa0;
+    f32 temp_fa1;
+
+    i = 0;
+
+    sp5C[0] = arg7;
+    sp5C[1] = arg8;
+    sp54[0] = arg9;
+    sp54[1] = arg10;
+    if (arg3 < arg0) {
+        sp44 = arg0;
+        sp38 = arg3;
+    } else {
+        sp44 = arg3;
+        sp38 = arg0;
+    }
+    if (arg4 < arg1) {
+        sp40 = arg1;
+        sp34 = arg4;
+    } else {
+        sp40 = arg4;
+        sp34 = arg1;
+    }
+    if (arg5 < arg2) {
+        var_fa1 = arg2;
+        var_fv1 = arg5;
+    } else {
+        // clang-format off
+        var_fa1 = arg5; \
+        var_fv1 = arg2;
+        // clang format on
+    }
+
+    if (sp44 < arg6->unk0) {
+        *sp54[i] = -1;
+        return 0;
+    }
+
+    if (arg6->unkC < sp38) {
+        *sp54[i] = 1;
+        return 0;
+    }
+
+    if (sp40 < arg6->unk4) {
+        *sp54[i] = -2;
+        return 0;
+    }
+
+    if (arg6->unk10 < sp34) {
+        *sp54[i] = 2;
+        return 0;
+    }
+
+    if (var_fa1 < arg6->unk8) {
+        *sp54[i] = -3;
+        return 0;
+    }
+
+    if (arg6->unk14 < var_fv1) {
+        *sp54[i] = 3;
+        return 0;
+    }
+    if ((sp44 <= arg6->unkC) && (arg6->unk0 <= sp38) && (sp40 <= arg6->unk10) && (arg6->unk4 <= sp34) && (var_fa1 <= arg6->unk14) && (arg6->unk8 <= var_fv1)) {
+        *sp54[i] = -1;
+        return 3;
+    }
+
+    temp_fa1 = arg3 - arg0;
+    temp_fa0 = arg4 - arg1;
+    temp_fv1 = arg5 - arg2;
+
+    if (var_fv1 <= arg6->unk8) {
+        if (temp_fv1 == 0.0f) {
+            var_fa0 = 0.0f;
+        } else {
+            var_fa0 = (arg6->unk8 - arg2) / temp_fv1;
+        }
+        temp_fv0 = (var_fa0 * temp_fa1) + arg0;
+        if ((arg6->unk0 <= temp_fv0) && (temp_fv0 <= arg6->unkC)) {
+            temp_fv0 = (var_fa0 * temp_fa0) + arg1;
+            if ((arg6->unk4 <= temp_fv0) && (temp_fv0 <= arg6->unk10)) {
+                *sp5C[i] = var_fa0;
+                *sp54[i] = -3;
+                i++;
+                if (i == 2) {
+                    return 2;
+                }
+            }
+        }
+    }
+
+    if (arg6->unk14 <= var_fa1) {
+        if (temp_fv1 == 0.0f) {
+            var_fa0 = 0.0f;
+        } else {
+            var_fa0 = (arg6->unk14 - arg2) / temp_fv1;
+        }
+        temp_fv0 = (var_fa0 * temp_fa1) + arg0;
+        if ((arg6->unk0 <= temp_fv0) && (temp_fv0 <= arg6->unkC)) {
+            temp_fv0 = (var_fa0 * temp_fa0) + arg1;
+            if ((arg6->unk4 <= temp_fv0) && (temp_fv0 <= arg6->unk10)) {
+                *sp5C[i] = var_fa0;
+                *sp54[i] = 3;
+                i++;
+                if (i == 2) {
+                    return 2;
+                }
+            }
+        }
+    }
+
+    if (sp34 <= arg6->unk4) {
+        if (temp_fa0 == 0.0f) {
+            var_fa0 = 0.0f;
+        } else {
+            var_fa0 = (arg6->unk4 - arg1) / temp_fa0;
+        }
+        temp_fv0 = (var_fa0 * temp_fa1) + arg0;
+        if ((arg6->unk0 <= temp_fv0) && (temp_fv0 <= arg6->unkC)) {
+            temp_fv0 = (var_fa0 * temp_fv1) + arg2;
+            if ((arg6->unk8 <= temp_fv0) && (temp_fv0 <= arg6->unk14)) {
+                *sp5C[i] = var_fa0;
+                *sp54[i] = -2;
+                i++;
+                if (i == 2) {
+                    return 2;
+                }
+            }
+        }
+    }
+
+    if (arg6->unk10 <= sp40) {
+        if (temp_fa0 == 0.0f) {
+            var_fa0 = 0.0f;
+        } else {
+            var_fa0 = (arg6->unk10 - arg1) / temp_fa0;
+        }
+        temp_fv0 = (var_fa0 * temp_fa1) + arg0;
+        if ((arg6->unk0 <= temp_fv0) && (temp_fv0 <= arg6->unkC)) {
+            temp_fv0 = (var_fa0 * temp_fv1) + arg2;
+            if ((arg6->unk8 <= temp_fv0) && (temp_fv0 <= arg6->unk14)) {
+                *sp5C[i] = var_fa0;
+                *sp54[i] = 2;
+                i++;
+                if (i == 2) {
+                    return 2;
+                }
+            }
+        }
+    }
+
+    if (sp38 <= arg6->unk0) {
+        if (temp_fa1 == 0.0f) {
+            var_fa0 = 0.0f;
+        } else {
+            var_fa0 = (arg6->unk0 - arg0) / temp_fa1;
+        }
+        temp_fv0 = (var_fa0 * temp_fv1) + arg2;
+        if ((arg6->unk8 <= temp_fv0) && (temp_fv0 <= arg6->unk14)) {
+            temp_fv0 = (var_fa0 * temp_fa0) + arg1;
+            if ((arg6->unk4 <= temp_fv0) && (temp_fv0 <= arg6->unk10)) {
+                *sp5C[i] = var_fa0;
+                *sp54[i] = -1;
+                i++;
+                if (i == 2) {
+                    return 2;
+                }
+            }
+        }
+    }
+
+    if (arg6->unkC <= sp44) {
+        if (temp_fa1 == 0.0f) {
+            var_fa0 = 0.0f;
+        } else {
+            var_fa0 = (arg6->unkC - arg0) / temp_fa1;
+        }
+        temp_fv0 = (var_fa0 * temp_fv1) + arg2;
+        if ((arg6->unk8 <= temp_fv0) && (temp_fv0 <= arg6->unk14)) {
+            temp_fv0 = (var_fa0 * temp_fa0) + arg1;
+            if ((arg6->unk4 <= temp_fv0) && (temp_fv0 <= arg6->unk10)) {
+                *sp5C[i] = var_fa0;
+                *sp54[i] = 1;
+                i++;
+                if (i == 2) {
+                    return 2;
+                }
+            }
+        }
+    }
+
+    return i;
+}
+
+void func_80215BC4(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9, Vec3F* arg10) {
+    f32 sp24;
+    f32 sp20;
+    f32 sp1C;
+    f32 temp_fv0;
+
+    sp24 = (((arg3 - arg0) * arg6) + arg0) - arg7;
+    sp20 = (((arg4 - arg1) * arg6) + arg1) - arg8;
+    sp1C = (((arg5 - arg2) * arg6) + arg2) - arg9;
+
+    temp_fv0 = uvSqrtF(SQ(sp24) + SQ(sp20) + SQ(sp1C));
+    if (temp_fv0 != 0.0f) {
+        sp24 = sp24 / temp_fv0;
+        sp20 = sp20 / temp_fv0;
+        sp1C = sp1C / temp_fv0;
+    } else {
+        sp24 = 0.0f;
+        sp20 = 0.0f;
+        sp1C = 1.0f;
+    }
+    arg10->f[0] = sp24;
+    arg10->f[1] = sp20;
+    arg10->f[2] = sp1C;
+}
+
+s32 func_80215CBC(f32 arg0, f32 arg1, f32 arg2, UnkUVMD_24_Unk4* arg3) {
+    if (arg0 < arg3->unk0) {
+        return 0;
+    }
+    if (arg3->unkC < arg0) {
+        return 0;
+    }
+    if (arg1 < arg3->unk4) {
+        return 0;
+    }
+    if (arg3->unk10 < arg1) {
+        return 0;
+    }
+    if (arg2 < arg3->unk8) {
+        return 0;
+    }
+    if (arg3->unk14 < arg2) {
+        return 0;
+    }
+    return 1;
+}
+
+void func_80215D7C(Mtx4F* arg0, s16 arg1, Vec3F* arg2) {
+    switch (arg1) {
+        case -1:
+            arg2->x = -arg0->m[0][0];
+            arg2->y = -arg0->m[0][1];
+            arg2->z = -arg0->m[0][2];
+            break;
+        case 1:
+            arg2->x = arg0->m[0][0];
+            arg2->y = arg0->m[0][1];
+            arg2->z = arg0->m[0][2];
+            break;
+        case -2:
+            arg2->x = -arg0->m[1][0];
+            arg2->y = -arg0->m[1][1];
+            arg2->z = -arg0->m[1][2];
+            break;
+        case 2:
+            arg2->x = arg0->m[1][0];
+            arg2->y = arg0->m[1][1];
+            arg2->z = arg0->m[1][2];
+            break;
+        case -3:
+            arg2->x = -arg0->m[2][0];
+            arg2->y = -arg0->m[2][1];
+            arg2->z = -arg0->m[2][2];
+            break;
+        case 3:
+            arg2->x = arg0->m[2][0];
+            arg2->y = arg0->m[2][1];
+            arg2->z = arg0->m[2][2];
+            break;
+        default:
+            break;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_80215E7C.s")
 

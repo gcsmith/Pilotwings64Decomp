@@ -115,7 +115,9 @@ typedef struct {
 } ParsedUVCT; // size = 0x28
 
 typedef struct uvUnkTileStruct_Unk0 {
-    u8 pad0[0x38];
+    u8 pad0[0x30];
+    f32 unk30;
+    f32 unk34;
     f32 unk38;
     u8 pad3C[0x4];
 } uvUnkTileStruct_Unk0; // size = 0x40
@@ -180,12 +182,23 @@ typedef struct UnkUVMD_6 {
     u16 unk4;
 } UnkUVMD_6; // size = 0x6
 
+typedef struct UnkUVMD_24_Unk4 {
+    f32 unk0;
+    f32 unk4;
+    f32 unk8;
+    f32 unkC;
+    f32 unk10;
+    f32 unk14;
+} UnkUVMD_24_Unk4;
 typedef struct UnkUVMD_24 {
     u8 unk0;
-    u8 unk4[0x1B];
+    u8 unk1;
+    u8 unk2;
+    u8 pad3[0x1];
+    UnkUVMD_24_Unk4 unk4;
     u16 unk1C;
     UnkUVMD_6* unk20;
-} UnkUVMD_24; // size = 0x24
+} UnkUVMD_24;
 
 typedef struct UnkUVMD_10 {
     uvGfxState_t* unk0;
