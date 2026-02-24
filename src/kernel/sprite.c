@@ -10,11 +10,6 @@ s32 gSprtUnkIndex;
 unk_UVTX_1C* gSprtUnkTable[1000];
 uvSprite_t gSprtTable1[31];
 
-extern Gfx* gGfxDisplayListHead;
-extern u16 gGfxFbIndex;
-extern s32 gGfxStateStackData;
-extern s32 D_8029926C;
-
 void uvSprt_80230130(void) {
     s32 i;
 

@@ -175,6 +175,19 @@ typedef struct {
     f32 unk20;
 } uvGfxUnkStructModel;
 
+typedef struct uvGfxUnkStructSequence_Unk4 {
+    u16 unk0;
+    f32 unk4;
+} uvGfxUnkStructSequence_Unk4; // size = 0x8
+
+typedef struct uvGfxUnkStructSequence {
+    u8 unk0;
+    uvGfxUnkStructSequence_Unk4* unk4;
+    u8 unk8;
+    u8 unk9;
+    f32 unkC;
+} uvGfxUnkStructSequence;
+
 typedef struct {
     Vec4F unk0;
     u32 unk10_0 : 15;
@@ -197,6 +210,14 @@ typedef struct {
     u8 unk8;
     u8 unk9;
 } uvGfxUnkStructAnimation;
+
+typedef struct uvGfxUnkStructFont {
+    char* unk0;
+    u8 pad4[0x4];
+    u8 bmfmt;
+    u8 bmsiz;
+    Bitmap* unkC;
+} uvGfxUnkStructFont;
 
 typedef struct {
     u8 pad0[0x2];
@@ -223,10 +244,12 @@ typedef struct {
     u8 padCC[0x844];
     uvGfxUnkStructTexture *unk910[1];
     u8 pad914[0x7D0];
-    void *unk10E4[1];
+    uvGfxUnkStructSequence *unk10E4[1];
     u8 pad10E8[0x28];
     uvGfxUnkStructAnimation* unk1110[1];
-    u8 pad1114[0x2FC];
+    u8 pad1114[0x2A8];
+    uvGfxUnkStructFont* unk13BC[1];
+    u8 pad13C0[0x50];
     uvGfxUnkStructBlit* unk1410[1];
     u8 pad1414[0x1F4];
     f32 unk1608;
@@ -234,6 +257,9 @@ typedef struct {
 
 extern Gfx* gGfxDisplayListHead;
 extern uvGfxUnkStruct* gGfxUnkPtrs;
+extern u16 gGfxFbIndex;
+extern u32 gGfxStateStackData;
+extern u32 D_8029926C;
 
 void uvGfxInit(void);
 void uvGfxBegin(void);
@@ -281,16 +307,6 @@ void uvGfxEnableGamma(s32 enable);
 void uvGfxSetUnkState0(s32 arg0);
 void uvGfx_80223C00(void);
 void uvCopyFrameBuf(s32 fb_id);
-
-// TODO from kernel/code_19B50.c -- split into uv_font.h?
-void uvFontSet(s32);
-void uvFont_80219550(f64, f64);
-void uvFont_8021956C(u8, u8, u8, u8);
-s32 uvFontWidth(char*);
-s32 func_802196B0(void*);
-s32 func_80219874(s32 x, s32 y, void*, s32, s32);
-void uvFont_80219EA8(void);
-void uvFont_80219ACC(s32, s32, char*);
 
 // TODO from kernel/code_58E0 -- split into uv_???
 typedef struct {

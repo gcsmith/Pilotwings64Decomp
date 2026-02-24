@@ -1,3 +1,4 @@
+#include <uv_font.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>
 #include <uv_level.h>

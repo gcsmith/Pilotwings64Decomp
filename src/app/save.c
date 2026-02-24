@@ -1,4 +1,5 @@
 #include "common.h"
+#include <uv_font.h>
 #include <uv_graphics.h>
 #include <uv_level.h>
 #include <uv_memory.h>

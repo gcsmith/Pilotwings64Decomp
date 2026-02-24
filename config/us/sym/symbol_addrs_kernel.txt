@@ -477,6 +477,8 @@ gSndVoiceTable            = 0x80261218;
 D_80263780                = 0x80263780; // size:0x1900
 D_80269B80                = 0x80269B80; // size:0x12C
 
+D_80269F50                = 0x80269F50; // size:0xF0
+
 osViModeTable             = 0x8024B7D0;
 osViModeNtscLan1          = 0x8024C4A0;
 osViModePalLan1           = 0x8024C4F0;
