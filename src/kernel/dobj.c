@@ -19,14 +19,7 @@
         _g->words.w1 = (s);                         \
     }
 
-s32 func_80206F64(void*, f32, f32, f32, f32);
 void func_80215E7C(ParsedUVMD*);
-
-extern u8 D_80269B80[300];
-extern u16 D_80269CB0[100];
-extern u16 D_80269F08;
-extern u16 D_80269F0A;
-extern Mtx4F D_80265080[300];
 
 void uvDobjModel(s32 objId, s32 mdlId) {
     ParsedUVMD** temp_a3;

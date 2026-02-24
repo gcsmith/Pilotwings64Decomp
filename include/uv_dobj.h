@@ -25,6 +25,11 @@ typedef struct Unk80371120 {
 } Unk80371120; // size: 0x1B0
 
 extern Unk80263780 D_80263780[100];
+extern Mtx4F D_80265080[300];
+extern u8 D_80269B80[300];
+extern u16 D_80269CB0[100];
+extern u16 D_80269F08;
+extern u16 D_80269F0A;
 
 void uvDobjModel(s32 objId, s32 mdlId);
 void uvDobjProps(s32 objId, ...);

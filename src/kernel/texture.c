@@ -990,7 +990,7 @@ ParsedUVTR* _uvParseUVTR(u8* src) {
         if (sp47 == 0) {
             uvMemSet(ptr, 0, sizeof(uvUnkTileStruct));
         } else {
-            uvConsumeBytes(&ptr->unk0, &src, sizeof(ptr->unk0));
+            uvConsumeBytes(&ptr->unk0, &src, sizeof(uvUnkTileStruct_Unk0));
             uvConsumeBytes(&ptr->unk44, &src, sizeof(u8));
             uvConsumeBytes(&sp44, &src, sizeof(u16));
             ptr->unk40 = gLevelData.contours[sp44];

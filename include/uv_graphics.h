@@ -114,8 +114,14 @@ typedef struct {
     f32 unk28;
 } ParsedUVCT; // size = 0x28
 
+typedef struct uvUnkTileStruct_Unk0 {
+    u8 pad0[0x38];
+    f32 unk38;
+    u8 pad3C[0x4];
+} uvUnkTileStruct_Unk0; // size = 0x40
+
 typedef struct uvUnkTileStruct {
-    u8 unk0[0x40];
+    uvUnkTileStruct_Unk0 unk0;
     ParsedUVCT* unk40;
     u8 unk44;
 } uvUnkTileStruct; // size = 0x48

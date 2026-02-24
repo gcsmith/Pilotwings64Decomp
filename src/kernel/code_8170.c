@@ -1,6 +1,8 @@
 #include "common.h"
+#include <uv_dobj.h>
 #include <uv_graphics.h>
 #include <uv_memory.h>
+#include <uv_sobj.h>
 #include <libc/stdarg.h>
 
 LevelData* gGfxUnkPtrs = NULL;
@@ -25,6 +27,20 @@ extern f32 D_8026376C;
 extern f32 D_80263770;
 extern f32 D_80263774;
 extern s32 D_802B8934;
+
+extern u32 D_802634C0;
+
+s32 func_80212480(f32, f32, Vtx*, u16, u16, u16, f32);
+s32 func_80212FF4(ParsedUVTR*, f32, f32, f32, f32*, f32*, f32*, u16*, u16*, s32);
+s32 _uvSurfGetNorm(Vtx*, s32, s32, s32, Vec3F*);
+void func_80214840(s16, f32*, f32*);
+s32 func_80213364(f32, f32, f32, f32, f32, f32, f32);
+s32 func_802134F8(f32, f32, f32, UnkSobjDraw*);
+s32 func_80213364(f32, f32, f32, f32, f32, f32, f32);
+s32 func_80213790(f32, f32, f32, Unk80263780*);
+void func_802139C8(f32, f32, f32, f32, f32, f32, Unk80263780*);
+s32 func_80214C64(f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32*);
+void func_80215BC4(f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, Vec3F*);
 
 void func_802071C0(s32 arg0) {
     D_80248DD8 = arg0;
@@ -977,31 +993,482 @@ void uvModelGetProps(s32 arg0, ...) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/uvTerraGetPt.s")
+u32 uvTerraGetPt(s32 arg0, f32 arg1, f32 arg2, s32** arg3) {
+    f32 sp94;
+    f32 sp90;
+    f32 sp8C;
+    ParsedUVTR* temp_s0;
+    u16 i;
+    uvUnkTileStruct* var_v0;
+    u16 j;
+    ParsedUVCT* temp_s4;
+    u16 sp76;
+    u32 var_s2;
+    u16 sp6E;
+    Unk80225FBC_0x28* temp_s1;
+    Unk80225FBC_0x28_UnkC* temp_v0;
+
+    temp_s0 = gGfxUnkPtrs->terras[arg0];
+    var_s2 = 0;
+    if (temp_s0 == NULL) {
+        _uvDebugPrintf("uvTerraGetPt: terra %d not defined for level\n", arg0);
+    }
+    if (func_80212FF4(temp_s0, arg1, arg2, 0.0f, &sp94, &sp90, &sp8C, &sp6E, &sp76, 0) == 0) {
+        return *arg3 = NULL;
+    }
+    var_v0 = &temp_s0->unk28[sp6E];
+    temp_s4 = var_v0->unk40;
+    if (temp_s4 == NULL) {
+        return *arg3 = NULL;
+    }
+
+    sp94 *= gGfxUnkPtrs->unk1608;
+    sp90 *= gGfxUnkPtrs->unk1608;
+    sp8C *= gGfxUnkPtrs->unk1608;
+    for (i = 0; i < temp_s4->unkC; i++) {
+        temp_s1 = &temp_s4->unk8[i];
+        if (!(temp_s1->unk12 & sp76)) {
+            continue;
+        }
+
+        for (j = 0; j < temp_s1->unk10; j++) {
+            temp_v0 = &temp_s1->unkC[j];
+            if (!(temp_v0->unk6 & sp76)) {
+                continue;
+            }
+            if (func_80212480(sp94, sp90, temp_s4->vtx, temp_v0->unk0, temp_v0->unk2, temp_v0->unk4, 1.0f) == 0) {
+                continue;
+            }
+            D_802634C8[var_s2] = ((sp6E & 0x3FF) << 22) + ((i & 0x3FF) << 12) + (j & 0xFFF);
+            var_s2++;
+            if (var_s2 >= 32) {
+                break;
+            }
+        }
+    }
+    *arg3 = D_802634C8;
+    return var_s2;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/uvTerraGetSeg.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/uvTerraGetColor.s")
+void uvTerraGetColor(s32 terraId, u32 surfaceId, u8* arg2, u8* arg3, u8* arg4) {
+    ParsedUVCT* temp_a0;
+    ParsedUVTR* temp_v0;
+    ParsedUVTX* temp_v0_3;
+    Unk80225FBC_0x28* temp_v0_2;
+    Unk80225FBC_0x28_UnkC* temp_v1_2;
+    Vtx* vtx;
+    s32 temp_t1;
+    uvUnkTileStruct* temp_v1;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/uvTerraGetState.s")
+    if (surfaceId == -1) {
+        _uvDebugPrintf("uvTerraGetColor: null surface id\n");
+        return;
+    }
+    temp_v0 = gGfxUnkPtrs->terras[terraId];
+    if (temp_v0 == NULL) {
+        _uvDebugPrintf("uvTerraGetColor: terra %d not defined for level\n", terraId);
+        return;
+    }
+    temp_v1 = &temp_v0->unk28[(surfaceId >> 0x16) & 0x3FF];
+    if (temp_v1 == NULL) {
+        _uvDebugPrintf("uvTerraGetColor: bad surfce id [0x%x]\n", surfaceId);
+        return;
+    }
+    temp_a0 = temp_v1->unk40;
+    if (temp_a0 == NULL) {
+        _uvDebugPrintf("uvTerraGetColor: bad surfce id [0x%x]\n", surfaceId);
+        return;
+    }
+    temp_v0_2 = &temp_a0->unk8[(surfaceId >> 12) & 0x3FF];
+    temp_v1_2 = &temp_v0_2->unkC[surfaceId & 0xFFF];
+    if ((temp_v0_2->unk0 & 0xFFF) != 0xFFF) {
+        temp_v0_3 = gGfxUnkPtrs->textures[temp_v0_2->unk0 & 0xFFF];
+        if (temp_v0_3->unk22 == 4) {
+            *arg2 = temp_v0_3->unk23;
+            *arg3 = temp_v0_3->unk24;
+            *arg4 = temp_v0_3->unk25;
+            return;
+        }
+    }
+    vtx = temp_a0->vtx;
+    *arg2 = (vtx[temp_v1_2->unk0].v.cn[0] + vtx[temp_v1_2->unk2].v.cn[0] + vtx[temp_v1_2->unk4].v.cn[0]) / 3;
+    *arg3 = (vtx[temp_v1_2->unk0].v.cn[1] + vtx[temp_v1_2->unk2].v.cn[1] + vtx[temp_v1_2->unk4].v.cn[1]) / 3;
+    *arg4 = (vtx[temp_v1_2->unk0].v.cn[2] + vtx[temp_v1_2->unk2].v.cn[2] + vtx[temp_v1_2->unk4].v.cn[2]) / 3;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/uvTerraGetPlane.s")
+s32 uvTerraGetState(s32 terraId, u32 surfaceId) {
+    ParsedUVCT* temp_a2;
+    ParsedUVTR* temp_v0;
+    s32 temp_t9;
+    uvUnkTileStruct* temp_a0;
+    Unk80225FBC_0x28* temp_v1;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/_uvSurfGetNorm.s")
+    if (surfaceId == -1) {
+        _uvDebugPrintf("uvTerraGetState: null surface id\n", surfaceId);
+        return 0xFFF;
+    }
+    temp_v0 = gGfxUnkPtrs->terras[terraId];
+    if (temp_v0 == NULL) {
+        _uvDebugPrintf("uvTerraGetState: terra %d not defined for level\n", terraId);
+        return 0xFFF;
+    }
+    temp_t9 = (surfaceId >> 22) & 0x3FF;
+    if ((temp_t9) >= (temp_v0->unk18 * temp_v0->unk19)) {
+        _uvDebugPrintf("uvTerraGetState: bad surface id [0x%x]\n", surfaceId);
+        return 0xFFF;
+    }
+    temp_a0 = &temp_v0->unk28[(temp_t9)];
+    if (temp_a0 == NULL) {
+        _uvDebugPrintf("uvTerraGetState: bad surface id [0x%x]\n", surfaceId);
+        return 0xFFF;
+    }
+    temp_a2 = temp_a0->unk40;
+    if (temp_a2 == NULL) {
+        _uvDebugPrintf("uvTerraGetState: bad surface id [0x%x]\n", surfaceId);
+        return 0xFFF;
+    }
+    temp_v1 = &temp_a2->unk8[(surfaceId >> 12) & 0x3FF];
+    return temp_v1->unk0;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/uvSobjGetPt.s")
+void uvTerraGetPlane(s32 terraId, u32 surfaceId, f32 arg2, f32 arg3, f32* arg4, Vec3F* arg5) {
+    ParsedUVCT* temp_v0;
+    uvUnkTileStruct* sp70;
+    ParsedUVTR* temp_a0;
+    Unk80225FBC_0x28_UnkC* temp_s2;
+    Vtx* sp64;
+    f32 sp60;
+    f32 sp5C;
+    f32 sp58;
+    u16 sp56;
+    u16 sp54;
+    Unk80225FBC_0x28* temp_v1;
+    f32 temp_ft5;
+    f32 temp_fa0;
+    f32 temp_fa1;
+
+    if (surfaceId == -1) {
+        _uvDebugPrintf("uvTerraGetPlane : null surface id\n");
+        return;
+    }
+    temp_a0 = gGfxUnkPtrs->terras[terraId];
+    if (temp_a0 == NULL) {
+        _uvDebugPrintf("uvTerraGetPlane : terra [%d] not in level\n", terraId);
+        return;
+    }
+    sp70 = &temp_a0->unk28[(surfaceId >> 22) & 0x3FF];
+    temp_v0 = sp70->unk40;
+    temp_v1 = &temp_v0->unk8[(surfaceId >> 12) & 0x3FF];
+
+    temp_s2 = &temp_v1->unkC[surfaceId & 0xFFF];
+    sp64 = temp_v0->vtx;
+    func_80212FF4(temp_a0, arg2, arg3, 0.0f, &sp60, &sp5C, &sp58, &sp56, &sp54, 0);
+    sp60 *= gGfxUnkPtrs->unk1608;
+    sp5C *= gGfxUnkPtrs->unk1608;
+    sp58 *= gGfxUnkPtrs->unk1608;
+    if (_uvSurfGetNorm(sp64, temp_s2->unk0, temp_s2->unk2, temp_s2->unk4, arg5) == 0) {
+        _uvDebugPrintf("uvTerraGetPlane:  terra[%d]  sid[0x%x] is bad - px:%.2f , py:%.2f\n", terraId, surfaceId, arg2, arg3);
+        arg5->x = 0.0f;
+        arg5->y = 0.0f;
+        arg5->z = 1.0f;
+    }
+
+    temp_ft5 = sp64[temp_s2->unk0].v.ob[0];
+    temp_fa0 = sp64[temp_s2->unk0].v.ob[1];
+    temp_fa1 = sp64[temp_s2->unk0].v.ob[2];
+    if (arg5->z != 0.0f) {
+        *arg4 = (((arg5->x * (temp_ft5 - sp60)) + (arg5->y * (temp_fa0 - sp5C))) / arg5->z) + temp_fa1;
+        *arg4 /= gGfxUnkPtrs->unk1608;
+        *arg4 += sp70->unk0.unk38;
+    }
+
+    if (sp70->unk44 != 0) {
+        func_80214840(-sp70->unk44, &arg5->x, &arg5->y);
+    }
+}
+
+s32 _uvSurfGetNorm(Vtx* arg0, s32 vtxId0, s32 vtxId1, s32 vtxId3, Vec3F* arg4) {
+    Vec3F sp44;
+    Vec3F sp38;
+    f32 temp_fa0;
+    f32 temp_fv0;
+    f32 temp_fv1;
+
+    temp_fv0 = arg0[vtxId0].v.ob[0];
+    temp_fv1 = arg0[vtxId0].v.ob[1];
+    temp_fa0 = arg0[vtxId0].v.ob[2];
+    sp44.x = arg0[vtxId1].v.ob[0] - temp_fv0;
+    sp44.y = arg0[vtxId1].v.ob[1] - temp_fv1;
+    sp44.z = arg0[vtxId1].v.ob[2] - temp_fa0;
+    sp38.x = arg0[vtxId3].v.ob[0] - temp_fv0;
+    sp38.y = arg0[vtxId3].v.ob[1] - temp_fv1;
+    sp38.z = arg0[vtxId3].v.ob[2] - temp_fa0;
+    uvVec3Cross(arg4, &sp44, &sp38);
+    if (uvVec3Normal(arg4, arg4) == 0) {
+        _uvDebugPrintf("_uvSurfGetNorm : bad surface normal\n");
+        _uvDebugPrintf("vtx ids %d %d %d\n", vtxId0, vtxId1, vtxId3);
+        _uvDebugPrintf(" VTX 0 : %d %d %d\n", arg0[vtxId0].v.ob[0], arg0[vtxId0].v.ob[1], arg0[vtxId0].v.ob[2]);
+        _uvDebugPrintf(" VTX 1 : %d %d %d\n", arg0[vtxId1].v.ob[0], arg0[vtxId1].v.ob[1], arg0[vtxId1].v.ob[2]);
+        _uvDebugPrintf(" VTX 2 : %d %d %d\n", arg0[vtxId3].v.ob[0], arg0[vtxId3].v.ob[1], arg0[vtxId3].v.ob[2]);
+        return 0;
+    }
+    return 1;
+}
+
+s32 uvSobjGetPt(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
+    u16 sp7E;
+    u16 sp7C;
+    f32 sp78;
+    f32 sp74;
+    f32 sp70;
+    ParsedUVCT* temp_v0;
+    ParsedUVMD* temp_s1;
+    ParsedUVTR* temp_s0;
+    u32 i;
+    uvUnkTileStruct* temp_s4;
+    UnkSobjDraw* temp_s0_2;
+
+    temp_s0 = gGfxUnkPtrs->terras[arg0];
+    if (temp_s0 == NULL) {
+        _uvDebugPrintf("uvSobjGetPt: terra %d not defined for level\n", arg0);
+        return -1;
+    }
+    if (func_80212FF4(temp_s0, arg1, arg2, arg3, &sp78, &sp74, &sp70, &sp7C, &sp7E, 0) == 0) {
+        return -1;
+    }
+    temp_s4 = &temp_s0->unk28[sp7C];
+    temp_v0 = temp_s4->unk40;
+    if (temp_v0 == NULL) {
+        return -1;
+    }
+
+    for (i = 0; i < temp_s4->unk40->unk14; i++) {
+        temp_s0_2 = &temp_s4->unk40->unk10[i];
+        if (!(sp7E & temp_s0_2->unk14)) {
+            continue;
+        }
+        temp_s1 = gGfxUnkPtrs->models[temp_s0_2->unk0];
+        if (func_80213364(sp78, sp74, sp70, temp_s0_2->unk8, temp_s0_2->unkC, temp_s0_2->unk10, temp_s1->unk1C) != 0) {
+            if (temp_s1->unk11 & 2) {
+                if (func_802134F8(sp78, sp74, sp70, temp_s0_2) >= 0) {
+                    return ((arg0 & 0xFF) << 24) | ((sp7C & 0xFFF) << 12) | (i & 0xFFF);
+                }
+            } else {
+                return ((arg0 & 0xFF) << 24) | ((sp7C & 0xFFF) << 12) | (i & 0xFFF);
+            }
+        }
+    }
+
+    return -1;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/uvSobjGetSeg.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_80212008.s")
+s32 func_80212008(f32 arg0, f32 arg1, f32 arg2) {
+    Mtx4F* temp_v0;
+    ParsedUVMD* temp_s1;
+    Unk80263780* temp_s0;
+    u16 i;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_8021215C.s")
+    for (i = 0; i < 100; i++) {
+        temp_s0 = &D_80263780[i];
+        if ((temp_s0->unk0 == 0xFFFF) || !(temp_s0->unk34 & 1)) {
+            continue;
+        }
+        temp_v0 = &D_80265080[temp_s0->unk2[0]];
+        temp_s1 = gGfxUnkPtrs->models[temp_s0->unk0];
+        if (func_80213364(arg0, arg1, arg2, temp_v0->m[3][0], temp_v0->m[3][1], temp_v0->m[3][2], temp_s0->unk38) != 0) {
+            if (!(temp_s1->unk11 & 2)) {
+                return i;
+            }
+            if (func_80213790(arg0, arg1, arg2, temp_s0) >= 0) {
+                return i;
+            }
+        }
+    }
+    return 0xFFFF;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_80212480.s")
+s32 func_8021215C(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, s32** arg6, f32** arg7, Vec3F** arg8) {
+    ParsedUVMD* temp_s3;
+    u16 i;
+    Mtx4F* temp_s0;
+    Unk80263780* temp_s1;
+    u16 temp_v0;
+    f32 sp98;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_80212604.s")
+    D_802634C4 = 0;
+    if ((arg0 == arg3) && (arg1 == arg4) && (arg2 == arg5)) {
+        temp_v0 = func_80212008(arg0, arg1, arg2);
+        if (temp_v0 == 0xFFFF) {
+            *arg6 = NULL;
+            *arg7 = NULL;
+            *arg8 = NULL;
+            return 0;
+        }
+        D_802634C8[0] = temp_v0;
+        D_80263548[0] = 0.0f;
+        D_802635C8[0].x = 0.0f;
+        D_802635C8[0].y = 0.0f;
+        D_802635C8[0].z = 1.0f;
+        *arg6 = D_802634C8;
+        *arg7 = D_80263548;
+        *arg8 = D_802635C8;
+        return 1;
+    }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_80212788.s")
+    for (i = 0; i < 100; i++) {
+        temp_s1 = &D_80263780[i];
+
+        if ((temp_s1->unk0 == 0xFFFF) || !(temp_s1->unk34 & 1)) {
+            continue;
+        }
+        temp_s0 = &D_80265080[temp_s1->unk2[0]];
+        temp_s3 = gGfxUnkPtrs->models[temp_s1->unk0];
+        if (func_80214C64(arg0, arg1, arg2, arg3, arg4, arg5, temp_s0->m[3][0], temp_s0->m[3][1], temp_s0->m[3][2], temp_s1->unk38, &sp98) == 0) {
+            continue;
+        }
+        if (!(temp_s3->unk11 & 2)) {
+            D_802634C8[D_802634C4] = i;
+            D_80263548[D_802634C4] = sp98;
+            func_80215BC4(arg0, arg1, arg2, arg3, arg4, arg5, sp98, temp_s0->m[3][0], temp_s0->m[3][1], temp_s0->m[3][2], &D_802635C8[D_802634C4]);
+
+            D_802634C4++;
+            if (D_802634C4 >= 32) {
+                break;
+            }
+            continue;
+        }
+        D_802634C0 = i;
+
+        func_802139C8(arg0, arg1, arg2, arg3, arg4, arg5, temp_s1);
+    }
+    *arg6 = D_802634C8;
+    *arg7 = D_80263548;
+    *arg8 = D_802635C8;
+    _uvDbSortHits();
+    return D_802634C4;
+}
+
+s32 func_80212480(f32 arg0, f32 arg1, Vtx* vtx, u16 arg3, u16 arg4, u16 arg5, f32 arg6) {
+    f32 temp_fa0;
+    f32 var_fv0;
+    f32 var_fv1;
+    f32 var_ft4;
+    f32 var_ft5;
+    f32 var_fs0;
+    f32 var_fs1;
+
+    var_fv0 = vtx[arg3].v.ob[0];
+    var_fv1 = vtx[arg3].v.ob[1];
+    var_ft4 = vtx[arg4].v.ob[0];
+    var_ft5 = vtx[arg4].v.ob[1];
+    var_fs0 = vtx[arg5].v.ob[0];
+    var_fs1 = vtx[arg5].v.ob[1];
+    if (arg6 != 1.0f) {
+        temp_fa0 = 1.0f / arg6;
+        var_fv0 *= temp_fa0;
+        var_fv1 *= temp_fa0;
+        var_ft4 *= temp_fa0;
+        var_ft5 *= temp_fa0;
+        var_fs0 *= temp_fa0;
+        var_fs1 *= temp_fa0;
+    }
+    if (((arg1 - var_fv1) * (var_ft4 - var_fv0)) < ((arg0 - var_fv0) * (var_ft5 - var_fv1))) {
+        return 0;
+    }
+    if (((arg1 - var_ft5) * (var_fs0 - var_ft4)) < ((arg0 - var_ft4) * (var_fs1 - var_ft5))) {
+        return 0;
+    }
+
+    if (((arg1 - var_fs1) * (var_fv0 - var_fs0)) < ((arg0 - var_fs0) * (var_fv1 - var_fs1))) {
+        return 0;
+    }
+
+    return 1;
+}
+
+s32 func_80212604(f32 arg0, f32 arg1, Vtx* arg2, u16 arg3, u16 arg4, u16 arg5, f32 arg6) {
+    f32 temp_fa0;
+    f32 var_fv0;
+    f32 var_fv1;
+    f32 var_ft4;
+    f32 var_ft5;
+    f32 var_fs0;
+    f32 var_fs1;
+
+    var_fv0 = arg2[arg3].v.ob[0];
+    var_fv1 = arg2[arg3].v.ob[1];
+    var_ft4 = arg2[arg4].v.ob[0];
+    var_ft5 = arg2[arg4].v.ob[1];
+    var_fs0 = arg2[arg5].v.ob[0];
+    var_fs1 = arg2[arg5].v.ob[1];
+    if (arg6 != 1.0f) {
+        temp_fa0 = 1.0f / arg6;
+        var_fv0 *= temp_fa0;
+        var_fv1 *= temp_fa0;
+        var_ft4 *= temp_fa0;
+        var_ft5 *= temp_fa0;
+        var_fs0 *= temp_fa0;
+        var_fs1 *= temp_fa0;
+    }
+    if (((arg0 - var_fv0) * (var_ft5 - var_fv1)) < ((arg1 - var_fv1) * (var_ft4 - var_fv0))) {
+        return 0;
+    }
+    if (((arg0 - var_ft4) * (var_fs1 - var_ft5)) < ((arg1 - var_ft5) * (var_fs0 - var_ft4))) {
+        return 0;
+    }
+
+    if (((arg0 - var_fs0) * (var_fv1 - var_fs1)) < ((arg1 - var_fs1) * (var_fv0 - var_fs0))) {
+        return 0;
+    }
+
+    return 1;
+}
+
+s32 func_80212788(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9, f32 arg10, f32 arg11, f32 arg12, f32 arg13, f32 arg14) {
+    s32 pad;
+    f32 temp_fa0;
+    f32 temp_fa1;
+    f32 temp_ft4;
+    f32 temp_ft5;
+    f32 temp_fv0;
+    f32 temp_fv1;
+
+    temp_fv0 = arg0 - arg6;
+    temp_fv1 = arg1 - arg7;
+    temp_fa0 = arg2 - arg8;
+    temp_fa1 = arg9 - arg6;
+    temp_ft4 = arg10 - arg7;
+    temp_ft5 = arg11 - arg8;
+    if ((((((temp_fv1 * temp_ft5) - (temp_fa0 * temp_ft4)) * arg3) - (((temp_fv0 * temp_ft5) - (temp_fa0 * temp_fa1)) * arg4)) + (((temp_fv0 * temp_ft4) - (temp_fv1 * temp_fa1)) * arg5)) > 0.0f) {
+        return 0;
+    }
+
+    temp_fv0 = arg0 - arg9;
+    temp_fv1 = arg1 - arg10;
+    temp_fa0 = arg2 - arg11;
+    temp_fa1 = arg12 - arg9;
+    temp_ft4 = arg13 - arg10;
+    temp_ft5 = arg14 - arg11;
+    if ((((((temp_fv1 * temp_ft5) - (temp_fa0 * temp_ft4)) * arg3) - (((temp_fv0 * temp_ft5) - (temp_fa0 * temp_fa1)) * arg4)) + (((temp_fv0 * temp_ft4) - (temp_fv1 * temp_fa1)) * arg5)) > 0.0f) {
+        return 0;
+    }
+
+    temp_fv0 = arg0 - arg12;
+    temp_fv1 = arg1 - arg13;
+    temp_fa0 = arg2 - arg14;
+    temp_fa1 = arg6 - arg12;
+    temp_ft4 = arg7 - arg13;
+    temp_ft5 = arg8 - arg14;
+    if ((((((temp_fv1 * temp_ft5) - (temp_fa0 * temp_ft4)) * arg3) - (((temp_fv0 * temp_ft5) - (temp_fa0 * temp_fa1)) * arg4)) + (((temp_fv0 * temp_ft4) - (temp_fv1 * temp_fa1)) * arg5)) > 0.0f) {
+        return 0;
+    }
+    
+    return 1;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_802129B0.s")
 
