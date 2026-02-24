@@ -3,6 +3,7 @@
 
 #include <uv_level.h>
 
+s32 func_803470EC(void);
 void func_80348280(LevelTOYS*);
 void func_803483AC(void);
 

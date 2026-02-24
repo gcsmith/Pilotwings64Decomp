@@ -8,7 +8,7 @@ void textLoadBlock(s32 id);
 
 // searches for needle in NAME list
 // returns correlated string from DATA list, or NULL if not found
-s16* textGetDataByName(s16* needle);
+s16* textGetDataByName(const char* needle);
 
 // returns DATA string at index idx, or NULL if index too high
 s16* textGetDataByIdx(s32 idx);

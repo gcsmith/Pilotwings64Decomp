@@ -13,5 +13,6 @@ void func_80312B5C(void);
 s32 func_80312F38(void);
 void func_80312F44(s32);
 void func_80312F5C(s32, s32, s32, s32);
+void func_80312FF8(s32);
 
 #endif // APP_CODE_99D40_H
