@@ -276,9 +276,9 @@ s32 level_80344FC8(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* arg4, 
 }
 
 void level_8034528C(void) {
-    u16 sp1E;
+    u16 veh;
 
-    sp1E = D_80362690->unk0[D_80362690->unk9C].unkC.unk2;
+    veh = D_80362690->unk0[D_80362690->unk9C].unkC.veh;
     D_8035079C = 1;
     wind_render();
     therm_8034662C();
@@ -293,7 +293,7 @@ void level_8034528C(void) {
         func_802D2ACC();
         func_802E3A5C();
         func_802FB22C();
-        if ((sp1E != 3) && (sp1E != 4)) {
+        if ((veh != VEHICLE_CANNONBALL) && (veh != VEHICLE_SKY_DIVING)) {
             func_802D23EC();
         }
     }
@@ -309,9 +309,9 @@ void level_8034536C(void) {
 }
 
 void level_803453AC(void) {
-    u16 sp1E;
+    u16 veh;
 
-    sp1E = D_80362690->unk0[D_80362690->unk9C].unkC.unk2;
+    veh = D_80362690->unk0[D_80362690->unk9C].unkC.veh;
     if (D_8035079C != 0) {
         func_80324A34();
         func_802CB35C();
@@ -321,7 +321,7 @@ void level_803453AC(void) {
         func_803383FC();
         func_802E3E6C();
         func_802FB518();
-        if ((sp1E != 3) && (sp1E != 4)) {
+        if ((veh != VEHICLE_CANNONBALL) && (veh != VEHICLE_SKY_DIVING)) {
             func_802D27CC();
         }
         D_8035079C = 0;
@@ -329,11 +329,11 @@ void level_803453AC(void) {
 }
 
 s32 level_80345464(Unk80345464_Arg0* arg0, s32 arg1) {
-    u16 sp1E;
+    u16 veh;
     s32 sp18;
     s32 temp_v0;
 
-    sp1E = D_80362690->unk0[D_80362690->unk9C].unkC.unk2;
+    veh = D_80362690->unk0[D_80362690->unk9C].unkC.veh;
     sp18 = 0;
     therm_8034695C();
     func_8034D548();
@@ -343,7 +343,7 @@ s32 level_80345464(Unk80345464_Arg0* arg0, s32 arg1) {
     func_80317634(arg0);
     func_8034450C(arg0);
     func_80309D64(arg0);
-    if ((sp1E != 3) && (sp1E != 4)) {
+    if ((veh != VEHICLE_CANNONBALL) && (veh != VEHICLE_SKY_DIVING)) {
         bonusStar_802D25AC(arg0);
     }
     func_802EB424(arg0, arg1);
@@ -351,24 +351,24 @@ s32 level_80345464(Unk80345464_Arg0* arg0, s32 arg1) {
     if (func_802D2E48() == 1) {
         D_803507A4 = 1;
         sp18 = 1;
-        D_80362690->unk0[0].unkC.unk2 = 1;
-        if (D_80362690->unk0[0].unkC.unk2 != 0) {
+        D_80362690->unk0[0].unkC.veh = VEHICLE_ROCKET_BELT;
+        if (D_80362690->unk0[0].unkC.veh != VEHICLE_HANG_GLIDER) {
             func_8033F748(9);
             func_8033F964(0);
-            func_8033FCD0(D_80362690->unk0[0].unkC.unk2);
+            func_8033FCD0(D_80362690->unk0[0].unkC.veh);
         }
     }
     if (func_803243D8(arg0) == 1) {
         D_803507A4 = 1;
         sp18 = 1;
-        D_80362690->unk0[0].unkC.unk2 = 1;
-        if (D_80362690->unk0[0].unkC.unk2 != 0) {
+        D_80362690->unk0[0].unkC.veh = VEHICLE_ROCKET_BELT;
+        if (D_80362690->unk0[0].unkC.veh != VEHICLE_HANG_GLIDER) {
             func_8033F748(9);
             func_8033F964(0);
-            func_8033FCD0(D_80362690->unk0[0].unkC.unk2);
+            func_8033FCD0(D_80362690->unk0[0].unkC.veh);
         }
     }
-    if ((D_80362690->unk0[D_80362690->unk9C].unkC.unk2 == 5) && (func_802FB308(D_80362690->unk0[D_80362690->unk9C].unkC.unk6C) == 1)) {
+    if ((D_80362690->unk0[D_80362690->unk9C].unkC.veh == VEHICLE_JUMBLE_HOPPER) && (func_802FB308(D_80362690->unk0[D_80362690->unk9C].unkC.unk6C) == 1)) {
         sp18 = 1;
     }
     temp_v0 = level_803456D8(arg0);
@@ -472,11 +472,11 @@ s32 level_803456D8(Unk80345464_Arg0* arg0) {
 }
 
 void level_80345A24(void) {
-    u16 sp1E;
+    u16 veh;
 
-    sp1E = D_80362690->unk0[D_80362690->unk9C].unkC.unk2;
+    veh = D_80362690->unk0[D_80362690->unk9C].unkC.veh;
     func_80323364();
-    if ((sp1E != 3) && (sp1E != 4)) {
+    if ((veh != VEHICLE_CANNONBALL) && (veh != VEHICLE_SKY_DIVING)) {
         func_802D22D8();
     }
     func_802CAF50();
@@ -574,8 +574,8 @@ f32 levelGet_80345CA0(void) {
     return D_8035078C->comm.unk44;
 }
 
-s32* levelGet_80345CB0(void) {
-    return &D_8035078C->comm.unk8;
+u8* levelGet_80345CB0(void) {
+    return D_8035078C->comm.unk8;
 }
 
 void levelGet_80345CC0(f32* arg0, f32* arg1) {

@@ -5,7 +5,7 @@
 #include "text_data.h"
 
 // unsure why one fewer data than text pointers
-static s16* sTextName[440];
+static char* sTextName[440];
 static s16* sTextData[439];
 static s32 sTextDataCount;
 static s32 sTextNameCount;
@@ -29,7 +29,7 @@ void textLoadBlock(s32 id) {
         case 'SIZE': // 0x53495A45
             break;
         case 'NAME': // 0x4E414D45
-            sTextName[sTextNameCount] = (s16*)_uvMemAllocAlign8(size);
+            sTextName[sTextNameCount] = (char*)_uvMemAllocAlign8(size);
             _uvMediaCopy(sTextName[sTextNameCount], data, size);
             sTextNameCount++;
             break;
@@ -52,13 +52,13 @@ void textLoadBlock(s32 id) {
     uvFile_80223F30(block);
 }
 
-s16* textGetDataByName(s16* needle) {
+s16* textGetDataByName(const char* needle) {
     s16* dataStr;
     s32 i;
 
     dataStr = NULL;
     for (i = 0; i < sTextNameCount; i++) {
-        if (uvStrcmp((char*)sTextName[i], (char*)needle) == 0) {
+        if (uvStrcmp(sTextName[i], needle) == 0) {
             dataStr = sTextData[i];
             break;
         }

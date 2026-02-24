@@ -158,10 +158,10 @@ typedef struct {
 } Unk802D3658_Arg0;
 
 typedef struct {
-    u16 pad0;
-    u16 unk2;
-    u16 unk4;
-    u16 unk6;
+    u16 pilot; // PilotId
+    u16 veh; // VehicleId
+    u16 cls; // Beg/A/B/Pilot (or level for bonus)
+    u16 test; // test number (or target for CB)
     u16 unk8;
     u8 padA[0x20-0xA];
     s32 unk20;
@@ -288,7 +288,7 @@ typedef struct {
         u8 unk3;
         u8 unk4;
         u8 unk5[0x3];
-        s32 unk8;
+        u8 unk8[4];
         u8 unkC[4];
         s32 unk10;
         u8 unk14[0x18];
@@ -371,7 +371,7 @@ void level_80345A24(void);
 s32* levelGet_80345C80(void);
 s32* levelGet_80345C90(void);
 f32 levelGet_80345CA0(void);
-s32* levelGet_80345CB0(void);
+u8* levelGet_80345CB0(void);
 void levelGet_80345CC0(f32* arg0, f32* arg1);
 LevelCommObjects* levelLoadCommObj(u32 arg0);
 void level_803462D4(u16 idx);
