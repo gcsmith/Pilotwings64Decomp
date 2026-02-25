@@ -900,36 +900,36 @@ void func_8020F9F4(void) {
     gGfxUnkPtrs = &gLevelData;
 }
 
-ParsedUVTR* uvTerraGetBox(s32 arg0) {
+ParsedUVTR* uvTerraGetBox(s32 terraId) {
     ParsedUVTR* temp_v1;
 
-    temp_v1 = gGfxUnkPtrs->terras[arg0];
+    temp_v1 = gGfxUnkPtrs->terras[terraId];
     if (temp_v1 == NULL) {
-        _uvDebugPrintf("uvTerraGetBox: terra %d not defined for level\n", arg0);
+        _uvDebugPrintf("uvTerraGetBox: terra %d not defined for level\n", terraId);
     }
     return temp_v1;
 }
 
-void uvModelGetPosm(s32 arg0, s32 arg1, Mtx4F* arg2) {
+void uvModelGetPosm(s32 modelId, s32 partIndex, Mtx4F* arg2) {
     ParsedUVMD* temp_v0;
 
-    temp_v0 = gGfxUnkPtrs->models[arg0];
+    temp_v0 = gGfxUnkPtrs->models[modelId];
     if (temp_v0 == NULL) {
-        _uvDebugPrintf("uvModelGetPosm: model %d not defined for level\n", arg0);
+        _uvDebugPrintf("uvModelGetPosm: model %d not defined for level\n", modelId);
         return;
     }
-    if (arg1 >= temp_v0->unk8->unk4) {
-        _uvDebugPrintf("uvModelGetPosm: there are not %d parts defined for model %d\n", arg1, arg0);
+    if (partIndex >= temp_v0->unk8->unk4) {
+        _uvDebugPrintf("uvModelGetPosm: there are not %d parts defined for model %d\n", partIndex, modelId);
         return;
     }
 
-    uvMat4Copy(arg2, &temp_v0->unk14[arg1]);
+    uvMat4Copy(arg2, &temp_v0->unk14[partIndex]);
     arg2->m[3][0] /= temp_v0->unk20;
     arg2->m[3][1] /= temp_v0->unk20;
     arg2->m[3][2] /= temp_v0->unk20;
 }
 
-void uvModelGetProps(s32 arg0, ...) {
+void uvModelGetProps(s32 modelId, ...) {
     ParsedUVMD* temp_s2;
     s32 var_a0;
     s32 var_v0;
@@ -937,13 +937,13 @@ void uvModelGetProps(s32 arg0, ...) {
     va_list args;
     s32 i;
 
-    if (arg0 == 0xFFFF) {
+    if (modelId == 0xFFFF) {
         return;
     }
-    temp_s2 = gGfxUnkPtrs->models[arg0];
-    va_start(args, arg0);
+    temp_s2 = gGfxUnkPtrs->models[modelId];
+    va_start(args, modelId);
     if (temp_s2 == NULL) {
-        _uvDebugPrintf("uvModelGetProps: model %d not defined for level\n", arg0);
+        _uvDebugPrintf("uvModelGetProps: model %d not defined for level\n", modelId);
         return;
     }
 
@@ -985,7 +985,7 @@ void uvModelGetProps(s32 arg0, ...) {
     }
 }
 
-u32 uvTerraGetPt(s32 arg0, f32 arg1, f32 arg2, s32** arg3) {
+u32 uvTerraGetPt(s32 terraId, f32 arg1, f32 arg2, s32** arg3) {
     f32 sp94;
     f32 sp90;
     f32 sp8C;
@@ -1000,10 +1000,10 @@ u32 uvTerraGetPt(s32 arg0, f32 arg1, f32 arg2, s32** arg3) {
     Unk80225FBC_0x28* temp_s1;
     Unk80225FBC_0x28_UnkC* temp_v0;
 
-    temp_s0 = gGfxUnkPtrs->terras[arg0];
+    temp_s0 = gGfxUnkPtrs->terras[terraId];
     var_s2 = 0;
     if (temp_s0 == NULL) {
-        _uvDebugPrintf("uvTerraGetPt: terra %d not defined for level\n", arg0);
+        _uvDebugPrintf("uvTerraGetPt: terra %d not defined for level\n", terraId);
     }
     if (func_80212FF4(temp_s0, arg1, arg2, 0.0f, &sp94, &sp90, &sp8C, &sp6E, &sp76, 0) == 0) {
         return *arg3 = NULL;
@@ -1042,7 +1042,7 @@ u32 uvTerraGetPt(s32 arg0, f32 arg1, f32 arg2, s32** arg3) {
     return var_s2;
 }
 
-s32 uvTerraGetSeg(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, s32** arg7, f32** arg8) {
+s32 uvTerraGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, s32** arg7, f32** arg8) {
     ParsedUVTR* sp184;
     ParsedUVCT* temp_s4;
     uvUnkTileStruct* temp_s1;
@@ -1109,9 +1109,9 @@ s32 uvTerraGetSeg(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f3
         *arg8 = NULL;
         return 0;
     }
-    sp184 = gGfxUnkPtrs->terras[arg0];
+    sp184 = gGfxUnkPtrs->terras[terraId];
     if (sp184 == NULL) {
-        _uvDebugPrintf("uvTerraGetSeg: terra %d not defined for level\n", arg0);
+        _uvDebugPrintf("uvTerraGetSeg: terra %d not defined for level\n", terraId);
     }
 
     sp128 = sp184->unk1C;
@@ -1399,7 +1399,7 @@ s32 uvTerraGetState(s32 terraId, u32 surfaceId) {
     return temp_v1->unk0;
 }
 
-void uvTerraGetPlane(s32 terraId, u32 surfaceId, f32 arg2, f32 arg3, f32* arg4, Vec3F* arg5) {
+void uvTerraGetPlane(s32 terraId, u32 surfaceId, f32 px, f32 py, f32* arg4, Vec3F* arg5) {
     ParsedUVCT* temp_v0;
     uvUnkTileStruct* sp70;
     ParsedUVTR* temp_a0;
@@ -1430,12 +1430,12 @@ void uvTerraGetPlane(s32 terraId, u32 surfaceId, f32 arg2, f32 arg3, f32* arg4, 
 
     temp_s2 = &temp_v1->unkC[surfaceId & 0xFFF];
     sp64 = temp_v0->vtx;
-    func_80212FF4(temp_a0, arg2, arg3, 0.0f, &sp60, &sp5C, &sp58, &sp56, &sp54, 0);
+    func_80212FF4(temp_a0, px, py, 0.0f, &sp60, &sp5C, &sp58, &sp56, &sp54, 0);
     sp60 *= gGfxUnkPtrs->unk1608;
     sp5C *= gGfxUnkPtrs->unk1608;
     sp58 *= gGfxUnkPtrs->unk1608;
     if (_uvSurfGetNorm(sp64, temp_s2->unk0, temp_s2->unk2, temp_s2->unk4, arg5) == 0) {
-        _uvDebugPrintf("uvTerraGetPlane:  terra[%d]  sid[0x%x] is bad - px:%.2f , py:%.2f\n", terraId, surfaceId, arg2, arg3);
+        _uvDebugPrintf("uvTerraGetPlane:  terra[%d]  sid[0x%x] is bad - px:%.2f , py:%.2f\n", terraId, surfaceId, px, py);
         arg5->x = 0.0f;
         arg5->y = 0.0f;
         arg5->z = 1.0f;
@@ -1483,7 +1483,7 @@ s32 _uvSurfGetNorm(Vtx* arg0, s32 vtxId0, s32 vtxId1, s32 vtxId3, Vec3F* arg4) {
     return 1;
 }
 
-s32 uvSobjGetPt(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
+s32 uvSobjGetPt(s32 terraId, f32 arg1, f32 arg2, f32 arg3) {
     u16 sp7E;
     u16 sp7C;
     f32 sp78;
@@ -1496,9 +1496,9 @@ s32 uvSobjGetPt(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     uvUnkTileStruct* temp_s4;
     UnkSobjDraw* temp_s0_2;
 
-    temp_s0 = gGfxUnkPtrs->terras[arg0];
+    temp_s0 = gGfxUnkPtrs->terras[terraId];
     if (temp_s0 == NULL) {
-        _uvDebugPrintf("uvSobjGetPt: terra %d not defined for level\n", arg0);
+        _uvDebugPrintf("uvSobjGetPt: terra %d not defined for level\n", terraId);
         return -1;
     }
     if (func_80212FF4(temp_s0, arg1, arg2, arg3, &sp78, &sp74, &sp70, &sp7C, &sp7E, 0) == 0) {
@@ -1519,10 +1519,10 @@ s32 uvSobjGetPt(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
         if (func_80213364(sp78, sp74, sp70, temp_s0_2->unk8, temp_s0_2->unkC, temp_s0_2->unk10, temp_s1->unk1C) != 0) {
             if (temp_s1->unk11 & 2) {
                 if (func_802134F8(sp78, sp74, sp70, temp_s0_2) >= 0) {
-                    return ((arg0 & 0xFF) << 24) | ((sp7C & 0xFFF) << 12) | (i & 0xFFF);
+                    return ((terraId & 0xFF) << 24) | ((sp7C & 0xFFF) << 12) | (i & 0xFFF);
                 }
             } else {
-                return ((arg0 & 0xFF) << 24) | ((sp7C & 0xFFF) << 12) | (i & 0xFFF);
+                return ((terraId & 0xFF) << 24) | ((sp7C & 0xFFF) << 12) | (i & 0xFFF);
             }
         }
     }
@@ -1530,7 +1530,7 @@ s32 uvSobjGetPt(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     return -1;
 }
 
-s32 uvSobjGetSeg(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, s32** arg7, f32** arg8, Vec3F** arg9) {
+s32 uvSobjGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, s32** arg7, f32** arg8, Vec3F** arg9) {
     u16 sp16E;
     u16 sp16C;
     u16 k;
@@ -1588,9 +1588,9 @@ s32 uvSobjGetSeg(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32
     u16 temp_t6;
 
     D_802634C4 = 0;
-    sp164 = gGfxUnkPtrs->terras[arg0];
+    sp164 = gGfxUnkPtrs->terras[terraId];
     if (sp164 == NULL) {
-        _uvDebugPrintf("uvSobjGetSeg: terra %d not defined for level\n", arg0);
+        _uvDebugPrintf("uvSobjGetSeg: terra %d not defined for level\n", terraId);
         return 0;
     }
     if ((arg1 == arg4) && (arg2 == arg5) && (arg3 == arg6)) {
@@ -1633,7 +1633,7 @@ s32 uvSobjGetSeg(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32
         arg6 += temp_fs2 * ((arg5 - spC0) / temp_fs1);
     }
     if ((arg1 == arg4) && (arg2 == arg5) && (arg3 == arg6)) {
-        temp_v0_2 = uvSobjGetPt(arg0, arg1, arg2, arg3);
+        temp_v0_2 = uvSobjGetPt(terraId, arg1, arg2, arg3);
         if (temp_v0_2 == -1) {
             *arg7 = NULL;
             *arg8 = NULL;
@@ -1754,7 +1754,7 @@ s32 uvSobjGetSeg(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32
                 if (func_80214C64(temp_fs0_2, temp_fs2_2, spE4, temp_fs1_2, temp_fs3, spE0, temp_s0_2->unk8, temp_s0_2->unkC, temp_s0_2->unk10, temp_s1->unk1C,
                                   &sp108) != 0) {
                     if (!(temp_s1->unk11 & 2)) {
-                        D_802634C8[D_802634C4] = ((arg0 & 0xFF) << 24) | ((temp_t6 & 0xFFF) << 12) | (k & 0xFFF);
+                        D_802634C8[D_802634C4] = ((terraId & 0xFF) << 24) | ((temp_t6 & 0xFFF) << 12) | (k & 0xFFF);
                         D_80263548[D_802634C4] = sp108;
                         func_80215BC4(arg1, arg2, arg3, arg4, arg5, arg6, sp108, temp_s3->unk0.unk30 + temp_s0_2->unk8, temp_s3->unk0.unk34 + temp_s0_2->unkC,
                                       temp_s3->unk0.unk38 + temp_s0_2->unk10, &D_802635C8[D_802634C4]);
@@ -1763,7 +1763,7 @@ s32 uvSobjGetSeg(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32
                             break;
                         }
                     } else {
-                        D_802634C0 = ((arg0 & 0xFF) << 24) | ((temp_t6 & 0xFFF) << 12) | (k & 0xFFF);
+                        D_802634C0 = ((terraId & 0xFF) << 24) | ((temp_t6 & 0xFFF) << 12) | (k & 0xFFF);
                         func_80213C24(temp_fs0_2, temp_fs2_2, spE4, temp_fs1_2, temp_fs3, spE0, temp_s0_2);
                     }
                 }
@@ -3430,12 +3430,12 @@ void func_80215E7C(ParsedUVMD* arg0) {
     uvGfxStatePop();
 }
 
-void uvDbColorModel(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
+void uvDbColorModel(s32 modelId, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     ParsedUVMD* temp_v0;
 
-    temp_v0 = gGfxUnkPtrs->models[arg0];
+    temp_v0 = gGfxUnkPtrs->models[modelId];
     if (temp_v0 == NULL) {
-        _uvDebugPrintf("uvDbColorModel: model %d not in level\n", arg0);
+        _uvDebugPrintf("uvDbColorModel: model %d not in level\n", modelId);
         return;
     }
 
