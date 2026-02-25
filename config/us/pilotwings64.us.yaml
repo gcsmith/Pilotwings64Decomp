@@ -345,6 +345,8 @@ segments:
       - { type: .bss, vram: 0x80250ED0, name: kernel/emitter }
       - { type: .bss, vram: 0x8025BF00, name: kernel/event }
       - { type: bss, vram: 0x8025C5B0, name: kernel_bss2 }
+      - { type: .bss, vram: 0x802634C0, name: kernel/code_8170 }
+      - { type: bss, vram: 0x80263780, name: 80263780 }
       - { type: .bss, vram: 0x80269F50, name: kernel/code_19B50 }
       - { type: .bss, vram: 0x8026A040, name: kernel/font }
       - { type: .bss, vram: 0x8028A0A0, name: kernel/fx }
