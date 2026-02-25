@@ -33,5 +33,3 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_CFC40/func_80349C38.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_CFC40/func_8034A428.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_CFC40/func_8034A450.s")

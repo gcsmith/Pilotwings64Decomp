@@ -1,5 +1,5 @@
-#ifndef APP_CODE_D19D0_H
-#define APP_CODE_D19D0_H
+#ifndef APP_USER_PATHS_H
+#define APP_USER_PATHS_H
 
 #include <PR/ultratypes.h>
 #include <uv_vector.h>
@@ -14,14 +14,12 @@ typedef struct {
     u8 pad[0x2DC-0x19C];
 } Unk8034A950;
 
-extern Unk8037DCA0 D_8037DCA0[6];
-extern s32 D_8037F098; // size of 0x2E8, might be array
 
-
-Unk8037DCA0* func_8034A4F8(s32 arg0);
-void func_8034A840(s32 path);
-void func_8034A8B0(Unk8037DCA0* arg0, u8 arg1, f32 arg2);
+void userPathInit(void);
+Unk8037DCA0* userPath_8034A4F8(s32 arg0);
+void userPathFree(s32 path);
+void userPath_8034A8B0(Unk8037DCA0* arg0, u8 arg1, f32 arg2);
 // arg0 is the actual struct and not a pointer to it
-void func_8034A950(Unk8034A950 arg0, f32* arg183);
+void userPath_8034A950(Unk8034A950 arg0, f32* arg183);
 
-#endif // APP_CODE_D19D0_H
+#endif // APP_USER_PATHS_H

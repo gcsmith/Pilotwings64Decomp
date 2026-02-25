@@ -5,13 +5,24 @@
 #include <uv_vector.h>
 #include "code_9A960.h"
 #include "code_A6000.h"
-#include "code_D19D0.h"
+#include "user_paths.h"
 
-static s32 func_8034A4A0(void) {
+static Unk8037DCA0 D_8037DCA0[6];
+static Unk8037F098 D_8037F098;
+
+void userPathInit(void) {
+    s32 i;
+
+    for (i = 0; i < ARRAY_COUNT(D_8037DCA0); i++) {
+        uvMemSet(&D_8037DCA0[i], 0, sizeof(D_8037DCA0[i]));
+    }
+}
+
+static s32 userPathAlloc(void) {
     s32 i;
 
     for (i = 0; i < 6; i++) {
-        if (D_8037DCA0[i].unk350 == 0) {
+        if (D_8037DCA0[i].allocated == 0) {
             return i;
         }
     }
@@ -20,7 +31,7 @@ static s32 func_8034A4A0(void) {
     return -1;
 }
 
-Unk8037DCA0* func_8034A4F8(s32 arg0) {
+Unk8037DCA0* userPath_8034A4F8(s32 arg0) {
     Unk8037DCA0* temp_s0;
     s32 temp_v0;
     u32 sp8C;
@@ -39,16 +50,15 @@ Unk8037DCA0* func_8034A4F8(s32 arg0) {
     s32 temp_v1;
 
     var_s3 = 0;
-    temp_v0 = func_8034A4A0();
+    temp_v0 = userPathAlloc();
     if (temp_v0 == -1) {
         return NULL;
     }
     temp_s0 = &D_8037DCA0[temp_v0];
     temp_s0->unk38 = temp_v0;
-    temp_s0->unk350 = 1;
+    temp_s0->allocated = 1;
     temp_v0_2 = uvFileReadHeader(func_802314D0(arg0, 2));
-    var_v0 = uvFileReadBlock(temp_v0_2, &sp8C, &sp88, 1);
-    while (var_v0) {
+    while ((var_v0 = uvFileReadBlock(temp_v0_2, &sp8C, &sp88, 1)) != 0) {
         switch (var_v0) {
         case 'COMM':
             temp1 = sp88;
@@ -65,7 +75,7 @@ Unk8037DCA0* func_8034A4F8(s32 arg0) {
             temp_s0->unk8 = temp2->count;
             temp_s0->unk4 = temp2->unk4;
             temp_s0->unk0 = 0;
-            temp_s0->unkC = _uvMemAllocAlign8(temp_s0->unk8 * 0x14);
+            temp_s0->unkC = (Unk8037DCA0_UnkC*)_uvMemAllocAlign8(temp_s0->unk8 * sizeof(Unk8037DCA0_UnkC));
 
             var_v1 = temp2->unk8;
             for (i = 0; i < temp_s0->unk8; i++) {
@@ -85,7 +95,7 @@ Unk8037DCA0* func_8034A4F8(s32 arg0) {
             temp_s0->unk18 = temp3->count;
             temp_s0->unk14 = temp3->unk4;
             temp_s0->unk10 = 0;
-            temp_s0->unk1C = _uvMemAllocAlign8(temp_s0->unk18 * 0x10);
+            temp_s0->unk1C = (UnkTranslatStruct_Unk8*)_uvMemAllocAlign8(temp_s0->unk18 * sizeof(UnkTranslatStruct_Unk8));
             var_a1 = temp3->unk8;
             for (i = 0; i < temp_s0->unk18; i++) {
                 temp_s0->unk1C[i].unk0.x = var_a1[i].unk0.x;
@@ -106,21 +116,20 @@ Unk8037DCA0* func_8034A4F8(s32 arg0) {
         default:
             break;
         }
-        var_v0 = uvFileReadBlock(temp_v0_2, &sp8C, &sp88, 1);
     }
     uvFile_80223F30(temp_v0_2);
     return temp_s0;
 }
 
-void func_8034A840(s32 path) {
-    if (D_8037DCA0[path].unk350 != 1) {
+void userPathFree(s32 path) {
+    if (D_8037DCA0[path].allocated != 1) {
         _uvDebugPrintf("UserPaths: Freed unused path %d\n", path);
         return;
     }
-    D_8037DCA0[path].unk350 = 0;
+    D_8037DCA0[path].allocated = 0;
 }
 
-void func_8034A8B0(Unk8037DCA0* arg0, u8 arg1, f32 arg2) {
+void userPath_8034A8B0(Unk8037DCA0* arg0, u8 arg1, f32 arg2) {
     if (arg1) {
         arg0->unk40 = 1;
     } else {
@@ -134,7 +143,7 @@ void func_8034A8B0(Unk8037DCA0* arg0, u8 arg1, f32 arg2) {
     func_8031EE48(arg0->unk352, &D_8037F098, 1.0f, 1.0f, 1.0f);
 }
 
-void func_8034A950(Unk8034A950 arg0, f32* arg183) {
+void userPath_8034A950(Unk8034A950 arg0, f32* arg183) {
     arg183[0] = arg0.unk190.f[0];
     arg183[1] = arg0.unk190.f[1];
     arg183[2] = arg0.unk190.f[2];

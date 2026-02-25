@@ -451,7 +451,7 @@ segments:
       - [0xCDB20, c, app/thermals]
       - [0xCE4F0, c, app/code_CE4F0]
       - [0xCFC40, c, app/code_CFC40]
-      - [0xD19D0, c, app/code_D19D0]
+      - [0xD1980, c, app/user_paths]
       - [0xD1ED0, c, app/code_D1ED0]
       - [0xD2B10, c, app/code_D2B10]
       - [0xD2D50, c, app/code_D2D50]
@@ -615,7 +615,7 @@ segments:
       - [0xDE210, .rodata, app/thermals]
       - [0xDE250, .rodata, app/code_CE4F0]
       - [0xDE4A0, .rodata, app/code_CFC40]
-      - [0xDE550, .rodata, app/code_D19D0]
+      - [0xDE550, .rodata, app/user_paths]
       - [0xDE5A0, .rodata, app/code_D1ED0]
       - [0xDE5D0, .rodata, app/code_D2B10]
       - [0xDE5F0, .rodata, app/code_D2D50]
@@ -634,6 +634,8 @@ segments:
       - { type: bss, vram: 0x80378CE0, name: app_bss_80378CE0 }
       - { type: .bss, vram: 0x8037AB50, name: app/thermals }
       - { type: bss, vram: 0x8037ACE0, name: app_bss_8037ACD8 }
+      - { type: .bss, vram: 0x8037DCA0, name: app/user_paths }
+      - { type: bss, vram: 0x8037F380, name: app_bss_8037F380 }
 
   - name: bin_DE720
     type: bin
