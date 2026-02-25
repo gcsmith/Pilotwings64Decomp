@@ -21,13 +21,13 @@
 #include "code_7FED0.h"
 #include "code_9A960.h"
 #include "code_B2900.h"
-#include "code_B5280.h"
 #include "code_D2B10.h"
 #include "demo.h"
 #include "fdr.h"
 #include "hud.h"
 #include "save.h"
 #include "snd.h"
+#include "results.h"
 #include "text_data.h"
 
 // .data likely owned by this file
@@ -889,15 +889,15 @@ s32 cannonLandedFrame(Unk802D5C5C_Arg0* arg0) {
         }
         if (sp27) {
             *temp_v1 = arg0->unk4;
-            func_8032B560(temp_s0->unk74, temp_s0->unk4, temp_s0->unk6, temp_s0->unk2);
-            var_v1 = (s16*)(temp_s0->unk74 + (temp_s0->unk4 * 0x694) + (temp_s0->unk6 * 0x150) + (temp_s0->unk2 * 0x30));
+            func_8032B560(temp_s0->unk74, temp_s0->cls, temp_s0->test, temp_s0->veh);
+            var_v1 = (s16*)(temp_s0->unk74 + (temp_s0->cls * 0x694) + (temp_s0->test * 0x150) + (temp_s0->veh * 0x30));
             var_a2 = var_v1[0x22];
             if ((D_80359A88[arg0->unkC] < var_a2) || var_a2 == 0x7F) {
                 D_80359A88[arg0->unkC] = var_a2;
             }
-            ((s16*)(temp_s0->unk74 + (temp_s0->unk4 * 0x694) + (temp_s0->unk6 * 0x150) + (temp_s0->unk2 * 0x30)))[0x22] = D_80359A88[arg0->unkC];
+            ((s16*)(temp_s0->unk74 + (temp_s0->cls * 0x694) + (temp_s0->test * 0x150) + (temp_s0->veh * 0x30)))[0x22] = D_80359A88[arg0->unkC];
         } else {
-            temp_v1 = (s32*)(temp_s0->unk74 + (temp_s0->unk4 * 0x694) + (temp_s0->unk6 * 0x150) + (temp_s0->unk2 * 0x30));
+            temp_v1 = (s32*)(temp_s0->unk74 + (temp_s0->cls * 0x694) + (temp_s0->test * 0x150) + (temp_s0->veh * 0x30));
             if (((s16*)temp_v1)[0x22] == 0x7F) {
                 ((s16*)temp_v1)[0x22] = 0;
             }
@@ -916,7 +916,7 @@ s32 cannonLandedFrame(Unk802D5C5C_Arg0* arg0) {
                 func_8033F7F8(0x36U);
                 func_8033F748(0x11);
                 func_8033F964(0);
-                func_8033FCD0(temp_s0->unk2);
+                func_8033FCD0(temp_s0->veh);
             }
         }
     }
@@ -934,8 +934,8 @@ s32 cannonLandedFrame(Unk802D5C5C_Arg0* arg0) {
     if (arg0->unkE == 2 && arg0->unkC < 3) {
         func_8033F748(0x1C);
         func_8033F964(0);
-        func_8033FCD0(temp_s0->unk2);
-        func_8032DD50(1);
+        func_8033FCD0(temp_s0->veh);
+        resultHandler(1);
     }
     if (cannonEndShot(arg0) != 0) {
         return 5;
@@ -954,7 +954,7 @@ s32 cannonLandedFrame(Unk802D5C5C_Arg0* arg0) {
 void cannon_802D8A40(u8 arg0, Unk802D5C5C_Arg0* arg1) {
     Unk80362690_Unk0_UnkC* unkC;
     unkC = &D_80362690->unk0[D_80362690->unk9C].unkC;
-    if (unkC->unk2 == 3) {
+    if (unkC->veh == 3) {
         if (arg0 == 1) {
             uvDobjState(arg1->unk0, 0);
             uvDobjState(arg1->unk54, 0);

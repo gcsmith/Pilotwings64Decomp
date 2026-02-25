@@ -150,6 +150,13 @@ demoButtonPress     = 0x803231E0; // type:func
 demoButtonRelease   = 0x80323240; // type:func
 demoRandF           = 0x803232A0; // type:func
 
+resultHandler       = 0x8032DD50; // type:func
+resultSumTally      = 0x8032E060; // type:func
+resultMenuChoose    = 0x8032E6B8; // type:func
+resultDrawTally     = 0x8032E940; // type:func
+result_8032E698     = 0x8032E698; // type:func
+resultGenTipText    = 0x8032EF10; // type:func
+
 smoke_create        = 0x80336934; // type:func
 smoke_props         = 0x80336A04; // type:func
 smoke_getprops      = 0x80336EC0; // type:func
@@ -300,6 +307,8 @@ D_80355034 = 0x80355034; // type:f32 force_migration:True
 D_80355038 = 0x80355038; // type:f32 force_migration:True
 D_8035503C = 0x8035503C; // type:f32 force_migration:True
 D_80355040 = 0x80355040; // type:f32 force_migration:True
+
+gVehShortNames            = 0x80350998; // size:0x1C
 
 sTextName                 = 0x80377F10; // size:0x6E0
 sTextData                 = 0x803785F0; // size:0x6DC

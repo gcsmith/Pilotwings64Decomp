@@ -276,6 +276,19 @@ typedef struct ParsedUVSQ {
     f32 unkC;
 } ParsedUVSQ;
 
+typedef struct uvGfxUnkStructSequence_Unk4 {
+    u16 unk0;
+    f32 unk4;
+} uvGfxUnkStructSequence_Unk4; // size = 0x8
+
+typedef struct uvGfxUnkStructSequence {
+    u8 unk0;
+    uvGfxUnkStructSequence_Unk4* unk4;
+    u8 unk8;
+    u8 unk9;
+    f32 unkC;
+} uvGfxUnkStructSequence;
+
 typedef struct {
     Vec4F unk0;
     u32 unk10_0 : 15;
@@ -307,6 +320,14 @@ typedef struct ParsedUVFT {
     Bitmap* bitmap;
     void* imag[0x2C];
 } ParsedUVFT; // size = 0x80
+
+typedef struct uvGfxUnkStructFont {
+    char* unk0;
+    u8 pad4[0x4];
+    u8 bmfmt;
+    u8 bmsiz;
+    Bitmap* unkC;
+} uvGfxUnkStructFont;
 
 typedef struct {
     u8 pad0[0x2];
