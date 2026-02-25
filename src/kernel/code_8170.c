@@ -514,45 +514,44 @@ void func_8020B894(s32 arg0, s32 arg1, s32 arg2, void* arg3, f32 arg4, f32 arg5,
             var_fv1 = arg6;
         }
     }
-    if (arg0 != 1) {
-        if (arg0 != 2) {
-            if (arg0 == 4) {
-                var_a1 = arg3;
-                for (i = 0; i < arg2 / 2; i++) {
-                    r = (var_a1[i] & 0xF800) >> 11;
-                    g = (var_a1[i] & 0x7C0) >> 6;
-                    b = (var_a1[i] & 0x3E) >> 1;
-                    var_a1[i] = ((s32)(r * arg4) << 11) | ((s32)(g * arg5) << 6) | ((s32)(b * arg6) << 1) | (var_a1[i] & 1);
-                }
-            }
-        } else {
-            switch (arg1) {
-            case 4:
-                var_a0 = arg3;
-                for (i = 0; i < arg2; i++) {
-                    temp_fa0 = (var_a0[i] & 0xE) >> 1;
-                    var_a0[i] = (var_a0[i] & 0xF1) | (((s32)(var_fv1 * temp_fa0)) << 1);
-                    temp_fa0 = (var_a0[i] & 0xE0) >> 5;
-                    var_a0[i] = (((s32)(var_fv1 * temp_fa0)) << 5) | (var_a0[i] & 0x1F);
-                }
-                break;
-            case 8:
-                var_a0 = arg3;
-                for (i = 0; i < arg2; i++) {
-                    temp_fa0 = (var_a0[i] & 0xF0) >> 4;
-                    var_a0[i] = ((((s32)(var_fv1 * temp_fa0)) & 0xF) << 4) | (var_a0[i] & 0xF);
-                }
-                break;
-            case 16:
-                var_a1 = arg3;
-                for (i = 0; i < arg2 / 2; i++) {
-                    temp_fa0 = (var_a1[i] & 0xFF00) >> 8;
-                    var_a1[i] = ((((s32)(var_fv1 * temp_fa0)) & 0xFF) << 8) | (var_a1[i] & 0xFF);
-                }
-                break;
-            }
+    switch (arg0) {
+    case 4:
+        var_a1 = arg3;
+        for (i = 0; i < arg2 / 2; i++) {
+            r = (var_a1[i] & 0xF800) >> 11;
+            g = (var_a1[i] & 0x7C0) >> 6;
+            b = (var_a1[i] & 0x3E) >> 1;
+            var_a1[i] = ((s32)(r * arg4) << 11) | ((s32)(g * arg5) << 6) | ((s32)(b * arg6) << 1) | (var_a1[i] & 1);
         }
-    } else {
+        break;
+    case 2:
+        switch (arg1) {
+        case 4:
+            var_a0 = arg3;
+            for (i = 0; i < arg2; i++) {
+                temp_fa0 = (var_a0[i] & 0xE) >> 1;
+                var_a0[i] = (var_a0[i] & 0xF1) | (((s32)(var_fv1 * temp_fa0)) << 1);
+                temp_fa0 = (var_a0[i] & 0xE0) >> 5;
+                var_a0[i] = (((s32)(var_fv1 * temp_fa0)) << 5) | (var_a0[i] & 0x1F);
+            }
+            break;
+        case 8:
+            var_a0 = arg3;
+            for (i = 0; i < arg2; i++) {
+                temp_fa0 = (var_a0[i] & 0xF0) >> 4;
+                var_a0[i] = ((((s32)(var_fv1 * temp_fa0)) & 0xF) << 4) | (var_a0[i] & 0xF);
+            }
+            break;
+        case 16:
+            var_a1 = arg3;
+            for (i = 0; i < arg2 / 2; i++) {
+                temp_fa0 = (var_a1[i] & 0xFF00) >> 8;
+                var_a1[i] = ((((s32)(var_fv1 * temp_fa0)) & 0xFF) << 8) | (var_a1[i] & 0xFF);
+            }
+            break;
+        }
+        break;
+    case 1:
         switch (arg1) {
         case 4:
             var_a0 = arg3;
@@ -578,6 +577,7 @@ void func_8020B894(s32 arg0, s32 arg1, s32 arg2, void* arg3, f32 arg4, f32 arg5,
             }
             break;
         }
+        break;
     }
 }
 
@@ -956,7 +956,7 @@ void uvModelGetProps(s32 arg0, ...) {
             *va_arg(args, s32*) = temp_s2->unk10;
             break;
         case 5:
-            if (temp_s2->unk8->unk0->unk0->state & 0x02000000) {
+            if (temp_s2->unk8->unk0->unk0->state & GFX_STATE_2000000) {
                 var_v0 = 1;
             } else {
                 var_v0 = 0;
@@ -1337,7 +1337,7 @@ void uvTerraGetColor(s32 terraId, u32 surfaceId, u8* arg2, u8* arg3, u8* arg4) {
         _uvDebugPrintf("uvTerraGetColor: terra %d not defined for level\n", terraId);
         return;
     }
-    temp_v1 = &temp_v0->unk28[(surfaceId >> 0x16) & 0x3FF];
+    temp_v1 = &temp_v0->unk28[(surfaceId >> 22) & 0x3FF];
     if (temp_v1 == NULL) {
         _uvDebugPrintf("uvTerraGetColor: bad surfce id [0x%x]\n", surfaceId);
         return;
@@ -3307,8 +3307,8 @@ void func_80215E7C(ParsedUVMD* arg0) {
     s32 spAC;
 
     uvGfxStatePush();
-    uvGfxClearFlags(0x01600000);
-    uvGfxSetFlags(0x820FFF);
+    uvGfxClearFlags(GFX_STATE_1000000 | GFX_STATE_400000 | GFX_STATE_200000);
+    uvGfxSetFlags(GFX_STATE_800000 | GFX_STATE_20000 | 0xFFF);
     uvMat4SetIdentity(&spD8);
     uvMat4Scale(&spD8, 1.0f / arg0->unk20, 1.0f / arg0->unk20, 1.0f / arg0->unk20);
     uvGfxMtxViewMul(&spD8, 1);
