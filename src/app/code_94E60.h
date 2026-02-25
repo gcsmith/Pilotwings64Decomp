@@ -4,9 +4,7 @@
 #include <PR/ultratypes.h>
 
 typedef struct {
-    u16 unk0;
-    u16 unk2;
-    u16 unk4;
+    u16 unk0[3];
 } Unk8034FBD4;
 
 extern s8 D_8034F7C0;

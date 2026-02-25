@@ -83,12 +83,12 @@ void fileMenu_802E8AF0(void) {
         for (k = 0; k < 4; k++) {
             temp_s2 = func_8032BD20(temp_s6, k, j);
             temp_v0 = func_8032BE8C(temp_s6, k, j);
-            if ((temp_s2 >= D_8034FBD4[k].unk4) && (temp_v0 != 0)) {
+            if ((temp_s2 >= D_8034FBD4[k].unk0[2]) && (temp_v0 != 0)) {
                 var_a2 = 0x14B;
-            } else if ((temp_s2 >= D_8034FBD4[k].unk2) && (temp_v0 != 0)) {
+            } else if ((temp_s2 >= D_8034FBD4[k].unk0[1]) && (temp_v0 != 0)) {
                 var_a2 = 0x14A;
             } else {
-                if ((temp_s2 >= D_8034FBD4[k].unk0) && (temp_v0 != 0)) {
+                if ((temp_s2 >= D_8034FBD4[k].unk0[0]) && (temp_v0 != 0)) {
                     var_a2 = 0x149;
                 } else {
                     var_a2 = 0x148;
@@ -103,8 +103,8 @@ void fileMenu_802E8AF0(void) {
         temp_s5 = func_8032BD20(temp_s6, i + 1, 1);
         temp_s7 = func_8032BD20(temp_s6, i + 1, 2);
         uvSprtProps(i + 0xC, 3, 1, 5, 0x148, 0);
-        if (func_8032BE8C(temp_s6, i + 1, 0) && func_8032BE8C(temp_s6, i + 1, 1) && func_8032BE8C(temp_s6, i + 1, 2) && temp_s2 >= D_8034FBD4[i + 1].unk2 &&
-            temp_s5 >= D_8034FBD4[i + 1].unk2 && temp_s7 >= D_8034FBD4[i + 1].unk2) {
+        if (func_8032BE8C(temp_s6, i + 1, 0) && func_8032BE8C(temp_s6, i + 1, 1) && func_8032BE8C(temp_s6, i + 1, 2) && temp_s2 >= D_8034FBD4[i + 1].unk0[1] &&
+            temp_s5 >= D_8034FBD4[i + 1].unk0[1] && temp_s7 >= D_8034FBD4[i + 1].unk0[1]) {
             sFileMenu_803624E0[i] = 0;
         } else {
             sFileMenu_803624E0[i] = 1;
@@ -114,7 +114,7 @@ void fileMenu_802E8AF0(void) {
     sFileMenu_803624E3 = 0;
     var_s1_3 = 1;
     for (i = 0; i < 3; i++) {
-        if (func_8032BD20(temp_s6, 0, i) < D_8034FBD4[0].unk2) {
+        if (func_8032BD20(temp_s6, 0, i) < D_8034FBD4[0].unk0[1]) {
             var_s1_3 = 0;
             break;
         }
@@ -123,8 +123,8 @@ void fileMenu_802E8AF0(void) {
     if (!(var_s1_3 & 0xFF)) {
         for (i = 0; i < 3; i++) {
             if (sFileMenu_803624E0[i] == 0) {
-                if ((func_8032BD20(temp_s6, 0, i + 3) >= D_8034FBD4[i + 4].unk2) && (func_8032BD20(temp_s6, 1, i + 3) >= D_8034FBD4[i + 4].unk2) &&
-                    (func_8032BD20(temp_s6, 2, i + 3) >= D_8034FBD4[i + 4].unk2)) {
+                if ((func_8032BD20(temp_s6, 0, i + 3) >= D_8034FBD4[i + 4].unk0[1]) && (func_8032BD20(temp_s6, 1, i + 3) >= D_8034FBD4[i + 4].unk0[1]) &&
+                    (func_8032BD20(temp_s6, 2, i + 3) >= D_8034FBD4[i + 4].unk0[1])) {
                     sFileMenu_803624E3 = 1;
                     break;
                 }

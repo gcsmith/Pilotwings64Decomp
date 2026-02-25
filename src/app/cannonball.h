@@ -68,6 +68,9 @@ typedef struct {
     u8 pad294[0x2BC - 0x294];
 } Unk802D5B50_Arg2;
 
+extern u16 D_80359AAA;
+extern u16 D_80359AAE;
+
 void cannon_802D5A90(void);
 void cannonLoadLevel(u8, u8 pilot, Unk802D5B50_Arg2*, Unk802D3658_Arg0*);
 void cannon_802D5C5C(Unk802D5C5C_Arg0*);
