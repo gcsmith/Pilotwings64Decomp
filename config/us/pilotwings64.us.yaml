@@ -449,7 +449,8 @@ segments:
       - [0xCBEE0, c, app/level_objects]
       - [0xCD9D0, c, app/code_CD9D0]
       - [0xCDB20, c, app/thermals]
-      - [0xCE4F0, c, app/code_CE4F0]
+      - [0xCE4F0, c, app/total_results]
+      - [0xCF100, c, app/toys]
       - [0xCFC40, c, app/code_CFC40]
       - [0xD1980, c, app/user_paths]
       - [0xD1ED0, c, app/code_D1ED0]
@@ -527,7 +528,8 @@ segments:
       - [0xD7BC0, data]
       - [0xD7D20, .data, app/thermals]
       - [0xD7D30, data]
-      - [0xD7E10, data]
+      - [0xD7E10, .data, app/total_results]
+      - [0xD7EA0, data]
       - [0xD7EF0, data]
       - [0xD7F40, .rodata, app/code_51E30]
       - [0xD7F60, .rodata, app/code_52230]
@@ -613,7 +615,8 @@ segments:
       - [0xDDFB0, .rodata, app/code_CB7C0]
       - [0xDE020, .rodata, app/level_objects]
       - [0xDE210, .rodata, app/thermals]
-      - [0xDE250, .rodata, app/code_CE4F0]
+      - [0xDE250, .rodata, app/total_results]
+      - [0xDE3E0, .rodata, app/toys]
       - [0xDE4A0, .rodata, app/code_CFC40]
       - [0xDE550, .rodata, app/user_paths]
       - [0xDE5A0, .rodata, app/code_D1ED0]
@@ -628,12 +631,13 @@ segments:
       - { type: bss, vram: 0x80362500, name: app_bss_80362500 }
       - { type: .bss, vram: 0x80369F10, name: app/menu }
       - { type: bss, vram: 0x80369F30, name: app_bss_80369F10 }
-      - { type: .bss, vram: 0x803718F0, name: app/results}
-      - { type: bss, vram: 0x80371960, name: app_bss_80371960}
+      - { type: .bss, vram: 0x803718F0, name: app/results }
+      - { type: bss, vram: 0x80371960, name: app_bss_80371960 }
       - { type: .bss, vram: 0x80377F10, name: app/text_data }
       - { type: bss, vram: 0x80378CE0, name: app_bss_80378CE0 }
       - { type: .bss, vram: 0x8037AB50, name: app/thermals }
-      - { type: bss, vram: 0x8037ACE0, name: app_bss_8037ACD8 }
+      - { type: .bss, vram: 0x8037ACE0, name: app/total_results }
+      - { type: bss, vram: 0x8037AD70, name: app_bss_8037ACD8 }
       - { type: .bss, vram: 0x8037DCA0, name: app/user_paths }
       - { type: bss, vram: 0x8037F380, name: app_bss_8037F380 }
 

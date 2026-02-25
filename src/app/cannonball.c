@@ -800,7 +800,6 @@ void func_8031A2CC(void);
 void func_8031DAA8(s32, f32);
 void func_803214E4(void);
 void func_8032B508(s32);
-s32 func_8032BE1C(s32, u8, u8, u8);
 void func_8034B5E0(u8, Unk802D3658_Arg0*);
 void func_8034E0B4(void);
 void uvEnvFunc(u16, s32, void*);

@@ -63,9 +63,9 @@ extern Unk803798E0 D_803798E0[MAX_CLASSES][MAX_TESTS][VEHICLE_COUNT];
 extern LevelCommObjects gLevelCommObjs;
 
 // begins 0x8037AA78
-extern s32 gLevelClass;   // code refers "level" | Beg./A/B/Pilot | Bonus Level 1/2/3 | Birdman map
-extern s32 gLevelTest;    // code refers "stage" | Test# within class | Birdman time-of-day
-extern s32 gLevelVehicle; // vehicle selected
+extern s32 gLevelClass; // ClassId
+extern s32 gLevelTest;
+extern s32 gLevelVehicle; // VehicleId
 extern Unk8037AA88 D_8037AA88[];
 
 void level_803449B0(void) {
