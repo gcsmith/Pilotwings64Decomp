@@ -1486,7 +1486,77 @@ s32 func_80212788(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f3
 s32 func_802129B0(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, Vtx* vtx, u16 arg7, u16 arg8, u16 arg9, f32 arg10, f32* arg11);
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_802129B0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_80212FF4.s")
+s32 func_80212FF4(ParsedUVTR* arg0, f32 arg1, f32 arg2, f32 arg3, f32* arg4, f32* arg5, f32* arg6, u16* arg7, u16* arg8, u8 arg9) {
+    f32 sp44;
+    f32 sp40;
+    f32 temp_ft4;
+    f32 temp_fv0;
+    f32 temp_fa0;
+    f32 temp_fa1;
+    u16 var_a2;
+    u16 var_v0;
+    u16 var_v0_3;
+    u16 var_v1;
+    u8 var_v0_2;
+
+    *arg4 = arg1;
+    *arg5 = arg2;
+    *arg6 = arg3;
+    sp44 = arg0->unk1C;
+    sp40 = arg0->unk20;
+    temp_fa0 = sp44 * 0.5f;
+    temp_fa1 = sp40 * 0.5f;
+    temp_ft4 = arg0->unk0.unk0;
+    var_a2 = (s32) (arg1 - temp_ft4) / (s32) sp44;
+
+    if (arg9 & 1) {
+        var_a2 -= 1;
+    }
+    temp_fv0 = arg0->unk0.unk4;
+    var_v0 = (s32) (arg2 - temp_fv0) / (s32) sp40;
+    if (arg9 & 2) {
+        var_v0 -= 1;
+    }
+
+    if ((var_a2 >= arg0->unk18) || (var_v0 >= arg0->unk19)) {
+        return 0;
+    }
+
+    *arg7 = var_a2 + (var_v0 * arg0->unk18);
+
+    *arg4 = ((arg1 - (var_a2 * sp44)) - temp_ft4) - temp_fa0;
+
+    *arg5 = ((arg2 - (var_v0 * sp40)) - temp_fv0) - temp_fa1;
+
+    if (*arg4 < -temp_fa0) {
+        var_v0_2 = 1;
+    } else if (temp_fa0 <= *arg4) {
+        var_v0_2 = 1;
+    } else if (*arg5 < -temp_fa1) {
+        var_v0_2 = 1;
+    } else if (temp_fa1 <= *arg5) {
+        var_v0_2 = 1;
+    } else {
+        var_v0_2 = 0;
+    }
+
+    func_80214840(arg0->unk28[*arg7].unk44, arg4, arg5);
+    if (var_v0_2) {
+        *arg8 = 0;
+    } else {
+        var_v0_3 = (s32) (((*arg4 + temp_fa0) * 4.0f) / sp44);
+        var_v1 = (s32) (((*arg5 + temp_fa1) * 4.0f) / sp40);
+        if (var_v0_3 == 4) {
+            var_v0_3 = 3;
+        }
+
+        if (var_v1 == 4) {
+            var_v1 = 3;
+        }
+        *arg8 = 0x8000 >> ((var_v1 * 4) + (var_v0_3 % 4));
+    }
+    return 1;
+}
 
 u8 func_80213364(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
     if ((SQ(arg0 - arg3) + SQ(arg1 - arg4) + SQ(arg2 - arg5)) <= SQ(arg6)) {
@@ -1722,7 +1792,64 @@ s32 func_80213C24(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, Un
     return -1;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_80213EE0.s")
+s32 func_80213EE0(f32 arg0, f32 arg1, f32 arg2, f32 arg3, Mtx4F* arg4, UnkUVMD_24* arg5, u8 arg6) {
+    Mtx4F sp50;
+    Vec3F sp44;
+    s16 var_a2;
+    u8 i;
+    u8 var_v0;
+    UnkUVMD_24* temp_a0;
+    UnkUVMD_24_Unk4* temp_v0;
+
+    if (arg5 == NULL) {
+        return 1;
+    }
+    if (arg6 == 0) {
+        return 1;
+    }
+    sp44.x = arg0;
+    sp44.y = arg1;
+    sp44.z = arg2;
+
+    uvMat4InvertTranslationRotation(&sp50, arg4);
+    uvMat4LocalToWorld(&sp50, &sp44, &sp44);
+    var_a2 = -1;
+
+    for (i = 0; i < arg6; i++) {
+        temp_a0 = &arg5[i];
+        temp_v0 = &temp_a0->unk4;
+
+        if (sp44.x + arg3 < temp_v0->unk0) {
+            var_v0 = 0;
+        } else if (temp_v0->unkC < sp44.x - arg3) {
+            var_v0 = 0;
+        } else if (sp44.y + arg3 < temp_v0->unk4) {
+            var_v0 = 0;
+        } else if (temp_v0->unk10 < sp44.y - arg3) {
+            var_v0 = 0;
+        } else if (sp44.z + arg3 < temp_v0->unk8) {
+            var_v0 = 0;
+        } else if (temp_v0->unk14 < sp44.z - arg3) {
+            var_v0 = 0;
+        } else {
+            var_v0 = 1;
+        }
+
+        if (!var_v0) {
+            i += temp_a0->unk1;
+            continue;
+        }
+        if (temp_a0->unk2 != 0) {
+            var_a2 = -1;
+        } else {
+            var_a2 = i;
+        }
+        if (temp_a0->unk1 == 0) {
+            break;
+        }
+    }
+    return var_a2;
+}
 
 s32 func_802140BC(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {
     if (arg0 < arg2) {
@@ -2436,7 +2563,149 @@ void func_80215D7C(Mtx4F* arg0, s16 arg1, Vec3F* arg2) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_8170/func_80215E7C.s")
+void func_80215E7C(ParsedUVMD* arg0) {
+    s32 i;
+    s32 j;
+    s32 var_s1;
+    UnkUVMD_6* temp_v0;
+    Mtx4F spD8;
+    UnkUVMD_24* spD4;
+    f32 temp_fs0;
+    f32 temp_fs1;
+    f32 temp_fs2;
+    f32 temp_fs3;
+    f32 temp_fs4;
+    f32 temp_fs5;
+    u8 spBB;
+    u8 spBA;
+    u8 spB9;
+    s32 spB4;
+    s32 spB0;
+    s32 spAC;
+
+    uvGfxStatePush();
+    uvGfxClearFlags(0x01600000);
+    uvGfxSetFlags(0x820FFF);
+    uvMat4SetIdentity(&spD8);
+    uvMat4Scale(&spD8, 1.0f / arg0->unk20, 1.0f / arg0->unk20, 1.0f / arg0->unk20);
+    uvGfxMtxViewMul(&spD8, 1);
+
+    for (i = 0; i < arg0->unk8->unk0->unkC; i++) {
+        spD4 = &arg0->unk8->unk0->unk8[i];
+        var_s1 = 0;
+        for (j = 0; j < spD4->unk1C; j++) {
+            temp_v0 = &spD4->unk20[j];
+            spB4 = temp_v0->unk0;
+            spB0 = temp_v0->unk2;
+            spAC = temp_v0->unk4;
+            switch (var_s1 % 8) {
+                case 0:
+                    spBB = 0;
+                    spBA = 0;
+                    spB9 = 0;
+                    break;
+                case 1:
+                    spBB = 0;
+                    spBA = 0;
+                    spB9 = 255;
+                    break;
+                case 2:
+                    spBB = 0;
+                    spBA = 255;
+                    spB9 = 0;
+                    break;
+                case 3:
+                    spBB = 0;
+                    spBA = 255;
+                    spB9 = 255;
+                    break;
+                case 4:
+                    spBB = 255;
+                    spBA = 0;
+                    spB9 = 0;
+                    break;
+                case 5:
+                    spBB = 255;
+                    spBA = 0;
+                    spB9 = 255;
+                    break;
+                case 6:
+                    spBB = 255;
+                    spBA = 255;
+                    spB9 = 0;
+                    break;
+                case 7:
+                    spBB = 255;
+                    spBA = 255;
+                    spB9 = 255;
+                    break;
+            }
+            var_s1++;
+            uvVtxBeginPoly();
+            uvVtx(arg0->vtx[spB4].v.ob[0], arg0->vtx[spB4].v.ob[1], arg0->vtx[spB4].v.ob[2], 0, 0, spBB, spBA, spB9, 255);
+            uvVtx(arg0->vtx[spB0].v.ob[0], arg0->vtx[spB0].v.ob[1], arg0->vtx[spB0].v.ob[2], 0, 0, spBB, spBA, spB9, 255);
+            uvVtx(arg0->vtx[spAC].v.ob[0], arg0->vtx[spAC].v.ob[1], arg0->vtx[spAC].v.ob[2], 0, 0, spBB, spBA, spB9, 255);
+            uvVtxEndPoly();
+        }
+        if (spD4->unk1C == 0) {
+            if (spD4->unk2 != 0) {
+                spB9 = 0;
+                spBA = 0;
+                spBB = 255;
+            } else {
+                spB9 = 255;
+                spBA = 255;
+                spBB = 255;
+            }
+
+            temp_fs0 = spD4->unk4.unk0 * arg0->unk20;
+            temp_fs1 = spD4->unk4.unk4 * arg0->unk20;
+            temp_fs2 = spD4->unk4.unk8 * arg0->unk20;
+            temp_fs3 = spD4->unk4.unkC * arg0->unk20;
+            temp_fs4 = spD4->unk4.unk10 * arg0->unk20;
+            temp_fs5 = spD4->unk4.unk14 * arg0->unk20;
+            uvVtxBeginPoly();
+            uvVtx(temp_fs0, temp_fs1, temp_fs2, 0, 0, 255, spBA, spB9, 120);
+            uvVtx(temp_fs0, temp_fs4, temp_fs2, 0, 0, 255, spBA, spB9, 120);
+            uvVtx(temp_fs3, temp_fs4, temp_fs2, 0, 0, 255, spBA, spB9, 120);
+            uvVtx(temp_fs3, temp_fs1, temp_fs2, 0, 0, 255, spBA, spB9, 120);
+            uvVtxEndPoly();
+            uvVtxBeginPoly();
+            uvVtx(temp_fs0, temp_fs1, temp_fs5, 0, 0, 255, spBA, spB9, 120);
+            uvVtx(temp_fs3, temp_fs1, temp_fs5, 0, 0, 255, spBA, spB9, 120);
+            uvVtx(temp_fs3, temp_fs4, temp_fs5, 0, 0, 255, spBA, spB9, 120);
+            uvVtx(temp_fs0, temp_fs4, temp_fs5, 0, 0, 255, spBA, spB9, 120);
+            uvVtxEndPoly();
+            uvVtxBeginPoly();
+            uvVtx(temp_fs0, temp_fs4, temp_fs2, 0, 0, 255, spBA, spB9, 120);
+            uvVtx(temp_fs0, temp_fs1, temp_fs2, 0, 0, 255, spBA, spB9, 120);
+            uvVtx(temp_fs0, temp_fs1, temp_fs5, 0, 0, 255, spBA, spB9, 120);
+            uvVtx(temp_fs0, temp_fs4, temp_fs5, 0, 0, 255, spBA, spB9, 120);
+            uvVtxEndPoly();
+            uvVtxBeginPoly();
+            uvVtx(temp_fs3, temp_fs4, temp_fs2, 0, 0, 255, spBA, spB9, 120);
+            uvVtx(temp_fs3, temp_fs4, temp_fs5, 0, 0, 255, spBA, spB9, 120);
+            uvVtx(temp_fs3, temp_fs1, temp_fs5, 0, 0, 255, spBA, spB9, 120);
+            uvVtx(temp_fs3, temp_fs1, temp_fs2, 0, 0, 255, spBA, spB9, 120);
+            uvVtxEndPoly();
+            uvVtxBeginPoly();
+            uvVtx(temp_fs0, temp_fs1, temp_fs2, 0, 0, 255, spBA, spB9, 120);
+            uvVtx(temp_fs3, temp_fs1, temp_fs2, 0, 0, 255, spBA, spB9, 120);
+            uvVtx(temp_fs3, temp_fs1, temp_fs5, 0, 0, 255, spBA, spB9, 120);
+            uvVtx(temp_fs0, temp_fs1, temp_fs5, 0, 0, 255, spBA, spB9, 120);
+            uvVtxEndPoly();
+            uvVtxBeginPoly();
+            uvVtx(temp_fs0, temp_fs4, temp_fs2, 0, 0, 255, spBA, spB9, 120);
+            uvVtx(temp_fs0, temp_fs4, temp_fs5, 0, 0, 255, spBA, spB9, 120);
+            uvVtx(temp_fs3, temp_fs4, temp_fs5, 0, 0, 255, spBA, spB9, 120);
+            uvVtx(temp_fs3, temp_fs4, temp_fs2, 0, 0, 255, spBA, spB9, 120);
+            uvVtxEndPoly();
+        }
+    }
+
+    uvGfxMtxViewPop();
+    uvGfxStatePop();
+}
 
 void uvDbColorModel(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     ParsedUVMD* temp_v0;
