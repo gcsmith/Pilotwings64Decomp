@@ -1,3 +1,4 @@
+#include <uv_font.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>
 #include <uv_level.h>
@@ -6,12 +7,12 @@
 #include "code_99D40.h"
 #include "code_9A960.h"
 #include "code_B2900.h"
-#include "code_C9440.h"
 #include "code_D2B10.h"
 #include "credits.h"
 #include "file_menu.h"
 #include "menu.h"
 #include "save.h"
+#include "text_data.h"
 
 // forward declarations
 static s32 fileMenuPrintText(s32*, s32);
@@ -82,12 +83,12 @@ void fileMenu_802E8AF0(void) {
         for (k = 0; k < 4; k++) {
             temp_s2 = func_8032BD20(temp_s6, k, j);
             temp_v0 = func_8032BE8C(temp_s6, k, j);
-            if ((temp_s2 >= D_8034FBD4[k].unk4) && (temp_v0 != 0)) {
+            if ((temp_s2 >= D_8034FBD4[k][2]) && (temp_v0 != 0)) {
                 var_a2 = 0x14B;
-            } else if ((temp_s2 >= D_8034FBD4[k].unk2) && (temp_v0 != 0)) {
+            } else if ((temp_s2 >= D_8034FBD4[k][1]) && (temp_v0 != 0)) {
                 var_a2 = 0x14A;
             } else {
-                if ((temp_s2 >= D_8034FBD4[k].unk0) && (temp_v0 != 0)) {
+                if ((temp_s2 >= D_8034FBD4[k][0]) && (temp_v0 != 0)) {
                     var_a2 = 0x149;
                 } else {
                     var_a2 = 0x148;
@@ -102,8 +103,8 @@ void fileMenu_802E8AF0(void) {
         temp_s5 = func_8032BD20(temp_s6, i + 1, 1);
         temp_s7 = func_8032BD20(temp_s6, i + 1, 2);
         uvSprtProps(i + 0xC, 3, 1, 5, 0x148, 0);
-        if (func_8032BE8C(temp_s6, i + 1, 0) && func_8032BE8C(temp_s6, i + 1, 1) && func_8032BE8C(temp_s6, i + 1, 2) && temp_s2 >= D_8034FBD4[i + 1].unk2 &&
-            temp_s5 >= D_8034FBD4[i + 1].unk2 && temp_s7 >= D_8034FBD4[i + 1].unk2) {
+        if (func_8032BE8C(temp_s6, i + 1, 0) && func_8032BE8C(temp_s6, i + 1, 1) && func_8032BE8C(temp_s6, i + 1, 2) && temp_s2 >= D_8034FBD4[i + 1][1] &&
+            temp_s5 >= D_8034FBD4[i + 1][1] && temp_s7 >= D_8034FBD4[i + 1][1]) {
             sFileMenu_803624E0[i] = 0;
         } else {
             sFileMenu_803624E0[i] = 1;
@@ -113,7 +114,7 @@ void fileMenu_802E8AF0(void) {
     sFileMenu_803624E3 = 0;
     var_s1_3 = 1;
     for (i = 0; i < 3; i++) {
-        if (func_8032BD20(temp_s6, 0, i) < D_8034FBD4[0].unk2) {
+        if (func_8032BD20(temp_s6, 0, i) < D_8034FBD4[0][1]) {
             var_s1_3 = 0;
             break;
         }
@@ -122,8 +123,8 @@ void fileMenu_802E8AF0(void) {
     if (!(var_s1_3 & 0xFF)) {
         for (i = 0; i < 3; i++) {
             if (sFileMenu_803624E0[i] == 0) {
-                if ((func_8032BD20(temp_s6, 0, i + 3) >= D_8034FBD4[i + 4].unk2) && (func_8032BD20(temp_s6, 1, i + 3) >= D_8034FBD4[i + 4].unk2) &&
-                    (func_8032BD20(temp_s6, 2, i + 3) >= D_8034FBD4[i + 4].unk2)) {
+                if ((func_8032BD20(temp_s6, 0, i + 3) >= D_8034FBD4[i + 4][1]) && (func_8032BD20(temp_s6, 1, i + 3) >= D_8034FBD4[i + 4][1]) &&
+                    (func_8032BD20(temp_s6, 2, i + 3) >= D_8034FBD4[i + 4][1])) {
                     sFileMenu_803624E3 = 1;
                     break;
                 }
@@ -201,7 +202,7 @@ static s32 fileMenuPrintText(s32* arg0, s32 arg1) {
     uvFontSet(6);
     uvFont_80219550(1.0, 1.0);
     for (i = 0; i < arg1; i++) {
-        curVal = func_802196B0(func_80342198(arg0[i])) - 16;
+        curVal = func_802196B0(textGetDataByIdx(arg0[i])) - 16;
         if (curVal > maxVal) {
             maxVal = curVal;
         }
@@ -248,7 +249,7 @@ void fileMenu_802E94E0(void) {
     uvLevelAppend(0x48);
     uvLevelAppend(1);
     uvLevelAppend(0x72);
-    func_80341F10(0x42);
+    textLoadBlock(0x42);
     uvSprtProps(0x10, 3, 1, 9, 0x49, 0);
     uvSprtProps(0x10, 2, 0x2A, uvSprtGetHeight(0x10) + 0x17, 0);
     uvSprtProps(0x11, 3, 1, 9, 0x4A, 0);
@@ -405,14 +406,14 @@ void fileMenu_802E9AE0(void) {
     unk70 = D_80362690->unk0[D_80362690->unk9C].unkC.unk70;
     func_80204FC4(unk70->unk22C);
     func_80314154();
-    uvGfxSetFlags(0x400000);
+    uvGfxSetFlags(GFX_STATE_400000);
     uvVtxBeginPoly();
-    uvVtx(0, 240, 0, 0, 0, 0x00, 0x00, 0x00, 0x64);
+    uvVtx(0, SCREEN_HEIGHT, 0, 0, 0, 0x00, 0x00, 0x00, 0x64);
     uvVtx(0, 0, 0, 0, 0, 0x00, 0x00, 0x00, 0x64);
-    uvVtx(320, 0, 0, 0, 0, 0x00, 0x00, 0x00, 0x64);
-    uvVtx(320, 240, 0, 0, 0, 0x00, 0x00, 0x00, 0x64);
+    uvVtx(SCREEN_WIDTH, 0, 0, 0, 0, 0x00, 0x00, 0x00, 0x64);
+    uvVtx(SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, 0x00, 0x00, 0x00, 0x64);
     uvVtxEndPoly();
-    uvGfxClearFlags(0x400000);
+    uvGfxClearFlags(GFX_STATE_400000);
     func_803141E4();
     uvSprtDraw(0x10);
     uvSprtDraw(0x11);
@@ -447,13 +448,13 @@ void fileMenu_802E9AE0(void) {
     uvFont_8021956C((u8)r, (u8)g, (u8)b, 0xFF);
     switch (sFileMenuCurMenu) {
     case 0:
-        titleStr = func_80342198(0x23); // SELECT FILE
+        titleStr = textGetDataByIdx(0x23); // SELECT FILE
         break;
     case 1:
-        titleStr = func_80342198(0xBA); // Which file will be erased?
+        titleStr = textGetDataByIdx(0xBA); // Which file will be erased?
         break;
     case 2:
-        titleStr = func_80342198(0x101); // Are you sure?
+        titleStr = textGetDataByIdx(0x101); // Are you sure?
         break;
     }
     func_80219874(160 - (func_802196B0(titleStr) / 2), 206, titleStr, 0x3C, 0xFFE);

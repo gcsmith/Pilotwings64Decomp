@@ -91,14 +91,14 @@ void func_80314154(void) {
     Mtx4F sp60;
     Mtx4F sp20;
 
-    uvGfxSetViewport(0, 0, 0x140, 0, 0xF0);
-    uvMat4Viewport(&sp60, 0.0f, 319.0f, 0.0f, 239.0f);
+    uvGfxSetViewport(0, 0, SCREEN_WIDTH, 0, SCREEN_HEIGHT);
+    uvMat4SetOrtho(&sp60, 0.0f, SCREEN_WIDTH - 1, 0.0f, SCREEN_HEIGHT - 1);
     uvGfxMtxProjPushF(&sp60);
     uvMat4SetIdentity(&sp20);
     uvGfxMtxViewLoad(&sp20, 1);
     uvGfxStatePush();
-    uvGfxSetFlags(0x800000);
-    uvGfxClearFlags(0x600000);
+    uvGfxSetFlags(GFX_STATE_800000);
+    uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
 }
 
 void func_803141E4(void) {

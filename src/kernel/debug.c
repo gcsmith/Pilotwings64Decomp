@@ -280,11 +280,11 @@ void uvDbg_80231F04(f32 arg0, f32 arg1, s16 arg2, u8 arg3, u8 arg4, u8 arg5) {
     if (sp32 < sp34) {
         return;
     }
-    if (sp34 > 320) {
+    if (sp34 > SCREEN_WIDTH) {
         return;
     }
-    if (sp32 >= 320) {
-        sp32 = 319;
+    if (sp32 >= SCREEN_WIDTH) {
+        sp32 = SCREEN_WIDTH - 1;
     }
     if (sp34 == sp32) {
         sp32 = sp34 + 1;
@@ -370,45 +370,45 @@ void uvDbg_80232554(u8 arg0) {
     uvDbg_802338A8(6.0f, 8.0f);
     if (arg0 & 0x01) {
         uvDbg_80233878(xPos, yPos);
-        uvDbg_80233FC8("v: %d", uvGfxGetCnt(0));
+        uvDbg_80233FC8("v: %d", uvGfxGetCnt(GFX_COUNT_VTX_TRANSFORMS));
         yPos += 14;
     }
     if (arg0 & 0x02) {
         uvDbg_80233878(xPos, yPos);
-        uvDbg_80233FC8("p: %d", uvGfxGetCnt(1));
+        uvDbg_80233FC8("p: %d", uvGfxGetCnt(GFX_COUNT_TRIS));
         yPos += 14;
     }
     if (arg0 & 0x04) {
         uvDbg_80233878(xPos, yPos);
-        uvDbg_80233FC8("l: %d", uvGfxGetCnt(2));
+        uvDbg_80233FC8("l: %d", uvGfxGetCnt(GFX_COUNT_MTX_LOADS));
         yPos += 14;
     }
     if (arg0 & 0x10) {
         uvDbg_80233878(xPos, yPos);
-        uvDbg_80233FC8("t: %d", uvGfxGetCnt(4));
+        uvDbg_80233FC8("t: %d", uvGfxGetCnt(GFX_COUNT_TXT_LOADS));
         yPos += 14;
     }
     if (arg0 & 0x08) {
         uvDbg_80233878(xPos, yPos);
-        uvDbg_80233FC8("m: %d", uvGfxGetCnt(3));
+        uvDbg_80233FC8("m: %d", uvGfxGetCnt(GFX_COUNT_MTX_LOAD_MULTS));
     }
 }
 
 void uvDbg_80232738(u8 arg0) {
     if (arg0 & 0x02) {
-        _uvDebugPrintf("tris: %d   ", uvGfxGetCnt(1));
+        _uvDebugPrintf("tris: %d   ", uvGfxGetCnt(GFX_COUNT_TRIS));
     }
     if (arg0 & 0x01) {
-        _uvDebugPrintf("vtx xfms: %d   ", uvGfxGetCnt(0));
+        _uvDebugPrintf("vtx xfms: %d   ", uvGfxGetCnt(GFX_COUNT_VTX_TRANSFORMS));
     }
     if (arg0 & 0x04) {
-        _uvDebugPrintf("mtx loads: %d   ", uvGfxGetCnt(2));
+        _uvDebugPrintf("mtx loads: %d   ", uvGfxGetCnt(GFX_COUNT_MTX_LOADS));
     }
     if (arg0 & 0x10) {
-        uvDbg_80233FC8("txt loads: %d   ", uvGfxGetCnt(4));
+        uvDbg_80233FC8("txt loads: %d   ", uvGfxGetCnt(GFX_COUNT_TXT_LOADS));
     }
     if (arg0 & 0x08) {
-        _uvDebugPrintf("mtx load-mults: %d   ", uvGfxGetCnt(3));
+        _uvDebugPrintf("mtx load-mults: %d   ", uvGfxGetCnt(GFX_COUNT_MTX_LOAD_MULTS));
     }
     if (arg0 != 0x00) {
         _uvDebugPrintf("\n");
@@ -427,62 +427,62 @@ void uvDbg_8023286C(void) {
     sp36 = 0x55;
     uvGfxStatePush();
     uvGfxSetFlags(0xFFF);
-    uvGfxClearFlags(0x80F00000);
+    uvGfxClearFlags(GFX_STATE_80000000 | GFX_STATE_800000 | GFX_STATE_400000 | GFX_STATE_200000 | GFX_STATE_100000);
 
     uvBeginTmesh();
-    uvVtx(sp36, 0x3C, 0, 0, 0, 0, 0, 0, 0xFF);
-    uvVtx(sp36, 0x1E, 0, 0, 0, 0, 0, 0, 0xFF);
+    uvVtx(sp36, 60, 0, 0, 0, 0, 0, 0, 255);
+    uvVtx(sp36, 30, 0, 0, 0, 0, 0, 0, 255);
     sp36 = 0x75;
-    uvVtx(sp36, 0x3C, 0, 0, 0, 0, 0, 0, 0xFF);
-    uvVtx(sp36, 0x1E, 0, 0, 0, 0, 0, 0, 0xFF);
+    uvVtx(sp36, 60, 0, 0, 0, 0, 0, 0, 255);
+    uvVtx(sp36, 30, 0, 0, 0, 0, 0, 0, 255);
     uvEndTmesh();
 
     uvBeginTmesh();
-    uvVtx(sp36, 0x3C, 0, 0, 0, 0x28, 0x28, 0x28, 0xFF);
-    uvVtx(sp36, 0x1E, 0, 0, 0, 0x28, 0x28, 0x28, 0xFF);
+    uvVtx(sp36, 60, 0, 0, 0, 40, 40, 40, 255);
+    uvVtx(sp36, 30, 0, 0, 0, 40, 40, 40, 255);
     sp36 = 0x97;
-    uvVtx(sp36, 0x3C, 0, 0, 0, 0x28, 0x28, 0x28, 0xFF);
-    uvVtx(sp36, 0x1E, 0, 0, 0, 0x28, 0x28, 0x28, 0xFF);
+    uvVtx(sp36, 60, 0, 0, 0, 40, 40, 40, 255);
+    uvVtx(sp36, 30, 0, 0, 0, 40, 40, 40, 255);
     uvEndTmesh();
 
     uvBeginTmesh();
-    uvVtx(sp36, 0x3C, 0, 0, 0, 0, 0, 0, 0xFF);
-    uvVtx(sp36, 0x1E, 0, 0, 0, 0, 0, 0, 0xFF);
+    uvVtx(sp36, 60, 0, 0, 0, 0, 0, 0, 255);
+    uvVtx(sp36, 30, 0, 0, 0, 0, 0, 0, 255);
     sp36 = 0xB9;
-    uvVtx(sp36, 0x3C, 0, 0, 0, 0, 0, 0, 0xFF);
-    uvVtx(sp36, 0x1E, 0, 0, 0, 0, 0, 0, 0xFF);
+    uvVtx(sp36, 60, 0, 0, 0, 0, 0, 0, 255);
+    uvVtx(sp36, 30, 0, 0, 0, 0, 0, 0, 255);
     uvEndTmesh();
 
     uvBeginTmesh();
-    uvVtx(sp36, 0x3C, 0, 0, 0, 0x28, 0x28, 0x28, 0xFF);
-    uvVtx(sp36, 0x1E, 0, 0, 0, 0x28, 0x28, 0x28, 0xFF);
+    uvVtx(sp36, 60, 0, 0, 0, 40, 40, 40, 255);
+    uvVtx(sp36, 30, 0, 0, 0, 40, 40, 40, 255);
     sp36 = 0xD9;
-    uvVtx(sp36, 0x3C, 0, 0, 0, 0x28, 0x28, 0x28, 0xFF);
-    uvVtx(sp36, 0x1E, 0, 0, 0, 0x28, 0x28, 0x28, 0xFF);
+    uvVtx(sp36, 60, 0, 0, 0, 40, 40, 40, 255);
+    uvVtx(sp36, 30, 0, 0, 0, 40, 40, 40, 255);
     uvEndTmesh();
 
     uvBeginTmesh();
-    uvVtx(sp36, 0x3C, 0, 0, 0, 0, 0, 0, 0xFF);
-    uvVtx(sp36, 0x1E, 0, 0, 0, 0, 0, 0, 0xFF);
+    uvVtx(sp36, 60, 0, 0, 0, 0, 0, 0, 255);
+    uvVtx(sp36, 30, 0, 0, 0, 0, 0, 0, 255);
     sp36 = 0xFB;
-    uvVtx(sp36, 0x3C, 0, 0, 0, 0, 0, 0, 0xFF);
-    uvVtx(sp36, 0x1E, 0, 0, 0, 0, 0, 0, 0xFF);
+    uvVtx(sp36, 60, 0, 0, 0, 0, 0, 0, 255);
+    uvVtx(sp36, 30, 0, 0, 0, 0, 0, 0, 255);
     uvEndTmesh();
 
     uvBeginTmesh();
-    uvVtx(sp36, 0x3C, 0, 0, 0, 0x28, 0x28, 0x28, 0xFF);
-    uvVtx(sp36, 0x1E, 0, 0, 0, 0x28, 0x28, 0x28, 0xFF);
+    uvVtx(sp36, 60, 0, 0, 0, 40, 40, 40, 255);
+    uvVtx(sp36, 30, 0, 0, 0, 40, 40, 40, 255);
     sp36 = 0x11D;
-    uvVtx(sp36, 0x3C, 0, 0, 0, 0x28, 0x28, 0x28, 0xFF);
-    uvVtx(sp36, 0x1E, 0, 0, 0, 0x28, 0x28, 0x28, 0xFF);
+    uvVtx(sp36, 60, 0, 0, 0, 40, 40, 40, 255);
+    uvVtx(sp36, 30, 0, 0, 0, 40, 40, 40, 255);
     uvEndTmesh();
 
     uvBeginTmesh();
-    uvVtx(sp36, 0x3C, 0, 0, 0, 0, 0, 0, 0xFF);
-    uvVtx(sp36, 0x1E, 0, 0, 0, 0, 0, 0, 0xFF);
+    uvVtx(sp36, 60, 0, 0, 0, 0, 0, 0, 255);
+    uvVtx(sp36, 30, 0, 0, 0, 0, 0, 0, 255);
     sp36 = 0x13D;
-    uvVtx(sp36, 0x3C, 0, 0, 0, 0, 0, 0, 0xFF);
-    uvVtx(sp36, 0x1E, 0, 0, 0, 0, 0, 0, 0xFF);
+    uvVtx(sp36, 0x3C, 0, 0, 0, 0, 0, 0, 255);
+    uvVtx(sp36, 0x1E, 0, 0, 0, 0, 0, 0, 255);
     uvEndTmesh();
     uvGfxStatePop();
 }
@@ -589,14 +589,14 @@ void uvDbg_802333AC(UNUSED u8 arg0) {
     Mtx4F sp20;
 
     arg0 += 1;
-    uvMat4Viewport(&sp20, 0.0f, 320.0f, 0.0f, 240.0f);
+    uvMat4SetOrtho(&sp20, 0.0f, SCREEN_WIDTH, 0.0f, SCREEN_HEIGHT);
     uvGfxMtxProjPushF(&sp20);
     uvMat4SetIdentity(&sp60);
     uvGfxMtxViewLoad(&sp60, 1);
     uvDbg_8023286C();
     uvGfxStatePush();
     uvGfxSetFlags(0xFFF);
-    uvGfxClearFlags(0xF00000);
+    uvGfxClearFlags(GFX_STATE_800000 | GFX_STATE_400000 | GFX_STATE_200000 | GFX_STATE_100000);
     uvDbg_80232EBC();
     uvDbg_80233310();
     uvGfxStatePop();
@@ -712,7 +712,7 @@ void uvDbg_80233A40(s32 arg0, u16 arg1) {
     u16 sp26;
 
     D_802C8030 = 0;
-    uvMat4Viewport(&sp70, 0.0f, 320.0f, 0.0f, 240.0f);
+    uvMat4SetOrtho(&sp70, 0.0f, SCREEN_WIDTH, 0.0f, SCREEN_HEIGHT);
     uvGfxMtxProjPushF(&sp70);
     uvMat4SetIdentity(&sp30);
     sp30.m[0][0] = D_802C8024;
@@ -819,7 +819,7 @@ void uvDbg_80233FC8(char* fmt, s32 arg1, ...) {
     s32 sp20;
 
     D_802C8030 = 0;
-    uvMat4Viewport(&sp68, 0.0f, 320.0f, 0.0f, 240.0f);
+    uvMat4SetOrtho(&sp68, 0.0f, SCREEN_WIDTH, 0.0f, SCREEN_HEIGHT);
     uvGfxMtxProjPushF(&sp68);
     uvMat4SetIdentity(&sp28);
     sp28.m[0][0] = D_802C8024;

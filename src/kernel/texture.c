@@ -222,16 +222,6 @@ ParsedUVBT* _uvParseUVBT(u8*);
 extern u8 D_DE720[];
 extern u8 D_DF5B0[];
 
-extern u32 D_802B53F4[];
-extern u32 D_802B5A34[];
-extern u32 D_802B5C34[];
-extern u32 D_802B6404;
-extern u32 D_802B6484;
-extern u32 D_802B6494;
-extern u32 D_802B64BC;
-extern u32 D_802B64E4;
-extern u32 D_802B6A34[];
-extern u32 D_802B6E2C;
 extern u32 D_802B892C;
 
 extern u32 D_802B8934;
@@ -320,7 +310,6 @@ void* uvMemLoadDS(u32 tag, s32 palette) {
     ret = NULL;
     _uvJumpHeap(&D_802B892C);
     do {
-        if (1) { } // fakematch
         switch (tag) {
         case 'UVSQ':
             ret = uvParseTopUVSQ(palette);
@@ -360,6 +349,8 @@ void* uvMemLoadDS(u32 tag, s32 palette) {
             break;
         case 'UVTP':
             ret = uvParseTopUVTP(palette);
+            break;
+        default:
             break;
         }
     } while (_uvJumpHeap(&D_802B892C) == 0);
@@ -1287,7 +1278,7 @@ ParsedUVCT* uvParseTopUVCT(s32 arg0) {
     ParsedUVCT* ret;
 
     ret = NULL;
-    idx = uvFileReadHeader(D_802B5A34[arg0]);
+    idx = uvFileReadHeader(gUVBlockOffsets.UVCT[arg0]);
     while ((tag = uvFileReadBlock(idx, &sp3C, &src, 1)) != 0) {
         switch (tag) {
         case 'COMM':
@@ -1308,7 +1299,7 @@ ParsedUVEN* uvParseTopUVEN(s32 palette) {
     ParsedUVEN* ret;
 
     ret = NULL;
-    idx = uvFileReadHeader(D_802B6404);
+    idx = uvFileReadHeader(gUVBlockOffsets.UVEN[0]);
     if (uvFile_80224170(idx, &sp28, &src, 'COMM', palette, 1) != 0) {
         ret = _uvParseUVEN(src);
     }
@@ -1323,7 +1314,7 @@ ParsedUVLV* uvParseTopUVLV(s32 palette) {
     void* ret;
 
     ret = NULL;
-    idx = uvFileReadHeader(D_802B64E4);
+    idx = uvFileReadHeader(gUVBlockOffsets.UVLV[0]);
     if (uvFile_80224170(idx, &sp28, &src, 'COMM', palette, 1) != 0) {
         ret = _uvExpandTextureCpy(src);
     }
@@ -1338,7 +1329,7 @@ ParsedUVTP* uvParseTopUVTP(s32 palette) {
     ParsedUVTP* ret;
 
     ret = NULL;
-    idx = uvFileReadHeader(D_802B6E2C);
+    idx = uvFileReadHeader(gUVBlockOffsets.UVTP[0]);
     if (uvFile_80224170(idx, &sp28, &src, 'COMM', palette, 1) != 0) {
         ret = _uvParseUVTP(src);
     }
@@ -1353,7 +1344,7 @@ void* uvParseTopUVLT(s32 palette) {
     void* ret;
 
     ret = NULL;
-    idx = uvFileReadHeader(D_802B6484);
+    idx = uvFileReadHeader(gUVBlockOffsets.UVLT[0]);
     if (uvFile_80224170(idx, &sp28, &src, 'COMM', palette, 1) != 0) {
         ret = _uvParseUVLT(src);
     }
@@ -1369,7 +1360,7 @@ void* uvParseTopUVMD(s32 arg0) {
     void* ret;
 
     ret = NULL;
-    idx = uvFileReadHeader(D_802B53F4[arg0]);
+    idx = uvFileReadHeader(gUVBlockOffsets.UVMD[arg0]);
     while ((tag = uvFileReadBlock(idx, &sp3C, &src, 1)) != 0) {
         switch (tag) {
         case 'COMM':
@@ -1390,7 +1381,7 @@ ParsedUVTR* uvParseTopUVTR(s32 arg0) {
     ParsedUVTR* ret;
 
     ret = NULL;
-    idx = uvFileReadHeader(D_802B6494);
+    idx = uvFileReadHeader(gUVBlockOffsets.UVTR[0]);
     if (uvFile_80224170(idx, &sp28, &src, 'COMM', arg0, 1) != 0) {
         ret = _uvParseUVTR(src);
     }
@@ -1405,7 +1396,7 @@ ParsedUVTX* uvParseTopUVTX(s32 arg0) {
     void* src;
     ParsedUVTX* ret;
 
-    idx = uvFileReadHeader(D_802B5C34[arg0]);
+    idx = uvFileReadHeader(gUVBlockOffsets.UVTX[arg0]);
     while ((tag = uvFileReadBlock(idx, &sp34, &src, 1)) != 0) {
         switch (tag) {
         case 'COMM':
@@ -1426,7 +1417,7 @@ void* uvParseTopUVTI(s32 arg0) {
     void* src;
     void* ret;
 
-    idx = uvFileReadHeader(D_802B5C34[arg0]);
+    idx = uvFileReadHeader(gUVBlockOffsets.UVTX[arg0]);
 
     while ((tag = uvFileReadBlock(idx, &sp34, &src, 1)) != 0) {
         switch (tag) {
@@ -1448,7 +1439,7 @@ void* uvParseTopUVBT(s32 arg0) {
     void* src;
     void* ret;
 
-    idx = uvFileReadHeader(D_802B6A34[arg0]);
+    idx = uvFileReadHeader(gUVBlockOffsets.UVBT[arg0]);
     while ((tag = uvFileReadBlock(idx, &sp3C, &src, 0)) != 0) {
         switch (tag) {
         case 'COMM':
@@ -1469,7 +1460,7 @@ ParsedUVSQ* uvParseTopUVSQ(s32 palette) {
     ParsedUVSQ* ret;
 
     ret = NULL;
-    idx = uvFileReadHeader(D_802B64BC);
+    idx = uvFileReadHeader(gUVBlockOffsets.UVSQ[0]);
     if (uvFile_80224170(idx, &sp28, &src, 'COMM', palette, 1) != 0) {
         ret = _uvParseUVSQ(src);
     }

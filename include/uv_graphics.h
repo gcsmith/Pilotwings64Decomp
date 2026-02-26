@@ -6,8 +6,27 @@
 #include <uv_util.h>
 #include <uv_matrix.h>
 
+#define SCREEN_WIDTH 320
+#define SCREEN_HEIGHT 240
+
 #define UV_GFX_NUM_MATRICES 0x15E
 #define UV_GFX_NUM_LOOKS 0x1E
+
+#define GFX_STATE_20000 (1 << 17)
+#define GFX_STATE_40000 (1 << 18)
+#define GFX_STATE_80000 (1 << 19)
+#define GFX_STATE_100000 (1 << 20)
+#define GFX_STATE_200000 (1 << 21)
+#define GFX_STATE_400000 (1 << 22)
+#define GFX_STATE_800000 (1 << 23)
+#define GFX_STATE_1000000 (1 << 24)
+#define GFX_STATE_2000000 (1 << 25)
+#define GFX_STATE_4000000 (1 << 26)
+#define GFX_STATE_8000000 (1 << 27)
+#define GFX_STATE_10000000 (1 << 28)
+#define GFX_STATE_20000000 (1 << 29)
+#define GFX_STATE_40000000 (1 << 30)
+#define GFX_STATE_80000000 (1 << 31)
 
 #define GFX_PATCH_DL(pkt, patchDL, patchArg)                                   \
 {                                                                              \
@@ -16,13 +35,21 @@
     _g->words.w1 = patchDL->words.w1;                                          \
 }
 
+typedef enum {
+    /* 0 */ GFX_COUNT_VTX_TRANSFORMS,
+    /* 1 */ GFX_COUNT_TRIS,
+    /* 2 */ GFX_COUNT_MTX_LOADS,
+    /* 3 */ GFX_COUNT_MTX_LOAD_MULTS,
+    /* 4 */ GFX_COUNT_TXT_LOADS,
+} uvGfxCntType;
+
 typedef void (*uvGfxCallback_t)(void *, s32); 
 
 typedef struct {
-    s32 unk0;
+    s32 state;
     s16 unk4;
     s16 unk6;
-    s32 unk8;
+    Gfx* unk8;
 } uvGfxState_t;
 
 typedef struct {
@@ -72,6 +99,35 @@ typedef struct uvGfxUnkStructTerra {
     uvUnkTileStruct* unk28;
 } uvGfxUnkStructTerra;
 
+typedef struct UnkGfxEnv_Unk30 {
+    u16 modelId;
+    u8 flag;
+} UnkGfxEnv_Unk30;
+
+typedef struct uvGfxUnkStructEnv {
+    u8 screenR;
+    u8 screenG;
+    u8 screenB;
+    u8 screenA;
+    u8 fogR;
+    u8 fogG;
+    u8 fogB;
+    u8 fogA;
+    u8 unk8;
+    u8 unk9;
+    u8 unkA;
+    u8 unkB;
+    u8 padC[0x8];
+    f32 unk14;
+    f32 unk18;
+    u8 unk1C;
+    u8 pad1D[0x11];
+    u8 unk2E;
+    struct UnkGfxEnv_Unk30* unk30;
+    u8 unk34;
+    void (*unk38)(void);
+} uvGfxUnkStructEnv;
+
 typedef struct {
     void* unk0;
     Gfx *unk4;
@@ -119,6 +175,50 @@ typedef struct {
     f32 unk20;
 } uvGfxUnkStructModel;
 
+typedef struct uvGfxUnkStructSequence_Unk4 {
+    u16 unk0;
+    f32 unk4;
+} uvGfxUnkStructSequence_Unk4; // size = 0x8
+
+typedef struct uvGfxUnkStructSequence {
+    u8 unk0;
+    uvGfxUnkStructSequence_Unk4* unk4;
+    u8 unk8;
+    u8 unk9;
+    f32 unkC;
+} uvGfxUnkStructSequence;
+
+typedef struct {
+    Vec4F unk0;
+    u32 unk10_0 : 15;
+    u32 unk10_15 : 1;
+    u32 pad12_0 : 16;
+} Unk8037DCA0_UnkC; // size = 0x14
+
+typedef struct uvGfxUnkStructAnim0 {
+    struct uvGfxUnkStructAnim0* unk0;
+    u16 unk4;
+    u8 pad6[0x2];
+    s32 unk8;
+    Unk8037DCA0_UnkC* unkC;
+} uvGfxUnkStructAnim0;
+
+typedef struct {
+    struct uvGfxUnkStructAnim0* unk0;
+    u8 pad4[0x2];
+    u16 unk6;
+    u8 unk8;
+    u8 unk9;
+} uvGfxUnkStructAnimation;
+
+typedef struct uvGfxUnkStructFont {
+    char* unk0;
+    u8 pad4[0x4];
+    u8 bmfmt;
+    u8 bmsiz;
+    Bitmap* unkC;
+} uvGfxUnkStructFont;
+
 typedef struct {
     u8 pad0[0x2];
     s16 bmfmt;
@@ -138,14 +238,18 @@ typedef struct {
     u8 pad8[0x28];
     void *unk30[1];
     u8 pad34[0x10];
-    void *unk44[1];
+    uvGfxUnkStructEnv *unk44[1];
     u8 pad48[0x80];
     uvGfxUnkStructModel *unkC8[1];
     u8 padCC[0x844];
     uvGfxUnkStructTexture *unk910[1];
     u8 pad914[0x7D0];
-    void *unk10E4[1];
-    u8 pad10E8[0x328];
+    uvGfxUnkStructSequence *unk10E4[1];
+    u8 pad10E8[0x28];
+    uvGfxUnkStructAnimation* unk1110[1];
+    u8 pad1114[0x2A8];
+    uvGfxUnkStructFont* unk13BC[1];
+    u8 pad13C0[0x50];
     uvGfxUnkStructBlit* unk1410[1];
     u8 pad1414[0x1F4];
     f32 unk1608;
@@ -153,6 +257,9 @@ typedef struct {
 
 extern Gfx* gGfxDisplayListHead;
 extern uvGfxUnkStruct* gGfxUnkPtrs;
+extern u16 gGfxFbIndex;
+extern u32 gGfxStateStackData;
+extern u32 D_8029926C;
 
 void uvGfxInit(void);
 void uvGfxBegin(void);
@@ -193,23 +300,13 @@ void uvGfxStatePush(void);
 void uvGfxStatePop(void);
 void uvGfxSetFlags(s32 flags);
 void uvGfxClearFlags(s32 flags);
-void uvGfx_80223A28(s32 flags);
+void uvGfx_80223A28(u32 flags);
 void uvGfx_80223A64(s32 arg0, s32 arg1);
 void uvGfxWaitForMesg(void);
 void uvGfxEnableGamma(s32 enable);
 void uvGfxSetUnkState0(s32 arg0);
 void uvGfx_80223C00(void);
 void uvCopyFrameBuf(s32 fb_id);
-
-// TODO from kernel/code_19B50.c -- split into uv_font.h?
-void uvFontSet(s32);
-void uvFont_80219550(f64, f64);
-void uvFont_8021956C(u8, u8, u8, u8);
-s32 uvFontWidth(char*);
-s32 func_802196B0(void*);
-void func_80219874(s32, s32, void*, s32, s32);
-void uvFont_80219EA8(void);
-void uvFont_80219ACC(s32, s32, char*);
 
 // TODO from kernel/code_58E0 -- split into uv_???
 typedef struct {

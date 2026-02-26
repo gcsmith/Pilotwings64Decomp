@@ -1,3 +1,4 @@
+#include <macros.h>
 #include <uv_graphics.h>
 #include <uv_math.h>
 #include <libc/stdarg.h>
@@ -89,9 +90,9 @@ void func_80204C94(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
     temp_s0->unk1F4 = arg4;
     temp_s0->unk1F8 = arg5;
     temp_s0->unk1FC = arg6;
-    uvMat4SetUnk2(&temp_s0->unk10, arg1, arg2, arg3, arg4, arg5, arg6);
+    uvMat4SetFrustrum(&temp_s0->unk10, arg1, arg2, arg3, arg4, arg5, arg6);
     uvMat4CopyF2L(&temp_s0->unk50, &temp_s0->unk10);
-    uvMat4SetUnk2(&temp_s0->unk90, arg1, arg2, arg3, arg4, arg5, 27000.0f);
+    uvMat4SetFrustrum(&temp_s0->unk90, arg1, arg2, arg3, arg4, arg5, 27000.0f);
     uvMat4CopyF2L(&temp_s0->unkD0, &temp_s0->unk90);
     func_802061A0(temp_s0);
 }
@@ -116,7 +117,7 @@ void uvChanEnv(s32 arg0, s32 arg1) {
 
 void uvChanTerra(s32 arg0, s32 arg1) {
     if (gGfxUnkPtrs->unk4[arg1] == NULL) {
-        _uvDebugPrintf("uvChanTerra: terra %d not in level\n");
+        _uvDebugPrintf("uvChanTerra: terra %d not in level\n", arg1);
         return;
     }
     D_80261730[arg0].unk4 = arg1;
@@ -131,7 +132,7 @@ s32 func_80204EC0(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     y = arg2 - temp_v0->unk110.m[3][1];
     z = arg3 - temp_v0->unk110.m[3][2];
     w = arg4;
-    if ((temp_v0->unk1FC + w) < uvSqrtF(x * x + y * y + z * z)) {
+    if ((temp_v0->unk1FC + w) < uvSqrtF(SQ(x) + SQ(y) + SQ(z))) {
         return 0;
     }
     return func_80206F64(temp_v0->unk2E0, x, y, z, w);
@@ -162,7 +163,7 @@ void func_80205724(s32 arg0, s32 arg1, Mtx4F* arg2) {
 }
 
 void func_802057F4(Mtx4F* arg0, Mtx4F* arg1) {
-    uvMat4UnkOp4(arg0, arg1);
+    uvMat4InvertTranslationRotation(arg0, arg1);
 }
 
 void _uvSortAdd(s32 arg0, f32 arg1, void* arg2, UnkStruct_80204D94* arg3, f32 arg4, f32 arg5, ...) {
@@ -209,7 +210,17 @@ void _uvSortAdd(s32 arg0, f32 arg1, void* arg2, UnkStruct_80204D94* arg3, f32 ar
         var_a1->unk14 = 0xFFFF;
     }
 
+    // passing an object that undergoes default argument promotion to 'va_start'
+    // has undefined behavior (e.g. u8, u16, f32)
+#if defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wvarargs"
+#endif
     va_start(args, arg5);
+#if defined(__clang__)
+#pragma GCC diagnostic pop
+#endif
+
     switch (arg0) {
     case 1:
         break;

@@ -1,8 +1,9 @@
 #include <uv_math.h>
 #include <uv_matrix.h>
+#include <macros.h>
 
 static s32 gMatrixStackIdx = 0;
-extern Mtx4F gMatrixStack[0x64];
+extern Mtx4F gMatrixStack[100];
 
 void _uvDbMstackReset(void) {
     gMatrixStackIdx = -1;
@@ -14,7 +15,7 @@ Mtx4F* _uvDbMstackTop(void) {
 
 void _uvDbMstackPush(Mtx4F* src) {
     gMatrixStackIdx = gMatrixStackIdx + 1;
-    if (gMatrixStackIdx >= 0x64) {
+    if (gMatrixStackIdx >= ARRAY_COUNT(gMatrixStack)) {
         _uvDebugPrintf("_uvDbMstackPush: stack full\n");
         return;
     }
@@ -250,26 +251,26 @@ void uvMat4SetIdentity(Mtx4F* dst) {
     dst->m[3][3] = 1.0f;
 }
 
-void uvMat4SetUnk1(Mtx4F* dst) {
-    *(long*)&dst->m[0][0] = 0x10000;
-    *(long*)&dst->m[0][1] = 0;
-    *(long*)&dst->m[0][2] = 1;
-    *(long*)&dst->m[0][3] = 0;
+void uvMat4SetIdentityL(Mtx* dst) {
+    dst->m[0][0] = 0x10000;
+    dst->m[0][1] = 0;
+    dst->m[0][2] = 1;
+    dst->m[0][3] = 0;
 
-    *(long*)&dst->m[1][1] = 0x10000;
-    *(long*)&dst->m[1][0] = 0;
-    *(long*)&dst->m[1][3] = 1;
-    *(long*)&dst->m[1][2] = 0;
+    dst->m[1][1] = 0x10000;
+    dst->m[1][0] = 0;
+    dst->m[1][3] = 1;
+    dst->m[1][2] = 0;
 
-    *(long*)&dst->m[2][0] = 0;
-    *(long*)&dst->m[2][1] = 0;
-    *(long*)&dst->m[2][2] = 0;
-    *(long*)&dst->m[2][3] = 0;
+    dst->m[2][0] = 0;
+    dst->m[2][1] = 0;
+    dst->m[2][2] = 0;
+    dst->m[2][3] = 0;
 
-    *(long*)&dst->m[3][0] = 0;
-    *(long*)&dst->m[3][1] = 0;
-    *(long*)&dst->m[3][2] = 0;
-    *(long*)&dst->m[3][3] = 0;
+    dst->m[3][0] = 0;
+    dst->m[3][1] = 0;
+    dst->m[3][2] = 0;
+    dst->m[3][3] = 0;
 }
 
 void uvMat4Mul(Mtx4F* dst, Mtx4F* src1, Mtx4F* src2) {
@@ -402,7 +403,7 @@ void uvMat4RotateAxis(Mtx4F* dst, float angle, char axis) {
     }
 }
 
-void uvMat4UnkOp2(Mtx4F* dst, float arg1, float arg2, float arg3) {
+void uvMat4LocalTranslate(Mtx4F* dst, float x, float y, float z) {
     float unused1, unused2; // for stack
     Mtx4F temp;
     temp.m[0][0] = dst->m[0][0];
@@ -417,29 +418,29 @@ void uvMat4UnkOp2(Mtx4F* dst, float arg1, float arg2, float arg3) {
     temp.m[2][1] = dst->m[2][1];
     temp.m[2][2] = dst->m[2][2];
     temp.m[2][3] = dst->m[2][3];
-    temp.m[3][0] = (arg1 * dst->m[0][0]) + (arg2 * dst->m[1][0]) + (arg3 * dst->m[2][0]) + dst->m[3][0];
-    temp.m[3][1] = (arg1 * dst->m[0][1]) + (arg2 * dst->m[1][1]) + (arg3 * dst->m[2][1]) + dst->m[3][1];
-    temp.m[3][2] = (arg1 * dst->m[0][2]) + (arg2 * dst->m[1][2]) + (arg3 * dst->m[2][2]) + dst->m[3][2];
-    temp.m[3][3] = (arg1 * dst->m[0][3]) + (arg2 * dst->m[1][3]) + (arg3 * dst->m[2][3]) + dst->m[3][3];
+    temp.m[3][0] = (x * dst->m[0][0]) + (y * dst->m[1][0]) + (z * dst->m[2][0]) + dst->m[3][0];
+    temp.m[3][1] = (x * dst->m[0][1]) + (y * dst->m[1][1]) + (z * dst->m[2][1]) + dst->m[3][1];
+    temp.m[3][2] = (x * dst->m[0][2]) + (y * dst->m[1][2]) + (z * dst->m[2][2]) + dst->m[3][2];
+    temp.m[3][3] = (x * dst->m[0][3]) + (y * dst->m[1][3]) + (z * dst->m[2][3]) + dst->m[3][3];
     uvMat4Copy(dst, &temp);
 }
 
-void uvMat4UnkOp3(Mtx4F* dst, float arg1, float arg2, float arg3) {
+void uvMat4Scale(Mtx4F* dst, float scaleX, float scaleY, float scaleZ) {
     float unused1, unused2; // for stack
     Mtx4F scaled;
 
-    scaled.m[0][0] = dst->m[0][0] * arg1;
-    scaled.m[0][1] = dst->m[0][1] * arg1;
-    scaled.m[0][2] = dst->m[0][2] * arg1;
-    scaled.m[0][3] = dst->m[0][3] * arg1;
-    scaled.m[1][0] = dst->m[1][0] * arg2;
-    scaled.m[1][1] = dst->m[1][1] * arg2;
-    scaled.m[1][2] = dst->m[1][2] * arg2;
-    scaled.m[1][3] = dst->m[1][3] * arg2;
-    scaled.m[2][0] = dst->m[2][0] * arg3;
-    scaled.m[2][1] = dst->m[2][1] * arg3;
-    scaled.m[2][2] = dst->m[2][2] * arg3;
-    scaled.m[2][3] = dst->m[2][3] * arg3;
+    scaled.m[0][0] = dst->m[0][0] * scaleX;
+    scaled.m[0][1] = dst->m[0][1] * scaleX;
+    scaled.m[0][2] = dst->m[0][2] * scaleX;
+    scaled.m[0][3] = dst->m[0][3] * scaleX;
+    scaled.m[1][0] = dst->m[1][0] * scaleY;
+    scaled.m[1][1] = dst->m[1][1] * scaleY;
+    scaled.m[1][2] = dst->m[1][2] * scaleY;
+    scaled.m[1][3] = dst->m[1][3] * scaleY;
+    scaled.m[2][0] = dst->m[2][0] * scaleZ;
+    scaled.m[2][1] = dst->m[2][1] * scaleZ;
+    scaled.m[2][2] = dst->m[2][2] * scaleZ;
+    scaled.m[2][3] = dst->m[2][3] * scaleZ;
     scaled.m[3][0] = dst->m[3][0];
     scaled.m[3][1] = dst->m[3][1];
     scaled.m[3][2] = dst->m[3][2];
@@ -447,7 +448,7 @@ void uvMat4UnkOp3(Mtx4F* dst, float arg1, float arg2, float arg3) {
     uvMat4Copy(dst, &scaled);
 }
 
-void uvMat4UnkOp4(Mtx4F* dst, Mtx4F* mat2) {
+void uvMat4InvertTranslationRotation(Mtx4F* dst, Mtx4F* mat2) {
     Mtx4F sp50;
     s32 i;
     s32 j;
@@ -464,17 +465,17 @@ void uvMat4UnkOp4(Mtx4F* dst, Mtx4F* mat2) {
     sp50.m[3][0] = 0.0f;
     sp50.m[3][1] = 0.0f;
     sp50.m[3][2] = 0.0f;
-    uvMat4UnkOp2(&sp50, -mat2->m[3][0], -mat2->m[3][1], -mat2->m[3][2]);
+    uvMat4LocalTranslate(&sp50, -mat2->m[3][0], -mat2->m[3][1], -mat2->m[3][2]);
     uvMat4Copy(dst, &sp50);
 }
 
-void uvMat4UnkOp5(Mtx4F* dst, Vec3F* vec1, Vec3F* vec2) {
-    float tmp0 = vec2->f[0];
-    float tmp1 = vec2->f[1];
-    float tmp2 = vec2->f[2];
-    vec1->f[0] = tmp0 * dst->m[0][0] + tmp1 * dst->m[1][0] + tmp2 * dst->m[2][0] + dst->m[3][0];
-    vec1->f[1] = tmp0 * dst->m[0][1] + tmp1 * dst->m[1][1] + tmp2 * dst->m[2][1] + dst->m[3][1];
-    vec1->f[2] = tmp0 * dst->m[0][2] + tmp1 * dst->m[1][2] + tmp2 * dst->m[2][2] + dst->m[3][2];
+void uvMat4LocalToWorld(Mtx4F* src, Vec3F* dst, Vec3F* vec2) {
+    float x = vec2->f[0];
+    float y = vec2->f[1];
+    float z = vec2->f[2];
+    dst->f[0] = x * src->m[0][0] + y * src->m[1][0] + z * src->m[2][0] + src->m[3][0];
+    dst->f[1] = x * src->m[0][1] + y * src->m[1][1] + z * src->m[2][1] + src->m[3][1];
+    dst->f[2] = x * src->m[0][2] + y * src->m[1][2] + z * src->m[2][2] + src->m[3][2];
 }
 
 void uvMat4UnkOp6(Mtx4F* dst, Mtx4F* src1, Mtx4F* src2) {
@@ -517,35 +518,24 @@ void uvMat4UnkOp6(Mtx4F* dst, Mtx4F* src1, Mtx4F* src2) {
     }
 }
 
-void uvMat4SetUnk2(Mtx4F* dst, float arg1, float arg2, float arg3, float arg4, float arg5, float arg6) {
-    float two5 = 2.0f * arg5;
-    dst->m[0][0] = two5 / (arg2 - arg1);
-    dst->m[1][1] = two5 / (arg4 - arg3);
-    dst->m[2][0] = (arg2 + arg1) / (arg2 - arg1);
-    dst->m[2][1] = (arg4 + arg3) / (arg4 - arg3);
-    dst->m[2][2] = -(arg6 + arg5) / (arg6 - arg5);
+void uvMat4SetFrustrum(Mtx4F* dst, float left, float right, float top, float bottom, float near, float far) {
+    dst->m[0][0] = (2.0f * near) / (right - left);
+    dst->m[1][1] = (2.0f * near) / (bottom - top);
+    dst->m[2][0] = (right + left) / (right - left);
+    dst->m[2][1] = (bottom + top) / (bottom - top);
+    dst->m[2][2] = -(far + near) / (far - near);
     dst->m[2][3] = -1.0f;
-    dst->m[3][2] = -(two5 * arg6) / (arg6 - arg5);
+    dst->m[3][2] = -((2.0f * near) * far) / (far - near);
     if (0) { } // fakematch
-    dst->m[3][3] = 0.0f;
-    dst->m[3][1] = 0.0f;
-    dst->m[3][0] = 0.0f;
-    dst->m[1][3] = 0.0f;
-    dst->m[1][2] = 0.0f;
-    dst->m[1][0] = 0.0f;
-    dst->m[0][3] = 0.0f;
-    dst->m[0][2] = 0.0f;
-    dst->m[0][1] = 0.0f;
+    dst->m[0][1] = dst->m[0][2] = dst->m[0][3] = dst->m[1][0] = dst->m[1][2] = dst->m[1][3] = dst->m[3][0] = dst->m[3][1] = dst->m[3][3] = 0.0f;
 }
 
-void uvMat4Viewport(Mtx4F* dst, float arg1, float arg2, float arg3, float arg4) {
-    float tmp21 = arg2 - arg1;
-    float tmp43 = arg4 - arg3;
-    dst->m[0][0] = 2.0f / tmp21;
-    dst->m[1][1] = 2.0f / tmp43;
+void uvMat4SetOrtho(Mtx4F* dst, float left, float right, float top, float bottom) {
+    dst->m[0][0] = 2.0f / (right - left);
+    dst->m[1][1] = 2.0f / (bottom - top);
     dst->m[2][2] = -1.0f;
-    dst->m[3][0] = -(arg2 + arg1) / tmp21;
-    dst->m[3][1] = -(arg4 + arg3) / tmp43;
+    dst->m[3][0] = -(right + left) / (right - left);
+    dst->m[3][1] = -(bottom + top) / (bottom - top);
     dst->m[0][1] = 0.0f;
     dst->m[0][2] = 0.0f;
     dst->m[0][3] = 0.0f;
@@ -559,15 +549,15 @@ void uvMat4Viewport(Mtx4F* dst, float arg1, float arg2, float arg3, float arg4) 
     dst->m[3][3] = 1.0f;
 }
 
-void uvMat4SetUnk4(Mtx4F* dst, float arg1, float arg2, float arg3, float arg4) {
-    dst->m[0][0] = 1.0f - (2.0f * (arg2 * arg2 + arg3 * arg3));
+void uvMat4SetQuaternionRotation(Mtx4F* dst, float arg1, float arg2, float arg3, float arg4) {
+    dst->m[0][0] = 1.0f - (2.0f * (SQ(arg2) + SQ(arg3)));
     dst->m[0][1] = 2.0f * (arg1 * arg2 - arg3 * arg4);
     dst->m[0][2] = 2.0f * (arg3 * arg1 + arg2 * arg4);
     dst->m[1][0] = 2.0f * (arg1 * arg2 + arg3 * arg4);
-    dst->m[1][1] = 1.0f - (2.0f * (arg3 * arg3 + arg1 * arg1));
+    dst->m[1][1] = 1.0f - (2.0f * (SQ(arg3) + SQ(arg1)));
     dst->m[1][2] = 2.0f * (arg2 * arg3 - arg1 * arg4);
     dst->m[2][0] = 2.0f * (arg3 * arg1 - arg2 * arg4);
     dst->m[2][1] = 2.0f * (arg2 * arg3 + arg1 * arg4);
-    dst->m[2][2] = 1.0f - (2.0f * (arg2 * arg2 + arg1 * arg1));
+    dst->m[2][2] = 1.0f - (2.0f * (SQ(arg2) + SQ(arg1)));
 }
 

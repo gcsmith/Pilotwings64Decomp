@@ -53,7 +53,7 @@ void therm_8034662C(void) {
             for (i = 0; i < gThermalCount; i++) {
                 levlTher = &gLevelTHER[i];
                 therm = &gThermals[i];
-                therm->unk0 = func_8021731C();
+                therm->unk0 = uvDobjAllocIdx();
                 uvDobjModel(therm->unk0, 0x101);
                 uvDobjState(therm->unk0, 2);
                 uvVec3Copy(&gThermals[i].pos, &levlTher->pos);
@@ -88,7 +88,7 @@ void therm_8034662C(void) {
             }
             gThermShouldDisable = 0;
             temp_v1_2 = &D_80362690->unk0[D_80362690->unk9C].unkC;
-            if ((temp_v1_2->unk2 == 0) && (temp_v1_2->unk4 == 3) && (temp_v1_2->unk6 == 0)) {
+            if ((temp_v1_2->veh == VEHICLE_HANG_GLIDER) && (temp_v1_2->cls == 3) && (temp_v1_2->test == 0)) {
                 gThermShouldDisable = 1;
             }
         }

@@ -2,147 +2,187 @@
 #include <uv_filesystem.h>
 #include <uv_graphics.h>
 #include <uv_memory.h>
+#include <libc/stdarg.h>
 
-typedef struct {
-    u32 pad0;
-    u32 pad4;
-    s32 imageRef;
-    u32 padC;
-} ParsedBITM;
+typedef struct Unk80269F50 {
+    u8 unk0;
+    u8 unk1;
+    f32 unk4;
+    uvGfxUnkStructSequence unk8;
+} Unk80269F50;
 
-typedef struct {
-    void* strg;
-    u32 pad4;
-    s8 unk8;
-    s8 unk9;
-    u16 unkA;
-    ParsedBITM* bitm;
-    void* imag[0x2C]; // unknown size, 0x2C based on mem alloc in uvParseTopUVFT
-                      // (0xC0 allocated)
-} ParsedUVFT;
+void func_8021902C(s32);
 
-// clang-format off
-static s16 D_80248E20 = 0x0000;
-static s16 D_80248E24[] = {
-    0x0000, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x0000, 0x0000,
-    0x0001, 0x1234, 0xFFFF, 0xFFFF, 0x0000, 0x0000, 0x0000, 0x0000,
-    0x0000, 0x0001, 0x0294, 0x1F08, 0x000F, 0x0080,
-};
-static u8 D_80248E50[] = {
-    0x03, 0x00, 0x00, 0x00, 0x80, 0x26, 0xA0, 0x40, 0x80, 0x26,
-    0xA3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-};
+Unk80269F50 D_80269F50[10];
 
-static u8 D_80248E64 = 0xFF;
-static u8 D_80248E68 = 0xFF;
-static u8 D_80248E6C = 0xFF;
-static u8 D_80248E70 = 0xFF;
-static u8 D_80248E74 = 0x00;
-static u8 D_80248E78 = 0x00;
-
-static f32 D_80248E7C = 1;
-static f32 D_80248E80 = 1;
-static u32 D_80248E84 = 0;
-static u32 D_80248E88 = 8;
-static u32 D_80248E8C = 0;
-static u32 D_80248E90 = 0;
-static u32 D_80248E94 = 0;
-// clang-format on
-
-extern u32 D_802B69E4;
-
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/func_80218BA0.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/func_80218CA4.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/uvSeqModel.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/uvSeqProps.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/func_80218F88.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/func_8021902C.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/func_80219240.s")
-
-ParsedUVFT* uvParseTopUVFT(s32 arg0) {
-    ParsedUVFT* ret;
-    s32 temp_v0;
-    u32 nbytes;
-    s32* srcAddr;
+void func_80218BA0(void) {
     s32 i;
-    s32 imagCount;
-    s32 bitmCount;
-    u32 tag;
 
-    imagCount = 0;
-    ret = (ParsedUVFT*)_uvMemAlloc(sizeof(ParsedUVFT), 4);
-    temp_v0 = uvFileReadHeader((&D_802B69E4)[arg0]);
-    while ((tag = uvFileReadBlock(temp_v0, &nbytes, (void**)&srcAddr, 1)) != NULL) {
-        switch (tag) {
-        case 'STRG':
-            ret->strg = _uvMemAlloc(nbytes, 4);
-            _uvMediaCopy((void*)ret->strg, srcAddr, nbytes);
+    for (i = 0; i < 10; i++) {
+        D_80269F50[i].unk0 = 0;
+        D_80269F50[i].unk1 = 0;
+        D_80269F50[i].unk4 = 0;
+        D_80269F50[i].unk8.unk0 = 0;
+        D_80269F50[i].unk8.unk4 = NULL;
+        D_80269F50[i].unk8.unk8 = 0;
+        D_80269F50[i].unk8.unk9 = 0;
+        D_80269F50[i].unk8.unkC = 1.0f;
+    }
+}
+
+void func_80218CA4(void) {
+    s32 i;
+
+    for (i = 0; i < 10; i++) {
+        if (D_80269F50[i].unk0 != 0) {
+            func_8021902C(i);
+        }
+    }
+}
+
+void uvSeqModel(s32 arg0, s32 seqId) {
+    Unk80269F50* temp_v0;
+    uvGfxUnkStructSequence* temp_a3;
+
+    temp_a3 = gGfxUnkPtrs->unk10E4[seqId];
+    if (temp_a3 == NULL) {
+        _uvDebugPrintf("uvSeqModel: sequence %d not in level\n", seqId);
+        return;
+    }
+    temp_v0 = &D_80269F50[arg0];
+    temp_v0->unk0 = 1;
+    if (temp_a3->unk9 == 1) {
+        temp_v0->unk1 = temp_a3->unk0 - 1;
+    } else {
+        temp_v0->unk1 = 0;
+    }
+    if (temp_a3->unk0 != 0) {
+        temp_v0->unk4 = temp_a3->unk4[temp_v0->unk1].unk4;
+    }
+    _uvMediaCopy(&temp_v0->unk8, temp_a3, sizeof(uvGfxUnkStructSequence));
+}
+
+void uvSeqProps(s32 arg0, ...) {
+    Unk80269F50* temp_s3;
+    s32 temp_v0;
+    s32 temp_a1;
+    uvGfxUnkStructSequence* temp_v1;
+    va_list args;
+
+    temp_s3 = &D_80269F50[arg0];
+    temp_v1 = &temp_s3->unk8;
+    if ((temp_s3 == NULL) || (temp_v1 == NULL)) {
+        _uvDebugPrintf("uvSeqProps: invalid object id %d\n", arg0);
+        return;
+    }
+    va_start(args, arg0);
+    while (TRUE) {
+        temp_a1 = va_arg(args, s32);
+        switch (temp_a1) {
+        case 0:
+            return;
+        case 1:
+            temp_s3->unk0 = va_arg(args, s32);
             break;
-        case 'FRMT':
-            ret->unk8 = srcAddr[0];
-            ret->unk9 = srcAddr[1];
+        case 3:
+            temp_v0 = va_arg(args, s32);
+            if (temp_v0 >= temp_v1->unk0) {
+                // FAKE
+                if (temp_v1) { }
+                _uvDebugPrintf("uvSeqProps: CURFRM past bounds\n");
+            } else {
+                temp_s3->unk1 = temp_v0;
+            }
             break;
-        case 'BITM':
-            bitmCount = nbytes / sizeof(ParsedBITM);
-            ret->bitm = (ParsedBITM*)_uvMemAlloc(nbytes, 8);
-            _uvMediaCopy((void*)ret->bitm, srcAddr, nbytes);
+        case 2:
+            temp_v1->unk8 = va_arg(args, s32);
             break;
-        case 'IMAG':
-            ret->imag[imagCount] = _uvMemAlloc(nbytes, 8);
-            _uvMediaCopy((void*)ret->imag[imagCount], srcAddr, nbytes);
-            imagCount++;
+        case 5:
+            temp_v1->unk9 = va_arg(args, s32);
+            temp_s3->unk1 = temp_v1->unk0 - 1;
+            break;
+        case 4:
+            temp_v1->unkC = va_arg(args, f64);
+            break;
+        default:
+            _uvDebugPrintf("uvSeqProps: property has unknown type (%d)\n", temp_a1);
+            break;
+        }
+    }
+}
+
+s32 func_80218F88(void) {
+    s32 i;
+
+    for (i = 0; i < 10; i++) {
+        if (D_80269F50[i].unk0 == 0) {
+            return i;
+        }
+    }
+
+    return 0xFF;
+}
+
+void func_8021902C(s32 arg0) {
+    Unk80269F50* temp_a0;
+    uvGfxUnkStructSequence* temp_a1;
+
+    temp_a0 = &D_80269F50[arg0];
+    temp_a1 = &temp_a0->unk8;
+    temp_a0->unk4 -= temp_a1->unkC * uvGfxGetUnkStateF();
+
+    if (temp_a0->unk4 > 0.0f) {
+        return;
+    }
+
+    while (temp_a0->unk4 <= 0.0f) {
+        switch (temp_a1->unk8) {
+        case 0:
+            if (temp_a1->unk9 == 0) {
+                temp_a0->unk1 = (temp_a0->unk1 + 1) % temp_a1->unk0;
+            } else {
+                temp_a0->unk1 = ((temp_a0->unk1 + temp_a1->unk0) - 1) % temp_a1->unk0;
+            }
+            break;
+        case 1:
+            if (temp_a1->unk9 == 0) {
+                temp_a0->unk1++;
+                if (temp_a0->unk1 == temp_a1->unk0) {
+                    temp_a0->unk0 = 0;
+                    return;
+                }
+            } else {
+                if (temp_a0->unk1 == 0) {
+                    temp_a0->unk0 = 0;
+                    return;
+                }
+                temp_a0->unk1--;
+            }
+
+            break;
+        case 2:
+            if (temp_a1->unk9 == 0) {
+                temp_a0->unk1++;
+                if (temp_a0->unk1 + 1 == temp_a1->unk0) {
+                    temp_a1->unk9 = 1;
+                }
+            } else {
+                temp_a0->unk1--;
+                if (temp_a0->unk1 == 0) {
+                    temp_a1->unk9 = 0;
+                }
+            }
             break;
         default:
             break;
         }
+        temp_a0->unk4 += temp_a1->unk4[temp_a0->unk1].unk4;
     }
-
-    uvFile_80223F30(temp_v0);
-    // update indexes to pointers allocated above
-    for (i = 0; i < bitmCount; i++) {
-        ret->bitm[i].imageRef = ret->imag[ret->bitm[i].imageRef];
-    }
-    return ret;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/uvFontSet.s")
+u16 func_80219240(s32 arg0) {
+    Unk80269F50* temp_v1;
 
-void uvFont_80219550(f64 arg0, f64 arg1) {
-    D_80248E7C = (f32)arg0;
-    D_80248E80 = (f32)arg1;
+    temp_v1 = &D_80269F50[arg0];
+    return temp_v1->unk8.unk4[temp_v1->unk1].unk0;
 }
-
-void uvFont_8021956C(u8 arg0, u8 arg1, u8 arg2, u8 arg3) {
-    D_80248E64 = arg0;
-    D_80248E68 = arg1;
-    D_80248E6C = arg2;
-    D_80248E70 = arg3;
-}
-
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/func_802195A0.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/func_802195DC.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/func_802196B0.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/func_802196EC.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/uvFontWidth.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/func_80219828.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/func_80219874.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/uvFont_80219ACC.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/func_80219CC0.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/func_80219DA4.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_19B50/uvFont_80219EA8.s")

@@ -91,7 +91,8 @@ segments:
       - [0x177A0, c, kernel/dobj]
       - [0x19170, c, kernel/env]
       - [0x19B50, c, kernel/code_19B50]
-      - [0x1AF80, c, kernel/code_1AF80]
+      - [0x1A220, c, kernel/font]
+      - [0x1AF80, c, kernel/fx]
       - [0x200B0, c, kernel/geometry]
       - [0x21910, c, kernel/graphics]
       - [0x24E30, c, kernel/filesystem]
@@ -263,8 +264,8 @@ segments:
       - [0x49D60, .data, kernel/code_7150]
       - [0x49D80, .data, kernel/code_8170]
       - [0x49D90, .data, kernel/env]
-      - [0x49DD0, .data, kernel/code_19B50]
-      - [0x49E50, .data, kernel/code_1AF80]
+      - [0x49DD0, .data, kernel/font]
+      - [0x49E50, .data, kernel/fx]
       - [0x4A0F0, .data, kernel/graphics]
       - [0x4A200, .data, kernel/code_2FE40]
       - [0x4C200, .data, kernel/matrix]
@@ -304,7 +305,8 @@ segments:
       - [0x4E370, .rodata, kernel/dobj]
       - [0x4E620, .rodata, kernel/env]
       - [0x4E780, .rodata, kernel/code_19B50]
-      - [0x4E830, .rodata, kernel/code_1AF80]
+      - [0x4E830, .rodata, kernel/font]
+      - [0x4E870, .rodata, kernel/fx]
       - [0x4EB30, .rodata, kernel/geometry]
       - [0x4EBD0, .rodata, kernel/graphics]
       - [0x4EEF0, .rodata, kernel/filesystem]
@@ -343,8 +345,12 @@ segments:
       - { type: .bss, vram: 0x80250ED0, name: kernel/emitter }
       - { type: .bss, vram: 0x8025BF00, name: kernel/event }
       - { type: bss, vram: 0x8025C5B0, name: kernel_bss2 }
+      - { type: .bss, vram: 0x80269F50, name: kernel/code_19B50 }
+      - { type: .bss, vram: 0x8026A040, name: kernel/font }
+      - { type: .bss, vram: 0x8028A0A0, name: kernel/fx }
       - { type: .bss, vram: 0x80290680, name: kernel/geometry }
-      - { type: bss, vram: 0x80296AA0, name: kernel_bss3 }
+      - { type: .bss, vram: 0x80296AA0, name: kernel/graphics }
+      - { type: bss, vram: 0x802B5300, name: kernel_bss3 }
       - { type: .bss, vram: 0x802C5FD0, name: kernel/sprite }
       - { type: bss, vram: 0x802C8020, name: kernel_bss4 }
 
@@ -425,7 +431,7 @@ segments:
       - [0xB1B30, c, app/rpsound]
       - [0xB2900, c, app/code_B2900]
       - [0xB3A70, c, app/code_B3A70]
-      - [0xB5280, c, app/code_B5280]
+      - [0xB5280, c, app/results]
       - [0xB6580, c, app/code_B6580]
       - [0xB6FE0, c, app/code_B6FE0]
       - [0xBADE0, c, app/sdsound]
@@ -437,15 +443,16 @@ segments:
       - [0xC7370, c, app/snow]
       - [0xC7B40, c, app/spath]
       - [0xC8990, c, app/code_C8990]
-      - [0xC9440, c, app/code_C9440]
+      - [0xC9440, c, app/text_data]
       - [0xC9B60, c, app/code_C9B60]
       - [0xCB7C0, c, app/code_CB7C0]
       - [0xCBEE0, c, app/level_objects]
       - [0xCD9D0, c, app/code_CD9D0]
       - [0xCDB20, c, app/thermals]
-      - [0xCE4F0, c, app/code_CE4F0]
+      - [0xCE4F0, c, app/total_results]
+      - [0xCF100, c, app/toys]
       - [0xCFC40, c, app/code_CFC40]
-      - [0xD19D0, c, app/code_D19D0]
+      - [0xD1980, c, app/user_paths]
       - [0xD1ED0, c, app/code_D1ED0]
       - [0xD2B10, c, app/code_D2B10]
       - [0xD2D50, c, app/code_D2D50]
@@ -500,7 +507,7 @@ segments:
       - [0xD70E0, .data, app/code_AF950]
       - [0xD7100, .data, app/code_B2900]
       - [0xD7140, .data, app/code_B3A70]
-      - [0xD7170, .data, app/code_B5280]
+      - [0xD7170, .data, app/results]
       - [0xD7500, data] # app/code_B6FE0
       - [0xD7990, data] # app/code_BB820
       - [0xD7A30, .data, app/code_BD670]
@@ -513,7 +520,8 @@ segments:
       - [0xD7CC0, .data, app/level_objects]
       - [0xD7D20, .data, app/thermals]
       - [0xD7D30, data]
-      - [0xD7E10, data] # app/code_CE4F0
+      - [0xD7E10, .data, app/total_results]
+      - [0xD7EA0, data] # app/code_CE4F0
       - [0xD7EF0, .data, app/code_D2D50]
       - [0xD7F20, .data, app/code_D3810]
       - [0xD7F40, .rodata, app/code_51E30]
@@ -585,7 +593,7 @@ segments:
       - [0xDC9F0, .rodata, app/rpsound]
       - [0xDCAF0, .rodata, app/code_B2900]
       - [0xDCB20, .rodata, app/code_B3A70]
-      - [0xDCBE0, .rodata, app/code_B5280]
+      - [0xDCBE0, .rodata, app/results]
       - [0xDD240, .rodata, app/code_B6580]
       - [0xDD260, .rodata, app/code_B6FE0]
       - [0xDD5B0, .rodata, app/sdsound]
@@ -600,9 +608,10 @@ segments:
       - [0xDDFB0, .rodata, app/code_CB7C0]
       - [0xDE020, .rodata, app/level_objects]
       - [0xDE210, .rodata, app/thermals]
-      - [0xDE250, .rodata, app/code_CE4F0]
+      - [0xDE250, .rodata, app/total_results]
+      - [0xDE3E0, .rodata, app/toys]
       - [0xDE4A0, .rodata, app/code_CFC40]
-      - [0xDE550, .rodata, app/code_D19D0]
+      - [0xDE550, .rodata, app/user_paths]
       - [0xDE5A0, .rodata, app/code_D1ED0]
       - [0xDE5D0, .rodata, app/code_D2B10]
       - [0xDE5F0, .rodata, app/code_D2D50]
@@ -615,8 +624,15 @@ segments:
       - { type: bss, vram: 0x80362500, name: app_bss_80362500 }
       - { type: .bss, vram: 0x80369F10, name: app/menu }
       - { type: bss, vram: 0x80369F30, name: app_bss_80369F10 }
+      - { type: .bss, vram: 0x803718F0, name: app/results }
+      - { type: bss, vram: 0x80371960, name: app_bss_80371960 }
+      - { type: .bss, vram: 0x80377F10, name: app/text_data }
+      - { type: bss, vram: 0x80378CE0, name: app_bss_80378CE0 }
       - { type: .bss, vram: 0x8037AB50, name: app/thermals }
-      - { type: bss, vram: 0x8037ACE0, name: app_bss_8037ACD8 }
+      - { type: .bss, vram: 0x8037ACE0, name: app/total_results }
+      - { type: bss, vram: 0x8037AD70, name: app_bss_8037ACD8 }
+      - { type: .bss, vram: 0x8037DCA0, name: app/user_paths }
+      - { type: bss, vram: 0x8037F380, name: app_bss_8037F380 }
 
   - name: bin_DE720
     type: bin

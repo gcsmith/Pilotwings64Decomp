@@ -10,11 +10,6 @@ s32 gSprtUnkIndex;
 unk_UVTX_1C* gSprtUnkTable[1000];
 uvSprite_t gSprtTable1[31];
 
-extern Gfx* gGfxDisplayListHead;
-extern u16 gGfxFbIndex;
-extern s32 gGfxStateStackData;
-extern s32 D_8029926C;
-
 void uvSprt_80230130(void) {
     s32 i;
 
@@ -249,7 +244,7 @@ void uvSprtDisplayList(uvSprite_t* arg0) {
     sprite->green = arg0->green;
     sprite->blue = arg0->blue;
     sprite->alpha = arg0->alpha;
-    spMove(sprite, arg0->unk6, (s16)(240 - arg0->unk8));
+    spMove(sprite, arg0->unk6, (s16)(SCREEN_HEIGHT - arg0->unk8));
     dlist = spDraw(sprite);
     if (dlist != NULL) {
         gSPDisplayList(gGfxDisplayListHead++, dlist);

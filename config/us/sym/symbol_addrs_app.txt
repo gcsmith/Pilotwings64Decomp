@@ -150,6 +150,13 @@ demoButtonPress     = 0x803231E0; // type:func
 demoButtonRelease   = 0x80323240; // type:func
 demoRandF           = 0x803232A0; // type:func
 
+resultHandler       = 0x8032DD50; // type:func
+resultInit          = 0x8032E060; // type:func
+resultMenuChoose    = 0x8032E6B8; // type:func
+resultDrawTally     = 0x8032E940; // type:func
+resultDeinit        = 0x8032E698; // type:func
+resultGenTipText    = 0x8032EF10; // type:func
+
 smoke_create        = 0x80336934; // type:func
 smoke_props         = 0x80336A04; // type:func
 smoke_getprops      = 0x80336EC0; // type:func
@@ -201,6 +208,12 @@ menu_8030B668       = 0x8030B668; // type:func
 menuSetItem         = 0x8030B688; // type:func
 menu_8030B69C       = 0x8030B69C; // type:func
 
+textLoadBlock       = 0x80341F10; // type:func
+textGetDataByName   = 0x803420F4; // type:func
+textGetDataByIdx    = 0x80342198; // type:func
+textFmtInt          = 0x803421CC; // type:func
+textFmtIntAt        = 0x80342404; // type:func
+
 introSceneRunner    = 0x803439B4; // type:func
 
 level_803449B0      = 0x803449B0; // type:func
@@ -248,6 +261,21 @@ therm_8034695C      = 0x8034695C; // type:func
 therm_80346B84      = 0x80346B84; // type:func
 therm_80346C08      = 0x80346C08; // type:func
 therm_80346E04      = 0x80346E04; // type:func
+
+totResult_80346FC0  = 0x80346FC0; // type:func
+totResultHandler    = 0x803470EC; // type:func
+totResult_80347150  = 0x80347150; // type:func
+totResultInit       = 0x80347270; // type:func
+totResultCreateMenu = 0x8034754C; // type:func
+totResultDeinit     = 0x80347694; // type:func
+totResultMenuChoose = 0x8034769C; // type:func
+totResultDrawTally  = 0x80347780; // type:func
+
+userPathInit        = 0x8034A450; // type:func
+userPath_8034A4F8   = 0x8034A4F8; // type:func
+userPathFree        = 0x8034A840; // type:func
+userPath_8034A8B0   = 0x8034A8B0; // type:func
+userPath_8034A950   = 0x8034A950; // type:func
 
 windObjectsInit     = 0x8034E080; // type:func
 
@@ -299,3 +327,10 @@ D_8035AF30 = 0x8035AF30; // type:f32
 D_8035AF34 = 0x8035AF34; // type:f32
 D_8035AF38 = 0x8035AF38; // type:f32
 D_8035AF3C = 0x8035AF3C; // type:f32
+
+gVehShortNames            = 0x80350998; // size:0x1C
+
+sTextName                 = 0x80377F10; // size:0x6E0
+sTextData                 = 0x803785F0; // size:0x6DC
+sTextDataCount            = 0x80378CCC;
+sTextNameCount            = 0x80378CD0;

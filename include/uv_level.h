@@ -4,8 +4,25 @@
 #include <PR/ultratypes.h>
 #include <uv_matrix.h>
 
-#define MAX_CLASSES  8
-#define MAX_TESTS    5
+// Relationships between Class, Vehicle, Test, Target, Time-of-Day and the in-game values
+// Vehicle: main and bonus vehicles
+// Class: code refers "level" | Beg./A/B/Pilot | Bonus Level 1/2/3 | Birdman map
+// Test: code refers "stage" | Test# within class | Cannonball target # | Birdman time-of-day
+//
+//  Vehicle─▶┌─────0─────┬─────1─────┬────2──────┐   ┌─────3─────┬────4─────┬────5─────┐┌────6────┐
+//Class      │Hang Glider│Rocket Pack│Gyrocopter │   │Cannonball │Sky Diving│J. Hopper ││ Birdman │
+// ▼┌────────┼───────────┼───────────┼───────────┤┌──┼───────────┼──────────┼──────────┤├─────────┼─────────┐
+// 0│Beginner│Test 1     │Test 1     │Test 1     ││L1│Tgt 1,2,3,4│T1        │T1        ││Day,Ev,Nt│Holiday  │
+//  ├────────┼───────────┼───────────┼───────────┤├──┼───────────┼──────────┼──────────┤├─────────┼─────────┤
+// 1│Class A │Test 1,2   │Test 1,2   │Test 1,2   ││L2│Tgt 1,2,3,4│T1        │T1        ││Day,Ev,Nt│Crescent │
+//  ├────────┼───────────┼───────────┼───────────┤├──┼───────────┼──────────┼──────────┤├─────────┼─────────┤
+// 2│Class B │Test 1,2,3 │Test 1,2,3 │Test 1,2,3 ││L3│Tgt 1,2,3,4│T1        │T1        ││Day,Ev,Nt│L. States│
+//  ├────────┼───────────┼───────────┼───────────┤└──┴───────────┴──────────┴──────────┘├─────────┼─────────┤
+// 3│Pilot   │Test 1,2,3 │Test 1,2,3 │Test 1,2,3 │                                      │Day,Ev,Nt│Everfrost│
+//  └────────┴───────────┴───────────┴───────────┘                                      └─────────┴─────────┘
+
+#define MAX_CLASSES  8 // max classes for some static structs, this is > CLASS_COUNT
+#define MAX_TESTS    5 // max tests per stage for some structs, this is > real count of 4
 
 enum PilotId {
     PILOT_LARK = 0,
@@ -26,6 +43,14 @@ enum VehicleId {
     VEHICLE_JUMBLE_HOPPER = 5,
     VEHICLE_BIRDMAN = 6,
     VEHICLE_COUNT
+};
+
+enum ClassId {
+    CLASS_BEGINNER = 0,
+    CLASS_A = 1,
+    CLASS_B = 2,
+    CLASS_PILOT = 3,
+    CLASS_COUNT
 };
 
 enum MapId {
@@ -158,10 +183,10 @@ typedef struct {
 } Unk802D3658_Arg0;
 
 typedef struct {
-    u16 pad0;
-    u16 unk2;
-    u16 unk4;
-    u16 unk6;
+    u16 pilot; // PilotId
+    u16 veh; // VehicleId
+    u16 cls; // ClassId: Beg/A/B/Pilot (or level for bonus)
+    u16 test; // test number (or target for CB)
     u16 unk8;
     u8 padA[0x20-0xA];
     s32 unk20;
@@ -288,7 +313,7 @@ typedef struct {
         u8 unk3;
         u8 unk4;
         u8 unk5[0x3];
-        s32 unk8;
+        u8 unk8[4];
         u8 unkC[4];
         s32 unk10;
         u8 unk14[0x18];
@@ -371,7 +396,7 @@ void level_80345A24(void);
 s32* levelGet_80345C80(void);
 s32* levelGet_80345C90(void);
 f32 levelGet_80345CA0(void);
-s32* levelGet_80345CB0(void);
+u8* levelGet_80345CB0(void);
 void levelGet_80345CC0(f32* arg0, f32* arg1);
 LevelCommObjects* levelLoadCommObj(u32 arg0);
 void level_803462D4(u16 idx);

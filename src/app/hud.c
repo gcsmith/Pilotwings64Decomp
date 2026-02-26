@@ -1,5 +1,6 @@
 #include "common.h"
 
+#include <uv_font.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>
 #include <uv_level.h>
@@ -11,11 +12,11 @@
 #include "demo.h"
 #include "code_68220.h"
 #include "code_9A960.h"
-#include "code_C9440.h"
 #include "hud.h"
 #include "pads.h"
 #include "snap.h"
 #include "snd.h"
+#include "text_data.h"
 #include "thermals.h"
 
 // number of frames to render for camera shutter animation
@@ -201,8 +202,8 @@ void hudMainRender(void) {
                 }
             }
         }
-        uvGfxSetViewport(0, 0, 320, 0, 240);
-        uvMat4Viewport(&sp98, -0.5f, 319.5f, -0.5f, 239.5f);
+        uvGfxSetViewport(0, 0, SCREEN_WIDTH, 0, SCREEN_HEIGHT);
+        uvMat4SetOrtho(&sp98, -0.5f, SCREEN_WIDTH - 0.5f, -0.5f, SCREEN_HEIGHT - 0.5f);
         uvGfxMtxProjPushF(&sp98);
         uvMat4SetIdentity(&sp58);
         uvGfxMtxViewLoad(&sp58, 1);
@@ -265,7 +266,7 @@ void hudDrawSkyDiving(HUDState* hud) {
     // the transition from diving formations and landing. it transitions 00->FF->00
     if (hud->cloudFade != 0) {
         uvGfxStatePush();
-        uvGfxSetFlags(0x800FFF);
+        uvGfxSetFlags(GFX_STATE_800000 | 0xFFF);
         uvVtxBeginPoly();
         uvVtx(10, 18, 0, 0, 0, 0xFF, 0xFF, 0xFF, hud->cloudFade);
         uvVtx(310, 18, 0, 0, 0, 0xFF, 0xFF, 0xFF, hud->cloudFade);
@@ -321,8 +322,8 @@ void hudDrawCamera(HUDState* hud) {
             x = hud->cameraState * (240 / CAMERA_SHUTTER_FRAMES);
         }
         uvGfx_80223A28(0xFFF);
-        uvVtxRect(0, 239, x, 0);
-        uvVtxRect(319 - x, 239, 319, 0);
+        uvVtxRect(0, SCREEN_HEIGHT - 1, x, 0);
+        uvVtxRect(SCREEN_WIDTH - 1 - x, SCREEN_HEIGHT - 1, SCREEN_WIDTH - 1, 0);
         hud->cameraState--;
         D_8034F914 = 0;
     }
@@ -549,7 +550,7 @@ void hudDrawThrottle(s32 x, s32 y, f32 power) {
     xOffset = x + 18;
     yOffset = y - 18;
     uvMat4SetIdentity(&rot);
-    uvMat4UnkOp2(&rot, (f32)xOffset, (f32)yOffset, 0.0f);
+    uvMat4LocalTranslate(&rot, (f32)xOffset, (f32)yOffset, 0.0f);
     angle = (power - 0.5f) * 3.1415927f; // angle in range [-pi/2, pi/2]
     uvMat4RotateAxis(&rot, -angle, 'z');
     uvGfxMtxViewLoad(&rot, 1);
@@ -619,12 +620,12 @@ void hudDrawRadar(s32 x, s32 y, f32 xOff, f32 yOff, f32 heading, f32 pitch, HUDR
     s32 idx;
 
     uvMat4SetIdentity(&spC8);
-    uvMat4UnkOp2(&spC8, (f32)(x + 35), (f32)(y - 35), 0);
+    uvMat4LocalTranslate(&spC8, (f32)(x + 35), (f32)(y - 35), 0);
     uvGfxMtxViewLoad(&spC8, 1);
 
     uvGfxStatePush();
-    uvGfxSetFlags(0x800000);
-    uvGfxClearFlags(0x600000);
+    uvGfxSetFlags(GFX_STATE_800000);
+    uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
     uvGfx_80223A28(0x124);
     uvVtxBeginPoly();
     uvVtx(-35, -35, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -664,8 +665,8 @@ void hudDrawRadar(s32 x, s32 y, f32 xOff, f32 yOff, f32 heading, f32 pitch, HUDR
     uvGfxMtxViewMul(&sp108, 1);
 
     uvGfxStatePush();
-    uvGfxSetFlags(0x800000);
-    uvGfxClearFlags(0x600000);
+    uvGfxSetFlags(GFX_STATE_800000);
+    uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
     uvVtxBeginPoly();
     uvVtx(0, 0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
     uvVtx(1, 0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -680,8 +681,8 @@ void hudDrawRadar(s32 x, s32 y, f32 xOff, f32 yOff, f32 heading, f32 pitch, HUDR
     temp_ft3 = temp_fv1 - 4.0f;
     spAC = temp_fv1 + 4.0f;
     uvGfxStatePush();
-    uvGfxSetFlags(0x800000);
-    uvGfxClearFlags(0x600000);
+    uvGfxSetFlags(GFX_STATE_800000);
+    uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
     uvGfx_80223A28(0x136);
     uvVtxBeginPoly();
     uvVtx(temp_fs0 - 4.0f, temp_ft3, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -698,7 +699,7 @@ void hudDrawRadar(s32 x, s32 y, f32 xOff, f32 yOff, f32 heading, f32 pitch, HUDR
         tmp = radar->windSpeed * 30.0f;
         temp_s0 = tmp;
         uvGfxStatePush();
-        uvGfxClearFlags(0x600000);
+        uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
         uvVtxBeginPoly();
         uvVtx(-2, -1, 0, 0, 0, 0x00, 0x2E, 0x4D, 0xFF);
         uvVtx(2, -1, 0, 0, 0, 0x00, 0x2E, 0x4D, 0xFF);
@@ -736,8 +737,8 @@ void hudDrawRadar(s32 x, s32 y, f32 xOff, f32 yOff, f32 heading, f32 pitch, HUDR
     }
 
     uvGfxStatePush();
-    uvGfxSetFlags(0x800000);
-    uvGfxClearFlags(0x600000);
+    uvGfxSetFlags(GFX_STATE_800000);
+    uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
     for (i = 0; i < gThermalCount; i++) {
         temp_fs0 = radar->therms[i].pos.x - xOff;
         sp70 = radar->therms[i].scale;
@@ -944,8 +945,8 @@ void hudDrawFuel(s32 x, s32 y, f32 fuel) {
     curY2 = sy + 11;
     curX2 = sx + 130;
     uvGfxStatePush();
-    uvGfxSetFlags(0x800000);
-    uvGfxClearFlags(0x600000);
+    uvGfxSetFlags(GFX_STATE_800000);
+    uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
     uvGfx_80223A28(0xFFF);
     uvVtxBeginPoly();
     uvVtx(curX1, curY1, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0x00);
@@ -960,7 +961,7 @@ void hudDrawFuel(s32 x, s32 y, f32 fuel) {
     curX2 = sx;
     curY2 = sy;
     uvGfxStatePush();
-    uvGfxClearFlags(0xE00000);
+    uvGfxClearFlags(GFX_STATE_800000 | GFX_STATE_400000 | GFX_STATE_200000);
     uvVtxBeginPoly();
     uvVtx(curX2, curY2, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
     uvVtx(curX1, curY2, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -1026,8 +1027,8 @@ void hudDrawAltimeter(s32 x, s32 y, s32 altitude) {
     if (altitude <= 99.0f) {
         curY = y - 85;
         uvGfxStatePush();
-        uvGfxSetFlags(0x800000);
-        uvGfxClearFlags(0x600000);
+        uvGfxSetFlags(GFX_STATE_800000);
+        uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
         uvGfx_80223A28(0xFFF);
         uvVtxBeginPoly();
         dx = x;
@@ -1046,7 +1047,7 @@ void hudDrawAltimeter(s32 x, s32 y, s32 altitude) {
         uvSprtDraw(3);
 
         uvGfxStatePush();
-        uvGfxClearFlags(0xE00000);
+        uvGfxClearFlags(GFX_STATE_800000 | GFX_STATE_400000 | GFX_STATE_200000);
         altNorm = altitude / 99.0f;
         if (altNorm > 1.0f) {
             altNorm = 1.0f;
@@ -1085,8 +1086,8 @@ void hudDrawAltimeter(s32 x, s32 y, s32 altitude) {
             sp6C = sp40 + 9;
         }
         uvGfxStatePush();
-        uvGfxSetFlags(0x800000);
-        uvGfxClearFlags(0x600000);
+        uvGfxSetFlags(GFX_STATE_800000);
+        uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
         uvGfx_80223A28(0xFFF);
         uvVtxBeginPoly();
         uvVtx(sp72 - 5, sp40 - 5, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0);
@@ -1098,7 +1099,7 @@ void hudDrawAltimeter(s32 x, s32 y, s32 altitude) {
         uvGfxStatePop();
 
         uvGfxStatePush();
-        uvGfxClearFlags(0xE00000);
+        uvGfxClearFlags(GFX_STATE_800000 | GFX_STATE_400000 | GFX_STATE_200000);
         uvGfx_80223A28(0xFFF);
         uvVtxBeginPoly();
         uvVtx(sp72, sp40, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -1262,8 +1263,8 @@ void hudDrawBox(HUDState* hud) {
         a = (u8)((1.0f - alphaF) * 255.0f);
     }
     uvGfxStatePush();
-    uvGfxSetFlags(0xC00000);
-    uvGfxClearFlags(0x200000);
+    uvGfxSetFlags(GFX_STATE_800000 | GFX_STATE_400000);
+    uvGfxClearFlags(GFX_STATE_200000);
     uvGfx_80223A28(0xFFF);
     uvVtxBeginPoly();
     uvVtx(10, 18, 0, 0, 0, r, g, b, a);
@@ -1285,7 +1286,7 @@ void hudText_8031D8E0(s16 arg0, f32 arg1, f32 arg2) {
         return;
     }
 
-    temp_v0 = func_80342198(arg0);
+    temp_v0 = textGetDataByIdx(arg0);
     gHudState.unkC5E = arg0;
     if (gHudState.unkBD0[0] != -1) {
         gHudState.unkC58 = gHudState.unk14 + 0.2f;
@@ -1318,7 +1319,7 @@ void hudWarningText(s16 arg0, f32 arg1, f32 arg2) {
         return;
     }
 
-    temp_v0 = func_80342198(arg0);
+    temp_v0 = textGetDataByIdx(arg0);
     gHudState.unkBCE = arg0;
     if (gHudState.unkB40[0] != -1) {
         gHudState.unkBC8 = gHudState.unk14 + 0.2f;
@@ -1475,7 +1476,7 @@ void hudRadarWaypoint(f32 dist, f32 bearing, s32 type, s32 below, f32 heading, u
     if (dist > 800.0f) {
         uvMat4SetIdentity(&sp70);
         uvMat4RotateAxis(&sp70, bearing, 'z');
-        uvMat4UnkOp2(&sp70, 0.0f, 30.0f, 0.0f);
+        uvMat4LocalTranslate(&sp70, 0.0f, 30.0f, 0.0f);
         uvGfxMtxViewMul(&sp70, 1);
         if (dist >= 1000.0f) {
             uvVtxBeginPoly();
@@ -1535,7 +1536,7 @@ void hudRadarWaypoint(f32 dist, f32 bearing, s32 type, s32 below, f32 heading, u
             }
         } else {
             uvMat4SetIdentity(&sp70);
-            uvMat4UnkOp2(&sp70, (f32)wptX, (f32)wptY, 0.0f);
+            uvMat4LocalTranslate(&sp70, (f32)wptX, (f32)wptY, 0.0f);
             uvMat4RotateAxis(&sp70, heading, 'z');
             uvGfxMtxViewMul(&sp70, 1);
 

@@ -5,18 +5,16 @@
 #include <uv_memory.h>
 
 void* func_802314D0(s32 arg0, s32 arg1) {
-    void** end;
+    UNUSED s32 pad;
     void* sp38;
     void* sp34;
     s32 sp30;
     s32 sp2C;
-    void** sp24;
+    UNUSED s32 pad2;
 
-    sp24 = &gUVBlockOffsets.UVSY[arg0];
     sp38 = gUVBlockOffsets.unk1838[arg0];
     uvGfxWaitForMesg();
-    end = &D_802B55F0;
-    if (sp24 >= end) {
+    if (arg0 >= ARRAY_COUNT(gUVBlockOffsets.unk1838)) {
         _uvDebugPrintf("Too many user files\n");
         return NULL;
     }

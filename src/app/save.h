@@ -5,13 +5,21 @@
 #include <uv_level.h>
 
 typedef struct {
-    u8 unk0[0xC];
+    u8 unk0;
+    u8 pad1;
+    s16 scores[15];
+} TestResult;
+
+typedef struct {
+    u8 unk0[0x8];
+    s32 unk8;
     s16 unkC;
-    u8 padE[0x22];
+    u8 padE[2];
+    TestResult result;
 } Unk80364210_Unk0_Unk0;
 
 typedef struct {
-    Unk80364210_Unk0_Unk0 unk0[MAX_TESTS * VEHICLE_COUNT]; // guess
+    Unk80364210_Unk0_Unk0 unk0[MAX_TESTS][VEHICLE_COUNT]; // guess
     s32 unk690;
 } Unk80364210_Unk0;
 
