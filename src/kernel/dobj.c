@@ -8,6 +8,7 @@
 #include <libc/stdarg.h>
 #include <uv_graphics.h>
 #include "kernel/code_58E0.h"
+#include "kernel/code_8170.h"
 
 // TODO FIXME fix for gSPPerspNormalize, due to older f3d ucode
 #undef gSPPerspNormalize
@@ -18,8 +19,6 @@
         _g->words.w0 = _SHIFTL(G_RDPHALF_1, 24, 8); \
         _g->words.w1 = (s);                         \
     }
-
-void func_80215E7C(ParsedUVMD*);
 
 void uvDobjModel(s32 objId, s32 mdlId) {
     ParsedUVMD** temp_a3;

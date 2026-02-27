@@ -27,7 +27,7 @@ f32 D_8026376C;
 f32 D_80263770;
 f32 D_80263774;
 
-LevelData* gGfxUnkPtrs = NULL;
+uvLevelData* gGfxUnkPtrs = NULL;
 s32 D_80248DD4 = -1;
 s32 D_80248DD8 = 0;
 

@@ -4,11 +4,9 @@
 #include <uv_math.h>
 #include <uv_sobj.h>
 #include "kernel/code_58E0.h"
+#include "kernel/code_8170.h"
 
 extern s32 D_80248DD8;
-
-void func_80215E7C(ParsedUVMD*);
-void func_80214840(s16, f32*, f32*);
 
 void uvSobjsDraw(UnkStruct_80204D94* arg0, Mtx4F* arg1, u16 arg2, u16 arg3, UnkSobjDraw* arg4, u16 arg5, u8 arg6, s32 arg7) {
     UnkSobjDraw* var_s2;

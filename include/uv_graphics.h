@@ -376,7 +376,7 @@ typedef struct ParsedUVLV {
 #define LEVEL_FONT_COUNT 20
 #define LEVEL_BLIT_COUNT 125
 
-typedef struct LevelData {
+typedef struct uvLevelData {
     /* 0x0000 */ ParsedUVLV* level;
     /* 0x0004 */ ParsedUVTR* terras[LEVEL_TERRA_COUNT];
     /* 0x002C */ s32 terraCount;
@@ -399,10 +399,10 @@ typedef struct LevelData {
     /* 0x1410 */ ParsedUVBT* blits[LEVEL_BLIT_COUNT];
     /* 0x1604 */ s32 blitCount;
     /* 0x1608 */ f32 unk1608;
-} LevelData; // size = 0x160C
+} uvLevelData; // size = 0x160C
 
 extern Gfx* gGfxDisplayListHead;
-extern LevelData* gGfxUnkPtrs;
+extern uvLevelData* gGfxUnkPtrs;
 extern u16 gGfxFbIndex;
 extern u32 gGfxStateStackData;
 extern u32 D_8029926C;

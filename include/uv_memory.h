@@ -53,7 +53,7 @@ typedef struct Unk802B53C0 {
 } Unk802B53C0; // size >= 0x8
 
 extern void* D_802B6E30[LEVEL_TEXTURE_COUNT];
-extern LevelData gLevelData;
+extern uvLevelData gLevelData;
 extern Unk802B53C0* D_802B53C0;
 
 extern UVBlockCounts gUVBlockCounts; // D_802B53C8
