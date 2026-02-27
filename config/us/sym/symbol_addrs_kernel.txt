@@ -48,9 +48,6 @@ _uvaUpdateVoice     = 0x80202AFC; // type:func
 _uvaStopVoice       = 0x80202BB8; // type:func
 _uvaStatus          = 0x80202C5C; // type:func
 
-uvSysInitAudio      = 0x802038A0; // type:func
-uvGetSamples        = 0x8020411C; // type:func
-
 func_80204FC4       = 0x80204FC4; // type:func
 func_80204FE4       = 0x80204FE4; // type:func
 
@@ -393,6 +390,7 @@ aspMainTextStart        = 0x80247E60; // name_end:aspMainTextEnd
 
 gspF3DEX_fifoDataStart  = 0x8024FBC0; // name_end:gspF3DEX_fifoDataEnd
 gspFast3DDataStart      = 0x802503C0; // name_end:gspFast3DDataEnd
+aspMainDataStart        = 0x80250BC0; // name_end:aspMainDataEnd
 
 // -----------------------------------------------------------------------------
 // Data Symbols

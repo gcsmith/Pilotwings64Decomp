@@ -4,16 +4,16 @@
 #include <uv_memory.h>
 
 extern ALSeqPlayer* gSeqPlayer;
-extern ALBank* D_80261210;
-extern ALSeqFile* D_8026121C;
-extern u8* D_80261220;
+extern ALBank* gWaveTableBank;
+extern ALSeqFile* gSeqFile;
+extern u8* gSequenceData;
 extern ALCSeq D_80261230;
 
 void uvaSeqNew(s32 arg0) {
     s32 seq_count;
     s32 seq_align;
 
-    seq_count = D_8026121C->seqArray[arg0].len;
+    seq_count = gSeqFile->seqArray[arg0].len;
     seq_align = seq_count;
     if (seq_count & 1) {
         seq_align = seq_count + 1;
@@ -22,9 +22,9 @@ void uvaSeqNew(s32 arg0) {
     if (alSeqpGetState(gSeqPlayer) != 0) {
         uvaSeqStop();
     }
-    _uvMediaCopy(D_80261220, D_8026121C->seqArray[arg0].offset, seq_align);
-    alCSeqNew(&D_80261230, D_80261220);
-    alSeqpSetBank(gSeqPlayer, D_80261210);
+    _uvMediaCopy(gSequenceData, gSeqFile->seqArray[arg0].offset, seq_align);
+    alCSeqNew(&D_80261230, gSequenceData);
+    alSeqpSetBank(gSeqPlayer, gWaveTableBank);
     alSeqpSetSeq(gSeqPlayer, (ALSeq*)&D_80261230);
 }
 
