@@ -3,6 +3,7 @@
 
 #include <ultra64.h>
 #include <uv_matrix.h>
+#include <uv_sched.h>
 #include <uv_util.h>
 
 typedef struct uvaEmitter {
@@ -42,7 +43,73 @@ typedef struct UnkStruct_80200144 {
 
 extern UnkStruct_80200144_t D_80250E80[];
 
+#define AUDIO_BUF_SIZE 0x4B00
+#define DMA_BUF_SIZE 0x800
+#define AUDIO_QUIT_MSG 10
+#define EXTRA_SAMPLES 100
+#define OUTPUT_RATE 22050
+#define FRAME_LAG 2
+#define MAX_MESGS 8
+
+typedef struct {
+    ALLink node;
+    u32 startAddr;
+    u32 lastFrame;
+    char *ptr;
+} AMDMABuffer;
+
+typedef struct {
+    u8 initialized;
+    AMDMABuffer *firstUsed;
+    AMDMABuffer *firstFree;
+} AMDMAState;
+
+typedef union {    
+    struct {
+        short     type;
+    } gen;
+    struct {
+        short     type;
+        struct    AudioInfo_s *info;
+    } done;
+    OSScMsg       app;
+} AudioMsg;
+
+typedef struct AudioInfo {
+    s16* data;
+    s16 frameSamples;
+    OSScTask task;
+    AudioMsg msg;
+} AudioInfo; // size 0x80
+
+typedef struct AMAudioMgr {
+    Acmd* acmdList[2];
+    AudioInfo* audioInfo[3];
+    OSThread thread;
+    OSMesgQueue audioFrameMsgQ;
+    OSMesg audioFrameMsgBuf[MAX_MESGS];
+    OSMesgQueue audioReplyMsgQ;
+    OSMesg audioReplyMsgBuf[MAX_MESGS];
+    ALGlobals g;
+} AMAudioMgr;
+
+// This is what OSIoMesg should be!
+typedef struct uvOSIoMesg {
+    OSIoMesgHdr  hdr;       /* Message header */
+    void        *dramAddr;  /* RDRAM buffer address (DMA) */
+    u32          devAddr;   /* Device buffer address (DMA) */
+    u32          size;      /* DMA transfer size in bytes */
+} uvOSIoMesg;
+
+void func_802000A0(void);
+
 void uvSysInitAudio(void);
+void func_80203B08(ALSynConfig* c, OSPri priority);
+void Thread_Audio(void* entry);
+s32 func_80203F4C(AudioInfo* arg0, AudioInfo* previousTask);
+void uvGetSamples(AudioInfo* task);
+ALDMAproc func_802042E4(AMDMAState** state);
+void func_8020431C(void);
 
 void uvEmitterPrintf(const char* fmt, ...);
 void uvEmitterInitTable(void);

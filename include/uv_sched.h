@@ -17,6 +17,8 @@ typedef struct Unk8022B0A0 {
     f32 unkC;
 } Unk8022B0A0; // size: 0x10
 
+extern OSSched gSchedInst;
+
 void uvWaitForMesg(char msg_type);
 
 void _uvScDoneGfx(void);

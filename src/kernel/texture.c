@@ -8,6 +8,7 @@
 #include <uv_sobj.h>
 #include <uv_sprite.h>
 #include <uv_texture.h>
+#include "segment_symbols.h"
 
 typedef struct {
     u16 count;
@@ -46,10 +47,6 @@ ParsedUVTP* _uvParseUVTP(u8*);
 ParsedUVTR* _uvParseUVTR(u8*);
 ParsedUVBT* _uvParseUVBT(u8*);
 
-// ROM offsets for file system data
-extern u8 D_DE720[];
-extern u8 D_DF5B0[];
-
 extern u32 D_802B892C;
 
 extern u32 D_802B8934;
@@ -69,8 +66,8 @@ void uvMemInitBlockHdr(void) {
     UVBlockHeader* var_a0;
 
     uvMemSet(&gUVBlockCounts, 0, sizeof(gUVBlockCounts));
-    sp64 = uvFileReadHeader(D_DE720);
-    romOffset = D_DF5B0;
+    sp64 = uvFileReadHeader(SEGMENT_ROM_START(filetable));
+    romOffset = SEGMENT_ROM_START(filesys);
 
     while ((tag = uvFileReadBlock(sp64, &sp5C, &src, 1)) != 0) {
         if (tag == 'TABL') {

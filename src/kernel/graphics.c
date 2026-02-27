@@ -40,8 +40,8 @@ Mtx gGfxMstack[2][UV_GFX_NUM_MATRICES];
 Mtx4F D_802B4888;
 u32 gGfxStateStack[32];
 u8 gGfxStateStackIdx;
-UnkStruct_uvGfxInit* D_802B494C;
-UnkStruct_uvGfxInit D_802B4950[2];
+OSScTask* D_802B494C;
+OSScTask D_802B4950[2];
 u8 gGfxYieldData[OS_YIELD_DATA_SIZE];
 
 static Gfx gGfxDList1[] = {
@@ -92,7 +92,6 @@ static uvGfxCallback_t D_80249230 = NULL;
 extern OSMesgQueue D_802C3B90;
 extern s32 D_8024B260;
 extern u64 gGfxDramStack[];
-extern OSSched gSchedInst;
 extern u8 D_80269B80[300];
 extern s16 gGeomVertexCount;
 
@@ -585,12 +584,12 @@ void uvGfxEnd(void) {
         _uvDebugPrintf("display list overflow %d / %d\n", gGfxElementCount, 4200);
         return;
     }
-    D_802B494C->fb = gGfxFbPtrs[gGfxFbIndex];
-    D_802B494C->unk0 = 0;
-    D_802B494C->msgQueue = &D_802C3B90;
-    D_802B494C->unk54 = &D_8024B260;
-    D_802B494C->unk8 = 0x53;
-    task = &D_802B4950[gGfxFbIndex].task;
+    D_802B494C->framebuffer = gGfxFbPtrs[gGfxFbIndex];
+    D_802B494C->next = NULL;
+    D_802B494C->msgQ = &D_802C3B90;
+    D_802B494C->msg = &D_8024B260;
+    D_802B494C->flags = OS_SC_SWAPBUFFER | OS_SC_PARALLEL_TASK | OS_SC_NEEDS_RSP | OS_SC_NEEDS_RDP;
+    task = &D_802B4950[gGfxFbIndex].list;
     task->t.type = M_GFXTASK;
     task->t.flags = 0;
     task->t.ucode_boot = (u64*)rspbootTextStart;
