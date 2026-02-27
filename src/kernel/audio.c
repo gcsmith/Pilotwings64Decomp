@@ -65,8 +65,8 @@ void uvSysInitAudio(void) {
             8, /* section count */
             5200, /* total allocated memory (ms) */
             /*      input(ms)  output(ms)  fbcoef   ffcoef    gain    chorus rate  chorus delay low-pass filter */
-            /* 1 */ 0,         1600,       9830,    -9830,    3000,   0,           0,           0,
-            /* 2 */ 64,        3600,       9830,    -9830,    2000,   0,           0,           0x5000,
+            /* 1 */ 0,         1600,       9830,    -9830,    0xBB8,  0,           0,           0,
+            /* 2 */ 64,        3600,       9830,    -9830,    0x7D0,  0,           0,           0x5000,
             /* 3 */ 656,       2048,       16384,   -16384,   0x23D6, 0,           0,           0,
             /* 4 */ 720,       1648,       8192,    -8192,    0,      0,           0,           0,
             /* 5 */ 2592,      4512,       16384,   -16384,   0x23D6, 0,           0,           0x6000,
