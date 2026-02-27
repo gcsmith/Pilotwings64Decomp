@@ -118,16 +118,8 @@ void uvSysInitAudio(void) {
 }
 
 void amCreateAudioMgr(ALSynConfig* c, OSPri priority) {
-    ALLink* var_s0;
-    ALLink* var_s1;
     f32 fSize;
-    s32 temp_ft5;
-    s32 temp_v0;
     s32 i;
-    s32 var_v1;
-    void** temp_t1;
-    void** temp_v0_2;
-    void** temp_v1;
 
     c->dmaproc = __amDmaNew;
     c->outputRate = osAiSetFrequency(OUTPUT_RATE);
@@ -170,14 +162,14 @@ void amCreateAudioMgr(ALSynConfig* c, OSPri priority) {
 }
 
 static void __amMain(void* entry) {
-    s16 temp_v0;
+    s32 pad;
     s32 done = FALSE;
     AudioMsg* msg = NULL;
-    s32 var_s0 = 0;
-    OSScClient sp48;
+    s32 lastInfo = 0;
+    OSScClient scClient;
 
     osRecvMesg(&D_80261188, (OSMesg*)&msg, OS_MESG_BLOCK);
-    _uvScAddClient(&gSchedInst, &sp48, &__am.audioFrameMsgQ);
+    _uvScAddClient(&gSchedInst, &scClient, &__am.audioFrameMsgQ);
     while (!done) {
         osRecvMesg(&__am.audioFrameMsgQ, (OSMesg*)&msg, OS_MESG_BLOCK);
         func_8022C3C0(0, 0x29);
@@ -185,10 +177,10 @@ static void __amMain(void* entry) {
         case OS_SC_PRE_NMI_MSG:
             break;
         case OS_SC_RETRACE_MSG:
-            if (__amHandleFrameMsg(__am.audioInfo[audFrameCt % 3], var_s0) != 0) {
+            if (__amHandleFrameMsg(__am.audioInfo[audFrameCt % 3], lastInfo) != 0) {
                 osRecvMesg(&__am.audioReplyMsgQ, (OSMesg*)&msg, OS_MESG_BLOCK);
                 __amHandleDoneMsg(msg->done.info);
-                var_s0 = msg->done.info;
+                lastInfo = msg->done.info;
             }
             break;
         case AUDIO_QUIT_MSG:
@@ -199,7 +191,7 @@ static void __amMain(void* entry) {
     alClose(&__am.g);
 }
 
-u32 __amHandleFrameMsg(AudioInfo* info, AudioInfo* previousTask) {
+u32 __amHandleFrameMsg(AudioInfo* info, AudioInfo* previousInfo) {
     s16* audioPtr;
     Acmd* acmdPtr;
     s32 cmdLen;
@@ -208,8 +200,8 @@ u32 __amHandleFrameMsg(AudioInfo* info, AudioInfo* previousTask) {
 
     __clearAudioDMA();
     audioPtr = osVirtualToPhysical(info->data);
-    if (previousTask != NULL) {
-        osAiSetNextBuffer(previousTask->data, previousTask->frameSamples << 2);
+    if (previousInfo != NULL) {
+        osAiSetNextBuffer(previousInfo->data, previousInfo->frameSamples << 2);
     }
     samplesLeft = osAiGetLength() >> 2;
     info->frameSamples = ((frameSize - samplesLeft + EXTRA_SAMPLES) + 16) & ~0xF;
@@ -384,9 +376,9 @@ void func_80204518(s32 arg0) {
     void* sp58;
     u32 sp54;
     ALBankFile* bankFile;
-    ALSound* temp_s3;
-    s32 temp_s1;
+    ALSound* sound;
     s32 i;
+    s32 pad;
 
     func_80204438(gUVBlockOffsets.UVSX[arg0], &sp5C, &sp54, &sp58);
     bankFile = alHeapAlloc(&gAudioHeap, 1, SEGMENT_ROM_SIZE(audio_ctl));
@@ -401,8 +393,8 @@ void func_80204518(s32 arg0) {
     gAudioSXInst = gAudioSXBank->instArray[0];
     gSndVoiceTable = alHeapAlloc(&gAudioHeap, 1, gSndPlayer->frameTime * 2);
 
-    temp_s3 = gAudioSXInst->soundArray[0];
+    sound = gAudioSXInst->soundArray[0];
     for (i = 0; i < gSndPlayer->frameTime; i++) {
-        gSndVoiceTable[i] = alSndpAllocate(gSndPlayer, temp_s3);
+        gSndVoiceTable[i] = alSndpAllocate(gSndPlayer, sound);
     }
 }
