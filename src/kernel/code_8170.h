@@ -2,6 +2,7 @@
 #define CODE_8170_H
 
 #include <uv_graphics.h>
+#include <uv_dobj.h>
 #include <uv_sobj.h>
 
 #define HIT_COUNT 32

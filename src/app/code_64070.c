@@ -1,4 +1,5 @@
 #include "common.h"
+#include "code_64070.h"
 
 typedef struct {
     u16 unk0;

@@ -134,7 +134,7 @@ typedef struct uvUnkTeraStruct {
     u8 pad8[0x4];
     f32 unkC;
     f32 unk10;
-    u8 pad14[0x4];
+    f32 unk14;
 } uvUnkTeraStruct; // size = 0x18
 
 typedef struct ParsedUVTR {

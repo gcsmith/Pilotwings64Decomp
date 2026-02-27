@@ -470,9 +470,9 @@ void cannonShoot(Unk802D5C5C_Arg0* arg0) {
     func_8033F7F8(0x4B);
     uvEmitterTrigger(arg0->unk2B4);
     arg0->unkD4 = 1;
-    arg0->unk1B8 = 0.0f;
-    arg0->unk1BC = 0.0f;
-    arg0->unk1C0 = (arg0->unkA4 * 271.4f * arg0->unk280) + 2.5f;
+    arg0->unk1B8.x = 0.0f;
+    arg0->unk1B8.y = 0.0f;
+    arg0->unk1B8.z = (arg0->unkA4 * 271.4f * arg0->unk280) + 2.5f;
     uvMat4Copy(&arg0->unk14, &sp50);
     uvMat4RotateAxis(&arg0->unk14, -1.5707963f, 'x');
     uvDobjState(arg0->unk0, arg0->unk2);
@@ -818,7 +818,7 @@ s32 cannonLoad802D77D8(Unk80362690* arg0, Unk802D3658_Arg0* arg1) {
         D_80359AAC = func_8032BD20(temp_s1_2->unk74, temp_s1_2->unk4, temp_s1_2->unk2);
         D_80359AA8 = 0;
         for (i = 0; i < 4; i++) {
-            D_80359A98[i] = func_8032BE1C(temp_s1_2->unk74, temp_s1_2->unk4, i, temp_s1_2->unk2);
+            D_80359A98[i] = testGetPointCount(temp_s1_2->unk74, temp_s1_2->unk4, i, temp_s1_2->unk2);
             ((s16*)(temp_s1_2->unk74 + (temp_s1_2->unk4 * 0x694) + (i * 0x150) + (temp_s1_2->unk2 * 0x30)))[0x36] = 0x7F;
             ((s16*)(temp_s1_2->unk74 + (temp_s1_2->unk4 * 0x694) + (i * 0x150) + (temp_s1_2->unk2 * 0x30)))[0x22] = 0x7F;
         }

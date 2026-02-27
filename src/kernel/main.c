@@ -10,6 +10,7 @@
 #include <uv_geometry.h>
 #include <uv_graphics.h>
 #include <uv_level.h>
+#include <uv_main.h>
 #include <uv_matrix.h>
 #include <uv_memory.h>
 #include <uv_sched.h>
@@ -24,7 +25,6 @@ void Thread_App(void* arg);
 void Thread_Kernel(void* arg);
 void Thread_Render(void* arg);
 void app_entrypoint(s32);
-void uvSetVideoMode(void);
 void func_8022E558(void);
 
 void func_8020F9F4(void);

@@ -453,7 +453,7 @@ segments:
       - [0xCDB20, c, app/thermals]
       - [0xCE4F0, c, app/total_results]
       - [0xCF100, c, app/toys]
-      - [0xCFC40, c, app/code_CFC40]
+      - [0xCFC40, c, app/test_menu]
       - [0xD1980, c, app/user_paths]
       - [0xD1ED0, c, app/code_D1ED0]
       - [0xD2B10, c, app/code_D2B10]
@@ -523,7 +523,7 @@ segments:
       - [0xD7D20, .data, app/thermals]
       - [0xD7D30, data]
       - [0xD7E10, .data, app/total_results]
-      - [0xD7EA0, data] # app/code_CE4F0
+      - [0xD7EA0, .data, app/test_menu]
       - [0xD7EF0, .data, app/code_D2D50]
       - [0xD7F20, .data, app/code_D3810]
       - [0xD7F40, .rodata, app/code_51E30]
@@ -612,7 +612,7 @@ segments:
       - [0xDE210, .rodata, app/thermals]
       - [0xDE250, .rodata, app/total_results]
       - [0xDE3E0, .rodata, app/toys]
-      - [0xDE4A0, .rodata, app/code_CFC40]
+      - [0xDE4A0, .rodata, app/test_menu]
       - [0xDE550, .rodata, app/user_paths]
       - [0xDE5A0, .rodata, app/code_D1ED0]
       - [0xDE5D0, .rodata, app/code_D2B10]
@@ -633,6 +633,7 @@ segments:
       - { type: .bss, vram: 0x8037AB50, name: app/thermals }
       - { type: .bss, vram: 0x8037ACE0, name: app/total_results }
       - { type: bss, vram: 0x8037AD70, name: app_bss_8037ACD8 }
+      - { type: .bss, vram: 0x8037DC60, name: app/test_menu }
       - { type: .bss, vram: 0x8037DCA0, name: app/user_paths }
       - { type: bss, vram: 0x8037F380, name: app_bss_8037F380 }
 

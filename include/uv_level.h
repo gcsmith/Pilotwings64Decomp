@@ -60,13 +60,6 @@ enum MapId {
     MAP_EVER_FROST_ISLAND = 10,
 };
 
-typedef struct {
-    s32 unk0[12];
-    f32 unk30;
-    f32 unk34;
-    f32 unk38;
-} Unk80345464_Arg0;
-
 typedef struct Unk802D3658_Unk230 {
     Mtx4F unk0;
     f32 unk40;
@@ -191,8 +184,7 @@ typedef struct {
     u8 padA[0x20-0xA];
     s32 unk20;
     u8 pad24[0x2C-0x24];
-    Unk80345464_Arg0 unk2C;
-    u32 pad68;
+    Mtx4F unk2C;
     s32 unk6C;
     Unk802D3658_Arg0 *unk70;
     s32 unk74;
@@ -219,7 +211,9 @@ typedef struct {
     s32 unk98;
     s32 unk9C;
     u8 unkA0;
-    u8 padA1[7];
+    u8 padA1[2];
+    u8 unkA3;
+    u8 padA4[4];
     s32 unkA8;
 } Unk80362690;
 
@@ -266,6 +260,16 @@ typedef struct {
     f32 unk20;
     f32 unk24;
 } LevelTHER;
+
+typedef struct {
+    Vec3F pos;
+    Vec3F angle;
+    u8 pad18[4];
+    Vec3F unk1C;
+    u8 unk28;
+    u8 pad29[3];
+    f32 unk2C;
+} LevelTPAD;
 
 typedef struct {
     u8 unk0;
@@ -390,8 +394,8 @@ s32 level_80344E0C(s32 classIdx, s32 testIdx, s32 vehicle, char* arg3, char* arg
 s32 levelGetTestCount(s32 classIdx, s32 vehicle);
 s32 level_80344FC8(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* arg4, u16* arg5);
 void level_803453AC(void);
-s32 level_80345464(Unk80345464_Arg0*, s32);
-s32 level_803456D8(Unk80345464_Arg0*);
+s32 level_80345464(Mtx4F*, s32);
+s32 level_803456D8(Mtx4F*);
 void level_80345A24(void);
 s32* levelGet_80345C80(void);
 s32* levelGet_80345C90(void);
@@ -406,7 +410,7 @@ void level_8034528C(void);
 u8 levelGet_80346468(void);
 s32 levelDataGetTHER(LevelTHER** data);
 s32 levelDataGetLWIN(void** data);
-s32 levelDataGetTPAD(void** data);
+s32 levelDataGetTPAD(LevelTPAD** data);
 s32 levelDataGetCNTG(void** data);
 s32 levelDataGetOBSV(LevelOBSV** data);
 s32 levelDataGetLPAD(void** data);

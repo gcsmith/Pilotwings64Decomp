@@ -2,6 +2,7 @@
 #define APP_CODE_69BF0_H
 
 #include <uv_level.h>
+#include <uv_matrix.h>
 
 typedef struct {
     Mtx4F unk0;
@@ -20,6 +21,6 @@ typedef struct {
 } Unk802E27A8_Arg0;
 
 void func_802E27A8(Unk802E27A8_Arg0*);
-void func_802E344C(Unk80345464_Arg0*);
+void func_802E344C(Mtx4F*);
 
 #endif // APP_CODE_69BF0_H
