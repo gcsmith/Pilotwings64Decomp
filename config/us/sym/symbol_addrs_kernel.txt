@@ -48,9 +48,6 @@ _uvaUpdateVoice     = 0x80202AFC; // type:func
 _uvaStopVoice       = 0x80202BB8; // type:func
 _uvaStatus          = 0x80202C5C; // type:func
 
-uvSysInitAudio      = 0x802038A0; // type:func
-uvGetSamples        = 0x8020411C; // type:func
-
 func_80204FC4       = 0x80204FC4; // type:func
 func_80204FE4       = 0x80204FE4; // type:func
 

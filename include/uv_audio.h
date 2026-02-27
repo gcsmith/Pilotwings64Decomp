@@ -8,6 +8,8 @@
 
 #define AUDIO_BUF_SIZE 0x4B00
 #define DMA_BUF_SIZE 0x800
+#define NUM_DMA_BUFFERS 48
+#define NUM_DMA_MESSAGES 48
 #define AUDIO_QUIT_MSG 10
 #define EXTRA_SAMPLES 100
 #define OUTPUT_RATE 22050
@@ -83,7 +85,7 @@ typedef struct AudioInfo {
 } AudioInfo; // size 0x80
 
 typedef struct AMAudioMgr {
-    Acmd* acmdList[2];
+    Acmd* ACMDList[2];
     AudioInfo* audioInfo[3];
     OSThread thread;
     OSMesgQueue audioFrameMsgQ;
@@ -104,12 +106,7 @@ typedef struct uvOSIoMesg {
 void func_802000A0(void);
 
 void uvSysInitAudio(void);
-void func_80203B08(ALSynConfig* c, OSPri priority);
-void Thread_Audio(void* entry);
-s32 func_80203F4C(AudioInfo* arg0, AudioInfo* previousTask);
-void uvGetSamples(AudioInfo* task);
-ALDMAproc func_802042E4(AMDMAState** state);
-void func_8020431C(void);
+void amCreateAudioMgr(ALSynConfig* c, OSPri priority);
 
 void uvEmitterPrintf(const char* fmt, ...);
 void uvEmitterInitTable(void);
