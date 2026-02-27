@@ -34,7 +34,7 @@ u16 D_8034FBD4[][3] = {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_B2900/func_8032BE10.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_B2900/func_8032BE1C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/code_B2900/testGetPointCount.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_B2900/func_8032BE8C.s")
 

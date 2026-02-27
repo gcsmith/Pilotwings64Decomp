@@ -10,12 +10,14 @@
 #include <uv_geometry.h>
 #include <uv_graphics.h>
 #include <uv_level.h>
+#include <uv_main.h>
 #include <uv_matrix.h>
 #include <uv_memory.h>
 #include <uv_sched.h>
 #include <uv_sprite.h>
 #include <uv_texture.h>
 #include <macros.h>
+#include <segment_symbols.h>
 
 // where is this ultralib piint.h header?
 s32 osPiRawReadIo(u32 devAddr, u32* data);
@@ -24,7 +26,6 @@ void Thread_App(void* arg);
 void Thread_Kernel(void* arg);
 void Thread_Render(void* arg);
 void app_entrypoint(s32);
-void uvSetVideoMode(void);
 void func_8022E558(void);
 
 void func_8020F9F4(void);
@@ -32,35 +33,6 @@ void func_80218700(void);
 void func_80218BA0(void);
 void func_80219FD0(void);
 
-extern u8 app_ROM_START[];
-extern u8 app_ROM_END[];
-extern u8 app_VRAM[];
-extern u8 app_VRAM_END[];
-extern u8 app_TEXT_START[];
-extern u8 app_TEXT_END[];
-extern u8 app_DATA_START[];
-extern u8 app_DATA_END[];
-extern u8 app_RODATA_START[];
-extern u8 app_RODATA_END[];
-extern u8 app_BSS_START[];
-extern u8 app_BSS_END[];
-
-extern u8 kernel_TEXT_START[];
-extern u8 kernel_TEXT_END[];
-extern u8 kernel_DATA_START[];
-extern u8 kernel_DATA_END[];
-extern u8 kernel_RODATA_START[];
-extern u8 kernel_RODATA_END[];
-extern u8 kernel_BSS_START[];
-extern u8 kernel_BSS_END[];
-extern u8 kernel_VRAM[];
-extern u8 kernel_VRAM_END[];
-
-// ROM offsets of file system
-extern u8 D_DF5B0[];
-extern u8 D_618B70[];
-
-extern OSSched gSchedInst;
 extern OSThread gKernelThread;
 extern OSThread gAppThread;
 extern OSThread gRenderThread;
@@ -159,19 +131,19 @@ s32 uvSysInit(s32 arg0) {
     _uvDebugPrintf(" ------------------------------------------------------------------\n\n");
     // clang-format off: easier to read on separate lines
     _uvDebugPrintf("kernel : [%7d ] bytes (%7d text, %7d data, %7d bss)\n",
-                   kernel_VRAM_END - kernel_VRAM,
-                   kernel_TEXT_END - kernel_TEXT_START,
-                   kernel_RODATA_END - kernel_DATA_START,
-                   kernel_BSS_END - kernel_BSS_START);
+                   SEGMENT_VRAM_SIZE(kernel),
+                   SEGMENT_TEXT_SIZE(kernel),
+                   SEGMENT_DATA_SIZE(kernel),
+                   SEGMENT_BSS_SIZE(kernel));
     _uvDebugPrintf("app    : [%7d ] bytes (%7d text, %7d data, %7d bss)\n",
-                   app_VRAM_END - app_VRAM,
-                   app_TEXT_END - app_TEXT_START,
-                   app_RODATA_END - app_DATA_START,
-                   app_BSS_END - app_BSS_START);
+                   SEGMENT_VRAM_SIZE(app),
+                   SEGMENT_TEXT_SIZE(app),
+                   SEGMENT_DATA_SIZE(app),
+                   SEGMENT_BSS_SIZE(app));
     _uvDebugPrintf("filesys: [%7d ] bytes (0x%08x - 0x%08x)\n",
-                   (u32)D_618B70 - (u32)D_DF5B0,
-                   D_DF5B0,
-                   D_618B70);
+                   SEGMENT_ROM_SIZE(filesys),
+                   SEGMENT_ROM_START(filesys),
+                   SEGMENT_ROM_END(filesys));
     // clang-format on
     osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON);
     gControllerPattern = 0;

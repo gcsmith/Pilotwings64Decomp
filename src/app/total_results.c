@@ -153,7 +153,7 @@ void totResultInit(void) {
     }
 
     for (i = 0; i < levelGetTestCount(temp_s4->cls, temp_s4->veh); i++) {
-        temp_v0 = func_8032BE1C(sp4C, temp_s4->cls, i, temp_s4->veh);
+        temp_v0 = testGetPointCount(sp4C, temp_s4->cls, i, temp_s4->veh);
         if (temp_v0 != 127) {
             var_s5 += temp_v0;
             textFmtInt(sTestPtsStr[i], temp_v0, 3);

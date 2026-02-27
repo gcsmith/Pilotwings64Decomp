@@ -12,7 +12,7 @@ uvaEmitter_t gSndEmitterTable[256];
 
 extern ALSndPlayer* gSndPlayer;
 extern ALSndId* gSndVoiceTable;
-extern ALBank* D_8026120C;
+extern ALBank* gAudioSXBank;
 
 void uvEmitterPrintf(const char* fmt, ...) {
 }
@@ -581,7 +581,7 @@ void _uvaStartVoice(u8 obj_id) {
         return;
     }
     alSndpDeallocate(gSndPlayer, gSndVoiceTable[gSndEmitterTable[obj_id].playVoice]);
-    instrument = D_8026120C->instArray[gSndEmitterTable[obj_id].sound];
+    instrument = gAudioSXBank->instArray[gSndEmitterTable[obj_id].sound];
     gSndVoiceTable[gSndEmitterTable[obj_id].playVoice] = alSndpAllocate(gSndPlayer, instrument->soundArray[0]);
     alSndpSetSound(gSndPlayer, gSndVoiceTable[gSndEmitterTable[obj_id].playVoice]);
     if (gSndVoiceTable[gSndEmitterTable[obj_id].playVoice] >= 0) {

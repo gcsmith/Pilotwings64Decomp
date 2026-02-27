@@ -65,16 +65,6 @@ typedef struct {
 } uvGfxViewport_t;
 
 typedef struct {
-    s32 unk0;
-    u8 pad[0x4];
-    s32 unk8;
-    u8* fb;
-    OSTask task;
-    OSMesgQueue* msgQueue;
-    void* unk54;
-} UnkStruct_uvGfxInit; // size: 0x58
-
-typedef struct {
     u16 unk0;
     u16 unk2;
     u16 unk4;
@@ -134,7 +124,7 @@ typedef struct uvUnkTeraStruct {
     u8 pad8[0x4];
     f32 unkC;
     f32 unk10;
-    u8 pad14[0x4];
+    f32 unk14;
 } uvUnkTeraStruct; // size = 0x18
 
 typedef struct ParsedUVTR {

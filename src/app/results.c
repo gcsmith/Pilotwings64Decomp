@@ -8,7 +8,6 @@
 #include "code_99D40.h"
 #include "code_9A960.h"
 #include "code_B3A70.h"
-#include "code_CFC40.h"
 #include "demo.h"
 #include "menu.h"
 #include "save.h"
@@ -16,6 +15,7 @@
 #include "snow.h"
 #include "snd.h"
 #include "results.h"
+#include "test_menu.h"
 #include "text_data.h"
 #include "total_results.h"
 

@@ -338,13 +338,14 @@ segments:
       - [0x50B40, .rodata, ultralib/src/audio/reverb]
       - [0x50B70, rodata, f3dex]
       - [0x51370, rodata, fast3d]
-      - [0x51B70, rodata]
+      - [0x51B70, rodata, aspMain]
 
 
       - { type: .bss, vram: 0x80250E80, name: kernel/code_1050 }
       - { type: .bss, vram: 0x80250ED0, name: kernel/emitter }
       - { type: .bss, vram: 0x8025BF00, name: kernel/event }
-      - { type: bss, vram: 0x8025C5B0, name: kernel_bss2 }
+      - { type: .bss, vram: 0x8025C5B0, name: kernel/audio }
+      - { type: bss, vram: 0x80261230, name: kernel_bss2 }
       - { type: .bss, vram: 0x802634C0, name: kernel/code_8170 }
       - { type: bss, vram: 0x80263780, name: 80263780 }
       - { type: .bss, vram: 0x80269F50, name: kernel/code_19B50 }
@@ -453,7 +454,7 @@ segments:
       - [0xCDB20, c, app/thermals]
       - [0xCE4F0, c, app/total_results]
       - [0xCF100, c, app/toys]
-      - [0xCFC40, c, app/code_CFC40]
+      - [0xCFC40, c, app/test_menu]
       - [0xD1980, c, app/user_paths]
       - [0xD1ED0, c, app/code_D1ED0]
       - [0xD2B10, c, app/code_D2B10]
@@ -523,7 +524,7 @@ segments:
       - [0xD7D20, .data, app/thermals]
       - [0xD7D30, data]
       - [0xD7E10, .data, app/total_results]
-      - [0xD7EA0, data] # app/code_CE4F0
+      - [0xD7EA0, .data, app/test_menu]
       - [0xD7EF0, .data, app/code_D2D50]
       - [0xD7F20, .data, app/code_D3810]
       - [0xD7F40, .rodata, app/code_51E30]
@@ -612,7 +613,7 @@ segments:
       - [0xDE210, .rodata, app/thermals]
       - [0xDE250, .rodata, app/total_results]
       - [0xDE3E0, .rodata, app/toys]
-      - [0xDE4A0, .rodata, app/code_CFC40]
+      - [0xDE4A0, .rodata, app/test_menu]
       - [0xDE550, .rodata, app/user_paths]
       - [0xDE5A0, .rodata, app/code_D1ED0]
       - [0xDE5D0, .rodata, app/code_D2B10]
@@ -633,12 +634,29 @@ segments:
       - { type: .bss, vram: 0x8037AB50, name: app/thermals }
       - { type: .bss, vram: 0x8037ACE0, name: app/total_results }
       - { type: bss, vram: 0x8037AD70, name: app_bss_8037ACD8 }
+      - { type: .bss, vram: 0x8037DC60, name: app/test_menu }
       - { type: .bss, vram: 0x8037DCA0, name: app/user_paths }
       - { type: bss, vram: 0x8037F380, name: app_bss_8037F380 }
 
-  - name: bin_DE720
+  - name: filetable
     type: bin
     start: 0xDE720
+
+  - name: filesys
+    type: bin
+    start: 0xDF5B0
+
+  - name: audio_seq
+    type: bin
+    start: 0x618B70
+
+  - name: audio_ctl
+    type: bin
+    start: 0x62D460
+
+  - name: audio_tbl
+    type: bin
+    start: 0x6314D0
 
 # - name: mio0_segment
 #   exclusive_ram_id: segment
@@ -1968,9 +1986,5 @@ segments:
 #     - [0x4B4D64, bin, mio0_4B4D64]
 #     - [0x4B51D8, bin, mio0_4B51D8]
 #     - [0x4B54FC, bin, mio0_4B54FC]
-
-  - name: bin_4B5780
-    type: bin
-    start: 0x4B5780
 
   - [0x800000]
