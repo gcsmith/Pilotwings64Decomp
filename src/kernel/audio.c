@@ -1,6 +1,7 @@
 #include "common.h"
 #include <uv_audio.h>
 #include <uv_event.h>
+#include <uv_filesystem.h>
 #include <uv_memory.h>
 #include <uv_sched.h>
 #include <libc/stdint.h>
@@ -166,17 +167,17 @@ void Thread_Audio(void* entry) {
     s32 var_s0 = 0;
     OSScClient sp48;
 
-    osRecvMesg(&D_80261188, &msg, OS_MESG_BLOCK);
+    osRecvMesg(&D_80261188, (OSMesg*)&msg, OS_MESG_BLOCK);
     _uvScAddClient(&gSchedInst, &sp48, &D_8025C688.audioFrameMsgQ);
     while (!done) {
-        osRecvMesg(&D_8025C688.audioFrameMsgQ, &msg, OS_MESG_BLOCK);
+        osRecvMesg(&D_8025C688.audioFrameMsgQ, (OSMesg*)&msg, OS_MESG_BLOCK);
         func_8022C3C0(0, 0x29);
         switch (msg->gen.type) {
         case OS_SC_PRE_NMI_MSG:
             break;
         case OS_SC_RETRACE_MSG:
             if (func_80203F4C(D_8025C688.audioInfo[D_80260CE0 % 3], var_s0) != 0) {
-                osRecvMesg(&D_8025C688.audioReplyMsgQ, &msg, OS_MESG_BLOCK);
+                osRecvMesg(&D_8025C688.audioReplyMsgQ, (OSMesg*)&msg, OS_MESG_BLOCK);
                 uvGetSamples(msg->done.info);
                 var_s0 = msg->done.info;
             }
@@ -260,11 +261,11 @@ s32 func_80204168(s32 addr, s32 len, UNUSED void* state) {
 
     while (dmaPtr) {
         buffEnd = dmaPtr->startAddr + DMA_BUF_SIZE;
-        if (addr < dmaPtr->startAddr) {
+        if ((u32)addr < dmaPtr->startAddr) {
             break;
         }
 
-        if (buffEnd >= addr + len) {
+        if (buffEnd >= addrEnd) {
             dmaPtr->lastFrame = D_80260CE0;
             foundBuffer = dmaPtr->ptr + addr - dmaPtr->startAddr;
             return osVirtualToPhysical(foundBuffer);
@@ -296,7 +297,7 @@ s32 func_80204168(s32 addr, s32 len, UNUSED void* state) {
     addr -= delta;
     dmaPtr->startAddr = addr;
     dmaPtr->lastFrame = D_80260CE0;
-    osPiStartDma(&D_80260CF0[D_80248C80++], OS_MESG_PRI_HIGH, OS_READ, addr, foundBuffer, DMA_BUF_SIZE, &D_802610B0);
+    osPiStartDma((OSIoMesg*)&D_80260CF0[D_80248C80++], OS_MESG_PRI_HIGH, OS_READ, addr, foundBuffer, DMA_BUF_SIZE, &D_802610B0);
     return osVirtualToPhysical(foundBuffer) + delta;
 }
 

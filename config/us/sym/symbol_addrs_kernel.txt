@@ -399,16 +399,6 @@ aspMainDataStart        = 0x80250BC0; // name_end:aspMainDataEnd
 // Data Symbols
 // -----------------------------------------------------------------------------
 
-D_8025C5B0 = 0x8025C5B0; // size:0x7C
-D_8025C630 = 0x8025C630; // size:0x54
-D_80261188 = 0x80261188; // size:0x18
-D_802611A8 = 0x802611A8; // size:0x10
-D_802611B8 = 0x802611B8; // size:0x24
-D_802611E0 = 0x802611E0; // size:0x1C
-D_80261200 = 0x80261200; // size:0xC
-
-gAudioThreadStack = 0x8025C910; // size:0x4000
-
 gMatrixStackIdx           = 0x8024B250;
 gMatrixStack              = 0x802B81E0;
 

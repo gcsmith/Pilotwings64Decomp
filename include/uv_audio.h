@@ -6,6 +6,14 @@
 #include <uv_sched.h>
 #include <uv_util.h>
 
+#define AUDIO_BUF_SIZE 0x4B00
+#define DMA_BUF_SIZE 0x800
+#define AUDIO_QUIT_MSG 10
+#define EXTRA_SAMPLES 100
+#define OUTPUT_RATE 22050
+#define FRAME_LAG 2
+#define MAX_MESGS 8
+
 typedef struct uvaEmitter {
 /* 00 */ Mtx4F m1;
 /* 40 */ Vec3F unk40;
@@ -43,14 +51,6 @@ typedef struct UnkStruct_80200144 {
 
 extern UnkStruct_80200144_t D_80250E80[];
 
-#define AUDIO_BUF_SIZE 0x4B00
-#define DMA_BUF_SIZE 0x800
-#define AUDIO_QUIT_MSG 10
-#define EXTRA_SAMPLES 100
-#define OUTPUT_RATE 22050
-#define FRAME_LAG 2
-#define MAX_MESGS 8
-
 typedef struct {
     ALLink node;
     u32 startAddr;
@@ -70,7 +70,7 @@ typedef union {
     } gen;
     struct {
         short     type;
-        struct    AudioInfo_s *info;
+        struct    AudioInfo *info;
     } done;
     OSScMsg       app;
 } AudioMsg;
