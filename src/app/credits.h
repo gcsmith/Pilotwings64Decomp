@@ -3,7 +3,7 @@
 
 #include <PR/ultratypes.h>
 
-extern u8 D_8034F420[];
+extern u8 D_8034F420[][4];
 extern u8 D_8034F43C[];
 
 s32 func_8030CB60(s32);

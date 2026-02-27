@@ -77,9 +77,7 @@ typedef struct {
     f32 unk130;
     f32 unk134;
     u8 pad138[0x1B8 - 0x138];
-    f32 unk1B8;
-    f32 unk1BC;
-    f32 unk1C0;
+    Vec3F unk1B8;
     f32 unk1C4;
     f32 unk1C8;
     f32 unk1CC;

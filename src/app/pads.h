@@ -2,6 +2,7 @@
 #define APP_PADS_H
 
 #include <uv_level.h>
+#include <uv_matrix.h>
 
 typedef struct {
     u8 unk0[4];
@@ -32,7 +33,7 @@ extern LandingStrip gLandingStrips[2]; // parsed landing strip data, also copied
 
 void func_80316DC0(void);
 void func_80316E40(void);
-void func_80317634(Unk80345464_Arg0*);
+void func_80317634(Mtx4F*);
 void func_8031776C(void);
 
 #endif // APP_PADS_H

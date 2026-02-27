@@ -1,5 +1,9 @@
 #include <uv_graphics.h>
+#include <uv_level.h>
+#include <uv_main.h>
+#include "code_72B70.h"
 #include "demo.h"
+#include "map3d.h"
 
 s32 D_8034F7F0 = 0xFFFF0000;
 s32 D_8034F7F4 = 0;
@@ -22,16 +26,6 @@ f32 D_8034F834 = 0.0f;
 f32 D_8034F838 = 0.0f;
 u8 D_8034F83C = 0;
 
-void func_8022E2D4(s32);
-void func_802EB9C0(void);
-void func_802EBC30(void);
-s32 func_80311660(s32, s32);
-void func_80311C68(s32, s32);
-void func_803122B4(s32, s32);
-void uvGfxEnableGamma(s32);
-void uvSysInit(s32);
-void map3d(void);
-
 void app_entrypoint(void) {
     uvSysInit(0);
     uvGfxEnableGamma(0);
@@ -42,8 +36,8 @@ void app_entrypoint(void) {
     func_8022E2D4(0);
 }
 
-void func_8030FE80(s32 arg0, s32 arg1) {
-    map3d();
+void func_8030FE80(Unk80362690* arg0, s32 arg1) {
+    map3d(arg0, arg1);
     while (func_80311660(0, arg1) != 0) {
         uvGfxBegin();
         func_80311C68(arg0, arg1);

@@ -150,6 +150,8 @@ demoButtonPress     = 0x803231E0; // type:func
 demoButtonRelease   = 0x80323240; // type:func
 demoRandF           = 0x803232A0; // type:func
 
+testGetPointCount   = 0x8032BE1C; // type:func
+
 resultHandler       = 0x8032DD50; // type:func
 resultInit          = 0x8032E060; // type:func
 resultMenuChoose    = 0x8032E6B8; // type:func
@@ -271,6 +273,13 @@ totResultDeinit     = 0x80347694; // type:func
 totResultMenuChoose = 0x8034769C; // type:func
 totResultDrawTally  = 0x80347780; // type:func
 
+testMenuShutterBug   = 0x80348710; // type:func
+testMenuInitText     = 0x803487A4; // type:func
+testMenuInit         = 0x80348B84; // type:func
+testMenuHandler      = 0x8034926C; // type:func
+testMenuDraw         = 0x80349C38; // type:func
+testMenu_8034A428    = 0x8034A428; // type:func
+
 userPathInit        = 0x8034A450; // type:func
 userPath_8034A4F8   = 0x8034A4F8; // type:func
 userPathFree        = 0x8034A840; // type:func
@@ -328,7 +337,9 @@ D_8035AF34 = 0x8035AF34; // type:f32
 D_8035AF38 = 0x8035AF38; // type:f32
 D_8035AF3C = 0x8035AF3C; // type:f32
 
+gClassShortNames          = 0x80350988; // size:0x10
 gVehShortNames            = 0x80350998; // size:0x1C
+gCurTestIdx               = 0x803509B4;
 
 sTextName                 = 0x80377F10; // size:0x6E0
 sTextData                 = 0x803785F0; // size:0x6DC
