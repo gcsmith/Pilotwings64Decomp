@@ -3,6 +3,7 @@
 
 #include <PR/ultratypes.h>
 #include <uv_level.h>
+#include <uv_matrix.h>
 
 typedef struct {
     u16 unk0; // alloc index?
@@ -20,7 +21,7 @@ extern Unk80378CF8 D_80378CF8[40];
 
 void func_80344290(void);
 void func_803442F8(void);
-void func_8034450C(Unk80345464_Arg0*);
+void func_8034450C(Mtx4F*);
 void func_8034467C(void);
 u8 func_803448F4(void);
 

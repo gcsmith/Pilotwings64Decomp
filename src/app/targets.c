@@ -1,8 +1,13 @@
 #include "common.h"
 #include "targets.h"
 #include "code_9A960.h"
+#include "code_B2900.h"
 #include "hud.h"
+#include "snd.h"
+#include "text_data.h"
 #include <uv_dobj.h>
+#include <uv_fx.h>
+#include <uv_model.h>
 
 typedef struct {
     Vec3F position;
@@ -85,11 +90,101 @@ void func_803442F8(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/targets/func_8034450C.s")
+void func_8034450C(Mtx4F* arg0) {
+    Mtx4F sp50;
+    Unk80378CF8* var_s0;
+    s32 i;
+    s32 var_s4;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/targets/func_8034467C.s")
+    var_s4 = 1;
+    if ((D_80362690->unkA0 == 0) || ((s32) sMissileTargetCount <= 0)) {
+        return;
+    }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/targets/func_8034473C.s")
+    *D_803506A0 += 3.1415923f * D_8034F854;
+    if (*D_803506A0 > 6.2831855f) {
+        *D_803506A0 -= 6.2831855f;
+    }
+
+    for (i = 0; i < sMissileTargetCount; i++) {
+        var_s0 = &D_80378CF8[i];    
+        if ((var_s0->unk44 == 0) && (var_s0->unk46 == 0) && (var_s0->unk0 != 0xFFFF)) {
+            if (var_s4 != 0) {
+                var_s4 = 0;
+                uvMat4SetIdentity(&sp50);
+                uvMat4Copy(&sp50, &var_s0->unk4);
+                uvMat4RotateAxis(&sp50, *D_803506A0, 'z');
+            }
+            sp50.m[3][0] = var_s0->unk4.m[3][0];
+            sp50.m[3][1] = var_s0->unk4.m[3][1];
+            sp50.m[3][2] = var_s0->unk4.m[3][2];
+            uvDobjPosm(var_s0->unk0, 0, &sp50);
+        }
+    }
+}
+
+void func_8034467C(void) {
+    s32 i;
+
+    for (i = 0; i < sMissileTargetCount; i++) {
+        if (D_80378CF8[i].unk0 != 0xFFFF) {
+            uvDobjModel(D_80378CF8[i].unk0, 0xFFFF);
+            D_80378CF8[i].unk0 = 0xFFFF;
+        }
+        if (D_80378CF8[i].unk48 != 0xFF) {
+            hud_8031A8E0(D_80378CF8[i].unk48);
+            D_80378CF8[i].unk48 = 0xFF;
+        }
+    }
+}
+
+f32 func_8034473C(s32 arg0, s32 arg1) {
+    Unk80378CF8* var_s0;
+    s32 i;
+    s32 sp4C;
+    s32 sp48;
+
+    for (i = 0; i < sMissileTargetCount; i++) {
+        var_s0 = &D_80378CF8[i];
+        if (arg0 != var_s0->unk0) {
+            continue;
+        }
+
+        if (arg1 != 0 && var_s0->unk44 != 0) {
+            return 1.0f;
+        }
+
+        if (arg1 != 0) {
+            func_8033F7F8(0x38U);
+            hudText_8031D8E0(0x1AD, 1.5f, 8.0f);
+        } else {
+            hudText_8031D8E0(0x18A, 1.5f, 8.0f);
+        }
+
+        func_8032C080((s32) &sp48);
+        if (sp48 >= 2) {
+            textFmtIntAt(textGetDataByIdx(0x29), sp48 - 1, 2, 0);
+            hudWarningText(0x29, 1.5f, 8.0f);
+        }
+
+        var_s0->unk46 = 1;
+        sp4C = func_8021EFF0(8);
+        if (sp4C != 0xFF) {
+            uvModelGet(sp4C, 8);
+            uvFxProps(sp4C, 0xA, var_s0->unk4.m[3][0], var_s0->unk4.m[3][1], var_s0->unk4.m[3][2], 0);
+        }
+
+        uvDobjModel(var_s0->unk0, 0xFFFF);
+        var_s0->unk0 = 0xFFFF;
+        if (var_s0->unk48 != 0xFF) {
+            hud_8031A8E0(var_s0->unk48);
+            var_s0->unk48 = 0xFF;
+        }
+        return 0.0f;
+    }
+
+    return 1.0f;
+}
 
 u8 func_803448F4(void) {
     u8 ret;
@@ -102,4 +197,16 @@ u8 func_803448F4(void) {
     return ret;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/targets/func_80344948.s")
+s16 func_80344948(void) {
+    s32 i;
+    s16 var_v1;
+
+    var_v1 = 0;
+    for (i = 0; i < sMissileTargetCount; i++) {
+        if (D_80378CF8[i].unk46 != 0) {
+            var_v1 += D_80378CF8[i].unk45;
+        }
+    }
+
+    return var_v1;
+}
