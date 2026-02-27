@@ -6,7 +6,7 @@
 #include <uv_sched.h>
 #include <libc/stdint.h>
 #include <libc/stddef.h>
-#include "segment_symbols.h"
+#include <segment_symbols.h>
 
 ALCSPlayer D_8025C5B0;
 ALSndPlayer D_8025C630;

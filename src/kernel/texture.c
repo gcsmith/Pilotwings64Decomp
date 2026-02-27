@@ -8,7 +8,7 @@
 #include <uv_sobj.h>
 #include <uv_sprite.h>
 #include <uv_texture.h>
-#include "segment_symbols.h"
+#include <segment_symbols.h>
 
 typedef struct {
     u16 count;
