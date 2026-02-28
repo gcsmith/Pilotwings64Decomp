@@ -168,6 +168,7 @@ smoke_create_terra  = 0x80337528; // type:func
 
 snapGetPhotoCount   = 0x8033F618; // type:func
 
+snd_play_sfx        = 0x8033F7F8; // type:func
 snd_makedev         = 0x8033F860; // type:func
 snd_event           = 0x8033FB44; // type:func
 snd_getpilot        = 0x8033FBCC; // type:func
@@ -292,6 +293,26 @@ mem_get             = 0x80312740; // type:func
 mem_init            = 0x803127BC; // type:func
 mem_remaining       = 0x803127F0; // type:func
 
+optionsTopRender    = 0x80315E90; // type:func
+optionsInit         = 0x80315F0C; // type:func
+optionsInitMain     = 0x803160B0; // type:func
+optionsInitAlbum    = 0x803161A8; // type:func
+optionsInitSound    = 0x80316238; // type:func
+optionsDeinit       = 0x8031631C; // type:func
+optionsMenuHandler  = 0x8031633C; // type:func
+optionsHandlerMain  = 0x803163B8; // type:func
+optionsHandlerAlbum = 0x80316528; // type:func
+optionsHandlerSound = 0x80316634; // type:func
+optionsDrawPanel    = 0x80316A28; // type:func
+optionsPanel0       = 0x80316A90; // type:func
+optionsPanel1       = 0x80316AB8; // type:func
+optionsPanel2       = 0x80316AE0; // type:func
+optionsDrawBorder   = 0x80316B08; // type:func
+options_80316B80    = 0x80316B80; // type:func
+optionsSetSetting   = 0x80316BEC; // type:func
+optionsSetTrack     = 0x80316D34; // type:func
+optionsItemWrap     = 0x80316D88; // type:func
+
 // -----------------------------------------------------------------------------
 // Data Symbols
 // -----------------------------------------------------------------------------
@@ -340,6 +361,12 @@ D_8035AF3C = 0x8035AF3C; // type:f32
 gClassShortNames          = 0x80350988; // size:0x10
 gVehShortNames            = 0x80350998; // size:0x1C
 gCurTestIdx               = 0x803509B4;
+
+sOptionsPanel             = 0x8036C120; // type:s16
+sStickHeld                = 0x8036C124;
+sGameComplete             = 0x8036C128;
+sSaveFileIdx              = 0x8036C129;
+sOptionMenuItems          = 0x8036C130; // size:0x14
 
 sTextName                 = 0x80377F10; // size:0x6E0
 sTextData                 = 0x803785F0; // size:0x6DC

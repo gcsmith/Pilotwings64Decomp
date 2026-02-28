@@ -211,9 +211,9 @@ u8 testMenuHandler(Unk80367710* arg0) {
         if (demoButtonPress(D_80362690->unk9C, A_BUTTON | B_BUTTON | START_BUTTON) != 0) {
             sTestMenuState = 0;
             if (demoButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON) != 0) {
-                func_8033F7F8(0x71);
+                snd_play_sfx(0x71);
             } else if (demoButtonPress(D_80362690->unk9C, B_BUTTON) != 0) {
-                func_8033F7F8(1);
+                snd_play_sfx(1);
             }
             return 6;
         }
@@ -360,14 +360,14 @@ u8 testMenuHandler(Unk80367710* arg0) {
             } else {
                 switch (sp64) {
                 case 3:
-                    func_8033F7F8(0xF);
+                    snd_play_sfx(0xF);
                     return gCurTestIdx;
                 case 0:
-                    func_8033F7F8(0x73);
+                    snd_play_sfx(0x73);
                     resultHandler(0);
                     break;
                 case 4:
-                    func_8033F7F8(0x71);
+                    snd_play_sfx(0x71);
                     db_getstart(&sp6C->unk2C, &sp48, 0, 0);
                     testMenu_8034A428();
                     hud_8031A2CC();
@@ -389,7 +389,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
                     sTestMenuState = 2;
                     break;
                 case 2:
-                    func_8033F7F8(0x6E);
+                    snd_play_sfx(0x6E);
                     func_8033FB14();
                     testMenu_8034A428();
                     func_8033E3A8(3);
@@ -407,7 +407,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
             }
         } else {
             if (demoButtonPress(D_80362690->unk9C, B_BUTTON) != 0) {
-                func_8033F7F8(1);
+                snd_play_sfx(1);
                 if (sTestMenuState == 2) {
                     // these u8 values are needed to load integer literals at runtime
                     u16 col2ScreenX = (2 * 78) + 47;

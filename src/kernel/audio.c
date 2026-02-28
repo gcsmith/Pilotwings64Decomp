@@ -7,6 +7,7 @@
 #include <libc/stdint.h>
 #include <libc/stddef.h>
 #include <segment_symbols.h>
+#include "code_1050.h"
 
 ALCSPlayer gALCSPlayer;
 ALSndPlayer gALSndPlayer;

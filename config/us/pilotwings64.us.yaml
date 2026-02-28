@@ -417,7 +417,7 @@ segments:
       - [0x9B960, c, app/code_9B960]
       - [0x9C080, c, app/code_9C080]
       - [0x9CF50, c, app/code_9CF50]
-      - [0x9D3C0, c, app/code_9D3C0]
+      - [0x9D3C0, c, app/options]
       - [0x9E2F0, c, app/pads]
       - [0x9F2D0, c, app/hud]
       - [0xA6000, c, app/code_A6000]
@@ -499,7 +499,7 @@ segments:
       - [0xD6D80, .data, app/code_9A960]
       - [0xD6D90, .data, app/code_9C080]
       - [0xD6DE0, .data, app/code_9CF50]
-      - [0xD6E00, .data, app/code_9D3C0]
+      - [0xD6E00, .data, app/options]
       - [0xD6E30, .data, app/pads]
       - [0xD6E40, .data, app/hud]
       - [0xD6EA0, .data, app/demo_attitude]
@@ -579,7 +579,7 @@ segments:
       - [0xDBA00, .rodata, app/code_9A960]
       - [0xDBA30, .rodata, app/code_9B960]
       - [0xDBA60, .rodata, app/code_9C080]
-      - [0xDBA90, .rodata, app/code_9D3C0]
+      - [0xDBA90, .rodata, app/options]
       - [0xDBB00, .rodata, app/pads]
       - [0xDBC60, .rodata, app/hud]
       - [0xDBE30, .rodata, app/code_A6000]
@@ -627,6 +627,8 @@ segments:
       - { type: bss, vram: 0x80362500, name: app_bss_80362500 }
       - { type: .bss, vram: 0x80369F10, name: app/menu }
       - { type: bss, vram: 0x80369F30, name: app_bss_80369F10 }
+      - { type: .bss, vram: 0x8036C120, name: app/options }
+      - { type: bss, vram: 0x8036C150, name: app_bss_8036C150 }
       - { type: .bss, vram: 0x803718F0, name: app/results }
       - { type: bss, vram: 0x80371960, name: app_bss_80371960 }
       - { type: .bss, vram: 0x80377F10, name: app/text_data }

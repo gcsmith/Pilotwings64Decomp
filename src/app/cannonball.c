@@ -467,7 +467,7 @@ void cannonShoot(Unk802D5C5C_Arg0* arg0) {
     uvMat4RotateAxis(&sp50, arg0->xAxis, 'x');
     uvMat4LocalTranslate(&sp50, 0.0f, 6.0f, 0.0f);
     func_802F9BF8(2, sp50.m[3][0], sp50.m[3][1], sp50.m[3][2], 20.0f, 0.3f, 0.0f, 1.0f, 0.8f, 0.0f, 1.0f);
-    func_8033F7F8(0x4B);
+    snd_play_sfx(0x4B);
     uvEmitterTrigger(arg0->unk2B4);
     arg0->unkD4 = 1;
     arg0->unk1B8.x = 0.0f;
@@ -911,9 +911,9 @@ s32 cannonLandedFrame(Unk802D5C5C_Arg0* arg0) {
             if (var_a2 == 0x19) {
                 hudWarningText(0x16F, 2.0f, 8.0f);
                 func_8033F964(1);
-                func_8033F7F8(0x11U);
+                snd_play_sfx(0x11);
             } else {
-                func_8033F7F8(0x36U);
+                snd_play_sfx(0x36);
                 func_8033F748(0x11);
                 func_8033F964(0);
                 func_8033FCD0(temp_s0->veh);
