@@ -31,7 +31,7 @@ void* uvJanimLoad(s32 arg0) {
         case 'COMM':
             temp1 = sp74;
             var_s3 = _uvMemAlloc(sizeof(ParsedUVAN), 4);
-            var_s3->unk4 = temp1->unk10;
+            var_s3->modelId = temp1->modelId;
             var_s3->unk6 = 0;
             if (sp78 > 0x10) {
                 var_s3->unk8 = temp1->unkC;

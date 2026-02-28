@@ -4,12 +4,18 @@
 #include <uv_matrix.h>
 #include "code_5A6A0.h"
 
+typedef struct {
+    Vec3F unk0;
+    Vec4F unkC;
+} Unk803136C4_Arg0;
+
 extern f32 D_8034F850; // related to time
 extern f32 D_8034F854; // dynamic frame time?
 
 void func_80313430(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32* arg5);
 void func_80313570(Mtx4F*, f32*, f32*, f32*, f32*, f32*, f32*);
 void func_80313640(f32 tx, f32 ty, f32 tz, f32 rz, f32 rx, f32 ry, Mtx4F* mat);
+void func_803136C4(Unk803136C4_Arg0*, Mtx4F*);
 f32 func_80313AF4(f32, f32, f32);
 f32 func_80313F08(Unk803599D0*, f32);
 void func_80313E0C(f32);
