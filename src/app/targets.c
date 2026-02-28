@@ -17,7 +17,6 @@ typedef struct {
     s32 pad1C;
 } MissileTarget; // size = 0x20
 
-
 f32 D_803506A0[] = {
     0.0f, 0.0f, 0.0f, 0.0f,  0.0f,  0.0f, 0.0f, 0.0f, 1.0f,  5.0f,  0.05f, 0.0f, 0.0f,  0.975f, 5.5f,  0.06f, 0.04f, 0.03f, 0.88f, 6.0f,
     0.0f, 0.0f, 0.0f, 0.0f,  17.0f, 0.0f, 0.0f, 0.0f, 0.0f,  18.0f, 0.0f,  0.0f, 0.01f, 0.15f,  18.5f, 0.0f,  0.01f, 0.03f, 0.25f, 19.0f,
@@ -66,7 +65,8 @@ void func_803442F8(void) {
             if (var_s1->unk47 == 0) {
                 var_s1->unk44 = missileTarget->targetType;
                 var_s1->unk45 = missileTarget->unk19;
-                func_80313640(missileTarget->position.x, missileTarget->position.y, missileTarget->position.z, missileTarget->angle.x * 0.0174533f, missileTarget->angle.y * 0.0174533f, missileTarget->angle.z * 0.0174533f, &var_s1->unk4);
+                func_80313640(missileTarget->position.x, missileTarget->position.y, missileTarget->position.z, missileTarget->angle.x * 0.0174533f,
+                              missileTarget->angle.y * 0.0174533f, missileTarget->angle.z * 0.0174533f, &var_s1->unk4);
                 var_s1->unk47 = 1;
             }
             var_s1->unk0 = uvDobjAllocIdx();
@@ -97,7 +97,7 @@ void func_8034450C(Mtx4F* arg0) {
     s32 var_s4;
 
     var_s4 = 1;
-    if ((D_80362690->unkA0 == 0) || ((s32) sMissileTargetCount <= 0)) {
+    if ((D_80362690->unkA0 == 0) || ((s32)sMissileTargetCount <= 0)) {
         return;
     }
 
@@ -107,7 +107,7 @@ void func_8034450C(Mtx4F* arg0) {
     }
 
     for (i = 0; i < sMissileTargetCount; i++) {
-        var_s0 = &D_80378CF8[i];    
+        var_s0 = &D_80378CF8[i];
         if ((var_s0->unk44 == 0) && (var_s0->unk46 == 0) && (var_s0->unk0 != 0xFFFF)) {
             if (var_s4 != 0) {
                 var_s4 = 0;
@@ -128,7 +128,7 @@ void func_8034467C(void) {
 
     for (i = 0; i < sMissileTargetCount; i++) {
         if (D_80378CF8[i].unk0 != 0xFFFF) {
-            uvDobjModel(D_80378CF8[i].unk0, 0xFFFF);
+            uvDobjModel(D_80378CF8[i].unk0, WORLD_MODEL_ID);
             D_80378CF8[i].unk0 = 0xFFFF;
         }
         if (D_80378CF8[i].unk48 != 0xFF) {
@@ -161,7 +161,7 @@ f32 func_8034473C(s32 arg0, s32 arg1) {
             hudText_8031D8E0(0x18A, 1.5f, 8.0f);
         }
 
-        func_8032C080((s32) &sp48);
+        func_8032C080((s32)&sp48);
         if (sp48 >= 2) {
             textFmtIntAt(textGetDataByIdx(0x29), sp48 - 1, 2, 0);
             hudWarningText(0x29, 1.5f, 8.0f);

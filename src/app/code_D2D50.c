@@ -186,7 +186,7 @@ void func_8034BEDC(void) {
     D_803509C0 = uvDobjAllocIdx();
     if (D_803509C0 == 0xFFFF) {
         if (D_803509C4 != 0xFFFF) {
-            uvDobjModel(D_803509C4, 0xFFFF);
+            uvDobjModel(D_803509C4, WORLD_MODEL_ID);
             D_803509C4 = 0xFFFF;
         }
     } else {
@@ -209,10 +209,10 @@ void func_8034C0BC(void) {
         return;
     }
 
-    uvDobjModel(D_803509C0, 0xFFFF);
+    uvDobjModel(D_803509C0, WORLD_MODEL_ID);
     D_803509C0 = 0xFFFF;
     if (D_803509C4 != 0xFFFF) {
-        uvDobjModel(D_803509C4, 0xFFFF);
+        uvDobjModel(D_803509C4, WORLD_MODEL_ID);
         D_803509C4 = 0xFFFF;
     }
     func_803212DC(D_803509CC);

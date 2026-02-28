@@ -1,5 +1,5 @@
-#ifndef APP_TARGETS_G
-#define APP_TARGETS_G
+#ifndef APP_TARGETS_H
+#define APP_TARGETS_H
 
 #include <PR/ultratypes.h>
 #include <uv_level.h>
@@ -24,5 +24,7 @@ void func_803442F8(void);
 void func_8034450C(Mtx4F*);
 void func_8034467C(void);
 u8 func_803448F4(void);
+f32 func_8034473C(s32, s32);
+s16 func_80344948(void);
 
-#endif // APP_TARGETS_G
+#endif // APP_TARGETS_H

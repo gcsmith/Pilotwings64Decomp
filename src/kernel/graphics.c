@@ -1018,7 +1018,7 @@ void uvGfxStatePop(void) {
 }
 
 void uvGfxSetFlags(s32 flags) {
-    s32 newState;
+    u32 newState;
     uvGfxState_t sp20;
 
     newState = flags | gGfxStateStackData;
@@ -1030,7 +1030,7 @@ void uvGfxSetFlags(s32 flags) {
 }
 
 void uvGfxClearFlags(s32 flags) {
-    s32 newState;
+    u32 newState;
     uvGfxState_t sp20;
 
     newState = ~flags & gGfxStateStackData;
