@@ -24,8 +24,9 @@ f32 D_803506A0[] = {
 };
 s32 D_8035078C = 0;
 
-extern MissileTarget* sMissileTargets;
-extern u8 sMissileTargetCount;
+MissileTarget* sMissileTargets;
+u8 sMissileTargetCount;
+Unk80378CF8 D_80378CF8[40];
 
 void func_80344290(void) {
     s32 i;

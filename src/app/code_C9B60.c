@@ -185,7 +185,7 @@ static void func_803427FC(void) {
     }
 }
 
-/* static */ void func_80342D2C(void) {
+static void func_80342D2C(void) {
     s32 allocIdx;
     s32 pad[5];
     f32 sp2FC;
@@ -295,10 +295,10 @@ static s32 func_80343550(void) {
     func_80313D74();
     if (D_80350694 != 0 && D_80378CE0->unk28 < 7) {
         demo_80323020();
-        if (demoButtonPress(D_80362690->unk9C, 0xD000) != 0) {
-            if (demoButtonPress(D_80362690->unk9C, 0x9000) != 0) {
+        if (demoButtonPress(D_80362690->unk9C, A_BUTTON | B_BUTTON | START_BUTTON) != 0) {
+            if (demoButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON) != 0) {
                 func_8033F7F8(0x6EU);
-            } else if (demoButtonPress(D_80362690->unk9C, 0x4000) != 0) {
+            } else if (demoButtonPress(D_80362690->unk9C, B_BUTTON) != 0) {
                 func_8033F7F8(1U);
             }
             if (D_80378CE0->unk264 != 0) {
@@ -451,7 +451,7 @@ static void func_80343C44(void) {
 
     f0 = D_80378CE0->unk22C - D_80378CE0->unk234;
     var_fs0 = (f0) / 5.0f;
-    for (i = 0; i < 6; i++) {
+    for (i = 0; i < ARRAY_COUNT(D_80378CE0->unk240); i++) {
         if (var_fs0 < 0.6f) {
             var_fs0 *= 1.25;
         } else {
