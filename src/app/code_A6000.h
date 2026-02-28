@@ -50,5 +50,6 @@ typedef struct {
 void func_8031EE48(u16, Unk8037F098*, f32, f32, f32);
 void uvPathPoseLine(Unk8037F098*, Unk8037DCA0*, f32);
 void func_8031EF60(Unk8037DCA0*, s32);
+void func_8031EF68(Unk8037DCA0*);
 
 #endif // APP_CODE_A6000_H
