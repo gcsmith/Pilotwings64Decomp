@@ -171,8 +171,8 @@ void _uvMediaCopy(void* vAddr, void* devAddr, u32 nbytes) {
             if ((nbytes != (u32)alignDiff) != 0) {
                 _uvDMA(alignCeil, src + alignDiff, nbytes - alignDiff);
             }
-            osPiWriteIo(src, &buf[0]);
-            osPiWriteIo(src + 4, &buf[4]);
+            osPiReadIo(src, &buf[0]);
+            osPiReadIo(src + 4, &buf[4]);
             for (i = 0; i < alignDiff && (u32)i < nbytes; i++) {
                 dst[i] = buf[i];
             }

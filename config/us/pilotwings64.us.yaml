@@ -158,7 +158,7 @@ segments:
       - [0x3B850, hasm, libultra/os/writebackdcache]
       - [0x3B8D0, c, libultra/io/visetspecial]
       - [0x3BA90, c, libultra/libc/ll]
-      - [0x3BD50, c, libultra/io/piwrite]
+      - [0x3BD50, c, libultra/io/piread]
       - [0x3BDD0, c, libultra/io/viswapbuf]
       - [0x3BE20, hasm, libultra/os/writebackdcacheall]
       - [0x3BE50, c, libultra/io/sptask]
