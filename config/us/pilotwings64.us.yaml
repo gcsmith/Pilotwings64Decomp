@@ -175,7 +175,7 @@ segments:
       - [0x3C960, c, libultra/io/conteepprobe]
       - [0x3C9D0, c, libultra/os/initialize]
       - [0x3CC00, c, libultra/io/pirawread]
-      - [0x3CC60, c, libultra/os/getactivequeue]
+      - [0x3CC60, c, libultra/os/getcurrfaultthread]
       - [0x3CC70, c, libultra/io/pimgr]
       - [0x3CDF0, c, libultra/os/setthreadpri]
       - [0x3CED0, c, libultra/os/settimer]
@@ -279,17 +279,17 @@ segments:
       - [0x4C780, data]
       - [0x4D050, data]
       - [0x4D070, data]
-      - [0x4D080, data, libultra/os/thread]
+      - [0x4D080, .data, libultra/os/thread]
       - [0x4D0A0, data]
       - [0x4D0C0, data]
       - [0x4D0F0, data]
       - [0x4D120, data]
       - [0x4D270, data]
       - [0x4D2C0, data]
-      - [0x4D410, data]
+      - [0x4D410, .data, libultra/os/timerintr]
       - [0x4D420, data]
       - [0x4D430, data]
-      - [0x4D440, data]
+      - [0x4D440, .data, libultra/os/syncputchars]
       - [0x4D450, data, libultra/vimodes/vimodentsclan1]
       - [0x4D4A0, data, libultra/vimodes/vimodepallan1]
       - [0x4D500, .rodata, kernel/code_1050]
@@ -356,6 +356,10 @@ segments:
       - { type: bss, vram: 0x802B5300, name: kernel_bss3 }
       - { type: .bss, vram: 0x802C5FD0, name: kernel/sprite }
       - { type: bss, vram: 0x802C8020, name: kernel_bss4 }
+      - { type: .bss, vram: 0x802C92A0, name: libultra/os/seteventmesg }
+      - { type: bss, vram: 0x802C9320, name: kernel_bss5 }
+      - { type: .bss, vram: 0x802CA5B0, name: libultra/os/timerintr }
+      - { type: bss, vram: 0x802CA5F0, name: kernel_bss6 }
 
   - name: app
     type: code

@@ -291,7 +291,7 @@ void Thread_Render(void* arg) {
     osCreateMesgQueue(&D_802C3300, D_802C3318, 1);
     osSetEventMesg(OS_EVENT_FAULT, &D_802C3300, (void*)0x10);
     osRecvMesg(&D_802C3300, &sp1C, OS_MESG_BLOCK);
-    D_802C331C = __osGetActiveQueue()->context.pc;
+    D_802C331C = __osGetCurrFaultedThread()->context.pc;
     while (1) {
         uvGfxBegin();
         func_8022E558();
