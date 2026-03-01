@@ -274,7 +274,7 @@ segments:
       - [0x4C280, .data, kernel/debug]
       - [0x4C730, data, libultra/audio/sl]
       - [0x4C740, data, libultra/io/aisetnextbuf]
-      - [0x4C750, data, libultra/sp/sprite]
+      - [0x4C750, .data, libultra/sp/sprite]
       - [0x4C760, data, libultra/io/vimgr]
       - [0x4C780, data]
       - [0x4D050, data]
@@ -356,10 +356,12 @@ segments:
       - { type: bss, vram: 0x802B5300, name: kernel_bss3 }
       - { type: .bss, vram: 0x802C5FD0, name: kernel/sprite }
       - { type: bss, vram: 0x802C8020, name: kernel_bss4 }
+      - { type: .bss, vram: 0x802C8040, name: libultra/sp/sprite }
+      - { type: bss, vram: 0x802C8050, name: kernel_bss5 }
       - { type: .bss, vram: 0x802C92A0, name: libultra/os/seteventmesg }
-      - { type: bss, vram: 0x802C9320, name: kernel_bss5 }
+      - { type: bss, vram: 0x802C9320, name: kernel_bss6 }
       - { type: .bss, vram: 0x802CA5B0, name: libultra/os/timerintr }
-      - { type: bss, vram: 0x802CA5F0, name: kernel_bss6 }
+      - { type: bss, vram: 0x802CA5F0, name: kernel_bss7 }
 
   - name: app
     type: code
