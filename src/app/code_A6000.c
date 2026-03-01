@@ -123,12 +123,12 @@ void func_8031EE48(s32 arg0, Unk8037F098* arg1, f32 arg2, f32 arg3, f32 arg4) {
     }
 }
 
-void func_8031EF60(Unk8031EF60_A0* arg0, s32 arg1) {
-    arg0->unk3C = arg1;
+void func_8031EF60(Unk8037DCA0* arg0, s32 arg1) {
+    arg0->modelId = arg1;
 }
 
-void func_8031EF68(Unk8031EF60_A0* arg0) {
-    if (arg0->unk3C != 0xFFFF) {
-        arg0->unk3C = 0xFFFF;
+void func_8031EF68(Unk8037DCA0* arg0) {
+    if (arg0->modelId != 0xFFFF) {
+        arg0->modelId = 0xFFFF;
     }
 }

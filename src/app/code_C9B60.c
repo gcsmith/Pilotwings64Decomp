@@ -186,9 +186,8 @@ static void func_803427FC(void) {
 }
 
 static void func_80342D2C(void) {
+    Unk803136C4_Arg0 sp2FC;
     s32 allocIdx;
-    s32 pad[5];
-    f32 sp2FC;
     s32 i;
 
     D_80378CE0->unk240[0] = userPath_8034A4F8(0x48);
@@ -297,9 +296,9 @@ static s32 func_80343550(void) {
         demo_80323020();
         if (demoButtonPress(D_80362690->unk9C, A_BUTTON | B_BUTTON | START_BUTTON) != 0) {
             if (demoButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON) != 0) {
-                func_8033F7F8(0x6EU);
+                snd_play_sfx(0x6EU);
             } else if (demoButtonPress(D_80362690->unk9C, B_BUTTON) != 0) {
-                func_8033F7F8(1U);
+                snd_play_sfx(1U);
             }
             if (D_80378CE0->unk264 != 0) {
                 sp18 = 10;
@@ -497,7 +496,7 @@ static void func_80343E84(void) {
         uvMat4Mul(&D_80378CE0->unkAC, &D_80378CE0->unkAC, &D_80378CE0->unk1EC);
         uvDobjPosm(D_80378CE0->unkC, 0, &D_80378CE0->unkAC);
         if ((D_80378CE0->unk265 != 0) && (sp2C > 40.0f)) {
-            func_8033F7F8(0x3DU);
+            snd_play_sfx(0x3DU);
             D_80378CE0->unk265 = 0;
         }
     }
@@ -507,7 +506,7 @@ static void func_80343E84(void) {
         uvMat4Mul(&D_80378CE0->unkEC, &D_80378CE0->unkEC, &D_80378CE0->unk1EC);
         uvDobjPosm(D_80378CE0->unk10, 0, &D_80378CE0->unkEC);
         if ((D_80378CE0->unk266 != 0) && (sp2C > 47.0f)) {
-            func_8033F7F8(0x3DU);
+            snd_play_sfx(0x3DU);
             D_80378CE0->unk266 = 0;
         }
     }

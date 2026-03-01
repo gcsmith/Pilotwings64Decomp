@@ -25,6 +25,5 @@ void func_803134D0(f32, f32, f32, f32*, f32*, f32*);
 void func_80313E18(Vec3F*, Mtx4F*);
 void func_80314154(void);
 void func_803141E4(void);
-void func_803136C4(f32*, Mtx4F*);
 
 #endif // APP_CODE_9A960_H

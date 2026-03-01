@@ -143,12 +143,12 @@ void userPath_8034A8B0(Unk8037DCA0* arg0, u8 arg1, f32 arg2) {
     func_8031EE48(arg0->unk352, &D_8037F098, 1.0f, 1.0f, 1.0f);
 }
 
-void userPath_8034A950(Unk8037DCA0_Unk4C arg0, f32* arg183) {
-    arg183[0] = arg0.unk190.f[0];
-    arg183[1] = arg0.unk190.f[1];
-    arg183[2] = arg0.unk190.f[2];
-    arg183[3] = arg0.unk0.f[0];
-    arg183[4] = arg0.unk0.f[1];
-    arg183[5] = arg0.unk0.f[2];
-    arg183[6] = arg0.unk0.f[3];
+void userPath_8034A950(Unk8037DCA0_Unk4C arg0, Unk803136C4_Arg0* arg183) {
+    arg183->unk0.f[0] = arg0.unk190.f[0];
+    arg183->unk0.f[1] = arg0.unk190.f[1];
+    arg183->unk0.f[2] = arg0.unk190.f[2];
+    arg183->unkC.f[0] = arg0.unk0.f[0];
+    arg183->unkC.f[1] = arg0.unk0.f[1];
+    arg183->unkC.f[2] = arg0.unk0.f[2];
+    arg183->unkC.f[3] = arg0.unk0.f[3];
 }
