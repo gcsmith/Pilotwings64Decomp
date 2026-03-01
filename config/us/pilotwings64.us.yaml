@@ -153,7 +153,7 @@ segments:
       - [0x39100, c, libultra/sp/sprite]
       - [0x3B730, c, libultra/sp/color]
       - [0x3B760, c, libultra/sp/spscale]
-      - [0x3B7D0, c, libultra/gu/sqrtf]
+      - [0x3B7D0, hasm, libultra/gu/sqrtf]
       - [0x3B7E0, c, libultra/io/viblack]
       - [0x3B850, hasm, libultra/os/writebackdcache]
       - [0x3B8D0, c, libultra/io/visetspecial]
