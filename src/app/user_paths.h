@@ -10,6 +10,6 @@ Unk8037DCA0* userPath_8034A4F8(s32 arg0);
 void userPathFree(s32 path);
 void userPath_8034A8B0(Unk8037DCA0* arg0, u8 arg1, f32 arg2);
 // arg0 is the actual struct and not a pointer to it
-void userPath_8034A950(Unk8037DCA0_Unk4C arg0, Unk803136C4_Arg0* arg183);
+void userPath_8034A950(Unk8037F098 arg0, Unk803136C4_Arg0* arg183);
 
 #endif // APP_USER_PATHS_H
