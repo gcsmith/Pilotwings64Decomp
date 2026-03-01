@@ -391,10 +391,11 @@ void func_80204518(s32 arg0) {
     alBnkfNew(bankFile, sp58);
     gAudioSXBank = bankFile->bankArray[0];
     gAudioSXInst = gAudioSXBank->instArray[0];
-    gSndVoiceTable = alHeapAlloc(&gAudioHeap, 1, gSndPlayer->frameTime * 2);
+    gSndVoiceTable = alHeapAlloc(&gAudioHeap, 1, gSndPlayer->maxSounds * 2);
 
     sound = gAudioSXInst->soundArray[0];
-    for (i = 0; i < gSndPlayer->frameTime; i++) {
+    for (i = 0; i < gSndPlayer->maxSounds; i++) {
         gSndVoiceTable[i] = alSndpAllocate(gSndPlayer, sound);
     }
 }
+

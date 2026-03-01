@@ -117,6 +117,7 @@ GLOBAL_ASM_O_FILES := $(foreach file,$(GLOBAL_ASM_C_FILES:.c=.o),$(BUILD_DIR)/$(
 
 DEFINES := -D_LANGUAGE_C -D_FINALROM -DWIN32 -DNDEBUG -DTARGET_N64 -DCOMPILING_LIBULTRA
 DEFINES += -DVERSION_US
+DEFINES += -DBUILD_VERSION=VERSION_D
 
 VERIFY = verify
 
@@ -150,13 +151,13 @@ LD_FLAGS_EXTRA  =
 endif
 
 ### Optimisation Overrides
-$(BUILD_DIR)/src/libultra/os/%.o: OPT_FLAGS := -O1
-$(BUILD_DIR)/src/libultra/os/audio/%.o: OPT_FLAGS := -O2
-$(BUILD_DIR)/src/libultra/os/libc/%.o: OPT_FLAGS := -O2
-$(BUILD_DIR)/src/libultra/gu/%.o: OPT_FLAGS := -O3
-$(BUILD_DIR)/src/libultra/gu/lookathil.o: OPT_FLAGS := -O2
-$(BUILD_DIR)/src/libultra/os/osVirtualtoPhysical.o: OPT_FLAGS := -O1
-$(BUILD_DIR)/src/libultra/io/%.o: OPT_FLAGS := -O1
+# $(BUILD_DIR)/src/libultra/os/%.o: OPT_FLAGS := -O1
+# $(BUILD_DIR)/src/libultra/os/audio/%.o: OPT_FLAGS := -O2
+# $(BUILD_DIR)/src/libultra/os/libc/%.o: OPT_FLAGS := -O2
+# $(BUILD_DIR)/src/libultra/gu/%.o: OPT_FLAGS := -O3
+# $(BUILD_DIR)/src/libultra/gu/lookathil.o: OPT_FLAGS := -O2
+# $(BUILD_DIR)/src/libultra/os/osVirtualtoPhysical.o: OPT_FLAGS := -O1
+# $(BUILD_DIR)/src/libultra/io/%.o: OPT_FLAGS := -O1
 $(BUILD_DIR)/src/kernel/debug.o: OPT_FLAGS := -O1 -g
 $(BUILD_DIR)/src/kernel/debug.o: MIPSISET := -mips1 -32
 

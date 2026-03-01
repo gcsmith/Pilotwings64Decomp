@@ -35,6 +35,7 @@ extern "C" {
 
 #include <PR/ultratypes.h>
 #include <PR/mbi.h>
+#include <PR/os_version.h>
     
 /***********************************************************************
  * misc defines
@@ -903,6 +904,9 @@ typedef struct {
     ALEventQueue        evtq;
     ALEvent             nextEvent;
     ALSynth             *drvr;          /* reference to the client driver   */
+#if BUILD_VERSION <= VERSION_D
+    void                *evtList;
+#endif
     s32                 target;
     void                *sndState;
     s32                 maxSounds;
