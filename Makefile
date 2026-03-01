@@ -76,8 +76,6 @@ S_FILES := $(foreach dir,$(ASM_DIRS) $(SRC_DIRS),$(wildcard $(dir)/*.s))
 B_FILES := $(foreach dir,$(BIN_DIRS),$(wildcard $(dir)/*.bin))
 C_FILES := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
 
-LIBULTRA_DIRS := $(shell find $(TOOLS_DIR)/ultralib/src -type d -not -path "lib/ultralib/src/voice")
-
 # ------------------------------------------------------------------------------
 # Outputs
 # ------------------------------------------------------------------------------
@@ -108,7 +106,7 @@ ASM_PROC_FLAGS = $(OPT_FLAGS)
 
 MIPSISET       = -mips2 -32
 
-INCLUDE_CFLAGS = -I. -Iinclude -Isrc -I$(TOOLS_DIR)/ultralib/include/compiler/ido -I$(TOOLS_DIR)/ultralib/include
+INCLUDE_CFLAGS = -I. -Isrc -Iinclude -Iinclude/libultra -Iinclude/libultra/PR -Iinclude/libultra/compiler/ido
 
 ASFLAGS        = -EB -mtune=vr4300 -march=vr4300 -mabi=32 -I include
 OBJCOPYFLAGS   = -O binary
@@ -171,7 +169,7 @@ default: all
 all: dirs $(VERIFY)
 
 dirs:
-	$(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(BIN_DIRS) $(LIBULTRA_DIRS),$(shell mkdir -p $(BUILD_DIR)/$(dir)))
+	$(foreach dir,$(SRC_DIRS) $(ASM_DIRS) $(BIN_DIRS),$(shell mkdir -p $(BUILD_DIR)/$(dir)))
 
 verify: $(ROM_Z64)
 	$(V)sha1sum -c config/$(VERSION)/$(BASENAME).$(VERSION).sha1

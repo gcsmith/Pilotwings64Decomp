@@ -45,7 +45,7 @@ typedef struct UnkCommStruct {
     s32 unk4;
     s32 unk8;
     s32 unkC;
-    s32 unk10;
+    s32 modelId;
     s16 unk14;
 } UnkCommStruct;
 

@@ -309,7 +309,7 @@ void hudDrawCamera(HUDState* hud) {
         uvSprtProps(9, 2, 0x5F, 0xAF, 7, 0xFF, 0, 0, 0x78, 0);
         uvSprtDraw(9);
         if (D_8034F914 == 0) {
-            func_8033F7F8(0x43);
+            snd_play_sfx(0x43);
             D_8034F914 = 1;
         }
     } else if (hud->cameraState & HUD_CAM_RENDER_SHUTTER) {

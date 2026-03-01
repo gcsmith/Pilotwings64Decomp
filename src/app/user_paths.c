@@ -65,7 +65,7 @@ Unk8037DCA0* userPath_8034A4F8(s32 arg0) {
             var_s3 = temp1->unk0;
             temp_v1 = temp1->unk4;
             temp_s0->unk22 = temp1->unkC;
-            temp_s0->unk3C = temp1->unk10;
+            temp_s0->modelId = temp1->modelId;
             temp_s0->unk20 = (temp_v1 - var_s3) + 1;
             temp_s0->unk24 = temp1->unk14;
             temp_s0->unk23 = temp_s0->unk20;

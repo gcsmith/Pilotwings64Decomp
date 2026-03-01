@@ -27,10 +27,10 @@ typedef struct {
     u16 unk20;
     s8 unk22;
     s8 unk23;
-    s8 unk24;
+    u8 unk24;
     u8 pad25[0x38-0x25];
     s32 unk38;
-    s32 unk3C;
+    s32 modelId;
     s8 unk40;
     u8 pad41[0x44-0x41];
     f32 unk44;
@@ -42,14 +42,18 @@ typedef struct {
     u16 unk352;
 } Unk8037DCA0; // size = 0x354
 
-// arrays of floats or vectors
 typedef struct {
-    f32 pad0[186];
+    Vec4F unk0[25];
+    Vec3F unk190[25];
+    u8 unk2BC[25];
+    u8 pad2D5[3];
+    s32 unk2D8;
+    u8 pad2DC[0xC];
 } Unk8037F098; // size = 0x2E8
 
-void func_8031EE48(u16, Unk8037F098*, f32, f32, f32);
 void uvPathPoseLine(Unk8037F098*, Unk8037DCA0*, f32);
 void func_8031EF60(Unk8037DCA0*, s32);
 void func_8031EF68(Unk8037DCA0*);
+void func_8031EE48(s32, Unk8037F098*, f32, f32, f32);
 
 #endif // APP_CODE_A6000_H

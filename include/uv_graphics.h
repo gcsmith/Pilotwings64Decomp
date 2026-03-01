@@ -296,7 +296,7 @@ typedef struct ParsedUVAN_Unk0 {
 
 typedef struct {
     struct ParsedUVAN_Unk0* unk0;
-    u16 unk4;
+    u16 modelId;
     u16 unk6;
     u8 unk8;
     u8 unk9;
