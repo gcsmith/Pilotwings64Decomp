@@ -9,11 +9,11 @@
 #include <uv_math.h>
 
 #define WIND_OBJECT_COUNT 0x10
-#define INITIAL_MODEL_ID 0xFFFF
+#define INITIAL_OBJECT_ID 0xFFFF
 
 // size: 0xCC
 typedef struct {
-    u16 modelId;
+    u16 objId;
     u16 pad2;
     Mtx4F unk4;
     Mtx4F unk44;
@@ -38,7 +38,7 @@ void windObjectsInit(void) {
     s32 i;
 
     // clang-format off: needs to be on one line to match
-    for (i = 0; i < WIND_OBJECT_COUNT; i++) { sWindObjects[i].modelId = INITIAL_MODEL_ID; }
+    for (i = 0; i < WIND_OBJECT_COUNT; i++) { sWindObjects[i].objId = INITIAL_OBJECT_ID; }
     // clang-format on
 }
 
@@ -58,30 +58,30 @@ void func_8034E0B4(void) {
     for (i = 0; i < sWindObjectsInLevel; i++) {
         windObject = &sWindObjects[i];
         windObjectData = &sWindObjectsData[i];
-        windObject->modelId = uvDobjAllocIdx();
+        windObject->objId = uvDobjAllocIdx();
         switch (windObjectData->unkC) {
         case 0:
-            uvDobjModel(windObject->modelId, 0x40);
+            uvDobjModel(windObject->objId, 0x40);
             uvModelGetPosm(0x40, 1, &windObject->unk44);
             uvModelGetPosm(0x40, 2, &windObject->unk84);
             windObject->unkC8 = 0.0f;
             windObject->unkC4 = 0.0f;
             break;
         case 1:
-            uvDobjModel(windObject->modelId, 0x53);
+            uvDobjModel(windObject->objId, 0x53);
             uvModelGetPosm(0x53, 1, &windObject->unk44);
             uvModelGetPosm(0x53, 2, &windObject->unk84);
             windObject->unkC4 = 0.0f;
             break;
         case 2:
-            uvDobjModel(windObject->modelId, 0x40);
+            uvDobjModel(windObject->objId, 0x40);
             break;
         }
         uvMat4SetIdentity(&windObject->unk4);
         windObject->unk4.m[3][0] = windObjectData->pos.f[0];
         windObject->unk4.m[3][1] = windObjectData->pos.f[1];
         windObject->unk4.m[3][2] = windObjectData->pos.f[2];
-        uvDobjPosm(windObject->modelId, 0, &sWindObjects[i].unk4);
+        uvDobjPosm(windObject->objId, 0, &sWindObjects[i].unk4);
     }
 }
 
@@ -138,10 +138,10 @@ void func_8034E274(void) {
             windObject->unkC8 = func_80313AF4((1.0471975f * var_fs0) + -0.1745329f, windObject->unkC8, 3.0f);
             uvMat4Copy(&spA0, &windObject->unk44);
             uvMat4RotateAxis(&spA0, windObject->unkC4, 'z');
-            uvDobjPosm(windObject->modelId, 1, &spA0);
+            uvDobjPosm(windObject->objId, 1, &spA0);
             uvMat4Copy(&spA0, &windObject->unk84);
             uvMat4RotateAxis(&spA0, windObject->unkC8, 'x');
-            uvDobjPosm(windObject->modelId, 2, &spA0);
+            uvDobjPosm(windObject->objId, 2, &spA0);
             break;
         case 1:
             // clang-format off:ifs needs to be on one line to match
@@ -157,9 +157,9 @@ void func_8034E274(void) {
             windObject->unkC4 = func_80313AF4(temp_fa0, windObject->unkC4, 0.3f);
             uvMat4Copy(&spA0, &windObject->unk44);
             uvMat4RotateAxis(&spA0, windObject->unkC4, 'z');
-            uvDobjPosm(windObject->modelId, 1, &spA0);
+            uvDobjPosm(windObject->objId, 1, &spA0);
             uvMat4RotateAxis(&windObject->unk84, 3.0f * temp_fv0_2 * D_8034F854, 'y');
-            uvDobjPosm(windObject->modelId, 2, &windObject->unk84);
+            uvDobjPosm(windObject->objId, 2, &windObject->unk84);
             break;
         }
     }
@@ -171,18 +171,18 @@ void func_8034E628(void) {
 
     for (i = 0; i < sWindObjectsInLevel; i++) {
         windObject = &sWindObjects[i];
-        if (windObject->modelId != INITIAL_MODEL_ID) {
-            uvDobjModel(windObject->modelId, INITIAL_MODEL_ID);
-            windObject->modelId = INITIAL_MODEL_ID;
+        if (windObject->objId != INITIAL_OBJECT_ID) {
+            uvDobjModel(windObject->objId, WORLD_MODEL_ID);
+            windObject->objId = INITIAL_OBJECT_ID;
         }
     }
 }
 
-s32 func_8034E6AC(s32 modelId) {
+s32 func_8034E6AC(s32 objId) {
     s32 i;
 
     for (i = 0; i < sWindObjectsInLevel; i++) {
-        if (sWindObjects[i].modelId != INITIAL_MODEL_ID && modelId == sWindObjects[i].modelId) {
+        if (sWindObjects[i].objId != INITIAL_OBJECT_ID && objId == sWindObjects[i].objId) {
             return 1;
         }
     }

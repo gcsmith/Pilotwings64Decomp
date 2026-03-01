@@ -118,7 +118,7 @@ void db_getstart(Mtx4F* arg0, Vec3F* arg1, u8* arg2, f32* arg3) {
         ang.x = first->angle.x;
         ang.y = first->angle.y;
         ang.z = first->angle.z;
-        func_80313640(pos.x, pos.y, pos.z, ang.x * 0.0174533f, ang.y * 0.0174533f, ang.z * 0.0174533f, arg0); // DEG_TO_RAD(1)
+        func_80313640(pos.x, pos.y, pos.z, ang.x * 0.0174533f, ang.y * 0.0174533f, ang.z * 0.0174533f, arg0); // almost DEG_TO_RAD(1)
         arg1->x = first->unk1C.x;
         arg1->y = first->unk1C.y;
         arg1->z = first->unk1C.z;

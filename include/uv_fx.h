@@ -102,5 +102,6 @@ void func_8021A038(UnkModelTrail* arg0);
 s32 func_8021A334(f32 arg0, f32 arg1, f32 arg2, f32 arg3, u16 arg4);
 void func_8021BE28(u16 fxId, Mtx4F* arg1);
 s32 func_8021EFF0(s32 type);
+void uvFxProps(s32 fxId, ...);
 
 #endif // UV_FX_H

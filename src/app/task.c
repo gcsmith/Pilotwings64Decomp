@@ -26,7 +26,7 @@
 #include "code_B2900.h"
 #include "code_B6FE0.h"
 #include "code_BB820.h"
-#include "code_CB7C0.h"
+#include "targets.h"
 #include "code_D2D50.h"
 #include "code_D3810.h"
 #include "code_D4290.h"
@@ -385,7 +385,7 @@ s32 level_80345464(Mtx4F* arg0, s32 arg1) {
         func_802EDDEC(arg0);
         break;
     }
-    if ((D_80362690->unkA0 != 0) && (levelGet_80346364() == 3) && (func_8032C080(0) != 0)) {
+    if ((D_80362690->unkA0 != 0) && (levelGet_80346364() == 3) && (func_8032C080(NULL) != 0)) {
         D_803507A0 = 1;
         level_803453AC();
         D_80362690->unkA0 = 0;
@@ -418,8 +418,8 @@ s32 level_803456D8(Mtx4F* arg0) {
         sp78.y = arg0->m[3][1] - temp_s0->unk8_Y;
         sp78.z = arg0->m[3][2] - temp_s0->unkC_Z;
         if (uvVec3Len(&sp78) <= temp_s0->unk14) {
-            sp6C.x = uvCosF((temp_s0->unk10 + 90.0f) * 0.01745329f);
-            sp6C.y = uvSinF((temp_s0->unk10 + 90.0f) * 0.01745329f);
+            sp6C.x = uvCosF((temp_s0->unk10 + 90.0f) * 0.01745329f); // almost DEG_TO_RAD(1)
+            sp6C.y = uvSinF((temp_s0->unk10 + 90.0f) * 0.01745329f); // almost DEG_TO_RAD(1)
             sp6C.z = 0.0f;
             temp_fv0 = uvVec3Dot(&sp6C, &sp78);
             if (temp_fv0 > 0.0f) {

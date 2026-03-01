@@ -10,5 +10,6 @@ void screenDrawBox(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, u8 arg5, u8 
 void screenDrawBox2(s32, s32, s32, s32, s32, s32, s32, s32);
 void screenDrawBoxSetup(void);
 void db_getstart(Mtx4F*, Vec3F*, u8*, f32*);
+void func_802DFA18(void);
 
 #endif // APP_CODE_66160_H

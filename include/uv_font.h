@@ -26,5 +26,6 @@ s32 func_802196B0(s16*);
 s32 func_80219874(s32, s32, s16*, s32, s32);
 void uvFont_80219ACC(s32, s32, char*);
 void uvFont_80219EA8(void);
+s32 func_80219828(void);
 
 #endif // UV_FONT_H

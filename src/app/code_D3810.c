@@ -35,13 +35,13 @@ static void func_8034C2E0(s32 arg0) {
     uvMat4SetIdentity(&sp30);
     uvMat4LocalTranslate(&sp30, D_8037F450[arg0].unk8.x, D_8037F450[arg0].unk8.y, D_8037F450[arg0].unk8.z);
     uvMat4LocalTranslate(&sp30, 0.0f, 0.0f, D_8037F450[arg0].unk20);
-    uvMat4RotateAxis(&sp30, D_8037F450[arg0].unk1C * 0.01745329f, 'z');
+    uvMat4RotateAxis(&sp30, D_8037F450[arg0].unk1C * 0.01745329f, 'z'); // almost DEG_TO_RAD(1)
     uvMat4LocalTranslate(&sp30, D_8037F450[arg0].unk14, 0.0f, 0.0f);
     uvDobjPosm(D_8037F450[arg0].unk0, 0, &sp30);
     if (D_8037F450[arg0].unk4 != 0xFFFF) {
         uvMat4SetIdentity(&sp30);
         uvMat4LocalTranslate(&sp30, D_8037F450[arg0].unk8.x, D_8037F450[arg0].unk8.y, D_8037F450[arg0].unk8.z);
-        uvMat4RotateAxis(&sp30, D_8037F450[arg0].unk1C * 0.01745329f, 'z');
+        uvMat4RotateAxis(&sp30, D_8037F450[arg0].unk1C * 0.01745329f, 'z'); // almost DEG_TO_RAD(1)
         uvMat4LocalTranslate(&sp30, D_8037F450[arg0].unk14, 0.0f, 0.0f);
         uvDobjPosm(D_8037F450[arg0].unk4, 0, &sp30);
     }
@@ -189,7 +189,7 @@ void func_8034C964(void) {
         D_8037F450[i].unk0 = uvDobjAllocIdx();
         if (D_8037F450[i].unk0 == 0xFFFF) {
             if (D_8037F450[i].unk4 != 0xFFFF) {
-                uvDobjModel(D_8037F450[i].unk4, 0xFFFF);
+                uvDobjModel(D_8037F450[i].unk4, WORLD_MODEL_ID);
                 D_8037F450[i].unk4 = 0xFFFF;
             }
         } else {
@@ -236,10 +236,10 @@ void func_8034CB80(void) {
 
     for (i = 0; i < ARRAY_COUNT(D_8037F450); i++) {
         if (D_8037F450[i].unk0 != 0xFFFF) {
-            uvDobjModel(D_8037F450[i].unk0, 0xFFFF);
+            uvDobjModel(D_8037F450[i].unk0, WORLD_MODEL_ID);
             D_8037F450[i].unk0 = 0xFFFF;
             if (D_8037F450[i].unk4 != 0xFFFF) {
-                uvDobjModel(D_8037F450[i].unk4, 0xFFFF);
+                uvDobjModel(D_8037F450[i].unk4, WORLD_MODEL_ID);
                 D_8037F450[i].unk4 = 0xFFFF;
             }
         }
