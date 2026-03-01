@@ -1,3 +1,9 @@
-#include "common.h"
+#include "PR/os_internal.h"
+#include "PRinternal/viint.h"
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/io/vigetcurrcontext/__osViGetCurrentContext.s")
+// TODO: this comes from a header
+#ident "$Revision: 1.17 $"
+
+__OSViContext* __osViGetCurrentContext(void) {
+    return __osViCurr;
+}

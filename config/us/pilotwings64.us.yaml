@@ -216,7 +216,7 @@ segments:
       - [0x42F30, c, libultra/io/pigetcmdq]
       - [0x42F60, c, libultra/sp/clearattribute]
       - [0x42F80, c, libultra/sp/setattribute]
-      - [0x42F90, c, libultra/io/siacs]
+      - [0x42F90, c, libultra/io/piacs]
       - [0x43050, hasm, libultra/libc/bcopy]
       - [0x43360, c, libultra/io/spsetstat]
       - [0x43370, c, libultra/io/spsetpc]
@@ -229,12 +229,12 @@ segments:
       - [0x43C00, c, libultra/io/spgetstat]
       - [0x43C10, c, libultra/io/conteepwrite]
       - [0x440F0, c, libultra/io/conteepread]
-      - [0x443F0, c, libultra/io/piacs]
+      - [0x443F0, c, libultra/io/siacs]
       - [0x444B0, hasm, libultra/os/setsr]
       - [0x444C0, hasm, libultra/os/getsr]
       - [0x444D0, hasm, libultra/os/setfpccsr]
-      - [0x444E0, c, libultra/io/sprawread]
-      - [0x44530, c, libultra/io/sprawwrite]
+      - [0x444E0, c, libultra/io/sirawread]
+      - [0x44530, c, libultra/io/sirawwrite]
       - [0x44580, hasm, libultra/os/invalicache]
       - [0x44600, hasm, libultra/os/maptlbrdb]
       - [0x44660, hasm, libultra/libc/bzero]
@@ -286,8 +286,9 @@ segments:
       - [0x4D120, data]
       - [0x4D270, data]
       - [0x4D2C0, data]
+      - [0x4D400, .data, libultra/io/piacs]
       - [0x4D410, .data, libultra/os/timerintr]
-      - [0x4D420, data]
+      - [0x4D420, .data, libultra/io/siacs]
       - [0x4D430, data]
       - [0x4D440, .data, libultra/os/syncputchars]
       - [0x4D450, data, libultra/vimodes/vimodentsclan1]
@@ -360,8 +361,12 @@ segments:
       - { type: bss, vram: 0x802C8050, name: kernel_bss5 }
       - { type: .bss, vram: 0x802C92A0, name: libultra/os/seteventmesg }
       - { type: bss, vram: 0x802C9320, name: kernel_bss6 }
+      - { type: .bss, vram: 0x802CA590, name: libultra/io/piacs }
       - { type: .bss, vram: 0x802CA5B0, name: libultra/os/timerintr }
-      - { type: bss, vram: 0x802CA5F0, name: kernel_bss7 }
+      - { type: bss, vram: 0x802CA5F0, name: libultra/io/conteepread }
+      - { type: .bss, vram: 0x802CA630, name: libultra/io/siacs }
+      - { type: bss, vram: 0x802CA650, name: libultra/debug/kdebugserver }
+      - { type: bss, vram: 0x802CA750, name: libultra/os/exceptasm }
 
   - name: app
     type: code
