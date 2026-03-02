@@ -1,0 +1,4 @@
+#ifndef APP_HANG_GLIDER_H
+#define APP_HANG_GLIDER_H
+
+#endif // APP_HANG_GLIDER_H

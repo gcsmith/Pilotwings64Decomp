@@ -1,4 +1,5 @@
 #include "common.h"
+#include "birdman.h"
 
 f32 D_8034E820 = 0.175f;
 
@@ -15,32 +16,32 @@ f32 D_8034E934[] = { 0.0f,  0.0f,  0.3f,  0.0f, 1.7f,  0.0f, 3.0f,  0.0f, 7.0f, 
 // used in func_802CEBA0
 f32 D_8034E9D4[3] = { 0.0f };
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_560D0/func_802CEBA0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/birdman/func_802CEBA0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_560D0/func_802CECB8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/birdman/func_802CECB8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_560D0/func_802CEDF8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/birdman/func_802CEDF8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_560D0/func_802CF24C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/birdman/func_802CF24C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_560D0/func_802CF5B4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/birdman/func_802CF5B4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_560D0/func_802CF640.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/birdman/func_802CF640.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_560D0/func_802CF76C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/birdman/func_802CF76C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_560D0/func_802CF8A4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/birdman/func_802CF8A4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_560D0/func_802CFAC8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/birdman/func_802CFAC8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_560D0/func_802CFEA8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/birdman/func_802CFEA8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_560D0/func_802CFF74.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/birdman/func_802CFF74.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_560D0/func_802D0080.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/birdman/func_802D0080.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_560D0/func_802D08F8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/birdman/func_802D08F8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_560D0/func_802D0A28.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/birdman/func_802D0A28.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_560D0/func_802D0ABC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/birdman/func_802D0ABC.s")
