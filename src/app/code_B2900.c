@@ -1,13 +1,13 @@
 #include "common.h"
 #include <uv_level.h>
-#include "code_52230.h"
-#include "code_59D80.h"
-#include "code_6ACE0.h"
+#include "ball_target.h"
+#include "balls.h"
 #include "code_82520.h"
-#include "code_915B0.h"
 #include "code_94E60.h"
 #include "code_B2900.h"
 #include "code_CB7C0.h"
+#include "falco.h"
+#include "hover_pads.h"
 #include "rings.h"
 
 s32 D_8034FBD0 = 0;

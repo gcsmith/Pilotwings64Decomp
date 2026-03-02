@@ -1,5 +1,5 @@
-#ifndef APP_CODE_52230_H
-#define APP_CODE_52230_H
+#ifndef APP_BALLS_H
+#define APP_BALLS_H
 
 #include <PR/ultratypes.h>
 
@@ -20,4 +20,4 @@ void func_802CB35C(void);
 void func_802CB3F8(void);
 u8 func_802CC15C(void);
 
-#endif // APP_CODE_52230_H
+#endif // APP_BALLS_H
