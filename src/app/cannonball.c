@@ -148,13 +148,8 @@ void cannon_802D5C5C(Unk802D5B50_Arg2* arg0) {
 
 // cannonEndTarget is invoked at the end of a cannonball target
 void cannonEndTarget(Unk802D5B50_Arg2* arg0) {
-<<<<<<< HEAD
     uvDobjModel(arg0->unk0, MODEL_WORLD);
     uvDobjModel(arg0->unk54, MODEL_WORLD);
-=======
-    uvDobjModel(arg0->unk0, WORLD_MODEL_ID);
-    uvDobjModel(arg0->unk54, WORLD_MODEL_ID);
->>>>>>> 94b25db (Match/app stuff (#75))
     arg0->unk10 = 0xFFFF;
     arg0->unk0 = 0xFFFF;
     arg0->unk54 = 0xFFFF;
