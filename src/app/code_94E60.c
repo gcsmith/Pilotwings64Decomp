@@ -1,4 +1,5 @@
 #include "common.h"
+#include <uv_vector.h>
 
 s8 D_8034F7A0 = 0;
 s8 D_8034F7A4 = 0;
@@ -9,7 +10,10 @@ s8 D_8034F7B4[4] = { 0 }; // might be u8
 u8 D_8034F7B8 = 0;
 u8 D_8034F7BC = 0;
 u8 D_8034F7C0[4] = { 1, 0, 0, 0 };
-f32 D_8034F7C4[6] = { -68.08f, -302.14f, 10.74f, -0.0174533f, 0.1f, 0.0f };
+Vec3F D_8034F7C4[2] = {
+    {     -68.08f, -302.14f, 10.74f }, // position
+    { -0.0174533f,     0.1f,   0.0f }  // rotation,  almost -DEG_TO_RAD(1)
+};
 f32 D_8034F7DC = 0.0f;
 f32 D_8034F7E0 = 1.6f;
 

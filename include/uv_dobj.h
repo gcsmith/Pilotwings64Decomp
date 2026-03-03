@@ -6,6 +6,8 @@
 #include <uv_matrix.h>
 #include <uv_sched.h>
 
+#define WORLD_MODEL_ID 0xFFFF // used to indicate a model that's not bound to a level?
+
 // size: 0x40
 typedef struct {
     u16 unk0;

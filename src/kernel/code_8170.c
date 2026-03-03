@@ -1318,7 +1318,7 @@ s32 uvTerraGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
     return var_s3;
 }
 
-void uvTerraGetColor(s32 terraId, u32 surfaceId, u8* arg2, u8* arg3, u8* arg4) {
+void uvTerraGetColor(s32 terraId, s32 surfaceId, u8* arg2, u8* arg3, u8* arg4) {
     ParsedUVCT* temp_a0;
     ParsedUVTR* temp_v0;
     ParsedUVTX* temp_v0_3;
@@ -1337,7 +1337,7 @@ void uvTerraGetColor(s32 terraId, u32 surfaceId, u8* arg2, u8* arg3, u8* arg4) {
         _uvDebugPrintf("uvTerraGetColor: terra %d not defined for level\n", terraId);
         return;
     }
-    temp_v1 = &temp_v0->unk28[(surfaceId >> 22) & 0x3FF];
+    temp_v1 = &temp_v0->unk28[((u32)surfaceId >> 22) & 0x3FF];
     if (temp_v1 == NULL) {
         _uvDebugPrintf("uvTerraGetColor: bad surfce id [0x%x]\n", surfaceId);
         return;
@@ -1347,7 +1347,7 @@ void uvTerraGetColor(s32 terraId, u32 surfaceId, u8* arg2, u8* arg3, u8* arg4) {
         _uvDebugPrintf("uvTerraGetColor: bad surfce id [0x%x]\n", surfaceId);
         return;
     }
-    temp_v0_2 = &temp_a0->unk8[(surfaceId >> 12) & 0x3FF];
+    temp_v0_2 = &temp_a0->unk8[((u32)surfaceId >> 12) & 0x3FF];
     temp_v1_2 = &temp_v0_2->unkC[surfaceId & 0xFFF];
     if ((temp_v0_2->unk0 & 0xFFF) != 0xFFF) {
         temp_v0_3 = gGfxUnkPtrs->textures[temp_v0_2->unk0 & 0xFFF];
@@ -1364,7 +1364,7 @@ void uvTerraGetColor(s32 terraId, u32 surfaceId, u8* arg2, u8* arg3, u8* arg4) {
     *arg4 = (vtx[temp_v1_2->unk0].v.cn[2] + vtx[temp_v1_2->unk2].v.cn[2] + vtx[temp_v1_2->unk4].v.cn[2]) / 3;
 }
 
-s32 uvTerraGetState(s32 terraId, u32 surfaceId) {
+s32 uvTerraGetState(s32 terraId, s32 surfaceId) {
     ParsedUVCT* temp_a2;
     ParsedUVTR* temp_v0;
     s32 temp_t9;
@@ -1380,7 +1380,7 @@ s32 uvTerraGetState(s32 terraId, u32 surfaceId) {
         _uvDebugPrintf("uvTerraGetState: terra %d not defined for level\n", terraId);
         return 0xFFF;
     }
-    temp_t9 = (surfaceId >> 22) & 0x3FF;
+    temp_t9 = ((u32)surfaceId >> 22) & 0x3FF;
     if ((temp_t9) >= (temp_v0->unk18 * temp_v0->unk19)) {
         _uvDebugPrintf("uvTerraGetState: bad surface id [0x%x]\n", surfaceId);
         return 0xFFF;
@@ -1395,11 +1395,11 @@ s32 uvTerraGetState(s32 terraId, u32 surfaceId) {
         _uvDebugPrintf("uvTerraGetState: bad surface id [0x%x]\n", surfaceId);
         return 0xFFF;
     }
-    temp_v1 = &temp_a2->unk8[(surfaceId >> 12) & 0x3FF];
+    temp_v1 = &temp_a2->unk8[((u32)surfaceId >> 12) & 0x3FF];
     return temp_v1->unk0;
 }
 
-void uvTerraGetPlane(s32 terraId, u32 surfaceId, f32 px, f32 py, f32* arg4, Vec3F* arg5) {
+void uvTerraGetPlane(s32 terraId, s32 surfaceId, f32 px, f32 py, f32* arg4, Vec3F* arg5) {
     ParsedUVCT* temp_v0;
     uvUnkTileStruct* sp70;
     ParsedUVTR* temp_a0;
@@ -1424,9 +1424,9 @@ void uvTerraGetPlane(s32 terraId, u32 surfaceId, f32 px, f32 py, f32* arg4, Vec3
         _uvDebugPrintf("uvTerraGetPlane : terra [%d] not in level\n", terraId);
         return;
     }
-    sp70 = &temp_a0->unk28[(surfaceId >> 22) & 0x3FF];
+    sp70 = &temp_a0->unk28[((u32)surfaceId >> 22) & 0x3FF];
     temp_v0 = sp70->unk40;
-    temp_v1 = &temp_v0->unk8[(surfaceId >> 12) & 0x3FF];
+    temp_v1 = &temp_v0->unk8[((u32)surfaceId >> 12) & 0x3FF];
 
     temp_s2 = &temp_v1->unkC[surfaceId & 0xFFF];
     sp64 = temp_v0->vtx;

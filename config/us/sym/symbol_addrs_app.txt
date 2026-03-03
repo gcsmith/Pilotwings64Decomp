@@ -372,3 +372,6 @@ sTextName                 = 0x80377F10; // size:0x6E0
 sTextData                 = 0x803785F0; // size:0x6DC
 sTextDataCount            = 0x80378CCC;
 sTextNameCount            = 0x80378CD0;
+
+sMissileTargets           = 0x80378CF0;
+sMissileTargetCount       = 0x80378CF4;

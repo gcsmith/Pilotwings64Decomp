@@ -29,7 +29,10 @@ static s32 sFileMenuConfirm[] = {
 };
 static s32 sFileMenuCurMenu = 0;
 static s32 sFileMenu_8034F0F8 = 0;
-static f32 sFileMenu_8034F0FC[6] = { -68.080002f, -302.140015f, 10.740000f, -0.0174533f, 0.1f, 0.0f };
+static Vec3F sFileMenu_8034F0FC[2] = {
+    {     -68.08f, -302.14f, 10.74f }, // position
+    { -0.0174533f,     0.1f,   0.0f }  // rotation,  almost -DEG_TO_RAD(1)
+};
 
 static u8 sFileMenu_803624E0[3];
 static u8 sFileMenu_803624E3;
@@ -272,8 +275,8 @@ void fileMenu_802E94E0(void) {
     uvChanEnv(unk70->unk22C, 2);
     func_80204AB0(unk70->unk22C, 0, 0);
     func_80204AB0(unk70->unk22C, 1, 0);
-    func_80313640(sFileMenu_8034F0FC[0], sFileMenu_8034F0FC[1], sFileMenu_8034F0FC[2], sFileMenu_8034F0FC[3], sFileMenu_8034F0FC[4], sFileMenu_8034F0FC[5],
-                  &unk70->unk108);
+    func_80313640(sFileMenu_8034F0FC[0].x, sFileMenu_8034F0FC[0].y, sFileMenu_8034F0FC[0].z, sFileMenu_8034F0FC[1].x, sFileMenu_8034F0FC[1].y,
+                  sFileMenu_8034F0FC[1].z, &unk70->unk108);
     func_80204B34(unk70->unk22C, &unk70->unk108);
     func_80312F5C(0, 0xD2, 0xD2, 0);
     func_80312F5C(1, 0xD2, 0xD2, 0xD2);

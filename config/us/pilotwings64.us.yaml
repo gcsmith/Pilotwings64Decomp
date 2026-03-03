@@ -448,8 +448,8 @@ segments:
       - [0xC8990, c, app/code_C8990]
       - [0xC9440, c, app/text_data]
       - [0xC9B60, c, app/code_C9B60]
-      - [0xCB7C0, c, app/code_CB7C0]
-      - [0xCBEE0, c, app/level_objects]
+      - [0xCB7C0, c, app/targets]
+      - [0xCBEE0, c, app/task]
       - [0xCD9D0, c, app/code_CD9D0]
       - [0xCDB20, c, app/thermals]
       - [0xCE4F0, c, app/total_results]
@@ -519,8 +519,8 @@ segments:
       - [0xD7B40, .data, app/snow]
       - [0xD7B80, .data, app/spath]
       - [0xD7BC0, .data, app/code_C9B60]
-      - [0xD7BD0, .data, app/code_CB7C0]
-      - [0xD7CC0, .data, app/level_objects]
+      - [0xD7BD0, .data, app/targets]
+      - [0xD7CC0, .data, app/task]
       - [0xD7D20, .data, app/thermals]
       - [0xD7D30, data]
       - [0xD7E10, .data, app/total_results]
@@ -608,8 +608,8 @@ segments:
       - [0xDDDA0, .rodata, app/spath]
       - [0xDDEA0, .rodata, app/code_C8990]
       - [0xDDF40, .rodata, app/code_C9B60]
-      - [0xDDFB0, .rodata, app/code_CB7C0]
-      - [0xDE020, .rodata, app/level_objects]
+      - [0xDDFB0, .rodata, app/targets]
+      - [0xDE020, .rodata, app/task]
       - [0xDE210, .rodata, app/thermals]
       - [0xDE250, .rodata, app/total_results]
       - [0xDE3E0, .rodata, app/toys]
@@ -626,16 +626,18 @@ segments:
       - { type: .bss, vram: 0x803624E0, name: app/file_menu }
       - { type: bss, vram: 0x80362500, name: app_bss_80362500 }
       - { type: .bss, vram: 0x80369F10, name: app/menu }
-      - { type: bss, vram: 0x80369F30, name: app_bss_80369F10 }
+      - { type: bss, vram: 0x80369F30, name: app_bss_80369F30 }
       - { type: .bss, vram: 0x8036C120, name: app/options }
       - { type: bss, vram: 0x8036C150, name: app_bss_8036C150 }
       - { type: .bss, vram: 0x803718F0, name: app/results }
       - { type: bss, vram: 0x80371960, name: app_bss_80371960 }
       - { type: .bss, vram: 0x80377F10, name: app/text_data }
-      - { type: bss, vram: 0x80378CE0, name: app_bss_80378CE0 }
+      - { type: .bss, vram: 0x80378CE0, name: app/code_C9B60 }
+      - { type: .bss, vram: 0x80378CF0, name: app/targets }
+      - { type: bss, vram: 0x803798E0, name: app_bss_803798E0 }
       - { type: .bss, vram: 0x8037AB50, name: app/thermals }
       - { type: .bss, vram: 0x8037ACE0, name: app/total_results }
-      - { type: bss, vram: 0x8037AD70, name: app_bss_8037ACD8 }
+      - { type: bss, vram: 0x8037AD70, name: app_bss_8037AD70 }
       - { type: .bss, vram: 0x8037DC60, name: app/test_menu }
       - { type: .bss, vram: 0x8037DCA0, name: app/user_paths }
       - { type: bss, vram: 0x8037F380, name: app_bss_8037F380 }

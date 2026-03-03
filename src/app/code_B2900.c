@@ -7,7 +7,7 @@
 #include "code_915B0.h"
 #include "code_94E60.h"
 #include "code_B2900.h"
-#include "code_CB7C0.h"
+#include "targets.h"
 #include "rings.h"
 
 s32 D_8034FBD0 = 0;
