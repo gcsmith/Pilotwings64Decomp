@@ -1,4 +1,5 @@
 #include "common.h"
+#include "hang_glider.h"
 
 f32 D_8034F1C0 = 10000.0f;
 s32 D_8034F1C4 = 0;
@@ -17,34 +18,34 @@ f32 D_8034F2D0[] = {
     23.9f, -1.0f, 24.0f, 0.0f, 24.1f, 1.0f, 25.0f, 1.8f, 33.5f, 2.5f, 36.0f, 0.5f,  51.0f, 0.5f,  61.0f, 0.5f,  61.5f, 20.0f, 100.0f, 50.0f,
 };
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_796C0/func_802F2190.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/hang_glider/func_802F2190.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_796C0/func_802F2370.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/hang_glider/func_802F2370.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_796C0/func_802F24BC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/hang_glider/func_802F24BC.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_796C0/func_802F2804.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/hang_glider/func_802F2804.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_796C0/func_802F2F94.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/hang_glider/func_802F2F94.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_796C0/func_802F3030.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/hang_glider/func_802F3030.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_796C0/func_802F3154.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/hang_glider/func_802F3154.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_796C0/func_802F32EC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/hang_glider/func_802F32EC.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_796C0/func_802F3470.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/hang_glider/func_802F3470.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_796C0/func_802F3694.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/hang_glider/func_802F3694.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_796C0/func_802F391C.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/hang_glider/func_802F391C.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_796C0/func_802F39F8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/hang_glider/func_802F39F8.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_796C0/func_802F3A80.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/hang_glider/func_802F3A80.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_796C0/func_802F41AC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/hang_glider/func_802F41AC.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_796C0/func_802F42DC.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/hang_glider/func_802F42DC.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_796C0/func_802F4370.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/hang_glider/func_802F4370.s")

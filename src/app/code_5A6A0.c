@@ -6,11 +6,11 @@
 #include <uv_vector.h>
 #include "code_5A6A0.h"
 #include "code_61A60.h"
-#include "code_68220.h"
 #include "code_72010.h"
 #include "code_9A960.h"
 #include "code_D1ED0.h"
 #include "demo.h"
+#include "environment.h"
 
 typedef struct {
     s32 unk0;

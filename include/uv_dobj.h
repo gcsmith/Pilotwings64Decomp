@@ -6,8 +6,6 @@
 #include <uv_matrix.h>
 #include <uv_sched.h>
 
-
-
 enum Models {
     MODEL_HOLIDAY_ISLAND_FULL_MAP                                    = 0x000, // Holiday Island Full Map (0xe5138)
     MODEL_WHITE_SAIL_BOAT                                            = 0x001, // White Sail Boat with Red logo

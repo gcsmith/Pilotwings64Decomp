@@ -206,13 +206,13 @@ static void func_80342D2C(void) {
     uvMat4RotateAxis(&D_80378CE0->unk16C, -1.4835305f, 'x');
     uvMat4RotateAxis(&D_80378CE0->unk16C, 3.141594f, 'y');
 
-#define placeInUserPath(idx, modelId)                              \
-    allocIdx = uvDobjAllocIdx();                                   \
+#define placeInUserPath(idx, modelId)                                \
+    allocIdx = uvDobjAllocIdx();                                     \
     D_80378CE0->modelIds[(idx)] = allocIdx;                          \
-    D_80378CE0->unk240[(idx)]->unk352 = allocIdx;                  \
+    D_80378CE0->unk240[(idx)]->unk352 = allocIdx;                    \
     uvDobjModel(D_80378CE0->modelIds[(idx)], (modelId));             \
-    userPath_8034A950(D_80378CE0->unk240[(idx)]->unk4C, &sp2FC);   \
-    func_803136C4(&sp2FC, &D_80378CE0->unk12C);                    \
+    userPath_8034A950(D_80378CE0->unk240[(idx)]->unk4C, &sp2FC);     \
+    func_803136C4(&sp2FC, &D_80378CE0->unk12C);                      \
     uvDobjPosm(D_80378CE0->modelIds[(idx)], 0, &D_80378CE0->unk12C); \
     uvDobjState(D_80378CE0->modelIds[(idx)], 2);
 

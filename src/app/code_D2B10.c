@@ -3,9 +3,9 @@
 #include <uv_graphics.h>
 #include <uv_geometry.h>
 #include "code_5A6A0.h"
-#include "code_C8990.h"
 #include "code_D2B10.h"
 #include "hud.h"
+#include "splash.h"
 
 void func_8034B5E0(u8 arg0, Unk802D3658_Arg0* arg1) {
     func_802D3170(arg0, arg1);
