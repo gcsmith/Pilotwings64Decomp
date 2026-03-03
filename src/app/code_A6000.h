@@ -43,6 +43,16 @@ typedef struct {
     u16 unk352;
 } Unk8037DCA0; // size = 0x354
 
+// size: 0x2E8
+typedef struct {
+    Vec4F unk0[25];
+    Vec3F unk190[25];
+    u8 unk2BC[25];
+    u8 pad2D5[3];
+    s32 unk2D8;
+    u8 pad2DC[0xC];
+} Unk8037F098;
+
 void uvPathPoseLine(Unk8037F098*, Unk8037DCA0*, f32);
 void func_8031EF60(Unk8037DCA0*, s32);
 void func_8031EF68(Unk8037DCA0*);

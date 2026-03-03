@@ -203,7 +203,11 @@ void func_8034D4AC(void) {
     for (i = 0; i < D_8037F514; i++) {
         var_s0 = &D_8037F518[i];
         if (var_s0->unk0 != 0xFFFF) {
+<<<<<<< HEAD
             uvDobjModel(var_s0->unk0, MODEL_WORLD);
+=======
+            uvDobjModel(var_s0->unk0, WORLD_MODEL_ID);
+>>>>>>> 94b25db (Match/app stuff (#75))
         }
         var_s0->unk0 = 0xFFFF;
     }

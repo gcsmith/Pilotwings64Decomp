@@ -75,6 +75,7 @@ void func_803442F8(void) {
             var_s1->unk48 = hud_8031A6C8(missileTarget->pos.x, missileTarget->pos.y, missileTarget->pos.z);
             switch (missileTarget->targetType) {
             case 0:
+<<<<<<< HEAD
                 uvDobjModel(var_s1->unk0, MODEL_F9);
                 break;
             case 1:
@@ -82,6 +83,15 @@ void func_803442F8(void) {
                 break;
             case 2:
                 uvDobjModel(var_s1->unk0, MODEL_F7);
+=======
+                uvDobjModel(var_s1->unk0, 0xF9);
+                break;
+            case 1:
+                uvDobjModel(var_s1->unk0, 0xF8);
+                break;
+            case 2:
+                uvDobjModel(var_s1->unk0, 0xF7);
+>>>>>>> 94b25db (Match/app stuff (#75))
                 break;
             default:
                 _uvDebugPrintf("targets : unknwwon target type [%d]\n", missileTarget->targetType);
@@ -130,7 +140,11 @@ void func_8034467C(void) {
 
     for (i = 0; i < sMissileTargetCount; i++) {
         if (D_80378CF8[i].unk0 != 0xFFFF) {
+<<<<<<< HEAD
             uvDobjModel(D_80378CF8[i].unk0, MODEL_WORLD);
+=======
+            uvDobjModel(D_80378CF8[i].unk0, WORLD_MODEL_ID);
+>>>>>>> 94b25db (Match/app stuff (#75))
             D_80378CF8[i].unk0 = 0xFFFF;
         }
         if (D_80378CF8[i].unk48 != 0xFF) {
@@ -176,7 +190,11 @@ f32 func_8034473C(s32 arg0, s32 arg1) {
             uvFxProps(sp4C, 0xA, var_s0->unk4.m[3][0], var_s0->unk4.m[3][1], var_s0->unk4.m[3][2], 0);
         }
 
+<<<<<<< HEAD
         uvDobjModel(var_s0->unk0, MODEL_WORLD);
+=======
+        uvDobjModel(var_s0->unk0, 0xFFFF);
+>>>>>>> 94b25db (Match/app stuff (#75))
         var_s0->unk0 = 0xFFFF;
         if (var_s0->unk48 != 0xFF) {
             hud_8031A8E0(var_s0->unk48);

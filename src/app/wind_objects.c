@@ -61,20 +61,32 @@ void func_8034E0B4(void) {
         windObject->objId = uvDobjAllocIdx();
         switch (windObjectData->unkC) {
         case 0:
+<<<<<<< HEAD
             uvDobjModel(windObject->objId, MODEL_40);
+=======
+            uvDobjModel(windObject->objId, 0x40);
+>>>>>>> 94b25db (Match/app stuff (#75))
             uvModelGetPosm(0x40, 1, &windObject->unk44);
             uvModelGetPosm(0x40, 2, &windObject->unk84);
             windObject->unkC8 = 0.0f;
             windObject->unkC4 = 0.0f;
             break;
         case 1:
+<<<<<<< HEAD
             uvDobjModel(windObject->objId, MODEL_WIND_TURBINE);
+=======
+            uvDobjModel(windObject->objId, 0x53);
+>>>>>>> 94b25db (Match/app stuff (#75))
             uvModelGetPosm(0x53, 1, &windObject->unk44);
             uvModelGetPosm(0x53, 2, &windObject->unk84);
             windObject->unkC4 = 0.0f;
             break;
         case 2:
+<<<<<<< HEAD
             uvDobjModel(windObject->objId, MODEL_40);
+=======
+            uvDobjModel(windObject->objId, 0x40);
+>>>>>>> 94b25db (Match/app stuff (#75))
             break;
         }
         uvMat4SetIdentity(&windObject->unk4);
@@ -172,7 +184,11 @@ void func_8034E628(void) {
     for (i = 0; i < sWindObjectsInLevel; i++) {
         windObject = &sWindObjects[i];
         if (windObject->objId != INITIAL_OBJECT_ID) {
+<<<<<<< HEAD
             uvDobjModel(windObject->objId, MODEL_WORLD);
+=======
+            uvDobjModel(windObject->objId, WORLD_MODEL_ID);
+>>>>>>> 94b25db (Match/app stuff (#75))
             windObject->objId = INITIAL_OBJECT_ID;
         }
     }
