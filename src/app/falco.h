@@ -1,5 +1,5 @@
-#ifndef APP_CODE_6ACE0_H
-#define APP_CODE_6ACE0_H
+#ifndef APP_FALCO_H
+#define APP_FALCO_H
 
 #include <PR/ultratypes.h>
 
@@ -11,4 +11,4 @@ void func_802E3E6C(void);
 void func_802E3F7C(void);
 s32 func_802E57C4(void);
 
-#endif // APP_CODE_6ACE0_H
+#endif // APP_FALCO_H
