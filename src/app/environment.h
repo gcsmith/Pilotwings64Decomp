@@ -1,5 +1,5 @@
-#ifndef APP_CODE_68220_H
-#define APP_CODE_68220_H
+#ifndef APP_ENVIRONMENT_H
+#define APP_ENVIRONMENT_H
 
 #include <PR/ultratypes.h>
 #include <uv_vector.h>
@@ -12,4 +12,4 @@ void func_802E15F0(void);
 f32 func_802E1754(f32, f32, f32, Vec3F*);
 void func_802E2060(void);
 
-#endif // APP_CODE_68220_H
+#endif // APP_ENVIRONMENT_H

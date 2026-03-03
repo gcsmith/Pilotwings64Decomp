@@ -5,7 +5,6 @@
 #include <uv_memory.h>
 #include <uv_util.h>
 #include "code_58B00.h"
-#include "code_68220.h"
 #include "code_69BF0.h"
 #include "code_6ECD0.h"
 #include "code_722D0.h"
@@ -13,10 +12,11 @@
 #include "code_9C080.h"
 #include "code_9CF50.h"
 #include "code_A7460.h"
-#include "code_BB820.h"
 #include "code_BD670.h"
 #include "code_D2D50.h"
 #include "code_D3810.h"
+#include "environment.h"
+#include "shadow.h"
 #include "text_data.h"
 #include "toys.h"
 
