@@ -631,6 +631,8 @@ segments:
       - { type: bss, vram: 0x8036C150, name: app_bss_8036C150 }
       - { type: .bss, vram: 0x803718F0, name: app/results }
       - { type: bss, vram: 0x80371960, name: app_bss_80371960 }
+      - { type: .bss, vram: 0x80371DB0, name: app/code_BD670 }
+      - { type: bss, vram: 0x80371E60, name: app_bss_80371E60 }
       - { type: .bss, vram: 0x80377F10, name: app/text_data }
       - { type: .bss, vram: 0x80378CE0, name: app/code_C9B60 }
       - { type: .bss, vram: 0x80378CF0, name: app/targets }
