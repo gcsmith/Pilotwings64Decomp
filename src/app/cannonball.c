@@ -126,9 +126,9 @@ void cannon_802D5C5C(Unk802D5C5C_Arg0* arg0) {
     arg0->unkB0->unk4 = arg0->unk54;
     arg0->unkB0->unk6 = arg0->unk56;
     arg0->unkB0->unk0 = 0x20;
-    arg0->unkB0->unk68 = arg0->unk26C;
-    arg0->unkB0->unk6C = arg0->unk270;
-    arg0->unkB0->unk70 = arg0->unk274;
+    arg0->unkB0->unk68.x = arg0->unk26C;
+    arg0->unkB0->unk68.y = arg0->unk270;
+    arg0->unkB0->unk68.z = arg0->unk274;
     arg0->unkB0->unk74 = 0.0f;
     arg0->unkB0->unk5C = 0;
     arg0->unkB0->unk60 = -1.0f;
@@ -193,9 +193,9 @@ void cannonMovementFrame(Unk802D5C5C_Arg0* arg0, u8 arg1) {
         spC8[0] = arg0->zAxis;
         spC8[1] = arg0->xAxis;
         spC7 = (arg0->unkD4 * 2) | (arg0->unkC4 & 1);
-        func_802E682C(&spC8, 2, spC7);
+        func_802E682C(spC8, ARRAY_COUNT(spC8), spC7);
     } else {
-        func_802E6870(&spC8, 2, &spC7);
+        func_802E6870(spC8, ARRAY_COUNT(spC8), &spC7);
         arg0->zAxis = spC8[0];
         arg0->xAxis = spC8[1];
         arg0->unkD4 = spC7 >> 1;

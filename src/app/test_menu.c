@@ -374,12 +374,12 @@ u8 testMenuHandler(Unk80367710* arg0) {
                     D_80362690->unkA0 = 1;
                     func_803239B4();
                     func_80309A64();
-                    func_802CB094();
+                    ballsLoad();
                     func_802E3A5C();
                     func_802E3E6C();
                     func_80324A34();
                     func_80309FFC();
-                    func_802CB35C();
+                    ballsDeinit();
                     D_80362690->unkA0 = 0;
                     func_8030FE80(D_80362690, 1);
                     testMenuInit(arg0, 2);
