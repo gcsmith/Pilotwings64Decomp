@@ -2,6 +2,7 @@
 #include <uv_level.h>
 #include "ball_target.h"
 #include "balls.h"
+#include "code_72B70.h"
 #include "code_82520.h"
 #include "code_94E60.h"
 #include "code_B2900.h"
@@ -10,33 +11,133 @@
 #include "rings.h"
 #include "targets.h"
 
-s32 D_8034FBD0 = 0;
-u16 D_8034FBD4[][3] = {
-    { 0x0046, 0x0050, 0x005A },
-    { 0x008C, 0x00A0, 0x00B4 },
-    { 0x00D2, 0x00F0, 0x010E },
-    { 0x00D2, 0x00F0, 0x010E },
-    { 0x0046, 0x0050, 0x005A },
-    { 0x0046, 0x0050, 0x005A },
-    { 0x0046, 0x0050, 0x005A },
-    { 0x0000, 0x0000, 0x0000 },
-    { 0x0000, 0x0000, 0x0000 },
-    { 0x0000, 0x0000, 0x0000 }
+Unk8032B508* D_8034FBD0 = NULL;
+// required points for medal, first = bronze, second = silver, third = gold
+MedalPointRequirement gMedalPointRequirements[] = {
+    {  70,  80,  90 }, // beginner class
+    { 140, 160, 180 }, // class A
+    { 210, 240, 270 }, // class B
+    { 210, 240, 270 }, // pilot class
+    {  70,  80,  90 }, // cannonball?
+    {  70,  80,  90 }, // sky diving?
+    {  70,  80,  90 }, // jumble hopper?
+    {   0,   0,   0 },
+    {   0,   0,   0 },
+    {   0,   0,   0 }
 };
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_B2900/func_8032B3D0.s")
+void func_8032B3D0(Unk80364210* arg0) {
+    s32 pad[4];
+    TestResult* var_s2;
+    Unk80364210_Unk0_Unk0* var_fp;
+    Unk80364210_Unk0_Unk0* var_s0;
+    s32 temp_v0;
+    s32 vehIdx;
+    s32 testIdx;
+    s32 classIdx;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_B2900/func_8032B508.s")
+    arg0->unk0[0].unk0[0][1].unk8 = 0;
+    for (classIdx = 0; classIdx != MAX_CLASSES; classIdx++) {
+        // oh god
+        ((s8*)&arg0->unk0[classIdx])[0x6D0] = 0;
+        for (testIdx = 0; testIdx != MAX_TESTS; testIdx++) {
+            var_fp = arg0->unk0[classIdx].unk0[testIdx];
+            for (vehIdx = 0; vehIdx != VEHICLE_COUNT; vehIdx++) {
+                var_s0 = &var_fp[vehIdx];
+                var_s2 = &var_fp[1 + vehIdx].result;
+                // please don't kill me for this
+                // it's horrendous I know
+                ((s16*)var_s0)[0x32] = 0;                // unk64;
+                temp_v0 = ((s16*)var_s0)[0x32];          // unk64;
+                var_s0[2].points = 0x7F;                 // unk6C
+                var_s0[1].result.scores[0x10] = temp_v0; // unk62
+                var_s0[1].result.scores[0x16] = temp_v0; // unk6E
+                var_s0[1].result.scores[0xC] = temp_v0;  // unk5A
+                var_s0[1].result.scores[0xA] = temp_v0;  // unk56
+                var_s0[1].result.scores[9] = temp_v0;    // unk54
+                var_s0[1].result.scores[0xB] = temp_v0;  // unk58
+                var_s0[1].result.scores[2] = temp_v0;    // unk46
+                var_s0[1].result.scores[8] = temp_v0;    // unk52
+                var_s0[1].result.scores[6] = temp_v0;    // unk4E
+                var_s0[1].result.scores[5] = temp_v0;    // unk4C
+                var_s0[1].result.scores[4] = temp_v0;    // unk4A
+                var_s0[1].result.scores[3] = temp_v0;    // unk48
+                var_s0[1].result.scores[1] = temp_v0;    // unk44
+                if (levelIsValidIndex(classIdx, testIdx, vehIdx) != 0) {
+                    var_s2->unk0 = 1;
+                } else {
+                    var_s2->unk0 = 0;
+                }
+            }
+        }
+    }
+}
 
+void func_8032B508(Unk8032B508* arg0) {
+    arg0->unk38 = 0;
+    arg0->unk24 = 0;
+    arg0->unk2C = 0;
+    arg0->unk30 = 0;
+    arg0->unk3C = 0;
+    arg0->unk3D = 0;
+    arg0->unk34 = 0;
+    arg0->unk0 = 0;
+    arg0->unk4 = 0.0f;
+    arg0->unk14 = 0.0f;
+    arg0->unk18 = 0.0f;
+    arg0->unk1C = 0.0f;
+    arg0->unk20 = 0.0f;
+    arg0->unk8 = 10000.0f;
+    arg0->unkC = 10000.0f;
+    arg0->unk10 = 10000.0f;
+    D_8034FBD0 = arg0;
+}
+
+// https://decomp.me/scratch/cst2K
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_B2900/func_8032B560.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_B2900/func_8032BD20.s")
+// calculates the total amount of points for the given class + vehicle index
+s32 levelGetTotalPoints(Unk80364210* arg0, s32 classIdx, s32 vehIdx) {
+    s16 points;
+    s32 testIdx;
+    s32 pointsSum;
+    Unk80364210_Unk0_Unk0* var_s0;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_B2900/func_8032BE10.s")
+    pointsSum = 0;
+    for (testIdx = 0; testIdx < levelGetTestCount(classIdx, vehIdx); testIdx++) {
+        var_s0 = &arg0->unk0[classIdx].unk0[testIdx][vehIdx];
+        points = var_s0[2].points;
+        if (points == 0x7F) {
+            points = 0;
+        }
+        pointsSum += points;
+    }
+    return pointsSum;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_B2900/testGetPointCount.s")
+Unk8032B508* func_8032BE10(void) {
+    return D_8034FBD0;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_B2900/func_8032BE8C.s")
+s32 testGetPointCount(Unk80364210* arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
+    return (u8)arg0->unk0[classIdx].unk0[testIdx][vehIdx + 2].points;
+}
+
+s32 func_8032BE8C(Unk80364210* arg0, u8 classIdx, u8 vehIdx) {
+    s32 testIdx;
+    s32 success;
+    int invalidPointCount = 0x7F;
+
+    success = TRUE;
+    for (testIdx = 0; testIdx < levelGetTestCount(classIdx, vehIdx); testIdx++) {
+        s32 pointCount = testGetPointCount(arg0, classIdx, testIdx, vehIdx);
+        if (pointCount == invalidPointCount) {
+            success = FALSE;
+            break;
+        }
+    }
+    return success;
+}
 
 u8 func_8032BF54(void) {
     void* tmp;
@@ -50,35 +151,143 @@ u8 func_8032BF54(void) {
             func_802FB5A0() != levelDataGetHOPD((LevelHOPD**)&tmp));
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_B2900/func_8032C080.s")
+u8 func_8032C080(s32* arg0) {
+    s32* sp2C;
+    s32 var_v1;
+    s32 pad;
 
-s32 func_8032C174(s32* arg0, u16 arg1, u8 arg2) {
+    sp2C = levelGet_80345C80();
+    if (levelGet_80346364() != 3) {
+        if (arg0 != NULL) {
+            *arg0 = -1;
+        }
+        return 0;
+    }
+    var_v1 = (((f32*)sp2C)[0xF1 /*unk3C4*/] -
+              (f32)(func_802D30B4() + (func_802E57C4() + (func_8030A080() + (func_803448F4() + (func_80324AF4() + func_802FB5A0()))))));
+    if (var_v1 < 0) {
+        var_v1 = 0;
+    }
+    if (arg0 != NULL) {
+        *arg0 = var_v1;
+    }
+    return !(var_v1 > 0);
+}
+
+s32 levelSetPointsToNextMedal(s32* pointsToNextMedal, u16 points, u8 classIdx) {
     Unk80362690_Unk0_UnkC* unkC;
     s32 i;
-    u16 val;
+    u16 requiredPoints;
 
     unkC = &D_80362690->unk0[D_80362690->unk9C].unkC;
 
     for (i = 0; i < 3; i++) {
-        val = D_8034FBD4[arg2][i];
-        if (val > arg1) {
+        requiredPoints = ((u16*)&gMedalPointRequirements[classIdx])[i];
+        if (requiredPoints > points) {
             break;
         }
     }
 
     if (i == 3) {
-        if (unkC->veh < 3) {
-            *arg0 = 100 * levelGetTestCount(arg2, unkC->veh) - arg1;
+        if (unkC->veh < VEHICLE_CANNONBALL) {
+            *pointsToNextMedal = 100 * levelGetTestCount(classIdx, unkC->veh) - points;
         } else {
-            *arg0 = 100 - arg1;
+            *pointsToNextMedal = 100 - points;
         }
         return 3;
     } else {
-        *arg0 = val - arg1;
+        *pointsToNextMedal = requiredPoints - points;
         return i;
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_B2900/func_8032C27C.s")
+s32 func_8032C27C(void) {
+    Unk80364210* temp_s3;
+    s32 classIdx;
+    s32 vehIdx;
+    s32 success;
+    s32 maxClassIdx;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_B2900/func_8032C3C4.s")
+    temp_s3 = &D_80364210[D_80362690->unk9C];
+    success = TRUE;
+    for (vehIdx = 0; vehIdx < VEHICLE_COUNT; vehIdx++) {
+        if (vehIdx == VEHICLE_BIRDMAN) {
+            continue;
+        }
+        maxClassIdx = vehIdx < VEHICLE_CANNONBALL ? CLASS_COUNT : CLASS_PILOT;
+        for (classIdx = 0; classIdx < maxClassIdx; classIdx++) {
+            if (vehIdx == VEHICLE_CANNONBALL) {
+                if (levelGetTotalPoints(temp_s3, classIdx, vehIdx) != 100) {
+                    success = FALSE;
+                }
+            } else {
+                if (levelGetTotalPoints(temp_s3, classIdx, vehIdx) != (levelGetTestCount(classIdx, vehIdx) * 100)) {
+                    success = FALSE;
+                }
+            }
+        }
+    }
+    return success;
+}
+
+// returns the highest medal earned on task(s?), flags controls which medal to determine
+// if flags has bit 2 set it checks for the normal medals, otherwise for extra mode medals
+s32 func_8032C3C4(Unk80364210* arg0, u16 flags) {
+    s32 temp_v0;
+    s32 medalPointRequirementIdx;
+    s32 classIdx;
+    s32 vehIdx;
+    s32 resultMedal;
+    s32 maxClassIdx;
+    s32 targetVehIdx;
+    s32 initialVehIdx;
+    s32 classMedal;
+    MedalPointRequirement* medalPointRequirements;
+
+    if (flags & 1) {
+        initialVehIdx = VEHICLE_HANG_GLIDER;
+    } else {
+        initialVehIdx = VEHICLE_CANNONBALL;
+    }
+
+    if (flags & 2) {
+        targetVehIdx = VEHICLE_COUNT;
+    } else {
+        targetVehIdx = VEHICLE_CANNONBALL;
+    }
+
+    if (initialVehIdx == targetVehIdx) {
+        return MEDAL_BRONZE;
+    }
+
+    resultMedal = MEDAL_NONE;
+    for (vehIdx = initialVehIdx; vehIdx < targetVehIdx; vehIdx++) {
+        if (vehIdx != VEHICLE_BIRDMAN) {
+            maxClassIdx = vehIdx < 3 ? CLASS_COUNT : CLASS_PILOT;
+            for (classIdx = 0; classIdx < maxClassIdx; classIdx++) {
+                temp_v0 = levelGetTotalPoints(arg0, classIdx, vehIdx);
+                if (vehIdx < VEHICLE_CANNONBALL) {
+                    medalPointRequirementIdx = classIdx;
+                } else {
+                    medalPointRequirementIdx = classIdx + 4;
+                }
+                medalPointRequirements = &gMedalPointRequirements[medalPointRequirementIdx];
+                if (temp_v0 < medalPointRequirements->bronze) {
+                    classMedal = MEDAL_BRONZE;
+                } else if (temp_v0 < medalPointRequirements->silver) {
+                    classMedal = MEDAL_SILVER;
+                } else if (temp_v0 < medalPointRequirements->gold) {
+                    classMedal = MEDAL_GOLD;
+                } else {
+                    classMedal = MEDAL_NONE;
+                }
+                if (classMedal < resultMedal) {
+                    resultMedal = classMedal;
+                }
+            }
+        }
+    }
+
+    return resultMedal;
+}
+

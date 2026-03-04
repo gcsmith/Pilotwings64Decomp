@@ -625,6 +625,8 @@ segments:
       - { type: bss, vram: 0x803571F0, name: app_bss_803571F0 }
       - { type: .bss, vram: 0x803624E0, name: app/file_menu }
       - { type: bss, vram: 0x80362500, name: app_bss_80362500 }
+      - { type: bss, vram: 0x80362690, name: app/code_72B70 } # TODO: Map .bss in .c file
+      - { type: bss, vram: 0x80367A40, name: app_bss_80367A40 } # code_75A60 and beyond
       - { type: .bss, vram: 0x80369F10, name: app/menu }
       - { type: bss, vram: 0x80369F30, name: app_bss_80369F30 }
       - { type: .bss, vram: 0x8036C120, name: app/options }
