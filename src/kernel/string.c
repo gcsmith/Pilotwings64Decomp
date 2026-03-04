@@ -13,7 +13,7 @@ char* uvStrchr(const char* s, const char c) {
     return NULL;
 }
 
-u32 uvStrlen(const char *s) {
+u32 uvStrlen(const char* s) {
     s32 len;
 
     len = 0;
@@ -23,7 +23,7 @@ u32 uvStrlen(const char *s) {
     return len;
 }
 
-int uvStrcmp(const char *s1, const char *s2) {
+int uvStrcmp(const char* s1, const char* s2) {
     s32 len1;
     s32 len2;
     s32 i;
@@ -53,7 +53,7 @@ int uvStrcmp(const char *s1, const char *s2) {
     return 0;
 }
 
-void strFormatInt(s32 number, u16 base, s32 *bufPosPtr, char* strBuf, s32 padCount, s32 leftJustify, s32 hasZeroPadding) {
+void strFormatInt(s32 number, u16 base, s32* bufPosPtr, char* strBuf, s32 padCount, s32 leftJustify, s32 hasZeroPadding) {
     u16 digit;
     u16 numDigits;
     s32 outputLength;
@@ -128,7 +128,6 @@ void strFormatInt(s32 number, u16 base, s32 *bufPosPtr, char* strBuf, s32 padCou
                         strBuf[bufPos--] = ' ';
                     }
                 }
-
             }
             digitsRemaining--;
         }
@@ -138,7 +137,7 @@ void strFormatInt(s32 number, u16 base, s32 *bufPosPtr, char* strBuf, s32 padCou
     *bufPosPtr = bufPos;
 }
 
-void strFormatFloat(f32 number, s32 *bufPosPtr, char* strBuf) {
+void strFormatFloat(f32 number, s32* bufPosPtr, char* strBuf) {
     f32 decimalPart;
     u16 digit;
     s32 i;
@@ -154,7 +153,7 @@ void strFormatFloat(f32 number, s32 *bufPosPtr, char* strBuf) {
     } else {
         isNegative = FALSE;
     }
-    integerPart = (s32) number;
+    integerPart = (s32)number;
     numDigits = 0;
     i = 1;
     if (integerPart != 0) {
@@ -190,7 +189,6 @@ void strFormatFloat(f32 number, s32 *bufPosPtr, char* strBuf) {
 }
 
 char strDigitToChar(u16 digit) {
-
     if (digit < 10) {
         return '0' + digit;
     }
@@ -198,7 +196,6 @@ char strDigitToChar(u16 digit) {
 }
 
 s32 strCharToDigit(char digitChar) {
-
     if ((digitChar >= '0') && (digitChar <= '9')) {
         return digitChar - '0';
     }
@@ -312,7 +309,7 @@ void uvSprintf(char* dest, const char* fmt, ...) {
     va_end(args);
 }
 
-int uvAtoi(const char *s) {
+int uvAtoi(const char* s) {
     s32 len;
     s32 i;
     s32 number;
