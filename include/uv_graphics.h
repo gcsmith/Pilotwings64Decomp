@@ -97,23 +97,15 @@ typedef struct {
     struct UnkSobjDraw* unk10;
     u16 unk14;
     u16 pad16;
-    s32 unk18;
-    s32 unk1C;
-    s32 unk20;
-    s32 unk24;
+    f32 unk18;
+    f32 unk1C;
+    f32 unk20;
+    f32 unk24;
     f32 unk28;
 } ParsedUVCT; // size = 0x28
 
-typedef struct uvUnkTileStruct_Unk0 {
-    u8 pad0[0x30];
-    f32 unk30;
-    f32 unk34;
-    f32 unk38;
-    u8 pad3C[0x4];
-} uvUnkTileStruct_Unk0; // size = 0x40
-
 typedef struct uvUnkTileStruct {
-    uvUnkTileStruct_Unk0 unk0;
+    Mtx4F unk0;
     ParsedUVCT* unk40;
     u8 unk44;
 } uvUnkTileStruct; // size = 0x48
@@ -445,6 +437,15 @@ void uvGfx_80223C00(void);
 void uvCopyFrameBuf(s32 fb_id);
 
 // TODO from kernel/code_58E0 -- split into uv_???
+typedef struct UnkStruct_80204D94_Unk374 {
+    f32 unk0;
+    f32 unk4;
+    f32 unk8;
+    f32 unkC;
+    f32 unk10;
+    f32 unk14;
+} UnkStruct_80204D94_Unk374;
+
 typedef struct {
 /* 000 */ u8 unk0;
 /* 001 */ u8 unk1;
@@ -473,14 +474,11 @@ typedef struct {
 /* 200 */ f32 unk200;
 /* 204 */ f32 unk204;
 /* 208 */ u8 pad208[0xD8];
-/* 2E0 */ u8 unk2E0[0x90];
-/* 370 */ s32 unk370;
-/* 374 */ s32 unk374;
-/* 378 */ s32 unk378;
-/* 37C */ s32 unk37C;
-/* 380 */ s32 unk380;
-/* 384 */ s32 unk384;
-/* 388 */ s32 unk388;
+/* 2E0 */ u8 unk2E0[0x48];
+/* 328 */ Vec3F unk328[1];
+/* 334 */ u8 pad334[0x3C];
+/* 370 */ u8 unk370;
+/* 374 */ UnkStruct_80204D94_Unk374 unk374;
 /* 38C */ s16 unk38C;
 /* 38E */ s16 unk38E;
 /* 390 */ s16 unk390;

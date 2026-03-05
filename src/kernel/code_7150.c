@@ -25,4 +25,4 @@ static s32 D_80248DC4[] = {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_7150/func_80207028.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_7150/__dummy.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_7150/func_802070B8.s")
