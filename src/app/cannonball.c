@@ -800,7 +800,7 @@ void func_802EDD9C(void*, Mtx4F*);
 void func_8031A2CC(void);
 void func_8031DAA8(s32, f32);
 void func_803214E4(void);
-void func_8032B508(s32);
+void func_8032B508(void*);
 void func_8034B5E0(u8, Unk802D3658_Arg0*);
 void func_8034E0B4(void);
 void uvEnvFunc(u16, s32, void*);
@@ -815,7 +815,7 @@ s32 cannonLoad802D77D8(Unk80362690* arg0, Unk802D5B50_Arg2* arg1) {
 
     temp_s1_2 = &arg0->unk0[arg0->unk9C].unkC;
     if (temp_s1_2->unk6 == 0) {
-        D_80359AAC = func_8032BD20(temp_s1_2->unk74, temp_s1_2->unk4, temp_s1_2->unk2);
+        D_80359AAC = levelGetTotalPoints(temp_s1_2->unk74, temp_s1_2->unk4, temp_s1_2->unk2);
         D_80359AA8 = 0;
         for (i = 0; i < 4; i++) {
             D_80359A98[i] = testGetPointCount(temp_s1_2->unk74, temp_s1_2->unk4, i, temp_s1_2->unk2);
@@ -879,7 +879,7 @@ s32 cannonLandedFrame(Unk802D5B50_Arg2* arg0) {
     s16* var_v1;
 
     temp_s0 = &D_80362690->unk0[D_80362690->unk9C].unkC;
-    temp_v1 = func_8032BE10();
+    temp_v1 = (s32*)func_8032BE10();
     if (0.0f == D_8034EA00) {
         D_8034EA00 = D_8034F850 + 3.0f;
         if (arg0->unkD5 == 2) {

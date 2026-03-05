@@ -84,30 +84,29 @@ void fileMenu_802E8AF0(void) {
     temp_s6 = &D_80364210[D_80362690->unk9C];
     for (j = 0; j < 3; j++) {
         for (k = 0; k < 4; k++) {
-            temp_s2 = func_8032BD20(temp_s6, k, j);
+            temp_s2 = levelGetTotalPoints(temp_s6, k, j);
             temp_v0 = func_8032BE8C(temp_s6, k, j);
-            if ((temp_s2 >= D_8034FBD4[k][2]) && (temp_v0 != 0)) {
-                var_a2 = 0x14B;
-            } else if ((temp_s2 >= D_8034FBD4[k][1]) && (temp_v0 != 0)) {
-                var_a2 = 0x14A;
+            if ((temp_s2 >= gMedalPointRequirements[k].gold) && (temp_v0 != 0)) {
+                var_a2 = 0x14B; // gold medal sprite
+            } else if ((temp_s2 >= gMedalPointRequirements[k].silver) && (temp_v0 != 0)) {
+                var_a2 = 0x14A; // silver medal sprite
+            } else if ((temp_s2 >= gMedalPointRequirements[k].bronze) && (temp_v0 != 0)) {
+                var_a2 = 0x149; // bronze medal sprite
             } else {
-                if ((temp_s2 >= D_8034FBD4[k][0]) && (temp_v0 != 0)) {
-                    var_a2 = 0x149;
-                } else {
-                    var_a2 = 0x148;
-                }
+                var_a2 = 0x148; // no medal sprite
             }
             uvSprtProps(k * 3 + j, 5, var_a2, 0);
         }
     }
 
     for (i = 0; i < 3; i++) {
-        temp_s2 = func_8032BD20(temp_s6, i + 1, 0);
-        temp_s5 = func_8032BD20(temp_s6, i + 1, 1);
-        temp_s7 = func_8032BD20(temp_s6, i + 1, 2);
+        temp_s2 = levelGetTotalPoints(temp_s6, i + 1, 0);
+        temp_s5 = levelGetTotalPoints(temp_s6, i + 1, 1);
+        temp_s7 = levelGetTotalPoints(temp_s6, i + 1, 2);
         uvSprtProps(i + 0xC, 3, 1, 5, 0x148, 0);
-        if (func_8032BE8C(temp_s6, i + 1, 0) && func_8032BE8C(temp_s6, i + 1, 1) && func_8032BE8C(temp_s6, i + 1, 2) && temp_s2 >= D_8034FBD4[i + 1][1] &&
-            temp_s5 >= D_8034FBD4[i + 1][1] && temp_s7 >= D_8034FBD4[i + 1][1]) {
+        if (func_8032BE8C(temp_s6, i + 1, 0) && func_8032BE8C(temp_s6, i + 1, 1) && func_8032BE8C(temp_s6, i + 1, 2) &&
+            temp_s2 >= gMedalPointRequirements[i + 1].silver && temp_s5 >= gMedalPointRequirements[i + 1].silver &&
+            temp_s7 >= gMedalPointRequirements[i + 1].silver) {
             sFileMenu_803624E0[i] = 0;
         } else {
             sFileMenu_803624E0[i] = 1;
@@ -117,7 +116,7 @@ void fileMenu_802E8AF0(void) {
     sFileMenu_803624E3 = 0;
     var_s1_3 = 1;
     for (i = 0; i < 3; i++) {
-        if (func_8032BD20(temp_s6, 0, i) < D_8034FBD4[0][1]) {
+        if (levelGetTotalPoints(temp_s6, 0, i) < gMedalPointRequirements[0].silver) {
             var_s1_3 = 0;
             break;
         }
@@ -126,8 +125,9 @@ void fileMenu_802E8AF0(void) {
     if (!(var_s1_3 & 0xFF)) {
         for (i = 0; i < 3; i++) {
             if (sFileMenu_803624E0[i] == 0) {
-                if ((func_8032BD20(temp_s6, 0, i + 3) >= D_8034FBD4[i + 4][1]) && (func_8032BD20(temp_s6, 1, i + 3) >= D_8034FBD4[i + 4][1]) &&
-                    (func_8032BD20(temp_s6, 2, i + 3) >= D_8034FBD4[i + 4][1])) {
+                if ((levelGetTotalPoints(temp_s6, 0, i + 3) >= gMedalPointRequirements[i + 4].silver) &&
+                    (levelGetTotalPoints(temp_s6, 1, i + 3) >= gMedalPointRequirements[i + 4].silver) &&
+                    (levelGetTotalPoints(temp_s6, 2, i + 3) >= gMedalPointRequirements[i + 4].silver)) {
                     sFileMenu_803624E3 = 1;
                     break;
                 }

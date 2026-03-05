@@ -7,6 +7,7 @@
 #include <uv_string.h>
 #include "code_99D40.h"
 #include "code_9A960.h"
+#include "code_B2900.h"
 #include "code_B3A70.h"
 #include "demo.h"
 #include "menu.h"
