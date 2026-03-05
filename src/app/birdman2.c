@@ -123,9 +123,9 @@ void bird_802CECB8(Unk80367704* arg0) {
     arg0->unk234.z = 0.0f;
     arg0->unk234.y = 0.0f;
     arg0->unk234.x = 0.0f;
-    arg0->unk258 = 0.0f;
-    arg0->unk254 = 0.0f;
-    arg0->unk250 = 0.0f;
+    arg0->unk250.z = 0.0f;
+    arg0->unk250.y = 0.0f;
+    arg0->unk250.x = 0.0f;
     arg0->unk25C.y = 0.0f;
     arg0->unk24C = 0.0f;
     arg0->unk248 = arg0->unk24C;
@@ -192,7 +192,7 @@ void bird_802CEDF8(Unk80367704* arg0) {
             break;
         }
     } else {
-        arg0->unk258 = -arg0->unk2B4 * 5.6f * arg0->unkE4;
+        arg0->unk250.z = -arg0->unk2B4 * 5.6f * arg0->unkE4;
         func_80313E18(&arg0->unk25C, &arg0->unk10);
         arg0->unk200.x = func_80313AF4(0.0f, arg0->unk200.x, 10.0f);
         arg0->unk200.y = func_80313AF4(0.0f, arg0->unk200.y, 10.0f);
@@ -209,8 +209,8 @@ void bird_802CEDF8(Unk80367704* arg0) {
         arg0->unk228.z = 0.0f;
         arg0->unk228.y = 0.0f;
         arg0->unk228.x = 0.0f;
-        arg0->unk254 = 0.0f;
-        arg0->unk250 = 0.0f;
+        arg0->unk250.y = 0.0f;
+        arg0->unk250.x = 0.0f;
         if (arg0->unk2D0 > 1.9f) {
             arg0->unk105 = 0;
             arg0->unk164 = 2.5f;
@@ -231,9 +231,9 @@ void bird_802CEDF8(Unk80367704* arg0) {
     arg0->unk218.x += D_8034F854 * arg0->unk234.x;
     arg0->unk218.y += D_8034F854 * arg0->unk234.y;
     arg0->unk218.z += D_8034F854 * arg0->unk234.z;
-    arg0->unk244 += D_8034F854 * arg0->unk250;
-    arg0->unk248 += D_8034F854 * arg0->unk254;
-    arg0->unk24C += D_8034F854 * arg0->unk258;
+    arg0->unk244 += D_8034F854 * arg0->unk250.x;
+    arg0->unk248 += D_8034F854 * arg0->unk250.y;
+    arg0->unk24C += D_8034F854 * arg0->unk250.z;
     uvMat4LocalTranslate(&arg0->unk10, arg0->unk200.x * D_8034F854, arg0->unk200.y * D_8034F854, arg0->unk200.z * D_8034F854);
     uvMat4RotateAxis(&arg0->unk10, arg0->unk24C * D_8034F854, 'z');
     uvMat4RotateAxis(&arg0->unk10, arg0->unk244 * D_8034F854, 'x');
@@ -241,9 +241,9 @@ void bird_802CEDF8(Unk80367704* arg0) {
     arg0->unk228.x = 0.0f;
     arg0->unk228.y = 0.0f;
     arg0->unk228.z = 0.0f;
-    arg0->unk250 = 0.0f;
-    arg0->unk254 = 0.0f;
-    arg0->unk258 = 0.0f;
+    arg0->unk250.x = 0.0f;
+    arg0->unk250.y = 0.0f;
+    arg0->unk250.z = 0.0f;
     if (arg0->unk104 != 3) {
         bird_802D0ABC(arg0);
     }
