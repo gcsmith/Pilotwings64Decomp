@@ -42,12 +42,6 @@ typedef struct {
     u8 pad1A9[0x1AC - 0x1A9];
 } ParsedBALS; // size: 0x1AC
 
-typedef struct {
-    u16 objId;
-    u8 pad2[0xA];
-    u16 unkC;
-} Unk802CC51C;
-
 extern u8 gBallCount; // initial ball count. never decremented
 extern u8 gBallSplitCount; // split ball count (5 after first split, 10 after second). never decremented
 extern ParsedBALS gBalls[20]; // array of balls loaded
@@ -58,13 +52,5 @@ void ballsLoad(void);
 void ballsDeinit(void);
 void ballsFrameUpdate(void);
 u8 ballsGet_802CC15C(void);
-
-// these should be split from this file
-void bird_802CC1B0(void);
-void bird_802CC270(u8, u8 pilot, Unk80367704*, Unk802D3658_Arg0*);
-void bird_802CC39C(Unk80367704*);
-void bird_802CC51C(Unk802CC51C*);
-void bird_802CC55C(Unk80367704*, u8);
-void bird_802CD0F8(Unk80367704*);
 
 #endif // APP_BALLS_H

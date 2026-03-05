@@ -23,6 +23,7 @@ balls_802CC0D4      = 0x802CC0D4; // type:func
 ballsGetCount       = 0x802CC13C; // type:func
 ballsGet_802CC15C   = 0x802CC15C; // type:func
 
+// birdman0
 bird_802CC1B0       = 0x802CC1B0; // type:func
 bird_802CC270       = 0x802CC270; // type:func
 bird_802CC39C       = 0x802CC39C; // type:func
@@ -31,6 +32,28 @@ bird_802CC55C       = 0x802CC55C; // type:func
 bird_802CD0F8       = 0x802CD0F8; // type:func
 bird_802CD2E8       = 0x802CD2E8; // type:func
 bird_802CE0A4       = 0x802CE0A4; // type:func
+
+// birdman1
+bird_802CE190       = 0x802CE190; // type:func
+bird_802CEA60       = 0x802CEA60; // type:func
+bird_802CEB68       = 0x802CEB68; // type:func
+
+// birdman2
+bird_802CEBA0       = 0x802CEBA0; // type:func
+bird_802CECB8       = 0x802CECB8; // type:func
+bird_802CEDF8       = 0x802CEDF8; // type:func
+bird_802CF24C       = 0x802CF24C; // type:func
+bird_802CF5B4       = 0x802CF5B4; // type:func
+bird_802CF640       = 0x802CF640; // type:func
+bird_802CF76C       = 0x802CF76C; // type:func
+bird_802CF8A4       = 0x802CF8A4; // type:func
+bird_802CFAC8       = 0x802CFAC8; // type:func
+bird_802CFEA8       = 0x802CFEA8; // type:func
+bird_802CFF74       = 0x802CFF74; // type:func
+bird_802D0080       = 0x802D0080; // type:func
+bird_802D08F8       = 0x802D08F8; // type:func
+bird_802D0A28       = 0x802D0A28; // type:func
+bird_802D0ABC       = 0x802D0ABC; // type:func
 
 bonusStar_802D25AC  = 0x802D25AC; // type:func
 
