@@ -11,9 +11,9 @@
 #include "rings.h"
 #include "targets.h"
 
-Unk8032B508* D_8034FBD0 = NULL;
+Unk80364210* D_8034FBD0 = NULL;
 // required points for medal, first = bronze, second = silver, third = gold
-MedalPointRequirement gMedalPointRequirements[] = {
+MedalPointRequirement gMedalPointRequirements[MAX_CLASSES] = {
     {  70,  80,  90 }, // beginner class
     { 140, 160, 180 }, // class A
     { 210, 240, 270 }, // class B
@@ -21,59 +21,48 @@ MedalPointRequirement gMedalPointRequirements[] = {
     {  70,  80,  90 }, // cannonball?
     {  70,  80,  90 }, // sky diving?
     {  70,  80,  90 }, // jumble hopper?
-    {   0,   0,   0 },
-    {   0,   0,   0 },
     {   0,   0,   0 }
 };
 
 void func_8032B3D0(Unk80364210* arg0) {
-    s32 pad[4];
-    TestResult* var_s2;
-    Unk80364210_Unk0_Unk0* var_fp;
+    s32 pad[7];
     Unk80364210_Unk0_Unk0* var_s0;
-    s32 temp_v0;
     s32 vehIdx;
     s32 testIdx;
     s32 classIdx;
 
-    arg0->unk0[0].unk0[0][1].unk8 = 0;
+    arg0->unk38 = 0;
     for (classIdx = 0; classIdx != MAX_CLASSES; classIdx++) {
-        // oh god
-        ((s8*)&arg0->unk0[classIdx])[0x6D0] = 0;
+        arg0->unk40[classIdx].unk690 = 0;
         for (testIdx = 0; testIdx != MAX_TESTS; testIdx++) {
-            var_fp = arg0->unk0[classIdx].unk0[testIdx];
             for (vehIdx = 0; vehIdx != VEHICLE_COUNT; vehIdx++) {
-                var_s0 = &var_fp[vehIdx];
-                var_s2 = &var_fp[1 + vehIdx].result;
-                // please don't kill me for this
-                // it's horrendous I know
-                ((s16*)var_s0)[0x32] = 0;                // unk64;
-                temp_v0 = ((s16*)var_s0)[0x32];          // unk64;
-                var_s0[2].points = 0x7F;                 // unk6C
-                var_s0[1].result.scores[0x10] = temp_v0; // unk62
-                var_s0[1].result.scores[0x16] = temp_v0; // unk6E
-                var_s0[1].result.scores[0xC] = temp_v0;  // unk5A
-                var_s0[1].result.scores[0xA] = temp_v0;  // unk56
-                var_s0[1].result.scores[9] = temp_v0;    // unk54
-                var_s0[1].result.scores[0xB] = temp_v0;  // unk58
-                var_s0[1].result.scores[2] = temp_v0;    // unk46
-                var_s0[1].result.scores[8] = temp_v0;    // unk52
-                var_s0[1].result.scores[6] = temp_v0;    // unk4E
-                var_s0[1].result.scores[5] = temp_v0;    // unk4C
-                var_s0[1].result.scores[4] = temp_v0;    // unk4A
-                var_s0[1].result.scores[3] = temp_v0;    // unk48
-                var_s0[1].result.scores[1] = temp_v0;    // unk44
+                var_s0 = &arg0->unk40[classIdx].unk0[testIdx][vehIdx];
+                var_s0->unk2C = 0x7F;
+                var_s0->unk24 = 0;
+                var_s0->unk22 = var_s0->unk24;
+                var_s0->unk2E = var_s0->unk24;
+                var_s0->unk1A = var_s0->unk24;
+                var_s0->unk16 = var_s0->unk24;
+                var_s0->unk14 = var_s0->unk24;
+                var_s0->unk18 = var_s0->unk24;
+                var_s0->unk6 = var_s0->unk24;
+                var_s0->unk12 = var_s0->unk24;
+                var_s0->unkE = var_s0->unk24;
+                var_s0->unkC = var_s0->unk24;
+                var_s0->unkA = var_s0->unk24;
+                var_s0->unk8 = var_s0->unk24;
+                var_s0->unk4 = var_s0->unk24;
                 if (levelIsValidIndex(classIdx, testIdx, vehIdx) != 0) {
-                    var_s2->unk0 = 1;
+                    var_s0->unk0 = 1;
                 } else {
-                    var_s2->unk0 = 0;
+                    var_s0->unk0 = 0;
                 }
             }
         }
     }
 }
 
-void func_8032B508(Unk8032B508* arg0) {
+void func_8032B508(Unk80364210* arg0) {
     arg0->unk38 = 0;
     arg0->unk24 = 0;
     arg0->unk2C = 0;
@@ -105,8 +94,8 @@ s32 levelGetTotalPoints(Unk80364210* arg0, s32 classIdx, s32 vehIdx) {
 
     pointsSum = 0;
     for (testIdx = 0; testIdx < levelGetTestCount(classIdx, vehIdx); testIdx++) {
-        var_s0 = &arg0->unk0[classIdx].unk0[testIdx][vehIdx];
-        points = var_s0[2].points;
+        var_s0 = &arg0->unk40[classIdx].unk0[testIdx][vehIdx];
+        points = var_s0->unk2C;
         if (points == 0x7F) {
             points = 0;
         }
@@ -115,12 +104,12 @@ s32 levelGetTotalPoints(Unk80364210* arg0, s32 classIdx, s32 vehIdx) {
     return pointsSum;
 }
 
-Unk8032B508* func_8032BE10(void) {
+Unk80364210* func_8032BE10(void) {
     return D_8034FBD0;
 }
 
-s32 testGetPointCount(Unk80364210* arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
-    return (u8)arg0->unk0[classIdx].unk0[testIdx][vehIdx + 2].points;
+u8 testGetPointCount(Unk80364210* arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
+    return arg0->unk40[classIdx].unk0[testIdx][vehIdx].unk2C;
 }
 
 s32 func_8032BE8C(Unk80364210* arg0, u8 classIdx, u8 vehIdx) {
@@ -189,7 +178,7 @@ s32 levelSetPointsToNextMedal(s32* pointsToNextMedal, u16 points, u8 classIdx) {
     }
 
     if (i == 3) {
-        if (unkC->veh < VEHICLE_CANNONBALL) {
+        if (IS_MAIN_VEHICLE(unkC->veh)) {
             *pointsToNextMedal = 100 * levelGetTestCount(classIdx, unkC->veh) - points;
         } else {
             *pointsToNextMedal = 100 - points;
@@ -263,10 +252,10 @@ s32 func_8032C3C4(Unk80364210* arg0, u16 flags) {
     resultMedal = MEDAL_NONE;
     for (vehIdx = initialVehIdx; vehIdx < targetVehIdx; vehIdx++) {
         if (vehIdx != VEHICLE_BIRDMAN) {
-            maxClassIdx = vehIdx < 3 ? CLASS_COUNT : CLASS_PILOT;
+            maxClassIdx = IS_MAIN_VEHICLE(vehIdx) ? CLASS_COUNT : CLASS_PILOT;
             for (classIdx = 0; classIdx < maxClassIdx; classIdx++) {
                 temp_v0 = levelGetTotalPoints(arg0, classIdx, vehIdx);
-                if (vehIdx < VEHICLE_CANNONBALL) {
+                if (IS_MAIN_VEHICLE(vehIdx)) {
                     medalPointRequirementIdx = classIdx;
                 } else {
                     medalPointRequirementIdx = classIdx + 4;

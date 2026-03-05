@@ -890,14 +890,17 @@ s32 cannonLandedFrame(Unk802D5C5C_Arg0* arg0) {
         if (sp27) {
             *temp_v1 = arg0->unk4;
             func_8032B560(temp_s0->unk74, temp_s0->cls, temp_s0->test, temp_s0->veh);
-            var_v1 = (s16*)(temp_s0->unk74 + (temp_s0->cls * 0x694) + (temp_s0->test * 0x150) + (temp_s0->veh * 0x30));
+            var_v1 = (s16*)((s32)temp_s0->unk74 + (temp_s0->cls * sizeof(Unk80364210_Unk0)) +
+                            (temp_s0->test * (sizeof(Unk80364210_Unk0_Unk0) * VEHICLE_COUNT)) + (temp_s0->veh * sizeof(Unk80364210_Unk0_Unk0)));
             var_a2 = var_v1[0x22];
             if ((D_80359A88[arg0->unkC] < var_a2) || var_a2 == 0x7F) {
                 D_80359A88[arg0->unkC] = var_a2;
             }
-            ((s16*)(temp_s0->unk74 + (temp_s0->cls * 0x694) + (temp_s0->test * 0x150) + (temp_s0->veh * 0x30)))[0x22] = D_80359A88[arg0->unkC];
+            ((s16*)((s32)temp_s0->unk74 + (temp_s0->cls * sizeof(Unk80364210_Unk0)) + (temp_s0->test * (sizeof(Unk80364210_Unk0_Unk0) * VEHICLE_COUNT)) +
+                    (temp_s0->veh * sizeof(Unk80364210_Unk0_Unk0))))[0x22] = D_80359A88[arg0->unkC];
         } else {
-            temp_v1 = (s32*)(temp_s0->unk74 + (temp_s0->cls * 0x694) + (temp_s0->test * 0x150) + (temp_s0->veh * 0x30));
+            temp_v1 = (s32*)((s32)temp_s0->unk74 + (temp_s0->cls * sizeof(Unk80364210_Unk0)) +
+                             (temp_s0->test * (sizeof(Unk80364210_Unk0_Unk0) * VEHICLE_COUNT)) + (temp_s0->veh * sizeof(Unk80364210_Unk0_Unk0)));
             if (((s16*)temp_v1)[0x22] == 0x7F) {
                 ((s16*)temp_v1)[0x22] = 0;
             }

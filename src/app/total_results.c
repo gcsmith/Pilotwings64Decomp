@@ -72,7 +72,7 @@ u8 totResult_80346FC0(Unk80362690_Unk0_UnkC* arg0) {
         }
         return FALSE;
     }
-    return D_80364210[D_80362690->unk9C].unk0[arg0->cls].unk0[arg0->test][veh + 1].result.unk0 == 4;
+    return D_80364210[D_80362690->unk9C].unk40[arg0->cls].unk0[arg0->test][veh].unk0 == 4;
 }
 
 s32 totResultHandler(void) {
@@ -98,7 +98,7 @@ s32 totResult_80347150(s32 arg0) {
     if (totResult_80346FC0(&D_80362690->unk0[D_80362690->unk9C].unkC)) {
         return 6;
     }
-    if (unkC->veh <= VEHICLE_GYROCOPTER) { // HG/RP/GC
+    if (IS_MAIN_VEHICLE(unkC->veh)) {
         if (unkC->cls == CLASS_BEGINNER) {
             switch (arg0) {
             case 0:
@@ -162,7 +162,7 @@ void totResultInit(void) {
         sTestPtUnitStr[i] = textGetDataByIdx(var_a0);
     }
 
-    if (temp_s4->veh <= VEHICLE_GYROCOPTER) { // HG/RP/GC
+    if (IS_MAIN_VEHICLE(temp_s4->veh)) {
         var_v1 = temp_s4->cls;
     } else { // bonus: CB/SD/JH/BD
         var_v1 = temp_s4->veh + 1;
@@ -176,7 +176,7 @@ void totResultInit(void) {
     if ((var_v1 == 3) && (sp50 == 0)) {
         var_v1 = D_8037AD42 = 4;
     }
-    if (temp_s4->veh <= VEHICLE_GYROCOPTER) { // HG/RP/GC
+    if (IS_MAIN_VEHICLE(temp_s4->veh)) {
         var_a1 = sStageMedalName[temp_s4->cls][var_v1];
     } else { // bonus: CB/SD/JH/BD
         var_a1 = sBonusMedalName[var_v1];
@@ -202,7 +202,7 @@ void totResultCreateMenu(void) {
     sResultRetryQuitIdx = 0;
     sResultRetryQuitMenu[sResultRetryQuitIdx++] = 0x189; // Retry
     // Only show "Another test" for non-bonus vehicles HG/RP/GC and class A/B/Pilot
-    if ((temp_a0->veh <= VEHICLE_GYROCOPTER) && (temp_a0->cls != CLASS_BEGINNER)) {
+    if ((IS_MAIN_VEHICLE(temp_a0->veh)) && (temp_a0->cls != CLASS_BEGINNER)) {
         sResultRetryQuitMenu[sResultRetryQuitIdx++] = 0x166; // Another test
     }
     sResultRetryQuitMenu[sResultRetryQuitIdx++] = 0x1D; // Quit

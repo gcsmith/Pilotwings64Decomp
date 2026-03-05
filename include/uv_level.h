@@ -45,6 +45,9 @@ enum VehicleId {
     VEHICLE_COUNT
 };
 
+#define IS_MAIN_VEHICLE(veh) ((veh) <= VEHICLE_GYROCOPTER)
+#define IS_NOT_MAIN_VEHICLE(veh) (!IS_MAIN_VEHICLE(veh))
+
 enum ClassId {
     CLASS_BEGINNER = 0,
     CLASS_A = 1,
@@ -59,6 +62,63 @@ enum MapId {
     MAP_LITTLE_STATES = 5,
     MAP_EVER_FROST_ISLAND = 10,
 };
+
+typedef struct {
+    u8 unk0;
+    u8 pad1;
+    s16 unk2;
+    s16 unk4;
+    s16 unk6;
+    s16 unk8;
+    s16 unkA;
+    s16 unkC;
+    s16 unkE;
+    u16 pad10;
+    s16 unk12;
+    s16 unk14;
+    s16 unk16;
+    s16 unk18;
+    s16 unk1A;
+    s16 unk1C;
+    s16 unk1E;
+    s16 unk20;
+    s16 unk22;
+    s16 unk24;
+    u16 pad26;
+    u16 pad28;
+    u16 pad2A;
+    s16 unk2C;
+    s16 unk2E;
+} Unk80364210_Unk0_Unk0; // size = 0x30
+
+typedef struct {
+    Unk80364210_Unk0_Unk0 unk0[MAX_TESTS][VEHICLE_COUNT];
+    s8 unk690;
+    u8 pad691[0x694-0x691];
+} Unk80364210_Unk0; // size = 0x694
+
+typedef struct {
+    s32 unk0;
+    f32 unk4;
+    f32 unk8;
+    f32 unkC;
+    f32 unk10;
+    f32 unk14;
+    f32 unk18;
+    f32 unk1C;
+    f32 unk20;
+    s32 unk24;
+    s32 pad28;
+    s32 unk2C;
+    s32 unk30;
+    s32 unk34;
+    s32 unk38;
+    u8 unk3C;
+    s8 unk3D;
+    u8 pad3E;
+    u8 pad3F;
+    Unk80364210_Unk0 unk40[MAX_CLASSES];
+} Unk80364210; // size = 0x34E0
 
 typedef struct Unk802D3658_Unk230 {
     Mtx4F unk0;
@@ -187,7 +247,7 @@ typedef struct {
     Mtx4F unk2C;
     s32 unk6C;
     Unk802D3658_Arg0 *unk70;
-    s32 unk74;
+    Unk80364210 *unk74;
     u8 pad78[0x7B - 0x78];
     u8 unk7B;
     u8 pad7C[0x8C-0x7C-0xC]; // fill out space to reach 0x8C size in parent struct
