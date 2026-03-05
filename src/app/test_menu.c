@@ -6,16 +6,16 @@
 #include <uv_level.h>
 #include <uv_sprite.h>
 #include <uv_string.h>
-#include "code_52230.h"
+#include "balls.h"
 #include "code_64070.h"
 #include "code_66160.h"
-#include "code_6ACE0.h"
 #include "code_72B70.h"
 #include "code_905C0.h"
 #include "code_9A960.h"
 #include "code_B2900.h"
 #include "credits.h"
 #include "demo.h"
+#include "falco.h"
 #include "hud.h"
 #include "map3d.h"
 #include "results.h"
@@ -211,9 +211,9 @@ u8 testMenuHandler(Unk80367710* arg0) {
         if (demoButtonPress(D_80362690->unk9C, A_BUTTON | B_BUTTON | START_BUTTON) != 0) {
             sTestMenuState = 0;
             if (demoButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON) != 0) {
-                func_8033F7F8(0x71);
+                snd_play_sfx(0x71);
             } else if (demoButtonPress(D_80362690->unk9C, B_BUTTON) != 0) {
-                func_8033F7F8(1);
+                snd_play_sfx(1);
             }
             return 6;
         }
@@ -360,26 +360,26 @@ u8 testMenuHandler(Unk80367710* arg0) {
             } else {
                 switch (sp64) {
                 case 3:
-                    func_8033F7F8(0xF);
+                    snd_play_sfx(0xF);
                     return gCurTestIdx;
                 case 0:
-                    func_8033F7F8(0x73);
+                    snd_play_sfx(0x73);
                     resultHandler(0);
                     break;
                 case 4:
-                    func_8033F7F8(0x71);
+                    snd_play_sfx(0x71);
                     db_getstart(&sp6C->unk2C, &sp48, 0, 0);
                     testMenu_8034A428();
                     hud_8031A2CC();
                     D_80362690->unkA0 = 1;
                     func_803239B4();
                     func_80309A64();
-                    func_802CB094();
+                    ballsLoad();
                     func_802E3A5C();
                     func_802E3E6C();
                     func_80324A34();
                     func_80309FFC();
-                    func_802CB35C();
+                    ballsDeinit();
                     D_80362690->unkA0 = 0;
                     func_8030FE80(D_80362690, 1);
                     testMenuInit(arg0, 2);
@@ -389,7 +389,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
                     sTestMenuState = 2;
                     break;
                 case 2:
-                    func_8033F7F8(0x6E);
+                    snd_play_sfx(0x6E);
                     func_8033FB14();
                     testMenu_8034A428();
                     func_8033E3A8(3);
@@ -407,7 +407,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
             }
         } else {
             if (demoButtonPress(D_80362690->unk9C, B_BUTTON) != 0) {
-                func_8033F7F8(1);
+                snd_play_sfx(1);
                 if (sTestMenuState == 2) {
                     // these u8 values are needed to load integer literals at runtime
                     u16 col2ScreenX = (2 * 78) + 47;

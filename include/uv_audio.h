@@ -103,8 +103,6 @@ typedef struct uvOSIoMesg {
     u32          size;      /* DMA transfer size in bytes */
 } uvOSIoMesg;
 
-void func_802000A0(void);
-
 void uvSysInitAudio(void);
 void amCreateAudioMgr(ALSynConfig* c, OSPri priority);
 
@@ -144,4 +142,3 @@ void uvaSeqSetVol(f32 vol);
 void uvaSeqStop(void);
 
 #endif // PILOTWINGS64_UV_AUDIO
-

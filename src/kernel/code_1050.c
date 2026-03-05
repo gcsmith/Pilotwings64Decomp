@@ -1,6 +1,7 @@
 #include <uv_audio.h>
 #include <uv_matrix.h>
 #include <libc/stdarg.h>
+#include "code_1050.h"
 
 UnkStruct_80200144_t D_80250E80[1];
 

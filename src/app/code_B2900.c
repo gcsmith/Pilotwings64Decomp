@@ -1,14 +1,14 @@
 #include "common.h"
 #include <uv_level.h>
-#include "code_52230.h"
-#include "code_59D80.h"
-#include "code_6ACE0.h"
+#include "ball_target.h"
+#include "balls.h"
 #include "code_82520.h"
-#include "code_915B0.h"
 #include "code_94E60.h"
 #include "code_B2900.h"
-#include "code_CB7C0.h"
+#include "falco.h"
+#include "hover_pads.h"
 #include "rings.h"
+#include "targets.h"
 
 s32 D_8034FBD0 = 0;
 u16 D_8034FBD4[][3] = {
@@ -45,7 +45,7 @@ u8 func_8032BF54(void) {
     if (levelGet_80346364() != 2) {
         return 0;
     }
-    return (func_80324AF4() != levelDataGetRNGS(&tmp) || func_803448F4() != levelDataGetTARG(&tmp) || func_802CC15C() == 0 ||
+    return (func_80324AF4() != levelDataGetRNGS(&tmp) || func_803448F4() != levelDataGetTARG(&tmp) || ballsGet_802CC15C() == 0 ||
             func_8030A080() != levelDataGetHPAD(&tmp) || func_802E57C4() != D_8035A5F0 || func_802D30B4() != levelDataGetBTGT((LevelBTGT**)&tmp) ||
             func_802FB5A0() != levelDataGetHOPD((LevelHOPD**)&tmp));
 }

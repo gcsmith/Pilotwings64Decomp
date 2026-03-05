@@ -8,11 +8,11 @@
 #define HIT_COUNT 32
 
 ParsedUVTR* uvTerraGetBox(s32 terraId);
-void uvTerraGetColor(s32 terraId, u32 surfaceId, u8* arg2, u8* arg3, u8* arg4);
-void uvTerraGetPlane(s32 terraId, u32 surfaceId, f32 px, f32 py, f32* arg4, Vec3F* arg5);
+void uvTerraGetColor(s32 terraId, s32 surfaceId, u8* arg2, u8* arg3, u8* arg4);
+void uvTerraGetPlane(s32 terraId, s32 surfaceId, f32 px, f32 py, f32* arg4, Vec3F* arg5);
 u32 uvTerraGetPt(s32 terraId, f32 arg1, f32 arg2, s32** arg3);
 s32 uvTerraGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, s32** arg7, f32** arg8);
-s32 uvTerraGetState(s32 terraId, u32 surfaceId);
+s32 uvTerraGetState(s32 terraId, s32 surfaceId);
 
 s32 func_80212480(f32, f32, Vtx*, u16, u16, u16, f32);
 s32 func_80212FF4(ParsedUVTR*, f32, f32, f32, f32*, f32*, f32*, u16*, u16*, u8);

@@ -6,8 +6,54 @@
 
 app_firstfunc       = 0x802CA900; // type:func
 
+ballsInit           = 0x802CAD00; // type:func
+ballsInitBall       = 0x802CADE8; // type:func
+balls_802CAF50      = 0x802CAF50; // type:func
+ballsLoad           = 0x802CB094; // type:func
+ballsMotionUpdate   = 0x802CB2FC; // type:func
+ballsDeinit         = 0x802CB35C; // type:func
+ballsFrameUpdate    = 0x802CB3F8; // type:func
+ballsFrameUpdateOne = 0x802CB56C; // type:func
+balls_802CB6D4      = 0x802CB6D4; // type:func
+balls_802CB9B4      = 0x802CB9B4; // type:func
 ballsCollision      = 0x802CBC9C; // type:func
-ballsPhysics        = 0x802CBE94; // type:func
+ballsPopped         = 0x802CBE94; // type:func
+ballsGet_802CC064   = 0x802CC064; // type:func
+balls_802CC0D4      = 0x802CC0D4; // type:func
+ballsGetCount       = 0x802CC13C; // type:func
+ballsGet_802CC15C   = 0x802CC15C; // type:func
+
+// birdman0
+bird_802CC1B0       = 0x802CC1B0; // type:func
+bird_802CC270       = 0x802CC270; // type:func
+bird_802CC39C       = 0x802CC39C; // type:func
+bird_802CC51C       = 0x802CC51C; // type:func
+bird_802CC55C       = 0x802CC55C; // type:func
+bird_802CD0F8       = 0x802CD0F8; // type:func
+bird_802CD2E8       = 0x802CD2E8; // type:func
+bird_802CE0A4       = 0x802CE0A4; // type:func
+
+// birdman1
+bird_802CE190       = 0x802CE190; // type:func
+bird_802CEA60       = 0x802CEA60; // type:func
+bird_802CEB68       = 0x802CEB68; // type:func
+
+// birdman2
+bird_802CEBA0       = 0x802CEBA0; // type:func
+bird_802CECB8       = 0x802CECB8; // type:func
+bird_802CEDF8       = 0x802CEDF8; // type:func
+bird_802CF24C       = 0x802CF24C; // type:func
+bird_802CF5B4       = 0x802CF5B4; // type:func
+bird_802CF640       = 0x802CF640; // type:func
+bird_802CF76C       = 0x802CF76C; // type:func
+bird_802CF8A4       = 0x802CF8A4; // type:func
+bird_802CFAC8       = 0x802CFAC8; // type:func
+bird_802CFEA8       = 0x802CFEA8; // type:func
+bird_802CFF74       = 0x802CFF74; // type:func
+bird_802D0080       = 0x802D0080; // type:func
+bird_802D08F8       = 0x802D08F8; // type:func
+bird_802D0A28       = 0x802D0A28; // type:func
+bird_802D0ABC       = 0x802D0ABC; // type:func
 
 bonusStar_802D25AC  = 0x802D25AC; // type:func
 
@@ -168,6 +214,7 @@ smoke_create_terra  = 0x80337528; // type:func
 
 snapGetPhotoCount   = 0x8033F618; // type:func
 
+snd_play_sfx        = 0x8033F7F8; // type:func
 snd_makedev         = 0x8033F860; // type:func
 snd_event           = 0x8033FB44; // type:func
 snd_getpilot        = 0x8033FBCC; // type:func
@@ -292,6 +339,26 @@ mem_get             = 0x80312740; // type:func
 mem_init            = 0x803127BC; // type:func
 mem_remaining       = 0x803127F0; // type:func
 
+optionsTopRender    = 0x80315E90; // type:func
+optionsInit         = 0x80315F0C; // type:func
+optionsInitMain     = 0x803160B0; // type:func
+optionsInitAlbum    = 0x803161A8; // type:func
+optionsInitSound    = 0x80316238; // type:func
+optionsDeinit       = 0x8031631C; // type:func
+optionsMenuHandler  = 0x8031633C; // type:func
+optionsHandlerMain  = 0x803163B8; // type:func
+optionsHandlerAlbum = 0x80316528; // type:func
+optionsHandlerSound = 0x80316634; // type:func
+optionsDrawPanel    = 0x80316A28; // type:func
+optionsPanel0       = 0x80316A90; // type:func
+optionsPanel1       = 0x80316AB8; // type:func
+optionsPanel2       = 0x80316AE0; // type:func
+optionsDrawBorder   = 0x80316B08; // type:func
+options_80316B80    = 0x80316B80; // type:func
+optionsSetSetting   = 0x80316BEC; // type:func
+optionsSetTrack     = 0x80316D34; // type:func
+optionsItemWrap     = 0x80316D88; // type:func
+
 // -----------------------------------------------------------------------------
 // Data Symbols
 // -----------------------------------------------------------------------------
@@ -341,7 +408,21 @@ gClassShortNames          = 0x80350988; // size:0x10
 gVehShortNames            = 0x80350998; // size:0x1C
 gCurTestIdx               = 0x803509B4;
 
+gBallCount                = 0x80357210;
+gBallSplitCount           = 0x80357211;
+gBalls                    = 0x80357218; // size:0x2170
+sRefBALS                  = 0x8035938C;
+
+sOptionsPanel             = 0x8036C120; // type:s16
+sStickHeld                = 0x8036C124;
+sGameComplete             = 0x8036C128;
+sSaveFileIdx              = 0x8036C129;
+sOptionMenuItems          = 0x8036C130; // size:0x14
+
 sTextName                 = 0x80377F10; // size:0x6E0
 sTextData                 = 0x803785F0; // size:0x6DC
 sTextDataCount            = 0x80378CCC;
 sTextNameCount            = 0x80378CD0;
+
+sMissileTargets           = 0x80378CF0;
+sMissileTargetCount       = 0x80378CF4;

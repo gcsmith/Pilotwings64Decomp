@@ -15,7 +15,6 @@
 #include "code_5A6A0.h"
 #include "code_60020.h"
 #include "code_66160.h"
-#include "code_68220.h"
 #include "code_72010.h"
 #include "code_72B70.h"
 #include "code_7FED0.h"
@@ -23,6 +22,7 @@
 #include "code_B2900.h"
 #include "code_D2B10.h"
 #include "demo.h"
+#include "environment.h"
 #include "fdr.h"
 #include "hud.h"
 #include "save.h"
@@ -43,7 +43,7 @@ extern u8 D_80359A84;
 extern s32 D_80359A88[];
 
 // forward declarations
-s32 cannonEndShot(Unk802D5C5C_Arg0*);
+s32 cannonEndShot(Unk802D5B50_Arg2*);
 
 void cannon_802D5A90(void) {
     D_80359A30.unk0 = 8;
@@ -71,12 +71,12 @@ void cannonLoadLevel(u8 arg0, u8 pilot, Unk802D5B50_Arg2* arg2, Unk802D3658_Arg0
     cannonLoadPilot(pilot, arg2);
     arg2->unk0 = uvDobjAllocIdx();
     arg2->unk2 = 2;
-    uvDobjModel(arg2->unk0, arg2->unk220);
+    uvDobjModel(arg2->unk0, arg2->modelId);
     uvDobjPosm(arg2->unk0, 0, &arg2->unk14);
     uvDobjState(arg2->unk0, arg2->unk2);
     arg2->unk54 = uvDobjAllocIdx();
     arg2->unk56 = 2;
-    uvDobjModel(arg2->unk54, 0x105);
+    uvDobjModel(arg2->unk54, MODEL_105);
     uvDobjPosm(arg2->unk54, 0, &arg2->unk58);
     uvDobjState(arg2->unk54, arg2->unk56);
     arg2->unkB0 = arg3;
@@ -90,7 +90,7 @@ void cannonLoadLevel(u8 arg0, u8 pilot, Unk802D5B50_Arg2* arg2, Unk802D3658_Arg0
 }
 
 // cannon_802D5C5C is invoked when loading and exiting cannonball level
-void cannon_802D5C5C(Unk802D5C5C_Arg0* arg0) {
+void cannon_802D5C5C(Unk802D5B50_Arg2* arg0) {
     f32 sp54;
     f32 sp50;
     f32 sp4C;
@@ -126,9 +126,9 @@ void cannon_802D5C5C(Unk802D5C5C_Arg0* arg0) {
     arg0->unkB0->unk4 = arg0->unk54;
     arg0->unkB0->unk6 = arg0->unk56;
     arg0->unkB0->unk0 = 0x20;
-    arg0->unkB0->unk68 = arg0->unk26C;
-    arg0->unkB0->unk6C = arg0->unk270;
-    arg0->unkB0->unk70 = arg0->unk274;
+    arg0->unkB0->unk68.x = arg0->unk26C;
+    arg0->unkB0->unk68.y = arg0->unk270;
+    arg0->unkB0->unk68.z = arg0->unk274;
     arg0->unkB0->unk74 = 0.0f;
     arg0->unkB0->unk5C = 0;
     arg0->unkB0->unk60 = -1.0f;
@@ -139,7 +139,7 @@ void cannon_802D5C5C(Unk802D5C5C_Arg0* arg0) {
     arg0->unkB0->unk4C = 1;
     arg0->unkB0->unk50 = 0.0f;
     arg0->unkB0->unk228 = 0.0f;
-    uvModelGetProps(arg0->unk220, 1, &arg0->unkB0->unk8, 0);
+    uvModelGetProps(arg0->modelId, 1, &arg0->unkB0->unk8, 0);
     func_802D45C4(arg0->unkB0, arg0->unkB8);
     D_8034E9F0 = 4.712389f; // DEG_TO_RAD(270)
     D_8034E9F4 = 0;
@@ -148,8 +148,8 @@ void cannon_802D5C5C(Unk802D5C5C_Arg0* arg0) {
 
 // cannonEndTarget is invoked at the end of a cannonball target
 void cannonEndTarget(Unk802D5B50_Arg2* arg0) {
-    uvDobjModel(arg0->unk0, 0xFFFF);
-    uvDobjModel(arg0->unk54, 0xFFFF);
+    uvDobjModel(arg0->unk0, MODEL_WORLD);
+    uvDobjModel(arg0->unk54, MODEL_WORLD);
     arg0->unk10 = 0xFFFF;
     arg0->unk0 = 0xFFFF;
     arg0->unk54 = 0xFFFF;
@@ -157,7 +157,7 @@ void cannonEndTarget(Unk802D5B50_Arg2* arg0) {
 }
 
 // cannonMovementFrame called every frame while aiming cannon and while in flight
-void cannonMovementFrame(Unk802D5C5C_Arg0* arg0, u8 arg1) {
+void cannonMovementFrame(Unk802D5B50_Arg2* arg0, u8 arg1) {
     f32 stickX;
     f32 stickY;
     s32 spE4;
@@ -193,9 +193,9 @@ void cannonMovementFrame(Unk802D5C5C_Arg0* arg0, u8 arg1) {
         spC8[0] = arg0->zAxis;
         spC8[1] = arg0->xAxis;
         spC7 = (arg0->unkD4 * 2) | (arg0->unkC4 & 1);
-        func_802E682C(&spC8, 2, spC7);
+        func_802E682C(spC8, ARRAY_COUNT(spC8), spC7);
     } else {
-        func_802E6870(&spC8, 2, &spC7);
+        func_802E6870(spC8, ARRAY_COUNT(spC8), &spC7);
         arg0->zAxis = spC8[0];
         arg0->xAxis = spC8[1];
         arg0->unkD4 = spC7 >> 1;
@@ -360,7 +360,7 @@ void cannonMovementFrame(Unk802D5C5C_Arg0* arg0, u8 arg1) {
 #endif
 // cannonAimingFrame called every frame while inside cannon
 // controls the rate of rotation and Z-button presses
-void cannonAimingFrame(Unk802D5C5C_Arg0* arg0) {
+void cannonAimingFrame(Unk802D5B50_Arg2* arg0) {
     Mtx4F sp38;
     f32 sp34;
 
@@ -459,7 +459,7 @@ void cannonAimingFrame(Unk802D5C5C_Arg0* arg0) {
 #endif
 
 // cannonShoot called when firing the cannon
-void cannonShoot(Unk802D5C5C_Arg0* arg0) {
+void cannonShoot(Unk802D5B50_Arg2* arg0) {
     Mtx4F sp50;
 
     uvMat4Copy(&sp50, &arg0->unk58);
@@ -467,7 +467,7 @@ void cannonShoot(Unk802D5C5C_Arg0* arg0) {
     uvMat4RotateAxis(&sp50, arg0->xAxis, 'x');
     uvMat4LocalTranslate(&sp50, 0.0f, 6.0f, 0.0f);
     func_802F9BF8(2, sp50.m[3][0], sp50.m[3][1], sp50.m[3][2], 20.0f, 0.3f, 0.0f, 1.0f, 0.8f, 0.0f, 1.0f);
-    func_8033F7F8(0x4B);
+    snd_play_sfx(0x4B);
     uvEmitterTrigger(arg0->unk2B4);
     arg0->unkD4 = 1;
     arg0->unk1B8.x = 0.0f;
@@ -485,7 +485,7 @@ void cannonShoot(Unk802D5C5C_Arg0* arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/app/cannonball/cannonPilotLand.s")
 #else
 // Matches but has bss/data issues
-void cannonPilotLand(Unk802D5C5C_Arg0* arg0) {
+void cannonPilotLand(Unk802D5B50_Arg2* arg0) {
     static Vec4F D_80359AB0;
     static Vec4F D_80359AC0;
     static f32 D_8034E9FC = 0.0f;
@@ -570,7 +570,7 @@ void cannonLoadPilot(u8 pilot, Unk802D5B50_Arg2* arg1) {
         arg1->unk278 = 0.96f;
         arg1->unk280 = 0.8f;
         arg1->unk27C = 5.88f;
-        arg1->unk220 = 0x135;
+        arg1->modelId = MODEL_135;
         arg1->unk292 = 1;
         arg1->unk285 = 0xA;
         arg1->unk286 = 0xB;
@@ -610,7 +610,7 @@ void cannonLoadPilot(u8 pilot, Unk802D5B50_Arg2* arg1) {
         arg1->unk278 = 0.8f;
         arg1->unk280 = 1.0f;
         arg1->unk27C = 9.8f;
-        arg1->unk220 = 0x136;
+        arg1->modelId = MODEL_136;
         arg1->unk292 = 6;
         arg1->unk285 = 2;
         arg1->unk286 = 3;
@@ -650,7 +650,7 @@ void cannonLoadPilot(u8 pilot, Unk802D5B50_Arg2* arg1) {
         arg1->unk278 = 0.64f;
         arg1->unk280 = 1.2f;
         arg1->unk27C = 13.72f;
-        arg1->unk220 = 0x137;
+        arg1->modelId = MODEL_137;
         arg1->unk292 = 6;
         arg1->unk285 = 1;
         arg1->unk286 = 2;
@@ -690,7 +690,7 @@ void cannonLoadPilot(u8 pilot, Unk802D5B50_Arg2* arg1) {
         arg1->unk278 = 0.96f;
         arg1->unk280 = 0.8f;
         arg1->unk27C = 5.88f;
-        arg1->unk220 = 0x138;
+        arg1->modelId = MODEL_138;
         arg1->unk292 = 8;
         arg1->unk285 = 1;
         arg1->unk286 = 2;
@@ -730,7 +730,7 @@ void cannonLoadPilot(u8 pilot, Unk802D5B50_Arg2* arg1) {
         arg1->unk278 = 0.8f;
         arg1->unk280 = 1.0f;
         arg1->unk27C = 9.8f;
-        arg1->unk220 = 0x139;
+        arg1->modelId = MODEL_139;
         arg1->unk292 = 6;
         arg1->unk285 = 2;
         arg1->unk286 = 3;
@@ -770,7 +770,7 @@ void cannonLoadPilot(u8 pilot, Unk802D5B50_Arg2* arg1) {
         arg1->unk278 = 0.64f;
         arg1->unk280 = 1.2f;
         arg1->unk27C = 13.72f;
-        arg1->unk220 = 0x13A;
+        arg1->modelId = MODEL_13A;
         arg1->unk292 = 6;
         arg1->unk285 = 2;
         arg1->unk286 = 3;
@@ -808,7 +808,7 @@ extern s32 D_80359A98[];
 extern s32 D_80359AA8;
 extern s32 D_80359AAC;
 extern void func_802E0CF0(void);
-s32 cannonLoad802D77D8(Unk80362690* arg0, Unk802D3658_Arg0* arg1) {
+s32 cannonLoad802D77D8(Unk80362690* arg0, Unk802D5B50_Arg2* arg1) {
     s32 i;
     Mtx4F sp3C;
     Unk80362690_Unk0_UnkC* temp_s1_2;
@@ -842,7 +842,7 @@ s32 cannonLoad802D77D8(Unk80362690* arg0, Unk802D3658_Arg0* arg1) {
     }
     temp_s1_2->unk6C = (s32)arg1;
     cannonLoadLevel(arg0->unk9C, temp_s1_2->pad0, arg1, (Unk802D3658_Arg0*)temp_s1_2->unk70);
-    cannon_802D5C5C((Unk802D5C5C_Arg0*)arg1);
+    cannon_802D5C5C(arg1);
     arg1->unkC = 0;
     arg1->unkE = 0;
     D_80359A88[0] = 0;
@@ -852,7 +852,7 @@ s32 cannonLoad802D77D8(Unk80362690* arg0, Unk802D3658_Arg0* arg1) {
     uvMat4Copy(&sp3C, (Mtx4F*)&arg1->unk14);
     uvMat4RotateAxis(&sp3C, 1.5707961f, 'x');
     func_802EDD9C(temp_s1_2, &sp3C);
-    func_802D4DE8((Unk802D3658_Arg0*)temp_s1_2->unk70, 0U);
+    func_802D4DE8(temp_s1_2->unk70, 0U);
     func_8032B508(temp_s1_2->unk74);
     func_80313E0C(0.0f);
     func_802E66F4(1.0f);
@@ -871,7 +871,7 @@ s32 cannonLoad802D77D8(Unk80362690* arg0, Unk802D3658_Arg0* arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/app/cannonball/cannonFrame802D7B7C.s")
 
 // cannonLandedFrame called every frame after landing from cannon shot
-s32 cannonLandedFrame(Unk802D5C5C_Arg0* arg0) {
+s32 cannonLandedFrame(Unk802D5B50_Arg2* arg0) {
     s32* temp_v1;
     Unk80362690_Unk0_UnkC* temp_s0;
     u8 sp27;
@@ -911,9 +911,9 @@ s32 cannonLandedFrame(Unk802D5C5C_Arg0* arg0) {
             if (var_a2 == 0x19) {
                 hudWarningText(0x16F, 2.0f, 8.0f);
                 func_8033F964(1);
-                func_8033F7F8(0x11U);
+                snd_play_sfx(0x11);
             } else {
-                func_8033F7F8(0x36U);
+                snd_play_sfx(0x36);
                 func_8033F748(0x11);
                 func_8033F964(0);
                 func_8033FCD0(temp_s0->veh);
@@ -951,7 +951,7 @@ s32 cannonLandedFrame(Unk802D5C5C_Arg0* arg0) {
 // cannonEndAllTgts called once after all four cannon targets are complete
 #pragma GLOBAL_ASM("asm/nonmatchings/app/cannonball/cannonEndAllTgts.s")
 
-void cannon_802D8A40(u8 arg0, Unk802D5C5C_Arg0* arg1) {
+void cannon_802D8A40(u8 arg0, Unk802D5B50_Arg2* arg1) {
     Unk80362690_Unk0_UnkC* unkC;
     unkC = &D_80362690->unk0[D_80362690->unk9C].unkC;
     if (unkC->veh == 3) {

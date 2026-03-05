@@ -1,4 +1,5 @@
 #include "common.h"
+#include "bmsound.h"
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/bmsound/func_802D0BF0.s")
 

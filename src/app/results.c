@@ -438,9 +438,9 @@ s32 resultMenuChoose(s32 arg0) {
             if (demoButtonPress(D_80362690->unk9C, A_BUTTON | B_BUTTON | START_BUTTON) != 0) {
                 ret = 1;
                 if (demoButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON) != 0) {
-                    func_8033F7F8(0x73);
+                    snd_play_sfx(0x73);
                 } else if (demoButtonPress(D_80362690->unk9C, CONT_B) != 0) {
-                    func_8033F7F8(1);
+                    snd_play_sfx(1);
                 }
             }
         }

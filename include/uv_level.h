@@ -69,17 +69,32 @@ typedef struct Unk802D3658_Unk230 {
 
 typedef struct {
     s32 unk0;
-    u8 pad4[0x18];
+    Vec3F unk4;
+    Vec3F unk10;
     Vec3F unk1C;
     Vec3F unk28;
-} Unk802D3658_Unk1120;
+} Unk802D3658_Unk1120; // size = 0x34
 
 typedef struct {
     s32 unk0;
-    u8 pad4[0x24];
+    Unk802D3658_Unk1120 unk4[5];
+} Unk802D3658_Unk111C; // size = 0x108
+
+typedef struct {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    u8 pad8[0xC];
+    f32 unk18;
+    Vec3F unk1C;
     Vec3F unk28;
     Vec3F unk34;
-} Unk802D3658_Unk1228;
+} Unk802D3658_Unk1228; // size = 0x40
+
+typedef struct {
+    s32 unk0;
+    Unk802D3658_Unk1228 unk4[5];
+} Unk802D3658_Unk1224; // size = 0x144
 
 typedef struct {
     u8 unk0;
@@ -118,9 +133,7 @@ typedef struct {
     f32 unk5C;
     f32 unk60;
     f32 unk64;
-    f32 unk68;
-    f32 unk6C;
-    f32 unk70;
+    Vec3F unk68;
     f32 unk74;
     f32 unk78;
     f32 unk7C;
@@ -159,13 +172,8 @@ typedef struct {
     u8 pad1108[0x1114 - 0x1108];
     u8 unk1114;
     u8 pad1115[0x111C - 0x1115];
-
-    s32 unk111C;
-    Unk802D3658_Unk1120 unk1120[5]; // 1120:1223
-
-    s32 unk1224;
-    Unk802D3658_Unk1228 unk1228[5]; // 1228:1367
-
+    Unk802D3658_Unk111C unk111C;
+    Unk802D3658_Unk1224 unk1224;
     f32 unk1368;
     f32 unk136C;
     f32 unk1370;
@@ -216,6 +224,33 @@ typedef struct {
     u8 padA4[4];
     s32 unkA8;
 } Unk80362690;
+
+typedef struct {
+    Vec3F pos;
+    u8 padC[0x18 - 0xC];
+    s32 unk18;
+    f32 unk1C;
+    u8 type; // 0x20
+    u8 unk21;
+    u8 pad22[0x24 - 0x22];
+    f32 unk24;
+    f32 unk28;
+    f32 unk2C;
+    f32 scale; // 0x30
+    s32 unk34;
+    s32 unk38;
+    f32 unk3C;
+    f32 unk40;
+    u8 pad44[4];
+    f32 unk48;
+    f32 unk4C;
+    f32 unk50;
+    s32 unk54;
+    s32 unk58;
+    f32 unk5C;
+    f32 unk60;
+    f32 unk64;
+} LevelBALS;
 
 typedef struct {
     Vec3F pos;
@@ -329,42 +364,42 @@ typedef struct {
         f32 unk404;
         f32 unk408;
         u8 unk40C[0x10];
-        u8 countTHER; // count THER
-        u8 countLWIN; // count LWIN
-        u8 countTPAD; // count TPAD
-        u8 countLPAD; // count LPAD
-        u8 countLSTP; // count LSTP
-        u8 countRNGS; // count RNGS
-        u8 countBALS; // count BALS
-        u8 countTARG; // count TARG
-        u8 countHPAD; // count HPAD
-        u8 countBTGT; // count BTGT
-        u8 countPHTS; // count PHTS
-        u8 countFALC; // count FALC
-        u8 countSDFM; // count SDFM
-        u8 countCNTG; // count CNTG
-        u8 countHOPD; // count HOPD
-        u8 countOBSV; // count OBSV
+        u8 countTHER;
+        u8 countLWIN;
+        u8 countTPAD;
+        u8 countLPAD;
+        u8 countLSTP;
+        u8 countRNGS;
+        u8 countBALS;
+        u8 countTARG;
+        u8 countHPAD;
+        u8 countBTGT;
+        u8 countPHTS;
+        u8 countFALC;
+        u8 countSDFM;
+        u8 countCNTG;
+        u8 countHOPD;
+        u8 countOBSV;
     } comm;
-    void* dataNAME;      // ptr NAME
-    void* dataINFO;      // ptr INFO
-    void* dataJPTX;      // ptr JPTX
-    LevelTHER* dataTHER; // ptr THER
-    void* dataLWIN;      // ptr LWIN
-    void* dataTPAD;      // ptr TPAD
-    void* dataLPAD;      // ptr LPAD
-    void* dataLSTP;      // ptr LSTP
-    void* dataRNGS;      // ptr RNGS
-    void* dataBALS;      // ptr BALS
-    void* dataTARG;      // ptr TARG
-    void* dataHPAD;      // ptr HPAD
-    void* dataBTGT;      // ptr BTGT
-    void* dataPHTS;      // ptr PHTS
-    void* dataFALC;      // ptr FALC
-    void* dataSDFM;      // ptr SDFM
-    void* dataCNTG;      // ptr CNTG
-    void* dataHOPD;      // ptr HOPD
-    LevelOBSV* dataOBSV; // ptr OBSV
+    void* dataNAME;
+    void* dataINFO;
+    void* dataJPTX;
+    LevelTHER* dataTHER;
+    void* dataLWIN;
+    void* dataTPAD;
+    void* dataLPAD;
+    void* dataLSTP;
+    void* dataRNGS;
+    LevelBALS* dataBALS;
+    void* dataTARG;
+    void* dataHPAD;
+    void* dataBTGT;
+    void* dataPHTS;
+    void* dataFALC;
+    void* dataSDFM;
+    void* dataCNTG;
+    void* dataHOPD;
+    LevelOBSV* dataOBSV;
 } LevelCommObjects;
 
 extern Unk80362690* D_80362690;
@@ -416,7 +451,7 @@ s32 levelDataGetOBSV(LevelOBSV** data);
 s32 levelDataGetLPAD(void** data);
 s32 levelDataGetLSTP(void** data);
 s32 levelDataGetRNGS(void** data);
-s32 levelDataGetBALS(void** data);
+s32 levelDataGetBALS(LevelBALS** data);
 s32 levelDataGetTARG(void** data);
 s32 levelDataGetHPAD(void** data);
 s32 levelDataGetBTGT(LevelBTGT** data);

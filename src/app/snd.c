@@ -22,7 +22,7 @@ f32 D_803505FC[] = { 1.0f, 1.0f, 0.0f, 0.0f, 0.0f };
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/snd/func_8033F758.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/snd/func_8033F7F8.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/snd/snd_play_sfx.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/snd/snd_makedev.s")
 

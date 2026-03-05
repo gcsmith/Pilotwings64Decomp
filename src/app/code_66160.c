@@ -9,7 +9,7 @@
 #include "code_66160.h"
 #include "code_9A960.h"
 
-extern s32 D_80359D70;
+extern Vec3F D_80359D70;
 extern s32 D_80359D7C;
 
 void func_802DEC30(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10, s32 arg11, s32 arg12,
@@ -76,7 +76,7 @@ void func_802DFA18(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_66160/db_getgnd.s")
 
-s32* func_802E02EC(void) {
+Vec3F* func_802E02EC(void) {
     return &D_80359D70;
 }
 
@@ -118,7 +118,7 @@ void db_getstart(Mtx4F* arg0, Vec3F* arg1, u8* arg2, f32* arg3) {
         ang.x = first->angle.x;
         ang.y = first->angle.y;
         ang.z = first->angle.z;
-        func_80313640(pos.x, pos.y, pos.z, ang.x * 0.0174533f, ang.y * 0.0174533f, ang.z * 0.0174533f, arg0); // DEG_TO_RAD(1)
+        func_80313640(pos.x, pos.y, pos.z, ang.x * 0.0174533f, ang.y * 0.0174533f, ang.z * 0.0174533f, arg0); // almost DEG_TO_RAD(1)
         arg1->x = first->unk1C.x;
         arg1->y = first->unk1C.y;
         arg1->z = first->unk1C.z;
