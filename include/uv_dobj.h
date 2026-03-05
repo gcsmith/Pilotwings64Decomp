@@ -74,7 +74,7 @@ enum Models {
     MODEL_BUILDING_WITH_7_FLAGS_IN_FRONT                             = 0x065, // Building with 7 flags in front
     MODEL_STATUE_OF_LIBERTY                                          = 0x066, // Statue of Liberty (0x12c238)
 
-    MODEL_LARGE_AIRPLAN_HANGER                                       = 0x077, // Large Airplan Hanger (0x1004)
+    MODEL_LARGE_AIRPLANE_HANGER                                      = 0x077, // Large Airplane Hanger (0x1004)
 
     MODEL_RED_BARN_AND_SILO                                          = 0x07F, // Red barn and silo
 
@@ -144,7 +144,7 @@ enum Models {
     MODEL_GOOSE_GYRO                                                 = 0x12B, // Goose Gyro Model
     MODEL_HAWK_GYRO                                                  = 0x12D, // Hawk Gyro Model
 
-    MODEL_KIWI_GYRO                                                  = 0x12F, // Kiwi Gyro odel
+    MODEL_KIWI_GYRO                                                  = 0x12F, // Kiwi Gyro Model
 
     MODEL_IBIS_GYRO                                                  = 0x131, // Ibis Gyro Model
 
