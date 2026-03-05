@@ -1349,8 +1349,8 @@ void uvTerraGetColor(s32 terraId, u32 surfaceId, u8* arg2, u8* arg3, u8* arg4) {
     }
     temp_v0_2 = &temp_a0->unk8[(surfaceId >> 12) & 0x3FF];
     temp_v1_2 = &temp_v0_2->unkC[surfaceId & 0xFFF];
-    if ((temp_v0_2->unk0 & 0xFFF) != 0xFFF) {
-        temp_v0_3 = gGfxUnkPtrs->textures[temp_v0_2->unk0 & 0xFFF];
+    if ((temp_v0_2->unk0.state & 0xFFF) != 0xFFF) {
+        temp_v0_3 = gGfxUnkPtrs->textures[temp_v0_2->unk0.state & 0xFFF];
         if (temp_v0_3->unk22 == 4) {
             *arg2 = temp_v0_3->unk23;
             *arg3 = temp_v0_3->unk24;
@@ -1396,7 +1396,7 @@ s32 uvTerraGetState(s32 terraId, u32 surfaceId) {
         return 0xFFF;
     }
     temp_v1 = &temp_a2->unk8[(surfaceId >> 12) & 0x3FF];
-    return temp_v1->unk0;
+    return temp_v1->unk0.state;
 }
 
 void uvTerraGetPlane(s32 terraId, u32 surfaceId, f32 px, f32 py, f32* arg4, Vec3F* arg5) {

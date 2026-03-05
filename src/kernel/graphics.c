@@ -216,7 +216,7 @@ void uvGfxStateDrawDL(uvGfxState_t* arg0) {
 
     uvMat4SetIdentity(&temp);
     uvGfxMtxViewMul(&temp, 1);
-    gSPDisplayList(gGfxDisplayListHead++, arg0->unk8);
+    gSPDisplayList(gGfxDisplayListHead++, arg0->dlist);
     uvGfxMtxViewPop();
 
     gDPPipeSync(gGfxDisplayListHead++);
@@ -225,7 +225,7 @@ void uvGfxStateDrawDL(uvGfxState_t* arg0) {
     gDPSetRenderMode(gGfxDisplayListHead++, G_RM_PASS, G_RM_ZB_XLU_SURF2);
     gSPClearGeometryMode(gGfxDisplayListHead++, G_CULL_FRONT);
     gSPSetGeometryMode(gGfxDisplayListHead++, G_CULL_BACK);
-    gSPDisplayList(gGfxDisplayListHead++, arg0->unk8);
+    gSPDisplayList(gGfxDisplayListHead++, arg0->dlist);
 
     D_80298AB8[gGfxFbIndex] += arg0->unk4 * 2;
     D_80298AC0[gGfxFbIndex] += arg0->unk6 * 2;
@@ -421,8 +421,8 @@ void uvGfxStateDraw(uvGfxState_t* arg0) {
             gDPSetCombineMode(gGfxDisplayListHead++, G_CC_MODULATEIDECALA, G_CC_PASS2);
         }
     }
-    if (arg0->unk8 != NULL) {
-        gSPDisplayList(gGfxDisplayListHead++, arg0->unk8);
+    if (arg0->dlist != NULL) {
+        gSPDisplayList(gGfxDisplayListHead++, arg0->dlist);
 
         D_80298AB8[gGfxFbIndex] += arg0->unk4;
         D_80298AC0[gGfxFbIndex] += arg0->unk6;
@@ -1012,7 +1012,7 @@ void uvGfxStatePop(void) {
         --gGfxStateStackIdx;
         newState = gGfxStateStack[gGfxStateStackIdx];
         state.state = newState;
-        state.unk8 = NULL;
+        state.dlist = NULL;
         uvGfxStateDraw(&state);
     }
 }
@@ -1024,7 +1024,7 @@ void uvGfxSetFlags(s32 flags) {
     newState = flags | gGfxStateStackData;
     if (newState != gGfxStateStackData) {
         sp20.state = newState;
-        sp20.unk8 = NULL;
+        sp20.dlist = NULL;
         uvGfxStateDraw(&sp20);
     }
 }
@@ -1036,7 +1036,7 @@ void uvGfxClearFlags(s32 flags) {
     newState = ~flags & gGfxStateStackData;
     if (newState != gGfxStateStackData) {
         sp20.state = newState;
-        sp20.unk8 = NULL;
+        sp20.dlist = NULL;
         uvGfxStateDraw(&sp20);
     }
 }
@@ -1045,7 +1045,7 @@ void uvGfx_80223A28(u32 flags) {
     uvGfxState_t sp20;
     s32 pad;
 
-    sp20.unk8 = NULL;
+    sp20.dlist = NULL;
     sp20.state = (gGfxStateStackData & ~0xFFF) | flags;
     uvGfxStateDraw(&sp20);
 }

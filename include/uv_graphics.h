@@ -49,7 +49,7 @@ typedef struct {
     s32 state;
     s16 unk4;
     s16 unk6;
-    Gfx* unk8;
+    Gfx* dlist;
 } uvGfxState_t;
 
 typedef struct {
@@ -72,19 +72,16 @@ typedef struct {
 } Unk80225FBC_0x28_UnkC; // size = 0x10
 
 typedef struct {
-    s32 unk0;
-    u16 unk4;
-    u16 unk6;
-    Gfx* dlist;
+    uvGfxState_t unk0;
     Unk80225FBC_0x28_UnkC* unkC;
     u16 unk10;
     u16 unk12;
     u16 unk14;
     u16 pad16;
-    s32 unk18;
-    s32 unk1C;
-    s32 unk20;
-    s32 unk24;
+    f32 unk18;
+    f32 unk1C;
+    f32 unk20;
+    f32 unk24;
 } Unk80225FBC_0x28;
 
 typedef struct {
@@ -113,7 +110,7 @@ typedef struct uvUnkTileStruct {
 typedef struct uvUnkTeraStruct {
     f32 unk0;
     f32 unk4;
-    u8 pad8[0x4];
+    f32 unk8;
     f32 unkC;
     f32 unk10;
     f32 unk14;
@@ -473,8 +470,16 @@ typedef struct {
 /* 1FC */ f32 unk1FC;
 /* 200 */ f32 unk200;
 /* 204 */ f32 unk204;
-/* 208 */ u8 pad208[0xD8];
-/* 2E0 */ u8 unk2E0[0x48];
+/* 208 */ Vec3F unk208[4];
+/* 238 */ Vec3F unk238;
+/* 244 */ Vec3F unk244;
+/* 250 */ Vec3F unk250[5];
+/* 28C */ u8 pad28C[0xC];
+/* 298 */ Vec3F unk298[4];
+/* 2C8 */ Vec3F unk2C8;
+/* 2D4 */ Vec3F unk2D4;
+/* 2E0 */ Vec3F unk2E0[5];
+/* 31C */ u8 unk31C[0xC];
 /* 328 */ Vec3F unk328[1];
 /* 334 */ u8 pad334[0x3C];
 /* 370 */ u8 unk370;

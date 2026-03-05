@@ -556,7 +556,7 @@ void _uvTerraDraw(UnkStruct_80204D94* arg0, u8 arg1) {
             temp_fs0 = temp_fs4 - arg0->unk1D0;
             temp_fs1 = temp_ft4 - arg0->unk1D4;
             temp_fs2 = temp_ft5 - arg0->unk1D8;
-            if (!func_80207028(&arg0->pad208[0x48], arg0->unk2E0, temp_fs4, temp_ft4, temp_ft5, temp_s0->unk24)) {
+            if (!func_80207028(&arg0->unk250, arg0->unk2E0, temp_fs4, temp_ft4, temp_ft5, temp_s0->unk24)) {
                 continue;
             }
             if (!func_80206F64(arg0->unk2E0, temp_fs0, temp_fs1, temp_fs2, temp_s0->unk24)) {
@@ -611,8 +611,6 @@ void _uvTerraDraw(UnkStruct_80204D94* arg0, u8 arg1) {
     }
 }
 
-extern u16 D_80249250[][64];
-
 s32 func_8022F62C(s32 arg0, s16 arg1, s16 arg2, u8 arg3) {
     s16 temp_v0_2;
     s32 temp_v0;
@@ -621,7 +619,7 @@ s32 func_8022F62C(s32 arg0, s16 arg1, s16 arg2, u8 arg3) {
     arg2 -= arg0 * 0x10;
     if (arg3) {
         temp_v0_2 = arg2 - arg1;
-        if ((temp_v0_2 == 1) || (temp_v0_2 == 0) || (temp_v0_2 == -0x3F)) {
+        if ((temp_v0_2 == 1) || (temp_v0_2 == 0) || (temp_v0_2 == -63)) {
             return 0xFFFF;
         }
         arg1++;
@@ -639,7 +637,7 @@ s32 func_8022F62C(s32 arg0, s16 arg1, s16 arg2, u8 arg3) {
         return D_80249250[arg1][arg2];
     } else {
         temp_v0_2 = arg2 - arg1;
-        if ((temp_v0_2 == -1) || (temp_v0_2 == 0) || (temp_v0_2 == 0x3F)) {
+        if ((temp_v0_2 == -1) || (temp_v0_2 == 0) || (temp_v0_2 == 63)) {
             return 0xFFFF;
         }
         arg1--;
