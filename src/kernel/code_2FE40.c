@@ -399,7 +399,7 @@ typedef struct Unk802C5BC0 {
     f32 unk8;
     s8 unkC;
 } Unk802C5BC0;
-    
+
 extern Unk802C5BC0 D_802C5BC0[];
 extern s32 D_802C5FC0;
 extern u8 D_80263060[];
@@ -424,7 +424,7 @@ void func_8022EFB4(UnkStruct_80204D94* arg0, ParsedUVTR* arg1, f32 arg2) {
         if (D_802C5BC0[i].unk8 >= arg2) {
             continue;
         }
-            
+
         func_8022FE40(arg0, D_802C5BC0[i].unk0, D_802C5BC0[i].unk6, D_802C5BC0[i].unk4, 0);
     }
 }
@@ -517,7 +517,7 @@ void _uvTerraDraw(UnkStruct_80204D94* arg0, u8 arg1) {
 
         temp_fa0 = var_fv0 - temp_fv1_2;
         temp_ft3 = var_ft4 - temp_fa1;
-            
+
         if (temp_fa0 == 0.0f) {
             sp110[i] = 2.1401436e9f;
             spE8[i] = 0.0f;
@@ -590,7 +590,7 @@ void _uvTerraDraw(UnkStruct_80204D94* arg0, u8 arg1) {
             }
 
             temp_v0 = spDE & ~var_s6;
-            
+
             if (spDE) {
                 temp_s0_3 = &D_802C5BC0[D_802C5FC0];
                 temp_s0_3->unk0 = temp_s2;

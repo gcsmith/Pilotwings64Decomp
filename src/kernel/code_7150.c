@@ -2,18 +2,10 @@
 #include <uv_math.h>
 #include <uv_graphics.h>
 #include <uv_vector.h>
+#include "kernel/code_7150.h"
 
-// clang-format off
-static s32 D_80248DB0[] = {
-    0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
-};
-static s32 D_80248DC4[] = {
-    0x00000000, 0x00000000, 0x00000000,
-};
-// clang-format on
-
-void func_802061A0(UnkStruct_80204D94 *arg0) {
-    Vec3F *temp_s1;
+void func_802061A0(UnkStruct_80204D94* arg0) {
+    Vec3F* temp_s1;
     f32 temp_fa0;
     f32 temp_fa1;
     f32 temp_ft4;
@@ -21,7 +13,7 @@ void func_802061A0(UnkStruct_80204D94 *arg0) {
     f32 temp_fv0;
     f32 temp_fv1;
     u8 i;
-    Vec3F *temp_s0;
+    Vec3F* temp_s0;
 
     temp_fa1 = (arg0->unk1E8 / arg0->unk1F8) * arg0->unk1FC;
     temp_fa0 = (arg0->unk1EC / arg0->unk1F8) * arg0->unk1FC;
@@ -58,16 +50,78 @@ void func_802061A0(UnkStruct_80204D94 *arg0) {
     arg0->unk2D4.z = -temp_s0->z;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_7150/func_80206318.s")
+void func_80206318(UnkStruct_80204D94* arg0) {
+    s32 temp_v0;
+    Vec3F* temp_a2;
+    Vec3F* sp94[5];
+    Mtx4F sp54;
+    u8 i;
+    u8 sp52;
 
-// s32 func_80206594(Vec3F *, Vec3F *, Vec3F *, Vec3F *); /* extern */
-// ? func_80206610(ParsedUVTR *, Vec3F *, Vec3F *, Vec3F *, Vec3F *, Vec3F *); /* extern */
-// ? func_80206B58(Vec3F **, u8 *);                    /* extern */
+    uvMat4Copy(&sp54, &arg0->unk110);
 
-s32 func_80206594(Vec3F *arg0, Vec3F *arg1, Vec3F *arg2, Vec3F *arg3) {
+    for (i = 0; i < 6; i++) {
+        uvMat4LocalToWorld(&sp54, &arg0->unk250[i], &arg0->unk208[i]);
+    }
+
+    sp54.m[3][0] = sp54.m[3][1] = sp54.m[3][2] = 0.0f;
+    for (i = 0; i < 6; i++) {
+        uvMat4LocalToWorld(&sp54, &arg0->unk2E0[i], &arg0->unk298[i]);
+    }
+
+    if (gGfxUnkPtrs->terras[arg0->unk4] == NULL) {
+        return;
+    }
+
+    temp_a2 = arg0->unk250;
+
+    if (FABS(arg0->unk190.m[1][2]) <= 0.0001f) {
+        temp_v0 = func_80206594(&temp_a2[0], &temp_a2[1], &temp_a2[2], &temp_a2[3]);
+        switch (temp_v0) {
+        case 0:
+            sp94[0] = &temp_a2[5];
+            sp94[1] = &temp_a2[1];
+            sp94[2] = &temp_a2[3];
+            break;
+        case 1:
+            sp94[0] = &temp_a2[5];
+            sp94[1] = &temp_a2[2];
+            sp94[2] = &temp_a2[0];
+            break;
+        case 2:
+            sp94[0] = &temp_a2[5];
+            sp94[1] = &temp_a2[3];
+            sp94[2] = &temp_a2[1];
+            break;
+        case 3:
+            sp94[0] = &temp_a2[5];
+            sp94[1] = &temp_a2[0];
+            sp94[2] = &temp_a2[2];
+            break;
+        }
+        sp52 = 3;
+    } else {
+        sp94[0] = &temp_a2[0];
+        sp94[1] = &temp_a2[1];
+        sp94[2] = &temp_a2[2];
+        sp94[3] = &temp_a2[3];
+        sp94[4] = &temp_a2[5];
+        sp52 = 5;
+        func_80206610(gGfxUnkPtrs->terras[arg0->unk4], &temp_a2[5], &temp_a2[0], &temp_a2[1], &temp_a2[2], &temp_a2[3]);
+        func_80206B58(sp94, &sp52);
+    }
+
+    for (i = 0; i < sp52; i++) {
+        arg0->unk328[i].x = sp94[i]->x;
+        arg0->unk328[i].y = sp94[i]->y;
+    }
+    arg0->unk370 = sp52;
+}
+
+u16 func_80206594(Vec3F* arg0, Vec3F* arg1, Vec3F* arg2, Vec3F* arg3) {
     f32 var_fv1;
     f32 var_fv0;
-    s32 var_v1;
+    u16 var_v1;
 
     var_fv0 = 1000000.0f;
     var_v1 = 0;
@@ -95,9 +149,7 @@ s32 func_80206594(Vec3F *arg0, Vec3F *arg1, Vec3F *arg2, Vec3F *arg3) {
     return var_v1;
 }
 
-void func_80206A9C(Vec3F *arg0, f32 arg1, Vec3F *arg2);
-
-void func_80206610(ParsedUVTR *arg0, Vec3F *arg1, Vec3F *arg2, Vec3F *arg3, Vec3F *arg4, Vec3F *arg5) {
+void func_80206610(ParsedUVTR* arg0, Vec3F* arg1, Vec3F* arg2, Vec3F* arg3, Vec3F* arg4, Vec3F* arg5) {
     s32 var_v0;
     s32 var_v1;
     f32 var_fv0;
@@ -189,7 +241,7 @@ void func_80206610(ParsedUVTR *arg0, Vec3F *arg1, Vec3F *arg2, Vec3F *arg3, Vec3
     }
 }
 
-void func_80206A9C(Vec3F *arg0, f32 arg1, Vec3F *arg2) {
+void func_80206A9C(Vec3F* arg0, f32 arg1, Vec3F* arg2) {
     f32 temp_fv0;
     Vec3F sp18;
 
@@ -203,13 +255,10 @@ void func_80206A9C(Vec3F *arg0, f32 arg1, Vec3F *arg2) {
     arg2->z = arg0->z + (sp18.z * temp_fv0);
 }
 
-#ifndef NON_MATCHING
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/code_7150/func_80206B58.s")
-#else
-void func_80206B58(Vec3F **arg0, u8 *arg1) {
-    Vec3F *sp104[5] = { NULL, NULL, NULL, NULL, NULL };
-    s32 pad;
-    Vec3F *var_s4;
+void func_80206B58(Vec3F** arg0, u8* arg1) {
+    Vec3F* sp104[5] = { NULL, NULL, NULL, NULL, NULL };
+    Vec3F* temp_v0;
+    Vec3F* var_s4;
     Vec3F spC0[5];
     Vec3F spB4;
     Vec3F spA8 = { 0 };
@@ -217,19 +266,17 @@ void func_80206B58(Vec3F **arg0, u8 *arg1) {
     s32 var_s1;
     f32 temp_fv0;
     u8 sp9B;
+    u8 temp_v1;
     f32 var_fs0;
     s32 var_fp;
     s32 sp7C[5];
-    Vec3F* temp_v0;
-    u8 temp_v1;
+    Vec3F* temp_v1_2;
 
     var_fp = 0;
     var_fs0 = 1000000.0f;
     temp_v1 = *arg1;
-    sp7C[0] = 0;
-    sp7C[1] = 0;
-    sp7C[2] = 0;
-    sp7C[3] = 0;
+    // FAKE should chain assign all 5
+    sp7C[0] = sp7C[1] = sp7C[2] = sp7C[3] = 0;
     sp7C[4] = 0;
 
     for (spA4 = 0; spA4 < temp_v1; spA4++) {
@@ -248,7 +295,6 @@ void func_80206B58(Vec3F **arg0, u8 *arg1) {
 
     sp9B = 1;
     for (spA4 = 1; spA4 < temp_v1; spA4++) {
-
         var_fs0 = 1000000.0f;
 
         for (var_s1 = 0; var_s1 < temp_v1; var_s1++) {
@@ -268,10 +314,12 @@ void func_80206B58(Vec3F **arg0, u8 *arg1) {
             }
         }
 
-        if (arg0[var_fp] == sp104[0]) {
+        temp_v1_2 = arg0[var_fp];
+        if (temp_v1_2 == sp104[0]) {
             break;
         }
-        var_s4 = sp104[spA4] = arg0[var_fp];
+
+        var_s4 = sp104[spA4] = temp_v1_2;
         sp7C[var_fp] = 1;
 
         spB4.x = -spC0[var_fp].x;
@@ -286,13 +334,12 @@ void func_80206B58(Vec3F **arg0, u8 *arg1) {
 
     *arg1 = sp9B;
 }
-#endif
 
-s32 func_80206F64(Vec3F *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
+s32 func_80206F64(Vec3F* arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     f32 temp_fv0;
     u16 var_v0;
     u16 i;
-    Vec3F *temp_a1;
+    Vec3F* temp_a1;
 
     var_v0 = 0;
     for (i = 0; i < 5; i++) {
@@ -311,7 +358,7 @@ s32 func_80206F64(Vec3F *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     return 1;
 }
 
-s32 func_80207028(Vec3F *arg0, Vec3F *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
+s32 func_80207028(Vec3F* arg0, Vec3F* arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5) {
     f32 temp_fv0;
     f32 temp_fv1;
     f32 temp_ft4;
@@ -334,8 +381,8 @@ s32 func_80207028(Vec3F *arg0, Vec3F *arg1, f32 arg2, f32 arg3, f32 arg4, f32 ar
     return 1;
 }
 
-void func_802070B8(UnkStruct_80204D94 *arg0, UnkStruct_80204D94_Unk374 *arg1) {
-    Vec3F *temp_a0;
+void func_802070B8(UnkStruct_80204D94* arg0, UnkStruct_80204D94_Unk374* arg1) {
+    Vec3F* temp_a0;
     f32 temp_fa0;
     f32 temp_fv0;
     f32 temp_fv1;
@@ -345,7 +392,7 @@ void func_802070B8(UnkStruct_80204D94 *arg0, UnkStruct_80204D94_Unk374 *arg1) {
     temp_a0 = arg0->unk328;
     i = 0;
     temp_a2 = arg0->unk370;
-    
+
     arg1->unk0 = arg1->unk4 = arg1->unk8 = 1e10f;
     arg1->unkC = arg1->unk10 = arg1->unk14 = -1e10f;
     while (i < temp_a2) {

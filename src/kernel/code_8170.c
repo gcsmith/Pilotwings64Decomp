@@ -1756,8 +1756,8 @@ s32 uvSobjGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
                     if (!(temp_s1->unk11 & 2)) {
                         D_802634C8[D_802634C4] = ((terraId & 0xFF) << 24) | ((temp_t6 & 0xFFF) << 12) | (k & 0xFFF);
                         D_80263548[D_802634C4] = sp108;
-                        func_80215BC4(arg1, arg2, arg3, arg4, arg5, arg6, sp108, temp_s3->unk0.m[3][0] + temp_s0_2->unk8, temp_s3->unk0.m[3][1] + temp_s0_2->unkC,
-                                      temp_s3->unk0.m[3][2] + temp_s0_2->unk10, &D_802635C8[D_802634C4]);
+                        func_80215BC4(arg1, arg2, arg3, arg4, arg5, arg6, sp108, temp_s3->unk0.m[3][0] + temp_s0_2->unk8,
+                                      temp_s3->unk0.m[3][1] + temp_s0_2->unkC, temp_s3->unk0.m[3][2] + temp_s0_2->unk10, &D_802635C8[D_802634C4]);
                         D_802634C4++;
                         if (D_802634C4 >= HIT_COUNT) {
                             break;
