@@ -20,21 +20,20 @@ typedef struct {
     u16 unk4;
 } Struct802B53C8;
 
+s32 D_802B8820;
+s32 D_802B8824;
+s32 D_802B8828;
+s32 D_802B882C;
+Struct802B8830 D_802B8830[10];
+Struct802B8880 D_802B8880[20];
+// flags to determine if any of 3 scratch regions are in use
+s32 D_802B8920[3];
+u32 D_802B892C;
+u32 D_802B8930;
+u32 D_802B8934;
+
 extern u8 kernel_TEXT_START[];
 
-extern s32 D_802B8820;
-extern s32 D_802B8824;
-extern s32 D_802B8828;
-extern s32 D_802B882C;
-extern Struct802B8830 D_802B8830[];
-extern Struct802B8880 D_802B8880[];
-
-// flags to determine if any of 3 scratch regions are in use
-extern s32 D_802B8920[3];
-
-extern u32 D_802B892C;
-extern u32 D_802B8930;
-extern u32 D_802B8934;
 
 extern u8 D_803805E0;
 

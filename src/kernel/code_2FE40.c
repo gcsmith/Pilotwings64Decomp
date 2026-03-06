@@ -400,8 +400,9 @@ typedef struct Unk802C5BC0 {
     s8 unkC;
 } Unk802C5BC0;
 
-extern Unk802C5BC0 D_802C5BC0[];
-extern s32 D_802C5FC0;
+Unk802C5BC0 D_802C5BC0[64];
+s32 D_802C5FC0;
+
 extern u8 D_80263060[];
 
 void func_8022EE90(UnkStruct_80204D94* arg0, ParsedUVTR* arg1, f32 arg2) {

@@ -8,30 +8,32 @@
 #define RDP_DONE_MSG 668
 #define PRE_NMI_MSG 669
 
+Unk802B92A0 D_802B8940[5];
+Unk802B92A0 D_802B92A0[5];
+s32 D_802B9C00[5];
+s32 D_802B9C18[5];
+f64 D_802B9C30[5];
+OSScTask* D_802B9C58;
+OSScTask* D_802B9C60[2];
+u8 D_802B9C68;
+u8 gSchedRspStatus;
+u8 gSchedRdpStatus;
+u8 D_802B9C6B;
+u8 D_802B9C6C;
+u8 D_802B9C6D;
+u8 D_802B9C6E;
+u8 D_802B9C6F;
+u8 D_802B9C70;
+s32 D_802B9C74;
+s32 gSchedRingIdx;
+s32 D_802B9C7C;
+s32 gNmiAsserted;
+s32 D_802B9C84;
+s32 D_802B9C88;
+
 extern OSViMode osViModeTable[];
-extern s32 gNmiAsserted;
-extern u8 gSchedRspStatus;
-extern u8 gSchedRdpStatus;
 extern OSSched gSchedInst;
-extern s32 gSchedRingIdx;
-extern OSMesgQueue gSchedMsgQ;
-extern OSMesgQueue D_802C3920;
-extern s32 D_802B9C00[];
 extern s32 D_802B9C18[];
-extern double D_802B9C30[];
-extern OSScTask* D_802B9C58;
-extern OSScTask* D_802B9C60[];
-extern u8 D_802B9C68;
-extern u8 D_802B9C6B;
-extern u8 D_802B9C6C;
-extern u8 D_802B9C6D;
-extern u8 D_802B9C6E;
-extern u8 D_802B9C6F;
-extern u8 D_802B9C70;
-extern s32 D_802B9C74;
-extern s32 D_802B9C7C;
-extern s32 D_802B9C84;
-extern s32 D_802B9C88;
 
 void func_8022B0A0(Unk8022B0A0* arg0, Mtx4F* arg1) {
     f32 temp_fa1;
@@ -168,10 +170,10 @@ void _uvScDlistRecover(void) {
 
     IO_WRITE(SP_STATUS_REG, 0x2902);
     if (gSchedRspStatus != 0) {
-        osSendMesg(&gSchedMsgQ, (OSMesg)RSP_DONE_MSG, 0);
+        osSendMesg(&gSchedInst.interruptQ, (OSMesg)RSP_DONE_MSG, OS_MESG_NOBLOCK);
     }
     if (gSchedRdpStatus != 0) {
-        osSendMesg(&gSchedMsgQ, (OSMesg)RDP_DONE_MSG, 0);
+        osSendMesg(&gSchedInst.interruptQ, (OSMesg)RDP_DONE_MSG, OS_MESG_NOBLOCK);
     }
 }
 
@@ -241,7 +243,7 @@ void _uvScMain(void* arg0) {
     msg = NULL;
 
     while (1) {
-        osRecvMesg(&gSchedMsgQ, &msg, 1);
+        osRecvMesg(&gSchedInst.interruptQ, &msg, OS_MESG_BLOCK);
 
         switch ((int)msg) {
         case VIDEO_MSG:
@@ -292,7 +294,7 @@ void _uvScHandleRetrace(void) {
             D_802B9C6F = 0;
             _uvDebugPrintf("RDP timeout on %c [%d], sending wakeup...\n", gSchedRdpStatus, gSchedRdpStatus);
             _uvScLogIntoRing();
-            osSendMesg(&gSchedMsgQ, (OSMesg)0x29C, 0);
+            osSendMesg(&gSchedInst.interruptQ, (OSMesg)RDP_DONE_MSG, OS_MESG_NOBLOCK);
             return;
         }
         if (gSchedRspStatus == 'a') {
@@ -305,7 +307,7 @@ void _uvScHandleRetrace(void) {
             D_802B9C6E ^= 1;
         }
 
-        while (osRecvMesg(&D_802C3920, (void*)&msg, 0) != -1) {
+        while (osRecvMesg(&gSchedInst.cmdQ, (OSMesg)&msg, OS_MESG_NOBLOCK) != -1) {
             if (msg == NULL) {
                 _uvDebugPrintf("received message with task of 0\n");
                 break;

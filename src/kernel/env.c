@@ -3,11 +3,11 @@
 #include <uv_graphics.h>
 #include <uv_environment.h>
 
+Mtx D_80269F10;
+
 static Mtx4F D_80248DE0 = {
     1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
 };
-
-extern Mtx D_80269F10;
 
 void uvEnvProps(s32 arg0, ...) {
     f32 temp_fs0;

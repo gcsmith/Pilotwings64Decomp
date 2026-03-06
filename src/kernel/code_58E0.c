@@ -10,6 +10,14 @@
 #include "kernel/code_7150.h"
 #include "kernel/code_2FE40.h"
 
+UnkStruct_80204D94 D_80261730[2];
+u8 D_80261E70[100];
+UnkSortAdd D_80261ED8[100];
+UnkSortAdd D_802629C8[60];
+s32 D_80263058;
+s32 D_8026305C;
+u8 D_80263060[1040];
+
 // TODO FIXME fix for gSPPerspNormalize, due to older f3d ucode
 #undef gSPPerspNormalize
 #define gSPPerspNormalize(pkt, s)                   \
@@ -20,13 +28,7 @@
         _g->words.w1 = (s);                         \
     }
 
-extern UnkSortAdd D_80261ED8[];
-extern UnkSortAdd D_802629C8[];
-extern s32 D_80263058;
-extern s32 D_8026305C;
 extern f32 D_80249208;
-extern u8 D_80263060[];
-extern u8 D_80261E70[];
 
 void func_80204930(void) {
     s32 i;

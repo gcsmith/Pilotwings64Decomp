@@ -47,13 +47,16 @@ ParsedUVTP* _uvParseUVTP(u8*);
 ParsedUVTR* _uvParseUVTR(u8*);
 ParsedUVBT* _uvParseUVBT(u8*);
 
+Unk802B53C0* D_802B53C0;
+UVBlockCounts gUVBlockCounts;
+UVBlockOffsets gUVBlockOffsets;
+void* D_802B6E30[LEVEL_TEXTURE_COUNT];
+u16 D_802B7600[1000];
+u16* D_802B7DD0;
+ParsedUVLV* D_802B7DD4;
+
 extern u32 D_802B892C;
-
 extern u32 D_802B8934;
-
-extern u16 D_802B7600[1000];
-extern u16* D_802B7DD0;
-extern ParsedUVLV* D_802B7DD4;
 
 void uvMemInitBlockHdr(void) {
     s32 sp64;
