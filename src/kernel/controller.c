@@ -2,8 +2,8 @@
 #include <uv_controller.h>
 #include <uv_util.h>
 
+ControllerInfo gControllerInfo[6];
 extern s32 gControllerPattern;
-extern ControllerInfo gControllerInfo[6];
 
 void uvControllerInit(void) {
     s32 i;

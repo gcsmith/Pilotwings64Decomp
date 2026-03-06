@@ -8,7 +8,16 @@
 #include <libc/stdarg.h>
 #include <uv_graphics.h>
 #include "kernel/code_58E0.h"
+#include "kernel/code_7150.h"
 #include "kernel/code_8170.h"
+
+Unk80263780 D_80263780[100];
+Mtx4F D_80265080[300];
+u8 D_80269B80[300];
+u16 D_80269CB0[100];
+s32 D_80269D78[100];
+u16 D_80269F08;
+u16 D_80269F0A;
 
 // TODO FIXME fix for gSPPerspNormalize, due to older f3d ucode
 #undef gSPPerspNormalize
@@ -485,8 +494,6 @@ u8 uvDobj_80217AB4(ParsedUVMD* arg0, f32 arg1) {
     }
     return 0;
 }
-
-extern s32 D_80269D78[];
 
 s32 uvDobj_80217B34(s32** arg0) {
     *arg0 = D_80269D78;

@@ -2,8 +2,10 @@
 #include <uv_matrix.h>
 #include <macros.h>
 
+u64 gGfxDramStack[0x80];
+Mtx4F gMatrixStack[25];
+
 static s32 gMatrixStackIdx = 0;
-extern Mtx4F gMatrixStack[100];
 
 void _uvDbMstackReset(void) {
     gMatrixStackIdx = -1;
@@ -15,7 +17,8 @@ Mtx4F* _uvDbMstackTop(void) {
 
 void _uvDbMstackPush(Mtx4F* src) {
     gMatrixStackIdx = gMatrixStackIdx + 1;
-    if (gMatrixStackIdx >= ARRAY_COUNT(gMatrixStack)) {
+    //! @bug the matrix stack is not this large
+    if (gMatrixStackIdx >= 100) {
         _uvDebugPrintf("_uvDbMstackPush: stack full\n");
         return;
     }

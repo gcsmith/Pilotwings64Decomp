@@ -7,6 +7,7 @@
 #include <uv_vector.h>
 #include <libc/stdarg.h>
 #include "kernel/code_58E0.h"
+#include "kernel/code_7150.h"
 
 UnkModelDebrisStructure D_8028A0A0[4];
 UnkModelTrail D_8028AC40[4];
@@ -784,10 +785,6 @@ void func_8021C74C(u16 arg0) {
     }
 }
 
-#ifndef NON_MATCHING
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/fx/func_8021C87C.s")
-void func_8021C87C(u16 arg0);
-#else
 void func_8021C87C(u16 arg0) {
     s16 i;
     s16 sp94;
@@ -803,8 +800,8 @@ void func_8021C87C(u16 arg0) {
     s16 j;
     s16 sp82;
     s16 sp80;
-    s32 temp_a0;
-    unk8028B400* sp70;
+    s32 temp_v1;
+    UnkFxStruct* sp70;
     s32 pad3;
 
     sp70 = &D_8028B400[arg0];
@@ -859,10 +856,11 @@ void func_8021C87C(u16 arg0) {
     var_fp = 1;
 
     for (i = 0; i < sp94; i++) {
-        j = ((temp_s6->unk1E8 - i) + 9) % 10;
+        temp_v1 = temp_s6->unk1E8 - i;
+        j = (temp_v1 + 9) % 10;
         sp8A = temp_s6->unk168[j];
         // FAKE
-        if ((temp_s6->unk1E8 - i) / 10) { }
+        if (j / 10) { }
         if (!sp8A) {
             continue;
         }
@@ -901,10 +899,11 @@ void func_8021C87C(u16 arg0) {
     var_fp = 1;
 
     for (i = 0; i < sp94; i++) {
-        j = ((temp_s6->unk1E8 - i) + 9) % 10;
+        temp_v1 = temp_s6->unk1E8 - i;
+        j = (temp_v1 + 9) % 10;
         sp8A = temp_s6->unk168[j];
         // FAKE
-        if ((temp_s6->unk1E8 - i) / 10) { }
+        if (j / 10) { }
         if (!sp8A) {
             continue;
         }
@@ -920,7 +919,6 @@ void func_8021C87C(u16 arg0) {
     }
     uvGfxMtxViewPop();
 }
-#endif
 
 void func_8021D700(UnkModelTrail* arg0) {
     s32 i;

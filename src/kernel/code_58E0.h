@@ -3,7 +3,20 @@
 
 #include <uv_graphics.h>
 
-s32 func_80206F64(void*, f32, f32, f32, f32);
+typedef struct UnkSortAdd {
+    u8 unk0;
+    u8 unk1;
+    u8 unk2;
+    f32 unk4;
+    f32 unk8;
+    f32 unkC;
+    void* unk10; // Unk80263780*, UnkFxStruct* or UnkSobjDraw*
+    u16 unk14;
+    Mtx4F* unk18;
+} UnkSortAdd;
+
+void func_80205BFC(void);
+void func_80205CE4(UnkStruct_80204D94*, s32, f32, f32);
 void _uvSortAdd(s32, f32, void*, UnkStruct_80204D94*, f32, f32, ...);
 
 #endif // CODE_58E0_H

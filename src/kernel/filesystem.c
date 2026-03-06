@@ -10,9 +10,10 @@ typedef struct {
     u32 offset;
 } Unk802B5300;
 
+Unk802B5300 D_802B5300[1];
+
 extern u16 gGfxFbIndex;
 extern u8* gGfxFbPtrs[2];
-extern Unk802B5300 D_802B5300[1];
 
 s32 uvFileReadHeader(s32 addr) {
     Unk802B5300* ptr;
