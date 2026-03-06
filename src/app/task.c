@@ -567,7 +567,7 @@ s32 levelDataGetFALC(void** data) {
     return D_8035078C->comm.countFALC;
 }
 
-s32* levelGet_80345C80(void) {
+Unk80345C80* levelGet_80345C80(void) {
     return &D_8035078C->comm.unk48;
 }
 
@@ -584,8 +584,8 @@ u8* levelGet_80345CB0(void) {
 }
 
 void levelGet_80345CC0(f32* arg0, f32* arg1) {
-    *arg0 = D_8035078C->comm.unk404;
-    *arg1 = D_8035078C->comm.unk408;
+    *arg0 = D_8035078C->comm.unk48.unk3BC;
+    *arg1 = D_8035078C->comm.unk48.unk3C0;
 }
 
 LevelCommObjects* levelLoadCommObj(u32 arg0) {

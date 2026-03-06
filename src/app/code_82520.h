@@ -19,5 +19,6 @@ void func_802FB22C(void);
 s32 func_802FB308(s32);
 void func_802FB518(void);
 u8 func_802FB5A0(void);
+s16 func_802FB5FC(void);
 
 #endif // APP_CODE_82520_H

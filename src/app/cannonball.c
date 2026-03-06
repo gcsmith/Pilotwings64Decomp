@@ -870,6 +870,11 @@ s32 cannonLoad802D77D8(Unk80362690* arg0, Unk802D3658_Arg0* arg1) {
 // cannonFrame802D7B7C called every frame while aiming cannon and while in flight before landing
 #pragma GLOBAL_ASM("asm/nonmatchings/app/cannonball/cannonFrame802D7B7C.s")
 
+#ifndef NON_MATCHING
+// matches if func_8032B560 is changed to return void?
+s32 cannonLandedFrame(Unk802D5C5C_Arg0* arg0);
+#pragma GLOBAL_ASM("asm/nonmatchings/app/cannonball/cannonLandedFrame.s")
+#else
 // cannonLandedFrame called every frame after landing from cannon shot
 s32 cannonLandedFrame(Unk802D5C5C_Arg0* arg0) {
     s32* temp_v1;
@@ -947,6 +952,7 @@ s32 cannonLandedFrame(Unk802D5C5C_Arg0* arg0) {
     hudWarningText(-1, 0.0f, 0.0f);
     return 0xD;
 }
+#endif
 
 // cannonEndShot called once after landing before the cannon is reset for next shot
 #pragma GLOBAL_ASM("asm/nonmatchings/app/cannonball/cannonEndShot.s")

@@ -21,7 +21,7 @@ extern MedalPointRequirement gMedalPointRequirements[MAX_CLASSES];
 
 void func_8032B3D0(Unk80364210*);
 u8 func_8032C080(s32*);
-void func_8032B560(Unk80364210*, u8, u8, u8);
+s32 func_8032B560(Unk80364210*, u8, u8, u8);
 s32 levelGetTotalPoints(Unk80364210*, s32, s32);
 Unk80364210* func_8032BE10(void);
 u8 testGetPointCount(Unk80364210*, u8, u8, u8);

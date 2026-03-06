@@ -9,5 +9,6 @@ void func_802D2ACC(void);
 s32 func_802D2E48(void);
 void func_802D3030(void);
 u8 func_802D30B4(void);
+s16 func_802D3110(void);
 
 #endif // APP_BALL_TARGET_H

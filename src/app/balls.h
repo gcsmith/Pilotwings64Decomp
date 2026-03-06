@@ -19,5 +19,6 @@ void func_802CB094(void);
 void func_802CB35C(void);
 void func_802CB3F8(void);
 u8 func_802CC15C(void);
+s16 func_802CC064(void);
 
 #endif // APP_BALLS_H

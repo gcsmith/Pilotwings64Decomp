@@ -1,16 +1,20 @@
 #include "common.h"
-#include <uv_level.h>
 #include "ball_target.h"
 #include "balls.h"
 #include "code_72B70.h"
 #include "code_82520.h"
 #include "code_94E60.h"
+#include "code_9A960.h"
 #include "code_B2900.h"
 #include "falco.h"
 #include "hover_pads.h"
 #include "rings.h"
+#include "snap.h"
+#include "skydiving.h"
 #include "targets.h"
+#include <uv_level.h>
 
+// .data
 Unk80364210* D_8034FBD0 = NULL;
 // required points for medal, first = bronze, second = silver, third = gold
 MedalPointRequirement gMedalPointRequirements[MAX_CLASSES] = {
@@ -23,6 +27,9 @@ MedalPointRequirement gMedalPointRequirements[MAX_CLASSES] = {
     {  70,  80,  90 }, // jumble hopper?
     {   0,   0,   0 }
 };
+
+// forward decls
+static u8 func_8032BF54(void);
 
 void func_8032B3D0(Unk80364210* arg0) {
     s32 pad[7];
@@ -82,8 +89,192 @@ void func_8032B508(Unk80364210* arg0) {
     D_8034FBD0 = arg0;
 }
 
-// https://decomp.me/scratch/cst2K
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_B2900/func_8032B560.s")
+s32 func_8032B560(Unk80364210 *arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
+    Unk80345C80* sp74;
+    s32 pad_sp70;
+    s32 pad_sp6C;
+    s16 sp6A;
+    // why is there padding missing here?
+    f32 sp64;
+    f32 sp60;
+    s32 pad_sp5C;
+    s32 pad_sp58;
+    s32 pad_sp54;
+    s32 sp50;
+    s32 sp4C;
+    Unk80364210_Unk0_Unk0* temp_v1;
+    s32 sp44;
+    s32 tempPoints;
+    s32 sp3C;
+
+    sp74 = (Unk80345C80*)levelGet_80345C80();
+    if (D_80362690->unkA1 != 0) {
+        arg0->unk0 = 0x3F3E0;
+    }
+    if (arg0->unk3C != 0) {
+        arg0->unk0 = 0x3F7F8;
+    }
+    switch (levelGet_80346364()) {
+    case 0:
+        break;
+    case 1:
+        if (arg0->unk3C != 0) {
+            arg0->unk0 = 0;
+        }
+        break;
+    case 2:
+        if (func_8032BF54() != 0) {
+            arg0->unk0 &= ~0x800;
+        }
+        break;
+    case 3:
+        if (func_8032C080(&sp4C) == 0) {
+            arg0->unk0 &= ~0x800;
+        }
+        break;
+    case 4:
+        if (arg0->unk18 < sp74->unk3C8) {
+            arg0->unk0 &= ~0x800;
+        }
+        break;
+    }
+    temp_v1 = &arg0->unk40[classIdx].unk0[testIdx][vehIdx];
+    if (temp_v1){}
+    temp_v1->unk4 = 0;
+    sp64 = 0.0f;
+    if ((arg0->unk0 & 2) && (sp74->unk0.unk0 > 0)) {
+        sp64 = func_80313F08(&sp74->unk0, arg0->unk8);
+        temp_v1->unk4 = sp64 + 0.001f;
+    }
+    temp_v1->unk2 = 0;
+    sp60 = 0.0f;
+    if (arg0->unk0 & 1) {
+        if (sp74->unk0.unk0 > 0) {
+            sp60 = func_80313F08(&sp74->unk0, arg0->unkC);
+        }
+        temp_v1->unk2 = sp60 + 0.001f;
+    }
+    temp_v1->unk6 = 0;
+    if ((arg0->unk0 & 4) && sp74->unk150.unk0 > 0) {
+        temp_v1->unk6 = func_80313F08(&sp74->unk150, arg0->unk10) + 0.001f;
+    }
+    temp_v1->unk8 = 0;
+    if ((arg0->unk0 & 8) && sp74->unk54.unk0 > 0) {
+        temp_v1->unk8 = func_80313F08(&sp74->unk54, arg0->unk14) + 0.001f;
+    }
+    temp_v1->unkA = 0;
+    if ((arg0->unk0 & 0x10) && sp74->unkA8.unk0 > 0) {
+        temp_v1->unkA = func_80313F08(&sp74->unkA8, arg0->unk18) + 0.001f;
+    }
+    temp_v1->unkE = 0;
+    if (arg0->unk0 & 0x20) {
+        temp_v1->unkE = func_80324B60(&temp_v1->unk28);
+    }
+    temp_v1->unk14 = 0;
+    if (arg0->unk0 & 0x100) {
+        temp_v1->unk14 = func_80344948();
+    }
+    temp_v1->unk16 = 0;
+    if (arg0->unk0 & 0x200) {
+        temp_v1->unk16 = func_802CC064();
+    }
+    temp_v1->unkC = 0;
+    if ((arg0->unk0 & 0x800) && sp74->unkFC.unk0 > 0) {
+        temp_v1->unkC = func_80313F08(&sp74->unkFC, arg0->unk1C);
+    }
+    temp_v1->unk12 = 0;
+    if (arg0->unk0 & 0x80) {
+        temp_v1->unk12 = arg0->unk2C;
+    }
+    temp_v1->unk18 = 0;
+    if (arg0->unk0 & 0x400) {
+        temp_v1->unk18 = arg0->unk30 * sp74->unk3B4;
+    }
+    if (temp_v1->unk18 < -0x64) {
+        temp_v1->unk18 = -0x64;
+    }
+    temp_v1->unk1A = 0;
+    if (arg0->unk0 & 0x1000) {
+        temp_v1->unk1A = sdive_getpoints(1);
+    }
+    temp_v1->unk1C = 0;
+    if (arg0->unk0 & 0x2000) {
+        temp_v1->unk1C = func_80338614();
+    }
+    temp_v1->unk1E = 0;
+    if (arg0->unk0 & 0x4000) {
+        temp_v1->unk1E = func_8030A0DC();
+    }
+    temp_v1->unk20 = 0;
+    if (arg0->unk0 & 0x8000) {
+        temp_v1->unk20 = func_802E5818();
+    }
+    temp_v1->unk22 = 0;
+    if (arg0->unk0 & 0x10000) {
+        temp_v1->unk22 = func_802D3110();
+    }
+    temp_v1->unk24 = 0;
+    if (arg0->unk0 & 0x20000) {
+        temp_v1->unk24 = func_802FB5FC();
+    }
+
+    sp6A = temp_v1->unk8
+        + temp_v1->unk14
+        + temp_v1->unkC
+        + temp_v1->unkA
+        + temp_v1->unkE
+        + temp_v1->unk12
+        + temp_v1->unk18
+        + temp_v1->unk16
+        + temp_v1->unk6
+        + temp_v1->unk1A
+        + temp_v1->unk1C
+        + temp_v1->unk1E
+        + temp_v1->unk20
+        + temp_v1->unk22
+        + temp_v1->unk24
+        + arg0->unk38;
+    if (arg0->unkC != 10000.0f) {
+        temp_v1->unk4 = (sp64 * sp60) + 0.5f;
+        temp_v1->unk2 = 0;
+    }
+    sp6A += temp_v1->unk4;
+    if (sp6A < 0) {
+        sp6A = 0;
+    } else if (sp6A > 0x64) {
+        sp6A = 0x64;
+    }
+    if (IS_NOT_MAIN_VEHICLE(vehIdx)) {
+        sp50 = vehIdx + 1;
+    } else {
+        sp50 = classIdx;
+    }
+    sp44 = levelGetTotalPoints(arg0, classIdx, vehIdx);
+    temp_v1->unk0 = 1;
+    if (sp6A == temp_v1->unk2C && levelSetPointsToNextMedal(&sp4C, sp44, sp50) == MEDAL_NONE) {
+        if (sp4C == 0) {
+            temp_v1->unk0 = 4;
+        }
+    } else if (temp_v1->unk2C < sp6A || temp_v1->unk2C == 0x7F) {
+        if (temp_v1->unk2C == 0x7F) {
+            temp_v1->unk2C = 0;
+        }
+        sp3C = levelSetPointsToNextMedal(&sp4C, sp44, sp50);
+        temp_v1->unk2E = 1;
+        temp_v1->unk2C = sp6A;
+        tempPoints = levelGetTotalPoints(arg0, classIdx, vehIdx);
+        if (levelSetPointsToNextMedal(&sp4C, tempPoints, sp50) != sp3C || (sp3C == 3 && sp4C == 0)) {
+            temp_v1->unk0 = 4;
+        } else {
+            temp_v1->unk0 = 1;
+        }
+    } else {
+        temp_v1->unk2E = 0;
+        temp_v1->unk0 = 1;
+    }
+    pad_sp6C = (levelGet_80345C80()->unk3B8 < sp6A) ? TRUE : FALSE;
+    return pad_sp6C;
+}
 
 // calculates the total amount of points for the given class + vehicle index
 s32 levelGetTotalPoints(Unk80364210* arg0, s32 classIdx, s32 vehIdx) {
@@ -128,7 +319,7 @@ s32 func_8032BE8C(Unk80364210* arg0, u8 classIdx, u8 vehIdx) {
     return success;
 }
 
-u8 func_8032BF54(void) {
+static u8 func_8032BF54(void) {
     void* tmp;
 
     tmp = NULL;
@@ -141,7 +332,7 @@ u8 func_8032BF54(void) {
 }
 
 u8 func_8032C080(s32* arg0) {
-    s32* sp2C;
+    Unk80345C80* sp2C;
     s32 var_v1;
     s32 pad;
 
@@ -152,8 +343,7 @@ u8 func_8032C080(s32* arg0) {
         }
         return 0;
     }
-    var_v1 = (((f32*)sp2C)[0xF1 /*unk3C4*/] -
-              (f32)(func_802D30B4() + (func_802E57C4() + (func_8030A080() + (func_803448F4() + (func_80324AF4() + func_802FB5A0()))))));
+    var_v1 = sp2C->unk3C4 - (func_802D30B4() + (func_802E57C4() + (func_8030A080() + (func_803448F4() + (func_80324AF4() + func_802FB5A0())))));
     if (var_v1 < 0) {
         var_v1 = 0;
     }

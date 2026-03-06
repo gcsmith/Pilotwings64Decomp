@@ -1,6 +1,7 @@
 #include "common.h"
 #include "code_61A60.h"
 #include "code_9A960.h"
+#include <uv_level.h>
 
 s32 D_8034EA40 = 0;
 u16 D_8034EA44 = 0xFFFF;

@@ -84,9 +84,8 @@ typedef struct {
     s16 unk20;
     s16 unk22;
     s16 unk24;
-    u16 pad26;
-    u16 pad28;
-    u16 pad2A;
+    s16 pad26;
+    s32 unk28;
     s16 unk2C;
     s16 unk2E;
 } Unk80364210_Unk0_Unk0; // size = 0x30
@@ -371,6 +370,47 @@ typedef struct {
 } LevelObjects;
 
 typedef struct {
+    s32 unk0;
+    f32 unk4;
+    f32 unk8;
+    f32 unkC;
+    f32 unk10;
+    f32 unk14;
+    f32 unk18;
+    f32 unk1C;
+    f32 unk20;
+    f32 unk24;
+    f32 unk28;
+    f32 unk2C;
+    f32 unk30;
+    f32 unk34;
+    f32 unk38;
+    f32 unk3C;
+    f32 unk40;
+    s32 pad44;
+    s32 pad48;
+    s32 pad4C;
+    s32 pad50;
+} Unk803599D0; // size = 0x54
+
+typedef struct {
+    // keeping these as single members instead of array because it's easier to read
+    Unk803599D0 unk0;
+    Unk803599D0 unk54;
+    Unk803599D0 unkA8;
+    Unk803599D0 unkFC;
+    Unk803599D0 unk150;
+    // maybe more Unk803599D0 here
+    u8 pad1A4[0x3B4-0x1A4];
+    s32 unk3B4;
+    s32 unk3B8;
+    f32 unk3BC;
+    f32 unk3C0;
+    f32 unk3C4;
+    f32 unk3C8;
+} Unk80345C80;
+
+typedef struct {
     struct {
         u8 classNum;
         u8 vehNum;
@@ -385,11 +425,8 @@ typedef struct {
         s32 unk2C;
         u8 unk30[0x14];
         f32 unk44;
-        s32 unk48;
-        u8 unk4C[0x3B8];
-        f32 unk404;
-        f32 unk408;
-        u8 unk40C[0x10];
+        Unk80345C80 unk48;
+        u8 unk40C[8];
         u8 countTHER; // count THER
         u8 countLWIN; // count LWIN
         u8 countTPAD; // count TPAD
@@ -458,7 +495,7 @@ void level_803453AC(void);
 s32 level_80345464(Mtx4F*, s32);
 s32 level_803456D8(Mtx4F*);
 void level_80345A24(void);
-s32* levelGet_80345C80(void);
+Unk80345C80* levelGet_80345C80(void);
 s32* levelGet_80345C90(void);
 f32 levelGet_80345CA0(void);
 u8* levelGet_80345CB0(void);
