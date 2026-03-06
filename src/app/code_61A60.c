@@ -419,24 +419,18 @@ void func_802DBE10(Unk802D3658_Unk1228* arg0, s32 arg1, s32 arg2, f32 arg3, Vec3
 }
 
 void func_802DBE64(Unk802D3658_Unk111C* arg0, Unk802D3658_Unk1224* arg1, s32 idx, Mtx4F* arg3) {
+    Unk802D3658_Unk1228* unk1228;
     Vec3F* unk2C;
     Vec3F* unk20;
-    f32 temp_fv0;
-    s32 temp_t2;
 
-    temp_t2 = arg1->unk4[idx].unk0;
-    temp_fv0 = arg1->unk4[idx].unk18;
-    unk20 = &arg0->unk4[temp_t2].unk1C;
-    unk2C = &arg0->unk4[temp_t2].unk28;
+    unk1228 = &arg1->unk4[idx];
+    unk2C = &arg0->unk4[unk1228->unk0].unk28;
+    unk20 = &arg0->unk4[unk1228->unk0].unk1C;
 
-    // fakematch: force pointers to stay
-    unk2C += 0;
-    unk20 += 0;
-
-    arg1->unk4[idx].unk28.x = unk2C->x + ((unk20->x - unk2C->x) * temp_fv0);
-    arg1->unk4[idx].unk28.y = unk2C->y + ((unk20->y - unk2C->y) * temp_fv0);
-    arg1->unk4[idx].unk28.z = unk2C->z + ((unk20->z - unk2C->z) * temp_fv0);
-    uvMat4LocalToWorld(arg3, &arg1->unk4[idx].unk34, &arg1->unk4[idx].unk1C);
+    unk1228->unk28.x = unk2C->x + ((unk20->x - unk2C->x) * unk1228->unk18);
+    unk1228->unk28.y = unk2C->y + ((unk20->y - unk2C->y) * unk1228->unk18);
+    unk1228->unk28.z = unk2C->z + ((unk20->z - unk2C->z) * unk1228->unk18);
+    uvMat4LocalToWorld(arg3, &unk1228->unk34, &unk1228->unk1C);
 }
 
 s32 func_802DBF10(Unk802D3658_Unk111C* arg0, Unk802D3658_Unk1224* arg1, Vec3F* arg2, Vec3F* arg3) {
@@ -484,36 +478,26 @@ s32 func_802DBF10(Unk802D3658_Unk111C* arg0, Unk802D3658_Unk1224* arg1, Vec3F* a
 f32 func_802DC074(Mtx4F* arg0, Vec3F* arg1, Vec3F* arg2, Vec3F* arg3, f32 arg4) {
     Vec3F sp2C;
     f32 var_fa1;
-    f32 temp_fv1;
 
     var_fa1 = uvVec3Dot(arg1, arg3);
     if (var_fa1 < 0.0f) {
-        temp_fv1 = 2.0f * var_fa1;
-        arg1->x -= temp_fv1 * arg3->x;
-        arg1->y -= temp_fv1 * arg3->y;
-        arg1->z -= temp_fv1 * arg3->z;
+        arg1->x -= (2.0f * var_fa1) * arg3->x;
+        arg1->y -= (2.0f * var_fa1) * arg3->y;
+        arg1->z -= (2.0f * var_fa1) * arg3->z;
         arg1->x *= arg4;
         arg1->y *= arg4;
         arg1->z *= arg4;
 
-        // fakematch
-        arg3 += 0;
-
         uvMat4LocalToWorld(arg0, &sp2C, arg3);
-        arg2->x -= temp_fv1 * sp2C.x;
-        arg2->y -= temp_fv1 * sp2C.y;
-        arg2->z -= temp_fv1 * sp2C.z;
+        arg2->x -= (2.0f * var_fa1) * sp2C.x;
+        arg2->y -= (2.0f * var_fa1) * sp2C.y;
+        arg2->z -= (2.0f * var_fa1) * sp2C.z;
         arg2->x *= arg4;
         arg2->y *= arg4;
         arg2->z *= arg4;
     }
 
-    if (var_fa1 > 0.0f) {
-        temp_fv1 = var_fa1;
-    } else {
-        temp_fv1 = -var_fa1;
-    }
-    return temp_fv1;
+    return FABS(var_fa1);
 }
 
 f32 func_802DC1DC(Vec3F* arg0, Vec3F* arg1, Vec3F* arg2, f32 arg3, f32 arg4, f32 arg5) {
