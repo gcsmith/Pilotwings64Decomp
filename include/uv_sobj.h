@@ -24,5 +24,6 @@ void uvSobjPosm(u32 soid, s32 dstIdx, Mtx4F* src);
 void uvSobj_8022D168(u32 soid, s32 srcIdx, Mtx4F* dst);
 u16 uvSobj_8022D1E4(u32 soid);
 void uvSobjModel(u32 soid, s32);
+s32 uvSobjGetSeg(s32 terraId, f32, f32, f32, f32, f32, f32, s32**, f32**, Vec3F**);
 
 #endif // UV_SOBJ_H

@@ -20,6 +20,7 @@ typedef struct {
     s32 unk74;
 } Unk802E27A8_Arg0;
 
+void func_802E26C0(void);
 void func_802E27A8(Unk802E27A8_Arg0*);
 void func_802E344C(Mtx4F*);
 
