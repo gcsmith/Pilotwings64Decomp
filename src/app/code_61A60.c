@@ -369,11 +369,147 @@ s32 func_802DB224(Unk802D3658_Unk1224* arg0, u16 arg1, u16 arg2, u8 arg3, Vec3F*
     return arg0->unk0;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DB38C.s")
+s32 func_802DB38C(Unk802D3658_Unk1228* arg0, Vec3F* arg1, Vec3F* arg2) {
+    s32 count;
+    s32* spA8;
+    f32* spA4;
+    s32 spA0;
+    f32 sp9C;
+    Vec3F sp90;
+    f32 x;
+    s32 temp_v1;
+    f32 sp84;
+    f32 sp80;
+    f32 sp7C;
+    f32 sp78;
+    f32 y;
+    s32 sp70;
+    s32 var_s0;
+    Vec3F sp60;
+    u16 sp5E;
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DB6D4.s")
+    sp5E = 0;
+    count = uvTerraGetSeg(D_80362690->unk0[0].unk6, arg1->x, arg1->y, arg1->z, arg2->x, arg2->y, arg2->z, &spA8, &spA4);
+    if (count == 0) {
+        return count;
+    }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DB9B8.s")
+    sp70 = 0;
+    var_s0 = 0;
+    for (i = 0; i < count; i++) {
+        temp_v1 = uvTerraGetState(D_80362690->unk0[0].unk6, spA8[var_s0]) & 0xFFF;
+        if ((temp_v1 == 0x28) || (temp_v1 == 0x30)) {
+            sp70 += 1;
+        }
+        var_s0++;
+    }
+    if (sp70 == count) {
+        return 0;
+    }
+
+    sp80 = arg2->x - arg1->x;
+    sp7C = arg2->y - arg1->y;
+    sp78 = arg2->z - arg1->z;
+
+    sp9C = 1.0f;
+    for (i = 0; i < count; i++) {
+        if (spA4[i] <= sp9C) {
+            spA0 = spA8[i];
+            sp9C = spA4[i];
+        }
+    }
+
+    for (i = 0; i < count; i++) {
+        if (func_802DC8E4(spA8[i]) != 0) {
+            sp5E = 4;
+            break;
+        }
+    }
+    if (i == count) {
+        sp5E = 1;
+    }
+
+    x = arg1->x + (sp80 * sp9C);
+    sp60.x = x;
+    y = arg1->y + (sp7C * sp9C);
+    sp60.y = y;
+    sp84 = arg1->z + (sp78 * sp9C);
+    sp60.z = sp84;
+    uvTerraGetPlane(D_80362690->unk0[0].unk6, spA0, sp60.x, sp60.y, &sp84, &sp90);
+    func_802DBE10(arg0, sp5E, spA0, sp9C, &sp60, &sp90);
+    return count;
+}
+
+s32 func_802DB6D4(Unk802D3658_Unk1228* arg0, Vec3F* arg1, Vec3F* arg2) {
+    s32 count;
+    s32* sp80;
+    f32* sp7C;
+    Vec3F* sp78;
+    s32 sp74;
+    s32 pad;
+    Vec3F sp64;
+    Vec3F sp58;
+    f32 minVal;
+    s32 i;
+
+    count = func_8021215C(arg1->x, arg1->y, arg1->z, arg2->x, arg2->y, arg2->z, &sp80, &sp7C, &sp78);
+    if (count == 0) {
+        return 0;
+    }
+
+    minVal = 1.0f;
+    for (i = 0; i < count; i++) {
+        if (sp7C[i] <= minVal) {
+            minVal = sp7C[i];
+            sp74 = sp80[i];
+            sp58.x = sp78[i].x;
+            sp58.y = sp78[i].y;
+            sp58.z = sp78[i].z;
+        }
+    }
+
+    sp64.x = arg1->x + ((arg2->x - arg1->x) * minVal);
+    sp64.y = arg1->y + ((arg2->y - arg1->y) * minVal);
+    sp64.z = arg1->z + ((arg2->z - arg1->z) * minVal);
+    func_802DBE10(arg0, 2, sp74, minVal, &sp64, &sp58);
+    return count;
+}
+
+s32 func_802DB9B8(Unk802D3658_Unk1228* arg0, Vec3F* arg1, Vec3F* arg2) {
+    s32 count;
+    s32* sp80;
+    f32* sp7C;
+    Vec3F* sp78;
+    s32 sp74;
+    s32 pad;
+    Vec3F sp64;
+    Vec3F sp58;
+    f32 minVal;
+    s32 i;
+
+    count = uvSobjGetSeg(D_80362690->unk0[0].unk6, arg1->x, arg1->y, arg1->z, arg2->x, arg2->y, arg2->z, &sp80, &sp7C, &sp78);
+    if (count == 0) {
+        return 0;
+    }
+
+    minVal = 1.0f;
+    for (i = 0; i < count; i++) {
+        if (sp7C[i] <= minVal) {
+            minVal = sp7C[i];
+            sp74 = sp80[i];
+            sp58.x = sp78[i].x;
+            sp58.y = sp78[i].y;
+            sp58.z = sp78[i].z;
+        }
+    }
+
+    sp64.x = arg1->x + ((arg2->x - arg1->x) * minVal);
+    sp64.y = arg1->y + ((arg2->y - arg1->y) * minVal);
+    sp64.z = arg1->z + ((arg2->z - arg1->z) * minVal);
+    func_802DBE10(arg0, 8, sp74, minVal, &sp64, &sp58);
+    return count;
+}
 
 s32 func_802DBCB0(Unk802D3658_Unk1228* arg0, Vec3F* arg1, Vec3F* arg2) {
     f32 temp_fv1;

@@ -14,6 +14,7 @@ u32 uvTerraGetPt(s32 terraId, f32 arg1, f32 arg2, s32** arg3);
 s32 uvTerraGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, s32** arg7, f32** arg8);
 s32 uvTerraGetState(s32 terraId, s32 surfaceId);
 
+s32 func_8021215C(f32, f32, f32, f32, f32, f32, s32**, f32**, Vec3F**);
 s32 func_80212480(f32, f32, Vtx*, u16, u16, u16, f32);
 s32 func_80212FF4(ParsedUVTR*, f32, f32, f32, f32*, f32*, f32*, u16*, u16*, u8);
 s32 _uvSurfGetNorm(Vtx*, s32, s32, s32, Vec3F*);
