@@ -189,7 +189,8 @@ typedef struct {
     u16 cls; // ClassId: Beg/A/B/Pilot (or level for bonus)
     u16 test; // test number (or target for CB)
     u16 unk8;
-    u8 padA[0x20-0xA];
+    u8 unkA;
+    u8 padB[0x20 - 0xB];
     s32 unk20;
     u8 pad24[0x2C-0x24];
     Mtx4F unk2C;
@@ -251,6 +252,14 @@ typedef struct {
     f32 unk60;
     f32 unk64;
 } LevelBALS;
+
+typedef struct {
+    Vec3F pos;
+    f32 unkC;
+    f32 unk10;
+    f32 unk14;
+    s32 unk18;
+} LevelBNUS;
 
 typedef struct {
     Vec3F pos;
@@ -341,7 +350,7 @@ typedef struct {
     LevelTPTS* dataTPTS;
     LevelTOYS* dataTOYS;
     void* dataAPTS;
-    void* dataBNUS;
+    LevelBNUS* dataBNUS;
 } LevelObjects;
 
 typedef struct {
@@ -420,7 +429,7 @@ u8 levelGetWOBJ(void** data);
 u8 levelGetTPTS(LevelTPTS** data);
 u8 levelGetAPTS(void** data);
 u8 levelGetLPAD(void** data);
-u8 levelGetBNUS(void** data);
+u8 levelGetBNUS(LevelBNUS** data);
 LevelObjects* levelLoadMapObjects(u8 mapIdx);
 
 void level_803449B0(void);

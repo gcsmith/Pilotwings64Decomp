@@ -55,7 +55,11 @@ bird_802D08F8       = 0x802D08F8; // type:func
 bird_802D0A28       = 0x802D0A28; // type:func
 bird_802D0ABC       = 0x802D0ABC; // type:func
 
-bonusStar_802D25AC  = 0x802D25AC; // type:func
+bonusInit           = 0x802D22B0; // type:func
+bonusUpdateState    = 0x802D22D8; // type:func
+bonusLoad           = 0x802D23EC; // type:func
+bonusFrameUpdate    = 0x802D25AC; // type:func
+bonusDeinit         = 0x802D27CC; // type:func
 
 cannon_802D5A90     = 0x802D5A90; // type:func
 cannonLoadLevel     = 0x802D5B50; // type:func
@@ -422,6 +426,10 @@ gBalls                    = 0x80357218; // size:0x2170
 sRefBALS                  = 0x8035938C;
 
 gBmSoundCbInfo            = 0x80359640;
+
+gRefBNUS                  = 0x80359730;
+gBonusStarCount           = 0x80359734;
+gBonusStars               = 0x80359738; // size:0xA0
 
 sOptionsPanel             = 0x8036C120; // type:s16
 sStickHeld                = 0x8036C124;
