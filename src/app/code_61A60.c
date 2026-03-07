@@ -707,17 +707,17 @@ s32 func_802DC814(Unk802D3658_Unk1228* arg0, Vec3F* arg1) {
 }
 
 s32 func_802DC8E4(s32 surfaceId) {
-    s32 state = uvTerraGetState(D_80362690->unk0[0].unk6, surfaceId);
-    state &= 0xFFF;
-    if (func_802300F0(state) == 0x4) {
+    u16 state;
+    state = uvTerraGetState(D_80362690->unk0[0].unk6, surfaceId) & 0xFFF;
+    if (func_802300F0(state) == 4) {
         return 1;
     }
     return 0;
 }
 
 s32 func_802DC930(s32 surfaceId) {
-    s32 state = uvTerraGetState(D_80362690->unk0[0].unk6, surfaceId);
-    state &= 0xFFF;
+    u16 state;
+    state = uvTerraGetState(D_80362690->unk0[0].unk6, surfaceId) & 0xFFF;
     if (func_802300F0(state) == 0x20) {
         return 0;
     }
