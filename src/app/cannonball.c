@@ -795,7 +795,6 @@ void cannonLoadPilot(u8 pilot, Unk802D5B50_Arg2* arg1) {
 #else
 // protos might be incorrect
 void func_802E66F4(f32);
-void func_802E68B0(s32);
 void func_802EDD9C(void*, Mtx4F*);
 void func_8031A2CC(void);
 void func_8031DAA8(s32, f32);

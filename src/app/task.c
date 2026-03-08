@@ -333,7 +333,7 @@ void level_803453AC(void) {
     }
 }
 
-s32 level_80345464(Mtx4F* arg0, s32 arg1) {
+s32 level_80345464(Mtx4F* arg0, f32 arg1) {
     u16 veh;
     s32 sp18;
     s32 temp_v0;

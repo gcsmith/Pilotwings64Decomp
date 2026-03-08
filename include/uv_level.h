@@ -250,7 +250,7 @@ typedef struct {
     u16 unk8;
     u8 unkA;
     u8 padB[0x20 - 0xB];
-    s32 unk20;
+    f32 unk20;
     u8 pad24[0x2C-0x24];
     Mtx4F unk2C;
     s32 unk6C;
@@ -536,7 +536,7 @@ s32 level_80344E0C(s32 classIdx, s32 testIdx, s32 vehicle, char* arg3, char* arg
 s32 levelGetTestCount(s32 classIdx, s32 vehicle);
 s32 level_80344FC8(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* arg4, u16* arg5);
 void level_803453AC(void);
-s32 level_80345464(Mtx4F*, s32);
+s32 level_80345464(Mtx4F*, f32);
 s32 level_803456D8(Mtx4F*);
 void level_80345A24(void);
 Unk80345C80* levelGet_80345C80(void);
@@ -566,5 +566,6 @@ s32 levelDataGetPHTS(void** data);
 s32 levelDataGetFALC(void** data);
 s32 levelDataGetHOPD(LevelHOPD** data);
 void levelGetClsVehTest(u16* classIdx, u16* vehIdx, u16* testIdx);
+void level_8034536C(void);
 
 #endif // UV_LEVEL_H
