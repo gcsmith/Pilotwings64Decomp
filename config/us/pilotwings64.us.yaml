@@ -626,7 +626,8 @@ segments:
 
       - { type: bss, vram: 0x803571F0, name: app_bss_803571F0 }
       - { type: .bss, vram: 0x80359640, name: app/bmsound }
-      - { type: bss, vram: 0x803596A0, name: app_bss_803596A0 }
+      - { type: .bss, vram: 0x803596A0, name: app/code_58B00 }
+      - { type: bss, vram: 0x80359730, name: app_bss_80359730 }
       - { type: .bss, vram: 0x803624E0, name: app/file_menu }
       - { type: bss, vram: 0x80362500, name: app_bss_80362500 }
       - { type: .bss, vram: 0x80369F10, name: app/menu }

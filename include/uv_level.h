@@ -84,7 +84,7 @@ typedef struct {
     s32 unk0;
     s32 unk4;
     s32 unk8;
-    u8 pad8[0xC];
+    Vec3F unkC;
     f32 unk18;
     Vec3F unk1C;
     Vec3F unk28;
