@@ -372,17 +372,17 @@ void optionsDrawPanel(void) {
 
 void optionsPanel0(void) {
     menuInit();
-    uvFont_80219EA8();
+    uvFontGenDlist();
 }
 
 void optionsPanel1(void) {
     menuInit();
-    uvFont_80219EA8();
+    uvFontGenDlist();
 }
 
 void optionsPanel2(void) {
     menuInit();
-    uvFont_80219EA8();
+    uvFontGenDlist();
 }
 
 void optionsDrawBorder(void) {

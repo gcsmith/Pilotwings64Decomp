@@ -4,21 +4,21 @@
 #include <libc/stdarg.h>
 
 void func_803464A0(char* arg0, ...) {
-    s32 var_s2;
-    char* var_s0;
+    s32 yScreen;
+    char* str;
     va_list args;
 
-    var_s2 = 0x96;
-    uvGfxClearScreen(0U, 0U, 0U, 0xFFU);
+    yScreen = 150;
+    uvGfxClearScreen(0x00, 0x00, 0x00, 0xFF); // black
     uvFontSet(5);
-    uvFont_80219550(1.0, 1.0);
-    uvFont_8021956C(0xFFU, 0xFFU, 0xFFU, 0xFFU);
-    uvFont_80219ACC(0xA0 - (uvFontWidth(arg0) / 2), 0xC8, arg0);
+    uvFontScale(1.0, 1.0);
+    uvFontColor(0xFF, 0xFF, 0xFF, 0xFF); // white
+    uvFontPrintStr((SCREEN_WIDTH / 2) - (uvFontWidth(arg0) / 2), 0xC8, arg0);
     uvFontSet(3);
-    uvFont_80219550(1.0, 1.0);
+    uvFontScale(1.0, 1.0);
     va_start(args, arg0);
-    while ((var_s0 = va_arg(args, char*))) {
-        uvFont_80219ACC(0xA0 - (uvFontWidth(var_s0) / 2), var_s2, var_s0);
-        var_s2 = (var_s2 - func_80219828()) - 3;
+    while ((str = va_arg(args, char*))) {
+        uvFontPrintStr((SCREEN_WIDTH / 2) - (uvFontWidth(str) / 2), yScreen, str);
+        yScreen = (yScreen - func_80219828()) - 3;
     }
 }
