@@ -871,7 +871,7 @@ s32 cannonLoad802D77D8(Unk80362690* arg0, Unk802D5B50_Arg2* arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/app/cannonball/cannonFrame802D7B7C.s")
 
 // cannonLandedFrame called every frame after landing from cannon shot
-s32 cannonLandedFrame(Unk802D5C5C_Arg0* arg0) {
+s32 cannonLandedFrame(Unk802D5B50_Arg2* arg0) {
     Unk80364210* temp_v1;
     Unk80362690_Unk0_UnkC* temp_s0;
     u8 sp27;
