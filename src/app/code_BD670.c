@@ -103,7 +103,7 @@ void func_8033651C(void) {
     func_803212DC(D_80371E50);
     for (i = 0; i < ARRAY_COUNT(D_80371DB0); i++) {
         if (D_80371DB0[i].objId != 0xFFFF) {
-            uvDobjModel(D_80371DB0[i].objId, WORLD_MODEL_ID);
+            uvDobjModel(D_80371DB0[i].objId, MODEL_WORLD);
             D_80371DB0[i].objId = 0xFFFF;
         }
     }

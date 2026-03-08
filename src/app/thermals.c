@@ -54,7 +54,7 @@ void therm_8034662C(void) {
                 levlTher = &gLevelTHER[i];
                 therm = &gThermals[i];
                 therm->unk0 = uvDobjAllocIdx();
-                uvDobjModel(therm->unk0, 0x101);
+                uvDobjModel(therm->unk0, MODEL_HG_THERMAL_CYLINDER);
                 uvDobjState(therm->unk0, 2);
                 uvVec3Copy(&gThermals[i].pos, &levlTher->pos);
                 if (levlTher->height < levlTher->scale) {
@@ -138,7 +138,7 @@ void therm_80346B84(void) {
 
     for (i = 0; i < gThermalCount; i++) {
         if (gThermals[i].unk0 != 0xFFFF) {
-            uvDobjModel(gThermals[i].unk0, 0xFFFF);
+            uvDobjModel(gThermals[i].unk0, MODEL_WORLD);
             gThermals[i].unk0 = 0xFFFF;
         }
     }

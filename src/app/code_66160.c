@@ -9,7 +9,7 @@
 #include "code_66160.h"
 #include "code_9A960.h"
 
-extern s32 D_80359D70;
+extern Vec3F D_80359D70;
 extern s32 D_80359D7C;
 
 void func_802DEC30(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10, s32 arg11, s32 arg12,
@@ -76,7 +76,7 @@ void func_802DFA18(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_66160/db_getgnd.s")
 
-s32* func_802E02EC(void) {
+Vec3F* func_802E02EC(void) {
     return &D_80359D70;
 }
 

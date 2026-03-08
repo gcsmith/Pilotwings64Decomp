@@ -45,7 +45,7 @@ typedef struct {
     f32 unk238;
     f32 unk23C;
     Unk8037DCA0* unk240[6];
-    u16 unk258[6];
+    u16 modelIds[6];
     u8 unk264;
     u8 unk265;
     u8 unk266;
@@ -139,23 +139,23 @@ static void func_803427FC(void) {
     spath_update(&D_80378CE0->unkAC, D_80378CE0->unk18, 0, 1.0f);
     spath_update(&D_80378CE0->unkEC, D_80378CE0->unk18, 0, 1.0f);
     D_80378CE0->unk0 = uvDobjAllocIdx();
-    uvDobjModel(D_80378CE0->unk0, 0x28);
+    uvDobjModel(D_80378CE0->unk0, MODEL_LOW_POLY_INTRO_CRESCENT_ISLAND);
     uvMat4SetIdentity(&sp58);
     uvDobjPosm(D_80378CE0->unk0, 0, &sp58);
     D_80378CE0->unk4 = uvDobjAllocIdx();
-    uvDobjModel(D_80378CE0->unk4, 0x157);
+    uvDobjModel(D_80378CE0->unk4, MODEL_PILOTWINGS_SWOOSH_FEATHER_THING);
     uvDobjPosm(D_80378CE0->unk4, 0, &D_80378CE0->unk2C);
     uvDobjState(D_80378CE0->unk4, 2);
     D_80378CE0->unk8 = uvDobjAllocIdx();
-    uvDobjModel(D_80378CE0->unk8, 0xCD);
+    uvDobjModel(D_80378CE0->unk8, MODEL_PILOTWINGS_3D_LOGO);
     uvDobjPosm(D_80378CE0->unk8, 0, &D_80378CE0->unk6C);
     uvDobjState(D_80378CE0->unk8, 2);
     D_80378CE0->unkC = uvDobjAllocIdx();
-    uvDobjModel(D_80378CE0->unkC, 0x158);
+    uvDobjModel(D_80378CE0->unkC, MODEL_3D_6_IN_INTRO_PW64_LOGO);
     uvDobjPosm(D_80378CE0->unkC, 0, &D_80378CE0->unkAC);
     uvDobjState(D_80378CE0->unkC, 2);
     D_80378CE0->unk10 = uvDobjAllocIdx();
-    uvDobjModel(D_80378CE0->unk10, 0x159);
+    uvDobjModel(D_80378CE0->unk10, MODEL_3D_4_IN_INTRO_PW64_LOGO);
     uvDobjPosm(D_80378CE0->unk10, 0, &D_80378CE0->unkEC);
     uvDobjState(D_80378CE0->unk10, 2);
     menuCreateItems(0x66, 0x3C, 6, 1.0f, 1.0f, D_80350698, 2);
@@ -206,22 +206,22 @@ static void func_80342D2C(void) {
     uvMat4RotateAxis(&D_80378CE0->unk16C, -1.4835305f, 'x');
     uvMat4RotateAxis(&D_80378CE0->unk16C, 3.141594f, 'y');
 
-#define placeInUserPath(idx, modelId)                              \
-    allocIdx = uvDobjAllocIdx();                                   \
-    D_80378CE0->unk258[(idx)] = allocIdx;                          \
-    D_80378CE0->unk240[(idx)]->unk352 = allocIdx;                  \
-    uvDobjModel(D_80378CE0->unk258[(idx)], (modelId));             \
-    userPath_8034A950(D_80378CE0->unk240[(idx)]->unk4C, &sp2FC);   \
-    func_803136C4(&sp2FC, &D_80378CE0->unk12C);                    \
-    uvDobjPosm(D_80378CE0->unk258[(idx)], 0, &D_80378CE0->unk12C); \
-    uvDobjState(D_80378CE0->unk258[(idx)], 2);
+#define placeInUserPath(idx, modelId)                                \
+    allocIdx = uvDobjAllocIdx();                                     \
+    D_80378CE0->modelIds[(idx)] = allocIdx;                          \
+    D_80378CE0->unk240[(idx)]->unk352 = allocIdx;                    \
+    uvDobjModel(D_80378CE0->modelIds[(idx)], (modelId));             \
+    userPath_8034A950(D_80378CE0->unk240[(idx)]->unk4C, &sp2FC);     \
+    func_803136C4(&sp2FC, &D_80378CE0->unk12C);                      \
+    uvDobjPosm(D_80378CE0->modelIds[(idx)], 0, &D_80378CE0->unk12C); \
+    uvDobjState(D_80378CE0->modelIds[(idx)], 2);
 
-    placeInUserPath(0, 0x127);
-    placeInUserPath(1, 0x12B);
-    placeInUserPath(2, 0x12D);
-    placeInUserPath(3, 0x12F);
-    placeInUserPath(4, 0x131);
-    placeInUserPath(5, 0x133);
+    placeInUserPath(0, MODEL_LARK_GYRO);
+    placeInUserPath(1, MODEL_GOOSE_GYRO);
+    placeInUserPath(2, MODEL_HAWK_GYRO);
+    placeInUserPath(3, MODEL_KIWI_GYRO);
+    placeInUserPath(4, MODEL_IBIS_GYRO);
+    placeInUserPath(5, MODEL_ROBYN_GYRO);
 
     for (i = 0; i < ARRAY_COUNT(D_80378CE0->unk240); i++) {
         userPath_8034A8B0(D_80378CE0->unk240[i], 0, 0.0f);
@@ -231,11 +231,11 @@ static void func_80342D2C(void) {
 
 static void func_80343294(void) {
     func_803433A4();
-    uvDobjModel(D_80378CE0->unk0, WORLD_MODEL_ID);
-    uvDobjModel(D_80378CE0->unk4, WORLD_MODEL_ID);
-    uvDobjModel(D_80378CE0->unk8, WORLD_MODEL_ID);
-    uvDobjModel(D_80378CE0->unkC, WORLD_MODEL_ID);
-    uvDobjModel(D_80378CE0->unk10, WORLD_MODEL_ID);
+    uvDobjModel(D_80378CE0->unk0, MODEL_WORLD);
+    uvDobjModel(D_80378CE0->unk4, MODEL_WORLD);
+    uvDobjModel(D_80378CE0->unk8, MODEL_WORLD);
+    uvDobjModel(D_80378CE0->unkC, MODEL_WORLD);
+    uvDobjModel(D_80378CE0->unk10, MODEL_WORLD);
     spath_free(D_80378CE0->unk14);
     spath_free(D_80378CE0->unk18);
     spath_free(D_80378CE0->unk1C);
@@ -254,22 +254,22 @@ static void func_803433A4(void) {
     temp_a0 = D_80378CE0->unk240[0];
     if (temp_a0 != NULL) {
         func_8031EF68(temp_a0);
-        uvDobjModel(D_80378CE0->unk258[0], WORLD_MODEL_ID);
+        uvDobjModel(D_80378CE0->modelIds[0], MODEL_WORLD);
         userPathFree(0);
         func_8031EF68(D_80378CE0->unk240[1]);
-        uvDobjModel(D_80378CE0->unk258[1], WORLD_MODEL_ID);
+        uvDobjModel(D_80378CE0->modelIds[1], MODEL_WORLD);
         userPathFree(1);
         func_8031EF68(D_80378CE0->unk240[2]);
-        uvDobjModel(D_80378CE0->unk258[2], WORLD_MODEL_ID);
+        uvDobjModel(D_80378CE0->modelIds[2], MODEL_WORLD);
         userPathFree(2);
         func_8031EF68(D_80378CE0->unk240[3]);
-        uvDobjModel(D_80378CE0->unk258[3], WORLD_MODEL_ID);
+        uvDobjModel(D_80378CE0->modelIds[3], MODEL_WORLD);
         userPathFree(3);
         func_8031EF68(D_80378CE0->unk240[4]);
-        uvDobjModel(D_80378CE0->unk258[4], WORLD_MODEL_ID);
+        uvDobjModel(D_80378CE0->modelIds[4], MODEL_WORLD);
         userPathFree(4);
         func_8031EF68(D_80378CE0->unk240[5]);
-        uvDobjModel(D_80378CE0->unk258[5], WORLD_MODEL_ID);
+        uvDobjModel(D_80378CE0->modelIds[5], MODEL_WORLD);
         userPathFree(5);
         D_80378CE0->unk240[0] = NULL;
         D_80378CE0->unk240[1] = NULL;
@@ -424,7 +424,7 @@ static void introSceneRunner(void) {
         menuInit();
     }
 
-    uvFont_80219EA8();
+    uvFontGenDlist();
     uvSprtDraw(4);
 }
 

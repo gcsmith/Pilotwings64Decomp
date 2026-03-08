@@ -283,8 +283,8 @@ void totResultDrawTally(void) {
 
     func_803141E4();
     uvFontSet(6);
-    uvFont_8021956C(0xD2, 0xD2, 0xD2, 0xFF);
-    uvFont_80219550(1.0, 1.0);
+    uvFontColor(0xD2, 0xD2, 0xD2, 0xFF);
+    uvFontScale(1.0, 1.0);
 
     y = 180;
     if (sMedalName != NULL) {
@@ -317,7 +317,7 @@ void totResultDrawTally(void) {
         func_80219874(128, 68, D_8037AD38, 3, 0xFFE);
     }
     menuInit();
-    uvFont_80219EA8();
+    uvFontGenDlist();
 }
 #if defined(__clang__)
 #pragma GCC diagnostic pop

@@ -81,7 +81,5 @@ void func_802D3170(u8, Unk802D3658_Arg0*);
 void func_802D3444(Unk802D3658_Arg0*);
 void func_802D50D0(Unk802D3658_Arg0*);
 void func_802D4514(Unk802D3658_Arg0*);
-void func_802D45C4(Unk802D3658_Arg0*, f32);
-s32 func_802D472C(Unk802D3658_Arg0*, Mtx4F*);
 
 #endif // CODE_5A6A0_H

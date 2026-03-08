@@ -12,6 +12,7 @@
 #include "demo.h"
 #include "environment.h"
 
+// TODO: Unk802D472C_SP60 needs to be merged with some combination of Unk802D3658_Unk1224/8
 typedef struct {
     s32 unk0;
     u8 pad4[0x1C - 0x4];
@@ -67,10 +68,10 @@ void func_802D3170(u8 arg0, Unk802D3658_Arg0* arg1) {
     arg1->unk54 = 1.8f;
     arg1->unk58 = 10.0f;
     arg1->unk50 = 0.0f;
-    arg1->unk68 = 0;
+    arg1->unk68.x = 0;
     arg1->unkD = 1;
-    arg1->unk6C = -1.2f;
-    arg1->unk70 = -0.2f;
+    arg1->unk68.y = -1.2f;
+    arg1->unk68.z = -0.2f;
     arg1->unk74 = -0.1f;
     arg1->unk190 = 6.0f;
     arg1->unk194 = 0.0f;
@@ -280,7 +281,7 @@ static void func_802D3790(Unk802D3658_Arg0* arg0) {
         arg0->unk108.m[3][0] = spBC.x;
         arg0->unk108.m[3][1] = spBC.y;
         arg0->unk108.m[3][2] = spBC.z;
-        uvMat4LocalTranslate(&arg0->unk108, arg0->unk68, arg0->unk6C, arg0->unk70);
+        uvMat4LocalTranslate(&arg0->unk108, arg0->unk68.x, arg0->unk68.y, arg0->unk68.z);
         uvMat4RotateAxis(&arg0->unk108, arg0->unk78 * 0.5f, 'z');
         uvMat4RotateAxis(&arg0->unk108, arg0->unk7C * 0.5f, 'x');
     }
@@ -382,7 +383,7 @@ static void func_802D3FA4(Unk802D3658_Arg0* arg0) {
     Vec3F sp24;
 
     uvMat4Copy(&arg0->unk108, &arg0->unk80);
-    uvMat4LocalTranslate(&arg0->unk108, arg0->unk68, arg0->unk6C, arg0->unk70);
+    uvMat4LocalTranslate(&arg0->unk108, arg0->unk68.x, arg0->unk68.y, arg0->unk68.z);
     uvMat4RotateAxis(&arg0->unk108, arg0->unk74, 'x');
     if (arg0->unk0 & 0x04) {
         sp24.x = arg0->unk108.m[2][0] * 0.2f;
@@ -529,21 +530,21 @@ void func_802D4514(Unk802D3658_Arg0* arg0) {
     temp4 = (var_fv0 * 1.1f) * arg0->unk38;
 
     ptr = arg0;
-    ptr->unk111C = 2;
-    arg0->unk1120[0].unk28.f[2] = 0.0f;
-    arg0->unk1120[0].unk28.f[1] = ptr->unk3C * 1.5f;
-    arg0->unk1120[0].unk28.f[0] = temp;
-    arg0->unk1120[0].unk1C.f[1] = ptr->unk3C * 1.5f;
-    arg0->unk1120[0].unk1C.f[0] = temp2;
-    arg0->unk1120[0].unk1C.f[2] = 0.0f;
-    arg0->unk1120[0].unk0 = 1;
-    arg0->unk1120[1].unk28.f[2] = temp3;
-    arg0->unk1120[1].unk28.f[1] = arg0->unk3C * 1.5f;
-    arg0->unk1120[1].unk1C.f[1] = arg0->unk3C * 1.5f;
-    arg0->unk1120[1].unk28.f[0] = 0.0f;
-    arg0->unk1120[1].unk1C.f[0] = 0.0f;
-    arg0->unk1120[1].unk1C.f[2] = temp4;
-    arg0->unk1120[1].unk0 = 1;
+    ptr->unk111C.unk0 = 2;
+    arg0->unk111C.unk4[0].unk28.f[2] = 0.0f;
+    arg0->unk111C.unk4[0].unk28.f[1] = ptr->unk3C * 1.5f;
+    arg0->unk111C.unk4[0].unk28.f[0] = temp;
+    arg0->unk111C.unk4[0].unk1C.f[1] = ptr->unk3C * 1.5f;
+    arg0->unk111C.unk4[0].unk1C.f[0] = temp2;
+    arg0->unk111C.unk4[0].unk1C.f[2] = 0.0f;
+    arg0->unk111C.unk4[0].unk0 = 1;
+    arg0->unk111C.unk4[1].unk28.f[2] = temp3;
+    arg0->unk111C.unk4[1].unk28.f[1] = arg0->unk3C * 1.5f;
+    arg0->unk111C.unk4[1].unk1C.f[1] = arg0->unk3C * 1.5f;
+    arg0->unk111C.unk4[1].unk28.f[0] = 0.0f;
+    arg0->unk111C.unk4[1].unk1C.f[0] = 0.0f;
+    arg0->unk111C.unk4[1].unk1C.f[2] = temp4;
+    arg0->unk111C.unk4[1].unk0 = 1;
 }
 
 void func_802D45C4(Unk802D3658_Arg0* arg0, f32 arg1) {
@@ -638,7 +639,7 @@ s32 func_802D472C(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
         sp1A8.y += arg0->unk8 * dy;
         sp1A8.z += arg0->unk8 * dz;
     }
-    temp_v0 = func_802DB224(&sp60[0].unk0, 0xD, arg0->unk4, arg0->unk6, &sp1A8, &sp1B4);
+    temp_v0 = func_802DB224((Unk802D3658_Unk1224*)&sp60, 0xD, arg0->unk4, arg0->unk6, &sp1A8, &sp1B4);
     if (temp_v0 == 0) {
         return 0;
     }
@@ -672,10 +673,10 @@ s32 func_802D472C(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
 
 s32 func_802D4A30(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
     s32 sp2A4;
-    u8 pad[0x144];
+    s32 pad;
     Unk802D3658_Unk1120* temp_s2;
     Unk802D3658_Unk1228* var_s3;
-    s32 sp154;
+    Unk802D3658_Unk1224 sp154;
     Vec3F sp148;
     Vec3F sp13C;
     Vec3F sp130;
@@ -695,8 +696,8 @@ s32 func_802D4A30(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
     uvMat4InvertTranslationRotation(&spB0, &spF0);
 
     for (i = 0; i < sp2A4; i++) {
-        var_s3 = &arg0->unk1228[i];
-        temp_s2 = &arg0->unk1120[var_s3->unk0];
+        var_s3 = &arg0->unk1224.unk4[i];
+        temp_s2 = &arg0->unk111C.unk4[var_s3->unk0];
         func_802DBE64(&arg0->unk111C, &arg0->unk1224, i, &spB0);
         func_802DCA5C(&temp_s2->unk28, &temp_s2->unk1C, &var_s3->unk28, &var_s3->unk34, &sp148);
         sp13C.x = arg1->m[3][0] + (arg1->m[1][0] * 1.5f * arg0->unk3C);
@@ -708,7 +709,7 @@ s32 func_802D4A30(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
         sp130.y = sp70.m[3][1] + (arg1->m[1][1] * 1.5f * arg0->unk3C);
         sp130.z = sp70.m[3][2] + (arg1->m[1][2] * 1.5f * arg0->unk3C);
         (void)func_802DB224(&sp154, 9, arg0->unk4, arg0->unk6, &sp13C, &sp130);
-        if (sp154 > 0) {
+        if (sp154.unk0 > 0) {
             return -1;
         }
         uvMat4LocalTranslate(arg1, sp148.x, sp148.y, sp148.z);

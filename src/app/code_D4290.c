@@ -98,7 +98,7 @@ void wind_render(void) {
             var_s1->unk4.m[3][1] = temp_s0->unk0.f[1];
             var_s1->unk4.m[3][2] = temp_s0->unk0.f[2];
             var_s1->unk0 = uvDobjAllocIdx();
-            uvDobjModel(var_s1->unk0, 0xD5U);
+            uvDobjModel(var_s1->unk0, MODEL_D5);
             uvDobjPosm(var_s1->unk0, 0, &var_s1->unk4);
             uvDobjState(var_s1->unk0, 2U);
             uvDobjProps(var_s1->unk0, 3, temp_s0->unk4C, 0);
@@ -139,7 +139,7 @@ void wind_render(void) {
             var_s1->unk4.m[3][1] = (temp_s0->unk0.f[1] + s2->f[1]) * 0.5;
             var_s1->unk4.m[3][2] = (temp_s0->unk0.f[2] + s2->f[2]) * 0.5;
             var_s1->unk0 = uvDobjAllocIdx();
-            uvDobjModel(var_s1->unk0, 0xD5U);
+            uvDobjModel(var_s1->unk0, MODEL_D5);
             uvDobjPosm(var_s1->unk0, 0, &var_s1->unk4);
             uvDobjState(var_s1->unk0, 2U);
             if (temp_fs0 < temp_s0->unk4C) {
@@ -170,7 +170,7 @@ void wind_render(void) {
             var_s1->unk9C.f[1] = temp_s0->unk30.f[1];
             var_s1->unk9C.f[2] = temp_s0->unk30.f[2];
             var_s1->unk0 = uvDobjAllocIdx();
-            uvDobjModel(var_s1->unk0, 0xD6U);
+            uvDobjModel(var_s1->unk0, MODEL_D6);
             uvDobjPosm(var_s1->unk0, 0, &var_s1->unk4);
             uvDobjState(var_s1->unk0, 2U);
             if (temp_s0->unk30.f[1] < temp_s0->unk30.f[0]) {
@@ -203,7 +203,7 @@ void func_8034D4AC(void) {
     for (i = 0; i < D_8037F514; i++) {
         var_s0 = &D_8037F518[i];
         if (var_s0->unk0 != 0xFFFF) {
-            uvDobjModel(var_s0->unk0, WORLD_MODEL_ID);
+            uvDobjModel(var_s0->unk0, MODEL_WORLD);
         }
         var_s0->unk0 = 0xFFFF;
     }

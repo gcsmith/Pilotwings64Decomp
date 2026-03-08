@@ -488,15 +488,15 @@ void resultDrawTally(s32 arg0) {
     }
     if (sTipTextMissing) {
         uvFontSet(0);
-        uvFont_8021956C(0xD2, 0x00, 0xD2, 0xFF);
-        uvFont_80219550(1.0, 1.0);
+        uvFontColor(0xD2, 0x00, 0xD2, 0xFF);
+        uvFontScale(1.0, 1.0);
         uvSprintf(sp48, "STR MISSING %s", sTipTextId);
-        uvFont_80219ACC(0x14, 0x64, sp48);
+        uvFontPrintStr(20, 100, sp48);
     } else {
         uvFontSet(6);
         alpha = (s32)(255.0f * spAC);
-        uvFont_8021956C(0xD2, 0xD2, 0xD2, alpha);
-        uvFont_80219550(1.0, 1.0);
+        uvFontColor(0xD2, 0xD2, 0xD2, alpha);
+        uvFontScale(1.0, 1.0);
 
         y = sReplayTipSet ? 168 : 180;
         x = sReplayTipSet ? 44 : 28;
@@ -513,8 +513,8 @@ void resultDrawTally(s32 arg0) {
     if ((arg0 != 0) && !sReplayTipSet && (unkC->veh != VEHICLE_BIRDMAN)) {
         uvFontSet(6);
         alpha = (s32)(255.0f * spAC);
-        uvFont_8021956C(0xD2, 0xD2, 0xD2, alpha);
-        uvFont_80219550(1.0, 1.0);
+        uvFontColor(0xD2, 0xD2, 0xD2, alpha);
+        uvFontScale(1.0, 1.0);
 
         for (i = 0, y = 116; i < ARRAY_COUNT(sPtsTallyStr); i++, y += 16) {
             func_80219874(180, y, sPtsTallyStr[i], 3, 0xFFE);
@@ -532,7 +532,7 @@ void resultDrawTally(s32 arg0) {
             func_80219874(180, 100, sPtsDeductedStr, 4, 0xFFE);
         }
     }
-    uvFont_80219EA8();
+    uvFontGenDlist();
 }
 
 void resultGenTipText(s32 veh) {

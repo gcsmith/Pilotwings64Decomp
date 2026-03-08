@@ -365,8 +365,9 @@ segments:
     subsegments:
       - [0x51E30, c, app/code_51E30]
       - [0x52230, c, app/balls]
-      - [0x556C0, c, app/code_556C0]
-      - [0x560D0, c, app/birdman]
+      - [0x536E0, c, app/birdman0]
+      - [0x556C0, c, app/birdman1]
+      - [0x560D0, c, app/birdman2]
       - [0x58120, c, app/bmsound]
       - [0x58B00, c, app/code_58B00]
       - [0x597E0, c, app/bonus]
@@ -465,7 +466,7 @@ segments:
 
       - [0xD5C40, data] # app/code_51E30
       - [0xD5D40, .data, app/balls]
-      - [0xD5D50, .data, app/birdman]
+      - [0xD5D50, .data, app/birdman2]
       - [0xD5F10, .data, app/code_5A6A0]
       - [0xD5F20, .data, app/cannonball]
       - [0xD5F40, .data, app/code_60020]
@@ -529,8 +530,9 @@ segments:
       - [0xD7F20, .data, app/code_D3810]
       - [0xD7F40, .rodata, app/code_51E30]
       - [0xD7F60, .rodata, app/balls]
-      - [0xD8340, .rodata, app/code_556C0]
-      - [0xD83B0, .rodata, app/birdman]
+      - [0xD7FC0, .rodata, app/birdman0]
+      - [0xD8340, .rodata, app/birdman1]
+      - [0xD83B0, .rodata, app/birdman2]
       - [0xD84A0, .rodata, app/bmsound]
       - [0xD8590, .rodata, app/code_58B00]
       - [0xD85D0, .rodata, app/bonus]
@@ -623,6 +625,10 @@ segments:
       - [0xDE6B0, .rodata, app/wind_objects]
 
       - { type: bss, vram: 0x803571F0, name: app_bss_803571F0 }
+      - { type: .bss, vram: 0x80359640, name: app/bmsound }
+      - { type: .bss, vram: 0x803596A0, name: app/code_58B00 }
+      - { type: .bss, vram: 0x80359730, name: app/bonus }
+      - { type: bss, vram: 0x803597E0, name: app_bss_803597E0 }
       - { type: .bss, vram: 0x803624E0, name: app/file_menu }
       - { type: bss, vram: 0x80362500, name: app_bss_80362500 }
       - { type: bss, vram: 0x80362690, name: app/code_72B70 } # TODO: Map .bss in .c file

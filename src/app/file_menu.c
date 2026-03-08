@@ -203,7 +203,7 @@ static s32 fileMenuPrintText(s32* arg0, s32 arg1) {
 
     maxVal = 0;
     uvFontSet(6);
-    uvFont_80219550(1.0, 1.0);
+    uvFontScale(1.0, 1.0);
     for (i = 0; i < arg1; i++) {
         curVal = func_802196B0(textGetDataByIdx(arg0[i])) - 16;
         if (curVal > maxVal) {
@@ -435,7 +435,7 @@ void fileMenu_802E9AE0(void) {
 
     menuInit();
     uvFontSet(6);
-    uvFont_80219550(1.0, 1.0);
+    uvFontScale(1.0, 1.0);
 
     sFileMenuFadeTime += sFileMenuFadeRate * uvGfxGetUnkStateF();
 
@@ -448,7 +448,7 @@ void fileMenu_802E9AE0(void) {
     }
 
     fileMenuColorLerp(sFileMenuFadeTime, sFileColorR1, sFileColorG1, sFileColorB1, sFileColorR2, sFileColorG2, sFileColorB2, &r, &g, &b);
-    uvFont_8021956C((u8)r, (u8)g, (u8)b, 0xFF);
+    uvFontColor(r, g, b, 0xFF);
     switch (sFileMenuCurMenu) {
     case 0:
         titleStr = textGetDataByIdx(0x23); // SELECT FILE
@@ -461,6 +461,6 @@ void fileMenu_802E9AE0(void) {
         break;
     }
     func_80219874(160 - (func_802196B0(titleStr) / 2), 206, titleStr, 0x3C, 0xFFE);
-    uvFont_80219EA8();
+    uvFontGenDlist();
     func_8034B6F8();
 }

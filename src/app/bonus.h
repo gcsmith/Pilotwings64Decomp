@@ -4,10 +4,10 @@
 #include <uv_level.h>
 #include <uv_matrix.h>
 
-void func_802D22B0(void);
-void func_802D22D8(void);
-void func_802D23EC(void);
-void bonusStar_802D25AC(Mtx4F*);
-void func_802D27CC(void);
+void bonusInit(void);
+void bonusUpdateState(void);
+void bonusLoad(void);
+void bonusFrameUpdate(Mtx4F*);
+void bonusDeinit(void);
 
 #endif // APP_BONUS_H
