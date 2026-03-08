@@ -329,7 +329,88 @@ s32 bird_802CF76C(Unk80367704* arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/birdman2/bird_802CF8A4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/birdman2/bird_802CFAC8.s")
+void bird_802CFAC8(Unk80367704* arg0) {
+    f32 var_ft5;
+    f32 temp_fa0;
+    f32 var_ft4;
+    f32 var_fa0_3;
+    f32 var_fv0;
+    f32 temp_fv0_2;
+    f32 var_fa1;
+    f32 var_fa0;
+
+    if (arg0->unk274.y > 0.0f) {
+        var_fv0 = arg0->unk274.y;
+    } else {
+        var_fv0 = -arg0->unk274.y;
+    }
+    if (var_fv0 > 0.1f) {
+        var_fa1 = -arg0->unk274.y;
+        var_fa0 = arg0->unk274.z;
+        temp_fv0_2 = uvSqrtF(SQ(var_fa1) + SQ(var_fa0));
+        if (temp_fv0_2 > 0.01f) {
+            var_fa1 /= temp_fv0_2;
+            var_fa0 /= temp_fv0_2;
+            if (var_fa1 < 0.0f) {
+                var_fa1 = -var_fa1;
+            }
+        } else {
+            var_fa1 = 1.0f;
+            var_fa0 = 0.0f;
+        }
+        temp_fv0_2 = bird_802D08F8(&D_8034E824, uvAtan2F(var_fa0, var_fa1), temp_fv0_2);
+        var_ft5 = D_8034E820 * 3.0f * temp_fv0_2 * arg0->unk274.z * arg0->unk274.z;
+        if (var_ft5 < -10.0f) {
+            var_ft5 = -10.0f;
+        }
+        if (var_ft5 > 200.0f) {
+            var_ft5 = 200.0f;
+        }
+    } else {
+        var_ft5 = 0.0f;
+    }
+    if (arg0->unk2D4 < 0.5f) {
+        if (arg0->unk224 < 30.0f) {
+            var_ft4 = uvCosF(arg0->unk2D4) * 1.3856f * arg0->unk2D0 * arg0->unk2D0;
+            temp_fa0 = 2.25f * var_ft4;
+        } else {
+            var_ft4 = uvCosF(arg0->unk2D4) * 0.6928f * arg0->unk2D0 * arg0->unk2D0;
+            temp_fa0 = 2.75f * var_ft4;
+            if (arg0->unk200.z > 30.0f) {
+                temp_fa0 = 0.0f;
+            } else if (arg0->unk200.z > 20.0f) {
+                temp_fa0 *= 1.0f - ((arg0->unk200.z - 20.0f) / 10.0f);
+            }
+        }
+    } else {
+        if (arg0->unk274.y > 0.0f) {
+            var_ft4 = 0.0f;
+        } else {
+            f32 temp_ft3 = uvSinF(arg0->unk2D4) * -0.064950004f;
+            f32 temp = arg0->unk274.y;
+            var_ft4 = temp_ft3 * temp * temp;
+        }
+        temp_fa0 = 2.0f * uvSinF(arg0->unk2D4) * arg0->unk2D0 * arg0->unk2D0;
+        if (arg0->unk224 > 15.0f) {
+            temp_fa0 = 0.0f;
+        } else {
+            temp_fa0 *= (1.0f - (arg0->unk224 / 15.0f));
+        }
+    }
+    var_ft5 += temp_fa0;
+    if (arg0->unk10.m[3][2] > 875.0f) {
+        var_fv0 = 1.0f - ((arg0->unk10.m[3][2] - 875.0f) / 75.0f);
+        if (var_fv0 < 0) {
+            var_fv0 = 0;
+        }
+    } else {
+        var_fv0 = 1.0f;
+    }
+    var_ft5 *= var_fv0;
+    var_ft4 *= var_fv0;
+    arg0->unk228.z += var_ft5;
+    arg0->unk228.y += var_ft4;
+}
 
 void bird_802CFEA8(Unk80367704* arg0) {
     Vec3F sp2C;
