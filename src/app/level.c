@@ -32,7 +32,7 @@ extern s32 gLevelLPAD;
 extern LevelTPTS gLevelTPTS;
 extern LevelTOYS gLevelTOYS;
 extern s32 gLevelAPTS;
-extern s32 gLevelBNUS;
+extern LevelBNUS gLevelBNUS;
 extern LevelObjects gLevelObjects;
 
 void levelLoad(u8 map, u8 pilot, u8 vehicle, s32 animateToys) {
@@ -258,7 +258,7 @@ u8 levelGetLPAD(void** data) {
     return D_8034F408->countLPAD;
 }
 
-u8 levelGetBNUS(void** data) {
+u8 levelGetBNUS(LevelBNUS** data) {
     *data = D_8034F408->dataBNUS;
     return D_8034F408->countBNUS;
 }
@@ -352,7 +352,7 @@ LevelObjects* levelLoadMapObjects(u8 mapIdx) {
             }
 
             temp->countBNUS = ptr->countBNUS;
-            if (temp->countBNUS >= 3) {
+            if (temp->countBNUS > 2) {
                 _uvDebugPrintf("level : too many bonus objects level [%d]\n", temp->countBNUS);
                 temp->countBNUS = 0;
             }

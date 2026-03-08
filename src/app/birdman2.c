@@ -123,9 +123,9 @@ void bird_802CECB8(Unk80367704* arg0) {
     arg0->unk234.z = 0.0f;
     arg0->unk234.y = 0.0f;
     arg0->unk234.x = 0.0f;
-    arg0->unk258 = 0.0f;
-    arg0->unk254 = 0.0f;
-    arg0->unk250 = 0.0f;
+    arg0->unk250.z = 0.0f;
+    arg0->unk250.y = 0.0f;
+    arg0->unk250.x = 0.0f;
     arg0->unk25C.y = 0.0f;
     arg0->unk24C = 0.0f;
     arg0->unk248 = arg0->unk24C;
@@ -135,9 +135,9 @@ void bird_802CECB8(Unk80367704* arg0) {
     arg0->unk268.x = 0.0f;
     arg0->unk25C.z = 1.0f;
     arg0->unk268.z = -9.8f;
-    arg0->unk274 = 0.0f;
-    arg0->unk278 = 0.0f;
-    arg0->unk27C = 0.0f;
+    arg0->unk274.x = 0.0f;
+    arg0->unk274.y = 0.0f;
+    arg0->unk274.z = 0.0f;
     arg0->unk224 = 0.0f;
     arg0->unk240 = 0.0f;
     arg0->unk280 = 0.0f;
@@ -192,7 +192,7 @@ void bird_802CEDF8(Unk80367704* arg0) {
             break;
         }
     } else {
-        arg0->unk258 = -arg0->unk2B4 * 5.6f * arg0->unkE4;
+        arg0->unk250.z = -arg0->unk2B4 * 5.6f * arg0->unkE4;
         func_80313E18(&arg0->unk25C, &arg0->unk10);
         arg0->unk200.x = func_80313AF4(0.0f, arg0->unk200.x, 10.0f);
         arg0->unk200.y = func_80313AF4(0.0f, arg0->unk200.y, 10.0f);
@@ -209,8 +209,8 @@ void bird_802CEDF8(Unk80367704* arg0) {
         arg0->unk228.z = 0.0f;
         arg0->unk228.y = 0.0f;
         arg0->unk228.x = 0.0f;
-        arg0->unk254 = 0.0f;
-        arg0->unk250 = 0.0f;
+        arg0->unk250.y = 0.0f;
+        arg0->unk250.x = 0.0f;
         if (arg0->unk2D0 > 1.9f) {
             arg0->unk105 = 0;
             arg0->unk164 = 2.5f;
@@ -231,9 +231,9 @@ void bird_802CEDF8(Unk80367704* arg0) {
     arg0->unk218.x += D_8034F854 * arg0->unk234.x;
     arg0->unk218.y += D_8034F854 * arg0->unk234.y;
     arg0->unk218.z += D_8034F854 * arg0->unk234.z;
-    arg0->unk244 += D_8034F854 * arg0->unk250;
-    arg0->unk248 += D_8034F854 * arg0->unk254;
-    arg0->unk24C += D_8034F854 * arg0->unk258;
+    arg0->unk244 += D_8034F854 * arg0->unk250.x;
+    arg0->unk248 += D_8034F854 * arg0->unk250.y;
+    arg0->unk24C += D_8034F854 * arg0->unk250.z;
     uvMat4LocalTranslate(&arg0->unk10, arg0->unk200.x * D_8034F854, arg0->unk200.y * D_8034F854, arg0->unk200.z * D_8034F854);
     uvMat4RotateAxis(&arg0->unk10, arg0->unk24C * D_8034F854, 'z');
     uvMat4RotateAxis(&arg0->unk10, arg0->unk244 * D_8034F854, 'x');
@@ -241,9 +241,9 @@ void bird_802CEDF8(Unk80367704* arg0) {
     arg0->unk228.x = 0.0f;
     arg0->unk228.y = 0.0f;
     arg0->unk228.z = 0.0f;
-    arg0->unk250 = 0.0f;
-    arg0->unk254 = 0.0f;
-    arg0->unk258 = 0.0f;
+    arg0->unk250.x = 0.0f;
+    arg0->unk250.y = 0.0f;
+    arg0->unk250.z = 0.0f;
     if (arg0->unk104 != 3) {
         bird_802D0ABC(arg0);
     }
@@ -329,7 +329,88 @@ s32 bird_802CF76C(Unk80367704* arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/birdman2/bird_802CF8A4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/birdman2/bird_802CFAC8.s")
+void bird_802CFAC8(Unk80367704* arg0) {
+    f32 var_ft5;
+    f32 temp_fa0;
+    f32 var_ft4;
+    f32 var_fa0_3;
+    f32 var_fv0;
+    f32 temp_fv0_2;
+    f32 var_fa1;
+    f32 var_fa0;
+
+    if (arg0->unk274.y > 0.0f) {
+        var_fv0 = arg0->unk274.y;
+    } else {
+        var_fv0 = -arg0->unk274.y;
+    }
+    if (var_fv0 > 0.1f) {
+        var_fa1 = -arg0->unk274.y;
+        var_fa0 = arg0->unk274.z;
+        temp_fv0_2 = uvSqrtF(SQ(var_fa1) + SQ(var_fa0));
+        if (temp_fv0_2 > 0.01f) {
+            var_fa1 /= temp_fv0_2;
+            var_fa0 /= temp_fv0_2;
+            if (var_fa1 < 0.0f) {
+                var_fa1 = -var_fa1;
+            }
+        } else {
+            var_fa1 = 1.0f;
+            var_fa0 = 0.0f;
+        }
+        temp_fv0_2 = bird_802D08F8(&D_8034E824, uvAtan2F(var_fa0, var_fa1), temp_fv0_2);
+        var_ft5 = D_8034E820 * 3.0f * temp_fv0_2 * arg0->unk274.z * arg0->unk274.z;
+        if (var_ft5 < -10.0f) {
+            var_ft5 = -10.0f;
+        }
+        if (var_ft5 > 200.0f) {
+            var_ft5 = 200.0f;
+        }
+    } else {
+        var_ft5 = 0.0f;
+    }
+    if (arg0->unk2D4 < 0.5f) {
+        if (arg0->unk224 < 30.0f) {
+            var_ft4 = uvCosF(arg0->unk2D4) * 1.3856f * arg0->unk2D0 * arg0->unk2D0;
+            temp_fa0 = 2.25f * var_ft4;
+        } else {
+            var_ft4 = uvCosF(arg0->unk2D4) * 0.6928f * arg0->unk2D0 * arg0->unk2D0;
+            temp_fa0 = 2.75f * var_ft4;
+            if (arg0->unk200.z > 30.0f) {
+                temp_fa0 = 0.0f;
+            } else if (arg0->unk200.z > 20.0f) {
+                temp_fa0 *= 1.0f - ((arg0->unk200.z - 20.0f) / 10.0f);
+            }
+        }
+    } else {
+        if (arg0->unk274.y > 0.0f) {
+            var_ft4 = 0.0f;
+        } else {
+            f32 temp_ft3 = uvSinF(arg0->unk2D4) * -0.064950004f;
+            f32 temp = arg0->unk274.y;
+            var_ft4 = temp_ft3 * temp * temp;
+        }
+        temp_fa0 = 2.0f * uvSinF(arg0->unk2D4) * arg0->unk2D0 * arg0->unk2D0;
+        if (arg0->unk224 > 15.0f) {
+            temp_fa0 = 0.0f;
+        } else {
+            temp_fa0 *= (1.0f - (arg0->unk224 / 15.0f));
+        }
+    }
+    var_ft5 += temp_fa0;
+    if (arg0->unk10.m[3][2] > 875.0f) {
+        var_fv0 = 1.0f - ((arg0->unk10.m[3][2] - 875.0f) / 75.0f);
+        if (var_fv0 < 0) {
+            var_fv0 = 0;
+        }
+    } else {
+        var_fv0 = 1.0f;
+    }
+    var_ft5 *= var_fv0;
+    var_ft4 *= var_fv0;
+    arg0->unk228.z += var_ft5;
+    arg0->unk228.y += var_ft4;
+}
 
 void bird_802CFEA8(Unk80367704* arg0) {
     Vec3F sp2C;
@@ -348,9 +429,9 @@ void bird_802CFEA8(Unk80367704* arg0) {
             sp20.y = 0.0f;
             sp20.x = 0.0f;
         }
-        arg0->unk274 = sp2C.x - arg0->unk200.x;
-        arg0->unk278 = sp2C.y - arg0->unk200.y;
-        arg0->unk27C = sp2C.z - arg0->unk200.z;
+        arg0->unk274.x = sp2C.x - arg0->unk200.x;
+        arg0->unk274.y = sp2C.y - arg0->unk200.y;
+        arg0->unk274.z = sp2C.z - arg0->unk200.z;
     }
 }
 

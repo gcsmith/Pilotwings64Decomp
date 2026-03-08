@@ -12,6 +12,7 @@
 #include "demo.h"
 #include "environment.h"
 
+// TODO: Unk802D472C_SP60 needs to be merged with some combination of Unk802D3658_Unk1224/8
 typedef struct {
     s32 unk0;
     u8 pad4[0x1C - 0x4];
@@ -638,7 +639,7 @@ s32 func_802D472C(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
         sp1A8.y += arg0->unk8 * dy;
         sp1A8.z += arg0->unk8 * dz;
     }
-    temp_v0 = func_802DB224(&sp60[0].unk0, 0xD, arg0->unk4, arg0->unk6, &sp1A8, &sp1B4);
+    temp_v0 = func_802DB224((Unk802D3658_Unk1224*)&sp60, 0xD, arg0->unk4, arg0->unk6, &sp1A8, &sp1B4);
     if (temp_v0 == 0) {
         return 0;
     }
@@ -672,10 +673,10 @@ s32 func_802D472C(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
 
 s32 func_802D4A30(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
     s32 sp2A4;
-    u8 pad[0x144];
+    s32 pad;
     Unk802D3658_Unk1120* temp_s2;
     Unk802D3658_Unk1228* var_s3;
-    s32 sp154;
+    Unk802D3658_Unk1224 sp154;
     Vec3F sp148;
     Vec3F sp13C;
     Vec3F sp130;
@@ -708,7 +709,7 @@ s32 func_802D4A30(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
         sp130.y = sp70.m[3][1] + (arg1->m[1][1] * 1.5f * arg0->unk3C);
         sp130.z = sp70.m[3][2] + (arg1->m[1][2] * 1.5f * arg0->unk3C);
         (void)func_802DB224(&sp154, 9, arg0->unk4, arg0->unk6, &sp13C, &sp130);
-        if (sp154 > 0) {
+        if (sp154.unk0 > 0) {
             return -1;
         }
         uvMat4LocalTranslate(arg1, sp148.x, sp148.y, sp148.z);
