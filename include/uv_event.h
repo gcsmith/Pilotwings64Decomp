@@ -3,11 +3,11 @@
 
 #include <PR/ultratypes.h>
 
-typedef void (*EventCallback_t)(s32, s32, s32);
+typedef void (*EventCallback_t)(s32, void*, s32);
 
 typedef struct EventCallbackInfo {
-    EventCallback_t unk0;
-    s32 unk4;
+    EventCallback_t cb;
+    void* arg;
 } EventCallbackInfo;
 
 typedef struct UserEventCallbackInfo {
@@ -21,10 +21,8 @@ typedef struct SystemEventCallbackInfo {
 } SystemEventCallbackInfo;
 
 void func_80202DA0(void);
-void func_80203434(s32, s32, s32);
-void func_802035AC(s32, s32, s32);
-void func_80203724(s32, s32, s32);
-
+void uvEventMaxCb(EventCallbackInfo arg0, ...);
+void uvEventRemoveCb(EventCallbackInfo arg0, ...);
 void uvEventPost(s32, s32);
 
 #endif // UV_EVENT_H
