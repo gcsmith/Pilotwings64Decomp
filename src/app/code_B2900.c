@@ -89,7 +89,7 @@ void func_8032B508(Unk80364210* arg0) {
     D_8034FBD0 = arg0;
 }
 
-s32 func_8032B560(Unk80364210 *arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
+s32 func_8032B560(Unk80364210* arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
     Unk80345C80* sp74;
     s32 pad_sp70;
     s32 pad_sp6C;
@@ -139,7 +139,7 @@ s32 func_8032B560(Unk80364210 *arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
         break;
     }
     temp_v1 = &arg0->unk40[classIdx].unk0[testIdx][vehIdx];
-    if (temp_v1){}
+    if (temp_v1) { }
     temp_v1->unk4 = 0;
     sp64 = 0.0f;
     if ((arg0->unk0 & 2) && (sp74->unk0.unk0 > 0)) {
@@ -218,22 +218,8 @@ s32 func_8032B560(Unk80364210 *arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
         temp_v1->unk24 = func_802FB5FC();
     }
 
-    sp6A = temp_v1->unk8
-        + temp_v1->unk14
-        + temp_v1->unkC
-        + temp_v1->unkA
-        + temp_v1->unkE
-        + temp_v1->unk12
-        + temp_v1->unk18
-        + temp_v1->unk16
-        + temp_v1->unk6
-        + temp_v1->unk1A
-        + temp_v1->unk1C
-        + temp_v1->unk1E
-        + temp_v1->unk20
-        + temp_v1->unk22
-        + temp_v1->unk24
-        + arg0->unk38;
+    sp6A = temp_v1->unk8 + temp_v1->unk14 + temp_v1->unkC + temp_v1->unkA + temp_v1->unkE + temp_v1->unk12 + temp_v1->unk18 + temp_v1->unk16 + temp_v1->unk6 +
+           temp_v1->unk1A + temp_v1->unk1C + temp_v1->unk1E + temp_v1->unk20 + temp_v1->unk22 + temp_v1->unk24 + arg0->unk38;
     if (arg0->unkC != 10000.0f) {
         temp_v1->unk4 = (sp64 * sp60) + 0.5f;
         temp_v1->unk2 = 0;

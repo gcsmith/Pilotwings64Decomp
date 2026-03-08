@@ -62,8 +62,8 @@ s32 testMenuShutterBug(void) {
     Unk80362690_Unk0_UnkC* unkC;
 
     unkC = &D_80362690->unk0[D_80362690->unk9C].unkC;
-    if ((unkC->veh == VEHICLE_HANG_GLIDER) && ((unkC->cls == CLASS_A && gCurTestIdx == 0) || (unkC->cls == CLASS_B && gCurTestIdx == 1) ||
-                                               (unkC->cls == CLASS_PILOT && gCurTestIdx == 2))) {
+    if ((unkC->veh == VEHICLE_HANG_GLIDER) &&
+        ((unkC->cls == CLASS_A && gCurTestIdx == 0) || (unkC->cls == CLASS_B && gCurTestIdx == 1) || (unkC->cls == CLASS_PILOT && gCurTestIdx == 2))) {
         return TRUE;
     }
     return FALSE;

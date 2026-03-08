@@ -870,21 +870,14 @@ s32 cannonLoad802D77D8(Unk80362690* arg0, Unk802D3658_Arg0* arg1) {
 // cannonFrame802D7B7C called every frame while aiming cannon and while in flight before landing
 #pragma GLOBAL_ASM("asm/nonmatchings/app/cannonball/cannonFrame802D7B7C.s")
 
-#ifndef NON_MATCHING
-// matches if func_8032B560 is changed to return void?
-s32 cannonLandedFrame(Unk802D5C5C_Arg0* arg0);
-#pragma GLOBAL_ASM("asm/nonmatchings/app/cannonball/cannonLandedFrame.s")
-#else
-// cannonLandedFrame called every frame after landing from cannon shot
 s32 cannonLandedFrame(Unk802D5C5C_Arg0* arg0) {
-    s32* temp_v1;
+    Unk80364210* temp_v1;
     Unk80362690_Unk0_UnkC* temp_s0;
     u8 sp27;
     s32 var_a2;
-    s16* var_v1;
 
     temp_s0 = &D_80362690->unk0[D_80362690->unk9C].unkC;
-    temp_v1 = (s32*)func_8032BE10();
+    temp_v1 = func_8032BE10();
     if (0.0f == D_8034EA00) {
         D_8034EA00 = D_8034F850 + 3.0f;
         if (arg0->unkD5 == 2) {
@@ -893,21 +886,17 @@ s32 cannonLandedFrame(Unk802D5C5C_Arg0* arg0) {
             sp27 = 0;
         }
         if (sp27) {
-            *temp_v1 = arg0->unk4;
+            temp_v1->unk0 = arg0->unk4;
             func_8032B560(temp_s0->unk74, temp_s0->cls, temp_s0->test, temp_s0->veh);
-            var_v1 = (s16*)((s32)temp_s0->unk74 + (temp_s0->cls * sizeof(Unk80364210_Unk0)) +
-                            (temp_s0->test * (sizeof(Unk80364210_Unk0_Unk0) * VEHICLE_COUNT)) + (temp_s0->veh * sizeof(Unk80364210_Unk0_Unk0)));
-            var_a2 = var_v1[0x22];
+
+            var_a2 = temp_s0->unk74->unk40[temp_s0->cls].unk0[temp_s0->test][temp_s0->veh].unk4;
             if ((D_80359A88[arg0->unkC] < var_a2) || var_a2 == 0x7F) {
                 D_80359A88[arg0->unkC] = var_a2;
             }
-            ((s16*)((s32)temp_s0->unk74 + (temp_s0->cls * sizeof(Unk80364210_Unk0)) + (temp_s0->test * (sizeof(Unk80364210_Unk0_Unk0) * VEHICLE_COUNT)) +
-                    (temp_s0->veh * sizeof(Unk80364210_Unk0_Unk0))))[0x22] = D_80359A88[arg0->unkC];
+            temp_s0->unk74->unk40[temp_s0->cls].unk0[temp_s0->test][temp_s0->veh].unk4 = D_80359A88[arg0->unkC];
         } else {
-            temp_v1 = (s32*)((s32)temp_s0->unk74 + (temp_s0->cls * sizeof(Unk80364210_Unk0)) +
-                             (temp_s0->test * (sizeof(Unk80364210_Unk0_Unk0) * VEHICLE_COUNT)) + (temp_s0->veh * sizeof(Unk80364210_Unk0_Unk0)));
-            if (((s16*)temp_v1)[0x22] == 0x7F) {
-                ((s16*)temp_v1)[0x22] = 0;
+            if (temp_s0->unk74->unk40[temp_s0->cls].unk0[temp_s0->test][temp_s0->veh].unk4 == 0x7F) {
+                temp_s0->unk74->unk40[temp_s0->cls].unk0[temp_s0->test][temp_s0->veh].unk4 = 0;
             }
             var_a2 = 0;
         }
@@ -952,7 +941,6 @@ s32 cannonLandedFrame(Unk802D5C5C_Arg0* arg0) {
     hudWarningText(-1, 0.0f, 0.0f);
     return 0xD;
 }
-#endif
 
 // cannonEndShot called once after landing before the cannon is reset for next shot
 #pragma GLOBAL_ASM("asm/nonmatchings/app/cannonball/cannonEndShot.s")
