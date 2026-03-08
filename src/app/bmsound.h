@@ -2,6 +2,8 @@
 #define APP_BMSOUND_H
 
 #include <PR/ultratypes.h>
-void func_802D0BF0(void*);
+#include "code_72B70.h"
+
+void bmSoundInit(Unk80367704*);
 
 #endif // APP_BMSOUND_H

@@ -135,9 +135,9 @@ void bird_802CECB8(Unk80367704* arg0) {
     arg0->unk268.x = 0.0f;
     arg0->unk25C.z = 1.0f;
     arg0->unk268.z = -9.8f;
-    arg0->unk274 = 0.0f;
-    arg0->unk278 = 0.0f;
-    arg0->unk27C = 0.0f;
+    arg0->unk274.x = 0.0f;
+    arg0->unk274.y = 0.0f;
+    arg0->unk274.z = 0.0f;
     arg0->unk224 = 0.0f;
     arg0->unk240 = 0.0f;
     arg0->unk280 = 0.0f;
@@ -348,9 +348,9 @@ void bird_802CFEA8(Unk80367704* arg0) {
             sp20.y = 0.0f;
             sp20.x = 0.0f;
         }
-        arg0->unk274 = sp2C.x - arg0->unk200.x;
-        arg0->unk278 = sp2C.y - arg0->unk200.y;
-        arg0->unk27C = sp2C.z - arg0->unk200.z;
+        arg0->unk274.x = sp2C.x - arg0->unk200.x;
+        arg0->unk274.y = sp2C.y - arg0->unk200.y;
+        arg0->unk274.z = sp2C.z - arg0->unk200.z;
     }
 }
 
