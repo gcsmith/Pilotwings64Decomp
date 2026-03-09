@@ -1,6 +1,7 @@
 #include "common.h"
 #include <uv_graphics.h>
 #include <uv_math.h>
+#include "kernel/code_58E0.h"
 #include "kernel/code_7150.h"
 #include "kernel/code_2FE40.h"
 #include "kernel/code_30DF0.h"
@@ -402,8 +403,6 @@ typedef struct Unk802C5BC0 {
 
 Unk802C5BC0 D_802C5BC0[64];
 s32 D_802C5FC0;
-
-extern u8 D_80263060[];
 
 void func_8022EE90(UnkStruct_80204D94* arg0, ParsedUVTR* arg1, f32 arg2) {
     s32 i;
