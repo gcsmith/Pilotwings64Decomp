@@ -14,6 +14,7 @@
 #include "shadow.h"
 #include "snd.h"
 #include "snow.h"
+#include "text_data.h"
 #include "wind_objects.h"
 #include <uv_dobj.h>
 #include <uv_event.h>
@@ -24,7 +25,6 @@
 s32 D_8034FC10[] = { 0xDC, 0x14E, 0x12F, 0x1D };
 s32 D_8034FC20[] = { 0xDC, 0x1D };
 s32 D_8034FC28[] = { 0xDC, 0x14E, 0x1D };
-Vec3F D_8034FC34 = { 0.0f, 0.0f, 1.0f };
 
 f32 func_802E6B68(void);                              /* fdr.h */
 void func_802E7278(Mtx4F*, u16*);                     /* fdr.h */
@@ -35,8 +35,9 @@ void func_802F5BF0(void*);                            /* code_7CF30.h */
 void func_802F604C(void*, u8);                        /* code_7CF30.h */
 void func_802FA108(void*);                            /* code_81490.h */
 void func_802FA2D0(void*, u8);                        /* code_81490.h */
+void func_80313004(s32);                              /* code_99D40.h */
+void func_8031420C(f32, f32, f32, f32*, f32*, f32*);  /* code_9A960.h */
 f32 func_8031385C(Mtx4F*, Mtx4F*, Unk802D3658_Arg0*); /* code_9A960.h */
-void func_80313004(s32);                              /* code_99D40 */
 void func_8032150C(void);                             /* proxanim.h */
 void func_80324EC4(void*);                            /* code_AC1A0.h */
 void func_80325160(void*, u8);                        /* code_AC1A0.h */
@@ -46,10 +47,6 @@ void func_803308C4(void*, u8);                        /* skydiving.h */
 void func_803213E0(void);                             /* proxanim.h */
 void func_80321400(void);                             /* proxanim.h */
 
-#ifndef NON_MATCHING
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_B3A70/func_8032C540.s")
-#else
-// .rodata diff?
 void func_8032C540(Unk80362690* arg0) {
     f32 var_fs3;
     Unk80367704* sp1E0;
@@ -215,7 +212,7 @@ void func_8032C540(Unk80362690* arg0) {
         }
         uvMat4UnkOp6(&temp_s0->unk70->unk108, &sp148, &spC8);
         temp_fv0 = func_8031385C(&temp_s0->unk70->unk108, &temp_s0->unk70->unk80, temp_s0->unk70);
-        temp_fa0 = 0.5f + (0.2f * temp_fv0);
+        temp_fa0 = 0.5f + (0.02f * temp_fv0);
         if (temp_fa0 < 1.0f) {
             temp_fa0 = 1.0f;
         } else if (temp_fa0 > 4.0f) {
@@ -248,7 +245,6 @@ void func_8032C540(Unk80362690* arg0) {
     uvEventPost(0xC, 0);
     func_8033F964(2);
 }
-#endif
 
 void func_8032CC44(Unk80362690* arg0) {
     Unk80362690_Unk0_UnkC* sp2C;
@@ -464,6 +460,110 @@ void func_8032D33C(Mtx4F* arg0, Mtx4F* arg1, f32 arg2, u8 arg3) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_B3A70/func_8032D51C.s")
+void func_8032D51C(s32 fadeoutType) {
+    f32 var_fs0;
+    f32 var_fs3;
+    u8 sp87;
+    u8 sp86;
+    u8 sp85;
+    u8 sp84;
+    f32 var_fs1;
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_B3A70/func_8032D90C.s")
+    var_fs1 = var_fs0 = 0.0f;
+    switch (fadeoutType) {
+    case 0:
+        var_fs3 = 0.5f;
+        sp87 = sp86 = sp85 = 0;
+        break;
+    case 1:
+        var_fs3 = 4.0f;
+        sp87 = sp86 = sp85 = 0xFF;
+        break;
+    default:
+        _uvDebugPrintf("screen_fadeout ( %d ) unknown type\n", fadeoutType);
+        break;
+    }
+    uvGfxWaitForMesg();
+    uvCopyFrameBuf(0);
+    while (var_fs3 > var_fs1 && var_fs0 < 1.0f) {
+        if ((0.38f * var_fs3) < var_fs1) {
+            var_fs1 = var_fs3;
+        }
+        uvGfxBegin();
+        var_fs0 = (2.0f * var_fs1) / var_fs3;
+        if (var_fs0 < 0.0f) {
+            var_fs0 = 0.0f;
+        } else if (var_fs0 > 1.0f) {
+            var_fs0 = 1.0f;
+        }
+        sp84 = 255.0f * var_fs0;
+        func_80314154();
+        uvGfxSetFlags(0x400000);
+        uvVtxBeginPoly();
+        uvVtx(9, 0x11, 0, 0, 0, sp87, sp86, sp85, sp84);
+        uvVtx(0x137, 0x11, 0, 0, 0, sp87, sp86, sp85, sp84);
+        uvVtx(0x137, 0xE9, 0, 0, 0, sp87, sp86, sp85, sp84);
+        uvVtx(9, 0xE9, 0, 0, 0, sp87, sp86, sp85, sp84);
+        uvVtxEndPoly();
+        func_803141E4();
+        uvGfxEnd();
+        var_fs1 += (1.0f/60.0f);
+    }
+    func_80314154();
+    for (i = 0; i < 2; i++) {
+        uvGfxBegin();
+        uvVtxBeginPoly();
+        uvVtx(9, 0x11, 0, 0, 0, sp87, sp86, sp85, sp84);
+        uvVtx(0x137, 0x11, 0, 0, 0, sp87, sp86, sp85, sp84);
+        uvVtx(0x137, 0xE9, 0, 0, 0, sp87, sp86, sp85, sp84);
+        uvVtx(9, 0xE9, 0, 0, 0, sp87, sp86, sp85, sp84);
+        uvVtxEndPoly();
+        uvGfxEnd();
+    }
+    func_803141E4();
+}
+
+void func_8032D90C(void) {
+    f32 var_fs0;
+    f32 r;
+    f32 g;
+    f32 b;
+    s16* temp_s4;
+    s16* temp_s5;
+    s16* temp_s6;
+    s16* temp_s7;
+    u8 r2, g2, b2;
+
+    var_fs0 = 0.0f;
+    uvLevelAppend(0x2E);
+    textLoadBlock(0x42);
+    temp_s7 = textGetDataByIdx(0x22); // "The controller is"
+    temp_s4 = textGetDataByIdx(0x152); // "not connected correctly."
+    temp_s5 = textGetDataByIdx(0xCD); // "Connect to socket1"
+    temp_s6 = textGetDataByIdx(0x47); // "and try again."
+    while (1) {
+        var_fs0 += 0.003f;
+        if (var_fs0 > 1.0f) {
+            var_fs0 -= 1.0f;
+        }
+        func_8031420C(var_fs0, 1.0f, 1.0f, &r, &g, &b);
+        r2 = 255.0f * r;
+        g2 = 255.0f * g;
+        b2 = 255.0f * b;
+        uvGfxBegin();
+        uvGfxClearScreen(0, 0, 0, 0xFF);
+        func_80314154();
+        uvGfxSetFlags(0x400000);
+        uvFontSet(6);
+        uvFontScale(1.0, 1.0);
+        uvFontColor(r2, g2, b2, 0xFF);
+        func_80219874(0xA0 - ((func_802196B0(temp_s7) - 0x10) / 2), 0x9B, temp_s7, 0x3C, 0xFFE);
+        func_80219874(0xA0 - ((func_802196B0(temp_s4) - 0x10) / 2), 0x87, temp_s4, 0x3C, 0xFFE);
+        func_80219874(0xA0 - ((func_802196B0(temp_s5) - 0x10) / 2), 0x73, temp_s5, 0x3C, 0xFFE);
+        func_80219874(0xA0 - ((func_802196B0(temp_s6) - 0x10) / 2), 0x5F, temp_s6, 0x3C, 0xFFE);
+        uvFontGenDlist();
+        func_803141E4();
+        uvGfxEnd();
+    }
+}
