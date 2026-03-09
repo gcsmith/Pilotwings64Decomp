@@ -10,12 +10,15 @@
 #include "hud.h"
 #include "fdr.h"
 #include "map3d.h"
+#include "menu.h"
 #include "shadow.h"
 #include "snd.h"
+#include "snow.h"
 #include "wind_objects.h"
-#include <uv_font.h>
 #include <uv_dobj.h>
 #include <uv_event.h>
+#include <uv_font.h>
+#include <uv_geometry.h>
 #include <uv_vector.h>
 
 s32 D_8034FC10[] = { 0xDC, 0x14E, 0x12F, 0x1D };
@@ -23,24 +26,25 @@ s32 D_8034FC20[] = { 0xDC, 0x1D };
 s32 D_8034FC28[] = { 0xDC, 0x14E, 0x1D };
 Vec3F D_8034FC34 = { 0.0f, 0.0f, 1.0f };
 
-f32 func_802E6B68(void);                                /* fdr.h */
-void func_802E7278(Mtx4F*, u16*);                      /* fdr.h */
-void func_802EF368(void*);                 /* code_76670.h */
-void func_802EF5B0(void*, u8);             /* code_76670.h */
-void func_802F5BF0(void*);                 /* code_7CF30.h */
-void func_802F604C(void*, u8);             /* code_7CF30.h */
-void func_802FA108(void*);                 /* code_81490.h */
-void func_802FA2D0(void*, u8);             /* code_81490.h */
+f32 func_802E6B68(void);                              /* fdr.h */
+void func_802E7278(Mtx4F*, u16*);                     /* fdr.h */
+void func_802E0484(Mtx4F*, Mtx4F*, f32);              /* code_66160.h */
+void func_802EF368(void*);                            /* code_76670.h */
+void func_802EF5B0(void*, u8);                        /* code_76670.h */
+void func_802F5BF0(void*);                            /* code_7CF30.h */
+void func_802F604C(void*, u8);                        /* code_7CF30.h */
+void func_802FA108(void*);                            /* code_81490.h */
+void func_802FA2D0(void*, u8);                        /* code_81490.h */
 f32 func_8031385C(Mtx4F*, Mtx4F*, Unk802D3658_Arg0*); /* code_9A960.h */
-void func_8032150C(void);                                  /* proxanim.h */
-void func_80324EC4(void*);                 /* code_AC1A0.h */
-void func_80325160(void*, u8);             /* code_AC1A0.h */
-void func_8032D33C(Mtx4F*, Mtx4F*, f32, s32);            /* static */
-void func_8032FC08(void*);                 /* skydiving.h */
-void func_803308C4(void*, u8);             /* skydiving.h */
-void func_803213E0(void);                                  /* proxanim.h */
-void func_80321400(void);                                  /* proxanim.h */
-
+void func_80313004(s32);                              /* code_99D40 */
+void func_8032150C(void);                             /* proxanim.h */
+void func_80324EC4(void*);                            /* code_AC1A0.h */
+void func_80325160(void*, u8);                        /* code_AC1A0.h */
+void func_8032D33C(Mtx4F*, Mtx4F*, f32, u8);          /* static */
+void func_8032FC08(void*);                            /* skydiving.h */
+void func_803308C4(void*, u8);                        /* skydiving.h */
+void func_803213E0(void);                             /* proxanim.h */
+void func_80321400(void);                             /* proxanim.h */
 
 #ifndef NON_MATCHING
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_B3A70/func_8032C540.s")
@@ -118,7 +122,7 @@ void func_8032C540(Unk80362690* arg0) {
         break;
     case VEHICLE_BIRDMAN:
         sp1C8 = temp_s0->unk6C;
-        bird_802CC39C((Unk80367704* ) sp1C8);
+        bird_802CC39C((Unk80367704*)sp1C8);
         sp87 = sp1C8->unk0;
         sp1C8->unk2 &= ~8;
         break;
@@ -145,8 +149,8 @@ void func_8032C540(Unk80362690* arg0) {
             var_fs2 = var_fs0 + 0.2f;
         }
         demo_80323020();
-        if (demoButtonPress(arg0->unk9C, A_BUTTON|START_BUTTON|B_BUTTON) != 0) {
-            if (demoButtonPress(arg0->unk9C, A_BUTTON|START_BUTTON) != 0) {
+        if (demoButtonPress(arg0->unk9C, A_BUTTON | START_BUTTON | B_BUTTON) != 0) {
+            if (demoButtonPress(arg0->unk9C, A_BUTTON | START_BUTTON) != 0) {
                 snd_play_sfx(0x6EU);
             } else if (demoButtonPress(arg0->unk9C, B_BUTTON) != 0) {
                 snd_play_sfx(1U);
@@ -173,7 +177,7 @@ void func_8032C540(Unk80362690* arg0) {
         case VEHICLE_CANNONBALL:
             sp1D4 = temp_s0->unk6C;
             cannonMovementFrame((Unk802D5B50_Arg2*)sp1D4, arg0->unk0->unk0);
-            uvMat4Copy(&sp148, (Mtx4F*) &((f32*)sp1D4)[5]);
+            uvMat4Copy(&sp148, (Mtx4F*)&((f32*)sp1D4)[5]);
             break;
         case VEHICLE_SKY_DIVING:
             sp1D0 = temp_s0->unk6C;
@@ -183,11 +187,11 @@ void func_8032C540(Unk80362690* arg0) {
         case VEHICLE_JUMBLE_HOPPER:
             sp1CC = temp_s0->unk6C;
             func_802FA2D0(sp1CC, arg0->unk0->unk0);
-            uvMat4Copy(&sp148, (Mtx4F* ) &((u8*)sp1CC)[0x74]);
+            uvMat4Copy(&sp148, (Mtx4F*)&((u8*)sp1CC)[0x74]);
             break;
         case VEHICLE_BIRDMAN:
             sp1C8 = temp_s0->unk6C;
-            bird_802CC55C((Unk80367704* ) sp1C8, arg0->unk0->unk0);
+            bird_802CC55C((Unk80367704*)sp1C8, arg0->unk0->unk0);
             uvMat4Copy(&sp148, &sp1C8->unk10);
             break;
         }
@@ -271,39 +275,39 @@ void func_8032CC44(Unk80362690* arg0) {
     sp1C = 0;
     switch (sp2C->veh) {
     case VEHICLE_GYROCOPTER:
-        temp_v0 = (Unk802D5B50_Arg2*) sp2C->unk6C;
+        temp_v0 = (Unk802D5B50_Arg2*)sp2C->unk6C;
         sp28 = temp_v0->unk0;
         sp24 = temp_v0->unk2;
         break;
     case VEHICLE_HANG_GLIDER:
-        temp_v0 = (Unk802D5B50_Arg2*) sp2C->unk6C;
+        temp_v0 = (Unk802D5B50_Arg2*)sp2C->unk6C;
         sp28 = temp_v0->unk0;
         sp24 = temp_v0->unk2;
         break;
     case VEHICLE_ROCKET_BELT:
-        temp_v0 = (Unk802D5B50_Arg2*) sp2C->unk6C;
+        temp_v0 = (Unk802D5B50_Arg2*)sp2C->unk6C;
         sp1C = 0x22;
         sp28 = temp_v0->unk0;
         sp24 = temp_v0->unk2;
         sp20 = temp_v0->pad6;
         break;
     case VEHICLE_CANNONBALL:
-        temp_v0 = (Unk802D5B50_Arg2*) sp2C->unk6C;
+        temp_v0 = (Unk802D5B50_Arg2*)sp2C->unk6C;
         sp28 = temp_v0->unk0;
         sp24 = temp_v0->unk2;
         break;
     case VEHICLE_SKY_DIVING:
-        temp_v0 = (Unk802D5B50_Arg2*) sp2C->unk6C;
+        temp_v0 = (Unk802D5B50_Arg2*)sp2C->unk6C;
         sp28 = temp_v0->unk0;
         sp24 = temp_v0->unk2;
         break;
     case VEHICLE_JUMBLE_HOPPER:
-        temp_v0 = (Unk802D5B50_Arg2*) sp2C->unk6C;
+        temp_v0 = (Unk802D5B50_Arg2*)sp2C->unk6C;
         sp28 = temp_v0->unk0;
         sp24 = temp_v0->unk2;
         break;
     case VEHICLE_BIRDMAN:
-        temp_v0 = (Unk802D5B50_Arg2*) sp2C->unk6C;
+        temp_v0 = (Unk802D5B50_Arg2*)sp2C->unk6C;
         sp28 = temp_v0->unk0;
         sp24 = temp_v0->unk2;
     }
@@ -344,14 +348,121 @@ void func_8032CC44(Unk80362690* arg0) {
         arg0->unkA0 = 1;
     }
     level_8034528C();
-    cannon_802D8A40(0U, (Unk802D5B50_Arg2*) sp2C->unk6C);
+    cannon_802D8A40(0U, (Unk802D5B50_Arg2*)sp2C->unk6C);
     hudInit();
     func_8034C298();
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_B3A70/func_8032CF28.s")
+s32 func_8032CF28(Unk80362690* arg0) {
+    Unk80362690_Unk0_UnkC* sp6C;
+    Unk802D3658_Arg0* sp68;
+    HUDState* sp64;
+    s32 var_s0;
+    s32 var_s1;
+    u8 sp5B;
+    s32 pad[4];
+    s32 sp40;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_B3A70/func_8032D33C.s")
+    sp6C = &arg0->unk0[arg0->unk9C].unkC;
+    sp68 = sp6C->unk70;
+    snd_play_sfx(4U);
+    var_s0 = 0x4C;
+    sp64 = hudGetState();
+    sp5B = sp64->renderFlags;
+    sp64->renderFlags = 0x400;
+    sp40 = sp6C->veh == VEHICLE_HANG_GLIDER &&
+           ((sp6C->test == 0 && sp6C->cls == CLASS_A) || (sp6C->test == 1 && sp6C->cls == CLASS_B) || (sp6C->test == 2 && sp6C->cls == CLASS_PILOT));
+    if (sp6C->unk8 != 0 || (sp6C->veh == VEHICLE_SKY_DIVING && ((Unk80367704*)sp6C->unk6C)->unk25C.z == 1 /*.0f*/)) {
+        menuCreateItems(0x63, 0x48, 6, 1.0f, 1.0f, D_8034FC20, 2);
+        var_s0 = 0x38;
+    } else if (sp40 != 0) {
+        menuCreateItems(0x63, 0x48, 6, 1.0f, 1.0f, D_8034FC10, 4);
+        var_s0 = 0x5B;
+    } else {
+        menuCreateItems(0x63, 0x48, 6, 1.0f, 1.0f, D_8034FC28, 3);
+    }
+    func_80313004(1);
+    do {
+        uvGfxSetUnkStateF(0.000001f);
+        var_s1 = menu_8030B50C();
+        while (var_s1 != -2 && demoButtonCheck(arg0->unk9C, A_BUTTON) != 0) {
+            demo_80323020();
+        }
+        uvGfxBegin();
+        func_80204FC4(sp68->unk22C);
+        func_80314154();
+        uvVtxBeginPoly();
+        uvVtx(0x5A, 0x52, 0, 0, 0, 0, 0, 0, 0x7F);
+        uvVtx(0xE6, 0x52, 0, 0, 0, 0, 0, 0, 0x7F);
+        uvVtx(0xE6, var_s0 + 0x52, 0, 0, 0, 0, 0, 0, 0x7F);
+        uvVtx(0x5A, var_s0 + 0x52, 0, 0, 0, 0, 0, 0, 0x7F);
+        uvVtxEndPoly();
+        func_803141E4();
+        menuInit();
+        uvFontGenDlist();
+        uvGfxEnd();
+    } while (var_s1 == -2 || var_s1 == -3);
+    uvGfxSetUnkStateF(0.0f);
+    func_80313004(0);
+    if (sp40 == 0 && var_s1 == 2) {
+        var_s1 = 3;
+    }
+    if ((sp6C->unk8 != 0) || ((sp6C->veh == VEHICLE_SKY_DIVING) && (((Unk80367704*)sp6C->unk6C)->unk25C.z == 1 /*.0f*/))) {
+        if (var_s1 == 0) {
+            var_s1 = 0;
+        }
+        if (var_s1 == 1) {
+            var_s1 = 3;
+        }
+    }
+    sp64->renderFlags = sp5B;
+    if (var_s1 == -1) {
+        var_s1 = 0;
+    }
+    if (var_s1 != 0 && (levelGet_80345CB0()[1] == 1)) {
+        func_803405E4();
+    }
+    return var_s1;
+}
+
+void func_8032D33C(Mtx4F* arg0, Mtx4F* arg1, f32 arg2, u8 arg3) {
+    Vec3F spA4 = { 0.0f, 0.0f, 1.0f };
+    Mtx4F sp64;
+    Mtx4F sp24;
+    f32 sp20;
+
+    sp20 = 4.0f * arg2;
+    if (sp20 < 1.0f) {
+        sp20 = 1.0f;
+    } else if (sp20 > 8.0f) {
+        sp20 = 8.0f;
+    }
+    uvMat4Copy(&sp24, arg1);
+    func_80313E18(&spA4, &sp24);
+    uvMat4SetIdentity(&sp64);
+    sp64.m[3][0] = sp24.m[3][0];
+    sp64.m[3][1] = sp24.m[3][1];
+    sp64.m[3][2] = sp24.m[3][2];
+    if (!arg3) {
+        sp64.m[3][0] += ((0.894f * sp20) * sp24.m[0][0]);
+        sp64.m[3][1] += ((0.894f * sp20) * sp24.m[0][1]);
+        sp64.m[3][2] += ((0.894f * sp20) * sp24.m[0][2]);
+        sp64.m[3][0] += ((0.447f * sp20) * sp24.m[1][0]);
+        sp64.m[3][1] += ((0.447f * sp20) * sp24.m[1][1]);
+        sp64.m[3][2] += ((0.447f * sp20) * sp24.m[1][2]);
+    } else {
+        sp64.m[3][0] -= ((0.447f * sp20) * sp24.m[0][0]);
+        sp64.m[3][1] -= ((0.447f * sp20) * sp24.m[0][1]);
+        sp64.m[3][2] -= ((0.447f * sp20) * sp24.m[0][2]);
+        sp64.m[3][0] -= ((0.894f * sp20) * sp24.m[1][0]);
+        sp64.m[3][1] -= ((0.894f * sp20) * sp24.m[1][1]);
+        sp64.m[3][2] -= ((0.894f * sp20) * sp24.m[1][2]);
+    }
+    uvMat4UnkOp6(arg0, &sp24, &sp64);
+    if (!arg3) {
+        func_802E0484(arg0, &sp24, 1.6f);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_B3A70/func_8032D51C.s")
 
