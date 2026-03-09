@@ -253,7 +253,7 @@ typedef struct {
     f32 unk20;
     u8 pad24[0x2C-0x24];
     Mtx4F unk2C;
-    s32 unk6C;
+    void *vehicleData;
     Unk802D3658_Arg0 *unk70;
     Unk80364210 *unk74;
     u8 pad78[0x7B - 0x78];

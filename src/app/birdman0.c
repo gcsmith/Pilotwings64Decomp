@@ -21,9 +21,9 @@ extern Unk803599D0 D_80359390;
 extern u8 D_803593E4;
 
 // forward declarations
-void bird_802CD0F8(Unk80367704*);
-void bird_802CD2E8(u8, Unk80367704*);
-void bird_802CE0A4(Unk80367704*);
+void bird_802CD0F8(VehicleData*);
+void bird_802CD2E8(u8, VehicleData*);
+void bird_802CE0A4(VehicleData*);
 
 // called during game boot
 void bird_802CC1B0(void) {
@@ -47,7 +47,7 @@ void bird_802CC1B0(void) {
 }
 
 // called when starting one of the birdman levels, either from bonus menu or bonus star
-void bird_802CC270(u8 arg0, u8 pilot, Unk80367704* arg2, Unk802D3658_Arg0* arg3) {
+void bird_802CC270(u8 arg0, u8 pilot, VehicleData* arg2, Unk802D3658_Arg0* arg3) {
     uvMemSet(arg2, 0, 0x424);
     bird_802CD2E8(pilot, arg2);
     arg2->unk0 = uvDobjAllocIdx();
@@ -77,9 +77,9 @@ void bird_802CC270(u8 arg0, u8 pilot, Unk80367704* arg2, Unk802D3658_Arg0* arg3)
 }
 
 // called when entering or exiting a birdman level
-void bird_802CC39C(Unk80367704* arg0) {
+void birdEnterLeave(VehicleData* arg0) {
     db_getstart(&arg0->unk10, &arg0->unk200, NULL, NULL);
-    uvDobjPosm((s32)arg0->unk0, 0, &arg0->unk10);
+    uvDobjPosm(arg0->unk0, 0, &arg0->unk10);
     uvMat4Copy(&arg0->unk50, &arg0->unk10);
     bird_802CECB8(arg0);
     arg0->unk104 = 0;
@@ -128,7 +128,7 @@ void bird_802CC51C(Unk802CC51C* arg0) {
 
 // called every frame in a birdman stage
 // handles controller input and motion updates
-void bird_802CC55C(Unk80367704* arg0, u8 arg1) {
+void birdMovementFrame(VehicleData* arg0, u8 arg1) {
     f32 sp7C;
     f32 sp78;
     f32 pad;
@@ -376,7 +376,7 @@ void bird_802CC55C(Unk80367704* arg0, u8 arg1) {
     }
 }
 
-void bird_802CD0F8(Unk80367704* arg0) {
+void bird_802CD0F8(VehicleData* arg0) {
     f32 x;
     f32 y;
     f32 z;
@@ -447,7 +447,7 @@ void bird_802CD0F8(Unk80367704* arg0) {
 }
 
 // called during birdman init to setup pilot specific parameters
-void bird_802CD2E8(u8 pilot, Unk80367704* arg1) {
+void bird_802CD2E8(u8 pilot, VehicleData* arg1) {
     switch (pilot) {
     case PILOT_LARK:
         arg1->unk294.x = 0;
@@ -821,7 +821,7 @@ void bird_802CD2E8(u8 pilot, Unk80367704* arg1) {
 }
 
 // called every frame during birdman
-void bird_802CE0A4(Unk80367704* arg0) {
+void bird_802CE0A4(VehicleData* arg0) {
     if (arg0->unk290 != 0) {
         arg0->unk2 &= 0xFFFB;
         uvDobjProps(arg0->unk0, 4, arg0->unk3F7, 0);

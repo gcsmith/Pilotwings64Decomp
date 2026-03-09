@@ -1,6 +1,9 @@
 #include "common.h"
 #include "birdman.h"
 #include "cannonball.h"
+#include "code_66160.h"
+#include "code_81490.h"
+#include "code_99D40.h"
 #include "code_9A960.h"
 #include "code_B3A70.h"
 #include "code_D1ED0.h"
@@ -9,9 +12,14 @@
 #include "environment.h"
 #include "hud.h"
 #include "fdr.h"
+#include "gyrocopter.h"
+#include "hang_glider.h"
 #include "map3d.h"
 #include "menu.h"
+#include "proxanim.h"
+#include "rocket_pack.h"
 #include "shadow.h"
+#include "skydiving.h"
 #include "snd.h"
 #include "snow.h"
 #include "text_data.h"
@@ -22,40 +30,21 @@
 #include <uv_geometry.h>
 #include <uv_vector.h>
 
-s32 D_8034FC10[] = { 0xDC, 0x14E, 0x12F, 0x1D };
-s32 D_8034FC20[] = { 0xDC, 0x1D };
-s32 D_8034FC28[] = { 0xDC, 0x14E, 0x1D };
+s32 sShutterBugTestItems[] = { 0xDC, 0x14E, 0x12F, 0x1D };
+s32 sSkyDivingItems[] = { 0xDC, 0x1D };
+s32 sOtherItems[] = { 0xDC, 0x14E, 0x1D };
 
-f32 func_802E6B68(void);                              /* fdr.h */
-void func_802E7278(Mtx4F*, u16*);                     /* fdr.h */
-void func_802E0484(Mtx4F*, Mtx4F*, f32);              /* code_66160.h */
-void func_802EF368(void*);                            /* code_76670.h */
-void func_802EF5B0(void*, u8);                        /* code_76670.h */
-void func_802F5BF0(void*);                            /* code_7CF30.h */
-void func_802F604C(void*, u8);                        /* code_7CF30.h */
-void func_802FA108(void*);                            /* code_81490.h */
-void func_802FA2D0(void*, u8);                        /* code_81490.h */
-void func_80313004(s32);                              /* code_99D40.h */
-void func_8031420C(f32, f32, f32, f32*, f32*, f32*);  /* code_9A960.h */
-f32 func_8031385C(Mtx4F*, Mtx4F*, Unk802D3658_Arg0*); /* code_9A960.h */
-void func_8032150C(void);                             /* proxanim.h */
-void func_80324EC4(void*);                            /* code_AC1A0.h */
-void func_80325160(void*, u8);                        /* code_AC1A0.h */
-void func_8032D33C(Mtx4F*, Mtx4F*, f32, u8);          /* static */
-void func_8032FC08(void*);                            /* skydiving.h */
-void func_803308C4(void*, u8);                        /* skydiving.h */
-void func_803213E0(void);                             /* proxanim.h */
-void func_80321400(void);                             /* proxanim.h */
+static void func_8032D33C(Mtx4F*, Mtx4F*, f32, u8);
 
 void func_8032C540(Unk80362690* arg0) {
     f32 var_fs3;
-    Unk80367704* sp1E0;
-    Unk80367704* sp1DC;
-    Unk80367704* sp1D8;
-    Unk80367704* sp1D4;
-    Unk80367704* sp1D0;
-    Unk80367704* sp1CC;
-    Unk80367704* sp1C8;
+    VehicleData* hangGliderData;
+    VehicleData* gyrocopterData;
+    VehicleData* rocketBeltData;
+    CannonballData* cannonballData;
+    VehicleData* skyDivingData;
+    JumbleHopperData* jumbleHopperData;
+    VehicleData* birdmanData;
     Mtx4F sp188;
     Mtx4F sp148;
     Mtx4F sp108;
@@ -82,46 +71,46 @@ void func_8032C540(Unk80362690* arg0) {
     uvEventPost(0x12, 0);
     switch (temp_s0->veh) {
     case VEHICLE_HANG_GLIDER:
-        sp1E0 = temp_s0->unk6C;
-        func_802EF368(sp1E0);
-        sp87 = sp1E0->unk0;
-        sp1E0->unk2 &= ~8;
+        hangGliderData = temp_s0->vehicleData;
+        hangGliderEnterLeave(hangGliderData);
+        sp87 = hangGliderData->unk0;
+        hangGliderData->unk2 &= ~8;
         break;
     case VEHICLE_GYROCOPTER:
-        sp1DC = temp_s0->unk6C;
-        func_802F5BF0(sp1DC);
-        sp87 = sp1DC->unk0;
-        sp1DC->unk2 &= ~8;
+        gyrocopterData = temp_s0->vehicleData;
+        gyrocopterEnterLeave(gyrocopterData);
+        sp87 = gyrocopterData->unk0;
+        gyrocopterData->unk2 &= ~8;
         break;
     case VEHICLE_ROCKET_BELT:
-        sp1D8 = temp_s0->unk6C;
-        func_80324EC4(sp1D8);
-        sp87 = sp1D8->unk0;
-        sp1D8->unk2 &= ~8;
+        rocketBeltData = temp_s0->vehicleData;
+        rocketBeltEnterLeave(rocketBeltData);
+        sp87 = rocketBeltData->unk0;
+        rocketBeltData->unk2 &= ~8;
         break;
     case VEHICLE_CANNONBALL:
-        sp1D4 = temp_s0->unk6C;
-        cannon_802D5C5C((Unk802D5B50_Arg2*)sp1D4);
-        sp87 = sp1D4->unk0;
-        sp1D4->unk2 &= ~8;
+        cannonballData = temp_s0->vehicleData;
+        cannonLevelEnterLeave(cannonballData);
+        sp87 = cannonballData->unk0;
+        cannonballData->unk2 &= ~8;
         break;
     case VEHICLE_SKY_DIVING:
-        sp1D0 = temp_s0->unk6C;
-        func_8032FC08(sp1D0);
-        sp87 = sp1D0->unk0;
-        sp1D0->unk2 &= ~8;
+        skyDivingData = temp_s0->vehicleData;
+        skydivingEnterLeave(skyDivingData);
+        sp87 = skyDivingData->unk0;
+        skyDivingData->unk2 &= ~8;
         break;
     case VEHICLE_JUMBLE_HOPPER:
-        sp1CC = temp_s0->unk6C;
-        func_802FA108(sp1CC);
-        sp87 = sp1CC->unk0;
-        sp1CC->unk2 &= ~8;
+        jumbleHopperData = temp_s0->vehicleData;
+        jumbleHopperEnterLeave(jumbleHopperData);
+        sp87 = jumbleHopperData->unk0;
+        jumbleHopperData->unk2 &= ~8;
         break;
     case VEHICLE_BIRDMAN:
-        sp1C8 = temp_s0->unk6C;
-        bird_802CC39C((Unk80367704*)sp1C8);
-        sp87 = sp1C8->unk0;
-        sp1C8->unk2 &= ~8;
+        birdmanData = temp_s0->vehicleData;
+        birdEnterLeave(birdmanData);
+        sp87 = birdmanData->unk0;
+        birdmanData->unk2 &= ~8;
         break;
     }
     uvDobjState(sp87, 2);
@@ -157,39 +146,39 @@ void func_8032C540(Unk80362690* arg0) {
 
         switch (temp_s0->veh) {
         case VEHICLE_HANG_GLIDER:
-            sp1E0 = temp_s0->unk6C;
-            func_802EF5B0(sp1E0, arg0->unk0->unk0);
-            uvMat4Copy(&sp148, &sp1E0->unk10);
+            hangGliderData = temp_s0->vehicleData;
+            hangGliderMovementFrame(hangGliderData, arg0->unk0->unk0);
+            uvMat4Copy(&sp148, &hangGliderData->unk10);
             break;
         case VEHICLE_GYROCOPTER:
-            sp1DC = temp_s0->unk6C;
-            func_802F604C(sp1DC, arg0->unk0->unk0);
-            uvMat4Copy(&sp148, &sp1DC->unk10);
+            gyrocopterData = temp_s0->vehicleData;
+            gyrocopterMovementFrame(gyrocopterData, arg0->unk0->unk0);
+            uvMat4Copy(&sp148, &gyrocopterData->unk10);
             break;
         case VEHICLE_ROCKET_BELT:
-            sp1D8 = temp_s0->unk6C;
-            func_80325160(sp1D8, arg0->unk0->unk0);
-            uvMat4Copy(&sp148, &sp1D8->unk10);
+            rocketBeltData = temp_s0->vehicleData;
+            rocketBeltMovementFrame(rocketBeltData, arg0->unk0->unk0);
+            uvMat4Copy(&sp148, &rocketBeltData->unk10);
             break;
         case VEHICLE_CANNONBALL:
-            sp1D4 = temp_s0->unk6C;
-            cannonMovementFrame((Unk802D5B50_Arg2*)sp1D4, arg0->unk0->unk0);
-            uvMat4Copy(&sp148, (Mtx4F*)&((f32*)sp1D4)[5]);
+            cannonballData = temp_s0->vehicleData;
+            cannonMovementFrame(cannonballData, arg0->unk0->unk0);
+            uvMat4Copy(&sp148, &cannonballData->unk14);
             break;
         case VEHICLE_SKY_DIVING:
-            sp1D0 = temp_s0->unk6C;
-            func_803308C4(sp1D0, arg0->unk0->unk0);
-            uvMat4Copy(&sp148, &sp1D0->unk10);
+            skyDivingData = temp_s0->vehicleData;
+            skydivingMovementFrame(skyDivingData, arg0->unk0->unk0);
+            uvMat4Copy(&sp148, &skyDivingData->unk10);
             break;
         case VEHICLE_JUMBLE_HOPPER:
-            sp1CC = temp_s0->unk6C;
-            func_802FA2D0(sp1CC, arg0->unk0->unk0);
-            uvMat4Copy(&sp148, (Mtx4F*)&((u8*)sp1CC)[0x74]);
+            jumbleHopperData = temp_s0->vehicleData;
+            jumbleHopperMovementFrame(jumbleHopperData, arg0->unk0->unk0);
+            uvMat4Copy(&sp148, (Mtx4F*)&((u8*)jumbleHopperData)[0x74]);
             break;
         case VEHICLE_BIRDMAN:
-            sp1C8 = temp_s0->unk6C;
-            bird_802CC55C((Unk80367704*)sp1C8, arg0->unk0->unk0);
-            uvMat4Copy(&sp148, &sp1C8->unk10);
+            birdmanData = temp_s0->vehicleData;
+            birdMovementFrame(birdmanData, arg0->unk0->unk0);
+            uvMat4Copy(&sp148, &birdmanData->unk10);
             break;
         }
         sp66 = arg0->unk0[0].unk6;
@@ -253,7 +242,7 @@ void func_8032CC44(Unk80362690* arg0) {
     s32 sp20;
     s32 sp1C;
     u8 sp1B;
-    Unk802D5B50_Arg2* temp_v0;
+    CannonballData* temp_v0;
 
     sp2C = &arg0->unk0[arg0->unk9C].unkC;
     sp1B = 1;
@@ -266,44 +255,44 @@ void func_8032CC44(Unk80362690* arg0) {
     level_8034536C();
     func_8034E628();
     func_803213E0();
-    cannon_802D8A40(1U, (Unk802D5B50_Arg2*)sp2C->unk6C);
+    cannon_802D8A40(1U, (CannonballData*)sp2C->vehicleData);
     sp20 = 0xFFFF;
     sp1C = 0;
     switch (sp2C->veh) {
     case VEHICLE_GYROCOPTER:
-        temp_v0 = (Unk802D5B50_Arg2*)sp2C->unk6C;
+        temp_v0 = (CannonballData*)sp2C->vehicleData;
         sp28 = temp_v0->unk0;
         sp24 = temp_v0->unk2;
         break;
     case VEHICLE_HANG_GLIDER:
-        temp_v0 = (Unk802D5B50_Arg2*)sp2C->unk6C;
+        temp_v0 = (CannonballData*)sp2C->vehicleData;
         sp28 = temp_v0->unk0;
         sp24 = temp_v0->unk2;
         break;
     case VEHICLE_ROCKET_BELT:
-        temp_v0 = (Unk802D5B50_Arg2*)sp2C->unk6C;
+        temp_v0 = (CannonballData*)sp2C->vehicleData;
         sp1C = 0x22;
         sp28 = temp_v0->unk0;
         sp24 = temp_v0->unk2;
         sp20 = temp_v0->pad6;
         break;
     case VEHICLE_CANNONBALL:
-        temp_v0 = (Unk802D5B50_Arg2*)sp2C->unk6C;
+        temp_v0 = (CannonballData*)sp2C->vehicleData;
         sp28 = temp_v0->unk0;
         sp24 = temp_v0->unk2;
         break;
     case VEHICLE_SKY_DIVING:
-        temp_v0 = (Unk802D5B50_Arg2*)sp2C->unk6C;
+        temp_v0 = (CannonballData*)sp2C->vehicleData;
         sp28 = temp_v0->unk0;
         sp24 = temp_v0->unk2;
         break;
     case VEHICLE_JUMBLE_HOPPER:
-        temp_v0 = (Unk802D5B50_Arg2*)sp2C->unk6C;
+        temp_v0 = (CannonballData*)sp2C->vehicleData;
         sp28 = temp_v0->unk0;
         sp24 = temp_v0->unk2;
         break;
     case VEHICLE_BIRDMAN:
-        temp_v0 = (Unk802D5B50_Arg2*)sp2C->unk6C;
+        temp_v0 = (CannonballData*)sp2C->vehicleData;
         sp28 = temp_v0->unk0;
         sp24 = temp_v0->unk2;
     }
@@ -344,7 +333,7 @@ void func_8032CC44(Unk80362690* arg0) {
         arg0->unkA0 = 1;
     }
     level_8034528C();
-    cannon_802D8A40(0U, (Unk802D5B50_Arg2*)sp2C->unk6C);
+    cannon_802D8A40(0U, (CannonballData*)sp2C->vehicleData);
     hudInit();
     func_8034C298();
 }
@@ -368,14 +357,14 @@ s32 func_8032CF28(Unk80362690* arg0) {
     sp64->renderFlags = 0x400;
     sp40 = sp6C->veh == VEHICLE_HANG_GLIDER &&
            ((sp6C->test == 0 && sp6C->cls == CLASS_A) || (sp6C->test == 1 && sp6C->cls == CLASS_B) || (sp6C->test == 2 && sp6C->cls == CLASS_PILOT));
-    if (sp6C->unk8 != 0 || (sp6C->veh == VEHICLE_SKY_DIVING && ((Unk80367704*)sp6C->unk6C)->unk25C.z == 1 /*.0f*/)) {
-        menuCreateItems(0x63, 0x48, 6, 1.0f, 1.0f, D_8034FC20, 2);
+    if (sp6C->unk8 != 0 || (sp6C->veh == VEHICLE_SKY_DIVING && ((VehicleData*)sp6C->vehicleData)->unk25C.z == 1 /*.0f*/)) {
+        menuCreateItems(0x63, 0x48, 6, 1.0f, 1.0f, sSkyDivingItems, 2);
         var_s0 = 0x38;
     } else if (sp40 != 0) {
-        menuCreateItems(0x63, 0x48, 6, 1.0f, 1.0f, D_8034FC10, 4);
+        menuCreateItems(0x63, 0x48, 6, 1.0f, 1.0f, sShutterBugTestItems, 4);
         var_s0 = 0x5B;
     } else {
-        menuCreateItems(0x63, 0x48, 6, 1.0f, 1.0f, D_8034FC28, 3);
+        menuCreateItems(0x63, 0x48, 6, 1.0f, 1.0f, sOtherItems, 3);
     }
     func_80313004(1);
     do {
@@ -403,7 +392,7 @@ s32 func_8032CF28(Unk80362690* arg0) {
     if (sp40 == 0 && var_s1 == 2) {
         var_s1 = 3;
     }
-    if ((sp6C->unk8 != 0) || ((sp6C->veh == VEHICLE_SKY_DIVING) && (((Unk80367704*)sp6C->unk6C)->unk25C.z == 1 /*.0f*/))) {
+    if ((sp6C->unk8 != 0) || ((sp6C->veh == VEHICLE_SKY_DIVING) && (((VehicleData*)sp6C->vehicleData)->unk25C.z == 1 /*.0f*/))) {
         if (var_s1 == 0) {
             var_s1 = 0;
         }
@@ -421,7 +410,7 @@ s32 func_8032CF28(Unk80362690* arg0) {
     return var_s1;
 }
 
-void func_8032D33C(Mtx4F* arg0, Mtx4F* arg1, f32 arg2, u8 arg3) {
+static void func_8032D33C(Mtx4F* arg0, Mtx4F* arg1, f32 arg2, u8 arg3) {
     Vec3F spA4 = { 0.0f, 0.0f, 1.0f };
     Mtx4F sp64;
     Mtx4F sp24;
@@ -499,7 +488,7 @@ void func_8032D51C(s32 fadeoutType) {
         }
         sp84 = 255.0f * var_fs0;
         func_80314154();
-        uvGfxSetFlags(0x400000);
+        uvGfxSetFlags(GFX_STATE_400000);
         uvVtxBeginPoly();
         uvVtx(9, 0x11, 0, 0, 0, sp87, sp86, sp85, sp84);
         uvVtx(0x137, 0x11, 0, 0, 0, sp87, sp86, sp85, sp84);
@@ -508,7 +497,7 @@ void func_8032D51C(s32 fadeoutType) {
         uvVtxEndPoly();
         func_803141E4();
         uvGfxEnd();
-        var_fs1 += (1.0f/60.0f);
+        var_fs1 += (1.0f / 60.0f);
     }
     func_80314154();
     for (i = 0; i < 2; i++) {
@@ -538,10 +527,10 @@ void func_8032D90C(void) {
     var_fs0 = 0.0f;
     uvLevelAppend(0x2E);
     textLoadBlock(0x42);
-    temp_s7 = textGetDataByIdx(0x22); // "The controller is"
+    temp_s7 = textGetDataByIdx(0x22);  // "The controller is"
     temp_s4 = textGetDataByIdx(0x152); // "not connected correctly."
-    temp_s5 = textGetDataByIdx(0xCD); // "Connect to socket1"
-    temp_s6 = textGetDataByIdx(0x47); // "and try again."
+    temp_s5 = textGetDataByIdx(0xCD);  // "Connect to socket1"
+    temp_s6 = textGetDataByIdx(0x47);  // "and try again."
     while (1) {
         var_fs0 += 0.003f;
         if (var_fs0 > 1.0f) {
@@ -554,7 +543,7 @@ void func_8032D90C(void) {
         uvGfxBegin();
         uvGfxClearScreen(0, 0, 0, 0xFF);
         func_80314154();
-        uvGfxSetFlags(0x400000);
+        uvGfxSetFlags(GFX_STATE_400000);
         uvFontSet(6);
         uvFontScale(1.0, 1.0);
         uvFontColor(r2, g2, b2, 0xFF);

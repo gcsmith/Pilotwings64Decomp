@@ -2,6 +2,7 @@
 #define APP_CODE_9A960_H
 
 #include <uv_matrix.h>
+#include <uv_level.h>
 #include "code_5A6A0.h"
 
 typedef struct {
@@ -27,5 +28,7 @@ f32 func_80313F08(Unk803599D0*, f32);
 void func_80313FD0(s32*, f32, Vec3F*); // a0 may be struct
 void func_80314154(void);
 void func_803141E4(void);
+void func_8031420C(f32, f32, f32, f32*, f32*, f32*);
+f32 func_8031385C(Mtx4F*, Mtx4F*, Unk802D3658_Arg0*);
 
 #endif // APP_CODE_9A960_H

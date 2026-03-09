@@ -4,11 +4,11 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_AC1A0/func_80324DB4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_AC1A0/func_80324EC4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/code_AC1A0/rocketBeltEnterLeave.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_AC1A0/func_80325100.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_AC1A0/func_80325160.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/code_AC1A0/rocketBeltMovementFrame.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_AC1A0/func_80325E1C.s")
 

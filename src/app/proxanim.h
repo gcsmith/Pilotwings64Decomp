@@ -13,5 +13,8 @@ s32 func_80321210(s32 (*)(s32, s32, s32), s32 (*)(s32, s32, s32), Vec3F, f32, f3
 void func_803212DC(s32);
 f32 func_80321420(s32);
 Unk803216A4* func_803216A4(void);
+void func_8032150C(void);
+void func_803213E0(void);
+void func_80321400(void);
 
 #endif // APP_PROXANIM_H

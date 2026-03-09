@@ -8,7 +8,7 @@
 #include "code_9A960.h"
 #include "demo.h"
 
-void bird_802CE190(Unk80367704* arg0, u8 arg1) {
+void bird_802CE190(VehicleData* arg0, u8 arg1) {
     Mtx4F sp558;
     Unk80371120 sp3A8;
     Unk80371120 sp1F8;
@@ -164,7 +164,7 @@ void bird_802CE190(Unk80367704* arg0, u8 arg1) {
     }
 }
 
-void bird_802CEA60(Unk80367704* arg0) {
+void bird_802CEA60(VehicleData* arg0) {
     Mtx4F sp28;
     f32 sp24;
     f32 sp20;
@@ -179,7 +179,7 @@ void bird_802CEA60(Unk80367704* arg0) {
     uvDobjPosm(arg0->unk0, arg0->unk3F9, &sp28);
 }
 
-void bird_802CEB68(Unk80367704* arg0, s32 arg1) {
+void bird_802CEB68(VehicleData* arg0, s32 arg1) {
     if (arg0->unk104 == 2) {
         bird_802CEA60(arg0);
     }

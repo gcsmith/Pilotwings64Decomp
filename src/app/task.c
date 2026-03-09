@@ -373,7 +373,7 @@ s32 level_80345464(Mtx4F* arg0, f32 arg1) {
             func_8033FCD0(D_80362690->unk0[0].unkC.veh);
         }
     }
-    if ((D_80362690->unk0[D_80362690->unk9C].unkC.veh == VEHICLE_JUMBLE_HOPPER) && (func_802FB308(D_80362690->unk0[D_80362690->unk9C].unkC.unk6C) == 1)) {
+    if ((D_80362690->unk0[D_80362690->unk9C].unkC.veh == VEHICLE_JUMBLE_HOPPER) && (func_802FB308(D_80362690->unk0[D_80362690->unk9C].unkC.vehicleData) == 1)) {
         sp18 = 1;
     }
     temp_v0 = level_803456D8(arg0);

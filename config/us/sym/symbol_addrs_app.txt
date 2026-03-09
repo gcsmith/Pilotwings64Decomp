@@ -26,9 +26,9 @@ ballsGet_802CC15C   = 0x802CC15C; // type:func
 // birdman0
 bird_802CC1B0       = 0x802CC1B0; // type:func
 bird_802CC270       = 0x802CC270; // type:func
-bird_802CC39C       = 0x802CC39C; // type:func
+birdEnterLeave      = 0x802CC39C; // type:func
 bird_802CC51C       = 0x802CC51C; // type:func
-bird_802CC55C       = 0x802CC55C; // type:func
+birdMovementFrame   = 0x802CC55C; // type:func
 bird_802CD0F8       = 0x802CD0F8; // type:func
 bird_802CD2E8       = 0x802CD2E8; // type:func
 bird_802CE0A4       = 0x802CE0A4; // type:func
@@ -61,21 +61,21 @@ bonusLoad           = 0x802D23EC; // type:func
 bonusFrameUpdate    = 0x802D25AC; // type:func
 bonusDeinit         = 0x802D27CC; // type:func
 
-cannon_802D5A90     = 0x802D5A90; // type:func
-cannonLoadLevel     = 0x802D5B50; // type:func
-cannon_802D5C5C     = 0x802D5C5C; // type:func
-cannonEndTarget     = 0x802D5E98; // type:func
-cannonMovementFrame = 0x802D5F00; // type:func
-cannonAimingFrame   = 0x802D66C4; // type:func
-cannonShoot         = 0x802D6B7C; // type:func
-cannonPilotLand     = 0x802D6CC4; // type:func
-cannonLoadPilot     = 0x802D6F38; // type:func
-cannonLoad802D77D8  = 0x802D77D8; // type:func
-cannonFrame802D7B7C = 0x802D7B7C; // type:func
-cannonLandedFrame   = 0x802D8098; // type:func
-cannonEndShot       = 0x802D8494; // type:func
-cannonEndAllTgts    = 0x802D8730; // type:func
-cannon_802D8A40     = 0x802D8A40; // type:func
+cannon_802D5A90       = 0x802D5A90; // type:func
+cannonLoadLevel       = 0x802D5B50; // type:func
+cannonLevelEnterLeave = 0x802D5C5C; // type:func
+cannonEndTarget       = 0x802D5E98; // type:func
+cannonMovementFrame   = 0x802D5F00; // type:func
+cannonAimingFrame     = 0x802D66C4; // type:func
+cannonShoot           = 0x802D6B7C; // type:func
+cannonPilotLand       = 0x802D6CC4; // type:func
+cannonLoadPilot       = 0x802D6F38; // type:func
+cannonLoad802D77D8    = 0x802D77D8; // type:func
+cannonFrame802D7B7C   = 0x802D7B7C; // type:func
+cannonLandedFrame     = 0x802D8098; // type:func
+cannonEndShot         = 0x802D8494; // type:func
+cannonEndAllTgts      = 0x802D8730; // type:func
+cannon_802D8A40       = 0x802D8A40; // type:func
 
 screenDrawBox       = 0x802DED44; // type:func
 screenDrawBox2      = 0x802DF03C; // type:func
@@ -373,6 +373,26 @@ optionsSetSetting   = 0x80316BEC; // type:func
 optionsSetTrack     = 0x80316D34; // type:func
 optionsItemWrap     = 0x80316D88; // type:func
 
+gyrocopterEnterLeave = 0x802F5BF0; // type:func
+
+gyrocopterMovementFrame = 0x802F604C; // type:func
+
+hangGliderEnterLeave = 0x802EF368; // type:func
+
+hangGliderMovementFrame = 0x802EF5B0; // type:func
+
+jumbleHopperEnterLeave = 0x802FA108; // type:func
+
+jumbleHopperMovementFrame = 0x802FA2D0; // type:func
+
+rocketBeltEnterLeave = 0x80324EC4; // type:func
+
+rocketBeltMovementFrame = 0x80325160; // type:func
+
+skydivingEnterLeave = 0x8032FC08; // type:func
+
+skydivingMovementFrame = 0x803308C4; // type:func
+
 // -----------------------------------------------------------------------------
 // Data Symbols
 // -----------------------------------------------------------------------------
@@ -448,3 +468,7 @@ sMissileTargets           = 0x80378CF0;
 sMissileTargetCount       = 0x80378CF4;
 
 gMedalPointRequirements = 0x8034FBD4;
+
+sShutterBugTestItems = 0x8034FC10; // size:0x10
+sSkyDivingItems = 0x8034FC20; // size:0x8
+sOtherItems = 0x8034FC28; // size:0xC

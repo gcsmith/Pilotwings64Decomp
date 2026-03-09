@@ -44,7 +44,7 @@ extern u8 D_80359A84;
 extern s32 D_80359A88[];
 
 // forward declarations
-s32 cannonEndShot(Unk802D5B50_Arg2*);
+s32 cannonEndShot(CannonballData*);
 
 void cannon_802D5A90(void) {
     D_80359A30.unk0 = 8;
@@ -67,7 +67,7 @@ void cannon_802D5A90(void) {
 }
 
 // cannonLoadLevel is invoked when loading cannonball level
-void cannonLoadLevel(u8 arg0, u8 pilot, Unk802D5B50_Arg2* arg2, Unk802D3658_Arg0* arg3) {
+void cannonLoadLevel(u8 arg0, u8 pilot, CannonballData* arg2, Unk802D3658_Arg0* arg3) {
     uvMemSet(arg2, 0, sizeof(*arg2));
     cannonLoadPilot(pilot, arg2);
     arg2->unk0 = uvDobjAllocIdx();
@@ -90,8 +90,8 @@ void cannonLoadLevel(u8 arg0, u8 pilot, Unk802D5B50_Arg2* arg2, Unk802D3658_Arg0
     func_802D9CB0(arg2);
 }
 
-// cannon_802D5C5C is invoked when loading and exiting cannonball level
-void cannon_802D5C5C(Unk802D5B50_Arg2* arg0) {
+// cannonLevelEnterLeave is invoked when loading and exiting cannonball level
+void cannonLevelEnterLeave(CannonballData* arg0) {
     f32 sp54;
     f32 sp50;
     f32 sp4C;
@@ -148,7 +148,7 @@ void cannon_802D5C5C(Unk802D5B50_Arg2* arg0) {
 }
 
 // cannonEndTarget is invoked at the end of a cannonball target
-void cannonEndTarget(Unk802D5B50_Arg2* arg0) {
+void cannonEndTarget(CannonballData* arg0) {
     uvDobjModel(arg0->unk0, MODEL_WORLD);
     uvDobjModel(arg0->unk54, MODEL_WORLD);
     arg0->unk10 = 0xFFFF;
@@ -158,7 +158,7 @@ void cannonEndTarget(Unk802D5B50_Arg2* arg0) {
 }
 
 // cannonMovementFrame called every frame while aiming cannon and while in flight
-void cannonMovementFrame(Unk802D5B50_Arg2* arg0, u8 arg1) {
+void cannonMovementFrame(CannonballData* arg0, u8 arg1) {
     f32 stickX;
     f32 stickY;
     s32 spE4;
@@ -361,7 +361,7 @@ void cannonMovementFrame(Unk802D5B50_Arg2* arg0, u8 arg1) {
 #endif
 // cannonAimingFrame called every frame while inside cannon
 // controls the rate of rotation and Z-button presses
-void cannonAimingFrame(Unk802D5B50_Arg2* arg0) {
+void cannonAimingFrame(CannonballData* arg0) {
     Mtx4F sp38;
     f32 sp34;
 
@@ -460,7 +460,7 @@ void cannonAimingFrame(Unk802D5B50_Arg2* arg0) {
 #endif
 
 // cannonShoot called when firing the cannon
-void cannonShoot(Unk802D5B50_Arg2* arg0) {
+void cannonShoot(CannonballData* arg0) {
     Mtx4F sp50;
 
     uvMat4Copy(&sp50, &arg0->unk58);
@@ -486,7 +486,7 @@ void cannonShoot(Unk802D5B50_Arg2* arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/app/cannonball/cannonPilotLand.s")
 #else
 // Matches but has bss/data issues
-void cannonPilotLand(Unk802D5B50_Arg2* arg0) {
+void cannonPilotLand(CannonballData* arg0) {
     static Vec4F D_80359AB0;
     static Vec4F D_80359AC0;
     static f32 D_8034E9FC = 0.0f;
@@ -544,7 +544,7 @@ void cannonPilotLand(Unk802D5B50_Arg2* arg0) {
 #endif
 
 // cannonLoadPilot is invoked when loading cannonball level
-void cannonLoadPilot(u8 pilot, Unk802D5B50_Arg2* arg1) {
+void cannonLoadPilot(u8 pilot, CannonballData* arg1) {
     switch (pilot) {
     case PILOT_LARK:
         arg1->unk224 = -0.025f;
@@ -807,7 +807,7 @@ extern s32 D_80359A98[];
 extern s32 D_80359AA8;
 extern s32 D_80359AAC;
 extern void func_802E0CF0(void);
-s32 cannonLoad802D77D8(Unk80362690* arg0, Unk802D5B50_Arg2* arg1) {
+s32 cannonLoad802D77D8(Unk80362690* arg0, CannonballData* arg1) {
     s32 i;
     Mtx4F sp3C;
     Unk80362690_Unk0_UnkC* temp_s1_2;
@@ -841,7 +841,7 @@ s32 cannonLoad802D77D8(Unk80362690* arg0, Unk802D5B50_Arg2* arg1) {
     }
     temp_s1_2->unk6C = (s32)arg1;
     cannonLoadLevel(arg0->unk9C, temp_s1_2->pad0, arg1, (Unk802D3658_Arg0*)temp_s1_2->unk70);
-    cannon_802D5C5C(arg1);
+    cannonLevelEnterLeave(arg1);
     arg1->unkC = 0;
     arg1->unkE = 0;
     D_80359A88[0] = 0;
@@ -870,7 +870,7 @@ s32 cannonLoad802D77D8(Unk80362690* arg0, Unk802D5B50_Arg2* arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/app/cannonball/cannonFrame802D7B7C.s")
 
 // cannonLandedFrame called every frame after landing from cannon shot
-s32 cannonLandedFrame(Unk802D5B50_Arg2* arg0) {
+s32 cannonLandedFrame(CannonballData* arg0) {
     Unk80364210* temp_v1;
     Unk80362690_Unk0_UnkC* temp_s0;
     u8 sp27;
@@ -948,7 +948,7 @@ s32 cannonLandedFrame(Unk802D5B50_Arg2* arg0) {
 // cannonEndAllTgts called once after all four cannon targets are complete
 #pragma GLOBAL_ASM("asm/nonmatchings/app/cannonball/cannonEndAllTgts.s")
 
-void cannon_802D8A40(u8 arg0, Unk802D5B50_Arg2* arg1) {
+void cannon_802D8A40(u8 arg0, CannonballData* arg1) {
     Unk80362690_Unk0_UnkC* unkC;
     unkC = &D_80362690->unk0[D_80362690->unk9C].unkC;
     if (unkC->veh == 3) {

@@ -156,7 +156,7 @@ typedef struct {
     u8 pad416[0x41C - 0x416];
     f32 unk41C;
     f32 unk420;
-} Unk80367704;
+} VehicleData;
 
 void func_802EB9C0(void);
 void func_802EBBB8(void);
