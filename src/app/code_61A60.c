@@ -1,9 +1,26 @@
 #include "common.h"
+#include <uv_controller.h>
 #include <uv_dobj.h>
+#include <uv_sobj.h>
+#include <uv_event.h>
+#include <uv_font.h>
+#include <uv_janim.h>
+#include <uv_level.h>
 #include <uv_math.h>
 #include <uv_vector.h>
+#include "kernel/code_8170.h"
+#include "kernel/code_30EA0.h"
 #include "code_61A60.h"
+#include "code_69BF0.h"
+#include "code_72B70.h"
 #include "code_9A960.h"
+#include "code_B3A70.h"
+#include "code_C9B60.h"
+#include "code_D2B10.h"
+#include "demo.h"
+#include "hud.h"
+#include "snd.h"
+#include "text_data.h"
 
 s32 D_8034EA40 = 0;
 u16 D_8034EA44 = 0xFFFF;
@@ -11,51 +28,278 @@ s32 D_8034EA48 = 0;
 
 // This struct should be used for Unk8034EA4C */
 typedef struct {
-    f32 unk0;
-    f32 unk4;
-    f32 unk8;
+    Vec3F unk0;
     f32 unkC;
     f32 unk10;
     f32 unk14;
 } Unk8034EA4C;
-f32 D_8034EA4C[] = {
-    -68.08f,
-    -302.14f,
-    10.74f,
+Unk8034EA4C D_8034EA4C = {
+    { -68.08f, -302.14f, 10.74f },
+    -0.0174533f, 0.1f, 0.0f
 };
-
-f32 D_8034EA58 = -0.0174533f; // almost DEG_TO_RAD(1)
-f32 D_8034EA5C = 0.1f;
-f32 padD_8034EA60 = 0.0f;
 
 s32 D_8034EA64[] = { 0, 3, 1, 4, 2, 5 };
 s32 D_8034EA7C[] = { 0x35, 0x14C, 0x9C, 0x1A7, 0x85, 0x128 };
 s32 D_8034EA94[] = { 2, 2, 2, 2, 2, 2 };
 Unk803599D0 D_8034EAAC = { 8, 0.36f, 0.0f, 0.412f, 0.1f, 0.465f, 0.25f, 0.517f, 0.475f, 0.568f, 0.5f, 0.62f, 0.475f, 0.673f, 0.25f, 0.725f, 0.0f, 0, 0, 0, 0 };
 
+// .bss
+extern f32 D_80359C40;
+extern s32 D_80359C44;
+extern Mtx4F D_80359C48;
+extern f32 D_80359C88;
+
 // forward declarations
+void func_802DA6E0(Unk80362690*, s32);
+void func_802DA9E0(void);
+s32 func_802DAA34(void);
+void func_802DAB18(Unk802D3658_Arg0*);
 s32 func_802DB38C(Unk802D3658_Unk1228*, Vec3F*, Vec3F*);
 s32 func_802DB6D4(Unk802D3658_Unk1228*, Vec3F*, Vec3F*);
 s32 func_802DB9B8(Unk802D3658_Unk1228*, Vec3F*, Vec3F*);
 s32 func_802DBCB0(Unk802D3658_Unk1228*, Vec3F*, Vec3F*);
+void func_802DBE10(Unk802D3658_Unk1228*, s32, s32, f32, Vec3F*, Vec3F*);
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DA530.s")
+s32 func_802DA530(void) {
+    return D_8034EA64[D_8034EA40];
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DA54C.s")
+void func_802DA54C(void) {
+    D_8034EA40++;
+    if (D_8034EA40 >= 6) {
+        D_8034EA40 = 0;
+    }
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DA574.s")
+s32 func_802DA574(Unk80362690* arg0) {
+    s32 sp24;
+    Unk80362690_Unk0_UnkC* temp_s0;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DA628.s")
+    temp_s0 = &arg0->unk0[arg0->unk9C].unkC;
+    func_802DA6E0(arg0, D_8034EA64[D_8034EA40]);
+    while ((sp24 = func_802DAA34()) == 8) {
+        uvGfxBegin();
+        func_802DAB18(temp_s0->unk70);
+        uvGfxEnd();
+    }
+    func_8032D51C(0);
+    func_802DA9E0();
+    return sp24;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DA684.s")
+s32 func_802DA628(u32 arg0) {
+    switch (arg0) {
+    case 0:
+        return 0x55;
+    case 1:
+        return 0x56;
+    case 2:
+        return 0x57;
+    case 3:
+        return 0x58;
+    case 4:
+        return 0x59;
+    case 5:
+        return 0x5A;
+    default:
+        return 0;
+    }
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DA6E0.s")
+s32 func_802DA684(u32 arg0) {
+    switch (arg0) {
+    case 0:
+        return 0x15A;
+    case 1:
+        return 0x15B;
+    case 2:
+        return 0x15C;
+    case 3:
+        return 0x15D;
+    case 4:
+        return 0x15E;
+    case 5:
+        return 0x15F;
+    default:
+        return 0;
+    }
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DA9E0.s")
+void func_802DA6E0(Unk80362690* arg0, s32 arg1) {
+    Unk802D3658_Arg0* temp_s0;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DAA34.s")
+    temp_s0 = arg0->unk0[arg0->unk9C].unkC.unk70;
+    D_8034EA48 = 0;
+    D_80359C88 = 0.0f;
+    func_802E26C0();
+    arg0->unk0[0].map = 1;
+    arg0->unk0[0].unk6 = 0;
+    arg0->unk0[0].unk8 = (u16)D_8034EA94[D_8034EA40];
+    levelLoad(1, arg1, 0, 1);
+    uvLevelAppend(func_802DA628(arg1));
+    func_80204BD4(temp_s0->unk22C, 1, 1.0f);
+    func_80204A8C(temp_s0->unk22C, 3);
+    uvChanTerra(temp_s0->unk22C, arg0->unk0[0].unk6);
+    uvLevelAppend(func_802DA628(arg1));
+    uvChanEnv(temp_s0->unk22C, arg0->unk0[0].unk8);
+    func_8034B5E0(temp_s0->unk22C, temp_s0);
+    func_80204A8C(temp_s0->unk22C, 3);
+    uvMat4SetIdentity(&temp_s0->unk108);
+    uvMat4RotateAxis(&temp_s0->unk108, D_8034EA4C.unkC, 'z');
+    uvMat4RotateAxis(&temp_s0->unk108, D_8034EA4C.unk10, 'x');
+    uvMat4RotateAxis(&temp_s0->unk108, D_8034EA4C.unk14, 'y');
+    temp_s0->unk108.m[3][0] = D_8034EA4C.unk0.x;
+    temp_s0->unk108.m[3][1] = D_8034EA4C.unk0.y;
+    temp_s0->unk108.m[3][2] = D_8034EA4C.unk0.z;
+    func_80204B34(temp_s0->unk22C, &temp_s0->unk108);
+    D_8034EA44 = uvDobjAllocIdx();
+    uvDobjModel(D_8034EA44, func_802DA684((u32)arg1));
+    uvMat4SetIdentity(&D_80359C48);
+    if (arg1 != 3) {
+        uvMat4RotateAxis(&D_80359C48, 0.2f, 'z');
+    }
+    uvMat4RotateAxis(&D_80359C48, 0.2f, 'x');
+    uvMat4RotateAxis(&D_80359C48, 0.0f, 'y');
+    D_80359C48.m[3][0] = 0.0f;
+    D_80359C48.m[3][1] = 5.0f;
+    D_80359C48.m[3][2] = -1.2f;
+    uvMat4MulBA(&D_80359C48, &temp_s0->unk108, &D_80359C48);
+    uvDobjPosm(D_8034EA44, 0, &D_80359C48);
+    hudGetState()->renderFlags = 0;
+    switch (arg1) {
+    case 0:
+        D_80359C44 = 0x6D;
+        break;
+    case 1:
+        D_80359C44 = 0x6E;
+        break;
+    case 2:
+        D_80359C44 = 0x6F;
+        break;
+    case 3:
+        D_80359C44 = 0x70;
+        break;
+    case 4:
+        D_80359C44 = 0x71;
+        break;
+    case 5:
+        D_80359C44 = 0x72;
+        break;
+    default:
+        D_80359C44 = 0x6D;
+        break;
+    }
+    D_80359C40 = 0.0f;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DAB18.s")
+void func_802DA9E0(void) {
+    uvEventPost(0xD, 0);
+    uvDobjModel(D_8034EA44, 0xFFFF);
+    D_8034EA44 = 0xFFFF;
+    level_8030BA60();
+    uvLevelInit();
+    func_802EBBB8();
+}
+
+// func_802DAA34 returns:
+//  - 0: A/B/Start button was pressed
+//  - 9: 5 second time exceeded?
+//  - 8: none of the above
+s32 func_802DAA34(void) {
+    demo_80323020();
+    func_80313D74();
+    D_80359C40 += D_8034F854;
+    if (D_80359C40 >= 5.0f) {
+        return 9;
+    }
+    if (uvControllerButtonPress(D_80362690->unk9C, A_BUTTON | B_BUTTON | START_BUTTON)) {
+        func_80344258(0);
+        if (uvControllerButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON)) {
+            snd_play_sfx(0x6E);
+        } else if (uvControllerButtonPress(D_80362690->unk9C, B_BUTTON)) {
+            snd_play_sfx(0x01);
+        }
+        return 0;
+    }
+    return 8;
+}
+
+void func_802DAB18(Unk802D3658_Arg0* arg0) {
+    f32 var_fs0;
+    Mtx4F spC4;
+    Mtx4F sp84;
+    Mtx4F sp44;
+    u32 temp_v0;
+
+    var_fs0 = (D_80359C40 - 1.0f) / 4;
+    if (var_fs0 < 0.0) {
+        var_fs0 = 0.0f;
+    }
+    temp_v0 = func_802DA530();
+    switch (temp_v0) {
+    case 0:
+        if ((D_80359C88 > 0.45f) && (var_fs0 < 0.54f) && ((D_8034EA48 & 1) == 0)) {
+            snd_play_sfx(0x61);
+            D_8034EA48 |= 1;
+        }
+        var_fs0 = (f32)(var_fs0 * 2.55);
+        break;
+    case 1:
+        if ((D_80359C88 > 0.0f) && (var_fs0 < 0.1f) && ((D_8034EA48 & 2) == 0)) {
+            snd_play_sfx(0x63);
+            D_8034EA48 |= 2;
+        }
+        break;
+    case 2:
+        if ((D_80359C88 > 0.0f) && (var_fs0 < 0.5f) && ((D_8034EA48 & 3) == 0)) {
+            snd_play_sfx(0x65);
+            D_8034EA48 |= 3;
+        }
+        break;
+    case 3:
+        if ((D_80359C88 > 0.5f) && (var_fs0 < 0.8f) && ((D_8034EA48 & 4) == 0)) {
+            snd_play_sfx(0x62);
+            D_8034EA48 |= 4;
+        }
+        var_fs0 = (f32)(var_fs0 * 1.5);
+        break;
+    case 4:
+        if ((D_80359C88 > 0.5f) && (var_fs0 < 1.0f) && ((D_8034EA48 & 5) == 0)) {
+            snd_play_sfx(0x64);
+            D_8034EA48 |= 5;
+        }
+        var_fs0 = (f32)(var_fs0 * 1.5);
+        break;
+    case 5:
+        if ((D_80359C88 > 0.25f) && (var_fs0 < 0.75f) && !(D_8034EA48 & 6)) {
+            snd_play_sfx(0x66);
+            D_8034EA48 |= 6;
+        }
+        break;
+    }
+    if (var_fs0 > 1.0) {
+        var_fs0 = 1.0f;
+    }
+    if (D_80359C44 == 0x6D) {
+        uvMat4Copy(&spC4, &D_80359C48);
+        uvMat4LocalTranslate(&spC4, 0.0f, 0.0f, func_80313F08(&D_8034EAAC, var_fs0));
+        uvDobjPosm(D_8034EA44, 0, &spC4);
+    }
+    func_80200B00(D_8034EA44, D_80359C44, var_fs0);
+    func_80204B34(arg0->unk22C, &arg0->unk108);
+    uvGfxSetViewport(0, 0, 0x140, 0, 0xF0);
+    uvMat4SetOrtho(&sp84, 0.0f, 319.0f, 0.0f, 239.0f);
+    uvGfxMtxProjPushF(&sp84);
+    uvMat4SetIdentity(&sp44);
+    uvGfxMtxViewLoad(&sp44, 1);
+    uvFontSet(6);
+    uvFontScale(1, 1);
+    uvFontColor(0xFF, 0xFF, 0xFF, 0xFF);
+    func_80219874(0x8C, 0x19, textGetDataByIdx(D_8034EA7C[D_8034EA40]), 0x64, 0xFFE);
+    func_80204FC4(arg0->unk22C);
+    func_80313D74();
+    D_80359C88 = var_fs0;
+}
 
 s32 func_802DB050(Unk802D3658_Unk111C* arg0, Unk802D3658_Unk1224* arg1, u16 arg2, u8 arg3, Mtx4F* arg4) {
     Unk802D3658_Unk1120* var_s5;
@@ -95,19 +339,235 @@ s32 func_802DB050(Unk802D3658_Unk111C* arg0, Unk802D3658_Unk1224* arg1, u16 arg2
     return arg1->unk0;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DB224.s")
+s32 func_802DB224(Unk802D3658_Unk1224* arg0, u16 arg1, u16 arg2, u8 arg3, Vec3F* arg4, Vec3F* arg5) {
+    u8 a1_lsb = arg1;
+    if ((arg2 != 0xFFFF) && (arg3 & 1)) {
+        uvDobjState(arg2, arg3 - 1);
+    }
+    arg0->unk0 = 0;
+    if (a1_lsb & 2) {
+        if (func_802DB6D4(&arg0->unk4[arg0->unk0], arg4, arg5)) {
+            arg0->unk0 += 1;
+        }
+    }
+    if (a1_lsb & 8) {
+        if (func_802DB9B8(&arg0->unk4[arg0->unk0], arg4, arg5)) {
+            arg0->unk0 += 1;
+        }
+    }
+    if (a1_lsb & 1) {
+        if (func_802DB38C(&arg0->unk4[arg0->unk0], arg4, arg5)) {
+            arg0->unk0 += 1;
+        }
+    }
+    if ((a1_lsb & 4) && func_802DBCB0(&arg0->unk4[arg0->unk0], arg4, arg5)) {
+        arg0->unk0 += 1;
+    }
+    if (arg2 != 0xFFFF) {
+        uvDobjState(arg2, arg3);
+    }
+    return arg0->unk0;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DB38C.s")
+s32 func_802DB38C(Unk802D3658_Unk1228* arg0, Vec3F* arg1, Vec3F* arg2) {
+    s32 count;
+    s32* spA8;
+    f32* spA4;
+    s32 spA0;
+    f32 sp9C;
+    Vec3F sp90;
+    f32 x;
+    s32 temp_v1;
+    f32 sp84;
+    f32 sp80;
+    f32 sp7C;
+    f32 sp78;
+    f32 y;
+    s32 sp70;
+    s32 var_s0;
+    Vec3F sp60;
+    u16 sp5E;
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DB6D4.s")
+    sp5E = 0;
+    count = uvTerraGetSeg(D_80362690->unk0[0].unk6, arg1->x, arg1->y, arg1->z, arg2->x, arg2->y, arg2->z, &spA8, &spA4);
+    if (count == 0) {
+        return count;
+    }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DB9B8.s")
+    sp70 = 0;
+    var_s0 = 0;
+    for (i = 0; i < count; i++) {
+        temp_v1 = uvTerraGetState(D_80362690->unk0[0].unk6, spA8[var_s0]) & 0xFFF;
+        if ((temp_v1 == 0x28) || (temp_v1 == 0x30)) {
+            sp70 += 1;
+        }
+        var_s0++;
+    }
+    if (sp70 == count) {
+        return 0;
+    }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DBCB0.s")
+    sp80 = arg2->x - arg1->x;
+    sp7C = arg2->y - arg1->y;
+    sp78 = arg2->z - arg1->z;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DBE10.s")
+    sp9C = 1.0f;
+    for (i = 0; i < count; i++) {
+        if (spA4[i] <= sp9C) {
+            spA0 = spA8[i];
+            sp9C = spA4[i];
+        }
+    }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DBE64.s")
+    for (i = 0; i < count; i++) {
+        if (func_802DC8E4(spA8[i]) != 0) {
+            sp5E = 4;
+            break;
+        }
+    }
+    if (i == count) {
+        sp5E = 1;
+    }
+
+    x = arg1->x + (sp80 * sp9C);
+    sp60.x = x;
+    y = arg1->y + (sp7C * sp9C);
+    sp60.y = y;
+    sp84 = arg1->z + (sp78 * sp9C);
+    sp60.z = sp84;
+    uvTerraGetPlane(D_80362690->unk0[0].unk6, spA0, sp60.x, sp60.y, &sp84, &sp90);
+    func_802DBE10(arg0, sp5E, spA0, sp9C, &sp60, &sp90);
+    return count;
+}
+
+s32 func_802DB6D4(Unk802D3658_Unk1228* arg0, Vec3F* arg1, Vec3F* arg2) {
+    s32 count;
+    s32* sp80;
+    f32* sp7C;
+    Vec3F* sp78;
+    s32 sp74;
+    s32 pad;
+    Vec3F sp64;
+    Vec3F sp58;
+    f32 minVal;
+    s32 i;
+
+    count = func_8021215C(arg1->x, arg1->y, arg1->z, arg2->x, arg2->y, arg2->z, &sp80, &sp7C, &sp78);
+    if (count == 0) {
+        return 0;
+    }
+
+    minVal = 1.0f;
+    for (i = 0; i < count; i++) {
+        if (sp7C[i] <= minVal) {
+            minVal = sp7C[i];
+            sp74 = sp80[i];
+            sp58.x = sp78[i].x;
+            sp58.y = sp78[i].y;
+            sp58.z = sp78[i].z;
+        }
+    }
+
+    sp64.x = arg1->x + ((arg2->x - arg1->x) * minVal);
+    sp64.y = arg1->y + ((arg2->y - arg1->y) * minVal);
+    sp64.z = arg1->z + ((arg2->z - arg1->z) * minVal);
+    func_802DBE10(arg0, 2, sp74, minVal, &sp64, &sp58);
+    return count;
+}
+
+s32 func_802DB9B8(Unk802D3658_Unk1228* arg0, Vec3F* arg1, Vec3F* arg2) {
+    s32 count;
+    s32* sp80;
+    f32* sp7C;
+    Vec3F* sp78;
+    s32 sp74;
+    s32 pad;
+    Vec3F sp64;
+    Vec3F sp58;
+    f32 minVal;
+    s32 i;
+
+    count = uvSobjGetSeg(D_80362690->unk0[0].unk6, arg1->x, arg1->y, arg1->z, arg2->x, arg2->y, arg2->z, &sp80, &sp7C, &sp78);
+    if (count == 0) {
+        return 0;
+    }
+
+    minVal = 1.0f;
+    for (i = 0; i < count; i++) {
+        if (sp7C[i] <= minVal) {
+            minVal = sp7C[i];
+            sp74 = sp80[i];
+            sp58.x = sp78[i].x;
+            sp58.y = sp78[i].y;
+            sp58.z = sp78[i].z;
+        }
+    }
+
+    sp64.x = arg1->x + ((arg2->x - arg1->x) * minVal);
+    sp64.y = arg1->y + ((arg2->y - arg1->y) * minVal);
+    sp64.z = arg1->z + ((arg2->z - arg1->z) * minVal);
+    func_802DBE10(arg0, 8, sp74, minVal, &sp64, &sp58);
+    return count;
+}
+
+s32 func_802DBCB0(Unk802D3658_Unk1228* arg0, Vec3F* arg1, Vec3F* arg2) {
+    f32 temp_fv1;
+    f32 var_ft4;
+    Vec3F sp44;
+    Vec3F sp38;
+    s32 pad;
+
+    if ((arg2->z > 0.0f) && (arg1->z > 0.0f)) {
+        return 0;
+    }
+    if ((arg2->z < 0.0f) && (arg1->z < 0.0f)) {
+        var_ft4 = 0.0f;
+    } else {
+        temp_fv1 = arg2->z - arg1->z;
+        if (temp_fv1 != 0.0f) {
+            if (arg2->z <= 0.0f) {
+                var_ft4 = -arg1->z / temp_fv1;
+            }
+            if (arg1->z <= 0.0f) {
+                var_ft4 = 1.0f - (arg2->z / temp_fv1);
+            }
+        } else {
+            var_ft4 = 0.0f;
+        }
+    }
+    sp44.x = arg1->x + ((arg2->x - arg1->x) * var_ft4);
+    sp44.y = arg1->y + ((arg2->y - arg1->y) * var_ft4);
+    sp44.z = arg1->z + ((arg2->z - arg1->z) * var_ft4);
+    sp38.x = 0.0f;
+    sp38.y = 0.0f;
+    sp38.z = 1.0f;
+    func_802DBE10(arg0, 4, -1, var_ft4, &sp44, &sp38);
+    return 1;
+}
+
+void func_802DBE10(Unk802D3658_Unk1228* arg0, s32 arg1, s32 arg2, f32 arg3, Vec3F* arg4, Vec3F* arg5) {
+    arg0->unk4 = arg1;
+    arg0->unk8 = arg2;
+    arg0->unk18 = arg3;
+    uvVec3Copy(&arg0->unk1C, arg5);
+    uvVec3Copy(&arg0->unkC, arg4);
+}
+
+void func_802DBE64(Unk802D3658_Unk111C* arg0, Unk802D3658_Unk1224* arg1, s32 idx, Mtx4F* arg3) {
+    Unk802D3658_Unk1228* unk1228;
+    Vec3F* unk2C;
+    Vec3F* unk20;
+
+    unk1228 = &arg1->unk4[idx];
+    unk2C = &arg0->unk4[unk1228->unk0].unk28;
+    unk20 = &arg0->unk4[unk1228->unk0].unk1C;
+
+    unk1228->unk28.x = unk2C->x + ((unk20->x - unk2C->x) * unk1228->unk18);
+    unk1228->unk28.y = unk2C->y + ((unk20->y - unk2C->y) * unk1228->unk18);
+    unk1228->unk28.z = unk2C->z + ((unk20->z - unk2C->z) * unk1228->unk18);
+    uvMat4LocalToWorld(arg3, &unk1228->unk34, &unk1228->unk1C);
+}
 
 s32 func_802DBF10(Unk802D3658_Unk111C* arg0, Unk802D3658_Unk1224* arg1, Vec3F* arg2, Vec3F* arg3) {
     s32 pad[8];
@@ -151,22 +611,164 @@ s32 func_802DBF10(Unk802D3658_Unk111C* arg0, Unk802D3658_Unk1224* arg1, Vec3F* a
     return ret;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DC074.s")
+f32 func_802DC074(Mtx4F* arg0, Vec3F* arg1, Vec3F* arg2, Vec3F* arg3, f32 arg4) {
+    Vec3F sp2C;
+    f32 var_fa1;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DC1DC.s")
+    var_fa1 = uvVec3Dot(arg1, arg3);
+    if (var_fa1 < 0.0f) {
+        arg1->x -= (2.0f * var_fa1) * arg3->x;
+        arg1->y -= (2.0f * var_fa1) * arg3->y;
+        arg1->z -= (2.0f * var_fa1) * arg3->z;
+        arg1->x *= arg4;
+        arg1->y *= arg4;
+        arg1->z *= arg4;
+
+        uvMat4LocalToWorld(arg0, &sp2C, arg3);
+        arg2->x -= (2.0f * var_fa1) * sp2C.x;
+        arg2->y -= (2.0f * var_fa1) * sp2C.y;
+        arg2->z -= (2.0f * var_fa1) * sp2C.z;
+        arg2->x *= arg4;
+        arg2->y *= arg4;
+        arg2->z *= arg4;
+    }
+
+    return FABS(var_fa1);
+}
+
+f32 func_802DC1DC(Vec3F* arg0, Vec3F* arg1, Vec3F* arg2, f32 arg3, f32 arg4, f32 arg5) {
+    f32 var_fa1;
+    f32 var_fv1;
+    f32 temp_ft0;
+    Vec3F sp38;
+    Vec3F sp2C;
+    f32 x;
+    f32 y;
+    f32 z;
+
+    if (uvVec3Len(arg1) < 0.0001f) {
+        return 0.0f;
+    }
+    uvVec3Normal(&sp38, arg1);
+    var_fa1 = uvVec3Dot(arg2, &sp38);
+    if (!(var_fa1 > 0.0f)) {
+        var_fa1 = -var_fa1;
+    }
+    x = arg2->x - (var_fa1 * sp38.x);
+    y = arg2->y - (var_fa1 * sp38.y);
+    z = arg2->z - (var_fa1 * sp38.z);
+    sp2C.x = ((arg1->y * z) - (arg1->z * y)) * arg3;
+    sp2C.y = ((arg1->z * x) - (arg1->x * z)) * arg4;
+    sp2C.z = ((arg1->x * y) - (arg1->y * x)) * arg5;
+    arg0->x += sp2C.x;
+    arg0->y += sp2C.y;
+    arg0->z += sp2C.z;
+    if (uvVec3Len(&sp2C) > 0.0f) {
+        var_fv1 = uvVec3Len(&sp2C);
+    } else {
+        var_fv1 = -uvVec3Len(&sp2C);
+    }
+    return var_fv1;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DC380.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DC784.s")
+void func_802DC784(Mtx4F* arg0, Vec3F* arg1, Vec3F* arg2, Vec3F* arg3, f32 arg4) {
+    Vec3F sp24;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DC814.s")
+    uvVec3Cross(&sp24, arg2, arg3);
+    uvVec3Cross(arg2, &sp24, arg3);
+    arg2->x = -arg4 * arg2->x;
+    arg2->y = -arg4 * arg2->y;
+    arg2->z = -arg4 * arg2->z;
+    uvMat4LocalToWorld(arg0, arg1, arg2);
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DC8E4.s")
+s32 func_802DC814(Unk802D3658_Unk1228* arg0, Vec3F* arg1) {
+    f32 len;
+    Vec3F sp20;
+    f32 dot;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DC930.s")
+    sp20.x = arg0->unkC.x - arg1->x;
+    sp20.y = arg0->unkC.y - arg1->y;
+    sp20.z = arg0->unkC.z - arg1->z;
+    len = uvVec3Len(&sp20);
+    if (len < 0.02f) {
+        return 0;
+    }
+    dot = uvVec3Dot(&sp20, &arg0->unk1C);
+    if (dot > 0.0f) {
+        arg0->unk1C.x = -arg0->unk1C.x;
+        arg0->unk1C.y = -arg0->unk1C.y;
+        arg0->unk1C.z = -arg0->unk1C.z;
+        return 1;
+    }
+    return 0;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DC97C.s")
+s32 func_802DC8E4(s32 surfaceId) {
+    u16 state;
+    state = uvTerraGetState(D_80362690->unk0[0].unk6, surfaceId) & 0xFFF;
+    if (func_802300F0(state) == 4) {
+        return 1;
+    }
+    return 0;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DCA00.s")
+s32 func_802DC930(s32 surfaceId) {
+    u16 state;
+    state = uvTerraGetState(D_80362690->unk0[0].unk6, surfaceId) & 0xFFF;
+    if (func_802300F0(state) == 0x20) {
+        return 0;
+    }
+    return 1;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DCA5C.s")
+s32 func_802DC97C(u32 soid) {
+    u16 temp_v0;
+
+    temp_v0 = uvSobj_8022D1E4(soid);
+    if ((temp_v0 == 0x18) || (temp_v0 == 0x5C) || (temp_v0 == 0x5D) || (temp_v0 == 0x5E) || (temp_v0 == 0x5F) || (temp_v0 == 0x60) || (temp_v0 == 0x22) ||
+        (temp_v0 == 0x23) || (temp_v0 == 0x24) || (temp_v0 == 0x97) || (temp_v0 == 0xAB)) {
+        return 1;
+    }
+    return 0;
+}
+
+s32 func_802DCA00(s32 surfaceId) {
+    s32 state;
+
+    if (surfaceId == -1) {
+        return 0;
+    }
+    state = uvTerraGetState(D_80362690->unk0[0].unk6, surfaceId);
+    if (((state & 0x100000) == 0) && ((state & 0x80000) == 0)) {
+        return 1;
+    }
+
+    return 0;
+}
+
+void func_802DCA5C(Vec3F* arg0, Vec3F* arg1, Vec3F* arg2, Vec3F* arg3, Vec3F* arg4) {
+    Vec3F sp2C;
+    f32 temp_fa0;
+    f32 var_fv1;
+    f32 sp20;
+    Vec3F* var_v0;
+
+    sp2C.x = arg1->x - arg0->x;
+    sp2C.y = arg1->y - arg0->y;
+    sp2C.z = arg1->z - arg0->z;
+    sp20 = uvVec3Len(&sp2C);
+    temp_fa0 = uvVec3Dot(&sp2C, arg3) / sp20;
+    var_fv1 = temp_fa0;
+    if (temp_fa0 > 0.0f) {
+        var_v0 = arg0;
+    } else {
+        var_fv1 = -temp_fa0;
+        var_v0 = arg1;
+    }
+    arg4->x = (arg2->x - var_v0->x) * var_fv1;
+    arg4->y = (arg2->y - var_v0->y) * var_fv1;
+    arg4->z = (arg2->z - var_v0->z) * var_fv1;
+}

@@ -73,7 +73,7 @@ void bird_802CC270(u8 arg0, u8 pilot, Unk80367704* arg2, Unk802D3658_Arg0* arg3)
     arg2->unk2DC = 0.0f;
     uvModelGetProps(arg2->unk3F4, 1, &arg3->unk8, 0);
     bird_802CEBA0(arg2);
-    func_802D0BF0(arg2);
+    bmSoundInit(arg2);
 }
 
 // called when entering or exiting a birdman level
