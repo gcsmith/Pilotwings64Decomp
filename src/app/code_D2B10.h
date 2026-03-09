@@ -4,6 +4,7 @@
 #include <uv_level.h>
 #include "code_5A6A0.h"
 
+void func_8034B5E0(u8, Unk802D3658_Arg0*);
 void func_8034B624(Unk802D3658_Arg0*);
 void func_8034B6F8(void);
 

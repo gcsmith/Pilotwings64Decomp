@@ -15,6 +15,7 @@
 #include "code_5A6A0.h"
 #include "code_60020.h"
 #include "code_66160.h"
+#include "code_69BF0.h"
 #include "code_72010.h"
 #include "code_72B70.h"
 #include "code_7FED0.h"
@@ -793,7 +794,6 @@ void cannonLoadPilot(u8 pilot, Unk802D5B50_Arg2* arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/app/cannonball/cannonLoad802D77D8.s")
 #else
 // protos might be incorrect
-void func_802E26C0(void);
 void func_802E66F4(f32);
 void func_802E68B0(s32);
 void func_802EDD9C(void*, Mtx4F*);

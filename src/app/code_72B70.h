@@ -36,7 +36,10 @@ typedef struct {
     u8 unk104;
     u8 unk105;
     u8 unk106;
-    u8 pad107[0x150 - 0x107];
+    u8 unk107;
+    u8 unk108[4]; // unknown size
+    u8 pad10C[0x140 - 0x10C];
+    f32 unk140[4]; // unknown size
     Vec3F unk150;
     u8 unk15C;
     f32 unk160;
@@ -59,14 +62,10 @@ typedef struct {
     f32 unk244;
     f32 unk248;
     f32 unk24C;
-    f32 unk250;
-    f32 unk254;
-    f32 unk258;
+    Vec3F unk250;
     Vec3F unk25C;
     Vec3F unk268;
-    f32 unk274;
-    f32 unk278;
-    f32 unk27C;
+    Vec3F unk274;
     f32 unk280;
     u8 pad284[0x290 - 0x284];
     u8 unk290;
@@ -149,11 +148,19 @@ typedef struct {
     u8 unk3FF;
     Vec3F unk400;
     s32 unk40C;
+    s32 unk410;
+    u8 unk414;
+    u8 unk415;
+    u8 pad416[0x41C - 0x416];
+    f32 unk41C;
+    f32 unk420;
 } Unk80367704;
 
 void func_802EB9C0(void);
+void func_802EBBB8(void);
 void func_802EBC30(void);
 void func_802EDDEC(Mtx4F*);
 void func_802EDAF0(void*, Mtx4F*, s32, s32, f32, f32, f32, u32, s32, s32, s32);
+void func_802EE14C(s32);
 
 #endif // APP_CODE_72B70_H

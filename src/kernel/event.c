@@ -10,38 +10,43 @@ EventCallbackInfo D_8025C598;
 EventCallbackInfo D_8025C5A0;
 EventCallbackInfo D_8025C5A8;
 
+// forward declarations
+void func_80203434(s32, void*, s32);
+void func_802035AC(s32, void*, s32);
+void func_80203724(s32, void*, s32);
+
 void func_80202DA0(void) {
     s32 i;
     s32 j;
 
     for (i = 0; i < ARRAY_COUNT(D_8025BF00); i++) {
         for (j = 0; j < ARRAY_COUNT(D_8025BF00[i].unk0); j++) {
-            D_8025BF00[i].unk0[j].unk0 = NULL;
-            D_8025BF00[i].unk0[j].unk4 = 0;
+            D_8025BF00[i].unk0[j].cb = NULL;
+            D_8025BF00[i].unk0[j].arg = 0;
         }
         D_8025BF00[i].count = 0;
     }
 
     for (i = 0; i < ARRAY_COUNT(D_8025C3F0); i++) {
         for (j = 0; j < ARRAY_COUNT(D_8025C3F0[i].unk0); j++) {
-            D_8025C3F0[i].unk0[j].unk0 = NULL;
-            D_8025C3F0[i].unk0[j].unk4 = 0;
+            D_8025C3F0[i].unk0[j].cb = NULL;
+            D_8025C3F0[i].unk0[j].arg = 0;
             D_8025C3F0[i].count = 0;
         }
     }
 
-    D_8025C598.unk0 = func_80203434;
-    D_8025C598.unk4 = 0;
+    D_8025C598.cb = func_80203434;
+    D_8025C598.arg = NULL;
     D_8025BF00[0].unk0[D_8025BF00[0].count] = D_8025C598;
     D_8025BF00[0].count++;
 
-    D_8025C5A0.unk0 = func_802035AC;
-    D_8025C5A0.unk4 = 0;
+    D_8025C5A0.cb = func_802035AC;
+    D_8025C5A0.arg = NULL;
     D_8025BF00[1].unk0[D_8025BF00[1].count] = D_8025C5A0;
     D_8025BF00[1].count++;
 
-    D_8025C5A8.unk0 = func_80203724;
-    D_8025C5A8.unk4 = 0;
+    D_8025C5A8.cb = func_80203724;
+    D_8025C5A8.arg = NULL;
     D_8025BF00[2].unk0[D_8025BF00[2].count] = D_8025C5A8;
     D_8025BF00[2].count++;
 }
@@ -102,7 +107,7 @@ void uvEventPost(s32 arg0, s32 arg1) {
     }
 
     for (i = 0; i < count; i++) {
-        sp64[i].unk0(arg0, sp64[i].unk4, arg1);
+        sp64[i].cb(arg0, sp64[i].arg, arg1);
     }
 }
 
@@ -131,26 +136,26 @@ void uvEventRemoveCb(EventCallbackInfo arg0, ...) {
         if (temp_v0 < 5) {
             var_a3 = &D_8025C3F0[temp_v0];
             for (i = 0; i < var_a3->count; i++) {
-                if ((arg0.unk0 == var_a3->unk0[i].unk0) && (arg0.unk4 == var_a3->unk0[i].unk4)) {
+                if ((arg0.cb == var_a3->unk0[i].cb) && (arg0.arg == var_a3->unk0[i].arg)) {
                     for (j = i; j < var_a3->count - 1; j++) {
-                        var_a3->unk0[j].unk0 = var_a3->unk0[j + 1].unk0;
-                        var_a3->unk0[j].unk4 = var_a3->unk0[j + 1].unk4;
+                        var_a3->unk0[j].cb = var_a3->unk0[j + 1].cb;
+                        var_a3->unk0[j].arg = var_a3->unk0[j + 1].arg;
                     }
-                    var_a3->unk0[var_a3->count].unk0 = NULL;
-                    var_a3->unk0[var_a3->count].unk4 = 0;
+                    var_a3->unk0[var_a3->count].cb = NULL;
+                    var_a3->unk0[var_a3->count].arg = NULL;
                     var_a3->count--;
                 }
             }
         } else {
             var_a1 = &D_8025BF00[temp_v0];
             for (i = 0; i < var_a1->count; i++) {
-                if ((arg0.unk0 == var_a1->unk0[i].unk0) && (arg0.unk4 == var_a1->unk0[i].unk4)) {
+                if ((arg0.cb == var_a1->unk0[i].cb) && (arg0.arg == var_a1->unk0[i].arg)) {
                     for (j = i; j < var_a1->count - 1; j++) {
-                        var_a1->unk0[j].unk0 = var_a1->unk0[j + 1].unk0;
-                        var_a1->unk0[j].unk4 = var_a1->unk0[j + 1].unk4;
+                        var_a1->unk0[j].cb = var_a1->unk0[j + 1].cb;
+                        var_a1->unk0[j].arg = var_a1->unk0[j + 1].arg;
                     }
-                    var_a1->unk0[var_a1->count].unk0 = NULL;
-                    var_a1->unk0[var_a1->count].unk4 = 0;
+                    var_a1->unk0[var_a1->count].cb = NULL;
+                    var_a1->unk0[var_a1->count].arg = NULL;
                     var_a1->count--;
                 }
             }
@@ -158,7 +163,7 @@ void uvEventRemoveCb(EventCallbackInfo arg0, ...) {
     }
 }
 
-void func_80203434(s32 arg0, s32 arg1, s32 arg2) {
+void func_80203434(s32 arg0, void* arg1, s32 arg2) {
     SystemEventCallbackInfo* temp_t3;
     s32 count;
     s32 i;
@@ -172,11 +177,11 @@ void func_80203434(s32 arg0, s32 arg1, s32 arg2) {
     }
 
     for (i = 0; i < count; i++) {
-        sp64[i].unk0(arg0, sp64[i].unk4, arg2);
+        sp64[i].cb(arg0, sp64[i].arg, arg2);
     }
 }
 
-void func_802035AC(s32 arg0, s32 arg1, s32 arg2) {
+void func_802035AC(s32 arg0, void* arg1, s32 arg2) {
     SystemEventCallbackInfo* temp_t3;
     s32 count;
     s32 i;
@@ -190,11 +195,11 @@ void func_802035AC(s32 arg0, s32 arg1, s32 arg2) {
     }
 
     for (i = 0; i < count; i++) {
-        sp64[i].unk0(arg0, sp64[i].unk4, arg2);
+        sp64[i].cb(arg0, sp64[i].arg, arg2);
     }
 }
 
-void func_80203724(s32 arg0, s32 arg1, s32 arg2) {
+void func_80203724(s32 arg0, void* arg1, s32 arg2) {
     SystemEventCallbackInfo* temp_t3;
     s32 count;
     s32 i;
@@ -208,6 +213,6 @@ void func_80203724(s32 arg0, s32 arg1, s32 arg2) {
     }
 
     for (i = 0; i < count; i++) {
-        sp64[i].unk0(arg0, sp64[i].unk4, arg2);
+        sp64[i].cb(arg0, sp64[i].arg, arg2);
     }
 }
