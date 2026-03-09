@@ -5,7 +5,7 @@
 
 // for HUDState.renderFlags
 #define HUD_RENDER_HANG_GLIDER   0x0002
-#define HUD_RENDER_ROCKET_PACK   0x0004
+#define HUD_RENDER_ROCKET_BELT   0x0004
 #define HUD_RENDER_GYROCOPTER    0x0008
 #define HUD_RENDER_CANNONBALL    0x0010
 #define HUD_RENDER_SKYDIVING     0x0020
@@ -14,7 +14,7 @@
 #define HUD_RENDER_RETICLE       0x0200
 #define HUD_RENDER_DISABLE       0x0400
 #define HUD_RENDER_ANY_VEHICLE (HUD_RENDER_HANG_GLIDER | \
-                                HUD_RENDER_ROCKET_PACK | \
+                                HUD_RENDER_ROCKET_BELT | \
                                 HUD_RENDER_GYROCOPTER | \
                                 HUD_RENDER_CANNONBALL | \
                                 HUD_RENDER_SKYDIVING | \

@@ -17,7 +17,7 @@
 #include "map3d.h"
 #include "menu.h"
 #include "proxanim.h"
-#include "rocket_pack.h"
+#include "rocket_belt.h"
 #include "shadow.h"
 #include "skydiving.h"
 #include "snd.h"
