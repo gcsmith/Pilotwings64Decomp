@@ -228,6 +228,30 @@ typedef struct {
 } Unk80362690;
 
 typedef struct {
+    s32 unk0;
+    f32 unk4;
+    f32 unk8;
+    f32 unkC;
+    f32 unk10;
+    f32 unk14;
+    f32 unk18;
+    f32 unk1C;
+    f32 unk20;
+    f32 unk24;
+    f32 unk28;
+    f32 unk2C;
+    f32 unk30;
+    f32 unk34;
+    f32 unk38;
+    f32 unk3C;
+    f32 unk40;
+    s32 pad44;
+    s32 pad48;
+    s32 pad4C;
+    s32 pad50;
+} Unk803599D0;
+
+typedef struct {
     Vec3F pos;
     u8 padC[0x18 - 0xC];
     s32 unk18;
@@ -294,6 +318,14 @@ typedef struct {
     f32 z;
     f32 unkC;
 } LevelOBSV;
+
+typedef struct LevelPHTS {
+    s32 unk0;
+    s32 unk4;
+    f32 unk8;
+    f32 unkC;
+    f32 unk10;
+} LevelPHTS;
 
 typedef struct {
     Vec3F pos;
@@ -369,8 +401,8 @@ typedef struct {
         s32 unk2C;
         u8 unk30[0x14];
         f32 unk44;
-        s32 unk48;
-        u8 unk4C[0x3B8];
+        Unk803599D0 unk48;
+        u8 unk9C[0x368];
         f32 unk404;
         f32 unk408;
         u8 unk40C[0x10];
@@ -404,7 +436,7 @@ typedef struct {
     void* dataTARG;
     void* dataHPAD;
     void* dataBTGT;
-    void* dataPHTS;
+    LevelPHTS* dataPHTS;
     void* dataFALC;
     void* dataSDFM;
     void* dataCNTG;
@@ -442,7 +474,7 @@ void level_803453AC(void);
 s32 level_80345464(Mtx4F*, s32);
 s32 level_803456D8(Mtx4F*);
 void level_80345A24(void);
-s32* levelGet_80345C80(void);
+Unk803599D0* levelGet_80345C80(void);
 s32* levelGet_80345C90(void);
 f32 levelGet_80345CA0(void);
 u8* levelGet_80345CB0(void);
@@ -465,7 +497,7 @@ s32 levelDataGetBALS(LevelBALS** data);
 s32 levelDataGetTARG(void** data);
 s32 levelDataGetHPAD(void** data);
 s32 levelDataGetBTGT(LevelBTGT** data);
-s32 levelDataGetPHTS(void** data);
+s32 levelDataGetPHTS(LevelPHTS** data);
 s32 levelDataGetFALC(void** data);
 s32 levelDataGetHOPD(LevelHOPD** data);
 void levelGetClsVehTest(u16* classIdx, u16* vehIdx, u16* testIdx);

@@ -1,4 +1,5 @@
 #include "common.h"
+#include "snow.h"
 
 // unused?
 s32 D_80350610 = 0xD;

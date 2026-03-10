@@ -8,7 +8,6 @@
 
 void func_8034B624(Unk802D3658_Arg0*);
 void func_8034AD6C(f32, f32, f32, Mtx4F*);
-void func_8034ABB0(Mtx4F*, Vec3F*, Vec3F*);
 
 f32 func_8034A9A0(f32, f32);
 void func_8034A9E8(Vec3F, Vec3F*);
