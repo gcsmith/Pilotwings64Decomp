@@ -84,12 +84,12 @@ typedef struct Unk80373060 {
     s32 unk6C;
 } Unk80373060; // size 0x70
 
-Unk80373060 D_80373060[6];
-Unk8033F050 D_80373300[6];
-Unk80373060 D_80373390[6];
-Unk80373060 D_80373630[6];
-Unk80373060 D_803738D0[6];
-Unk80373060 D_80373B70[6];
+Unk80373060 D_80373060[PHOTO_COUNT_MAX];
+Unk8033F050 D_80373300[PHOTO_COUNT_MAX];
+Unk80373060 D_80373390[PHOTO_COUNT_MAX];
+Unk80373060 D_80373630[PHOTO_COUNT_MAX];
+Unk80373060 D_803738D0[PHOTO_COUNT_MAX];
+Unk80373060 D_80373B70[PHOTO_COUNT_MAX];
 f32 D_80373E10;
 f32 D_80373E14;
 s32 D_80373E18;
@@ -112,7 +112,7 @@ void func_80337D50(void) {
     s32 i;
     s32 j;
 
-    for (i = 0; i < 6; i++) {
+    for (i = 0; i < PHOTO_COUNT_MAX; i++) {
         D_80373060[i].unk40 = -1;
         D_80373060[i].unk42 = 0;
         D_80373060[i].unk36 = 0;
@@ -133,7 +133,7 @@ void func_80337DB8(void) {
     D_8035054C = 1;
     D_80350544 = 0;
 
-    for (i = 0; i < 6; i++) {
+    for (i = 0; i < PHOTO_COUNT_MAX; i++) {
         D_80373390[i].unk40 = -1;
         D_80373390[i].unk42 = 0;
         D_80373390[i].unk36 = 0;
@@ -426,7 +426,7 @@ void func_80338A14(void) {
     spDC = temp_s4->unk70;
     temp_s5 = levelGet_80345C80();
     spB8 = 0;
-    if (D_8035052C >= 6) {
+    if (D_8035052C >= PHOTO_COUNT_MAX) {
         _uvDebugPrintf("snapPhoto: %d pictures already taken\n", D_8035052C);
         D_80350534 = 0;
         return;
@@ -458,7 +458,7 @@ void func_80338A14(void) {
     temp_s1->unk4C[0] = 0.0000f;
     var_fs0 = 1e7f;
 
-    for (i = 0; i < 6; i++) {
+    for (i = 0; i < ARRAY_COUNT(D_80350510); i++) {
         switch (D_80350510[i]) {
         case 4:
             if (func_8034B820() != 0) {
@@ -628,6 +628,7 @@ void func_80338A14(void) {
     }
 
     if ((sp78 != 0) && (spB8 != 0)) {
+        // "Photo OK"
         hudText_8031D8E0(0x13C, 3.0f, 0.0f);
     }
     var_fv1_2 = 0.f;
@@ -691,7 +692,7 @@ void func_80339C8C(s32 arg0) {
             }
         }
         if ((D_80350548 == 0) && (((D_80350544 == 0) && (var_a2 & Z_TRIG)) || (demoButtonPress(0, Z_TRIG) != 0))) {
-            if (D_8035052C >= 6) {
+            if (D_8035052C >= PHOTO_COUNT_MAX) {
                 if (D_80350534 == 0) {
                     D_80350534 = 1;
                     func_8033F758(0x69, 0.7f, 1.0f, 0.0f);
@@ -705,7 +706,7 @@ void func_80339C8C(s32 arg0) {
             D_80350534 = 0;
         }
 
-        if (D_8035052C < 6) {
+        if (D_8035052C < PHOTO_COUNT_MAX) {
             if ((D_80350548 != 0) && !(var_a2 & Z_TRIG)) {
                 D_80350548 = 0;
             }
@@ -731,7 +732,7 @@ void func_80339E1C(Unk80367704* arg0) {
             }
         }
         if ((D_80350548 == 0) && (((D_80350544 == 0) && (var_v1 & Z_TRIG)) || ((demoButtonPress(0, Z_TRIG) != 0)))) {
-            if (D_8035052C >= 6) {
+            if (D_8035052C >= PHOTO_COUNT_MAX) {
                 if (D_80350534 == 0) {
                     D_80350534 = 1;
                     func_8033F758(0x69, 0.7f, 1.0f, 0.0f);
@@ -762,10 +763,10 @@ s32 func_80339F9C(void) {
     temp_v1 = &D_80362690->unk0[D_80362690->unk9C].unkC;
 
     switch (temp_v1->veh) {
-    case 6:
+    case VEHICLE_BIRDMAN:
         var_a0 = *temp_v1->unk6C;
         break;
-    case 0:
+    case VEHICLE_HANG_GLIDER:
         var_a0 = *temp_v1->unk6C;
         break;
     default:
@@ -1123,7 +1124,7 @@ void func_8033ADD4(s32 arg0, Unk80373060* arg1, s32 arg2, s32 arg3) {
             uvGfxStatePop();
         }
     } else if (arg0 == 2) {
-        if (6 - D_80350528) {
+        if (PHOTO_COUNT_MAX - D_80350528) {
             uvGfxStatePush();
             uvGfxSetFlags(GFX_STATE_800000);
             uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
@@ -1175,7 +1176,7 @@ void func_8033ADD4(s32 arg0, Unk80373060* arg1, s32 arg2, s32 arg3) {
         uvFontSet(6);
         uvFontColor(255, 255, 255, 255);
         uvFontScale(1.0, 1.0);
-        textFmtInt(&sp44, 6 - D_80350528, 3);
+        textFmtInt(&sp44, PHOTO_COUNT_MAX - D_80350528, 3);
         func_80219874(0xF5, 0x19, &sp44, 3, 0xFFE);
 
         var_v1 = (((arg1->unk32 == 0) && (arg1->unk30 == 1)) || ((arg1->unk32 == 1) && (arg1->unk30 == 2)) || ((arg1->unk32 == 2) && (arg1->unk30 == 3))) &&
@@ -1214,10 +1215,10 @@ void func_8033ADD4(s32 arg0, Unk80373060* arg1, s32 arg2, s32 arg3) {
         uvGfx_80223A28(0x11B);
         if (arg2 > 0) {
             uvVtxBeginPoly();
-            uvVtx(0x28, 206, 0, 0, 0, 255, 240, 0, 255);
-            uvVtx(0x37, 206, 0, 0x1E0, 0, 255, 240, 0, 255);
-            uvVtx(0x37, 221, 0, 0x1E0, 0x1E0, 255, 240, 0, 255);
-            uvVtx(0x28, 221, 0, 0, 0x1E0, 255, 240, 0, 255);
+            uvVtx(40, 206, 0, 0, 0, 255, 240, 0, 255);
+            uvVtx(55, 206, 0, 0x1E0, 0, 255, 240, 0, 255);
+            uvVtx(55, 221, 0, 0x1E0, 0x1E0, 255, 240, 0, 255);
+            uvVtx(40, 221, 0, 0, 0x1E0, 255, 240, 0, 255);
             uvVtxEndPoly();
         }
         if (arg2 < (arg3 - 1)) {
@@ -1725,7 +1726,7 @@ void func_8033DFD0(s32 arg0, Unk80373060* arg1, s32 arg2) {
         func_8033BF00(arg0, 0, 0);
     } else if (arg0 == 2) {
         var_s2 = 0;
-        if (6 - D_80350528) {
+        if (PHOTO_COUNT_MAX - D_80350528) {
             func_8033BF00(arg0, 0, 0);
             func_8033BF00(arg0, 0, 0);
             var_s2 = 0;
@@ -1749,14 +1750,14 @@ void func_8033DFD0(s32 arg0, Unk80373060* arg1, s32 arg2) {
                     D_80373060[arg2].unk36 = 0;
                     D_80350550 = 1;
                 }
-            } else if ((arg0 == 2) && (var_s2) && (6 - D_80350528)) {
+            } else if ((arg0 == 2) && (var_s2) && (PHOTO_COUNT_MAX - D_80350528)) {
                 func_8033DCD0(&D_80373060[D_80350528], &arg1[arg2]);
                 D_80350528++;
                 D_80350550 = 1;
             }
             break;
         }
-        if ((arg0 == 0) || (6 - D_80350528)) {
+        if ((arg0 == 0) || (PHOTO_COUNT_MAX - D_80350528)) {
             temp_fv0 = demoGetInputs(0, 0);
             if (var_s1 == 0 && FABS2(temp_fv0) >= 0.3) {
                 var_s1 = 1;
@@ -1913,7 +1914,7 @@ void func_8033E860(Unk8033F050** arg0) {
     *arg0 = D_80373300;
     func_80338404();
 
-    for (i = 0; i < 6; i++) {
+    for (i = 0; i < PHOTO_COUNT_MAX; i++) {
         var_s1 = &sp6C;
         if ((i < D_80350528) && (D_80373060[i].unk43[0] != 0)) {
             var_s1->unk0 = func_8034AD14(D_80373060[i].unk0.x);
@@ -2002,7 +2003,7 @@ void func_8033F050(s32 arg0) {
     D_80350528 = 0;
     var_s3 = 0;
 
-    for (i = 0; i < 6; i++) {
+    for (i = 0; i < PHOTO_COUNT_MAX; i++) {
         var_s1 = &sp84;
         for (j = 0; j < 172; j++) {
             func_8033E784(var_s1, j, func_8033E810(arg0, var_s3));
@@ -2073,7 +2074,7 @@ void func_8033F050(s32 arg0) {
 }
 
 s32 snapGetPhotoCount(void) {
-    return 6 - D_8035052C;
+    return PHOTO_COUNT_MAX - D_8035052C;
 }
 
 s32 func_8033F62C(void) {

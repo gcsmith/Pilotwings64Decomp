@@ -4,6 +4,8 @@
 #include <PR/ultratypes.h>
 #include "code_72B70.h"
 
+#define PHOTO_COUNT_MAX 6
+
 void func_80337D50(void);
 void func_80337DB8(void);
 void func_803383FC(void);
