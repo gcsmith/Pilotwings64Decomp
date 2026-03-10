@@ -424,7 +424,7 @@ static void introSceneRunner(void) {
         menuInit();
     }
 
-    uvFont_80219EA8();
+    uvFontGenDlist();
     uvSprtDraw(4);
 }
 

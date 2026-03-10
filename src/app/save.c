@@ -39,18 +39,18 @@ void saveBitScramble(u8* data, s32* bitOffset, s32 bits, s32 bitCount) {
 
 // fatal error handler: attempts to render message and infinite loops
 void saveFatalError(char* msg) {
-    s32 temp_s0;
+    s32 xScreen;
 
     uvLevelAppend(0x2E);
     uvFontSet(0);
-    uvFont_80219550(1.0, 1.0);
-    uvFont_8021956C(0xFF, 0xFF, 0x00, 0xFF);
-    temp_s0 = 160 - (uvFontWidth(msg) / 2);
+    uvFontScale(1.0, 1.0);
+    uvFontColor(0xFF, 0xFF, 0x00, 0xFF);
+    xScreen = (SCREEN_WIDTH / 2) - (uvFontWidth(msg) / 2);
     for (;;) {
         uvGfxBegin();
         uvGfxClearScreen(0, 0, 0, 0);
-        uvFont_80219ACC(temp_s0, 100, msg);
-        uvFont_80219EA8();
+        uvFontPrintStr(xScreen, 100, msg);
+        uvFontGenDlist();
         uvGfxEnd();
     }
 }
