@@ -16,9 +16,4 @@ s32 D_80350644 = 0;
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/snow/func_803405C0.s")
 
-//#pragma GLOBAL_ASM("asm/nonmatchings/app/snow/func_803405E4.s")
-extern uvGfxSetCallback(s32);                              /* extern */
-
-void func_803405E4(void) {
-    uvGfxSetCallback(0);
-}
+#pragma GLOBAL_ASM("asm/nonmatchings/app/snow/func_803405E4.s")
