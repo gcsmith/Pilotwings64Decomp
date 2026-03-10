@@ -12,12 +12,12 @@ static Mtx4F D_80248DE0 = {
 void uvEnvProps(s32 arg0, ...) {
     f32 temp_fs0;
     s32 property;
-    ParsedUVEN* temp_s1;
+    ParsedUVEN* uven;
     va_list args;
 
-    temp_s1 = gGfxUnkPtrs->environments[arg0];
+    uven = gGfxUnkPtrs->environments[arg0];
     va_start(args, arg0);
-    if (temp_s1 == NULL) {
+    if (uven == NULL) {
         _uvDebugPrintf("uvEnvProps: env %d not in level\n", arg0);
         return;
     }
@@ -34,31 +34,31 @@ void uvEnvProps(s32 arg0, ...) {
             } else {
                 uvGfxSetFogFactor(temp_fs0);
                 if (temp_fs0 == 0.0f) {
-                    temp_s1->unk1C = 0;
+                    uven->unk1C = 0;
                 } else {
-                    temp_s1->unk1C = 1;
+                    uven->unk1C = 1;
                 }
-                temp_s1->unk14 = (f32)(temp_fs0 * 1000.0f);
-                temp_s1->unk18 = 1000.0f;
+                uven->unk14 = (f32)(temp_fs0 * 1000.0f);
+                uven->unk18 = 1000.0f;
             }
             break;
         case 4:
-            temp_s1->unk8 = va_arg(args, s32);
-            temp_s1->unk9 = va_arg(args, s32);
-            temp_s1->unkA = va_arg(args, s32);
-            temp_s1->unkB = va_arg(args, s32);
+            uven->unk8 = va_arg(args, s32);
+            uven->unk9 = va_arg(args, s32);
+            uven->unkA = va_arg(args, s32);
+            uven->unkB = va_arg(args, s32);
             break;
         case 1:
-            temp_s1->fogR = va_arg(args, s32);
-            temp_s1->fogG = va_arg(args, s32);
-            temp_s1->fogB = va_arg(args, s32);
-            temp_s1->fogA = va_arg(args, s32);
+            uven->fogR = va_arg(args, s32);
+            uven->fogG = va_arg(args, s32);
+            uven->fogB = va_arg(args, s32);
+            uven->fogA = va_arg(args, s32);
             break;
         case 2:
-            temp_s1->screenR = va_arg(args, s32);
-            temp_s1->screenG = va_arg(args, s32);
-            temp_s1->screenB = va_arg(args, s32);
-            temp_s1->screenA = va_arg(args, s32);
+            uven->screenR = va_arg(args, s32);
+            uven->screenG = va_arg(args, s32);
+            uven->screenB = va_arg(args, s32);
+            uven->screenA = va_arg(args, s32);
             break;
         default:
             _uvDebugPrintf("uvEnvProps: unknown property %d\n", property);
@@ -70,12 +70,12 @@ void uvEnvProps(s32 arg0, ...) {
 void uvEnvProps2(s32 arg0, ...) {
     f32 var_fv1;
     s32 property;
-    ParsedUVEN* temp_s1;
+    ParsedUVEN* uven;
     va_list args;
 
-    temp_s1 = gGfxUnkPtrs->environments[arg0];
+    uven = gGfxUnkPtrs->environments[arg0];
     va_start(args, arg0);
-    if (temp_s1 == NULL) {
+    if (uven == NULL) {
         _uvDebugPrintf("uvEnvProps: env %d not in level\n", arg0);
         return;
     }
@@ -86,31 +86,31 @@ void uvEnvProps2(s32 arg0, ...) {
         case 0:
             return;
         case 3:
-            if (temp_s1->unk18 != 0.0f) {
-                var_fv1 = temp_s1->unk14 / temp_s1->unk18;
+            if (uven->unk18 != 0.0f) {
+                var_fv1 = uven->unk14 / uven->unk18;
             } else {
                 var_fv1 = 0.0f;
             }
             *va_arg(args, f32*) = var_fv1;
             break;
         case 4:
-            *va_arg(args, u8*) = temp_s1->unk8;
-            *va_arg(args, u8*) = temp_s1->unk9;
-            *va_arg(args, u8*) = temp_s1->unkA;
-            *va_arg(args, u8*) = temp_s1->unkB;
+            *va_arg(args, u8*) = uven->unk8;
+            *va_arg(args, u8*) = uven->unk9;
+            *va_arg(args, u8*) = uven->unkA;
+            *va_arg(args, u8*) = uven->unkB;
             break;
         case 1:
-            *va_arg(args, u8*) = temp_s1->fogR;
-            *va_arg(args, u8*) = temp_s1->fogG;
-            *va_arg(args, u8*) = temp_s1->fogB;
-            *va_arg(args, u8*) = temp_s1->fogA;
+            *va_arg(args, u8*) = uven->fogR;
+            *va_arg(args, u8*) = uven->fogG;
+            *va_arg(args, u8*) = uven->fogB;
+            *va_arg(args, u8*) = uven->fogA;
             break;
         case 2:
             //! @bug All values set to the red value?
-            *va_arg(args, u8*) = temp_s1->screenR;
-            *va_arg(args, u8*) = temp_s1->screenR;
-            *va_arg(args, u8*) = temp_s1->screenR;
-            *va_arg(args, u8*) = temp_s1->screenR;
+            *va_arg(args, u8*) = uven->screenR;
+            *va_arg(args, u8*) = uven->screenR;
+            *va_arg(args, u8*) = uven->screenR;
+            *va_arg(args, u8*) = uven->screenR;
             break;
         default:
             _uvDebugPrintf("uvEnvProps: unknown property %d\n", property);
@@ -120,15 +120,15 @@ void uvEnvProps2(s32 arg0, ...) {
 }
 
 void uvEnvFunc(s32 envId, s32 flag, void (*arg2)(void)) {
-    ParsedUVEN* temp_v0;
+    ParsedUVEN* uven;
 
-    temp_v0 = gGfxUnkPtrs->environments[envId];
-    if (temp_v0 == NULL) {
+    uven = gGfxUnkPtrs->environments[envId];
+    if (uven == NULL) {
         _uvDebugPrintf("uvEnvFunc: environment %d not in level\n", envId);
         return;
     }
     if (flag == 0) {
-        temp_v0->unk38 = arg2;
+        uven->unk38 = arg2;
     } else {
         _uvDebugPrintf("uvEnvFunc: unknown what flag %d\n", flag);
     }
@@ -140,47 +140,47 @@ void func_80218700(void) {
 }
 
 void _uvEnvDraw(s32 arg0, s32 arg1) {
-    UnkUVMD_8* temp_v1;
+    uvModelLOD* uvmd_lod;
     f32 var_fs1;
     s32 temp_a0_2;
     u8 temp_s1;
-    UnkUVMD_10* temp_s2;
-    ParsedUVEN* temp_s7;
+    uvModelPart* uvmd_part;
+    ParsedUVEN* uven;
     u32 i;
     u32 j;
-    ParsedUVMD* temp_a0;
+    ParsedUVMD* uvmd;
     UnkStruct_80204D94* var_v0;
 
     if (arg1 == 0xFFFF) {
         return;
     }
 
-    temp_s7 = gGfxUnkPtrs->environments[arg1];
-    if (temp_s7 == NULL) {
+    uven = gGfxUnkPtrs->environments[arg1];
+    if (uven == NULL) {
         uvGfxClearScreen(0, 0, 0, 255);
         return;
     }
-    if (temp_s7->unk1C != 0) {
-        var_fs1 = temp_s7->unk14 / temp_s7->unk18;
+    if (uven->unk1C != 0) {
+        var_fs1 = uven->unk14 / uven->unk18;
     } else {
         var_fs1 = 0.0f;
     }
     uvGfxSetFogFactor(var_fs1);
 
-    if (temp_s7->unk2E != 0) {
-        uvGfxClearScreen(temp_s7->screenR, temp_s7->screenG, temp_s7->screenB, temp_s7->screenA);
+    if (uven->unk2E != 0) {
+        uvGfxClearScreen(uven->screenR, uven->screenG, uven->screenB, uven->screenA);
     }
 
     var_v0 = &D_80261730[arg0];
-    for (i = 0; i < temp_s7->count; i++) {
-        temp_a0 = gGfxUnkPtrs->models[temp_s7->unk30[i].modelId];
-        if (temp_a0 == NULL) {
-            _uvDebugPrintf("_uvEnvDraw: model %d not in level\n", temp_s7->unk30[i].modelId);
+    for (i = 0; i < uven->count; i++) {
+        uvmd = gGfxUnkPtrs->models[uven->unk30[i].modelId];
+        if (uvmd == NULL) {
+            _uvDebugPrintf("_uvEnvDraw: model %d not in level\n", uven->unk30[i].modelId);
             return;
         }
-        temp_s1 = temp_s7->unk30[i].flag;
-        temp_v1 = temp_a0->unk8;
-        temp_s2 = temp_v1->unk0;
+        temp_s1 = uven->unk30[i].flag;
+        uvmd_lod = uvmd->lod;
+        uvmd_part = uvmd_lod->part;
 
         if (temp_s1 & 8) {
             D_80248DE0.m[3][0] = var_v0->unk110.m[3][0];
@@ -189,7 +189,7 @@ void _uvEnvDraw(s32 arg0, s32 arg1) {
             D_80248DE0.m[3][0] = D_80248DE0.m[3][1] = 0.0f;
         }
 
-        gDPSetFogColor(gGfxDisplayListHead++, temp_s7->fogR, temp_s7->fogG, temp_s7->fogB, 255);
+        gDPSetFogColor(gGfxDisplayListHead++, uven->fogR, uven->fogG, uven->fogB, 255);
         if (temp_s1 & 4) {
             uvGfxSetFogFactor(var_fs1);
         } else {
@@ -202,13 +202,13 @@ void _uvEnvDraw(s32 arg0, s32 arg1) {
         }
         uvGfx_802236CC(&D_80248DE0);
 
-        for (j = 0; j < temp_s2->unk4; j++) {
-            temp_a0_2 = temp_s2->unk0[j].state;
+        for (j = 0; j < uvmd_part->unk4; j++) {
+            temp_a0_2 = uvmd_part->unk0[j].state;
             if (!(temp_s1 & 1)) {
-                temp_s2->unk0[j].state &= ~0x200000;
+                uvmd_part->unk0[j].state &= ~0x200000;
             }
-            uvGfxStateDraw(&temp_s2->unk0[j]);
-            temp_s2->unk0[j].state = temp_a0_2;
+            uvGfxStateDraw(&uvmd_part->unk0[j]);
+            uvmd_part->unk0[j].state = temp_a0_2;
         }
         if (temp_s1 & 2) {
             uvGfxMtxProj(var_v0->unk50);
@@ -218,7 +218,7 @@ void _uvEnvDraw(s32 arg0, s32 arg1) {
     }
 
     uvGfxSetFogFactor(var_fs1);
-    if (temp_s7->unk38 != NULL) {
-        temp_s7->unk38();
+    if (uven->unk38 != NULL) {
+        uven->unk38();
     }
 }

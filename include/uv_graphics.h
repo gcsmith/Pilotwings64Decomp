@@ -86,7 +86,7 @@ typedef struct {
 
 typedef struct {
     Vtx* vtx;
-    u16 vtxCount;
+    u16 vtx_count;
     u16 pad6;
     Unk80225FBC_0x28* unk8;
     u16 unkC;
@@ -179,7 +179,7 @@ typedef struct UnkUVMD_24 {
     UnkUVMD_6* unk20;
 } UnkUVMD_24;
 
-typedef struct UnkUVMD_10 {
+typedef struct uvModelPart {
     uvGfxState_t* unk0;
     u8 unk4;
     u8 unk5;
@@ -187,23 +187,23 @@ typedef struct UnkUVMD_10 {
     UnkUVMD_24* unk8;
     u8 unkC;
     u8 unkD;
-} UnkUVMD_10; // size = 0x10
+} uvModelPart; // size = 0x10
 
-typedef struct UnkUVMD_8 {
-    UnkUVMD_10* unk0;
-    u8 unk4;
-    u8 unk5;
-} UnkUVMD_8; // size = 0x8
+typedef struct uvModelLOD {
+    uvModelPart* part;
+    u8 partCount;
+    u8 billboard;
+} uvModelLOD; // size = 0x8
 
 typedef struct ParsedUVMD {
     Vtx* vtx;
-    u16 vtxCount;
-    UnkUVMD_8* unk8;
-    f32* unkC;
-    u8 unk10;
+    u16 vtx_count;
+    uvModelLOD* lod;
+    f32* lod_radius;
+    u8 lod_count;
     u8 unk11;
-    Mtx4F* unk14;
-    u8 unk18;
+    Mtx4F* mtx;
+    u8 mtx_count;
     f32 unk1C;
     f32 unk20;
     f32 unk24;
