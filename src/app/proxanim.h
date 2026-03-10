@@ -12,6 +12,7 @@ typedef struct {
 s32 func_80321210(s32 (*)(s32, s32, s32), s32 (*)(s32, s32, s32), Vec3F, f32, f32, s32);
 void func_803212DC(s32);
 f32 func_80321420(s32);
+void func_8032150C(void);
 Unk803216A4* func_803216A4(void);
 
 #endif // APP_PROXANIM_H

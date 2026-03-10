@@ -12,6 +12,7 @@
 #include "app/demo.h"
 #include "app/file_menu.h"
 #include "app/hud.h"
+#include "app/proxanim.h"
 #include "app/shadow.h"
 #include "app/snd.h"
 #include "app/snow.h"
@@ -94,30 +95,6 @@ f32 D_80373E14;
 s32 D_80373E18;
 s32 D_80373E1C;
 
-void func_8033A6B8(void);
-
-void func_802EB368(void);
-void func_8034C25C(void);
-void func_803154C0(void);
-void func_80336094(void);
-void func_802E7D58(void);
-void func_802EB328(f32);
-void func_8034C1CC(f32);
-void func_80315418(f32);
-void func_80335FD8(f32);
-void func_802E7D18(f32);
-void func_8034CCC4(s32, f32);
-void func_802D21D8(s32, f32);
-void func_802F2110(s32, f32);
-void func_80320900(s32, f32);
-void func_8032150C(void);
-void func_802EB38C(void);
-void func_8034C298(void);
-void func_80315508(void);
-void func_803360E8(void);
-void func_80336064(void);
-void func_802E7D6C(void);
-
 s32 D_80350510[] = { 0x4, 0x3, 0x1, 0x2, 0x6, 0x5 };
 s32 D_80350528 = 0;
 s32 D_8035052C = 0;
@@ -128,7 +105,7 @@ s32 D_8035053C = 3;
 s32 D_80350540 = 1;
 u8 D_80350544 = 0;
 u8 D_80350548 = 0;
-u8 D_8035054C = 0; // might be array of up to 4 elements
+u8 D_8035054C = 0;
 s32 D_80350550 = 0;
 
 void func_80337D50(void) {
