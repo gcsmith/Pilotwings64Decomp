@@ -88,7 +88,7 @@ void level_803449B0(void) {
     func_80316DC0();
     func_80344290();
     func_803097E0();
-    func_802D2850();
+    ballTgtInit();
     func_80337DB8();
     func_802E37B0();
     func_802EB3E0();
@@ -256,7 +256,7 @@ s32 level_80344FC8(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* arg4, 
     func_80316DC0();
     func_80344290();
     func_803097E0();
-    func_802D2850();
+    ballTgtInit();
     func_80337DB8();
     func_802E37B0();
     func_8032FAB0();
@@ -294,7 +294,7 @@ void level_8034528C(void) {
         ballsLoad();
         func_803442F8();
         func_80309A64();
-        func_802D2ACC();
+        ballTgtLoad();
         func_802E3A5C();
         func_802FB22C();
         if ((veh != VEHICLE_CANNONBALL) && (veh != VEHICLE_SKY_DIVING)) {
@@ -321,7 +321,7 @@ void level_803453AC(void) {
         ballsDeinit();
         func_8034467C();
         func_80309FFC();
-        func_802D3030();
+        ballTgtDeinit();
         func_803383FC();
         func_802E3E6C();
         func_802FB518();
@@ -352,7 +352,7 @@ s32 level_80345464(Mtx4F* arg0, s32 arg1) {
     }
     func_802EB424(arg0, arg1);
     func_802E344C(arg0);
-    if (func_802D2E48() == 1) {
+    if (ballTgtInGoal() == 1) {
         D_803507A4 = 1;
         sp18 = 1;
         D_80362690->unk0[0].unkC.veh = VEHICLE_ROCKET_BELT;
@@ -485,7 +485,7 @@ void level_80345A24(void) {
     }
     balls_802CAF50();
     func_80309868();
-    func_802D28D8();
+    ballTgtUpdateState();
     func_802FAFF0();
 }
 

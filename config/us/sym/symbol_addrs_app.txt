@@ -114,6 +114,16 @@ bmSound_802D1320    = 0x802D1320; // type:func
 bmSound_802D1334    = 0x802D1334; // type:func
 bmSound_802D1534    = 0x802D1534; // type:func
 
+ballTgtInit         = 0x802D2850; // type:func
+ballTgtUpdateState  = 0x802D28D8; // type:func
+ballTgtInitDobj     = 0x802D29FC; // type:func
+ballTgtLoad         = 0x802D2ACC; // type:func
+ballTgt_802D2C20    = 0x802D2C20; // type:func
+ballTgtInGoal       = 0x802D2E48; // type:func
+ballTgtCount_5B     = 0x802D30B4; // type:func
+ballTgtCount_59     = 0x802D3110; // type:func
+ballTgtDeinit       = 0x802D3030; // type:func
+
 db_getgnd           = 0x802DFE70; // type:func
 db_getstart         = 0x802E0304; // type:func
 env_loadtpal        = 0x802E1990; // type:func

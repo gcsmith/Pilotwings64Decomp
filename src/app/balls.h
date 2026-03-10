@@ -42,6 +42,7 @@ typedef struct {
     u8 pad1A9[0x1AC - 0x1A9];
 } ParsedBALS; // size: 0x1AC
 
+extern f32 D_80359388;
 extern u8 gBallCount; // initial ball count. never decremented
 extern u8 gBallSplitCount; // split ball count (5 after first split, 10 after second). never decremented
 extern ParsedBALS gBalls[20]; // array of balls loaded
