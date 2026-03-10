@@ -651,7 +651,7 @@ void cannonLoadPilot(u8 pilot, Unk802D5B50_Arg2* arg1) {
         arg1->unk278 = 0.64f;
         arg1->unk280 = 1.2f;
         arg1->unk27C = 13.72f;
-        arg1->modelId = MODEL_CANNONB_HAWK_LAUNCHED
+        arg1->modelId = MODEL_CANNONB_HAWK_LAUNCHED;
         arg1->unk292 = 6;
         arg1->unk285 = 1;
         arg1->unk286 = 2;
