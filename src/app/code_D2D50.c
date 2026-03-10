@@ -180,7 +180,7 @@ void func_8034BEDC(void) {
 
     D_803509C4 = uvDobjAllocIdx();
     if (D_803509C4 != 0xFFFF) {
-        uvDobjModel(D_803509C4, MODEL_D8);
+        uvDobjModel(D_803509C4, MODEL_BROWN_BOX);
         uvDobjState(D_803509C4, 0);
     }
     D_803509C0 = uvDobjAllocIdx();
@@ -190,7 +190,7 @@ void func_8034BEDC(void) {
             D_803509C4 = 0xFFFF;
         }
     } else {
-        uvDobjModel(D_803509C0, MODEL_D7);
+        uvDobjModel(D_803509C0, MODEL_GREY_WHALE);
         uvDobjState(D_803509C0, 0);
         D_803509CC = func_80321210(func_8034BDCC, func_8034BC68, sp30, 450.0f, 0.0f, 4);
         D_803509D0 = 0.0f;

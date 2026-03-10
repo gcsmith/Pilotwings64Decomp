@@ -183,7 +183,7 @@ void func_8034C964(void) {
     for (i = 0; i < ARRAY_COUNT(D_8037F450); i++) {
         D_8037F450[i].unk4 = uvDobjAllocIdx();
         if (D_8037F450[i].unk4 != 0xFFFF) {
-            uvDobjModel(D_8037F450[i].unk4, MODEL_D8);
+            uvDobjModel(D_8037F450[i].unk4, MODEL_BROWN_BOX);
             uvDobjState(D_8037F450[i].unk4, 0);
         }
         D_8037F450[i].unk0 = uvDobjAllocIdx();
@@ -193,7 +193,7 @@ void func_8034C964(void) {
                 D_8037F450[i].unk4 = 0xFFFF;
             }
         } else {
-            uvDobjModel(D_8037F450[i].unk0, MODEL_D7);
+            uvDobjModel(D_8037F450[i].unk0, MODEL_GREY_WHALE);
             uvDobjState(D_8037F450[i].unk0, 0);
             switch (i) {
             case 0:

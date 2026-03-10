@@ -143,7 +143,7 @@ static void func_803427FC(void) {
     uvMat4SetIdentity(&sp58);
     uvDobjPosm(D_80378CE0->unk0, 0, &sp58);
     D_80378CE0->unk4 = uvDobjAllocIdx();
-    uvDobjModel(D_80378CE0->unk4, MODEL_PILOTWINGS_SWOOSH_FEATHER_THING);
+    uvDobjModel(D_80378CE0->unk4, MODEL_PILOTWINGS_LOGO_FEATHER);
     uvDobjPosm(D_80378CE0->unk4, 0, &D_80378CE0->unk2C);
     uvDobjState(D_80378CE0->unk4, 2);
     D_80378CE0->unk8 = uvDobjAllocIdx();
@@ -151,11 +151,11 @@ static void func_803427FC(void) {
     uvDobjPosm(D_80378CE0->unk8, 0, &D_80378CE0->unk6C);
     uvDobjState(D_80378CE0->unk8, 2);
     D_80378CE0->unkC = uvDobjAllocIdx();
-    uvDobjModel(D_80378CE0->unkC, MODEL_3D_6_IN_INTRO_PW64_LOGO);
+    uvDobjModel(D_80378CE0->unkC, MODEL_PILOTWINGS_LOGO_SIX);
     uvDobjPosm(D_80378CE0->unkC, 0, &D_80378CE0->unkAC);
     uvDobjState(D_80378CE0->unkC, 2);
     D_80378CE0->unk10 = uvDobjAllocIdx();
-    uvDobjModel(D_80378CE0->unk10, MODEL_3D_4_IN_INTRO_PW64_LOGO);
+    uvDobjModel(D_80378CE0->unk10, MODEL_PILOTWINGS_LOGO_FOUR);
     uvDobjPosm(D_80378CE0->unk10, 0, &D_80378CE0->unkEC);
     uvDobjState(D_80378CE0->unk10, 2);
     menuCreateItems(0x66, 0x3C, 6, 1.0f, 1.0f, D_80350698, 2);
@@ -216,12 +216,12 @@ static void func_80342D2C(void) {
     uvDobjPosm(D_80378CE0->modelIds[(idx)], 0, &D_80378CE0->unk12C); \
     uvDobjState(D_80378CE0->modelIds[(idx)], 2);
 
-    placeInUserPath(0, MODEL_LARK_GYRO);
-    placeInUserPath(1, MODEL_GOOSE_GYRO);
-    placeInUserPath(2, MODEL_HAWK_GYRO);
-    placeInUserPath(3, MODEL_KIWI_GYRO);
-    placeInUserPath(4, MODEL_IBIS_GYRO);
-    placeInUserPath(5, MODEL_ROBYN_GYRO);
+    placeInUserPath(0, MODEL_GYRO_LARK);
+    placeInUserPath(1, MODEL_GYRO_GOOSE);
+    placeInUserPath(2, MODEL_GYRO_HAWK);
+    placeInUserPath(3, MODEL_GYRO_KIWI);
+    placeInUserPath(4, MODEL_GYRO_IBIS);
+    placeInUserPath(5, MODEL_GYRO_ROBIN);
 
     for (i = 0; i < ARRAY_COUNT(D_80378CE0->unk240); i++) {
         userPath_8034A8B0(D_80378CE0->unk240[i], 0, 0.0f);

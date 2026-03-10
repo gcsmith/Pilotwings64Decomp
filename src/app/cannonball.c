@@ -77,7 +77,7 @@ void cannonLoadLevel(u8 arg0, u8 pilot, Unk802D5B50_Arg2* arg2, Unk802D3658_Arg0
     uvDobjState(arg2->unk0, arg2->unk2);
     arg2->unk54 = uvDobjAllocIdx();
     arg2->unk56 = 2;
-    uvDobjModel(arg2->unk54, MODEL_105);
+    uvDobjModel(arg2->unk54, MODEL_CANNON_ON_PILLAR);
     uvDobjPosm(arg2->unk54, 0, &arg2->unk58);
     uvDobjState(arg2->unk54, arg2->unk56);
     arg2->unkB0 = arg3;
@@ -571,7 +571,7 @@ void cannonLoadPilot(u8 pilot, Unk802D5B50_Arg2* arg1) {
         arg1->unk278 = 0.96f;
         arg1->unk280 = 0.8f;
         arg1->unk27C = 5.88f;
-        arg1->modelId = MODEL_135;
+        arg1->modelId = MODEL_CANNONB_LARK_LAUNCHED;
         arg1->unk292 = 1;
         arg1->unk285 = 0xA;
         arg1->unk286 = 0xB;
@@ -611,7 +611,7 @@ void cannonLoadPilot(u8 pilot, Unk802D5B50_Arg2* arg1) {
         arg1->unk278 = 0.8f;
         arg1->unk280 = 1.0f;
         arg1->unk27C = 9.8f;
-        arg1->modelId = MODEL_136;
+        arg1->modelId = MODEL_CANNONB_GOOSE_LAUNCHED;
         arg1->unk292 = 6;
         arg1->unk285 = 2;
         arg1->unk286 = 3;
@@ -651,7 +651,7 @@ void cannonLoadPilot(u8 pilot, Unk802D5B50_Arg2* arg1) {
         arg1->unk278 = 0.64f;
         arg1->unk280 = 1.2f;
         arg1->unk27C = 13.72f;
-        arg1->modelId = MODEL_137;
+        arg1->modelId = MODEL_CANNONB_HAWK_LAUNCHED
         arg1->unk292 = 6;
         arg1->unk285 = 1;
         arg1->unk286 = 2;
@@ -691,7 +691,7 @@ void cannonLoadPilot(u8 pilot, Unk802D5B50_Arg2* arg1) {
         arg1->unk278 = 0.96f;
         arg1->unk280 = 0.8f;
         arg1->unk27C = 5.88f;
-        arg1->modelId = MODEL_138;
+        arg1->modelId = MODEL_CANNONB_KIWI_LAUNCHED;
         arg1->unk292 = 8;
         arg1->unk285 = 1;
         arg1->unk286 = 2;
@@ -731,7 +731,7 @@ void cannonLoadPilot(u8 pilot, Unk802D5B50_Arg2* arg1) {
         arg1->unk278 = 0.8f;
         arg1->unk280 = 1.0f;
         arg1->unk27C = 9.8f;
-        arg1->modelId = MODEL_139;
+        arg1->modelId = MODEL_CANNONB_IBIS_LAUNCHED;
         arg1->unk292 = 6;
         arg1->unk285 = 2;
         arg1->unk286 = 3;
@@ -771,7 +771,7 @@ void cannonLoadPilot(u8 pilot, Unk802D5B50_Arg2* arg1) {
         arg1->unk278 = 0.64f;
         arg1->unk280 = 1.2f;
         arg1->unk27C = 13.72f;
-        arg1->modelId = MODEL_13A;
+        arg1->modelId = MODEL_CANNONB_ROBIN_LAUNCHED;
         arg1->unk292 = 6;
         arg1->unk285 = 2;
         arg1->unk286 = 3;

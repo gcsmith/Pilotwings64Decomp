@@ -75,13 +75,13 @@ void func_803442F8(void) {
             var_s1->unk48 = hud_8031A6C8(missileTarget->pos.x, missileTarget->pos.y, missileTarget->pos.z);
             switch (missileTarget->targetType) {
             case 0:
-                uvDobjModel(var_s1->unk0, MODEL_F9);
+                uvDobjModel(var_s1->unk0, MODEL_MISSILE_TARGET_BALL);
                 break;
             case 1:
-                uvDobjModel(var_s1->unk0, MODEL_F8);
+                uvDobjModel(var_s1->unk0, MODEL_MISSILE_TARGET_DISC);
                 break;
             case 2:
-                uvDobjModel(var_s1->unk0, MODEL_F7);
+                uvDobjModel(var_s1->unk0, MODEL_MISSILE_TARGET_BILLBOARD);
                 break;
             default:
                 _uvDebugPrintf("targets : unknwwon target type [%d]\n", missileTarget->targetType);

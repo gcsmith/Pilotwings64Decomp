@@ -61,7 +61,7 @@ void func_8034E0B4(void) {
         windObject->objId = uvDobjAllocIdx();
         switch (windObjectData->unkC) {
         case 0:
-            uvDobjModel(windObject->objId, MODEL_40);
+            uvDobjModel(windObject->objId, MODEL_WIND_SOCK_YELLOW_BLUE);
             uvModelGetPosm(0x40, 1, &windObject->unk44);
             uvModelGetPosm(0x40, 2, &windObject->unk84);
             windObject->unkC8 = 0.0f;
@@ -74,7 +74,7 @@ void func_8034E0B4(void) {
             windObject->unkC4 = 0.0f;
             break;
         case 2:
-            uvDobjModel(windObject->objId, MODEL_40);
+            uvDobjModel(windObject->objId, MODEL_WIND_SOCK_YELLOW_BLUE);
             break;
         }
         uvMat4SetIdentity(&windObject->unk4);
