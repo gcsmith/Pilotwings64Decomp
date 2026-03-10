@@ -104,10 +104,10 @@ void testMenuInitText(s32 testIdx) {
 
     if (numPts != 0x7F) {
         uvFontSet(3);
-        uvFont_80219550(1.0, 1.0);
+        uvFontScale(1.0, 1.0);
         uvSprintf(sTestNumPtsStr, "%d", numPts);
         sWidthNumPts = uvFontWidth(sTestNumPtsStr);
-        uvFont_80219550(0.699999988079071045, 1.0);
+        uvFontScale(0.699999988079071045, 1.0);
         ptsWidth = uvFontWidth("PTS");
         sTestPtsX = 258 - (ptsWidth + sWidthNumPts) / 2;
         sDrawTestPts = TRUE;
@@ -517,28 +517,28 @@ void testMenuDraw(s32 arg0, u8 arg1, u8 arg2) {
         func_802DEE44((s32)((f64)sSelMenuScreenX + 0.5), (s32)((f64)sSelMenuScreenY + 0.5), 0x46, 0x18, 3, 0xC8, 0xC8, 0, 0x64, 0x64, 0);
         func_803141E4();
         uvFontSet(0);
-        uvFont_80219550(1.0, 0.800000011920929);
-        uvFont_8021956C(0xBE, 0xBE, 0xBE, 0xFF);
-        uvFont_80219ACC(67, 200, sTestNumStr);
+        uvFontScale(1.0, 0.800000011920929);
+        uvFontColor(0xBE, 0xBE, 0xBE, 0xFF);
+        uvFontPrintStr(67, 200, sTestNumStr);
         if (sTestNameText != NULL) {
             uvFontSet(6);
-            uvFont_8021956C(0xBE, 0xBE, 0xBE, 0xFF);
-            uvFont_80219550(1.0, 1.0);
+            uvFontColor(0xBE, 0xBE, 0xBE, 0xFF);
+            uvFontScale(1.0, 1.0);
             func_80219874(79, 196, sTestNameText, 0xFF, 0xFFE);
         }
         if (sDrawTestPts && (sp48->veh != VEHICLE_BIRDMAN)) {
             uvFontSet(3);
-            uvFont_8021956C(0xBE, 0xBE, 0xBE, 0xFF);
-            uvFont_80219550(1.0, 1.0);
-            uvFont_80219ACC((u16)sTestPtsX, 196, sTestNumPtsStr);
-            uvFont_8021956C(0xAA, 0xAA, 0xAA, 0xFF);
-            uvFont_80219550(0.699999988079071, 1.0);
-            uvFont_80219ACC((u16)sTestPtsX + sWidthNumPts + 1, 196, "PTS");
+            uvFontColor(0xBE, 0xBE, 0xBE, 0xFF);
+            uvFontScale(1.0, 1.0);
+            uvFontPrintStr((u16)sTestPtsX, 196, sTestNumPtsStr);
+            uvFontColor(0xAA, 0xAA, 0xAA, 0xFF);
+            uvFontScale(0.699999988079071, 1.0);
+            uvFontPrintStr((u16)sTestPtsX + sWidthNumPts + 1, 196, "PTS");
         }
         if (sp54 != NULL) {
             uvFontSet(6);
-            uvFont_8021956C(0xD2, 0xD2, 0xD2, 0xFF);
-            uvFont_80219550(1.0, 1.0);
+            uvFontColor(0xD2, 0xD2, 0xD2, 0xFF);
+            uvFontScale(1.0, 1.0);
             idx = 0;
             for (var_a1 = 166; var_a1 > -114; var_a1 -= 14) {
                 temp_v0_3 = func_80219874(46, var_a1, &sp54[idx], 0xFF, 0xFFE);
@@ -548,7 +548,7 @@ void testMenuDraw(s32 arg0, u8 arg1, u8 arg2) {
                 idx += temp_v0_3;
             }
         }
-        uvFont_80219EA8();
+        uvFontGenDlist();
     }
 }
 

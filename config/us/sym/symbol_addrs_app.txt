@@ -55,7 +55,11 @@ bird_802D08F8       = 0x802D08F8; // type:func
 bird_802D0A28       = 0x802D0A28; // type:func
 bird_802D0ABC       = 0x802D0ABC; // type:func
 
-bonusStar_802D25AC  = 0x802D25AC; // type:func
+bonusInit           = 0x802D22B0; // type:func
+bonusUpdateState    = 0x802D22D8; // type:func
+bonusLoad           = 0x802D23EC; // type:func
+bonusFrameUpdate    = 0x802D25AC; // type:func
+bonusDeinit         = 0x802D27CC; // type:func
 
 cannon_802D5A90     = 0x802D5A90; // type:func
 cannonLoadLevel     = 0x802D5B50; // type:func
@@ -101,6 +105,24 @@ fileMenu_802E9980   = 0x802E9980; // type:func
 fileMenuSubRender   = 0x802E9A10; // type:func
 fileMenuColorLerp   = 0x802E9A84; // type:func
 fileMenu_802E9AE0   = 0x802E9AE0; // type:func
+
+bmSoundInit         = 0x802D0BF0; // type:func
+bmSoundCallback     = 0x802D0D04; // type:func
+bmSound_802D112C    = 0x802D112C; // type:func
+bmSound_802D12C4    = 0x802D12C4; // type:func
+bmSound_802D1320    = 0x802D1320; // type:func
+bmSound_802D1334    = 0x802D1334; // type:func
+bmSound_802D1534    = 0x802D1534; // type:func
+
+ballTgtInit         = 0x802D2850; // type:func
+ballTgtUpdateState  = 0x802D28D8; // type:func
+ballTgtInitDobj     = 0x802D29FC; // type:func
+ballTgtLoad         = 0x802D2ACC; // type:func
+ballTgt_802D2C20    = 0x802D2C20; // type:func
+ballTgtInGoal       = 0x802D2E48; // type:func
+ballTgtCount_5B     = 0x802D30B4; // type:func
+ballTgtCount_59     = 0x802D3110; // type:func
+ballTgtDeinit       = 0x802D3030; // type:func
 
 db_getgnd           = 0x802DFE70; // type:func
 db_getstart         = 0x802E0304; // type:func
@@ -412,6 +434,12 @@ gBallCount                = 0x80357210;
 gBallSplitCount           = 0x80357211;
 gBalls                    = 0x80357218; // size:0x2170
 sRefBALS                  = 0x8035938C;
+
+gBmSoundCbInfo            = 0x80359640;
+
+gRefBNUS                  = 0x80359730;
+gBonusStarCount           = 0x80359734;
+gBonusStars               = 0x80359738; // size:0xA0
 
 sOptionsPanel             = 0x8036C120; // type:s16
 sStickHeld                = 0x8036C124;

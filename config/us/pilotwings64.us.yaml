@@ -346,17 +346,27 @@ segments:
       - { type: .bss, vram: 0x80250ED0, name: kernel/emitter }
       - { type: .bss, vram: 0x8025BF00, name: kernel/event }
       - { type: .bss, vram: 0x8025C5B0, name: kernel/audio }
-      - { type: bss, vram: 0x80261230, name: kernel_bss2 }
+      - { type: .bss, vram: 0x80261230, name: kernel/seq }
+      - { type: .bss, vram: 0x80261730, name: kernel/code_58E0 }
+      - { type: .bss, vram: 0x80263470, name: kernel/clocks }
       - { type: .bss, vram: 0x802634C0, name: kernel/code_8170 }
-      - { type: bss, vram: 0x80263780, name: 80263780 }
+      - { type: .bss, vram: 0x80263780, name: kernel/dobj }
+      - { type: .bss, vram: 0x80269F10, name: kernel/env }
       - { type: .bss, vram: 0x80269F50, name: kernel/code_19B50 }
       - { type: .bss, vram: 0x8026A040, name: kernel/font }
       - { type: .bss, vram: 0x8028A0A0, name: kernel/fx }
       - { type: .bss, vram: 0x80290680, name: kernel/geometry }
       - { type: .bss, vram: 0x80296AA0, name: kernel/graphics }
-      - { type: bss, vram: 0x802B5300, name: kernel_bss3 }
+      - { type: .bss, vram: 0x802B5300, name: kernel/filesystem }
+      - { type: .bss, vram: 0x802B5310, name: kernel/controller }
+      - { type: .bss, vram: 0x802B53C0, name: kernel/texture }
+      - { type: .bss, vram: 0x802B7DE0, name: kernel/matrix }
+      - { type: .bss, vram: 0x802B8820, name: kernel/memory }
+      - { type: .bss, vram: 0x802B8940, name: kernel/sched }
+      - { type: .bss, vram: 0x802B9C90, name: kernel/main }
+      - { type: .bss, vram: 0x802C5BC0, name: kernel/code_2FE40 }
       - { type: .bss, vram: 0x802C5FD0, name: kernel/sprite }
-      - { type: bss, vram: 0x802C8020, name: kernel_bss4 }
+      - { type: .bss, vram: 0x802C8020, name: kernel/debug }
       - { type: .bss, vram: 0x802C8040, name: libultra/sp/sprite }
       - { type: bss, vram: 0x802C8050, name: kernel_bss5 }
       - { type: .bss, vram: 0x802C92A0, name: libultra/os/seteventmesg }
@@ -636,6 +646,11 @@ segments:
       - [0xDE6B0, .rodata, app/wind_objects]
 
       - { type: bss, vram: 0x803571F0, name: app_bss_803571F0 }
+      - { type: .bss, vram: 0x80359640, name: app/bmsound }
+      - { type: .bss, vram: 0x803596A0, name: app/code_58B00 }
+      - { type: .bss, vram: 0x80359730, name: app/bonus }
+      - { type: .bss, vram: 0x803597E0, name: app/ball_target }
+      - { type: bss, vram: 0x803599D0, name: app_bss_803599D0 }
       - { type: .bss, vram: 0x803624E0, name: app/file_menu }
       - { type: bss, vram: 0x80362500, name: app_bss_80362500 }
       - { type: .bss, vram: 0x80369F10, name: app/menu }

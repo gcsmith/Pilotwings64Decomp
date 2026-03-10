@@ -235,7 +235,7 @@ void hudMainRender(void) {
         }
         gHudState.unkC++;
         gHudState.unk14 += D_8034F854;
-        uvFont_80219EA8();
+        uvFontGenDlist();
         uvGfxMtxViewPop();
     }
 }
@@ -919,12 +919,12 @@ void hudDrawSpeed(s32 x, s32 y, s32 speed, s32 highlightLowSpeed) {
         uvFontSet(8);
         numX = x;
     }
-    uvFont_8021956C(0xFF, 0xFF, 0xFF, 0xFF);
-    uvFont_80219550(1.0, 1.0);
+    uvFontColor(0xFF, 0xFF, 0xFF, 0xFF);
+    uvFontScale(1.0, 1.0);
     uvSprintf(str, "%3d", speed);
-    uvFont_80219ACC(numX, y - 16, str);
+    uvFontPrintStr(numX, y - 16, str);
     uvFontSet(8);
-    uvFont_80219ACC(x + 33, y - 16, "k");
+    uvFontPrintStr(x + 33, y - 16, "k");
 }
 
 void hudDrawFuel(s32 x, s32 y, f32 fuel) {
@@ -1116,14 +1116,14 @@ void hudDrawAltimeter(s32 x, s32 y, s32 altitude) {
         uvGfxStatePop();
 
         uvFontSet(1);
-        uvFont_8021956C(0xC8, 0x00, 0x00, 0xFF); // red
+        uvFontColor(0xC8, 0x00, 0x00, 0xFF); // red
         uvSprintf(str, "%2dm", altitude);
         if (altitude <= 50.0f) {
-            uvFont_80219550(1.5, 1.5);
-            uvFont_80219ACC(dx - 6, sp40 - 1, str);
+            uvFontScale(1.5, 1.5);
+            uvFontPrintStr(dx - 6, sp40 - 1, str);
         } else {
-            uvFont_80219550(1.0, 1.0);
-            uvFont_80219ACC(dx + 3, sp40 - 1, str);
+            uvFontScale(1.0, 1.0);
+            uvFontPrintStr(dx + 3, sp40 - 1, str);
         }
     }
 }
@@ -1141,12 +1141,12 @@ void hudSeaLevel(s32 x, s32 y, s32 alt) {
     if (alt >= 10000) {
         alt = 9999;
     }
-    uvFont_8021956C(0xFF, 0xFF, 0xFF, 0xFF);
-    uvFont_80219550(1.0, 1.0);
+    uvFontColor(0xFF, 0xFF, 0xFF, 0xFF);
+    uvFontScale(1.0, 1.0);
     uvSprintf(str, "%4d", alt);
     x -= 8;
-    uvFont_80219ACC(x + 9, y - 0x10, str);
-    uvFont_80219ACC(x + 0x34, y - 0x10, "m");
+    uvFontPrintStr(x + 9, y - 16, str);
+    uvFontPrintStr(x + 52, y - 16, "m");
 }
 
 #ifndef NON_MATCHING
@@ -1192,11 +1192,11 @@ void hudDrawTimer(s32 x, s32 y, f32 timeSecF) {
     uvFontSet(8);
     x += 36;
     y -= 12;
-    uvFont_8021956C(0xFF, 0xFF, 0xFF, 0xFF);
-    uvFont_80219550(1.0, 1.0);
+    uvFontColor(0xFF, 0xFF, 0xFF, 0xFF);
+    uvFontScale(1.0, 1.0);
     dispSec = timeSec - ((timeSec / 60) * 60);
     uvSprintf(timeStr, "%02d'%02d\"%02d", timeSec / 60, dispSec, dispHundth);
-    uvFont_80219ACC(x, y, timeStr);
+    uvFontPrintStr(x, y, timeStr);
 }
 #endif
 
@@ -1204,7 +1204,7 @@ void hudDrawAimReticle(s32 x, s32 y, s32 flag) {
     s16 centerX;
     s16 centerY;
 
-    centerX = x + 160;
+    centerX = x + (SCREEN_WIDTH / 2);
     centerY = y + 125;
     if (flag == 0) {
         uvSprtProps(8, 2, centerX - 16, centerY + 16, 7, 0xFF, 0xFF, 0x00, 0xFF, 0);
@@ -1365,13 +1365,13 @@ void hudDrawLowFuel(HUDState* hud) {
             return;
         }
         uvFontSet(6);
-        uvFont_80219550(1.0, 1.0);
+        uvFontScale(1.0, 1.0);
         if (hud->unkBCC != 0) {
-            uvFont_8021956C(0xFF, 0xFF, 0xFF, 0xFF); // white
+            uvFontColor(0xFF, 0xFF, 0xFF, 0xFF); // white
         } else {
-            uvFont_8021956C(0xFF, 0x00, 0x00, 0xFF); // red
+            uvFontColor(0xFF, 0x00, 0x00, 0xFF); // red
         }
-        func_80219874(160 - ((func_802196B0(&hud->unkB40[0]) - 16) / 2), 125, &hud->unkB40[0], 0x28, 0xFFE);
+        func_80219874((SCREEN_WIDTH / 2) - ((func_802196B0(&hud->unkB40[0]) - 16) / 2), 125, &hud->unkB40[0], 0x28, 0xFFE);
     }
 }
 
@@ -1383,13 +1383,13 @@ void hudDrawStartText(HUDState* hud) {
             return;
         }
         uvFontSet(6);
-        uvFont_80219550(1.0, 1.0);
+        uvFontScale(1.0, 1.0);
         if (hud->unkC5C != 0) {
-            uvFont_8021956C(0xFF, 0xFF, 0xFF, 0xFF); // white
+            uvFontColor(0xFF, 0xFF, 0xFF, 0xFF); // white
         } else {
-            uvFont_8021956C(0x00, 0x28, 0xFF, 0xFF); // blue
+            uvFontColor(0x00, 0x28, 0xFF, 0xFF); // blue
         }
-        func_80219874(160 - ((func_802196B0(&hud->unkBD0[0]) - 16) / 2), 140, &hud->unkBD0[0], 0x28, 0xFFE);
+        func_80219874((SCREEN_WIDTH / 2) - ((func_802196B0(&hud->unkBD0[0]) - 16) / 2), 140, &hud->unkBD0[0], 0x28, 0xFFE);
     }
 }
 
@@ -1609,10 +1609,10 @@ void hudDrawPhotoCount(void) {
     char str[12];
     (void)snapGetPhotoCount();
     uvFontSet(8);
-    uvFont_8021956C(0xFF, 0xFF, 0xFF, 0xFF);
-    uvFont_80219550(1.0, 1.0);
+    uvFontColor(0xFF, 0xFF, 0xFF, 0xFF);
+    uvFontScale(1.0, 1.0);
     uvSprintf(str, "%d", snapGetPhotoCount());
-    uvFont_80219ACC(0xA0, 30, str);
+    uvFontPrintStr(SCREEN_WIDTH / 2, 30, str);
     uvSprtProps(0xA, 2, 150, 28, 7, 0xFF, 0xFF, 0xFF, 0xFF, 0);
     uvSprtDraw(0xA);
 }

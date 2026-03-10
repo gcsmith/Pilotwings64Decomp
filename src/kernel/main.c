@@ -19,6 +19,39 @@
 #include <macros.h>
 #include <segment_symbols.h>
 
+u8 gRenderThreadStack[0x2000];
+u8 gKernelThreadStack[0x2000];
+u8 gAppThreadStack[0x4000];
+UNUSED s32 D_802C1C90;
+uvLevelData gLevelData;
+s32 D_802C32A4;
+uvOSIoMesg gPiDmaBlockReq;
+OSMesg gPiDmaBuf[1];
+OSMesgQueue gPiDmaQ;
+OSMesg gSiContBuf[3];
+OSMesgQueue gSiContQ;
+OSMesgQueue D_802C3300;
+OSMesg D_802C3318[1];
+s32 D_802C331C;
+OSMesg gPiMgrCmdBuf[8];
+OSMesgQueue gPiMgrCmdQ;
+OSContStatus gSiContStatus;
+UNUSED u8 D_802C3360[0x10];
+OSContPad gControllerPads[6];
+u8 gSiContPattern;
+OSThread gAppThread;
+OSThread gRenderThread;
+OSThread gKernelThread;
+OSSched gSchedInst;
+UNUSED u8 D_802C3B30[0x20];
+OSMesgQueue D_802C3B50;
+OSMesg D_802C3B68[10];
+OSMesgQueue D_802C3B90;
+u8 gSchedStack[0x2000];
+OSScClient gSchedClient;
+s32 gEepromFound;
+s32 gControllerPattern;
+
 // where is this ultralib piint.h header?
 s32 osPiRawReadIo(u32 devAddr, u32* data);
 
@@ -33,41 +66,8 @@ void func_80218700(void);
 void func_80218BA0(void);
 void func_80219FD0(void);
 
-extern OSThread gKernelThread;
-extern OSThread gAppThread;
-extern OSThread gRenderThread;
-
-extern s32 gSchedStack[];
-extern s32 gKernelThreadStack[];
-extern s32 gRenderThreadStack[];
-extern s32 gAppThreadStack[];
-
 extern s32 D_80249200;
-extern OSMesgQueue gPiDmaQ;
-extern OSMesgQueue gSiContQ;
-extern OSMesgQueue D_802C3300;
-extern OSMesgQueue gPiMgrCmdQ;
-extern OSMesgQueue D_802C3B50;
-extern OSMesgQueue D_802C3B90;
-
-extern OSMesg gPiDmaBuf[];
-extern OSMesg gPiMgrCmdBuf[];
-extern OSMesg gSiContBuf[3];
-extern OSMesg D_802C3318[];
-extern OSMesg D_802C3B68[];
-
-extern OSContStatus gSiContStatus;
-extern u8 gSiContPattern;
-
-extern OSIoMesg gPiDmaBlockReq;
 extern s32 gNmiAsserted;
-extern s32 D_802C32A4;
-extern s32 D_802C331C;
-
-extern s32 gEepromFound;
-extern s32 gControllerPattern;
-
-extern OSContPad gControllerPads[];
 
 s32 func_8022E2D4(s32 arg0);
 
@@ -192,7 +192,7 @@ void uvWaitForMesg(char msg_type) {
 void uvSetVideoMode(void) {
     s32 viMode;
 
-    osCreateMesgQueue(&D_802C3B90, D_802C3B68, 0xA);
+    osCreateMesgQueue(&D_802C3B90, D_802C3B68, ARRAY_COUNT(D_802C3B68));
     // clang-format off: statements need to be on same line for matching
     switch (osTvType) {
     case 0:  viMode = 0x10; _uvDebugPrintf("PAL video mode\n"); break;
@@ -200,8 +200,8 @@ void uvSetVideoMode(void) {
     default: viMode = 0x10; _uvDebugPrintf("PAL video mode\n"); break;
     }
     // clang-format on
-    _uvScCreateScheduler(&gSchedInst, gSchedStack, 0x7F, viMode, 1);
-    _uvScAddClient(&gSchedInst, (OSScClient*)gSchedStack, &D_802C3B50);
+    _uvScCreateScheduler(&gSchedInst, gSchedStack + sizeof(gSchedStack), 0x7F, viMode, 1);
+    _uvScAddClient(&gSchedInst, &gSchedClient, &D_802C3B50);
 }
 
 void bootproc(void* arg0) {
@@ -233,7 +233,7 @@ void bootproc(void* arg0) {
             func_8022A47C();
         }
     }
-    osCreateThread(&gKernelThread, 1, Thread_Kernel, arg0, gKernelThreadStack, 0xC);
+    osCreateThread(&gKernelThread, 1, Thread_Kernel, arg0, gKernelThreadStack + sizeof(gKernelThreadStack), 0xC);
     osStartThread(&gKernelThread);
 }
 
@@ -308,10 +308,10 @@ void Thread_App(void* arg) {
 void Thread_Kernel(void* arg) {
     osCreatePiManager(OS_PRIORITY_PIMGR, &gPiMgrCmdQ, gPiMgrCmdBuf, 8);
     osCreateMesgQueue(&gPiDmaQ, gPiDmaBuf, 1);
-    osCreateThread(&gRenderThread, 0, Thread_Render, NULL, gRenderThreadStack, 0xFA);
+    osCreateThread(&gRenderThread, 0, Thread_Render, NULL, gRenderThreadStack + sizeof(gRenderThreadStack), 0xFA);
     osStartThread(&gRenderThread);
     uvSetVideoMode();
-    osCreateThread(&gAppThread, 6, Thread_App, arg, gAppThreadStack, 0xA);
+    osCreateThread(&gAppThread, 6, Thread_App, arg, gAppThreadStack + sizeof(gAppThreadStack), 0xA);
     if (D_802C32A4 == 0) {
         osStartThread(&gAppThread);
     }
@@ -425,7 +425,7 @@ void _uvDMA(void* vAddr, u32 devAddr, u32 nbytes) {
             nbytes = (nbytes + 1) & ~1;
         }
         osWritebackDCache((void*)dest, (s32)nbytes);
-        osPiStartDma(&gPiDmaBlockReq, 0, 0, devAddr, (void*)dest, nbytes, &gPiDmaQ);
+        osPiStartDma((OSIoMesg*)&gPiDmaBlockReq, 0, 0, devAddr, (void*)dest, nbytes, &gPiDmaQ);
         osInvalDCache((void*)dest, (s32)nbytes);
         uvWaitForMesg(UV_MESG_DMA);
     }

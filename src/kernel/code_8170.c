@@ -1228,13 +1228,13 @@ s32 uvTerraGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
             sp104 = arg2;
             sp108 = arg4;
             sp100 = arg5;
-            spEC = arg3 - temp_s1->unk0.unk38;
-            spE8 = arg6 - temp_s1->unk0.unk38;
+            spEC = arg3 - temp_s1->unk0.m[3][2];
+            spE8 = arg6 - temp_s1->unk0.m[3][2];
 
-            sp11C = temp_s1->unk0.unk30 - (0.5f * sp128);
-            sp118 = temp_s1->unk0.unk30 + (0.5f * sp128);
-            sp110 = temp_s1->unk0.unk34 + (0.5f * sp124);
-            sp114 = temp_s1->unk0.unk34 - (0.5f * sp124);
+            sp11C = temp_s1->unk0.m[3][0] - (0.5f * sp128);
+            sp118 = temp_s1->unk0.m[3][0] + (0.5f * sp128);
+            sp110 = temp_s1->unk0.m[3][1] + (0.5f * sp124);
+            sp114 = temp_s1->unk0.m[3][1] - (0.5f * sp124);
             if (func_802140BC(arg1, arg2, arg4, arg5, sp11C, sp118, sp114, sp110) == 0) {
                 continue;
             }
@@ -1349,8 +1349,8 @@ void uvTerraGetColor(s32 terraId, s32 surfaceId, u8* arg2, u8* arg3, u8* arg4) {
     }
     temp_v0_2 = &temp_a0->unk8[((u32)surfaceId >> 12) & 0x3FF];
     temp_v1_2 = &temp_v0_2->unkC[surfaceId & 0xFFF];
-    if ((temp_v0_2->unk0 & 0xFFF) != 0xFFF) {
-        temp_v0_3 = gGfxUnkPtrs->textures[temp_v0_2->unk0 & 0xFFF];
+    if ((temp_v0_2->unk0.state & 0xFFF) != 0xFFF) {
+        temp_v0_3 = gGfxUnkPtrs->textures[temp_v0_2->unk0.state & 0xFFF];
         if (temp_v0_3->unk22 == 4) {
             *arg2 = temp_v0_3->unk23;
             *arg3 = temp_v0_3->unk24;
@@ -1396,7 +1396,7 @@ s32 uvTerraGetState(s32 terraId, s32 surfaceId) {
         return 0xFFF;
     }
     temp_v1 = &temp_a2->unk8[((u32)surfaceId >> 12) & 0x3FF];
-    return temp_v1->unk0;
+    return temp_v1->unk0.state;
 }
 
 void uvTerraGetPlane(s32 terraId, s32 surfaceId, f32 px, f32 py, f32* arg4, Vec3F* arg5) {
@@ -1447,7 +1447,7 @@ void uvTerraGetPlane(s32 terraId, s32 surfaceId, f32 px, f32 py, f32* arg4, Vec3
     if (arg5->z != 0.0f) {
         *arg4 = (((arg5->x * (temp_ft5 - sp60)) + (arg5->y * (temp_fa0 - sp5C))) / arg5->z) + temp_fa1;
         *arg4 /= gGfxUnkPtrs->unk1608;
-        *arg4 += sp70->unk0.unk38;
+        *arg4 += sp70->unk0.m[3][2];
     }
 
     if (sp70->unk44 != 0) {
@@ -1726,17 +1726,17 @@ s32 uvSobjGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
             spE8 = arg5; \
             spE0 = arg6;
             // clang-format on
-            temp_fs4 = temp_s3->unk0.unk30 - (0.5f * sp110);
-            temp_fs5 = temp_s3->unk0.unk30 + (0.5f * sp110);
-            spF8 = temp_s3->unk0.unk34 + (0.5f * sp10C);
-            spFC = temp_s3->unk0.unk34 - (0.5f * sp10C);
+            temp_fs4 = temp_s3->unk0.m[3][0] - (0.5f * sp110);
+            temp_fs5 = temp_s3->unk0.m[3][0] + (0.5f * sp110);
+            spF8 = temp_s3->unk0.m[3][1] + (0.5f * sp10C);
+            spFC = temp_s3->unk0.m[3][1] - (0.5f * sp10C);
             if (!spB3) {
                 func_80214450(&spF4, &spEC, &spE4, &spF0, &spE8, &spE0, temp_fs4, temp_fs5, spFC, spF8);
             }
-            temp_fs0_2 = spF4 - temp_s3->unk0.unk30;
-            temp_fs1_2 = spF0 - temp_s3->unk0.unk30;
-            temp_fs2_2 = spEC - temp_s3->unk0.unk34;
-            temp_fs3 = spE8 - temp_s3->unk0.unk34;
+            temp_fs0_2 = spF4 - temp_s3->unk0.m[3][0];
+            temp_fs1_2 = spF0 - temp_s3->unk0.m[3][0];
+            temp_fs2_2 = spEC - temp_s3->unk0.m[3][1];
+            temp_fs3 = spE8 - temp_s3->unk0.m[3][1];
             if ((spF4 == spF0) && (spEC == spE8) && (spE4 == spE0)) {
                 continue;
             }
@@ -1756,8 +1756,8 @@ s32 uvSobjGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
                     if (!(temp_s1->unk11 & 2)) {
                         D_802634C8[D_802634C4] = ((terraId & 0xFF) << 24) | ((temp_t6 & 0xFFF) << 12) | (k & 0xFFF);
                         D_80263548[D_802634C4] = sp108;
-                        func_80215BC4(arg1, arg2, arg3, arg4, arg5, arg6, sp108, temp_s3->unk0.unk30 + temp_s0_2->unk8, temp_s3->unk0.unk34 + temp_s0_2->unkC,
-                                      temp_s3->unk0.unk38 + temp_s0_2->unk10, &D_802635C8[D_802634C4]);
+                        func_80215BC4(arg1, arg2, arg3, arg4, arg5, arg6, sp108, temp_s3->unk0.m[3][0] + temp_s0_2->unk8,
+                                      temp_s3->unk0.m[3][1] + temp_s0_2->unkC, temp_s3->unk0.m[3][2] + temp_s0_2->unk10, &D_802635C8[D_802634C4]);
                         D_802634C4++;
                         if (D_802634C4 >= HIT_COUNT) {
                             break;
@@ -2813,10 +2813,10 @@ u16 func_80214B3C(f32 arg0, f32 arg1, uvUnkTileStruct* arg2, f32 arg3, f32 arg4)
 
     sp52 = -1;
 
-    sp64 = arg2->unk0.unk30 - (0.5f * arg0);
-    sp60 = arg2->unk0.unk30 + (0.5f * arg0);
-    sp5C = arg2->unk0.unk34 + (0.5f * arg1);
-    sp58 = arg2->unk0.unk34 - (0.5f * arg1);
+    sp64 = arg2->unk0.m[3][0] - (0.5f * arg0);
+    sp60 = arg2->unk0.m[3][0] + (0.5f * arg0);
+    sp5C = arg2->unk0.m[3][1] + (0.5f * arg1);
+    sp58 = arg2->unk0.m[3][1] - (0.5f * arg1);
     uvComputeLineEndP(&sp50, &sp4E, &sp52, sp64, sp60, sp5C, sp58, arg4, arg3, 1.0f / arg3, 0, 15.0f / arg0, 15.0f / arg1);
     if (sp50 >= 0) {
         sp52 &= func_8022F62C(arg2->unk44, sp50, sp4E, 0);

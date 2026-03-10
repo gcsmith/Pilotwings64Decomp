@@ -1,8 +1,8 @@
 #include <uv_clocks.h>
 
-extern u32 D_80263470;
-extern s32 D_80263474;
-extern uvClockState_t D_80263478[];
+u32 D_80263470;
+s32 D_80263474;
+uvClockState_t D_80263478[8];
 
 void uvClkInit(void) {
     D_80263470 = osGetCount();
