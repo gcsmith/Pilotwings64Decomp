@@ -57,7 +57,7 @@ typedef struct Unk8033F050 {
     u32 unk12_19 : 3;
     u32 unk12_22 : 3;
     u32 unk12_25 : 3;
-} Unk8033F050;
+} Unk8033F050; // size = 0x18
 
 typedef struct Unk80373060 {
     Vec3F unk0;
@@ -83,16 +83,16 @@ typedef struct Unk80373060 {
     s32 unk6C;
 } Unk80373060; // size 0x70
 
-extern Unk80373060 D_80373060[];
-extern Unk8033F050 D_80373300[];
-extern Unk80373060 D_80373390[];
-extern Unk80373060 D_80373630[];
-extern Unk80373060 D_803738D0[];
-extern Unk80373060 D_80373B70[];
-extern f32 D_80373E10;
-extern f32 D_80373E14;
-extern s32 D_80373E18;
-extern s32 D_80373E1C;
+Unk80373060 D_80373060[6];
+Unk8033F050 D_80373300[6];
+Unk80373060 D_80373390[6];
+Unk80373060 D_80373630[6];
+Unk80373060 D_803738D0[6];
+Unk80373060 D_80373B70[6];
+f32 D_80373E10;
+f32 D_80373E14;
+s32 D_80373E18;
+s32 D_80373E1C;
 
 void func_8033A6B8(void);
 
@@ -130,20 +130,6 @@ u8 D_80350544 = 0;
 u8 D_80350548 = 0;
 u8 D_8035054C = 0; // might be array of up to 4 elements
 s32 D_80350550 = 0;
-Vec3F D_80350554 = { 0.0f, 1.0f, 0.0f };
-s32 D_80350560[][2] = {
-    {  28, 125 },
-    { 116, 125 },
-    { 204, 125 },
-    {  28,  51 },
-    { 116,  51 },
-    { 204,  51 }
-};
-s32 D_80350590 = 0;
-s32 D_80350594 = 0;
-s32 D_80350598 = 0xFFFFFFFF;
-s32 D_8035059C = 0xFFFFFFFF;
-s32 D_803505A0 = 0xFFFFFFFF;
 
 void func_80337D50(void) {
     s32 i;
@@ -410,10 +396,8 @@ void func_803386A4(s32 arg0, s32* arg1, s32* arg2, f32* arg3, f32* arg4, s32* ar
 
 s32 func_80338964(Vec3F arg0, Vec3F arg3, Mtx4F* arg6) {
     Vec3F sp34;
-    Vec3F sp28;
+    Vec3F sp28 = { 0.0f, 1.0f, 0.0f };
     Vec3F sp1C;
-
-    sp28 = D_80350554;
 
     sp34.x = arg3.x - arg0.x;
     sp34.y = arg3.y - arg0.y;
@@ -815,6 +799,21 @@ s32 func_80339F9C(void) {
 
     return var_a0;
 }
+
+s32 D_80350560[][2] = {
+    {  28, 125 },
+    { 116, 125 },
+    { 204, 125 },
+    {  28,  51 },
+    { 116,  51 },
+    { 204,  51 }
+};
+
+s32 D_80350590 = 0;
+s32 D_80350594 = 0;
+s32 D_80350598 = -1;
+s32 D_8035059C = -1;
+s32 D_803505A0 = -1;
 
 void func_8033A020(s32 arg0) {
     if (D_80350590 == 0) {
