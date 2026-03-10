@@ -47,8 +47,8 @@ typedef void (*uvGfxCallback_t)(void *, s32);
 
 typedef struct {
     s32 state;
-    s16 unk4;
-    s16 unk6;
+    s16 xfm_count;
+    s16 tri_count;
     Gfx* dlist;
 } uvGfxState_t;
 
@@ -169,6 +169,7 @@ typedef struct UnkUVMD_24_Unk4 {
     f32 unk10;
     f32 unk14;
 } UnkUVMD_24_Unk4;
+
 typedef struct UnkUVMD_24 {
     u8 unk0;
     u8 unk1;
@@ -180,8 +181,8 @@ typedef struct UnkUVMD_24 {
 } UnkUVMD_24;
 
 typedef struct uvModelPart {
-    uvGfxState_t* unk0;
-    u8 unk4;
+    uvGfxState_t* material;
+    u8 material_count;
     u8 unk5;
     u8 unk6;
     UnkUVMD_24* unk8;
@@ -191,7 +192,7 @@ typedef struct uvModelPart {
 
 typedef struct uvModelLOD {
     uvModelPart* part;
-    u8 partCount;
+    u8 part_count;
     u8 billboard;
 } uvModelLOD; // size = 0x8
 

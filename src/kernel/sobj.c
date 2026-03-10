@@ -110,7 +110,7 @@ void uvSobj_8022C8D0(UnkSobjDraw* arg0, ParsedUVMD* uvmd, u8 arg2, Mtx4F* arg3) 
 
     uvmd_lod = &uvmd->lod[arg2];
 
-    for (i = 0; i < uvmd_lod->partCount; i++) {
+    for (i = 0; i < uvmd_lod->part_count; i++) {
         uvmd_part = &uvmd_lod->part[i];
         uvGfx_802235A4(arg0->unk4[i], 1);
         if (uvmd_part->unkD != 0) {
@@ -121,10 +121,10 @@ void uvSobj_8022C8D0(UnkSobjDraw* arg0, ParsedUVMD* uvmd, u8 arg2, Mtx4F* arg3) 
             uvGfxLookAt(&sp114);
         }
 
-        for (j = 0; j < uvmd_part->unk4; j++) {
-            uvGfxStateDraw(&uvmd_part->unk0[j]);
+        for (j = 0; j < uvmd_part->material_count; j++) {
+            uvGfxStateDraw(&uvmd_part->material[j]);
         }
-        if (i == uvmd_lod->partCount - 1) {
+        if (i == uvmd_lod->part_count - 1) {
             break;
         }
 
@@ -132,7 +132,7 @@ void uvSobj_8022C8D0(UnkSobjDraw* arg0, ParsedUVMD* uvmd, u8 arg2, Mtx4F* arg3) 
             uvGfxMtxViewPop();
         }
     }
-    temp_v0 = uvmd_lod->part[uvmd_lod->partCount - 1].unk6;
+    temp_v0 = uvmd_lod->part[uvmd_lod->part_count - 1].unk6;
     for (i = 0; i <= temp_v0; i++) {
         uvGfxMtxViewPop();
     }
@@ -183,17 +183,17 @@ void uvSobj_8022CC28(UnkSobjDraw* arg0, ParsedUVMD* uvmd, u8 arg2, f32 arg3, f32
     temp_s6->u.f[1][1] = (s32)(((-arg4 / sp70) * 65536.0f) + 0.5f) & 0xFFFF;
     temp_s6->u.f[1][0] = (s32)(((-arg3 / sp70) * 65536.0f) + 0.5f) & 0xFFFF;
 
-    for (i = 0; i < uvmd_lod->partCount; i++) {
+    for (i = 0; i < uvmd_lod->part_count; i++) {
         uvmd_part = &uvmd_lod->part[i];
 
         uvGfx_802235A4(arg0->unk4[i], 1);
 
-        for (j = 0; j < uvmd_part->unk4; j++) {
-            uvGfxStateDraw(&uvmd_part->unk0[j]);
+        for (j = 0; j < uvmd_part->material_count; j++) {
+            uvGfxStateDraw(&uvmd_part->material[j]);
         }
         // FAKE
         if (uvmd_lod) { }
-        if (i == uvmd_lod->partCount - 1) {
+        if (i == uvmd_lod->part_count - 1) {
             break;
         }
 
@@ -202,7 +202,7 @@ void uvSobj_8022CC28(UnkSobjDraw* arg0, ParsedUVMD* uvmd, u8 arg2, f32 arg3, f32
             uvGfxMtxViewPop();
         }
     }
-    temp_v1 = uvmd_lod->part[uvmd_lod->partCount - 1].unk6;
+    temp_v1 = uvmd_lod->part[uvmd_lod->part_count - 1].unk6;
     for (i = 0; i <= temp_v1; i++) {
         uvGfxMtxViewPop();
     }
@@ -293,7 +293,7 @@ void uvSobjModel(u32 soid, s32 mdlId) {
         _uvDebugPrintf("uvSobjModel: model %d not in level\n", mdlId);
         return;
     }
-    if (uvmd->lod->partCount != gGfxUnkPtrs->models[temp_v0->unk0]->lod->partCount) {
+    if (uvmd->lod->part_count != gGfxUnkPtrs->models[temp_v0->unk0]->lod->part_count) {
         _uvDebugPrintf("uvSobjModel: new model %d had different  heirarchy\n", mdlId);
         return;
     }

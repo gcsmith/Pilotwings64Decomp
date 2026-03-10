@@ -197,7 +197,7 @@ void uvDobjPosm(s32 objId, s32 part, Mtx4F* src) {
         _uvDebugPrintf("uvDobjPosm: model %d not in level\n", temp_v0->unk0);
         return;
     }
-    if (part >= uvmd->lod->partCount) {
+    if (part >= uvmd->lod->part_count) {
         _uvDebugPrintf("uvDobjPosm: part %d not defined for model %d in obj %d\n", part, temp_v0->unk0, objId);
         return;
     }
@@ -518,7 +518,7 @@ void uvDobj_80217B4C(Unk80263780* arg0, ParsedUVMD* uvmd, u8 arg2) {
     }
 
     uvmd_lod = &uvmd->lod[arg2];
-    for (i = 0; i < uvmd_lod->partCount; i++) {
+    for (i = 0; i < uvmd_lod->part_count; i++) {
         uvmd_part = &uvmd_lod->part[i];
         if (i == 0) {
             uvGfx_802236CC(&D_80265080[arg0->unk2[0]]);
@@ -529,18 +529,18 @@ void uvDobj_80217B4C(Unk80263780* arg0, ParsedUVMD* uvmd, u8 arg2) {
             uvGfxLookAt(&D_80265080[arg0->unk2[i]]);
         }
         if (!(arg0->unk3C & (1 << i))) {
-            for (j = 0; j < uvmd_part->unk4; j++) {
+            for (j = 0; j < uvmd_part->material_count; j++) {
                 if (arg0->unk34 & 0x20) {
-                    temp_s3 = uvmd_part->unk0[j].state;
-                    uvmd_part->unk0[j].state |= GFX_STATE_10000000;
-                    uvGfxStateDraw(&uvmd_part->unk0[j]);
-                    uvmd_part->unk0[j].state = temp_s3;
+                    temp_s3 = uvmd_part->material[j].state;
+                    uvmd_part->material[j].state |= GFX_STATE_10000000;
+                    uvGfxStateDraw(&uvmd_part->material[j]);
+                    uvmd_part->material[j].state = temp_s3;
                 } else {
-                    uvGfxStateDraw(&uvmd_part->unk0[j]);
+                    uvGfxStateDraw(&uvmd_part->material[j]);
                 }
             }
         }
-        if (i == uvmd_lod->partCount - 1) {
+        if (i == uvmd_lod->part_count - 1) {
             break;
         }
         temp_v1 = uvmd_lod->part[i].unk6 - uvmd_lod->part[i + 1].unk6;
@@ -548,7 +548,7 @@ void uvDobj_80217B4C(Unk80263780* arg0, ParsedUVMD* uvmd, u8 arg2) {
             uvGfxMtxViewPop();
         }
     }
-    temp_v1 = uvmd_lod->part[uvmd_lod->partCount - 1].unk6;
+    temp_v1 = uvmd_lod->part[uvmd_lod->part_count - 1].unk6;
     for (i = 0; i <= temp_v1; i++) {
         uvGfxMtxViewPop();
     }
@@ -595,7 +595,7 @@ void uvDobj_80217E24(Unk80263780* arg0, ParsedUVMD* uvmd, u8 arg2, f32 arg3, f32
     temp_s7->m[1][1] = -arg4 / sp54;
     temp_s7->m[1][0] = -arg3 / sp54;
 
-    for (i = 0; i < uvmd_lod->partCount; i++) {
+    for (i = 0; i < uvmd_lod->part_count; i++) {
         uvmd_part = &uvmd_lod->part[i];
         if (i == 0) {
             uvGfx_802236CC(&D_80265080[arg0->unk2[i]]);
@@ -603,10 +603,10 @@ void uvDobj_80217E24(Unk80263780* arg0, ParsedUVMD* uvmd, u8 arg2, f32 arg3, f32
             uvGfxMtxViewMul(&D_80265080[arg0->unk2[i]], 1);
         }
 
-        for (j = 0; j < uvmd_part->unk4; j++) {
-            uvGfxStateDraw(&uvmd_part->unk0[j]);
+        for (j = 0; j < uvmd_part->material_count; j++) {
+            uvGfxStateDraw(&uvmd_part->material[j]);
         }
-        if (i == uvmd_lod->partCount - 1) {
+        if (i == uvmd_lod->part_count - 1) {
             break;
         }
         temp_v1 = uvmd_lod->part[i].unk6 - uvmd_lod->part[i + 1].unk6;
@@ -614,7 +614,7 @@ void uvDobj_80217E24(Unk80263780* arg0, ParsedUVMD* uvmd, u8 arg2, f32 arg3, f32
             uvGfxMtxViewPop();
         }
     }
-    temp_v1 = uvmd_lod->part[uvmd_lod->partCount - 1].unk6;
+    temp_v1 = uvmd_lod->part[uvmd_lod->part_count - 1].unk6;
     for (i = 0; i <= temp_v1; i++) {
         uvGfxMtxViewPop();
     }

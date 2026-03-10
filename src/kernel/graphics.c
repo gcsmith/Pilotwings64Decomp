@@ -227,8 +227,8 @@ void uvGfxStateDrawDL(uvGfxState_t* arg0) {
     gSPSetGeometryMode(gGfxDisplayListHead++, G_CULL_BACK);
     gSPDisplayList(gGfxDisplayListHead++, arg0->dlist);
 
-    D_80298AB8[gGfxFbIndex] += arg0->unk4 * 2;
-    D_80298AC0[gGfxFbIndex] += arg0->unk6 * 2;
+    D_80298AB8[gGfxFbIndex] += arg0->xfm_count * 2;
+    D_80298AC0[gGfxFbIndex] += arg0->tri_count * 2;
 }
 
 void uvGfxStateDraw(uvGfxState_t* arg0) {
@@ -424,8 +424,8 @@ void uvGfxStateDraw(uvGfxState_t* arg0) {
     if (arg0->dlist != NULL) {
         gSPDisplayList(gGfxDisplayListHead++, arg0->dlist);
 
-        D_80298AB8[gGfxFbIndex] += arg0->unk4;
-        D_80298AC0[gGfxFbIndex] += arg0->unk6;
+        D_80298AB8[gGfxFbIndex] += arg0->xfm_count;
+        D_80298AC0[gGfxFbIndex] += arg0->tri_count;
     }
 }
 
