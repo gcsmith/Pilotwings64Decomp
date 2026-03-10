@@ -2,12 +2,15 @@
 #include <uv_clocks.h>
 #include <uv_util.h>
 #include <uv_memory.h>
+#include <macros.h>
+
+ALCSeq D_80261230;
+UNUSED u8 D_80261328[0x400];
 
 extern ALSeqPlayer* gSeqPlayer;
 extern ALBank* gWaveTableBank;
 extern ALSeqFile* gSeqFile;
 extern u8* gSequenceData;
-extern ALCSeq D_80261230;
 
 void uvaSeqNew(s32 arg0) {
     s32 seq_count;

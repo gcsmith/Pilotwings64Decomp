@@ -3,32 +3,22 @@
 #include <uv_geometry.h>
 #include <uv_graphics.h>
 #include <uv_matrix.h>
+#include <uv_sched.h>
 #include <uv_util.h>
 #include <uv_debug.h>
 
-typedef struct {
-    f64 unk0;
-    s32 unk8;
-    u8 padC[4];
-} Unk802B92A0_Unk0;
+s16 D_802C8020;
+s16 D_802C8022;
+f32 D_802C8024;
+f32 D_802C8028;
+s16 D_802C802C;
+s16 D_802C802E;
+s32 D_802C8030;
 
-typedef struct {
-    Unk802B92A0_Unk0 unk0[30];
-} Unk802B92A0;
-
-extern Unk802B92A0 D_802B8940[];
-extern Unk802B92A0 D_802B92A0[];
 extern s32 gSchedRingIdx;
 extern s32 D_802B9C00[];
 extern s32 D_802B9C18[];
-extern double D_802B9C30[];
-extern s16 D_802C8020;
-extern s16 D_802C8022;
-extern f32 D_802C8024;
-extern f32 D_802C8028;
-extern s16 D_802C802C;
-extern s16 D_802C802E;
-extern s32 D_802C8030;
+extern f64 D_802B9C30[];
 
 // 50 chars supported ['*'-'Z'], u16 per char
 static u16 D_8024B2D0[] = {

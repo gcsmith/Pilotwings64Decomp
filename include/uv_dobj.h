@@ -407,6 +407,7 @@ void uvDobjSetState(s32 objId, s32 flags);
 void uvDobjClearState(s32 objId, s32 flags);
 s32 uvDobjAllocIdx(void);
 void uvDobjInit(void);
+void _uvDobjsDraw(UnkStruct_80204D94* arg0, s32 arg1);
 void uvDobj_8021771C(UnkStruct_80204D94*);
 u8 uvDobj_80217AB4(ParsedUVMD*, f32);
 s32 uvDobj_80217B34(s32**);

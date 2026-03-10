@@ -3,11 +3,12 @@
 
 #include <PR/ultratypes.h>
 
-void func_802D2850(void);
-void func_802D28D8(void);
-void func_802D2ACC(void);
-s32 func_802D2E48(void);
-void func_802D3030(void);
-u8 func_802D30B4(void);
+void ballTgtInit(void);
+void ballTgtUpdateState(void);
+void ballTgtLoad(void);
+s32 ballTgtInGoal(void);
+void ballTgtDeinit(void);
+u8 ballTgtCount_5B(void);
+s16 ballTgtCount_59(void);
 
 #endif // APP_BALL_TARGET_H

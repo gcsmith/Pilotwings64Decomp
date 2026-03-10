@@ -68,6 +68,14 @@
 
 #define ARRAY_UNK_SIZE 4
 
+#ifndef MIN
+#define MIN(a, b) (((a) < (b)) ? (a) : (b))
+#endif
+
+#ifndef MAX
+#define MAX(a, b) (((a) > (b)) ? (a) : (b))
+#endif
+
 #define SQ(x) ((x) * (x))
 
 #define FABS(x) (0.0f < (x) ? ((x)) : (-(x)))

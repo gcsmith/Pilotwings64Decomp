@@ -90,7 +90,7 @@ typedef struct {
     s32 unk60;
     s32 unk64;
     Mtx4F unk68;
-    void* unkA8;
+    void* unkA8; // UnkModelTrail* or UnkModelDebrisStructure*
     f32 unkAC;
 } UnkFxStruct; // size = 0xB0
 
@@ -101,6 +101,8 @@ extern UnkFxStruct D_8028B400[120];
 void func_8021A038(UnkModelTrail* arg0);
 s32 func_8021A334(f32 arg0, f32 arg1, f32 arg2, f32 arg3, u16 arg4);
 void func_8021BE28(u16 fxId, Mtx4F* arg1);
+void func_8021EA38(UnkStruct_80204D94* arg0);
+void _uvFxDraw(u16 fxId, UnkStruct_80204D94* arg1);
 s32 func_8021EFF0(s32 type);
 void uvFxProps(s32 fxId, ...);
 
