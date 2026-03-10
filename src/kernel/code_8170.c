@@ -747,7 +747,7 @@ void func_8020F298(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
     D_80248DD4 = 0;
     uvGfxWaitForMesg();
 
-    for (i = 0; i < 128; i++) {
+    for (i = 0; i < ARRAY_COUNT(gGfxUnkPtrs->contours); i++) {
         ParsedUVCT* uvct = gGfxUnkPtrs->contours[i];
         if (uvct == NULL) {
             continue;
@@ -764,7 +764,7 @@ void func_8020F298(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
         }
     }
 
-    for (i = 0; i < 400; i++) {
+    for (i = 0; i < ARRAY_COUNT(gGfxUnkPtrs->models); i++) {
         ParsedUVMD* uvmd = gGfxUnkPtrs->models[i];
         if (uvmd == NULL) {
             continue;
@@ -785,7 +785,7 @@ void func_8020F298(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
         return;
     }
 
-    for (i = 0; i < 500; i++) {
+    for (i = 0; i < ARRAY_COUNT(gGfxUnkPtrs->textures); i++) {
         ParsedUVTX* uvtx = gGfxUnkPtrs->textures[i];
         if (uvtx == NULL) {
             continue;
@@ -819,7 +819,7 @@ void func_8020F630(s32 arg0) {
 
     uvGfxWaitForMesg();
 
-    for (i = 0; i < 128; i++) {
+    for (i = 0; i < ARRAY_COUNT(gGfxUnkPtrs->contours); i++) {
         ParsedUVCT* uvct = gGfxUnkPtrs->contours[i];
         if (uvct == NULL) {
             continue;
@@ -839,7 +839,7 @@ void func_8020F630(s32 arg0) {
         }
     }
 
-    for (i = 0; i < 400; i++) {
+    for (i = 0; i < ARRAY_COUNT(gGfxUnkPtrs->models); i++) {
         ParsedUVMD* uvmd = gGfxUnkPtrs->models[i];
         if (uvmd == NULL) {
             continue;
@@ -863,7 +863,7 @@ void func_8020F630(s32 arg0) {
         return;
     }
 
-    for (i = 0; i < 500; i++) {
+    for (i = 0; i < ARRAY_COUNT(gGfxUnkPtrs->textures); i++) {
         ParsedUVTX* uvtx = gGfxUnkPtrs->textures[i];
         if (uvtx == NULL) {
             continue;
@@ -1288,8 +1288,8 @@ s32 uvTerraGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
                     if (!(temp_v0_2->unk6 & sp154)) {
                         continue;
                     }
-                    if (func_802129B0(sp170, sp16C, sp168, sp164, sp160, sp15C, uvct->vtx, temp_v0_2->unk0, temp_v0_2->unk2, temp_v0_2->unk4, 1.0f,
-                                      &sp120) == 0) {
+                    if (func_802129B0(sp170, sp16C, sp168, sp164, sp160, sp15C, uvct->vtx, temp_v0_2->unk0, temp_v0_2->unk2, temp_v0_2->unk4, 1.0f, &sp120) ==
+                        0) {
                         continue;
                     }
                     if (temp_fs2 != 0.0f) {
