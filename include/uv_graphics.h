@@ -385,7 +385,7 @@ extern Gfx* gGfxDisplayListHead;
 extern uvLevelData* gGfxUnkPtrs;
 extern u16 gGfxFbIndex;
 extern u32 gGfxStateStackData;
-extern u32 D_8029926C;
+extern u32 gGfxBoundTexture;
 
 void uvGfxInit(void);
 void uvGfxBegin(void);

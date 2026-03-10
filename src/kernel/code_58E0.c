@@ -28,7 +28,7 @@ u8 D_80263060[1040];
         _g->words.w1 = (s);                         \
     }
 
-extern f32 D_80249208;
+extern f32 gGfxFogFactor;
 
 void func_80204930(void) {
     s32 i;
@@ -224,7 +224,7 @@ void func_80204FE4(s32 arg0) {
     gSPSetGeometryMode(gGfxDisplayListHead++, G_SHADE);
     gDPSetCombineMode(gGfxDisplayListHead++, G_CC_SHADE, G_CC_PASS2);
 
-    if (D_80249208 > 0.0f) {
+    if (gGfxFogFactor > 0.0f) {
         gDPSetRenderMode(gGfxDisplayListHead++, G_RM_FOG_SHADE_A, G_RM_AA_ZB_OPA_SURF2);
     } else {
         gDPSetRenderMode(gGfxDisplayListHead++, G_RM_PASS, G_RM_AA_ZB_OPA_SURF2);
@@ -241,7 +241,7 @@ void func_80204FE4(s32 arg0) {
     func_8021EA38(temp_s0);
     _uvDobjsDraw(temp_s0, 0);
 
-    if (FABS(0.996f - D_80249208) < 0.0001f) {
+    if (FABS(0.996f - gGfxFogFactor) < 0.0001f) {
         var_v0 = 1;
     } else {
         var_v0 = 0;
