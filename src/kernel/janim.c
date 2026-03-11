@@ -92,15 +92,15 @@ void func_80200638(s32 arg0, Unk80371120* arg1) {
     Mtx4F sp58;
     s32 temp_s4;
     s32 i;
-    s32 temp_s5;
+    s32 modelId;
     Unk8022B0A0* var_s1;
 
     temp_s4 = arg1->unk1AC;
-    temp_s5 = D_80263780[arg0].unk0;
+    modelId = D_80263780[arg0].modelId;
     var_s1 = arg1->unk0;
 
     for (i = 0; i < temp_s4; i++, var_s1++) {
-        uvModelGetPosm(temp_s5, arg1->unk190[i], &sp58);
+        uvModelGetPosm(modelId, arg1->unk190[i], &sp58);
         uvMat4SetQuaternionRotation(&sp58, var_s1->unk0, var_s1->unk4, var_s1->unk8, var_s1->unkC);
         uvDobjPosm(arg0, arg1->unk190[i], &sp58);
     }

@@ -6,7 +6,7 @@
 #include <uv_matrix.h>
 
 typedef struct UnkSobjDraw {
-    u16 unk0;
+    u16 modelId;
     Mtx* unk4;
     f32 unk8;
     f32 unkC;

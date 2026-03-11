@@ -29,7 +29,7 @@ u16 D_80269F0A;
         _g->words.w1 = (s);                         \
     }
 
-void uvDobjModel(s32 objId, s32 mdlId) {
+void uvDobjModel(s32 objId, s32 modelId) {
     ParsedUVMD** temp_a3;
     Unk80263780* var_t2;
     s32 var_v0_3;
@@ -41,7 +41,7 @@ void uvDobjModel(s32 objId, s32 mdlId) {
     var_t2 = &D_80263780[objId];
     temp_a3 = gGfxUnkPtrs->models;
 
-    if (mdlId == var_t2->unk0) {
+    if (modelId == var_t2->modelId) {
         return;
     }
 
@@ -49,14 +49,14 @@ void uvDobjModel(s32 objId, s32 mdlId) {
         _uvDebugPrintf("uvDobjModel - invalid object id number [%d]\n", objId);
         return;
     }
-    if (mdlId == 0xFFFF) {
-        temp_t0 = temp_a3[var_t2->unk0]->unk18;
+    if (modelId == 0xFFFF) {
+        temp_t0 = temp_a3[var_t2->modelId]->unk18;
 
         for (i = 0; i < temp_t0; i++) {
             D_80269B80[var_t2->unk2[i]] = 0;
         }
 
-        var_t2->unk0 = 0xFFFF;
+        var_t2->modelId = 0xFFFF;
         for (i = 0; i < D_80269F0A; i++) {
             if (objId == D_80269CB0[i]) {
                 for (j = i; j < D_80269F0A; j++) {
@@ -66,18 +66,18 @@ void uvDobjModel(s32 objId, s32 mdlId) {
             }
         }
     } else {
-        if (gGfxUnkPtrs->models[mdlId] == NULL) {
-            _uvDebugPrintf("uvDobjModel ( %d, %d ) -- model does not exist in level\n", objId, mdlId);
+        if (gGfxUnkPtrs->models[modelId] == NULL) {
+            _uvDebugPrintf("uvDobjModel ( %d, %d ) -- model does not exist in level\n", objId, modelId);
             return;
         }
         var_t2->unk3C = 0;
-        var_t2->unk38 = temp_a3[mdlId]->unk1C;
+        var_t2->unk38 = temp_a3[modelId]->unk1C;
 
-        if (var_t2->unk0 == 0xFFFF) {
+        if (var_t2->modelId == 0xFFFF) {
             temp_t0 = 0;
         } else {
-            if (temp_a3[var_t2->unk0] != NULL) {
-                temp_t0 = temp_a3[var_t2->unk0]->unk18;
+            if (temp_a3[var_t2->modelId] != NULL) {
+                temp_t0 = temp_a3[var_t2->modelId]->unk18;
             } else {
                 temp_t0 = 0;
                 j = -1;
@@ -92,7 +92,7 @@ void uvDobjModel(s32 objId, s32 mdlId) {
             }
         }
 
-        var_a3_2 = temp_a3[mdlId]->unk18;
+        var_a3_2 = temp_a3[modelId]->unk18;
 
         if (var_a3_2 < temp_t0) {
             for (i = temp_t0 - 1; i >= var_a3_2; i--) {
@@ -123,9 +123,9 @@ void uvDobjModel(s32 objId, s32 mdlId) {
         var_t2->unk2[var_a3_2] = 0;
 
         for (i = 0; i < var_a3_2; i++) {
-            uvMat4Copy(&D_80265080[var_t2->unk2[i]], (u32)temp_a3[mdlId]->unk14 + i * sizeof(Mtx4F));
+            uvMat4Copy(&D_80265080[var_t2->unk2[i]], (u32)temp_a3[modelId]->unk14 + i * sizeof(Mtx4F));
         }
-        var_t2->unk0 = mdlId;
+        var_t2->modelId = modelId;
         var_t2->unk34 = 3;
     }
 }
@@ -144,7 +144,7 @@ void uvDobjProps(s32 objId, ...) {
     }
 
     temp_s1 = &D_80263780[objId];
-    if (temp_s1->unk0 == 0xFFFF) {
+    if (temp_s1->modelId == 0xFFFF) {
         _uvDebugPrintf("uvDobjProps: cannot be set before mod id\n");
         return;
     }
@@ -157,7 +157,7 @@ void uvDobjProps(s32 objId, ...) {
             return;
         case 3:
             f0 = va_arg(args, f64);
-            temp_s1->unk38 = gGfxUnkPtrs->models[temp_s1->unk0]->unk1C * f0;
+            temp_s1->unk38 = gGfxUnkPtrs->models[temp_s1->modelId]->unk1C * f0;
             break;
         case 4:
             var_v0 = va_arg(args, s32);
@@ -185,20 +185,20 @@ void uvDobjPosm(s32 objId, s32 part, Mtx4F* src) {
         return;
     }
     temp_v0 = &D_80263780[objId];
-    if (temp_v0->unk0 >= 0x190) {
+    if (temp_v0->modelId >= 0x190) {
         _uvDebugPrintf("uvDobjPosm: null object id %d\n", objId);
         return;
     }
 
     uvMat4Copy(&D_80265080[temp_v0->unk2[part]], src);
 
-    temp_v1 = gGfxUnkPtrs->models[temp_v0->unk0];
+    temp_v1 = gGfxUnkPtrs->models[temp_v0->modelId];
     if (temp_v1 == NULL) {
-        _uvDebugPrintf("uvDobjPosm: model %d not in level\n", temp_v0->unk0);
+        _uvDebugPrintf("uvDobjPosm: model %d not in level\n", temp_v0->modelId);
         return;
     }
     if (part >= temp_v1->unk8->unk4) {
-        _uvDebugPrintf("uvDobjPosm: part %d not defined for model %d in obj %d\n", part, temp_v0->unk0, objId);
+        _uvDebugPrintf("uvDobjPosm: part %d not defined for model %d in obj %d\n", part, temp_v0->modelId, objId);
         return;
     }
     if (part == 0) {
@@ -222,12 +222,12 @@ void uvDobjGetPosm(s32 objId, s32 arg1, Mtx4F* dst) {
         return;
     }
     sp24 = &D_80263780[objId];
-    if (sp24->unk0 >= 0x190) {
+    if (sp24->modelId >= 0x190) {
         _uvDebugPrintf("uvDobjGetPosm: null object id %d\n", objId);
         return;
     }
     uvMat4Copy(dst, &D_80265080[sp24->unk2[arg1]]);
-    temp_v0 = gGfxUnkPtrs->models[sp24->unk0];
+    temp_v0 = gGfxUnkPtrs->models[sp24->modelId];
     if (arg1 == 0) {
         if (temp_v0->unk20 != 1.0f) {
             uvMat4Scale(dst, temp_v0->unk20, temp_v0->unk20, temp_v0->unk20);
@@ -292,7 +292,7 @@ s32 uvDobjAllocIdx(void) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(D_80263780); i++) {
-        if (D_80263780[i].unk0 == 0xFFFF) {
+        if (D_80263780[i].modelId == 0xFFFF) {
             return i;
         }
     }
@@ -303,7 +303,7 @@ void uvDobjInit(void) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(D_80263780); i++) {
-        D_80263780[i].unk0 = 0xFFFF;
+        D_80263780[i].modelId = 0xFFFF;
     }
 
     for (i = 0; i < ARRAY_COUNT(D_80269CB0); i++) {
@@ -347,18 +347,18 @@ void _uvDobjsDraw(UnkStruct_80204D94* arg0, s32 arg1) {
 
     for (i = 0; i < 100; i++) {
         var_s2 = &D_80263780[i];
-        if (var_s2->unk0 == 0xFFFF) {
+        if (var_s2->modelId == 0xFFFF) {
             continue;
         }
         if (!(var_s2->unk34 & 2) || (var_s2->unk34 & 4)) {
             continue;
         }
-        temp_s1 = gGfxUnkPtrs->models[var_s2->unk0];
+        temp_s1 = gGfxUnkPtrs->models[var_s2->modelId];
         if (temp_s1 == NULL) {
-            _uvDebugPrintf("_uvDobjsDraw: model %d not in level\n", var_s2->unk0);
+            _uvDebugPrintf("_uvDobjsDraw: model %d not in level\n", var_s2->modelId);
             continue;
         }
-        uvModelGetProps(var_s2->unk0, 5, &spBF, 0);
+        uvModelGetProps(var_s2->modelId, 5, &spBF, 0);
         if (spBF - arg1 != 0) {
             continue;
         }
@@ -428,13 +428,13 @@ void uvDobj_8021771C(UnkStruct_80204D94* arg0) {
     uvGfxEnableZBuffer(TRUE);
     for (i = 0; i < D_80269F0A; i++) {
         temp_s1 = &D_80263780[D_80269CB0[i]];
-        if (temp_s1->unk0 == 0xFFFF) {
+        if (temp_s1->modelId == 0xFFFF) {
             continue;
         }
         if (!(temp_s1->unk34 & 2)) {
             continue;
         }
-        temp_s0 = gGfxUnkPtrs->models[temp_s1->unk0];
+        temp_s0 = gGfxUnkPtrs->models[temp_s1->modelId];
 
         temp_fs3 = D_80265080[temp_s1->unk2[0]].m[3][0] - arg0->unk110.m[3][0];
         temp_fs4 = D_80265080[temp_s1->unk2[0]].m[3][1] - arg0->unk110.m[3][1];
@@ -631,7 +631,7 @@ void uvDobj_802180DC(s32 arg0, Unk80371120* arg1) {
     Unk8022B0A0* var_s3;
 
     var_s2 = &D_80263780[arg0];
-    temp_v0 = gGfxUnkPtrs->models[var_s2->unk0];
+    temp_v0 = gGfxUnkPtrs->models[var_s2->modelId];
     var_s3 = arg1->unk0;
 
     if (temp_v0->unk18 > 1) {

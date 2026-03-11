@@ -96,7 +96,7 @@ void db_getstart(Mtx4F* arg0, Vec3F* arg1, u8* arg2, f32* arg3) {
     temp_v1 = levelDataGetTPAD(&sp44);
     if (temp_v1 == 0) {
         _uvDebugPrintf("db_getstart :  no starting pads in task!!!\n");
-        sp3C = uvTerraGetBox(D_80362690->unk0[0].unk6);
+        sp3C = uvTerraGetBox(D_80362690->unk0[0].terraId);
         uvMat4SetIdentity(arg0);
         arg0->m[3][0] = (sp3C->unk0.unk0 + sp3C->unk0.unkC) * 0.5f;
         arg0->m[3][1] = (sp3C->unk0.unk4 + sp3C->unk0.unk10) * 0.5f;

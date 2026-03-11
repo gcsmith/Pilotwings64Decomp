@@ -645,7 +645,7 @@ ParsedUVCT* _uvParseUVCT(u8* src) {
         tempSp98->unk4 = (void*)_uvMemAlloc(sp7B * sizeof(Mtx), 4);
         uvConsumeBytes(tempSp98->unk4, &src, sp7B * sizeof(Mtx));
 
-        uvConsumeBytes(&tempSp98->unk0, &src, sizeof(tempSp98->unk0));
+        uvConsumeBytes(&tempSp98->modelId, &src, sizeof(tempSp98->modelId));
         uvConsumeBytes(&tempSp98->unk8, &src, sizeof(tempSp98->unk8));
         uvConsumeBytes(&tempSp98->unkC, &src, sizeof(tempSp98->unkC));
         uvConsumeBytes(&tempSp98->unk10, &src, sizeof(tempSp98->unk10));

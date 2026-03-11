@@ -83,7 +83,7 @@ typedef struct {
 typedef struct {
     s32 unk0;
     s32 unk4;
-    s32 unk8;
+    s32 surfaceId;
     Vec3F unkC;
     f32 unk18;
     Vec3F unk1C;
@@ -205,7 +205,7 @@ typedef struct {
 typedef struct {
     s32 unk0;
     u16 map;
-    u16 unk6;
+    u16 terraId;
     u16 unk8;
     u8 debugFlag;
     u8 unkB;
@@ -225,6 +225,30 @@ typedef struct {
     u8 padA4[4];
     s32 unkA8;
 } Unk80362690;
+
+typedef struct {
+    s32 unk0;
+    f32 unk4;
+    f32 unk8;
+    f32 unkC;
+    f32 unk10;
+    f32 unk14;
+    f32 unk18;
+    f32 unk1C;
+    f32 unk20;
+    f32 unk24;
+    f32 unk28;
+    f32 unk2C;
+    f32 unk30;
+    f32 unk34;
+    f32 unk38;
+    f32 unk3C;
+    f32 unk40;
+    s32 pad44;
+    s32 pad48;
+    s32 pad4C;
+    s32 pad50;
+} Unk803599D0;
 
 typedef struct {
     Vec3F pos;
@@ -371,8 +395,8 @@ typedef struct {
         s32 unk2C;
         u8 unk30[0x14];
         f32 unk44;
-        s32 unk48;
-        u8 unk4C[0x3B8];
+        Unk803599D0 unk48;
+        u8 unk9C[0x368];
         f32 unk404;
         f32 unk408;
         u8 unk40C[0x10];
@@ -439,12 +463,12 @@ void level_803449B0(void);
 s32 levelIsValidIndex(s32 classIdx, s32 testIdx, s32 vehicle);
 s32 level_80344E0C(s32 classIdx, s32 testIdx, s32 vehicle, char* arg3, char* arg4);
 s32 levelGetTestCount(s32 classIdx, s32 vehicle);
-s32 level_80344FC8(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* arg4, u16* arg5);
+s32 level_80344FC8(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* terraId, u16* arg5);
 void level_803453AC(void);
 s32 level_80345464(Mtx4F*, s32);
 s32 level_803456D8(Mtx4F*);
 void level_80345A24(void);
-s32* levelGet_80345C80(void);
+Unk803599D0* levelGet_80345C80(void);
 s32* levelGet_80345C90(void);
 f32 levelGet_80345CA0(void);
 u8* levelGet_80345CB0(void);

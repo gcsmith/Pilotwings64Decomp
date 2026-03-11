@@ -202,7 +202,7 @@ enum Models {
 };
 
 typedef struct {
-    u16 unk0;
+    u16 modelId;
     u16 unk2[1]; // unknown size, might take up everything till unk34
     u8 pad4[0x34-0x4];
     u8 unk34;
@@ -225,7 +225,7 @@ extern u16 D_80269CB0[100];
 extern u16 D_80269F08;
 extern u16 D_80269F0A;
 
-void uvDobjModel(s32 objId, s32 mdlId);
+void uvDobjModel(s32 objId, s32 modelId);
 void uvDobjProps(s32 objId, ...);
 void uvDobjPosm(s32 objId, s32 part, Mtx4F* src);
 void uvDobjGetPosm(s32 objId, s32, Mtx4F* dst);

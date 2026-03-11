@@ -189,7 +189,7 @@ void cannonMovementFrame(Unk802D5B50_Arg2* arg0, u8 arg1) {
         spE4 = demoGetButtons(arg0->unk10);
     }
     sp2C = &arg0->unk14;
-    func_802E65AC(&arg0->unk14, &D_80362690->unk0[0].unk6, &stickX, &stickY, &spE4);
+    func_802E65AC(&arg0->unk14, &D_80362690->unk0[0].terraId, &stickX, &stickY, &spE4);
     if (arg1 != 6) {
         spC8[0] = arg0->zAxis;
         spC8[1] = arg0->xAxis;
@@ -828,7 +828,7 @@ s32 cannonLoad802D77D8(Unk80362690* arg0, Unk802D5B50_Arg2* arg1) {
     func_8031DAA8(0, 0);
     temp_s1_2->unk6 = 0;
     func_803214E4();
-    level_80344FC8((s32)temp_s1_2->unk4, (s32)temp_s1_2->unk2, (s32)temp_s1_2->unk6, &arg0->unk0[0].map, &arg0->unk0[0].unk6, &arg0->unk0[0].unk8);
+    level_80344FC8((s32)temp_s1_2->unk4, (s32)temp_s1_2->unk2, (s32)temp_s1_2->unk6, &arg0->unk0[0].map, &arg0->unk0[0].terraId, &arg0->unk0[0].unk8);
     levelLoad(arg0->unk0[0].map, temp_s1_2->pad0, temp_s1_2->unk2, 1);
     hudInit();
     func_8031A2CC();

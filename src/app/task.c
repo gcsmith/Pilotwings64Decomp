@@ -201,7 +201,7 @@ s32 levelGetTestCount(s32 classIdx, s32 vehicle) {
     return testCount;
 }
 
-s32 level_80344FC8(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* arg4, u16* arg5) {
+s32 level_80344FC8(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* terraId, u16* arg5) {
     u8 tmp8;
 
     gLevelClass = classIdx;
@@ -230,21 +230,21 @@ s32 level_80344FC8(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* arg4, 
     *map = gMapLookup[D_8035078C->comm.unk3];
     switch (*map) {
     case MAP_CRESCENT_ISLAND:
-        *arg4 = 1;
+        *terraId = 1;
         break;
     case MAP_LITTLE_STATES:
-        *arg4 = 3;
+        *terraId = 3;
         break;
     case MAP_HOLIDAY_ISLAND:
-        *arg4 = 0;
+        *terraId = 0;
         break;
     case MAP_EVER_FROST_ISLAND:
-        *arg4 = 7;
+        *terraId = 7;
         break;
     default:
         _uvDebugPrintf("task load : unknown db level [%d]\n", *map);
         *map = 3;
-        *arg4 = 1;
+        *terraId = 1;
         break;
     }
 
@@ -459,8 +459,8 @@ s32 level_803456D8(Mtx4F* arg0) {
     temp_v0_2 = level_80346370(var_s2);
     temp_s0 = &sp8C[sp85];
     uvChanTerra(D_80362690->unk0[D_80362690->unk9C].unkC.unk70->unk22C, temp_v0_2);
-    if (temp_v0_2 != D_80362690->unk0[0].unk6) {
-        D_80362690->unk0[0].unk6 = (u16)temp_v0_2;
+    if (temp_v0_2 != D_80362690->unk0[0].terraId) {
+        D_80362690->unk0[0].terraId = (u16)temp_v0_2;
         arg0->m[3][0] += temp_s0->unk28_X;
         arg0->m[3][1] += temp_s0->unk2C_Y;
         arg0->m[3][2] += temp_s0->unk30_Z;
@@ -566,7 +566,7 @@ s32 levelDataGetFALC(void** data) {
     return D_8035078C->comm.countFALC;
 }
 
-s32* levelGet_80345C80(void) {
+Unk803599D0* levelGet_80345C80(void) {
     return &D_8035078C->comm.unk48;
 }
 

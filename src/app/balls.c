@@ -444,7 +444,7 @@ f32 ballsPopped(u8 objId, Vec3F* arg1, Unk802D3658_Unk1224* arg2) {
         unk4 = &arg2->unk4[i];
         if ((unk4->unk4 == 2) && (var_s2 == 0)) {
             for (j = 0; j < gBallCount + gBallSplitCount; j++) {
-                if ((unk4->unk8 == gBalls[j].objId) && (gBalls[j].unk80 <= 0.0f)) {
+                if ((unk4->surfaceId == gBalls[j].objId) && (gBalls[j].unk80 <= 0.0f)) {
                     if (ballsCollision(&gBalls[j], unk4, arg1) != 0) {
                         return 0.0f;
                     }

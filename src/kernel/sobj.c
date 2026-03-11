@@ -35,14 +35,14 @@ void uvSobjsDraw(UnkStruct_80204D94* arg0, Mtx4F* arg1, u16 arg2, u16 arg3, UnkS
     for (i = 0; i < arg5; i++) {
         var_s2 = &arg4[i];
 
-        if (var_s2->unk0 == 0xFFFF) {
+        if (var_s2->modelId == 0xFFFF) {
             continue;
         }
 
         if (!(var_s2->unk14 & arg2)) {
             continue;
         }
-        temp_s0 = temp_fp[var_s2->unk0];
+        temp_s0 = temp_fp[var_s2->modelId];
         if (temp_s0 == NULL) {
             _uvDebugPrintf("uvSobjsDraw: model %d not in level\n");
             continue;
@@ -277,10 +277,10 @@ u16 uvSobj_8022D1E4(u32 soid) {
     if (temp_v0 == NULL) {
         return 0xFFFF;
     }
-    return temp_v0->unk0;
+    return temp_v0->modelId;
 }
 
-void uvSobjModel(u32 soid, s32 mdlId) {
+void uvSobjModel(u32 soid, s32 modelId) {
     UnkSobjDraw* temp_v0;
     ParsedUVMD* temp_v1;
 
@@ -288,14 +288,14 @@ void uvSobjModel(u32 soid, s32 mdlId) {
     if (temp_v0 == NULL) {
         return;
     }
-    temp_v1 = gGfxUnkPtrs->models[mdlId];
+    temp_v1 = gGfxUnkPtrs->models[modelId];
     if (temp_v1 == NULL) {
-        _uvDebugPrintf("uvSobjModel: model %d not in level\n", mdlId);
+        _uvDebugPrintf("uvSobjModel: model %d not in level\n", modelId);
         return;
     }
-    if (temp_v1->unk8->unk4 != gGfxUnkPtrs->models[temp_v0->unk0]->unk8->unk4) {
-        _uvDebugPrintf("uvSobjModel: new model %d had different  heirarchy\n", mdlId);
+    if (temp_v1->unk8->unk4 != gGfxUnkPtrs->models[temp_v0->modelId]->unk8->unk4) {
+        _uvDebugPrintf("uvSobjModel: new model %d had different  heirarchy\n", modelId);
         return;
     }
-    temp_v0->unk0 = mdlId;
+    temp_v0->modelId = modelId;
 }

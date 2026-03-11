@@ -166,7 +166,7 @@ void testMenuInit(Unk80367710* arg0, s32 arg1) {
             temp_v1->test = gCurTestIdx;
         }
     }
-    level_80344FC8(temp_v1->cls, temp_v1->veh, temp_v1->test, &D_80362690->unk0[0].map, &D_80362690->unk0[0].unk6, &D_80362690->unk0[0].unk8);
+    level_80344FC8(temp_v1->cls, temp_v1->veh, temp_v1->test, &D_80362690->unk0[0].map, &D_80362690->unk0[0].terraId, &D_80362690->unk0[0].unk8);
     map3d(D_80362690, 0);
     if (arg1 == 0) {
         sTestMenuState = 0;
@@ -332,7 +332,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
                     } else {
                         sp6C->test = gCurTestIdx;
                     }
-                    level_80344FC8(sp6C->cls, sp6C->veh, sp6C->test, &D_80362690->unk0[0].map, &D_80362690->unk0[0].unk6, &D_80362690->unk0[0].unk8);
+                    level_80344FC8(sp6C->cls, sp6C->veh, sp6C->test, &D_80362690->unk0[0].map, &D_80362690->unk0[0].terraId, &D_80362690->unk0[0].unk8);
                     map3d(D_80362690, 0);
                     testMenuInitText(sp6C->test);
                 }

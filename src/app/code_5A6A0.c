@@ -817,7 +817,7 @@ void func_802D50D0(Unk802D3658_Arg0* arg0) {
             D_8034E9E4 = 0;
         }
     } else {
-        if ((D_80362690->unk0[0].unk6 == 2) || (D_80362690->unk0[0].unk6 == 8)) {
+        if ((D_80362690->unk0[0].terraId == 2) || (D_80362690->unk0[0].terraId == 8)) {
             var_ft4 = 1.0f;
         }
         if (arg0->unk1 == 1) {

@@ -133,13 +133,13 @@ void func_802DA6E0(Unk80362690* arg0, s32 arg1) {
     D_80359C88 = 0.0f;
     func_802E26C0();
     arg0->unk0[0].map = 1;
-    arg0->unk0[0].unk6 = 0;
+    arg0->unk0[0].terraId = 0;
     arg0->unk0[0].unk8 = (u16)D_8034EA94[D_8034EA40];
     levelLoad(1, arg1, 0, 1);
     uvLevelAppend(func_802DA628(arg1));
     func_80204BD4(temp_s0->unk22C, 1, 1.0f);
     func_80204A8C(temp_s0->unk22C, 3);
-    uvChanTerra(temp_s0->unk22C, arg0->unk0[0].unk6);
+    uvChanTerra(temp_s0->unk22C, arg0->unk0[0].terraId);
     uvLevelAppend(func_802DA628(arg1));
     uvChanEnv(temp_s0->unk22C, arg0->unk0[0].unk8);
     func_8034B5E0(temp_s0->unk22C, temp_s0);
@@ -390,7 +390,7 @@ s32 func_802DB38C(Unk802D3658_Unk1228* arg0, Vec3F* arg1, Vec3F* arg2) {
     s32 i;
 
     sp5E = 0;
-    count = uvTerraGetSeg(D_80362690->unk0[0].unk6, arg1->x, arg1->y, arg1->z, arg2->x, arg2->y, arg2->z, &spA8, &spA4);
+    count = uvTerraGetSeg(D_80362690->unk0[0].terraId, arg1->x, arg1->y, arg1->z, arg2->x, arg2->y, arg2->z, &spA8, &spA4);
     if (count == 0) {
         return count;
     }
@@ -398,7 +398,7 @@ s32 func_802DB38C(Unk802D3658_Unk1228* arg0, Vec3F* arg1, Vec3F* arg2) {
     sp70 = 0;
     var_s0 = 0;
     for (i = 0; i < count; i++) {
-        temp_v1 = uvTerraGetState(D_80362690->unk0[0].unk6, spA8[var_s0]) & 0xFFF;
+        temp_v1 = uvTerraGetState(D_80362690->unk0[0].terraId, spA8[var_s0]) & 0xFFF;
         if ((temp_v1 == 0x28) || (temp_v1 == 0x30)) {
             sp70 += 1;
         }
@@ -436,7 +436,7 @@ s32 func_802DB38C(Unk802D3658_Unk1228* arg0, Vec3F* arg1, Vec3F* arg2) {
     sp60.y = y;
     sp84 = arg1->z + (sp78 * sp9C);
     sp60.z = sp84;
-    uvTerraGetPlane(D_80362690->unk0[0].unk6, spA0, sp60.x, sp60.y, &sp84, &sp90);
+    uvTerraGetPlane(D_80362690->unk0[0].terraId, spA0, sp60.x, sp60.y, &sp84, &sp90);
     func_802DBE10(arg0, sp5E, spA0, sp9C, &sp60, &sp90);
     return count;
 }
@@ -488,7 +488,7 @@ s32 func_802DB9B8(Unk802D3658_Unk1228* arg0, Vec3F* arg1, Vec3F* arg2) {
     f32 minVal;
     s32 i;
 
-    count = uvSobjGetSeg(D_80362690->unk0[0].unk6, arg1->x, arg1->y, arg1->z, arg2->x, arg2->y, arg2->z, &sp80, &sp7C, &sp78);
+    count = uvSobjGetSeg(D_80362690->unk0[0].terraId, arg1->x, arg1->y, arg1->z, arg2->x, arg2->y, arg2->z, &sp80, &sp7C, &sp78);
     if (count == 0) {
         return 0;
     }
@@ -548,7 +548,7 @@ s32 func_802DBCB0(Unk802D3658_Unk1228* arg0, Vec3F* arg1, Vec3F* arg2) {
 
 void func_802DBE10(Unk802D3658_Unk1228* arg0, s32 arg1, s32 arg2, f32 arg3, Vec3F* arg4, Vec3F* arg5) {
     arg0->unk4 = arg1;
-    arg0->unk8 = arg2;
+    arg0->surfaceId = arg2;
     arg0->unk18 = arg3;
     uvVec3Copy(&arg0->unk1C, arg5);
     uvVec3Copy(&arg0->unkC, arg4);
@@ -708,7 +708,7 @@ s32 func_802DC814(Unk802D3658_Unk1228* arg0, Vec3F* arg1) {
 
 s32 func_802DC8E4(s32 surfaceId) {
     u16 state;
-    state = uvTerraGetState(D_80362690->unk0[0].unk6, surfaceId) & 0xFFF;
+    state = uvTerraGetState(D_80362690->unk0[0].terraId, surfaceId) & 0xFFF;
     if (func_802300F0(state) == 4) {
         return 1;
     }
@@ -717,7 +717,7 @@ s32 func_802DC8E4(s32 surfaceId) {
 
 s32 func_802DC930(s32 surfaceId) {
     u16 state;
-    state = uvTerraGetState(D_80362690->unk0[0].unk6, surfaceId) & 0xFFF;
+    state = uvTerraGetState(D_80362690->unk0[0].terraId, surfaceId) & 0xFFF;
     if (func_802300F0(state) == 0x20) {
         return 0;
     }
@@ -741,7 +741,7 @@ s32 func_802DCA00(s32 surfaceId) {
     if (surfaceId == -1) {
         return 0;
     }
-    state = uvTerraGetState(D_80362690->unk0[0].unk6, surfaceId);
+    state = uvTerraGetState(D_80362690->unk0[0].terraId, surfaceId);
     if (((state & 0x100000) == 0) && ((state & 0x80000) == 0)) {
         return 1;
     }

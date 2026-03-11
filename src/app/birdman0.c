@@ -153,7 +153,7 @@ void bird_802CC55C(Unk80367704* arg0, u8 arg1) {
             func_80339E1C(arg0);
         }
         if (arg1 == 6) {
-            func_802E65AC(&arg0->unk10, &D_80362690->unk0[0].unk6, &sp7C, &sp78, &buttons);
+            func_802E65AC(&arg0->unk10, &D_80362690->unk0[0].terraId, &sp7C, &sp78, &buttons);
         } else {
             sp7C = demoGetInputs(arg0->controller, INPUT_AXIS_X);
             sp78 = demoGetInputs(arg0->controller, INPUT_AXIS_Y);
@@ -371,7 +371,7 @@ void bird_802CC55C(Unk80367704* arg0, u8 arg1) {
             if (arg0->unk104 == 2) {
                 func_802E66DC();
             }
-            func_802E65AC(&arg0->unk10, &D_80362690->unk0[0].unk6, &sp7C, &sp78, &buttons);
+            func_802E65AC(&arg0->unk10, &D_80362690->unk0[0].terraId, &sp7C, &sp78, &buttons);
         }
     }
 }

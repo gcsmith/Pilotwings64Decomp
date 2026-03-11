@@ -637,7 +637,7 @@ void uvGfxEnd(void) {
     }
 
     for (i = 0; i < 100; i++) {
-        if (D_80263780[i].unk0 != 0xFFFF) {
+        if (D_80263780[i].modelId != 0xFFFF) {
             var_t0++;
         }
     }
