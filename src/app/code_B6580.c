@@ -158,11 +158,7 @@ void func_8032F47C(Unk8032F050* arg0) {
         if (arg0->unk2C8 < -1.0f) {
             arg0->unk2C8 = 1.0f;
         }
-        if (arg0->unk2C8 > 0.0f) {
-            var_fv1 = arg0->unk2C8;
-        } else {
-            var_fv1 = -arg0->unk2C8;
-        }
+        var_fv1 = FABS(arg0->unk2C8);
         uvJanimPoseLine(&sp30, 0x55, var_fv1);
         func_80200638(arg0->unk0, &sp30);
         uvDobjPosm(arg0->unk0, arg0->unk228, &sp1E4);

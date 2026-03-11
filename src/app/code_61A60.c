@@ -295,7 +295,7 @@ void func_802DAB18(Unk802D3658_Arg0* arg0) {
     uvFontSet(6);
     uvFontScale(1, 1);
     uvFontColor(0xFF, 0xFF, 0xFF, 0xFF);
-    func_80219874(0x8C, 0x19, textGetDataByIdx(D_8034EA7C[D_8034EA40]), 0x64, 0xFFE);
+    func_80219874(140, 25, textGetDataByIdx(D_8034EA7C[D_8034EA40]), 100, 0xFFE);
     func_80204FC4(arg0->unk22C);
     func_80313D74();
     D_80359C88 = var_fs0;

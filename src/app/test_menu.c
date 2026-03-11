@@ -156,10 +156,10 @@ void testMenuInit(Unk80367710* arg0, s32 arg1) {
                 gCurTestIdx = 0;
             }
         }
-        if (temp_v1->veh != VEHICLE_BIRDMAN && IS_NOT_MAIN_VEHICLE(temp_v1->veh)) {
+        if (temp_v1->veh != VEHICLE_BIRDMAN && IS_BONUS_VEHICLE(temp_v1->veh)) {
             gCurTestIdx = temp_v1->cls;
         }
-        if (temp_v1->veh != VEHICLE_BIRDMAN && IS_NOT_MAIN_VEHICLE(temp_v1->veh)) {
+        if (temp_v1->veh != VEHICLE_BIRDMAN && IS_BONUS_VEHICLE(temp_v1->veh)) {
             temp_v1->cls = gCurTestIdx;
             temp_v1->test = 0;
         } else {
@@ -297,7 +297,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
                 testIdxAdj = -1;
             }
 
-            if (sp6C->veh != VEHICLE_BIRDMAN && IS_NOT_MAIN_VEHICLE(sp6C->veh)) {
+            if (sp6C->veh != VEHICLE_BIRDMAN && IS_BONUS_VEHICLE(sp6C->veh)) {
                 testIdxAdj = 0;
             }
             if (testIdxAdj != 0) {
@@ -308,7 +308,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
                 sSelMenuScreenY = (sMenuCurY * 25) + 26;
                 sp64 = (sMenuCurX - sMenuMinX) + ((sMenuCurY - sMenuMinY) * ((sMenuMaxX - sMenuMinX) + 1));
 
-                if (sp6C->veh != VEHICLE_BIRDMAN && IS_NOT_MAIN_VEHICLE(sp6C->veh)) {
+                if (sp6C->veh != VEHICLE_BIRDMAN && IS_BONUS_VEHICLE(sp6C->veh)) {
                     if (gCurTestIdx == arg0->testCount - 1) {
                         gCurTestIdx = 0;
                     } else {
@@ -326,7 +326,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
                 if (gCurTestIdx != var_a2) {
                     func_8033F758(0x6A, 1.0f, 0.5f, 0.0f);
                     func_803122B4(D_80362690, 0);
-                    if (sp6C->veh != VEHICLE_BIRDMAN && IS_NOT_MAIN_VEHICLE(sp6C->veh)) {
+                    if (sp6C->veh != VEHICLE_BIRDMAN && IS_BONUS_VEHICLE(sp6C->veh)) {
                         sp6C->cls = gCurTestIdx;
                         sp6C->test = 0;
                     } else {

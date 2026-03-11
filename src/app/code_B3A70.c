@@ -354,17 +354,17 @@ s32 func_8032CF28(Unk80362690* arg0) {
     var_s0 = 0x4C;
     sp64 = hudGetState();
     sp5B = sp64->renderFlags;
-    sp64->renderFlags = 0x400;
+    sp64->renderFlags = HUD_RENDER_DISABLE;
     sp40 = sp6C->veh == VEHICLE_HANG_GLIDER &&
            ((sp6C->test == 0 && sp6C->cls == CLASS_A) || (sp6C->test == 1 && sp6C->cls == CLASS_B) || (sp6C->test == 2 && sp6C->cls == CLASS_PILOT));
     if (sp6C->unk8 != 0 || (sp6C->veh == VEHICLE_SKY_DIVING && ((VehicleData*)sp6C->vehicleData)->unk25C.z == 1 /*.0f*/)) {
-        menuCreateItems(0x63, 0x48, 6, 1.0f, 1.0f, sSkyDivingItems, 2);
+        menuCreateItems(99, 72, 6, 1.0f, 1.0f, sSkyDivingItems, 2);
         var_s0 = 0x38;
     } else if (sp40 != 0) {
-        menuCreateItems(0x63, 0x48, 6, 1.0f, 1.0f, sShutterBugTestItems, 4);
+        menuCreateItems(99, 72, 6, 1.0f, 1.0f, sShutterBugTestItems, 4);
         var_s0 = 0x5B;
     } else {
-        menuCreateItems(0x63, 0x48, 6, 1.0f, 1.0f, sOtherItems, 3);
+        menuCreateItems(99, 72, 6, 1.0f, 1.0f, sOtherItems, 3);
     }
     func_80313004(1);
     do {
@@ -547,10 +547,10 @@ void func_8032D90C(void) {
         uvFontSet(6);
         uvFontScale(1.0, 1.0);
         uvFontColor(r2, g2, b2, 0xFF);
-        func_80219874(0xA0 - ((func_802196B0(temp_s7) - 0x10) / 2), 0x9B, temp_s7, 0x3C, 0xFFE);
-        func_80219874(0xA0 - ((func_802196B0(temp_s4) - 0x10) / 2), 0x87, temp_s4, 0x3C, 0xFFE);
-        func_80219874(0xA0 - ((func_802196B0(temp_s5) - 0x10) / 2), 0x73, temp_s5, 0x3C, 0xFFE);
-        func_80219874(0xA0 - ((func_802196B0(temp_s6) - 0x10) / 2), 0x5F, temp_s6, 0x3C, 0xFFE);
+        func_80219874((SCREEN_WIDTH / 2) - ((func_802196B0(temp_s7) - 0x10) / 2), 155, temp_s7, 0x3C, 0xFFE);
+        func_80219874((SCREEN_WIDTH / 2) - ((func_802196B0(temp_s4) - 0x10) / 2), 135, temp_s4, 0x3C, 0xFFE);
+        func_80219874((SCREEN_WIDTH / 2) - ((func_802196B0(temp_s5) - 0x10) / 2), 115, temp_s5, 0x3C, 0xFFE);
+        func_80219874((SCREEN_WIDTH / 2) - ((func_802196B0(temp_s6) - 0x10) / 2), 95, temp_s6, 0x3C, 0xFFE);
         uvFontGenDlist();
         func_803141E4();
         uvGfxEnd();

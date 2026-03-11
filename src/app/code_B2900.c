@@ -230,7 +230,7 @@ s32 func_8032B560(Unk80364210* arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
     } else if (sp6A > 0x64) {
         sp6A = 0x64;
     }
-    if (IS_NOT_MAIN_VEHICLE(vehIdx)) {
+    if (IS_BONUS_VEHICLE(vehIdx)) {
         sp50 = vehIdx + 1;
     } else {
         sp50 = classIdx;

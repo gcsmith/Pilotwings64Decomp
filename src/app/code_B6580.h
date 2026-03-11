@@ -1,5 +1,5 @@
-#ifndef APP_CODE_B6580_h
-#define APP_CODE_B6580_h
+#ifndef APP_CODE_B6580_H
+#define APP_CODE_B6580_H
 
 #include <PR/ultratypes.h>
 #include <uv_matrix.h>
@@ -62,4 +62,4 @@ typedef struct {
 void func_8032F3DC(Unk8032F050*);
 void func_8032F47C(Unk8032F050*);
 
-#endif // APP_CODE_B6580_h
+#endif // APP_CODE_B6580_H

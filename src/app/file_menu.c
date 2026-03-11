@@ -460,7 +460,7 @@ void fileMenu_802E9AE0(void) {
         titleStr = textGetDataByIdx(0x101); // Are you sure?
         break;
     }
-    func_80219874(160 - (func_802196B0(titleStr) / 2), 206, titleStr, 0x3C, 0xFFE);
+    func_80219874((SCREEN_WIDTH / 2) - (func_802196B0(titleStr) / 2), 206, titleStr, 0x3C, 0xFFE);
     uvFontGenDlist();
     func_8034B6F8();
 }

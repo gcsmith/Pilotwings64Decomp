@@ -355,7 +355,7 @@ void birdMovementFrame(VehicleData* arg0, u8 arg1) {
         if (arg1 != 6) {
             sp6C = hudGetState();
             uvMat4Copy(&sp6C->unk28, &arg0->unk10);
-            sp6C->renderFlags = 0x80;
+            sp6C->renderFlags = HUD_RENDER_BIRDMAN;
             sp6C->att.heading = arg0->unk10.m[3][2];
             sp6C->elapsedTime = arg0->unk8;
             sp6C->unk8C = arg0->unk218.z * 4.0f * 0.7f;

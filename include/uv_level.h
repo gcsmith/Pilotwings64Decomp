@@ -46,7 +46,7 @@ enum VehicleId {
 };
 
 #define IS_MAIN_VEHICLE(veh) ((veh) <= VEHICLE_GYROCOPTER)
-#define IS_NOT_MAIN_VEHICLE(veh) (!IS_MAIN_VEHICLE(veh))
+#define IS_BONUS_VEHICLE(veh) (!IS_MAIN_VEHICLE(veh))
 
 enum ClassId {
     CLASS_BEGINNER = 0,
