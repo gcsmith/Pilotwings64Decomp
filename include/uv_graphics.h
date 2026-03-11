@@ -199,11 +199,11 @@ typedef struct uvModelLOD {
 typedef struct ParsedUVMD {
     Vtx* vtxTable;
     u16 vtxCount;
-    uvModelLOD* lod;
+    uvModelLOD* lodTable;
     f32* lodRadius;
     u8 lodCount;
     u8 unk11;
-    Mtx4F* mtx;
+    Mtx4F* mtxTable;
     u8 mtxCount;
     f32 unk1C;
     f32 unk20;

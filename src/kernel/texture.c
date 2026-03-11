@@ -444,7 +444,7 @@ ParsedUVSQ* _uvParseUVSQ(u8* src) {
 ParsedUVMD* _uvParseUVMD(u8* src) {
     Vtx* vtxTable;
     ParsedUVMD* uvmd;
-    uvModelLOD* uvmd_lod;
+    uvModelLOD* lodTable;
     Gfx* dlist;
     UnkUVMD_24* var_s6;
     uvModelPart* partTable;
@@ -452,7 +452,7 @@ ParsedUVMD* _uvParseUVMD(u8* src) {
     Vtx* tempVtx;
     s32 var_s0;
     UnkUVMD_24* var_s0_4;
-    Mtx4F* mtx;
+    Mtx4F* mtxTable;
     uvGfxState_t* stateTable;
     UnkUVMD_6* sp8C;
     s32 i;
@@ -480,14 +480,14 @@ ParsedUVMD* _uvParseUVMD(u8* src) {
     _uvMediaCopy(vtxTable, src, vtxCount * sizeof(Vtx));
     src += vtxCount * sizeof(Vtx);
     lodRadius = (f32*)_uvMemAlloc(lodCount * sizeof(f32), 4);
-    uvmd_lod = (uvModelLOD*)_uvMemAlloc(lodCount * sizeof(uvModelLOD), 4);
+    lodTable = (uvModelLOD*)_uvMemAlloc(lodCount * sizeof(uvModelLOD), 4);
 
     for (i = 0; i < lodCount; i++) {
-        uvConsumeBytes(&uvmd_lod[i].partCount, &src, sizeof(uvmd_lod[i].partCount));
-        uvConsumeBytes(&uvmd_lod[i].billboard, &src, sizeof(uvmd_lod[i].billboard));
-        partTable = (uvModelPart*)_uvMemAlloc(uvmd_lod[i].partCount * sizeof(uvModelPart), 4);
+        uvConsumeBytes(&lodTable[i].partCount, &src, sizeof(lodTable[i].partCount));
+        uvConsumeBytes(&lodTable[i].billboard, &src, sizeof(lodTable[i].billboard));
+        partTable = (uvModelPart*)_uvMemAlloc(lodTable[i].partCount * sizeof(uvModelPart), 4);
 
-        for (j = 0; j < uvmd_lod[i].partCount; j++) {
+        for (j = 0; j < lodTable[i].partCount; j++) {
             sp76 = 0;
             uvConsumeBytes(&partTable[j].stateCount, &src, sizeof(partTable[j].stateCount));
             uvConsumeBytes(&partTable[j].unk5, &src, sizeof(partTable[j].unk5));
@@ -520,12 +520,12 @@ ParsedUVMD* _uvParseUVMD(u8* src) {
             }
             partTable[j].unkD = sp76;
         }
-        uvmd_lod[i].partTable = partTable;
+        lodTable[i].partTable = partTable;
         uvConsumeBytes(&lodRadius[i], &src, sizeof(lodRadius[i]));
     }
 
-    mtx = (Mtx4F*)_uvMemAlloc(mtxCount * sizeof(Mtx4F), 4);
-    uvConsumeBytes(mtx, &src, mtxCount * sizeof(Mtx4F));
+    mtxTable = (Mtx4F*)_uvMemAlloc(mtxCount * sizeof(Mtx4F), 4);
+    uvConsumeBytes(mtxTable, &src, mtxCount * sizeof(Mtx4F));
     if (sp7A) {
         var_s6 = (UnkUVMD_24*)_uvMemAlloc(sp7A * sizeof(UnkUVMD_24), 4);
 
@@ -568,10 +568,10 @@ ParsedUVMD* _uvParseUVMD(u8* src) {
 
     uvmd->vtxTable = vtxTable;
     uvmd->vtxCount = vtxCount;
-    uvmd->lod = uvmd_lod;
+    uvmd->lodTable = lodTable;
     uvmd->lodRadius = lodRadius;
     uvmd->lodCount = lodCount;
-    uvmd->mtx = mtx;
+    uvmd->mtxTable = mtxTable;
     uvmd->mtxCount = mtxCount;
 
     uvmd->unk11 = 0;
@@ -581,7 +581,7 @@ ParsedUVMD* _uvParseUVMD(u8* src) {
     if (sp77 != 0) {
         uvmd->unk11 |= 1;
     }
-    for (i = 0; i < uvmd->lod->partCount; i++) {
+    for (i = 0; i < uvmd->lodTable->partCount; i++) {
         for (j = 0; j < sp7A; j++) {
             if (i == var_s6[j].unk0) {
                 break;
@@ -589,16 +589,16 @@ ParsedUVMD* _uvParseUVMD(u8* src) {
         }
         k = j;
         if (j == sp7A) {
-            uvmd->lod->partTable[i].unk8 = 0;
-            uvmd->lod->partTable[i].unkC = 0;
+            uvmd->lodTable->partTable[i].unk8 = 0;
+            uvmd->lodTable->partTable[i].unkC = 0;
         } else {
             for (k = j; k < sp7A; k++) {
                 if ((i + 1) == var_s6[k].unk0) {
                     break;
                 }
             }
-            uvmd->lod->partTable[i].unk8 = &var_s6[j];
-            uvmd->lod->partTable[i].unkC = k - j;
+            uvmd->lodTable->partTable[i].unk8 = &var_s6[j];
+            uvmd->lodTable->partTable[i].unkC = k - j;
         }
     }
     return uvmd;

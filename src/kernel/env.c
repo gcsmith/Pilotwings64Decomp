@@ -140,11 +140,11 @@ void func_80218700(void) {
 }
 
 void _uvEnvDraw(s32 arg0, s32 arg1) {
-    uvModelLOD* uvmd_lod;
+    uvModelLOD* currLod;
     f32 var_fs1;
     s32 temp_a0_2;
     u8 temp_s1;
-    uvModelPart* uvmd_part;
+    uvModelPart* currPart;
     ParsedUVEN* uven;
     u32 i;
     u32 j;
@@ -179,8 +179,8 @@ void _uvEnvDraw(s32 arg0, s32 arg1) {
             return;
         }
         temp_s1 = uven->unk30[i].flag;
-        uvmd_lod = uvmd->lod;
-        uvmd_part = uvmd_lod->partTable;
+        currLod = uvmd->lodTable;
+        currPart = currLod->partTable;
 
         if (temp_s1 & 8) {
             D_80248DE0.m[3][0] = var_v0->unk110.m[3][0];
@@ -202,13 +202,13 @@ void _uvEnvDraw(s32 arg0, s32 arg1) {
         }
         uvGfx_802236CC(&D_80248DE0);
 
-        for (j = 0; j < uvmd_part->stateCount; j++) {
-            temp_a0_2 = uvmd_part->stateTable[j].state;
+        for (j = 0; j < currPart->stateCount; j++) {
+            temp_a0_2 = currPart->stateTable[j].state;
             if (!(temp_s1 & 1)) {
-                uvmd_part->stateTable[j].state &= ~0x200000;
+                currPart->stateTable[j].state &= ~0x200000;
             }
-            uvGfxStateDraw(&uvmd_part->stateTable[j]);
-            uvmd_part->stateTable[j].state = temp_a0_2;
+            uvGfxStateDraw(&currPart->stateTable[j]);
+            currPart->stateTable[j].state = temp_a0_2;
         }
         if (temp_s1 & 2) {
             uvGfxMtxProj(var_v0->unk50);
