@@ -50,7 +50,7 @@ void uvDobjModel(s32 objId, s32 mdlId) {
         return;
     }
     if (mdlId == 0xFFFF) {
-        temp_t0 = uvmd_array[var_t2->unk0]->mtx_count;
+        temp_t0 = uvmd_array[var_t2->unk0]->mtxCount;
 
         for (i = 0; i < temp_t0; i++) {
             D_80269B80[var_t2->unk2[i]] = 0;
@@ -77,7 +77,7 @@ void uvDobjModel(s32 objId, s32 mdlId) {
             temp_t0 = 0;
         } else {
             if (uvmd_array[var_t2->unk0] != NULL) {
-                temp_t0 = uvmd_array[var_t2->unk0]->mtx_count;
+                temp_t0 = uvmd_array[var_t2->unk0]->mtxCount;
             } else {
                 temp_t0 = 0;
                 j = -1;
@@ -92,7 +92,7 @@ void uvDobjModel(s32 objId, s32 mdlId) {
             }
         }
 
-        var_a3_2 = uvmd_array[mdlId]->mtx_count;
+        var_a3_2 = uvmd_array[mdlId]->mtxCount;
 
         if (var_a3_2 < temp_t0) {
             for (i = temp_t0 - 1; i >= var_a3_2; i--) {
@@ -197,7 +197,7 @@ void uvDobjPosm(s32 objId, s32 part, Mtx4F* src) {
         _uvDebugPrintf("uvDobjPosm: model %d not in level\n", temp_v0->unk0);
         return;
     }
-    if (part >= uvmd->lod->part_count) {
+    if (part >= uvmd->lod->partCount) {
         _uvDebugPrintf("uvDobjPosm: part %d not defined for model %d in obj %d\n", part, temp_v0->unk0, objId);
         return;
     }
@@ -477,18 +477,18 @@ void uvDobj_8021771C(UnkStruct_80204D94* arg0) {
 }
 
 u8 uvDobjGetLODIndex(ParsedUVMD* uvmd, f32 dist) {
-    u8 lod_count;
+    u8 lodCount;
     u8 i;
-    f32* lod_radius;
+    f32* lodRadius;
 
-    lod_radius = uvmd->lod_radius;
-    lod_count = uvmd->lod_count;
-    if (lod_radius[lod_count - 1] <= dist) {
+    lodRadius = uvmd->lodRadius;
+    lodCount = uvmd->lodCount;
+    if (lodRadius[lodCount - 1] <= dist) {
         return 0xFF;
     }
 
-    for (i = lod_count; i > 0; i--) {
-        if (lod_radius[i - 1] < dist) {
+    for (i = lodCount; i > 0; i--) {
+        if (lodRadius[i - 1] < dist) {
             return i;
         }
     }
@@ -518,8 +518,8 @@ void uvDobj_80217B4C(Unk80263780* arg0, ParsedUVMD* uvmd, u8 arg2) {
     }
 
     uvmd_lod = &uvmd->lod[arg2];
-    for (i = 0; i < uvmd_lod->part_count; i++) {
-        uvmd_part = &uvmd_lod->part[i];
+    for (i = 0; i < uvmd_lod->partCount; i++) {
+        uvmd_part = &uvmd_lod->partTable[i];
         if (i == 0) {
             uvGfx_802236CC(&D_80265080[arg0->unk2[0]]);
         } else {
@@ -540,15 +540,15 @@ void uvDobj_80217B4C(Unk80263780* arg0, ParsedUVMD* uvmd, u8 arg2) {
                 }
             }
         }
-        if (i == uvmd_lod->part_count - 1) {
+        if (i == uvmd_lod->partCount - 1) {
             break;
         }
-        temp_v1 = uvmd_lod->part[i].unk6 - uvmd_lod->part[i + 1].unk6;
+        temp_v1 = uvmd_lod->partTable[i].unk6 - uvmd_lod->partTable[i + 1].unk6;
         for (j = 0; j <= temp_v1; j++) {
             uvGfxMtxViewPop();
         }
     }
-    temp_v1 = uvmd_lod->part[uvmd_lod->part_count - 1].unk6;
+    temp_v1 = uvmd_lod->partTable[uvmd_lod->partCount - 1].unk6;
     for (i = 0; i <= temp_v1; i++) {
         uvGfxMtxViewPop();
     }
@@ -595,8 +595,8 @@ void uvDobj_80217E24(Unk80263780* arg0, ParsedUVMD* uvmd, u8 arg2, f32 arg3, f32
     temp_s7->m[1][1] = -arg4 / sp54;
     temp_s7->m[1][0] = -arg3 / sp54;
 
-    for (i = 0; i < uvmd_lod->part_count; i++) {
-        uvmd_part = &uvmd_lod->part[i];
+    for (i = 0; i < uvmd_lod->partCount; i++) {
+        uvmd_part = &uvmd_lod->partTable[i];
         if (i == 0) {
             uvGfx_802236CC(&D_80265080[arg0->unk2[i]]);
         } else {
@@ -606,15 +606,15 @@ void uvDobj_80217E24(Unk80263780* arg0, ParsedUVMD* uvmd, u8 arg2, f32 arg3, f32
         for (j = 0; j < uvmd_part->material_count; j++) {
             uvGfxStateDraw(&uvmd_part->material[j]);
         }
-        if (i == uvmd_lod->part_count - 1) {
+        if (i == uvmd_lod->partCount - 1) {
             break;
         }
-        temp_v1 = uvmd_lod->part[i].unk6 - uvmd_lod->part[i + 1].unk6;
+        temp_v1 = uvmd_lod->partTable[i].unk6 - uvmd_lod->partTable[i + 1].unk6;
         for (j = 0; j <= temp_v1; j++) {
             uvGfxMtxViewPop();
         }
     }
-    temp_v1 = uvmd_lod->part[uvmd_lod->part_count - 1].unk6;
+    temp_v1 = uvmd_lod->partTable[uvmd_lod->partCount - 1].unk6;
     for (i = 0; i <= temp_v1; i++) {
         uvGfxMtxViewPop();
     }
@@ -634,8 +634,8 @@ void uvDobj_802180DC(s32 arg0, Unk80371120* arg1) {
     uvmd = gGfxUnkPtrs->models[var_s2->unk0];
     var_s3 = arg1->unk0;
 
-    if (uvmd->mtx_count > 1) {
-        arg1->unk1AC = uvmd->mtx_count - 1;
+    if (uvmd->mtxCount > 1) {
+        arg1->unk1AC = uvmd->mtxCount - 1;
     } else {
         arg1->unk1AC = 0;
     }

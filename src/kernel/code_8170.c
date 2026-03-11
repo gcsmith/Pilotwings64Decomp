@@ -757,9 +757,9 @@ void func_8020F298(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
             temp_fv1 = 1.0f - (uvct->unk28 * arg5);
             temp_fa0 = 1.0f - (uvct->unk28 * arg6);
             if (arg0 == 0) {
-                func_8020ABAC(uvct->vtx, uvct->vtx_count, arg1, arg2, arg3, temp_fv0, temp_fv1, temp_fa0);
+                func_8020ABAC(uvct->vtxTable, uvct->vtxCount, arg1, arg2, arg3, temp_fv0, temp_fv1, temp_fa0);
             } else {
-                func_8020B4AC(uvct->vtx, uvct->vtx_count, arg1, arg2, arg3, temp_fv0, temp_fv1, temp_fa0);
+                func_8020B4AC(uvct->vtxTable, uvct->vtxCount, arg1, arg2, arg3, temp_fv0, temp_fv1, temp_fa0);
             }
         }
     }
@@ -774,9 +774,9 @@ void func_8020F298(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
             temp_fv1 = 1.0f - (uvmd->unk24 * arg5);
             temp_fa0 = 1.0f - (uvmd->unk24 * arg6);
             if (arg0 == 0) {
-                func_8020ABAC(uvmd->vtx, uvmd->vtx_count, arg1, arg2, arg3, temp_fv0, temp_fv1, temp_fa0);
+                func_8020ABAC(uvmd->vtxTable, uvmd->vtxCount, arg1, arg2, arg3, temp_fv0, temp_fv1, temp_fa0);
             } else {
-                func_8020B4AC(uvmd->vtx, uvmd->vtx_count, arg1, arg2, arg3, temp_fv0, temp_fv1, temp_fa0);
+                func_8020B4AC(uvmd->vtxTable, uvmd->vtxCount, arg1, arg2, arg3, temp_fv0, temp_fv1, temp_fa0);
             }
         }
     }
@@ -829,12 +829,12 @@ void func_8020F630(s32 arg0) {
                 var_fv1 = 1.0f - ((1.0f - D_80263748) * uvct->unk28);
                 var_fa0 = 1.0f - ((1.0f - D_8026374C) * uvct->unk28);
                 var_fa1 = 1.0f - ((1.0f - D_80263750) * uvct->unk28);
-                func_8020E760(uvct->vtx, uvct->vtx_count, var_fv1, var_fa0, var_fa1);
+                func_8020E760(uvct->vtxTable, uvct->vtxCount, var_fv1, var_fa0, var_fa1);
             } else {
                 var_fv1 = 1.0f - ((1.0f - D_80263754) * uvct->unk28);
                 var_fa0 = 1.0f - ((1.0f - D_80263758) * uvct->unk28);
                 var_fa1 = 1.0f - ((1.0f - D_8026375C) * uvct->unk28);
-                func_8020EF20(uvct->vtx, uvct->vtx_count, var_fv1, var_fa0, var_fa1);
+                func_8020EF20(uvct->vtxTable, uvct->vtxCount, var_fv1, var_fa0, var_fa1);
             }
         }
     }
@@ -849,12 +849,12 @@ void func_8020F630(s32 arg0) {
                 var_fv1 = 1.0f - ((1.0f - D_80263748) * uvmd->unk24);
                 var_fa0 = 1.0f - ((1.0f - D_8026374C) * uvmd->unk24);
                 var_fa1 = 1.0f - ((1.0f - D_80263750) * uvmd->unk24);
-                func_8020E760(uvmd->vtx, uvmd->vtx_count, var_fv1, var_fa0, var_fa1);
+                func_8020E760(uvmd->vtxTable, uvmd->vtxCount, var_fv1, var_fa0, var_fa1);
             } else {
                 var_fv1 = 1.0f - ((1.0f - D_80263754) * uvmd->unk24);
                 var_fa0 = 1.0f - ((1.0f - D_80263758) * uvmd->unk24);
                 var_fa1 = 1.0f - ((1.0f - D_8026375C) * uvmd->unk24);
-                func_8020EF20(uvmd->vtx, uvmd->vtx_count, var_fv1, var_fa0, var_fa1);
+                func_8020EF20(uvmd->vtxTable, uvmd->vtxCount, var_fv1, var_fa0, var_fa1);
             }
         }
     }
@@ -918,7 +918,7 @@ void uvModelGetPosm(s32 modelId, s32 partIndex, Mtx4F* posm) {
         _uvDebugPrintf("uvModelGetPosm: model %d not defined for level\n", modelId);
         return;
     }
-    if (partIndex >= uvmd->lod->part_count) {
+    if (partIndex >= uvmd->lod->partCount) {
         _uvDebugPrintf("uvModelGetPosm: there are not %d parts defined for model %d\n", partIndex, modelId);
         return;
     }
@@ -953,10 +953,10 @@ void uvModelGetProps(s32 modelId, ...) {
         case 0:
             return;
         case 2:
-            *va_arg(args, s32*) = uvmd->lod_count;
+            *va_arg(args, s32*) = uvmd->lodCount;
             break;
         case 5:
-            if (uvmd->lod->part->material->state & GFX_STATE_2000000) {
+            if (uvmd->lod->partTable->material->state & GFX_STATE_2000000) {
                 var_v0 = 1;
             } else {
                 var_v0 = 0;
@@ -965,12 +965,12 @@ void uvModelGetProps(s32 modelId, ...) {
             *va_arg(args, u8*) = var_v0;
             break;
         case 4:
-            *va_arg(args, s32*) = uvmd->lod->part_count;
+            *va_arg(args, s32*) = uvmd->lod->partCount;
             break;
         case 3:
             var_a0 = 0;
-            for (i = 0; i < uvmd->lod->part_count; i++) {
-                var_a0 += uvmd->lod->part[i].unkC;
+            for (i = 0; i < uvmd->lod->partCount; i++) {
+                var_a0 += uvmd->lod->partTable[i].unkC;
             }
 
             *va_arg(args, s32*) = var_a0;
@@ -1028,7 +1028,7 @@ u32 uvTerraGetPt(s32 terraId, f32 arg1, f32 arg2, s32** arg3) {
             if (!(temp_v0->unk6 & sp76)) {
                 continue;
             }
-            if (func_80212480(sp94, sp90, uvct->vtx, temp_v0->unk0, temp_v0->unk2, temp_v0->unk4, 1.0f) == 0) {
+            if (func_80212480(sp94, sp90, uvct->vtxTable, temp_v0->unk0, temp_v0->unk2, temp_v0->unk4, 1.0f) == 0) {
                 continue;
             }
             D_802634C8[var_s2] = ((sp6E & 0x3FF) << 22) + ((i & 0x3FF) << 12) + (j & 0xFFF);
@@ -1288,7 +1288,7 @@ s32 uvTerraGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
                     if (!(temp_v0_2->unk6 & sp154)) {
                         continue;
                     }
-                    if (func_802129B0(sp170, sp16C, sp168, sp164, sp160, sp15C, uvct->vtx, temp_v0_2->unk0, temp_v0_2->unk2, temp_v0_2->unk4, 1.0f, &sp120) ==
+                    if (func_802129B0(sp170, sp16C, sp168, sp164, sp160, sp15C, uvct->vtxTable, temp_v0_2->unk0, temp_v0_2->unk2, temp_v0_2->unk4, 1.0f, &sp120) ==
                         0) {
                         continue;
                     }
@@ -1358,7 +1358,7 @@ void uvTerraGetColor(s32 terraId, s32 surfaceId, u8* arg2, u8* arg3, u8* arg4) {
             return;
         }
     }
-    vtx = uvct->vtx;
+    vtx = uvct->vtxTable;
     *arg2 = (vtx[temp_v1_2->unk0].v.cn[0] + vtx[temp_v1_2->unk2].v.cn[0] + vtx[temp_v1_2->unk4].v.cn[0]) / 3;
     *arg3 = (vtx[temp_v1_2->unk0].v.cn[1] + vtx[temp_v1_2->unk2].v.cn[1] + vtx[temp_v1_2->unk4].v.cn[1]) / 3;
     *arg4 = (vtx[temp_v1_2->unk0].v.cn[2] + vtx[temp_v1_2->unk2].v.cn[2] + vtx[temp_v1_2->unk4].v.cn[2]) / 3;
@@ -1429,7 +1429,7 @@ void uvTerraGetPlane(s32 terraId, s32 surfaceId, f32 px, f32 py, f32* arg4, Vec3
     temp_v1 = &uvct->unk8[((u32)surfaceId >> 12) & 0x3FF];
 
     temp_s2 = &temp_v1->unkC[surfaceId & 0xFFF];
-    sp64 = uvct->vtx;
+    sp64 = uvct->vtxTable;
     func_80212FF4(uvtr, px, py, 0.0f, &sp60, &sp5C, &sp58, &sp56, &sp54, 0);
     sp60 *= gGfxUnkPtrs->unk1608;
     sp5C *= gGfxUnkPtrs->unk1608;
@@ -2235,7 +2235,7 @@ s32 func_802134F8(f32 arg0, f32 arg1, f32 arg2, UnkSobjDraw* arg3) {
 
     uvmd = gGfxUnkPtrs->models[arg3->unk0];
     uvmd_lod = uvmd->lod;
-    temp_s5 = uvmd_lod->part_count;
+    temp_s5 = uvmd_lod->partCount;
     _uvDbMstackReset();
 
     for (i = 0; i < temp_s5; i++) {
@@ -2252,20 +2252,20 @@ s32 func_802134F8(f32 arg0, f32 arg1, f32 arg2, UnkSobjDraw* arg3) {
             spA4.m[3][2] = 0.0f;
         }
         _uvDbMstackPush(&spA4);
-        temp_v0 = func_802133C8(arg0, arg1, arg2, _uvDbMstackTop(), uvmd_lod->part[i].unk8, uvmd_lod->part[i].unkC);
+        temp_v0 = func_802133C8(arg0, arg1, arg2, _uvDbMstackTop(), uvmd_lod->partTable[i].unk8, uvmd_lod->partTable[i].unkC);
         if (temp_v0 >= 0) {
             return temp_v0;
         }
         if (i == temp_s5 - 1) {
             break;
         }
-        temp_s1 = uvmd_lod->part[i].unk6 - uvmd_lod->part[i + 1].unk6;
+        temp_s1 = uvmd_lod->partTable[i].unk6 - uvmd_lod->partTable[i + 1].unk6;
         for (j = 0; j <= temp_s1; j++) {
             _uvDbMstackPop();
         }
     }
 
-    temp_s1 = uvmd_lod->part[uvmd_lod->part_count - 1].unk6;
+    temp_s1 = uvmd_lod->partTable[uvmd_lod->partCount - 1].unk6;
     for (i = 0; i <= temp_s1; i++) {
         _uvDbMstackPop();
     }
@@ -2285,7 +2285,7 @@ s32 func_80213790(f32 arg0, f32 arg1, f32 arg2, Unk80263780* arg3) {
 
     uvmd = gGfxUnkPtrs->models[arg3->unk0];
     uvmd_lod = uvmd->lod;
-    temp_s6 = uvmd_lod->part_count;
+    temp_s6 = uvmd_lod->partCount;
     _uvDbMstackReset();
 
     for (i = 0; i < temp_s6; i++) {
@@ -2299,7 +2299,7 @@ s32 func_80213790(f32 arg0, f32 arg1, f32 arg2, Unk80263780* arg3) {
             sp74.m[3][2] = 0.0f;
         }
         _uvDbMstackPush(&sp74);
-        temp_v0 = func_802133C8(arg0, arg1, arg2, _uvDbMstackTop(), uvmd_lod->part[i].unk8, uvmd_lod->part[i].unkC);
+        temp_v0 = func_802133C8(arg0, arg1, arg2, _uvDbMstackTop(), uvmd_lod->partTable[i].unk8, uvmd_lod->partTable[i].unkC);
         if (temp_v0 >= 0) {
             return temp_v0;
         }
@@ -2307,13 +2307,13 @@ s32 func_80213790(f32 arg0, f32 arg1, f32 arg2, Unk80263780* arg3) {
             break;
         }
 
-        temp_s1 = uvmd_lod->part[i].unk6 - uvmd_lod->part[i + 1].unk6;
+        temp_s1 = uvmd_lod->partTable[i].unk6 - uvmd_lod->partTable[i + 1].unk6;
         for (j = 0; j <= temp_s1; j++) {
             _uvDbMstackPop();
         }
     }
 
-    temp_s1 = uvmd_lod->part[uvmd_lod->part_count - 1].unk6;
+    temp_s1 = uvmd_lod->partTable[uvmd_lod->partCount - 1].unk6;
     for (i = 0; i <= temp_s1; i++) {
         _uvDbMstackPop();
     }
@@ -2332,7 +2332,7 @@ s32 func_802139C8(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, Un
 
     uvmd = gGfxUnkPtrs->models[arg6->unk0];
     uvmd_lod = uvmd->lod;
-    spE6 = uvmd_lod->part_count;
+    spE6 = uvmd_lod->partCount;
     _uvDbMstackReset();
 
     for (i = 0; i < spE6; i++) {
@@ -2346,16 +2346,16 @@ s32 func_802139C8(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, Un
             sp98.m[3][2] = 0.0f;
         }
         _uvDbMstackPush(&sp98);
-        _uvSegInMboxs(arg0, arg1, arg2, arg3, arg4, arg5, _uvDbMstackTop(), uvmd_lod->part[i].unk8, uvmd_lod->part[i].unkC, uvmd);
+        _uvSegInMboxs(arg0, arg1, arg2, arg3, arg4, arg5, _uvDbMstackTop(), uvmd_lod->partTable[i].unk8, uvmd_lod->partTable[i].unkC, uvmd);
         if (i == spE6 - 1) {
             break;
         }
-        temp_s1 = uvmd_lod->part[i].unk6 - uvmd_lod->part[i + 1].unk6;
+        temp_s1 = uvmd_lod->partTable[i].unk6 - uvmd_lod->partTable[i + 1].unk6;
         for (j = 0; j <= temp_s1; j++) {
             _uvDbMstackPop();
         }
     }
-    temp_s1 = uvmd_lod->part[uvmd_lod->part_count - 1].unk6;
+    temp_s1 = uvmd_lod->partTable[uvmd_lod->partCount - 1].unk6;
     for (i = 0; i <= temp_s1; i++) {
         _uvDbMstackPop();
     }
@@ -2375,7 +2375,7 @@ s32 func_80213C24(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, Un
 
     uvmd = gGfxUnkPtrs->models[arg6->unk0];
     uvmd_lod = uvmd->lod;
-    sp106 = uvmd_lod->part_count;
+    sp106 = uvmd_lod->partCount;
     _uvDbMstackReset();
 
     for (i = 0; i < sp106; i++) {
@@ -2392,18 +2392,18 @@ s32 func_80213C24(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, Un
             spB8.m[3][2] = 0.0f;
         }
         _uvDbMstackPush(&spB8);
-        _uvSegInMboxs(arg0, arg1, arg2, arg3, arg4, arg5, _uvDbMstackTop(), uvmd_lod->part[i].unk8, uvmd_lod->part[i].unkC, uvmd);
+        _uvSegInMboxs(arg0, arg1, arg2, arg3, arg4, arg5, _uvDbMstackTop(), uvmd_lod->partTable[i].unk8, uvmd_lod->partTable[i].unkC, uvmd);
         if (i == sp106 - 1) {
             break;
         }
 
-        temp_s1 = uvmd_lod->part[i].unk6 - uvmd_lod->part[i + 1].unk6;
+        temp_s1 = uvmd_lod->partTable[i].unk6 - uvmd_lod->partTable[i + 1].unk6;
         for (j = 0; j <= temp_s1; j++) {
             _uvDbMstackPop();
         }
     }
 
-    temp_s1 = uvmd_lod->part[uvmd_lod->part_count - 1].unk6;
+    temp_s1 = uvmd_lod->partTable[uvmd_lod->partCount - 1].unk6;
     for (i = 0; i <= temp_s1; i++) {
         _uvDbMstackPop();
     }
@@ -2955,11 +2955,11 @@ s32 _uvSegInMboxs(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, Mt
 
         if (temp_s3->unk1C != 0) {
             for (j = 0; j < temp_s3->unk1C; j++) {
-                if (func_802129B0(spAC.x, spAC.y, spAC.z, spA0.x, spA0.y, spA0.z, uvmd->vtx, temp_s3->unk20[j].unk0, temp_s3->unk20[j].unk2,
+                if (func_802129B0(spAC.x, spAC.y, spAC.z, spA0.x, spA0.y, spA0.z, uvmd->vtxTable, temp_s3->unk20[j].unk0, temp_s3->unk20[j].unk2,
                                   temp_s3->unk20[j].unk4, uvmd->unk20, &sp90) != 0) {
                     D_802634C8[D_802634C4] = D_802634C0;
                     D_80263548[D_802634C4] = sp90;
-                    _uvSurfGetNorm(uvmd->vtx, temp_s3->unk20[j].unk0, temp_s3->unk20[j].unk2, temp_s3->unk20[j].unk4, &D_802635C8[D_802634C4]);
+                    _uvSurfGetNorm(uvmd->vtxTable, temp_s3->unk20[j].unk0, temp_s3->unk20[j].unk2, temp_s3->unk20[j].unk4, &D_802635C8[D_802634C4]);
                     arg6->m[3][0] = 0.0f;
                     arg6->m[3][1] = 0.0f;
                     arg6->m[3][2] = 0.0f;
@@ -3313,8 +3313,8 @@ void func_80215E7C(ParsedUVMD* uvmd) {
     uvMat4Scale(&spD8, 1.0f / uvmd->unk20, 1.0f / uvmd->unk20, 1.0f / uvmd->unk20);
     uvGfxMtxViewMul(&spD8, 1);
 
-    for (i = 0; i < uvmd->lod->part->unkC; i++) {
-        spD4 = &uvmd->lod->part->unk8[i];
+    for (i = 0; i < uvmd->lod->partTable->unkC; i++) {
+        spD4 = &uvmd->lod->partTable->unk8[i];
         var_s1 = 0;
         for (j = 0; j < spD4->unk1C; j++) {
             temp_v0 = &spD4->unk20[j];
@@ -3365,9 +3365,9 @@ void func_80215E7C(ParsedUVMD* uvmd) {
             }
             var_s1++;
             uvVtxBeginPoly();
-            uvVtx(uvmd->vtx[spB4].v.ob[0], uvmd->vtx[spB4].v.ob[1], uvmd->vtx[spB4].v.ob[2], 0, 0, spBB, spBA, spB9, 255);
-            uvVtx(uvmd->vtx[spB0].v.ob[0], uvmd->vtx[spB0].v.ob[1], uvmd->vtx[spB0].v.ob[2], 0, 0, spBB, spBA, spB9, 255);
-            uvVtx(uvmd->vtx[spAC].v.ob[0], uvmd->vtx[spAC].v.ob[1], uvmd->vtx[spAC].v.ob[2], 0, 0, spBB, spBA, spB9, 255);
+            uvVtx(uvmd->vtxTable[spB4].v.ob[0], uvmd->vtxTable[spB4].v.ob[1], uvmd->vtxTable[spB4].v.ob[2], 0, 0, spBB, spBA, spB9, 255);
+            uvVtx(uvmd->vtxTable[spB0].v.ob[0], uvmd->vtxTable[spB0].v.ob[1], uvmd->vtxTable[spB0].v.ob[2], 0, 0, spBB, spBA, spB9, 255);
+            uvVtx(uvmd->vtxTable[spAC].v.ob[0], uvmd->vtxTable[spAC].v.ob[1], uvmd->vtxTable[spAC].v.ob[2], 0, 0, spBB, spBA, spB9, 255);
             uvVtxEndPoly();
         }
         if (spD4->unk1C == 0) {
@@ -3440,5 +3440,5 @@ void uvDbColorModel(s32 modelId, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     }
 
     uvGfxWaitForMesg();
-    func_8020ABAC(uvmd->vtx, uvmd->vtx_count, arg1, arg2, arg3, arg4, arg4, arg4);
+    func_8020ABAC(uvmd->vtxTable, uvmd->vtxCount, arg1, arg2, arg3, arg4, arg4, arg4);
 }

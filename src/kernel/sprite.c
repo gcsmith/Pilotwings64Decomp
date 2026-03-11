@@ -118,79 +118,79 @@ void _uvTxtDraw(s32 textureId) {
     }
 }
 
-void uvSprtFromBitmap(uvSprite_t* sp, ParsedUVTX* uvtx) {
-    if (sp->textureId == 0xFFFF) {
+void uvSprtFromBitmap(uvSprite_t* sprite, ParsedUVTX* uvtx) {
+    if (sprite->textureId == 0xFFFF) {
         _uvDebugPrintf("Warning: Bitmap sprite switched to texture sprite w/o uvMemReset\n");
-        sp->bitmap = NULL;
+        sprite->bitmap = NULL;
     }
-    if (sp->bitmap == 0) {
-        sp->bitmap = _uvMemAlloc(sizeof(Bitmap), 4);
+    if (sprite->bitmap == 0) {
+        sprite->bitmap = _uvMemAlloc(sizeof(Bitmap), 4);
     }
-    if (sp->unk58[0] == NULL) {
-        sp->unk58[0] = _uvMemAlloc((1 + 2) * 0xC * sizeof(Gfx), 8);
-        sp->unk58[1] = _uvMemAlloc((1 + 2) * 0xC * sizeof(Gfx), 8);
+    if (sprite->unk58[0] == NULL) {
+        sprite->unk58[0] = _uvMemAlloc((1 + 2) * 0xC * sizeof(Gfx), 8);
+        sprite->unk58[1] = _uvMemAlloc((1 + 2) * 0xC * sizeof(Gfx), 8);
     }
-    sp->bitmap->width = uvtx->width - 1;
-    sp->bitmap->width_img = uvtx->width;
-    sp->bitmap->s = 0;
-    sp->bitmap->t = 0;
-    sp->bitmap->buf = uvtx->unk0;
-    sp->bitmap->actualHeight = uvtx->height;
-    sp->bitmap->LUToffset = 0;
+    sprite->bitmap->width = uvtx->width - 1;
+    sprite->bitmap->width_img = uvtx->width;
+    sprite->bitmap->s = 0;
+    sprite->bitmap->t = 0;
+    sprite->bitmap->buf = uvtx->unk0;
+    sprite->bitmap->actualHeight = uvtx->height;
+    sprite->bitmap->LUToffset = 0;
 }
 
-void uvSprt_80230750(uvSprite_t* sp, ParsedUVTX* uvtx) {
-    Sprite* sprite = &sp->sprite;
+void uvSprt_80230750(uvSprite_t* sprite, ParsedUVTX* uvtx) {
+    Sprite* sp = &sprite->sprite;
 
     if (uvtx != NULL) {
-        sprite->width = uvtx->width - 1;
-        sprite->height = uvtx->height - 1;
-        sprite->bmheight = uvtx->height - 1;
-        sprite->bmHreal = uvtx->height;
-        sprite->bmfmt = 0;
-        sprite->bmsiz = 2;
-        sprite->attr = SP_TEXSHUF;
+        sp->width = uvtx->width - 1;
+        sp->height = uvtx->height - 1;
+        sp->bmheight = uvtx->height - 1;
+        sp->bmHreal = uvtx->height;
+        sp->bmfmt = 0;
+        sp->bmsiz = 2;
+        sp->attr = SP_TEXSHUF;
         if (uvtx->unk22 != 1) {
-            sprite->attr |= SP_TRANSPARENT;
+            sp->attr |= SP_TRANSPARENT;
         }
         if (uvtx->unk22 == 1) {
-            sprite->bmfmt = G_IM_FMT_I;
+            sp->bmfmt = G_IM_FMT_I;
         } else if (uvtx->unk22 == 2) {
-            sprite->bmfmt = G_IM_FMT_IA;
+            sp->bmfmt = G_IM_FMT_IA;
         } else {
-            sprite->bmfmt = G_IM_FMT_RGBA;
+            sp->bmfmt = G_IM_FMT_RGBA;
         }
 
         if (uvtx->unkE == 4) {
-            sprite->bmsiz = G_IM_SIZ_4b;
+            sp->bmsiz = G_IM_SIZ_4b;
         } else if (uvtx->unkE == 8) {
-            sprite->bmsiz = G_IM_SIZ_8b;
+            sp->bmsiz = G_IM_SIZ_8b;
         } else {
-            sprite->bmsiz = G_IM_SIZ_16b;
+            sp->bmsiz = G_IM_SIZ_16b;
         }
-        sprite->scalex = 1.0f;
-        sprite->scaley = 1.0f;
+        sp->scalex = 1.0f;
+        sp->scaley = 1.0f;
     }
 
-    sprite->expx = 0;
-    sprite->expy = 0;
-    sprite->zdepth = 0x1234;
-    sprite->red = 255;
-    sprite->green = 255;
-    sprite->blue = 255;
-    sprite->alpha = 255;
-    sprite->startTLUT = 0;
-    sprite->nTLUT = 0;
-    sprite->LUT = NULL;
-    sprite->istart = 0;
-    sprite->istep = 1;
-    sprite->nbitmaps = 1;
-    sprite->ndisplist = (1 + 2) * 0xC;
-    sprite->scalex = 1.0f;
-    sprite->scaley = 1.0f;
-    sprite->bitmap = sp->bitmap;
-    sprite->frac_s = 0;
-    sprite->frac_t = 0;
+    sp->expx = 0;
+    sp->expy = 0;
+    sp->zdepth = 0x1234;
+    sp->red = 255;
+    sp->green = 255;
+    sp->blue = 255;
+    sp->alpha = 255;
+    sp->startTLUT = 0;
+    sp->nTLUT = 0;
+    sp->LUT = NULL;
+    sp->istart = 0;
+    sp->istep = 1;
+    sp->nbitmaps = 1;
+    sp->ndisplist = (1 + 2) * 0xC;
+    sp->scalex = 1.0f;
+    sp->scaley = 1.0f;
+    sp->bitmap = sprite->bitmap;
+    sp->frac_s = 0;
+    sp->frac_t = 0;
 }
 
 s32 uvSprt_80230898(void) {
@@ -224,28 +224,28 @@ void uvSprtInit(void) {
     }
 }
 
-void uvSprtDisplayList(uvSprite_t* sp) {
+void uvSprtDisplayList(uvSprite_t* sprite) {
     Gfx* dlist;
     f32 temp_fv0;
     f32 temp_fv1;
-    Sprite* sprite = &sp->sprite;
+    Sprite* sp = &sprite->sprite;
 
-    sprite->rsp_dl = sp->unk58[gGfxFbIndex];
-    sprite->rsp_dl_next = sprite->rsp_dl;
+    sp->rsp_dl = sprite->unk58[gGfxFbIndex];
+    sp->rsp_dl_next = sp->rsp_dl;
 
-    if (sp->textureId != 0xFFFF) {
-        temp_fv0 = (f32)sp->width / gGfxUnkPtrs->textures[sp->textureId]->width;
-        temp_fv1 = (f32)sp->height / gGfxUnkPtrs->textures[sp->textureId]->height;
-        spScale(sprite, temp_fv0, temp_fv1);
+    if (sprite->textureId != 0xFFFF) {
+        temp_fv0 = (f32)sprite->width / gGfxUnkPtrs->textures[sprite->textureId]->width;
+        temp_fv1 = (f32)sprite->height / gGfxUnkPtrs->textures[sprite->textureId]->height;
+        spScale(sp, temp_fv0, temp_fv1);
     } else {
-        spScale(sprite, 1.0f, 1.0f);
+        spScale(sp, 1.0f, 1.0f);
     }
-    sprite->red = sp->red;
-    sprite->green = sp->green;
-    sprite->blue = sp->blue;
-    sprite->alpha = sp->alpha;
-    spMove(sprite, sp->unk6, (s16)(SCREEN_HEIGHT - sp->unk8));
-    dlist = spDraw(sprite);
+    sp->red = sprite->red;
+    sp->green = sprite->green;
+    sp->blue = sprite->blue;
+    sp->alpha = sprite->alpha;
+    spMove(sp, sprite->unk6, (s16)(SCREEN_HEIGHT - sprite->unk8));
+    dlist = spDraw(sp);
     if (dlist != NULL) {
         gSPDisplayList(gGfxDisplayListHead++, dlist);
     }
@@ -271,14 +271,14 @@ void uvSprtDrawAll(void) {
     gGfxDisplayListHead--;
 }
 
-void uvSprtDraw(s32 sprite_id) {
+void uvSprtDraw(s32 spriteId) {
     uvSprite_t* sprite;
 
-    if (sprite_id >= ARRAY_COUNT(gSprtTable1)) {
-        _uvDebugPrintf("uvSprtDraw: invalid sprite id %d\n", sprite_id);
+    if (spriteId >= ARRAY_COUNT(gSprtTable1)) {
+        _uvDebugPrintf("uvSprtDraw: invalid sprite id %d\n", spriteId);
         return;
     }
-    sprite = &gSprtTable1[sprite_id];
+    sprite = &gSprtTable1[spriteId];
     if (sprite->textureId != 0xFFF) {
         spInit(&gGfxDisplayListHead);
         uvSprtDisplayList(sprite);
@@ -287,110 +287,110 @@ void uvSprtDraw(s32 sprite_id) {
     }
 }
 
-void uvSprtSetBlit(uvSprite_t* sp, s32 blit_id) {
-    ParsedUVBT* uvbt = gGfxUnkPtrs->blits[blit_id];
-    Sprite* sprite = &sp->sprite;
+void uvSprtSetBlit(uvSprite_t* sprite, s32 blitId) {
+    ParsedUVBT* uvbt = gGfxUnkPtrs->blits[blitId];
+    Sprite* sp = &sprite->sprite;
 
-    if ((sp->textureId == 0xFFFF) || (sp->textureId != 0xFFF)) {
-        if (sp->width != uvbt->width || sp->height != uvbt->height) {
-            _uvDebugPrintf("uvSprtSetBlit: Warning: sprite %d size change, dl space leaked\n", gSprtTable1 - sp);
-            sp->unk58[0] = NULL;
-            sp->unk58[1] = NULL;
+    if ((sprite->textureId == 0xFFFF) || (sprite->textureId != 0xFFF)) {
+        if (sprite->width != uvbt->width || sprite->height != uvbt->height) {
+            _uvDebugPrintf("uvSprtSetBlit: Warning: sprite %d size change, dl space leaked\n", gSprtTable1 - sprite);
+            sprite->unk58[0] = NULL;
+            sprite->unk58[1] = NULL;
         }
     }
-    sp->sprite.bitmap = uvbt->bitmap;
-    sp->textureId = 0xFFFF;
-    sp->width = uvbt->width;
-    sp->height = uvbt->height;
-    sp->sprite.width = uvbt->width;
-    sp->sprite.height = uvbt->height;
-    sp->sprite.bitmap = uvbt->bitmap;
-    sp->sprite.nbitmaps = uvbt->nbitmaps;
-    sp->sprite.ndisplist = (uvbt->nbitmaps + 2) * 0xC;
-    sp->sprite.bmheight = uvbt->texelHeight;
-    sp->sprite.bmHreal = uvbt->texelHeight;
-    sp->sprite.bmfmt = uvbt->bmfmt;
+    sprite->sprite.bitmap = uvbt->bitmap;
+    sprite->textureId = 0xFFFF;
+    sprite->width = uvbt->width;
+    sprite->height = uvbt->height;
+    sprite->sprite.width = uvbt->width;
+    sprite->sprite.height = uvbt->height;
+    sprite->sprite.bitmap = uvbt->bitmap;
+    sprite->sprite.nbitmaps = uvbt->nbitmaps;
+    sprite->sprite.ndisplist = (uvbt->nbitmaps + 2) * 0xC;
+    sprite->sprite.bmheight = uvbt->texelHeight;
+    sprite->sprite.bmHreal = uvbt->texelHeight;
+    sprite->sprite.bmfmt = uvbt->bmfmt;
 
     switch (uvbt->bitdepth) {
     case 4:
-        sp->sprite.bmsiz = G_IM_SIZ_4b;
+        sprite->sprite.bmsiz = G_IM_SIZ_4b;
         break;
     case 8:
-        sp->sprite.bmsiz = G_IM_SIZ_8b;
+        sprite->sprite.bmsiz = G_IM_SIZ_8b;
         break;
     case 16:
-        sp->sprite.bmsiz = G_IM_SIZ_16b;
+        sprite->sprite.bmsiz = G_IM_SIZ_16b;
         break;
     case 32:
-        sp->sprite.bmsiz = G_IM_SIZ_32b;
+        sprite->sprite.bmsiz = G_IM_SIZ_32b;
         break;
     }
-    sp->sprite.istart = 0;
-    sp->sprite.istep = 1;
-    if (sp->unk58[0] == NULL) {
-        sp->unk58[0] = (Gfx*)_uvMemAlloc(((uvbt->nbitmaps + 2) * 0xC * sizeof(Gfx)), 8);
+    sprite->sprite.istart = 0;
+    sprite->sprite.istep = 1;
+    if (sprite->unk58[0] == NULL) {
+        sprite->unk58[0] = (Gfx*)_uvMemAlloc(((uvbt->nbitmaps + 2) * 0xC * sizeof(Gfx)), 8);
     }
-    if (sp->unk58[1] == NULL) {
-        sp->unk58[1] = (Gfx*)_uvMemAlloc(((uvbt->nbitmaps + 2) * 0xC * sizeof(Gfx)), 8);
+    if (sprite->unk58[1] == NULL) {
+        sprite->unk58[1] = (Gfx*)_uvMemAlloc(((uvbt->nbitmaps + 2) * 0xC * sizeof(Gfx)), 8);
     }
 
     switch (uvbt->bmfmt) {
     case G_IM_FMT_RGBA:
         if (uvbt->bitdepth == 16) {
-            sprite->attr = SP_TEXSHUF | SP_FASTCOPY | SP_CUTOUT;
+            sp->attr = SP_TEXSHUF | SP_FASTCOPY | SP_CUTOUT;
         } else {
-            sprite->attr = SP_CUTOUT;
+            sp->attr = SP_CUTOUT;
         }
         break;
     case G_IM_FMT_IA:
-        sprite->attr = SP_TEXSHUF | SP_CUTOUT;
+        sp->attr = SP_TEXSHUF | SP_CUTOUT;
         break;
     case G_IM_FMT_I:
-        sprite->attr = SP_TEXSHUF;
+        sp->attr = SP_TEXSHUF;
         break;
     default:
         _uvDebugPrintf("Sprite Format %d is not supported.\n", uvbt->bmfmt);
-        sprite->attr = SP_TEXSHUF | SP_FASTCOPY | SP_CUTOUT;
+        sp->attr = SP_TEXSHUF | SP_FASTCOPY | SP_CUTOUT;
         break;
     }
 
-    sprite->expx = 0;
-    sprite->expy = 0;
-    sprite->zdepth = 0x1234;
-    sprite->red = 255;
-    sprite->green = 255;
-    sprite->blue = 255;
-    sprite->alpha = 255;
-    sprite->startTLUT = 0;
-    sprite->nTLUT = 0;
-    sprite->LUT = NULL;
-    sprite->frac_s = 0;
-    sprite->frac_t = 0;
-    sprite->scalex = 1.0f;
-    sprite->scaley = 1.0f;
+    sp->expx = 0;
+    sp->expy = 0;
+    sp->zdepth = 0x1234;
+    sp->red = 255;
+    sp->green = 255;
+    sp->blue = 255;
+    sp->alpha = 255;
+    sp->startTLUT = 0;
+    sp->nTLUT = 0;
+    sp->LUT = NULL;
+    sp->frac_s = 0;
+    sp->frac_t = 0;
+    sp->scalex = 1.0f;
+    sp->scaley = 1.0f;
 }
 
-s16 uvSprtGetWidth(s32 sprite_id) {
-    return gSprtTable1[sprite_id].width;
+s16 uvSprtGetWidth(s32 spriteId) {
+    return gSprtTable1[spriteId].width;
 }
 
-s16 uvSprtGetHeight(s32 sprite_id) {
-    return gSprtTable1[sprite_id].height;
+s16 uvSprtGetHeight(s32 spriteId) {
+    return gSprtTable1[spriteId].height;
 }
 
-void uvSprtProps(s32 sprite_id, ...) {
+void uvSprtProps(s32 spriteId, ...) {
     ParsedUVTX* uvtx;
-    uvSprite_t* sp;
+    uvSprite_t* sprite;
     va_list args;
     s32 token;
 
-    if (sprite_id >= ARRAY_COUNT(gSprtTable1)) {
-        _uvDebugPrintf("uvSprtProps: invalid sprite id %d\n", sprite_id);
+    if (spriteId >= ARRAY_COUNT(gSprtTable1)) {
+        _uvDebugPrintf("uvSprtProps: invalid sprite id %d\n", spriteId);
         return;
     }
 
-    sp = &gSprtTable1[sprite_id];
-    va_start(args, sprite_id);
+    sprite = &gSprtTable1[spriteId];
+    va_start(args, spriteId);
 
     while (TRUE) {
         token = va_arg(args, s32);
@@ -398,61 +398,61 @@ void uvSprtProps(s32 sprite_id, ...) {
         case 0:
             return;
         case 1:
-            sp->width = va_arg(args, s32);
+            sprite->width = va_arg(args, s32);
 
-            if (sp->width <= 0) {
-                sp->width = 1;
+            if (sprite->width <= 0) {
+                sprite->width = 1;
             }
 
-            sp->height = va_arg(args, s32);
-            if (sp->height <= 0) {
-                sp->height = 1;
+            sprite->height = va_arg(args, s32);
+            if (sprite->height <= 0) {
+                sprite->height = 1;
             }
             break;
         case 2:
-            sp->unk6 = va_arg(args, s32);
-            sp->unk8 = va_arg(args, s32);
+            sprite->unk6 = va_arg(args, s32);
+            sprite->unk8 = va_arg(args, s32);
             break;
         case 7:
-            sp->red = va_arg(args, s32);
-            sp->green = va_arg(args, s32);
-            sp->blue = va_arg(args, s32);
-            sp->alpha = va_arg(args, s32);
+            sprite->red = va_arg(args, s32);
+            sprite->green = va_arg(args, s32);
+            sprite->blue = va_arg(args, s32);
+            sprite->alpha = va_arg(args, s32);
             break;
         case 3:
-            sp->unk0 = va_arg(args, s32);
+            sprite->unk0 = va_arg(args, s32);
             break;
         case 9:
-            uvSprtSetBlit(sp, va_arg(args, s32));
+            uvSprtSetBlit(sprite, va_arg(args, s32));
             break;
         case 8:
             _uvDebugPrintf("uvSprtProps: bitmaps are replaced by blits.\n");
             break;
         case 5:
-            sp->textureId = va_arg(args, s32);
-            if (sp->textureId != 0xFFF) {
-                uvtx = gGfxUnkPtrs->textures[sp->textureId];
+            sprite->textureId = va_arg(args, s32);
+            if (sprite->textureId != 0xFFF) {
+                uvtx = gGfxUnkPtrs->textures[sprite->textureId];
                 if (uvtx == NULL) {
-                    _uvDebugPrintf(" uvSprtProps: texture id %d not in level\n", sp->textureId);
-                    sp->textureId = 0xFFF;
+                    _uvDebugPrintf(" uvSprtProps: texture id %d not in level\n", sprite->textureId);
+                    sprite->textureId = 0xFFF;
                 } else {
-                    uvSprtFromBitmap(sp, uvtx);
-                    uvSprt_80230750(sp, uvtx);
+                    uvSprtFromBitmap(sprite, uvtx);
+                    uvSprt_80230750(sprite, uvtx);
                 }
             }
             break;
         case 10:
             if (va_arg(args, s32) == 0) {
-                sp->sprite.attr &= ~SP_FASTCOPY;
+                sprite->sprite.attr &= ~SP_FASTCOPY;
             } else {
-                sp->sprite.attr |= SP_FASTCOPY;
+                sprite->sprite.attr |= SP_FASTCOPY;
             }
             break;
         case 11:
             if (va_arg(args, s32) == 0) {
-                sp->sprite.attr &= ~SP_TRANSPARENT;
+                sprite->sprite.attr &= ~SP_TRANSPARENT;
             } else {
-                sp->sprite.attr |= SP_TRANSPARENT;
+                sprite->sprite.attr |= SP_TRANSPARENT;
             }
             break;
         default:

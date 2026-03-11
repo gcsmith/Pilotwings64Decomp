@@ -180,7 +180,7 @@ void _uvEnvDraw(s32 arg0, s32 arg1) {
         }
         temp_s1 = uven->unk30[i].flag;
         uvmd_lod = uvmd->lod;
-        uvmd_part = uvmd_lod->part;
+        uvmd_part = uvmd_lod->partTable;
 
         if (temp_s1 & 8) {
             D_80248DE0.m[3][0] = var_v0->unk110.m[3][0];
