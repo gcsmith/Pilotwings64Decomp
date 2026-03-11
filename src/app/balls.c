@@ -25,7 +25,6 @@ extern LevelBALS* sRefBALS;
 void ballsMotionUpdate(ParsedBALS*);
 void ballsFrameUpdateOne(ParsedBALS*);
 s32 balls_802CB6D4(ParsedBALS*);
-s32 balls_802CC0D4(u8 objId);
 
 // called during startup, during test load menu, and while init any level
 void ballsInit(void) {

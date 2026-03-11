@@ -11,7 +11,7 @@ void screenDrawBox2(s32, s32, s32, s32, s32, s32, s32, s32);
 void screenDrawBoxSetup(void);
 void db_getstart(Mtx4F*, Vec3F*, u8*, f32*);
 void func_802DFA18(void);
-u8 db_getgnd(Vec3F*, Vec3F*, s32*, s32*, f32*, f32*);
+u8 db_getgnd(Vec3F*, Vec3F*, s32*, s32*, f32*, Vec3F*);
 Vec3F* func_802E02EC(void);
 void func_802E05CC(Mtx4F*, Vec3F*, f32*, s32);
 void func_802E06AC(Mtx4F*);

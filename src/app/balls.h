@@ -52,6 +52,8 @@ void balls_802CAF50(void);
 void ballsLoad(void);
 void ballsDeinit(void);
 void ballsFrameUpdate(void);
+s32 balls_802CC0D4(u8 objId);
 u8 ballsGet_802CC15C(void);
+f32 ballsPopped(u8 objId, Vec3F* arg1, Unk802D3658_Unk1224* arg2);
 
 #endif // APP_BALLS_H

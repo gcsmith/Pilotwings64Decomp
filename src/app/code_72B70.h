@@ -47,9 +47,7 @@ typedef struct {
     f32 unk168;
     f32 unk16C;
     s32 unk170;
-    f32 unk174;
-    f32 unk178;
-    f32 unk17C;
+    Vec3F unk174;
     Mtx4F unk180;
     Mtx4F unk1C0;
     Vec3F unk200;

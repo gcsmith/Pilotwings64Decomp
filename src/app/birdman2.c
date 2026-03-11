@@ -109,11 +109,11 @@ void bird_802CECB8(Unk80367704* arg0) {
     s32 pad;
 
     arg0->unk170 = 0;
-    arg0->unk17C = 1.0f;
+    arg0->unk174.z = 1.0f;
     arg0->unk168 = 0.0f;
     arg0->unk16C = 0.0f;
-    arg0->unk178 = 0.0f;
-    arg0->unk174 = 0.0f;
+    arg0->unk174.y = 0.0f;
+    arg0->unk174.x = 0.0f;
     arg0->unk228.z = 0.0f;
     arg0->unk228.y = 0.0f;
     arg0->unk228.x = 0.0f;
@@ -222,9 +222,9 @@ void bird_802CEDF8(Unk80367704* arg0) {
         sp44.y = arg0->unk10.m[2][1];
         sp44.z = arg0->unk10.m[2][2];
     } else {
-        sp44.x = arg0->unk174;
-        sp44.y = arg0->unk178;
-        sp44.z = arg0->unk17C;
+        sp44.x = arg0->unk174.x;
+        sp44.y = arg0->unk174.y;
+        sp44.z = arg0->unk174.z;
     }
     func_80313C94(&sp44, &arg0->unk25C, 2.0f);
     uvMat4LocalToWorld(&arg0->unk1C0, &arg0->unk234, &arg0->unk228);

@@ -382,16 +382,12 @@ void bird_802CD0F8(Unk80367704* arg0) {
     f32 z;
     Vec3F sp60;
     Vec3F sp54;
-    Mtx4F* temp_a0;
+    Vec3F sp48;
     Vec3F* var_a1;
-    f32 sp48;
-    Mtx4F* sp2C;
     f32 sp40;
     s32 sp3C;
     s32 sp38;
     u8 sp37;
-    u8 temp_v0;
-    u8 temp6;
 
     if (arg0->unk2F0 == 0) {
         arg0->unk2F0 = 1;
@@ -402,22 +398,19 @@ void bird_802CD0F8(Unk80367704* arg0) {
         sp60.z = arg0->unk10.m[3][2];
         sp54.z = arg0->unk400.z;
         sp38 = arg0->unk40C;
-        temp_v0 = db_getgnd(&sp54, &sp60, &sp38, &sp3C, &sp40, &sp48);
-        sp37 = temp_v0;
-        if (temp_v0 != 0) {
+        sp37 = db_getgnd(&sp54, &sp60, &sp38, &sp3C, &sp40, &sp48);
+        if (sp37 != 0) {
             var_a1 = func_802E02EC();
         } else {
             var_a1 = &sp60;
             sp60.z = sp40;
         }
-        temp_a0 = &arg0->unk10;
-        sp2C = temp_a0;
-        func_802E05CC(temp_a0, var_a1, &sp48, 1);
+        func_802E05CC(&arg0->unk10, var_a1, &sp48, 1);
         if (func_802E0C30(sp37, sp3C) != 0) {
             arg0->unk15C = 1;
         }
-        uvDobjPosm(arg0->unk0, 0, sp2C);
-        uvMat4Copy(&arg0->unkD4->unk80, sp2C);
+        uvDobjPosm(arg0->unk0, 0, &arg0->unk10);
+        uvMat4Copy(&arg0->unkD4->unk80, &arg0->unk10);
         if (arg0->unk15C != 0) {
             snd_play_sfx(0x1A);
             uvEventPost(0x12, 0);
@@ -427,7 +420,7 @@ void bird_802CD0F8(Unk80367704* arg0) {
             func_802F8AB8(x, y, z, 1.0f, &arg0->unk218.x);
             arg0->unkD4->unk6 = arg0->unk2 = 0;
             uvDobjState(arg0->unk0, arg0->unk2);
-            uvMat4Copy(&arg0->unkD4->unk80, sp2C);
+            uvMat4Copy(&arg0->unkD4->unk80, &arg0->unk10);
         } else {
             arg0->unk2 = 2;
             uvDobjState(arg0->unk0, arg0->unk2);
