@@ -747,36 +747,36 @@ void func_8020F298(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
     D_80248DD4 = 0;
     uvGfxWaitForMesg();
 
-    for (i = 0; i < 128; i++) {
-        ParsedUVCT* temp_v0 = gGfxUnkPtrs->contours[i];
-        if (temp_v0 == NULL) {
+    for (i = 0; i < ARRAY_COUNT(gGfxUnkPtrs->contours); i++) {
+        ParsedUVCT* uvct = gGfxUnkPtrs->contours[i];
+        if (uvct == NULL) {
             continue;
         }
-        if (temp_v0->unk28 != 0.0f) {
-            temp_fv0 = 1.0f - (temp_v0->unk28 * arg4);
-            temp_fv1 = 1.0f - (temp_v0->unk28 * arg5);
-            temp_fa0 = 1.0f - (temp_v0->unk28 * arg6);
+        if (uvct->unk28 != 0.0f) {
+            temp_fv0 = 1.0f - (uvct->unk28 * arg4);
+            temp_fv1 = 1.0f - (uvct->unk28 * arg5);
+            temp_fa0 = 1.0f - (uvct->unk28 * arg6);
             if (arg0 == 0) {
-                func_8020ABAC(temp_v0->vtx, temp_v0->vtxCount, arg1, arg2, arg3, temp_fv0, temp_fv1, temp_fa0);
+                func_8020ABAC(uvct->vtxTable, uvct->vtxCount, arg1, arg2, arg3, temp_fv0, temp_fv1, temp_fa0);
             } else {
-                func_8020B4AC(temp_v0->vtx, temp_v0->vtxCount, arg1, arg2, arg3, temp_fv0, temp_fv1, temp_fa0);
+                func_8020B4AC(uvct->vtxTable, uvct->vtxCount, arg1, arg2, arg3, temp_fv0, temp_fv1, temp_fa0);
             }
         }
     }
 
-    for (i = 0; i < 400; i++) {
-        ParsedUVMD* temp_v0 = gGfxUnkPtrs->models[i];
-        if (temp_v0 == NULL) {
+    for (i = 0; i < ARRAY_COUNT(gGfxUnkPtrs->models); i++) {
+        ParsedUVMD* uvmd = gGfxUnkPtrs->models[i];
+        if (uvmd == NULL) {
             continue;
         }
-        if (temp_v0->unk24 != 0.0f) {
-            temp_fv0 = 1.0f - (temp_v0->unk24 * arg4);
-            temp_fv1 = 1.0f - (temp_v0->unk24 * arg5);
-            temp_fa0 = 1.0f - (temp_v0->unk24 * arg6);
+        if (uvmd->unk24 != 0.0f) {
+            temp_fv0 = 1.0f - (uvmd->unk24 * arg4);
+            temp_fv1 = 1.0f - (uvmd->unk24 * arg5);
+            temp_fa0 = 1.0f - (uvmd->unk24 * arg6);
             if (arg0 == 0) {
-                func_8020ABAC(temp_v0->vtx, temp_v0->vtxCount, arg1, arg2, arg3, temp_fv0, temp_fv1, temp_fa0);
+                func_8020ABAC(uvmd->vtxTable, uvmd->vtxCount, arg1, arg2, arg3, temp_fv0, temp_fv1, temp_fa0);
             } else {
-                func_8020B4AC(temp_v0->vtx, temp_v0->vtxCount, arg1, arg2, arg3, temp_fv0, temp_fv1, temp_fa0);
+                func_8020B4AC(uvmd->vtxTable, uvmd->vtxCount, arg1, arg2, arg3, temp_fv0, temp_fv1, temp_fa0);
             }
         }
     }
@@ -785,19 +785,19 @@ void func_8020F298(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
         return;
     }
 
-    for (i = 0; i < 500; i++) {
-        ParsedUVTX* temp_v0 = gGfxUnkPtrs->textures[i];
-        if (temp_v0 == NULL) {
+    for (i = 0; i < ARRAY_COUNT(gGfxUnkPtrs->textures); i++) {
+        ParsedUVTX* uvtx = gGfxUnkPtrs->textures[i];
+        if (uvtx == NULL) {
             continue;
         }
-        if (temp_v0->unk28 != 0) {
-            temp_fv0 = 1.0f - (temp_v0->unk28 * arg4);
-            temp_fv1 = 1.0f - (temp_v0->unk28 * arg5);
-            temp_fa0 = 1.0f - (temp_v0->unk28 * arg6);
+        if (uvtx->unk28 != 0) {
+            temp_fv0 = 1.0f - (uvtx->unk28 * arg4);
+            temp_fv1 = 1.0f - (uvtx->unk28 * arg5);
+            temp_fa0 = 1.0f - (uvtx->unk28 * arg6);
             if (arg0 == 0) {
-                func_802077BC(temp_v0->unk22, temp_v0->unkE, temp_v0->size, temp_v0->unk0, arg1, arg2, arg3, temp_fv0, temp_fv1, temp_fa0);
+                func_802077BC(uvtx->unk22, uvtx->unkE, uvtx->size, uvtx->unk0, arg1, arg2, arg3, temp_fv0, temp_fv1, temp_fa0);
             } else {
-                func_8020921C(temp_v0->unk22, temp_v0->unkE, temp_v0->size, temp_v0->unk0, arg1, arg2, arg3, temp_fv0, temp_fv1, temp_fa0);
+                func_8020921C(uvtx->unk22, uvtx->unkE, uvtx->size, uvtx->unk0, arg1, arg2, arg3, temp_fv0, temp_fv1, temp_fa0);
             }
         }
     }
@@ -819,42 +819,42 @@ void func_8020F630(s32 arg0) {
 
     uvGfxWaitForMesg();
 
-    for (i = 0; i < 128; i++) {
-        ParsedUVCT* temp_v0 = gGfxUnkPtrs->contours[i];
-        if (temp_v0 == NULL) {
+    for (i = 0; i < ARRAY_COUNT(gGfxUnkPtrs->contours); i++) {
+        ParsedUVCT* uvct = gGfxUnkPtrs->contours[i];
+        if (uvct == NULL) {
             continue;
         }
-        if (temp_v0->unk28 != 0.0f) {
+        if (uvct->unk28 != 0.0f) {
             if (arg0 == 0) {
-                var_fv1 = 1.0f - ((1.0f - D_80263748) * temp_v0->unk28);
-                var_fa0 = 1.0f - ((1.0f - D_8026374C) * temp_v0->unk28);
-                var_fa1 = 1.0f - ((1.0f - D_80263750) * temp_v0->unk28);
-                func_8020E760(temp_v0->vtx, temp_v0->vtxCount, var_fv1, var_fa0, var_fa1);
+                var_fv1 = 1.0f - ((1.0f - D_80263748) * uvct->unk28);
+                var_fa0 = 1.0f - ((1.0f - D_8026374C) * uvct->unk28);
+                var_fa1 = 1.0f - ((1.0f - D_80263750) * uvct->unk28);
+                func_8020E760(uvct->vtxTable, uvct->vtxCount, var_fv1, var_fa0, var_fa1);
             } else {
-                var_fv1 = 1.0f - ((1.0f - D_80263754) * temp_v0->unk28);
-                var_fa0 = 1.0f - ((1.0f - D_80263758) * temp_v0->unk28);
-                var_fa1 = 1.0f - ((1.0f - D_8026375C) * temp_v0->unk28);
-                func_8020EF20(temp_v0->vtx, temp_v0->vtxCount, var_fv1, var_fa0, var_fa1);
+                var_fv1 = 1.0f - ((1.0f - D_80263754) * uvct->unk28);
+                var_fa0 = 1.0f - ((1.0f - D_80263758) * uvct->unk28);
+                var_fa1 = 1.0f - ((1.0f - D_8026375C) * uvct->unk28);
+                func_8020EF20(uvct->vtxTable, uvct->vtxCount, var_fv1, var_fa0, var_fa1);
             }
         }
     }
 
-    for (i = 0; i < 400; i++) {
-        ParsedUVMD* temp_v0 = gGfxUnkPtrs->models[i];
-        if (temp_v0 == NULL) {
+    for (i = 0; i < ARRAY_COUNT(gGfxUnkPtrs->models); i++) {
+        ParsedUVMD* uvmd = gGfxUnkPtrs->models[i];
+        if (uvmd == NULL) {
             continue;
         }
-        if (temp_v0->unk24 != 0.0f) {
+        if (uvmd->unk24 != 0.0f) {
             if (arg0 == 0) {
-                var_fv1 = 1.0f - ((1.0f - D_80263748) * temp_v0->unk24);
-                var_fa0 = 1.0f - ((1.0f - D_8026374C) * temp_v0->unk24);
-                var_fa1 = 1.0f - ((1.0f - D_80263750) * temp_v0->unk24);
-                func_8020E760(temp_v0->vtx, temp_v0->vtxCount, var_fv1, var_fa0, var_fa1);
+                var_fv1 = 1.0f - ((1.0f - D_80263748) * uvmd->unk24);
+                var_fa0 = 1.0f - ((1.0f - D_8026374C) * uvmd->unk24);
+                var_fa1 = 1.0f - ((1.0f - D_80263750) * uvmd->unk24);
+                func_8020E760(uvmd->vtxTable, uvmd->vtxCount, var_fv1, var_fa0, var_fa1);
             } else {
-                var_fv1 = 1.0f - ((1.0f - D_80263754) * temp_v0->unk24);
-                var_fa0 = 1.0f - ((1.0f - D_80263758) * temp_v0->unk24);
-                var_fa1 = 1.0f - ((1.0f - D_8026375C) * temp_v0->unk24);
-                func_8020EF20(temp_v0->vtx, temp_v0->vtxCount, var_fv1, var_fa0, var_fa1);
+                var_fv1 = 1.0f - ((1.0f - D_80263754) * uvmd->unk24);
+                var_fa0 = 1.0f - ((1.0f - D_80263758) * uvmd->unk24);
+                var_fa1 = 1.0f - ((1.0f - D_8026375C) * uvmd->unk24);
+                func_8020EF20(uvmd->vtxTable, uvmd->vtxCount, var_fv1, var_fa0, var_fa1);
             }
         }
     }
@@ -863,22 +863,22 @@ void func_8020F630(s32 arg0) {
         return;
     }
 
-    for (i = 0; i < 500; i++) {
-        ParsedUVTX* temp_v0 = gGfxUnkPtrs->textures[i];
-        if (temp_v0 == NULL) {
+    for (i = 0; i < ARRAY_COUNT(gGfxUnkPtrs->textures); i++) {
+        ParsedUVTX* uvtx = gGfxUnkPtrs->textures[i];
+        if (uvtx == NULL) {
             continue;
         }
-        if (temp_v0->unk28 != 0.0f) {
+        if (uvtx->unk28 != 0.0f) {
             if (arg0 == 0) {
-                var_fv1 = 1.0f - ((1.0f - D_80263748) * temp_v0->unk28);
-                var_fa0 = 1.0f - ((1.0f - D_8026374C) * temp_v0->unk28);
-                var_fa1 = 1.0f - ((1.0f - D_80263750) * temp_v0->unk28);
-                func_8020B894(temp_v0->unk22, temp_v0->unkE, temp_v0->size, temp_v0->unk0, var_fv1, var_fa0, var_fa1);
+                var_fv1 = 1.0f - ((1.0f - D_80263748) * uvtx->unk28);
+                var_fa0 = 1.0f - ((1.0f - D_8026374C) * uvtx->unk28);
+                var_fa1 = 1.0f - ((1.0f - D_80263750) * uvtx->unk28);
+                func_8020B894(uvtx->unk22, uvtx->unkE, uvtx->size, uvtx->unk0, var_fv1, var_fa0, var_fa1);
             } else {
-                var_fv1 = 1.0f - ((1.0f - D_80263754) * temp_v0->unk28);
-                var_fa0 = 1.0f - ((1.0f - D_80263758) * temp_v0->unk28);
-                var_fa1 = 1.0f - ((1.0f - D_8026375C) * temp_v0->unk28);
-                func_8020D0D8(temp_v0->unk22, temp_v0->unkE, temp_v0->size, temp_v0->unk0, var_fv1, var_fa0, var_fa1);
+                var_fv1 = 1.0f - ((1.0f - D_80263754) * uvtx->unk28);
+                var_fa0 = 1.0f - ((1.0f - D_80263758) * uvtx->unk28);
+                var_fa1 = 1.0f - ((1.0f - D_8026375C) * uvtx->unk28);
+                func_8020D0D8(uvtx->unk22, uvtx->unkE, uvtx->size, uvtx->unk0, var_fv1, var_fa0, var_fa1);
             }
         }
     }
@@ -901,36 +901,36 @@ void func_8020F9F4(void) {
 }
 
 ParsedUVTR* uvTerraGetBox(s32 terraId) {
-    ParsedUVTR* temp_v1;
+    ParsedUVTR* uvtr;
 
-    temp_v1 = gGfxUnkPtrs->terras[terraId];
-    if (temp_v1 == NULL) {
+    uvtr = gGfxUnkPtrs->terras[terraId];
+    if (uvtr == NULL) {
         _uvDebugPrintf("uvTerraGetBox: terra %d not defined for level\n", terraId);
     }
-    return temp_v1;
+    return uvtr;
 }
 
-void uvModelGetPosm(s32 modelId, s32 partIndex, Mtx4F* arg2) {
-    ParsedUVMD* temp_v0;
+void uvModelGetPosm(s32 modelId, s32 partIndex, Mtx4F* posm) {
+    ParsedUVMD* uvmd;
 
-    temp_v0 = gGfxUnkPtrs->models[modelId];
-    if (temp_v0 == NULL) {
+    uvmd = gGfxUnkPtrs->models[modelId];
+    if (uvmd == NULL) {
         _uvDebugPrintf("uvModelGetPosm: model %d not defined for level\n", modelId);
         return;
     }
-    if (partIndex >= temp_v0->unk8->unk4) {
+    if (partIndex >= uvmd->lodTable->partCount) {
         _uvDebugPrintf("uvModelGetPosm: there are not %d parts defined for model %d\n", partIndex, modelId);
         return;
     }
 
-    uvMat4Copy(arg2, &temp_v0->unk14[partIndex]);
-    arg2->m[3][0] /= temp_v0->unk20;
-    arg2->m[3][1] /= temp_v0->unk20;
-    arg2->m[3][2] /= temp_v0->unk20;
+    uvMat4Copy(posm, &uvmd->mtxTable[partIndex]);
+    posm->m[3][0] /= uvmd->unk20;
+    posm->m[3][1] /= uvmd->unk20;
+    posm->m[3][2] /= uvmd->unk20;
 }
 
 void uvModelGetProps(s32 modelId, ...) {
-    ParsedUVMD* temp_s2;
+    ParsedUVMD* uvmd;
     s32 var_a0;
     s32 var_v0;
     s32 property;
@@ -940,9 +940,9 @@ void uvModelGetProps(s32 modelId, ...) {
     if (modelId == 0xFFFF) {
         return;
     }
-    temp_s2 = gGfxUnkPtrs->models[modelId];
+    uvmd = gGfxUnkPtrs->models[modelId];
     va_start(args, modelId);
-    if (temp_s2 == NULL) {
+    if (uvmd == NULL) {
         _uvDebugPrintf("uvModelGetProps: model %d not defined for level\n", modelId);
         return;
     }
@@ -953,10 +953,10 @@ void uvModelGetProps(s32 modelId, ...) {
         case 0:
             return;
         case 2:
-            *va_arg(args, s32*) = temp_s2->unk10;
+            *va_arg(args, s32*) = uvmd->lodCount;
             break;
         case 5:
-            if (temp_s2->unk8->unk0->unk0->state & GFX_STATE_2000000) {
+            if (uvmd->lodTable->partTable->stateTable->state & GFX_STATE_2000000) {
                 var_v0 = 1;
             } else {
                 var_v0 = 0;
@@ -965,18 +965,18 @@ void uvModelGetProps(s32 modelId, ...) {
             *va_arg(args, u8*) = var_v0;
             break;
         case 4:
-            *va_arg(args, s32*) = temp_s2->unk8->unk4;
+            *va_arg(args, s32*) = uvmd->lodTable->partCount;
             break;
         case 3:
             var_a0 = 0;
-            for (i = 0; i < temp_s2->unk8->unk4; i++) {
-                var_a0 += temp_s2->unk8->unk0[i].unkC;
+            for (i = 0; i < uvmd->lodTable->partCount; i++) {
+                var_a0 += uvmd->lodTable->partTable[i].unkC;
             }
 
             *va_arg(args, s32*) = var_a0;
             break;
         case 1:
-            *va_arg(args, f32*) = temp_s2->unk1C;
+            *va_arg(args, f32*) = uvmd->unk1C;
             break;
         default:
             _uvDebugPrintf("uvModelGetProps: Unknown property type %d\n", property);
@@ -989,36 +989,36 @@ u32 uvTerraGetPt(s32 terraId, f32 arg1, f32 arg2, s32** arg3) {
     f32 sp94;
     f32 sp90;
     f32 sp8C;
-    ParsedUVTR* temp_s0;
+    ParsedUVTR* uvtr;
     u16 i;
     uvUnkTileStruct* var_v0;
     u16 j;
-    ParsedUVCT* temp_s4;
+    ParsedUVCT* uvct;
     u16 sp76;
     u32 var_s2;
     u16 sp6E;
     Unk80225FBC_0x28* temp_s1;
     Unk80225FBC_0x28_UnkC* temp_v0;
 
-    temp_s0 = gGfxUnkPtrs->terras[terraId];
+    uvtr = gGfxUnkPtrs->terras[terraId];
     var_s2 = 0;
-    if (temp_s0 == NULL) {
+    if (uvtr == NULL) {
         _uvDebugPrintf("uvTerraGetPt: terra %d not defined for level\n", terraId);
     }
-    if (func_80212FF4(temp_s0, arg1, arg2, 0.0f, &sp94, &sp90, &sp8C, &sp6E, &sp76, 0) == 0) {
+    if (func_80212FF4(uvtr, arg1, arg2, 0.0f, &sp94, &sp90, &sp8C, &sp6E, &sp76, 0) == 0) {
         return *arg3 = NULL;
     }
-    var_v0 = &temp_s0->unk28[sp6E];
-    temp_s4 = var_v0->unk40;
-    if (temp_s4 == NULL) {
+    var_v0 = &uvtr->unk28[sp6E];
+    uvct = var_v0->unk40;
+    if (uvct == NULL) {
         return *arg3 = NULL;
     }
 
     sp94 *= gGfxUnkPtrs->unk1608;
     sp90 *= gGfxUnkPtrs->unk1608;
     sp8C *= gGfxUnkPtrs->unk1608;
-    for (i = 0; i < temp_s4->unkC; i++) {
-        temp_s1 = &temp_s4->unk8[i];
+    for (i = 0; i < uvct->unkC; i++) {
+        temp_s1 = &uvct->unk8[i];
         if (!(temp_s1->unk12 & sp76)) {
             continue;
         }
@@ -1028,7 +1028,7 @@ u32 uvTerraGetPt(s32 terraId, f32 arg1, f32 arg2, s32** arg3) {
             if (!(temp_v0->unk6 & sp76)) {
                 continue;
             }
-            if (func_80212480(sp94, sp90, temp_s4->vtx, temp_v0->unk0, temp_v0->unk2, temp_v0->unk4, 1.0f) == 0) {
+            if (func_80212480(sp94, sp90, uvct->vtxTable, temp_v0->unk0, temp_v0->unk2, temp_v0->unk4, 1.0f) == 0) {
                 continue;
             }
             D_802634C8[var_s2] = ((sp6E & 0x3FF) << 22) + ((i & 0x3FF) << 12) + (j & 0xFFF);
@@ -1043,8 +1043,8 @@ u32 uvTerraGetPt(s32 terraId, f32 arg1, f32 arg2, s32** arg3) {
 }
 
 s32 uvTerraGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, s32** arg7, f32** arg8) {
-    ParsedUVTR* sp184;
-    ParsedUVCT* temp_s4;
+    ParsedUVTR* uvtr;
+    ParsedUVCT* uvct;
     uvUnkTileStruct* temp_s1;
     Unk80225FBC_0x28* temp_s1_2;
     Unk80225FBC_0x28_UnkC* temp_v0_2;
@@ -1109,13 +1109,13 @@ s32 uvTerraGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
         *arg8 = NULL;
         return 0;
     }
-    sp184 = gGfxUnkPtrs->terras[terraId];
-    if (sp184 == NULL) {
+    uvtr = gGfxUnkPtrs->terras[terraId];
+    if (uvtr == NULL) {
         _uvDebugPrintf("uvTerraGetSeg: terra %d not defined for level\n", terraId);
     }
 
-    sp128 = sp184->unk1C;
-    sp124 = sp184->unk20;
+    sp128 = uvtr->unk1C;
+    sp124 = uvtr->unk20;
     spFC = arg1;
     spF8 = arg2;
     spF4 = arg4;
@@ -1123,17 +1123,17 @@ s32 uvTerraGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
     temp_fs2 = arg4 - arg1;
     temp_fs3 = arg5 - arg2;
     temp_fs0 = arg6 - arg3;
-    func_802141CC(&arg1, &arg2, &arg4, &arg5, sp184->unk0.unk0, sp184->unk0.unkC, sp184->unk0.unk4, sp184->unk0.unk10);
-    if (arg1 == sp184->unk0.unkC) {
+    func_802141CC(&arg1, &arg2, &arg4, &arg5, uvtr->unk0.unk0, uvtr->unk0.unkC, uvtr->unk0.unk4, uvtr->unk0.unk10);
+    if (arg1 == uvtr->unk0.unkC) {
         arg1 -= 0.0001f * sp128;
     }
-    if (arg4 == sp184->unk0.unkC) {
+    if (arg4 == uvtr->unk0.unkC) {
         arg4 -= 0.0001f * sp128;
     }
-    if (arg2 == sp184->unk0.unk10) {
+    if (arg2 == uvtr->unk0.unk10) {
         arg2 -= 0.0001f * sp124;
     }
-    if (arg5 == sp184->unk0.unk10) {
+    if (arg5 == uvtr->unk0.unk10) {
         arg5 -= 0.0001f * sp124;
     }
 
@@ -1155,8 +1155,8 @@ s32 uvTerraGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
         *arg8 = NULL;
         return 0;
     }
-    temp_s0 = func_80212FF4(sp184, arg1, arg2, arg3, &sp170, &sp16C, &sp168, &sp15A, &sp156, 0);
-    temp_t3 = func_80212FF4(sp184, arg4, arg5, arg6, &sp164, &sp160, &sp15C, &sp158, &sp154, 0);
+    temp_s0 = func_80212FF4(uvtr, arg1, arg2, arg3, &sp170, &sp16C, &sp168, &sp15A, &sp156, 0);
+    temp_t3 = func_80212FF4(uvtr, arg4, arg5, arg6, &sp164, &sp160, &sp15C, &sp158, &sp154, 0);
     if ((temp_s0 == 0) && (temp_t3 == 0)) {
         *arg7 = NULL;
         *arg8 = NULL;
@@ -1174,8 +1174,8 @@ s32 uvTerraGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
         spB6 = FALSE;
     }
     if (spB7) {
-        var_v1 = var_v0 = (s32)((arg1 - sp184->unk0.unk0) / sp128);
-        sp140 = sp13C = (s32)((arg2 - sp184->unk0.unk4) / sp124);
+        var_v1 = var_v0 = (s32)((arg1 - uvtr->unk0.unk0) / sp128);
+        sp140 = sp13C = (s32)((arg2 - uvtr->unk0.unk4) / sp124);
     } else {
         if (arg4 < arg1) {
             var_ft4 = arg4;
@@ -1192,35 +1192,35 @@ s32 uvTerraGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
             var_fa0 = arg2;
         }
 
-        var_v1 = (s32)((var_ft4 - sp184->unk0.unk0) / sp128);
-        var_v0 = (s32)((var_ft5 - sp184->unk0.unk0) / sp128);
-        sp140 = (s32)((var_fa0 - sp184->unk0.unk4) / sp124);
-        sp13C = (s32)((var_fa1 - sp184->unk0.unk4) / sp124);
+        var_v1 = (s32)((var_ft4 - uvtr->unk0.unk0) / sp128);
+        var_v0 = (s32)((var_ft5 - uvtr->unk0.unk0) / sp128);
+        sp140 = (s32)((var_fa0 - uvtr->unk0.unk4) / sp124);
+        sp13C = (s32)((var_fa1 - uvtr->unk0.unk4) / sp124);
         if (var_v1 < 0) {
             var_v1 = 0;
         }
 
-        if (var_v0 >= sp184->unk18) {
-            var_v0 = sp184->unk18 - 1;
+        if (var_v0 >= uvtr->unk18) {
+            var_v0 = uvtr->unk18 - 1;
         }
         if (sp140 < 0) {
             sp140 = 0;
         }
 
-        if (sp13C >= sp184->unk19) {
-            sp13C = sp184->unk19 - 1;
+        if (sp13C >= uvtr->unk19) {
+            sp13C = uvtr->unk19 - 1;
         }
     }
 
     for (i = var_v1; i <= var_v0; i++) {
         for (j = sp140; j <= sp13C; j++) {
-            temp_s5 = (sp184->unk18 * j) + i;
-            temp_s1 = &sp184->unk28[temp_s5];
+            temp_s5 = (uvtr->unk18 * j) + i;
+            temp_s1 = &uvtr->unk28[temp_s5];
             if (temp_s1 == NULL) {
                 continue;
             }
-            temp_s4 = temp_s1->unk40;
-            if (temp_s4 == NULL) {
+            uvct = temp_s1->unk40;
+            if (uvct == NULL) {
                 continue;
             }
 
@@ -1250,7 +1250,7 @@ s32 uvTerraGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
                 if (sp104 == sp110) {
                     var_s0 |= 2;
                 }
-                func_80212FF4(sp184, sp10C, sp104, spEC, &sp170, &sp16C, &sp168, &sp15A, &sp156, var_s0);
+                func_80212FF4(uvtr, sp10C, sp104, spEC, &sp170, &sp16C, &sp168, &sp15A, &sp156, var_s0);
                 var_s0 = 0;
                 if (sp108 == sp118) {
                     var_s0 |= 1;
@@ -1258,7 +1258,7 @@ s32 uvTerraGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
                 if (sp100 == sp110) {
                     var_s0 |= 2;
                 }
-                func_80212FF4(sp184, sp108, sp100, spE8, &sp164, &sp160, &sp15C, &sp158, &sp154, var_s0);
+                func_80212FF4(uvtr, sp108, sp100, spE8, &sp164, &sp160, &sp15C, &sp158, &sp154, var_s0);
                 if (sp156 != sp154) {
                     sp154 = func_80214900(sp10C, sp104, sp108, sp100, sp170, sp16C, sp164, sp160, sp11C, sp118, sp110, sp114, temp_s1);
                 }
@@ -1277,8 +1277,8 @@ s32 uvTerraGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
             sp160 *= gGfxUnkPtrs->unk1608;
             sp168 *= gGfxUnkPtrs->unk1608;
             sp15C *= gGfxUnkPtrs->unk1608;
-            for (k = 0; k < temp_s4->unkC; k++) {
-                temp_s1_2 = &temp_s4->unk8[k];
+            for (k = 0; k < uvct->unkC; k++) {
+                temp_s1_2 = &uvct->unk8[k];
                 if (!(temp_s1_2->unk12 & sp154)) {
                     continue;
                 }
@@ -1288,7 +1288,7 @@ s32 uvTerraGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
                     if (!(temp_v0_2->unk6 & sp154)) {
                         continue;
                     }
-                    if (func_802129B0(sp170, sp16C, sp168, sp164, sp160, sp15C, temp_s4->vtx, temp_v0_2->unk0, temp_v0_2->unk2, temp_v0_2->unk4, 1.0f,
+                    if (func_802129B0(sp170, sp16C, sp168, sp164, sp160, sp15C, uvct->vtxTable, temp_v0_2->unk0, temp_v0_2->unk2, temp_v0_2->unk4, 1.0f,
                                       &sp120) == 0) {
                         continue;
                     }
@@ -1319,9 +1319,9 @@ s32 uvTerraGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
 }
 
 void uvTerraGetColor(s32 terraId, s32 surfaceId, u8* arg2, u8* arg3, u8* arg4) {
-    ParsedUVCT* temp_a0;
-    ParsedUVTR* temp_v0;
-    ParsedUVTX* temp_v0_3;
+    ParsedUVCT* uvct;
+    ParsedUVTR* uvtr;
+    ParsedUVTX* uvtx;
     Unk80225FBC_0x28* temp_v0_2;
     Unk80225FBC_0x28_UnkC* temp_v1_2;
     Vtx* vtx;
@@ -1332,41 +1332,41 @@ void uvTerraGetColor(s32 terraId, s32 surfaceId, u8* arg2, u8* arg3, u8* arg4) {
         _uvDebugPrintf("uvTerraGetColor: null surface id\n");
         return;
     }
-    temp_v0 = gGfxUnkPtrs->terras[terraId];
-    if (temp_v0 == NULL) {
+    uvtr = gGfxUnkPtrs->terras[terraId];
+    if (uvtr == NULL) {
         _uvDebugPrintf("uvTerraGetColor: terra %d not defined for level\n", terraId);
         return;
     }
-    temp_v1 = &temp_v0->unk28[((u32)surfaceId >> 22) & 0x3FF];
+    temp_v1 = &uvtr->unk28[((u32)surfaceId >> 22) & 0x3FF];
     if (temp_v1 == NULL) {
         _uvDebugPrintf("uvTerraGetColor: bad surfce id [0x%x]\n", surfaceId);
         return;
     }
-    temp_a0 = temp_v1->unk40;
-    if (temp_a0 == NULL) {
+    uvct = temp_v1->unk40;
+    if (uvct == NULL) {
         _uvDebugPrintf("uvTerraGetColor: bad surfce id [0x%x]\n", surfaceId);
         return;
     }
-    temp_v0_2 = &temp_a0->unk8[((u32)surfaceId >> 12) & 0x3FF];
+    temp_v0_2 = &uvct->unk8[((u32)surfaceId >> 12) & 0x3FF];
     temp_v1_2 = &temp_v0_2->unkC[surfaceId & 0xFFF];
     if ((temp_v0_2->unk0.state & 0xFFF) != 0xFFF) {
-        temp_v0_3 = gGfxUnkPtrs->textures[temp_v0_2->unk0.state & 0xFFF];
-        if (temp_v0_3->unk22 == 4) {
-            *arg2 = temp_v0_3->unk23;
-            *arg3 = temp_v0_3->unk24;
-            *arg4 = temp_v0_3->unk25;
+        uvtx = gGfxUnkPtrs->textures[temp_v0_2->unk0.state & 0xFFF];
+        if (uvtx->unk22 == 4) {
+            *arg2 = uvtx->unk23;
+            *arg3 = uvtx->unk24;
+            *arg4 = uvtx->unk25;
             return;
         }
     }
-    vtx = temp_a0->vtx;
+    vtx = uvct->vtxTable;
     *arg2 = (vtx[temp_v1_2->unk0].v.cn[0] + vtx[temp_v1_2->unk2].v.cn[0] + vtx[temp_v1_2->unk4].v.cn[0]) / 3;
     *arg3 = (vtx[temp_v1_2->unk0].v.cn[1] + vtx[temp_v1_2->unk2].v.cn[1] + vtx[temp_v1_2->unk4].v.cn[1]) / 3;
     *arg4 = (vtx[temp_v1_2->unk0].v.cn[2] + vtx[temp_v1_2->unk2].v.cn[2] + vtx[temp_v1_2->unk4].v.cn[2]) / 3;
 }
 
 s32 uvTerraGetState(s32 terraId, s32 surfaceId) {
-    ParsedUVCT* temp_a2;
-    ParsedUVTR* temp_v0;
+    ParsedUVCT* uvct;
+    ParsedUVTR* uvtr;
     s32 temp_t9;
     uvUnkTileStruct* temp_a0;
     Unk80225FBC_0x28* temp_v1;
@@ -1375,34 +1375,34 @@ s32 uvTerraGetState(s32 terraId, s32 surfaceId) {
         _uvDebugPrintf("uvTerraGetState: null surface id\n", surfaceId);
         return 0xFFF;
     }
-    temp_v0 = gGfxUnkPtrs->terras[terraId];
-    if (temp_v0 == NULL) {
+    uvtr = gGfxUnkPtrs->terras[terraId];
+    if (uvtr == NULL) {
         _uvDebugPrintf("uvTerraGetState: terra %d not defined for level\n", terraId);
         return 0xFFF;
     }
     temp_t9 = ((u32)surfaceId >> 22) & 0x3FF;
-    if ((temp_t9) >= (temp_v0->unk18 * temp_v0->unk19)) {
+    if ((temp_t9) >= (uvtr->unk18 * uvtr->unk19)) {
         _uvDebugPrintf("uvTerraGetState: bad surface id [0x%x]\n", surfaceId);
         return 0xFFF;
     }
-    temp_a0 = &temp_v0->unk28[(temp_t9)];
+    temp_a0 = &uvtr->unk28[(temp_t9)];
     if (temp_a0 == NULL) {
         _uvDebugPrintf("uvTerraGetState: bad surface id [0x%x]\n", surfaceId);
         return 0xFFF;
     }
-    temp_a2 = temp_a0->unk40;
-    if (temp_a2 == NULL) {
+    uvct = temp_a0->unk40;
+    if (uvct == NULL) {
         _uvDebugPrintf("uvTerraGetState: bad surface id [0x%x]\n", surfaceId);
         return 0xFFF;
     }
-    temp_v1 = &temp_a2->unk8[((u32)surfaceId >> 12) & 0x3FF];
+    temp_v1 = &uvct->unk8[((u32)surfaceId >> 12) & 0x3FF];
     return temp_v1->unk0.state;
 }
 
 void uvTerraGetPlane(s32 terraId, s32 surfaceId, f32 px, f32 py, f32* arg4, Vec3F* arg5) {
-    ParsedUVCT* temp_v0;
+    ParsedUVCT* uvct;
     uvUnkTileStruct* sp70;
-    ParsedUVTR* temp_a0;
+    ParsedUVTR* uvtr;
     Unk80225FBC_0x28_UnkC* temp_s2;
     Vtx* sp64;
     f32 sp60;
@@ -1419,18 +1419,18 @@ void uvTerraGetPlane(s32 terraId, s32 surfaceId, f32 px, f32 py, f32* arg4, Vec3
         _uvDebugPrintf("uvTerraGetPlane : null surface id\n");
         return;
     }
-    temp_a0 = gGfxUnkPtrs->terras[terraId];
-    if (temp_a0 == NULL) {
+    uvtr = gGfxUnkPtrs->terras[terraId];
+    if (uvtr == NULL) {
         _uvDebugPrintf("uvTerraGetPlane : terra [%d] not in level\n", terraId);
         return;
     }
-    sp70 = &temp_a0->unk28[((u32)surfaceId >> 22) & 0x3FF];
-    temp_v0 = sp70->unk40;
-    temp_v1 = &temp_v0->unk8[((u32)surfaceId >> 12) & 0x3FF];
+    sp70 = &uvtr->unk28[((u32)surfaceId >> 22) & 0x3FF];
+    uvct = sp70->unk40;
+    temp_v1 = &uvct->unk8[((u32)surfaceId >> 12) & 0x3FF];
 
     temp_s2 = &temp_v1->unkC[surfaceId & 0xFFF];
-    sp64 = temp_v0->vtx;
-    func_80212FF4(temp_a0, px, py, 0.0f, &sp60, &sp5C, &sp58, &sp56, &sp54, 0);
+    sp64 = uvct->vtxTable;
+    func_80212FF4(uvtr, px, py, 0.0f, &sp60, &sp5C, &sp58, &sp56, &sp54, 0);
     sp60 *= gGfxUnkPtrs->unk1608;
     sp5C *= gGfxUnkPtrs->unk1608;
     sp58 *= gGfxUnkPtrs->unk1608;
@@ -1489,24 +1489,24 @@ s32 uvSobjGetPt(s32 terraId, f32 arg1, f32 arg2, f32 arg3) {
     f32 sp78;
     f32 sp74;
     f32 sp70;
-    ParsedUVCT* temp_v0;
-    ParsedUVMD* temp_s1;
-    ParsedUVTR* temp_s0;
+    ParsedUVCT* uvct;
+    ParsedUVMD* uvmd;
+    ParsedUVTR* uvtr;
     u32 i;
     uvUnkTileStruct* temp_s4;
     UnkSobjDraw* temp_s0_2;
 
-    temp_s0 = gGfxUnkPtrs->terras[terraId];
-    if (temp_s0 == NULL) {
+    uvtr = gGfxUnkPtrs->terras[terraId];
+    if (uvtr == NULL) {
         _uvDebugPrintf("uvSobjGetPt: terra %d not defined for level\n", terraId);
         return -1;
     }
-    if (func_80212FF4(temp_s0, arg1, arg2, arg3, &sp78, &sp74, &sp70, &sp7C, &sp7E, 0) == 0) {
+    if (func_80212FF4(uvtr, arg1, arg2, arg3, &sp78, &sp74, &sp70, &sp7C, &sp7E, 0) == 0) {
         return -1;
     }
-    temp_s4 = &temp_s0->unk28[sp7C];
-    temp_v0 = temp_s4->unk40;
-    if (temp_v0 == NULL) {
+    temp_s4 = &uvtr->unk28[sp7C];
+    uvct = temp_s4->unk40;
+    if (uvct == NULL) {
         return -1;
     }
 
@@ -1515,9 +1515,9 @@ s32 uvSobjGetPt(s32 terraId, f32 arg1, f32 arg2, f32 arg3) {
         if (!(sp7E & temp_s0_2->unk14)) {
             continue;
         }
-        temp_s1 = gGfxUnkPtrs->models[temp_s0_2->modelId];
-        if (func_80213364(sp78, sp74, sp70, temp_s0_2->unk8, temp_s0_2->unkC, temp_s0_2->unk10, temp_s1->unk1C) != 0) {
-            if (temp_s1->unk11 & 2) {
+        uvmd = gGfxUnkPtrs->models[temp_s0_2->modelId];
+        if (func_80213364(sp78, sp74, sp70, temp_s0_2->unk8, temp_s0_2->unkC, temp_s0_2->unk10, uvmd->unk1C) != 0) {
+            if (uvmd->unk11 & 2) {
                 if (func_802134F8(sp78, sp74, sp70, temp_s0_2) >= 0) {
                     return ((terraId & 0xFF) << 24) | ((sp7C & 0xFFF) << 12) | (i & 0xFFF);
                 }
@@ -1534,8 +1534,8 @@ s32 uvSobjGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
     u16 sp16E;
     u16 sp16C;
     u16 k;
-    ParsedUVTR* sp164;
-    ParsedUVMD* temp_s1;
+    ParsedUVTR* uvtr;
+    ParsedUVMD* uvmd;
     UnkSobjDraw* temp_s0_2;
     uvUnkTileStruct* temp_s3;
     f32 sp154;
@@ -1588,8 +1588,8 @@ s32 uvSobjGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
     u16 temp_t6;
 
     D_802634C4 = 0;
-    sp164 = gGfxUnkPtrs->terras[terraId];
-    if (sp164 == NULL) {
+    uvtr = gGfxUnkPtrs->terras[terraId];
+    if (uvtr == NULL) {
         _uvDebugPrintf("uvSobjGetSeg: terra %d not defined for level\n", terraId);
         return 0;
     }
@@ -1600,8 +1600,8 @@ s32 uvSobjGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
             arg6 += 0.0001f;
         }
     }
-    sp110 = sp164->unk1C;
-    sp10C = sp164->unk20;
+    sp110 = uvtr->unk1C;
+    sp10C = uvtr->unk20;
     spCC = arg1;
     spC8 = arg2;
     spC4 = arg4;
@@ -1609,17 +1609,17 @@ s32 uvSobjGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
     temp_fs0 = arg4 - arg1;
     temp_fs1 = arg5 - arg2;
     temp_fs2 = arg6 - arg3;
-    func_802141CC(&arg1, &arg2, &arg4, &arg5, sp164->unk0.unk0, sp164->unk0.unkC, sp164->unk0.unk4, sp164->unk0.unk10);
-    if (arg1 == sp164->unk0.unkC) {
+    func_802141CC(&arg1, &arg2, &arg4, &arg5, uvtr->unk0.unk0, uvtr->unk0.unkC, uvtr->unk0.unk4, uvtr->unk0.unk10);
+    if (arg1 == uvtr->unk0.unkC) {
         arg1 -= 0.0001f * sp110;
     }
-    if (arg4 == sp164->unk0.unkC) {
+    if (arg4 == uvtr->unk0.unkC) {
         arg4 -= 0.0001f * sp110;
     }
-    if (arg2 == sp164->unk0.unk10) {
+    if (arg2 == uvtr->unk0.unk10) {
         arg2 -= 0.0001f * sp10C;
     }
-    if (arg5 == sp164->unk0.unk10) {
+    if (arg5 == uvtr->unk0.unk10) {
         arg5 -= 0.0001f * sp10C;
     }
     if ((spCC != arg1) && (temp_fs0 != 0.0f)) {
@@ -1650,8 +1650,8 @@ s32 uvSobjGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
         *arg9 = D_802635C8;
     }
 
-    temp_s0 = func_80212FF4(sp164, arg1, arg2, arg3, &sp154, &sp150, &sp14C, &sp13E, &sp13A, 0);
-    temp_t7 = func_80212FF4(sp164, arg4, arg5, arg6, &sp148, &sp144, &sp140, &sp13C, &sp138, 0);
+    temp_s0 = func_80212FF4(uvtr, arg1, arg2, arg3, &sp154, &sp150, &sp14C, &sp13E, &sp13A, 0);
+    temp_t7 = func_80212FF4(uvtr, arg4, arg5, arg6, &sp148, &sp144, &sp140, &sp13C, &sp138, 0);
     if ((temp_s0 == 0) && (temp_t7 == 0)) {
         *arg7 = NULL;
         *arg8 = NULL;
@@ -1669,8 +1669,8 @@ s32 uvSobjGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
         spB2 = FALSE;
     }
     if (spB3) {
-        sp130 = sp12C = (s32)((arg1 - sp164->unk0.unk0) / sp110);
-        sp128 = sp124 = (s32)((arg2 - sp164->unk0.unk4) / sp10C);
+        sp130 = sp12C = (s32)((arg1 - uvtr->unk0.unk0) / sp110);
+        sp128 = sp124 = (s32)((arg2 - uvtr->unk0.unk4) / sp10C);
     } else {
         var_fa0 = arg1;
         var_fa1 = arg1;
@@ -1687,30 +1687,30 @@ s32 uvSobjGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
             var_ft4 = arg5;
         }
 
-        sp130 = (s32)((var_fa1 - sp164->unk0.unk0) / sp110);
-        sp12C = (s32)((var_fa0 - sp164->unk0.unk0) / sp110);
-        sp128 = (s32)((var_ft5 - sp164->unk0.unk4) / sp10C);
-        sp124 = (s32)((var_ft4 - sp164->unk0.unk4) / sp10C);
+        sp130 = (s32)((var_fa1 - uvtr->unk0.unk0) / sp110);
+        sp12C = (s32)((var_fa0 - uvtr->unk0.unk0) / sp110);
+        sp128 = (s32)((var_ft5 - uvtr->unk0.unk4) / sp10C);
+        sp124 = (s32)((var_ft4 - uvtr->unk0.unk4) / sp10C);
         if (sp130 < 0) {
             sp130 = 0;
         }
 
-        if (sp12C > sp164->unk18 - 1) {
-            sp12C = sp164->unk18 - 1;
+        if (sp12C > uvtr->unk18 - 1) {
+            sp12C = uvtr->unk18 - 1;
         }
         if (sp128 < 0) {
             sp128 = 0;
         }
 
-        if (sp124 > sp164->unk19 - 1) {
-            sp124 = sp164->unk19 - 1;
+        if (sp124 > uvtr->unk19 - 1) {
+            sp124 = uvtr->unk19 - 1;
         }
     }
 
     for (sp16E = sp130; sp16E <= sp12C; sp16E++) {
         for (sp16C = sp128; sp16C <= sp124; sp16C++) {
-            temp_t6 = ((sp16C * sp164->unk18) + sp16E);
-            temp_s3 = &sp164->unk28[temp_t6];
+            temp_t6 = ((sp16C * uvtr->unk18) + sp16E);
+            temp_s3 = &uvtr->unk28[temp_t6];
             if (temp_s3 == NULL) {
                 continue;
             }
@@ -1750,10 +1750,10 @@ s32 uvSobjGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
                 if (!(sp138 & temp_s0_2->unk14)) {
                     continue;
                 }
-                temp_s1 = gGfxUnkPtrs->models[temp_s0_2->modelId];
-                if (func_80214C64(temp_fs0_2, temp_fs2_2, spE4, temp_fs1_2, temp_fs3, spE0, temp_s0_2->unk8, temp_s0_2->unkC, temp_s0_2->unk10, temp_s1->unk1C,
+                uvmd = gGfxUnkPtrs->models[temp_s0_2->modelId];
+                if (func_80214C64(temp_fs0_2, temp_fs2_2, spE4, temp_fs1_2, temp_fs3, spE0, temp_s0_2->unk8, temp_s0_2->unkC, temp_s0_2->unk10, uvmd->unk1C,
                                   &sp108) != 0) {
-                    if (!(temp_s1->unk11 & 2)) {
+                    if (!(uvmd->unk11 & 2)) {
                         D_802634C8[D_802634C4] = ((terraId & 0xFF) << 24) | ((temp_t6 & 0xFFF) << 12) | (k & 0xFFF);
                         D_80263548[D_802634C4] = sp108;
                         func_80215BC4(arg1, arg2, arg3, arg4, arg5, arg6, sp108, temp_s3->unk0.m[3][0] + temp_s0_2->unk8,
@@ -1779,7 +1779,7 @@ s32 uvSobjGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
 
 s32 func_80212008(f32 arg0, f32 arg1, f32 arg2) {
     Mtx4F* temp_v0;
-    ParsedUVMD* temp_s1;
+    ParsedUVMD* uvmd;
     Unk80263780* temp_s0;
     u16 i;
 
@@ -1789,9 +1789,9 @@ s32 func_80212008(f32 arg0, f32 arg1, f32 arg2) {
             continue;
         }
         temp_v0 = &D_80265080[temp_s0->unk2[0]];
-        temp_s1 = gGfxUnkPtrs->models[temp_s0->modelId];
+        uvmd = gGfxUnkPtrs->models[temp_s0->modelId];
         if (func_80213364(arg0, arg1, arg2, temp_v0->m[3][0], temp_v0->m[3][1], temp_v0->m[3][2], temp_s0->unk38) != 0) {
-            if (!(temp_s1->unk11 & 2)) {
+            if (!(uvmd->unk11 & 2)) {
                 return i;
             }
             if (func_80213790(arg0, arg1, arg2, temp_s0) >= 0) {
@@ -1803,7 +1803,7 @@ s32 func_80212008(f32 arg0, f32 arg1, f32 arg2) {
 }
 
 s32 func_8021215C(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, s32** arg6, f32** arg7, Vec3F** arg8) {
-    ParsedUVMD* temp_s3;
+    ParsedUVMD* uvmd;
     u16 i;
     Mtx4F* temp_s0;
     Unk80263780* temp_s1;
@@ -1837,11 +1837,11 @@ s32 func_8021215C(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, s3
             continue;
         }
         temp_s0 = &D_80265080[temp_s1->unk2[0]];
-        temp_s3 = gGfxUnkPtrs->models[temp_s1->modelId];
+        uvmd = gGfxUnkPtrs->models[temp_s1->modelId];
         if (func_80214C64(arg0, arg1, arg2, arg3, arg4, arg5, temp_s0->m[3][0], temp_s0->m[3][1], temp_s0->m[3][2], temp_s1->unk38, &sp98) == 0) {
             continue;
         }
-        if (!(temp_s3->unk11 & 2)) {
+        if (!(uvmd->unk11 & 2)) {
             D_802634C8[D_802634C4] = i;
             D_80263548[D_802634C4] = sp98;
             func_80215BC4(arg0, arg1, arg2, arg3, arg4, arg5, sp98, temp_s0->m[3][0], temp_s0->m[3][1], temp_s0->m[3][2], &D_802635C8[D_802634C4]);
@@ -2104,7 +2104,7 @@ s32 func_802129B0(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, Vt
     return 0;
 }
 
-s32 func_80212FF4(ParsedUVTR* arg0, f32 arg1, f32 arg2, f32 arg3, f32* arg4, f32* arg5, f32* arg6, u16* arg7, u16* arg8, u8 arg9) {
+s32 func_80212FF4(ParsedUVTR* uvtr, f32 arg1, f32 arg2, f32 arg3, f32* arg4, f32* arg5, f32* arg6, u16* arg7, u16* arg8, u8 arg9) {
     f32 sp44;
     f32 sp40;
     f32 temp_ft4;
@@ -2120,27 +2120,27 @@ s32 func_80212FF4(ParsedUVTR* arg0, f32 arg1, f32 arg2, f32 arg3, f32* arg4, f32
     *arg4 = arg1;
     *arg5 = arg2;
     *arg6 = arg3;
-    sp44 = arg0->unk1C;
-    sp40 = arg0->unk20;
+    sp44 = uvtr->unk1C;
+    sp40 = uvtr->unk20;
     temp_fa0 = sp44 * 0.5f;
     temp_fa1 = sp40 * 0.5f;
-    temp_ft4 = arg0->unk0.unk0;
+    temp_ft4 = uvtr->unk0.unk0;
     var_a2 = (s32)(arg1 - temp_ft4) / (s32)sp44;
 
     if (arg9 & 1) {
         var_a2 -= 1;
     }
-    temp_fv0 = arg0->unk0.unk4;
+    temp_fv0 = uvtr->unk0.unk4;
     var_v0 = (s32)(arg2 - temp_fv0) / (s32)sp40;
     if (arg9 & 2) {
         var_v0 -= 1;
     }
 
-    if ((var_a2 >= arg0->unk18) || (var_v0 >= arg0->unk19)) {
+    if ((var_a2 >= uvtr->unk18) || (var_v0 >= uvtr->unk19)) {
         return 0;
     }
 
-    *arg7 = var_a2 + (var_v0 * arg0->unk18);
+    *arg7 = var_a2 + (var_v0 * uvtr->unk18);
 
     *arg4 = ((arg1 - (var_a2 * sp44)) - temp_ft4) - temp_fa0;
 
@@ -2158,7 +2158,7 @@ s32 func_80212FF4(ParsedUVTR* arg0, f32 arg1, f32 arg2, f32 arg3, f32* arg4, f32
         var_v0_2 = 0;
     }
 
-    func_80214840(arg0->unk28[*arg7].unk44, arg4, arg5);
+    func_80214840(uvtr->unk28[*arg7].unk44, arg4, arg5);
     if (var_v0_2) {
         *arg8 = 0;
     } else {
@@ -2223,8 +2223,8 @@ s16 func_802133C8(f32 arg0, f32 arg1, f32 arg2, Mtx4F* arg3, UnkUVMD_24* arg4, u
 }
 
 s32 func_802134F8(f32 arg0, f32 arg1, f32 arg2, UnkSobjDraw* arg3) {
-    ParsedUVMD* temp_fp;
-    UnkUVMD_8* temp_s6;
+    ParsedUVMD* uvmd;
+    uvModelLOD* lod;
     s32 temp_s5;
     s16 i;
     s16 j;
@@ -2233,15 +2233,15 @@ s32 func_802134F8(f32 arg0, f32 arg1, f32 arg2, UnkSobjDraw* arg3) {
     s16 temp_s1;
     s16 temp_v0;
 
-    temp_fp = gGfxUnkPtrs->models[arg3->modelId];
-    temp_s6 = temp_fp->unk8;
-    temp_s5 = temp_s6->unk4;
+    uvmd = gGfxUnkPtrs->models[arg3->modelId];
+    lod = uvmd->lodTable;
+    temp_s5 = lod->partCount;
     _uvDbMstackReset();
 
     for (i = 0; i < temp_s5; i++) {
         uvMat4CopyL2F(&spA4, arg3->unk4[i]);
         if (i == 0) {
-            temp_fv0 = temp_fp->unk20 / gGfxUnkPtrs->unk1608;
+            temp_fv0 = uvmd->unk20 / gGfxUnkPtrs->unk1608;
             uvMat4Scale(&spA4, temp_fv0, temp_fv0, temp_fv0);
             spA4.m[3][0] /= gGfxUnkPtrs->unk1608;
             spA4.m[3][1] /= gGfxUnkPtrs->unk1608;
@@ -2252,20 +2252,20 @@ s32 func_802134F8(f32 arg0, f32 arg1, f32 arg2, UnkSobjDraw* arg3) {
             spA4.m[3][2] = 0.0f;
         }
         _uvDbMstackPush(&spA4);
-        temp_v0 = func_802133C8(arg0, arg1, arg2, _uvDbMstackTop(), temp_s6->unk0[i].unk8, temp_s6->unk0[i].unkC);
+        temp_v0 = func_802133C8(arg0, arg1, arg2, _uvDbMstackTop(), lod->partTable[i].unk8, lod->partTable[i].unkC);
         if (temp_v0 >= 0) {
             return temp_v0;
         }
         if (i == temp_s5 - 1) {
             break;
         }
-        temp_s1 = temp_s6->unk0[i].unk6 - temp_s6->unk0[i + 1].unk6;
+        temp_s1 = lod->partTable[i].unk6 - lod->partTable[i + 1].unk6;
         for (j = 0; j <= temp_s1; j++) {
             _uvDbMstackPop();
         }
     }
 
-    temp_s1 = temp_s6->unk0[temp_s6->unk4 - 1].unk6;
+    temp_s1 = lod->partTable[lod->partCount - 1].unk6;
     for (i = 0; i <= temp_s1; i++) {
         _uvDbMstackPop();
     }
@@ -2273,8 +2273,8 @@ s32 func_802134F8(f32 arg0, f32 arg1, f32 arg2, UnkSobjDraw* arg3) {
 }
 
 s32 func_80213790(f32 arg0, f32 arg1, f32 arg2, Unk80263780* arg3) {
-    ParsedUVMD* temp_s5;
-    UnkUVMD_8* temp_fp;
+    ParsedUVMD* uvmd;
+    uvModelLOD* lod;
     s32 temp_s6;
     s16 i;
     s16 j;
@@ -2283,15 +2283,15 @@ s32 func_80213790(f32 arg0, f32 arg1, f32 arg2, Unk80263780* arg3) {
     s16 temp_s1;
     s16 temp_v0;
 
-    temp_s5 = gGfxUnkPtrs->models[arg3->modelId];
-    temp_fp = temp_s5->unk8;
-    temp_s6 = temp_fp->unk4;
+    uvmd = gGfxUnkPtrs->models[arg3->modelId];
+    lod = uvmd->lodTable;
+    temp_s6 = lod->partCount;
     _uvDbMstackReset();
 
     for (i = 0; i < temp_s6; i++) {
         uvMat4Copy(&sp74, &D_80265080[arg3->unk2[i]]);
         if (i == 0) {
-            temp_fv0 = temp_s5->unk20 * (arg3->unk38 / temp_s5->unk1C);
+            temp_fv0 = uvmd->unk20 * (arg3->unk38 / uvmd->unk1C);
             uvMat4Scale(&sp74, temp_fv0, temp_fv0, temp_fv0);
         } else {
             sp74.m[3][0] = 0.0f;
@@ -2299,7 +2299,7 @@ s32 func_80213790(f32 arg0, f32 arg1, f32 arg2, Unk80263780* arg3) {
             sp74.m[3][2] = 0.0f;
         }
         _uvDbMstackPush(&sp74);
-        temp_v0 = func_802133C8(arg0, arg1, arg2, _uvDbMstackTop(), temp_fp->unk0[i].unk8, temp_fp->unk0[i].unkC);
+        temp_v0 = func_802133C8(arg0, arg1, arg2, _uvDbMstackTop(), lod->partTable[i].unk8, lod->partTable[i].unkC);
         if (temp_v0 >= 0) {
             return temp_v0;
         }
@@ -2307,13 +2307,13 @@ s32 func_80213790(f32 arg0, f32 arg1, f32 arg2, Unk80263780* arg3) {
             break;
         }
 
-        temp_s1 = temp_fp->unk0[i].unk6 - temp_fp->unk0[i + 1].unk6;
+        temp_s1 = lod->partTable[i].unk6 - lod->partTable[i + 1].unk6;
         for (j = 0; j <= temp_s1; j++) {
             _uvDbMstackPop();
         }
     }
 
-    temp_s1 = temp_fp->unk0[temp_fp->unk4 - 1].unk6;
+    temp_s1 = lod->partTable[lod->partCount - 1].unk6;
     for (i = 0; i <= temp_s1; i++) {
         _uvDbMstackPop();
     }
@@ -2323,22 +2323,22 @@ s32 func_80213790(f32 arg0, f32 arg1, f32 arg2, Unk80263780* arg3) {
 s32 func_802139C8(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, Unk80263780* arg6) {
     s16 spE6;
     s16 temp_s1;
-    ParsedUVMD* temp_s5;
-    UnkUVMD_8* temp_s6;
+    ParsedUVMD* uvmd;
+    uvModelLOD* lod;
     s16 i;
     s16 j;
     Mtx4F sp98;
     f32 temp_fv0;
 
-    temp_s5 = gGfxUnkPtrs->models[arg6->modelId];
-    temp_s6 = temp_s5->unk8;
-    spE6 = temp_s6->unk4;
+    uvmd = gGfxUnkPtrs->models[arg6->modelId];
+    lod = uvmd->lodTable;
+    spE6 = lod->partCount;
     _uvDbMstackReset();
 
     for (i = 0; i < spE6; i++) {
         uvMat4Copy(&sp98, &D_80265080[arg6->unk2[i]]);
         if (i == 0) {
-            temp_fv0 = temp_s5->unk20 * (arg6->unk38 / temp_s5->unk1C);
+            temp_fv0 = uvmd->unk20 * (arg6->unk38 / uvmd->unk1C);
             uvMat4Scale(&sp98, temp_fv0, temp_fv0, temp_fv0);
         } else {
             sp98.m[3][0] = 0.0f;
@@ -2346,16 +2346,16 @@ s32 func_802139C8(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, Un
             sp98.m[3][2] = 0.0f;
         }
         _uvDbMstackPush(&sp98);
-        _uvSegInMboxs(arg0, arg1, arg2, arg3, arg4, arg5, _uvDbMstackTop(), temp_s6->unk0[i].unk8, temp_s6->unk0[i].unkC, temp_s5);
+        _uvSegInMboxs(arg0, arg1, arg2, arg3, arg4, arg5, _uvDbMstackTop(), lod->partTable[i].unk8, lod->partTable[i].unkC, uvmd);
         if (i == spE6 - 1) {
             break;
         }
-        temp_s1 = temp_s6->unk0[i].unk6 - temp_s6->unk0[i + 1].unk6;
+        temp_s1 = lod->partTable[i].unk6 - lod->partTable[i + 1].unk6;
         for (j = 0; j <= temp_s1; j++) {
             _uvDbMstackPop();
         }
     }
-    temp_s1 = temp_s6->unk0[temp_s6->unk4 - 1].unk6;
+    temp_s1 = lod->partTable[lod->partCount - 1].unk6;
     for (i = 0; i <= temp_s1; i++) {
         _uvDbMstackPop();
     }
@@ -2366,22 +2366,22 @@ s32 func_802139C8(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, Un
 s32 func_80213C24(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, UnkSobjDraw* arg6) {
     s16 sp106;
     s16 temp_s1;
-    ParsedUVMD* temp_s6;
-    UnkUVMD_8* temp_s5;
+    ParsedUVMD* uvmd;
+    uvModelLOD* lod;
     s16 i;
     s16 j;
     Mtx4F spB8;
     f32 temp_fv0;
 
-    temp_s6 = gGfxUnkPtrs->models[arg6->modelId];
-    temp_s5 = temp_s6->unk8;
-    sp106 = temp_s5->unk4;
+    uvmd = gGfxUnkPtrs->models[arg6->modelId];
+    lod = uvmd->lodTable;
+    sp106 = lod->partCount;
     _uvDbMstackReset();
 
     for (i = 0; i < sp106; i++) {
         uvMat4CopyL2F(&spB8, arg6->unk4[i]);
         if (i == 0) {
-            temp_fv0 = temp_s6->unk20 / gGfxUnkPtrs->unk1608;
+            temp_fv0 = uvmd->unk20 / gGfxUnkPtrs->unk1608;
             uvMat4Scale(&spB8, temp_fv0, temp_fv0, temp_fv0);
             spB8.m[3][0] /= gGfxUnkPtrs->unk1608;
             spB8.m[3][1] /= gGfxUnkPtrs->unk1608;
@@ -2392,18 +2392,18 @@ s32 func_80213C24(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, Un
             spB8.m[3][2] = 0.0f;
         }
         _uvDbMstackPush(&spB8);
-        _uvSegInMboxs(arg0, arg1, arg2, arg3, arg4, arg5, _uvDbMstackTop(), temp_s5->unk0[i].unk8, temp_s5->unk0[i].unkC, temp_s6);
+        _uvSegInMboxs(arg0, arg1, arg2, arg3, arg4, arg5, _uvDbMstackTop(), lod->partTable[i].unk8, lod->partTable[i].unkC, uvmd);
         if (i == sp106 - 1) {
             break;
         }
 
-        temp_s1 = temp_s5->unk0[i].unk6 - temp_s5->unk0[i + 1].unk6;
+        temp_s1 = lod->partTable[i].unk6 - lod->partTable[i + 1].unk6;
         for (j = 0; j <= temp_s1; j++) {
             _uvDbMstackPop();
         }
     }
 
-    temp_s1 = temp_s5->unk0[temp_s5->unk4 - 1].unk6;
+    temp_s1 = lod->partTable[lod->partCount - 1].unk6;
     for (i = 0; i <= temp_s1; i++) {
         _uvDbMstackPop();
     }
@@ -2898,7 +2898,7 @@ u8 func_80214C64(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32
     return 0;
 }
 
-s32 _uvSegInMboxs(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, Mtx4F* arg6, UnkUVMD_24* arg7, u8 arg8, ParsedUVMD* arg9) {
+s32 _uvSegInMboxs(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, Mtx4F* arg6, UnkUVMD_24* arg7, u8 arg8, ParsedUVMD* uvmd) {
     Mtx4F spB8;
     Vec3F spAC;
     Vec3F spA0;
@@ -2955,11 +2955,11 @@ s32 _uvSegInMboxs(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, Mt
 
         if (temp_s3->unk1C != 0) {
             for (j = 0; j < temp_s3->unk1C; j++) {
-                if (func_802129B0(spAC.x, spAC.y, spAC.z, spA0.x, spA0.y, spA0.z, arg9->vtx, temp_s3->unk20[j].unk0, temp_s3->unk20[j].unk2,
-                                  temp_s3->unk20[j].unk4, arg9->unk20, &sp90) != 0) {
+                if (func_802129B0(spAC.x, spAC.y, spAC.z, spA0.x, spA0.y, spA0.z, uvmd->vtxTable, temp_s3->unk20[j].unk0, temp_s3->unk20[j].unk2,
+                                  temp_s3->unk20[j].unk4, uvmd->unk20, &sp90) != 0) {
                     D_802634C8[D_802634C4] = D_802634C0;
                     D_80263548[D_802634C4] = sp90;
-                    _uvSurfGetNorm(arg9->vtx, temp_s3->unk20[j].unk0, temp_s3->unk20[j].unk2, temp_s3->unk20[j].unk4, &D_802635C8[D_802634C4]);
+                    _uvSurfGetNorm(uvmd->vtxTable, temp_s3->unk20[j].unk0, temp_s3->unk20[j].unk2, temp_s3->unk20[j].unk4, &D_802635C8[D_802634C4]);
                     arg6->m[3][0] = 0.0f;
                     arg6->m[3][1] = 0.0f;
                     arg6->m[3][2] = 0.0f;
@@ -3286,7 +3286,7 @@ void func_80215D7C(Mtx4F* arg0, s16 arg1, Vec3F* arg2) {
     }
 }
 
-void func_80215E7C(ParsedUVMD* arg0) {
+void func_80215E7C(ParsedUVMD* uvmd) {
     s32 i;
     s32 j;
     s32 var_s1;
@@ -3310,11 +3310,11 @@ void func_80215E7C(ParsedUVMD* arg0) {
     uvGfxClearFlags(GFX_STATE_1000000 | GFX_STATE_400000 | GFX_STATE_200000);
     uvGfxSetFlags(GFX_STATE_800000 | GFX_STATE_20000 | 0xFFF);
     uvMat4SetIdentity(&spD8);
-    uvMat4Scale(&spD8, 1.0f / arg0->unk20, 1.0f / arg0->unk20, 1.0f / arg0->unk20);
+    uvMat4Scale(&spD8, 1.0f / uvmd->unk20, 1.0f / uvmd->unk20, 1.0f / uvmd->unk20);
     uvGfxMtxViewMul(&spD8, 1);
 
-    for (i = 0; i < arg0->unk8->unk0->unkC; i++) {
-        spD4 = &arg0->unk8->unk0->unk8[i];
+    for (i = 0; i < uvmd->lodTable->partTable->unkC; i++) {
+        spD4 = &uvmd->lodTable->partTable->unk8[i];
         var_s1 = 0;
         for (j = 0; j < spD4->unk1C; j++) {
             temp_v0 = &spD4->unk20[j];
@@ -3365,9 +3365,9 @@ void func_80215E7C(ParsedUVMD* arg0) {
             }
             var_s1++;
             uvVtxBeginPoly();
-            uvVtx(arg0->vtx[spB4].v.ob[0], arg0->vtx[spB4].v.ob[1], arg0->vtx[spB4].v.ob[2], 0, 0, spBB, spBA, spB9, 255);
-            uvVtx(arg0->vtx[spB0].v.ob[0], arg0->vtx[spB0].v.ob[1], arg0->vtx[spB0].v.ob[2], 0, 0, spBB, spBA, spB9, 255);
-            uvVtx(arg0->vtx[spAC].v.ob[0], arg0->vtx[spAC].v.ob[1], arg0->vtx[spAC].v.ob[2], 0, 0, spBB, spBA, spB9, 255);
+            uvVtx(uvmd->vtxTable[spB4].v.ob[0], uvmd->vtxTable[spB4].v.ob[1], uvmd->vtxTable[spB4].v.ob[2], 0, 0, spBB, spBA, spB9, 255);
+            uvVtx(uvmd->vtxTable[spB0].v.ob[0], uvmd->vtxTable[spB0].v.ob[1], uvmd->vtxTable[spB0].v.ob[2], 0, 0, spBB, spBA, spB9, 255);
+            uvVtx(uvmd->vtxTable[spAC].v.ob[0], uvmd->vtxTable[spAC].v.ob[1], uvmd->vtxTable[spAC].v.ob[2], 0, 0, spBB, spBA, spB9, 255);
             uvVtxEndPoly();
         }
         if (spD4->unk1C == 0) {
@@ -3381,12 +3381,12 @@ void func_80215E7C(ParsedUVMD* arg0) {
                 spBB = 255;
             }
 
-            temp_fs0 = spD4->unk4.unk0 * arg0->unk20;
-            temp_fs1 = spD4->unk4.unk4 * arg0->unk20;
-            temp_fs2 = spD4->unk4.unk8 * arg0->unk20;
-            temp_fs3 = spD4->unk4.unkC * arg0->unk20;
-            temp_fs4 = spD4->unk4.unk10 * arg0->unk20;
-            temp_fs5 = spD4->unk4.unk14 * arg0->unk20;
+            temp_fs0 = spD4->unk4.unk0 * uvmd->unk20;
+            temp_fs1 = spD4->unk4.unk4 * uvmd->unk20;
+            temp_fs2 = spD4->unk4.unk8 * uvmd->unk20;
+            temp_fs3 = spD4->unk4.unkC * uvmd->unk20;
+            temp_fs4 = spD4->unk4.unk10 * uvmd->unk20;
+            temp_fs5 = spD4->unk4.unk14 * uvmd->unk20;
             uvVtxBeginPoly();
             uvVtx(temp_fs0, temp_fs1, temp_fs2, 0, 0, 255, spBA, spB9, 120);
             uvVtx(temp_fs0, temp_fs4, temp_fs2, 0, 0, 255, spBA, spB9, 120);
@@ -3431,14 +3431,14 @@ void func_80215E7C(ParsedUVMD* arg0) {
 }
 
 void uvDbColorModel(s32 modelId, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
-    ParsedUVMD* temp_v0;
+    ParsedUVMD* uvmd;
 
-    temp_v0 = gGfxUnkPtrs->models[modelId];
-    if (temp_v0 == NULL) {
+    uvmd = gGfxUnkPtrs->models[modelId];
+    if (uvmd == NULL) {
         _uvDebugPrintf("uvDbColorModel: model %d not in level\n", modelId);
         return;
     }
 
     uvGfxWaitForMesg();
-    func_8020ABAC(temp_v0->vtx, temp_v0->vtxCount, arg1, arg2, arg3, arg4, arg4, arg4);
+    func_8020ABAC(uvmd->vtxTable, uvmd->vtxCount, arg1, arg2, arg3, arg4, arg4, arg4);
 }
