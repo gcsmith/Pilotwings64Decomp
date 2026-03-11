@@ -635,34 +635,93 @@ segments:
       - [0xDE640, .rodata, app/code_D4290]
       - [0xDE6B0, .rodata, app/wind_objects]
 
-      - { type: bss, vram: 0x803571F0, name: app_bss_803571F0 }
+      - { type: bss, vram: 0x803571F0, name: app/code_51E30 }
+      - { type: bss, vram: 0x80357210, name: app/balls }
+      - { type: bss, vram: 0x80359390, name: app/birdman0 }
+      - { type: bss, vram: 0x803593F0, name: app/birdman2 }
       - { type: .bss, vram: 0x80359640, name: app/bmsound }
       - { type: .bss, vram: 0x803596A0, name: app/code_58B00 }
       - { type: .bss, vram: 0x80359730, name: app/bonus }
       - { type: .bss, vram: 0x803597E0, name: app/ball_target }
-      - { type: bss, vram: 0x803599D0, name: app_bss_803599D0 }
+      - { type: bss, vram: 0x803599D0, name: app/code_5A6A0 }
+      - { type: bss, vram: 0x80359A30, name: app/cannonball }
+      - { type: bss, vram: 0x80359AD0, name: app/code_60020 }
+      - { type: bss, vram: 0x80359BE0, name: app/cbsound }
+      - { type: bss, vram: 0x80359C40, name: app/code_61A60 }
+      - { type: bss, vram: 0x80359C90, name: app/code_64070 }
+      - { type: bss, vram: 0x80359CA0, name: app/code_64730 }
+      - { type: bss, vram: 0x80359D70, name: app/code_66160 }
+      - { type: bss, vram: 0x80359D80, name: app/environment }
+      - { type: bss, vram: 0x80359DC0, name: app/code_69BF0 }
+      - { type: bss, vram: 0x8035A5F0, name: app/falco }
+      - { type: bss, vram: 0x8035AF60, name: app/fdr }
+      - { type: bss, vram: 0x80362010, name: app/code_6ECD0 }
+      - { type: bss, vram: 0x803620E0, name: app/save }
       - { type: .bss, vram: 0x803624E0, name: app/file_menu }
-      - { type: bss, vram: 0x80362500, name: app_bss_80362500 }
-      - { type: bss, vram: 0x80362690, name: app/code_72B70 } # TODO: Map .bss in .c file
-      - { type: bss, vram: 0x80367A40, name: app_bss_80367A40 } # code_75A60 and beyond
+      - { type: bss, vram: 0x80362500, name: app/fire_effects }
+      - { type: bss, vram: 0x80362630, name: app/code_722D0 }
+      - { type: bss, vram: 0x80362690, name: app/code_72B70 }
+      - { type: bss, vram: 0x80367A40, name: app/code_75A60 }
+      - { type: bss, vram: 0x80367F60, name: app/code_76670 }
+      - { type: bss, vram: 0x80368010, name: app/code_78620 }
+      - { type: bss, vram: 0x803680C0, name: app/hang_glider }
+      - { type: bss, vram: 0x80368310, name: app/gsound }
+      - { type: bss, vram: 0x80368370, name: app/code_7C4C0 }
+      - { type: bss, vram: 0x80368880, name: app/code_7CF30 }
+      - { type: bss, vram: 0x80368B10, name: app/code_7FED0 }
+      - { type: bss, vram: 0x80368B20, name: app/code_81490 }
+      - { type: bss, vram: 0x80368C00, name: app/code_82B90 }
+      - { type: bss, vram: 0x80369070, name: app/gyrocopter }
+      - { type: bss, vram: 0x80369580, name: app_bss_80369580 } # app/code_905C0 & map3d, has weird split
+      - { type: bss, vram: 0x80369E50, name: app/hsound }
       - { type: .bss, vram: 0x80369F10, name: app/menu }
-      - { type: bss, vram: 0x80369F30, name: app_bss_80369F30 }
+      - { type: bss, vram: 0x80369F30, name: app/level }
+      - { type: bss, vram: 0x8036A8A0, name: app/credits }
+      - { type: bss, vram: 0x8036A8C0, name: app/code_94E60 }
+      - { type: bss, vram: 0x8036A8E0, name: app/map3d }
+      - { type: bss, vram: 0x8036AA60, name: app/mem }
+      - { type: bss, vram: 0x8036BDF0, name: app/code_99D40 }
+      - { type: bss, vram: 0x8036BE30, name: app/code_9B960 }
+      - { type: bss, vram: 0x8036BFF0, name: app/code_9C080 }
+      - { type: bss, vram: 0x8036C0D0, name: app/code_9CF50 }
       - { type: .bss, vram: 0x8036C120, name: app/options }
-      - { type: bss, vram: 0x8036C150, name: app_bss_8036C150 }
+      - { type: bss, vram: 0x8036C150, name: app/pads }
+      - { type: bss, vram: 0x8036C520, name: app/hud }
+      - { type: bss, vram: 0x8036D230, name: app/code_A64C0 }
+      - { type: bss, vram: 0x8036D2B0, name: app/code_A7460 }
+      - { type: bss, vram: 0x8036D330, name: app/demo_attitude }
+      - { type: bss, vram: 0x8036D340, name: app/proxanim }
+      - { type: bss, vram: 0x8036D8E0, name: app/code_A8C30 }
+      - { type: bss, vram: 0x8036DA30, name: app/demo }
+      - { type: bss, vram: 0x8036DA70, name: app/rings }
+      - { type: bss, vram: 0x80371070, name: app/code_AC1A0 }
+      - { type: bss, vram: 0x80371120, name: app/code_AE460 }
+      - { type: bss, vram: 0x80371630, name: app/rocket_belt }
+      - { type: bss, vram: 0x80371890, name: app/rpsound }
       - { type: .bss, vram: 0x803718F0, name: app/results }
-      - { type: bss, vram: 0x80371960, name: app_bss_80371960 }
+      - { type: bss, vram: 0x80371960, name: app/skydiving }
+      - { type: bss, vram: 0x80371CB0, name: app/sdsound }
+      - { type: bss, vram: 0x80371D10, name: app/shadow }
       - { type: .bss, vram: 0x80371DB0, name: app/code_BD670 }
-      - { type: bss, vram: 0x80371E60, name: app_bss_80371E60 }
+      - { type: bss, vram: 0x80371E60, name: app/smoke }
+      - { type: bss, vram: 0x80373300, name: app/snap }
+      - { type: bss, vram: 0x80373E20, name: app/snd }
+      - { type: bss, vram: 0x80373EF0, name: app/snow }
+      - { type: bss, vram: 0x80373F10, name: app/spath }
+      - { type: bss, vram: 0x80376CC0, name: app/splash }
       - { type: .bss, vram: 0x80377F10, name: app/text_data }
       - { type: .bss, vram: 0x80378CE0, name: app/code_C9B60 }
       - { type: .bss, vram: 0x80378CF0, name: app/targets }
-      - { type: bss, vram: 0x803798E0, name: app_bss_803798E0 }
+      - { type: bss, vram: 0x803798E0, name: app/task }
       - { type: .bss, vram: 0x8037AB50, name: app/thermals }
       - { type: .bss, vram: 0x8037ACE0, name: app/total_results }
-      - { type: bss, vram: 0x8037AD70, name: app_bss_8037AD70 }
+      - { type: bss, vram: 0x8037AD70, name: app/toys }
       - { type: .bss, vram: 0x8037DC60, name: app/test_menu }
       - { type: .bss, vram: 0x8037DCA0, name: app/user_paths }
-      - { type: bss, vram: 0x8037F380, name: app_bss_8037F380 }
+      - { type: bss, vram: 0x8037F380, name: app/code_D2D50 }
+      - { type: bss, vram: 0x8037F450, name: app/code_D3810 }
+      - { type: bss, vram: 0x8037F510, name: app/code_D4290 }
+      - { type: bss, vram: 0x8037F910, name: app/wind_objects }
 
   - name: filetable
     type: bin

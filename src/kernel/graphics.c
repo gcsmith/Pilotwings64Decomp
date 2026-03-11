@@ -19,15 +19,15 @@ u8 gGfxTaskOutputBuffer[TASK_OUTPUT_BUFFER_SIZE + 8];
 u8* gGfxTaskOutputBufferStart;
 u8* gGfxTaskOutputBufferEnd;
 Gfx* gGfxDisplayListHead;
-s32 D_80298AB8[2];
-s32 D_80298AC0[2];
-s32 D_80298AC8[2];
-s32 D_80298AD0[2];
-s32 D_80298AD8[2];
-s32 gGfxLookCount;
-LookAt D_80298AE8[2][UV_GFX_NUM_LOOKS];
+s32 gGfxNumVtxTransforms[2];
+s32 gGfxNumTriangles[2];
+s32 gGfxNumTxtLoads[2];
+s32 gGfxNumMtxLoads[2];
+s32 gGfxNumMtxLoadMults[2];
+s32 gGfxNumLooks;
+LookAt gGfxLooks[2][UV_GFX_NUM_LOOKS];
 u32 gGfxStateStackData;
-u32 D_8029926C;
+u32 gGfxBoundTexture;
 u8* gGfxFbPtrs[2];
 u8* D_80299278;
 Gfx gGfxDisplayListBase[2][4200];
@@ -37,11 +37,11 @@ s16 gGfxViewX1;
 s16 gGfxViewY0;
 s16 gGfxViewY1;
 Mtx gGfxMstack[2][UV_GFX_NUM_MATRICES];
-Mtx4F D_802B4888;
+Mtx4F gGfxLookTransform;
 u32 gGfxStateStack[32];
 u8 gGfxStateStackIdx;
-OSScTask* D_802B494C;
-OSScTask D_802B4950[2];
+OSScTask* gGfxTaskPtr;
+OSScTask gGfxTasks[2];
 u8 gGfxYieldData[OS_YIELD_DATA_SIZE];
 
 static Gfx gGfxDList1[] = {
@@ -70,24 +70,24 @@ static f32 D_802491D8[2] = { 0, 0 };
 static s32 D_802491E0 = 0;
 static s32 D_802491E4 = 0xFFFFFFFF;
 static s32 D_802491E8 = 0;
-static s32 D_802491EC = 0;
+static s32 gGfxGammaEnabled = FALSE;
 static void* gGfxFbCurrPtr = NULL;
-static u8 D_802491F4 = 0; // [4] = { 0, 0, 0, 0 };
-static s8 D_802491F8 = 0; // [4] = { 0, 0, 0, 0 };
-static s8 D_802491FC = 1; // [4] = { 0, 0, 0, 0 };
+static u8 gGfxZBufferEnabled = FALSE;   // [4] = { 0, 0, 0, 0 };
+static s8 gGfxCullFrontEnabled = FALSE; // [4] = { 0, 0, 0, 0 };
+static s8 gGfxCullBackEnabled = TRUE;   // [4] = { 0, 0, 0, 0 };
 
-s32 D_80249200 = 0;
-s32 gGfxBeginFlag = 0;
-f32 D_80249208 = 0;
+s32 gGfxSyncNeeded = FALSE;
+s32 gGfxBeginFlag = FALSE;
+f32 gGfxFogFactor = 0;
 u16 gGfxFbIndex = 0;
 s32 gGfxElementCount = 0;
-s32 D_80249214 = 0;
+s32 gGfxFrameCount = 0;
 s16 gGfxMstackIdx = 0xFFFF;
-f32 D_8024921C = -1;
+f32 gGfxUnkStateF = -1;
 
 UNUSED Vp D_80249220 = { 640, 480, 511, 0, 640, 480, 511, 0 };
 
-static uvGfxCallback_t D_80249230 = NULL;
+static uvGfxCallback_t gGfxCallback = NULL;
 
 extern OSMesgQueue D_802C3B90;
 extern s32 D_8024B260;
@@ -100,18 +100,18 @@ extern s16 gGeomVertexCount;
 void uvGfxInit(void) {
     u8 i;
 
-    D_80298AB8[0] = D_80298AB8[1] = 0;
-    D_80298AC0[0] = D_80298AC0[1] = 0;
-    D_80298AC8[0] = D_80298AC8[1] = 0;
-    D_80298AD0[0] = D_80298AD0[1] = 0;
-    D_80298AD8[0] = D_80298AD8[1] = 0;
+    gGfxNumVtxTransforms[0] = gGfxNumVtxTransforms[1] = 0;
+    gGfxNumTriangles[0] = gGfxNumTriangles[1] = 0;
+    gGfxNumTxtLoads[0] = gGfxNumTxtLoads[1] = 0;
+    gGfxNumMtxLoads[0] = gGfxNumMtxLoads[1] = 0;
+    gGfxNumMtxLoadMults[0] = gGfxNumMtxLoadMults[1] = 0;
     gGfxFbPtrs[0] = 0x800DA800;
     gGfxFbPtrs[1] = 0x80100000;
     D_80299278 = 0x803DA800;
     gGfxFbIndex = 0;
     gGfxDisplayListHead = gGfxDisplayListBase[gGfxFbIndex];
     gGfxFbCurrPtr = gGfxFbPtrs[gGfxFbIndex];
-    D_802B494C = &D_802B4950[gGfxFbIndex];
+    gGfxTaskPtr = &gGfxTasks[gGfxFbIndex];
     // clang-format off: must preserve same line assignments
     gGfxViewX0 = 2; gGfxViewX1 = SCREEN_WIDTH - 2;
     gGfxViewY0 = 2; gGfxViewY1 = SCREEN_HEIGHT - 2;
@@ -120,7 +120,7 @@ void uvGfxInit(void) {
     for (i = 0; i < 2; i++) {
         uvGfxClipViewport(i, gGfxViewX0, gGfxViewX1, gGfxViewY0, gGfxViewY1);
     }
-    uvMat4SetIdentity(&D_802B4888);
+    uvMat4SetIdentity(&gGfxLookTransform);
     gGfxStateStackIdx = 0;
     D_802491D8[0] = D_802491D8[1] = 0.0f;
     uvGfxEnableGamma(0);
@@ -129,11 +129,11 @@ void uvGfxInit(void) {
 }
 
 void uvGfxBegin(void) {
-    if (gGfxBeginFlag == 1) {
+    if (gGfxBeginFlag == TRUE) {
         _uvDebugPrintf("uvGfxBegin: 2 calls in a row.  Must call uvGfxEnd first\n");
         return;
     }
-    gGfxBeginFlag = 1;
+    gGfxBeginFlag = TRUE;
     uvEventPost(0, 0);
     gSPSegment(gGfxDisplayListHead++, 0x00, 0x00000000);
     gDPSetColorImage(gGfxDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, osVirtualToPhysical(gGfxFbCurrPtr));
@@ -144,32 +144,32 @@ void uvGfxBegin(void) {
     uvVtxReset(1);
     func_8021A298();
 
-    D_80298AB8[gGfxFbIndex] = 0;
-    D_80298AC0[gGfxFbIndex] = 0;
-    D_80298AC8[gGfxFbIndex] = 0;
-    D_80298AD0[gGfxFbIndex] = 0;
-    D_80298AD8[gGfxFbIndex] = 0;
-    gGfxLookCount = 0;
+    gGfxNumVtxTransforms[gGfxFbIndex] = 0;
+    gGfxNumTriangles[gGfxFbIndex] = 0;
+    gGfxNumTxtLoads[gGfxFbIndex] = 0;
+    gGfxNumMtxLoads[gGfxFbIndex] = 0;
+    gGfxNumMtxLoadMults[gGfxFbIndex] = 0;
+    gGfxNumLooks = 0;
 }
 
-void uvGfxSetFogFactor(f32 arg0) {
-    if (arg0 < 0.0f) {
-        arg0 = 0.0f;
-    } else if (arg0 > 0.996f) {
-        arg0 = 0.996f;
+void uvGfxSetFogFactor(f32 factor) {
+    if (factor < 0.0f) {
+        factor = 0.0f;
+    } else if (factor > 0.996f) {
+        factor = 0.996f;
     }
 
-    D_80249208 = arg0;
-    if (arg0 > 0.0f) {
+    gGfxFogFactor = factor;
+    if (factor > 0.0f) {
         gSPSetGeometryMode(gGfxDisplayListHead++, G_FOG);
-        gSPFogPosition(gGfxDisplayListHead++, (s32)(D_80249208 * 1000.0f), 1000);
+        gSPFogPosition(gGfxDisplayListHead++, (s32)(gGfxFogFactor * 1000.0f), 1000);
     } else {
         gSPClearGeometryMode(gGfxDisplayListHead++, G_FOG);
     }
 }
 
 void uvGfxResetState(void) {
-    if (D_80249208 > 0.0f) {
+    if (gGfxFogFactor > 0.0f) {
         gSPSetGeometryMode(gGfxDisplayListHead++, G_ZBUFFER | G_SHADE | G_CULL_BACK | G_FOG | G_SHADING_SMOOTH);
     } else {
         gSPSetGeometryMode(gGfxDisplayListHead++, G_ZBUFFER | G_SHADE | G_CULL_BACK | G_SHADING_SMOOTH);
@@ -179,22 +179,22 @@ void uvGfxResetState(void) {
     gDPSetDepthImage(gGfxDisplayListHead++, osVirtualToPhysical(D_80299278));
 
     gGfxStateStackData = GFX_STATE_400000 | GFX_STATE_100000 | GFX_STATE_20000 | 0xFFF;
-    D_8029926C = 0xFFF;
+    gGfxBoundTexture = 0xFFF;
     D_802491E0 = 0;
     D_802491E4 = -1;
-    uvGfxSetFogFactor(D_80249208);
+    uvGfxSetFogFactor(gGfxFogFactor);
 }
 
 void uvGfxMtxView(Mtx src) {
     uvGfxMstackPushL(src);
     gSPMatrix(gGfxDisplayListHead++, osVirtualToPhysical(uvGfxMstackTop()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    D_80298AD0[gGfxFbIndex]++;
+    gGfxNumMtxLoads[gGfxFbIndex]++;
 }
 
 void uvGfxMtxProj(Mtx src) {
     uvGfxMstackPushL(src);
     gSPMatrix(gGfxDisplayListHead++, osVirtualToPhysical(uvGfxMstackTop()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
-    D_80298AD0[gGfxFbIndex]++;
+    gGfxNumMtxLoads[gGfxFbIndex]++;
 }
 
 void uvGfxDisplayList(Gfx* dl) {
@@ -227,15 +227,15 @@ void uvGfxStateDrawDL(uvGfxState_t* arg0) {
     gSPSetGeometryMode(gGfxDisplayListHead++, G_CULL_BACK);
     gSPDisplayList(gGfxDisplayListHead++, arg0->dlist);
 
-    D_80298AB8[gGfxFbIndex] += arg0->unk4 * 2;
-    D_80298AC0[gGfxFbIndex] += arg0->unk6 * 2;
+    gGfxNumVtxTransforms[gGfxFbIndex] += arg0->xfmCount * 2;
+    gGfxNumTriangles[gGfxFbIndex] += arg0->triCount * 2;
 }
 
 void uvGfxStateDraw(uvGfxState_t* arg0) {
     u32 clearMode;
     u32 setMode;
     u16 textureId;
-    ParsedUVTX* sp68;
+    ParsedUVTX* uvtx;
     u16 var_t1;
     s32 renderMask;
     u32 var_a1_2;
@@ -244,7 +244,7 @@ void uvGfxStateDraw(uvGfxState_t* arg0) {
     u32 var_a3;
 
     var_a3 = arg0->state;
-    if (D_80249208 > 0.0f) {
+    if (gGfxFogFactor > 0.0f) {
         var_a3 |= GFX_STATE_80000000 | GFX_STATE_20000;
     }
     var_a3 |= D_802491E0;
@@ -307,22 +307,22 @@ void uvGfxStateDraw(uvGfxState_t* arg0) {
         if (textureId >= 0xFFF) {
             var_t1 = 0xFFF;
         } else {
-            sp68 = gGfxUnkPtrs->textures[textureId];
-            if (sp68 == NULL) {
+            uvtx = gGfxUnkPtrs->textures[textureId];
+            if (uvtx == NULL) {
                 _uvDebugPrintf("uvGfxStateDraw: texture %d not in level\n", textureId);
                 var_t1 = 0xFFF;
                 textureId = 0xFFF;
             } else {
-                var_t1 = (sp68->unk12 & 0xF000) | textureId;
+                var_t1 = (uvtx->unk12 & 0xF000) | textureId;
             }
         }
 
-        if (D_8029926C != var_t1) {
+        if (gGfxBoundTexture != var_t1) {
             if (textureId >= 0xFFE) {
                 gSPDisplayList(gGfxDisplayListHead++, gGfxDList2);
             } else {
                 _uvTxtDraw(textureId);
-                D_80298AC8[gGfxFbIndex]++;
+                gGfxNumTxtLoads[gGfxFbIndex]++;
                 if (var_a3 & GFX_STATE_8000000) {
                     gDPSetCombineMode(gGfxDisplayListHead++, G_CC_DECALRGB, G_CC_DECALRGB2);
                     gSPTexture(gGfxDisplayListHead++, 0x7C0, 0x7C0, 0, 1, G_ON);
@@ -358,7 +358,7 @@ void uvGfxStateDraw(uvGfxState_t* arg0) {
         case GFX_STATE_800000 | GFX_STATE_400000 | GFX_STATE_200000:
             if (textureId == 0xFFF) {
                 renderMode2 = G_RM_AA_ZB_XLU_INTER2;
-            } else if ((sp68->unk12 & 0x8000) || (sp68->unk22 == 1) || (var_a3 & 0x04000000)) {
+            } else if ((uvtx->unk12 & 0x8000) || (uvtx->unk22 == 1) || (var_a3 & 0x04000000)) {
                 renderMode2 = G_RM_AA_ZB_XLU_SURF2;
             } else {
                 renderMode2 = G_RM_AA_ZB_TEX_TERR2;
@@ -367,7 +367,7 @@ void uvGfxStateDraw(uvGfxState_t* arg0) {
         case GFX_STATE_800000 | GFX_STATE_400000:
             if (textureId == 0xFFF) {
                 renderMode2 = G_RM_AA_XLU_SURF2;
-            } else if (sp68->unk12 & 0x8000) {
+            } else if (uvtx->unk12 & 0x8000) {
                 renderMode2 = G_RM_AA_XLU_SURF2;
             } else {
                 renderMode2 = G_RM_AA_TEX_TERR2;
@@ -411,7 +411,7 @@ void uvGfxStateDraw(uvGfxState_t* arg0) {
 
         gDPSetRenderMode(gGfxDisplayListHead++, renderMode1, renderMode2);
 
-        D_8029926C = var_t1;
+        gGfxBoundTexture = var_t1;
         gGfxStateStackData = var_a3;
     }
     if ((var_a3 & GFX_STATE_80000000) && ((var_a3 & renderMask) == (GFX_STATE_800000 | GFX_STATE_400000 | GFX_STATE_200000))) {
@@ -424,8 +424,8 @@ void uvGfxStateDraw(uvGfxState_t* arg0) {
     if (arg0->dlist != NULL) {
         gSPDisplayList(gGfxDisplayListHead++, arg0->dlist);
 
-        D_80298AB8[gGfxFbIndex] += arg0->unk4;
-        D_80298AC0[gGfxFbIndex] += arg0->unk6;
+        gGfxNumVtxTransforms[gGfxFbIndex] += arg0->xfmCount;
+        gGfxNumTriangles[gGfxFbIndex] += arg0->triCount;
     }
 }
 
@@ -434,11 +434,11 @@ void uvGfxPushMtxUnk(Mtx4F* arg0) {
     Mtx4F sp88;
     Mtx4F sp48;
 
-    uvMat4Copy(&D_802B4888, arg0);
-    uvMat4Copy(&sp48, &D_802B4888);
+    uvMat4Copy(&gGfxLookTransform, arg0);
+    uvMat4Copy(&sp48, &gGfxLookTransform);
     uvMat4SetIdentity(&sp88);
     uvMat4RotateAxis(&sp88, -1.5707963f, 'x');
-    uvMat4Mul(&D_802B4888, &sp48, &sp88);
+    uvMat4Mul(&gGfxLookTransform, &sp48, &sp88);
     uvMat4SetIdentityL(&spC8);
     uvGfxMtxView(spC8);
 }
@@ -532,16 +532,16 @@ void uvGfxClampLook(LookAt* lookAt, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
 void uvGfxLookAt(Mtx4F* arg0) {
     Mtx4F temp;
 
-    if (gGfxLookCount >= UV_GFX_NUM_LOOKS) {
+    if (gGfxNumLooks >= UV_GFX_NUM_LOOKS) {
         _uvDebugPrintf("too many looks\n");
         return;
     }
 
-    uvMat4InvertTranslationRotation(&temp, &D_802B4888);
-    uvGfxClampLook(&D_80298AE8[gGfxFbIndex][gGfxLookCount], temp.m[3][0], temp.m[3][1], temp.m[3][2], arg0->m[3][0], arg0->m[3][1], arg0->m[3][2], 0.0f, 1.0f,
+    uvMat4InvertTranslationRotation(&temp, &gGfxLookTransform);
+    uvGfxClampLook(&gGfxLooks[gGfxFbIndex][gGfxNumLooks], temp.m[3][0], temp.m[3][1], temp.m[3][2], arg0->m[3][0], arg0->m[3][1], arg0->m[3][2], 0.0f, 1.0f,
                    0.0f);
-    gSPLookAt(gGfxDisplayListHead++, &D_80298AE8[gGfxFbIndex][gGfxLookCount]);
-    gGfxLookCount++;
+    gSPLookAt(gGfxDisplayListHead++, &gGfxLooks[gGfxFbIndex][gGfxNumLooks]);
+    gGfxNumLooks++;
 }
 
 void uvGfxMtxProjPushF(Mtx4F* arg0) {
@@ -551,7 +551,7 @@ void uvGfxMtxProjPushF(Mtx4F* arg0) {
 }
 
 void uvGfxSetCallback(uvGfxCallback_t cb) {
-    D_80249230 = cb;
+    gGfxCallback = cb;
 }
 
 void uvGfxEnd(void) {
@@ -571,11 +571,11 @@ void uvGfxEnd(void) {
     s32 var_a1;
     OSTask* task;
 
-    if (gGfxBeginFlag == 0) {
+    if (gGfxBeginFlag == FALSE) {
         _uvDebugPrintf("uvGfxEnd: must be called after a uvGfxBegin()\n");
         return;
     }
-    gGfxBeginFlag = 0;
+    gGfxBeginFlag = FALSE;
     gDPFullSync(gGfxDisplayListHead++);
     gSPEndDisplayList(gGfxDisplayListHead++);
     gGfxElementCount = (gGfxDisplayListHead - (gGfxDisplayListBase[gGfxFbIndex]));
@@ -584,12 +584,12 @@ void uvGfxEnd(void) {
         _uvDebugPrintf("display list overflow %d / %d\n", gGfxElementCount, 4200);
         return;
     }
-    D_802B494C->framebuffer = gGfxFbPtrs[gGfxFbIndex];
-    D_802B494C->next = NULL;
-    D_802B494C->msgQ = &D_802C3B90;
-    D_802B494C->msg = &D_8024B260;
-    D_802B494C->flags = OS_SC_SWAPBUFFER | OS_SC_PARALLEL_TASK | OS_SC_NEEDS_RSP | OS_SC_NEEDS_RDP;
-    task = &D_802B4950[gGfxFbIndex].list;
+    gGfxTaskPtr->framebuffer = gGfxFbPtrs[gGfxFbIndex];
+    gGfxTaskPtr->next = NULL;
+    gGfxTaskPtr->msgQ = &D_802C3B90;
+    gGfxTaskPtr->msg = &D_8024B260;
+    gGfxTaskPtr->flags = OS_SC_SWAPBUFFER | OS_SC_PARALLEL_TASK | OS_SC_NEEDS_RSP | OS_SC_NEEDS_RDP;
+    task = &gGfxTasks[gGfxFbIndex].list;
     task->t.type = M_GFXTASK;
     task->t.flags = 0;
     task->t.ucode_boot = (u64*)rspbootTextStart;
@@ -609,17 +609,17 @@ void uvGfxEnd(void) {
     task->t.output_buff = (u64*)gGfxTaskOutputBufferStart;
     task->t.output_buff_size = (u64*)gGfxTaskOutputBufferEnd;
     func_8022C3C0(0, 0x2B);
-    osSendMesg(_uvScGetCmdQ(&gSchedInst), D_802B494C, 1);
+    osSendMesg(_uvScGetCmdQ(&gSchedInst), gGfxTaskPtr, 1);
     uvEventPost(1, 0);
-    if (D_80249214 == 0) {
+    if (gGfxFrameCount == 0) {
         osViBlack(FALSE);
-    } else if (D_80249200 != 0) {
-        uvWaitForMesg(4);
+    } else if (gGfxSyncNeeded != FALSE) {
+        uvWaitForMesg(UV_MESG_GFX);
     }
-    D_80249200 = 1;
+    gGfxSyncNeeded = TRUE;
     fb = gGfxFbPtrs[gGfxFbIndex ^ 1];
-    if (D_80249230 != NULL) {
-        D_80249230(fb, D_80299278);
+    if (gGfxCallback != NULL) {
+        gGfxCallback(fb, D_80299278);
         osWritebackDCache(fb, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(u16));
     }
     D_802491D8[gGfxFbIndex] = (f32)uvClkGetSec(3);
@@ -708,10 +708,10 @@ void uvGfxEnd(void) {
 
     gGfxFbIndex ^= 1;
     gGfxMstackIdx = -1;
-    D_802B494C = &D_802B4950[gGfxFbIndex];
+    gGfxTaskPtr = &gGfxTasks[gGfxFbIndex];
     gGfxFbCurrPtr = gGfxFbPtrs[gGfxFbIndex];
     gGfxDisplayListHead = gGfxDisplayListBase[gGfxFbIndex];
-    D_80249214++;
+    gGfxFrameCount++;
 }
 
 void uvGfxClearScreen(u8 r, u8 g, u8 b, u8 a) {
@@ -744,36 +744,36 @@ void uvGfx_80222A98(void) {
 }
 
 void uvGfxEnableZBuffer(s32 enable) {
-    if (enable != 0) {
+    if (enable != FALSE) {
         gDPSetRenderMode(gGfxDisplayListHead++, G_RM_PASS, G_RM_AA_ZB_OPA_TERR2);
         gSPSetGeometryMode(gGfxDisplayListHead++, G_ZBUFFER);
-        D_802491F4 = 1;
+        gGfxZBufferEnabled = TRUE;
         gGfxStateStackData |= GFX_STATE_200000;
     } else {
         gDPSetRenderMode(gGfxDisplayListHead++, G_RM_PASS, G_RM_AA_OPA_TERR2);
         gSPClearGeometryMode(gGfxDisplayListHead++, G_ZBUFFER);
-        D_802491F4 = 0;
+        gGfxZBufferEnabled = FALSE;
         gGfxStateStackData &= ~GFX_STATE_200000;
     }
 }
 
 void uvGfxEnableCull(s32 enable_front, s32 enable_back) {
-    if (enable_front != 0) {
+    if (enable_front != FALSE) {
         gSPSetGeometryMode(gGfxDisplayListHead++, G_CULL_FRONT);
-        D_802491F8 = 1;
+        gGfxCullFrontEnabled = TRUE;
         gGfxStateStackData |= GFX_STATE_80000;
     } else {
         gSPClearGeometryMode(gGfxDisplayListHead++, G_CULL_FRONT);
-        D_802491F8 = 0;
+        gGfxCullFrontEnabled = FALSE;
         gGfxStateStackData &= ~GFX_STATE_80000;
     }
     if (enable_back != 0) {
         gSPSetGeometryMode(gGfxDisplayListHead++, G_CULL_BACK);
-        D_802491FC = 1;
+        gGfxCullBackEnabled = TRUE;
         gGfxStateStackData |= GFX_STATE_100000;
     } else {
         gSPClearGeometryMode(gGfxDisplayListHead++, G_CULL_BACK);
-        D_802491FC = 0;
+        gGfxCullBackEnabled = FALSE;
         gGfxStateStackData &= ~GFX_STATE_100000;
     }
 }
@@ -898,12 +898,12 @@ Mtx* uvGfxMstackTop(void) {
 }
 
 void uvGfxSetUnkStateF(f32 arg0) {
-    D_8024921C = arg0;
+    gGfxUnkStateF = arg0;
 }
 
 f32 uvGfxGetUnkStateF(void) {
-    if (D_8024921C > 0.0f) {
-        return D_8024921C;
+    if (gGfxUnkStateF > 0.0f) {
+        return gGfxUnkStateF;
     }
     return D_802491D8[gGfxFbIndex ^ 1];
 }
@@ -918,7 +918,7 @@ void uvGfxMtxViewLoad(Mtx4F* src, s32 push) {
         flags = G_MTX_MODELVIEW | G_MTX_LOAD;
     }
     gSPMatrix(gGfxDisplayListHead++, osVirtualToPhysical(uvGfxMstackTop()), flags);
-    D_80298AD0[gGfxFbIndex]++;
+    gGfxNumMtxLoads[gGfxFbIndex]++;
 }
 
 void uvGfxMtxViewMul(Mtx4F* src, s32 push) {
@@ -931,8 +931,8 @@ void uvGfxMtxViewMul(Mtx4F* src, s32 push) {
         flags = G_MTX_MODELVIEW | G_MTX_MUL;
     }
     gSPMatrix(gGfxDisplayListHead++, osVirtualToPhysical(uvGfxMstackTop()), flags);
-    D_80298AD0[gGfxFbIndex]++;
-    D_80298AD8[gGfxFbIndex]++;
+    gGfxNumMtxLoads[gGfxFbIndex]++;
+    gGfxNumMtxLoadMults[gGfxFbIndex]++;
 }
 
 void uvGfx_802235A4(Mtx src, u8 push) {
@@ -945,8 +945,8 @@ void uvGfx_802235A4(Mtx src, u8 push) {
         flags = G_MTX_MODELVIEW | G_MTX_MUL;
     }
     gSPMatrix(gGfxDisplayListHead++, osVirtualToPhysical(uvGfxMstackTop()), flags);
-    D_80298AD0[gGfxFbIndex]++;
-    D_80298AD8[gGfxFbIndex]++;
+    gGfxNumMtxLoads[gGfxFbIndex]++;
+    gGfxNumMtxLoadMults[gGfxFbIndex]++;
 }
 
 void uvGfxMtxViewPop(void) {
@@ -955,7 +955,7 @@ void uvGfxMtxViewPop(void) {
 
 void uvGfx_802236CC(Mtx4F* arg0) {
     Mtx4F sp20;
-    uvMat4MulBA(&sp20, &D_802B4888, arg0);
+    uvMat4MulBA(&sp20, &gGfxLookTransform, arg0);
     if (sp20.m[3][0] < -2.1e9f) {
         sp20.m[3][0] = -2.1e9f;
     } else if (sp20.m[3][0] > 2.1e9f) {
@@ -973,21 +973,21 @@ void uvGfx_802236CC(Mtx4F* arg0) {
     }
     uvGfxMstackPushF(&sp20);
     gSPMatrix(gGfxDisplayListHead++, osVirtualToPhysical(uvGfxMstackTop()), G_MTX_PUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
-    D_80298AD0[gGfxFbIndex]++;
+    gGfxNumMtxLoads[gGfxFbIndex]++;
 }
 
 s32 uvGfxGetCnt(u32 arg0) {
     switch (arg0) {
     case GFX_COUNT_VTX_TRANSFORMS:
-        return D_80298AB8[1 - gGfxFbIndex];
+        return gGfxNumVtxTransforms[1 - gGfxFbIndex];
     case GFX_COUNT_TRIS:
-        return D_80298AC0[1 - gGfxFbIndex];
+        return gGfxNumTriangles[1 - gGfxFbIndex];
     case GFX_COUNT_TXT_LOADS:
-        return D_80298AC8[1 - gGfxFbIndex];
+        return gGfxNumTxtLoads[1 - gGfxFbIndex];
     case GFX_COUNT_MTX_LOADS:
-        return D_80298AD0[1 - gGfxFbIndex];
+        return gGfxNumMtxLoads[1 - gGfxFbIndex];
     case GFX_COUNT_MTX_LOAD_MULTS:
-        return D_80298AD8[1 - gGfxFbIndex];
+        return gGfxNumMtxLoadMults[1 - gGfxFbIndex];
     default:
         _uvDebugPrintf("uvGfxGetCnt: no such count type %d", arg0);
         return 0;
@@ -1079,15 +1079,15 @@ void uvGfx_80223A64(s32 arg0, s32 arg1) {
 }
 
 void uvGfxWaitForMesg(void) {
-    if (D_80249200 != 0) {
+    if (gGfxSyncNeeded != FALSE) {
         uvWaitForMesg(UV_MESG_GFX);
-        D_80249200 = 0;
+        gGfxSyncNeeded = FALSE;
     }
 }
 
 void uvGfxEnableGamma(s32 enable) {
-    D_802491EC = enable;
-    if (enable != 0) {
+    gGfxGammaEnabled = enable;
+    if (enable != FALSE) {
         osViSetSpecialFeatures(OS_VI_GAMMA_ON);
     } else {
         osViSetSpecialFeatures(OS_VI_GAMMA_OFF);
