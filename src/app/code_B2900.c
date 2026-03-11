@@ -211,7 +211,7 @@ s32 func_8032B560(Unk80364210* arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
     }
     temp_v1->unk22 = 0;
     if (arg0->unk0 & 0x10000) {
-        temp_v1->unk22 = func_802D3110();
+        temp_v1->unk22 = ballTgtCount_59();
     }
     temp_v1->unk24 = 0;
     if (arg0->unk0 & 0x20000) {
@@ -313,7 +313,7 @@ static u8 func_8032BF54(void) {
         return 0;
     }
     return (func_80324AF4() != levelDataGetRNGS(&tmp) || func_803448F4() != levelDataGetTARG(&tmp) || ballsGet_802CC15C() == 0 ||
-            func_8030A080() != levelDataGetHPAD(&tmp) || func_802E57C4() != D_8035A5F0 || func_802D30B4() != levelDataGetBTGT((LevelBTGT**)&tmp) ||
+            func_8030A080() != levelDataGetHPAD(&tmp) || func_802E57C4() != D_8035A5F0 || ballTgtCount_5B() != levelDataGetBTGT((LevelBTGT**)&tmp) ||
             func_802FB5A0() != levelDataGetHOPD((LevelHOPD**)&tmp));
 }
 
@@ -329,7 +329,7 @@ u8 func_8032C080(s32* arg0) {
         }
         return 0;
     }
-    var_v1 = sp2C->unk3C4 - (func_802D30B4() + (func_802E57C4() + (func_8030A080() + (func_803448F4() + (func_80324AF4() + func_802FB5A0())))));
+    var_v1 = sp2C->unk3C4 - (ballTgtCount_5B() + (func_802E57C4() + (func_8030A080() + (func_803448F4() + (func_80324AF4() + func_802FB5A0())))));
     if (var_v1 < 0) {
         var_v1 = 0;
     }

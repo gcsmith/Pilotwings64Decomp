@@ -49,7 +49,7 @@ typedef struct {
     s32 state;
     s16 unk4;
     s16 unk6;
-    Gfx* unk8;
+    Gfx* dlist;
 } uvGfxState_t;
 
 typedef struct {
@@ -72,19 +72,16 @@ typedef struct {
 } Unk80225FBC_0x28_UnkC; // size = 0x10
 
 typedef struct {
-    s32 unk0;
-    u16 unk4;
-    u16 unk6;
-    Gfx* dlist;
+    uvGfxState_t unk0;
     Unk80225FBC_0x28_UnkC* unkC;
     u16 unk10;
     u16 unk12;
     u16 unk14;
     u16 pad16;
-    s32 unk18;
-    s32 unk1C;
-    s32 unk20;
-    s32 unk24;
+    f32 unk18;
+    f32 unk1C;
+    f32 unk20;
+    f32 unk24;
 } Unk80225FBC_0x28;
 
 typedef struct {
@@ -97,23 +94,15 @@ typedef struct {
     struct UnkSobjDraw* unk10;
     u16 unk14;
     u16 pad16;
-    s32 unk18;
-    s32 unk1C;
-    s32 unk20;
-    s32 unk24;
+    f32 unk18;
+    f32 unk1C;
+    f32 unk20;
+    f32 unk24;
     f32 unk28;
 } ParsedUVCT; // size = 0x28
 
-typedef struct uvUnkTileStruct_Unk0 {
-    u8 pad0[0x30];
-    f32 unk30;
-    f32 unk34;
-    f32 unk38;
-    u8 pad3C[0x4];
-} uvUnkTileStruct_Unk0; // size = 0x40
-
 typedef struct uvUnkTileStruct {
-    uvUnkTileStruct_Unk0 unk0;
+    Mtx4F unk0;
     ParsedUVCT* unk40;
     u8 unk44;
 } uvUnkTileStruct; // size = 0x48
@@ -121,7 +110,7 @@ typedef struct uvUnkTileStruct {
 typedef struct uvUnkTeraStruct {
     f32 unk0;
     f32 unk4;
-    u8 pad8[0x4];
+    f32 unk8;
     f32 unkC;
     f32 unk10;
     f32 unk14;
@@ -436,7 +425,7 @@ void uvGfxStatePush(void);
 void uvGfxStatePop(void);
 void uvGfxSetFlags(s32 flags);
 void uvGfxClearFlags(s32 flags);
-void uvGfx_80223A28(u32 flags);
+void uvGfx_80223A28(s32 flags);
 void uvGfx_80223A64(s32 arg0, s32 arg1);
 void uvGfxWaitForMesg(void);
 void uvGfxEnableGamma(s32 enable);
@@ -445,6 +434,15 @@ void uvGfx_80223C00(void);
 void uvCopyFrameBuf(s32 fb_id);
 
 // TODO from kernel/code_58E0 -- split into uv_???
+typedef struct UnkStruct_80204D94_Unk374 {
+    f32 unk0;
+    f32 unk4;
+    f32 unk8;
+    f32 unkC;
+    f32 unk10;
+    f32 unk14;
+} UnkStruct_80204D94_Unk374;
+
 typedef struct {
 /* 000 */ u8 unk0;
 /* 001 */ u8 unk1;
@@ -472,20 +470,25 @@ typedef struct {
 /* 1FC */ f32 unk1FC;
 /* 200 */ f32 unk200;
 /* 204 */ f32 unk204;
-/* 208 */ u8 pad208[0xD8];
-/* 2E0 */ u8 unk2E0[0x90];
-/* 370 */ s32 unk370;
-/* 374 */ s32 unk374;
-/* 378 */ s32 unk378;
-/* 37C */ s32 unk37C;
-/* 380 */ s32 unk380;
-/* 384 */ s32 unk384;
-/* 388 */ s32 unk388;
-/* 38C */ s16 unk38C;
-/* 38E */ s16 unk38E;
-/* 390 */ s16 unk390;
-/* 392 */ s16 unk392;
-/* 394 */ u32 pad394;
+/* 208 */ Vec3F unk208[4];
+/* 238 */ Vec3F unk238;
+/* 244 */ Vec3F unk244;
+/* 250 */ Vec3F unk250[5];
+/* 28C */ u8 pad28C[0xC];
+/* 298 */ Vec3F unk298[4];
+/* 2C8 */ Vec3F unk2C8;
+/* 2D4 */ Vec3F unk2D4;
+/* 2E0 */ Vec3F unk2E0[5];
+/* 31C */ u8 unk31C[0xC];
+/* 328 */ Vec3F unk328[1];
+/* 334 */ u8 pad334[0x3C];
+/* 370 */ u8 unk370;
+/* 374 */ UnkStruct_80204D94_Unk374 unk374;
+/* 38C */ u16 unk38C;
+/* 38E */ u16 unk38E;
+/* 390 */ u16 unk390;
+/* 392 */ u16 unk392;
+/* 394 */ s32 unk394;
 /* 398 */ void (*unk398)(void);
 /* 39C */ void (*unk39C)(void);
 } UnkStruct_80204D94; // size 3A0

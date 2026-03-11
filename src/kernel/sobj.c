@@ -4,6 +4,7 @@
 #include <uv_math.h>
 #include <uv_sobj.h>
 #include "kernel/code_58E0.h"
+#include "kernel/code_7150.h"
 #include "kernel/code_8170.h"
 
 extern s32 D_80248DD8;

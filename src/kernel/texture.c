@@ -47,13 +47,16 @@ ParsedUVTP* _uvParseUVTP(u8*);
 ParsedUVTR* _uvParseUVTR(u8*);
 ParsedUVBT* _uvParseUVBT(u8*);
 
+Unk802B53C0* D_802B53C0;
+UVBlockCounts gUVBlockCounts;
+UVBlockOffsets gUVBlockOffsets;
+void* D_802B6E30[LEVEL_TEXTURE_COUNT];
+u16 D_802B7600[1000];
+u16* D_802B7DD0;
+ParsedUVLV* D_802B7DD4;
+
 extern u32 D_802B892C;
-
 extern u32 D_802B8934;
-
-extern u16 D_802B7600[1000];
-extern u16* D_802B7DD0;
-extern ParsedUVLV* D_802B7DD4;
 
 void uvMemInitBlockHdr(void) {
     s32 sp64;
@@ -502,7 +505,7 @@ ParsedUVMD* _uvParseUVMD(u8* src) {
 
                 dlist = (Gfx*)_uvMemAlloc((gfxCount + 1) * sizeof(Gfx), 8);
                 if (1) { }
-                sp58[k].unk8 = OS_PHYSICAL_TO_K0(dlist);
+                sp58[k].dlist = OS_PHYSICAL_TO_K0(dlist);
                 for (var_s0 = 0; var_s0 < gfxCount; var_s0++) {
                     uvConsumeBytes(&sp70, &src, sizeof(sp70));
                     if (sp70 & 0x4000) {
@@ -653,9 +656,9 @@ ParsedUVCT* _uvParseUVCT(u8* src) {
     spA0 = (Unk80225FBC_0x28*)_uvMemAlloc(sp88 * sizeof(Unk80225FBC_0x28), 4);
     for (i = 0; i < sp88; i++) {
         tempSpA0 = &spA0[i];
-        uvConsumeBytes(&tempSpA0->unk0, &src, sizeof(tempSpA0->unk0));
-        uvConsumeBytes(&tempSpA0->unk4, &src, sizeof(tempSpA0->unk4));
-        uvConsumeBytes(&tempSpA0->unk6, &src, sizeof(tempSpA0->unk6));
+        uvConsumeBytes(&tempSpA0->unk0.state, &src, sizeof(tempSpA0->unk0.state));
+        uvConsumeBytes(&tempSpA0->unk0.unk4, &src, sizeof(tempSpA0->unk0.unk4));
+        uvConsumeBytes(&tempSpA0->unk0.unk6, &src, sizeof(tempSpA0->unk0.unk6));
         uvConsumeBytes(&gfxCount, &src, sizeof(gfxCount));
         dlist = (Gfx*)_uvMemAlloc((gfxCount + 1) * sizeof(Gfx), 8); // +1 for G_ENDDL
         for (j = 0; j < gfxCount; j++) {
@@ -670,7 +673,7 @@ ParsedUVCT* _uvParseUVCT(u8* src) {
         }
 
         gSPEndDisplayList(&dlist[j]); // G_ENDDL = 0xB8
-        tempSpA0->dlist = dlist;
+        tempSpA0->unk0.dlist = dlist;
 
         uvConsumeBytes(&elem, &src, sizeof(elem));
         tempSpA0->unkC = &spA4[elem];

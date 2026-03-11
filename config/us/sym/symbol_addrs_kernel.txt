@@ -404,13 +404,13 @@ gRanluxState1             = 0x8024B2C4;
 gRanluxState2             = 0x8024B2C8;
 
 gKernelThread             = 0x802C36F8;
-gKernelThreadStack        = 0x802BDC90;
+gKernelThreadStack        = 0x802BBC90;
 
 gRenderThread             = 0x802C3548;
-gRenderThreadStack        = 0x802BBC90;
+gRenderThreadStack        = 0x802B9C90;
 
 gAppThread                = 0x802C3398;
-gAppThreadStack           = 0x802C1C90;
+gAppThreadStack           = 0x802BDC90;
 
 gNmiAsserted              = 0x802B9C80;
 
@@ -427,7 +427,7 @@ gSiContStatus             = 0x802C3358;
 gSiContPattern            = 0x802C3394;
 
 gSchedInst                = 0x802C38A8;
-gSchedStack               = 0x802C5BA8;
+gSchedStack               = 0x802C3BA8;
 gSchedRspStatus           = 0x802B9C69;
 gSchedRdpStatus           = 0x802B9C6A;
 gSchedRingIdx             = 0x802B9C78;
