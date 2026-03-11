@@ -313,7 +313,7 @@ void uvGfxStateDraw(uvGfxState_t* arg0) {
                 var_t1 = 0xFFF;
                 textureId = 0xFFF;
             } else {
-                var_t1 = (uvtx->unk12 & 0xF000) | textureId;
+                var_t1 = (uvtx->rspState & 0xF000) | textureId;
             }
         }
 
@@ -358,7 +358,7 @@ void uvGfxStateDraw(uvGfxState_t* arg0) {
         case GFX_STATE_800000 | GFX_STATE_400000 | GFX_STATE_200000:
             if (textureId == 0xFFF) {
                 renderMode2 = G_RM_AA_ZB_XLU_INTER2;
-            } else if ((uvtx->unk12 & 0x8000) || (uvtx->unk22 == 1) || (var_a3 & 0x04000000)) {
+            } else if ((uvtx->rspState & 0x8000) || (uvtx->format == 1) || (var_a3 & 0x04000000)) {
                 renderMode2 = G_RM_AA_ZB_XLU_SURF2;
             } else {
                 renderMode2 = G_RM_AA_ZB_TEX_TERR2;
@@ -367,7 +367,7 @@ void uvGfxStateDraw(uvGfxState_t* arg0) {
         case GFX_STATE_800000 | GFX_STATE_400000:
             if (textureId == 0xFFF) {
                 renderMode2 = G_RM_AA_XLU_SURF2;
-            } else if (uvtx->unk12 & 0x8000) {
+            } else if (uvtx->rspState & 0x8000) {
                 renderMode2 = G_RM_AA_XLU_SURF2;
             } else {
                 renderMode2 = G_RM_AA_TEX_TERR2;
@@ -1068,11 +1068,11 @@ void uvGfx_80223A64(s32 arg0, s32 arg1) {
         gSPTextureL(gGfxDisplayListHead++, 0, 0, 0, arg1, G_TX_RENDERTILE, G_OFF);
 
     } else if (arg1 != 0) {
-        Gfx* temp_v0 = gGfxUnkPtrs->textures[arg0]->unk4;
+        Gfx* temp_v0 = gGfxUnkPtrs->textures[arg0]->dlist;
         GFX_PATCH_DL(gGfxDisplayListHead, temp_v0, arg1);
         gGfxDisplayListHead++;
     } else if (var_v0 != 0) {
-        Gfx* temp_v0 = gGfxUnkPtrs->textures[arg0]->unk4;
+        Gfx* temp_v0 = gGfxUnkPtrs->textures[arg0]->dlist;
         GFX_PATCH_DL(gGfxDisplayListHead, temp_v0, 0);
         gGfxDisplayListHead++;
     }

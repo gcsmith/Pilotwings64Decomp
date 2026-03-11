@@ -795,9 +795,9 @@ void func_8020F298(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
             temp_fv1 = 1.0f - (uvtx->unk28 * arg5);
             temp_fa0 = 1.0f - (uvtx->unk28 * arg6);
             if (arg0 == 0) {
-                func_802077BC(uvtx->unk22, uvtx->unkE, uvtx->size, uvtx->unk0, arg1, arg2, arg3, temp_fv0, temp_fv1, temp_fa0);
+                func_802077BC(uvtx->format, uvtx->depth, uvtx->size, uvtx->buffer, arg1, arg2, arg3, temp_fv0, temp_fv1, temp_fa0);
             } else {
-                func_8020921C(uvtx->unk22, uvtx->unkE, uvtx->size, uvtx->unk0, arg1, arg2, arg3, temp_fv0, temp_fv1, temp_fa0);
+                func_8020921C(uvtx->format, uvtx->depth, uvtx->size, uvtx->buffer, arg1, arg2, arg3, temp_fv0, temp_fv1, temp_fa0);
             }
         }
     }
@@ -873,12 +873,12 @@ void func_8020F630(s32 arg0) {
                 var_fv1 = 1.0f - ((1.0f - D_80263748) * uvtx->unk28);
                 var_fa0 = 1.0f - ((1.0f - D_8026374C) * uvtx->unk28);
                 var_fa1 = 1.0f - ((1.0f - D_80263750) * uvtx->unk28);
-                func_8020B894(uvtx->unk22, uvtx->unkE, uvtx->size, uvtx->unk0, var_fv1, var_fa0, var_fa1);
+                func_8020B894(uvtx->format, uvtx->depth, uvtx->size, uvtx->buffer, var_fv1, var_fa0, var_fa1);
             } else {
                 var_fv1 = 1.0f - ((1.0f - D_80263754) * uvtx->unk28);
                 var_fa0 = 1.0f - ((1.0f - D_80263758) * uvtx->unk28);
                 var_fa1 = 1.0f - ((1.0f - D_8026375C) * uvtx->unk28);
-                func_8020D0D8(uvtx->unk22, uvtx->unkE, uvtx->size, uvtx->unk0, var_fv1, var_fa0, var_fa1);
+                func_8020D0D8(uvtx->format, uvtx->depth, uvtx->size, uvtx->buffer, var_fv1, var_fa0, var_fa1);
             }
         }
     }
@@ -1351,7 +1351,7 @@ void uvTerraGetColor(s32 terraId, s32 surfaceId, u8* arg2, u8* arg3, u8* arg4) {
     temp_v1_2 = &temp_v0_2->unkC[surfaceId & 0xFFF];
     if ((temp_v0_2->unk0.state & 0xFFF) != 0xFFF) {
         uvtx = gGfxUnkPtrs->textures[temp_v0_2->unk0.state & 0xFFF];
-        if (uvtx->unk22 == 4) {
+        if (uvtx->format == 4) {
             *arg2 = uvtx->unk23;
             *arg3 = uvtx->unk24;
             *arg4 = uvtx->unk25;

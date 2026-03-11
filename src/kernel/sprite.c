@@ -4,10 +4,10 @@
 #include <libc/stdarg.h>
 #include "common.h"
 
-UnkUVTX_1C D_802C5FD0[10];
+uvTextureTile D_802C5FD0[10];
 u16 D_802C60E8[500];
 s32 gSprtUnkIndex;
-UnkUVTX_1C* gSprtUnkTable[1000];
+uvTextureTile* gSprtUnkTable[1000];
 uvSprite_t gSprtTable1[31];
 
 void uvSprt_80230130(void) {
@@ -15,7 +15,7 @@ void uvSprt_80230130(void) {
 
     for (i = 0; i < 10; i++) {
         D_802C5FD0[i].unk18 = 0;
-        D_802C5FD0[i].unk0 = D_802C5FD0[i].unk4 = D_802C5FD0[i].unk8 = D_802C5FD0[i].unkC = D_802C5FD0[i].unk10 = D_802C5FD0[i].unk14 = 0.0f;
+        D_802C5FD0[i].unk0 = D_802C5FD0[i].unk4 = D_802C5FD0[i].scaleS = D_802C5FD0[i].scaleT = D_802C5FD0[i].unk10 = D_802C5FD0[i].unk14 = 0.0f;
     }
 
     // clang-format off
@@ -26,7 +26,7 @@ void uvSprt_80230130(void) {
 }
 
 void uvSprt_802301A4(void) {
-    UnkUVTX_1C* var_v0;
+    uvTextureTile* var_v0;
     s32 i;
     f32 temp_fv0;
 
@@ -43,25 +43,25 @@ void uvSprt_802301A4(void) {
             continue;
         }
 
-        var_v0->unk10 += var_v0->unk8 * temp_fv0;
-        if (var_v0->unk8 > 0.0f) {
+        var_v0->unk10 += var_v0->scaleS * temp_fv0;
+        if (var_v0->scaleS > 0.0f) {
             if (var_v0->unk10 >= 1.0f) {
                 var_v0->unk10 -= 1.0f;
             }
         }
-        if (var_v0->unk8 < 0.0f) {
+        if (var_v0->scaleS < 0.0f) {
             if (var_v0->unk10 <= 0) {
                 var_v0->unk10 += 1.0f;
             }
         }
 
-        var_v0->unk14 += var_v0->unkC * temp_fv0;
-        if (var_v0->unkC > 0.0f) {
+        var_v0->unk14 += var_v0->scaleT * temp_fv0;
+        if (var_v0->scaleT > 0.0f) {
             if (var_v0->unk14 >= 1.0f) {
                 var_v0->unk14 -= 1.0f;
             }
         }
-        if (var_v0->unkC < 0.0f) {
+        if (var_v0->scaleT < 0.0f) {
             if (var_v0->unk14 <= 0) {
                 var_v0->unk14 += 1.0f;
             }
@@ -70,7 +70,7 @@ void uvSprt_802301A4(void) {
 }
 
 void _uvTxtDraw(s32 textureId) {
-    UnkUVTX_1C* temp_a1;
+    uvTextureTile* tile;
     ParsedUVTX* uvtx;
     s32 temp_a3;
     s32 temp_t1;
@@ -83,35 +83,35 @@ void _uvTxtDraw(s32 textureId) {
         return;
     }
 
-    gSPDisplayList(gGfxDisplayListHead++, OS_PHYSICAL_TO_K0(uvtx->unk4));
+    gSPDisplayList(gGfxDisplayListHead++, OS_PHYSICAL_TO_K0(uvtx->dlist));
 
-    if (uvtx->unk18 != NULL) {
-        temp_a1 = uvtx->unk18;
-        if (temp_a1->unk18 != 0) {
-            temp_ft1 = temp_a1->unk10 * uvtx->width * 4.0f;
-            temp_ft0 = temp_a1->unk14 * uvtx->height * 4.0f;
+    if (uvtx->tile1 != NULL) {
+        tile = uvtx->tile1;
+        if (tile->unk18 != 0) {
+            temp_ft1 = tile->unk10 * uvtx->width * 4.0f;
+            temp_ft0 = tile->unk14 * uvtx->height * 4.0f;
             gDPSetTileSize(gGfxDisplayListHead++, 1, temp_ft1, temp_ft0, (((uvtx->width * 4) + temp_ft1) - 1), (((uvtx->height * 4) + temp_ft0) - 1));
         }
     }
 
-    if (uvtx->unk1C != NULL) {
-        temp_a1 = uvtx->unk1C;
-        if (temp_a1->unk18 != 0) {
-            temp_a3 = gGfxUnkPtrs->textures[uvtx->unk14]->width;
-            temp_t1 = gGfxUnkPtrs->textures[uvtx->unk14]->height;
+    if (uvtx->tile2 != NULL) {
+        tile = uvtx->tile2;
+        if (tile->unk18 != 0) {
+            temp_a3 = gGfxUnkPtrs->textures[uvtx->txtIndex]->width;
+            temp_t1 = gGfxUnkPtrs->textures[uvtx->txtIndex]->height;
 
-            temp_ft1 = temp_a1->unk10 * temp_a3 * 4.0f;
-            temp_ft0 = temp_a1->unk14 * temp_t1 * 4.0f;
+            temp_ft1 = tile->unk10 * temp_a3 * 4.0f;
+            temp_ft0 = tile->unk14 * temp_t1 * 4.0f;
 
             gDPSetTileSize(gGfxDisplayListHead++, 0, temp_ft1, temp_ft0, (((temp_a3 * 4) + temp_ft1) - 1), (((temp_t1 * 4) + temp_ft0) - 1));
         }
     }
 
     if (D_802C60E8[textureId] != 0xFF) {
-        temp_a1 = &D_802C5FD0[D_802C60E8[textureId]];
-        if (temp_a1->unk18 != 0) {
-            temp_ft1 = temp_a1->unk10 * uvtx->width * 4.0f;
-            temp_ft0 = temp_a1->unk14 * uvtx->height * 4.0f;
+        tile = &D_802C5FD0[D_802C60E8[textureId]];
+        if (tile->unk18 != 0) {
+            temp_ft1 = tile->unk10 * uvtx->width * 4.0f;
+            temp_ft0 = tile->unk14 * uvtx->height * 4.0f;
 
             gDPSetTileSize(gGfxDisplayListHead++, 0, temp_ft1, temp_ft0, ((uvtx->width + temp_ft1) - 1), ((uvtx->height + temp_ft0) - 1));
         }
@@ -134,7 +134,7 @@ void uvSprtFromBitmap(uvSprite_t* sprite, ParsedUVTX* uvtx) {
     sprite->bitmap->width_img = uvtx->width;
     sprite->bitmap->s = 0;
     sprite->bitmap->t = 0;
-    sprite->bitmap->buf = uvtx->unk0;
+    sprite->bitmap->buf = uvtx->buffer;
     sprite->bitmap->actualHeight = uvtx->height;
     sprite->bitmap->LUToffset = 0;
 }
@@ -150,20 +150,20 @@ void uvSprt_80230750(uvSprite_t* sprite, ParsedUVTX* uvtx) {
         sp->bmfmt = 0;
         sp->bmsiz = 2;
         sp->attr = SP_TEXSHUF;
-        if (uvtx->unk22 != 1) {
+        if (uvtx->format != 1) {
             sp->attr |= SP_TRANSPARENT;
         }
-        if (uvtx->unk22 == 1) {
+        if (uvtx->format == 1) {
             sp->bmfmt = G_IM_FMT_I;
-        } else if (uvtx->unk22 == 2) {
+        } else if (uvtx->format == 2) {
             sp->bmfmt = G_IM_FMT_IA;
         } else {
             sp->bmfmt = G_IM_FMT_RGBA;
         }
 
-        if (uvtx->unkE == 4) {
+        if (uvtx->depth == 4) {
             sp->bmsiz = G_IM_SIZ_4b;
-        } else if (uvtx->unkE == 8) {
+        } else if (uvtx->depth == 8) {
             sp->bmsiz = G_IM_SIZ_8b;
         } else {
             sp->bmsiz = G_IM_SIZ_16b;
@@ -463,12 +463,12 @@ void uvSprtProps(s32 spriteId, ...) {
 }
 
 void uvSprtUpdateUnk(ParsedUVTX* uvtx) {
-    if (uvtx->unk18 != NULL) {
-        gSprtUnkTable[gSprtUnkIndex] = uvtx->unk18;
+    if (uvtx->tile1 != NULL) {
+        gSprtUnkTable[gSprtUnkIndex] = uvtx->tile1;
         gSprtUnkIndex += 1;
     }
-    if (uvtx->unk1C != NULL) {
-        gSprtUnkTable[gSprtUnkIndex] = uvtx->unk1C;
+    if (uvtx->tile2 != NULL) {
+        gSprtUnkTable[gSprtUnkIndex] = uvtx->tile2;
         gSprtUnkIndex += 1;
     }
 }

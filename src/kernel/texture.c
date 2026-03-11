@@ -50,7 +50,7 @@ ParsedUVBT* _uvParseUVBT(u8*);
 Unk802B53C0* D_802B53C0;
 UVBlockCounts gUVBlockCounts;
 UVBlockOffsets gUVBlockOffsets;
-void* D_802B6E30[LEVEL_TEXTURE_COUNT];
+void* gTxtBufferTable[LEVEL_TEXTURE_COUNT];
 u16 D_802B7600[1000];
 u16* D_802B7DD0;
 ParsedUVLV* D_802B7DD4;
@@ -262,11 +262,11 @@ void uvLevelAppend(s32 levelId) {
             }
         }
 
-        if (D_802B6E30[id] == NULL) {
-            if (D_802B6E30[var_s3] != NULL) {
-                D_802B6E30[id] = D_802B6E30[var_s3];
+        if (gTxtBufferTable[id] == NULL) {
+            if (gTxtBufferTable[var_s3] != NULL) {
+                gTxtBufferTable[id] = gTxtBufferTable[var_s3];
             } else {
-                D_802B6E30[id] = uvMemLoadDS('UVTI', var_s3);
+                gTxtBufferTable[id] = uvMemLoadDS('UVTI', var_s3);
             }
         }
     }
@@ -705,80 +705,80 @@ ParsedUVCT* _uvParseUVCT(u8* src) {
 }
 
 ParsedUVTX* _uvExpandTexture(u8* src) {
-    void* sp6C;
-    Gfx* sp68;
-    ParsedUVTX* temp_v0;
+    void* txtBuffer;
+    Gfx* dlist;
+    ParsedUVTX* uvtx;
     s32 i;
     s32 var_a0;
     s32 id;
     u8 temp_v0_2;
-    u16 sp54;
+    u16 gfxCount;
     u16 size;
-    UnkUVTX_1C* sp4C;
-    UnkUVTX_1C* sp48;
-    f32 sp44;
-    f32 sp40;
-    Gfx* temp_v1;
-    u16 temp_t2;
+    uvTextureTile* tile1;
+    uvTextureTile* tile2;
+    f32 scaleS;
+    f32 scaleT;
+    Gfx* gfxCmd;
+    u16 rspState;
     u32 temp_t0;
 
     uvConsumeBytes(&size, &src, sizeof(size));
-    if (size > 0x1000) {
+    if (size > UVTX_MAX_BYTES) {
         _uvDebugPrintf("_uvExpandTexture: txt image too big %d bytes (4096 max)\n", size);
-        size = 0x1000;
+        size = UVTX_MAX_BYTES;
     }
-    uvConsumeBytes(&sp54, &src, sizeof(sp54));
-    uvConsumeBytes(&sp44, &src, sizeof(sp44));
-    uvConsumeBytes(&sp40, &src, sizeof(sp40));
-    if ((sp44 != 0.0f) || (sp40 != 0.0f)) {
-        sp4C = (UnkUVTX_1C*)_uvMemAlloc(sizeof(UnkUVTX_1C), 4);
-        sp4C->unk0 = 1.0f;
-        sp4C->unk4 = 1.0f;
-        sp4C->unk8 = sp44;
-        sp4C->unkC = sp40;
-        sp4C->unk10 = 0.0f;
-        sp4C->unk14 = 0.0f;
-        sp4C->unk18 = 1;
+    uvConsumeBytes(&gfxCount, &src, sizeof(gfxCount));
+    uvConsumeBytes(&scaleS, &src, sizeof(scaleS));
+    uvConsumeBytes(&scaleT, &src, sizeof(scaleT));
+    if ((scaleS != 0.0f) || (scaleT != 0.0f)) {
+        tile1 = (uvTextureTile*)_uvMemAlloc(sizeof(uvTextureTile), 4);
+        tile1->unk0 = 1.0f;
+        tile1->unk4 = 1.0f;
+        tile1->scaleS = scaleS;
+        tile1->scaleT = scaleT;
+        tile1->unk10 = 0.0f;
+        tile1->unk14 = 0.0f;
+        tile1->unk18 = 1;
     } else {
-        sp4C = NULL;
+        tile1 = NULL;
     }
-    uvConsumeBytes(&sp44, &src, sizeof(sp44));
-    uvConsumeBytes(&sp40, &src, sizeof(sp40));
-    if ((sp44 != 0.0f) || (sp40 != 0.0f)) {
-        sp48 = (UnkUVTX_1C*)_uvMemAlloc(sizeof(UnkUVTX_1C), 4);
-        sp48->unk0 = 1.0f;
-        sp48->unk4 = 1.0f;
-        sp48->unk8 = sp44;
-        sp48->unkC = sp40;
-        sp48->unk10 = 0.0f;
-        sp48->unk14 = 0.0f;
-        sp48->unk18 = 1;
+    uvConsumeBytes(&scaleS, &src, sizeof(scaleS));
+    uvConsumeBytes(&scaleT, &src, sizeof(scaleT));
+    if ((scaleS != 0.0f) || (scaleT != 0.0f)) {
+        tile2 = (uvTextureTile*)_uvMemAlloc(sizeof(uvTextureTile), 4);
+        tile2->unk0 = 1.0f;
+        tile2->unk4 = 1.0f;
+        tile2->scaleS = scaleS;
+        tile2->scaleT = scaleT;
+        tile2->unk10 = 0.0f;
+        tile2->unk14 = 0.0f;
+        tile2->unk18 = 1;
     } else {
-        sp48 = NULL;
+        tile2 = NULL;
     }
     src += size;
-    sp68 = (Gfx*)_uvMemAlloc(sp54 * sizeof(Gfx), 8);
+    dlist = (Gfx*)_uvMemAlloc(gfxCount * sizeof(Gfx), 8);
 
-    uvConsumeBytes(sp68, &src, sp54 * sizeof(Gfx));
+    uvConsumeBytes(dlist, &src, gfxCount * sizeof(Gfx));
 
-    temp_v0 = (ParsedUVTX*)_uvMemAlloc(sizeof(ParsedUVTX), 4);
-    uvConsumeBytes(&temp_v0->width, &src, sizeof(temp_v0->width));
-    uvConsumeBytes(&temp_v0->height, &src, sizeof(temp_v0->height));
-    uvConsumeBytes(&temp_v0->unkE, &src, sizeof(temp_v0->unkE));
-    uvConsumeBytes(&temp_v0->unkF, &src, sizeof(temp_v0->unkF));
-    uvConsumeBytes(&temp_v0->unk10, &src, sizeof(temp_v0->unk10));
-    uvConsumeBytes(&temp_v0->unk12, &src, sizeof(temp_v0->unk12));
-    uvConsumeBytes(&temp_v0->unk14, &src, sizeof(temp_v0->unk14));
-    uvConsumeBytes(&temp_v0->unk20, &src, sizeof(temp_v0->unk20));
-    uvConsumeBytes(&temp_v0->unk22, &src, sizeof(temp_v0->unk22));
-    uvConsumeBytes(&temp_v0->unk23, &src, sizeof(temp_v0->unk23));
-    uvConsumeBytes(&temp_v0->unk24, &src, sizeof(temp_v0->unk24));
-    uvConsumeBytes(&temp_v0->unk25, &src, sizeof(temp_v0->unk25));
-    uvConsumeBytes(&temp_v0->unk26, &src, sizeof(temp_v0->unk26));
-    uvConsumeBytes(&temp_v0->unk28, &src, sizeof(temp_v0->unk28));
-    temp_v0->size = size;
-    temp_t2 = temp_v0->unk12;
-    id = temp_v0->unk12 & 0xFFF;
+    uvtx = (ParsedUVTX*)_uvMemAlloc(sizeof(ParsedUVTX), 4);
+    uvConsumeBytes(&uvtx->width, &src, sizeof(uvtx->width));
+    uvConsumeBytes(&uvtx->height, &src, sizeof(uvtx->height));
+    uvConsumeBytes(&uvtx->depth, &src, sizeof(uvtx->depth));
+    uvConsumeBytes(&uvtx->unkF, &src, sizeof(uvtx->unkF));
+    uvConsumeBytes(&uvtx->unk10, &src, sizeof(uvtx->unk10));
+    uvConsumeBytes(&uvtx->rspState, &src, sizeof(uvtx->rspState));
+    uvConsumeBytes(&uvtx->txtIndex, &src, sizeof(uvtx->txtIndex));
+    uvConsumeBytes(&uvtx->unk20, &src, sizeof(uvtx->unk20));
+    uvConsumeBytes(&uvtx->format, &src, sizeof(uvtx->format));
+    uvConsumeBytes(&uvtx->unk23, &src, sizeof(uvtx->unk23));
+    uvConsumeBytes(&uvtx->unk24, &src, sizeof(uvtx->unk24));
+    uvConsumeBytes(&uvtx->unk25, &src, sizeof(uvtx->unk25));
+    uvConsumeBytes(&uvtx->unk26, &src, sizeof(uvtx->unk26));
+    uvConsumeBytes(&uvtx->unk28, &src, sizeof(uvtx->unk28));
+    uvtx->size = size;
+    rspState = uvtx->rspState;
+    id = uvtx->rspState & 0xFFF;
 
     if (D_802B53C0 != NULL) {
         for (i = 0; i < D_802B53C0->unk0; i++) {
@@ -789,33 +789,33 @@ ParsedUVTX* _uvExpandTexture(u8* src) {
         }
     }
 
-    sp6C = D_802B6E30[id];
-    if (sp6C == NULL) {
-        _uvDebugPrintf("_uvExpandTexture: texture %d not in level. State: 0x%x\n", id, temp_t2);
+    txtBuffer = gTxtBufferTable[id];
+    if (txtBuffer == NULL) {
+        _uvDebugPrintf("_uvExpandTexture: texture %d not in level. State: 0x%x\n", id, rspState);
     }
-    temp_v0->unk4 = sp68;
-    temp_v0->unk0 = sp6C;
-    temp_v0->unk18 = sp4C;
-    temp_v0->unk1C = sp48;
+    uvtx->dlist = dlist;
+    uvtx->buffer = txtBuffer;
+    uvtx->tile1 = tile1;
+    uvtx->tile2 = tile2;
     var_a0 = 0;
     temp_v0_2 = 0;
 
-    temp_t0 = (u32)sp6C;
-    for (i = 0; i < sp54; i++) {
-        temp_v1 = &sp68[i];
+    temp_t0 = (u32)txtBuffer;
+    for (i = 0; i < gfxCount; i++) {
+        gfxCmd = &dlist[i];
 
-        temp_v0_2 = temp_v1->setimg.cmd;
+        temp_v0_2 = gfxCmd->setimg.cmd;
         if (temp_v0_2 == G_SETTIMG) {
             if (var_a0 == 0) {
-                temp_v1->setimg.dram |= (u32)OS_PHYSICAL_TO_K0(temp_t0);
+                gfxCmd->setimg.dram |= (u32)OS_PHYSICAL_TO_K0(temp_t0);
             } else {
-                temp_v1->setimg.dram |= (u32)OS_PHYSICAL_TO_K0(D_802B6E30[temp_v0->unk14]);
+                gfxCmd->setimg.dram |= (u32)OS_PHYSICAL_TO_K0(gTxtBufferTable[uvtx->txtIndex]);
             }
             var_a0++;
         }
     }
 
-    return temp_v0;
+    return uvtx;
 }
 
 void* _uvExpandTextureImg(u8* src) {
@@ -826,9 +826,9 @@ void* _uvExpandTextureImg(u8* src) {
     u32 sp28;
 
     uvConsumeBytes(&size, &src, sizeof(size));
-    if (size > 0x1000) {
+    if (size > UVTX_MAX_BYTES) {
         _uvDebugPrintf("_uvExpandTextureImg: txt image too big %d bytes (4096 max)\n", size);
-        size = 0x1000;
+        size = UVTX_MAX_BYTES;
     }
     uvConsumeBytes(&sp32, &src, sizeof(sp32));
     uvConsumeBytes(&sp2C, &src, sizeof(sp2C));

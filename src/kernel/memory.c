@@ -350,7 +350,7 @@ void uvLevelInit(void) {
     D_802B8934 = 0;
     func_8022A47C();
     uvMemSet(&gLevelData, 0, sizeof(gLevelData));
-    uvMemSet(D_802B6E30, 0, sizeof(D_802B6E30));
+    uvMemSet(gTxtBufferTable, 0, sizeof(gTxtBufferTable));
     uvSprtResetUnk();
     temp_v0 = uvFileReadHeader(gUVBlockOffsets.UVSY[0]);
 

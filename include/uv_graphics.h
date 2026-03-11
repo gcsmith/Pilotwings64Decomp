@@ -210,31 +210,31 @@ typedef struct ParsedUVMD {
     f32 unk24;
 } ParsedUVMD; // size = 0x28
 
-typedef struct UnkUVTX_1C {
+typedef struct uvTextureTile {
     f32 unk0;
     f32 unk4;
-    f32 unk8;
-    f32 unkC;
+    f32 scaleS;
+    f32 scaleT;
     f32 unk10;
     f32 unk14;
     u8 unk18;
-} UnkUVTX_1C; // size = 0x1C
+} uvTextureTile; // size = 0x1C
 
 typedef struct ParsedUVTX {
-    void* unk0;
-    Gfx* unk4;
+    void* buffer;
+    Gfx* dlist;
     u16 size;
     u16 width;
     u16 height;
-    u8 unkE;
+    u8 depth;
     u8 unkF;
     u8 unk10;
-    u16 unk12;
-    u16 unk14;
-    UnkUVTX_1C* unk18;
-    UnkUVTX_1C* unk1C;
+    u16 rspState;
+    u16 txtIndex;
+    uvTextureTile* tile1;
+    uvTextureTile* tile2;
     u16 unk20;
-    u8 unk22;
+    u8 format;
     u8 unk23;
     u8 unk24;
     u8 unk25;
