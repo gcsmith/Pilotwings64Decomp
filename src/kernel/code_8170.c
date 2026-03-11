@@ -1288,8 +1288,8 @@ s32 uvTerraGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
                     if (!(temp_v0_2->unk6 & sp154)) {
                         continue;
                     }
-                    if (func_802129B0(sp170, sp16C, sp168, sp164, sp160, sp15C, uvct->vtxTable, temp_v0_2->unk0, temp_v0_2->unk2, temp_v0_2->unk4, 1.0f, &sp120) ==
-                        0) {
+                    if (func_802129B0(sp170, sp16C, sp168, sp164, sp160, sp15C, uvct->vtxTable, temp_v0_2->unk0, temp_v0_2->unk2, temp_v0_2->unk4, 1.0f,
+                                      &sp120) == 0) {
                         continue;
                     }
                     if (temp_fs2 != 0.0f) {
