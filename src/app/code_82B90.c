@@ -2408,7 +2408,8 @@ void func_80302BA0(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
         }
     }
     func_80200B00(arg0->unk0, 0x6C, arg0->unk1D0);
-    if (((arg0->unk1D0 >= 0.0f) && (arg0->unk140.y == 0.0f) && (arg0->unk1C == arg0->unk18->unk1374) && (arg0->unk2C == 0.0f) && (arg0->unk65D != 0)) || (sp20 != 0)) {
+    if (((arg0->unk1D0 >= 0.0f) && (arg0->unk140.y == 0.0f) && (arg0->unk1C == arg0->unk18->unk1374) && (arg0->unk2C == 0.0f) && (arg0->unk65D != 0)) ||
+        (sp20 != 0)) {
         arg0->unk4C = 3;
         arg0->unk1C0 = 0.0;
         func_802FBD90(arg0);
@@ -2432,7 +2433,6 @@ void func_80302BA0(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
 }
 
 void func_80303028(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
-
     arg0->unkF4.x = arg0->unk74.m[3][0];
     arg0->unkF4.y = arg0->unk74.m[3][1];
     arg0->unkF4.z = arg0->unk74.m[3][2];
