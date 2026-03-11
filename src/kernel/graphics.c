@@ -76,18 +76,18 @@ static u8 gGfxZBufferEnabled = FALSE;   // [4] = { 0, 0, 0, 0 };
 static s8 gGfxCullFrontEnabled = FALSE; // [4] = { 0, 0, 0, 0 };
 static s8 gGfxCullBackEnabled = TRUE;   // [4] = { 0, 0, 0, 0 };
 
-s32 D_80249200 = 0;
-s32 gGfxBeginFlag = 0;
+s32 gGfxSyncNeeded = FALSE;
+s32 gGfxBeginFlag = FALSE;
 f32 gGfxFogFactor = 0;
 u16 gGfxFbIndex = 0;
 s32 gGfxElementCount = 0;
 s32 gGfxFrameCount = 0;
 s16 gGfxMstackIdx = 0xFFFF;
-f32 D_8024921C = -1;
+f32 gGfxUnkStateF = -1;
 
 UNUSED Vp D_80249220 = { 640, 480, 511, 0, 640, 480, 511, 0 };
 
-static uvGfxCallback_t D_80249230 = NULL;
+static uvGfxCallback_t gGfxCallback = NULL;
 
 extern OSMesgQueue D_802C3B90;
 extern s32 D_8024B260;
@@ -129,11 +129,11 @@ void uvGfxInit(void) {
 }
 
 void uvGfxBegin(void) {
-    if (gGfxBeginFlag == 1) {
+    if (gGfxBeginFlag == TRUE) {
         _uvDebugPrintf("uvGfxBegin: 2 calls in a row.  Must call uvGfxEnd first\n");
         return;
     }
-    gGfxBeginFlag = 1;
+    gGfxBeginFlag = TRUE;
     uvEventPost(0, 0);
     gSPSegment(gGfxDisplayListHead++, 0x00, 0x00000000);
     gDPSetColorImage(gGfxDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, osVirtualToPhysical(gGfxFbCurrPtr));
@@ -551,7 +551,7 @@ void uvGfxMtxProjPushF(Mtx4F* arg0) {
 }
 
 void uvGfxSetCallback(uvGfxCallback_t cb) {
-    D_80249230 = cb;
+    gGfxCallback = cb;
 }
 
 void uvGfxEnd(void) {
@@ -571,11 +571,11 @@ void uvGfxEnd(void) {
     s32 var_a1;
     OSTask* task;
 
-    if (gGfxBeginFlag == 0) {
+    if (gGfxBeginFlag == FALSE) {
         _uvDebugPrintf("uvGfxEnd: must be called after a uvGfxBegin()\n");
         return;
     }
-    gGfxBeginFlag = 0;
+    gGfxBeginFlag = FALSE;
     gDPFullSync(gGfxDisplayListHead++);
     gSPEndDisplayList(gGfxDisplayListHead++);
     gGfxElementCount = (gGfxDisplayListHead - (gGfxDisplayListBase[gGfxFbIndex]));
@@ -613,13 +613,13 @@ void uvGfxEnd(void) {
     uvEventPost(1, 0);
     if (gGfxFrameCount == 0) {
         osViBlack(FALSE);
-    } else if (D_80249200 != 0) {
-        uvWaitForMesg(4);
+    } else if (gGfxSyncNeeded != FALSE) {
+        uvWaitForMesg(UV_MESG_GFX);
     }
-    D_80249200 = 1;
+    gGfxSyncNeeded = TRUE;
     fb = gGfxFbPtrs[gGfxFbIndex ^ 1];
-    if (D_80249230 != NULL) {
-        D_80249230(fb, D_80299278);
+    if (gGfxCallback != NULL) {
+        gGfxCallback(fb, D_80299278);
         osWritebackDCache(fb, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(u16));
     }
     D_802491D8[gGfxFbIndex] = (f32)uvClkGetSec(3);
@@ -898,12 +898,12 @@ Mtx* uvGfxMstackTop(void) {
 }
 
 void uvGfxSetUnkStateF(f32 arg0) {
-    D_8024921C = arg0;
+    gGfxUnkStateF = arg0;
 }
 
 f32 uvGfxGetUnkStateF(void) {
-    if (D_8024921C > 0.0f) {
-        return D_8024921C;
+    if (gGfxUnkStateF > 0.0f) {
+        return gGfxUnkStateF;
     }
     return D_802491D8[gGfxFbIndex ^ 1];
 }
@@ -1079,9 +1079,9 @@ void uvGfx_80223A64(s32 arg0, s32 arg1) {
 }
 
 void uvGfxWaitForMesg(void) {
-    if (D_80249200 != 0) {
+    if (gGfxSyncNeeded != FALSE) {
         uvWaitForMesg(UV_MESG_GFX);
-        D_80249200 = 0;
+        gGfxSyncNeeded = FALSE;
     }
 }
 
