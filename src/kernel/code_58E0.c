@@ -28,7 +28,7 @@ u8 D_80263060[1040];
         _g->words.w1 = (s);                         \
     }
 
-extern f32 D_80249208;
+extern f32 gGfxFogFactor;
 
 void func_80204930(void) {
     s32 i;
@@ -182,7 +182,7 @@ void func_80204FC4(s32 arg0) {
 
 void func_80204FE4(s32 arg0) {
     UnkStruct_80204D94* temp_s0;
-    ParsedUVTR* spC8;
+    ParsedUVTR* uvtr;
     s32 var_v0;
     f32 spC0;
     f32 spBC;
@@ -224,29 +224,29 @@ void func_80204FE4(s32 arg0) {
     gSPSetGeometryMode(gGfxDisplayListHead++, G_SHADE);
     gDPSetCombineMode(gGfxDisplayListHead++, G_CC_SHADE, G_CC_PASS2);
 
-    if (D_80249208 > 0.0f) {
+    if (gGfxFogFactor > 0.0f) {
         gDPSetRenderMode(gGfxDisplayListHead++, G_RM_FOG_SHADE_A, G_RM_AA_ZB_OPA_SURF2);
     } else {
         gDPSetRenderMode(gGfxDisplayListHead++, G_RM_PASS, G_RM_AA_ZB_OPA_SURF2);
     }
     if (temp_s0->unk0 & 2) {
         _uvTerraDraw(temp_s0, temp_s0->unk4);
-        spC8 = gGfxUnkPtrs->terras[temp_s0->unk4];
-        if (spC8 != NULL) {
-            uvMemSet(D_80263060, 0, spC8->unk18 * spC8->unk19);
+        uvtr = gGfxUnkPtrs->terras[temp_s0->unk4];
+        if (uvtr != NULL) {
+            uvMemSet(D_80263060, 0, uvtr->unk18 * uvtr->unk19);
         }
     } else {
-        spC8 = NULL;
+        uvtr = NULL;
     }
     func_8021EA38(temp_s0);
     _uvDobjsDraw(temp_s0, 0);
 
-    if (FABS(0.996f - D_80249208) < 0.0001f) {
+    if (FABS(0.996f - gGfxFogFactor) < 0.0001f) {
         var_v0 = 1;
     } else {
         var_v0 = 0;
     }
-    if (var_v0 && (spC8 != NULL)) {
+    if (var_v0 && (uvtr != NULL)) {
         spBC = temp_s0->unk1E8;
         spB8 = temp_s0->unk1EC;
         spB4 = temp_s0->unk1F0;
@@ -255,30 +255,30 @@ void func_80204FE4(s32 arg0) {
         spA8 = temp_s0->unk1FC;
         temp_fv1 = temp_s0->unk1FC / (spAC * 50.0f);
         spC0 = temp_s0->unk1FC * 0.66667f;
-        if (spC0 < spC8->unk24) {
+        if (spC0 < uvtr->unk24) {
             spC0 = 1e11f;
         }
         func_80204C94(temp_s0 - D_80261730, spBC * temp_fv1, spB8 * temp_fv1, spB4 * temp_fv1, spB0 * temp_fv1, spAC * temp_fv1, spA8);
         uvGfxMtxProj(temp_s0->unk50);
-        func_8022EE90(temp_s0, spC8, spC0);
+        func_8022EE90(temp_s0, uvtr, spC0);
         uvGfxSetFogFactor(0.0f);
         spA0 = D_80263058;
         func_80205BFC();
-        func_80205CE4(temp_s0, 0, spC0 - spC8->unk24, 1e12f);
-        func_80205CE4(temp_s0, 1, spC0 - spC8->unk24, 1e12f);
+        func_80205CE4(temp_s0, 0, spC0 - uvtr->unk24, 1e12f);
+        func_80205CE4(temp_s0, 1, spC0 - uvtr->unk24, 1e12f);
         uvGfxResetState();
         uvGfx_80222A98();
         func_80204C94(temp_s0 - D_80261730, spBC, spB8, spB4, spB0, spAC, spA8);
         uvGfxMtxProj(temp_s0->unk50);
-        func_8022EFB4(temp_s0, spC8, spC0);
+        func_8022EFB4(temp_s0, uvtr, spC0);
         if (spA0 != D_80263058) {
             func_80205BFC();
         }
-        func_80205CE4(temp_s0, 0, 0.0f, spC0 - spC8->unk24);
-        func_80205CE4(temp_s0, 1, 0.0f, spC0 - spC8->unk24);
+        func_80205CE4(temp_s0, 0, 0.0f, spC0 - uvtr->unk24);
+        func_80205CE4(temp_s0, 1, 0.0f, spC0 - uvtr->unk24);
     } else {
-        if (spC8 != NULL) {
-            func_8022EE90(temp_s0, spC8, 0.0f);
+        if (uvtr != NULL) {
+            func_8022EE90(temp_s0, uvtr, 0.0f);
         }
         func_80205BFC();
         func_80205CE4(temp_s0, 0, -1.0f, 1e12f);
@@ -313,7 +313,7 @@ void func_802057F4(Mtx4F* arg0, Mtx4F* arg1) {
 
 void _uvSortAdd(s32 arg0, f32 arg1, void* arg2, UnkStruct_80204D94* arg3, f32 arg4, f32 arg5, ...) {
     UnkSortAdd* var_a1;
-    ParsedUVTR* var_v0;
+    ParsedUVTR* uvtr;
     s32 var_v1;
     s32 var_a0;
     va_list args;
@@ -339,17 +339,17 @@ void _uvSortAdd(s32 arg0, f32 arg1, void* arg2, UnkStruct_80204D94* arg3, f32 ar
     var_a1->unk4 = arg1;
     var_a1->unk10 = arg2;
     if (arg3->unk0 & 2) {
-        var_v0 = gGfxUnkPtrs->terras[arg3->unk4];
+        uvtr = gGfxUnkPtrs->terras[arg3->unk4];
     } else {
-        var_v0 = NULL;
+        uvtr = NULL;
     }
-    if (var_v0 != NULL) {
-        if ((arg4 < var_v0->unk0.unk0) || (var_v0->unk0.unkC <= arg4) || (arg5 < var_v0->unk0.unk4) || (var_v0->unk0.unk10 <= arg5)) {
+    if (uvtr != NULL) {
+        if ((arg4 < uvtr->unk0.unk0) || (uvtr->unk0.unkC <= arg4) || (arg5 < uvtr->unk0.unk4) || (uvtr->unk0.unk10 <= arg5)) {
             var_a1->unk14 = 0xFFFF;
         } else {
-            var_v1 = (s32)(arg4 - var_v0->unk0.unk0) / (s32)var_v0->unk1C;
-            var_a0 = (s32)(arg5 - var_v0->unk0.unk4) / (s32)var_v0->unk20;
-            var_a1->unk14 = var_v1 + var_v0->unk18 * var_a0;
+            var_v1 = (s32)(arg4 - uvtr->unk0.unk0) / (s32)uvtr->unk1C;
+            var_a0 = (s32)(arg5 - uvtr->unk0.unk4) / (s32)uvtr->unk20;
+            var_a1->unk14 = var_v1 + uvtr->unk18 * var_a0;
         }
     } else {
         var_a1->unk14 = 0xFFFF;
@@ -415,7 +415,7 @@ void func_80205BFC(void) {
 }
 
 void func_80205CE4(UnkStruct_80204D94* arg0, s32 arg1, f32 arg2, f32 arg3) {
-    ParsedUVMD* temp_s0;
+    ParsedUVMD* uvmd;
     UnkSortAdd* var_s1;
     s32 i;
     s32 var_s6;
@@ -451,8 +451,8 @@ void func_80205CE4(UnkStruct_80204D94* arg0, s32 arg1, f32 arg2, f32 arg3) {
 
         switch (var_s1->unk0) {
         case 2:
-            temp_s0 = gGfxUnkPtrs->models[((Unk80263780*)(var_s1->unk10))->unk0];
-            uvDobj_80217B4C((Unk80263780*)var_s1->unk10, temp_s0, var_s1->unk1);
+            uvmd = gGfxUnkPtrs->models[((Unk80263780*)(var_s1->unk10))->unk0];
+            uvDobj_80217B4C((Unk80263780*)var_s1->unk10, uvmd, var_s1->unk1);
             break;
         case 3:
             uvDobj_80217E24((Unk80263780*)var_s1->unk10, gGfxUnkPtrs->models[((Unk80263780*)(var_s1->unk10))->unk0], var_s1->unk1, var_s1->unk8, var_s1->unkC);
@@ -465,12 +465,12 @@ void func_80205CE4(UnkStruct_80204D94* arg0, s32 arg1, f32 arg2, f32 arg3) {
             uvGfxStatePop();
             break;
         case 4:
-            temp_s0 = gGfxUnkPtrs->models[((UnkSobjDraw*)(var_s1->unk10))->unk0];
+            uvmd = gGfxUnkPtrs->models[((UnkSobjDraw*)(var_s1->unk10))->unk0];
             uvGfx_802236CC(var_s1->unk18);
-            if (temp_s0->unk8[var_s1->unk1].unk5 != 0) {
-                uvSobj_8022CC28((UnkSobjDraw*)var_s1->unk10, temp_s0, var_s1->unk1, var_s1->unk8, var_s1->unkC);
+            if (uvmd->lodTable[var_s1->unk1].billboard != 0) {
+                uvSobj_8022CC28((UnkSobjDraw*)var_s1->unk10, uvmd, var_s1->unk1, var_s1->unk8, var_s1->unkC);
             } else {
-                uvSobj_8022C8D0((UnkSobjDraw*)var_s1->unk10, temp_s0, var_s1->unk1, var_s1->unk18);
+                uvSobj_8022C8D0((UnkSobjDraw*)var_s1->unk10, uvmd, var_s1->unk1, var_s1->unk18);
             }
             uvGfxMtxViewPop();
             break;

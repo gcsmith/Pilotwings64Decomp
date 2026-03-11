@@ -25,18 +25,18 @@ typedef struct {
 void uvSprt_80230130(void);
 void uvSprt_802301A4(void);
 void _uvTxtDraw(s32 textureId);
-void uvSprtFromBitmap(uvSprite_t* arg0, ParsedUVTX* arg1);
-void uvSprt_80230750(uvSprite_t* arg0, ParsedUVTX* arg1);
+void uvSprtFromBitmap(uvSprite_t* sprite, ParsedUVTX* uvtx);
+void uvSprt_80230750(uvSprite_t* sprite, ParsedUVTX* uvtx);
 s32  uvSprt_80230898(void);
 void uvSprtInit(void);
-void uvSprtDisplayList(uvSprite_t* arg0);
+void uvSprtDisplayList(uvSprite_t* sprite);
 void uvSprtDrawAll(void);
-void uvSprtDraw(s32 sprite_id);
-void uvSprtSetBlit(uvSprite_t* sprite, s32 arg1);
-s16  uvSprtGetWidth(s32 sprite_id);
-s16  uvSprtGetHeight(s32 sprite_id);
-void uvSprtProps(s32 sprite_id, ...);
-void uvSprtUpdateUnk(ParsedUVTX* arg0);
+void uvSprtDraw(s32 spriteId);
+void uvSprtSetBlit(uvSprite_t* sprite, s32 blitId);
+s16  uvSprtGetWidth(s32 spriteId);
+s16  uvSprtGetHeight(s32 spriteId);
+void uvSprtProps(s32 spriteId, ...);
+void uvSprtUpdateUnk(ParsedUVTX* uvtx);
 void uvSprtResetUnk(void);
 
 #endif // PILOTWINGS64_UV_SPRITE
