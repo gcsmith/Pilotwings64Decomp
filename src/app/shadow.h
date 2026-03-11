@@ -9,6 +9,7 @@ void func_803342FC(f32);
 void func_803343D8(s32);
 void func_80334454(u16, u16);
 void func_803344BC(Mtx4F*, f32);
+void func_80334578(Mtx4F*, f32);
 void func_80334C70(void);
 void func_80335B94(void);
 void func_80335BE4(void);
