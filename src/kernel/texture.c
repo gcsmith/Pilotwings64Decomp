@@ -495,11 +495,11 @@ ParsedUVMD* _uvParseUVMD(u8* src) {
             partTable[j].stateTable = (uvGfxState_t*)_uvMemAlloc(partTable[j].stateCount * sizeof(uvGfxState_t), 8);
             stateTable = partTable[j].stateTable;
             for (k = 0; k < partTable[j].stateCount; k++) {
-                uvConsumeBytes(&stateTable[k].state, &src, sizeof(stateTable[k].state));
+                uvConsumeBytes(&stateTable[k].rspState, &src, sizeof(stateTable[k].rspState));
                 uvConsumeBytes(&stateTable[k].xfmCount, &src, sizeof(stateTable[k].xfmCount));
                 uvConsumeBytes(&stateTable[k].triCount, &src, sizeof(stateTable[k].triCount));
                 uvConsumeBytes(&gfxCount, &src, sizeof(gfxCount));
-                if (stateTable[k].state & GFX_STATE_8000000) {
+                if (stateTable[k].rspState & GFX_STATE_8000000) {
                     sp76 = 1;
                 }
 
@@ -656,7 +656,7 @@ ParsedUVCT* _uvParseUVCT(u8* src) {
     spA0 = (Unk80225FBC_0x28*)_uvMemAlloc(sp88 * sizeof(Unk80225FBC_0x28), 4);
     for (i = 0; i < sp88; i++) {
         tempSpA0 = &spA0[i];
-        uvConsumeBytes(&tempSpA0->unk0.state, &src, sizeof(tempSpA0->unk0.state));
+        uvConsumeBytes(&tempSpA0->unk0.rspState, &src, sizeof(tempSpA0->unk0.rspState));
         uvConsumeBytes(&tempSpA0->unk0.xfmCount, &src, sizeof(tempSpA0->unk0.xfmCount));
         uvConsumeBytes(&tempSpA0->unk0.triCount, &src, sizeof(tempSpA0->unk0.triCount));
         uvConsumeBytes(&gfxCount, &src, sizeof(gfxCount));

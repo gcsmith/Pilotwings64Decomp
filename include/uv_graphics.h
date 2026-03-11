@@ -12,6 +12,7 @@
 #define UV_GFX_NUM_MATRICES 0x15E
 #define UV_GFX_NUM_LOOKS 0x1E
 
+#define GFX_STATE_TXTMASK 0xFFF
 #define GFX_STATE_20000 (1 << 17)
 #define GFX_STATE_40000 (1 << 18)
 #define GFX_STATE_80000 (1 << 19)
@@ -46,7 +47,7 @@ typedef enum {
 typedef void (*uvGfxCallback_t)(void *, s32); 
 
 typedef struct {
-    s32 state;
+    s32 rspState;
     s16 xfmCount;
     s16 triCount;
     Gfx* dlist;
@@ -394,12 +395,12 @@ void uvGfxResetState(void);
 void uvGfxMtxView(Mtx src);
 void uvGfxMtxProj(Mtx src);
 void uvGfxDisplayList(Gfx* dl);
-void uvGfxStateDrawDL(uvGfxState_t* arg0);
-void uvGfxStateDraw(uvGfxState_t* arg0);
-void uvGfxPushMtxUnk(Mtx4F*);
+void uvGfxStateDrawDL(uvGfxState_t* state);
+void uvGfxStateDraw(uvGfxState_t* state);
+void uvGfxPushMtxUnk(Mtx4F* src);
 void uvGfxClampLook(LookAt*, f32, f32, f32, f32, f32, f32, f32, f32, f32);
-void uvGfxLookAt(Mtx4F* arg0);
-void uvGfxMtxProjPushF(Mtx4F*);
+void uvGfxLookAt(Mtx4F* src);
+void uvGfxMtxProjPushF(Mtx4F* src);
 void uvGfxSetCallback(uvGfxCallback_t cb);
 void uvGfxEnd(void);
 void uvGfxClearScreen(u8 r, u8 g, u8 b, u8 a);
@@ -407,14 +408,14 @@ void uvGfx_80222A98(void);
 void uvGfxEnableZBuffer(s32 enable);
 void uvGfxEnableCull(s32 enable_front, s32 enable_back);
 void uvGfxEnableLighting(s32 enable);
-void uvGfxClipRect(uvGfxViewport_t* arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
-void uvGfxClipViewport(s32 vp_id, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
-void uvGfxSetViewport(s32 vp_id, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
-void uvGfxViewport(s32 vp_id);
+void uvGfxClipRect(uvGfxViewport_t* view, s32 x0, s32 x1, s32 y0, s32 y1);
+void uvGfxClipViewport(s32 viewId, s32 x0, s32 x1, s32 y0, s32 y1);
+void uvGfxSetViewport(s32 viewId, s32 x0, s32 x1, s32 y0, s32 y1);
+void uvGfxViewport(s32 viewId);
 void uvGfxMstackPushF(Mtx4F* src);
 void uvGfxMstackPushL(Mtx src);
 Mtx* uvGfxMstackTop(void);
-void uvGfxSetUnkStateF(f32 arg0);
+void uvGfxSetUnkStateF(f32 stateF);
 f32  uvGfxGetUnkStateF(void);
 void uvGfxMtxViewLoad(Mtx4F* src, s32 push);
 void uvGfxMtxViewMul(Mtx4F* src, s32 push);
@@ -427,7 +428,7 @@ void uvGfxStatePop(void);
 void uvGfxSetFlags(s32 flags);
 void uvGfxClearFlags(s32 flags);
 void uvGfx_80223A28(s32 flags);
-void uvGfx_80223A64(s32 arg0, s32 arg1);
+void uvGfx_80223A64(s32 textureId, s32 xparam);
 void uvGfxWaitForMesg(void);
 void uvGfxEnableGamma(s32 enable);
 void uvGfxSetUnkState0(s32 arg0);

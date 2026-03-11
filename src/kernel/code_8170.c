@@ -956,7 +956,7 @@ void uvModelGetProps(s32 modelId, ...) {
             *va_arg(args, s32*) = uvmd->lodCount;
             break;
         case 5:
-            if (uvmd->lodTable->partTable->stateTable->state & GFX_STATE_2000000) {
+            if (uvmd->lodTable->partTable->stateTable->rspState & GFX_STATE_2000000) {
                 var_v0 = 1;
             } else {
                 var_v0 = 0;
@@ -1349,8 +1349,8 @@ void uvTerraGetColor(s32 terraId, s32 surfaceId, u8* arg2, u8* arg3, u8* arg4) {
     }
     temp_v0_2 = &uvct->unk8[((u32)surfaceId >> 12) & 0x3FF];
     temp_v1_2 = &temp_v0_2->unkC[surfaceId & 0xFFF];
-    if ((temp_v0_2->unk0.state & 0xFFF) != 0xFFF) {
-        uvtx = gGfxUnkPtrs->textures[temp_v0_2->unk0.state & 0xFFF];
+    if ((temp_v0_2->unk0.rspState & GFX_STATE_TXTMASK) != GFX_STATE_TXTMASK) {
+        uvtx = gGfxUnkPtrs->textures[temp_v0_2->unk0.rspState & GFX_STATE_TXTMASK];
         if (uvtx->format == 4) {
             *arg2 = uvtx->unk23;
             *arg3 = uvtx->unk24;
@@ -1396,7 +1396,7 @@ s32 uvTerraGetState(s32 terraId, s32 surfaceId) {
         return 0xFFF;
     }
     temp_v1 = &uvct->unk8[((u32)surfaceId >> 12) & 0x3FF];
-    return temp_v1->unk0.state;
+    return temp_v1->unk0.rspState;
 }
 
 void uvTerraGetPlane(s32 terraId, s32 surfaceId, f32 px, f32 py, f32* arg4, Vec3F* arg5) {
@@ -3308,7 +3308,7 @@ void func_80215E7C(ParsedUVMD* uvmd) {
 
     uvGfxStatePush();
     uvGfxClearFlags(GFX_STATE_1000000 | GFX_STATE_400000 | GFX_STATE_200000);
-    uvGfxSetFlags(GFX_STATE_800000 | GFX_STATE_20000 | 0xFFF);
+    uvGfxSetFlags(GFX_STATE_800000 | GFX_STATE_20000 | GFX_STATE_TXTMASK);
     uvMat4SetIdentity(&spD8);
     uvMat4Scale(&spD8, 1.0f / uvmd->unk20, 1.0f / uvmd->unk20, 1.0f / uvmd->unk20);
     uvGfxMtxViewMul(&spD8, 1);

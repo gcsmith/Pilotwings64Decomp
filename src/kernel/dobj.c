@@ -531,10 +531,10 @@ void uvDobj_80217B4C(Unk80263780* arg0, ParsedUVMD* uvmd, u8 lodId) {
         if (!(arg0->unk3C & (1 << i))) {
             for (j = 0; j < currPart->stateCount; j++) {
                 if (arg0->unk34 & 0x20) {
-                    temp_s3 = currPart->stateTable[j].state;
-                    currPart->stateTable[j].state |= GFX_STATE_10000000;
+                    temp_s3 = currPart->stateTable[j].rspState;
+                    currPart->stateTable[j].rspState |= GFX_STATE_10000000;
                     uvGfxStateDraw(&currPart->stateTable[j]);
-                    currPart->stateTable[j].state = temp_s3;
+                    currPart->stateTable[j].rspState = temp_s3;
                 } else {
                     uvGfxStateDraw(&currPart->stateTable[j]);
                 }

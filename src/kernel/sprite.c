@@ -217,7 +217,7 @@ void uvSprtInit(void) {
         gSprtTable1[i].green = 255;
         gSprtTable1[i].blue = 255;
         gSprtTable1[i].alpha = 255;
-        gSprtTable1[i].textureId = 0xFFF;
+        gSprtTable1[i].textureId = GFX_STATE_TXTMASK;
         gSprtTable1[i].bitmap = NULL;
         gSprtTable1[i].unk58[0] = NULL;
         gSprtTable1[i].unk58[1] = NULL;
@@ -249,7 +249,7 @@ void uvSprtDisplayList(uvSprite_t* sprite) {
     if (dlist != NULL) {
         gSPDisplayList(gGfxDisplayListHead++, dlist);
     }
-    gGfxStateStackData = (gGfxStateStackData & ~0xFFF) | 0xFFE;
+    gGfxStateStackData = (gGfxStateStackData & ~GFX_STATE_TXTMASK) | 0xFFE;
     gGfxBoundTexture = 0xFFE;
 }
 
@@ -262,7 +262,7 @@ void uvSprtDrawAll(void) {
     var_s0 = &gSprtTable1[0]; var_s1 = &gSprtTable1[ARRAY_COUNT(gSprtTable1)];
     // clang-format on
     do {
-        if ((var_s0->unk0 != 0) && (var_s0->unk1 != 0) && (var_s0->textureId != 0xFFF)) {
+        if ((var_s0->unk0 != 0) && (var_s0->unk1 != 0) && (var_s0->textureId != GFX_STATE_TXTMASK)) {
             uvSprtDisplayList(var_s0);
         }
         var_s0++;
@@ -279,7 +279,7 @@ void uvSprtDraw(s32 spriteId) {
         return;
     }
     sprite = &gSprtTable1[spriteId];
-    if (sprite->textureId != 0xFFF) {
+    if (sprite->textureId != GFX_STATE_TXTMASK) {
         spInit(&gGfxDisplayListHead);
         uvSprtDisplayList(sprite);
         spFinish(&gGfxDisplayListHead);
@@ -291,7 +291,7 @@ void uvSprtSetBlit(uvSprite_t* sprite, s32 blitId) {
     ParsedUVBT* uvbt = gGfxUnkPtrs->blits[blitId];
     Sprite* sp = &sprite->sprite;
 
-    if ((sprite->textureId == 0xFFFF) || (sprite->textureId != 0xFFF)) {
+    if ((sprite->textureId == 0xFFFF) || (sprite->textureId != GFX_STATE_TXTMASK)) {
         if (sprite->width != uvbt->width || sprite->height != uvbt->height) {
             _uvDebugPrintf("uvSprtSetBlit: Warning: sprite %d size change, dl space leaked\n", gSprtTable1 - sprite);
             sprite->unk58[0] = NULL;
@@ -430,11 +430,11 @@ void uvSprtProps(s32 spriteId, ...) {
             break;
         case 5:
             sprite->textureId = va_arg(args, s32);
-            if (sprite->textureId != 0xFFF) {
+            if (sprite->textureId != GFX_STATE_TXTMASK) {
                 uvtx = gGfxUnkPtrs->textures[sprite->textureId];
                 if (uvtx == NULL) {
                     _uvDebugPrintf(" uvSprtProps: texture id %d not in level\n", sprite->textureId);
-                    sprite->textureId = 0xFFF;
+                    sprite->textureId = GFX_STATE_TXTMASK;
                 } else {
                     uvSprtFromBitmap(sprite, uvtx);
                     uvSprt_80230750(sprite, uvtx);
