@@ -466,7 +466,7 @@ ParsedUVMD* _uvParseUVMD(u8* src) {
     u8 sp77;
     u8 sp76;
     u16 vtxCount;
-    u16 gfx_count;
+    u16 gfxCount;
     u16 sp70;
     u16 sp6E;
 
@@ -498,15 +498,15 @@ ParsedUVMD* _uvParseUVMD(u8* src) {
                 uvConsumeBytes(&stateTable[k].state, &src, sizeof(stateTable[k].state));
                 uvConsumeBytes(&stateTable[k].xfmCount, &src, sizeof(stateTable[k].xfmCount));
                 uvConsumeBytes(&stateTable[k].triCount, &src, sizeof(stateTable[k].triCount));
-                uvConsumeBytes(&gfx_count, &src, sizeof(gfx_count));
+                uvConsumeBytes(&gfxCount, &src, sizeof(gfxCount));
                 if (stateTable[k].state & GFX_STATE_8000000) {
                     sp76 = 1;
                 }
 
-                dlist = (Gfx*)_uvMemAlloc((gfx_count + 1) * sizeof(Gfx), 8);
+                dlist = (Gfx*)_uvMemAlloc((gfxCount + 1) * sizeof(Gfx), 8);
                 if (1) { }
                 stateTable[k].dlist = OS_PHYSICAL_TO_K0(dlist);
-                for (var_s0 = 0; var_s0 < gfx_count; var_s0++) {
+                for (var_s0 = 0; var_s0 < gfxCount; var_s0++) {
                     uvConsumeBytes(&sp70, &src, sizeof(sp70));
                     if (sp70 & 0x4000) {
                         gSP1Triangle(&dlist[var_s0], (sp70 & 0xF00) >> 8, (sp70 & 0xF0) >> 4, sp70 & 0xF, 0);
@@ -622,7 +622,7 @@ ParsedUVCT* _uvParseUVCT(u8* src) {
     u8 sp7B;
     u8 sp7A;
     u16 vtxCount;
-    u16 gfx_count;
+    u16 gfxCount;
     u16 elem;
 
     uvConsumeBytes(&vtxCount, &src, sizeof(vtxCount));
@@ -659,9 +659,9 @@ ParsedUVCT* _uvParseUVCT(u8* src) {
         uvConsumeBytes(&tempSpA0->unk0.state, &src, sizeof(tempSpA0->unk0.state));
         uvConsumeBytes(&tempSpA0->unk0.xfmCount, &src, sizeof(tempSpA0->unk0.xfmCount));
         uvConsumeBytes(&tempSpA0->unk0.triCount, &src, sizeof(tempSpA0->unk0.triCount));
-        uvConsumeBytes(&gfx_count, &src, sizeof(gfx_count));
-        dlist = (Gfx*)_uvMemAlloc((gfx_count + 1) * sizeof(Gfx), 8); // +1 for G_ENDDL
-        for (j = 0; j < gfx_count; j++) {
+        uvConsumeBytes(&gfxCount, &src, sizeof(gfxCount));
+        dlist = (Gfx*)_uvMemAlloc((gfxCount + 1) * sizeof(Gfx), 8); // +1 for G_ENDDL
+        for (j = 0; j < gfxCount; j++) {
             uvConsumeBytes(&elem, &src, sizeof(elem));
             if (elem & 0x4000) {
                 gSP1Triangle(&dlist[j], (elem & 0xF00) >> 8, (elem & 0xF0) >> 4, elem & 0xF, 0);
