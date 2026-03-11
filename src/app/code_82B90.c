@@ -154,11 +154,11 @@ typedef struct Unk80362690_Unk0_UnkC_Unk6C {
     s32 unk67C;
 } Unk80362690_Unk0_UnkC_Unk6C;
 
-extern Unk802D3658_Unk111C D_80368C00;
-extern Unk802D3658_Unk111C D_80368D08;
-extern Unk802D3658_Unk111C D_80368E10;
-extern Unk802D3658_Unk1224 D_80368F18;
-extern u8 D_8036905C[];
+Unk802D3658_Unk111C D_80368C00;
+Unk802D3658_Unk111C D_80368D08;
+Unk802D3658_Unk111C D_80368E10;
+Unk802D3658_Unk1224 D_80368F18;
+u8 D_8036905C[5];
 
 void func_802FD114(Unk80362690_Unk0_UnkC_Unk6C* arg0);
 
@@ -413,8 +413,8 @@ s32 func_802FC184(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32* arg1, Vec3F* arg2) {
     s32 sp40;
     s32 sp3C;
     Vec3F* sp38;
-    s32 temp_v0_2;
-    u32 temp_v0_3;
+    s32 soid;
+    u32 modelId;
 
     sp3C = 0;
     sp38 = func_802E02EC();
@@ -431,11 +431,11 @@ s32 func_802FC184(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32* arg1, Vec3F* arg2) {
     } else if (sp40 != 0) {
         sp3C = 1;
 
-        temp_v0_2 = uvSobjGetPt(D_80362690->unk0[0].unk6, sp38->x, sp38->y, sp38->z);
-        if (temp_v0_2 != -1) {
-            temp_v0_3 = uvSobj_8022D1E4(temp_v0_2);
-            if ((temp_v0_3 == 0x18) || (temp_v0_3 == 0x5C) || (temp_v0_3 == 0x5D) || (temp_v0_3 == 0x5E) || (temp_v0_3 == 0x5F) || (temp_v0_3 == 0x60) ||
-                (temp_v0_3 == 0x22) || (temp_v0_3 == 0x23) || (temp_v0_3 == 0x24) || (temp_v0_3 == 0x97) || (temp_v0_3 == 0xAB)) {
+        soid = uvSobjGetPt(D_80362690->unk0[0].unk6, sp38->x, sp38->y, sp38->z);
+        if (soid != -1) {
+            modelId = uvSobj_8022D1E4(soid);
+            if ((modelId == 0x18) || (modelId == 0x5C) || (modelId == 0x5D) || (modelId == 0x5E) || (modelId == 0x5F) || (modelId == 0x60) ||
+                (modelId == 0x22) || (modelId == 0x23) || (modelId == 0x24) || (modelId == 0x97) || (modelId == 0xAB)) {
                 sp3C = 3;
             } else {
                 sp3C = 4;
@@ -463,8 +463,8 @@ s32 func_802FC3B4(Unk80362690_Unk0_UnkC_Unk6C* arg0, s32 arg1, Vec3F* arg2, Vec3
     Unk802D3658_Unk1228* var_v0;
     f32 var_fv1;
     f32 temp_fv0;
-    s32 temp_v0_2;
-    u32 temp_v0_3;
+    s32 soid;
+    u32 modelId;
 
     var_fv1 = 1e7f;
     var_s1 = NULL;
@@ -500,11 +500,11 @@ s32 func_802FC3B4(Unk80362690_Unk0_UnkC_Unk6C* arg0, s32 arg1, Vec3F* arg2, Vec3
         case 1:
             return 1;
         case 8:
-            temp_v0_2 = uvSobjGetPt(D_80362690->unk0[0].unk6, arg2->x, arg2->y, arg2->z);
-            if (temp_v0_2 != -1) {
-                temp_v0_3 = uvSobj_8022D1E4(temp_v0_2);
-                if ((temp_v0_3 == 0x18) || (temp_v0_3 == 0x5C) || (temp_v0_3 == 0x5D) || (temp_v0_3 == 0x5E) || (temp_v0_3 == 0x5F) || (temp_v0_3 == 0x60) ||
-                    (temp_v0_3 == 0x22) || (temp_v0_3 == 0x23) || (temp_v0_3 == 0x24) || (temp_v0_3 == 0x97) || (temp_v0_3 == 0xAB)) {
+            soid = uvSobjGetPt(D_80362690->unk0[0].unk6, arg2->x, arg2->y, arg2->z);
+            if (soid != -1) {
+                modelId = uvSobj_8022D1E4(soid);
+                if ((modelId == 0x18) || (modelId == 0x5C) || (modelId == 0x5D) || (modelId == 0x5E) || (modelId == 0x5F) || (modelId == 0x60) ||
+                    (modelId == 0x22) || (modelId == 0x23) || (modelId == 0x24) || (modelId == 0x97) || (modelId == 0xAB)) {
                     return 3;
                 }
                 return 4;
