@@ -121,8 +121,8 @@ void uvSobj_8022C8D0(UnkSobjDraw* arg0, ParsedUVMD* uvmd, u8 arg2, Mtx4F* arg3) 
             uvGfxLookAt(&sp114);
         }
 
-        for (j = 0; j < uvmd_part->material_count; j++) {
-            uvGfxStateDraw(&uvmd_part->material[j]);
+        for (j = 0; j < uvmd_part->stateCount; j++) {
+            uvGfxStateDraw(&uvmd_part->stateTable[j]);
         }
         if (i == uvmd_lod->partCount - 1) {
             break;
@@ -188,8 +188,8 @@ void uvSobj_8022CC28(UnkSobjDraw* arg0, ParsedUVMD* uvmd, u8 arg2, f32 arg3, f32
 
         uvGfx_802235A4(arg0->unk4[i], 1);
 
-        for (j = 0; j < uvmd_part->material_count; j++) {
-            uvGfxStateDraw(&uvmd_part->material[j]);
+        for (j = 0; j < uvmd_part->stateCount; j++) {
+            uvGfxStateDraw(&uvmd_part->stateTable[j]);
         }
         // FAKE
         if (uvmd_lod) { }

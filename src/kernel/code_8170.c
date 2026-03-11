@@ -956,7 +956,7 @@ void uvModelGetProps(s32 modelId, ...) {
             *va_arg(args, s32*) = uvmd->lodCount;
             break;
         case 5:
-            if (uvmd->lod->partTable->material->state & GFX_STATE_2000000) {
+            if (uvmd->lod->partTable->stateTable->state & GFX_STATE_2000000) {
                 var_v0 = 1;
             } else {
                 var_v0 = 0;

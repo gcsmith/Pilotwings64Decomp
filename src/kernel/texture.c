@@ -453,7 +453,7 @@ ParsedUVMD* _uvParseUVMD(u8* src) {
     s32 var_s0;
     UnkUVMD_24* var_s0_4;
     Mtx4F* mtx;
-    uvGfxState_t* material_array;
+    uvGfxState_t* stateTable;
     UnkUVMD_6* sp8C;
     s32 i;
     s32 j;
@@ -489,23 +489,23 @@ ParsedUVMD* _uvParseUVMD(u8* src) {
 
         for (j = 0; j < uvmd_lod[i].partCount; j++) {
             sp76 = 0;
-            uvConsumeBytes(&partTable[j].material_count, &src, sizeof(partTable[j].material_count));
+            uvConsumeBytes(&partTable[j].stateCount, &src, sizeof(partTable[j].stateCount));
             uvConsumeBytes(&partTable[j].unk5, &src, sizeof(partTable[j].unk5));
             uvConsumeBytes(&partTable[j].unk6, &src, sizeof(partTable[j].unk6));
-            partTable[j].material = (uvGfxState_t*)_uvMemAlloc(partTable[j].material_count * sizeof(uvGfxState_t), 8);
-            material_array = partTable[j].material;
-            for (k = 0; k < partTable[j].material_count; k++) {
-                uvConsumeBytes(&material_array[k].state, &src, sizeof(material_array[k].state));
-                uvConsumeBytes(&material_array[k].xfmCount, &src, sizeof(material_array[k].xfmCount));
-                uvConsumeBytes(&material_array[k].triCount, &src, sizeof(material_array[k].triCount));
+            partTable[j].stateTable = (uvGfxState_t*)_uvMemAlloc(partTable[j].stateCount * sizeof(uvGfxState_t), 8);
+            stateTable = partTable[j].stateTable;
+            for (k = 0; k < partTable[j].stateCount; k++) {
+                uvConsumeBytes(&stateTable[k].state, &src, sizeof(stateTable[k].state));
+                uvConsumeBytes(&stateTable[k].xfmCount, &src, sizeof(stateTable[k].xfmCount));
+                uvConsumeBytes(&stateTable[k].triCount, &src, sizeof(stateTable[k].triCount));
                 uvConsumeBytes(&gfx_count, &src, sizeof(gfx_count));
-                if (material_array[k].state & GFX_STATE_8000000) {
+                if (stateTable[k].state & GFX_STATE_8000000) {
                     sp76 = 1;
                 }
 
                 dlist = (Gfx*)_uvMemAlloc((gfx_count + 1) * sizeof(Gfx), 8);
                 if (1) { }
-                material_array[k].dlist = OS_PHYSICAL_TO_K0(dlist);
+                stateTable[k].dlist = OS_PHYSICAL_TO_K0(dlist);
                 for (var_s0 = 0; var_s0 < gfx_count; var_s0++) {
                     uvConsumeBytes(&sp70, &src, sizeof(sp70));
                     if (sp70 & 0x4000) {

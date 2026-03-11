@@ -181,8 +181,8 @@ typedef struct UnkUVMD_24 {
 } UnkUVMD_24;
 
 typedef struct uvModelPart {
-    uvGfxState_t* material;
-    u8 material_count;
+    uvGfxState_t* stateTable;
+    u8 stateCount;
     u8 unk5;
     u8 unk6;
     UnkUVMD_24* unk8;
