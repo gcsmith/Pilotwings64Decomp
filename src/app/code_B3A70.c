@@ -377,10 +377,10 @@ s32 func_8032CF28(Unk80362690* arg0) {
         func_80204FC4(sp68->unk22C);
         func_80314154();
         uvVtxBeginPoly();
-        uvVtx(0x5A, 0x52, 0, 0, 0, 0, 0, 0, 0x7F);
-        uvVtx(0xE6, 0x52, 0, 0, 0, 0, 0, 0, 0x7F);
-        uvVtx(0xE6, var_s0 + 0x52, 0, 0, 0, 0, 0, 0, 0x7F);
-        uvVtx(0x5A, var_s0 + 0x52, 0, 0, 0, 0, 0, 0, 0x7F);
+        uvVtx(90, 82, 0, 0, 0, 0, 0, 0, 0x7F);
+        uvVtx(230, 82, 0, 0, 0, 0, 0, 0, 0x7F);
+        uvVtx(230, var_s0 + 82, 0, 0, 0, 0, 0, 0, 0x7F);
+        uvVtx(90, var_s0 + 82, 0, 0, 0, 0, 0, 0, 0x7F);
         uvVtxEndPoly();
         func_803141E4();
         menuInit();
