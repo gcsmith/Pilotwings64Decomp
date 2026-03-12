@@ -69,9 +69,9 @@ typedef struct Unk80373060 {
     f32 unk24;
     f32 unk28;
     f32 unk2C;
-    u16 unk30;
-    u16 unk32;
-    u16 unk34;
+    u16 cls;
+    u16 test;
+    u16 veh;
     u8 unk36;
     u8 pad37[0x1];
     f32 unk38;
@@ -149,9 +149,9 @@ void func_80337DB8(void) {
     D_80373630[0].unk20 = 0.1575f;
     D_80373630[0].unk28 = 1.0f;
     D_80373630[0].unk2C = 2000.0f;
-    D_80373630[0].unk32 = 1;
-    D_80373630[0].unk30 = 2;
-    D_80373630[0].unk34 = 0;
+    D_80373630[0].test = 1;
+    D_80373630[0].cls = CLASS_B;
+    D_80373630[0].veh = VEHICLE_HANG_GLIDER;
     D_80373630[0].unk36 = 1;
     D_80373630[0].unk40 = 0x130;
     D_80373630[0].unk42 = 1;
@@ -173,9 +173,9 @@ void func_80337DB8(void) {
     D_80373630[1].unk20 = 0.1575f;
     D_80373630[1].unk28 = 1.f;
     D_80373630[1].unk2C = 2000.0f;
-    D_80373630[1].unk32 = 1;
-    D_80373630[1].unk30 = 2;
-    D_80373630[1].unk34 = 0;
+    D_80373630[1].test = 1;
+    D_80373630[1].cls = CLASS_B;
+    D_80373630[1].veh = VEHICLE_HANG_GLIDER;
     D_80373630[1].unk36 = 1;
     D_80373630[1].unk3C = 0;
     D_80373630[1].unk38 = 0;
@@ -195,9 +195,9 @@ void func_80337DB8(void) {
     D_80373B70[0].unk20 = 0.1575f;
     D_80373B70[0].unk28 = 1.0f;
     D_80373B70[0].unk2C = 2000.0f;
-    D_80373B70[0].unk32 = 0;
-    D_80373B70[0].unk30 = 1;
-    D_80373B70[0].unk34 = 0;
+    D_80373B70[0].test = 0;
+    D_80373B70[0].cls = CLASS_A;
+    D_80373B70[0].veh = VEHICLE_HANG_GLIDER;
     D_80373B70[0].unk36 = 1;
     D_80373B70[0].unk3C = 0;
     D_80373B70[0].unk38 = 0;
@@ -216,9 +216,9 @@ void func_80337DB8(void) {
     D_803738D0[2].unk20 = 0.1575f;
     D_803738D0[2].unk28 = 1.0f;
     D_803738D0[2].unk2C = 2000.0f;
-    D_803738D0[2].unk32 = 2;
-    D_803738D0[2].unk30 = 3;
-    D_803738D0[2].unk34 = 0;
+    D_803738D0[2].test = 2;
+    D_803738D0[2].cls = CLASS_PILOT;
+    D_803738D0[2].veh = VEHICLE_HANG_GLIDER;
     D_803738D0[2].unk36 = 1;
     D_803738D0[2].unk3C = 0;
     D_803738D0[2].unk38 = 0;
@@ -237,9 +237,9 @@ void func_80337DB8(void) {
     D_803738D0[0].unk20 = 0.1575f;
     D_803738D0[0].unk28 = 1.0f;
     D_803738D0[0].unk2C = 2000.0f;
-    D_803738D0[0].unk32 = 2;
-    D_803738D0[0].unk30 = 3;
-    D_803738D0[0].unk34 = 0;
+    D_803738D0[0].test = 2;
+    D_803738D0[0].cls = CLASS_PILOT;
+    D_803738D0[0].veh = VEHICLE_HANG_GLIDER;
     D_803738D0[0].unk36 = 1;
     D_803738D0[0].unk3C = 0;
     D_803738D0[0].unk38 = 0;
@@ -259,9 +259,9 @@ void func_80337DB8(void) {
     D_803738D0[1].unk20 = 0.1575f;
     D_803738D0[1].unk28 = 1.0f;
     D_803738D0[1].unk2C = 2000.0f;
-    D_803738D0[1].unk32 = 2;
-    D_803738D0[1].unk30 = 3;
-    D_803738D0[1].unk34 = 0;
+    D_803738D0[1].test = 2;
+    D_803738D0[1].cls = CLASS_PILOT;
+    D_803738D0[1].veh = VEHICLE_HANG_GLIDER;
     D_803738D0[1].unk36 = 1;
     D_803738D0[1].unk3C = 0;
     D_803738D0[1].unk38 = 0;
@@ -436,10 +436,10 @@ void func_80338A14(void) {
     temp_s1 = &D_80373390[D_8035052C];
     func_8034AF94(&temp_s4->unk70->unk108, &temp_s1->unk0, &temp_s1->unkC);
     temp_s1->unk36 = 1;
-    levelGetClsVehTest(&temp_s1->unk30, &temp_s1->unk34, &temp_s1->unk32);
+    levelGetClsVehTest(&temp_s1->cls, &temp_s1->veh, &temp_s1->test);
 
-    sp78 = (((temp_s1->unk32 == 0) && (temp_s1->unk30 == 1))) || ((temp_s1->unk32 == 1) && (temp_s1->unk30 == 2)) ||
-           ((temp_s1->unk32 == 2) && (temp_s1->unk30 == 3));
+    sp78 = (((temp_s1->test == 0) && (temp_s1->cls == CLASS_A))) || ((temp_s1->test == 1) && (temp_s1->cls == CLASS_B)) ||
+           ((temp_s1->test == 2) && (temp_s1->cls == CLASS_PILOT));
     temp_s1->unk28 = spDC->unk3C;
     temp_s1->unk2C = spDC->unk40;
     temp_s1->unk18 = (spDC->unk2C * spDC->unk3C) * 0.45;
@@ -842,12 +842,12 @@ void func_8033A128(s32 arg0, Unk80373060* arg1) {
 
     temp_v1 = &D_80362690->unk0[D_80362690->unk9C].unkC;
 
-    if ((D_80350598 != arg1->unk34) || (D_8035059C != arg1->unk30) || (D_803505A0 != arg1->unk32)) {
+    if ((D_80350598 != arg1->veh) || (D_8035059C != arg1->cls) || (D_803505A0 != arg1->test)) {
         func_8033A020(arg0);
         D_80350590 = 1;
-        temp_v1->veh = arg1->unk34;
-        temp_v1->cls = arg1->unk30;
-        temp_v1->test = arg1->unk32;
+        temp_v1->veh = arg1->veh;
+        temp_v1->cls = arg1->cls;
+        temp_v1->test = arg1->test;
         D_80350598 = temp_v1->veh;
         D_8035059C = temp_v1->cls;
         D_803505A0 = temp_v1->test;
@@ -1179,8 +1179,9 @@ void func_8033ADD4(s32 arg0, Unk80373060* arg1, s32 arg2, s32 arg3) {
         textFmtInt(&sp44, PHOTO_COUNT_MAX - D_80350528, 3);
         func_80219874(0xF5, 0x19, &sp44, 3, 0xFFE);
 
-        var_v1 = (((arg1->unk32 == 0) && (arg1->unk30 == 1)) || ((arg1->unk32 == 1) && (arg1->unk30 == 2)) || ((arg1->unk32 == 2) && (arg1->unk30 == 3))) &&
-                 (arg1->unk34 != 6);
+        var_v1 = (((arg1->test == 0) && (arg1->cls == CLASS_A)) || ((arg1->test == 1) && (arg1->cls == CLASS_B)) ||
+                  ((arg1->test == 2) && (arg1->cls == CLASS_PILOT))) &&
+                 (arg1->veh != VEHICLE_BIRDMAN);
 
         if (var_v1 != 0) {
             if ((arg1->unk3C * arg1->unk38) > 0.0f) {
@@ -1632,9 +1633,9 @@ void func_8033DCD0(Unk80373060* arg0, Unk80373060* arg1) {
     arg0->unk24 = arg1->unk24;
     arg0->unk28 = arg1->unk28;
     arg0->unk2C = arg1->unk2C;
-    arg0->unk30 = arg1->unk30;
-    arg0->unk32 = arg1->unk32;
-    arg0->unk34 = arg1->unk34;
+    arg0->cls = arg1->cls;
+    arg0->test = arg1->test;
+    arg0->veh = arg1->veh;
     arg0->unk38 = arg1->unk38;
     arg0->unk3C = arg1->unk3C;
 
@@ -1923,9 +1924,9 @@ void func_8033E860(Unk8033F050** arg0) {
             var_s1->unk6 = func_8034AD14(D_80373060[i].unkC.x * (6.4 / 9.0));
             var_s1->unk7 = func_8034AD14(D_80373060[i].unkC.y * (6.4 / 9.0));
             var_s1->unk8 = func_8034AD14(D_80373060[i].unkC.z * (6.4 / 9.0));
-            var_s1->unk9_2 = D_80373060[i].unk30;
-            var_s1->unk9_0 = D_80373060[i].unk32;
-            var_s1->unk12_4 = D_80373060[i].unk34;
+            var_s1->unk9_2 = D_80373060[i].cls;
+            var_s1->unk9_0 = D_80373060[i].test;
+            var_s1->unk12_4 = D_80373060[i].veh;
             var_s1->unk12_7 = D_80373060[i].unk42;
 
             if (var_s1->unk12_7 == 0) {
@@ -2026,9 +2027,9 @@ void func_8033F050(s32 arg0) {
             D_80373060[D_80350528].unk1C = temp_s4->unk30 * 0.45;
             D_80373060[D_80350528].unk20 = temp_s4->unk38 * 0.45;
             D_80373060[D_80350528].unk24 = temp_s4->unk34 * 0.45;
-            D_80373060[D_80350528].unk30 = var_s1->unk9_2;
-            D_80373060[D_80350528].unk34 = var_s1->unk12_4;
-            D_80373060[D_80350528].unk32 = var_s1->unk9_0;
+            D_80373060[D_80350528].cls = var_s1->unk9_2;
+            D_80373060[D_80350528].veh = var_s1->unk12_4;
+            D_80373060[D_80350528].test = var_s1->unk9_0;
             D_80373060[D_80350528].unk42 = var_s1->unk12_7;
             if (var_s1->unk12_7 == 0) {
                 D_80373060[D_80350528].unk43[0] = 11;
