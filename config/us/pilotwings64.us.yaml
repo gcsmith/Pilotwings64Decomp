@@ -412,7 +412,7 @@ segments:
       - [0x7CF30, c, app/code_7CF30]
       - [0x7FED0, c, app/code_7FED0]
       - [0x81490, c, app/code_81490]
-      - [0x82520, c, app/code_82520]
+      - [0x824B0, c, app/code_82520]
       - [0x82B90, c, app/code_82B90]
       - [0x8A760, c, app/gyrocopter]
       - [0x90D10, c, app/hover_pads]
@@ -668,6 +668,7 @@ segments:
       - { type: bss, vram: 0x80368880, name: app/code_7CF30 }
       - { type: bss, vram: 0x80368B10, name: app/code_7FED0 }
       - { type: bss, vram: 0x80368B20, name: app/code_81490 }
+      - { type: .bss, vram: 0x80368B80, name: app/code_82520 }
       - { type: .bss, vram: 0x80368C00, name: app/code_82B90 }
       - { type: bss, vram: 0x80369070, name: app/gyrocopter }
       - { type: bss, vram: 0x80369580, name: app_bss_80369580 } # app/code_905C0 & map3d, has weird split
