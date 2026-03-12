@@ -321,7 +321,7 @@ void func_80219DA4(Unk80289380* arg0) {
         gSPDisplayList(gGfxDisplayListHead++, dlist);
     }
     gGfxStateStackData = (gGfxStateStackData & ~0xFFF) | 0xFFE;
-    D_8029926C = 0xFFE;
+    gGfxBoundTexture = 0xFFE;
 }
 
 void uvFontGenDlist(void) {

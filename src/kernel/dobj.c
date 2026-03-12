@@ -30,7 +30,7 @@ u16 D_80269F0A;
     }
 
 void uvDobjModel(s32 objId, s32 mdlId) {
-    ParsedUVMD** temp_a3;
+    ParsedUVMD** uvmdTable;
     Unk80263780* var_t2;
     s32 var_v0_3;
     s32 i;
@@ -39,7 +39,7 @@ void uvDobjModel(s32 objId, s32 mdlId) {
     u8 var_a3_2;
 
     var_t2 = &D_80263780[objId];
-    temp_a3 = gGfxUnkPtrs->models;
+    uvmdTable = gGfxUnkPtrs->models;
 
     if (mdlId == var_t2->unk0) {
         return;
@@ -50,7 +50,7 @@ void uvDobjModel(s32 objId, s32 mdlId) {
         return;
     }
     if (mdlId == 0xFFFF) {
-        temp_t0 = temp_a3[var_t2->unk0]->unk18;
+        temp_t0 = uvmdTable[var_t2->unk0]->mtxCount;
 
         for (i = 0; i < temp_t0; i++) {
             D_80269B80[var_t2->unk2[i]] = 0;
@@ -71,13 +71,13 @@ void uvDobjModel(s32 objId, s32 mdlId) {
             return;
         }
         var_t2->unk3C = 0;
-        var_t2->unk38 = temp_a3[mdlId]->unk1C;
+        var_t2->unk38 = uvmdTable[mdlId]->unk1C;
 
         if (var_t2->unk0 == 0xFFFF) {
             temp_t0 = 0;
         } else {
-            if (temp_a3[var_t2->unk0] != NULL) {
-                temp_t0 = temp_a3[var_t2->unk0]->unk18;
+            if (uvmdTable[var_t2->unk0] != NULL) {
+                temp_t0 = uvmdTable[var_t2->unk0]->mtxCount;
             } else {
                 temp_t0 = 0;
                 j = -1;
@@ -92,7 +92,7 @@ void uvDobjModel(s32 objId, s32 mdlId) {
             }
         }
 
-        var_a3_2 = temp_a3[mdlId]->unk18;
+        var_a3_2 = uvmdTable[mdlId]->mtxCount;
 
         if (var_a3_2 < temp_t0) {
             for (i = temp_t0 - 1; i >= var_a3_2; i--) {
@@ -123,7 +123,7 @@ void uvDobjModel(s32 objId, s32 mdlId) {
         var_t2->unk2[var_a3_2] = 0;
 
         for (i = 0; i < var_a3_2; i++) {
-            uvMat4Copy(&D_80265080[var_t2->unk2[i]], (u32)temp_a3[mdlId]->unk14 + i * sizeof(Mtx4F));
+            uvMat4Copy(&D_80265080[var_t2->unk2[i]], (u32)uvmdTable[mdlId]->mtxTable + i * sizeof(Mtx4F));
         }
         var_t2->unk0 = mdlId;
         var_t2->unk34 = 3;
@@ -176,7 +176,7 @@ void uvDobjProps(s32 objId, ...) {
 }
 
 void uvDobjPosm(s32 objId, s32 part, Mtx4F* src) {
-    ParsedUVMD* temp_v1;
+    ParsedUVMD* uvmd;
     Unk80263780* temp_v0;
     f32 temp_fv0;
 
@@ -192,30 +192,30 @@ void uvDobjPosm(s32 objId, s32 part, Mtx4F* src) {
 
     uvMat4Copy(&D_80265080[temp_v0->unk2[part]], src);
 
-    temp_v1 = gGfxUnkPtrs->models[temp_v0->unk0];
-    if (temp_v1 == NULL) {
+    uvmd = gGfxUnkPtrs->models[temp_v0->unk0];
+    if (uvmd == NULL) {
         _uvDebugPrintf("uvDobjPosm: model %d not in level\n", temp_v0->unk0);
         return;
     }
-    if (part >= temp_v1->unk8->unk4) {
+    if (part >= uvmd->lodTable->partCount) {
         _uvDebugPrintf("uvDobjPosm: part %d not defined for model %d in obj %d\n", part, temp_v0->unk0, objId);
         return;
     }
     if (part == 0) {
-        if (temp_v1->unk20 != 1.0f) {
-            temp_fv0 = 1.0f / temp_v1->unk20;
+        if (uvmd->unk20 != 1.0f) {
+            temp_fv0 = 1.0f / uvmd->unk20;
             uvMat4Scale(&D_80265080[temp_v0->unk2[part]], temp_fv0, temp_fv0, temp_fv0);
         }
     } else {
-        D_80265080[temp_v0->unk2[part]].m[3][0] *= temp_v1->unk20;
-        D_80265080[temp_v0->unk2[part]].m[3][1] *= temp_v1->unk20;
-        D_80265080[temp_v0->unk2[part]].m[3][2] *= temp_v1->unk20;
+        D_80265080[temp_v0->unk2[part]].m[3][0] *= uvmd->unk20;
+        D_80265080[temp_v0->unk2[part]].m[3][1] *= uvmd->unk20;
+        D_80265080[temp_v0->unk2[part]].m[3][2] *= uvmd->unk20;
     }
 }
 
 void uvDobjGetPosm(s32 objId, s32 arg1, Mtx4F* dst) {
     Unk80263780* sp24;
-    ParsedUVMD* temp_v0;
+    ParsedUVMD* uvmd;
 
     if (objId >= 0x65) {
         _uvDebugPrintf("uvDobjPosm - invalid object id number [%d]\n", objId);
@@ -227,15 +227,15 @@ void uvDobjGetPosm(s32 objId, s32 arg1, Mtx4F* dst) {
         return;
     }
     uvMat4Copy(dst, &D_80265080[sp24->unk2[arg1]]);
-    temp_v0 = gGfxUnkPtrs->models[sp24->unk0];
+    uvmd = gGfxUnkPtrs->models[sp24->unk0];
     if (arg1 == 0) {
-        if (temp_v0->unk20 != 1.0f) {
-            uvMat4Scale(dst, temp_v0->unk20, temp_v0->unk20, temp_v0->unk20);
+        if (uvmd->unk20 != 1.0f) {
+            uvMat4Scale(dst, uvmd->unk20, uvmd->unk20, uvmd->unk20);
         }
     } else {
-        dst->m[3][0] /= temp_v0->unk20;
-        dst->m[3][1] /= temp_v0->unk20;
-        dst->m[3][2] /= temp_v0->unk20;
+        dst->m[3][0] /= uvmd->unk20;
+        dst->m[3][1] /= uvmd->unk20;
+        dst->m[3][2] /= uvmd->unk20;
     }
 }
 
@@ -325,7 +325,7 @@ void _uvDobjsDraw(UnkStruct_80204D94* arg0, s32 arg1) {
     s32 i;
     f32 temp_fv0_2;
     f32 temp_fv1;
-    s32 var_v1;
+    s32 lodId;
     s32 var_a0;
     u8 spBF;
     f32 temp_fv0;
@@ -337,7 +337,7 @@ void _uvDobjsDraw(UnkStruct_80204D94* arg0, s32 arg1) {
     f32 spA0;
     f32 sp9C;
     f32 sp98;
-    ParsedUVMD* temp_s1;
+    ParsedUVMD* uvmd;
     Mtx4F* temp_v0_2;
 
     D_80269F08 = 0;
@@ -353,8 +353,8 @@ void _uvDobjsDraw(UnkStruct_80204D94* arg0, s32 arg1) {
         if (!(var_s2->unk34 & 2) || (var_s2->unk34 & 4)) {
             continue;
         }
-        temp_s1 = gGfxUnkPtrs->models[var_s2->unk0];
-        if (temp_s1 == NULL) {
+        uvmd = gGfxUnkPtrs->models[var_s2->unk0];
+        if (uvmd == NULL) {
             _uvDebugPrintf("_uvDobjsDraw: model %d not in level\n", var_s2->unk0);
             continue;
         }
@@ -373,36 +373,36 @@ void _uvDobjsDraw(UnkStruct_80204D94* arg0, s32 arg1) {
         temp_fv1 = var_s2->unk38;
         if ((temp_fv0_2 < (arg0->unk1FC + temp_fv1)) && (func_80206F64(arg0->unk2E0, temp_fs1, temp_fs2, temp_fs0, temp_fv1) != 0)) {
             if (arg0->unk204 == 1.0f) {
-                var_v1 = uvDobj_80217AB4(temp_s1, temp_fv0_2);
+                lodId = uvDobjGetLODIndex(uvmd, temp_fv0_2);
             } else {
-                var_v1 = uvDobj_80217AB4(temp_s1, arg0->unk204 * temp_fv0_2);
+                lodId = uvDobjGetLODIndex(uvmd, arg0->unk204 * temp_fv0_2);
             }
-            if (var_v1 == 0xFF) {
+            if (lodId == 0xFF) {
                 continue;
             }
             if (arg1 != 0) {
-                uvDobj_80217B4C(var_s2, temp_s1, var_v1);
-            } else if (temp_s1->unk8[var_v1].unk5 != 0) {
-                if (temp_s1->unk11 & 1) {
+                uvDobj_80217B4C(var_s2, uvmd, lodId);
+            } else if (uvmd->lodTable[lodId].billboard != 0) {
+                if (uvmd->unk11 & 1) {
                     var_a0 = 3;
                 } else {
                     var_a0 = -3;
                 }
-                _uvSortAdd(var_a0, temp_fv0_2, var_s2, arg0, temp_fv0, temp_fs5, var_v1, temp_fs1, temp_fs2);
+                _uvSortAdd(var_a0, temp_fv0_2, var_s2, arg0, temp_fv0, temp_fs5, lodId, temp_fs1, temp_fs2);
             } else {
-                if (temp_s1->unk11 & 1) {
+                if (uvmd->unk11 & 1) {
                     var_a0 = 2;
                 } else {
                     var_a0 = -2;
                 }
-                _uvSortAdd(var_a0, temp_fv0_2, var_s2, arg0, temp_fv0, temp_fs5, var_v1);
+                _uvSortAdd(var_a0, temp_fv0_2, var_s2, arg0, temp_fv0, temp_fs5, lodId);
             }
         }
     }
 }
 
 void uvDobj_8021771C(UnkStruct_80204D94* arg0) {
-    ParsedUVMD* temp_s0;
+    ParsedUVMD* uvmd;
     Unk80263780* temp_s1;
     s32 i;
     s32 pad;
@@ -419,7 +419,7 @@ void uvDobj_8021771C(UnkStruct_80204D94* arg0) {
     f32 temp_fa0_x;
     f32 temp_fa1_x;
     f32 temp_ft4_x;
-    u8 var_v0;
+    u8 lodId;
 
     if (D_80269F0A == 0) {
         return;
@@ -434,7 +434,7 @@ void uvDobj_8021771C(UnkStruct_80204D94* arg0) {
         if (!(temp_s1->unk34 & 2)) {
             continue;
         }
-        temp_s0 = gGfxUnkPtrs->models[temp_s1->unk0];
+        uvmd = gGfxUnkPtrs->models[temp_s1->unk0];
 
         temp_fs3 = D_80265080[temp_s1->unk2[0]].m[3][0] - arg0->unk110.m[3][0];
         temp_fs4 = D_80265080[temp_s1->unk2[0]].m[3][1] - arg0->unk110.m[3][1];
@@ -458,37 +458,37 @@ void uvDobj_8021771C(UnkStruct_80204D94* arg0) {
         gSPPerspNormalize(gGfxDisplayListHead++, (s16)(131072.0f / (temp_fs2 + var_fs0)));
 
         if (arg0->unk204 == 1.0f) {
-            var_v0 = uvDobj_80217AB4(temp_s0, temp_fv0_2);
+            lodId = uvDobjGetLODIndex(uvmd, temp_fv0_2);
         } else {
-            var_v0 = uvDobj_80217AB4(temp_s0, arg0->unk204 * temp_fv0_2);
+            lodId = uvDobjGetLODIndex(uvmd, arg0->unk204 * temp_fv0_2);
         }
 
-        if (var_v0 == 0xFF) {
+        if (lodId == 0xFF) {
             continue;
         }
 
-        if (temp_s0->unk8[var_v0].unk5 != 0) {
-            uvDobj_80217E24(temp_s1, temp_s0, var_v0, temp_fs3, temp_fs4);
+        if (uvmd->lodTable[lodId].billboard != 0) {
+            uvDobj_80217E24(temp_s1, uvmd, lodId, temp_fs3, temp_fs4);
         } else {
-            uvDobj_80217B4C(temp_s1, temp_s0, var_v0);
+            uvDobj_80217B4C(temp_s1, uvmd, lodId);
         }
         gSPPopMatrix(gGfxDisplayListHead++, G_MTX_PROJECTION);
     }
 }
 
-u8 uvDobj_80217AB4(ParsedUVMD* arg0, f32 arg1) {
-    u8 temp_v1;
+u8 uvDobjGetLODIndex(ParsedUVMD* uvmd, f32 dist) {
+    u8 lodCount;
     u8 i;
-    f32* temp_v0;
+    f32* lodRadius;
 
-    temp_v0 = arg0->unkC;
-    temp_v1 = arg0->unk10;
-    if (temp_v0[temp_v1 - 1] <= arg1) {
+    lodRadius = uvmd->lodRadius;
+    lodCount = uvmd->lodCount;
+    if (lodRadius[lodCount - 1] <= dist) {
         return 0xFF;
     }
 
-    for (i = temp_v1; i > 0; i--) {
-        if (temp_v0[i - 1] < arg1) {
+    for (i = lodCount; i > 0; i--) {
+        if (lodRadius[i - 1] < dist) {
             return i;
         }
     }
@@ -502,9 +502,9 @@ s32 uvDobj_80217B34(s32** arg0) {
 
 extern s32 D_80248DD8;
 
-void uvDobj_80217B4C(Unk80263780* arg0, ParsedUVMD* arg1, u8 arg2) {
-    UnkUVMD_10* temp_s2;
-    UnkUVMD_8* temp_s7;
+void uvDobj_80217B4C(Unk80263780* arg0, ParsedUVMD* uvmd, u8 lodId) {
+    uvModelPart* currPart;
+    uvModelLOD* currLod;
     s32 i;
     s32 j;
     s32 temp_s3;
@@ -517,53 +517,53 @@ void uvDobj_80217B4C(Unk80263780* arg0, ParsedUVMD* arg1, u8 arg2) {
         uvGfx_80223C00();
     }
 
-    temp_s7 = &arg1->unk8[arg2];
-    for (i = 0; i < temp_s7->unk4; i++) {
-        temp_s2 = &temp_s7->unk0[i];
+    currLod = &uvmd->lodTable[lodId];
+    for (i = 0; i < currLod->partCount; i++) {
+        currPart = &currLod->partTable[i];
         if (i == 0) {
             uvGfx_802236CC(&D_80265080[arg0->unk2[0]]);
         } else {
             uvGfxMtxViewMul(&D_80265080[arg0->unk2[i]], 1);
         }
-        if (temp_s2->unkD != 0) {
+        if (currPart->unkD != 0) {
             uvGfxLookAt(&D_80265080[arg0->unk2[i]]);
         }
         if (!(arg0->unk3C & (1 << i))) {
-            for (j = 0; j < temp_s2->unk4; j++) {
+            for (j = 0; j < currPart->stateCount; j++) {
                 if (arg0->unk34 & 0x20) {
-                    temp_s3 = temp_s2->unk0[j].state;
-                    temp_s2->unk0[j].state |= GFX_STATE_10000000;
-                    uvGfxStateDraw(&temp_s2->unk0[j]);
-                    temp_s2->unk0[j].state = temp_s3;
+                    temp_s3 = currPart->stateTable[j].state;
+                    currPart->stateTable[j].state |= GFX_STATE_10000000;
+                    uvGfxStateDraw(&currPart->stateTable[j]);
+                    currPart->stateTable[j].state = temp_s3;
                 } else {
-                    uvGfxStateDraw(&temp_s2->unk0[j]);
+                    uvGfxStateDraw(&currPart->stateTable[j]);
                 }
             }
         }
-        if (i == temp_s7->unk4 - 1) {
+        if (i == currLod->partCount - 1) {
             break;
         }
-        temp_v1 = temp_s7->unk0[i].unk6 - temp_s7->unk0[i + 1].unk6;
+        temp_v1 = currLod->partTable[i].unk6 - currLod->partTable[i + 1].unk6;
         for (j = 0; j <= temp_v1; j++) {
             uvGfxMtxViewPop();
         }
     }
-    temp_v1 = temp_s7->unk0[temp_s7->unk4 - 1].unk6;
+    temp_v1 = currLod->partTable[currLod->partCount - 1].unk6;
     for (i = 0; i <= temp_v1; i++) {
         uvGfxMtxViewPop();
     }
     if (D_80248DD8 != 0) {
         uvMat4Copy(&sp50, &D_80265080[arg0->unk2[0]]);
-        uvMat4Scale(&sp50, arg1->unk20, arg1->unk20, arg1->unk20);
+        uvMat4Scale(&sp50, uvmd->unk20, uvmd->unk20, uvmd->unk20);
         uvGfx_802236CC(&sp50);
-        func_80215E7C(arg1);
+        func_80215E7C(uvmd);
         uvGfxMtxViewPop();
     }
 }
 
-void uvDobj_80217E24(Unk80263780* arg0, ParsedUVMD* arg1, u8 arg2, f32 arg3, f32 arg4) {
-    UnkUVMD_10* temp_s2;
-    UnkUVMD_8* temp_s5;
+void uvDobj_80217E24(Unk80263780* arg0, ParsedUVMD* uvmd, u8 lodId, f32 arg3, f32 arg4) {
+    uvModelPart* currPart;
+    uvModelLOD* currLod;
     Mtx4F* temp_s7;
     s32 i;
     s32 j;
@@ -575,10 +575,10 @@ void uvDobj_80217E24(Unk80263780* arg0, ParsedUVMD* arg1, u8 arg2, f32 arg3, f32
     f32 sp44;
     f32 var_fv1;
 
-    sp54 = arg1->unk20;
+    sp54 = uvmd->unk20;
     D_80269D78[D_80269F08] = arg0 - D_80263780;
     D_80269F08++;
-    temp_s5 = &arg1->unk8[arg2];
+    currLod = &uvmd->lodTable[lodId];
     temp_s7 = &D_80265080[arg0->unk2[0]];
     sp50 = temp_s7->m[0][0];
     sp4C = temp_s7->m[0][1];
@@ -595,26 +595,26 @@ void uvDobj_80217E24(Unk80263780* arg0, ParsedUVMD* arg1, u8 arg2, f32 arg3, f32
     temp_s7->m[1][1] = -arg4 / sp54;
     temp_s7->m[1][0] = -arg3 / sp54;
 
-    for (i = 0; i < temp_s5->unk4; i++) {
-        temp_s2 = &temp_s5->unk0[i];
+    for (i = 0; i < currLod->partCount; i++) {
+        currPart = &currLod->partTable[i];
         if (i == 0) {
             uvGfx_802236CC(&D_80265080[arg0->unk2[i]]);
         } else {
             uvGfxMtxViewMul(&D_80265080[arg0->unk2[i]], 1);
         }
 
-        for (j = 0; j < temp_s2->unk4; j++) {
-            uvGfxStateDraw(&temp_s2->unk0[j]);
+        for (j = 0; j < currPart->stateCount; j++) {
+            uvGfxStateDraw(&currPart->stateTable[j]);
         }
-        if (i == temp_s5->unk4 - 1) {
+        if (i == currLod->partCount - 1) {
             break;
         }
-        temp_v1 = temp_s5->unk0[i].unk6 - temp_s5->unk0[i + 1].unk6;
+        temp_v1 = currLod->partTable[i].unk6 - currLod->partTable[i + 1].unk6;
         for (j = 0; j <= temp_v1; j++) {
             uvGfxMtxViewPop();
         }
     }
-    temp_v1 = temp_s5->unk0[temp_s5->unk4 - 1].unk6;
+    temp_v1 = currLod->partTable[currLod->partCount - 1].unk6;
     for (i = 0; i <= temp_v1; i++) {
         uvGfxMtxViewPop();
     }
@@ -627,15 +627,15 @@ void uvDobj_80217E24(Unk80263780* arg0, ParsedUVMD* arg1, u8 arg2, f32 arg3, f32
 void uvDobj_802180DC(s32 arg0, Unk80371120* arg1) {
     Unk80263780* var_s2;
     s32 i;
-    ParsedUVMD* temp_v0;
+    ParsedUVMD* uvmd;
     Unk8022B0A0* var_s3;
 
     var_s2 = &D_80263780[arg0];
-    temp_v0 = gGfxUnkPtrs->models[var_s2->unk0];
+    uvmd = gGfxUnkPtrs->models[var_s2->unk0];
     var_s3 = arg1->unk0;
 
-    if (temp_v0->unk18 > 1) {
-        arg1->unk1AC = temp_v0->unk18 - 1;
+    if (uvmd->mtxCount > 1) {
+        arg1->unk1AC = uvmd->mtxCount - 1;
     } else {
         arg1->unk1AC = 0;
     }
