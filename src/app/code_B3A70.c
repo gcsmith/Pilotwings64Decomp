@@ -303,16 +303,16 @@ void func_8032CC44(Unk80362690* arg0) {
     func_803343D8(0);
     uvLevelInit();
     switch (arg0->unk0[0].map) {
-    case 1:
+    case MAP_HOLIDAY_ISLAND:
         uvLevelAppend(0);
         break;
-    case 3:
+    case MAP_CRESCENT_ISLAND:
         uvLevelAppend(2);
         break;
-    case 5:
+    case MAP_LITTLE_STATES:
         uvLevelAppend(4);
         break;
-    case 10:
+    case MAP_EVER_FROST_ISLAND:
         uvLevelAppend(9);
         break;
     }
@@ -490,10 +490,10 @@ void func_8032D51C(s32 fadeoutType) {
         func_80314154();
         uvGfxSetFlags(GFX_STATE_400000);
         uvVtxBeginPoly();
-        uvVtx(9, 0x11, 0, 0, 0, sp87, sp86, sp85, sp84);
-        uvVtx(0x137, 0x11, 0, 0, 0, sp87, sp86, sp85, sp84);
-        uvVtx(0x137, 0xE9, 0, 0, 0, sp87, sp86, sp85, sp84);
-        uvVtx(9, 0xE9, 0, 0, 0, sp87, sp86, sp85, sp84);
+        uvVtx(9, 17, 0, 0, 0, sp87, sp86, sp85, sp84);
+        uvVtx(311, 17, 0, 0, 0, sp87, sp86, sp85, sp84);
+        uvVtx(311, 233, 0, 0, 0, sp87, sp86, sp85, sp84);
+        uvVtx(9, 233, 0, 0, 0, sp87, sp86, sp85, sp84);
         uvVtxEndPoly();
         func_803141E4();
         uvGfxEnd();
@@ -503,10 +503,10 @@ void func_8032D51C(s32 fadeoutType) {
     for (i = 0; i < 2; i++) {
         uvGfxBegin();
         uvVtxBeginPoly();
-        uvVtx(9, 0x11, 0, 0, 0, sp87, sp86, sp85, sp84);
-        uvVtx(0x137, 0x11, 0, 0, 0, sp87, sp86, sp85, sp84);
-        uvVtx(0x137, 0xE9, 0, 0, 0, sp87, sp86, sp85, sp84);
-        uvVtx(9, 0xE9, 0, 0, 0, sp87, sp86, sp85, sp84);
+        uvVtx(9, 17, 0, 0, 0, sp87, sp86, sp85, sp84);
+        uvVtx(311, 17, 0, 0, 0, sp87, sp86, sp85, sp84);
+        uvVtx(311, 233, 0, 0, 0, sp87, sp86, sp85, sp84);
+        uvVtx(9, 233, 0, 0, 0, sp87, sp86, sp85, sp84);
         uvVtxEndPoly();
         uvGfxEnd();
     }
