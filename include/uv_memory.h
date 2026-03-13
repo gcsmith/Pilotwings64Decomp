@@ -27,6 +27,11 @@ typedef struct {
 } UVBlockCounts;
 
 typedef struct {
+    UVBlockCounts counts;
+    s32 unk24;
+} UVBlockMeta;
+
+typedef struct {
     void* UVSY[1];
     void* UVMD[0x190];
     void* UVCT[0x80];
@@ -56,8 +61,8 @@ extern void* D_802B6E30[LEVEL_TEXTURE_COUNT];
 extern uvLevelData gLevelData;
 extern Unk802B53C0* D_802B53C0;
 
-extern UVBlockCounts gUVBlockCounts; // D_802B53C8
-extern UVBlockOffsets gUVBlockOffsets; // D_802B53F0
+extern UVBlockMeta gUVBlockCounts;
+extern UVBlockOffsets gUVBlockOffsets;
 
 void mio0_decompress(void* src, u8* dst);
 

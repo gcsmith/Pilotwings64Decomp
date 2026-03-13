@@ -358,15 +358,15 @@ void uvLevelInit(void) {
         switch (tag) {
         case 'COMM':
             _uvMediaCopy(&gUVBlockCounts, source, length);
-            gLevelData.unk1608 = gUVBlockCounts.unk0;
+            gLevelData.unk1608 = gUVBlockCounts.counts.unk0;
             break;
         default:
             break;
         }
     }
     uvFile_80223F30(temp_v0);
-    if (gUVBlockCounts.uvVersion != UV_KERNEL_VERSION) {
-        _uvDebugPrintf("uvLevelInit: dbase [ver %d] and kernel [ver %d] out of date\n", gUVBlockCounts.uvVersion, UV_KERNEL_VERSION);
+    if (gUVBlockCounts.counts.uvVersion != UV_KERNEL_VERSION) {
+        _uvDebugPrintf("uvLevelInit: dbase [ver %d] and kernel [ver %d] out of date\n", gUVBlockCounts.counts.uvVersion, UV_KERNEL_VERSION);
     }
 }
 
