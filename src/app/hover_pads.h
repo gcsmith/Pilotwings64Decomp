@@ -13,5 +13,6 @@ extern u8 D_80369584;
 extern Unk80369588 D_80369588[];
 
 u8 func_8030A080(void);
+s16 func_8030A0DC(void);
 
 #endif // APP_HOVER_PADS_H

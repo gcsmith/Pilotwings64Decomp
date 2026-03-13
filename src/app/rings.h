@@ -19,5 +19,6 @@ void func_803239B4(void);
 s32 func_803243D8(Mtx4F*);
 void func_80324A34(void);
 u8 func_80324AF4(void);
+s16 func_80324B60(void*);
 
 #endif // APP_RINGS_H

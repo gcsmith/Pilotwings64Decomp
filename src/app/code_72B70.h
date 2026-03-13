@@ -4,6 +4,8 @@
 #include <uv_level.h>
 #include <uv_matrix.h>
 
+extern Unk80364210 D_80364210[];
+
 typedef struct {
     u8 testCount;
     u8 pad1[0x157];
@@ -152,11 +154,13 @@ typedef struct {
     u8 pad416[0x41C - 0x416];
     f32 unk41C;
     f32 unk420;
-} Unk80367704;
+} VehicleData;
 
 void func_802EB9C0(void);
 void func_802EBBB8(void);
 void func_802EBC30(void);
+s32 func_802EC50C(Unk80362690*);
+s32 func_802ECE94(Unk80362690*);
 void func_802EDDEC(Mtx4F*);
 void func_802EDAF0(void*, Mtx4F*, s32, s32, f32, f32, f32, u32, s32, s32, s32);
 void func_802EE14C(s32);

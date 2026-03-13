@@ -7,6 +7,7 @@
 #include <uv_string.h>
 #include "code_99D40.h"
 #include "code_9A960.h"
+#include "code_B2900.h"
 #include "code_B3A70.h"
 #include "demo.h"
 #include "menu.h"
@@ -259,7 +260,7 @@ void resultInit(s32 arg0) {
     const char* var_s0;
     s32 pts;
     s32 ptsTotal;
-    TestResult* res;
+    Unk80364210_Unk0_Unk0* res;
     s32 ptType;
     s32 strIdx;
 
@@ -288,56 +289,55 @@ void resultInit(s32 arg0) {
         resultGenMenu();
         for (i = 0; i < ARRAY_COUNT(sPtsTallyStr); i++) {
             ptType = sResultPtTypes[unkC->veh][unkC->cls][unkC->test][i];
-            // unkC->unk4 is class, p40->unk6 * unkC->unk2 is test * vehicle?
-            res = &D_80364210[D_80362690->unk9C].unk0[unkC->cls].unk0[unkC->test][unkC->veh + 1].result;
+            res = &D_80364210[D_80362690->unk9C].unk40[unkC->cls].unk0[unkC->test][unkC->veh];
             sPtsTallyStr[i][0] = sPtsTallyStr[i][1] = sPtsTallyStr[i][2] = -3;
             sPtsTallyStr[i][3] = 0xFFE;
             sPtsTallyStr[i][4] = -1;
             switch (ptType) {
             case 1:
-                pts = res->scores[2];
+                pts = res->unk6;
                 break;
             case 2:
-                pts = res->scores[1];
+                pts = res->unk4;
                 break;
             case 3:
-                pts = res->scores[5];
+                pts = res->unkC;
                 break;
             case 4:
-                pts = res->scores[6];
+                pts = res->unkE;
                 break;
             case 5:
-                pts = res->scores[10];
+                pts = res->unk16;
                 break;
             case 6:
-                pts = res->scores[4];
+                pts = res->unkA;
                 break;
             case 7:
-                pts = res->scores[9];
+                pts = res->unk14;
                 break;
             case 8:
-                pts = res->scores[15];
+                pts = res->unk20;
                 break;
             case 9:
-                pts = res->scores[14];
+                pts = res->unk1E;
                 break;
             case 11:
-                pts = res->scores[13];
+                pts = res->unk1C;
                 break;
             case 12:
-                pts = D_80364210[D_80362690->unk9C].unk0[unkC->cls].unk0[0][unkC->veh + 1].result.scores[1];
+                pts = D_80364210[D_80362690->unk9C].unk40[unkC->cls].unk0[0][unkC->veh].unk4;
                 break;
             case 13:
-                pts = D_80364210[D_80362690->unk9C].unk0[unkC->cls].unk0[1][unkC->veh + 1].result.scores[1];
+                pts = D_80364210[D_80362690->unk9C].unk40[unkC->cls].unk0[1][unkC->veh].unk4;
                 break;
             case 14:
-                pts = D_80364210[D_80362690->unk9C].unk0[unkC->cls].unk0[2][unkC->veh + 1].result.scores[1];
+                pts = D_80364210[D_80362690->unk9C].unk40[unkC->cls].unk0[2][unkC->veh].unk4;
                 break;
             case 15:
-                pts = D_80364210[D_80362690->unk9C].unk0[unkC->cls].unk0[3][unkC->veh + 1].result.scores[1];
+                pts = D_80364210[D_80362690->unk9C].unk40[unkC->cls].unk0[3][unkC->veh].unk4;
                 break;
             case 16:
-                pts = res->scores[12];
+                pts = res->unk1A;
                 break;
             default:
                 continue;
@@ -353,12 +353,12 @@ void resultInit(s32 arg0) {
             }
         }
 
-        if (D_80364210[D_80362690->unk9C].unk0[0].unk0[0][1].unk8 != 0) {
-            textFmtInt(sPtsDeductedStr, -D_80364210[D_80362690->unk9C].unk0[0].unk0[0][1].unk8, 3);
-            ptsTotal += D_80364210[D_80362690->unk9C].unk0[0].unk0[0][1].unk8; // unk38
+        if (D_80364210[D_80362690->unk9C].unk38 != 0) {
+            textFmtInt(sPtsDeductedStr, -D_80364210[D_80362690->unk9C].unk38, 3);
+            ptsTotal += D_80364210[D_80362690->unk9C].unk38;
         } else {
-            textFmtInt(sPtsDeductedStr, -res->scores[11], 3);
-            ptsTotal += res->scores[11];
+            textFmtInt(sPtsDeductedStr, -res->unk18, 3);
+            ptsTotal += res->unk18;
         }
         if (ptsTotal < 0) {
             ptsTotal = 0;

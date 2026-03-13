@@ -360,14 +360,14 @@ void func_802FBEFC(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32 arg1) {
     Unk803599D0* sp2C;
 
     if (arg0->unk4F == 0) {
-        sp2C = levelGet_80345C80();
+        sp2C = &levelGet_80345C80()->unk0;
         hudWarningText(0x4F, 1.5f, 8.0f);
         snd_play_sfx(0x69);
         arg0->unk4F = 1;
 
-        D_80364210[D_80362690->unk9C].unk0[0].unk0[0][1].unk8 = D_80364210[D_80362690->unk9C].unk0[0].unk0[0][1].unk8 - sp2C[11].unk30;
-        if (D_80364210[D_80362690->unk9C].unk0[0].unk0[0][1].unk8 < -100) {
-            D_80364210[D_80362690->unk9C].unk0[0].unk0[0][1].unk8 = -100;
+        D_80364210[D_80362690->unk9C].unk38 = D_80364210[D_80362690->unk9C].unk38 - sp2C[11].unk30;
+        if (D_80364210[D_80362690->unk9C].unk38 < -100) {
+            D_80364210[D_80362690->unk9C].unk38 = -100;
         }
         arg0->unk534++;
         func_80341E30();

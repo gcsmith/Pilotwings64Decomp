@@ -442,7 +442,7 @@ segments:
       - [0xAA820, c, app/rings]
       - [0xAC1A0, c, app/code_AC1A0]
       - [0xAE460, c, app/code_AE460]
-      - [0xAF950, c, app/rocket_pack]
+      - [0xAF950, c, app/rocket_belt]
       - [0xB1B30, c, app/rpsound]
       - [0xB2900, c, app/code_B2900]
       - [0xB3A70, c, app/code_B3A70]
@@ -519,7 +519,7 @@ segments:
       - [0xD7000, .data, app/demo]
       - [0xD7010, data] # app/rings
       - [0xD70D0, .data, app/code_AE460]
-      - [0xD70E0, .data, app/rocket_pack]
+      - [0xD70E0, .data, app/rocket_belt]
       - [0xD7100, .data, app/code_B2900]
       - [0xD7140, .data, app/code_B3A70]
       - [0xD7170, .data, app/results]
@@ -605,7 +605,7 @@ segments:
       - [0xDC3C0, .rodata, app/rings]
       - [0xDC4D0, .rodata, app/code_AC1A0]
       - [0xDC800, .rodata, app/code_AE460]
-      - [0xDC8C0, .rodata, app/rocket_pack]
+      - [0xDC8C0, .rodata, app/rocket_belt]
       - [0xDC9F0, .rodata, app/rpsound]
       - [0xDCAF0, .rodata, app/code_B2900]
       - [0xDCB20, .rodata, app/code_B3A70]
@@ -702,9 +702,9 @@ segments:
       - { type: bss, vram: 0x80371960, name: app/skydiving }
       - { type: bss, vram: 0x80371CB0, name: app/sdsound }
       - { type: bss, vram: 0x80371D10, name: app/shadow }
-      - { type: bss, vram: 0x80371DB0, name: app/code_BD670 }
+      - { type: .bss, vram: 0x80371DB0, name: app/code_BD670 }
       - { type: bss, vram: 0x80371E60, name: app/smoke }
-      - { type: bss, vram: 0x80373300, name: app/snap }
+      - { type: .bss, vram: 0x80373060, name: app/snap }
       - { type: bss, vram: 0x80373E20, name: app/snd }
       - { type: bss, vram: 0x80373EF0, name: app/snow }
       - { type: bss, vram: 0x80373F10, name: app/spath }

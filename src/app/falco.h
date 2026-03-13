@@ -10,5 +10,6 @@ void func_802E3A5C(void);
 void func_802E3E6C(void);
 void func_802E3F7C(void);
 s32 func_802E57C4(void);
+s16 func_802E5818(void);
 
 #endif // APP_FALCO_H

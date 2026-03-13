@@ -10,15 +10,15 @@ typedef struct {
 } Unk802CC51C;
 
 void bird_802CC1B0(void);
-void bird_802CC270(u8, u8 pilot, Unk80367704*, Unk802D3658_Arg0*);
-void bird_802CC39C(Unk80367704*);
+void bird_802CC270(u8, u8 pilot, VehicleData*, Unk802D3658_Arg0*);
+void birdEnterLeave(VehicleData*);
 void bird_802CC51C(Unk802CC51C*);
-void bird_802CC55C(Unk80367704*, u8);
-void bird_802CD0F8(Unk80367704*);
-void bird_802CE190(Unk80367704*, u8);
-void bird_802CEA60(Unk80367704*);
-void bird_802CEBA0(Unk80367704*);
-void bird_802CECB8(Unk80367704*);
-void bird_802CEDF8(Unk80367704*);
+void birdMovementFrame(VehicleData*, u8);
+void bird_802CD0F8(VehicleData*);
+void bird_802CE190(VehicleData*, u8);
+void bird_802CEA60(VehicleData*);
+void bird_802CEBA0(VehicleData*);
+void bird_802CECB8(VehicleData*);
+void bird_802CEDF8(VehicleData*);
 
 #endif // APP_BIRDMAN_H
