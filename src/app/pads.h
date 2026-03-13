@@ -39,5 +39,6 @@ void padsInit(void);
 void padsLoad(void);
 void padsFrameUpdate(Mtx4F*);
 void padsDeinit(void);
+f32 func_80317978(f32, f32, f32, u8*);
 
 #endif // APP_PADS_H
