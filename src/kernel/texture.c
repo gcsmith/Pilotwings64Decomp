@@ -48,7 +48,7 @@ ParsedUVTR* _uvParseUVTR(u8*);
 ParsedUVBT* _uvParseUVBT(u8*);
 
 Unk802B53C0* D_802B53C0;
-UVBlockCounts gUVBlockCounts;
+UVBlockMeta gUVBlockCounts;
 UVBlockOffsets gUVBlockOffsets;
 void* D_802B6E30[LEVEL_TEXTURE_COUNT];
 u16 D_802B7600[1000];
@@ -68,7 +68,7 @@ void uvMemInitBlockHdr(void) {
     u32 tag;
     UVBlockHeader* var_a0;
 
-    uvMemSet(&gUVBlockCounts, 0, sizeof(gUVBlockCounts));
+    uvMemSet(&gUVBlockCounts.counts, 0, sizeof(gUVBlockCounts.counts));
     sp64 = uvFileReadHeader(SEGMENT_ROM_START(filetable));
     romOffset = SEGMENT_ROM_START(filesys);
 
@@ -82,46 +82,46 @@ void uvMemInitBlockHdr(void) {
                     gUVBlockOffsets.UVSY[0] = romOffset;
                     break;
                 case 'UVAN':
-                    gUVBlockOffsets.UVAN[gUVBlockCounts.UVAN++] = romOffset;
+                    gUVBlockOffsets.UVAN[gUVBlockCounts.counts.UVAN++] = romOffset;
                     break;
                 case 'UVFT':
-                    gUVBlockOffsets.UVFT[gUVBlockCounts.UVFT++] = romOffset;
+                    gUVBlockOffsets.UVFT[gUVBlockCounts.counts.UVFT++] = romOffset;
                     break;
                 case 'UVBT':
-                    gUVBlockOffsets.UVBT[gUVBlockCounts.UVBT++] = romOffset;
+                    gUVBlockOffsets.UVBT[gUVBlockCounts.counts.UVBT++] = romOffset;
                     break;
                 case 'UVMD':
-                    gUVBlockOffsets.UVMD[gUVBlockCounts.UVMD++] = romOffset;
+                    gUVBlockOffsets.UVMD[gUVBlockCounts.counts.UVMD++] = romOffset;
                     break;
                 case 'UVCT':
-                    gUVBlockOffsets.UVCT[gUVBlockCounts.UVCT++] = romOffset;
+                    gUVBlockOffsets.UVCT[gUVBlockCounts.counts.UVCT++] = romOffset;
                     break;
                 case 'UVTX':
-                    gUVBlockOffsets.UVTX[gUVBlockCounts.UVTX++] = romOffset;
+                    gUVBlockOffsets.UVTX[gUVBlockCounts.counts.UVTX++] = romOffset;
                     break;
                 case 'UVEN':
-                    gUVBlockOffsets.UVEN[gUVBlockCounts.UVEN++] = romOffset;
+                    gUVBlockOffsets.UVEN[gUVBlockCounts.counts.UVEN++] = romOffset;
                     break;
                 case 'UVLT':
-                    gUVBlockOffsets.UVLT[gUVBlockCounts.UVLT++] = romOffset;
+                    gUVBlockOffsets.UVLT[gUVBlockCounts.counts.UVLT++] = romOffset;
                     break;
                 case 'UVLV':
-                    gUVBlockOffsets.UVLV[gUVBlockCounts.UVLV++] = romOffset;
+                    gUVBlockOffsets.UVLV[gUVBlockCounts.counts.UVLV++] = romOffset;
                     break;
                 case 'UVSQ':
-                    gUVBlockOffsets.UVSQ[gUVBlockCounts.UVSQ++] = romOffset;
+                    gUVBlockOffsets.UVSQ[gUVBlockCounts.counts.UVSQ++] = romOffset;
                     break;
                 case 'UVTR':
-                    gUVBlockOffsets.UVTR[gUVBlockCounts.UVTR++] = romOffset;
+                    gUVBlockOffsets.UVTR[gUVBlockCounts.counts.UVTR++] = romOffset;
                     break;
                 case 'UVTP':
-                    gUVBlockOffsets.UVTP[gUVBlockCounts.UVTP++] = romOffset;
+                    gUVBlockOffsets.UVTP[gUVBlockCounts.counts.UVTP++] = romOffset;
                     break;
                 case 'UVSX':
-                    gUVBlockOffsets.UVSX[gUVBlockCounts.UVSX++] = romOffset;
+                    gUVBlockOffsets.UVSX[gUVBlockCounts.counts.UVSX++] = romOffset;
                     break;
                 default:
-                    gUVBlockOffsets.unk1838[gUVBlockCounts.unk1C++] = romOffset;
+                    gUVBlockOffsets.unk1838[gUVBlockCounts.counts.unk1C++] = romOffset;
                     break;
                 }
                 romOffset += var_a0->size;
@@ -1325,4 +1325,3 @@ s32 func_80227E5C(s32 arg0, s32 arg1) {
     }
     return FALSE;
 }
-
