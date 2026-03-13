@@ -1,5 +1,4 @@
 #include "common.h"
-#include <uv_level.h>
 #include <uv_memory.h>
 #include <uv_model.h>
 #include "app/hud.h"
@@ -7,6 +6,7 @@
 #include "app/fdr.h"
 #include "app/shadow.h"
 #include "app/snd.h"
+#include "app/task.h"
 #include "app/code_5A6A0.h"
 #include "app/code_9A960.h"
 #include "app/code_D1ED0.h"
@@ -15,7 +15,7 @@ extern Unk803599D0 D_80368B20;
 
 void func_802FA7A0(u8 arg0, Unk80362690_Unk0_UnkC_Unk6C* arg1);
 
-void jumbleHopperEnterLeave(void) {
+void func_802F9F60(void) {
     D_80368B20.unk0 = 8;
     D_80368B20.unk4 = 0.0f;
     D_80368B20.unk8 = 0.0f;
@@ -58,7 +58,7 @@ void func_802FA020(u8 arg0, u8 arg1, Unk80362690_Unk0_UnkC_Unk6C* arg2, Unk802D3
     func_802FD038(arg2);
 }
 
-void jumbleHopperMovementFrame(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void jumbleHopperEnterLeave(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     func_802FD114(arg0);
     arg0->unk4C = 0;
     arg0->unk2 = 2;
@@ -101,7 +101,7 @@ void func_802FA290(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     func_80334C70();
 }
 
-void func_802FA2D0(Unk80362690_Unk0_UnkC_Unk6C* arg0, u8 arg1) {
+void jumbleHopperMovementFrame(Unk80362690_Unk0_UnkC_Unk6C* arg0, u8 arg1) {
     f32 sp84;
     f32 sp80;
     f32 var_fa0;

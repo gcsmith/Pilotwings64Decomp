@@ -2,7 +2,7 @@
 #define APP_CODE_82520_H
 
 #include <PR/ultratypes.h>
-#include <uv_level.h>
+#include "app/task.h"
 
 typedef struct {
     LevelHOPD* unk0;

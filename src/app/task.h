@@ -157,7 +157,7 @@ typedef struct {
 } LevelFALC; // size = 0xAC
 
 typedef struct {
-    u8 pad0[4];
+    s32 unk0;
     Vec3F pos;
     s32 unk10;
     f32 scale;
