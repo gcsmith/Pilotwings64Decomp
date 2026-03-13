@@ -107,7 +107,7 @@ s32 func_8032B560(Unk80364210* arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
     s32 tempPoints;
     s32 sp3C;
 
-    sp74 = (Unk80345C80*)levelGet_80345C80();
+    sp74 = levelGet_80345C80();
     if (D_80362690->unkA1 != 0) {
         arg0->unk0 = 0x3F3E0;
     }

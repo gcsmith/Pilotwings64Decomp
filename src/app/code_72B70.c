@@ -5,24 +5,24 @@ s32 D_8034F160 = 0xFFFFFFFF;
 s32 D_8034F164 = 0;
 
 // types might be incorrect here
-typedef s32 (*UnkD_8034F168)(s32);
+typedef s32 (*UnkD_8034F168)(Unk80362690*);
 
-s32 func_802EBC94(s32);
-s32 func_802EC0F4(s32);
-s32 func_802EC148(s32);
-s32 func_802EC338(s32);
-s32 func_802EC50C(s32);
-s32 func_802ED048(s32);
-s32 func_802ECA2C(s32);
-s32 func_802EBD2C(s32);
-s32 func_802EBE10(s32);
-s32 func_802EBEA8(s32);
-s32 func_802EBF38(s32);
-s32 func_802EBEDC(s32);
-s32 func_802EBFF4(s32);
-s32 func_802EC05C(s32);
-s32 func_802EC0A8(s32);
-s32 func_802EC0C8(s32);
+s32 func_802EBC94(Unk80362690*);
+s32 func_802EC0F4(Unk80362690*);
+s32 func_802EC148(Unk80362690*);
+s32 func_802EC338(Unk80362690*);
+s32 func_802EC50C(Unk80362690*);
+s32 func_802ED048(Unk80362690*);
+s32 func_802ECA2C(Unk80362690*);
+s32 func_802EBD2C(Unk80362690*);
+s32 func_802EBE10(Unk80362690*);
+s32 func_802EBEA8(Unk80362690*);
+s32 func_802EBF38(Unk80362690*);
+s32 func_802EBEDC(Unk80362690*);
+s32 func_802EBFF4(Unk80362690*);
+s32 func_802EC05C(Unk80362690*);
+s32 func_802EC0A8(Unk80362690*);
+s32 func_802EC0C8(Unk80362690*);
 
 UnkD_8034F168 D_8034F168[] = { func_802EBC94, func_802EC0F4, func_802EC148, func_802EC338, func_802EC50C, func_802ED048,
                                func_802ECA2C, func_802EBD2C, func_802EBE10, func_802EBEA8, func_802EBF38, func_802EBEDC,

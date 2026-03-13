@@ -280,7 +280,7 @@ typedef struct {
     s32 unk9C;
     u8 unkA0;
     u8 unkA1;
-    u8 padA2;
+    u8 unkA2;
     u8 unkA3;
     u8 padA4[4];
     s32 unkA8;
@@ -356,6 +356,14 @@ typedef struct {
     f32 z;
     f32 unkC;
 } LevelOBSV;
+
+typedef struct LevelPHTS {
+    s32 unk0;
+    s32 unk4;
+    f32 unk8;
+    f32 unkC;
+    f32 unk10;
+} LevelPHTS;
 
 typedef struct {
     Vec3F pos;
@@ -504,7 +512,7 @@ typedef struct {
     void* dataTARG;
     void* dataHPAD;
     void* dataBTGT;
-    void* dataPHTS;
+    LevelPHTS* dataPHTS;
     void* dataFALC;
     void* dataSDFM;
     void* dataCNTG;
@@ -565,7 +573,7 @@ s32 levelDataGetBALS(LevelBALS** data);
 s32 levelDataGetTARG(void** data);
 s32 levelDataGetHPAD(void** data);
 s32 levelDataGetBTGT(LevelBTGT** data);
-s32 levelDataGetPHTS(void** data);
+s32 levelDataGetPHTS(LevelPHTS** data);
 s32 levelDataGetFALC(void** data);
 s32 levelDataGetHOPD(LevelHOPD** data);
 void levelGetClsVehTest(u16* classIdx, u16* vehIdx, u16* testIdx);
