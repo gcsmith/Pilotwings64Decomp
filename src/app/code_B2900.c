@@ -29,7 +29,7 @@ MedalPointRequirement gMedalPointRequirements[MAX_CLASSES] = {
 };
 
 // forward decls
-static u8 func_8032BF54(void);
+STATIC_FUNC u8 func_8032BF54(void);
 
 void func_8032B3D0(Unk80364210* arg0) {
     s32 pad[7];
@@ -305,7 +305,7 @@ s32 func_8032BE8C(Unk80364210* arg0, u8 classIdx, u8 vehIdx) {
     return success;
 }
 
-static u8 func_8032BF54(void) {
+STATIC_FUNC u8 func_8032BF54(void) {
     void* tmp;
 
     tmp = NULL;

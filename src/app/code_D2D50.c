@@ -36,7 +36,7 @@ s32 func_8034B820(void) {
     return D_803509D8;
 }
 
-static void func_8034B82C(void) {
+STATIC_FUNC void func_8034B82C(void) {
     Mtx4F spF0;
     Mtx4F spB0;
     Mtx4F sp70;
@@ -74,7 +74,7 @@ static void func_8034B82C(void) {
     uvDobjPosm(D_803509C0, 1, &spB0);
 }
 
-static void func_8034BA68(void) {
+STATIC_FUNC void func_8034BA68(void) {
     if (D_8037F440 == 1.0f) {
         D_803509D4 += 4.0f * D_8034F854;
         if (D_803509D4 > 0 /*.0f*/) {
@@ -109,7 +109,7 @@ static void func_8034BA68(void) {
     }
 }
 
-static s32 func_8034BC68(s32 arg0, s32 arg1, s32 arg2) {
+STATIC_FUNC s32 func_8034BC68(s32 arg0, s32 arg1, s32 arg2) {
     switch (arg1) {
     case 0:
         uvDobjState(D_803509C0, 3);
@@ -144,7 +144,7 @@ static s32 func_8034BC68(s32 arg0, s32 arg1, s32 arg2) {
     return 0;
 }
 
-static s32 func_8034BDCC(s32 arg0, s32 arg1, s32 arg2) {
+STATIC_FUNC s32 func_8034BDCC(s32 arg0, s32 arg1, s32 arg2) {
     s32 pad;
     s32 sp18;
 

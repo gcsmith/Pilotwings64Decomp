@@ -1,3 +1,4 @@
+#include <macros.h>
 #include <uv_font.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>
@@ -16,7 +17,7 @@
 #include "text_data.h"
 
 // forward declarations
-static s32 fileMenuPrintText(s32*, s32);
+STATIC_FUNC s32 fileMenuPrintText(s32*, s32);
 
 // file select menu item ids
 static s32 sFileMenuTextIds[] = {
@@ -197,7 +198,7 @@ void fileMenuSetProps(void) {
     menuSetProps();
 }
 
-static s32 fileMenuPrintText(s32* arg0, s32 arg1) {
+STATIC_FUNC s32 fileMenuPrintText(s32* arg0, s32 arg1) {
     s32 curVal;
     s32 i;
     s32 maxVal;

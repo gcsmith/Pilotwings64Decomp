@@ -30,18 +30,18 @@ extern Unk803599D0 D_803599D0;
 extern f32 D_80359A24;
 
 // forward declarations
-static s32 func_802D408C(Unk802D3658_Arg0* arg0);
-static void func_802D3658(Unk802D3658_Arg0* arg0);
-static void func_802D3790(Unk802D3658_Arg0* arg0);
-static void func_802D3BE8(Unk802D3658_Arg0* arg0);
-static void func_802D3FA4(Unk802D3658_Arg0* arg0);
-static void func_802D41D8(Unk802D3658_Arg0* arg0);
-static void func_802D46A4(Unk802D3658_Arg0* arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4);
-static void func_802D532C(Unk802D3658_Arg0* arg0);
-static void func_802D559C(Unk802D3658_Arg0* arg0);
-static s32 func_802D4CA4(Unk802D3658_Arg0*, Mtx4F*);
-static void func_802D58EC(Unk802D3658_Arg0*, Mtx4F*);
-/* static */ void func_802D4274(Unk802D3658_Arg0* arg0);
+STATIC_FUNC s32 func_802D408C(Unk802D3658_Arg0* arg0);
+STATIC_FUNC void func_802D3658(Unk802D3658_Arg0* arg0);
+STATIC_FUNC void func_802D3790(Unk802D3658_Arg0* arg0);
+STATIC_FUNC void func_802D3BE8(Unk802D3658_Arg0* arg0);
+STATIC_FUNC void func_802D3FA4(Unk802D3658_Arg0* arg0);
+STATIC_FUNC void func_802D41D8(Unk802D3658_Arg0* arg0);
+STATIC_FUNC void func_802D46A4(Unk802D3658_Arg0* arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4);
+STATIC_FUNC void func_802D532C(Unk802D3658_Arg0* arg0);
+STATIC_FUNC void func_802D559C(Unk802D3658_Arg0* arg0);
+STATIC_FUNC s32 func_802D4CA4(Unk802D3658_Arg0*, Mtx4F*);
+STATIC_FUNC void func_802D58EC(Unk802D3658_Arg0*, Mtx4F*);
+/* STATIC_FUNC */ void func_802D4274(Unk802D3658_Arg0* arg0);
 
 void func_802D3170(u8 arg0, Unk802D3658_Arg0* arg1) {
     f32 one;
@@ -188,7 +188,7 @@ void func_802D3444(Unk802D3658_Arg0* arg0) {
     }
 }
 
-static void func_802D3658(Unk802D3658_Arg0* arg0) {
+STATIC_FUNC void func_802D3658(Unk802D3658_Arg0* arg0) {
     Mtx4F sp30;
     f32 temp_fa0;
 
@@ -214,7 +214,7 @@ static void func_802D3658(Unk802D3658_Arg0* arg0) {
     }
 }
 
-static void func_802D3790(Unk802D3658_Arg0* arg0) {
+STATIC_FUNC void func_802D3790(Unk802D3658_Arg0* arg0) {
     Vec3F spBC;
     Vec3F spB0;
     Vec3F spA4;
@@ -302,7 +302,7 @@ static void func_802D3790(Unk802D3658_Arg0* arg0) {
     arg0->unk108.m[2][2] /= temp_fv0;
 }
 
-static void func_802D3BE8(Unk802D3658_Arg0* arg0) {
+STATIC_FUNC void func_802D3BE8(Unk802D3658_Arg0* arg0) {
     Mtx4F sp60;
     f32 sp5C;
     f32 sp58;
@@ -379,7 +379,7 @@ static void func_802D3BE8(Unk802D3658_Arg0* arg0) {
     }
 }
 
-static void func_802D3FA4(Unk802D3658_Arg0* arg0) {
+STATIC_FUNC void func_802D3FA4(Unk802D3658_Arg0* arg0) {
     Vec3F sp24;
 
     uvMat4Copy(&arg0->unk108, &arg0->unk80);
@@ -397,7 +397,7 @@ static void func_802D3FA4(Unk802D3658_Arg0* arg0) {
     (void)func_802D4A30(arg0, &arg0->unk108);
 }
 
-static s32 func_802D408C(Unk802D3658_Arg0* arg0) {
+STATIC_FUNC s32 func_802D408C(Unk802D3658_Arg0* arg0) {
     f32 argX;
     f32 argY;
     f32 argZ;
@@ -439,7 +439,7 @@ static s32 func_802D408C(Unk802D3658_Arg0* arg0) {
     return 0;
 }
 
-static void func_802D41D8(Unk802D3658_Arg0* arg0) {
+STATIC_FUNC void func_802D41D8(Unk802D3658_Arg0* arg0) {
     f32 var_fv0;
 
     uvMat4UnkOp6(&arg0->unk108, &arg0->unk80, &arg0->unk14C);
@@ -576,7 +576,7 @@ void func_802D45C4(Unk802D3658_Arg0* arg0, f32 arg1) {
     }
 }
 
-static void func_802D46A4(Unk802D3658_Arg0* arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
+STATIC_FUNC void func_802D46A4(Unk802D3658_Arg0* arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
     s16 temp_a1;
     s16 temp_a2;
     s16 temp_a3;
@@ -718,7 +718,7 @@ s32 func_802D4A30(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
     return 1;
 }
 
-static s32 func_802D4CA4(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
+STATIC_FUNC s32 func_802D4CA4(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
     Mtx4F sp30;
     f32 temp_fa1;
     f32 temp_fv0;
@@ -861,7 +861,7 @@ void func_802D50D0(Unk802D3658_Arg0* arg0) {
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
 #endif
-static void func_802D532C(Unk802D3658_Arg0* arg0) {
+STATIC_FUNC void func_802D532C(Unk802D3658_Arg0* arg0) {
     Mtx4F sp80; // 80:BF
     Mtx4F sp40; // 40:7F
     f32 var_fa0;
@@ -922,7 +922,7 @@ static void func_802D532C(Unk802D3658_Arg0* arg0) {
 #pragma GCC diagnostic pop
 #endif
 
-static void func_802D559C(Unk802D3658_Arg0* arg0) {
+STATIC_FUNC void func_802D559C(Unk802D3658_Arg0* arg0) {
     Mtx4F sp48; // 48:87
     f32 temp_fa0;
     f32 temp_fa0_2;
@@ -994,7 +994,7 @@ void func_802D5884(Unk802D3658_Arg0* arg0, u8 arg1) {
     }
 }
 
-static void func_802D58EC(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
+STATIC_FUNC void func_802D58EC(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
     Mtx4F sp88; // 88:C7
     Mtx4F sp48; // 48:87
     Vec3F sp3C;

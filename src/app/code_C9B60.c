@@ -61,15 +61,15 @@ Unk80378CE0* D_80378CE0;
 f32 D_80378CE4;
 
 // forward decls
-static void func_803427FC(void);
-static void func_80343294(void);
-static s32 func_80343550(void);
-static void introSceneRunner(void);
-static void func_803433A4(void);
-static void func_80343B5C(void);
-static void func_80343C44(void);
-static void func_80343E84(void);
-static void func_8034411C(void);
+STATIC_FUNC void func_803427FC(void);
+STATIC_FUNC void func_80343294(void);
+STATIC_FUNC s32 func_80343550(void);
+STATIC_FUNC void introSceneRunner(void);
+STATIC_FUNC void func_803433A4(void);
+STATIC_FUNC void func_80343B5C(void);
+STATIC_FUNC void func_80343C44(void);
+STATIC_FUNC void func_80343E84(void);
+STATIC_FUNC void func_8034411C(void);
 
 s32 func_80342630(void) {
     f32 var_fs0;
@@ -111,7 +111,7 @@ s32 func_80342630(void) {
     return var_s1;
 }
 
-static void func_803427FC(void) {
+STATIC_FUNC void func_803427FC(void) {
     Mtx4F sp58;
     Unk802D3658_Arg0* sp54;
     s32 var_v0;
@@ -185,7 +185,7 @@ static void func_803427FC(void) {
     }
 }
 
-static void func_80342D2C(void) {
+STATIC_FUNC void func_80342D2C(void) {
     Unk803136C4_Arg0 sp2FC;
     s32 allocIdx;
     s32 i;
@@ -229,7 +229,7 @@ static void func_80342D2C(void) {
     func_8031EF90(2);
 }
 
-static void func_80343294(void) {
+STATIC_FUNC void func_80343294(void) {
     func_803433A4();
     uvDobjModel(D_80378CE0->unk0, MODEL_WORLD);
     uvDobjModel(D_80378CE0->unk4, MODEL_WORLD);
@@ -248,7 +248,7 @@ static void func_80343294(void) {
     menuSetProps();
 }
 
-static void func_803433A4(void) {
+STATIC_FUNC void func_803433A4(void) {
     Unk8037DCA0* temp_a0;
 
     temp_a0 = D_80378CE0->unk240[0];
@@ -286,7 +286,7 @@ void func_803434E8(void) {
     while (uvClkGetSec(4) < 1.0) { }
 }
 
-static s32 func_80343550(void) {
+STATIC_FUNC s32 func_80343550(void) {
     s32 temp_v0;
     s32 sp18;
 
@@ -393,7 +393,7 @@ static s32 func_80343550(void) {
     return sp18;
 }
 
-static void introSceneRunner(void) {
+STATIC_FUNC void introSceneRunner(void) {
     Unk802D3658_Arg0* temp = D_80362690->unk0[D_80362690->unk9C].unkC.unk70;
     s32 sp30;
 
@@ -428,7 +428,7 @@ static void introSceneRunner(void) {
     uvSprtDraw(4);
 }
 
-static void func_80343B5C(void) {
+STATIC_FUNC void func_80343B5C(void) {
     f32 f0;
     Unk802D3658_Arg0* sp20;
 
@@ -440,7 +440,7 @@ static void func_80343B5C(void) {
     func_80204B34(sp20->unk22C, &sp20->unk108);
 }
 
-static void func_80343C44(void) {
+STATIC_FUNC void func_80343C44(void) {
     s32 i;
     Mtx4F spCC;
     Mtx4F sp8C;
@@ -473,7 +473,7 @@ static void func_80343C44(void) {
     }
 }
 
-static void func_80343E84(void) {
+STATIC_FUNC void func_80343E84(void) {
     f32 sp2C;
     f32 temp_fs0;
 
@@ -512,7 +512,7 @@ static void func_80343E84(void) {
     }
 }
 
-static void func_8034411C(void) {
+STATIC_FUNC void func_8034411C(void) {
     f32 temp_fv0;
     s32 var_s0;
 

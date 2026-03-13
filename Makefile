@@ -20,6 +20,8 @@ ifeq ($(VERBOSE),0)
   V := @
 endif
 
+RECOMP_BUILD ?= 0
+
 # ------------------------------------------------------------------------------
 # Toolchain
 # ------------------------------------------------------------------------------
@@ -117,6 +119,10 @@ GLOBAL_ASM_O_FILES := $(foreach file,$(GLOBAL_ASM_C_FILES:.c=.o),$(BUILD_DIR)/$(
 
 DEFINES := -D_LANGUAGE_C -D_FINALROM -DWIN32 -DNDEBUG -DTARGET_N64 -DCOMPILING_LIBULTRA
 DEFINES += -DVERSION_US
+
+ifneq ($(RECOMP_BUILD),0)
+  DEFINES += -DRECOMP_BUILD
+endif
 
 VERIFY = verify
 

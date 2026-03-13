@@ -14,7 +14,7 @@ s32 D_80371E50;
 s32 D_80371E54;
 s32 D_80371E58;
 
-static void func_80336140(void) {
+STATIC_FUNC void func_80336140(void) {
     s32 i;
     Mtx4F sp64;
 
@@ -30,7 +30,7 @@ static void func_80336140(void) {
     }
 }
 
-static s32 func_80336248(s32 arg0, s32 arg1, s32 arg2) {
+STATIC_FUNC s32 func_80336248(s32 arg0, s32 arg1, s32 arg2) {
     s32 i;
 
     switch (arg1) {
@@ -51,7 +51,7 @@ static s32 func_80336248(s32 arg0, s32 arg1, s32 arg2) {
     return 0;
 }
 
-static s32 func_803362EC(s32 arg0, s32 arg1, s32 arg2) {
+STATIC_FUNC s32 func_803362EC(s32 arg0, s32 arg1, s32 arg2) {
     s32 i;
     s32 sp20;
 

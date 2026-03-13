@@ -20,7 +20,7 @@ Thermal gThermals[16];
 s8 gThermReady;
 
 // forward declarations
-static void therm_80346E04(LevelTHER* therm, f32 x, f32 y, f32 z, f32 dist, Vec3F* dst);
+STATIC_FUNC void therm_80346E04(LevelTHER* therm, f32 x, f32 y, f32 z, f32 dist, Vec3F* dst);
 
 void thermInit(void) {
     s32 i;

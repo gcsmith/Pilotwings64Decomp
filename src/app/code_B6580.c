@@ -7,7 +7,7 @@
 #include <uv_math.h>
 #include <uv_model.h>
 
-static void func_8032F050(Unk8032F050* arg0) {
+STATIC_FUNC void func_8032F050(Unk8032F050* arg0) {
     f32 sp574;
     Unk80371120 sp3C4;
     Unk80371120 sp214;
@@ -33,7 +33,7 @@ static void func_8032F050(Unk8032F050* arg0) {
     func_80200638(arg0->unk0, &sp3C4);
 }
 
-static void func_8032F188(Unk8032F050* arg0) {
+STATIC_FUNC void func_8032F188(Unk8032F050* arg0) {
     f32 sp8DC;
     f32 var_fa0;
     f32 sp8D4;

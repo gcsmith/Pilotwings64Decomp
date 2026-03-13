@@ -18,7 +18,7 @@ void userPathInit(void) {
     }
 }
 
-static s32 userPathAlloc(void) {
+STATIC_FUNC s32 userPathAlloc(void) {
     s32 i;
 
     for (i = 0; i < 6; i++) {

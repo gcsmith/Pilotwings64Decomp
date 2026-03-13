@@ -23,12 +23,12 @@ u8 sLocalWindCount;
 LocalWind sLocalWinds[6];
 
 // forward declarations
-static void wind_8034D6D4(LevelLWIN*, LocalWind*);
-static void wind_8034D90C(f32, f32, f32, LevelLWIN*, LocalWind*, Vec3F*);
-static void wind_8034DA4C(f32, f32, f32, LevelLWIN*, LocalWind*, Vec3F*);
-static void wind_8034DD18(f32, f32, f32, LevelLWIN*, LocalWind*, Vec3F*);
-static void wind_8034DF58(LevelLWIN*, f32, Vec3F*);
-static f32 wind_8034DFC4(u8, f32);
+STATIC_FUNC void wind_8034D6D4(LevelLWIN*, LocalWind*);
+STATIC_FUNC void wind_8034D90C(f32, f32, f32, LevelLWIN*, LocalWind*, Vec3F*);
+STATIC_FUNC void wind_8034DA4C(f32, f32, f32, LevelLWIN*, LocalWind*, Vec3F*);
+STATIC_FUNC void wind_8034DD18(f32, f32, f32, LevelLWIN*, LocalWind*, Vec3F*);
+STATIC_FUNC void wind_8034DF58(LevelLWIN*, f32, Vec3F*);
+STATIC_FUNC f32 wind_8034DFC4(u8, f32);
 
 void windInit(void) {
 }
@@ -220,7 +220,7 @@ void wind_8034D550(f32 arg0, f32 arg1, f32 arg2, Vec3F* arg3) {
     }
 }
 
-static void wind_8034D6D4(LevelLWIN* arg0, LocalWind* arg1) {
+STATIC_FUNC void wind_8034D6D4(LevelLWIN* arg0, LocalWind* arg1) {
     switch (arg0->unk50) {
     case 0:
         arg1->unk84.x = arg0->unk0.x - arg0->unk4C;
@@ -267,7 +267,7 @@ static void wind_8034D6D4(LevelLWIN* arg0, LocalWind* arg1) {
     }
 }
 
-static void wind_8034D90C(f32 arg0, f32 arg1, f32 arg2, LevelLWIN* arg3, LocalWind* arg4, Vec3F* arg5) {
+STATIC_FUNC void wind_8034D90C(f32 arg0, f32 arg1, f32 arg2, LevelLWIN* arg3, LocalWind* arg4, Vec3F* arg5) {
     f32 f0;
     f32 f12;
     f32 f14;
@@ -306,7 +306,7 @@ static void wind_8034D90C(f32 arg0, f32 arg1, f32 arg2, LevelLWIN* arg3, LocalWi
     }
 }
 
-static void wind_8034DA4C(f32 arg0, f32 arg1, f32 arg2, LevelLWIN* arg3, LocalWind* arg4, Vec3F* arg5) {
+STATIC_FUNC void wind_8034DA4C(f32 arg0, f32 arg1, f32 arg2, LevelLWIN* arg3, LocalWind* arg4, Vec3F* arg5) {
     f32 sp6C;
     f32 sp68;
     f32 sp64;
@@ -382,7 +382,7 @@ static void wind_8034DA4C(f32 arg0, f32 arg1, f32 arg2, LevelLWIN* arg3, LocalWi
     arg5->z += sp34.z;
 }
 
-static void wind_8034DD18(f32 arg0, f32 arg1, f32 arg2, LevelLWIN* arg3, LocalWind* arg4, Vec3F* arg5) {
+STATIC_FUNC void wind_8034DD18(f32 arg0, f32 arg1, f32 arg2, LevelLWIN* arg3, LocalWind* arg4, Vec3F* arg5) {
     Vec3F sp5C;
     Vec3F sp50;
     f32 temp_fa1;
@@ -458,7 +458,7 @@ static void wind_8034DD18(f32 arg0, f32 arg1, f32 arg2, LevelLWIN* arg3, LocalWi
     arg5->z += temp_fa1;
 }
 
-static void wind_8034DF58(LevelLWIN* arg0, f32 arg1, Vec3F* arg2) {
+STATIC_FUNC void wind_8034DF58(LevelLWIN* arg0, f32 arg1, Vec3F* arg2) {
     f32 temp_fv0;
 
     temp_fv0 = arg1 / arg0->unk4C;
@@ -468,7 +468,7 @@ static void wind_8034DF58(LevelLWIN* arg0, f32 arg1, Vec3F* arg2) {
     arg2->z = arg0->unk40.z * temp_fv0;
 }
 
-static f32 wind_8034DFC4(u8 arg0, f32 arg1) {
+STATIC_FUNC f32 wind_8034DFC4(u8 arg0, f32 arg1) {
     f32 var_fv1;
 
     switch (arg0) {

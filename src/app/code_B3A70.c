@@ -37,7 +37,7 @@ s32 sShutterBugTestItems[] = { 0xDC, 0x14E, 0x12F, 0x1D };
 s32 sSkyDivingItems[] = { 0xDC, 0x1D };
 s32 sOtherItems[] = { 0xDC, 0x14E, 0x1D };
 
-static void func_8032D33C(Mtx4F*, Mtx4F*, f32, u8);
+STATIC_FUNC void func_8032D33C(Mtx4F*, Mtx4F*, f32, u8);
 
 void func_8032C540(Unk80362690* arg0) {
     f32 var_fs3;
@@ -413,7 +413,7 @@ s32 func_8032CF28(Unk80362690* arg0) {
     return var_s1;
 }
 
-static void func_8032D33C(Mtx4F* arg0, Mtx4F* arg1, f32 arg2, u8 arg3) {
+STATIC_FUNC void func_8032D33C(Mtx4F* arg0, Mtx4F* arg1, f32 arg2, u8 arg3) {
     Vec3F spA4 = { 0.0f, 0.0f, 1.0f };
     Mtx4F sp64;
     Mtx4F sp24;
