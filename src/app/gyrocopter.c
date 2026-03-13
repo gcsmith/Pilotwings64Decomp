@@ -302,7 +302,7 @@ void func_8030399C(GyrocopterData* arg0) {
             }
         }
     }
-    
+
     if ((FABS(arg0->unk1F0) > 0.8028515f) || (FABS(arg0->unk1F4) > 1.0646509f)) {
         if (arg0->unkC0 != 2) {
             arg0->unkC0 = 2;
@@ -328,7 +328,8 @@ void func_8030399C(GyrocopterData* arg0) {
             if (spD6 != 0) {
                 if ((arg0->unkC0 == 1) && (arg0->unk1A8 > 5.952f) && (arg0->unk6C == 0) && (func_802DC930(arg0->unkF8) != 0)) {
                     smoke_getprops(arg0->unk94, 4, &spD0, 0);
-                    smoke_props(arg0->unk94, 6, ((arg0->unk3B0[1].unk0.x + arg0->unk3B0[2].unk0.x) * 0.5f), (arg0->unk3B0[1].unk0.y + arg0->unk3B0[2].unk0.y) * 0.5f, arg0->unk3B0[1].unk0.z, 4, spD0 + D_8034F854, 7, 1, 0);
+                    smoke_props(arg0->unk94, 6, ((arg0->unk3B0[1].unk0.x + arg0->unk3B0[2].unk0.x) * 0.5f),
+                                (arg0->unk3B0[1].unk0.y + arg0->unk3B0[2].unk0.y) * 0.5f, arg0->unk3B0[1].unk0.z, 4, spD0 + D_8034F854, 7, 1, 0);
                 } else {
                     smoke_props(arg0->unk94, 4, 0.0f, 0);
                 }
@@ -337,7 +338,9 @@ void func_8030399C(GyrocopterData* arg0) {
             }
         } else if ((arg0->unkC0 == 1) && (arg0->unk1A8 > 5.952f) && (arg0->unk50 >= 0) && (arg0->unk6C == 0) && (func_802DC930(arg0->unkF8) != 0)) {
             arg0->unk94 = smoke_create();
-            smoke_props(arg0->unk94, 1, 160, 120, 70, 2, 4.0f, 3, 3.0f, 4, 1.0f, 5, -arg0->unk10.m[1][0], -arg0->unk10.m[1][1], 0.5f, 6, (arg0->unk3B0[1].unk0.x + arg0->unk3B0[2].unk0.x) * 0.5f, (arg0->unk3B0[1].unk0.y + arg0->unk3B0[2].unk0.y) * 0.5f, arg0->unk3B0[1].unk0.z, 7, 1, 0);
+            smoke_props(arg0->unk94, 1, 160, 120, 70, 2, 4.0f, 3, 3.0f, 4, 1.0f, 5, -arg0->unk10.m[1][0], -arg0->unk10.m[1][1], 0.5f, 6,
+                        (arg0->unk3B0[1].unk0.x + arg0->unk3B0[2].unk0.x) * 0.5f, (arg0->unk3B0[1].unk0.y + arg0->unk3B0[2].unk0.y) * 0.5f,
+                        arg0->unk3B0[1].unk0.z, 7, 1, 0);
         }
     }
     if (D_80362690->unkA4 != 0) {

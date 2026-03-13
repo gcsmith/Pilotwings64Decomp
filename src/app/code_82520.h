@@ -3,7 +3,7 @@
 
 #include <PR/ultratypes.h>
 #include "app/task.h"
-#include "app/code_81490.h"
+#include "app/jumble_hopper.h"
 
 typedef struct {
     LevelHOPD* unk0;

@@ -1,5 +1,5 @@
-#ifndef APP_CODE_81490_H
-#define APP_CODE_81490_H
+#ifndef APP_JUMBLE_HOPPER_H
+#define APP_JUMBLE_HOPPER_H
 
 #include <PR/ultratypes.h>
 #include <uv_matrix.h>
@@ -154,4 +154,4 @@ void func_802FAF80(void);
 void jumbleHopperEnterLeave(JumbleHopperData*);
 void jumbleHopperMovementFrame(JumbleHopperData*, u8);
 
-#endif // APP_CODE_81490_H
+#endif // APP_JUMBLE_HOPPER_H
