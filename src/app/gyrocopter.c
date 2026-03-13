@@ -12,134 +12,22 @@
 
 s32 D_8034F3E0[4] = { 0 };
 
-// 0x58
-// 0x73C
-
-typedef struct UnkGyrocopterStruct_Unk3B0 {
-    Vec3F unk0;
-    s32 unkC;
-    u8 pad10[0x48];
-} UnkGyrocopterStruct_Unk3B0;
-
-typedef struct UnkGyrocopterStruct {
-    u8 pad0[0x4];
-    u16 unk4;
-    u8 pad6[0xA];
-    Mtx4F unk10;
-    s32 unk50;
-    f32 unk54;
-    u8 pad58[0x14];
-    u8 unk6C;
-    u8 unk6D;
-    u8 unk6E;
-    f32 unk70;
-    u8 pad74[0x18];
-    f32 unk8C;
-    f32 unk90;
-    s16 unk94;
-    s16 unk96;
-    s16 unk98;
-    s16 unk9A;
-    f32 unk9C;
-    f32 unkA0;
-    u8 padA4[0x8];
-    f32 unkAC;
-    u8 padB0[0x10];
-    u8 unkC0;
-    u8 unkC1;
-    u8 padC2[0xE];
-    u8 unkD0;
-    u8 padD1[0x2];
-    u8 unkD3;
-    u8 padD4[0x4];
-    f32 unkD8;
-    u8 padDC[0x4];
-    f32 unkE0;
-    u8 padE4[0x4];
-    f32 unkE8;
-    f32 unkEC;
-    u8 padF0[0x4];
-    f32 unkF4;
-    s32 unkF8;
-    u8 padFC[0x4];
-    f32 unk100;
-    f32 unk104;
-    f32 unk108;
-    u8 unk10C;
-    u8 pad10D[0x3];
-    Mtx4F unk110;
-    Mtx4F unk150;
-    Vec3F unk190;
-    Vec3F unk19C;
-    f32 unk1A8;
-    Vec3F unk1AC;
-    Vec3F unk1B8;
-    f32 unk1C4;
-    f32 unk1C8;
-    f32 unk1CC;
-    f32 unk1D0;
-    f32 unk1D4;
-    f32 unk1D8;
-    f32 unk1DC;
-    f32 unk1E0;
-    f32 unk1E4;
-    f32 unk1E8;
-    f32 unk1EC;
-    f32 unk1F0;
-    f32 unk1F4;
-    f32 unk1F8;
-    f32 unk1FC;
-    f32 unk200;
-    u8 pad204[0x18];
-    Mtx4F unk21C;
-    Mtx4F unk25C;
-    Mtx4F unk29C;
-    Mtx4F unk2DC;
-    f32 unk31C;
-    f32 unk320;
-    f32 unk324;
-    f32 unk328;
-    f32 unk32C;
-    f32 unk330;
-    f32 unk334;
-    f32 unk338;
-    f32 unk33C;
-    f32 unk340;
-    f32 unk344;
-    f32 unk348;
-    u8 pad34C[0xC];
-    f32 unk358;
-    f32 unk35C;
-    f32 unk360;
-    f32 unk364;
-    f32 unk368;
-    f32 unk36C;
-    u8 pad370[0x40];
-    UnkGyrocopterStruct_Unk3B0 unk3B0[4];
-    u8 pad510[0xDC];
-    Vec3F unk5EC[4];
-    u8 pad61C[0x4C];
-    Vec3F unk668;
-    s32 unk674;
-    u8 pad678[0xC4];
-} UnkGyrocopterStruct;
-
-void func_80304738(UnkGyrocopterStruct*);
-void func_80304B98(UnkGyrocopterStruct*);
-void func_80305BE8(UnkGyrocopterStruct*);
-s32 func_80305DC0(UnkGyrocopterStruct*);
-void func_80307A9C(UnkGyrocopterStruct*);
-void func_80307BAC(UnkGyrocopterStruct*);
-void func_80307E2C(UnkGyrocopterStruct*);
-void func_80307EA8(UnkGyrocopterStruct*);
-void func_80308478(UnkGyrocopterStruct*);
-void func_8030877C(UnkGyrocopterStruct*);
-void func_80308F1C(UnkGyrocopterStruct*);
-void func_80309090(UnkGyrocopterStruct*);
+void func_80304738(GyrocopterData*);
+void func_80304B98(GyrocopterData*);
+void func_80305BE8(GyrocopterData*);
+s32 func_80305DC0(GyrocopterData*);
+void func_80307A9C(GyrocopterData*);
+void func_80307BAC(GyrocopterData*);
+void func_80307E2C(GyrocopterData*);
+void func_80307EA8(GyrocopterData*);
+void func_80308478(GyrocopterData*);
+void func_8030877C(GyrocopterData*);
+void func_80308F1C(GyrocopterData*);
+void func_80309090(GyrocopterData*);
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/gyrocopter/func_80303230.s")
 
-void func_80303714(UnkGyrocopterStruct* arg0) {
+void func_80303714(GyrocopterData* arg0) {
     s32 i;
     f32 sp88;
     f32 sp84;
@@ -239,7 +127,7 @@ extern f32 D_8034F850;
 extern f32 D_8034F854;
 extern u16 D_8036957C;
 
-void func_8030399C(UnkGyrocopterStruct* arg0) {
+void func_8030399C(GyrocopterData* arg0) {
     f32 spFC;
     f32 spF8;
     f32 spF4;

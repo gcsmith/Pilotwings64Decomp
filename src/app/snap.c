@@ -679,7 +679,7 @@ void func_80338A14(void) {
     snd_play_sfx(0x3A);
 }
 
-void func_80339C8C(s32 arg0) {
+void func_80339C8C(HangGliderData* arg0) {
     s32 var_a2;
 
     var_a2 = demoGetButtons(0);
@@ -719,7 +719,7 @@ void func_80339C8C(s32 arg0) {
     }
 }
 
-void func_80339E1C(VehicleData* arg0) {
+void func_80339E1C(BirdmanData* arg0) {
     s32 var_v1;
 
     var_v1 = demoGetButtons(0);
@@ -765,10 +765,10 @@ s32 func_80339F9C(void) {
 
     switch (temp_v1->veh) {
     case VEHICLE_BIRDMAN:
-        var_a0 = ((VehicleData*)temp_v1->vehicleData)->unk0;
+        var_a0 = ((BirdmanData*)temp_v1->vehicleData)->objId;
         break;
     case VEHICLE_HANG_GLIDER:
-        var_a0 = ((VehicleData*)temp_v1->vehicleData)->unk0;
+        var_a0 = ((HangGliderData*)temp_v1->vehicleData)->objId;
         break;
     default:
         _uvDebugPrintf("photos_getmodel: non photogenic vehicle\n");

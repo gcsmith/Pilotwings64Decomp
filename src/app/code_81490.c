@@ -1,4 +1,5 @@
 #include "common.h"
+#include "code_81490.h"
 #include <uv_memory.h>
 #include <uv_model.h>
 #include "app/hud.h"
@@ -13,7 +14,7 @@
 
 extern Unk803599D0 D_80368B20;
 
-void func_802FA7A0(u8 arg0, Unk80362690_Unk0_UnkC_Unk6C* arg1);
+void func_802FA7A0(u8 arg0, JumbleHopperData* arg1);
 
 void func_802F9F60(void) {
     D_80368B20.unk0 = 8;
@@ -35,8 +36,8 @@ void func_802F9F60(void) {
     D_80368B20.unk3C = 1.0f;
 }
 
-void func_802FA020(u8 arg0, u8 arg1, Unk80362690_Unk0_UnkC_Unk6C* arg2, Unk802D3658_Arg0* arg3) {
-    uvMemSet(arg2, 0, sizeof(Unk80362690_Unk0_UnkC_Unk6C));
+void func_802FA020(u8 arg0, u8 arg1, JumbleHopperData* arg2, Unk802D3658_Arg0* arg3) {
+    uvMemSet(arg2, 0, sizeof(JumbleHopperData));
     func_802FA7A0(arg1, arg2);
     arg2->objId = uvDobjAllocIdx();
     arg2->unk2 = 2;
@@ -58,7 +59,7 @@ void func_802FA020(u8 arg0, u8 arg1, Unk80362690_Unk0_UnkC_Unk6C* arg2, Unk802D3
     func_802FD038(arg2);
 }
 
-void jumbleHopperEnterLeave(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void jumbleHopperEnterLeave(JumbleHopperData* arg0) {
     func_802FD114(arg0);
     arg0->unk4C = 0;
     arg0->unk2 = 2;
@@ -94,14 +95,14 @@ void jumbleHopperEnterLeave(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     func_802D45C4(arg0->unk18, arg0->unk48);
 }
 
-void func_802FA290(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_802FA290(JumbleHopperData* arg0) {
     uvDobjModel(arg0->objId, 0xFFFF);
     arg0->unkC = 0xFFFF;
     arg0->objId = 0xFFFF;
     func_80334C70();
 }
 
-void jumbleHopperMovementFrame(Unk80362690_Unk0_UnkC_Unk6C* arg0, u8 arg1) {
+void jumbleHopperMovementFrame(JumbleHopperData* arg0, u8 arg1) {
     f32 sp84;
     f32 sp80;
     f32 var_fa0;
@@ -201,7 +202,7 @@ void jumbleHopperMovementFrame(Unk80362690_Unk0_UnkC_Unk6C* arg0, u8 arg1) {
     }
 }
 
-void func_802FA7A0(u8 arg0, Unk80362690_Unk0_UnkC_Unk6C* arg1) {
+void func_802FA7A0(u8 arg0, JumbleHopperData* arg1) {
     switch (arg0) {
     case 0:
         arg1->unk5E8.x = 0.0f, arg1->unk5E8.y = 0.0f, arg1->unk5E8.z = 0.7f;

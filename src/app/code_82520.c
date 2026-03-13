@@ -101,7 +101,7 @@ void func_802FB22C(void) {
     }
 }
 
-s32 func_802FB308(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+s32 func_802FB308(JumbleHopperData* arg0) {
     s32 i;
     s32 sp38;
     f32 temp_fa1;

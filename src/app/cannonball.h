@@ -5,9 +5,10 @@
 #include <uv_matrix.h>
 #include <uv_vector.h>
 #include "code_5A6A0.h"
+#include "code_72B70.h"
 
 typedef struct {
-    u16 unk0;
+    u16 objId;
     u8 unk2;
     u8 pad3;
     u16 unk4;

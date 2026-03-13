@@ -3,6 +3,7 @@
 
 #include <PR/ultratypes.h>
 #include "app/task.h"
+#include "app/code_81490.h"
 
 typedef struct {
     LevelHOPD* unk0;
@@ -20,7 +21,7 @@ extern Unk80368B80 D_80368B80[];
 void func_802FAFF0(void);
 void func_802FB0DC(Unk80368B80*);
 void func_802FB22C(void);
-s32 func_802FB308(Unk80362690_Unk0_UnkC_Unk6C*);
+s32 func_802FB308(JumbleHopperData*);
 void func_802FB518(void);
 u8 func_802FB5A0(void);
 s16 func_802FB5FC(void);
