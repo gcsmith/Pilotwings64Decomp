@@ -287,30 +287,6 @@ typedef struct {
 } Unk80362690;
 
 typedef struct {
-    s32 unk0;
-    f32 unk4;
-    f32 unk8;
-    f32 unkC;
-    f32 unk10;
-    f32 unk14;
-    f32 unk18;
-    f32 unk1C;
-    f32 unk20;
-    f32 unk24;
-    f32 unk28;
-    f32 unk2C;
-    f32 unk30;
-    f32 unk34;
-    f32 unk38;
-    f32 unk3C;
-    f32 unk40;
-    s32 pad44;
-    s32 pad48;
-    s32 pad4C;
-    s32 pad50;
-} Unk803599D0;
-
-typedef struct {
     Vec3F pos;
     u8 padC[0x18 - 0xC];
     s32 unk18;
