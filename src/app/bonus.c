@@ -1,13 +1,15 @@
 #include "common.h"
 #include <uv_dobj.h>
-#include <uv_level.h>
 #include <uv_math.h>
 #include <uv_model.h>
+#include <uv_texture.h>
 #include <uv_util.h>
 #include "bonus.h"
 #include "code_72B70.h"
 #include "code_9A960.h"
+#include "level.h"
 #include "snd.h"
+#include "task.h"
 
 typedef struct {
     u16 objId;

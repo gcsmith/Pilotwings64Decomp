@@ -1,12 +1,12 @@
 #include "common.h"
 #include <uv_dobj.h>
-#include <uv_level.h>
 #include <uv_math.h>
 #include <uv_matrix.h>
 #include <uv_model.h>
 #include <uv_util.h>
 #include "code_9A960.h"
 #include "environment.h"
+#include "level.h"
 
 #define WIND_OBJECT_COUNT 0x10
 #define INITIAL_OBJECT_ID 0xFFFF

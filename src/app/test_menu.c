@@ -3,25 +3,27 @@
 #include <uv_font.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>
-#include <uv_level.h>
+#include <uv_memory.h>
 #include <uv_sprite.h>
 #include <uv_string.h>
+#include <uv_texture.h>
 #include "balls.h"
 #include "code_64070.h"
 #include "code_66160.h"
 #include "code_72B70.h"
-#include "code_905C0.h"
 #include "code_9A960.h"
 #include "code_B2900.h"
 #include "credits.h"
 #include "demo.h"
 #include "falco.h"
+#include "hover_pads.h"
 #include "hud.h"
 #include "map3d.h"
 #include "results.h"
 #include "rings.h"
 #include "snap.h"
 #include "snd.h"
+#include "task.h"
 #include "test_menu.h"
 #include "text_data.h"
 
@@ -89,7 +91,7 @@ void testMenuInitText(s32 testIdx) {
             numPts = testGetPointCount(&D_80364210[D_80362690->unk9C], testIdx, 0, unkC->veh);
         } else {
             numPts = 0;
-            for (test = 0; test < levelGetTestCount(unkC->cls, unkC->veh); test++) {
+            for (test = 0; test < taskGetTestCount(unkC->cls, unkC->veh); test++) {
                 pts = testGetPointCount(&D_80364210[D_80362690->unk9C], unkC->cls, test, unkC->veh);
                 if (pts != 0x7F) {
                     numPts += pts;
@@ -166,7 +168,7 @@ void testMenuInit(Unk80367710* arg0, s32 arg1) {
             temp_v1->test = gCurTestIdx;
         }
     }
-    level_80344FC8(temp_v1->cls, temp_v1->veh, temp_v1->test, &D_80362690->unk0[0].map, &D_80362690->unk0[0].terraId, &D_80362690->unk0[0].unk8);
+    taskInitTest(temp_v1->cls, temp_v1->veh, temp_v1->test, &D_80362690->unk0[0].map, &D_80362690->unk0[0].terraId, &D_80362690->unk0[0].unk8);
     map3d(D_80362690, 0);
     if (arg1 == 0) {
         sTestMenuState = 0;
@@ -332,7 +334,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
                     } else {
                         sp6C->test = gCurTestIdx;
                     }
-                    level_80344FC8(sp6C->cls, sp6C->veh, sp6C->test, &D_80362690->unk0[0].map, &D_80362690->unk0[0].terraId, &D_80362690->unk0[0].unk8);
+                    taskInitTest(sp6C->cls, sp6C->veh, sp6C->test, &D_80362690->unk0[0].map, &D_80362690->unk0[0].terraId, &D_80362690->unk0[0].unk8);
                     map3d(D_80362690, 0);
                     testMenuInitText(sp6C->test);
                 }
@@ -372,13 +374,13 @@ u8 testMenuHandler(Unk80367710* arg0) {
                     testMenu_8034A428();
                     hud_8031A2CC();
                     D_80362690->unkA0 = 1;
-                    func_803239B4();
-                    func_80309A64();
+                    ringsLoad();
+                    hoverPadLoad();
                     ballsLoad();
-                    func_802E3A5C();
-                    func_802E3E6C();
-                    func_80324A34();
-                    func_80309FFC();
+                    falcoLoad();
+                    falcoDeinit();
+                    ringsDeinit();
+                    hoverPadDeinit();
                     ballsDeinit();
                     D_80362690->unkA0 = 0;
                     func_8030FE80(D_80362690, 1);
@@ -445,9 +447,9 @@ void testMenuDraw(s32 arg0, u8 arg1, u8 arg2) {
 
     sp48 = &D_80362690->unk0[D_80362690->unk9C].unkC;
     if ((sp48->veh != VEHICLE_BIRDMAN) && (arg2 >= 3)) {
-        level_80344E0C(arg1, 0, arg2, sp8C, strId);
+        taskLoadNames(arg1, 0, arg2, sp8C, strId);
     } else {
-        level_80344E0C(arg1, gCurTestIdx, arg2, sp8C, strId);
+        taskLoadNames(arg1, gCurTestIdx, arg2, sp8C, strId);
     }
     strIdLen = uvStrlen(strId);
     if (strIdLen == 0) {
@@ -494,7 +496,7 @@ void testMenuDraw(s32 arg0, u8 arg1, u8 arg2) {
                 }
             }
 
-            if ((sp48->veh == VEHICLE_BIRDMAN || IS_MAIN_VEHICLE(sp48->veh)) && (levelGetTestCount(sp48->cls, sp48->veh) >= 2)) {
+            if ((sp48->veh == VEHICLE_BIRDMAN || IS_MAIN_VEHICLE(sp48->veh)) && (taskGetTestCount(sp48->cls, sp48->veh) >= 2)) {
                 uvGfxStatePush();
                 uvGfxSetFlags(GFX_STATE_800000);
                 uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);

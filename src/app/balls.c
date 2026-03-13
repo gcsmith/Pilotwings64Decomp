@@ -2,16 +2,17 @@
 #include <uv_audio.h>
 #include <uv_dobj.h>
 #include <uv_event.h>
-#include <uv_level.h>
 #include <uv_math.h>
 #include <uv_memory.h>
 #include <uv_model.h>
+#include <uv_texture.h>
 #include "balls.h"
 #include "code_61A60.h"
 #include "code_66160.h"
 #include "code_7FED0.h"
 #include "code_9A960.h"
 #include "hud.h"
+#include "task.h"
 
 // .data
 // list of model ids
@@ -129,7 +130,7 @@ void ballsLoad(void) {
     LevelBALS* ball;
 
     if (D_80362690->unkA0) {
-        gBallCount = levelDataGetBALS(&sRefBALS);
+        gBallCount = taskGetBALS(&sRefBALS);
         if (gBallCount >= 0x15) {
             _uvDebugPrintf("balls : too many balls defined in level [%d]\n", gBallCount);
             gBallCount = 0;
@@ -174,7 +175,7 @@ void ballsLoad(void) {
                     pb->unk4.m[3][2] = ball->pos.z;
                     ballsInitBall(&gBalls[i]);
                     pb->unk95 = 1;
-                    pb->unk1A8 = hud_8031A6C8(ball->pos.x, ball->pos.y, ball->pos.z);
+                    pb->unk1A8 = hudAddWaypoint(ball->pos.x, ball->pos.y, ball->pos.z);
                 } else {
                     ballsInitBall(&gBalls[i]);
                 }
@@ -280,7 +281,7 @@ void ballsFrameUpdateOne(ParsedBALS* pb) {
     func_802E07D8(&pb->unk4);
     uvDobjPosm(pb->objId, 0, &pb->unk4);
     if (pb->unk1A8 != 0xFF) {
-        hud_8031A794(pb->unk1A8, pb->unk4.m[3][0], pb->unk4.m[3][1], pb->unk4.m[3][2]);
+        hudMoveWaypoint(pb->unk1A8, pb->unk4.m[3][0], pb->unk4.m[3][1], pb->unk4.m[3][2]);
     }
 }
 
@@ -374,7 +375,7 @@ void balls_802CB9B4(ParsedBALS* pb) {
             alloc->unk44.x = sp90;
             alloc->unk44.y = sp8C;
             alloc->unk44.z = 0.0f;
-            alloc->unk1A8 = hud_8031A6C8(sp90, sp8C, sp88);
+            alloc->unk1A8 = hudAddWaypoint(sp90, sp8C, sp88);
             if (alloc->unk6C == 0) {
                 alloc->unk6C = 1.0f;
             }

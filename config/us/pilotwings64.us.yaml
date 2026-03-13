@@ -415,8 +415,7 @@ segments:
       - [0x82520, c, app/code_82520]
       - [0x82B90, c, app/code_82B90]
       - [0x8A760, c, app/gyrocopter]
-      - [0x905C0, c, app/code_905C0]
-      - [0x915B0, c, app/hover_pads]
+      - [0x90D10, c, app/hover_pads]
       - [0x91670, c, app/hsound]
       - [0x92810, c, app/menu]
       - [0x92BF0, c, app/level]
@@ -472,7 +471,7 @@ segments:
       - [0xD2B10, c, app/code_D2B10]
       - [0xD2D50, c, app/code_D2D50]
       - [0xD3810, c, app/code_D3810]
-      - [0xD4290, c, app/code_D4290]
+      - [0xD4290, c, app/wind]
       - [0xD55B0, c, app/wind_objects]
 
       - [0xD5C40, data] # app/code_51E30
@@ -502,7 +501,7 @@ segments:
       - [0xD68D0, .data, app/code_82520]
       - [0xD68E0, .data, app/code_82B90]
       - [0xD6910, .data, app/gyrocopter]
-      - [0xD6920, .data, app/code_905C0]
+      - [0xD6920, .data, app/hover_pads]
       - [0xD6930, .data, app/level]
       - [0xD6950, .data, app/credits]
       - [0xD6CD0, .data, app/code_94E60]
@@ -579,7 +578,6 @@ segments:
       - [0xDA7C0, .rodata, app/code_82520]
       - [0xDA7F0, .rodata, app/code_82B90]
       - [0xDABB0, .rodata, app/gyrocopter]
-      - [0xDAC60, .rodata, app/code_905C0]
       - [0xDADB0, .rodata, app/hover_pads]
       - [0xDAE00, .rodata, app/hsound]
       - [0xDAF00, .rodata, app/menu]
@@ -632,7 +630,7 @@ segments:
       - [0xDE5D0, .rodata, app/code_D2B10]
       - [0xDE5F0, .rodata, app/code_D2D50]
       - [0xDE600, .rodata, app/code_D3810]
-      - [0xDE640, .rodata, app/code_D4290]
+      - [0xDE640, .rodata, app/wind]
       - [0xDE6B0, .rodata, app/wind_objects]
 
       - { type: bss, vram: 0x803571F0, name: app/code_51E30 }
@@ -720,7 +718,7 @@ segments:
       - { type: .bss, vram: 0x8037DCA0, name: app/user_paths }
       - { type: bss, vram: 0x8037F380, name: app/code_D2D50 }
       - { type: bss, vram: 0x8037F450, name: app/code_D3810 }
-      - { type: bss, vram: 0x8037F510, name: app/code_D4290 }
+      - { type: .bss, vram: 0x8037F510, name: app/wind }
       - { type: bss, vram: 0x8037F910, name: app/wind_objects }
 
   - name: filetable

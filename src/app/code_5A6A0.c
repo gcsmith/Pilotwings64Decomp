@@ -1,6 +1,5 @@
 #include "common.h"
 #include <uv_graphics.h>
-#include <uv_level.h>
 #include <uv_math.h>
 #include <uv_matrix.h>
 #include <uv_vector.h>
@@ -11,6 +10,7 @@
 #include "code_D1ED0.h"
 #include "demo.h"
 #include "environment.h"
+#include "task.h"
 
 // TODO: Unk802D472C_SP60 needs to be merged with some combination of Unk802D3658_Unk1224/8
 typedef struct {
@@ -414,7 +414,7 @@ static s32 func_802D408C(Unk802D3658_Arg0* arg0) {
     argY = arg0->unk80.m[3][1];
     argZ = arg0->unk80.m[3][2];
     arg0->unk18C = 1000000.0f;
-    countOBSV = levelDataGetOBSV(&sp58) & 0xFF; // extra & 0xFF for matching
+    countOBSV = taskGetOBSV(&sp58) & 0xFF; // extra & 0xFF for matching
 
     for (i = 0; i < countOBSV; i++) {
         dx = sp58[i].x - argX;

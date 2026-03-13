@@ -1,7 +1,6 @@
 #include "common.h"
 #include <uv_dobj.h>
 #include <uv_janim.h>
-#include <uv_level.h>
 #include <uv_math.h>
 #include <uv_matrix.h>
 #include <uv_model.h>
@@ -15,6 +14,7 @@
 #include "app/shadow.h"
 #include "app/snd.h"
 #include "app/splash.h"
+#include "app/task.h"
 #include "app/code_61A60.h"
 #include "app/code_66160.h"
 #include "app/code_9A960.h"
@@ -360,7 +360,7 @@ void func_802FBEFC(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32 arg1) {
     Unk803599D0* sp2C;
 
     if (arg0->unk4F == 0) {
-        sp2C = &levelGet_80345C80()->unk0;
+        sp2C = &taskGet_80345C80()->unk0;
         hudWarningText(0x4F, 1.5f, 8.0f);
         snd_play_sfx(0x69);
         arg0->unk4F = 1;

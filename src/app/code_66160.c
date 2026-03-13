@@ -1,13 +1,12 @@
 #include <uv_geometry.h>
 #include <uv_graphics.h>
-#include <uv_level.h>
 #include <uv_matrix.h>
 #include <uv_util.h>
-
 #include "kernel/code_8170.h"
 #include "code_61A60.h"
 #include "code_66160.h"
 #include "code_9A960.h"
+#include "task.h"
 
 extern Vec3F D_80359D70;
 extern s32 D_80359D7C;
@@ -93,7 +92,7 @@ void db_getstart(Mtx4F* arg0, Vec3F* arg1, u8* arg2, f32* arg3) {
     s32 idx;
     u8 temp_v1;
 
-    temp_v1 = levelDataGetTPAD(&sp44);
+    temp_v1 = taskGetTPAD(&sp44);
     if (temp_v1 == 0) {
         _uvDebugPrintf("db_getstart :  no starting pads in task!!!\n");
         sp3C = uvTerraGetBox(D_80362690->unk0[0].terraId);

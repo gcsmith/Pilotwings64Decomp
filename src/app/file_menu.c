@@ -1,8 +1,9 @@
 #include <uv_font.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>
-#include <uv_level.h>
+#include <uv_memory.h>
 #include <uv_sprite.h>
+#include <uv_texture.h>
 #include "code_94E60.h"
 #include "code_99D40.h"
 #include "code_9A960.h"

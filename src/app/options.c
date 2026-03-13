@@ -2,8 +2,9 @@
 #include <uv_font.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>
-#include <uv_level.h>
+#include <uv_memory.h>
 #include <uv_sprite.h>
+#include <uv_texture.h>
 #include "kernel/code_1050.h"
 #include "code_99D40.h"
 #include "code_B3A70.h"

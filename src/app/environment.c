@@ -10,7 +10,7 @@ f32 D_8034EEFC[] = { -180.0f, -170.0f, -12.0f, 40.0f, 65.0f, 90.0f, 105.0f, 140.
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/environment/func_802E1238.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/environment/func_802E1278.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/environment/envLoad.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/environment/func_802E12B4.s")
 

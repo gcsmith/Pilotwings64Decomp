@@ -30,3 +30,5 @@ s32 D_8034F3E0[4] = { 0 };
 #pragma GLOBAL_ASM("asm/nonmatchings/app/gyrocopter/func_8030877C.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/gyrocopter/func_80308F1C.s")
+
+#pragma GLOBAL_ASM("asm/nonmatchings/app/gyrocopter/func_80309090.s")

@@ -5,8 +5,9 @@
 #include <uv_event.h>
 #include <uv_font.h>
 #include <uv_janim.h>
-#include <uv_level.h>
+#include <uv_memory.h>
 #include <uv_math.h>
+#include <uv_texture.h>
 #include <uv_vector.h>
 #include "kernel/code_8170.h"
 #include "kernel/code_30EA0.h"
@@ -19,6 +20,7 @@
 #include "code_D2B10.h"
 #include "demo.h"
 #include "hud.h"
+#include "level.h"
 #include "snd.h"
 #include "text_data.h"
 

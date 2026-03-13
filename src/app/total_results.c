@@ -2,13 +2,13 @@
 #include <uv_font.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>
-#include <uv_level.h>
 #include "cannonball.h"
 #include "code_99D40.h"
 #include "code_9A960.h"
 #include "code_B2900.h"
 #include "menu.h"
 #include "save.h"
+#include "task.h"
 #include "text_data.h"
 #include "total_results.h"
 
@@ -152,7 +152,7 @@ void totResultInit(void) {
         sTestPtsStr[i][4] = -1;
     }
 
-    for (i = 0; i < levelGetTestCount(temp_s4->cls, temp_s4->veh); i++) {
+    for (i = 0; i < taskGetTestCount(temp_s4->cls, temp_s4->veh); i++) {
         temp_v0 = testGetPointCount(sp4C, temp_s4->cls, i, temp_s4->veh);
         if (temp_v0 != 127) {
             var_s5 += temp_v0;
@@ -301,7 +301,7 @@ void totResultDrawTally(void) {
         func_80219874(202, 116, sTotalPtsStr, 3, 0xFFE);
         func_80219874(236, 116, sTotPtUnitStr, 4, 0xFFE);
     } else {
-        numTests = levelGetTestCount(sp6C->cls, sp6C->veh);
+        numTests = taskGetTestCount(sp6C->cls, sp6C->veh);
         for (i = 0; i < numTests; i++) {
             y = ((numTests * 16) + 100) - 16 * i;
             func_80219874(202, y, sTestPtsStr[i], 3, 0xFFE);

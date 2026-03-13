@@ -1,14 +1,12 @@
 #include "common.h"
 #include <uv_filesystem.h>
 #include <uv_graphics.h>
-#include <uv_level.h>
 #include <uv_memory.h>
 #include <uv_util.h>
 #include <uv_vector.h>
 #include "code_9A960.h"
 #include "demo_attitude.h"
 #include "environment.h"
-#include "file_menu.h"
 #include "fire_effects.h"
 
 typedef struct {

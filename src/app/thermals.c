@@ -1,10 +1,11 @@
 #include "common.h"
 #include <uv_dobj.h>
-#include <uv_level.h>
 #include <uv_math.h>
+#include <uv_texture.h>
 #include "code_69BF0.h"
 #include "code_9A960.h"
 #include "hud.h"
+#include "task.h"
 #include "thermals.h"
 
 #define THERM_ENABLE_DURATION (4 * 60) // 4 minutes in sec
@@ -29,7 +30,7 @@ void thermInit(void) {
     gThermReady = 1;
 }
 
-void therm_8034662C(void) {
+void thermLoad(void) {
     Thermal* therm;
     s32 pad;
     Unk80362690_Unk0_UnkC* temp_v1_2;
@@ -40,7 +41,7 @@ void therm_8034662C(void) {
     s32 i;
 
     if (D_80362690->unk0[D_80362690->unk9C].unkC.unk7B == 0) {
-        gThermalCount = levelDataGetTHER(&gLevelTHER);
+        gThermalCount = taskGetTHER(&gLevelTHER);
         if (gThermalCount > ARRAY_COUNT(gThermals)) {
             _uvDebugPrintf("thermals : too many thermals defined in level [%d]\n", gThermalCount);
             gThermalCount = 0;
@@ -105,7 +106,7 @@ void therm_8034695C(void) {
     var_fs0 = 1.0f;
     // after 4 min, 10 sec, disable thermals, if the test calls for it
     if ((D_8034F850 >= THERM_DISABLE_TIME) && (gThermalCount != 0) && gThermShouldDisable) {
-        therm_80346B84();
+        thermDeinit();
         gThermalCount = 0;
         gThermReady = 0;
         hudWarningText(0xF, 1.5f, 8.0f);
@@ -133,7 +134,7 @@ void therm_8034695C(void) {
     }
 }
 
-void therm_80346B84(void) {
+void thermDeinit(void) {
     s32 i;
 
     for (i = 0; i < gThermalCount; i++) {

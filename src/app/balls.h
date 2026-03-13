@@ -2,7 +2,6 @@
 #define APP_BALLS_H
 
 #include <PR/ultratypes.h>
-#include <uv_level.h>
 #include <uv_matrix.h>
 #include "code_72B70.h"
 
@@ -39,7 +38,7 @@ typedef struct {
     f32 unk9C;
     Unk802D3658_Unk111C unkA0;
     u8 unk1A8;
-    u8 pad1A9[0x1AC - 0x1A9];
+    u8 pad1A9[3];
 } ParsedBALS; // size: 0x1AC
 
 extern f32 D_80359388;

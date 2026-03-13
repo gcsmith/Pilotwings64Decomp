@@ -2,7 +2,6 @@
 #include <uv_font.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>
-#include <uv_level.h>
 #include <uv_math.h>
 #include <uv_string.h>
 #include "code_99D40.h"
@@ -16,6 +15,7 @@
 #include "snow.h"
 #include "snd.h"
 #include "results.h"
+#include "task.h"
 #include "test_menu.h"
 #include "text_data.h"
 #include "total_results.h"
@@ -205,7 +205,7 @@ u8 resultListReplay(void) {
 
     unkC = &D_80362690->unk0[D_80362690->unk9C].unkC;
     ret = (unkC->veh == VEHICLE_HANG_GLIDER || unkC->veh == VEHICLE_ROCKET_BELT || unkC->veh == VEHICLE_GYROCOPTER || unkC->veh == VEHICLE_BIRDMAN);
-    if (levelDataGetFALC(NULL) != 0) {
+    if (taskGetFALC(NULL) != 0) {
         ret = 0;
     }
     return ret;
@@ -219,7 +219,7 @@ void resultGenMenu(void) {
 
     idx = 0;
     if (resultListPhoto()) {
-        ptr = levelGet_80345CB0();
+        ptr = taskGet_80345CB0();
         if (ptr[1] == 1) {
             func_803405E4();
         }

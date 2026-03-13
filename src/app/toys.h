@@ -1,7 +1,7 @@
 #ifndef APP_TOYS_H
 #define APP_TOYS_H
 
-#include <uv_level.h>
+#include "level.h"
 
 void func_80348280(LevelTOYS*);
 void func_803483AC(void);

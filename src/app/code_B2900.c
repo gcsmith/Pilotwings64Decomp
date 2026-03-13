@@ -12,7 +12,7 @@
 #include "snap.h"
 #include "skydiving.h"
 #include "targets.h"
-#include <uv_level.h>
+#include "task.h"
 
 // .data
 Unk80364210* D_8034FBD0 = NULL;
@@ -59,7 +59,7 @@ void func_8032B3D0(Unk80364210* arg0) {
                 var_s0->unkA = var_s0->unk24;
                 var_s0->unk8 = var_s0->unk24;
                 var_s0->unk4 = var_s0->unk24;
-                if (levelIsValidIndex(classIdx, testIdx, vehIdx) != 0) {
+                if (taskIsValidIndex(classIdx, testIdx, vehIdx) != 0) {
                     var_s0->unk0 = 1;
                 } else {
                     var_s0->unk0 = 0;
@@ -107,14 +107,14 @@ s32 func_8032B560(Unk80364210* arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
     s32 tempPoints;
     s32 sp3C;
 
-    sp74 = levelGet_80345C80();
+    sp74 = taskGet_80345C80();
     if (D_80362690->unkA1 != 0) {
         arg0->unk0 = 0x3F3E0;
     }
     if (arg0->unk3C != 0) {
         arg0->unk0 = 0x3F7F8;
     }
-    switch (levelGet_80346364()) {
+    switch (taskGet_80346364()) {
     case 0:
         break;
     case 1:
@@ -172,7 +172,7 @@ s32 func_8032B560(Unk80364210* arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
     }
     temp_v1->unk14 = 0;
     if (arg0->unk0 & 0x100) {
-        temp_v1->unk14 = func_80344948();
+        temp_v1->unk14 = targets_80344948();
     }
     temp_v1->unk16 = 0;
     if (arg0->unk0 & 0x200) {
@@ -195,7 +195,7 @@ s32 func_8032B560(Unk80364210* arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
     }
     temp_v1->unk1A = 0;
     if (arg0->unk0 & 0x1000) {
-        temp_v1->unk1A = sdive_getpoints(1);
+        temp_v1->unk1A = skydivingGetPoints(1);
     }
     temp_v1->unk1C = 0;
     if (arg0->unk0 & 0x2000) {
@@ -203,11 +203,11 @@ s32 func_8032B560(Unk80364210* arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
     }
     temp_v1->unk1E = 0;
     if (arg0->unk0 & 0x4000) {
-        temp_v1->unk1E = func_8030A0DC();
+        temp_v1->unk1E = hoverPad_8030A0DC();
     }
     temp_v1->unk20 = 0;
     if (arg0->unk0 & 0x8000) {
-        temp_v1->unk20 = func_802E5818();
+        temp_v1->unk20 = falco_802E5818();
     }
     temp_v1->unk22 = 0;
     if (arg0->unk0 & 0x10000) {
@@ -227,8 +227,8 @@ s32 func_8032B560(Unk80364210* arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
     sp6A += temp_v1->unk4;
     if (sp6A < 0) {
         sp6A = 0;
-    } else if (sp6A > 0x64) {
-        sp6A = 0x64;
+    } else if (sp6A > 100) {
+        sp6A = 100;
     }
     if (IS_BONUS_VEHICLE(vehIdx)) {
         sp50 = vehIdx + 1;
@@ -258,7 +258,7 @@ s32 func_8032B560(Unk80364210* arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
         temp_v1->unk2E = 0;
         temp_v1->unk0 = 1;
     }
-    pad_sp6C = (levelGet_80345C80()->unk3B8 < sp6A) ? TRUE : FALSE;
+    pad_sp6C = (taskGet_80345C80()->unk3B8 < sp6A) ? TRUE : FALSE;
     return pad_sp6C;
 }
 
@@ -270,7 +270,7 @@ s32 levelGetTotalPoints(Unk80364210* arg0, s32 classIdx, s32 vehIdx) {
     Unk80364210_Unk0_Unk0* var_s0;
 
     pointsSum = 0;
-    for (testIdx = 0; testIdx < levelGetTestCount(classIdx, vehIdx); testIdx++) {
+    for (testIdx = 0; testIdx < taskGetTestCount(classIdx, vehIdx); testIdx++) {
         var_s0 = &arg0->unk40[classIdx].unk0[testIdx][vehIdx];
         points = var_s0->unk2C;
         if (points == 0x7F) {
@@ -295,7 +295,7 @@ s32 func_8032BE8C(Unk80364210* arg0, u8 classIdx, u8 vehIdx) {
     int invalidPointCount = 0x7F;
 
     success = TRUE;
-    for (testIdx = 0; testIdx < levelGetTestCount(classIdx, vehIdx); testIdx++) {
+    for (testIdx = 0; testIdx < taskGetTestCount(classIdx, vehIdx); testIdx++) {
         s32 pointCount = testGetPointCount(arg0, classIdx, testIdx, vehIdx);
         if (pointCount == invalidPointCount) {
             success = FALSE;
@@ -309,12 +309,12 @@ static u8 func_8032BF54(void) {
     void* tmp;
 
     tmp = NULL;
-    if (levelGet_80346364() != 2) {
+    if (taskGet_80346364() != 2) {
         return 0;
     }
-    return (func_80324AF4() != levelDataGetRNGS(&tmp) || func_803448F4() != levelDataGetTARG(&tmp) || ballsGet_802CC15C() == 0 ||
-            func_8030A080() != levelDataGetHPAD(&tmp) || func_802E57C4() != D_8035A5F0 || ballTgtCount_5B() != levelDataGetBTGT((LevelBTGT**)&tmp) ||
-            func_802FB5A0() != levelDataGetHOPD((LevelHOPD**)&tmp));
+    return (func_80324AF4() != taskGetRNGS((LevelRNGS**)&tmp) || targets_803448F4() != taskGetTARG((LevelTARG**)&tmp) || ballsGet_802CC15C() == 0 ||
+            hoverPad_8030A080() != taskGetHPAD((LevelHPAD**)&tmp) || falco_802E57C4() != D_8035A5F0 || ballTgtCount_5B() != taskGetBTGT((LevelBTGT**)&tmp) ||
+            func_802FB5A0() != taskGetHOPD((LevelHOPD**)&tmp));
 }
 
 u8 func_8032C080(s32* arg0) {
@@ -322,14 +322,14 @@ u8 func_8032C080(s32* arg0) {
     s32 var_v1;
     s32 pad;
 
-    sp2C = levelGet_80345C80();
-    if (levelGet_80346364() != 3) {
+    sp2C = taskGet_80345C80();
+    if (taskGet_80346364() != 3) {
         if (arg0 != NULL) {
             *arg0 = -1;
         }
         return 0;
     }
-    var_v1 = sp2C->unk3C4 - (ballTgtCount_5B() + (func_802E57C4() + (func_8030A080() + (func_803448F4() + (func_80324AF4() + func_802FB5A0())))));
+    var_v1 = sp2C->unk3C4 - (ballTgtCount_5B() + (falco_802E57C4() + (hoverPad_8030A080() + (targets_803448F4() + (func_80324AF4() + func_802FB5A0())))));
     if (var_v1 < 0) {
         var_v1 = 0;
     }
@@ -355,7 +355,7 @@ s32 levelSetPointsToNextMedal(s32* pointsToNextMedal, u16 points, u8 classIdx) {
 
     if (i == 3) {
         if (IS_MAIN_VEHICLE(unkC->veh)) {
-            *pointsToNextMedal = 100 * levelGetTestCount(classIdx, unkC->veh) - points;
+            *pointsToNextMedal = 100 * taskGetTestCount(classIdx, unkC->veh) - points;
         } else {
             *pointsToNextMedal = 100 - points;
         }
@@ -386,7 +386,7 @@ s32 func_8032C27C(void) {
                     success = FALSE;
                 }
             } else {
-                if (levelGetTotalPoints(temp_s3, classIdx, vehIdx) != (levelGetTestCount(classIdx, vehIdx) * 100)) {
+                if (levelGetTotalPoints(temp_s3, classIdx, vehIdx) != (taskGetTestCount(classIdx, vehIdx) * 100)) {
                     success = FALSE;
                 }
             }
@@ -455,4 +455,3 @@ s32 func_8032C3C4(Unk80364210* arg0, u16 flags) {
 
     return resultMedal;
 }
-

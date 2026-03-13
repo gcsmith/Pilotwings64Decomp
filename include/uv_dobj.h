@@ -214,10 +214,10 @@ enum Models {
     MODEL_MAP_RING_TARGET_BLUE_CUBE                         = 0x0CC, // Map marker (blue ring target)
     MODEL_PILOTWINGS_3D_LOGO                                = 0x0CD, // 0x166184
     MODEL_MAP_STARTING_DIRECTION_ARROW                      = 0x0CE, // Map marker (Starting location/direction)
-    MODEL_CANNON_ON_TALL_RED_PEDESTAL                        = 0x0CF,
+    MODEL_CANNON_ON_TALL_RED_PEDESTAL                       = 0x0CF,
     MODEL_CANNONB_TARGET_1                                  = 0x0D0, // Target - normal sized, way smaller than 0x106-8 - Map marker?
-    MODEL_GREEN_BALL_OR_JUMBLE_HOPPER_GOAL                  = 0x0D1, // Red Goal (Ball or Jumble Hopper (less transparent)
-    MODEL_0D2                                               = 0x0D2, // Green Goal (Ball or Jumble Hopper?)
+    MODEL_RED_WHITE_GOAL                                    = 0x0D1, // Red/white goal used in Jumble Hopper
+    MODEL_GREEN_BLUE_GOAL_0                                 = 0x0D2, // Green/blue goal used in Rocket Belt
     MODEL_MECCA_HAWK                                        = 0x0D3,
     MODEL_LANDING_PAD_NOTARGET                              = 0x0D4, // Has no target, just square outline
     MODEL_WIND_WAVE_1                                       = 0x0D5, // Wind effect (large wave with scrolling texture
@@ -250,7 +250,7 @@ enum Models {
     MODEL_RING_LOCKED_GREY                                  = 0x0F0,
     MODEL_RING_WITH_GOAL_TEXT                               = 0x0F1,
     MODEL_BONUS_STAR                                        = 0x0F2,
-    MODEL_BALL_TARGETZONE                                   = 0x0F3, // Possibly not - too short?
+    MODEL_GREEN_BLUE_GOAL_1                                 = 0x0F3, // Green/blue goal used in Rocket Belt (more translucent)
     MODEL_BALL_ORANGE                                       = 0x0F4,
     MODEL_BALL_GREEN                                        = 0x0F5,
     MODEL_BALL_BLUE                                         = 0x0F6,

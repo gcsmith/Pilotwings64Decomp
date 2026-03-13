@@ -3,7 +3,7 @@
 
 #include <uv_matrix.h>
 #include <uv_vector.h>
-#include <uv_level.h>
+#include "code_72B70.h"
 
 void func_802D45C4(Unk802D3658_Arg0*, f32);
 s32 func_802D472C(Unk802D3658_Arg0*, Mtx4F*);

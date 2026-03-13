@@ -5,7 +5,7 @@
 #include <uv_vector.h>
 
 void env_loadtpal(s32);
-void func_802E1278(void);
+void envLoad(void);
 u16 func_802E12B4(void);
 void func_802E1444(u16);
 void func_802E15F0(void);

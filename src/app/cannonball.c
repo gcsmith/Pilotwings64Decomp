@@ -4,7 +4,6 @@
 #include <uv_controller.h>
 #include <uv_dobj.h>
 #include <uv_event.h>
-#include <uv_level.h>
 #include <uv_math.h>
 #include <uv_matrix.h>
 #include <uv_memory.h>
@@ -26,9 +25,9 @@
 #include "environment.h"
 #include "fdr.h"
 #include "hud.h"
-#include "save.h"
-#include "snd.h"
 #include "results.h"
+#include "snd.h"
+#include "task.h"
 #include "text_data.h"
 
 // .data
@@ -827,11 +826,11 @@ s32 cannonLoad802D77D8(Unk80362690* arg0, CannonballData* arg1) {
     func_8031DAA8(0, 0);
     temp_s1_2->unk6 = 0;
     func_803214E4();
-    level_80344FC8((s32)temp_s1_2->unk4, (s32)temp_s1_2->unk2, (s32)temp_s1_2->unk6, &arg0->unk0[0].map, &arg0->unk0[0].terraId, &arg0->unk0[0].unk8);
+    taskInitTest(temp_s1_2->unk4, temp_s1_2->unk2, temp_s1_2->unk6, &arg0->unk0[0].map, &arg0->unk0[0].terraId, &arg0->unk0[0].unk8);
     levelLoad(arg0->unk0[0].map, temp_s1_2->pad0, temp_s1_2->unk2, 1);
     hudInit();
     func_8031A2CC();
-    level_8034528C();
+    taskLoad();
     func_8034E0B4();
     uvChanTerra(temp_s1_2->unk70->unk22C, (s32)arg0->unk0[0].unk6);
     uvEnvFunc(arg0->unk0[0].unk8, 0, func_802E0CF0);
@@ -921,7 +920,7 @@ s32 cannonLandedFrame(CannonballData* arg0) {
     if (D_8034F850 < D_8034EA00) {
         cannonPilotLand(arg0);
         func_80313D74();
-        level_80345464(&temp_s0->unk2C, temp_s0->unk20);
+        taskFrameUpdate(&temp_s0->unk2C, temp_s0->unk20);
         uvGfxBegin();
         func_8034B624(temp_s0->unk70);
         uvGfxEnd();

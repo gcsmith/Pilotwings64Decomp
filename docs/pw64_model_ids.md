@@ -87,13 +87,15 @@ ID    | Description
  0xCD | "Pilotwings" 3D Logo (0x166184) 
  0xCE | Green 3D Arrow thing
  0xCF | Canon on a tall red pedestal
- 0xD1 | Green Ball or Jumble Hopper goal
+ 0xD1 | Red/white goal in Jumble Hopper
  0xD3 | Mecca Hawk
+ 0xD2 | Green/blue goal in Rocket Belt
  0xD4 | Yellow-stripe-bordered landing pad (empty, no target)
  0xD9 | First ring (Yellow)
  0xE1 | Yellow Ring
  0xE2 | Red Ring
  0xF2 | Bonus star
+ 0xF3 | Green/blue goal in Rocket Belt (more transparent than 0xD2)
  0xF4 | Orange ball
  0xFD | Giant transparent Mecca Hawk
  0xFE | Giant red... thing?
@@ -102,6 +104,9 @@ ID    | Description
 0x101 | HG thermal cylinder
 0x102 | RP/HG landing pad
 0x103 | Landing Pad with Red Target
+0x106 | Cannonball target
+0x107 | Cannonball target
+0x108 | Cannonball target
 0x10B | Low Res Goose HG Model
 0x11E | Lark RP Model
 0x11F | Round Shadow?

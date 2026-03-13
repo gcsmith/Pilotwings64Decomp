@@ -1,5 +1,4 @@
 #include <uv_debug.h>
-#include <uv_level.h>
 #include <uv_graphics.h>
 #include <uv_geometry.h>
 #include "code_5A6A0.h"
@@ -60,4 +59,3 @@ void func_8034B6F8(void) {
         break;
     }
 }
-

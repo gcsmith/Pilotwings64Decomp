@@ -6,28 +6,29 @@
 #include <uv_font.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>
-#include <uv_level.h>
 #include <uv_math.h>
+#include <uv_memory.h>
+#include <uv_texture.h>
 #include <uv_vector.h>
-#include "app/demo.h"
-#include "app/file_menu.h"
-#include "app/hud.h"
-#include "app/proxanim.h"
-#include "app/shadow.h"
-#include "app/snd.h"
-#include "app/snow.h"
-#include "app/text_data.h"
-#include "app/code_58B00.h"
-#include "app/code_6ECD0.h"
-#include "app/code_722D0.h"
-#include "app/code_72B70.h"
-#include "app/code_78620.h"
-#include "app/code_9A960.h"
-#include "app/code_9C080.h"
-#include "app/code_A7460.h"
-#include "app/code_D1ED0.h"
-#include "app/code_D2D50.h"
-#include "app/code_D3810.h"
+#include "code_58B00.h"
+#include "code_6ECD0.h"
+#include "code_722D0.h"
+#include "code_72B70.h"
+#include "code_78620.h"
+#include "code_9A960.h"
+#include "code_9C080.h"
+#include "code_A7460.h"
+#include "code_D1ED0.h"
+#include "code_D2D50.h"
+#include "code_D3810.h"
+#include "demo.h"
+#include "file_menu.h"
+#include "hud.h"
+#include "proxanim.h"
+#include "shadow.h"
+#include "snd.h"
+#include "snow.h"
+#include "text_data.h"
 
 typedef struct Unk8033F050 {
     s16 unk0;
@@ -124,7 +125,7 @@ void func_80337D50(void) {
     D_80350528 = 0;
 }
 
-void func_80337DB8(void) {
+void snapInit(void) {
     s32 i;
     s32 j;
     f32 sp34;
@@ -280,7 +281,7 @@ void func_80337DB8(void) {
     hudSetCameraState(0);
 }
 
-void func_803383FC(void) {
+void snapDeinit(void) {
 }
 
 void func_80338404(void) {
@@ -424,7 +425,7 @@ void func_80338A14(void) {
     var_s2 = 0;
     temp_s4 = &D_80362690->unk0[D_80362690->unk9C].unkC;
     spDC = temp_s4->unk70;
-    temp_s5 = &levelGet_80345C80()->unk0;
+    temp_s5 = &taskGet_80345C80()->unk0;
     spB8 = 0;
     if (D_8035052C >= PHOTO_COUNT_MAX) {
         _uvDebugPrintf("snapPhoto: %d pictures already taken\n", D_8035052C);
@@ -436,7 +437,7 @@ void func_80338A14(void) {
     temp_s1 = &D_80373390[D_8035052C];
     func_8034AF94(&temp_s4->unk70->unk108, &temp_s1->unk0, &temp_s1->unkC);
     temp_s1->unk36 = 1;
-    levelGetClsVehTest(&temp_s1->cls, &temp_s1->veh, &temp_s1->test);
+    taskGetClsVehTest(&temp_s1->cls, &temp_s1->veh, &temp_s1->test);
 
     sp78 = (((temp_s1->test == 0) && (temp_s1->cls == CLASS_A))) || ((temp_s1->test == 1) && (temp_s1->cls == CLASS_B)) ||
            ((temp_s1->test == 2) && (temp_s1->cls == CLASS_PILOT));
@@ -583,7 +584,7 @@ void func_80338A14(void) {
     }
     if (var_s2 != 0) {
         temp_s1->unk42 = 1;
-        temp_v0_2 = levelDataGetPHTS(&sp114);
+        temp_v0_2 = taskGetPHTS(&sp114);
 
         for (i = 0; i < temp_v0_2; i++) {
             if (sp114[i].unk0 == temp_s1->unk43[0]) {
@@ -809,7 +810,7 @@ void func_8033A020(s32 arg0) {
 void func_8033A078(s32 arg0) {
     u8* ptr;
 
-    ptr = levelGet_80345CB0();
+    ptr = taskGet_80345CB0();
     if ((D_80362690->unk0[0].unk0 != 7) && (ptr[1] == 1)) {
         func_803405C0();
     }
@@ -1800,7 +1801,7 @@ s32 func_8033E3A8(s32 arg0) {
     u16 sp4E;
 
     temp_s4 = D_80362690->unk0[D_80362690->unk9C].unkC.unk70;
-    ptr = levelGet_80345CB0();
+    ptr = taskGet_80345CB0();
     D_80350550 = 0;
     if ((D_80362690->unk0[0].unk0 != 7) && (ptr[1] == 1)) {
         func_803405E4();
@@ -1884,7 +1885,7 @@ s32 func_8033E3A8(s32 arg0) {
         func_802EBBB8();
     }
     D_80350594 = 0;
-    levelGetClsVehTest(&sp52, &sp50, &sp4E);
+    taskGetClsVehTest(&sp52, &sp50, &sp4E);
     func_8033FCD0(sp50);
     return D_80350550;
 }

@@ -26,9 +26,9 @@
 #define HUD_CAM_RENDER_SHUTTER 0x40000000
 
 typedef struct {
-    f32 unk0;
-    f32 unk4;
-    f32 unk8;
+    f32 x;
+    f32 y;
+    f32 z;
     f32 unkC;
     f32 unk10;
     s32 unk14;
@@ -128,9 +128,9 @@ void hudWarningText(s16, f32, f32);
 void hudDemoControllerEn(u8 enable);
 void hudSetCameraState(s32 state);
 void hud_8031A2CC(void);
-void hud_8031A794(s32 idx, f32 arg1, f32 arg2, f32 arg3);
+void hudMoveWaypoint(s32 idx, f32 x, f32 y, f32 z);
 void hud_8031A874(s32 idx);
-s32 hud_8031A6C8(f32 arg0, f32 arg1, f32 arg2);
+s32 hudAddWaypoint(f32 x, f32 y, f32 z);
 void hud_8031A810(s32 idx);
 void hud_8031A8E0(s32 idx);
 

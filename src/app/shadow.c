@@ -73,7 +73,7 @@ void func_80334454(u16 arg0, u16 arg1) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80335AF4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80335B94.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/shadowInit.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80335BE4.s")
 

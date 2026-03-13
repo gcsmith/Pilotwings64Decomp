@@ -1,4 +1,11 @@
 #include "common.h"
+#include <uv_dobj.h>
+#include <uv_event.h>
+#include <uv_font.h>
+#include <uv_geometry.h>
+#include <uv_memory.h>
+#include <uv_texture.h>
+#include <uv_vector.h>
 #include "birdman.h"
 #include "cannonball.h"
 #include "code_66160.h"
@@ -10,10 +17,10 @@
 #include "code_D2D50.h"
 #include "demo.h"
 #include "environment.h"
-#include "hud.h"
 #include "fdr.h"
 #include "gyrocopter.h"
 #include "hang_glider.h"
+#include "hud.h"
 #include "map3d.h"
 #include "menu.h"
 #include "proxanim.h"
@@ -22,13 +29,9 @@
 #include "skydiving.h"
 #include "snd.h"
 #include "snow.h"
+#include "task.h"
 #include "text_data.h"
 #include "wind_objects.h"
-#include <uv_dobj.h>
-#include <uv_event.h>
-#include <uv_font.h>
-#include <uv_geometry.h>
-#include <uv_vector.h>
 
 s32 sShutterBugTestItems[] = { 0xDC, 0x14E, 0x12F, 0x1D };
 s32 sSkyDivingItems[] = { 0xDC, 0x1D };
@@ -184,7 +187,7 @@ void func_8032C540(Unk80362690* arg0) {
         sp66 = arg0->unk0[0].terraId;
         if (sp66 != sp64) {
             uvChanTerra(temp_s0->unk70->unk22C, sp66);
-            level_80345A24();
+            taskUpdateState();
             sp64 = sp66;
         }
         if (sp66 != sp68) {
@@ -210,7 +213,7 @@ void func_8032C540(Unk80362690* arg0) {
         func_802D45C4(temp_s0->unk70, temp_fa0);
         func_802D4A30(temp_s0->unk70, &temp_s0->unk70->unk108);
         func_802D3444(temp_s0->unk70);
-        level_80345464(&sp148, 0.0f);
+        taskFrameUpdate(&sp148, 0.0f);
         func_8032150C();
         uvFontSet(0);
         uvFontScale(1.0, 0.800000011920929);
@@ -252,7 +255,7 @@ void func_8032CC44(Unk80362690* arg0) {
     if (arg0->unkA0 == 0) {
         sp1B = 0;
     }
-    level_8034536C();
+    taskDeinitLevel();
     func_8034E628();
     func_803213E0();
     cannon_802D8A40(1U, (CannonballData*)sp2C->vehicleData);
@@ -332,8 +335,8 @@ void func_8032CC44(Unk80362690* arg0) {
     if (sp1B != 0) {
         arg0->unkA0 = 1;
     }
-    level_8034528C();
-    cannon_802D8A40(0U, (CannonballData*)sp2C->vehicleData);
+    taskLoad();
+    cannon_802D8A40(0, (CannonballData*)sp2C->vehicleData);
     hudInit();
     func_8034C298();
 }
@@ -404,7 +407,7 @@ s32 func_8032CF28(Unk80362690* arg0) {
     if (var_s1 == -1) {
         var_s1 = 0;
     }
-    if (var_s1 != 0 && (levelGet_80345CB0()[1] == 1)) {
+    if (var_s1 != 0 && (taskGet_80345CB0()[1] == 1)) {
         func_803405E4();
     }
     return var_s1;

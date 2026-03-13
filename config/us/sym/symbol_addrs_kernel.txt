@@ -528,18 +528,9 @@ gLevelAPTS                = 0x8036A5C0;
 gLevelBNUS                = 0x8036A840;
 gLevelObjects             = 0x8036A878;
 
-gLevelClassU8             = 0x80350790;
-gLevelVehicleU8           = 0x80350794;
-gLevelTestU8              = 0x80350798;
-gMapLookup                = 0x803507A8;
 gThermShouldDisable       = 0x803507F0;
 
 gTitleMenuDelay           = 0x80356A68;
-
-gLandingPadCount          = 0x8036C2B9;
-gLandingStripCount        = 0x8036C2BA;
-gLandingPads              = 0x8036C2E8; // size:0x150
-gLandingStrips            = 0x8036C438; // size:0x78
 
 gRadarThermCirc           = 0x8036C520; // size:0x88
 gHudState                 = 0x8036C5A8; // size:0xC7C
@@ -550,12 +541,6 @@ gMenuSpriteHeight         = 0x80369F26;
 gMenuCountVarHeight       = 0x80369F28;
 
 gFcnDrawMenuItem          = 0x8036BE08;
-
-
-gLevelCommObjs            = 0x8037A600; // size:0x478
-gLevelClass               = 0x8037AA78;
-gLevelTest                = 0x8037AA7C;
-gLevelVehicle             = 0x8037AA80;
 
 gLevelTHER                = 0x8037AB50;
 gThermalCount             = 0x8037AB54;

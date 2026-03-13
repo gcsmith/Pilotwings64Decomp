@@ -16,6 +16,7 @@
 #include "shadow.h"
 #include "snap.h"
 #include "snd.h"
+#include "task.h"
 
 extern Unk803599D0 D_80359390;
 extern u8 D_803593E4;

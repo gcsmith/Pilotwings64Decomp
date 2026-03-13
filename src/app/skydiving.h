@@ -3,8 +3,8 @@
 
 #include "code_72B70.h"
 
-void func_8032FAB0(void);
-s16 sdive_getpoints(s32);
+void skydivingInit(void);
+s16 skydivingGetPoints(s32);
 void skydivingEnterLeave(VehicleData*);
 void skydivingMovementFrame(VehicleData*, u8);
 

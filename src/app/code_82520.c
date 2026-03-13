@@ -1,6 +1,8 @@
 #include "common.h"
-#include <uv_level.h>
+#include <uv_texture.h>
+#include "code_72B70.h"
 #include "code_82520.h"
+#include "task.h"
 
 u8 D_8034F3A0 = 0;
 
@@ -15,7 +17,7 @@ void func_802FB22C(void) {
     LevelHOPD* hopd;
 
     if (D_80362690->unkA0 != 0) {
-        D_8034F3A0 = levelDataGetHOPD(&hopd);
+        D_8034F3A0 = taskGetHOPD(&hopd);
         if (D_8034F3A0 > 5) {
             _uvDebugPrintf("hmgoal : too many hmgoal defined in level [%d]\n", D_8034F3A0);
             D_8034F3A0 = 0;

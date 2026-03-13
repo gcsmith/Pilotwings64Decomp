@@ -1,7 +1,7 @@
 #include "common.h"
 #include "skydiving.h"
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/skydiving/func_8032FAB0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/skydiving/skydivingInit.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/skydiving/func_8032FACC.s")
 
@@ -19,15 +19,15 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/skydiving/func_803316B0.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/skydiving/sdive_land.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/skydiving/skydivingLand.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/skydiving/func_803318D4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/skydiving/sdive_getpoints.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/skydiving/skydivingGetPoints.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/skydiving/func_80331AE4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/skydiving/sdive_below.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/skydiving/skydivingBelow.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/skydiving/func_80331D58.s")
 

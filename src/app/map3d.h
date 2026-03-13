@@ -1,7 +1,7 @@
 #ifndef APP_MAP3D_H
 #define APP_MAP3D_H
 
-#include <uv_level.h>
+#include "code_72B70.h"
 
 void map3d(Unk80362690*, s32);
 void func_8030FE80(Unk80362690*, s32);
