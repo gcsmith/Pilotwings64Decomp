@@ -424,7 +424,7 @@ void func_80338A14(void) {
     var_s2 = 0;
     temp_s4 = &D_80362690->unk0[D_80362690->unk9C].unkC;
     spDC = temp_s4->unk70;
-    temp_s5 = levelGet_80345C80();
+    temp_s5 = &levelGet_80345C80()->unk0;
     spB8 = 0;
     if (D_8035052C >= PHOTO_COUNT_MAX) {
         _uvDebugPrintf("snapPhoto: %d pictures already taken\n", D_8035052C);
@@ -718,7 +718,7 @@ void func_80339C8C(s32 arg0) {
     }
 }
 
-void func_80339E1C(Unk80367704* arg0) {
+void func_80339E1C(VehicleData* arg0) {
     s32 var_v1;
 
     var_v1 = demoGetButtons(0);
@@ -764,10 +764,10 @@ s32 func_80339F9C(void) {
 
     switch (temp_v1->veh) {
     case VEHICLE_BIRDMAN:
-        var_a0 = *temp_v1->unk6C;
+        var_a0 = ((VehicleData*)temp_v1->vehicleData)->unk0;
         break;
     case VEHICLE_HANG_GLIDER:
-        var_a0 = *temp_v1->unk6C;
+        var_a0 = ((VehicleData*)temp_v1->vehicleData)->unk0;
         break;
     default:
         _uvDebugPrintf("photos_getmodel: non photogenic vehicle\n");

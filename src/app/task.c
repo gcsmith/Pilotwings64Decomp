@@ -567,7 +567,7 @@ s32 levelDataGetFALC(void** data) {
     return D_8035078C->comm.countFALC;
 }
 
-Unk803599D0* levelGet_80345C80(void) {
+Unk80345C80* levelGet_80345C80(void) {
     return &D_8035078C->comm.unk48;
 }
 
