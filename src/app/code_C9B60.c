@@ -158,7 +158,7 @@ static void func_803427FC(void) {
     uvDobjModel(D_80378CE0->unk10, MODEL_3D_4_IN_INTRO_PW64_LOGO);
     uvDobjPosm(D_80378CE0->unk10, 0, &D_80378CE0->unkEC);
     uvDobjState(D_80378CE0->unk10, 2);
-    menuCreateItems(0x66, 0x3C, 6, 1.0f, 1.0f, D_80350698, 2);
+    menuCreateItems(102, 60, 6, 1.0f, 1.0f, D_80350698, 2);
     func_80312F5C(0, 0xFF, 0xFF, 0);
     func_80312F5C(1, 0xFF, 0xFF, 0xFF);
     func_80312F5C(2, 0xFF, 0xFF, 0);

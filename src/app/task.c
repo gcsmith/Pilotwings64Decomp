@@ -61,6 +61,7 @@ u8 D_803507AC[] = {
     0x18, 0x19, 0x1A, 0x1B, 0x1C, 0x1D, 0x1E, 0x1F, 0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 
+// level data of some sorts
 extern Unk803798E0 D_803798E0[MAX_CLASSES][MAX_TESTS][VEHICLE_COUNT];
 extern LevelCommObjects* D_8035078C;
 
@@ -332,7 +333,7 @@ void level_803453AC(void) {
     }
 }
 
-s32 level_80345464(Mtx4F* arg0, s32 arg1) {
+s32 level_80345464(Mtx4F* arg0, f32 arg1) {
     u16 veh;
     s32 sp18;
     s32 temp_v0;
@@ -372,7 +373,7 @@ s32 level_80345464(Mtx4F* arg0, s32 arg1) {
             func_8033FCD0(D_80362690->unk0[0].unkC.veh);
         }
     }
-    if ((D_80362690->unk0[D_80362690->unk9C].unkC.veh == VEHICLE_JUMBLE_HOPPER) && (func_802FB308(D_80362690->unk0[D_80362690->unk9C].unkC.unk6C) == 1)) {
+    if ((D_80362690->unk0[D_80362690->unk9C].unkC.veh == VEHICLE_JUMBLE_HOPPER) && (func_802FB308(D_80362690->unk0[D_80362690->unk9C].unkC.vehicleData) == 1)) {
         sp18 = 1;
     }
     temp_v0 = level_803456D8(arg0);
@@ -583,8 +584,8 @@ u8* levelGet_80345CB0(void) {
 }
 
 void levelGet_80345CC0(f32* arg0, f32* arg1) {
-    *arg0 = D_8035078C->comm.unk404;
-    *arg1 = D_8035078C->comm.unk408;
+    *arg0 = D_8035078C->comm.unk48.unk3BC;
+    *arg1 = D_8035078C->comm.unk48.unk3C0;
 }
 
 LevelCommObjects* levelLoadCommObj(u32 arg0) {

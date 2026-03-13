@@ -5,7 +5,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/skydiving/func_8032FACC.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/skydiving/func_8032FC08.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/skydiving/skydivingEnterLeave.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/skydiving/func_8032FE4C.s")
 
@@ -13,7 +13,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/skydiving/func_803305D4.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/skydiving/func_803308C4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/skydiving/skydivingMovementFrame.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/skydiving/func_80330BC4.s")
 

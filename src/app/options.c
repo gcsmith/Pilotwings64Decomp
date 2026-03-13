@@ -117,7 +117,7 @@ void optionsInitMain(void) {
         count = 3;
         menuY = 100;
     }
-    menuCreateItems(0x50, menuY, 6, 1.0f, 1.0f, sOptionMenuItems, count);
+    menuCreateItems(80, menuY, 6, 1.0f, 1.0f, sOptionMenuItems, count);
     func_80312F5C(1, 0xFF, 0xFF, 0xFF);
     func_80312F5C(0, 0xFF, 0xFF, 0x00);
 }

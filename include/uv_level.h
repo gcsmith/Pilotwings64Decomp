@@ -45,6 +45,9 @@ enum VehicleId {
     VEHICLE_COUNT
 };
 
+#define IS_MAIN_VEHICLE(veh) ((veh) <= VEHICLE_GYROCOPTER)
+#define IS_BONUS_VEHICLE(veh) (!IS_MAIN_VEHICLE(veh))
+
 enum ClassId {
     CLASS_BEGINNER = 0,
     CLASS_A = 1,
@@ -59,6 +62,62 @@ enum MapId {
     MAP_LITTLE_STATES = 5,
     MAP_EVER_FROST_ISLAND = 10,
 };
+
+typedef struct {
+    u8 unk0;
+    u8 pad1;
+    s16 unk2;
+    s16 unk4;
+    s16 unk6;
+    s16 unk8;
+    s16 unkA;
+    s16 unkC;
+    s16 unkE;
+    u16 pad10;
+    s16 unk12;
+    s16 unk14;
+    s16 unk16;
+    s16 unk18;
+    s16 unk1A;
+    s16 unk1C;
+    s16 unk1E;
+    s16 unk20;
+    s16 unk22;
+    s16 unk24;
+    s16 pad26;
+    s32 unk28;
+    s16 unk2C;
+    s16 unk2E;
+} Unk80364210_Unk0_Unk0; // size = 0x30
+
+typedef struct {
+    Unk80364210_Unk0_Unk0 unk0[MAX_TESTS][VEHICLE_COUNT];
+    s8 unk690;
+    u8 pad691[0x694-0x691];
+} Unk80364210_Unk0; // size = 0x694
+
+typedef struct {
+    s32 unk0;
+    f32 unk4;
+    f32 unk8;
+    f32 unkC;
+    f32 unk10;
+    f32 unk14;
+    f32 unk18;
+    f32 unk1C;
+    f32 unk20;
+    s32 unk24;
+    s32 pad28;
+    s32 unk2C;
+    s32 unk30;
+    s32 unk34;
+    s32 unk38;
+    u8 unk3C;
+    s8 unk3D;
+    u8 pad3E;
+    u8 pad3F;
+    Unk80364210_Unk0 unk40[MAX_CLASSES];
+} Unk80364210; // size = 0x34E0
 
 typedef struct Unk802D3658_Unk230 {
     Mtx4F unk0;
@@ -191,12 +250,12 @@ typedef struct {
     u16 unk8;
     u8 unkA;
     u8 padB[0x20 - 0xB];
-    s32 unk20;
+    f32 unk20;
     u8 pad24[0x2C-0x24];
     Mtx4F unk2C;
-    u16* unk6C;
+    void *vehicleData;
     Unk802D3658_Arg0 *unk70;
-    s32 unk74;
+    Unk80364210 *unk74;
     u8 pad78[0x7B - 0x78];
     u8 unk7B;
     u8 pad7C[0x8C-0x7C-0xC]; // fill out space to reach 0x8C size in parent struct
@@ -220,8 +279,8 @@ typedef struct {
     s32 unk98;
     s32 unk9C;
     u8 unkA0;
-    u8 padA1[1];
-    u8 unkA2;
+    u8 unkA1;
+    u8 padA2;
     u8 unkA3;
     u8 padA4[4];
     s32 unkA8;
@@ -390,6 +449,47 @@ typedef struct {
 } LevelObjects;
 
 typedef struct {
+    s32 unk0;
+    f32 unk4;
+    f32 unk8;
+    f32 unkC;
+    f32 unk10;
+    f32 unk14;
+    f32 unk18;
+    f32 unk1C;
+    f32 unk20;
+    f32 unk24;
+    f32 unk28;
+    f32 unk2C;
+    f32 unk30;
+    f32 unk34;
+    f32 unk38;
+    f32 unk3C;
+    f32 unk40;
+    s32 pad44;
+    s32 pad48;
+    s32 pad4C;
+    s32 pad50;
+} Unk803599D0; // size = 0x54
+
+typedef struct {
+    // keeping these as single members instead of array because it's easier to read
+    Unk803599D0 unk0;
+    Unk803599D0 unk54;
+    Unk803599D0 unkA8;
+    Unk803599D0 unkFC;
+    Unk803599D0 unk150;
+    // maybe more Unk803599D0 here
+    u8 pad1A4[0x3B4-0x1A4];
+    s32 unk3B4;
+    s32 unk3B8;
+    f32 unk3BC;
+    f32 unk3C0;
+    f32 unk3C4;
+    f32 unk3C8;
+} Unk80345C80;
+
+typedef struct {
     struct {
         u8 classNum;
         u8 vehNum;
@@ -474,7 +574,7 @@ s32 level_80344E0C(s32 classIdx, s32 testIdx, s32 vehicle, char* arg3, char* arg
 s32 levelGetTestCount(s32 classIdx, s32 vehicle);
 s32 level_80344FC8(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* arg4, u16* arg5);
 void level_803453AC(void);
-s32 level_80345464(Mtx4F*, s32);
+s32 level_80345464(Mtx4F*, f32);
 s32 level_803456D8(Mtx4F*);
 void level_80345A24(void);
 Unk803599D0* levelGet_80345C80(void);
@@ -504,5 +604,6 @@ s32 levelDataGetPHTS(LevelPHTS** data);
 s32 levelDataGetFALC(void** data);
 s32 levelDataGetHOPD(LevelHOPD** data);
 void levelGetClsVehTest(u16* classIdx, u16* vehIdx, u16* testIdx);
+void level_8034536C(void);
 
 #endif // UV_LEVEL_H

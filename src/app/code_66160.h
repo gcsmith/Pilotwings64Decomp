@@ -17,5 +17,6 @@ void func_802E05CC(Mtx4F*, Vec3F*, f32*, s32);
 void func_802E06AC(Mtx4F*);
 void func_802E07D8(Mtx4F*);
 u8 func_802E0C30(u8, s32);
+void func_802E0484(Mtx4F*, Mtx4F*, f32);
 
 #endif // APP_CODE_66160_H

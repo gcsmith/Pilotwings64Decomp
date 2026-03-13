@@ -214,7 +214,7 @@ void hudMainRender(void) {
         if (gHudState.unkC64 < (gHudState.unk14 - gHudState.unkC68)) {
             if (gHudState.renderFlags & HUD_RENDER_HANG_GLIDER) {
                 hudDrawHangGlider(&gHudState);
-            } else if (gHudState.renderFlags & HUD_RENDER_ROCKET_PACK) {
+            } else if (gHudState.renderFlags & HUD_RENDER_ROCKET_BELT) {
                 hudDrawRocketPack(&gHudState);
             } else if (gHudState.renderFlags & HUD_RENDER_GYROCOPTER) {
                 hudDrawGyrocopter(&gHudState);

@@ -53,5 +53,6 @@ void ballsLoad(void);
 void ballsDeinit(void);
 void ballsFrameUpdate(void);
 u8 ballsGet_802CC15C(void);
+s32 ballsGet_802CC064(void);
 
 #endif // APP_BALLS_H
