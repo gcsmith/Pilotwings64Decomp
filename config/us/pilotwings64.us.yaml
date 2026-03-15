@@ -667,7 +667,7 @@ segments:
       - { type: bss, vram: 0x80368370, name: app/code_7C4C0 }
       - { type: bss, vram: 0x80368880, name: app/code_7CF30 }
       - { type: bss, vram: 0x80368B10, name: app/code_7FED0 }
-      - { type: bss, vram: 0x80368B20, name: app/jumble_hopper }
+      - { type: .bss, vram: 0x80368B20, name: app/jumble_hopper }
       - { type: .bss, vram: 0x80368B80, name: app/code_82520 }
       - { type: .bss, vram: 0x80368C00, name: app/code_82B90 }
       - { type: .bss, vram: 0x80369070, name: app/gyrocopter }

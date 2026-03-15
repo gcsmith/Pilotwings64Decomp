@@ -12,7 +12,7 @@
 #include "app/code_9A960.h"
 #include "app/code_D1ED0.h"
 
-extern Unk803599D0 D_80368B20;
+Unk803599D0 D_80368B20;
 
 void func_802FA7A0(u8 arg0, JumbleHopperData* arg1);
 
