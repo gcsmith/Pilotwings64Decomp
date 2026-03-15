@@ -18,6 +18,7 @@ s32 func_802E02F8(void);
 void func_802E05CC(Mtx4F*, Vec3F*, Vec3F*, s32);
 s32 func_802E06AC(Mtx4F*);
 void func_802E07D8(Mtx4F*);
+s32 func_802E08F4(f32, f32, f32);
 u8 func_802E0C30(u8, s32);
 void func_802E0484(Mtx4F*, Mtx4F*, f32);
 

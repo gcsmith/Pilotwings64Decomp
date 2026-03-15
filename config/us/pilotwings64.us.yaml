@@ -670,7 +670,7 @@ segments:
       - { type: bss, vram: 0x80368B20, name: app/jumble_hopper }
       - { type: .bss, vram: 0x80368B80, name: app/code_82520 }
       - { type: .bss, vram: 0x80368C00, name: app/code_82B90 }
-      - { type: bss, vram: 0x80369070, name: app/gyrocopter }
+      - { type: .bss, vram: 0x80369070, name: app/gyrocopter }
       - { type: bss, vram: 0x80369580, name: app_bss_80369580 } # app/code_905C0 & map3d, has weird split
       - { type: bss, vram: 0x80369E50, name: app/hsound }
       - { type: .bss, vram: 0x80369F10, name: app/menu }
