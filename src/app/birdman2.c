@@ -70,20 +70,20 @@ extern Vec3F D_803594B8;
 extern u16 D_8035963C;
 
 // forward declarations
-void bird_802CF24C(VehicleData*);
-void bird_802CF5B4(VehicleData*);
-void bird_802CF640(VehicleData*);
-s32 bird_802CF76C(VehicleData*);
-void bird_802CF8A4(VehicleData*);
-void bird_802CFAC8(VehicleData*);
-void bird_802CFEA8(VehicleData*);
-void bird_802CFF74(VehicleData*);
-void bird_802D0080(VehicleData*);
-void bird_802D0ABC(VehicleData*);
+void bird_802CF24C(BirdmanData*);
+void bird_802CF5B4(BirdmanData*);
+void bird_802CF640(BirdmanData*);
+s32 bird_802CF76C(BirdmanData*);
+void bird_802CF8A4(BirdmanData*);
+void bird_802CFAC8(BirdmanData*);
+void bird_802CFEA8(BirdmanData*);
+void bird_802CFF74(BirdmanData*);
+void bird_802D0080(BirdmanData*);
+void bird_802D0ABC(BirdmanData*);
 f32 bird_802D08F8(Unk8034E824*, f32, f32);
 f32 bird_802D0A28(Unk8034E934*, f32);
 
-void bird_802CEBA0(VehicleData* arg0) {
+void bird_802CEBA0(BirdmanData* arg0) {
     Vec3F sp2C;
     s32 pad;
 
@@ -105,7 +105,7 @@ void bird_802CEBA0(VehicleData* arg0) {
     D_8035963C = 0xF7F8;
 }
 
-void bird_802CECB8(VehicleData* arg0) {
+void bird_802CECB8(BirdmanData* arg0) {
     s32 pad;
 
     arg0->unk170 = 0;
@@ -159,7 +159,7 @@ void bird_802CECB8(VehicleData* arg0) {
     arg0->unk400.z = arg0->unk10.m[3][2];
 }
 
-void bird_802CEDF8(VehicleData* arg0) {
+void bird_802CEDF8(BirdmanData* arg0) {
     Vec3F sp44;
     s32 pad;
 
@@ -257,7 +257,7 @@ void bird_802CEDF8(VehicleData* arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/birdman2/bird_802CF24C.s")
 
-void bird_802CF5B4(VehicleData* arg0) {
+void bird_802CF5B4(BirdmanData* arg0) {
     arg0->unk228.x = arg0->unk200.x * -0.2f;
     arg0->unk228.y = arg0->unk200.y * -0.2f;
     arg0->unk228.z = arg0->unk200.z * -0.2f;
@@ -266,7 +266,7 @@ void bird_802CF5B4(VehicleData* arg0) {
     arg0->unk24C = func_80313AF4(0.0f, arg0->unk24C, 3.0f);
 }
 
-void bird_802CF640(VehicleData* arg0) {
+void bird_802CF640(BirdmanData* arg0) {
     Vec3F sp3C;
     Vec3F sp30;
 
@@ -289,7 +289,7 @@ void bird_802CF640(VehicleData* arg0) {
     arg0->unk105 = 0;
 }
 
-s32 bird_802CF76C(VehicleData* arg0) {
+s32 bird_802CF76C(BirdmanData* arg0) {
     s32 pad;
     u8 temp_v0_2;
     f32* temp_s1; // TODO: double-check unk10 types
@@ -329,7 +329,7 @@ s32 bird_802CF76C(VehicleData* arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/birdman2/bird_802CF8A4.s")
 
-void bird_802CFAC8(VehicleData* arg0) {
+void bird_802CFAC8(BirdmanData* arg0) {
     f32 var_ft5;
     f32 temp_fa0;
     f32 var_ft4;
@@ -412,7 +412,7 @@ void bird_802CFAC8(VehicleData* arg0) {
     arg0->unk228.y += var_ft4;
 }
 
-void bird_802CFEA8(VehicleData* arg0) {
+void bird_802CFEA8(BirdmanData* arg0) {
     Vec3F sp2C;
     Vec3F sp20;
 
@@ -435,7 +435,7 @@ void bird_802CFEA8(VehicleData* arg0) {
     }
 }
 
-void bird_802CFF74(VehicleData* arg0) {
+void bird_802CFF74(BirdmanData* arg0) {
     Vec3F sp24;
     f32 temp_fv0;
 
@@ -530,7 +530,7 @@ f32 bird_802D0A28(Unk8034E934* arg0, f32 arg1) {
     return (a * y0) + (b * y1);
 }
 
-void bird_802D0ABC(VehicleData* arg0) {
+void bird_802D0ABC(BirdmanData* arg0) {
     Mtx4F* temp_s2;
     Mtx4F sp44;
     Vec3F sp38;

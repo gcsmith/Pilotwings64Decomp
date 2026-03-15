@@ -15,144 +15,12 @@
 #include "app/snd.h"
 #include "app/splash.h"
 #include "app/task.h"
+#include "app/code_5A6A0.h"
 #include "app/code_61A60.h"
 #include "app/code_66160.h"
+#include "app/jumble_hopper.h"
 #include "app/code_9A960.h"
 #include "app/code_D1ED0.h"
-
-typedef struct Unk80362690_Unk0_UnkC_Unk6C {
-    u16 objId;
-    u8 unk2;
-    u8 pad3[0xD];
-    f32 unk10;
-    f32 unk14;
-    Unk802D3658_Arg0* unk18;
-    f32 unk1C;
-    f32 unk20;
-    f32 unk24;
-    f32 unk28;
-    f32 unk2C;
-    Vec3F unk30;
-    u8 unk3C[0x10];
-    u8 unk4C;
-    u8 unk4D;
-    u8 pad4E[0x1];
-    u8 unk4F;
-    u8 unk50;
-    u8 pad51[0xF];
-    s32 unk60;
-    f32 unk64;
-    f32 unk68;
-    f32 unk6C;
-    f32 unk70;
-    Mtx4F unk74;
-    Mtx4F unkB4;
-    Vec3F unkF4;
-    Vec3F unk100;
-    Vec3F unk10C;
-    Vec3F unk118;
-    Vec3F unk124;
-    f32 unk130;
-    Vec3F unk134;
-    Vec3F unk140;
-    Vec3F unk14C;
-    f32 unk158;
-    Vec3F unk15C;
-    Vec3F unk168;
-    Vec3F unk174;
-    f32 unk180;
-    Vec3F unk184;
-    f32 unk190;
-    f32 unk194;
-    s32 unk198;
-    s32 unk19C;
-    s32 unk1A0;
-    s32 unk1A4;
-    f32 unk1A8;
-    s32 unk1AC;
-    s32 unk1B0;
-    u8 pad1B4[0x4];
-    f64 unk1B8;
-    f64 unk1C0;
-    f64 unk1C8;
-    f32 unk1D0;
-    Unk80371120 unk1D4;
-    Unk80371120 unk384;
-    s32 unk534;
-    s32 unk538;
-    f32 unk53C;
-    f32 unk540;
-    f32 unk544;
-    f32 unk548;
-    f32 unk54C;
-    f32 unk550;
-    f32 unk554;
-    f32 unk558;
-    u8 unk55C;
-    f32 unk560;
-    f32 unk564;
-    f32 unk568;
-    u8 unk56C;
-    f32 unk570;
-    f32 unk574;
-    f32 unk578;
-    u8 unk57C;
-    f32 unk580;
-    f32 unk584;
-    f32 unk588;
-    u8 unk58C;
-    f32 unk590;
-    f32 unk594;
-    f32 unk598;
-    s16 unk59C;
-    f32 unk5A0;
-    s16 unk5A4;
-    f32 unk5A8;
-    s16 unk5AC;
-    f32 unk5B0;
-    s16 unk5B4;
-    f32 unk5B8;
-    s16 unk5BC;
-    f32 unk5C0;
-    f32 unk5C4;
-    s16 unk5C8;
-    f32 unk5CC;
-    s16 unk5D0;
-    f32 unk5D4;
-    f32 unk5D8;
-    f32 unk5DC;
-    f32 unk5E0;
-    u16 modelId;
-    Vec3F unk5E8;
-    u8 pad5F4[0xC];
-    Vec3F unk600;
-    Vec3F unk60C;
-    Vec3F unk618;
-    Vec3F unk624;
-    u8 pad630[0xC];
-    f32 unk63C;
-    f32 unk640;
-    f32 unk644;
-    f32 unk648;
-    u8 pad64C[0x4];
-    u8 unk650;
-    u8 unk651;
-    u8 unk652;
-    u8 unk653;
-    u8 unk654;
-    u8 unk655;
-    u8 unk656;
-    u8 unk657;
-    u8 unk658;
-    u8 unk659;
-    u8 unk65A;
-    u8 unk65B;
-    u8 unk65C;
-    u8 unk65D;
-    u8 unk65E[0x12];
-    Vec3F unk670;
-    s32 unk67C;
-} Unk80362690_Unk0_UnkC_Unk6C;
 
 Unk802D3658_Unk111C D_80368C00;
 Unk802D3658_Unk111C D_80368D08;
@@ -160,9 +28,9 @@ Unk802D3658_Unk111C D_80368E10;
 Unk802D3658_Unk1224 D_80368F18;
 u8 D_8036905C[5];
 
-void func_802FD114(Unk80362690_Unk0_UnkC_Unk6C* arg0);
+void func_802FD114(JumbleHopperData* arg0);
 
-f32 func_802FB660(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+f32 func_802FB660(JumbleHopperData* arg0) {
     f32 sp34;
     f32 sp30;
     f32 sp2C;
@@ -178,7 +46,7 @@ f32 func_802FB660(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     return arg0->unk6C;
 }
 
-s32 func_802FB784(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32 arg1) {
+s32 func_802FB784(JumbleHopperData* arg0, f32 arg1) {
     f32 temp_fv0;
     f32 temp_fv1;
 
@@ -195,14 +63,14 @@ s32 func_802FB784(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32 arg1) {
     return 0;
 }
 
-void func_802FB82C(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_802FB82C(JumbleHopperData* arg0) {
     if (arg0->unk50 == 0) {
         arg0->unk50 = 1;
         arg0->unk4F = 0;
     }
 }
 
-void func_802FB84C(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32 arg1, s32 arg2) {
+void func_802FB84C(JumbleHopperData* arg0, f32 arg1, s32 arg2) {
     if (arg2 == 1) {
         arg0->unk548 = (((arg1 - -15.0f) / 50.0f) * 180.0f) + 180.0f;
     } else {
@@ -211,7 +79,7 @@ void func_802FB84C(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32 arg1, s32 arg2) {
     arg0->unk54C = 1.0f;
 }
 
-void func_802FB8CC(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32 arg1, s32 arg2, s32 arg3) {
+void func_802FB8CC(JumbleHopperData* arg0, f32 arg1, s32 arg2, s32 arg3) {
     f32 var_fv0;
 
     arg0->unk55C = arg3;
@@ -229,7 +97,7 @@ void func_802FB8CC(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32 arg1, s32 arg2, s32 ar
     arg0->unk554 = 1.0f;
 }
 
-void func_802FB988(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32 arg1, s32 arg2, s32 arg3) {
+void func_802FB988(JumbleHopperData* arg0, f32 arg1, s32 arg2, s32 arg3) {
     f32 var_fv0;
 
     arg0->unk56C = arg3;
@@ -247,7 +115,7 @@ void func_802FB988(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32 arg1, s32 arg2, s32 ar
     arg0->unk564 = 1.0f;
 }
 
-void func_802FBA44(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32 arg1, s32 arg2, s32 arg3) {
+void func_802FBA44(JumbleHopperData* arg0, f32 arg1, s32 arg2, s32 arg3) {
     f32 var_fv0;
     f32 var_fv1;
 
@@ -274,7 +142,7 @@ void func_802FBA44(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32 arg1, s32 arg2, s32 ar
     arg0->unk578 = (demoRandF() * (1.0f - 0.97f)) + 0.97f;
 }
 
-void func_802FBB58(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32 arg1, s32 arg2, s32 arg3) {
+void func_802FBB58(JumbleHopperData* arg0, f32 arg1, s32 arg2, s32 arg3) {
     f32 var_fv0;
     f32 var_fv1;
 
@@ -301,7 +169,7 @@ void func_802FBB58(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32 arg1, s32 arg2, s32 ar
     arg0->unk588 = (demoRandF() * (1.0f - 0.97f)) + 0.97f;
 }
 
-void func_802FBC6C(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_802FBC6C(JumbleHopperData* arg0) {
     arg0->unk4D = 3;
     arg0->unk4C = 3;
     arg0->unk5E0 = 0.0f;
@@ -310,7 +178,7 @@ void func_802FBC6C(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     }
 }
 
-void func_802FBCA8(Unk80362690_Unk0_UnkC_Unk6C* arg0, u8 arg1, f32 arg2, char axis) {
+void func_802FBCA8(JumbleHopperData* arg0, u8 arg1, f32 arg2, char axis) {
     Mtx4F sp20;
 
     uvDobjGetPosm(arg0->objId, arg1, &sp20);
@@ -318,7 +186,7 @@ void func_802FBCA8(Unk80362690_Unk0_UnkC_Unk6C* arg0, u8 arg1, f32 arg2, char ax
     uvDobjPosm(arg0->objId, arg1, &sp20);
 }
 
-void func_802FBD1C(Unk80362690_Unk0_UnkC_Unk6C* arg0, u8 arg1, f32 arg2, char axis) {
+void func_802FBD1C(JumbleHopperData* arg0, u8 arg1, f32 arg2, char axis) {
     Mtx4F sp20;
 
     uvModelGetPosm(arg0->modelId, arg1, &sp20);
@@ -326,7 +194,7 @@ void func_802FBD1C(Unk80362690_Unk0_UnkC_Unk6C* arg0, u8 arg1, f32 arg2, char ax
     uvDobjPosm(arg0->objId, arg1, &sp20);
 }
 
-void func_802FBD90(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_802FBD90(JumbleHopperData* arg0) {
     func_80200638(arg0->objId, &arg0->unk384);
     arg0->unk590 = 0.0f;
     arg0->unk598 = 0.0f;
@@ -355,7 +223,7 @@ void func_802FBD90(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     func_802FBD1C(arg0, arg0->unk659, 0.0f, 'x');
 }
 
-void func_802FBEFC(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32 arg1) {
+void func_802FBEFC(JumbleHopperData* arg0, f32 arg1) {
     Mtx4F sp30;
     Unk803599D0* sp2C;
 
@@ -380,7 +248,7 @@ void func_802FBEFC(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32 arg1) {
     }
 }
 
-void func_802FC018(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_802FC018(JumbleHopperData* arg0) {
     Vec3F sp2C;
     f32 sp28;
     f32 sp24;
@@ -408,7 +276,7 @@ void func_802FC018(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     }
 }
 
-s32 func_802FC184(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32* arg1, Vec3F* arg2) {
+s32 func_802FC184(JumbleHopperData* arg0, f32* arg1, Vec3F* arg2) {
     Vec3F sp44;
     s32 sp40;
     s32 sp3C;
@@ -455,7 +323,7 @@ s32 func_802FC184(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32* arg1, Vec3F* arg2) {
     return sp3C;
 }
 
-s32 func_802FC3B4(Unk80362690_Unk0_UnkC_Unk6C* arg0, s32 arg1, Vec3F* arg2, Vec3F* arg3) {
+s32 func_802FC3B4(JumbleHopperData* arg0, s32 arg1, Vec3F* arg2, Vec3F* arg3) {
     Unk802D3658_Unk1228* var_s1;
     s32 i;
     Vec3F sp54;
@@ -526,7 +394,7 @@ s32 func_802FC3B4(Unk80362690_Unk0_UnkC_Unk6C* arg0, s32 arg1, Vec3F* arg2, Vec3
     return 0;
 }
 
-s32 func_802FC694(Unk80362690_Unk0_UnkC_Unk6C* arg0, Unk802D3658_Unk111C* arg1, Unk802D3658_Unk1224* arg2, u16 arg3, u8 arg4, Mtx4F* arg5) {
+s32 func_802FC694(JumbleHopperData* arg0, Unk802D3658_Unk111C* arg1, Unk802D3658_Unk1224* arg2, u16 arg3, u8 arg4, Mtx4F* arg5) {
     Unk802D3658_Unk1224 sp84;
     s32 var_s1;
     s32 i;
@@ -560,7 +428,7 @@ s32 func_802FC694(Unk80362690_Unk0_UnkC_Unk6C* arg0, Unk802D3658_Unk111C* arg1, 
     return var_s1;
 }
 
-s32 func_802FC8B0(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+s32 func_802FC8B0(JumbleHopperData* arg0) {
     Vec3F sp6C;
     Unk802D3658_Unk1228* var_s0;
     Unk802D3658_Unk1228* var_s6;
@@ -596,7 +464,7 @@ s32 func_802FC8B0(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     return 0;
 }
 
-s32 func_802FCA8C(Unk80362690_Unk0_UnkC_Unk6C* arg0, Vec3F* arg1, Vec3F* arg2) {
+s32 func_802FCA8C(JumbleHopperData* arg0, Vec3F* arg1, Vec3F* arg2) {
     s32 temp_v0;
 
     D_80368E10.unk0 = 1;
@@ -610,7 +478,7 @@ s32 func_802FCA8C(Unk80362690_Unk0_UnkC_Unk6C* arg0, Vec3F* arg1, Vec3F* arg2) {
     return 0;
 }
 
-s32 func_802FCB3C(Unk80362690_Unk0_UnkC_Unk6C* arg0, Vec3F* arg1, Vec3F* arg2) {
+s32 func_802FCB3C(JumbleHopperData* arg0, Vec3F* arg1, Vec3F* arg2) {
     s32 pad;
     s32 temp_v0;
     Vec3F sp2C = { 0.0f, 0.0f, 0.0f };
@@ -627,7 +495,7 @@ s32 func_802FCB3C(Unk80362690_Unk0_UnkC_Unk6C* arg0, Vec3F* arg1, Vec3F* arg2) {
     return 0;
 }
 
-void func_802FCC0C(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_802FCC0C(JumbleHopperData* arg0) {
     arg0->unkF4.x = arg0->unk118.x;
     arg0->unkF4.y = arg0->unk118.y;
     arg0->unkF4.z = arg0->unk118.z;
@@ -670,7 +538,7 @@ void func_802FCC0C(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     }
 }
 
-s32 func_802FCE38(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+s32 func_802FCE38(JumbleHopperData* arg0) {
     s32 i;
     s32 pad;
     Vec3F sp4C;
@@ -712,11 +580,11 @@ s32 func_802FCE38(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     return 0;
 }
 
-f32 func_802FD010(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+f32 func_802FD010(JumbleHopperData* arg0) {
     return func_802FB660(arg0) + arg0->unk68;
 }
 
-void func_802FD038(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_802FD038(JumbleHopperData* arg0) {
     Vec3F sp24 = { 0.0f, 0.0f, 0.0f };
 
     D_80368C00.unk0 = 3;
@@ -732,7 +600,7 @@ void func_802FD038(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     func_802FD114(arg0);
 }
 
-void func_802FD114(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_802FD114(JumbleHopperData* arg0) {
     Unk80362690_Unk0_UnkC* var_v1;
     Vec3F sp38;
     f32 temp_fv0;
@@ -818,11 +686,11 @@ void func_802FD114(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     arg0->unk10C.z = arg0->unk168.z;
 }
 
-void func_802FD388(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_802FD388(JumbleHopperData* arg0) {
     arg0->unk140.x -= (arg0->unk14 * FABS(arg0->unk14)) * 5.0;
 }
 
-void func_802FD3E0(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_802FD3E0(JumbleHopperData* arg0) {
     f32 sp94;
     s32 pad;
     Vec3F sp84;
@@ -843,7 +711,7 @@ void func_802FD3E0(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     arg0->unk140.z = sp78.z;
 }
 
-void func_802FD55C(Unk80362690_Unk0_UnkC_Unk6C* arg0, Vec3F arg1) {
+void func_802FD55C(JumbleHopperData* arg0, Vec3F arg1) {
     Vec3F sp4C;
     s32 pad[2];
     f32 temp_fv1;
@@ -895,7 +763,7 @@ void func_802FD55C(Unk80362690_Unk0_UnkC_Unk6C* arg0, Vec3F arg1) {
     arg0->unk15C.z *= arg0->unk180 * 0.35f;
 }
 
-void func_802FD794(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_802FD794(JumbleHopperData* arg0) {
     arg0->unk1C0 += D_8034F854;
 
     if ((FABS(arg0->unk14) * 0.75) < arg0->unk1C0) {
@@ -913,7 +781,7 @@ void func_802FD794(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     func_802FCE38(arg0);
 }
 
-void func_802FD8C0(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_802FD8C0(JumbleHopperData* arg0) {
     f32 var_fv1;
 
     func_802FD3E0(arg0);
@@ -1027,7 +895,7 @@ void func_802FD8C0(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     func_802FCE38(arg0);
 }
 
-void func_802FDF8C(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32 arg1) {
+void func_802FDF8C(JumbleHopperData* arg0, f32 arg1) {
     if (arg1 > 0.2f) {
         arg1 = 0.2f;
     } else if (arg1 < -0.2f) {
@@ -1043,7 +911,7 @@ void func_802FDF8C(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32 arg1) {
     func_802FBD1C(arg0, arg0->unk65B, arg0->unk598, 'z');
 }
 
-void func_802FE054(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32 arg1) {
+void func_802FE054(JumbleHopperData* arg0, f32 arg1) {
     if (arg1 > 0.2f) {
         arg1 = 0.2f;
     } else if (arg1 < -0.2f) {
@@ -1066,7 +934,7 @@ void func_802FE054(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32 arg1) {
     func_802FBD1C(arg0, arg0->unk652, arg0->unk5B0, 'x');
 }
 
-void func_802FE1A8(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32 arg1) {
+void func_802FE1A8(JumbleHopperData* arg0, f32 arg1) {
     if (arg1 > 0.2f) {
         arg1 = 0.2f;
     } else if (arg1 < -0.2f) {
@@ -1089,7 +957,7 @@ void func_802FE1A8(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32 arg1) {
     func_802FBD1C(arg0, arg0->unk653, arg0->unk5B8, 'x');
 }
 
-void func_802FE2FC(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_802FE2FC(JumbleHopperData* arg0) {
     f32 temp_fv1;
     f32 temp_fa0;
 
@@ -1124,7 +992,7 @@ void func_802FE2FC(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     func_802FBCA8(arg0, arg0->unk65A, temp_fa0, 'x');
 }
 
-void func_802FE564(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_802FE564(JumbleHopperData* arg0) {
     f32 temp_fv0;
     f32 var_fa1;
     f32 var_fv1;
@@ -1164,7 +1032,7 @@ void func_802FE564(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     func_802FBD1C(arg0, arg0->unk652, arg0->unk5B0, 'x');
 }
 
-void func_802FE7A0(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_802FE7A0(JumbleHopperData* arg0) {
     f32 temp_fv0;
     f32 var_fa1;
     f32 var_fv1;
@@ -1204,7 +1072,7 @@ void func_802FE7A0(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     func_802FBD1C(arg0, arg0->unk653, arg0->unk5B8, 'x');
 }
 
-void func_802FE9DC(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32 arg1) {
+void func_802FE9DC(JumbleHopperData* arg0, f32 arg1) {
     if (arg1 > 0.1f) {
         arg1 = 0.1f;
     } else if (arg1 < -0.1f) {
@@ -1222,7 +1090,7 @@ void func_802FE9DC(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32 arg1) {
     func_802FBD1C(arg0, arg0->unk657, arg0->unk5CC, 'x');
 }
 
-void func_802FEAD0(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32 arg1) {
+void func_802FEAD0(JumbleHopperData* arg0, f32 arg1) {
     if (arg1 > 0.1f) {
         arg1 = 0.1f;
     } else if (arg1 < -0.1f) {
@@ -1240,7 +1108,7 @@ void func_802FEAD0(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32 arg1) {
     func_802FBD1C(arg0, arg0->unk654, arg0->unk5D4, 'x');
 }
 
-void func_802FEBC4(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_802FEBC4(JumbleHopperData* arg0) {
     f32 var_fv1;
     f32 temp_fv1;
 
@@ -1284,7 +1152,7 @@ void func_802FEBC4(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     func_802FBD1C(arg0, arg0->unk658, arg0->unk5C0, 'x');
 }
 
-void func_802FEEC0(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_802FEEC0(JumbleHopperData* arg0) {
     f32 var_fv1;
     f32 temp_fv1;
 
@@ -1328,7 +1196,7 @@ void func_802FEEC0(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     func_802FBD1C(arg0, arg0->unk655, arg0->unk5C4, 'x');
 }
 
-void func_802FF1BC(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_802FF1BC(JumbleHopperData* arg0) {
     f32 temp;
     f32 var_fa1;
 
@@ -1388,7 +1256,7 @@ void func_802FF1BC(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     }
 }
 
-void func_802FF5B4(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_802FF5B4(JumbleHopperData* arg0) {
     func_802FBD1C(arg0, arg0->unk65C, arg0->unk594, 'x');
     arg0->unk5CC = arg0->unk594;
     arg0->unk5D4 = arg0->unk594;
@@ -1400,7 +1268,7 @@ void func_802FF5B4(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     func_802FBD1C(arg0, arg0->unk655, arg0->unk5C4, 'x');
 }
 
-void func_802FF654(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_802FF654(JumbleHopperData* arg0) {
     f32 var_fa0;
 
     if (arg0->unk1AC == 0) {
@@ -1475,7 +1343,7 @@ void func_802FF654(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     }
 }
 
-void func_802FFB3C(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_802FFB3C(JumbleHopperData* arg0) {
     f32 var_fa0;
 
     if (arg0->unk1B0 == 0) {
@@ -1550,7 +1418,7 @@ void func_802FFB3C(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     }
 }
 
-void func_80300018(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_80300018(JumbleHopperData* arg0) {
     f32 sp24;
 
     func_802FE2FC(arg0);
@@ -1631,7 +1499,7 @@ void func_80300018(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     }
 }
 
-void func_80300448(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_80300448(JumbleHopperData* arg0) {
     Vec3F sp34 = { 0.0f, 0.0f, -1.0f };
     Vec3F sp28;
 
@@ -1651,7 +1519,7 @@ void func_80300448(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     arg0->unk15C.z *= arg0->unk180;
 }
 
-s32 func_8030055C(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+s32 func_8030055C(JumbleHopperData* arg0) {
     Vec3F sp2C;
     f32 var_fv1;
 
@@ -1670,7 +1538,7 @@ s32 func_8030055C(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     return 0;
 }
 
-void func_80300624(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_80300624(JumbleHopperData* arg0) {
     if ((func_8034AF48(arg0->unk100, arg0->unkF4) < 1.0f) && (uvVec3Dot(&arg0->unk168, &arg0->unk174) < 0.0)) {
         func_802FCC0C(arg0);
     }
@@ -1679,7 +1547,7 @@ void func_80300624(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     arg0->unk100.z = arg0->unkF4.z;
 }
 
-void func_803006E8(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_803006E8(JumbleHopperData* arg0) {
     s32 sp44;
     Vec3F sp38;
     Vec3F sp2C;
@@ -1725,7 +1593,7 @@ void func_803006E8(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     }
 }
 
-void func_8030089C(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_8030089C(JumbleHopperData* arg0) {
     s32 sp44;
     Vec3F sp38;
     Vec3F sp2C;
@@ -1793,7 +1661,7 @@ void func_8030089C(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     }
 }
 
-void func_80300B04(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_80300B04(JumbleHopperData* arg0) {
     s32 sp44;
     Vec3F sp38;
     Vec3F sp2C;
@@ -1874,7 +1742,7 @@ void func_80300B04(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     }
 }
 
-void func_80300E78(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_80300E78(JumbleHopperData* arg0) {
     Vec3F sp1C;
     f32 var_fv0;
 
@@ -1906,7 +1774,7 @@ void func_80300E78(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     func_80300B04(arg0);
 }
 
-void func_80301090(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_80301090(JumbleHopperData* arg0) {
     f32 var_fv1;
 
     var_fv1 = (65.0 - arg0->unk53C) / 65.0;
@@ -1966,7 +1834,7 @@ void func_80301090(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     func_802FCE38(arg0);
 }
 
-void func_803014A8(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32 arg1) {
+void func_803014A8(JumbleHopperData* arg0, f32 arg1) {
     arg0->unk140.x += 150.0 * D_8034F854 * 2 * arg1;
     if (arg0->unk140.x > 360.0f) {
         arg0->unk140.x -= 360.0f;
@@ -2069,7 +1937,7 @@ void func_803014A8(Unk80362690_Unk0_UnkC_Unk6C* arg0, f32 arg1) {
     func_802FBD1C(arg0, arg0->unk655, arg0->unk5C4, 'x');
 }
 
-void func_80301AF8(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_80301AF8(JumbleHopperData* arg0) {
     Vec3F sp24;
 
     uvVec3Copy(&sp24, &arg0->unk15C);
@@ -2088,7 +1956,7 @@ void func_80301AF8(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     arg0->unk18->unk108.m[3][2] += 2.0f * D_8034F854;
 }
 
-void func_80301C58(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_80301C58(JumbleHopperData* arg0) {
     arg0->unk14C.z = -9.8f;
     arg0->unk15C.z += 2.0f * (-9.8f * D_8034F854);
     arg0->unkF4.x += 2.0f * (arg0->unk15C.x * D_8034F854);
@@ -2099,7 +1967,7 @@ void func_80301C58(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     arg0->unk18->unk108.m[3][2] += 2.0f * D_8034F854;
 }
 
-void func_80301D28(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_80301D28(JumbleHopperData* arg0) {
     Vec3F sp34;
     Vec3F sp28;
     s32 pad;
@@ -2159,7 +2027,7 @@ void func_80301D28(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     }
 }
 
-void func_80301F70(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_80301F70(JumbleHopperData* arg0) {
     Unk80371120 sp40;
     s32 i;
     f32 temp_fa0 = 20.0f;
@@ -2234,7 +2102,7 @@ void func_80301F70(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     }
 }
 
-void func_80302484(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_80302484(JumbleHopperData* arg0) {
     f32 sp34;
     f32 sp30;
     f32 sp2C;
@@ -2323,7 +2191,7 @@ void func_80302484(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     arg0->unk18->unk108.m[2][2] = temp_fv0 * sp28;
 }
 
-void func_803029CC(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_803029CC(JumbleHopperData* arg0) {
     s32 sp24;
 
     arg0->unk1C0 += D_8034F854;
@@ -2363,7 +2231,7 @@ void func_803029CC(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     }
 }
 
-void func_80302BA0(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_80302BA0(JumbleHopperData* arg0) {
     f32 temp_fa0 = 20.0f;
     s32 sp20;
 
@@ -2432,7 +2300,7 @@ void func_80302BA0(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
     func_802FCE38(arg0);
 }
 
-void func_80303028(Unk80362690_Unk0_UnkC_Unk6C* arg0) {
+void func_80303028(JumbleHopperData* arg0) {
     arg0->unkF4.x = arg0->unk74.m[3][0];
     arg0->unkF4.y = arg0->unk74.m[3][1];
     arg0->unkF4.z = arg0->unk74.m[3][2];

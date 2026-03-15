@@ -9,7 +9,7 @@
 #include "birdman.h"
 #include "cannonball.h"
 #include "code_66160.h"
-#include "code_81490.h"
+#include "jumble_hopper.h"
 #include "code_99D40.h"
 #include "code_9A960.h"
 #include "code_B3A70.h"
@@ -41,13 +41,13 @@ STATIC_FUNC void func_8032D33C(Mtx4F*, Mtx4F*, f32, u8);
 
 void func_8032C540(Unk80362690* arg0) {
     f32 var_fs3;
-    VehicleData* hangGliderData;
-    VehicleData* gyrocopterData;
-    VehicleData* rocketBeltData;
+    HangGliderData* hangGliderData;
+    GyrocopterData* gyrocopterData;
+    RocketBeltData* rocketBeltData;
     CannonballData* cannonballData;
-    VehicleData* skyDivingData;
+    SkyDivingData* skyDivingData;
     JumbleHopperData* jumbleHopperData;
-    VehicleData* birdmanData;
+    BirdmanData* birdmanData;
     Mtx4F sp188;
     Mtx4F sp148;
     Mtx4F sp108;
@@ -76,43 +76,43 @@ void func_8032C540(Unk80362690* arg0) {
     case VEHICLE_HANG_GLIDER:
         hangGliderData = temp_s0->vehicleData;
         hangGliderEnterLeave(hangGliderData);
-        sp87 = hangGliderData->unk0;
+        sp87 = hangGliderData->objId;
         hangGliderData->unk2 &= ~8;
         break;
     case VEHICLE_GYROCOPTER:
         gyrocopterData = temp_s0->vehicleData;
         gyrocopterEnterLeave(gyrocopterData);
-        sp87 = gyrocopterData->unk0;
+        sp87 = gyrocopterData->objId;
         gyrocopterData->unk2 &= ~8;
         break;
     case VEHICLE_ROCKET_BELT:
         rocketBeltData = temp_s0->vehicleData;
         rocketBeltEnterLeave(rocketBeltData);
-        sp87 = rocketBeltData->unk0;
+        sp87 = rocketBeltData->objId;
         rocketBeltData->unk2 &= ~8;
         break;
     case VEHICLE_CANNONBALL:
         cannonballData = temp_s0->vehicleData;
         cannonLevelEnterLeave(cannonballData);
-        sp87 = cannonballData->unk0;
+        sp87 = cannonballData->objId;
         cannonballData->unk2 &= ~8;
         break;
     case VEHICLE_SKY_DIVING:
         skyDivingData = temp_s0->vehicleData;
         skydivingEnterLeave(skyDivingData);
-        sp87 = skyDivingData->unk0;
+        sp87 = skyDivingData->objId;
         skyDivingData->unk2 &= ~8;
         break;
     case VEHICLE_JUMBLE_HOPPER:
         jumbleHopperData = temp_s0->vehicleData;
         jumbleHopperEnterLeave(jumbleHopperData);
-        sp87 = jumbleHopperData->unk0;
+        sp87 = jumbleHopperData->objId;
         jumbleHopperData->unk2 &= ~8;
         break;
     case VEHICLE_BIRDMAN:
         birdmanData = temp_s0->vehicleData;
         birdEnterLeave(birdmanData);
-        sp87 = birdmanData->unk0;
+        sp87 = birdmanData->objId;
         birdmanData->unk2 &= ~8;
         break;
     }
@@ -176,7 +176,7 @@ void func_8032C540(Unk80362690* arg0) {
         case VEHICLE_JUMBLE_HOPPER:
             jumbleHopperData = temp_s0->vehicleData;
             jumbleHopperMovementFrame(jumbleHopperData, arg0->unk0->unk0);
-            uvMat4Copy(&sp148, (Mtx4F*)&((u8*)jumbleHopperData)[0x74]);
+            uvMat4Copy(&sp148, &jumbleHopperData->unk74);
             break;
         case VEHICLE_BIRDMAN:
             birdmanData = temp_s0->vehicleData;
@@ -264,39 +264,39 @@ void func_8032CC44(Unk80362690* arg0) {
     switch (sp2C->veh) {
     case VEHICLE_GYROCOPTER:
         temp_v0 = (CannonballData*)sp2C->vehicleData;
-        sp28 = temp_v0->unk0;
+        sp28 = temp_v0->objId;
         sp24 = temp_v0->unk2;
         break;
     case VEHICLE_HANG_GLIDER:
         temp_v0 = (CannonballData*)sp2C->vehicleData;
-        sp28 = temp_v0->unk0;
+        sp28 = temp_v0->objId;
         sp24 = temp_v0->unk2;
         break;
     case VEHICLE_ROCKET_BELT:
         temp_v0 = (CannonballData*)sp2C->vehicleData;
         sp1C = 0x22;
-        sp28 = temp_v0->unk0;
+        sp28 = temp_v0->objId;
         sp24 = temp_v0->unk2;
         sp20 = temp_v0->pad6;
         break;
     case VEHICLE_CANNONBALL:
         temp_v0 = (CannonballData*)sp2C->vehicleData;
-        sp28 = temp_v0->unk0;
+        sp28 = temp_v0->objId;
         sp24 = temp_v0->unk2;
         break;
     case VEHICLE_SKY_DIVING:
         temp_v0 = (CannonballData*)sp2C->vehicleData;
-        sp28 = temp_v0->unk0;
+        sp28 = temp_v0->objId;
         sp24 = temp_v0->unk2;
         break;
     case VEHICLE_JUMBLE_HOPPER:
         temp_v0 = (CannonballData*)sp2C->vehicleData;
-        sp28 = temp_v0->unk0;
+        sp28 = temp_v0->objId;
         sp24 = temp_v0->unk2;
         break;
     case VEHICLE_BIRDMAN:
         temp_v0 = (CannonballData*)sp2C->vehicleData;
-        sp28 = temp_v0->unk0;
+        sp28 = temp_v0->objId;
         sp24 = temp_v0->unk2;
     }
     uvDobjState(sp28, 0);
@@ -360,7 +360,7 @@ s32 func_8032CF28(Unk80362690* arg0) {
     sp64->renderFlags = HUD_RENDER_DISABLE;
     sp40 = sp6C->veh == VEHICLE_HANG_GLIDER &&
            ((sp6C->test == 0 && sp6C->cls == CLASS_A) || (sp6C->test == 1 && sp6C->cls == CLASS_B) || (sp6C->test == 2 && sp6C->cls == CLASS_PILOT));
-    if (sp6C->unk8 != 0 || (sp6C->veh == VEHICLE_SKY_DIVING && ((VehicleData*)sp6C->vehicleData)->unk25C.z == 1 /*.0f*/)) {
+    if (sp6C->unk8 != 0 || (sp6C->veh == VEHICLE_SKY_DIVING && ((BirdmanData*)sp6C->vehicleData)->unk25C.z == 1 /*.0f*/)) {
         menuCreateItems(99, 72, 6, 1.0f, 1.0f, sSkyDivingItems, 2);
         var_s0 = 0x38;
     } else if (sp40 != 0) {
@@ -395,7 +395,7 @@ s32 func_8032CF28(Unk80362690* arg0) {
     if (sp40 == 0 && var_s1 == 2) {
         var_s1 = 3;
     }
-    if ((sp6C->unk8 != 0) || ((sp6C->veh == VEHICLE_SKY_DIVING) && (((VehicleData*)sp6C->vehicleData)->unk25C.z == 1 /*.0f*/))) {
+    if ((sp6C->unk8 != 0) || ((sp6C->veh == VEHICLE_SKY_DIVING) && (((BirdmanData*)sp6C->vehicleData)->unk25C.z == 1 /*.0f*/))) {
         if (var_s1 == 0) {
             var_s1 = 0;
         }

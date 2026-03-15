@@ -22,9 +22,9 @@ extern Unk803599D0 D_80359390;
 extern u8 D_803593E4;
 
 // forward declarations
-void bird_802CD0F8(VehicleData*);
-void bird_802CD2E8(u8, VehicleData*);
-void bird_802CE0A4(VehicleData*);
+void bird_802CD0F8(BirdmanData*);
+void bird_802CD2E8(u8, BirdmanData*);
+void bird_802CE0A4(BirdmanData*);
 
 // called during game boot
 void bird_802CC1B0(void) {
@@ -48,14 +48,14 @@ void bird_802CC1B0(void) {
 }
 
 // called when starting one of the birdman levels, either from bonus menu or bonus star
-void bird_802CC270(u8 arg0, u8 pilot, VehicleData* arg2, Unk802D3658_Arg0* arg3) {
-    uvMemSet(arg2, 0, 0x424);
+void bird_802CC270(u8 arg0, u8 pilot, BirdmanData* arg2, Unk802D3658_Arg0* arg3) {
+    uvMemSet(arg2, 0, sizeof(BirdmanData));
     bird_802CD2E8(pilot, arg2);
-    arg2->unk0 = uvDobjAllocIdx();
+    arg2->objId = uvDobjAllocIdx();
     arg2->unk2 = 2;
-    uvDobjModel(arg2->unk0, arg2->unk3F4);
-    uvDobjPosm(arg2->unk0, 0, &arg2->unk10);
-    uvDobjState(arg2->unk0, arg2->unk2);
+    uvDobjModel(arg2->objId, arg2->unk3F4);
+    uvDobjPosm(arg2->objId, 0, &arg2->unk10);
+    uvDobjState(arg2->objId, arg2->unk2);
     uvMat4Copy(&arg2->unk50, &arg2->unk10);
     func_80334454(0x13D, 0x13C);
     func_803342F0(1.0f);
@@ -78,9 +78,9 @@ void bird_802CC270(u8 arg0, u8 pilot, VehicleData* arg2, Unk802D3658_Arg0* arg3)
 }
 
 // called when entering or exiting a birdman level
-void birdEnterLeave(VehicleData* arg0) {
+void birdEnterLeave(BirdmanData* arg0) {
     db_getstart(&arg0->unk10, &arg0->unk200, NULL, NULL);
-    uvDobjPosm(arg0->unk0, 0, &arg0->unk10);
+    uvDobjPosm(arg0->objId, 0, &arg0->unk10);
     uvMat4Copy(&arg0->unk50, &arg0->unk10);
     bird_802CECB8(arg0);
     arg0->unk104 = 0;
@@ -102,7 +102,7 @@ void birdEnterLeave(VehicleData* arg0) {
     arg0->unkD8 = 0;
     arg0->unkDC = 1.0f;
     arg0->unkD4->unk1 = arg0->unkD8;
-    arg0->unkD4->unk4 = arg0->unk0;
+    arg0->unkD4->unk4 = arg0->objId;
     arg0->unkD4->unk6 = arg0->unk2;
     arg0->unkD4->unk0 = 1;
     arg0->unkD4->unk74 = 0.0f;
@@ -129,7 +129,7 @@ void bird_802CC51C(Unk802CC51C* arg0) {
 
 // called every frame in a birdman stage
 // handles controller input and motion updates
-void birdMovementFrame(VehicleData* arg0, u8 arg1) {
+void birdMovementFrame(BirdmanData* arg0, u8 arg1) {
     f32 sp7C;
     f32 sp78;
     f32 pad;
@@ -255,7 +255,7 @@ void birdMovementFrame(VehicleData* arg0, u8 arg1) {
         uvMat4SetIdentity(&arg0->unk90);
         uvMat4RotateAxis(&arg0->unk90, arg0->unkD0, 'x');
         uvMat4Mul(&arg0->unk50, &arg0->unk90, &arg0->unk10);
-        uvDobjPosm(arg0->unk0, 0, &arg0->unk50);
+        uvDobjPosm(arg0->objId, 0, &arg0->unk50);
         func_803344BC(&arg0->unk10, arg0->unk16C);
         if (arg0->unk224 > 25.0f) {
             arg0->unkD4->unk48 = 0.0125f;
@@ -328,7 +328,7 @@ void birdMovementFrame(VehicleData* arg0, u8 arg1) {
             func_802D45C4(arg0->unkD4, arg0->unkDC);
         }
         if (arg1 != 6) {
-            arg0->unkD4->unk4 = arg0->unk0;
+            arg0->unkD4->unk4 = arg0->objId;
             arg0->unkD4->unk6 = arg0->unk2;
             arg0->unkD4->unk78 = arg0->unkEC;
             arg0->unkD4->unk7C = arg0->unkF0;
@@ -338,7 +338,7 @@ void birdMovementFrame(VehicleData* arg0, u8 arg1) {
             if (arg0->unk104 == 1) {
                 func_802D5884(arg0->unkD4, 6);
                 arg0->unk2 = 2;
-                uvDobjState(arg0->unk0, arg0->unk2);
+                uvDobjState(arg0->objId, arg0->unk2);
             } else {
                 func_802D5884(arg0->unkD4, arg0->unkD8);
             }
@@ -377,7 +377,7 @@ void birdMovementFrame(VehicleData* arg0, u8 arg1) {
     }
 }
 
-void bird_802CD0F8(VehicleData* arg0) {
+void bird_802CD0F8(BirdmanData* arg0) {
     f32 x;
     f32 y;
     f32 z;
@@ -410,7 +410,7 @@ void bird_802CD0F8(VehicleData* arg0) {
         if (func_802E0C30(sp37, sp3C) != 0) {
             arg0->unk15C = 1;
         }
-        uvDobjPosm(arg0->unk0, 0, &arg0->unk10);
+        uvDobjPosm(arg0->objId, 0, &arg0->unk10);
         uvMat4Copy(&arg0->unkD4->unk80, &arg0->unk10);
         if (arg0->unk15C != 0) {
             snd_play_sfx(0x1A);
@@ -420,11 +420,11 @@ void bird_802CD0F8(VehicleData* arg0) {
             z = arg0->unk10.m[3][2];
             func_802F8AB8(x, y, z, 1.0f, &arg0->unk218.x);
             arg0->unkD4->unk6 = arg0->unk2 = 0;
-            uvDobjState(arg0->unk0, arg0->unk2);
+            uvDobjState(arg0->objId, arg0->unk2);
             uvMat4Copy(&arg0->unkD4->unk80, &arg0->unk10);
         } else {
             arg0->unk2 = 2;
-            uvDobjState(arg0->unk0, arg0->unk2);
+            uvDobjState(arg0->objId, arg0->unk2);
         }
         arg0->unk290 = 1;
         bird_802CE0A4(arg0);
@@ -441,7 +441,7 @@ void bird_802CD0F8(VehicleData* arg0) {
 }
 
 // called during birdman init to setup pilot specific parameters
-void bird_802CD2E8(u8 pilot, VehicleData* arg1) {
+void bird_802CD2E8(u8 pilot, BirdmanData* arg1) {
     switch (pilot) {
     case PILOT_LARK:
         arg1->unk294.x = 0;
@@ -815,21 +815,21 @@ void bird_802CD2E8(u8 pilot, VehicleData* arg1) {
 }
 
 // called every frame during birdman
-void bird_802CE0A4(VehicleData* arg0) {
+void bird_802CE0A4(BirdmanData* arg0) {
     if (arg0->unk290 != 0) {
         arg0->unk2 &= 0xFFFB;
-        uvDobjProps(arg0->unk0, 4, arg0->unk3F7, 0);
+        uvDobjProps(arg0->objId, 4, arg0->unk3F7, 0);
         if (arg0->unk3F4 == 0x140) {
-            uvDobjProps(arg0->unk0, 4, 0x17, 0);
-            uvDobjProps(arg0->unk0, 4, 0x18, 0);
+            uvDobjProps(arg0->objId, 4, 0x17, 0);
+            uvDobjProps(arg0->objId, 4, 0x18, 0);
         }
     } else {
         arg0->unk2 |= 4;
-        uvDobjProps(arg0->unk0, 5, arg0->unk3F7, 0);
+        uvDobjProps(arg0->objId, 5, arg0->unk3F7, 0);
         if (arg0->unk3F4 == 0x140) {
-            uvDobjProps(arg0->unk0, 5, 0x17, 0);
-            uvDobjProps(arg0->unk0, 5, 0x18, 0);
+            uvDobjProps(arg0->objId, 5, 0x17, 0);
+            uvDobjProps(arg0->objId, 5, 0x18, 0);
         }
     }
-    uvDobjState(arg0->unk0, arg0->unk2);
+    uvDobjState(arg0->objId, arg0->unk2);
 }

@@ -673,7 +673,74 @@ f32 func_802DC1DC(Vec3F* arg0, Vec3F* arg1, Vec3F* arg2, f32 arg3, f32 arg4, f32
     return var_fv1;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_61A60/func_802DC380.s")
+void func_802DC380(s32 arg0, Mtx4F* arg1, Vec3F* arg2, Vec3F* arg3, Vec3F* arg4, Vec3F* arg5, Vec3F* arg6, Vec3F* arg7, Vec3F* arg8, f32 arg9, f32 arg10,
+                   f32 arg11, f32 arg12, f32 arg13, f32 arg14) {
+    Vec3F spFC;
+    s32 i;
+    s32 j;
+    Vec3F spDC[2];
+    Vec3F spC4[2];
+    Vec3F spAC[2];
+    f32 spA4[2];
+    f32 var_fs0;
+    f32 tmp;
+    f32 temp_fv0;
+    f32 sp88[2][2];
+    f32 sp80[2];
+
+    uvVec3Copy(&spDC[0], arg5);
+    uvVec3Copy(&spC4[0], arg7);
+    spA4[0] = arg9;
+    uvVec3Copy(&spDC[1], arg6);
+    uvVec3Copy(&spC4[1], arg8);
+    spA4[1] = arg10;
+    if (arg0 > 2) {
+        return;
+    }
+
+    for (i = 0; i < arg0; i++) {
+        uvVec3Cross(&spFC, arg4, &spC4[i]);
+        spFC.x += arg2->x;
+        spFC.y += arg2->y;
+        spFC.z += arg2->z;
+        var_fs0 = -uvVec3Dot(&spFC, &spDC[i]);
+        if (var_fs0 < 0.0) {
+            var_fs0 = 0.0f;
+        }
+        uvVec3Cross(&spAC[i], &spC4[i], &spDC[i]);
+        spAC[i].x *= arg12;
+        spAC[i].y *= arg13;
+        spAC[i].z *= arg14;
+        sp80[i] = (spA4[i] + 1.0f) * var_fs0;
+    }
+
+    for (i = 0; i < arg0; i++) {
+        for (j = 0; j < i; j++) {
+            uvVec3Cross(&spFC, &spAC[j], &spDC[i]);
+            var_fs0 = uvVec3Dot(&spDC[i], &spDC[j]);
+            sp88[j][i] = sp88[i][j] = uvVec3Dot(&spDC[i], &spFC) + (var_fs0 * arg11);
+        }
+        uvVec3Cross(&spFC, &spAC[i], &spC4[i]);
+        sp88[i][i] = uvVec3Dot(&spDC[i], &spFC) + arg11;
+    }
+
+    if (arg0 == 1) {
+        sp80[0] /= sp88[0][0];
+    } else {
+        temp_fv0 = ((sp88[0][0] * sp88[1][1]) - (sp88[0][1] * sp88[1][0]));
+        tmp = ((sp80[0] * sp88[1][1]) - (sp80[1] * sp88[0][1])) / temp_fv0;
+        sp80[1] = ((sp80[1] * sp88[0][0]) - (sp80[0] * sp88[1][0])) / temp_fv0;
+        sp80[0] = tmp;
+    }
+
+    for (i = 0; i < arg0; i++) {
+        uvVec3Mul(&spFC, &spDC[i], sp80[i] * arg11);
+        uvVec3Add(arg2, arg2, &spFC);
+        uvVec3Mul(&spFC, &spAC[i], sp80[i]);
+        uvVec3Add(arg4, arg4, &spFC);
+    }
+    uvMat4LocalToWorld(arg1, arg3, arg2);
+}
 
 void func_802DC784(Mtx4F* arg0, Vec3F* arg1, Vec3F* arg2, Vec3F* arg3, f32 arg4) {
     Vec3F sp24;
