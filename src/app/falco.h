@@ -9,6 +9,7 @@ void falcoInit(void);
 void falcoLoad(void);
 void falcoDeinit(void);
 void falcoFrameUpdate(void);
+s32 falco_802E51E8(s32, s32, f32, f32);
 s32 falco_802E57C4(void);
 s16 falco_802E5818(void);
 

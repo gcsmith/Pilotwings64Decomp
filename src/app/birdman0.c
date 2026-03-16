@@ -57,7 +57,7 @@ void bird_802CC270(u8 arg0, u8 pilot, BirdmanData* arg2, Unk802D3658_Arg0* arg3)
     uvDobjPosm(arg2->objId, 0, &arg2->unk10);
     uvDobjState(arg2->objId, arg2->unk2);
     uvMat4Copy(&arg2->unk50, &arg2->unk10);
-    func_80334454(0x13D, 0x13C);
+    func_80334454(MODEL_BIRDMAN_SHADOW_COLUMN, MODEL_BIRDMAN_SHADOW);
     func_803342F0(1.0f);
     func_803342FC(-2.0f);
     func_803343D8(1);
@@ -313,14 +313,14 @@ void birdMovementFrame(BirdmanData* arg0, u8 arg1) {
                 func_8033F758(0x6A, 1.0f, 0.5f, 0.0f);
                 arg0->unkD8 = 0;
                 arg0->unkDC = 1.0f;
-                func_80334454(0x13D, 0x13C);
+                func_80334454(MODEL_BIRDMAN_SHADOW_COLUMN, MODEL_BIRDMAN_SHADOW);
                 arg0->unk290 = 1;
                 bird_802CE0A4(arg0);
             } else {
                 func_8033F758(0x6A, 1.0f, 0.5f, 0.0f);
                 arg0->unkD8 = 1;
                 arg0->unkDC = 0.8f;
-                func_80334454(0x13D, 0x13C);
+                func_80334454(MODEL_BIRDMAN_SHADOW_COLUMN, MODEL_BIRDMAN_SHADOW);
                 arg0->unk290 = 0;
                 bird_802CE0A4(arg0);
             }

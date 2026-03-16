@@ -2,6 +2,7 @@
 #define UV_FX_H
 
 #include <PR/ultratypes.h>
+#include <uv_graphics.h>
 #include <uv_matrix.h>
 #include <uv_vector.h>
 
@@ -100,6 +101,7 @@ extern UnkFxStruct D_8028B400[120];
 
 void func_8021A038(UnkModelTrail* arg0);
 s32 func_8021A334(f32 arg0, f32 arg1, f32 arg2, f32 arg3, u16 arg4);
+void func_8021A4D8(s32 fxId, Mtx4F* arg1);
 void func_8021BE28(u16 fxId, Mtx4F* arg1);
 void func_8021EA38(UnkStruct_80204D94* arg0);
 void _uvFxDraw(u16 fxId, UnkStruct_80204D94* arg1);

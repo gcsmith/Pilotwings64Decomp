@@ -9,6 +9,7 @@
 #include "app/snd.h"
 #include "app/task.h"
 #include "app/code_5A6A0.h"
+#include "app/code_82B90.h"
 #include "app/code_9A960.h"
 #include "app/code_D1ED0.h"
 
@@ -36,18 +37,18 @@ void func_802F9F60(void) {
     D_80368B20.unk3C = 1.0f;
 }
 
-void func_802FA020(u8 arg0, u8 arg1, JumbleHopperData* arg2, Unk802D3658_Arg0* arg3) {
+void func_802FA020(u8 contIdx, u8 pilot, JumbleHopperData* arg2, Unk802D3658_Arg0* arg3) {
     uvMemSet(arg2, 0, sizeof(JumbleHopperData));
-    func_802FA7A0(arg1, arg2);
+    func_802FA7A0(pilot, arg2);
     arg2->objId = uvDobjAllocIdx();
     arg2->unk2 = 2;
     uvDobjModel(arg2->objId, arg2->modelId);
     uvDobjPosm(arg2->objId, 0, &arg2->unk74);
     uvDobjState(arg2->objId, arg2->unk2);
-    func_80334454(0xFFFF, 0x151);
+    func_80334454(MODEL_WORLD, MODEL_JUMBLEH_SHADOW);
     func_803342F0(0.0f);
     func_803342FC(0.0f);
-    arg2->unkC = arg0;
+    arg2->contIdx = contIdx;
     arg2->unk18 = arg3;
     arg2->unk65E[0] = 0;
     arg2->unk4 = 0xFFFF;
@@ -97,37 +98,37 @@ void jumbleHopperEnterLeave(JumbleHopperData* arg0) {
 
 void func_802FA290(JumbleHopperData* arg0) {
     uvDobjModel(arg0->objId, 0xFFFF);
-    arg0->unkC = 0xFFFF;
+    arg0->contIdx = 0xFFFF;
     arg0->objId = 0xFFFF;
     func_80334C70();
 }
 
 void jumbleHopperMovementFrame(JumbleHopperData* arg0, u8 arg1) {
-    f32 sp84;
-    f32 sp80;
+    f32 xAxisInputs;
+    f32 yAxisInputs;
     f32 var_fa0;
-    s32 sp78;
+    s32 buttons;
     HUDState* sp74;
     Mtx4F sp34;
 
     if (func_802E6B5C() != 4) {
         if (arg1 == 6) {
-            func_802E65AC(&arg0->unk74, &D_80362690->unk0[0].terraId, &sp84, &sp80, &sp78);
+            func_802E65AC(&arg0->unk74, &D_80362690->unk0[0].terraId, &xAxisInputs, &yAxisInputs, &buttons);
         } else {
-            sp84 = demoGetInputs(arg0->unkC, INPUT_AXIS_X);
-            sp80 = demoGetInputs(arg0->unkC, INPUT_AXIS_Y);
-            sp78 = demoGetButtons(arg0->unkC);
+            xAxisInputs = demoGetInputs(arg0->contIdx, INPUT_AXIS_X);
+            yAxisInputs = demoGetInputs(arg0->contIdx, INPUT_AXIS_Y);
+            buttons = demoGetButtons(arg0->contIdx);
         }
         arg0->unk8 += D_8034F854;
-        arg0->unk10 = func_80313F08(&D_80368B20, FABS(sp80));
-        if (sp80 < 0) {
+        arg0->unk10 = func_80313F08(&D_80368B20, FABS(yAxisInputs));
+        if (yAxisInputs < 0) {
             arg0->unk10 = -arg0->unk10;
         }
-        arg0->unk14 = func_80313F08(&D_80368B20, FABS(sp84));
-        if (sp84 < 0) {
+        arg0->unk14 = func_80313F08(&D_80368B20, FABS(xAxisInputs));
+        if (xAxisInputs < 0) {
             arg0->unk14 = -arg0->unk14;
         }
-        if ((sp78 & A_BUTTON) && ((arg0->unk50 == 0) || (arg0->unk19C != 0))) {
+        if ((buttons & A_BUTTON) && ((arg0->unk50 == 0) || (arg0->unk19C != 0))) {
             arg0->unk19C = 1;
         } else {
             arg0->unk19C = 0;
@@ -135,23 +136,23 @@ void jumbleHopperMovementFrame(JumbleHopperData* arg0, u8 arg1) {
         if (arg1 != 6) {
             func_80303028(arg0);
         }
-        if (sp78 & L_CBUTTONS) {
+        if (buttons & L_CBUTTONS) {
             var_fa0 = 1.5707963f;
-        } else if (sp78 & R_CBUTTONS) {
+        } else if (buttons & R_CBUTTONS) {
             var_fa0 = -1.5707963f;
         } else {
             var_fa0 = 0.0f;
         }
         arg0->unk3C = func_80313AF4(var_fa0, arg0->unk3C, 2.0f);
-        if (sp78 & 4) {
+        if (buttons & D_CBUTTONS) {
             var_fa0 = 1.5707963f;
-        } else if (sp78 & 8) {
+        } else if (buttons & U_CBUTTONS) {
             var_fa0 = -1.5707963f;
         } else {
             var_fa0 = 0.0f;
         }
         arg0->unk40 = func_80313AF4(var_fa0, arg0->unk40, 2.0f);
-        if (demoButtonPress(arg0->unkC, 0x10) != 0) {
+        if (demoButtonPress(arg0->contIdx, R_TRIG) != 0) {
             if ((arg0->unk44 == 9) && (arg0->unk18->unk137C == 0)) {
                 func_8033F758(0x6A, 1.0f, 0.5f, 0.0f);
                 arg0->unk44 = 9;
@@ -197,14 +198,14 @@ void jumbleHopperMovementFrame(JumbleHopperData* arg0, u8 arg1) {
             if (arg0->unk4C == 6) {
                 func_802E66DC();
             }
-            func_802E65AC(&arg0->unk74, &D_80362690->unk0[0].terraId, &sp84, &sp80, &sp78);
+            func_802E65AC(&arg0->unk74, &D_80362690->unk0[0].terraId, &xAxisInputs, &yAxisInputs, &buttons);
         }
     }
 }
 
-void func_802FA7A0(u8 arg0, JumbleHopperData* arg1) {
-    switch (arg0) {
-    case 0:
+void func_802FA7A0(u8 pilot, JumbleHopperData* arg1) {
+    switch (pilot) {
+    case PILOT_LARK:
         arg1->unk5E8.x = 0.0f, arg1->unk5E8.y = 0.0f, arg1->unk5E8.z = 0.7f;
         arg1->unk5F4.x = 0.0f, arg1->unk5F4.y = 0.0f, arg1->unk5F4.z = -0.745f;
         arg1->unk600.x = 0.0f, arg1->unk600.y = 0.45f, arg1->unk600.z = 0.0f;
@@ -217,7 +218,7 @@ void func_802FA7A0(u8 arg0, JumbleHopperData* arg1) {
         arg1->unk644 = 0.169f;
         arg1->unk648 = 0.2f;
         arg1->unk64C = 0.6f;
-        arg1->modelId = 0x150;
+        arg1->modelId = MODEL_JUMBLEH_LARK;
         arg1->unk65C = 7;
         arg1->unk65B = 1;
         arg1->unk650 = 5;
@@ -232,7 +233,7 @@ void func_802FA7A0(u8 arg0, JumbleHopperData* arg1) {
         arg1->unk659 = 13;
         arg1->unk65A = 2;
         break;
-    case 1:
+    case PILOT_GOOSE:
         arg1->unk5E8.x = 0.0f, arg1->unk5E8.y = 0.0f, arg1->unk5E8.z = 0.8f;
         arg1->unk5F4.x = 0.0f, arg1->unk5F4.y = 0.0f, arg1->unk5F4.z = -1.336f;
         arg1->unk600.x = 0.0f, arg1->unk600.y = 0.6f, arg1->unk600.z = 0.0f;
@@ -245,7 +246,7 @@ void func_802FA7A0(u8 arg0, JumbleHopperData* arg1) {
         arg1->unk644 = 0.476f;
         arg1->unk648 = 0.5f;
         arg1->unk64C = 0.6f;
-        arg1->modelId = 0x152;
+        arg1->modelId = MODEL_JUMBLEH_GOOSE;
         arg1->unk65C = 7;
         arg1->unk65B = 1;
         arg1->unk650 = 5;
@@ -260,7 +261,7 @@ void func_802FA7A0(u8 arg0, JumbleHopperData* arg1) {
         arg1->unk659 = 10;
         arg1->unk65A = 2;
         break;
-    case 2:
+    case PILOT_HAWK:
         arg1->unk5E8.x = 0.0f, arg1->unk5E8.y = 0.0f, arg1->unk5E8.z = 0.7f;
         arg1->unk5F4.x = 0.0f, arg1->unk5F4.y = 0.0f, arg1->unk5F4.z = -1.0f;
         arg1->unk600.x = 0.0f, arg1->unk600.y = 0.65f, arg1->unk600.z = 0.0f;
@@ -273,7 +274,7 @@ void func_802FA7A0(u8 arg0, JumbleHopperData* arg1) {
         arg1->unk644 = 0.378f;
         arg1->unk648 = 0.3f;
         arg1->unk64C = 0.6f;
-        arg1->modelId = 0x153;
+        arg1->modelId = MODEL_JUMBLEH_HAWK;
         arg1->unk65C = 7;
         arg1->unk65B = 1;
         arg1->unk650 = 3;
@@ -288,7 +289,7 @@ void func_802FA7A0(u8 arg0, JumbleHopperData* arg1) {
         arg1->unk659 = 13;
         arg1->unk65A = 2;
         break;
-    case 3:
+    case PILOT_KIWI:
         arg1->unk5E8.x = 0.0f, arg1->unk5E8.y = 0.0f, arg1->unk5E8.z = 0.7f;
         arg1->unk5F4.x = 0.0f, arg1->unk5F4.y = 0.0f, arg1->unk5F4.z = -1.0f;
         arg1->unk600.x = 0.0f, arg1->unk600.y = 0.45f, arg1->unk600.z = 0.0f;
@@ -301,7 +302,7 @@ void func_802FA7A0(u8 arg0, JumbleHopperData* arg1) {
         arg1->unk644 = 0.297f;
         arg1->unk648 = .3f;
         arg1->unk64C = 0.6f;
-        arg1->modelId = 0x154;
+        arg1->modelId = MODEL_JUMBLEH_KIWI;
         arg1->unk65C = 9;
         arg1->unk65B = 1;
         arg1->unk650 = 7;
@@ -316,7 +317,7 @@ void func_802FA7A0(u8 arg0, JumbleHopperData* arg1) {
         arg1->unk659 = 12;
         arg1->unk65A = 2;
         break;
-    case 4:
+    case PILOT_IBIS:
         arg1->unk5E8.x = 0.0f, arg1->unk5E8.y = 0.0f, arg1->unk5E8.z = 0.8f;
         arg1->unk5F4.x = .0f, arg1->unk5F4.y = 0.0f, arg1->unk5F4.z = -1.0f;
         arg1->unk600.x = 0.0f, arg1->unk600.y = 0.55f, arg1->unk600.z = 0.0f;
@@ -329,7 +330,7 @@ void func_802FA7A0(u8 arg0, JumbleHopperData* arg1) {
         arg1->unk644 = 0.427f;
         arg1->unk648 = .3f;
         arg1->unk64C = 0.6f;
-        arg1->modelId = 0x155;
+        arg1->modelId = MODEL_JUMBLEH_IBIS;
         arg1->unk65C = 7;
         arg1->unk65B = 1;
         arg1->unk650 = 3;
@@ -344,7 +345,7 @@ void func_802FA7A0(u8 arg0, JumbleHopperData* arg1) {
         arg1->unk659 = 10;
         arg1->unk65A = 2;
         break;
-    case 5:
+    case PILOT_ROBIN:
         arg1->unk5E8.x = 0.0f, arg1->unk5E8.y = 0.0f, arg1->unk5E8.z = 0.85f;
         arg1->unk5F4.x = 0.0f, arg1->unk5F4.y = 0.0f, arg1->unk5F4.z = -1.0f;
         arg1->unk600.x = 0.0f, arg1->unk600.y = 0.5f, arg1->unk600.z = 0.0f;
@@ -357,7 +358,7 @@ void func_802FA7A0(u8 arg0, JumbleHopperData* arg1) {
         arg1->unk644 = 0.28f;
         arg1->unk648 = .3f;
         arg1->unk64C = 0.6f;
-        arg1->modelId = 0x156;
+        arg1->modelId = MODEL_JUMBLEH_ROBIN;
         arg1->unk65C = 7;
         arg1->unk65B = 1;
         arg1->unk650 = 3;

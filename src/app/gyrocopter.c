@@ -200,9 +200,9 @@ void func_80303714(GyrocopterData* arg0) {
     arg0->unk340 = 0.0f;
     arg0->unk344 = 0.0f;
     arg0->unk348 = 1.0f;
-    arg0->unk100 = 0.0f;
-    arg0->unk104 = 0.0f;
-    arg0->unk108 = 1.0f;
+    arg0->unk100.x = 0.0f;
+    arg0->unk100.y = 0.0f;
+    arg0->unk100.z = 1.0f;
     arg0->unk358.x = 0.0f;
     arg0->unk358.y = 0.0f;
     arg0->unk358.z = -9.8f;
@@ -963,9 +963,9 @@ s32 func_80305DC0(GyrocopterData* arg0) {
             arg0->unkDC = var_fs0;
             arg0->unkF8 = sp2C0;
             arg0->unkFC = sp2F8;
-            arg0->unk100 = sp2E8.x;
-            arg0->unk104 = sp2E8.y;
-            arg0->unk108 = sp2E8.z;
+            arg0->unk100.x = sp2E8.x;
+            arg0->unk100.y = sp2E8.y;
+            arg0->unk100.z = sp2E8.z;
             arg0->unk10C = i;
             sp249 = temp_s0;
         }

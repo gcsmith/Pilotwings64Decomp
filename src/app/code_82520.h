@@ -7,7 +7,7 @@
 
 typedef struct {
     LevelHOPD* unk0;
-    u16 unk4;
+    u16 objId;
     u8 unk6;
     u8 unk7;
     s32 unk8;

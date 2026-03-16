@@ -1,4 +1,5 @@
 #include "common.h"
+#include "code_82B90.h"
 #include <uv_dobj.h>
 #include <uv_janim.h>
 #include <uv_math.h>
@@ -27,8 +28,6 @@ Unk802D3658_Unk111C D_80368D08;
 Unk802D3658_Unk111C D_80368E10;
 Unk802D3658_Unk1224 D_80368F18;
 u8 D_8036905C[5];
-
-void func_802FD114(JumbleHopperData* arg0);
 
 f32 func_802FB660(JumbleHopperData* arg0) {
     f32 sp34;
@@ -607,18 +606,18 @@ void func_802FD114(JumbleHopperData* arg0) {
 
     var_v1 = &D_80362690->unk0[D_80362690->unk9C].unkC;
     switch (var_v1->pilot) {
-    case 0:
-    case 3:
+    case PILOT_LARK:
+    case PILOT_KIWI:
         arg0->unk190 = 0.7f;
         arg0->unk194 = 0.9f;
         break;
-    case 1:
-    case 4:
+    case PILOT_GOOSE:
+    case PILOT_IBIS:
         arg0->unk190 = 1.4f;
         arg0->unk194 = 1.2f;
         break;
-    case 2:
-    case 5:
+    case PILOT_HAWK:
+    case PILOT_ROBIN:
         arg0->unk190 = 1.0f;
         arg0->unk194 = 1.0f;
         break;

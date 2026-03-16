@@ -11,7 +11,7 @@ typedef struct JumbleHopperData {
     u16 unk4;
     u8 pad6[0x2];
     f32 unk8;
-    u16 unkC;
+    u16 contIdx;
     u8 padE[0x2];
     f32 unk10;
     f32 unk14;
