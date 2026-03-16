@@ -494,19 +494,19 @@ void gyrocopterMovementFrame(GyrocopterData* arg0, u8 arg1) {
                 hudWarningText(0x148, 1.5f, 8.0f);
                 snd_play_sfx(0x69);
             } else {
-                if ((arg0->fuel <= 0.0f) && (arg0->unkD3 == 0)) {
+                if ((arg0->fuel <= 0.0f) && !arg0->fuelEmpty) {
                     hudWarningText(0x4A, 1.5f, 8.0f);
-                    arg0->unkD3 = 1;
-                } else if ((arg0->fuel < 0.15f) && (arg0->unkD2 == 0)) {
+                    arg0->fuelEmpty = TRUE;
+                } else if ((arg0->fuel < 0.15f) && !arg0->hasLowFuel) {
                     hudWarningText(0x17B, 1.5f, 8.0f);
-                    arg0->unkD2 = 1;
-                } else if ((func_8032C080(NULL) != 0) && (arg0->unkD4 == 0)) {
+                    arg0->hasLowFuel = TRUE;
+                } else if ((func_8032C080(NULL) != 0) && !arg0->pleaseLandShown) {
                     snd_play_sfx(5);
                     hudText_8031D8E0(0x1AA, 1.5f, 8.0f);
-                    arg0->unkD4 = 1;
-                } else if ((taskGet_80346468() != 0) && (arg0->unkD5 == 0)) {
+                    arg0->pleaseLandShown = TRUE;
+                } else if ((taskGet_80346468() != 0) && !arg0->unkD5) {
                     hudText_8031D8E0(0x15D, 1.5f, 8.0f);
-                    arg0->unkD5 = 1;
+                    arg0->unkD5 = TRUE;
                 }
             }
         }

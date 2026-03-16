@@ -82,9 +82,9 @@ typedef struct GyrocopterData {
     Vec3F unkC4;
     u8 unkD0;
     u8 usingFuel;
-    u8 unkD2;
-    u8 unkD3;
-    u8 unkD4;
+    u8 hasLowFuel;
+    u8 fuelEmpty;
+    u8 pleaseLandShown;
     u8 unkD5;
     u8 padD6[0x2];
     f32 fuel;

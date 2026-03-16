@@ -97,11 +97,11 @@ void hsound_callback(s32 eventType, void* arg1, s32 eventData) {
         if (gyrocopterData->unk678 & 1) {
             break;
         }
-        if ((gyrocopterData->unkD2 != 0) && (hudGet_8031DA9C() == 0x17B) && (gyrocopterData->unk684 < D_8034F850)) {
+        if (gyrocopterData->hasLowFuel && (hudGet_8031DA9C() == 0x17B) && (gyrocopterData->unk684 < D_8034F850)) {
             gyrocopterData->unk684 = D_8034F850 + 0.2f;
             func_8033F758(0x6C, 0.8f, 0.707f, 0.0f);
         }
-        if ((gyrocopterData->unkD2 != 0) && (hudGet_8031DA9C() == 0x4A) && (gyrocopterData->unk688 < D_8034F850)) {
+        if (gyrocopterData->hasLowFuel && (hudGet_8031DA9C() == 0x4A) && (gyrocopterData->unk688 < D_8034F850)) {
             gyrocopterData->unk688 = D_8034F850 + 0.2f;
             func_8033F758(0x6C, 0.8f, 0.707f, 0.0f);
         }

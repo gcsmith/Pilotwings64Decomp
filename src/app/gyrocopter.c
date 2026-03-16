@@ -231,7 +231,7 @@ void func_80303714(GyrocopterData* arg0) {
     arg0->unk70 = 0.0f;
     arg0->unk90 = 0.0f;
     arg0->unk8C = 4.0f;
-    arg0->unkD3 = 0;
+    arg0->fuelEmpty = FALSE;
     arg0->unk6C = 0;
     arg0->unk6E = 0;
     arg0->unk98 = 0xFF;
@@ -1448,8 +1448,8 @@ void func_80307EA8(GyrocopterData* arg0) {
                 snd_play_sfx(0x6D);
             }
             hudWarningText(-1, 0.0f, 0.0f);
-            arg0->unkD2 = 0;
-            arg0->unkD3 = 0;
+            arg0->hasLowFuel = FALSE;
+            arg0->fuelEmpty = FALSE;
             arg0->fuel = 1.0f;
         } else {
             arg0->unk67E = 0;
