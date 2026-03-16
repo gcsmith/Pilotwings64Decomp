@@ -8,7 +8,7 @@
 #include "code_5A6A0.h"
 #include "code_66160.h"
 #include "code_72B70.h"
-#include "code_7FED0.h"
+#include "code_7FE00.h"
 #include "code_9A960.h"
 #include "demo.h"
 #include "fdr.h"
@@ -23,7 +23,7 @@ extern u8 D_803593E4;
 
 // forward declarations
 void bird_802CD0F8(BirdmanData*);
-void bird_802CD2E8(u8, BirdmanData*);
+void birdLoadPilot(u8, BirdmanData*);
 void bird_802CE0A4(BirdmanData*);
 
 // called during game boot
@@ -50,7 +50,7 @@ void bird_802CC1B0(void) {
 // called when starting one of the birdman levels, either from bonus menu or bonus star
 void bird_802CC270(u8 arg0, u8 pilot, BirdmanData* arg2, Unk802D3658_Arg0* arg3) {
     uvMemSet(arg2, 0, sizeof(BirdmanData));
-    bird_802CD2E8(pilot, arg2);
+    birdLoadPilot(pilot, arg2);
     arg2->objId = uvDobjAllocIdx();
     arg2->unk2 = 2;
     uvDobjModel(arg2->objId, arg2->unk3F4);
@@ -441,13 +441,13 @@ void bird_802CD0F8(BirdmanData* arg0) {
 }
 
 // called during birdman init to setup pilot specific parameters
-void bird_802CD2E8(u8 pilot, BirdmanData* arg1) {
+void birdLoadPilot(u8 pilot, BirdmanData* arg1) {
     switch (pilot) {
     case PILOT_LARK:
         arg1->unk294.x = 0;
         arg1->unk294.y = -0.1625f;
         arg1->unk294.z = 0.2869f;
-        arg1->unk3F4 = 0x13B;
+        arg1->unk3F4 = MODEL_BIRDMAN_LARK;
         arg1->unk3F7 = 0x16;
         arg1->unk3F6 = 1;
         arg1->unk3F8 = 2;
@@ -508,7 +508,7 @@ void bird_802CD2E8(u8 pilot, BirdmanData* arg1) {
         arg1->unk294.x = 0;
         arg1->unk294.y = -0.0994f;
         arg1->unk294.z = 0.2577f;
-        arg1->unk3F4 = 0x13E;
+        arg1->unk3F4 = MODEL_BIRDMAN_GOOSE;
         arg1->unk3F7 = 0x16;
         arg1->unk3F6 = 1;
         arg1->unk3F8 = 2;
@@ -569,7 +569,7 @@ void bird_802CD2E8(u8 pilot, BirdmanData* arg1) {
         arg1->unk294.x = 0;
         arg1->unk294.y = -0.07084f;
         arg1->unk294.z = 0.57865f;
-        arg1->unk3F4 = 0x13F;
+        arg1->unk3F4 = MODEL_BIRDMAN_HAWK;
         arg1->unk3F7 = 0x16;
         arg1->unk3F6 = 1;
         arg1->unk3F8 = 2;
@@ -630,7 +630,7 @@ void bird_802CD2E8(u8 pilot, BirdmanData* arg1) {
         arg1->unk294.x = 0;
         arg1->unk294.y = 0.0015f;
         arg1->unk294.z = 0.1942f;
-        arg1->unk3F4 = 0x140;
+        arg1->unk3F4 = MODEL_BIRDMAN_KIWI;
         arg1->unk3F7 = 0x16;
         arg1->unk3F6 = 1;
         arg1->unk3F8 = 2;
@@ -691,7 +691,7 @@ void bird_802CD2E8(u8 pilot, BirdmanData* arg1) {
         arg1->unk294.x = 0;
         arg1->unk294.y = 0.0024f;
         arg1->unk294.z = 0.3577f;
-        arg1->unk3F4 = 0x141;
+        arg1->unk3F4 = MODEL_BIRDMAN_IBIS;
         arg1->unk3F7 = 0x16;
         arg1->unk3F6 = 1;
         arg1->unk3F8 = 2;
@@ -752,7 +752,7 @@ void bird_802CD2E8(u8 pilot, BirdmanData* arg1) {
         arg1->unk294.x = 0;
         arg1->unk294.y = -0.0991f;
         arg1->unk294.z = 0.4056f;
-        arg1->unk3F4 = 0x142;
+        arg1->unk3F4 = MODEL_BIRDMAN_ROBIN;
         arg1->unk3F7 = 0x16;
         arg1->unk3F6 = 1;
         arg1->unk3F8 = 2;
@@ -817,16 +817,16 @@ void bird_802CD2E8(u8 pilot, BirdmanData* arg1) {
 // called every frame during birdman
 void bird_802CE0A4(BirdmanData* arg0) {
     if (arg0->unk290 != 0) {
-        arg0->unk2 &= 0xFFFB;
+        arg0->unk2 &= ~4;
         uvDobjProps(arg0->objId, 4, arg0->unk3F7, 0);
-        if (arg0->unk3F4 == 0x140) {
+        if (arg0->unk3F4 == MODEL_BIRDMAN_KIWI) {
             uvDobjProps(arg0->objId, 4, 0x17, 0);
             uvDobjProps(arg0->objId, 4, 0x18, 0);
         }
     } else {
         arg0->unk2 |= 4;
         uvDobjProps(arg0->objId, 5, arg0->unk3F7, 0);
-        if (arg0->unk3F4 == 0x140) {
+        if (arg0->unk3F4 == MODEL_BIRDMAN_KIWI) {
             uvDobjProps(arg0->objId, 5, 0x17, 0);
             uvDobjProps(arg0->objId, 5, 0x18, 0);
         }

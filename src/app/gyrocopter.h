@@ -18,7 +18,7 @@ typedef struct GyrocopterData_Unk3B0 {
     f32 unk54;
 } GyrocopterData_Unk3B0;
 
-typedef struct GyrocopterData_Unk688 {
+typedef struct GyrocopterData_Unk690 {
     Mtx4F unk0;
     f32 unk40;
     f32 unk44;
@@ -26,8 +26,10 @@ typedef struct GyrocopterData_Unk688 {
     u8 unk4C;
     u8 unk4D;
     u8 unk4E;
-    u8 pad4F[0x5];
-} GyrocopterData_Unk688;
+    u8 unk4F;
+    u8 unk50;
+    u8 pad51[0x3];
+} GyrocopterData_Unk690;
 
 typedef struct GyrocopterData {
     u16 objId;
@@ -35,7 +37,7 @@ typedef struct GyrocopterData {
     u8 pad3[0x1];
     u16 unk4;
     u8 pad6[0x2];
-    f32 unk8;
+    f32 elapsedTime;
     u16 contIdx;
     u8 padE[0x2];
     Mtx4F unk10;
@@ -46,8 +48,8 @@ typedef struct GyrocopterData {
     u8 unk5D;
     u8 unk5E;
     u8 unk5F;
-    f32 unk60;
-    f32 unk64;
+    f32 reticleX;
+    f32 reticleY;
     f32 unk68;
     u8 unk6C;
     u8 unk6D;
@@ -79,16 +81,16 @@ typedef struct GyrocopterData {
     u8 padC2[0x2];
     Vec3F unkC4;
     u8 unkD0;
-    u8 unkD1;
+    u8 usingFuel;
     u8 unkD2;
     u8 unkD3;
     u8 unkD4;
     u8 unkD5;
     u8 padD6[0x2];
-    f32 unkD8;
+    f32 fuel;
     f32 unkDC;
     f32 unkE0;
-    u8 padE4[0x4];
+    f32 unkE4;
     f32 unkE8;
     f32 unkEC;
     f32 unkF0;
@@ -151,18 +153,44 @@ typedef struct GyrocopterData {
     u8 pad549[0x3];
     Vec3F unk54C[2];
     f32 unk564[2];
-    u16 unk56C;
-    u16 unk56E;
-    u8 pad570[0x24];
+    u16 modelId;
+    u16 crashModelId;
+    u8 unk570;
+    u8 unk571;
+    u8 unk572;
+    u8 unk573;
+    u8 unk574;
+    u8 pad575[0x3];
+    f32 unk578;
+    f32 unk57C;
+    f32 unk580;
+    f32 unk584;
+    f32 unk588;
+    f32 unk58C;
+    u8 unk590;
+    u8 unk591;
+    u8 unk592;
+    u8 unk593[0x1];
     f32 unk594;
-    u8 pad598[0x4];
+    f32 unk598;
     Vec3F unk59C;
-    u8 pad5A8[0x14];
+    f32 unk5A8;
+    f32 unk5AC;
+    f32 unk5B0;
+    f32 unk5B4;
+    f32 unk5B8;
     Vec3F unk5BC;
     Vec3F unk5C8;
-    u8 pad5D4[0x18];
+    f32 unk5D4;
+    f32 unk5D8;
+    f32 unk5DC;
+    f32 unk5E0;
+    f32 unk5E4;
+    f32 unk5E8;
     Vec3F unk5EC[4];
-    u8 pad61C[0xC];
+    f32 unk61C;
+    f32 unk620;
+    f32 unk624;
     f32 unk628;
     f32 unk62C;
     f32 unk630;
@@ -177,19 +205,34 @@ typedef struct GyrocopterData {
     f32 unk654;
     f32 unk658;
     f32 unk65C;
-    u8 pad660[0x3];
+    u8 unk660;
+    u8 unk661;
+    u8 unk662;
     u8 unk663;
     f32 unk664;
     Vec3F unk668;
     s32 unk674;
-    u8 pad678[0x6];
+    u8 unk678;
+    u8 unk679;
+    u8 unk67A;
+    u8 unk67B;
+    u8 unk67C;
+    u8 unk67D;
     u8 unk67E;
-    u8 pad67F[0x11];
-    GyrocopterData_Unk688 unk688[2];
+    u8 pad67F[0x1];
+    f32 unk680;
+    f32 unk684;
+    f32 unk688;
+    f32 unk68C;
+    GyrocopterData_Unk690 unk690[2];
     f32 unk738;
 } GyrocopterData;
 
 void gyrocopterEnterLeave(GyrocopterData*);
 void gyrocopterMovementFrame(GyrocopterData*, u8);
+
+void func_80303230(GyrocopterData*);
+void func_80303714(GyrocopterData*);
+void func_8030399C(GyrocopterData*);
 
 #endif // APP_GYROCOPTER_H

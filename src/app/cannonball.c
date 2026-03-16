@@ -17,7 +17,7 @@
 #include "code_69BF0.h"
 #include "code_72010.h"
 #include "code_72B70.h"
-#include "code_7FED0.h"
+#include "code_7FE00.h"
 #include "code_9A960.h"
 #include "code_B2900.h"
 #include "code_D2B10.h"
@@ -99,7 +99,7 @@ void cannonLevelEnterLeave(CannonballData* arg0) {
     f32 sp40;
 
     if (arg0->unkE == 0) {
-        db_getstart(&arg0->unk58, &arg0->unk1B8, 0, 0);
+        db_getstart(&arg0->unk58, &arg0->unk1B8, NULL, NULL);
         uvDobjPosm(arg0->unk54, 0, &arg0->unk58);
         func_80313570(&arg0->unk58, &sp54, &sp50, &sp4C, &sp48, &sp44, &sp40);
         arg0->unk98 = sp48;
@@ -348,8 +348,7 @@ void cannonMovementFrame(CannonballData* arg0, u8 arg1) {
                 hud->renderFlags &= ~HUD_RENDER_RETICLE;
             }
         }
-        hud->unkC70 = 0.0f;
-        hud->unkC6C = 0.0f;
+        hud->reticleX = hud->reticleY = 0.0f;
         hud->unkC74 = 0;
     }
 }

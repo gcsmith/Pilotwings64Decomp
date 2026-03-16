@@ -19,7 +19,6 @@ void func_803342FC(f32 arg0) {
 }
 
 void func_80334308(u16 modelId) {
-    
     if (D_8035046C == modelId) {
         return;
     }

@@ -18,7 +18,6 @@
 #include "app/code_9A960.h"
 #include "app/code_B2900.h"
 
-void func_80303714(GyrocopterData*);
 void func_80304738(GyrocopterData*);
 void func_80304B98(GyrocopterData*);
 void func_80305BE8(GyrocopterData*);
@@ -427,7 +426,7 @@ void func_8030399C(GyrocopterData* arg0) {
     }
     arg0->unk1A8 = uvVec3Len(&arg0->unk19C);
     arg0->unk1C4 = uvVec3Len(&arg0->unk1B8);
-    if ((arg0->unk1A8 < 0.1f) || ((arg0->unkC0 == 1) && (arg0->unkD8 == 0.0f) && (arg0->unk190.y < 0.1f))) {
+    if ((arg0->unk1A8 < 0.1f) || ((arg0->unkC0 == 1) && (arg0->fuel == 0.0f) && (arg0->unk190.y < 0.1f))) {
         arg0->unkC0 = 4;
         if (arg0->unk6C == 0) {
             arg0->unk4 = D_8036957C;
@@ -1451,20 +1450,20 @@ void func_80307EA8(GyrocopterData* arg0) {
             hudWarningText(-1, 0.0f, 0.0f);
             arg0->unkD2 = 0;
             arg0->unkD3 = 0;
-            arg0->unkD8 = 1.0f;
+            arg0->fuel = 1.0f;
         } else {
             arg0->unk67E = 0;
         }
     }
-    if ((arg0->unkD8 > 0.0f) && (arg0->unkD1 != 0)) {
-        arg0->unkD8 -= func_80313F08(&D_803694D0, arg0->unkB4) * D_8034F854;
-        if (arg0->unkD8 <= 0.0f) {
-            arg0->unkD1 = 0;
+    if ((arg0->fuel > 0.0f) && arg0->usingFuel) {
+        arg0->fuel -= func_80313F08(&D_803694D0, arg0->unkB4) * D_8034F854;
+        if (arg0->fuel <= 0.0f) {
+            arg0->usingFuel = FALSE;
         }
-        if (arg0->unkD8 < 0.0f) {
-            arg0->unkD8 = 0.0f;
-        } else if (arg0->unkD8 > 1.0f) {
-            arg0->unkD8 = 1.0f;
+        if (arg0->fuel < 0.0f) {
+            arg0->fuel = 0.0f;
+        } else if (arg0->fuel > 1.0f) {
+            arg0->fuel = 1.0f;
         }
     }
 
@@ -1476,7 +1475,7 @@ void func_80307EA8(GyrocopterData* arg0) {
     } else {
         spD8 = 1.0f;
     }
-    if (arg0->unkD1 != 0) {
+    if (arg0->usingFuel) {
         temp_fv0 = func_80313F08(&D_803692C0, -arg0->unk364.y);
         spDC.x = 0.0f;
         spDC.y = arg0->unkB4 * 0.24f * spD8 * 35.0f;
@@ -1494,7 +1493,7 @@ void func_80307EA8(GyrocopterData* arg0) {
         arg0->unk334.y += spDC.y;
         arg0->unk334.z += spDC.z;
     }
-    if (arg0->unkD1 != 0) {
+    if (arg0->usingFuel) {
         arg0->unkF0 = func_80313AF4((arg0->unkB4 * 94.24764f) + 10.47196f, arg0->unkF0, 1.0f);
         if (arg0->unk98 == 0xFF) {
             spC8.x = -0.707f;
@@ -1526,7 +1525,7 @@ void func_80308478(GyrocopterData* arg0) {
         func_802E1754(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2], &sp38);
         uvMat4LocalToWorld(&arg0->unk110, &sp44, &sp38);
         if ((uvVec3Len(&sp38) == 0.0f) && (arg0->unkB4 == 0.5) && (ABS_NOEQ(arg0->unk1FC) < 0.001f) && (ABS_NOEQ(arg0->unk200) < 0.001f) &&
-            (ABS_NOEQ(arg0->unk1F0) < 0.001f) && (ABS_NOEQ(arg0->unk1F4) < 0.001f) && (arg0->unkA0 == 0.0f) && (arg0->unk9C == 0.0f) && (arg0->unkD8 > 0.0f)) {
+            (ABS_NOEQ(arg0->unk1F0) < 0.001f) && (ABS_NOEQ(arg0->unk1F4) < 0.001f) && (arg0->unkA0 == 0.0f) && (arg0->unk9C == 0.0f) && (arg0->fuel > 0.0f)) {
             if (arg0->unk7C == 0) {
                 arg0->unk7C = 1;
             }

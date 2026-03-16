@@ -126,8 +126,8 @@ void hudInit(void) {
     gHudState.unkC54 = 0.0f;
     gHudState.unkC58 = -1.0f;
     gHudState.unkC68 = -100.0f;
-    gHudState.unkC6C = 0.0f;
-    gHudState.unkC70 = 0.0f;
+    gHudState.reticleX = 0.0f;
+    gHudState.reticleY = 0.0f;
     hud_8031A378();
     uvSprtProps(0, 3, 1, 1, 16, 8, 5, 0x11D, 0);
     uvSprtProps(1, 3, 1, 1, 32, 32, 5, 0x126, 0);
@@ -339,7 +339,7 @@ void hudDrawGyrocopter(HUDState* hud) {
     hudDrawThrottle(27, 82, hud->power);
     hudDrawTimer(27, 222, hud->elapsedTime);
     if (hud->renderFlags & HUD_RENDER_RETICLE) {
-        hudDrawAimReticle((s32)hud->unkC6C, (s32)hud->unkC70, 0);
+        hudDrawAimReticle((s32)hud->reticleX, (s32)hud->reticleY, 0);
     }
 }
 

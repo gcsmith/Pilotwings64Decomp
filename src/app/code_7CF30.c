@@ -12,17 +12,20 @@
 #include "app/hsound.h"
 #include "app/hud.h"
 #include "app/shadow.h"
+#include "app/smoke.h"
 #include "app/snd.h"
+#include "app/targets.h"
 #include "app/toys.h"
 #include "app/code_66160.h"
-#include "app/code_7FED0.h"
+#include "app/code_7C4C0.h"
+#include "app/code_7FE00.h"
 #include "app/code_9A960.h"
 #include "app/code_B2900.h"
 
 s32 D_8034F380 = 0;
 s32 D_8034F384 = 0;
 
-extern Unk803599D0 D_80368880;
+Unk803599D0 D_80368880;
 
 void func_802F7224(GyrocopterData* arg0);
 void func_802F6DC8(GyrocopterData* arg0, u8 arg1);
@@ -30,6 +33,7 @@ s32 func_802F6E74(GyrocopterData* arg0);
 s32 func_802F6EE0(GyrocopterData* arg0);
 void func_802F7178(GyrocopterData* arg0, Mtx4F* arg1);
 void func_802F764C(GyrocopterData* arg0);
+void gyrocopterLoadPilot(u8 pilot, GyrocopterData* arg1);
 
 void func_802F5A00(void) {
     func_802F4F90();
@@ -53,14 +57,13 @@ void func_802F5A00(void) {
 }
 
 void func_802F5AE0(u8 contIdx, u8 pilot, GyrocopterData* arg2, Unk802D3658_Arg0* arg3) {
-
     uvMemSet(arg2, 0, sizeof(GyrocopterData));
-    func_802F7854(pilot, arg2);
+    gyrocopterLoadPilot(pilot, arg2);
     arg2->objId = uvDobjAllocIdx();
     arg2->unk2 = 2;
     arg2->unk5D = 1;
     arg2->unk4 = 0;
-    uvDobjModel(arg2->objId, arg2->unk56C);
+    uvDobjModel(arg2->objId, arg2->modelId);
     uvDobjPosm(arg2->objId, 0, &arg2->unk10);
     uvDobjState(arg2->objId, arg2->unk2);
     func_80334454(MODEL_GYRO_SHADOW_COLUMN, MODEL_GYRO_SHADOW);
@@ -74,10 +77,10 @@ void func_802F5AE0(u8 contIdx, u8 pilot, GyrocopterData* arg2, Unk802D3658_Arg0*
     arg2->unk58 = arg3;
     arg2->unk5E = 0;
     arg2->unk5F = 1;
-    arg2->unkD1 = 0;
+    arg2->usingFuel = FALSE;
     arg2->unk738 = 0.0f;
-    arg2->unk60 = 0.0f;
-    arg2->unk64 = 0.0f;
+    arg2->reticleX = 0.0f;
+    arg2->reticleY = 0.0f;
     D_8034F380 = 0;
 }
 
@@ -96,7 +99,7 @@ void gyrocopterEnterLeave(GyrocopterData* arg0) {
     f32 temp_fv1;
     f32 temp_fa0;
 
-    db_getstart(&arg0->unk10, &arg0->unk190, &sp5F, &arg0->unkD8);
+    db_getstart(&arg0->unk10, &arg0->unk190, &sp5F, &arg0->fuel);
     if (sp5F != 0) {
         arg0->unkC0 = 0;
         arg0->unkB4 = 0.5f;
@@ -135,23 +138,23 @@ void gyrocopterEnterLeave(GyrocopterData* arg0) {
         arg0->unk5F = 1;
     }
     arg0->unk2 = 2;
-    uvDobjModel(arg0->objId, arg0->unk56C);
+    uvDobjModel(arg0->objId, arg0->modelId);
     uvDobjPosm(arg0->objId, 0, &arg0->unk10);
     uvDobjState(arg0->objId, arg0->unk2);
     arg0->unkB0 = 0.0f;
     arg0->unkAC = 0.0f;
     arg0->unkB4 = 0.0f;
     arg0->unk5E = 0;
-    arg0->unk60 = 0.0f;
-    arg0->unk64 = 0.0f;
+    arg0->reticleX = 0.0f;
+    arg0->reticleY = 0.0f;
     arg0->unk663 = 0;
     arg0->unk664 = 0.0f;
     arg0->unk5D = 1;
-    arg0->unk8 = 0.0f;
+    arg0->elapsedTime = 0.0f;
 
-    for (i = 0; i < 2; i++) {
-        arg0->unk688[i].unk48 = 0;
-        arg0->unk688[i].unk44 = 0.0f;
+    for (i = 0; i < ARRAY_COUNT(arg0->unk690); i++) {
+        arg0->unk690[i].unk48 = 0;
+        arg0->unk690[i].unk44 = 0.0f;
     }
     func_80303714(arg0);
     arg0->unk5C = 0;
@@ -172,12 +175,12 @@ void gyrocopterEnterLeave(GyrocopterData* arg0) {
     arg0->unk58->unk54 = 1.8f;
     arg0->unk58->unk58 = 7.9f;
     arg0->unk58->unk228 = 0.0f;
-    uvModelGetProps(arg0->unk56C, 1, &arg0->unk58->unk8, 0);
+    uvModelGetProps(arg0->modelId, 1, &arg0->unk58->unk8, 0);
     func_802D45C4(arg0->unk58, arg0->unk68);
 }
 
 void func_802F5F80(GyrocopterData* arg0) {
-    GyrocopterData_Unk688* var_s0;
+    GyrocopterData_Unk690* var_s0;
     s32 i;
 
     uvDobjModel(arg0->objId, MODEL_WORLD);
@@ -185,8 +188,8 @@ void func_802F5F80(GyrocopterData* arg0) {
     arg0->objId = 0xFFFF;
     func_802F5304(arg0);
 
-    for (i = 0; i < 2; i++) {
-        var_s0 = &arg0->unk688[i];
+    for (i = 0; i < ARRAY_COUNT(arg0->unk690); i++) {
+        var_s0 = &arg0->unk690[i];
         if (var_s0->unk4E != 0xFF) {
             uvModelGet(var_s0->unk4E, 0xFF);
         }
@@ -228,8 +231,8 @@ void gyrocopterMovementFrame(GyrocopterData* arg0, u8 arg1) {
             buttons = demoGetButtons(arg0->contIdx);
         }
 
-        if ((arg0->unk8 > 0.0f) || (buttons & A_BUTTON)) {
-            arg0->unk8 += D_8034F854;
+        if ((arg0->elapsedTime > 0.0f) || (buttons & A_BUTTON)) {
+            arg0->elapsedTime += D_8034F854;
         }
 
         arg0->unk9C = func_80313F08(&D_80368880, ABS_NOEQ(xAxisInput));
@@ -253,8 +256,8 @@ void gyrocopterMovementFrame(GyrocopterData* arg0, u8 arg1) {
         case 0:
             if (buttons & A_BUTTON) {
                 arg0->unkB0 += arg0->unk654 * D_8034F854;
-                if (arg0->unkD1 == 0) {
-                    arg0->unkD1 = 1;
+                if (!arg0->usingFuel) {
+                    arg0->usingFuel = TRUE;
                 }
             }
             if (buttons & B_BUTTON) {
@@ -270,7 +273,7 @@ void gyrocopterMovementFrame(GyrocopterData* arg0, u8 arg1) {
                 arg0->unkB0 = 1.0f;
             }
             arg0->unk9C = 0.0f;
-            if (arg0->unkD8 <= 0.0f) {
+            if (arg0->fuel <= 0.0f) {
                 arg0->unk5F = 2;
             }
             break;
@@ -278,12 +281,12 @@ void gyrocopterMovementFrame(GyrocopterData* arg0, u8 arg1) {
         case 2:
             if ((arg0->unk5F == 2) && (arg0->unkB0 == 0.0f) && (arg0->unk1A8 < 0.1f)) {
                 arg0->unkB0 = 0.0f;
-                arg0->unkD1 = 0;
+                arg0->usingFuel = FALSE;
             } else {
                 if (buttons & A_BUTTON) {
                     arg0->unkB0 += arg0->unk648 * D_8034F854;
-                    if ((arg0->unkD1 == 0) && (arg0->unkD8 > 0.0f)) {
-                        arg0->unkD1 = 1;
+                    if (!arg0->usingFuel && (arg0->fuel > 0.0f)) {
+                        arg0->usingFuel = TRUE;
                     }
                 }
                 if (buttons & B_BUTTON) {
@@ -432,7 +435,7 @@ void gyrocopterMovementFrame(GyrocopterData* arg0, u8 arg1) {
             func_802D5884(arg0->unk58, 5);
         }
         if (D_80362690->unk0[D_80362690->unk9C].unkC.unk7B != 0) {
-            arg0->unkD8 = 1.0f;
+            arg0->fuel = 1.0f;
         }
         if ((arg0->unk5C == 1) && (arg0->unkC0 != 2) && (arg1 != 6)) {
             arg0->unk5D = 0;
@@ -457,18 +460,18 @@ void gyrocopterMovementFrame(GyrocopterData* arg0, u8 arg1) {
             uvMat4Copy(&arg0->unk58->unk80, &arg0->unk10);
             sp74 = hudGetState();
             uvMat4Copy(&sp74->unk28, &arg0->unk10);
-            sp74->renderFlags = 8;
+            sp74->renderFlags = HUD_RENDER_GYROCOPTER;
             if (arg0->unk5E != 0) {
-                sp74->renderFlags |= 0x200;
+                sp74->renderFlags |= HUD_RENDER_RETICLE;
             } else {
-                if (sp74->renderFlags & 0x200) {
-                    sp74->renderFlags &= ~0x200;
+                if (sp74->renderFlags & HUD_RENDER_RETICLE) {
+                    sp74->renderFlags &= ~HUD_RENDER_RETICLE;
                 }
             }
-            sp74->unkC6C = arg0->unk60;
-            sp74->unkC70 = arg0->unk64;
-            sp74->elapsedTime = arg0->unk8;
-            sp74->fuel = arg0->unkD8;
+            sp74->reticleX = arg0->reticleX;
+            sp74->reticleY = arg0->reticleY;
+            sp74->elapsedTime = arg0->elapsedTime;
+            sp74->fuel = arg0->fuel;
             sp74->att.heading = arg0->unk10.m[3][2];
             sp74->unk8C = arg0->unk19C.z * 16.0f * 0.7f;
             sp74->altitude = arg0->unkDC * 0.7f;
@@ -491,10 +494,10 @@ void gyrocopterMovementFrame(GyrocopterData* arg0, u8 arg1) {
                 hudWarningText(0x148, 1.5f, 8.0f);
                 snd_play_sfx(0x69);
             } else {
-                if ((arg0->unkD8 <= 0.0f) && (arg0->unkD3 == 0)) {
+                if ((arg0->fuel <= 0.0f) && (arg0->unkD3 == 0)) {
                     hudWarningText(0x4A, 1.5f, 8.0f);
                     arg0->unkD3 = 1;
-                } else if ((arg0->unkD8 < 0.15f) && (arg0->unkD2 == 0)) {
+                } else if ((arg0->fuel < 0.15f) && (arg0->unkD2 == 0)) {
                     hudWarningText(0x17B, 1.5f, 8.0f);
                     arg0->unkD2 = 1;
                 } else if ((func_8032C080(NULL) != 0) && (arg0->unkD4 == 0)) {
@@ -533,10 +536,10 @@ void func_802F6DC8(GyrocopterData* arg0, u8 arg1) {
             func_8033F758(0x59, 0.7f, 1.0f, 0.0f);
             D_8034F384 = 1;
         }
-        arg0->unk60 = 0.0f;
+        arg0->reticleX = 0.0f;
         temp_fv1 = arg0->unk58->unk3C * -0.105104235;
         temp_fa0 = (-arg0->unk58->unk3C * arg0->unk58->unk34) / arg0->unk58->unk20;
-        arg0->unk64 = (107.0f * temp_fv1) / temp_fa0;
+        arg0->reticleY = (107.0f * temp_fv1) / temp_fa0;
     }
 }
 
@@ -547,28 +550,28 @@ s32 func_802F6E74(GyrocopterData* arg0) {
         return -1;
     }
 
-    for (i = 0; i < 2; i++) {
-        if (arg0->unk688[i].unk48 == 0) {
+    for (i = 0; i < ARRAY_COUNT(arg0->unk690); i++) {
+        if (arg0->unk690[i].unk48 == 0) {
             break;
         }
     }
 
-    if (i == 2) {
+    if (i == ARRAY_COUNT(arg0->unk690)) {
         return -1;
     }
     return i;
 }
 
 s32 func_802F6EE0(GyrocopterData* arg0) {
-    GyrocopterData_Unk688* temp_s0;
+    GyrocopterData_Unk690* temp_s0;
     s32 temp_v0;
 
     temp_v0 = func_802F6E74(arg0);
     if (temp_v0 < 0) {
         return 0;
     }
-    temp_s0 = &arg0->unk688[temp_v0];
-    if (1) {}
+    temp_s0 = &arg0->unk690[temp_v0];
+    if (1) { }
     temp_s0->unk4D = temp_s0->unk4C;
     temp_s0->unk4C = func_8021EFF0(4);
     if (temp_s0->unk4C != 0xFF) {
@@ -583,7 +586,7 @@ s32 func_802F6EE0(GyrocopterData* arg0) {
         uvModelGet(temp_s0->unk4C, 0xFF);
         return 0;
     }
-        
+
     func_802F7178(arg0, &temp_s0->unk0);
     temp_s0->unk40 = arg0->unk1A8 + 20.0f;
     temp_s0->unk48 = 1;
@@ -591,7 +594,8 @@ s32 func_802F6EE0(GyrocopterData* arg0) {
     arg0->unk738 = D_8034F850;
     uvFxProps(temp_s0->unk4C, 1, 4.0f * D_8034F854, 5, 0.8f, 0.8f, 0.8f, 1.0f, 6, 0.2f, 0.2f, 0.2f, 0.0f, 3, 0.4f, 0.4f, 0.4f, 8, 0x147, 0);
     func_8021A4D8(temp_s0->unk4C, &temp_s0->unk0);
-    uvFxProps(temp_s0->unk4E, 1, 8.0f, 3, 14.0f, 14.0f, 14.0f, 5, 1.0f, 0.8f, 0.0f, 1.0f, 0xA, temp_s0->unk0.m[3][0], temp_s0->unk0.m[3][1], temp_s0->unk0.m[3][2], 4, 1.0f, 1.0f, 1.0f, 0);
+    uvFxProps(temp_s0->unk4E, 1, 8.0f, 3, 14.0f, 14.0f, 14.0f, 5, 1.0f, 0.8f, 0.0f, 1.0f, 0xA, temp_s0->unk0.m[3][0], temp_s0->unk0.m[3][1],
+              temp_s0->unk0.m[3][2], 4, 1.0f, 1.0f, 1.0f, 0);
     D_8034F384 = 0;
     return 1;
 }
@@ -610,7 +614,7 @@ void func_802F7178(GyrocopterData* arg0, Mtx4F* arg1) {
 }
 
 void func_802F7224(GyrocopterData* arg0) {
-    GyrocopterData_Unk688* var_s0;
+    GyrocopterData_Unk690* var_s0;
     s32 sp100;
     f32 spFC;
     f32 spF8;
@@ -626,8 +630,8 @@ void func_802F7224(GyrocopterData* arg0) {
 
     func_802E1754(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2], &spD4);
 
-    for (i = 0; i < 2; i++) {
-        var_s0 = &arg0->unk688[i];
+    for (i = 0; i < ARRAY_COUNT(arg0->unk690); i++) {
+        var_s0 = &arg0->unk690[i];
         if (var_s0->unk48 == 2) {
             if ((D_8034F850 - var_s0->unk44) > 2.0f) {
                 var_s0->unk48 = 0;
@@ -668,7 +672,8 @@ void func_802F7224(GyrocopterData* arg0) {
                         var_s0->unk4E = 0xFF;
                     }
                 } else {
-                    temp_v0_2 = func_802F9D28(arg0->objId, arg0->unk2, var_s0->unk0.m[3][0], var_s0->unk0.m[3][1], var_s0->unk0.m[3][2], temp_fs0, temp_fs1, temp_fs2, &sp100, &spFC, &spF8, &spF4);
+                    temp_v0_2 = func_802F9D28(arg0->objId, arg0->unk2, var_s0->unk0.m[3][0], var_s0->unk0.m[3][1], var_s0->unk0.m[3][2], temp_fs0, temp_fs1,
+                                              temp_fs2, &sp100, &spFC, &spF8, &spF4);
                     if (temp_v0_2 != -1) {
                         var_s2 = 0;
                         func_802F8BF8(1, temp_v0_2, spF4, sp100, spFC, spF8);
@@ -712,7 +717,7 @@ void func_802F764C(GyrocopterData* arg0) {
     } else {
         arg0->unk58->unk190 = 6.0f;
     }
-    if ((arg0->unkD0 == 0) && (arg0->pad660[2] == 0)) {
+    if ((arg0->unkD0 == 0) && (arg0->unk662 == 0)) {
         sp74.x = arg0->unk10.m[3][0];
         sp68.x = arg0->unk668.x;
         sp74.y = arg0->unk10.m[3][1];
@@ -739,7 +744,7 @@ void func_802F764C(GyrocopterData* arg0) {
             if (arg0->unk96 != 0xFF) {
                 smoke_props(arg0->unk96, 6, arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2], 0);
             }
-            uvDobjModel(arg0->objId, arg0->unk56E);
+            uvDobjModel(arg0->objId, arg0->crashModelId);
             uvDobjPosm(arg0->objId, 0, &arg0->unk10);
         }
     }
@@ -747,6 +752,417 @@ void func_802F764C(GyrocopterData* arg0) {
     func_802F5910(arg0);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_7CF30/func_802F7854.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_7CF30/func_802F88D0.s")
+void gyrocopterLoadPilot(u8 pilot, GyrocopterData* arg1) {
+    switch (pilot) {
+    case PILOT_LARK:
+        arg1->modelId = MODEL_GYRO_LARK;
+        arg1->crashModelId = MODEL_GYRO_LARK_CRASHED;
+        arg1->unk570 = 3;
+        arg1->unk573 = 1;
+        arg1->unk574 = 2;
+        arg1->unk571 = 4;
+        arg1->unk572 = 5;
+        arg1->unk594 = 3.866f;
+        arg1->unk598 = 0.0959931f;
+        arg1->unk5A8 = 1.038f;
+        arg1->unk5AC = 1.5707961f;
+        arg1->unk590 = 0x37;
+        arg1->unk591 = 0x39;
+        arg1->unk592 = 0x38;
+        arg1->unk640 = 110.0f;
+        arg1->unk644 = 0.3490659f;
+        arg1->unk648 = 0.25f;
+        arg1->unk64C = 0.25f;
+        arg1->unk650 = 0.125f;
+        arg1->unk654 = 0.25f;
+        arg1->unk658 = 0.25f;
+        arg1->unk65C = 0.0625f;
+        arg1->unk59C.x = -0.03f;
+        arg1->unk59C.y = -0.095f;
+        arg1->unk59C.z = 1.6f;
+        arg1->unk5B0 = 0.009f;
+        arg1->unk5B4 = -0.67f;
+        arg1->unk5B8 = 0.44f;
+        arg1->unk5BC.x = 0.001f;
+        arg1->unk5BC.y = 1.362f;
+        arg1->unk5BC.z = -0.003f;
+        arg1->unk5C8.x = 0.006f;
+        arg1->unk5C8.y = -1.334f;
+        arg1->unk5C8.z = 0.141f;
+        arg1->unk5D4 = -0.839f;
+        arg1->unk5D8 = 0.0f;
+        arg1->unk5DC = -0.234f;
+        arg1->unk5E0 = 0.853f;
+        arg1->unk5E4 = 0.0f;
+        arg1->unk5E8 = -0.234f;
+        arg1->unk5EC[0].x = 0.005f;
+        arg1->unk5EC[0].y = 1.261f;
+        arg1->unk5EC[0].z = -0.299f;
+        arg1->unk5EC[3].x = 0.007f;
+        arg1->unk5EC[3].y = -1.123f;
+        arg1->unk5EC[3].z = -0.278f;
+        arg1->unk5EC[1].x = -0.762f;
+        arg1->unk5EC[1].y = -0.026f;
+        arg1->unk5EC[1].z = -0.375f;
+        arg1->unk5EC[2].x = 0.776f;
+        arg1->unk5EC[2].y = -0.026f;
+        arg1->unk5EC[2].z = -0.375f;
+        arg1->unk61C = 0.0f;
+        arg1->unk620 = -0.034f;
+        arg1->unk624 = -0.099f;
+        arg1->unk628 = 0.00f;
+        arg1->unk62C = -4.45f;
+        arg1->unk630 = 1.2f;
+        arg1->unk634 = 0.0050f;
+        arg1->unk638 = 0.455f;
+        arg1->unk63C = 0.648f;
+        arg1->unk538.x = 0.006f;
+        arg1->unk538.y = 0.296f;
+        arg1->unk538.z = 0.0f;
+        arg1->unk578 = 0.522f, arg1->unk57C = 0.208f, arg1->unk580 = 0.208f;
+        arg1->unk584 = 0.522f, arg1->unk588 = 0.208f, arg1->unk58C = 0.208f;
+        break;
+    case PILOT_GOOSE:
+        arg1->modelId = MODEL_GYRO_GOOSE;
+        arg1->crashModelId = MODEL_GYRO_GOOSE_CRASHED;
+        arg1->unk570 = 3;
+        arg1->unk573 = 1;
+        arg1->unk574 = 2;
+        arg1->unk571 = 4;
+        arg1->unk572 = 5;
+        arg1->unk594 = 3.866f;
+        arg1->unk598 = 0.0959931f;
+        arg1->unk5A8 = 1.038f;
+        arg1->unk5AC = 1.5707961f;
+        arg1->unk590 = 0x3A;
+        arg1->unk591 = 0x3B;
+        arg1->unk592 = 0x38;
+        arg1->unk640 = 93.5f;
+        arg1->unk644 = 0.4014257f;
+        arg1->unk648 = 0.2f;
+        arg1->unk64C = 0.2f;
+        arg1->unk650 = 0.1f;
+        arg1->unk654 = 0.2f;
+        arg1->unk658 = 0.2f;
+        arg1->unk65C = 0.05f;
+        arg1->unk59C.x = -0.031f;
+        arg1->unk59C.y = -0.021f;
+        arg1->unk59C.z = 1.707f;
+        arg1->unk5B0 = 0.005f;
+        arg1->unk5B4 = -0.906f;
+        arg1->unk5B8 = 0.459f;
+        arg1->unk5BC.x = -0.001f;
+        arg1->unk5BC.y = 1.96f;
+        arg1->unk5BC.z = -0.039f;
+        arg1->unk5C8.x = 0.005f;
+        arg1->unk5C8.y = -1.868f;
+        arg1->unk5C8.z = 0.142f;
+        arg1->unk5D4 = -0.967f;
+        arg1->unk5D8 = -0.146f;
+        arg1->unk5DC = -0.251f;
+        arg1->unk5E0 = 0.949f;
+        arg1->unk5E4 = -0.146f;
+        arg1->unk5E8 = -0.251f;
+        arg1->unk5EC[0].x = 0.003f;
+        arg1->unk5EC[0].y = 1.758f;
+        arg1->unk5EC[0].z = -0.323f;
+        arg1->unk5EC[3].x = 0.006f;
+        arg1->unk5EC[3].y = -1.408f;
+        arg1->unk5EC[3].z = -0.301f;
+        arg1->unk5EC[1].x = -0.804f;
+        arg1->unk5EC[1].y = -0.193f;
+        arg1->unk5EC[1].z = -0.436f;
+        arg1->unk5EC[2].x = 0.786f;
+        arg1->unk5EC[2].y = -0.193f;
+        arg1->unk5EC[2].z = -0.436f;
+        arg1->unk61C = 0.0f;
+        arg1->unk620 = -0.172f;
+        arg1->unk624 = -0.121f;
+        arg1->unk628 = 0.00f;
+        arg1->unk62C = -4.45f;
+        arg1->unk630 = 1.2f;
+        arg1->unk634 = 0.002f;
+        arg1->unk638 = 0.397f;
+        arg1->unk63C = 0.678f;
+        arg1->unk538.x = -0.006f;
+        arg1->unk538.y = 0.295f;
+        arg1->unk538.z = 0.0f;
+        arg1->unk578 = 0.522f, arg1->unk57C = 0.208f, arg1->unk580 = 0.208f;
+        arg1->unk584 = 0.522f, arg1->unk588 = 0.208f, arg1->unk58C = 0.208f;
+        break;
+    case PILOT_HAWK:
+        arg1->modelId = MODEL_GYRO_HAWK;
+        arg1->crashModelId = MODEL_GYRO_HAWK_CRASHED;
+        arg1->unk570 = 3;
+        arg1->unk573 = 1;
+        arg1->unk574 = 2;
+        arg1->unk571 = 4;
+        arg1->unk572 = 5;
+        arg1->unk594 = 3.866f;
+        arg1->unk598 = 0.0959931f;
+        arg1->unk5A8 = 1.038f;
+        arg1->unk5AC = 1.5707961f;
+        arg1->unk590 = 0x3C;
+        arg1->unk591 = 0x3D;
+        arg1->unk592 = 0x38;
+        arg1->unk640 = 126.5f;
+        arg1->unk644 = 0.296706f;
+        arg1->unk648 = 0.325f;
+        arg1->unk64C = 0.325f;
+        arg1->unk650 = 0.1625f;
+        arg1->unk654 = 0.325f;
+        arg1->unk658 = 0.325f;
+        arg1->unk65C = 0.08125f;
+        arg1->unk59C.x = -0.02f;
+        arg1->unk59C.y = -0.146f;
+        arg1->unk59C.z = 1.65f;
+        arg1->unk5B0 = 0.011f;
+        arg1->unk5B4 = -0.733f;
+        arg1->unk5B8 = 0.438f;
+        arg1->unk5BC.x = 0.0f;
+        arg1->unk5BC.y = 1.214f;
+        arg1->unk5BC.z = -0.179f;
+        arg1->unk5C8.x = 0.011f;
+        arg1->unk5C8.y = -1.585f;
+        arg1->unk5C8.z = 0.474f;
+        arg1->unk5D4 = -1.025f;
+        arg1->unk5D8 = -0.039f;
+        arg1->unk5DC = -0.267f;
+        arg1->unk5E0 = 1.021f;
+        arg1->unk5E4 = -0.039f;
+        arg1->unk5E8 = -0.267f;
+        arg1->unk5EC[0].x = 0.009f;
+        arg1->unk5EC[0].y = 1.243f;
+        arg1->unk5EC[0].z = -0.429f;
+        arg1->unk5EC[3].x = 0.012f;
+        arg1->unk5EC[3].y = -1.237f;
+        arg1->unk5EC[3].z = -0.317f;
+        arg1->unk5EC[1].x = -0.863f;
+        arg1->unk5EC[1].y = -0.085f;
+        arg1->unk5EC[1].z = -0.451f;
+        arg1->unk5EC[2].x = 0.859f;
+        arg1->unk5EC[2].y = -0.085f;
+        arg1->unk5EC[2].z = -0.451f;
+        arg1->unk61C = 0.0f;
+        arg1->unk620 = -0.047f;
+        arg1->unk624 = -0.104f;
+        arg1->unk628 = 0.00f;
+        arg1->unk62C = -4.45f;
+        arg1->unk630 = 1.2f;
+        arg1->unk634 = 0.0090f;
+        arg1->unk638 = 0.374f;
+        arg1->unk63C = 0.71f;
+        arg1->unk538.x = 0.005f;
+        arg1->unk538.y = 0.247f;
+        arg1->unk538.z = 0.0f;
+        arg1->unk578 = 0.47f, arg1->unk57C = 0.412f, arg1->unk580 = 0.188f;
+        arg1->unk584 = 0.6f, arg1->unk588 = 0.6f, arg1->unk58C = 0.6f;
+        break;
+    case PILOT_KIWI:
+        arg1->modelId = MODEL_GYRO_KIWI;
+        arg1->crashModelId = MODEL_GYRO_KIWI_CRASHED;
+        arg1->unk570 = 3;
+        arg1->unk573 = 1;
+        arg1->unk574 = 2;
+        arg1->unk571 = 4;
+        arg1->unk572 = 5;
+        arg1->unk594 = 3.866f;
+        arg1->unk598 = 0.0959931f;
+        arg1->unk5A8 = 1.038f;
+        arg1->unk5AC = 1.5707961f;
+        arg1->unk590 = 0x37;
+        arg1->unk591 = 0x39;
+        arg1->unk592 = 0x38;
+        arg1->unk640 = 110.0f;
+        arg1->unk644 = 0.3490659f;
+        arg1->unk648 = 0.25f;
+        arg1->unk64C = 0.25f;
+        arg1->unk650 = 0.125f;
+        arg1->unk654 = 0.25f;
+        arg1->unk658 = 0.25f;
+        arg1->unk65C = 0.0625f;
+        arg1->unk59C.x = -0.031f;
+        arg1->unk59C.y = -0.096f;
+        arg1->unk59C.z = 1.62f;
+        arg1->unk5B0 = 0.0090f;
+        arg1->unk5B4 = -0.673f;
+        arg1->unk5B8 = 0.443f;
+        arg1->unk5BC.x = 0.002f;
+        arg1->unk5BC.y = 1.37f;
+        arg1->unk5BC.z = -0.003f;
+        arg1->unk5C8.x = 0.007f;
+        arg1->unk5C8.y = -1.341f;
+        arg1->unk5C8.z = 0.142f;
+        arg1->unk5D4 = -0.843f;
+        arg1->unk5D8 = 0.179f;
+        arg1->unk5DC = -0.235f;
+        arg1->unk5E0 = 0.858f;
+        arg1->unk5E4 = 0.179f;
+        arg1->unk5E8 = -0.235f;
+        arg1->unk5EC[0].x = 0.005f;
+        arg1->unk5EC[0].y = 1.268f;
+        arg1->unk5EC[0].z = -0.3f;
+        arg1->unk5EC[3].x = 0.008f;
+        arg1->unk5EC[3].y = -1.129f;
+        arg1->unk5EC[3].z = -0.28f;
+        arg1->unk5EC[1].x = -0.765f;
+        arg1->unk5EC[1].y = -0.027f;
+        arg1->unk5EC[1].z = -0.377f;
+        arg1->unk5EC[2].x = 0.78f;
+        arg1->unk5EC[2].y = -0.027f;
+        arg1->unk5EC[2].z = -0.377f;
+        arg1->unk61C = 0.0f;
+        arg1->unk620 = -0.034f;
+        arg1->unk624 = -0.101f;
+        arg1->unk628 = 0.00f;
+        arg1->unk62C = -4.45f;
+        arg1->unk630 = 1.2f;
+        arg1->unk634 = 0.00f;
+        arg1->unk638 = 0.385f;
+        arg1->unk63C = 0.568f;
+        arg1->unk538.x = 0.006f;
+        arg1->unk538.y = 0.297f;
+        arg1->unk538.z = 0.0f;
+        arg1->unk578 = 0.6f, arg1->unk57C = 0.6f, arg1->unk580 = 0.6f;
+        arg1->unk584 = 0.6f, arg1->unk588 = 0.6f, arg1->unk58C = 0.6f;
+        break;
+    case PILOT_IBIS:
+        arg1->modelId = MODEL_GYRO_IBIS;
+        arg1->crashModelId = MODEL_GYRO_IBIS_CRASHED;
+        arg1->unk570 = 3;
+        arg1->unk573 = 1;
+        arg1->unk574 = 2;
+        arg1->unk571 = 4;
+        arg1->unk572 = 5;
+        arg1->unk594 = 3.866f;
+        arg1->unk598 = 0.0959931f;
+        arg1->unk5A8 = 1.038f;
+        arg1->unk5AC = 1.5707961f;
+        arg1->unk590 = 0x3A;
+        arg1->unk591 = 0x3B;
+        arg1->unk592 = 0x38;
+        arg1->unk640 = 93.5f;
+        arg1->unk644 = 0.4014257f;
+        arg1->unk648 = 0.2f;
+        arg1->unk64C = 0.2f;
+        arg1->unk650 = 0.1f;
+        arg1->unk654 = 0.2f;
+        arg1->unk658 = 0.2f;
+        arg1->unk65C = 0.05f;
+        arg1->unk59C.x = -0.031f;
+        arg1->unk59C.y = -0.021f;
+        arg1->unk59C.z = 1.707f;
+        arg1->unk5B0 = 0.028f;
+        arg1->unk5B4 = -0.892f;
+        arg1->unk5B8 = 0.452f;
+        arg1->unk5BC.x = -0.001f;
+        arg1->unk5BC.y = 1.966f;
+        arg1->unk5BC.z = -0.038f;
+        arg1->unk5C8.x = 0.005f;
+        arg1->unk5C8.y = -1.872f;
+        arg1->unk5C8.z = 0.142f;
+        arg1->unk5D4 = -0.969f;
+        arg1->unk5D8 = -0.146f;
+        arg1->unk5DC = -0.252f;
+        arg1->unk5E0 = 0.951f;
+        arg1->unk5E4 = -0.146f;
+        arg1->unk5E8 = -0.252f;
+        arg1->unk5EC[0].x = 0.003f;
+        arg1->unk5EC[0].y = 1.762f;
+        arg1->unk5EC[0].z = -0.323f;
+        arg1->unk5EC[3].x = 0.006f;
+        arg1->unk5EC[3].y = -1.412f;
+        arg1->unk5EC[3].z = -0.302f;
+        arg1->unk5EC[1].x = -0.806f;
+        arg1->unk5EC[1].y = -0.193f;
+        arg1->unk5EC[1].z = -0.437f;
+        arg1->unk5EC[2].x = 0.788f;
+        arg1->unk5EC[2].y = -0.193f;
+        arg1->unk5EC[2].z = -0.437f;
+        arg1->unk61C = 0.0f;
+        arg1->unk620 = -0.172f;
+        arg1->unk624 = -0.118f;
+        arg1->unk628 = 0.00f;
+        arg1->unk62C = -4.45f;
+        arg1->unk630 = 1.2f;
+        arg1->unk634 = 0.001f;
+        arg1->unk638 = 0.381f;
+        arg1->unk63C = 0.623f;
+        arg1->unk538.x = -0.003f;
+        arg1->unk538.y = 0.296f;
+        arg1->unk538.z = 0.0f;
+        arg1->unk578 = 0.102f, arg1->unk57C = 0.086f, arg1->unk580 = 0.22f;
+        arg1->unk584 = 0.6f, arg1->unk588 = 0.6f, arg1->unk58C = 0.6f;
+        break;
+    case PILOT_ROBIN:
+        arg1->modelId = MODEL_GYRO_ROBIN;
+        arg1->crashModelId = MODEL_GYRO_ROBIN_CRASHED;
+        arg1->unk570 = 3;
+        arg1->unk573 = 1;
+        arg1->unk574 = 2;
+        arg1->unk571 = 4;
+        arg1->unk572 = 5;
+        arg1->unk594 = 3.866f;
+        arg1->unk598 = 0.0959931f;
+        arg1->unk5A8 = 1.038f;
+        arg1->unk5AC = 1.5707961f;
+        arg1->unk590 = 0x3C;
+        arg1->unk591 = 0x3D;
+        arg1->unk592 = 0x38;
+        arg1->unk640 = 126.5f;
+        arg1->unk644 = 0.296706f;
+        arg1->unk648 = 0.325f;
+        arg1->unk64C = 0.325f;
+        arg1->unk650 = 0.1625f;
+        arg1->unk654 = 0.325f;
+        arg1->unk658 = 0.325f;
+        arg1->unk65C = 0.08125f;
+        arg1->unk59C.x = -0.031f;
+        arg1->unk59C.y = -0.146f;
+        arg1->unk59C.z = 1.676f;
+        arg1->unk5B0 = 0.011f;
+        arg1->unk5B4 = -0.74f;
+        arg1->unk5B8 = 0.442f;
+        arg1->unk5BC.x = 0.0f;
+        arg1->unk5BC.y = 1.227f;
+        arg1->unk5BC.z = -0.18f;
+        arg1->unk5C8.x = 0.011f;
+        arg1->unk5C8.y = -1.601f;
+        arg1->unk5C8.z = 0.478f;
+        arg1->unk5D4 = -1.03f;
+        arg1->unk5D8 = -0.039f;
+        arg1->unk5DC = -0.27f;
+        arg1->unk5E0 = 1.032f;
+        arg1->unk5E4 = -0.039f;
+        arg1->unk5E8 = -0.27f;
+        arg1->unk5EC[0].x = 0.0090f;
+        arg1->unk5EC[0].y = 1.255f;
+        arg1->unk5EC[0].z = -0.433f;
+        arg1->unk5EC[3].x = 0.012f;
+        arg1->unk5EC[3].y = -1.25f;
+        arg1->unk5EC[3].z = -0.32f;
+        arg1->unk5EC[1].x = -0.867f;
+        arg1->unk5EC[1].y = -0.086f;
+        arg1->unk5EC[1].z = -0.455f;
+        arg1->unk5EC[2].x = 0.868f;
+        arg1->unk5EC[2].y = -0.086f;
+        arg1->unk5EC[2].z = -0.455f;
+        arg1->unk61C = 0.0f;
+        arg1->unk620 = -0.05f;
+        arg1->unk624 = -0.077f;
+        arg1->unk628 = 0.00f;
+        arg1->unk62C = -4.45f;
+        arg1->unk630 = 1.2f;
+        arg1->unk634 = 0.013f;
+        arg1->unk638 = 0.384f;
+        arg1->unk63C = 0.62f;
+        arg1->unk538.x = 0.006f;
+        arg1->unk538.y = 0.249f;
+        arg1->unk538.z = 0.0f;
+        arg1->unk578 = 0.102f, arg1->unk57C = 0.086f, arg1->unk580 = 0.22f;
+        arg1->unk584 = 0.6f, arg1->unk588 = 0.6f, arg1->unk58C = 0.6f;
+        break;
+    default:
+        break;
+    }
+}

@@ -15,7 +15,7 @@
 
 Unk803599D0 D_80368B20;
 
-void func_802FA7A0(u8 arg0, JumbleHopperData* arg1);
+void jumbleHopperLoadPilot(u8 arg0, JumbleHopperData* arg1);
 
 void func_802F9F60(void) {
     D_80368B20.unk0 = 8;
@@ -39,7 +39,7 @@ void func_802F9F60(void) {
 
 void func_802FA020(u8 contIdx, u8 pilot, JumbleHopperData* arg2, Unk802D3658_Arg0* arg3) {
     uvMemSet(arg2, 0, sizeof(JumbleHopperData));
-    func_802FA7A0(pilot, arg2);
+    jumbleHopperLoadPilot(pilot, arg2);
     arg2->objId = uvDobjAllocIdx();
     arg2->unk2 = 2;
     uvDobjModel(arg2->objId, arg2->modelId);
@@ -203,7 +203,7 @@ void jumbleHopperMovementFrame(JumbleHopperData* arg0, u8 arg1) {
     }
 }
 
-void func_802FA7A0(u8 pilot, JumbleHopperData* arg1) {
+void jumbleHopperLoadPilot(u8 pilot, JumbleHopperData* arg1) {
     switch (pilot) {
     case PILOT_LARK:
         arg1->unk5E8.x = 0.0f, arg1->unk5E8.y = 0.0f, arg1->unk5E8.z = 0.7f;

@@ -6,6 +6,7 @@
 #include <PR/ultratypes.h>
 #include <uv_matrix.h>
 
+void func_8030A140(GyrocopterData*);
 void func_8030B240(Mtx4F*);
 
 #endif // APP_HSOUND_H
