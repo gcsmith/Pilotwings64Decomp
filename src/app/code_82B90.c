@@ -2069,7 +2069,7 @@ void func_80301F70(JumbleHopperData* arg0) {
     func_80200638(arg0->objId, &sp40);
     if ((arg0->unk1D0 > 1.0f) && (arg0->unk140.y == 90.0f) && (arg0->unk140.z == 0.0f)) {
         // clang-format off
-        for (i = 0; i < 5; i++) { D_8036905C[i] = 0; }
+        for (i = 0; i < ARRAY_COUNT(D_8036905C); i++) { D_8036905C[i] = 0; }
         // clang-format on
         arg0->unk4C = 8;
         arg0->unk1C0 = 0.0;

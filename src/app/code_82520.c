@@ -16,7 +16,7 @@ void func_802FAF80(void) {
 
     D_8034F3A0 = 0;
 
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < ARRAY_COUNT(D_80368B80); i++) {
         D_80368B80[i].objId = 0xFFFF;
         D_80368B80[i].unk6 = 0;
         D_80368B80[i].unk7 = 0;
