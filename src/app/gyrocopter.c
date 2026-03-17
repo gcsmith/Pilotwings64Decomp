@@ -1705,7 +1705,7 @@ void func_8030877C(GyrocopterData* arg0) {
         }
     }
 
-    if (sp247 >= 3) {
+    if (sp247 > 2) {
         _uvDebugPrintf("Heli has more than 2 hits\n");
     } else if (sp247 > 0) {
         func_802DC380(sp247, &arg0->unk150, &arg0->unk190, &arg0->unk19C, &arg0->unk1C8, &sp2C0[0], &sp2C0[1], &sp2E4[0], &sp2E4[1], sp250[0], sp250[1], 0.004f,

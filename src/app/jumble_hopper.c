@@ -108,7 +108,7 @@ void jumbleHopperMovementFrame(JumbleHopperData* arg0, u8 arg1) {
     f32 yAxisInputs;
     f32 var_fa0;
     s32 buttons;
-    HUDState* sp74;
+    HUDState* hud;
     Mtx4F sp34;
 
     if (func_802E6B5C() != 4) {
@@ -184,15 +184,15 @@ void jumbleHopperMovementFrame(JumbleHopperData* arg0, u8 arg1) {
             func_802D45C4(arg0->unk18, arg0->unk48);
         }
         if (arg1 != 6) {
-            sp74 = hudGetState();
-            uvMat4Copy(&sp74->unk28, &arg0->unk74);
-            sp74->renderFlags = HUD_RENDER_JUMBLE_HOPPER;
-            sp74->att.heading = arg0->unk74.m[3][2];
-            sp74->elapsedTime = arg0->unk8;
-            sp74->unk8C = arg0->unk15C.z * 4.0f * 0.7f;
-            sp74->altitude = arg0->unk64 * 0.7f;
-            sp74->altSeaLevel = arg0->unk74.m[3][2] * 0.7f;
-            sp74->speed = arg0->unk180 * 3.6f * 0.7f;
+            hud = hudGetState();
+            uvMat4Copy(&hud->unk28, &arg0->unk74);
+            hud->renderFlags = HUD_RENDER_JUMBLE_HOPPER;
+            hud->att.heading = arg0->unk74.m[3][2];
+            hud->elapsedTime = arg0->unk8;
+            hud->unk8C = arg0->unk15C.z * 4.0f * 0.7f;
+            hud->altitude = arg0->unk64 * 0.7f;
+            hud->altSeaLevel = arg0->unk74.m[3][2] * 0.7f;
+            hud->speed = arg0->unk180 * 3.6f * 0.7f;
         }
         if (arg1 != 6) {
             if (arg0->unk4C == 6) {

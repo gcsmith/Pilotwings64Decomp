@@ -205,7 +205,7 @@ void func_802F5F80(GyrocopterData* arg0) {
 
 void gyrocopterMovementFrame(GyrocopterData* arg0, u8 arg1) {
     s32 pad[2];
-    HUDState* sp74;
+    HUDState* hud;
     f32 xAxisInput;
     f32 yAxisInput;
     s32 buttons;
@@ -458,37 +458,37 @@ void gyrocopterMovementFrame(GyrocopterData* arg0, u8 arg1) {
             arg0->unk58->unk6 = arg0->unk2;
             arg0->unk58->unk228 = arg0->unkDC;
             uvMat4Copy(&arg0->unk58->unk80, &arg0->unk10);
-            sp74 = hudGetState();
-            uvMat4Copy(&sp74->unk28, &arg0->unk10);
-            sp74->renderFlags = HUD_RENDER_GYROCOPTER;
+            hud = hudGetState();
+            uvMat4Copy(&hud->unk28, &arg0->unk10);
+            hud->renderFlags = HUD_RENDER_GYROCOPTER;
             if (arg0->unk5E != 0) {
-                sp74->renderFlags |= HUD_RENDER_RETICLE;
+                hud->renderFlags |= HUD_RENDER_RETICLE;
             } else {
-                if (sp74->renderFlags & HUD_RENDER_RETICLE) {
-                    sp74->renderFlags &= ~HUD_RENDER_RETICLE;
+                if (hud->renderFlags & HUD_RENDER_RETICLE) {
+                    hud->renderFlags &= ~HUD_RENDER_RETICLE;
                 }
             }
-            sp74->reticleX = arg0->reticleX;
-            sp74->reticleY = arg0->reticleY;
-            sp74->elapsedTime = arg0->elapsedTime;
-            sp74->fuel = arg0->fuel;
-            sp74->att.heading = arg0->unk10.m[3][2];
-            sp74->unk8C = arg0->unk19C.z * 16.0f * 0.7f;
-            sp74->altitude = arg0->unkDC * 0.7f;
-            sp74->altSeaLevel = arg0->unk10.m[3][2] * 0.7f;
-            sp74->speed = arg0->unk1A8 * 3.6f * 0.7f;
-            if (sp74->fuel > 0.0f) {
-                sp74->power = arg0->unkB4;
+            hud->reticleX = arg0->reticleX;
+            hud->reticleY = arg0->reticleY;
+            hud->elapsedTime = arg0->elapsedTime;
+            hud->fuel = arg0->fuel;
+            hud->att.heading = arg0->unk10.m[3][2];
+            hud->unk8C = arg0->unk19C.z * 16.0f * 0.7f;
+            hud->altitude = arg0->unkDC * 0.7f;
+            hud->altSeaLevel = arg0->unk10.m[3][2] * 0.7f;
+            hud->speed = arg0->unk1A8 * 3.6f * 0.7f;
+            if (hud->fuel > 0.0f) {
+                hud->power = arg0->unkB4;
             } else {
-                sp74->power -= D_8034F854;
-                if (sp74->power < 0.0f) {
-                    sp74->power = 0.0f;
-                } else if (sp74->power > 1.0f) {
-                    sp74->power = 1.0f;
+                hud->power -= D_8034F854;
+                if (hud->power < 0.0f) {
+                    hud->power = 0.0f;
+                } else if (hud->power > 1.0f) {
+                    hud->power = 1.0f;
                 }
             }
-            if (sp74->power < 0.0f) {
-                sp74->power = 0.0f;
+            if (hud->power < 0.0f) {
+                hud->power = 0.0f;
             }
             if (arg0->unkC1 != 0) {
                 hudWarningText(0x148, 1.5f, 8.0f);
@@ -512,7 +512,7 @@ void gyrocopterMovementFrame(GyrocopterData* arg0, u8 arg1) {
         }
 
         if ((arg0->unkC0 == 3) || (arg0->unkC0 == 2)) {
-            sp74->renderFlags = 0;
+            hud->renderFlags = 0;
         }
         func_803344BC(&arg0->unk10, arg0->unkDC);
         D_8034F380 = buttons;
@@ -571,6 +571,7 @@ s32 func_802F6EE0(GyrocopterData* arg0) {
         return 0;
     }
     temp_s0 = &arg0->unk690[temp_v0];
+    // FAKE
     if (1) { }
     temp_s0->unk4D = temp_s0->unk4C;
     temp_s0->unk4C = func_8021EFF0(4);

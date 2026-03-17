@@ -228,6 +228,7 @@ typedef struct GyrocopterData {
     f32 unk738;
 } GyrocopterData;
 
+void func_802F5A00(void);
 void gyrocopterEnterLeave(GyrocopterData*);
 void gyrocopterMovementFrame(GyrocopterData*, u8);
 

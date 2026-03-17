@@ -134,7 +134,7 @@ void birdMovementFrame(BirdmanData* arg0, u8 arg1) {
     f32 sp78;
     f32 pad;
     s32 buttons;
-    HUDState* sp6C;
+    HUDState* hud;
     s32 sp68;
     f32 temp_fv0;
     f32 sp4C[6];
@@ -354,18 +354,18 @@ void birdMovementFrame(BirdmanData* arg0, u8 arg1) {
         }
         bird_802CE0A4(arg0);
         if (arg1 != 6) {
-            sp6C = hudGetState();
-            uvMat4Copy(&sp6C->unk28, &arg0->unk10);
-            sp6C->renderFlags = HUD_RENDER_BIRDMAN;
-            sp6C->att.heading = arg0->unk10.m[3][2];
-            sp6C->elapsedTime = arg0->unk8;
-            sp6C->unk8C = arg0->unk218.z * 4.0f * 0.7f;
-            sp6C->altitude = arg0->unk16C * 0.7f;
-            sp6C->altSeaLevel = arg0->unk10.m[3][2] * 0.7f;
-            sp6C->speed = arg0->unk224 * 3.6f * 0.7f;
+            hud = hudGetState();
+            uvMat4Copy(&hud->unk28, &arg0->unk10);
+            hud->renderFlags = HUD_RENDER_BIRDMAN;
+            hud->att.heading = arg0->unk10.m[3][2];
+            hud->elapsedTime = arg0->unk8;
+            hud->unk8C = arg0->unk218.z * 4.0f * 0.7f;
+            hud->altitude = arg0->unk16C * 0.7f;
+            hud->altSeaLevel = arg0->unk10.m[3][2] * 0.7f;
+            hud->speed = arg0->unk224 * 3.6f * 0.7f;
         }
         if ((arg0->unk104 == 1) || (arg0->unk104 == 2)) {
-            sp6C->renderFlags = 0;
+            hud->renderFlags = 0;
         }
         func_802E06AC(&arg0->unk10);
         if (arg1 != 6) {

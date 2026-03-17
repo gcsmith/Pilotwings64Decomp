@@ -344,7 +344,7 @@ void func_8032CC44(Unk80362690* arg0) {
 s32 func_8032CF28(Unk80362690* arg0) {
     Unk80362690_Unk0_UnkC* sp6C;
     Unk802D3658_Arg0* sp68;
-    HUDState* sp64;
+    HUDState* hud;
     s32 var_s0;
     s32 var_s1;
     u8 sp5B;
@@ -355,9 +355,9 @@ s32 func_8032CF28(Unk80362690* arg0) {
     sp68 = sp6C->unk70;
     snd_play_sfx(4U);
     var_s0 = 0x4C;
-    sp64 = hudGetState();
-    sp5B = sp64->renderFlags;
-    sp64->renderFlags = HUD_RENDER_DISABLE;
+    hud = hudGetState();
+    sp5B = hud->renderFlags;
+    hud->renderFlags = HUD_RENDER_DISABLE;
     sp40 = sp6C->veh == VEHICLE_HANG_GLIDER &&
            ((sp6C->test == 0 && sp6C->cls == CLASS_A) || (sp6C->test == 1 && sp6C->cls == CLASS_B) || (sp6C->test == 2 && sp6C->cls == CLASS_PILOT));
     if (sp6C->unk8 != 0 || (sp6C->veh == VEHICLE_SKY_DIVING && ((BirdmanData*)sp6C->vehicleData)->unk25C.z == 1 /*.0f*/)) {
@@ -403,7 +403,7 @@ s32 func_8032CF28(Unk80362690* arg0) {
             var_s1 = 3;
         }
     }
-    sp64->renderFlags = sp5B;
+    hud->renderFlags = sp5B;
     if (var_s1 == -1) {
         var_s1 = 0;
     }
