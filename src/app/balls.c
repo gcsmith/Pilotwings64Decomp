@@ -102,7 +102,7 @@ void balls_802CAF50(void) {
     s32 i;
 
     for (i = 0; i < (gBallCount + gBallSplitCount); i++) {
-        if (D_80362690->unk0[D_80362690->unk9C].unkC.unk8 == gBalls[i].unk60) {
+        if (D_80362690->unkC[D_80362690->unk9C].unk8 == gBalls[i].unk60) {
             gBalls[i].unk96 = 1;
             if (gBalls[i].objId != 0xFFFF) {
                 uvDobjSetState(gBalls[i].objId, 3);

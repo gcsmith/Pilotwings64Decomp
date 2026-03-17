@@ -56,7 +56,7 @@ void totResultDeinit(void);
 s32 totResultMenuChoose(void);
 void totResultDrawTally(void);
 
-u8 totResult_80346FC0(Unk80362690_Unk0_UnkC* arg0) {
+u8 totResult_80346FC0(Unk80362690_Unk0* arg0) {
     s32 sp2C;
     s32 sp28;
     s32 sp24;
@@ -65,8 +65,8 @@ u8 totResult_80346FC0(Unk80362690_Unk0_UnkC* arg0) {
 
     veh = arg0->veh;
     if (veh == VEHICLE_CANNONBALL) {
-        sp28 = levelSetPointsToNextMedal(&sp2C, D_80359AAE, CLASS_COUNT);
-        temp_v0 = levelSetPointsToNextMedal(&sp24, D_80359AAA, CLASS_COUNT);
+        sp28 = levelSetPointsToNextMedal(&sp2C, D_80359AAC, CLASS_COUNT);
+        temp_v0 = levelSetPointsToNextMedal(&sp24, D_80359AA8, CLASS_COUNT);
         if ((sp28 < temp_v0) || ((sp28 == 3) && (temp_v0 == 3) && (sp24 == 0))) {
             return TRUE;
         }
@@ -89,13 +89,13 @@ s32 totResultHandler(void) {
 }
 
 s32 totResult_80347150(s32 arg0) {
-    Unk80362690_Unk0_UnkC* unkC;
+    Unk80362690_Unk0* unkC;
 
-    unkC = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    unkC = &D_80362690->unkC[D_80362690->unk9C];
     if (arg0 < 0) {
         return arg0;
     }
-    if (totResult_80346FC0(&D_80362690->unk0[D_80362690->unk9C].unkC)) {
+    if (totResult_80346FC0(&D_80362690->unkC[D_80362690->unk9C])) {
         return 6;
     }
     if (IS_MAIN_VEHICLE(unkC->veh)) {
@@ -128,7 +128,7 @@ s32 totResult_80347150(s32 arg0) {
 }
 
 void totResultInit(void) {
-    Unk80362690_Unk0_UnkC* temp_s4;
+    Unk80362690_Unk0* temp_s4;
     s32 temp_v0;
     s32 var_a0;
     s32 var_s5;
@@ -141,7 +141,7 @@ void totResultInit(void) {
     u8* var_v1_3;
     s32 i;
 
-    temp_s4 = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    temp_s4 = &D_80362690->unkC[D_80362690->unk9C];
     var_s5 = 0;
     sp4C = &D_80364210[D_80362690->unk9C];
     sUnused_8037AD20[0] = 0;
@@ -191,13 +191,13 @@ void totResultInit(void) {
 }
 
 void totResultCreateMenu(void) {
-    Unk80362690_Unk0_UnkC* temp_a0;
+    Unk80362690_Unk0* temp_a0;
 
-    if (totResult_80346FC0(&D_80362690->unk0[D_80362690->unk9C].unkC)) {
+    if (totResult_80346FC0(&D_80362690->unkC[D_80362690->unk9C])) {
         menuCreateItems(170, 2, 6, 1.0f, 1.0f, &sResultNextMenu, 1);
         return;
     }
-    temp_a0 = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    temp_a0 = &D_80362690->unkC[D_80362690->unk9C];
 
     sResultRetryQuitIdx = 0;
     sResultRetryQuitMenu[sResultRetryQuitIdx++] = 0x189; // Retry
@@ -213,10 +213,10 @@ void totResultDeinit(void) {
 }
 
 s32 totResultMenuChoose(void) {
-    Unk80362690_Unk0_UnkC* sp1C;
+    Unk80362690_Unk0* sp1C;
     s32 temp_v0;
 
-    sp1C = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    sp1C = &D_80362690->unkC[D_80362690->unk9C];
     if (totResult_80347150(menu_8030B668()) == 3) {
         func_80312FF8(4);
     } else {
@@ -249,7 +249,7 @@ s32 totResultMenuChoose(void) {
 #pragma GCC diagnostic ignored "-Wsometimes-uninitialized"
 #endif
 void totResultDrawTally(void) {
-    Unk80362690_Unk0_UnkC* sp6C;
+    Unk80362690_Unk0* sp6C;
     s32 len;
     s32 x2;
     s32 x1;
@@ -259,7 +259,7 @@ void totResultDrawTally(void) {
     s32 numTests;
 
     offset = 0;
-    sp6C = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    sp6C = &D_80362690->unkC[D_80362690->unk9C];
     func_80204FC4(sp6C->unk70->unk22C);
     func_80314154();
 

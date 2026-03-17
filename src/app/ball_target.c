@@ -45,7 +45,7 @@ void ballTgtUpdateState(void) {
 
     for (i = 0; i < sBallTgtCount; i++) {
         var_s0 = &sBallTgts[i];
-        if (D_80362690->unk0[D_80362690->unk9C].unkC.unk8 == sRefBTGT[i].unkC) {
+        if (D_80362690->unkC[D_80362690->unk9C].unk8 == sRefBTGT[i].unkC) {
             var_s0->unk5D = 1;
             if (var_s0->objId != 0xFFFF) {
                 uvDobjSetState(var_s0->objId, 0x2);

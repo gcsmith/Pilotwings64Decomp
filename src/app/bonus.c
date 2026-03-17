@@ -39,7 +39,7 @@ void bonusUpdateState(void) {
 
     for (i = 0; i < gBonusStarCount; i++) {
         star = &gBonusStars[i];
-        if (D_80362690->unk0[D_80362690->unk9C].unkC.unk8 == gRefBNUS[i].unk18) {
+        if (D_80362690->unkC[D_80362690->unk9C].unk8 == gRefBNUS[i].unk18) {
             star->unk4C = 1;
             if (star->objId != 0xFFFF) {
                 uvDobjSetState(star->objId, 0x2);
@@ -105,7 +105,7 @@ void bonusFrameUpdate(Mtx4F* arg0) {
     }
 
     // if not already in birdman
-    if ((D_80362690->unk0[0].unk0 != VEHICLE_BIRDMAN) && (D_80362690->unk0[D_80362690->unk9C].unkC.unkA == 1)) {
+    if ((D_80362690->unk0 != VEHICLE_BIRDMAN) && (D_80362690->unkC[D_80362690->unk9C].unkA == 1)) {
         px = arg0->m[3][0];
         py = arg0->m[3][1];
         pz = arg0->m[3][2];

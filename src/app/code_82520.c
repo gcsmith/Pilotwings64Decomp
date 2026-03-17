@@ -27,7 +27,7 @@ void func_802FAFF0(void) {
     s32 i;
 
     for (i = 0; i < D_8034F3A0; i++) {
-        if (D_80362690->unk0[D_80362690->unk9C].unkC.unk8 == D_80368B80[i].unk0->unk0) {
+        if (D_80362690->unkC[D_80362690->unk9C].unk8 == D_80368B80[i].unk0->unk0) {
             D_80368B80[i].unk7 = 1;
             if (D_80368B80[i].objId != 0xFFFF) {
                 uvDobjSetState(D_80368B80[i].objId, 2);

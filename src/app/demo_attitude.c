@@ -96,7 +96,7 @@ void demoAttGetMtxRT(Mtx4F* mat, f32* tx, f32* ty, f32* tz, f32* rz, f32* rx, f3
 }
 
 void demoAttPrintRecord(void) {
-    demoAttPrintRT(&D_80362690->unk0[D_80362690->unk9C].unkC.unk70->unk108);
+    demoAttPrintRT(&D_80362690->unkC[D_80362690->unk9C].unk70->unk108);
 }
 
 f32 demoPositionLerp(f32 a, f32 b, f32 t) {
@@ -169,9 +169,9 @@ void demoAttUpdate(f32 curTime, Mtx4F* mat) {
 
 void demoAtt_80320FBC(void) {
     Unk802D3658_Arg0* unk7C;
-    unk7C = D_80362690->unk0[D_80362690->unk9C].unkC.unk70;
+    unk7C = D_80362690->unkC[D_80362690->unk9C].unk70;
     demoAttUpdate(D_8034F850, &unk7C->unk108);
-    func_80204B34(D_80362690->unk0[D_80362690->unk9C].unkC.unk70->unk22C, &unk7C->unk108);
+    func_80204B34(D_80362690->unkC[D_80362690->unk9C].unk70->unk22C, &unk7C->unk108);
     func_802E2060();
     func_802E9FE4();
 }

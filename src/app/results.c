@@ -167,10 +167,10 @@ void resultDrawTally(s32);
 void resultGenTipText(s32);
 
 s32 resultHandler(s32 arg0) {
-    Unk80362690_Unk0_UnkC* unkC;
+    Unk80362690_Unk0* unkC;
     s32 var_v1;
 
-    unkC = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    unkC = &D_80362690->unkC[D_80362690->unk9C];
 
     resultInit(arg0);
     while ((var_v1 = resultMenuChoose(arg0)) == 0) {
@@ -181,29 +181,27 @@ s32 resultHandler(s32 arg0) {
     }
     resultDeinit();
 
-    // FIXME: Unk80362690_Unk0_UnkC is wrong, indexing 15 in 4-byte buffer to match
-    // was: temp_sw->pad8B
-    if ((unkC->veh == VEHICLE_CANNONBALL) && (unkC->pad7C[0xF] != 0)) {
-        unkC->pad7C[0xF] = 0;
+    if ((unkC->veh == VEHICLE_CANNONBALL) && (unkC->unk8B != 0)) {
+        unkC->unk8B = 0;
     }
     return var_v1;
 }
 
 u8 resultListPhoto(void) {
-    Unk80362690_Unk0_UnkC* unkC;
+    Unk80362690_Unk0* unkC;
 
-    unkC = &D_80362690->unk0[D_80362690->unk9C].unkC;
-    if (D_80362690->unk0[D_80362690->unk9C].unkC.unk7B != 0) {
+    unkC = &D_80362690->unkC[D_80362690->unk9C];
+    if (D_80362690->unkC[D_80362690->unk9C].unk7B != 0) {
         return 0;
     }
     return (unkC->veh == VEHICLE_HANG_GLIDER || unkC->veh == VEHICLE_BIRDMAN);
 }
 
 u8 resultListReplay(void) {
-    Unk80362690_Unk0_UnkC* unkC;
+    Unk80362690_Unk0* unkC;
     s32 ret;
 
-    unkC = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    unkC = &D_80362690->unkC[D_80362690->unk9C];
     ret = (unkC->veh == VEHICLE_HANG_GLIDER || unkC->veh == VEHICLE_ROCKET_BELT || unkC->veh == VEHICLE_GYROCOPTER || unkC->veh == VEHICLE_BIRDMAN);
     if (taskGetFALC(NULL) != 0) {
         ret = 0;
@@ -255,7 +253,7 @@ s32 resultMenuItemLookup(s32 idx) {
 
 void resultInit(s32 arg0) {
     s32 val;
-    Unk80362690_Unk0_UnkC* unkC;
+    Unk80362690_Unk0* unkC;
     s32 i;
     const char* var_s0;
     s32 pts;
@@ -264,7 +262,7 @@ void resultInit(s32 arg0) {
     s32 ptType;
     s32 strIdx;
 
-    unkC = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    unkC = &D_80362690->unkC[D_80362690->unk9C];
     ptsTotal = 0;
     if (unkC->veh == VEHICLE_BIRDMAN) {
         if (arg0 != 0) {
@@ -375,11 +373,11 @@ void resultDeinit(void) {
 }
 
 s32 resultMenuChoose(s32 arg0) {
-    Unk80362690_Unk0_UnkC* unkC;
+    Unk80362690_Unk0* unkC;
     s32 ret;
     s32 item;
 
-    unkC = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    unkC = &D_80362690->unkC[D_80362690->unk9C];
     ret = 0;
     func_80313D74();
     sScreenFadeDuration += D_8034F854;
@@ -391,12 +389,11 @@ s32 resultMenuChoose(s32 arg0) {
         item = resultMenuItemLookup(ret);
         switch (item) {
         case 2:
-            if (D_80362690->unk0[D_80362690->unk9C].unkC.unk7B != 0) {
+            if (D_80362690->unkC[D_80362690->unk9C].unk7B != 0) {
                 return 0xB;
             }
             menuSetProps();
-            // FIXME: unkC->pad8B
-            if (((unkC->veh != VEHICLE_CANNONBALL) || (unkC->pad7C[0xF] != 0)) && (unkC->veh != VEHICLE_BIRDMAN)) {
+            if (((unkC->veh != VEHICLE_CANNONBALL) || (unkC->unk8B != 0)) && (unkC->veh != VEHICLE_BIRDMAN)) {
                 ret = totResultHandler();
             } else {
                 ret = 2;
@@ -411,8 +408,7 @@ s32 resultMenuChoose(s32 arg0) {
             break;
         case 0:
             if (func_8033E3A8(2) != 0) {
-                // FIXME: unkC->pad8A
-                saveFileWrite((s32)unkC->pad7C[0xE]);
+                saveFileWrite(unkC->unk8A);
             }
             ret = 0;
             sScreenFadeDuration = 1.5f;
@@ -449,7 +445,7 @@ s32 resultMenuChoose(s32 arg0) {
 }
 
 void resultDrawTally(s32 arg0) {
-    Unk80362690_Unk0_UnkC* unkC;
+    Unk80362690_Unk0* unkC;
     s32 alpha;
     s32 x;
     s32 y;
@@ -461,7 +457,7 @@ void resultDrawTally(s32 arg0) {
     char sp48[100];
 
     var_s2 = 0;
-    unkC = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    unkC = &D_80362690->unkC[D_80362690->unk9C];
     func_80314154();
     uvGfxSetFlags(GFX_STATE_400000);
     spAC = (f32)(1.0 - (f64)((1.5f - sScreenFadeDuration) / 1.5f));

@@ -292,13 +292,13 @@ void hudDrawJumbleHopper(HUDState* hud) {
 }
 
 void hudDrawBirdman(HUDState* hud) {
-    if (D_80362690->unk0[D_80362690->unk9C].unkC.unk7B == 0) {
+    if (D_80362690->unkC[D_80362690->unk9C].unk7B == 0) {
         hudDrawPhotoCount();
     }
     hudSeaLevel(235, 37, (s32)hud->altSeaLevel);
     hudDrawAltimeter(250, 129, (s32)hud->altitude);
     hudDrawSpeed(27, 37, (s32)hud->speed, 0);
-    if (D_80362690->unk0[D_80362690->unk9C].unkC.unk7B == 0) {
+    if (D_80362690->unkC[D_80362690->unk9C].unk7B == 0) {
         hudDrawCamera(hud);
     }
 }

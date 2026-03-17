@@ -224,7 +224,7 @@ void gyrocopterMovementFrame(GyrocopterData* arg0, u8 arg1) {
         func_803343D8(1);
 
         if (arg1 == 6) {
-            func_802E65AC(&arg0->unk10, &D_80362690->unk0[0].terraId, &xAxisInput, &yAxisInput, &buttons);
+            func_802E65AC(&arg0->unk10, &D_80362690->terraId, &xAxisInput, &yAxisInput, &buttons);
         } else {
             xAxisInput = demoGetInputs(arg0->contIdx, INPUT_AXIS_X);
             yAxisInput = demoGetInputs(arg0->contIdx, INPUT_AXIS_Y);
@@ -434,7 +434,7 @@ void gyrocopterMovementFrame(GyrocopterData* arg0, u8 arg1) {
         } else {
             func_802D5884(arg0->unk58, 5);
         }
-        if (D_80362690->unk0[D_80362690->unk9C].unkC.unk7B != 0) {
+        if (D_80362690->unkC[D_80362690->unk9C].unk7B != 0) {
             arg0->fuel = 1.0f;
         }
         if ((arg0->unk5C == 1) && (arg0->unkC0 != 2) && (arg1 != 6)) {
@@ -521,7 +521,7 @@ void gyrocopterMovementFrame(GyrocopterData* arg0, u8 arg1) {
             if (arg0->unkC0 == 3) {
                 func_802E66DC();
             }
-            func_802E65AC(&arg0->unk10, &D_80362690->unk0[0].terraId, &xAxisInput, &yAxisInput, &buttons);
+            func_802E65AC(&arg0->unk10, &D_80362690->terraId, &xAxisInput, &yAxisInput, &buttons);
         }
     }
 }

@@ -3,6 +3,7 @@
 #include <uv_audio.h>
 #include <uv_controller.h>
 #include <uv_dobj.h>
+#include <uv_environment.h>
 #include <uv_event.h>
 #include <uv_math.h>
 #include <uv_matrix.h>
@@ -20,30 +21,36 @@
 #include "code_7FE00.h"
 #include "code_9A960.h"
 #include "code_B2900.h"
+#include "code_B3A70.h"
 #include "code_D2B10.h"
 #include "demo.h"
 #include "environment.h"
 #include "fdr.h"
 #include "hud.h"
+#include "proxanim.h"
 #include "results.h"
 #include "snd.h"
 #include "task.h"
+#include "test_menu.h"
 #include "text_data.h"
+#include "wind_objects.h"
 
 // .data
 f32 D_8034E9F0 = 0.0f;
 u8 D_8034E9F4 = 0;
 s32 D_8034E9F8 = 0;
-f32 D_8034E9FC = 0.0f; // used in cannonPilotLand
-f32 D_8034EA00 = 0.0f;
 
 // .bss likely owned by this file
-extern Unk803599D0 D_80359A30;
-extern u8 D_80359A84;
-extern s32 D_80359A88[];
+Unk803599D0 D_80359A30;
+u8 D_80359A84;
+s32 D_80359A88[4];
+s32 D_80359A98[4];
+s32 D_80359AA8;
+s32 D_80359AAC;
 
 // forward declarations
 s32 cannonEndShot(CannonballData*);
+s32 cannonEndAllTgts(CannonballData*);
 
 void cannon_802D5A90(void) {
     D_80359A30.unk0 = 8;
@@ -188,7 +195,7 @@ void cannonMovementFrame(CannonballData* arg0, u8 arg1) {
         spE4 = demoGetButtons(arg0->unk10);
     }
     sp2C = &arg0->unk14;
-    func_802E65AC(&arg0->unk14, &D_80362690->unk0[0].terraId, &stickX, &stickY, &spE4);
+    func_802E65AC(&arg0->unk14, &D_80362690->terraId, &stickX, &stickY, &spE4);
     if (arg1 != 6) {
         spC8[0] = arg0->zAxis;
         spC8[1] = arg0->xAxis;
@@ -422,7 +429,7 @@ void cannonAimingFrame(CannonballData* arg0) {
     uvMat4RotateAxis(&sp38, arg0->xAxis, 'x');
     uvDobjPosm(arg0->unk54, 1, &sp38);
     uvModelGetPosm(0x105, 2, &sp38);
-    uvMat4RotateAxis(&sp38, (1.44f * arg0->zxAxis[0]) - arg0->zxAxis[1], 'x');
+    uvMat4RotateAxis(&sp38, -arg0->xAxis + (1.44f * arg0->zAxis), 'x');
     uvDobjPosm(arg0->unk54, 2, &sp38);
     uvModelGetPosm(0x105, 3, &sp38);
     uvMat4RotateAxis(&sp38, -arg0->xAxis - (1.44f * arg0->zAxis), 'x');
@@ -480,10 +487,6 @@ void cannonShoot(CannonballData* arg0) {
 }
 
 // cannonPilotLand called when pilot lands on surface after being shot from cannon
-#ifndef NON_MATCHING
-#pragma GLOBAL_ASM("asm/nonmatchings/app/cannonball/cannonPilotLand.s")
-#else
-// Matches but has bss/data issues
 void cannonPilotLand(CannonballData* arg0) {
     static Vec4F D_80359AB0;
     static Vec4F D_80359AC0;
@@ -503,7 +506,7 @@ void cannonPilotLand(CannonballData* arg0) {
             func_802F8AB8(arg0->unk14.m[3][0], arg0->unk14.m[3][1], z, 1.0f, &arg0->unk1C4);
             arg0->unkB0->unk6 = 0;
             arg0->unk2 = arg0->unkB0->unk6;
-            uvDobjState(arg0->unk0, arg0->unk2);
+            uvDobjState(arg0->objId, arg0->unk2);
             uvMat4Copy(&arg0->unkB0->unk80, &arg0->unk14);
         }
         uvMat4Copy(&arg0->unkB0->unk80, &arg0->unk14);
@@ -539,7 +542,6 @@ void cannonPilotLand(CannonballData* arg0) {
     hudGetState()->renderFlags = 0;
     func_802D9220(arg0);
 }
-#endif
 
 // cannonLoadPilot is invoked when loading cannonball level
 void cannonLoadPilot(u8 pilot, CannonballData* arg1) {
@@ -787,94 +789,137 @@ void cannonLoadPilot(u8 pilot, CannonballData* arg1) {
     }
 }
 
-// cannonLoad802D77D8 is invoked when loading cannonball level
-#ifndef NON_EQUIVALENT
-#pragma GLOBAL_ASM("asm/nonmatchings/app/cannonball/cannonLoad802D77D8.s")
-#else
-// protos might be incorrect
-void func_802E66F4(f32);
-void func_802EDD9C(void*, Mtx4F*);
-void func_8031A2CC(void);
-void func_8031DAA8(s32, f32);
-void func_803214E4(void);
-void func_8032B508(void*);
-void func_8034B5E0(u8, Unk802D3658_Arg0*);
-void func_8034E0B4(void);
-void uvEnvFunc(u16, s32, void*);
-extern s32 D_80359A98[];
-extern s32 D_80359AA8;
-extern s32 D_80359AAC;
-extern void func_802E0CF0(void);
 s32 cannonLoad802D77D8(Unk80362690* arg0, CannonballData* arg1) {
     s32 i;
     Mtx4F sp3C;
-    Unk80362690_Unk0_UnkC* temp_s1_2;
+    Unk80362690_Unk0* temp_s1;
 
-    temp_s1_2 = &arg0->unk0[arg0->unk9C].unkC;
-    if (temp_s1_2->unk6 == 0) {
-        D_80359AAC = levelGetTotalPoints(temp_s1_2->unk74, temp_s1_2->unk4, temp_s1_2->unk2);
+    temp_s1 = &arg0->unkC[arg0->unk9C];
+    if (temp_s1->test == 0) {
+        D_80359AAC = levelGetTotalPoints(temp_s1->unk74, temp_s1->cls, temp_s1->veh);
         D_80359AA8 = 0;
         for (i = 0; i < 4; i++) {
-            D_80359A98[i] = testGetPointCount(temp_s1_2->unk74, temp_s1_2->unk4, i, temp_s1_2->unk2);
-            ((s16*)(temp_s1_2->unk74 + (temp_s1_2->unk4 * 0x694) + (i * 0x150) + (temp_s1_2->unk2 * 0x30)))[0x36] = 0x7F;
-            ((s16*)(temp_s1_2->unk74 + (temp_s1_2->unk4 * 0x694) + (i * 0x150) + (temp_s1_2->unk2 * 0x30)))[0x22] = 0x7F;
+            D_80359A98[i] = testGetPointCount(temp_s1->unk74, temp_s1->cls, i, temp_s1->veh);
+            temp_s1->unk74->unk40[temp_s1->cls].unk0[i][temp_s1->veh].unk2C = 0x7F;
+            temp_s1->unk74->unk40[temp_s1->cls].unk0[i][temp_s1->veh].unk4 = 0x7F;
         }
     }
     func_802E26C0();
     func_8033F964(1);
-    func_8031DAA8(0, 0);
-    temp_s1_2->unk6 = 0;
+    hud_8031DAA8(0, 0.0f);
+    temp_s1->test = 0;
     func_803214E4();
-    taskInitTest(temp_s1_2->unk4, temp_s1_2->unk2, temp_s1_2->unk6, &arg0->unk0[0].map, &arg0->unk0[0].terraId, &arg0->unk0[0].unk8);
-    levelLoad(arg0->unk0[0].map, temp_s1_2->pad0, temp_s1_2->unk2, 1);
+    taskInitTest(temp_s1->cls, temp_s1->veh, temp_s1->test, &arg0->map, &arg0->terraId, &arg0->unk8);
+    levelLoad(arg0->map, temp_s1->pilot, temp_s1->veh, 1);
     hudInit();
-    func_8031A2CC();
+    hud_8031A2CC();
     taskLoad();
     func_8034E0B4();
-    uvChanTerra(temp_s1_2->unk70->unk22C, (s32)arg0->unk0[0].unk6);
-    uvEnvFunc(arg0->unk0[0].unk8, 0, func_802E0CF0);
-    func_8034B5E0(temp_s1_2->unk70->unk22C, (Unk802D3658_Arg0*)temp_s1_2->unk70);
+    uvChanTerra(temp_s1->unk70->unk22C, arg0->terraId);
+    uvEnvFunc(arg0->unk8, 0, func_802E0CF0);
+    func_8034B5E0(temp_s1->unk70->unk22C, temp_s1->unk70);
     for (i = 0; i < 4; i++) {
-        ((s16*)(temp_s1_2->unk74 + (temp_s1_2->unk4 * 0x694) + (i * 0x150) + (temp_s1_2->unk2 * 0x30)))[0x22] = 0x7F;
+        temp_s1->unk74->unk40[temp_s1->cls].unk0[i][temp_s1->veh].unk4 = 0x7F;
     }
-    temp_s1_2->unk6C = (s32)arg1;
-    cannonLoadLevel(arg0->unk9C, temp_s1_2->pad0, arg1, (Unk802D3658_Arg0*)temp_s1_2->unk70);
+    temp_s1->vehicleData = arg1;
+    cannonLoadLevel(arg0->unk9C, temp_s1->pilot, arg1, temp_s1->unk70);
     cannonLevelEnterLeave(arg1);
     arg1->unkC = 0;
     arg1->unkE = 0;
-    D_80359A88[0] = 0;
-    D_80359A88[1] = 0;
-    D_80359A88[2] = 0;
-    D_80359A88[3] = 0;
-    uvMat4Copy(&sp3C, (Mtx4F*)&arg1->unk14);
+    for (i = 0; i < 4; i++) {
+        D_80359A88[i] = 0;
+    }
+    uvMat4Copy(&sp3C, &arg1->unk14);
     uvMat4RotateAxis(&sp3C, 1.5707961f, 'x');
-    func_802EDD9C(temp_s1_2, &sp3C);
-    func_802D4DE8(temp_s1_2->unk70, 0U);
-    func_8032B508(temp_s1_2->unk74);
+    func_802EDD9C(temp_s1, &sp3C);
+    func_802D4DE8(temp_s1->unk70, 0);
+    func_8032B508(temp_s1->unk74);
     func_80313E0C(0.0f);
     func_802E66F4(1.0f);
     func_802E68B0(1);
     func_8033F748(0x10);
     func_8033F964(0);
-    func_8033FCD0(temp_s1_2->unk2);
+    func_8033FCD0(temp_s1->veh);
     uvEventPost(0xB, 0);
     D_80359A84 = 0;
     hudWarningText(0xDB, 1.5f, 8.0f);
     return 5;
 }
-#endif
 
 // cannonFrame802D7B7C called every frame while aiming cannon and while in flight before landing
-#pragma GLOBAL_ASM("asm/nonmatchings/app/cannonball/cannonFrame802D7B7C.s")
+s32 cannonFrame802D7B7C(Unk80362690* arg0) {
+    Unk80362690_Unk0* temp_s0;
+    CannonballData* temp_s1;
+    Mtx4F sp58;
+    f32 sp54;
+    s32 sp50;
+    s32 temp_v0;
+    s32 i;
+
+    temp_s0 = &arg0->unkC[arg0->unk9C];
+    sp50 = 5;
+    uvEventPost(0xE, 0);
+    func_802E15F0();
+    func_8032150C();
+    func_80313D74();
+    temp_s1 = (CannonballData*)temp_s0->vehicleData;
+    cannonMovementFrame(temp_s1, arg0->unk0);
+    if (temp_s1->unkD4 != 0) {
+        uvMat4Copy(&sp58, &temp_s1->unk14);
+        uvMat4RotateAxis(&sp58, 1.5707961f, 'x');
+    } else {
+        uvMat4Copy(&sp58, &temp_s1->unk58);
+        uvMat4RotateAxis(&sp58, temp_s1->zAxis, 'z');
+        uvMat4RotateAxis(&sp58, temp_s1->xAxis, 'x');
+    }
+    func_802EDAF0(temp_s0, &sp58, temp_s1->unk120, temp_s1->unk1D0, 0.0f, 1.0f, temp_s1->unk4, temp_s1->unk8, 0, temp_s1->unk11C, 1);
+    if (temp_s1->unkD4 == 2) {
+        sp50 = 6;
+    }
+    uvEventPost(0x16, 0);
+    taskFrameUpdate(&temp_s0->unk2C, temp_s0->unk20);
+    func_8033F6F8(&temp_s0->unk70->unk108, &temp_s0->unk2C);
+    uvGfxBegin();
+    func_8034B624(temp_s0->unk70);
+    uvGfxEnd();
+    if (demoButtonPress(arg0->unk9C, START_BUTTON) != 0) {
+        uvEventPost(0x12, 0);
+        sp54 = D_8034F850;
+        temp_v0 = func_8032CF28(arg0);
+        switch (temp_v0) {
+        case 0:
+            break;
+        case 1:
+            uvEventPost(0x17, 0);
+            func_8032CC44(arg0);
+            uvEventPost(0x18, 0);
+            break;
+        case 3:
+            D_8037DC84 = 1;
+            for (i = 0; i < 4; i++) {
+                temp_s0->unk74->unk40[temp_s0->cls].unk0[i][temp_s0->veh].unk2C = D_80359A98[i];
+                temp_s0->unk74->unk40[temp_s0->cls].unk0[i][temp_s0->veh].unk4 = 0;
+            }
+            temp_s0->test = 0;
+            func_802ECE94(arg0);
+            sp50 = 2;
+            break;
+        }
+        D_8034F850 = sp54;
+        uvEventPost(0x13, 0);
+    }
+    return sp50;
+}
 
 // cannonLandedFrame called every frame after landing from cannon shot
 s32 cannonLandedFrame(CannonballData* arg0) {
+    static f32 D_8034EA00 = 0.0f;
     Unk80364210* temp_v1;
-    Unk80362690_Unk0_UnkC* temp_s0;
+    Unk80362690_Unk0* temp_s0;
     u8 sp27;
     s32 var_a2;
 
-    temp_s0 = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    temp_s0 = &D_80362690->unkC[D_80362690->unk9C];
     temp_v1 = func_8032BE10();
     if (0.0f == D_8034EA00) {
         D_8034EA00 = D_8034F850 + 3.0f;
@@ -941,14 +986,110 @@ s32 cannonLandedFrame(CannonballData* arg0) {
 }
 
 // cannonEndShot called once after landing before the cannon is reset for next shot
-#pragma GLOBAL_ASM("asm/nonmatchings/app/cannonball/cannonEndShot.s")
+s32 cannonEndShot(CannonballData* arg0) {
+    u16 sp2E;
+    u16 sp2C;
+    u16 sp2A;
+    Unk80362690_Unk0* temp_s1;
+
+    temp_s1 = &D_80362690->unkC[D_80362690->unk9C];
+    if (arg0->unkE == 0xFF) {
+        arg0->unkE = 0;
+        arg0->unkC = 0;
+        sp2E = 0xFF;
+    } else {
+        sp2E = arg0->unkC;
+        arg0->unkE++;
+        if (arg0->unkE > 2) {
+            arg0->unkC++;
+            arg0->unkE = 0;
+            if (arg0->unkC >= 4) {
+                temp_s1->test = 0;
+                cannonEndAllTgts(arg0);
+                return 0;
+            }
+            temp_s1->test++;
+        }
+    }
+
+    func_8033F748(0x10);
+    func_8033F964(0);
+    func_8033FCD0(temp_s1->veh);
+    if (arg0->unkC != sp2E) {
+        uvEventPost(0x19, 0);
+        func_802E26C0();
+        sp2A = arg0->unkE;
+        sp2C = arg0->unkC;
+        taskDeinitLevel();
+        func_8034E628();
+        func_803214E4();
+        level_8030BA60();
+        cannonLevelEnterLeave(arg0);
+        cannonEndTarget(arg0);
+        taskInitTest(temp_s1->cls, temp_s1->veh, temp_s1->test, &D_80362690->map, &D_80362690->terraId, &D_80362690->unk8);
+        levelLoad(D_80362690->map, temp_s1->pilot, temp_s1->veh, 1);
+        hudInit();
+        hud_8031A2CC();
+        taskLoad();
+        func_8034E0B4();
+        uvChanTerra(temp_s1->unk70->unk22C, D_80362690->terraId);
+        uvEnvFunc(D_80362690->unk8, 0, func_802E0CF0);
+        cannonLoadLevel(D_80362690->unk9C, temp_s1->pilot, arg0, temp_s1->unk70);
+        cannonLevelEnterLeave(arg0);
+        arg0->unkE = sp2A;
+        arg0->unkC = sp2C;
+        func_8034B5E0(temp_s1->unk70->unk22C, temp_s1->unk70);
+    }
+    cannonLevelEnterLeave(arg0);
+    func_802D4DE8(arg0->unkB0, 0);
+    func_80313E0C(0.0f);
+    switch (arg0->unkE) {
+    case 0:
+        hudWarningText(0xDB, 1.5f, 8.0f);
+        break;
+    case 1:
+        hudWarningText(0x52, 1.5f, 8.0f);
+        break;
+    case 2:
+        hudWarningText(0x1A8, 1.5f, 8.0f);
+        break;
+    }
+    return 1;
+}
 
 // cannonEndAllTgts called once after all four cannon targets are complete
-#pragma GLOBAL_ASM("asm/nonmatchings/app/cannonball/cannonEndAllTgts.s")
+s32 cannonEndAllTgts(CannonballData* arg0) {
+    Unk80362690_Unk0* temp_s0;
+    Mtx4F sp4C;
+    s32 i;
+
+    temp_s0 = &D_80362690->unkC[D_80362690->unk9C];
+    uvEventPost(0xD, 0);
+    func_8033F748(0x1C);
+    func_8033F964(0);
+    func_8033FCD0(temp_s0->veh);
+    temp_s0->test = 0;
+    temp_s0->unk8B = 1;
+    for (i = 0; i < 4; i++) {
+        D_80359AA8 += D_80359A88[i];
+    }
+
+    if (D_80359AA8 < D_80359AAC) {
+        for (i = 0; i < 4; i++) {
+            temp_s0->unk74->unk40[temp_s0->cls].unk0[i][temp_s0->veh].unk2C = D_80359A98[i];
+        }
+    }
+
+    uvMat4Copy(&sp4C, &arg0->unk14);
+    uvMat4RotateAxis(&sp4C, 1.5707961f, 'x');
+    func_802EDAF0(temp_s0, &arg0->unk14, arg0->unk120, arg0->unk1D0, 0.0f, 1.0f, arg0->unk4, arg0->unk8, 0, arg0->unk11C, 5);
+    saveFileWrite(temp_s0->unk8A);
+    return 1;
+}
 
 void cannon_802D8A40(u8 arg0, CannonballData* arg1) {
-    Unk80362690_Unk0_UnkC* unkC;
-    unkC = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    Unk80362690_Unk0* unkC;
+    unkC = &D_80362690->unkC[D_80362690->unk9C];
     if (unkC->veh == 3) {
         if (arg0 == 1) {
             uvDobjState(arg1->objId, 0);

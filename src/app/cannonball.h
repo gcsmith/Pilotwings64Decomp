@@ -24,13 +24,8 @@ typedef struct {
     u8 pad57;
     Mtx4F unk58;
     f32 unk98;
-    union {
-        f32 zxAxis[2];
-        struct {
-            f32 zAxis; // rotation intended here
-            f32 xAxis;
-        };
-    };
+    f32 zAxis;
+    f32 xAxis;
     f32 unkA4;
     u8 padA8[8];
     Unk802D3658_Arg0* unkB0;
@@ -107,8 +102,8 @@ typedef struct {
     u8 pad2B5[0x2BC-0x2B5];
 } CannonballData;
 
-extern u16 D_80359AAA;
-extern u16 D_80359AAE;
+extern s32 D_80359AA8;
+extern s32 D_80359AAC;
 
 void cannon_802D5A90(void);
 void cannonLoadLevel(u8, u8 pilot, CannonballData*, Unk802D3658_Arg0*);
@@ -120,7 +115,7 @@ void cannonShoot(CannonballData*);
 void cannonPilotLand(CannonballData*);
 void cannonLoadPilot(u8 pilot, CannonballData*);
 void cannon_802D8A40(u8 arg0, CannonballData* arg1);
-s32 cannonLoad802D77D8(Unk80362690* arg0, Unk802D3658_Arg0* arg1);
+s32 cannonLoad802D77D8(Unk80362690* arg0, CannonballData* arg1);
 s32 cannonFrame802D7B7C(Unk80362690* arg0);
 
 #endif // APP_CANNONBALL_H

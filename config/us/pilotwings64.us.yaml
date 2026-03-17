@@ -642,7 +642,7 @@ segments:
       - { type: .bss, vram: 0x80359730, name: app/bonus }
       - { type: .bss, vram: 0x803597E0, name: app/ball_target }
       - { type: bss, vram: 0x803599D0, name: app/code_5A6A0 }
-      - { type: bss, vram: 0x80359A30, name: app/cannonball }
+      - { type: .bss, vram: 0x80359A30, name: app/cannonball }
       - { type: bss, vram: 0x80359AD0, name: app/code_60020 }
       - { type: bss, vram: 0x80359BE0, name: app/cbsound }
       - { type: bss, vram: 0x80359C40, name: app/code_61A60 }

@@ -17,5 +17,6 @@ Unk803216A4* func_803216A4(void);
 void func_8032150C(void);
 void func_803213E0(void);
 void func_80321400(void);
+void func_803214E4(void);
 
 #endif // APP_PROXANIM_H

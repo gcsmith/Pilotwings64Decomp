@@ -394,7 +394,7 @@ void func_80338A14(void) {
     f32 sp16C[10];
     s32 sp144[10];
     s32 sp11C[10];
-    Unk80362690_Unk0_UnkC* temp_s4;
+    Unk80362690_Unk0* temp_s4;
     LevelPHTS* sp114;
     s32 i;
     s32 j;
@@ -423,7 +423,7 @@ void func_80338A14(void) {
     s32 sp78;
 
     var_s2 = 0;
-    temp_s4 = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    temp_s4 = &D_80362690->unkC[D_80362690->unk9C];
     spDC = temp_s4->unk70;
     temp_s5 = &taskGet_80345C80()->unk0;
     spB8 = 0;
@@ -683,7 +683,7 @@ void func_80339C8C(HangGliderData* arg0) {
     s32 var_a2;
 
     var_a2 = demoGetButtons(0);
-    if (D_80362690->unk0[0].unk0 != 6) {
+    if (D_80362690->unk0 != 6) {
         if (D_8035054C != 0) {
             D_8035054C = 0;
             if (var_a2 & Z_TRIG) {
@@ -723,7 +723,7 @@ void func_80339E1C(BirdmanData* arg0) {
     s32 var_v1;
 
     var_v1 = demoGetButtons(0);
-    if (D_80362690->unk0[0].unk0 != 6) {
+    if (D_80362690->unk0 != 6) {
         if (D_8035054C != 0) {
             D_8035054C = 0;
             if (var_v1 & Z_TRIG) {
@@ -758,10 +758,10 @@ void func_80339E1C(BirdmanData* arg0) {
 }
 
 s32 func_80339F9C(void) {
-    Unk80362690_Unk0_UnkC* temp_v1;
+    Unk80362690_Unk0* temp_v1;
     u16 var_a0;
 
-    temp_v1 = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    temp_v1 = &D_80362690->unkC[D_80362690->unk9C];
 
     switch (temp_v1->veh) {
     case VEHICLE_BIRDMAN:
@@ -811,7 +811,7 @@ void func_8033A078(s32 arg0) {
     u8* ptr;
 
     ptr = taskGet_80345CB0();
-    if ((D_80362690->unk0[0].unk0 != 7) && (ptr[1] == 1)) {
+    if ((D_80362690->unk0 != 7) && (ptr[1] == 1)) {
         func_803405C0();
     }
     if (D_80350590 != 0) {
@@ -827,7 +827,7 @@ void func_8033A078(s32 arg0) {
 }
 
 void func_8033A128(s32 arg0, Unk80373060* arg1) {
-    Unk80362690_Unk0_UnkC* temp_v1;
+    Unk80362690_Unk0* temp_v1;
 
     if ((arg0 != 0) && (D_80350594 == 0)) {
         return;
@@ -841,7 +841,7 @@ void func_8033A128(s32 arg0, Unk80373060* arg1) {
         return;
     }
 
-    temp_v1 = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    temp_v1 = &D_80362690->unkC[D_80362690->unk9C];
 
     if ((D_80350598 != arg1->veh) || (D_8035059C != arg1->cls) || (D_803505A0 != arg1->test)) {
         func_8033A020(arg0);
@@ -865,8 +865,8 @@ void func_8033A244(s32 arg0, Unk80373060* arg1) {
     Mtx4F sp44;
 
     if (arg1 != NULL) {
-        var_v1 = &D_80362690->unk0[D_80362690->unk9C];
-        sp40 = &var_v1->unkC.unk2C;
+        var_v1 = &D_80362690->unkC[D_80362690->unk9C];
+        sp40 = &var_v1->unk2C;
         uvMat4Copy(&sp44, sp40);
         func_8034B210(arg1->unk0, arg1->unkC, &sp90);
         uvMat4Copy(sp40, &sp90);
@@ -926,7 +926,7 @@ void func_8033A244(s32 arg0, Unk80373060* arg1) {
         uvGfxBegin();
         func_80204C94(0, arg1->unk18, arg1->unk1C, arg1->unk24, arg1->unk20, arg1->unk28, arg1->unk2C);
         func_80204B34(0, &sp90);
-        uvChanTerra(0, D_80362690->unk0[0].terraId);
+        uvChanTerra(0, D_80362690->terraId);
         func_80204A8C(0, 11);
         func_80204FC4(0);
         uvGfxEnd();
@@ -1800,10 +1800,10 @@ s32 func_8033E3A8(s32 arg0) {
     u16 sp50;
     u16 sp4E;
 
-    temp_s4 = D_80362690->unk0[D_80362690->unk9C].unkC.unk70;
+    temp_s4 = D_80362690->unkC[D_80362690->unk9C].unk70;
     ptr = taskGet_80345CB0();
     D_80350550 = 0;
-    if ((D_80362690->unk0[0].unk0 != 7) && (ptr[1] == 1)) {
+    if ((D_80362690->unk0 != 7) && (ptr[1] == 1)) {
         func_803405E4();
     }
     if (arg0 == 3) {
@@ -1840,7 +1840,7 @@ s32 func_8033E3A8(s32 arg0) {
         } else if (arg0 == 1) {
             renderFlags = hudGetState()->renderFlags;
             hudGetState()->renderFlags = HUD_RENDER_DISABLE;
-            switch (D_80362690->unk0[0].map) {
+            switch (D_80362690->map) {
             case 3:
                 var_s0 = func_8033DDD8(D_80350538, D_80373630, &spB8);
                 break;
@@ -1994,13 +1994,13 @@ void func_8033F050(s32 arg0) {
     Unk8033F050* var_s1;
     Unk8033F050 sp84;
     Unk802D3658_Arg0* temp_s4;
-    Unk80362690_Unk0_UnkC* var_v1;
+    Unk80362690_Unk0* var_v1;
     s32 i;
     s32 j;
     s32 var_s3;
     s32 pad;
 
-    var_v1 = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    var_v1 = &D_80362690->unkC[D_80362690->unk9C];
     temp_s4 = var_v1->unk70;
     D_80350528 = 0;
     var_s3 = 0;

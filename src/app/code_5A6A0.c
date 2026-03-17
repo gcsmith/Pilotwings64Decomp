@@ -804,7 +804,7 @@ void func_802D50D0(Unk802D3658_Arg0* arg0) {
     f32 temp_fv1;
 
     var_ft4 = 3.0f;
-    if ((arg0->unk1 == 5) || (D_80362690->unk0[0].unk0 != 5)) {
+    if ((arg0->unk1 == 5) || (D_80362690->unk0 != 5)) {
         if (D_8034E9E4 != 0) {
             temp_fv0 = 1.0f / arg0->unk20;
             a = arg0->unk2C * temp_fv0;
@@ -817,7 +817,7 @@ void func_802D50D0(Unk802D3658_Arg0* arg0) {
             D_8034E9E4 = 0;
         }
     } else {
-        if ((D_80362690->unk0[0].terraId == 2) || (D_80362690->unk0[0].terraId == 8)) {
+        if ((D_80362690->terraId == 2) || (D_80362690->terraId == 8)) {
             var_ft4 = 1.0f;
         }
         if (arg0->unk1 == 1) {

@@ -134,5 +134,6 @@ s32 hudAddWaypoint(f32 x, f32 y, f32 z);
 void hud_8031A810(s32 idx);
 void hud_8031A8E0(s32 idx);
 s16 hudGet_8031DA9C(void);
+void hud_8031DAA8(u8, f32);
 
 #endif // APP_HUD_H

@@ -5,7 +5,7 @@
 #include "code_72B70.h"
 
 extern s32 gCurTestIdx;
-extern s32 D_8037DC84;
+extern u8 D_8037DC84;
 extern const char* gClassShortNames[];
 extern const char* gVehShortNames[];
 

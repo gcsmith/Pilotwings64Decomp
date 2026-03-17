@@ -55,7 +55,7 @@ void func_8032C540(Unk80362690* arg0) {
     Mtx4F sp88;
     u8 sp87;
     u8 var_s4;
-    Unk80362690_Unk0_UnkC* temp_s0;
+    Unk80362690_Unk0* temp_s0;
     f32 temp_fa0;
     f32 var_fs0;
     f32 var_fs2;
@@ -66,7 +66,7 @@ void func_8032C540(Unk80362690* arg0) {
     u16 sp66;
     u16 sp64;
 
-    temp_s0 = &arg0->unk0[arg0->unk9C].unkC;
+    temp_s0 = &arg0->unkC[arg0->unk9C];
     var_s4 = 0;
     var_fs3 = 0.0f;
     var_fs0 = 0.0f;
@@ -127,7 +127,7 @@ void func_8032C540(Unk80362690* arg0) {
     uvEventPost(0x10, 0);
     func_80313E0C(func_802E6B68());
     sp6C = -100.0f;
-    sp68 = arg0->unk0[0].terraId;
+    sp68 = arg0->terraId;
     sp64 = 0xFFFF;
     func_802E7278(&sp108, &sp66);
     func_8032D33C(&sp108, &sp108, temp_s0->unk70->unk8, 1);
@@ -150,41 +150,41 @@ void func_8032C540(Unk80362690* arg0) {
         switch (temp_s0->veh) {
         case VEHICLE_HANG_GLIDER:
             hangGliderData = temp_s0->vehicleData;
-            hangGliderMovementFrame(hangGliderData, arg0->unk0->unk0);
+            hangGliderMovementFrame(hangGliderData, arg0->unk0);
             uvMat4Copy(&sp148, &hangGliderData->unk10);
             break;
         case VEHICLE_GYROCOPTER:
             gyrocopterData = temp_s0->vehicleData;
-            gyrocopterMovementFrame(gyrocopterData, arg0->unk0->unk0);
+            gyrocopterMovementFrame(gyrocopterData, arg0->unk0);
             uvMat4Copy(&sp148, &gyrocopterData->unk10);
             break;
         case VEHICLE_ROCKET_BELT:
             rocketBeltData = temp_s0->vehicleData;
-            rocketBeltMovementFrame(rocketBeltData, arg0->unk0->unk0);
+            rocketBeltMovementFrame(rocketBeltData, arg0->unk0);
             uvMat4Copy(&sp148, &rocketBeltData->unk10);
             break;
         case VEHICLE_CANNONBALL:
             cannonballData = temp_s0->vehicleData;
-            cannonMovementFrame(cannonballData, arg0->unk0->unk0);
+            cannonMovementFrame(cannonballData, arg0->unk0);
             uvMat4Copy(&sp148, &cannonballData->unk14);
             break;
         case VEHICLE_SKY_DIVING:
             skyDivingData = temp_s0->vehicleData;
-            skydivingMovementFrame(skyDivingData, arg0->unk0->unk0);
+            skydivingMovementFrame(skyDivingData, arg0->unk0);
             uvMat4Copy(&sp148, &skyDivingData->unk10);
             break;
         case VEHICLE_JUMBLE_HOPPER:
             jumbleHopperData = temp_s0->vehicleData;
-            jumbleHopperMovementFrame(jumbleHopperData, arg0->unk0->unk0);
+            jumbleHopperMovementFrame(jumbleHopperData, arg0->unk0);
             uvMat4Copy(&sp148, &jumbleHopperData->unk74);
             break;
         case VEHICLE_BIRDMAN:
             birdmanData = temp_s0->vehicleData;
-            birdMovementFrame(birdmanData, arg0->unk0->unk0);
+            birdMovementFrame(birdmanData, arg0->unk0);
             uvMat4Copy(&sp148, &birdmanData->unk10);
             break;
         }
-        sp66 = arg0->unk0[0].terraId;
+        sp66 = arg0->terraId;
         if (sp66 != sp64) {
             uvChanTerra(temp_s0->unk70->unk22C, sp66);
             taskUpdateState();
@@ -239,7 +239,7 @@ void func_8032C540(Unk80362690* arg0) {
 }
 
 void func_8032CC44(Unk80362690* arg0) {
-    Unk80362690_Unk0_UnkC* sp2C;
+    Unk80362690_Unk0* sp2C;
     s32 sp28;
     s32 sp24;
     s32 sp20;
@@ -247,7 +247,7 @@ void func_8032CC44(Unk80362690* arg0) {
     u8 sp1B;
     CannonballData* temp_v0;
 
-    sp2C = &arg0->unk0[arg0->unk9C].unkC;
+    sp2C = &arg0->unkC[arg0->unk9C];
     sp1B = 1;
     func_8032D51C(0);
     func_8034C25C();
@@ -305,7 +305,7 @@ void func_8032CC44(Unk80362690* arg0) {
     }
     func_803343D8(0);
     uvLevelInit();
-    switch (arg0->unk0[0].map) {
+    switch (arg0->map) {
     case MAP_HOLIDAY_ISLAND:
         uvLevelAppend(0);
         break;
@@ -324,7 +324,7 @@ void func_8032CC44(Unk80362690* arg0) {
     func_8030FE80(arg0, 1);
     func_8032D51C(0);
     uvLevelInit();
-    levelLoad(arg0->unk0->map, sp2C->pilot, sp2C->veh, 1);
+    levelLoad(arg0->map, sp2C->pilot, sp2C->veh, 1);
     func_803343D8(1);
     uvDobjState(sp28, sp24);
     if (sp20 != 0xFFFF) {
@@ -342,7 +342,7 @@ void func_8032CC44(Unk80362690* arg0) {
 }
 
 s32 func_8032CF28(Unk80362690* arg0) {
-    Unk80362690_Unk0_UnkC* sp6C;
+    Unk80362690_Unk0* sp6C;
     Unk802D3658_Arg0* sp68;
     HUDState* hud;
     s32 var_s0;
@@ -351,7 +351,7 @@ s32 func_8032CF28(Unk80362690* arg0) {
     s32 pad[4];
     s32 sp40;
 
-    sp6C = &arg0->unk0[arg0->unk9C].unkC;
+    sp6C = &arg0->unkC[arg0->unk9C];
     sp68 = sp6C->unk70;
     snd_play_sfx(4U);
     var_s0 = 0x4C;

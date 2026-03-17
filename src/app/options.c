@@ -68,18 +68,18 @@ s32 optionsTopRender(void) {
 }
 
 void optionsInit(void) {
-    D_80362690->unk0[D_80362690->unk9C + 1].debugFlag = 0;
-    saveFileLoad(D_80362690->unk0[D_80362690->unk9C + 1].debugFlag);
+    D_80362690->unkC[D_80362690->unk9C].unk8A = 0;
+    saveFileLoad(D_80362690->unkC[D_80362690->unk9C].unk8A);
     sGameComplete = func_8030CC48();
 
-    D_80362690->unk0[D_80362690->unk9C + 1].debugFlag = 1;
-    saveFileLoad(D_80362690->unk0[D_80362690->unk9C + 1].debugFlag);
+    D_80362690->unkC[D_80362690->unk9C].unk8A = 1;
+    saveFileLoad(D_80362690->unkC[D_80362690->unk9C].unk8A);
 
     if (sGameComplete < func_8030CC48()) {
         sGameComplete = func_8030CC48();
     } else {
-        D_80362690->unk0[D_80362690->unk9C + 1].debugFlag = 0;
-        saveFileLoad(D_80362690->unk0[D_80362690->unk9C + 1].debugFlag);
+        D_80362690->unkC[D_80362690->unk9C].unk8A = 0;
+        saveFileLoad(D_80362690->unkC[D_80362690->unk9C].unk8A);
     }
     if (sOptionsPanel == 3) {
         options_80316B80();
@@ -103,7 +103,7 @@ void optionsInitMain(void) {
     s32 menuY;
     s32 count;
 
-    saveFileLoad(D_80362690->unk0[D_80362690->unk9C + 1].debugFlag);
+    saveFileLoad(D_80362690->unkC[D_80362690->unk9C].unk8A);
     if (sGameComplete != 0) {
         sOptionMenuItems[0] = 0xC2;  // "Check album"
         sOptionMenuItems[1] = 0xBE;  // "Sound"

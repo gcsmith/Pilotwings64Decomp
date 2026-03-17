@@ -202,11 +202,11 @@ void hsound_callback(s32 eventType, void* arg1, s32 eventData) {
 }
 
 void func_8030ABF8(GyrocopterData* arg0) {
-    Unk80362690_Unk0_UnkC* sp34;
+    Unk80362690_Unk0* sp34;
     s32 sp30;
     f32 sp2C;
 
-    sp34 = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    sp34 = &D_80362690->unkC[D_80362690->unk9C];
     if (arg0->unkC0 == 3) {
         if (!(arg0->unk678 & 2)) {
             arg0->unk678 |= 2;
@@ -301,7 +301,7 @@ void func_8030AEB0(GyrocopterData* arg0) {
             }
             break;
         case 8:
-            soid = uvSobjGetPt(D_80362690->unk0[0].terraId, arg0->unk54C[i].x, arg0->unk54C[i].y, arg0->unk54C[i].z);
+            soid = uvSobjGetPt(D_80362690->terraId, arg0->unk54C[i].x, arg0->unk54C[i].y, arg0->unk54C[i].z);
             if (soid != -1) {
                 modelId = uvSobj_8022D1E4(soid);
                 if ((modelId == 0x18) || (modelId == 0x5C) || (modelId == 0x5D) || (modelId == 0x5E) || (modelId == 0x5F) || (modelId == 0x60) ||

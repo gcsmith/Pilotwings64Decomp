@@ -298,7 +298,7 @@ s32 func_802FC184(JumbleHopperData* arg0, f32* arg1, Vec3F* arg2) {
     } else if (sp40 != 0) {
         sp3C = 1;
 
-        soid = uvSobjGetPt(D_80362690->unk0[0].terraId, sp38->x, sp38->y, sp38->z);
+        soid = uvSobjGetPt(D_80362690->terraId, sp38->x, sp38->y, sp38->z);
         if (soid != -1) {
             modelId = uvSobj_8022D1E4(soid);
             if ((modelId == 0x18) || (modelId == 0x5C) || (modelId == 0x5D) || (modelId == 0x5E) || (modelId == 0x5F) || (modelId == 0x60) ||
@@ -367,7 +367,7 @@ s32 func_802FC3B4(JumbleHopperData* arg0, s32 arg1, Vec3F* arg2, Vec3F* arg3) {
         case 1:
             return 1;
         case 8:
-            soid = uvSobjGetPt(D_80362690->unk0[0].terraId, arg2->x, arg2->y, arg2->z);
+            soid = uvSobjGetPt(D_80362690->terraId, arg2->x, arg2->y, arg2->z);
             if (soid != -1) {
                 modelId = uvSobj_8022D1E4(soid);
                 if ((modelId == 0x18) || (modelId == 0x5C) || (modelId == 0x5D) || (modelId == 0x5E) || (modelId == 0x5F) || (modelId == 0x60) ||
@@ -408,7 +408,7 @@ s32 func_802FC694(JumbleHopperData* arg0, Unk802D3658_Unk111C* arg1, Unk802D3658
     for (i = 0; i < sp78; i++) {
         var_s0 = &sp84.unk4[i];
         if (func_802DCA00(var_s0->surfaceId) != 0) {
-            temp_v1 = uvTerraGetState(D_80362690->unk0[0].terraId, var_s0->surfaceId) & 0xFFF;
+            temp_v1 = uvTerraGetState(D_80362690->terraId, var_s0->surfaceId) & 0xFFF;
             if ((temp_v1 != 0xB0) && (temp_v1 != 0x67)) {
                 arg2->unk4[var_s1++] = sp84.unk4[i];
             } else {
@@ -600,11 +600,11 @@ void func_802FD038(JumbleHopperData* arg0) {
 }
 
 void func_802FD114(JumbleHopperData* arg0) {
-    Unk80362690_Unk0_UnkC* var_v1;
+    Unk80362690_Unk0* var_v1;
     Vec3F sp38;
     f32 temp_fv0;
 
-    var_v1 = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    var_v1 = &D_80362690->unkC[D_80362690->unk9C];
     switch (var_v1->pilot) {
     case PILOT_LARK:
     case PILOT_KIWI:

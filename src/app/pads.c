@@ -125,7 +125,7 @@ void padsLoad(void) {
                 minIdx = j;
             }
         }
-        if ((minIdx != -1) && (D_80362690->unk0[D_80362690->unk9C].unkC.unk7B == 0)) {
+        if ((minIdx != -1) && (D_80362690->unkC[D_80362690->unk9C].unk7B == 0)) {
             gLandingPads[i].pos.x = gRefPotLPAD[minIdx].pos.x;
             gLandingPads[i].pos.y = gRefPotLPAD[minIdx].pos.y;
             gLandingPads[i].pos.z = gRefPotLPAD[minIdx].pos.z;
@@ -204,7 +204,7 @@ void padsLoad(void) {
         gLandingStrips[i].unk39 = 1;
     }
 
-    if (D_80362690->unk0[D_80362690->unk9C].unkC.unk7B == 0) {
+    if (D_80362690->unkC[D_80362690->unk9C].unk7B == 0) {
         gCannonTargetCount = taskGetCNTG(&gRefCNTG);
         if (gCannonTargetCount > 1) {
             _uvDebugPrintf("pads : too many cannon targets defined in level [%d]\n", gCannonTargetCount);

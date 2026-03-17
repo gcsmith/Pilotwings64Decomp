@@ -141,10 +141,7 @@ void fileMenu_802E8AF0(void) {
 void fileMenu_802E8FF4(s32 arg0) {
     func_8032B3D0(&D_80364210[D_80362690->unk9C]);
 
-    // D_80362690 struct layout could still need work
-    // unk0 is accessed like array with element size 0x8C, but this accesses 0x96
-    // this maps [+1].debugFlag, but this may be incorrect meaning
-    D_80362690->unk0[D_80362690->unk9C + 1].debugFlag = (u8)arg0;
+    D_80362690->unkC[D_80362690->unk9C].unk8A = arg0;
     saveFileLoad(arg0);
     D_80362690->unkA8 = func_8030CC48();
     fileMenu_802E8AF0();
@@ -249,7 +246,7 @@ s32 fileMenuEraseFile(void) {
 void fileMenu_802E94E0(void) {
     Unk802D3658_Arg0* unk70;
 
-    unk70 = D_80362690->unk0[D_80362690->unk9C].unkC.unk70;
+    unk70 = D_80362690->unkC[D_80362690->unk9C].unk70;
     uvLevelInit();
     uvLevelAppend(0x48);
     uvLevelAppend(1);
@@ -265,11 +262,8 @@ void fileMenu_802E94E0(void) {
     sFileMenuCurMenu = -1;
     fileMenuSetup(0);
 
-    // D_80362690 struct layout could still need work
-    // unk0 is accessed like array with element size 0x8C, but this accesses 0x96
-    // this maps [+1].debugFlag, but this may be incorrect meaning
-    menu_8030B69C(D_80362690->unk0[D_80362690->unk9C + 1].debugFlag);
-    fileMenu_802E8FF4(D_80362690->unk0[D_80362690->unk9C + 1].debugFlag);
+    menu_8030B69C(D_80362690->unkC[D_80362690->unk9C].unk8A);
+    fileMenu_802E8FF4(D_80362690->unkC[D_80362690->unk9C].unk8A);
     func_80204BD4(unk70->unk22C, 1, 1.0f);
     func_80204A8C(unk70->unk22C, 3);
     uvChanTerra(unk70->unk22C, 0);
@@ -408,7 +402,7 @@ void fileMenu_802E9AE0(void) {
     s16* titleStr;
     Unk802D3658_Arg0* unk70;
 
-    unk70 = D_80362690->unk0[D_80362690->unk9C].unkC.unk70;
+    unk70 = D_80362690->unkC[D_80362690->unk9C].unk70;
     func_80204FC4(unk70->unk22C);
     func_80314154();
     uvGfxSetFlags(GFX_STATE_400000);

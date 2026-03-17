@@ -150,11 +150,11 @@ void birdMovementFrame(BirdmanData* arg0, u8 arg1) {
     }
     if (func_802E6B5C() != 4) {
         arg0->unk8 += D_8034F854;
-        if (D_80362690->unk0[D_80362690->unk9C].unkC.unk7B == 0) {
+        if (D_80362690->unkC[D_80362690->unk9C].unk7B == 0) {
             func_80339E1C(arg0);
         }
         if (arg1 == 6) {
-            func_802E65AC(&arg0->unk10, &D_80362690->unk0[0].terraId, &sp7C, &sp78, &buttons);
+            func_802E65AC(&arg0->unk10, &D_80362690->terraId, &sp7C, &sp78, &buttons);
         } else {
             sp7C = demoGetInputs(arg0->controller, INPUT_AXIS_X);
             sp78 = demoGetInputs(arg0->controller, INPUT_AXIS_Y);
@@ -372,7 +372,7 @@ void birdMovementFrame(BirdmanData* arg0, u8 arg1) {
             if (arg0->unk104 == 2) {
                 func_802E66DC();
             }
-            func_802E65AC(&arg0->unk10, &D_80362690->unk0[0].terraId, &sp7C, &sp78, &buttons);
+            func_802E65AC(&arg0->unk10, &D_80362690->terraId, &sp7C, &sp78, &buttons);
         }
     }
 }

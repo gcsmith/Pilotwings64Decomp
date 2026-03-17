@@ -33,14 +33,14 @@ void thermInit(void) {
 void thermLoad(void) {
     Thermal* therm;
     s32 pad;
-    Unk80362690_Unk0_UnkC* temp_v1_2;
+    Unk80362690_Unk0* temp_v1_2;
     LevelTHER* levlTher;
     Unk802E27A8_Arg0 sp90;
     f32 maxDim;
     f32 ratio;
     s32 i;
 
-    if (D_80362690->unk0[D_80362690->unk9C].unkC.unk7B == 0) {
+    if (D_80362690->unkC[D_80362690->unk9C].unk7B == 0) {
         gThermalCount = taskGetTHER(&gLevelTHER);
         if (gThermalCount > ARRAY_COUNT(gThermals)) {
             _uvDebugPrintf("thermals : too many thermals defined in level [%d]\n", gThermalCount);
@@ -88,7 +88,7 @@ void thermLoad(void) {
                 func_802E27A8(&sp90);
             }
             gThermShouldDisable = 0;
-            temp_v1_2 = &D_80362690->unk0[D_80362690->unk9C].unkC;
+            temp_v1_2 = &D_80362690->unkC[D_80362690->unk9C];
             if ((temp_v1_2->veh == VEHICLE_HANG_GLIDER) && (temp_v1_2->cls == 3) && (temp_v1_2->test == 0)) {
                 gThermShouldDisable = 1;
             }

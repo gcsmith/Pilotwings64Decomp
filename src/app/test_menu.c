@@ -36,7 +36,7 @@ static s32 sMenuMinY;
 static s32 sMenuMinX;
 static s32 sMenuMaxY;
 static s32 sMenuMaxX;
-s32 D_8037DC84; // global, but not used in this file
+u8 D_8037DC84; // global, but not used in this file
 static char sTestNumPtsStr[4];
 static u16 sWidthNumPts;
 static s16 sTestPtsX;
@@ -61,9 +61,9 @@ void testMenu_8034A428(void);
 
 // returns true if test is one of the Shutter Bug tests
 s32 testMenuShutterBug(void) {
-    Unk80362690_Unk0_UnkC* unkC;
+    Unk80362690_Unk0* unkC;
 
-    unkC = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    unkC = &D_80362690->unkC[D_80362690->unk9C];
     if ((unkC->veh == VEHICLE_HANG_GLIDER) &&
         ((unkC->cls == CLASS_A && gCurTestIdx == 0) || (unkC->cls == CLASS_B && gCurTestIdx == 1) || (unkC->cls == CLASS_PILOT && gCurTestIdx == 2))) {
         return TRUE;
@@ -72,7 +72,7 @@ s32 testMenuShutterBug(void) {
 }
 
 void testMenuInitText(s32 testIdx) {
-    Unk80362690_Unk0_UnkC* unkC;
+    Unk80362690_Unk0* unkC;
     s32 ptsWidth;
     s32 pts;
     s32 test;
@@ -82,7 +82,7 @@ void testMenuInitText(s32 testIdx) {
     char hintStr[20];
 
     ptsAdded = FALSE;
-    unkC = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    unkC = &D_80362690->unkC[D_80362690->unk9C];
     if (IS_MAIN_VEHICLE(unkC->veh)) {
         numPts = testGetPointCount(&D_80364210[D_80362690->unk9C], unkC->cls, testIdx, unkC->veh);
     } else {
@@ -134,9 +134,9 @@ void testMenuInitText(s32 testIdx) {
 }
 
 void testMenuInit(Unk80367710* arg0, s32 arg1) {
-    Unk80362690_Unk0_UnkC* temp_v1;
+    Unk80362690_Unk0* temp_v1;
 
-    temp_v1 = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    temp_v1 = &D_80362690->unkC[D_80362690->unk9C];
     if (arg1 != 2) {
         uvLevelInit();
         uvLevelAppend((s32)D_8034F43C[D_8034F420[temp_v1->veh][temp_v1->cls]]);
@@ -168,7 +168,7 @@ void testMenuInit(Unk80367710* arg0, s32 arg1) {
             temp_v1->test = gCurTestIdx;
         }
     }
-    taskInitTest(temp_v1->cls, temp_v1->veh, temp_v1->test, &D_80362690->unk0[0].map, &D_80362690->unk0[0].terraId, &D_80362690->unk0[0].unk8);
+    taskInitTest(temp_v1->cls, temp_v1->veh, temp_v1->test, &D_80362690->map, &D_80362690->terraId, &D_80362690->unk8);
     map3d(D_80362690, 0);
     if (arg1 == 0) {
         sTestMenuState = 0;
@@ -196,7 +196,7 @@ void testMenuInit(Unk80367710* arg0, s32 arg1) {
 }
 
 u8 testMenuHandler(Unk80367710* arg0) {
-    Unk80362690_Unk0_UnkC* sp6C;
+    Unk80362690_Unk0* sp6C;
     s32 testIdxAdj;
     u32 sp64;
     s32 menuPrevX;
@@ -206,7 +206,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
     Vec3F sp48; // passed to db_getstart, but result not used
     s32 var_a2;
 
-    sp6C = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    sp6C = &D_80362690->unkC[D_80362690->unk9C];
     testIdxAdj = 0;
     if (sTestMenuState == 1) {
         func_80311660(D_80362690->unk9C, 0);
@@ -334,7 +334,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
                     } else {
                         sp6C->test = gCurTestIdx;
                     }
-                    taskInitTest(sp6C->cls, sp6C->veh, sp6C->test, &D_80362690->unk0[0].map, &D_80362690->unk0[0].terraId, &D_80362690->unk0[0].unk8);
+                    taskInitTest(sp6C->cls, sp6C->veh, sp6C->test, &D_80362690->map, &D_80362690->terraId, &D_80362690->unk8);
                     map3d(D_80362690, 0);
                     testMenuInitText(sp6C->test);
                 }
@@ -442,10 +442,10 @@ void testMenuDraw(s32 arg0, u8 arg1, u8 arg2) {
     s16* sp54;
     s32 temp_a0;
     s32 temp_v0_3;
-    Unk80362690_Unk0_UnkC* sp48;
+    Unk80362690_Unk0* sp48;
     s32 var_a1;
 
-    sp48 = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    sp48 = &D_80362690->unkC[D_80362690->unk9C];
     if ((sp48->veh != VEHICLE_BIRDMAN) && (arg2 >= 3)) {
         taskLoadNames(arg1, 0, arg2, sp8C, strId);
     } else {

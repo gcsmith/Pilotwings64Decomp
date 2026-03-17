@@ -279,7 +279,7 @@ s32 taskInitTest(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* terraId,
     func_8034C848();
     D_8035079C = 1;
     D_803507A0 = 0;
-    D_80362690->unk0[D_80362690->unk9C].unkC.unk8 = 0;
+    D_80362690->unkC[D_80362690->unk9C].unk8 = 0;
     *arg5 = func_802E12B4();
     return 1;
 }
@@ -287,7 +287,7 @@ s32 taskInitTest(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* terraId,
 void taskLoad(void) {
     u16 veh;
 
-    veh = D_80362690->unk0[D_80362690->unk9C].unkC.veh;
+    veh = D_80362690->unkC[D_80362690->unk9C].veh;
     D_8035079C = 1;
     windLoad();
     thermLoad();
@@ -320,7 +320,7 @@ void taskDeinitLevel(void) {
 void taskDeinit(void) {
     u16 veh;
 
-    veh = D_80362690->unk0[D_80362690->unk9C].unkC.veh;
+    veh = D_80362690->unkC[D_80362690->unk9C].veh;
     if (D_8035079C != 0) {
         ringsDeinit();
         ballsDeinit();
@@ -342,7 +342,7 @@ s32 taskFrameUpdate(Mtx4F* arg0, f32 arg1) {
     s32 sp18;
     s32 temp_v0;
 
-    veh = D_80362690->unk0[D_80362690->unk9C].unkC.veh;
+    veh = D_80362690->unkC[D_80362690->unk9C].veh;
     sp18 = 0;
     therm_8034695C();
     wind_8034D548();
@@ -360,24 +360,24 @@ s32 taskFrameUpdate(Mtx4F* arg0, f32 arg1) {
     if (ballTgtInGoal() == 1) {
         D_803507A4 = 1;
         sp18 = 1;
-        D_80362690->unk0[0].unkC.veh = VEHICLE_ROCKET_BELT;
-        if (D_80362690->unk0[0].unkC.veh != VEHICLE_HANG_GLIDER) {
+        D_80362690->unkC[0].veh = VEHICLE_ROCKET_BELT;
+        if (D_80362690->unkC[0].veh != VEHICLE_HANG_GLIDER) {
             func_8033F748(9);
             func_8033F964(0);
-            func_8033FCD0(D_80362690->unk0[0].unkC.veh);
+            func_8033FCD0(D_80362690->unkC[0].veh);
         }
     }
     if (func_803243D8(arg0) == 1) {
         D_803507A4 = 1;
         sp18 = 1;
-        D_80362690->unk0[0].unkC.veh = VEHICLE_ROCKET_BELT;
-        if (D_80362690->unk0[0].unkC.veh != VEHICLE_HANG_GLIDER) {
+        D_80362690->unkC[0].veh = VEHICLE_ROCKET_BELT;
+        if (D_80362690->unkC[0].veh != VEHICLE_HANG_GLIDER) {
             func_8033F748(9);
             func_8033F964(0);
-            func_8033FCD0(D_80362690->unk0[0].unkC.veh);
+            func_8033FCD0(D_80362690->unkC[0].veh);
         }
     }
-    if ((D_80362690->unk0[D_80362690->unk9C].unkC.veh == VEHICLE_JUMBLE_HOPPER) && (func_802FB308(D_80362690->unk0[D_80362690->unk9C].unkC.vehicleData) == 1)) {
+    if ((D_80362690->unkC[D_80362690->unk9C].veh == VEHICLE_JUMBLE_HOPPER) && (func_802FB308(D_80362690->unkC[D_80362690->unk9C].vehicleData) == 1)) {
         sp18 = 1;
     }
     temp_v0 = task_803456D8(arg0);
@@ -460,12 +460,12 @@ s32 task_803456D8(Mtx4F* arg0) {
     if (var_s2 == -1) {
         return 0;
     }
-    D_80362690->unk0[D_80362690->unk9C].unkC.unk8 = (u16)var_s2;
+    D_80362690->unkC[D_80362690->unk9C].unk8 = (u16)var_s2;
     temp_v0_2 = task_80346370(var_s2);
     temp_s0 = &sp8C[sp85];
-    uvChanTerra(D_80362690->unk0[D_80362690->unk9C].unkC.unk70->unk22C, temp_v0_2);
-    if (temp_v0_2 != D_80362690->unk0[0].terraId) {
-        D_80362690->unk0[0].terraId = (u16)temp_v0_2;
+    uvChanTerra(D_80362690->unkC[D_80362690->unk9C].unk70->unk22C, temp_v0_2);
+    if (temp_v0_2 != D_80362690->terraId) {
+        D_80362690->terraId = (u16)temp_v0_2;
         arg0->m[3][0] += temp_s0->unk28_X;
         arg0->m[3][1] += temp_s0->unk2C_Y;
         arg0->m[3][2] += temp_s0->unk30_Z;
@@ -483,7 +483,7 @@ s32 task_803456D8(Mtx4F* arg0) {
 void taskUpdateState(void) {
     u16 veh;
 
-    veh = D_80362690->unk0[D_80362690->unk9C].unkC.veh;
+    veh = D_80362690->unkC[D_80362690->unk9C].veh;
     func_80323364();
     if ((veh != VEHICLE_CANNONBALL) && (veh != VEHICLE_SKY_DIVING)) {
         bonusUpdateState();
@@ -719,7 +719,7 @@ u8 taskGet_80346364(void) {
 #endif
 s32 task_80346370(s32 terra) {
     s32 ret;
-    switch (D_80362690->unk0[0].map) {
+    switch (D_80362690->map) {
     case MAP_CRESCENT_ISLAND:
         switch (terra) {
         case 0:
@@ -756,7 +756,7 @@ s32 task_80346370(s32 terra) {
         }
         break;
     default:
-        _uvDebugPrintf("task : unknown level for terra selection [%d]\n", D_80362690->unk0[0].map);
+        _uvDebugPrintf("task : unknown level for terra selection [%d]\n", D_80362690->map);
         break;
     }
     return ret;

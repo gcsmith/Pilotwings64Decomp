@@ -113,7 +113,7 @@ void jumbleHopperMovementFrame(JumbleHopperData* arg0, u8 arg1) {
 
     if (func_802E6B5C() != 4) {
         if (arg1 == 6) {
-            func_802E65AC(&arg0->unk74, &D_80362690->unk0[0].terraId, &xAxisInputs, &yAxisInputs, &buttons);
+            func_802E65AC(&arg0->unk74, &D_80362690->terraId, &xAxisInputs, &yAxisInputs, &buttons);
         } else {
             xAxisInputs = demoGetInputs(arg0->contIdx, INPUT_AXIS_X);
             yAxisInputs = demoGetInputs(arg0->contIdx, INPUT_AXIS_Y);
@@ -198,7 +198,7 @@ void jumbleHopperMovementFrame(JumbleHopperData* arg0, u8 arg1) {
             if (arg0->unk4C == 6) {
                 func_802E66DC();
             }
-            func_802E65AC(&arg0->unk74, &D_80362690->unk0[0].terraId, &xAxisInputs, &yAxisInputs, &buttons);
+            func_802E65AC(&arg0->unk74, &D_80362690->terraId, &xAxisInputs, &yAxisInputs, &buttons);
         }
     }
 }

@@ -340,11 +340,11 @@ u8 func_8032C080(s32* arg0) {
 }
 
 s32 levelSetPointsToNextMedal(s32* pointsToNextMedal, u16 points, u8 classIdx) {
-    Unk80362690_Unk0_UnkC* unkC;
+    Unk80362690_Unk0* unkC;
     s32 i;
     u16 requiredPoints;
 
-    unkC = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    unkC = &D_80362690->unkC[D_80362690->unk9C];
 
     for (i = 0; i < 3; i++) {
         requiredPoints = ((u16*)&gMedalPointRequirements[classIdx])[i];

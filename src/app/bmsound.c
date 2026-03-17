@@ -124,11 +124,11 @@ void bmSoundCallback(s32 eventType, void* arg1, s32 eventData) {
 }
 
 void bmSound_802D112C(BirdmanData* arg0) {
-    Unk80362690_Unk0_UnkC* sp34;
+    Unk80362690_Unk0* sp34;
     s32 sp30;
     f32 sp2C;
 
-    sp34 = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    sp34 = &D_80362690->unkC[D_80362690->unk9C];
     if (arg0->unk104 == 2) {
         if (!(arg0->unk410 & 0x02)) {
             arg0->unk410 |= 0x02;
