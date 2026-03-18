@@ -17,7 +17,7 @@
 #include "code_69BF0.h"
 #include "code_72010.h"
 #include "code_72B70.h"
-#include "code_7FED0.h"
+#include "code_7FE00.h"
 #include "code_9A960.h"
 #include "code_B2900.h"
 #include "code_D2B10.h"
@@ -67,13 +67,13 @@ void cannon_802D5A90(void) {
 
 // cannonLoadLevel is invoked when loading cannonball level
 void cannonLoadLevel(u8 arg0, u8 pilot, CannonballData* arg2, Unk802D3658_Arg0* arg3) {
-    uvMemSet(arg2, 0, sizeof(*arg2));
+    uvMemSet(arg2, 0, sizeof(CannonballData));
     cannonLoadPilot(pilot, arg2);
-    arg2->unk0 = uvDobjAllocIdx();
+    arg2->objId = uvDobjAllocIdx();
     arg2->unk2 = 2;
-    uvDobjModel(arg2->unk0, arg2->modelId);
-    uvDobjPosm(arg2->unk0, 0, &arg2->unk14);
-    uvDobjState(arg2->unk0, arg2->unk2);
+    uvDobjModel(arg2->objId, arg2->modelId);
+    uvDobjPosm(arg2->objId, 0, &arg2->unk14);
+    uvDobjState(arg2->objId, arg2->unk2);
     arg2->unk54 = uvDobjAllocIdx();
     arg2->unk56 = 2;
     uvDobjModel(arg2->unk54, MODEL_CANNON_ON_PILLAR);
@@ -99,7 +99,7 @@ void cannonLevelEnterLeave(CannonballData* arg0) {
     f32 sp40;
 
     if (arg0->unkE == 0) {
-        db_getstart(&arg0->unk58, &arg0->unk1B8, 0, 0);
+        db_getstart(&arg0->unk58, &arg0->unk1B8, NULL, NULL);
         uvDobjPosm(arg0->unk54, 0, &arg0->unk58);
         func_80313570(&arg0->unk58, &sp54, &sp50, &sp4C, &sp48, &sp44, &sp40);
         arg0->unk98 = sp48;
@@ -107,7 +107,7 @@ void cannonLevelEnterLeave(CannonballData* arg0) {
         arg0->zAxis = 0.0f;
     }
     uvMat4Copy(&arg0->unk14, &arg0->unk58);
-    uvDobjPosm(arg0->unk0, 0, &arg0->unk14);
+    uvDobjPosm(arg0->objId, 0, &arg0->unk14);
     func_802D94EC(arg0);
     arg0->unkCC = 0.0f;
     arg0->unkD0 = 0.0f;
@@ -118,7 +118,7 @@ void cannonLevelEnterLeave(CannonballData* arg0) {
     arg0->unk8 = 0.0f;
     arg0->unk2 = 2;
     arg0->unk56 = 2;
-    uvDobjState(arg0->unk0, arg0->unk2);
+    uvDobjState(arg0->objId, arg0->unk2);
     uvDobjState(arg0->unk54, arg0->unk56);
     arg0->unkB4 = 5;
     arg0->unkB8 = 1.0f;
@@ -148,10 +148,10 @@ void cannonLevelEnterLeave(CannonballData* arg0) {
 
 // cannonEndTarget is invoked at the end of a cannonball target
 void cannonEndTarget(CannonballData* arg0) {
-    uvDobjModel(arg0->unk0, MODEL_WORLD);
+    uvDobjModel(arg0->objId, MODEL_WORLD);
     uvDobjModel(arg0->unk54, MODEL_WORLD);
     arg0->unk10 = 0xFFFF;
-    arg0->unk0 = 0xFFFF;
+    arg0->objId = 0xFFFF;
     arg0->unk54 = 0xFFFF;
     arg0->unkB0->unk40 -= 100.0f;
 }
@@ -235,7 +235,7 @@ void cannonMovementFrame(CannonballData* arg0, u8 arg1) {
         cannonPilotLand(arg0);
     }
     func_802D8AF0(arg0);
-    uvDobjPosm(arg0->unk0, 0, sp2C);
+    uvDobjPosm(arg0->objId, 0, sp2C);
     if (D_8034E9F4 != 0) {
         arg0->unkCC = 0.0f;
     } else {
@@ -306,7 +306,7 @@ void cannonMovementFrame(CannonballData* arg0, u8 arg1) {
                 }
             }
         }
-        arg0->unkB0->unk4 = arg0->unk0;
+        arg0->unkB0->unk4 = arg0->objId;
         arg0->unkB0->unk6 = arg0->unk2;
         arg0->unkB0->unk78 = arg0->unkCC;
         arg0->unkB0->unk7C = arg0->unkD0;
@@ -348,8 +348,7 @@ void cannonMovementFrame(CannonballData* arg0, u8 arg1) {
                 hud->renderFlags &= ~HUD_RENDER_RETICLE;
             }
         }
-        hud->unkC70 = 0.0f;
-        hud->unkC6C = 0.0f;
+        hud->reticleX = hud->reticleY = 0.0f;
         hud->unkC74 = 0;
     }
 }
@@ -451,7 +450,7 @@ void cannonAimingFrame(CannonballData* arg0) {
     if (arg0->unkC4 != 0) {
         cannonShoot(arg0);
     } else {
-        uvDobjState(arg0->unk0, 0);
+        uvDobjState(arg0->objId, 0);
     }
 }
 #if defined(__clang__)
@@ -475,7 +474,7 @@ void cannonShoot(CannonballData* arg0) {
     arg0->unk1B8.z = (arg0->unkA4 * 271.4f * arg0->unk280) + 2.5f;
     uvMat4Copy(&arg0->unk14, &sp50);
     uvMat4RotateAxis(&arg0->unk14, -1.5707963f, 'x');
-    uvDobjState(arg0->unk0, arg0->unk2);
+    uvDobjState(arg0->objId, arg0->unk2);
     D_80359A84 = 0;
     func_802D9430(arg0);
 }
@@ -952,10 +951,10 @@ void cannon_802D8A40(u8 arg0, CannonballData* arg1) {
     unkC = &D_80362690->unk0[D_80362690->unk9C].unkC;
     if (unkC->veh == 3) {
         if (arg0 == 1) {
-            uvDobjState(arg1->unk0, 0);
+            uvDobjState(arg1->objId, 0);
             uvDobjState(arg1->unk54, 0);
         } else {
-            uvDobjState(arg1->unk0, arg1->unk2);
+            uvDobjState(arg1->objId, arg1->unk2);
             uvDobjState(arg1->unk54, arg1->unk56);
         }
     }

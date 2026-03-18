@@ -562,6 +562,8 @@ gFalcos                   = 0x8035A5F8; // size:0x258
 gFalcoCount               = 0x8035A850;
 gRefFALC                  = 0x8035AF20;
 
+D_80368B20                = 0x80368B20; // size:0x54
+
 gRefHPAD                  = 0x80369580;
 gHoverPadCount            = 0x80369584;
 gHoverPads                = 0x80369588; // size:0x8C0

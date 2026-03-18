@@ -9,7 +9,7 @@
 void func_80337D50(void);
 void snapInit(void);
 void snapDeinit(void);
-void func_80339E1C(VehicleData*);
+void func_80339E1C(BirdmanData*);
 s32 func_8033E3A8(s32);
 s32 func_8033F62C(void);
 s32 snapGetPhotoCount(void);

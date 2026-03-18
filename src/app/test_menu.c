@@ -370,7 +370,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
                     break;
                 case 4:
                     snd_play_sfx(0x71);
-                    db_getstart(&sp6C->unk2C, &sp48, 0, 0);
+                    db_getstart(&sp6C->unk2C, &sp48, NULL, NULL);
                     testMenu_8034A428();
                     hud_8031A2CC();
                     D_80362690->unkA0 = 1;

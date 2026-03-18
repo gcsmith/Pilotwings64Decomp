@@ -113,8 +113,8 @@ typedef struct {
     u8 padC61[3];
     f32 unkC64;
     f32 unkC68;
-    f32 unkC6C;
-    f32 unkC70;
+    f32 reticleX;
+    f32 reticleY;
     s8 unkC74;
     u8 padC75[3];
     u8 showController;
@@ -133,5 +133,6 @@ void hud_8031A874(s32 idx);
 s32 hudAddWaypoint(f32 x, f32 y, f32 z);
 void hud_8031A810(s32 idx);
 void hud_8031A8E0(s32 idx);
+s16 hudGet_8031DA9C(void);
 
 #endif // APP_HUD_H

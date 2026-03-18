@@ -5,12 +5,10 @@
 extern s32 D_80350460;
 extern s32 D_80350464;
 extern s32 D_80350468;
+extern s32 D_8035046C;
 extern s32 D_80350470;
 extern f32 D_80350474;
 extern f32 D_80350478;
-
-// forward declarations
-void func_80334308(u16, u16);
 
 void func_803342F0(f32 arg0) {
     D_80350474 = arg0;
@@ -20,7 +18,28 @@ void func_803342FC(f32 arg0) {
     D_80350478 = arg0;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80334308.s")
+void func_80334308(u16 modelId) {
+    if (D_8035046C == modelId) {
+        return;
+    }
+    D_8035046C = modelId;
+    if (modelId == 0xFFFF) {
+        if (D_80350470 != 0xFFFF) {
+            uvDobjModel(D_80350470, 0xFFFF);
+            D_80350470 = 0xFFFF;
+        }
+    } else {
+        if (D_80350470 == 0xFFFF) {
+            D_80350470 = uvDobjAllocIdx();
+        }
+        if (D_80350470 == 0xFFFF) {
+            _uvDebugPrintf("shad_models: shadow couldn't allocate dobj id\n");
+            return;
+        }
+        uvDobjModel(D_80350470, modelId);
+        uvDobjState(D_80350470, D_80350460);
+    }
+}
 
 void func_803343D8(s32 arg0) {
     if (D_80350470 != 0xFFFF) {
@@ -42,10 +61,9 @@ void func_80334454(u16 arg0, u16 arg1) {
     D_80350468 = arg0;
     D_80350464 = arg1;
     if (arg0 != 0xFFFF) {
-        func_80334308(arg0, arg1);
+        func_80334308(arg0);
     } else if (arg1 != 0xFFFF) {
-        u32 a0 = arg1;
-        func_80334308(a0, arg1);
+        func_80334308(arg1);
     }
 }
 

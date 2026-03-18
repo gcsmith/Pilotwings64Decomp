@@ -83,7 +83,7 @@ s32 func_802E02F8(void) {
     return D_80359D7C;
 }
 
-void db_getstart(Mtx4F* arg0, Vec3F* arg1, u8* arg2, f32* arg3) {
+void db_getstart(Mtx4F* arg0, Vec3F* arg1, u8* arg2, f32* fuel) {
     Vec3F pos;
     Vec3F ang;
     LevelTPAD* sp44;
@@ -103,8 +103,8 @@ void db_getstart(Mtx4F* arg0, Vec3F* arg1, u8* arg2, f32* arg3) {
         if (arg2 != NULL) {
             *arg2 = 1;
         }
-        if (arg3 != NULL) {
-            *arg3 = 0.0f;
+        if (fuel != NULL) {
+            *fuel = 0.0f;
         }
     } else {
         if (temp_v1 > 1) {
@@ -124,8 +124,8 @@ void db_getstart(Mtx4F* arg0, Vec3F* arg1, u8* arg2, f32* arg3) {
         if (arg2 != NULL) {
             *arg2 = first->unk28;
         }
-        if (arg3 != NULL) {
-            *arg3 = first->unk2C;
+        if (fuel != NULL) {
+            *fuel = first->unk2C;
         }
     }
 }
