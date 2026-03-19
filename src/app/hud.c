@@ -1725,22 +1725,22 @@ void hudSetCameraState(s32 state) {
 }
 
 Unk8034F93C D_8034F93C[] = {
-    { 0xFFFF, 0xFFFF },
-    {      1, 0xFFFF },
-    {      1,      1 },
-    { 0xFFFF,      1 },
-    { 0xFFFF, 0xFFFF },
-    {      1, 0xFFFF },
-    {      1,      2 },
-    { 0xFFFF,      2 }
+    { -1, -1 },
+    {  1, -1 },
+    {  1,  1 },
+    { -1,  1 },
+    { -1, -1 },
+    {  1, -1 },
+    {  1,  2 },
+    { -1,  2 }
 };
 
 Unk8034F93C D_8034F95C[] = {
-    { 0xFFFF, 0 },
-    {      1, 0 },
-    {      0, 1 },
-    {      0, 0 },
-    {      0, 0 },
+    { -1, 0 },
+    {  1, 0 },
+    {  0, 1 },
+    {  0, 0 },
+    {  0, 0 },
 };
 
 void hudRadarWaypoint(f32 dist, f32 bearing, s32 type, s32 below, f32 heading, u8 alpha) {
