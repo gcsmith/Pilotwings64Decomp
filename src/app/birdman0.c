@@ -18,8 +18,8 @@
 #include "snd.h"
 #include "task.h"
 
-extern Unk803599D0 D_80359390;
-extern u8 D_803593E4;
+Unk803599D0 D_80359390;
+u8 D_803593E4;
 
 // forward declarations
 void bird_802CD0F8(BirdmanData*);

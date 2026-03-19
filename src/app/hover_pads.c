@@ -7,10 +7,11 @@
 #include "hud.h"
 #include "task.h"
 
-s32 D_8034F3F0[4] = { 0xFC, 0xFB, 0, 0 };
+s32 D_8034F3F0[2] = { MODEL_RB_HOVERPAD_LARGE, MODEL_RB_HOVERPAD_STANDARD };
 
-extern LevelHPAD* gRefHPAD;
-extern u8 gHoverPadCount;
+LevelHPAD* gRefHPAD;
+u8 gHoverPadCount;
+HoverPad gHoverPads[20];
 
 // forward declarations
 void hoverPadObjSetup(HoverPad*);
@@ -43,7 +44,7 @@ void hoverPadObjSetup(HoverPad* hover) {
         }
         uvDobjModel(hover->objId, D_8034F3F0[hover->type]);
     } else {
-        uvDobjModel(hover->objId, 0xFA);
+        uvDobjModel(hover->objId, MODEL_RB_HOVERPAD_LOCKED);
     }
     var_a1 = (hover->unk6A != 0) ? 3 : 0;
     uvDobjState(hover->objId, var_a1);

@@ -19,8 +19,11 @@
 s32 D_8034E810[] = { 0xF4, 0xF5, 0xF6 };
 
 // .bss
-extern f32 D_80359388; // always set to 5.3241148?
-extern LevelBALS* sRefBALS;
+u8 gBallCount;
+u8 gBallSplitCount;
+ParsedBALS gBalls[20];
+f32 D_80359388; // always set to 5.3241148?
+LevelBALS* sRefBALS;
 
 // forward declarations
 void ballsMotionUpdate(ParsedBALS*);
