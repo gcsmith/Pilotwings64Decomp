@@ -372,7 +372,53 @@ s32 bird_802CF76C(BirdmanData* arg0) {
     return 1;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/birdman2/bird_802CF8A4.s")
+void bird_802CF8A4(BirdmanData* arg0) {
+    Vec3F sp3C;
+    Vec3F sp30;
+    f32 var_fv1;
+    f32 var_fa1;
+
+    if (arg0->unk224 < 1.0f) {
+        return;
+    }
+    sp3C.x = arg0->unk10.m[2][0];
+    sp3C.y = arg0->unk10.m[2][1];
+    sp3C.z = arg0->unk10.m[2][2];
+    sp30.x = arg0->unk200.x / arg0->unk224;
+    sp30.y = arg0->unk200.y / arg0->unk224;
+    sp30.z = arg0->unk200.z / arg0->unk224;
+    var_fv1 = ABS_NOEQ(uvVec3Dot(&sp3C, &sp30));
+    if (var_fv1 < 0.1f) {
+        var_fv1 = 0.1f;
+    }
+
+    var_fv1 *= bird_802D0A28(&D_8034E934, arg0->unk224);
+    var_fv1 *= arg0->unk2AC;
+    var_fa1 = -var_fv1 * 0.003f;
+    var_fv1 = 1.0f;
+    
+    // FAKE
+    sp3C.x = (0,var_fa1) * arg0->unk200.x * arg0->unk200.x;
+    if (arg0->unk200.x < 0.0f) {
+        sp3C.x = -sp3C.x;
+    }
+    sp3C.y = (0,var_fa1) * arg0->unk200.y * arg0->unk200.y;
+    if (arg0->unk200.y < 0.0f) {
+        sp3C.y = -sp3C.y;
+    }
+
+    if (arg0->unk224 < 10.0f) {
+        var_fv1 *= 0;
+        var_fa1 = -var_fv1 * 0.0030f;
+    }
+    sp3C.z = (0,var_fa1) * arg0->unk200.z * arg0->unk200.z;
+    if (arg0->unk200.z < 0.0f) {
+        sp3C.z *= -1.0f;
+    }
+    arg0->unk228.x += sp3C.x;
+    arg0->unk228.y += sp3C.y;
+    arg0->unk228.z += sp3C.z;
+}
 
 void bird_802CFAC8(BirdmanData* arg0) {
     f32 var_ft5;
