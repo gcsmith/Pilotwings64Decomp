@@ -20,7 +20,7 @@ to decode the PW64 filesystem data.
 | 0x0DF5B0   | 0x5395BC | -                     | ROM Filesystem
 
 
-## File UVRM::TABL | Filesystem Index
+## File UVRM::TABL / Filesystem Index
 
 The first file at 0x0DE720 uses tag `UVRM` and contains the filesystem index.
 It contains only one `TABL` entry which is MIO0 compressed. Once decompressed,
@@ -112,7 +112,7 @@ of the types of the other files used.
 |  0x16  | u16  | count of UVAN
 |  0x18  | u16  | count of UVFT
 |  0x1A  | u16  | count of UVBT
-|  0x1C  | u16  | count of user files?
+|  0x1C  | u16  | count of user files
 |  0x1E  | u16  | count of UVSX
 |  0x20  | u16  | count of UVTP
 |  0x22  | u16  | TBD, set to 0
@@ -170,7 +170,7 @@ Additionally, there is common (COMM) field which stores meta information.
 |  0x10  | XLAT[]  | array of entries
 
 
-### File ADAT
+### File ADAT / ASCII data
 
 The ADAT file contains ASCII and custom encoded strings. It begins with `SIZE`
 tag followed by an array of `NAME` and `DATA` entires. `NAME` entries contain
@@ -553,7 +553,7 @@ pop the balloon land and land on the designated landing area
 #### UPWT::CNTG / cannon targets
 
 `CNTG` is the target used in the cannonball tests. Only one is listed in each
-`UPWT` file since cannonball tests are uniq getting one file for each target.
+`UPWT` file since cannonball tests are unique having one file per each target.
 
 | Offset | Type   | Description
 |--------|--------|------------
@@ -620,7 +620,7 @@ gyrocopter tests where Falco must be defeated.
 
 #### UPWT::HOPD / jumble hopper destination
 
-HOPD is the target area for the jumble hopper missions.
+`HOPD` is the target area for the jumble hopper tests.
 
 | Offset | Type   | Description
 |--------|--------|----------------------------
@@ -634,7 +634,7 @@ HOPD is the target area for the jumble hopper missions.
 
 #### UPWT::HPAD / hover pad
 
-`HPAD` are the hovering pads used in some rocket belt missions.
+`HPAD` are the hovering pads used in some rocket belt tests.
 
 | Offset | Type   | Description
 |--------|--------|------------
@@ -832,28 +832,28 @@ gyrocopter tests.
 
 `UVLV` contains the counts and IDs used for the engine files
 
-| Type  | Length           | Description
-|-------|------------------|---------------------
-| u16   | 2                | terraCount
-| u16[] | 2*terraCount     | terra IDs
-| u16   | 2                | lightCount
-| u16[] | 2*lightCount     | light IDs
-| u16   | 2                | envCount
-| u16[] | 2*envCount       | environment IDs
-| u16   | 2                | modelCount
-| u16[] | 2*modelCount     | model IDs
-| u16   | 2                | contourCount
-| u16[] | 2*contourCount   | countour IDs
-| u16   | 2                | textureCount
-| u16[] | 2*textureCount   | texture IDs
-| u16   | 2                | sequenceCount
-| u16[] | 2*sequenceCount  | sequence IDs
-| u16   | 2                | animationCount
-| u16[] | 2*animationCount | animation IDs
-| u16   | 2                | fontCount
-| u16[] | 2*fontCount      | font IDs
-| u16   | 2                | blitCount
-| u16[] | 2*blitCount      | blit IDs
+| Type  | Length            | Description
+|-------|-------------------|------------------
+| u16   | 2                 | terraCount
+| u16[] | 2x terraCount     | terra IDs
+| u16   | 2                 | lightCount
+| u16[] | 2x lightCount     | light IDs
+| u16   | 2                 | envCount
+| u16[] | 2x envCount       | environment IDs
+| u16   | 2                 | modelCount
+| u16[] | 2x modelCount     | model IDs
+| u16   | 2                 | contourCount
+| u16[] | 2x contourCount   | countour IDs
+| u16   | 2                 | textureCount
+| u16[] | 2x textureCount   | texture IDs
+| u16   | 2                 | sequenceCount
+| u16[] | 2x sequenceCount  | sequence IDs
+| u16   | 2                 | animationCount
+| u16[] | 2x animationCount | animation IDs
+| u16   | 2                 | fontCount
+| u16[] | 2x fontCount      | font IDs
+| u16   | 2                 | blitCount
+| u16[] | 2x blitCount      | blit IDs
 
 
 ### File UVAN / animation
@@ -923,6 +923,8 @@ parse out a single `COMM` entry that is 4 bytes long.
 
 ### File UVMD / models
 
+TBD
+
 ### File UVSQ / sequences
 
 | Offset | Type   | Description
@@ -941,7 +943,8 @@ parse out a single `COMM` entry that is 4 bytes long.
 
 ### File UVSX / sound bank
 
-Container for .CTL/.TBL
+Container for .CTL/.TBL sound bank data.
+
 
 ### File UVTI / texture image
 
@@ -958,6 +961,7 @@ The code that parses it looks for the following structure
 |  0x10  | u32   | TBD
 |  0x14  | u8[]  | image data of length size
 
+
 ### File UVTP / texture palette
 
 `UVTP` are texture palettes with one `COMM` field that has the following
@@ -973,6 +977,7 @@ structure.
 |  0x00  | u16   | TBD
 |  0x02  | u16   | TBD
 |  0x04  |       | **Total length**
+
 
 ### File UVTR / terrain
 
@@ -1014,3 +1019,4 @@ matrix and other information follows.
  - [Pilotwings 64 noclip research](https://github.com/magcius/noclip.website/wiki/Pilotwings-64-Research-&-Development)
  - [noclip | PW64 parsing code](https://github.com/magcius/noclip.website/blob/main/src/Pilotwings64/Scenes.ts)
  - [TCRF | Pilotwings 64](https://tcrf.net/Pilotwings_64)
+ - [MIO0 Compression](https://hack64.net/wiki/doku.php?id=super_mario_64:mio0)
