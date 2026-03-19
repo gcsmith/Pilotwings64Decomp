@@ -1,7 +1,7 @@
 #ifndef APP_SKYDIVING_H
 #define APP_SKYDIVING_H
 
-#include "code_72B70.h"
+#include "code_72EF0.h"
 
 typedef struct {
     u16 objId;

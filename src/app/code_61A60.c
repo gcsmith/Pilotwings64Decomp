@@ -13,7 +13,7 @@
 #include "kernel/code_30EA0.h"
 #include "code_61A60.h"
 #include "code_69BF0.h"
-#include "code_72B70.h"
+#include "code_72EF0.h"
 #include "code_9A960.h"
 #include "code_B3A70.h"
 #include "code_C9B60.h"

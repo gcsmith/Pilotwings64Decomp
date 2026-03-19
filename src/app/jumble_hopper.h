@@ -3,7 +3,7 @@
 
 #include <PR/ultratypes.h>
 #include <uv_matrix.h>
-#include "app/code_72B70.h"
+#include "app/code_72EF0.h"
 
 typedef struct JumbleHopperData {
     u16 objId;

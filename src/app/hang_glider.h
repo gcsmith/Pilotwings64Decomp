@@ -2,7 +2,7 @@
 #define APP_HANG_GLIDER_H
 
 #include <PR/ultratypes.h>
-#include "code_72B70.h"
+#include "code_72EF0.h"
 
 typedef struct {
     u16 objId;

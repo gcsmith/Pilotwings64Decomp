@@ -1,7 +1,7 @@
 #ifndef APP_GYROCOPTER_H
 #define APP_GYROCOPTER_H
 
-#include "code_72B70.h"
+#include "code_72EF0.h"
 
 typedef struct GyrocopterData_Unk3B0 {
     Vec3F unk0;

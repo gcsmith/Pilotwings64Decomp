@@ -2,7 +2,7 @@
 #define APP_BMSOUND_H
 
 #include <PR/ultratypes.h>
-#include "code_72B70.h"
+#include "code_72EF0.h"
 
 void bmSoundInit(BirdmanData*);
 

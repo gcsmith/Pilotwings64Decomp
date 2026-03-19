@@ -1,5 +1,5 @@
-#ifndef APP_CODE_72B70_H
-#define APP_CODE_72B70_H
+#ifndef APP_code_72EF0_H
+#define APP_code_72EF0_H
 
 #include <uv_matrix.h>
 #include <uv_dobj.h>
@@ -37,8 +37,7 @@ typedef struct {
     u8 pad7C[0x80 - 0x7C];
     s32 unk80;
     s32 unk84;
-    u8 unk88;
-    u8 unk89;
+    s16 unk88;
     u8 unk8A;
     u8 unk8B;
 } Unk80362690_Unk0;
@@ -74,4 +73,4 @@ void func_802EDDEC(Mtx4F*);
 void func_802EDAF0(void*, Mtx4F*, f32, f32, f32, f32, f32, u32, s32, s32, s32);
 void func_802EE14C(s32);
 
-#endif // APP_CODE_72B70_H
+#endif // APP_code_72EF0_H

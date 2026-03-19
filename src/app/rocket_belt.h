@@ -1,7 +1,7 @@
 #ifndef APP_ROCKET_BELT_H
 #define APP_ROCKET_BELT_H
 
-#include "code_72B70.h"
+#include "code_72EF0.h"
 
 typedef struct {
     u16 objId;

@@ -107,5 +107,6 @@ void func_8021EA38(UnkStruct_80204D94* arg0);
 void _uvFxDraw(u16 fxId, UnkStruct_80204D94* arg1);
 s32 func_8021EFF0(s32 type);
 void uvFxProps(s32 fxId, ...);
+void uvFxGetProps(s32 fxId, ...);
 
 #endif // UV_FX_H
