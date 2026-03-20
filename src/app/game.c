@@ -949,7 +949,7 @@ s32 gameUpdateState5(Unk80362690* arg0) {
     if ((demoButtonPress(arg0->unk9C, START_BUTTON) != 0) && (demoButtonCheck(arg0->unk9C, A_BUTTON) == 0)) {
         if ((sp6C->unkA != 3) && (sp6C->unkA != 4)) {
             sp40 = (GyrocopterData*)sp6C->vehicleData;
-            if (sp6C->veh == 2) {
+            if (sp6C->veh == VEHICLE_GYROCOPTER) {
                 sp4C = sp40->usingFuel;
                 sp48 = sp40->unkE8;
                 sp44 = sp40->unkF0;
@@ -986,7 +986,7 @@ s32 gameUpdateState5(Unk80362690* arg0) {
             case 2:
                 func_8032D51C(0);
                 func_8033E3A8(1);
-                if (sp6C->veh == 0) {
+                if (sp6C->veh == VEHICLE_HANG_GLIDER) {
                     func_802F03C4(sp6C->vehicleData);
                 }
                 break;
@@ -994,7 +994,7 @@ s32 gameUpdateState5(Unk80362690* arg0) {
             func_8033F964(3);
             D_8034F850 = sp5C;
             uvEventPost(0x13, 0);
-            if (sp6C->veh == 2) {
+            if (sp6C->veh == VEHICLE_GYROCOPTER) {
                 sp40->usingFuel = sp4C;
                 sp40->unkE8 = sp48;
                 sp40->unkF0 = sp44;
@@ -1034,7 +1034,7 @@ void func_802EDAF0(Unk80362690_Unk0* arg0, Mtx4F* arg1, f32 arg2, f32 arg3, f32 
     arg0->unk7A = arg9;
     uvMat4Copy(&arg0->unk2C, arg1);
     if (arg10 == 2) {
-        if ((arg3 < 0.1f) && (arg0->veh != 2)) {
+        if ((arg3 < 0.1f) && (arg0->veh != VEHICLE_GYROCOPTER)) {
             arg0->unkA = 5;
         }
         arg0->unk14 += D_8034F854;
