@@ -128,12 +128,9 @@ void envSound_802E2904(EnvSoundState* arg0) {
     arg0->flags = 0xFFFFFFC0;
 }
 
-#ifndef NON_MATCHING
-#pragma GLOBAL_ASM("asm/nonmatchings/app/env_sound/envSound_802E2A00.s")
-#else
 void envSound_802E2A00(s32 eventType, void* arg1, s32 eventData) {
     s32 i;
-    EnvSoundState* state;
+    EnvSoundState* esState;
     s32 sp26C;
     Mtx4F sp22C;
     Vec3F sp220;
@@ -153,7 +150,7 @@ void envSound_802E2A00(s32 eventType, void* arg1, s32 eventData) {
     Vec3F sp9C;
     Mtx4F sp5C;
 
-    state = arg1;
+    esState = arg1;
     switch (eventType) {
     case 14:
         if (D_8034EF24 == 0) {
@@ -170,26 +167,26 @@ void envSound_802E2A00(s32 eventType, void* arg1, s32 eventData) {
         }
         break;
     case 23:
-        envSound_802E2904(state);
+        envSound_802E2904(esState);
         break;
     case 24:
-        state->unk7F8 = 0xFF;
-        envSound_802E3310(state);
+        esState->unk7F8 = 0xFF;
+        envSound_802E3310(esState);
         break;
     case 13:
         if (eventData == 0) {
-            envSound_802E3398(state);
+            envSound_802E3398(esState);
         }
         break;
     case 25:
-        envSound_802E3398(state);
+        envSound_802E3398(esState);
         break;
     case 19:
         if (D_8034EF24 == 0) {
             D_8034EF24 = 1;
             D_8034EF20 = 0;
             D_8034EF28 = 0;
-            state->unk7F8 = 0xFF;
+            esState->unk7F8 = 0xFF;
         }
         break;
     case 18:
@@ -199,183 +196,184 @@ void envSound_802E2A00(s32 eventType, void* arg1, s32 eventData) {
         }
         break;
     case 1:
-        if (state->flags & 1) {
-            return;
+        if (esState->flags & 0x1) {
+            break;
         }
 
         if (D_8034EF24 != 0) {
             D_8034EF28++;
         }
 
-        //---------------------------------------------------------------------------------
-        // using this pointer fixes branch likely above, but then regalloc and instr. order
-        //---------------------------------------------------------------------------------
-        // ptr = D_80362690;
         if (D_80362690->terraId == 9) {
             D_8034EF28 = 0;
-            return;
+            break;
         }
 
-        if (D_8034EF28 >= 2) {
-            if (D_8034EF28 == 2) {
-                envSound_802E3310(state);
-            }
-            if (D_80362690->map == MAP_CRESCENT_ISLAND) {
-                sp26C = D_80362690->unkC[D_80362690->unk9C].unk8;
-                if (sp26C != state->unk7F8) {
-                    envSound_802E3250(state);
-                }
-            }
+        if (D_8034EF28 < 2) {
+            break;
+        }
 
-            for (i = 0; i < state->count; i++) {
-                emitter = &state->emitters[i];
-                if (D_8034EF20 != 0) {
-                    uvEmitterSetUnk70(emitter->objId, uvEmitterGetUnk70(emitter->objId) * 0.95f);
-                } else {
-                    if ((sp26C == emitter->unk6) || (emitter->unk6 == 0xA)) {
-                        switch (emitter->sndId) {
+        if (D_8034EF28 == 2) {
+            envSound_802E3310(esState);
+        }
+        if (D_80362690->map == MAP_CRESCENT_ISLAND) {
+            sp26C = D_80362690->unkC[D_80362690->unk9C].unk8;
+            if (sp26C != esState->unk7F8) {
+                envSound_802E3250(esState);
+            }
+        }
+
+        for (i = 0; i < esState->count; i++) {
+            emitter = &esState->emitters[i];
+            if (D_8034EF20 != 0) {
+                uvEmitterSetUnk70(emitter->objId, uvEmitterGetUnk70(emitter->objId) * 0.95f);
+            } else {
+                if ((sp26C == emitter->unk6) || (emitter->unk6 == 0xA)) {
+                    switch (emitter->sndId) {
+                    case 0:
+                        temp_fs1 = ((demoRandF() - 0.5f) * 0.1f) + 0.8f;
+                        temp_fs0 = ((demoRandF() - 0.5f) * 0.2f) + 0.9f;
+                        uvEmitterSetUnk74(emitter->objId, temp_fs1);
+                        uvEmitterSetUnk70(emitter->objId, temp_fs0);
+                        break;
+                    case 1:
+                        temp_fs1 = ((demoRandF() - 0.5f) * 0.1f) + 0.8f;
+                        temp_fs0 = ((demoRandF() - 0.5f) * 0.1f) + 0.95f;
+                        uvEmitterSetUnk74(emitter->objId, temp_fs1);
+                        uvEmitterSetUnk70(emitter->objId, temp_fs0);
+                        break;
+                    case 2:
+                        temp_fs1 = ((demoRandF() - 0.5f) * 0.1f) + 0.8f;
+                        uvEmitterSetUnk74(emitter->objId, temp_fs1);
+                        break;
+                    case 3:
+                        temp_fs1 = 1.0f;
+                        temp_fs0 = ((demoRandF() - 0.5f) * 0.2f) + 0.9f;
+                        uvEmitterSetUnk74(emitter->objId, temp_fs1);
+                        uvEmitterSetUnk70(emitter->objId, temp_fs0);
+                        break;
+                    case 4:
+                        temp_fs1 = ((demoRandF() - 0.5f) * 0.1f) + 0.8f;
+                        temp_fs0 = ((demoRandF() - 0.5f) * 0.2f) + 0.9f;
+                        uvEmitterSetUnk74(emitter->objId, temp_fs1);
+                        uvEmitterSetUnk70(emitter->objId, temp_fs0);
+                        break;
+                    case 5:
+                        temp_fs1 = ((demoRandF() - 0.5f) * 0.1f) + 1.8f;
+                        temp_fs0 = ((demoRandF() - 0.5f) * 0.2f) + 0.7f;
+                        uvEmitterSetUnk74(emitter->objId, temp_fs1);
+                        uvEmitterSetUnk70(emitter->objId, temp_fs0);
+                        break;
+                    case 9:
+                        temp_fs1 = ((demoRandF() - 0.5f) * 0.1f) + 1.00f; // + 1.0f
+                        temp_fs0 = ((demoRandF() - 0.5f) * 0.1f) + 0.95f;
+                        uvEmitterSetUnk74(emitter->objId, temp_fs1);
+                        uvEmitterSetUnk70(emitter->objId, temp_fs0);
+                        break;
+                    case 11:
+                        temp_fs1 = ((demoRandF() - 0.5f) * 0.1f) + 0.4f;
+                        uvEmitterSetUnk74(emitter->objId, temp_fs1);
+                        break;
+                    case 26:
+                        func_802E7CB8(&sp208);
+                        sp1C8.m[3][0] = sp208.x;
+                        sp1C8.m[3][1] = sp208.y;
+                        sp1C8.m[3][2] = sp208.z;
+                        uvEmitterSetMatrix(emitter->objId, &sp1C8);
+                        break;
+                    case 23:
+                        func_803203D0(0, &sp1BC);
+                        sp17C.m[3][0] = sp1BC.x;
+                        sp17C.m[3][1] = sp1BC.y;
+                        sp17C.m[3][2] = sp1BC.z;
+                        uvEmitterSetMatrix(emitter->objId, &sp17C);
+                        break;
+                    case 24:
+                        func_803203D0(1, &sp170);
+                        sp130.m[3][0] = sp170.x;
+                        sp130.m[3][1] = sp170.y;
+                        sp130.m[3][2] = sp170.z;
+                        uvEmitterSetMatrix(emitter->objId, &sp130);
+                        break;
+                    case 21:
+                        if (func_802D2018(0, &spF0) != 0) {
+                            uvEmitterSetMatrix(emitter->objId, &spF0);
+                        } else {
+                            uvEmitterRelease(emitter->objId);
+                        }
+                        break;
+                    case 22:
+                        if (func_802D2018(1, &spAC) != 0) {
+                            uvEmitterSetMatrix(emitter->objId, &spAC);
+                        } else {
+                            uvEmitterRelease(emitter->objId);
+                        }
+                        break;
+                    case 17:
+                        uvEmitterGetMatrix(emitter->objId, &sp22C);
+                        func_802E1754(sp22C.m[3][0], sp22C.m[3][1], sp22C.m[3][2], &sp220);
+                        temp_fs1 = (sp220.y * 0.1f) + 0.25f;
+                        temp_fs0 = sp220.y;
+                        if (temp_fs0 < 0.0f) {
+                            temp_fs0 = 0.0f;
+                        } else if (temp_fs0 > 1.0f) {
+                            temp_fs0 = 1.0f;
+                        }
+                        uvEmitterSetUnk74(emitter->objId, temp_fs1);
+                        uvEmitterSetUnk70(emitter->objId, temp_fs0);
+                        break;
+                    case 20:
+                        temp_v0_3 = func_80335F84(); // shuttle state
+                        switch (temp_v0_3) {
                         case 0:
-                            temp_fs1 = ((demoRandF() - 0.5f) * 0.1f) + 0.8f;
-                            temp_fs0 = ((demoRandF() - 0.5f) * 0.2f) + 0.9f;
-                            uvEmitterSetUnk74(emitter->objId, temp_fs1);
-                            uvEmitterSetUnk70(emitter->objId, temp_fs0);
+                            uvEmitterSetUnk74(emitter->objId, 1.0f);
+                            uvEmitterSetUnk70(emitter->objId, 0.0f);
                             break;
                         case 1:
-                            temp_fs1 = ((demoRandF() - 0.5f) * 0.1f) + 0.8f;
-                            temp_fs0 = ((demoRandF() - 0.5f) * 0.1f) + 0.95f;
-                            uvEmitterSetUnk74(emitter->objId, temp_fs1);
-                            uvEmitterSetUnk70(emitter->objId, temp_fs0);
+                            uvEmitterSetUnk74(emitter->objId, 0.20f); // 0.2f
+                            uvEmitterSetUnk70(emitter->objId, 1.0f);
                             break;
                         case 2:
-                            temp_fs1 = ((demoRandF() - 0.5f) * 0.1f) + 0.8f;
-                            uvEmitterSetUnk74(emitter->objId, temp_fs1);
+                            uvEmitterSetUnk74(emitter->objId, 0.33f);
+                            uvEmitterSetUnk70(emitter->objId, 1.0f);
+                            func_80335F24(&sp9C);
+                            uvMat4SetIdentity(&sp5C);
+                            sp5C.m[3][0] = sp9C.x;
+                            sp5C.m[3][1] = sp9C.y;
+                            sp5C.m[3][2] = sp9C.z;
+                            uvEmitterSetMatrix(emitter->objId, &sp5C);
                             break;
                         case 3:
-                            temp_fs1 = 1.0f;
-                            temp_fs0 = ((demoRandF() - 0.5f) * 0.2f) + 0.9f;
-                            uvEmitterSetUnk74(emitter->objId, temp_fs1);
-                            uvEmitterSetUnk70(emitter->objId, temp_fs0);
+                            uvEmitterSetUnk74(emitter->objId, 1.0f);
+                            uvEmitterSetUnk70(emitter->objId, 0.5f);
+                            func_80335F24(&sp9C);
+                            uvMat4SetIdentity(&sp5C);
+                            sp5C.m[3][0] = sp9C.x;
+                            sp5C.m[3][1] = sp9C.y;
+                            sp5C.m[3][2] = sp9C.z;
+                            uvEmitterSetMatrix(emitter->objId, &sp5C);
                             break;
                         case 4:
-                            temp_fs1 = ((demoRandF() - 0.5f) * 0.1f) + 0.8f;
-                            temp_fs0 = ((demoRandF() - 0.5f) * 0.2f) + 0.9f;
-                            uvEmitterSetUnk74(emitter->objId, temp_fs1);
-                            uvEmitterSetUnk70(emitter->objId, temp_fs0);
-                            break;
-                        case 5:
-                            temp_fs1 = ((demoRandF() - 0.5f) * 0.1f) + 1.8f;
-                            temp_fs0 = ((demoRandF() - 0.5f) * 0.2f) + 0.7f;
-                            uvEmitterSetUnk74(emitter->objId, temp_fs1);
-                            uvEmitterSetUnk70(emitter->objId, temp_fs0);
-                            break;
-                        case 9:
-                            temp_fs1 = ((demoRandF() - 0.5f) * 0.1f) + 1.00f; // + 1.0f
-                            temp_fs0 = ((demoRandF() - 0.5f) * 0.1f) + 0.95f;
-                            uvEmitterSetUnk74(emitter->objId, temp_fs1);
-                            uvEmitterSetUnk70(emitter->objId, temp_fs0);
-                            break;
-                        case 11:
-                            temp_fs1 = ((demoRandF() - 0.5f) * 0.1f) + 0.4f;
-                            uvEmitterSetUnk74(emitter->objId, temp_fs1);
-                            break;
-                        case 26:
-                            func_802E7CB8(&sp208);
-                            sp1C8.m[3][0] = sp208.x;
-                            sp1C8.m[3][1] = sp208.y;
-                            sp1C8.m[3][2] = sp208.z;
-                            uvEmitterSetMatrix(emitter->objId, &sp1C8);
-                            break;
-                        case 23:
-                            func_803203D0(0, &sp1BC);
-                            sp17C.m[3][0] = sp1BC.x;
-                            sp17C.m[3][1] = sp1BC.y;
-                            sp17C.m[3][2] = sp1BC.z;
-                            uvEmitterSetMatrix(emitter->objId, &sp17C);
-                            break;
-                        case 24:
-                            func_803203D0(1, &sp170);
-                            sp130.m[3][0] = sp170.x;
-                            sp130.m[3][1] = sp170.y;
-                            sp130.m[3][2] = sp170.z;
-                            uvEmitterSetMatrix(emitter->objId, &sp130);
-                            break;
-                        case 21:
-                            if (func_802D2018(0, &spF0) != 0) {
-                                uvEmitterSetMatrix(emitter->objId, &spF0);
-                            } else {
-                                uvEmitterRelease(emitter->objId);
-                            }
-                            break;
-                        case 22:
-                            if (func_802D2018(1, &spAC) != 0) {
-                                uvEmitterSetMatrix(emitter->objId, &spAC);
-                            } else {
-                                uvEmitterRelease(emitter->objId);
-                            }
-                            break;
-                        case 17:
-                            uvEmitterGetMatrix(emitter->objId, &sp22C);
-                            func_802E1754(sp22C.m[3][0], sp22C.m[3][1], sp22C.m[3][2], &sp220);
-
-                            //---------------------------------------------------------------
-                            // f32 regalloc
-                            //---------------------------------------------------------------
-                            temp_fs1 = (sp220.y * 0.1f) + 0.25f;
-                            temp_fs0 = sp220.y;
-                            if (temp_fs0 < 0.0f) {
-                                temp_fs0 = 0.0f;
-                            } else if (temp_fs0 > 1.0f) {
-                                temp_fs0 = 1.0f;
-                            }
-                            //---------------------------------------------------------------
-
-                            uvEmitterSetUnk74(emitter->objId, temp_fs1);
-                            uvEmitterSetUnk70(emitter->objId, temp_fs0);
-                            break;
-                        case 20:
-                            temp_v0_3 = func_80335F84(); // shuttle state
-                            switch (temp_v0_3) {
-                            case 0:
-                                uvEmitterSetUnk74(emitter->objId, 1.0f);
-                                uvEmitterSetUnk70(emitter->objId, 0.0f);
-                                break;
-                            case 1:
-                                uvEmitterSetUnk74(emitter->objId, 0.20f); // 0.2f
-                                uvEmitterSetUnk70(emitter->objId, 1.0f);
-                                break;
-                            case 2:
-                                uvEmitterSetUnk74(emitter->objId, 0.33f);
-                                uvEmitterSetUnk70(emitter->objId, 1.0f);
-                                func_80335F24(&sp9C);
-                                uvMat4SetIdentity(&sp5C);
-                                sp5C.m[3][0] = sp9C.x;
-                                sp5C.m[3][1] = sp9C.y;
-                                sp5C.m[3][2] = sp9C.z;
-                                uvEmitterSetMatrix(emitter->objId, &sp5C);
-                                break;
-                            case 3:
-                                uvEmitterSetUnk74(emitter->objId, 1.0f);
-                                uvEmitterSetUnk70(emitter->objId, 0.5f);
-                                func_80335F24(&sp9C);
-                                uvMat4SetIdentity(&sp5C);
-                                sp5C.m[3][0] = sp9C.x;
-                                sp5C.m[3][1] = sp9C.y;
-                                sp5C.m[3][2] = sp9C.z;
-                                uvEmitterSetMatrix(emitter->objId, &sp5C);
-                                break;
-                            case 4:
-                                uvEmitterSetUnk74(emitter->objId, 1.0f);
-                                uvEmitterSetUnk70(emitter->objId, 0.0f);
-                                break;
-                            default:
-                                _uvDebugPrintf("got unkown shuttle state\n");
-                                break;
-                            }
+                            uvEmitterSetUnk74(emitter->objId, 1.0f);
+                            uvEmitterSetUnk70(emitter->objId, 0.0f);
                             break;
                         default:
-                            _uvDebugPrintf("Got unknown sndId\n");
+                            _uvDebugPrintf("got unkown shuttle state\n");
                             break;
                         }
+                        break;
+                    case 6:
+                    case 7:
+                    case 8:
+                    case 12:
+                    case 14:
+                    case 15:
+                    case 16:
+                    case 25:
+                        break;
+                    default:
+                        _uvDebugPrintf("Got unknown sndId\n");
+                        break;
                     }
                 }
             }
@@ -383,7 +381,6 @@ void envSound_802E2A00(s32 eventType, void* arg1, s32 eventData) {
         break;
     }
 }
-#endif
 
 void envSound_802E3250(EnvSoundState* arg0) {
     EnvSoundEmitter* var_s0;
