@@ -7,6 +7,7 @@
 typedef struct {
     u8 pad0[0x14];
     s32 unk14;
+    Vec3F unk18;
 } Unk803216A4; // size = unknown, >= 0x18
 
 s32 func_80321210(s32 (*)(s32, s32, s32), s32 (*)(s32, s32, s32), Vec3F, f32, f32, s32);

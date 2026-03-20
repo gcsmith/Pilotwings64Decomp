@@ -465,7 +465,7 @@ segments:
       - [0xCDB20, c, app/thermals]
       - [0xCE4F0, c, app/total_results]
       - [0xCF100, c, app/toys]
-      - [0xCFC40, c, app/test_menu]
+      - [0xCFB20, c, app/test_menu]
       - [0xD1980, c, app/user_paths]
       - [0xD1ED0, c, app/code_D1ED0]
       - [0xD2B10, c, app/code_D2B10]

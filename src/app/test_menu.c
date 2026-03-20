@@ -59,6 +59,8 @@ static s32 D_803509B8 = 0; // unused, only ever set to 0
 // forward declarations
 void testMenu_8034A428(void);
 
+#pragma GLOBAL_ASM("asm/nonmatchings/app/test_menu/func_803485F0.s")
+
 // returns true if test is one of the Shutter Bug tests
 s32 testMenuShutterBug(void) {
     Unk80362690_Unk0* unkC;

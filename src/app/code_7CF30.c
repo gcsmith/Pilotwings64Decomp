@@ -616,7 +616,7 @@ void func_802F7178(GyrocopterData* arg0, Mtx4F* arg1) {
 
 void func_802F7224(GyrocopterData* arg0) {
     GyrocopterData_Unk690* var_s0;
-    s32 sp100;
+    f32 sp100;
     f32 spFC;
     f32 spF8;
     s32 spF4;

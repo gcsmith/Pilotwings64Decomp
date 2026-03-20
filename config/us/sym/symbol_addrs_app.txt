@@ -301,7 +301,6 @@ toy_80348214        = 0x80348214; // type:func
 toyLoad             = 0x80348280; // type:func
 toy_803483AC        = 0x803483AC; // type:func
 toy_80348418        = 0x80348418; // type:func
-toy_803485F0        = 0x803485F0; // type:func
 
 windInit            = 0x8034CD60; // type:func
 windLoad            = 0x8034CD68; // type:func
