@@ -3,8 +3,8 @@
 
 #include "game.h"
 
-void func_8034B5E0(u8, Unk802D3658_Arg0*);
-void func_8034B624(Unk802D3658_Arg0*);
+void func_8034B5E0(u8, Camera*);
+void func_8034B624(Camera*);
 void func_8034B6F8(void);
 
 #endif // APP_CODE_D2B10_H

@@ -16,7 +16,7 @@
 #include "app/snd.h"
 #include "app/splash.h"
 #include "app/task.h"
-#include "app/code_5A6A0.h"
+#include "app/camera.h"
 #include "app/code_61A60.h"
 #include "app/code_66160.h"
 #include "app/jumble_hopper.h"

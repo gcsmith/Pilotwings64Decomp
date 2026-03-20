@@ -15,7 +15,7 @@ typedef struct JumbleHopperData {
     u8 padE[0x2];
     f32 unk10;
     f32 unk14;
-    Unk802D3658_Arg0* unk18;
+    Camera* unk18;
     f32 unk1C;
     f32 unk20;
     f32 unk24;
@@ -151,7 +151,7 @@ typedef struct JumbleHopperData {
 } JumbleHopperData;
 
 void jumbleHopperInit(void);
-void func_802FA020(u8 contIdx, u8 pilot, JumbleHopperData* arg2, Unk802D3658_Arg0* arg3);
+void func_802FA020(u8 contIdx, u8 pilot, JumbleHopperData* arg2, Camera* arg3);
 void jumbleHopperEnterLeave(JumbleHopperData*);
 void func_802FA290(JumbleHopperData*);
 void jumbleHopperMovementFrame(JumbleHopperData*, u8);

@@ -12,7 +12,7 @@
 #include <uv_graphics.h>
 #include "cannonball.h"
 #include "cbsound.h"
-#include "code_5A6A0.h"
+#include "camera.h"
 #include "code_60020.h"
 #include "code_66160.h"
 #include "code_69BF0.h"
@@ -73,7 +73,7 @@ void cannonInit(void) {
 }
 
 // cannonLoadLevel is invoked when loading cannonball level
-void cannonLoadLevel(u8 arg0, u8 pilot, CannonballData* arg2, Unk802D3658_Arg0* arg3) {
+void cannonLoadLevel(u8 arg0, u8 pilot, CannonballData* arg2, Camera* arg3) {
     uvMemSet(arg2, 0, sizeof(CannonballData));
     cannonLoadPilot(pilot, arg2);
     arg2->objId = uvDobjAllocIdx();
@@ -168,7 +168,7 @@ void cannonMovementFrame(CannonballData* arg0, u8 gameState) {
     f32 stickX;
     f32 stickY;
     s32 spE4;
-    Unk802D3658_Arg0* temp_v0;
+    Camera* temp_v0;
     f32 var_fa0;
     f32 var_fa0_2;
     f32 var_fv0;
@@ -487,7 +487,7 @@ void cannonPilotLand(CannonballData* arg0) {
     static Vec4F D_80359AB0;
     static Vec4F D_80359AC0;
     static f32 D_8034E9FC = 0.0f;
-    Unk802D3658_Arg0* temp_v0;
+    Camera* temp_v0;
     f32 temp_fv0_2;
     f32 var_fv1;
     f32 spB8;

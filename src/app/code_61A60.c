@@ -55,7 +55,7 @@ extern f32 D_80359C88;
 void func_802DA6E0(Unk80362690*, s32);
 void func_802DA9E0(void);
 s32 func_802DAA34(void);
-void func_802DAB18(Unk802D3658_Arg0*);
+void func_802DAB18(Camera*);
 s32 func_802DB38C(Unk802D3658_Unk1228*, Vec3F*, Vec3F*);
 s32 func_802DB6D4(Unk802D3658_Unk1228*, Vec3F*, Vec3F*);
 s32 func_802DB9B8(Unk802D3658_Unk1228*, Vec3F*, Vec3F*);
@@ -128,7 +128,7 @@ s32 func_802DA684(u32 pilot) {
 }
 
 void func_802DA6E0(Unk80362690* arg0, s32 pilot) {
-    Unk802D3658_Arg0* temp_s0;
+    Camera* temp_s0;
 
     temp_s0 = arg0->unkC[arg0->unk9C].unk70;
     D_8034EA48 = 0;
@@ -226,7 +226,7 @@ s32 func_802DAA34(void) {
     return GAME_STATE_8;
 }
 
-void func_802DAB18(Unk802D3658_Arg0* arg0) {
+void func_802DAB18(Camera* arg0) {
     f32 var_fs0;
     Mtx4F spC4;
     Mtx4F sp84;

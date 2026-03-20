@@ -76,7 +76,7 @@ typedef struct {
     f32 unk28;
     Mtx4F unk2C;
     void* vehicleData;
-    Unk802D3658_Arg0 *unk70;
+    Camera *unk70;
     Unk80364210 *unk74;
     u8 unk78;
     u8 unk79;

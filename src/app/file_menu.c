@@ -244,7 +244,7 @@ s32 fileMenuEraseFile(void) {
 }
 
 void fileMenu_802E94E0(void) {
-    Unk802D3658_Arg0* unk70;
+    Camera* unk70;
 
     unk70 = D_80362690->unkC[D_80362690->unk9C].unk70;
     uvLevelInit();
@@ -400,7 +400,7 @@ void fileMenu_802E9AE0(void) {
     f32 g;
     f32 b;
     s16* titleStr;
-    Unk802D3658_Arg0* unk70;
+    Camera* unk70;
 
     unk70 = D_80362690->unkC[D_80362690->unk9C].unk70;
     func_80204FC4(unk70->unk22C);

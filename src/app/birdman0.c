@@ -5,7 +5,7 @@
 #include <uv_model.h>
 #include "birdman.h"
 #include "bmsound.h"
-#include "code_5A6A0.h"
+#include "camera.h"
 #include "code_66160.h"
 #include "game.h"
 #include "code_7FE00.h"
@@ -47,7 +47,7 @@ void birdInit(void) {
 }
 
 // called when starting one of the birdman levels, either from bonus menu or bonus star
-void bird_802CC270(u8 arg0, u8 pilot, BirdmanData* arg2, Unk802D3658_Arg0* arg3) {
+void bird_802CC270(u8 arg0, u8 pilot, BirdmanData* arg2, Camera* arg3) {
     uvMemSet(arg2, 0, sizeof(BirdmanData));
     birdLoadPilot(pilot, arg2);
     arg2->objId = uvDobjAllocIdx();

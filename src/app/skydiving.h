@@ -28,7 +28,7 @@ typedef struct {
 void skydivingInit(void);
 s16 skydivingGetPoints(s32);
 
-void func_8032FACC(u8 contIdx, u8 pilot, SkyDivingData* arg2, Unk802D3658_Arg0* arg3);
+void func_8032FACC(u8 contIdx, u8 pilot, SkyDivingData* arg2, Camera* arg3);
 void skydivingEnterLeave(SkyDivingData*);
 void func_8032FE4C(SkyDivingData*);
 void skydivingMovementFrame(SkyDivingData*, u8);

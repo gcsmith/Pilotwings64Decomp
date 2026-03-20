@@ -4,7 +4,7 @@
 #include <PR/ultratypes.h>
 #include <uv_matrix.h>
 #include <uv_vector.h>
-#include "code_5A6A0.h"
+#include "camera.h"
 #include "game.h"
 
 typedef struct {
@@ -28,7 +28,7 @@ typedef struct {
     f32 xAxis;
     f32 unkA4;
     u8 padA8[8];
-    Unk802D3658_Arg0* unkB0;
+    Camera* unkB0;
     u8 unkB4;
     u8 padB5[3];
     f32 unkB8;
@@ -107,7 +107,7 @@ extern s32 D_80359AA8;
 extern s32 D_80359AAC;
 
 void cannonInit(void);
-void cannonLoadLevel(u8, u8 pilot, CannonballData*, Unk802D3658_Arg0*);
+void cannonLoadLevel(u8, u8 pilot, CannonballData*, Camera*);
 void cannonLevelEnterLeave(CannonballData*);
 void cannonEndTarget(CannonballData*);
 void cannonMovementFrame(CannonballData*, u8);

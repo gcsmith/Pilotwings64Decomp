@@ -403,7 +403,7 @@ void func_80338A14(void) {
     Vec3F spF0;
     Vec3F spE4;
     Unk803599D0* temp_s5;
-    Unk802D3658_Arg0* spDC;
+    Camera* spDC;
     s32 pad[4];
     s32 var_a0;
     s32 var_s2;
@@ -1793,7 +1793,7 @@ s32 func_8033E3A8(s32 arg0) {
     f32 spA4;
     f32 spA0;
     Mtx4F sp60;
-    Unk802D3658_Arg0* temp_s4;
+    Camera* temp_s4;
     s32 renderFlags;
     u8* ptr;
     u16 sp52;
@@ -1993,7 +1993,7 @@ void func_8033E860(Unk8033F050** arg0) {
 void func_8033F050(s32 arg0) {
     Unk8033F050* var_s1;
     Unk8033F050 sp84;
-    Unk802D3658_Arg0* temp_s4;
+    Camera* temp_s4;
     Unk80362690_Unk0* var_v1;
     s32 i;
     s32 j;

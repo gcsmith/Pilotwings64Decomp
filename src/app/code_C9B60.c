@@ -113,7 +113,7 @@ s32 func_80342630(void) {
 
 STATIC_FUNC void func_803427FC(void) {
     Mtx4F sp58;
-    Unk802D3658_Arg0* sp54;
+    Camera* sp54;
     s32 var_v0;
 
     D_80378CE0 = (Unk80378CE0*)_uvMemAllocAlign8(sizeof(Unk80378CE0));
@@ -394,7 +394,7 @@ STATIC_FUNC s32 func_80343550(void) {
 }
 
 STATIC_FUNC void introSceneRunner(void) {
-    Unk802D3658_Arg0* temp = D_80362690->unkC[D_80362690->unk9C].unk70;
+    Camera* temp = D_80362690->unkC[D_80362690->unk9C].unk70;
     s32 sp30;
 
     func_80204FC4(temp->unk22C);
@@ -430,7 +430,7 @@ STATIC_FUNC void introSceneRunner(void) {
 
 STATIC_FUNC void func_80343B5C(void) {
     f32 f0;
-    Unk802D3658_Arg0* sp20;
+    Camera* sp20;
 
     sp20 = D_80362690->unkC[D_80362690->unk9C].unk70;
     f0 = ((1.0 - ((4.65f - D_80378CE0->unk22C) / 4.65f)) * 100.0);
@@ -444,7 +444,7 @@ STATIC_FUNC void func_80343C44(void) {
     s32 i;
     Mtx4F spCC;
     Mtx4F sp8C;
-    Unk802D3658_Arg0* temp = D_80362690->unkC[D_80362690->unk9C].unk70;
+    Camera* temp = D_80362690->unkC[D_80362690->unk9C].unk70;
     f32 f0;
     f32 var_fs0;
 

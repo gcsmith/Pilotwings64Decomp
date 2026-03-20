@@ -29,7 +29,7 @@ typedef struct {
 } RocketBeltData;
 
 void rocketBeltInit(void);
-void func_80324DB4(u8 contIdx, u8 pilot, RocketBeltData* arg2, Unk802D3658_Arg0* arg3);
+void func_80324DB4(u8 contIdx, u8 pilot, RocketBeltData* arg2, Camera* arg3);
 void rocketBeltEnterLeave(RocketBeltData*);
 void func_80325100(RocketBeltData*);
 void rocketBeltMovementFrame(RocketBeltData*, u8);

@@ -1,7 +1,7 @@
 #ifndef APP_BIRDMAN_H
 #define APP_BIRDMAN_H
 
-#include "code_5A6A0.h"
+#include "camera.h"
 #include "game.h"
 
 typedef struct {
@@ -23,7 +23,7 @@ typedef struct {
     Mtx4F unk50;
     Mtx4F unk90;
     f32 unkD0;
-    Unk802D3658_Arg0* unkD4;
+    Camera* unkD4;
     u8 unkD8;
     u8 padD9[3];
     f32 unkDC;
@@ -157,7 +157,7 @@ typedef struct {
 } BirdmanData;
 
 void birdInit(void);
-void bird_802CC270(u8, u8 pilot, BirdmanData*, Unk802D3658_Arg0*);
+void bird_802CC270(u8, u8 pilot, BirdmanData*, Camera*);
 void birdEnterLeave(BirdmanData*);
 void bird_802CC51C(Unk802CC51C*);
 void birdMovementFrame(BirdmanData*, u8);

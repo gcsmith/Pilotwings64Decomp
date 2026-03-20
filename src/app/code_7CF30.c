@@ -55,7 +55,7 @@ void gyrocopterInit(void) {
     D_80368880.unk3C = 1.0f, D_80368880.unk40 = 1.0f;
 }
 
-void func_802F5AE0(u8 contIdx, u8 pilot, GyrocopterData* arg2, Unk802D3658_Arg0* arg3) {
+void func_802F5AE0(u8 contIdx, u8 pilot, GyrocopterData* arg2, Camera* arg3) {
     uvMemSet(arg2, 0, sizeof(GyrocopterData));
     gyrocopterLoadPilot(pilot, arg2);
     arg2->objId = uvDobjAllocIdx();

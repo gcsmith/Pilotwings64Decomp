@@ -343,7 +343,7 @@ void func_8032CC44(Unk80362690* arg0) {
 
 s32 func_8032CF28(Unk80362690* arg0) {
     Unk80362690_Unk0* sp6C;
-    Unk802D3658_Arg0* sp68;
+    Camera* sp68;
     HUDState* hud;
     s32 var_s0;
     s32 var_s1;

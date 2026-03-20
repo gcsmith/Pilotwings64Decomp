@@ -3,7 +3,7 @@
 
 #include <uv_matrix.h>
 #include <uv_vector.h>
-#include "code_5A6A0.h"
+#include "camera.h"
 #include "game.h"
 
 void func_8034AD6C(f32, f32, f32, Mtx4F*);

@@ -8,7 +8,7 @@
 #include "app/shadow.h"
 #include "app/snd.h"
 #include "app/task.h"
-#include "app/code_5A6A0.h"
+#include "app/camera.h"
 #include "app/code_82B90.h"
 #include "app/code_9A960.h"
 #include "app/code_D1ED0.h"
@@ -37,7 +37,7 @@ void jumbleHopperInit(void) {
     D_80368B20.unk3C = 1.0f;
 }
 
-void func_802FA020(u8 contIdx, u8 pilot, JumbleHopperData* arg2, Unk802D3658_Arg0* arg3) {
+void func_802FA020(u8 contIdx, u8 pilot, JumbleHopperData* arg2, Camera* arg3) {
     uvMemSet(arg2, 0, sizeof(JumbleHopperData));
     jumbleHopperLoadPilot(pilot, arg2);
     arg2->objId = uvDobjAllocIdx();
