@@ -3,7 +3,7 @@
 
 #include <PR/ultratypes.h>
 #include <uv_matrix.h>
-#include "code_72EF0.h"
+#include "game.h"
 
 typedef struct {
     u8 idx;

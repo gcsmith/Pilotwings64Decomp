@@ -4,7 +4,7 @@
 #include <PR/ultratypes.h>
 #include <uv_matrix.h>
 #include <uv_vector.h>
-#include "code_72EF0.h"
+#include "game.h"
 
 s32 func_802DA530(void);
 void func_802DA54C(void);

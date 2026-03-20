@@ -3,7 +3,7 @@
 
 #include <PR/ultratypes.h>
 #include <uv_matrix.h>
-#include "app/code_72EF0.h"
+#include "app/game.h"
 
 typedef struct JumbleHopperData {
     u16 objId;
@@ -150,8 +150,11 @@ typedef struct JumbleHopperData {
     s32 unk67C;
 } JumbleHopperData;
 
-void func_802FAF80(void);
+void func_802F9F60(void);
+void func_802FA020(u8 contIdx, u8 pilot, JumbleHopperData* arg2, Unk802D3658_Arg0* arg3);
 void jumbleHopperEnterLeave(JumbleHopperData*);
 void jumbleHopperMovementFrame(JumbleHopperData*, u8);
+
+void func_802FAF80(void);
 
 #endif // APP_JUMBLE_HOPPER_H

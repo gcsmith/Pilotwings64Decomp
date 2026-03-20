@@ -17,7 +17,7 @@
 #include "code_66160.h"
 #include "code_69BF0.h"
 #include "code_72010.h"
-#include "code_72EF0.h"
+#include "game.h"
 #include "code_7FE00.h"
 #include "code_9A960.h"
 #include "code_B2900.h"
@@ -164,7 +164,7 @@ void cannonEndTarget(CannonballData* arg0) {
 }
 
 // cannonMovementFrame called every frame while aiming cannon and while in flight
-void cannonMovementFrame(CannonballData* arg0, u8 arg1) {
+void cannonMovementFrame(CannonballData* arg0, u8 gameState) {
     f32 stickX;
     f32 stickY;
     s32 spE4;
@@ -176,12 +176,10 @@ void cannonMovementFrame(CannonballData* arg0, u8 arg1) {
     f32 spC8[2];
     u8 spC7;
     HUDState* hud;
-    s32 temp_t2;
+    u16 temp_v0_3;
     Mtx4F sp7C;
     Mtx4F sp3C;
     Mtx4F* sp2C;
-    u16 temp_v0_3;
-    u8 temp_t3;
 
     if (func_802E6B5C() == 4) {
         return;
@@ -189,14 +187,14 @@ void cannonMovementFrame(CannonballData* arg0, u8 arg1) {
 
     arg0->unk8 += D_8034F854;
     arg0->unk11D = 0;
-    if (arg1 != 6) {
+    if (gameState != GAME_STATE_6) {
         stickX = demoGetInputs(arg0->unk10, INPUT_AXIS_X);
         stickY = demoGetInputs(arg0->unk10, INPUT_AXIS_Y);
         spE4 = demoGetButtons(arg0->unk10);
     }
     sp2C = &arg0->unk14;
     func_802E65AC(&arg0->unk14, &D_80362690->terraId, &stickX, &stickY, &spE4);
-    if (arg1 != 6) {
+    if (gameState != GAME_STATE_6) {
         spC8[0] = arg0->zAxis;
         spC8[1] = arg0->xAxis;
         spC7 = (arg0->unkD4 * 2) | (arg0->unkC4 & 1);
@@ -235,7 +233,7 @@ void cannonMovementFrame(CannonballData* arg0, u8 arg1) {
     if (arg0->unkD4 == 0) {
         cannonAimingFrame(arg0);
     }
-    if ((arg1 != 6) && (arg0->unkD4 == 1)) {
+    if ((gameState != GAME_STATE_6) && (arg0->unkD4 == 1)) {
         func_802D95D8(arg0);
     }
     if (arg0->unkD4 == 2) {
@@ -267,17 +265,15 @@ void cannonMovementFrame(CannonballData* arg0, u8 arg1) {
         }
         arg0->unkD0 = func_80313AF4(var_fa0_2, arg0->unkD0, 2.0f);
     }
-    if (arg1 != 6) {
+    if (gameState != GAME_STATE_6) {
         if (arg0->unkD4 == 0 || (D_8034F850 - arg0->unkC8) < 0.5f) {
             arg0->unkB4 = 5;
             arg0->unkB8 = 1.0f;
             if (demoButtonPress(arg0->unk10, R_TRIG) != 0) {
                 func_8033F758(0x6A, 1.0f, 0.5f, 0);
-                // @fake
-                if (D_8034E9F4) { }
-                D_8034E9F4 = D_8034E9F4 == 0;
+                D_8034E9F4 = !D_8034E9F4;
             }
-            if (D_8034E9F4 == 0) {
+            if (!D_8034E9F4) {
                 uvMat4Copy(&sp7C, &arg0->unk58);
                 uvMat4RotateAxis(&sp7C, arg0->zAxis - arg0->unkCC, 'z');
                 uvMat4LocalTranslate(&sp7C, 0.0f, -12.0f, 2.0f);
@@ -325,7 +321,7 @@ void cannonMovementFrame(CannonballData* arg0, u8 arg1) {
         func_802D5884(arg0->unkB0, arg0->unkB4);
         func_802D45C4(arg0->unkB0, arg0->unkB8);
     }
-    if (arg1 != 6) {
+    if (gameState != GAME_STATE_6) {
         hud = hudGetState();
         if (arg0->unkD4 == 0) {
             uvMat4Copy(&hud->unk28, &arg0->unk58);
@@ -809,14 +805,14 @@ s32 cannonLoad802D77D8(Unk80362690* arg0, CannonballData* arg1) {
     hud_8031DAA8(0, 0.0f);
     temp_s1->test = 0;
     func_803214E4();
-    taskInitTest(temp_s1->cls, temp_s1->veh, temp_s1->test, &arg0->map, &arg0->terraId, &arg0->unk8);
+    taskInitTest(temp_s1->cls, temp_s1->veh, temp_s1->test, &arg0->map, &arg0->terraId, &arg0->envId);
     levelLoad(arg0->map, temp_s1->pilot, temp_s1->veh, 1);
     hudInit();
     hud_8031A2CC();
     taskLoad();
     func_8034E0B4();
     uvChanTerra(temp_s1->unk70->unk22C, arg0->terraId);
-    uvEnvFunc(arg0->unk8, 0, func_802E0CF0);
+    uvEnvFunc(arg0->envId, 0, func_802E0CF0);
     func_8034B5E0(temp_s1->unk70->unk22C, temp_s1->unk70);
     for (i = 0; i < 4; i++) {
         temp_s1->unk74->unk40[temp_s1->cls].unk0[i][temp_s1->veh].unk4 = 0x7F;
@@ -863,7 +859,7 @@ s32 cannonFrame802D7B7C(Unk80362690* arg0) {
     func_8032150C();
     func_80313D74();
     temp_s1 = (CannonballData*)temp_s0->vehicleData;
-    cannonMovementFrame(temp_s1, arg0->unk0);
+    cannonMovementFrame(temp_s1, arg0->state);
     if (temp_s1->unkD4 != 0) {
         uvMat4Copy(&sp58, &temp_s1->unk14);
         uvMat4RotateAxis(&sp58, 1.5707961f, 'x');
@@ -1026,14 +1022,14 @@ s32 cannonEndShot(CannonballData* arg0) {
         level_8030BA60();
         cannonLevelEnterLeave(arg0);
         cannonEndTarget(arg0);
-        taskInitTest(temp_s1->cls, temp_s1->veh, temp_s1->test, &D_80362690->map, &D_80362690->terraId, &D_80362690->unk8);
+        taskInitTest(temp_s1->cls, temp_s1->veh, temp_s1->test, &D_80362690->map, &D_80362690->terraId, &D_80362690->envId);
         levelLoad(D_80362690->map, temp_s1->pilot, temp_s1->veh, 1);
         hudInit();
         hud_8031A2CC();
         taskLoad();
         func_8034E0B4();
         uvChanTerra(temp_s1->unk70->unk22C, D_80362690->terraId);
-        uvEnvFunc(D_80362690->unk8, 0, func_802E0CF0);
+        uvEnvFunc(D_80362690->envId, 0, func_802E0CF0);
         cannonLoadLevel(D_80362690->unk9C, temp_s1->pilot, arg0, temp_s1->unk70);
         cannonLevelEnterLeave(arg0);
         arg0->unkE = sp2A;

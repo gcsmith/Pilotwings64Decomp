@@ -5,7 +5,7 @@
 #include <uv_matrix.h>
 #include <uv_vector.h>
 #include "code_5A6A0.h"
-#include "code_72EF0.h"
+#include "game.h"
 
 typedef struct {
     u16 objId;
@@ -97,7 +97,8 @@ typedef struct {
     u8 unk291;
     u8 unk292;
     u8 unk293;
-    u8 pad294[0x2B4 - 0x294];
+    Vec3F unk294;
+    u8 pad2A0[0x2B4 - 0x2A0];
     u8 unk2B4;
     u8 pad2B5[0x2BC-0x2B5];
 } CannonballData;
@@ -117,5 +118,6 @@ void cannonLoadPilot(u8 pilot, CannonballData*);
 void cannon_802D8A40(u8 arg0, CannonballData* arg1);
 s32 cannonLoad802D77D8(Unk80362690* arg0, CannonballData* arg1);
 s32 cannonFrame802D7B7C(Unk80362690* arg0);
+s32 cannonLandedFrame(CannonballData*);
 
 #endif // APP_CANNONBALL_H

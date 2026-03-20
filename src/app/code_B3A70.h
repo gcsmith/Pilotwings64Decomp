@@ -1,7 +1,7 @@
 #ifndef APP_CODE_B3AF70_H
 #define APP_CODE_B3AF70_H
 
-#include "code_72EF0.h"
+#include "game.h"
 
 void func_8032C540(Unk80362690*);
 void func_8032D51C(s32);

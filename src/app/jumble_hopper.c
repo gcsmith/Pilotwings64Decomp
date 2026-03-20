@@ -103,7 +103,7 @@ void func_802FA290(JumbleHopperData* arg0) {
     func_80334C70();
 }
 
-void jumbleHopperMovementFrame(JumbleHopperData* arg0, u8 arg1) {
+void jumbleHopperMovementFrame(JumbleHopperData* arg0, u8 gameState) {
     f32 xAxisInputs;
     f32 yAxisInputs;
     f32 var_fa0;
@@ -112,7 +112,7 @@ void jumbleHopperMovementFrame(JumbleHopperData* arg0, u8 arg1) {
     Mtx4F sp34;
 
     if (func_802E6B5C() != 4) {
-        if (arg1 == 6) {
+        if (gameState == GAME_STATE_6) {
             func_802E65AC(&arg0->unk74, &D_80362690->terraId, &xAxisInputs, &yAxisInputs, &buttons);
         } else {
             xAxisInputs = demoGetInputs(arg0->contIdx, INPUT_AXIS_X);
@@ -133,7 +133,7 @@ void jumbleHopperMovementFrame(JumbleHopperData* arg0, u8 arg1) {
         } else {
             arg0->unk19C = 0;
         }
-        if (arg1 != 6) {
+        if (gameState != GAME_STATE_6) {
             func_80303028(arg0);
         }
         if (buttons & L_CBUTTONS) {
@@ -163,7 +163,7 @@ void jumbleHopperMovementFrame(JumbleHopperData* arg0, u8 arg1) {
                 arg0->unk18->unk137C = 0;
             }
         }
-        if (arg1 != 6) {
+        if (gameState != GAME_STATE_6) {
             arg0->unk18->unk4 = arg0->objId;
             arg0->unk18->unk6 = arg0->unk2;
             arg0->unk18->unk7C = arg0->unk40;
@@ -183,7 +183,7 @@ void jumbleHopperMovementFrame(JumbleHopperData* arg0, u8 arg1) {
             }
             func_802D45C4(arg0->unk18, arg0->unk48);
         }
-        if (arg1 != 6) {
+        if (gameState != GAME_STATE_6) {
             hud = hudGetState();
             uvMat4Copy(&hud->unk28, &arg0->unk74);
             hud->renderFlags = HUD_RENDER_JUMBLE_HOPPER;
@@ -194,7 +194,7 @@ void jumbleHopperMovementFrame(JumbleHopperData* arg0, u8 arg1) {
             hud->altSeaLevel = arg0->unk74.m[3][2] * 0.7f;
             hud->speed = arg0->unk180 * 3.6f * 0.7f;
         }
-        if (arg1 != 6) {
+        if (gameState != GAME_STATE_6) {
             if (arg0->unk4C == 6) {
                 func_802E66DC();
             }

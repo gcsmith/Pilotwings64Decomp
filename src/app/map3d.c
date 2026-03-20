@@ -1,6 +1,6 @@
 #include <uv_graphics.h>
 #include <uv_main.h>
-#include "code_72EF0.h"
+#include "game.h"
 #include "demo.h"
 #include "map3d.h"
 
@@ -28,9 +28,9 @@ u8 D_8034F83C = 0;
 void app_entrypoint(void) {
     uvSysInit(0);
     uvGfxEnableGamma(0);
-    func_802EB9C0();
+    gameInit();
     while (demo_80323020() != 0) {
-        func_802EBC30();
+        gameUpdate();
     }
     func_8022E2D4(0);
 }

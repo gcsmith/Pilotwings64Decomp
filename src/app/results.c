@@ -160,8 +160,6 @@ static s32 sReplayTipSet = FALSE;
 static s32 sVehTipIsInit = FALSE;
 
 // forward declarations
-void resultInit(s32);
-void resultDeinit(void);
 s32 resultMenuChoose(s32);
 void resultDrawTally(s32);
 void resultGenTipText(s32);

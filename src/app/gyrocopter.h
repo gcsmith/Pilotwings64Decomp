@@ -1,7 +1,7 @@
 #ifndef APP_GYROCOPTER_H
 #define APP_GYROCOPTER_H
 
-#include "code_72EF0.h"
+#include "game.h"
 
 typedef struct GyrocopterData_Unk3B0 {
     Vec3F unk0;
@@ -228,9 +228,13 @@ typedef struct GyrocopterData {
     f32 unk738;
 } GyrocopterData;
 
+void func_802F56B4(GyrocopterData*, u8);
+
 void func_802F5A00(void);
+void func_802F5AE0(u8 contIdx, u8 pilot, GyrocopterData* arg2, Unk802D3658_Arg0* arg3);
 void gyrocopterEnterLeave(GyrocopterData*);
 void gyrocopterMovementFrame(GyrocopterData*, u8);
+void func_802F764C(GyrocopterData*);
 
 void func_80303230(GyrocopterData*);
 void func_80303714(GyrocopterData*);

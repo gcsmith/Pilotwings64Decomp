@@ -7,7 +7,7 @@
 #include "bmsound.h"
 #include "code_5A6A0.h"
 #include "code_66160.h"
-#include "code_72EF0.h"
+#include "game.h"
 #include "code_7FE00.h"
 #include "code_9A960.h"
 #include "demo.h"
@@ -22,7 +22,6 @@ Unk803599D0 D_80359390;
 u8 D_803593E4;
 
 // forward declarations
-void bird_802CD0F8(BirdmanData*);
 void birdLoadPilot(u8, BirdmanData*);
 void bird_802CE0A4(BirdmanData*);
 
@@ -129,7 +128,7 @@ void bird_802CC51C(Unk802CC51C* arg0) {
 
 // called every frame in a birdman stage
 // handles controller input and motion updates
-void birdMovementFrame(BirdmanData* arg0, u8 arg1) {
+void birdMovementFrame(BirdmanData* arg0, u8 gameState) {
     f32 sp7C;
     f32 sp78;
     f32 pad;
@@ -153,7 +152,7 @@ void birdMovementFrame(BirdmanData* arg0, u8 arg1) {
         if (D_80362690->unkC[D_80362690->unk9C].unk7B == 0) {
             func_80339E1C(arg0);
         }
-        if (arg1 == 6) {
+        if (gameState == GAME_STATE_6) {
             func_802E65AC(&arg0->unk10, &D_80362690->terraId, &sp7C, &sp78, &buttons);
         } else {
             sp7C = demoGetInputs(arg0->controller, INPUT_AXIS_X);
@@ -214,11 +213,11 @@ void birdMovementFrame(BirdmanData* arg0, u8 arg1) {
             arg0->unk2D0 = func_80313AF4(0.0f, arg0->unk2D0, 0.5f);
             arg0->unk2D4 = func_80313AF4(0.0f, arg0->unk2D4, 0.4f);
         }
-        if (arg1 != 6) {
+        if (gameState != GAME_STATE_6) {
             bird_802CEDF8(arg0);
         }
-        bird_802CE190(arg0, arg1);
-        if (arg1 != 6) {
+        bird_802CE190(arg0, gameState);
+        if (gameState != GAME_STATE_6) {
             sp4C[0] = arg0->unkD0;
             sp4C[1] = arg0->unk2D0;
             sp4C[2] = arg0->unk2D4;
@@ -235,7 +234,7 @@ void birdMovementFrame(BirdmanData* arg0, u8 arg1) {
             arg0->unk304 = sp4C[4];
             arg0->unk308 = sp4C[5];
         }
-        if (arg1 != 6) {
+        if (gameState != GAME_STATE_6) {
             arg0->unkD0 = -1.57f;
             if (arg0->unk224 < 25.0f) {
                 var_fa0 = (((25.0f - arg0->unk224) * 1.57f) / 25.0f) + -1.57f;
@@ -307,7 +306,7 @@ void birdMovementFrame(BirdmanData* arg0, u8 arg1) {
             arg0->unkEC = func_80313AF4(demoGetInputs(arg0->controller, 0) * -1.5707963f, arg0->unkEC, 3.0f);
             arg0->unkF0 = func_80313AF4(demoGetInputs(arg0->controller, 1) * -1.5707963f, arg0->unkF0, 3.0f);
         }
-        if (demoButtonPress(arg0->controller, R_TRIG) && (arg1 != 6) && (arg0->unk104 != 1)) {
+        if (demoButtonPress(arg0->controller, R_TRIG) && (gameState != GAME_STATE_6) && (arg0->unk104 != 1)) {
             D_803593E4 = 0;
             if (arg0->unkD8 == 1) {
                 func_8033F758(0x6A, 1.0f, 0.5f, 0.0f);
@@ -327,7 +326,7 @@ void birdMovementFrame(BirdmanData* arg0, u8 arg1) {
             func_802D5884(arg0->unkD4, arg0->unkD8);
             func_802D45C4(arg0->unkD4, arg0->unkDC);
         }
-        if (arg1 != 6) {
+        if (gameState != GAME_STATE_6) {
             arg0->unkD4->unk4 = arg0->objId;
             arg0->unkD4->unk6 = arg0->unk2;
             arg0->unkD4->unk78 = arg0->unkEC;
@@ -344,7 +343,7 @@ void birdMovementFrame(BirdmanData* arg0, u8 arg1) {
             }
             func_802D45C4(arg0->unkD4, arg0->unkDC);
         }
-        if ((arg0->unkD8 == 1) && (arg0->unk104 != 1) && (arg1 != 6)) {
+        if ((arg0->unkD8 == 1) && (arg0->unk104 != 1) && (gameState != GAME_STATE_6)) {
             arg0->unk290 = 0;
         } else {
             arg0->unk290 = 1;
@@ -353,7 +352,7 @@ void birdMovementFrame(BirdmanData* arg0, u8 arg1) {
             arg0->unk290 = 1;
         }
         bird_802CE0A4(arg0);
-        if (arg1 != 6) {
+        if (gameState != GAME_STATE_6) {
             hud = hudGetState();
             uvMat4Copy(&hud->unk28, &arg0->unk10);
             hud->renderFlags = HUD_RENDER_BIRDMAN;
@@ -368,7 +367,7 @@ void birdMovementFrame(BirdmanData* arg0, u8 arg1) {
             hud->renderFlags = 0;
         }
         func_802E06AC(&arg0->unk10);
-        if (arg1 != 6) {
+        if (gameState != GAME_STATE_6) {
             if (arg0->unk104 == 2) {
                 func_802E66DC();
             }

@@ -396,13 +396,13 @@ void bird_802CF8A4(BirdmanData* arg0) {
     var_fv1 *= arg0->unk2AC;
     var_fa1 = -var_fv1 * 0.003f;
     var_fv1 = 1.0f;
-    
+
     // FAKE
-    sp3C.x = (0,var_fa1) * arg0->unk200.x * arg0->unk200.x;
+    sp3C.x = (0, var_fa1) * arg0->unk200.x * arg0->unk200.x;
     if (arg0->unk200.x < 0.0f) {
         sp3C.x = -sp3C.x;
     }
-    sp3C.y = (0,var_fa1) * arg0->unk200.y * arg0->unk200.y;
+    sp3C.y = (0, var_fa1) * arg0->unk200.y * arg0->unk200.y;
     if (arg0->unk200.y < 0.0f) {
         sp3C.y = -sp3C.y;
     }
@@ -411,7 +411,7 @@ void bird_802CF8A4(BirdmanData* arg0) {
         var_fv1 *= 0;
         var_fa1 = -var_fv1 * 0.0030f;
     }
-    sp3C.z = (0,var_fa1) * arg0->unk200.z * arg0->unk200.z;
+    sp3C.z = (0, var_fa1) * arg0->unk200.z * arg0->unk200.z;
     if (arg0->unk200.z < 0.0f) {
         sp3C.z *= -1.0f;
     }

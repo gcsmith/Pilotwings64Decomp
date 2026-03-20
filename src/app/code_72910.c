@@ -6,14 +6,22 @@
 #include "kernel/code_8170.h"
 #include "app/smoke.h"
 #include "app/snd.h"
-#include "app/code_72EF0.h"
+#include "app/game.h"
 
 extern s16 D_8034EE30[VEHICLE_COUNT][PILOT_COUNT];
+extern u8 D_80359DB4;
 
 s16 D_8034F150 = 0;
 s16 D_8034F154[6] = { 0 };
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_72910/func_802EB3E0.s")
+void func_802EB3E0(void) {
+    func_802E9FD0();
+    func_80341CB0();
+    func_803365A0();
+    func_80314430();
+    D_8034F150 = 0;
+    D_80359DB4 = 0;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_72910/func_802EB424.s")
 
@@ -56,7 +64,7 @@ s32 func_802EB640(Unk80362690_Unk0* arg0, u16 arg1) {
     temp_fa1 = (spC0 - arg0->unk2C.m[3][2]) + spA0 * 0.5;
     if (spA0 * 0.5 < uvSqrtF(SQ(temp_fv0) + SQ(temp_fv1) + SQ(temp_fa1))) {
         // FAKE
-        if (spA0) {}
+        if (spA0) { }
         return 0;
     }
     if (D_8034F150 == 0) {

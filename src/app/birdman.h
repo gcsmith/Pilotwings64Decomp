@@ -2,7 +2,7 @@
 #define APP_BIRDMAN_H
 
 #include "code_5A6A0.h"
-#include "code_72EF0.h"
+#include "game.h"
 
 typedef struct {
     u16 objId;
@@ -164,6 +164,7 @@ void birdMovementFrame(BirdmanData*, u8);
 void bird_802CD0F8(BirdmanData*);
 void bird_802CE190(BirdmanData*, u8);
 void bird_802CEA60(BirdmanData*);
+void bird_802CEB68(BirdmanData*, s32);
 void bird_802CEBA0(BirdmanData*);
 void bird_802CECB8(BirdmanData*);
 void bird_802CEDF8(BirdmanData*);

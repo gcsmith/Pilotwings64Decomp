@@ -1,6 +1,6 @@
 #include "common.h"
 #include <uv_texture.h>
-#include "code_72EF0.h"
+#include "game.h"
 #include "code_82520.h"
 #include "app/task.h"
 #include "app/hud.h"
