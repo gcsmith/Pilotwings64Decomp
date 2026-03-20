@@ -79,7 +79,7 @@ s32 totResultHandler(void) {
     s32 sp1C;
 
     totResultInit();
-    while (!(sp1C = totResultMenuChoose())) {
+    while ((sp1C = totResultMenuChoose()) == 0) {
         uvGfxBegin();
         totResultDrawTally();
         uvGfxEnd();
@@ -225,14 +225,14 @@ s32 totResultMenuChoose(void) {
     temp_v0 = totResult_80347150(menu_8030B50C());
     switch (temp_v0) {
     case 3:
-        return 4;
+        return GAME_STATE_4;
     case 4:
-        return 2;
+        return GAME_STATE_2;
     case 5:
-        return 0xB;
+        return GAME_STATE_B;
     case 6:
         if (totResult_80346FC0(sp1C)) {
-            return 0xE;
+            return GAME_STATE_E;
         }
     default:
         return 0;

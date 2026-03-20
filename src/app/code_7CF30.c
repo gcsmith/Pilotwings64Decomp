@@ -34,7 +34,7 @@ s32 func_802F6EE0(GyrocopterData* arg0);
 void func_802F7178(GyrocopterData* arg0, Mtx4F* arg1);
 void gyrocopterLoadPilot(u8 pilot, GyrocopterData* arg1);
 
-void func_802F5A00(void) {
+void gyrocopterInit(void) {
     func_802F4F90();
     D_8034F384 = 0;
     D_80368880.unk0 = 8;

@@ -100,12 +100,12 @@ s32 func_80342630(void) {
                 var_fs1 = 1.0f;
             }
         }
-    } while (var_s1 == 0 && var_fs1 == 0.0f);
+    } while (var_s1 == GAME_STATE_0 && var_fs1 == 0.0f);
 
     D_80350694 += 1;
     func_80343294();
     if (var_fs1 != 0.0f) {
-        var_s1 = 8;
+        var_s1 = GAME_STATE_8;
     }
 
     return var_s1;
@@ -288,20 +288,20 @@ void func_803434E8(void) {
 
 STATIC_FUNC s32 func_80343550(void) {
     s32 temp_v0;
-    s32 sp18;
+    s32 gameState;
 
-    sp18 = 0;
+    gameState = GAME_STATE_0;
     func_80313D74();
     if (D_80350694 != 0 && D_80378CE0->unk28 < 7) {
         demo_80323020();
         if (demoButtonPress(D_80362690->unk9C, A_BUTTON | B_BUTTON | START_BUTTON) != 0) {
             if (demoButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON) != 0) {
-                snd_play_sfx(0x6EU);
+                snd_play_sfx(0x6E);
             } else if (demoButtonPress(D_80362690->unk9C, B_BUTTON) != 0) {
-                snd_play_sfx(1U);
+                snd_play_sfx(1);
             }
             if (D_80378CE0->unk264 != 0) {
-                sp18 = 10;
+                gameState = GAME_STATE_A;
             } else {
                 D_80378CE0->unk264 = 1;
                 D_80378CE0->unk23C = -0.17453f;
@@ -354,7 +354,7 @@ STATIC_FUNC s32 func_80343550(void) {
         break;
     case 8:
         if (uvClkGetSec(4) >= 1.0) {
-            sp18 = 10;
+            gameState = GAME_STATE_A;
         }
         break;
     }
@@ -383,14 +383,14 @@ STATIC_FUNC s32 func_80343550(void) {
             D_80378CE0->unk28 = 8;
             break;
         case 1:
-            sp18 = 7;
+            gameState = GAME_STATE_7;
             break;
         case -1:
             break;
         }
     }
     D_80378CE0->unk22C += D_8034F854;
-    return sp18;
+    return gameState;
 }
 
 STATIC_FUNC void introSceneRunner(void) {

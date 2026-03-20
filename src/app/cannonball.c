@@ -52,7 +52,7 @@ s32 D_80359AAC;
 s32 cannonEndShot(CannonballData*);
 s32 cannonEndAllTgts(CannonballData*);
 
-void cannon_802D5A90(void) {
+void cannonInit(void) {
     D_80359A30.unk0 = 8;
     D_80359A30.unk4 = 0.0f;
     D_80359A30.unk8 = 0.0f;
@@ -839,7 +839,7 @@ s32 cannonLoad802D77D8(Unk80362690* arg0, CannonballData* arg1) {
     uvEventPost(0xB, 0);
     D_80359A84 = 0;
     hudWarningText(0xDB, 1.5f, 8.0f);
-    return 5;
+    return GAME_STATE_5;
 }
 
 // cannonFrame802D7B7C called every frame while aiming cannon and while in flight before landing
@@ -964,7 +964,7 @@ s32 cannonLandedFrame(CannonballData* arg0) {
         uvGfxBegin();
         func_8034B624(temp_s0->unk70);
         uvGfxEnd();
-        return 6;
+        return GAME_STATE_6;
     }
     D_8034EA00 = 0.0f;
     if (arg0->unkE == 2 && arg0->unkC < 3) {
@@ -974,11 +974,11 @@ s32 cannonLandedFrame(CannonballData* arg0) {
         resultHandler(1);
     }
     if (cannonEndShot(arg0) != 0) {
-        return 5;
+        return GAME_STATE_5;
     }
     hudText_8031D8E0(-1, 0, 0.0f);
     hudWarningText(-1, 0.0f, 0.0f);
-    return 0xD;
+    return GAME_STATE_D;
 }
 
 // cannonEndShot called once after landing before the cannon is reset for next shot

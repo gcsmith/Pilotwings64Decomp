@@ -150,9 +150,10 @@ typedef struct JumbleHopperData {
     s32 unk67C;
 } JumbleHopperData;
 
-void func_802F9F60(void);
+void jumbleHopperInit(void);
 void func_802FA020(u8 contIdx, u8 pilot, JumbleHopperData* arg2, Unk802D3658_Arg0* arg3);
 void jumbleHopperEnterLeave(JumbleHopperData*);
+void func_802FA290(JumbleHopperData*);
 void jumbleHopperMovementFrame(JumbleHopperData*, u8);
 
 void func_802FAF80(void);

@@ -15,6 +15,7 @@
 #include "app/hud.h"
 #include "app/jumble_hopper.h"
 #include "app/options.h"
+#include "app/pads.h"
 #include "app/proxanim.h"
 #include "app/results.h"
 #include "app/shadow.h"
@@ -22,12 +23,20 @@
 #include "app/snd.h"
 #include "app/test_menu.h"
 #include "app/text_data.h"
+#include "app/thermals.h"
+#include "app/toys.h"
 #include "app/user_paths.h"
+#include "app/wind.h"
 #include "app/wind_objects.h"
 #include "app/code_61A60.h"
+#include "app/code_64730.h"
 #include "app/code_69BF0.h"
 #include "app/code_78620.h"
+#include "app/code_7C4C0.h"
+#include "app/code_7FE00.h"
+#include "app/code_94E60.h"
 #include "app/code_9A960.h"
+#include "app/code_A8C30.h"
 #include "app/code_B2900.h"
 #include "app/code_B3A70.h"
 #include "app/code_C9B60.h"
@@ -96,7 +105,7 @@ void gameInit(void) {
 
     uvGfxEnableLighting(FALSE);
     D_80362690 = &D_80362698;
-    D_80362690->state = 0;
+    D_80362690->state = GAME_STATE_0;
     D_80362690->unk98 = 1;
     D_80362690->unk9C = 0;
     D_80362690->map = 0;
@@ -105,13 +114,13 @@ void gameInit(void) {
     D_80362690->unkA3 = 0;
     D_80362690->unkA2 = 0;
     D_80362690->unkA8 = 0;
-    func_80324C70();
-    cannon_802D5A90();
+    rocketBeltInit();
+    cannonInit();
     skydivingInit();
-    func_802F9F60();
-    bird_802CC1B0();
-    func_802EF140();
-    func_802F5A00();
+    jumbleHopperInit();
+    birdInit();
+    hangGliderInit();
+    gyrocopterInit();
     func_802F88D0();
     func_802E6570();
     taskInit();
@@ -150,7 +159,7 @@ void func_802EBBB8(void) {
 void func_802EBBC8(Unk80362690* arg0) {
     demoSetRecMode(0);
     func_802ECE94(arg0);
-    arg0->unkA4 = 0;
+    arg0->unkA4 = FALSE;
     func_802DA54C();
     D_8036770C = 0;
     hudDemoControllerEn(FALSE);
@@ -194,7 +203,7 @@ s32 gameUpdateState7(Unk80362690* arg0) {
     }
     optionsTopRender();
     func_80344258(0);
-    return 0;
+    return GAME_STATE_0;
 }
 
 void func_802EBD88(Unk80362690_Unk0* arg0, u8 arg1) {
@@ -230,7 +239,7 @@ s32 gameUpdateState8(Unk80362690* arg0) {
 s32 gameUpdateState9(Unk80362690* arg0) {
     s32 gameState;
 
-    arg0->unkA4 = 1;
+    arg0->unkA4 = TRUE;
     gameState = gameUpdateState4(arg0);
     func_8032D51C(0);
     return gameState;
@@ -264,7 +273,7 @@ s32 gameUpdateStateA(Unk80362690* arg0) {
         func_8033FCD0(0xFF);
     }
     gameState = fileMenuTopRender();
-    if (gameState == 0) {
+    if (gameState == GAME_STATE_0) {
         func_80344258(0);
     }
     func_8032D51C(0);
@@ -303,7 +312,7 @@ s32 gameUpdateStateE(Unk80362690* arg0) {
 s32 gameUpdateStateF(Unk80362690* arg0) {
     func_802EBBB8();
     func_8030CCFC();
-    return 0;
+    return GAME_STATE_0;
 }
 
 s32 gameUpdateState1(Unk80362690* arg0) {
@@ -342,7 +351,7 @@ s32 gameUpdateState2(Unk80362690* arg0) {
     }
 
     ptr->testCount = var_a2;
-    sp1F = func_803485F0(sp2C, ptr, var_a2);
+    sp1F = func_803485F0(sp2C, ptr);
     func_8033FB14();
     if (sp1F == 0xFE) {
         gameState = GAME_STATE_9;
@@ -409,7 +418,7 @@ s32 gameUpdateState3(Unk80362690* arg0) {
     i++;
 
     ptr->unk0 = i;
-    pilot = func_802DD200(sp1C->unk70, ptr);
+    pilot = func_802DD200(sp1C->unk70);
     func_8032D51C(0);
     if (pilot == -1) {
         return GAME_STATE_B;
@@ -544,16 +553,16 @@ s32 gameUpdateState6(Unk80362690* arg0) {
     temp_s0 = &arg0->unkC[arg0->unk9C];
     var_fs0 = 0.0f;
     uvEventPost(0xC, 0);
-    if (arg0->unkA4 != 0) {
+    if (arg0->unkA4) {
         func_802EBBC8(arg0);
         if (D_8034F164 != 0) {
-            return 2;
+            return GAME_STATE_2;
         }
         func_80344258(1);
-        return 0;
+        return GAME_STATE_0;
     }
 
-    if (temp_s0->veh == 3) {
+    if (temp_s0->veh == VEHICLE_CANNONBALL) {
         D_803676FC = (CannonballData*)D_80362748[arg0->unk9C];
         return cannonLandedFrame(D_803676FC);
     }
@@ -619,8 +628,7 @@ s32 gameUpdateState6(Unk80362690* arg0) {
     hudGetState()->renderFlags = 0;
     hud_8031DAA8(0, 0.0f);
     resultInit(1);
-    var_v1 = resultMenuChoose(1);
-    while (var_v1 == 0) {
+    while ((var_v1 = resultMenuChoose(1)) == 0) {
         switch (temp_s0->veh) {
         case VEHICLE_HANG_GLIDER:
             func_802EEB00(temp_s0->vehicleData, temp_s0->unk78);
@@ -653,12 +661,11 @@ s32 gameUpdateState6(Unk80362690* arg0) {
             func_8033FCD0(0xFF);
         }
         uvGfxEnd();
-        var_v1 = resultMenuChoose(1);
     }
 
     resultDeinit();
     func_802ECE94(arg0);
-    if (var_v1 == 4) {
+    if (var_v1 == GAME_STATE_4) {
         snd_play_sfx(0xF);
     }
     return var_v1;
@@ -673,7 +680,7 @@ void func_802ECE94(Unk80362690* arg0) {
         func_8033FCD0(0xFF);
     }
     if (temp_s0->vehicleData != NULL) {
-        if ((arg0->unkA4 == 0) && (arg0->unkA2 == 0)) {
+        if (!arg0->unkA4 && (arg0->unkA2 == 0)) {
             saveFileWrite(temp_s0->unk8A);
         }
         switch (temp_s0->veh) {
@@ -735,13 +742,13 @@ s32 gameUpdateState5(Unk80362690* arg0) {
 
     sp6C = &arg0->unkC[arg0->unk9C];
     gameState = GAME_STATE_5;
-    if ((D_8036770C == 0) && (arg0->unkA4 != 0) && (D_8036770C == 0)) {
+    if ((D_8036770C == 0) && arg0->unkA4 && (D_8036770C == 0)) {
         demoSetRecMode(2);
         D_8036770C = 1;
     }
     demoLogInput();
     uvEventPost(0xE, 0);
-    if ((arg0->unkA4 != 0) && ((demoGetRecMode() == 0) || ((sp50 = uvControllerButtonPress(arg0->unk9C, A_BUTTON | B_BUTTON | START_BUTTON)) != 0))) {
+    if (arg0->unkA4 && ((demoGetRecMode() == 0) || ((sp50 = uvControllerButtonPress(arg0->unk9C, A_BUTTON | B_BUTTON | START_BUTTON)) != 0))) {
         snd_play_sfx(1);
         func_802EBBC8(arg0);
         func_8032D51C(0);
@@ -784,7 +791,7 @@ s32 gameUpdateState5(Unk80362690* arg0) {
             break;
         }
         func_802EDAF0(sp6C, &D_803676F0->unk10, D_803676F0->unk10.m[3][2], D_803676F0->unk1B0, sp6C->unk24, 1.0f, D_803676F0->unk8, D_803676F0->unk4,
-                      D_803676F0->pad50[0x3D], D_803676F0->pad50[0x98], sp6B);
+                      D_803676F0->unk8D, D_803676F0->unkE8, sp6B);
         break;
     case VEHICLE_GYROCOPTER:
         D_803676F4 = (GyrocopterData*)sp6C->vehicleData;
@@ -837,7 +844,7 @@ s32 gameUpdateState5(Unk80362690* arg0) {
             break;
         }
         func_802EDAF0(sp6C, &D_803676F8->unk10, D_803676F8->unk10.m[3][2], D_803676F8->unk1F4, D_803676F8->unk114, D_803676F8->unkF8, D_803676F8->unk8,
-                      D_803676F8->unk4, D_803676F8->pad50[0x41], D_803676F8->pad50[0x98], sp6B);
+                      D_803676F8->unk4, D_803676F8->unk91, D_803676F8->unkE8, sp6B);
         break;
     case VEHICLE_SKY_DIVING:
         D_80367700 = (SkyDivingData*)sp6C->vehicleData;
@@ -863,7 +870,7 @@ s32 gameUpdateState5(Unk80362690* arg0) {
             break;
         }
         func_802EDAF0(sp6C, &D_80367700->unk10, D_80367700->unk10.m[3][2], D_80367700->unk16C, D_80367700->unk2C4, 1.0f, D_80367700->unk8, D_80367700->unk4, 0,
-                      D_80367700->pad50[0x68], sp6B);
+                      D_80367700->unkB8, sp6B);
         break;
     case VEHICLE_JUMBLE_HOPPER:
         D_80367708 = (JumbleHopperData*)sp6C->vehicleData;

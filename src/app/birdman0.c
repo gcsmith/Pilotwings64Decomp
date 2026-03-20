@@ -26,7 +26,7 @@ void birdLoadPilot(u8, BirdmanData*);
 void bird_802CE0A4(BirdmanData*);
 
 // called during game boot
-void bird_802CC1B0(void) {
+void birdInit(void) {
     D_80359390.unk0 = 8;
     D_80359390.unk4 = 0.0f;
     D_80359390.unk8 = 0.0f;

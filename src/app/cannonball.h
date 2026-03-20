@@ -106,7 +106,7 @@ typedef struct {
 extern s32 D_80359AA8;
 extern s32 D_80359AAC;
 
-void cannon_802D5A90(void);
+void cannonInit(void);
 void cannonLoadLevel(u8, u8 pilot, CannonballData*, Unk802D3658_Arg0*);
 void cannonLevelEnterLeave(CannonballData*);
 void cannonEndTarget(CannonballData*);

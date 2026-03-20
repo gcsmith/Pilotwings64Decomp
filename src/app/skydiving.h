@@ -14,7 +14,9 @@ typedef struct {
     Mtx4F unk10;
     u8 pad50[0x20];
     u8 unk70;
-    u8 pad71[0xFB];
+    u8 pad71[0x47];
+    u8 unkB8;
+    u8 padB9[0xB3];
     f32 unk16C;
     u8 pad170[0xC0];
     Vec3F unk230;
@@ -28,6 +30,7 @@ s16 skydivingGetPoints(s32);
 
 void func_8032FACC(u8 contIdx, u8 pilot, SkyDivingData* arg2, Unk802D3658_Arg0* arg3);
 void skydivingEnterLeave(SkyDivingData*);
+void func_8032FE4C(SkyDivingData*);
 void skydivingMovementFrame(SkyDivingData*, u8);
 
 #endif // APP_SKYDIVING_H

@@ -156,7 +156,7 @@ typedef struct {
     f32 unk420;
 } BirdmanData;
 
-void bird_802CC1B0(void);
+void birdInit(void);
 void bird_802CC270(u8, u8 pilot, BirdmanData*, Unk802D3658_Arg0*);
 void birdEnterLeave(BirdmanData*);
 void bird_802CC51C(Unk802CC51C*);

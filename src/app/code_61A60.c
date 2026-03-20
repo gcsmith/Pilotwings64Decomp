@@ -74,19 +74,19 @@ void func_802DA54C(void) {
 }
 
 s32 func_802DA574(Unk80362690* arg0) {
-    s32 sp24;
+    s32 gameState;
     Unk80362690_Unk0* temp_s0;
 
     temp_s0 = &arg0->unkC[arg0->unk9C];
     func_802DA6E0(arg0, D_8034EA64[D_8034EA40]);
-    while ((sp24 = func_802DAA34()) == 8) {
+    while ((gameState = func_802DAA34()) == GAME_STATE_8) {
         uvGfxBegin();
         func_802DAB18(temp_s0->unk70);
         uvGfxEnd();
     }
     func_8032D51C(0);
     func_802DA9E0();
-    return sp24;
+    return gameState;
 }
 
 s32 func_802DA628(u32 pilot) {
@@ -212,7 +212,7 @@ s32 func_802DAA34(void) {
     func_80313D74();
     D_80359C40 += D_8034F854;
     if (D_80359C40 >= 5.0f) {
-        return 9;
+        return GAME_STATE_9;
     }
     if (uvControllerButtonPress(D_80362690->unk9C, A_BUTTON | B_BUTTON | START_BUTTON)) {
         func_80344258(0);
@@ -221,9 +221,9 @@ s32 func_802DAA34(void) {
         } else if (uvControllerButtonPress(D_80362690->unk9C, B_BUTTON)) {
             snd_play_sfx(0x01);
         }
-        return 0;
+        return GAME_STATE_0;
     }
-    return 8;
+    return GAME_STATE_8;
 }
 
 void func_802DAB18(Unk802D3658_Arg0* arg0) {
@@ -244,7 +244,7 @@ void func_802DAB18(Unk802D3658_Arg0* arg0) {
             snd_play_sfx(0x61);
             D_8034EA48 |= 1;
         }
-        var_fs0 = (f32)(var_fs0 * 2.55);
+        var_fs0 *= 2.55;
         break;
     case PILOT_GOOSE:
         if ((D_80359C88 > 0.0f) && (var_fs0 < 0.1f) && ((D_8034EA48 & 2) == 0)) {
@@ -263,14 +263,14 @@ void func_802DAB18(Unk802D3658_Arg0* arg0) {
             snd_play_sfx(0x62);
             D_8034EA48 |= 4;
         }
-        var_fs0 = (f32)(var_fs0 * 1.5);
+        var_fs0 *= 1.5;
         break;
     case PILOT_IBIS:
         if ((D_80359C88 > 0.5f) && (var_fs0 < 1.0f) && ((D_8034EA48 & 5) == 0)) {
             snd_play_sfx(0x64);
             D_8034EA48 |= 5;
         }
-        var_fs0 = (f32)(var_fs0 * 1.5);
+        var_fs0 *= 1.5;
         break;
     case PILOT_ROBIN:
         if ((D_80359C88 > 0.25f) && (var_fs0 < 0.75f) && !(D_8034EA48 & 6)) {

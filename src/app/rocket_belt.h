@@ -14,7 +14,10 @@ typedef struct {
     Mtx4F unk10;
     u8 pad50[0x40];
     u8 unk90;
-    u8 pad91[0x67];
+    u8 unk91;
+    u8 pad92[0x56];
+    u8 unkE8;
+    u8 padE9[0xF];
     f32 unkF8;
     u8 padFC[0x18];
     f32 unk114;
@@ -25,8 +28,10 @@ typedef struct {
     u8 pad380[0x1C];
 } RocketBeltData;
 
+void rocketBeltInit(void);
 void func_80324DB4(u8 contIdx, u8 pilot, RocketBeltData* arg2, Unk802D3658_Arg0* arg3);
 void rocketBeltEnterLeave(RocketBeltData*);
+void func_80325100(RocketBeltData*);
 void rocketBeltMovementFrame(RocketBeltData*, u8);
 void func_80325E1C(RocketBeltData*);
 void func_803273C8(RocketBeltData*, u8);

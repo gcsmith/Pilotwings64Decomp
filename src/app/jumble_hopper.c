@@ -17,7 +17,7 @@ Unk803599D0 D_80368B20;
 
 void jumbleHopperLoadPilot(u8 arg0, JumbleHopperData* arg1);
 
-void func_802F9F60(void) {
+void jumbleHopperInit(void) {
     D_80368B20.unk0 = 8;
     D_80368B20.unk4 = 0.0f;
     D_80368B20.unk8 = 0.0f;

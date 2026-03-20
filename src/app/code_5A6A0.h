@@ -130,6 +130,7 @@ typedef struct {
 void func_802D45C4(Unk802D3658_Arg0*, f32);
 s32 func_802D472C(Unk802D3658_Arg0*, Mtx4F*);
 s32 func_802D4A30(Unk802D3658_Arg0*, Mtx4F*);
+void func_802D4ECC(Unk802D3658_Arg0*, Mtx4F*);
 void func_802D5884(Unk802D3658_Arg0*, u8);
 void func_802D4DE8(Unk802D3658_Arg0*, u8);
 void func_802D3170(u8, Unk802D3658_Arg0*);

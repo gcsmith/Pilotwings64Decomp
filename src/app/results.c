@@ -388,13 +388,13 @@ s32 resultMenuChoose(s32 arg0) {
         switch (item) {
         case 2:
             if (D_80362690->unkC[D_80362690->unk9C].unk7B != 0) {
-                return 0xB;
+                return GAME_STATE_B;
             }
             menuSetProps();
             if (((unkC->veh != VEHICLE_CANNONBALL) || (unkC->unk8B != 0)) && (unkC->veh != VEHICLE_BIRDMAN)) {
                 ret = totResultHandler();
             } else {
-                ret = 2;
+                ret = GAME_STATE_2;
             }
             sScreenFadeDuration = 1.5f;
             break;
@@ -412,13 +412,13 @@ s32 resultMenuChoose(s32 arg0) {
             sScreenFadeDuration = 1.5f;
             break;
         case 3:
-            return 4;
+            return GAME_STATE_4;
         case 4:
-            return 2;
+            return GAME_STATE_2;
         case 5:
-            return 0xB;
+            return GAME_STATE_B;
         case 6:
-            return 2;
+            return GAME_STATE_2;
         case -3:
         case -2:
         case -1:
@@ -430,7 +430,7 @@ s32 resultMenuChoose(s32 arg0) {
             sScreenFadeDuration = 1.5f;
             demo_80323020();
             if (demoButtonPress(D_80362690->unk9C, A_BUTTON | B_BUTTON | START_BUTTON) != 0) {
-                ret = 1;
+                ret = GAME_STATE_1;
                 if (demoButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON) != 0) {
                     snd_play_sfx(0x73);
                 } else if (demoButtonPress(D_80362690->unk9C, CONT_B) != 0) {
