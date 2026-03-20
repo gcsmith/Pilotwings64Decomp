@@ -1,7 +1,7 @@
 #include "common.h"
 #include "toys.h"
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/toys/func_80347BD0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/toys/toysInit.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/toys/func_80347C2C.s")
 

@@ -127,6 +127,7 @@ ballTgtDeinit       = 0x802D3030; // type:func
 db_getgnd           = 0x802DFE70; // type:func
 db_getstart         = 0x802E0304; // type:func
 
+envInit             = 0x802E1238; // type:func
 envLoad             = 0x802E1278; // type:func
 env_loadtpal        = 0x802E1990; // type:func
 
@@ -241,6 +242,8 @@ demoButtonPress     = 0x803231E0; // type:func
 demoButtonRelease   = 0x80323240; // type:func
 demoRandF           = 0x803232A0; // type:func
 
+proxanimInit        = 0x80321100; // type:func
+
 ringsInit           = 0x803232F0; // type:func
 ringsLoad           = 0x803239B4; // type:func
 ringsDeinit         = 0x80324A34; // type:func
@@ -269,6 +272,7 @@ snapInit            = 0x80337DB8; // type:func
 snapDeinit          = 0x803383FC; // type:func
 snapGetPhotoCount   = 0x8033F618; // type:func
 
+snd_init            = 0x8033F640; // type:func
 snd_play_sfx        = 0x8033F7F8; // type:func
 snd_makedev         = 0x8033F860; // type:func
 snd_event           = 0x8033FB44; // type:func
@@ -283,6 +287,8 @@ spath_free          = 0x80340800; // type:func
 spath_update2       = 0x80340868; // type:func
 spath_update        = 0x80340B74; // type:func
 splash_add          = 0x803417CC; // type:func
+
+toysInit            = 0x80347BD0; // type:func
 toy_animate         = 0x80347E9C; // type:func
 
 windInit            = 0x8034CD60; // type:func
@@ -359,6 +365,8 @@ falco_802E6344      = 0x802E6344; // type:func
 falco_802E6380      = 0x802E6380; // type:func
 falco_802E63BC      = 0x802E63BC; // type:func
 falco_802E64E0      = 0x802E64E0; // type:func
+
+fdrInit             = 0x802E6570; // type:func
 
 targetsInit         = 0x80344290; // type:func
 targetsLoad         = 0x803442F8; // type:func

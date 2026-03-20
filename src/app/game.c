@@ -122,13 +122,13 @@ void gameInit(void) {
     hangGliderInit();
     gyrocopterInit();
     func_802F88D0();
-    func_802E6570();
+    fdrInit();
     taskInit();
-    func_802E1238();
-    func_8033F640();
+    envInit();
+    snd_init();
     windObjectsInit();
-    func_80347BD0();
-    func_80321100();
+    toysInit();
+    proxanimInit();
     falcoInit();
     userPathInit();
     func_80337D50();

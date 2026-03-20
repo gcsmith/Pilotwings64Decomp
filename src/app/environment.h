@@ -4,7 +4,7 @@
 #include <PR/ultratypes.h>
 #include <uv_vector.h>
 
-void func_802E1238(void);
+void envInit(void);
 void env_loadtpal(s32);
 void envLoad(void);
 void func_802E0CF0(void);

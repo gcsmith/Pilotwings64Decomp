@@ -5,7 +5,7 @@
 
 extern u16 D_803505B0;
 
-void func_8033F640(void);
+void snd_init(void);
 void func_8033F6F8(s32, s32);
 void func_8033F748(u16);
 void func_8033F758(u8, f32, f32, f32);
