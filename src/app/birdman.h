@@ -38,9 +38,10 @@ typedef struct {
     u8 unk105;
     u8 unk106;
     u8 unk107;
-    u8 unk108[4]; // unknown size
-    u8 pad10C[0x140 - 0x10C];
-    f32 unk140[4]; // unknown size
+    u8 unk108[4];
+    u8 unk10C[4];
+    Vec3F unk110[4];
+    f32 unk140[4];
     Vec3F unk150;
     u8 unk15C;
     f32 unk160;

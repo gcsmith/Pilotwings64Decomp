@@ -73,7 +73,7 @@ typedef struct {
         s32 cameraState; // camera and shutter
         s32 cloudFade;   // skydiving cloud fade
     };
-    s8 unk8;
+    u8 unk8;
     s8 pad9[3];
     s32 unkC;
     f32 elapsedTime;
@@ -115,7 +115,7 @@ typedef struct {
     f32 unkC68;
     f32 reticleX;
     f32 reticleY;
-    s8 unkC74;
+    u8 unkC74;
     u8 padC75[3];
     u8 showController;
 } HUDState;

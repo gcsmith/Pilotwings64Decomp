@@ -26,8 +26,7 @@ u8 D_8034E9E4 = 0;
 s32 pad_D_8034E9E8 = 0;
 
 // .bss
-extern Unk803599D0 D_803599D0;
-extern f32 D_80359A24;
+Unk803599D0 D_803599D0;
 
 // forward declarations
 STATIC_FUNC s32 func_802D408C(Unk802D3658_Arg0* arg0);
@@ -452,13 +451,8 @@ STATIC_FUNC void func_802D41D8(Unk802D3658_Arg0* arg0) {
     func_802D45C4(arg0, var_fv0);
 }
 
-#ifndef NON_MATCHING
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_5A6A0/func_802D4274.s")
-#else
-// rom size changes when this gets compiled in, probably some .bss/.data mapping problem related to static var
 void func_802D4274(Unk802D3658_Arg0* arg0) {
     static f32 D_80359A24;
-
     Mtx4F sp70; // 70:AF
     f32 sp6C;
     f32 sp68;
@@ -475,7 +469,7 @@ void func_802D4274(Unk802D3658_Arg0* arg0) {
             sp6C /= var_fs0;
             sp68 /= var_fs0;
             sp64 /= var_fs0;
-            arg0->unk194 = func_8022A27C(sp68, sp6C);
+            arg0->unk194 = uvAtan2F(sp68, sp6C);
             D_80359A24 = var_fs0;
         } else {
             arg0->unk194 = 0.0f;
@@ -511,9 +505,8 @@ void func_802D4274(Unk802D3658_Arg0* arg0) {
         arg0->unk198 = var_fs0;
     }
     uvMat4UnkOp6(&arg0->unk108, &arg0->unk80, &sp70);
-    (void)func_802D4A30(arg0, arg0->unk108.m);
+    func_802D4A30(arg0, &arg0->unk108);
 }
-#endif
 
 void func_802D4514(Unk802D3658_Arg0* arg0) {
     f32 var_fv0;
