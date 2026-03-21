@@ -12,7 +12,7 @@
 #include "code_6ECD0.h"
 #include "code_722D0.h"
 #include "code_72910.h"
-#include "code_72B70.h"
+#include "game.h"
 #include "code_78620.h"
 #include "jumble_hopper.h"
 #include "code_82520.h"
@@ -206,7 +206,7 @@ s32 taskGetTestCount(s32 classIdx, s32 vehicle) {
     return testCount;
 }
 
-s32 taskInitTest(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* terraId, u16* arg5) {
+s32 taskInitTest(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* terraId, u16* envId) {
     u8 tmp8;
 
     gTaskClass = classIdx;
@@ -280,7 +280,7 @@ s32 taskInitTest(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* terraId,
     D_8035079C = 1;
     D_803507A0 = 0;
     D_80362690->unkC[D_80362690->unk9C].unk8 = 0;
-    *arg5 = func_802E12B4();
+    *envId = func_802E12B4();
     return 1;
 }
 

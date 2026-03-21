@@ -10,7 +10,7 @@
 #include "balls.h"
 #include "code_64070.h"
 #include "code_66160.h"
-#include "code_72B70.h"
+#include "game.h"
 #include "code_9A960.h"
 #include "code_B2900.h"
 #include "credits.h"
@@ -168,7 +168,7 @@ void testMenuInit(Unk80367710* arg0, s32 arg1) {
             temp_v1->test = gCurTestIdx;
         }
     }
-    taskInitTest(temp_v1->cls, temp_v1->veh, temp_v1->test, &D_80362690->map, &D_80362690->terraId, &D_80362690->unk8);
+    taskInitTest(temp_v1->cls, temp_v1->veh, temp_v1->test, &D_80362690->map, &D_80362690->terraId, &D_80362690->envId);
     map3d(D_80362690, 0);
     if (arg1 == 0) {
         sTestMenuState = 0;
@@ -334,7 +334,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
                     } else {
                         sp6C->test = gCurTestIdx;
                     }
-                    taskInitTest(sp6C->cls, sp6C->veh, sp6C->test, &D_80362690->map, &D_80362690->terraId, &D_80362690->unk8);
+                    taskInitTest(sp6C->cls, sp6C->veh, sp6C->test, &D_80362690->map, &D_80362690->terraId, &D_80362690->envId);
                     map3d(D_80362690, 0);
                     testMenuInitText(sp6C->test);
                 }

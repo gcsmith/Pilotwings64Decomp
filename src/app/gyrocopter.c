@@ -482,7 +482,7 @@ void func_8030399C(GyrocopterData* arg0) {
                         arg0->unk3B0[1].unk0.z, 7, 1, 0);
         }
     }
-    if (D_80362690->unkA4 != 0) {
+    if (D_80362690->unkA4) {
         demoAttUpdate(D_8034F850, &arg0->unk10);
     }
 }

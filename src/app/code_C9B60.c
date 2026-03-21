@@ -100,12 +100,12 @@ s32 func_80342630(void) {
                 var_fs1 = 1.0f;
             }
         }
-    } while (var_s1 == 0 && var_fs1 == 0.0f);
+    } while (var_s1 == GAME_STATE_0 && var_fs1 == 0.0f);
 
-    D_80350694 += 1;
+    D_80350694++;
     func_80343294();
     if (var_fs1 != 0.0f) {
-        var_s1 = 8;
+        var_s1 = GAME_STATE_8;
     }
 
     return var_s1;
@@ -113,11 +113,11 @@ s32 func_80342630(void) {
 
 STATIC_FUNC void func_803427FC(void) {
     Mtx4F sp58;
-    Unk802D3658_Arg0* sp54;
+    Camera* sp54;
     s32 var_v0;
 
     D_80378CE0 = (Unk80378CE0*)_uvMemAllocAlign8(sizeof(Unk80378CE0));
-    uvMemSet(D_80378CE0, 0U, 0x268U);
+    uvMemSet(D_80378CE0, 0, sizeof(Unk80378CE0));
     uvSprtProps(1, 3, 1, 2, 0x21, 0x96, 9, 9, 0xA, 0, 0xB, 1, 0);
     uvSprtProps(3, 3, 1, 2, 0x11B, 0xD5, 9, 0xA, 0);
     uvSprtProps(4, 3, 1, 2, 0x21, 0x1E, 9, 0x1E, 0);
@@ -288,20 +288,20 @@ void func_803434E8(void) {
 
 STATIC_FUNC s32 func_80343550(void) {
     s32 temp_v0;
-    s32 sp18;
+    s32 gameState;
 
-    sp18 = 0;
+    gameState = GAME_STATE_0;
     func_80313D74();
     if (D_80350694 != 0 && D_80378CE0->unk28 < 7) {
         demo_80323020();
         if (demoButtonPress(D_80362690->unk9C, A_BUTTON | B_BUTTON | START_BUTTON) != 0) {
             if (demoButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON) != 0) {
-                snd_play_sfx(0x6EU);
+                snd_play_sfx(0x6E);
             } else if (demoButtonPress(D_80362690->unk9C, B_BUTTON) != 0) {
-                snd_play_sfx(1U);
+                snd_play_sfx(1);
             }
             if (D_80378CE0->unk264 != 0) {
-                sp18 = 10;
+                gameState = GAME_STATE_A;
             } else {
                 D_80378CE0->unk264 = 1;
                 D_80378CE0->unk23C = -0.17453f;
@@ -354,7 +354,7 @@ STATIC_FUNC s32 func_80343550(void) {
         break;
     case 8:
         if (uvClkGetSec(4) >= 1.0) {
-            sp18 = 10;
+            gameState = GAME_STATE_A;
         }
         break;
     }
@@ -383,18 +383,18 @@ STATIC_FUNC s32 func_80343550(void) {
             D_80378CE0->unk28 = 8;
             break;
         case 1:
-            sp18 = 7;
+            gameState = GAME_STATE_7;
             break;
         case -1:
             break;
         }
     }
     D_80378CE0->unk22C += D_8034F854;
-    return sp18;
+    return gameState;
 }
 
 STATIC_FUNC void introSceneRunner(void) {
-    Unk802D3658_Arg0* temp = D_80362690->unkC[D_80362690->unk9C].unk70;
+    Camera* temp = D_80362690->unkC[D_80362690->unk9C].unk70;
     s32 sp30;
 
     func_80204FC4(temp->unk22C);
@@ -430,7 +430,7 @@ STATIC_FUNC void introSceneRunner(void) {
 
 STATIC_FUNC void func_80343B5C(void) {
     f32 f0;
-    Unk802D3658_Arg0* sp20;
+    Camera* sp20;
 
     sp20 = D_80362690->unkC[D_80362690->unk9C].unk70;
     f0 = ((1.0 - ((4.65f - D_80378CE0->unk22C) / 4.65f)) * 100.0);
@@ -444,7 +444,7 @@ STATIC_FUNC void func_80343C44(void) {
     s32 i;
     Mtx4F spCC;
     Mtx4F sp8C;
-    Unk802D3658_Arg0* temp = D_80362690->unkC[D_80362690->unk9C].unk70;
+    Camera* temp = D_80362690->unkC[D_80362690->unk9C].unk70;
     f32 f0;
     f32 var_fs0;
 

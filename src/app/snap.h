@@ -2,7 +2,7 @@
 #define APP_SNAP_H
 
 #include <PR/ultratypes.h>
-#include "code_72B70.h"
+#include "game.h"
 
 #define PHOTO_COUNT_MAX 6
 

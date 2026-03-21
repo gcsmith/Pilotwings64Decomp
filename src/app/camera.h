@@ -1,5 +1,5 @@
-#ifndef CODE_5A6A0_H
-#define CODE_5A6A0_H
+#ifndef APP_CAMERA_H
+#define APP_CAMERA_H
 
 #include <uv_matrix.h>
 #include <uv_vector.h>
@@ -125,16 +125,17 @@ typedef struct {
     f32 unk1378;
     s32 unk137C;
     f32 unk1380;
-} Unk802D3658_Arg0;
+} Camera;
 
-void func_802D45C4(Unk802D3658_Arg0*, f32);
-s32 func_802D472C(Unk802D3658_Arg0*, Mtx4F*);
-s32 func_802D4A30(Unk802D3658_Arg0*, Mtx4F*);
-void func_802D5884(Unk802D3658_Arg0*, u8);
-void func_802D4DE8(Unk802D3658_Arg0*, u8);
-void func_802D3170(u8, Unk802D3658_Arg0*);
-void func_802D3444(Unk802D3658_Arg0*);
-void func_802D50D0(Unk802D3658_Arg0*);
-void func_802D4514(Unk802D3658_Arg0*);
+void func_802D45C4(Camera*, f32);
+s32 func_802D472C(Camera*, Mtx4F*);
+s32 func_802D4A30(Camera*, Mtx4F*);
+void func_802D4ECC(Camera*, Mtx4F*);
+void func_802D5884(Camera*, u8);
+void func_802D4DE8(Camera*, u8);
+void func_802D3170(u8, Camera*);
+void func_802D3444(Camera*);
+void func_802D50D0(Camera*);
+void func_802D4514(Camera*);
 
-#endif // CODE_5A6A0_H
+#endif // APP_CAMERA_H

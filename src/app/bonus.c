@@ -5,7 +5,7 @@
 #include <uv_texture.h>
 #include <uv_util.h>
 #include "bonus.h"
-#include "code_72B70.h"
+#include "game.h"
 #include "code_9A960.h"
 #include "level.h"
 #include "snd.h"
@@ -104,8 +104,7 @@ void bonusFrameUpdate(Mtx4F* arg0) {
         }
     }
 
-    // if not already in birdman
-    if ((D_80362690->unk0 != VEHICLE_BIRDMAN) && (D_80362690->unkC[D_80362690->unk9C].unkA == 1)) {
+    if ((D_80362690->state != GAME_STATE_6) && (D_80362690->unkC[D_80362690->unk9C].unkA == 1)) {
         px = arg0->m[3][0];
         py = arg0->m[3][1];
         pz = arg0->m[3][2];

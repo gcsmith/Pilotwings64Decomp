@@ -46,7 +46,7 @@ static f32 sFileColorB1;
 static f32 sFileColorB2;
 
 s32 fileMenuTopRender(void) {
-    s32 temp_v0;
+    s32 gameState;
 
     fileMenu_802E94E0();
     uvGfxBegin();
@@ -56,10 +56,10 @@ s32 fileMenuTopRender(void) {
         uvGfxBegin();
         fileMenu_802E9AE0();
         uvGfxEnd();
-        temp_v0 = fileMenuSubRender();
-    } while (temp_v0 == -1);
+        gameState = fileMenuSubRender();
+    } while (gameState == -1);
     fileMenuSetProps();
-    return temp_v0;
+    return gameState;
 }
 
 void fileMenu_802E8AF0(void) {
@@ -244,7 +244,7 @@ s32 fileMenuEraseFile(void) {
 }
 
 void fileMenu_802E94E0(void) {
-    Unk802D3658_Arg0* unk70;
+    Camera* unk70;
 
     unk70 = D_80362690->unkC[D_80362690->unk9C].unk70;
     uvLevelInit();
@@ -289,7 +289,7 @@ s32 fileMenuChoose(void) {
     switch (menuChoice) {
     case 0:
     case 1:
-        ret = 11;
+        ret = GAME_STATE_B;
         break;
     case 2:
         fileMenuSetup(1);
@@ -297,7 +297,7 @@ s32 fileMenuChoose(void) {
         fileMenu_802E8FF4(0);
         break;
     case -1:
-        ret = 0;
+        ret = GAME_STATE_0;
         break;
     case -3:
         menuChoice = menu_8030B668();
@@ -400,7 +400,7 @@ void fileMenu_802E9AE0(void) {
     f32 g;
     f32 b;
     s16* titleStr;
-    Unk802D3658_Arg0* unk70;
+    Camera* unk70;
 
     unk70 = D_80362690->unkC[D_80362690->unk9C].unk70;
     func_80204FC4(unk70->unk22C);

@@ -3,7 +3,7 @@
 #include <uv_math.h>
 #include <uv_matrix.h>
 #include <uv_vector.h>
-#include "code_5A6A0.h"
+#include "camera.h"
 #include "code_61A60.h"
 #include "code_72010.h"
 #include "code_9A960.h"
@@ -26,24 +26,23 @@ u8 D_8034E9E4 = 0;
 s32 pad_D_8034E9E8 = 0;
 
 // .bss
-extern Unk803599D0 D_803599D0;
-extern f32 D_80359A24;
+Unk803599D0 D_803599D0;
 
 // forward declarations
-STATIC_FUNC s32 func_802D408C(Unk802D3658_Arg0* arg0);
-STATIC_FUNC void func_802D3658(Unk802D3658_Arg0* arg0);
-STATIC_FUNC void func_802D3790(Unk802D3658_Arg0* arg0);
-STATIC_FUNC void func_802D3BE8(Unk802D3658_Arg0* arg0);
-STATIC_FUNC void func_802D3FA4(Unk802D3658_Arg0* arg0);
-STATIC_FUNC void func_802D41D8(Unk802D3658_Arg0* arg0);
-STATIC_FUNC void func_802D46A4(Unk802D3658_Arg0* arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4);
-STATIC_FUNC void func_802D532C(Unk802D3658_Arg0* arg0);
-STATIC_FUNC void func_802D559C(Unk802D3658_Arg0* arg0);
-STATIC_FUNC s32 func_802D4CA4(Unk802D3658_Arg0*, Mtx4F*);
-STATIC_FUNC void func_802D58EC(Unk802D3658_Arg0*, Mtx4F*);
-/* STATIC_FUNC */ void func_802D4274(Unk802D3658_Arg0* arg0);
+STATIC_FUNC s32 func_802D408C(Camera* arg0);
+STATIC_FUNC void func_802D3658(Camera* arg0);
+STATIC_FUNC void func_802D3790(Camera* arg0);
+STATIC_FUNC void func_802D3BE8(Camera* arg0);
+STATIC_FUNC void func_802D3FA4(Camera* arg0);
+STATIC_FUNC void func_802D41D8(Camera* arg0);
+STATIC_FUNC void func_802D46A4(Camera* arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4);
+STATIC_FUNC void func_802D532C(Camera* arg0);
+STATIC_FUNC void func_802D559C(Camera* arg0);
+STATIC_FUNC s32 func_802D4CA4(Camera*, Mtx4F*);
+STATIC_FUNC void func_802D58EC(Camera*, Mtx4F*);
+/* STATIC_FUNC */ void func_802D4274(Camera* arg0);
 
-void func_802D3170(u8 arg0, Unk802D3658_Arg0* arg1) {
+void func_802D3170(u8 arg0, Camera* arg1) {
     f32 one;
     one = 1.0f;
     func_80204A8C(arg0, 3);
@@ -128,7 +127,7 @@ void func_802D3170(u8 arg0, Unk802D3658_Arg0* arg1) {
     D_803599D0.unk30 = 14.5f;
 }
 
-void func_802D3444(Unk802D3658_Arg0* arg0) {
+void func_802D3444(Camera* arg0) {
     Mtx4F sp28;
 
     arg0->unk14 += D_8034F854;
@@ -188,7 +187,7 @@ void func_802D3444(Unk802D3658_Arg0* arg0) {
     }
 }
 
-STATIC_FUNC void func_802D3658(Unk802D3658_Arg0* arg0) {
+STATIC_FUNC void func_802D3658(Camera* arg0) {
     Mtx4F sp30;
     f32 temp_fa0;
 
@@ -214,7 +213,7 @@ STATIC_FUNC void func_802D3658(Unk802D3658_Arg0* arg0) {
     }
 }
 
-STATIC_FUNC void func_802D3790(Unk802D3658_Arg0* arg0) {
+STATIC_FUNC void func_802D3790(Camera* arg0) {
     Vec3F spBC;
     Vec3F spB0;
     Vec3F spA4;
@@ -302,7 +301,7 @@ STATIC_FUNC void func_802D3790(Unk802D3658_Arg0* arg0) {
     arg0->unk108.m[2][2] /= temp_fv0;
 }
 
-STATIC_FUNC void func_802D3BE8(Unk802D3658_Arg0* arg0) {
+STATIC_FUNC void func_802D3BE8(Camera* arg0) {
     Mtx4F sp60;
     f32 sp5C;
     f32 sp58;
@@ -379,7 +378,7 @@ STATIC_FUNC void func_802D3BE8(Unk802D3658_Arg0* arg0) {
     }
 }
 
-STATIC_FUNC void func_802D3FA4(Unk802D3658_Arg0* arg0) {
+STATIC_FUNC void func_802D3FA4(Camera* arg0) {
     Vec3F sp24;
 
     uvMat4Copy(&arg0->unk108, &arg0->unk80);
@@ -397,7 +396,7 @@ STATIC_FUNC void func_802D3FA4(Unk802D3658_Arg0* arg0) {
     (void)func_802D4A30(arg0, &arg0->unk108);
 }
 
-STATIC_FUNC s32 func_802D408C(Unk802D3658_Arg0* arg0) {
+STATIC_FUNC s32 func_802D408C(Camera* arg0) {
     f32 argX;
     f32 argY;
     f32 argZ;
@@ -439,7 +438,7 @@ STATIC_FUNC s32 func_802D408C(Unk802D3658_Arg0* arg0) {
     return 0;
 }
 
-STATIC_FUNC void func_802D41D8(Unk802D3658_Arg0* arg0) {
+STATIC_FUNC void func_802D41D8(Camera* arg0) {
     f32 var_fv0;
 
     uvMat4UnkOp6(&arg0->unk108, &arg0->unk80, &arg0->unk14C);
@@ -452,13 +451,8 @@ STATIC_FUNC void func_802D41D8(Unk802D3658_Arg0* arg0) {
     func_802D45C4(arg0, var_fv0);
 }
 
-#ifndef NON_MATCHING
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_5A6A0/func_802D4274.s")
-#else
-// rom size changes when this gets compiled in, probably some .bss/.data mapping problem related to static var
-void func_802D4274(Unk802D3658_Arg0* arg0) {
+void func_802D4274(Camera* arg0) {
     static f32 D_80359A24;
-
     Mtx4F sp70; // 70:AF
     f32 sp6C;
     f32 sp68;
@@ -475,7 +469,7 @@ void func_802D4274(Unk802D3658_Arg0* arg0) {
             sp6C /= var_fs0;
             sp68 /= var_fs0;
             sp64 /= var_fs0;
-            arg0->unk194 = func_8022A27C(sp68, sp6C);
+            arg0->unk194 = uvAtan2F(sp68, sp6C);
             D_80359A24 = var_fs0;
         } else {
             arg0->unk194 = 0.0f;
@@ -511,17 +505,16 @@ void func_802D4274(Unk802D3658_Arg0* arg0) {
         arg0->unk198 = var_fs0;
     }
     uvMat4UnkOp6(&arg0->unk108, &arg0->unk80, &sp70);
-    (void)func_802D4A30(arg0, arg0->unk108.m);
+    func_802D4A30(arg0, &arg0->unk108);
 }
-#endif
 
-void func_802D4514(Unk802D3658_Arg0* arg0) {
+void func_802D4514(Camera* arg0) {
     f32 var_fv0;
     f32 temp;
     f32 temp3;
     f32 temp4;
     f32 temp2;
-    Unk802D3658_Arg0* ptr;
+    Camera* ptr;
 
     var_fv0 = (arg0->unk3C * 1.5f) / arg0->unk20;
     temp = (var_fv0 * 1.1f) * arg0->unk2C;
@@ -547,7 +540,7 @@ void func_802D4514(Unk802D3658_Arg0* arg0) {
     arg0->unk111C.unk4[1].unk0 = 1;
 }
 
-void func_802D45C4(Unk802D3658_Arg0* arg0, f32 arg1) {
+void func_802D45C4(Camera* arg0, f32 arg1) {
     f32 temp_fv0_2;
     f32 a;
     f32 b;
@@ -576,7 +569,7 @@ void func_802D45C4(Unk802D3658_Arg0* arg0, f32 arg1) {
     }
 }
 
-STATIC_FUNC void func_802D46A4(Unk802D3658_Arg0* arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
+STATIC_FUNC void func_802D46A4(Camera* arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
     s16 temp_a1;
     s16 temp_a2;
     s16 temp_a3;
@@ -594,7 +587,7 @@ STATIC_FUNC void func_802D46A4(Unk802D3658_Arg0* arg0, s16 arg1, s16 arg2, s16 a
     func_80204D94(arg0->unk22C, temp_a1, temp_a2, temp_a3, (s32)temp_v0);
 }
 
-s32 func_802D472C(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
+s32 func_802D472C(Camera* arg0, Mtx4F* arg1) {
     f32 temp_fv0;
     f32 temp_fv1;
     Vec3F sp1B4;
@@ -671,7 +664,7 @@ s32 func_802D472C(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
     return 1;
 }
 
-s32 func_802D4A30(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
+s32 func_802D4A30(Camera* arg0, Mtx4F* arg1) {
     s32 sp2A4;
     s32 pad;
     Unk802D3658_Unk1120* temp_s2;
@@ -718,7 +711,7 @@ s32 func_802D4A30(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
     return 1;
 }
 
-STATIC_FUNC s32 func_802D4CA4(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
+STATIC_FUNC s32 func_802D4CA4(Camera* arg0, Mtx4F* arg1) {
     Mtx4F sp30;
     f32 temp_fa1;
     f32 temp_fv0;
@@ -742,7 +735,7 @@ STATIC_FUNC s32 func_802D4CA4(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
     return 1;
 }
 
-void func_802D4DE8(Unk802D3658_Arg0* arg0, u8 arg1) {
+void func_802D4DE8(Camera* arg0, u8 arg1) {
     Mtx4F sp20;
     if (!arg1) {
         arg0->unk148 = 0;
@@ -768,7 +761,7 @@ void func_802D4DE8(Unk802D3658_Arg0* arg0, u8 arg1) {
     }
 }
 
-void func_802D4ECC(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
+void func_802D4ECC(Camera* arg0, Mtx4F* arg1) {
     f32 z;
     f32 x;
     f32 y;
@@ -793,7 +786,7 @@ void func_802D4ECC(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
     uvMat4Copy(&arg0->unk80, arg1);
 }
 
-void func_802D50D0(Unk802D3658_Arg0* arg0) {
+void func_802D50D0(Camera* arg0) {
     f32 var_fv1;
     f32 var_ft4;
     f32 temp_fa1;
@@ -804,7 +797,7 @@ void func_802D50D0(Unk802D3658_Arg0* arg0) {
     f32 temp_fv1;
 
     var_ft4 = 3.0f;
-    if ((arg0->unk1 == 5) || (D_80362690->unk0 != 5)) {
+    if ((arg0->unk1 == 5) || (D_80362690->state != GAME_STATE_5)) {
         if (D_8034E9E4 != 0) {
             temp_fv0 = 1.0f / arg0->unk20;
             a = arg0->unk2C * temp_fv0;
@@ -861,7 +854,7 @@ void func_802D50D0(Unk802D3658_Arg0* arg0) {
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
 #endif
-STATIC_FUNC void func_802D532C(Unk802D3658_Arg0* arg0) {
+STATIC_FUNC void func_802D532C(Camera* arg0) {
     Mtx4F sp80; // 80:BF
     Mtx4F sp40; // 40:7F
     f32 var_fa0;
@@ -922,7 +915,7 @@ STATIC_FUNC void func_802D532C(Unk802D3658_Arg0* arg0) {
 #pragma GCC diagnostic pop
 #endif
 
-STATIC_FUNC void func_802D559C(Unk802D3658_Arg0* arg0) {
+STATIC_FUNC void func_802D559C(Camera* arg0) {
     Mtx4F sp48; // 48:87
     f32 temp_fa0;
     f32 temp_fa0_2;
@@ -982,7 +975,7 @@ STATIC_FUNC void func_802D559C(Unk802D3658_Arg0* arg0) {
     }
 }
 
-void func_802D5884(Unk802D3658_Arg0* arg0, u8 arg1) {
+void func_802D5884(Camera* arg0, u8 arg1) {
     if (arg1 != arg0->unk1) {
         arg0->unk2 = arg0->unk1;
         arg0->unk1 = arg1;
@@ -994,7 +987,7 @@ void func_802D5884(Unk802D3658_Arg0* arg0, u8 arg1) {
     }
 }
 
-STATIC_FUNC void func_802D58EC(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
+STATIC_FUNC void func_802D58EC(Camera* arg0, Mtx4F* arg1) {
     Mtx4F sp88; // 88:C7
     Mtx4F sp48; // 48:87
     Vec3F sp3C;

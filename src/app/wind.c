@@ -3,7 +3,7 @@
 #include <uv_math.h>
 #include <uv_util.h>
 #include "code_69BF0.h"
-#include "code_72B70.h"
+#include "game.h"
 #include "task.h"
 #include "wind.h"
 

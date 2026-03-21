@@ -9,10 +9,10 @@
 #include "demo_attitude.h"
 
 typedef struct {
-    s32 unk0;
+    s32 test;
     u8 pad4[4];
-    s32 unk8;
-    s32 unkC;
+    s32 cls;
+    s32 veh;
     s32 unk10;
 } RHDR;
 
@@ -57,74 +57,74 @@ void demoPackInputs(DemoRecordingEntry* entry, f32 stickX, f32 stickY, u32 butto
     entry->inputs = (u32)(((u32)((stickX + 1.0) * 127.0) << 0x18) | ((u32)((1.0 + stickY) * 127.0) << 0x10) | buttons);
 }
 
-s32 demo_803229EC(s32 arg0, s32 arg1) {
-    if (arg1 < 0) {
-        switch (arg0) {
-        case 0:
+s32 demo_803229EC(s32 pilot, s32 veh) {
+    if (veh < 0) {
+        switch (pilot) {
+        case PILOT_LARK:
             return 0x55;
-        case 1:
+        case PILOT_GOOSE:
             return 0x57;
-        case 2:
+        case PILOT_HAWK:
             return 0x59;
-        case 3:
+        case PILOT_KIWI:
             return 0x56;
-        case 4:
+        case PILOT_IBIS:
             return 0x58;
-        case 5:
+        case PILOT_ROBIN:
             return 0x5A;
         default:
             return 0x55;
         }
     }
 
-    switch (arg1) {
-    case 0:
-        switch (arg0) {
-        case 0:
+    switch (veh) {
+    case VEHICLE_HANG_GLIDER:
+        switch (pilot) {
+        case PILOT_LARK:
             return 0x5B;
-        case 1:
+        case PILOT_GOOSE:
             return 0x5D;
-        case 2:
+        case PILOT_HAWK:
             return 0x5F;
-        case 3:
+        case PILOT_KIWI:
             return 0x5C;
-        case 4:
+        case PILOT_IBIS:
             return 0x5E;
-        case 5:
+        case PILOT_ROBIN:
             return 0x60;
         default:
             return 0x5B;
         }
-    case 1:
-        switch (arg0) {
-        case 0:
+    case VEHICLE_ROCKET_BELT:
+        switch (pilot) {
+        case PILOT_LARK:
             return 0x61;
-        case 1:
+        case PILOT_GOOSE:
             return 0x63;
-        case 2:
+        case PILOT_HAWK:
             return 0x65;
-        case 3:
+        case PILOT_KIWI:
             return 0x62;
-        case 4:
+        case PILOT_IBIS:
             return 0x64;
-        case 5:
+        case PILOT_ROBIN:
             return 0x66;
         default:
             return 0x61;
         }
     default:
-        switch (arg0) {
-        case 0:
+        switch (pilot) {
+        case PILOT_LARK:
             return 0x67;
-        case 1:
+        case PILOT_GOOSE:
             return 0x69;
-        case 2:
+        case PILOT_HAWK:
             return 0x6B;
-        case 3:
+        case PILOT_KIWI:
             return 0x68;
-        case 4:
+        case PILOT_IBIS:
             return 0x6A;
-        case 5:
+        case PILOT_ROBIN:
             return 0x6C;
         default:
             return 0x67;
@@ -133,11 +133,11 @@ s32 demo_803229EC(s32 arg0, s32 arg1) {
 }
 
 s32 demoGet_80322B60(void) {
-    return D_8036DA50.unk8;
+    return D_8036DA50.cls;
 }
 
 s32 demoGet_80322B6C(void) {
-    return D_8036DA50.unkC;
+    return D_8036DA50.veh;
 }
 
 s32 demoGet_80322B78(void) {
@@ -145,7 +145,7 @@ s32 demoGet_80322B78(void) {
 }
 
 s32 demoGet_80322B84(void) {
-    return D_8036DA50.unk0;
+    return D_8036DA50.test;
 }
 
 void demoAllocate(void) {
@@ -197,10 +197,10 @@ void demoInit(void) {
     uvFile_80223F30(temp_s4);
 }
 
-void demo_80322D60(s32 arg0, s32 arg1) {
+void demo_80322D60(s32 pilot, s32 veh) {
     s32 idx;
-    D_8036DA44 = arg0;
-    D_8036DA48 = arg1;
+    D_8036DA44 = pilot;
+    D_8036DA48 = veh;
     demoInit();
     idx = demo_803229EC(D_8036DA44, D_8036DA48);
     demoAttInit(idx);

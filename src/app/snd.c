@@ -14,7 +14,7 @@ f32 D_803505D4 = 0.65f;
 f32 D_803505D8[] = { 0.9f, 1.0f, 0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.7f, 1.0f };
 f32 D_803505FC[] = { 1.0f, 1.0f, 0.0f, 0.0f, 0.0f };
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/snd/func_8033F640.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/snd/snd_init.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/snd/func_8033F6F8.s")
 

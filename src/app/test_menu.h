@@ -2,7 +2,7 @@
 #define APP_TEST_MENU_H
 
 #include <PR/ultratypes.h>
-#include "code_72B70.h"
+#include "game.h"
 
 extern s32 gCurTestIdx;
 extern u8 D_8037DC84;
