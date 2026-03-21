@@ -102,7 +102,7 @@ s32 func_80342630(void) {
         }
     } while (var_s1 == GAME_STATE_0 && var_fs1 == 0.0f);
 
-    D_80350694 += 1;
+    D_80350694++;
     func_80343294();
     if (var_fs1 != 0.0f) {
         var_s1 = GAME_STATE_8;
@@ -117,7 +117,7 @@ STATIC_FUNC void func_803427FC(void) {
     s32 var_v0;
 
     D_80378CE0 = (Unk80378CE0*)_uvMemAllocAlign8(sizeof(Unk80378CE0));
-    uvMemSet(D_80378CE0, 0U, 0x268U);
+    uvMemSet(D_80378CE0, 0, sizeof(Unk80378CE0));
     uvSprtProps(1, 3, 1, 2, 0x21, 0x96, 9, 9, 0xA, 0, 0xB, 1, 0);
     uvSprtProps(3, 3, 1, 2, 0x11B, 0xD5, 9, 0xA, 0);
     uvSprtProps(4, 3, 1, 2, 0x21, 0x1E, 9, 0x1E, 0);

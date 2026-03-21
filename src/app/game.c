@@ -340,7 +340,7 @@ s32 gameUpdateState2(Unk80362690* arg0) {
         func_8033FCD0(0xFF);
     }
     uvEventPost(8, 0);
-    if ((sp2C->veh >= VEHICLE_CANNONBALL) && (sp2C->veh != VEHICLE_BIRDMAN)) {
+    if (IS_BONUS_VEHICLE(sp2C->veh) && (sp2C->veh != VEHICLE_BIRDMAN)) {
         var_a1 = 3;
     } else {
         var_a1 = taskGetTestCount(sp2C->cls, sp2C->veh);
@@ -362,7 +362,7 @@ s32 gameUpdateState2(Unk80362690* arg0) {
             gameState = GAME_STATE_3;
             D_8034F164 = 0;
         } else {
-            if ((sp2C->veh >= VEHICLE_CANNONBALL) && (sp2C->veh != VEHICLE_BIRDMAN)) {
+            if (IS_BONUS_VEHICLE(sp2C->veh) && (sp2C->veh != VEHICLE_BIRDMAN)) {
                 sp2C->cls = sp1F;
             } else {
                 sp2C->test = sp1F;
@@ -418,7 +418,7 @@ s32 gameUpdateState3(Unk80362690* arg0) {
     i++;
 
     ptr->unk0 = i;
-    pilot = func_802DD200(sp1C->unk70);
+    pilot = func_802DD200(sp1C->unk70, ptr);
     func_8032D51C(0);
     if (pilot == -1) {
         return GAME_STATE_B;
