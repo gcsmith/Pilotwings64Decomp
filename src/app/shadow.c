@@ -687,7 +687,17 @@ f32 func_80335EE4(void) {
     return (var_fv1 * 0.5f) / 255.0f;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80335F24.s")
+void func_80335F24(Vec3F* arg0) {
+    if (D_803504B4 == 0xFFFF) {
+        arg0->f[0] = 2870.0f;
+        arg0->f[1] = -2230.0f;
+        arg0->f[2] = 57.51f;
+    } else {
+        arg0->f[0] = D_80371D50.m[3][0];
+        arg0->f[1] = D_80371D50.m[3][1];
+        arg0->f[2] = D_80371D50.m[3][2];
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80335F84.s")
 
