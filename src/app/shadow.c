@@ -589,7 +589,15 @@ s32 func_80335AF4(UNK_TYPE arg0, UNK_TYPE arg1, UNK_TYPE arg2) {
     return sp18;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/shuttleInit.s")
+void shadowInit(void) {
+    D_80350490 = 0;
+    D_80350494 = 1;
+    D_803504A8 = 0.0;
+    D_803504A0 = 0.0f;
+    D_8035049C = 0.0f;
+    D_80350498 = 0.0f;
+    D_803504B0 = 3;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80335BE4.s")
 
