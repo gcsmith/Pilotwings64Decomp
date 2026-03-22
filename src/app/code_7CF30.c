@@ -593,10 +593,10 @@ s32 func_802F6EE0(GyrocopterData* arg0) {
     temp_s0->unk48 = 1;
     temp_s0->unk44 = D_8034F850;
     arg0->unk738 = D_8034F850;
-    uvFxProps(temp_s0->unk4C, 1, 4.0f * D_8034F854, 5, 0.8f, 0.8f, 0.8f, 1.0f, 6, 0.2f, 0.2f, 0.2f, 0.0f, 3, 0.4f, 0.4f, 0.4f, 8, 0x147, 0);
+    uvFxProps(temp_s0->unk4C, FX_1(4.0f * D_8034F854), FX_5(0.8f, 0.8f, 0.8f, 1.0f), FX_6(0.2f, 0.2f, 0.2f, 0.0f), FX_3(0.4f, 0.4f, 0.4f), FX_8(0x147), FX_END);
     func_8021A4D8(temp_s0->unk4C, &temp_s0->unk0);
-    uvFxProps(temp_s0->unk4E, 1, 8.0f, 3, 14.0f, 14.0f, 14.0f, 5, 1.0f, 0.8f, 0.0f, 1.0f, 0xA, temp_s0->unk0.m[3][0], temp_s0->unk0.m[3][1],
-              temp_s0->unk0.m[3][2], 4, 1.0f, 1.0f, 1.0f, 0);
+    uvFxProps(temp_s0->unk4E, FX_1(8.0f), FX_3(14.0f, 14.0f, 14.0f), FX_5(1.0f, 0.8f, 0.0f, 1.0f),
+              FX_10(temp_s0->unk0.m[3][0], temp_s0->unk0.m[3][1], temp_s0->unk0.m[3][2]), FX_4(1.0f, 1.0f, 1.0f), FX_END);
     D_8034F384 = 0;
     return 1;
 }
@@ -663,7 +663,7 @@ void func_802F7224(GyrocopterData* arg0) {
                 if (var_s0->unk4E != 0xFF) {
                     func_8021A4D8(var_s0->unk4E, &var_s0->unk0);
                     if ((var_s0->unk44 + 0.2f) < D_8034F850) {
-                        uvFxProps(var_s0->unk4E, 3, 2.0f, 2.0f, 2.0f, 4, 0.0f, 0.0f, 0.0f, 0);
+                        uvFxProps(var_s0->unk4E, FX_3(2.0f, 2.0f, 2.0f), FX_4(0.0f, 0.0f, 0.0f), FX_END);
                     }
                 }
                 if ((var_s0->unk44 + 5.0f) < D_8034F850) {
@@ -739,11 +739,11 @@ void func_802F764C(GyrocopterData* arg0) {
         if (func_802E0C30(sp4B, sp50) != 0) {
             arg0->unkD0 = 1;
             if (arg0->unk96 != 0xFF) {
-                smoke_props(arg0->unk96, 8, 0, 0);
+                smoke_props(arg0->unk96, SMOKE_FX_8(0), SMOKE_FX_END);
             }
         } else {
             if (arg0->unk96 != 0xFF) {
-                smoke_props(arg0->unk96, 6, arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2], 0);
+                smoke_props(arg0->unk96, SMOKE_FX_6(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2]), SMOKE_FX_END);
             }
             uvDobjModel(arg0->objId, arg0->crashModelId);
             uvDobjPosm(arg0->objId, 0, &arg0->unk10);
