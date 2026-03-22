@@ -5,6 +5,7 @@
 #include "kernel/code_8170.h"
 #include "shadow.h"
 #include "smoke.h"
+#include "proxanim.h"
 #include <uv_dobj.h>
 #include <uv_fx.h>
 #include <uv_math.h>
@@ -28,7 +29,7 @@ extern s32 D_80350470;
 extern f32 D_80350474;
 extern f32 D_80350478;
 extern s32 D_80350490;
-extern s32 D_80350494;
+extern s32 D_80350494; // some state? values between 1 and 4
 extern f32 D_80350498;
 extern f32 D_8035049C;
 extern f32 D_803504A0;
@@ -566,9 +567,27 @@ void func_803358D4(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80335AE0.s")
+// referenced in func_80335BE4
+s32 func_80335AE0(UNK_TYPE arg0, UNK_TYPE arg1, UNK_TYPE arg2) {
+    return 0;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80335AF4.s")
+// referenced in func_80335BE4
+s32 func_80335AF4(UNK_TYPE arg0, UNK_TYPE arg1, UNK_TYPE arg2) {
+    s32 pad;
+    s32 sp18 = 0;
+
+    func_80335130();
+    uvDobjState(D_803504B4, D_803504B0);
+    if (func_80321420(arg0) > 750.0f && (D_80350494 == 4 || D_80350494 == 1)) {
+        D_80350490 = 0;
+        sp18 = 2;
+    } else {
+        D_80350490 = 1;
+        func_803358D4();
+    }
+    return sp18;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/shadowInit.s")
 
