@@ -14,6 +14,7 @@
 s32 func_80218F88(void);
 void uvSeqModel(s32 arg0, s32 seqId); // kernel/code_19B50
 void uvSeqProps(s32 arg0, ...);       // kernel/code_19B50
+// TODO: Create FX_SEQ_x macros and use them
 
 // .data
 extern s32 D_80350460;
@@ -474,7 +475,56 @@ void func_80335130(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80335700.s")
+void func_80335700(void) {
+    if (D_803504E4 != 0xFF) {
+        uvModelGet(D_803504E4, 0xFF);
+        uvFxProps(D_803504E4, FX_11(0), FX_END);
+        D_803504E4 = 0xFF;
+    }
+
+    if (D_803504E0 != 0xFF) {
+        uvModelGet(D_803504E0, 0xFF);
+        uvFxProps(D_803504E0, FX_11(0), FX_END);
+        D_803504E0 = 0xFF;
+    }
+
+    if (D_803504DC != 0xFF) {
+        uvSeqProps(D_803504DC, 1, 0, 0);
+        D_803504DC = 0xFF;
+    }
+
+    if (D_803504D8 != 0xFF) {
+        uvSeqProps(D_803504D8, 1, 0, 0);
+        D_803504D8 = 0xFF;
+    }
+
+    if (D_803504D0 != 0xFF) {
+        uvModelGet(D_803504D0, 0xFF);
+        uvFxProps(D_803504D0, FX_11(0), FX_END);
+        D_803504D0 = 0xFF;
+    }
+
+    if (D_803504D4 != 0xFF) {
+        uvModelGet(D_803504D4, 0xFF);
+        uvFxProps(D_803504D4, FX_11(0), FX_END);
+        D_803504D4 = 0xFF;
+    }
+
+    if (D_803504C4 >= 0) {
+        smoke_props(D_803504C4, 8, 0, 0);
+        D_803504C4 = -1;
+    }
+
+    if (D_803504C8 >= 0) {
+        smoke_props(D_803504C8, 8, 0, 0);
+        D_803504C8 = -1;
+    }
+
+    if (D_803504CC >= 0) {
+        smoke_props(D_803504CC, 8, 0, 0);
+        D_803504CC = -1;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_803358D4.s")
 
