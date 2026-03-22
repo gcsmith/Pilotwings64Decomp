@@ -61,11 +61,7 @@ void uvEventMaxCb(EventCallbackInfo arg0, ...) {
 
     while (TRUE) {
         temp_a1 = va_arg(args, s32);
-        if (temp_a1 == 0x24) {
-            break;
-        }
-
-        if (temp_a1 >= 0x24) {
+        if (temp_a1 == 36 || temp_a1 >= 36) {
             break;
         }
         if (temp_a1 < 5) {
