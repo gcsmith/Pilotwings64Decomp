@@ -658,7 +658,24 @@ void func_80335BE4(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80335E44.s")
+void func_80335E44(void) {
+    if (D_803504B8 != 0xFFFF) {
+        uvDobjModel(D_803504B8, MODEL_WORLD);
+        D_803504B8 = 0xFFFF;
+    }
+
+    if (D_803504B4 != 0xFFFF) {
+        uvDobjModel(D_803504B4, MODEL_WORLD);
+        D_803504B4 = 0xFFFF;
+        func_80335700();
+        func_803212DC(D_803504C0);
+        D_803504C0 = 0;
+        if (D_803504BC != 0xFF) {
+            hud_8031A8E0(D_803504BC);
+        }
+        D_803504BC = 0xFF;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80335EE4.s")
 
