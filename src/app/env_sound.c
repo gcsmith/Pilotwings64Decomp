@@ -144,7 +144,7 @@ void envSound_802E2A00(s32 eventType, void* arg1, s32 eventData) {
     Vec3F sp170;
     Mtx4F sp130;
     Mtx4F spF0;
-    u32 temp_v0_3;
+    s32 pad;
     Mtx4F spAC;
     Unk80362690* ptr;
     Vec3F sp9C;
@@ -323,8 +323,7 @@ void envSound_802E2A00(s32 eventType, void* arg1, s32 eventData) {
                         uvEmitterSetUnk70(emitter->objId, temp_fs0);
                         break;
                     case 20:
-                        temp_v0_3 = func_80335F84(); // shuttle state
-                        switch (temp_v0_3) {
+                        switch (func_80335F84()) { // shuttle state
                         case 0:
                             uvEmitterSetUnk74(emitter->objId, 1.0f);
                             uvEmitterSetUnk70(emitter->objId, 0.0f);
