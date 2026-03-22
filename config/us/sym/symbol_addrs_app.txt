@@ -267,12 +267,14 @@ resultGenTipText    = 0x8032EF10; // type:func
 
 shadowInit          = 0x80335B94; // type:func
 
-smoke_create        = 0x80336934; // type:func
-smoke_props         = 0x80336A04; // type:func
-smoke_getprops      = 0x80336EC0; // type:func
-smoke_delete        = 0x80337154; // type:func
-smoke_puff_add      = 0x8033720C; // type:func
-smoke_create_terra  = 0x80337528; // type:func
+smokeInit           = 0x803365A0; // type:func
+smokeCreate         = 0x80336934; // type:func
+smokeProps          = 0x80336A04; // type:func
+smokeGetProps       = 0x80336EC0; // type:func
+smokeDelete         = 0x80337154; // type:func
+smokePuffAdd        = 0x8033720C; // type:func
+smokeCreateTerra    = 0x80337528; // type:func
+smokeDeleteAll      = 0x80337114; // type:func
 
 snapInit            = 0x80337DB8; // type:func
 snapDeinit          = 0x803383FC; // type:func
@@ -696,3 +698,5 @@ sLocalWinds               = 0x8037F518; // size:0x3F0
 sWindObjectsData          = 0x8037F910;
 sWindObjectsInLevel       = 0x8037F914;
 sWindObjects              = 0x8037F918;
+
+sSmokeObjects             = 0x80371E60; // size:0x1200
