@@ -2,7 +2,9 @@
 #include "code_72B70.h"
 #include "kernel/code_8170.h"
 #include "shadow.h"
+#include "smoke.h"
 #include <uv_dobj.h>
+#include <uv_fx.h>
 #include <uv_math.h>
 #include <uv_model.h>
 
@@ -16,10 +18,27 @@ extern s32 D_8035046C;
 extern s32 D_80350470;
 extern f32 D_80350474;
 extern f32 D_80350478;
+extern s32 D_80350490;
+extern s32 D_80350494;
+extern f32 D_80350498;
+extern f32 D_8035049C;
+extern f32 D_803504A0;
+extern s32 D_803504B0;
+extern s32 D_803504B4;
+extern s16 D_803504C4;
+extern s16 D_803504C8;
+extern s16 D_803504CC;
+extern s32 D_803504D0;
+extern s32 D_803504D4;
+extern s32 D_803504E0;
+extern s32 D_803504E4;
+extern Mtx4F D_80371D10;
+extern Mtx4F D_80371D50;
 
 // forward declarations
 void func_803347D0(Mtx4F*);
 f32 func_80334A38(Vec3F*);
+void func_80335130(void);
 
 void func_803342F0(f32 arg0) {
     D_80350474 = arg0;
@@ -204,13 +223,13 @@ void func_803347D0(Mtx4F* arg0) {
         uvMat4Scale(&sp58, temp_fa0, temp_fa1, 1 /*.0f*/);
     }
 
-    uvMat4RotateAxis(&sp58, sp4C - 1.5707963f, 0x7A);
+    uvMat4RotateAxis(&sp58, sp4C - 1.5707963f, 'z');
     if (D_80350474 != 0.0f) {
         temp_fv0 = uvAtan2F(1.0f, D_80350474);
         if (arg0->m[2][2] > 0.0f) {
-            uvMat4RotateAxis(&sp58, temp_fv0, 0x78);
+            uvMat4RotateAxis(&sp58, temp_fv0, 'x');
         } else {
-            uvMat4RotateAxis(&sp58, temp_fv0, 0x78);
+            uvMat4RotateAxis(&sp58, temp_fv0, 'x');
         }
     }
 
@@ -302,9 +321,79 @@ void func_80334C70(void) {
     D_8035046C = 0xFFFF;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80334CC0.s")
+s32 func_80334CC0(void) {
+    return D_80350490;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80334CCC.s")
+void func_80334CCC(void) {
+    Mtx4F sp80;
+    Mtx4F sp40;
+
+    func_80335130();
+    uvDobjState(D_803504B4, D_803504B0);
+    if (D_80350494 == 2) {
+        uvMat4SetIdentity(&sp80);
+        uvMat4RotateAxis(&sp80, 3.1415923f, 'z');
+        uvMat4LocalTranslate(&sp80, 0.0f, 0.0f, D_8035049C);
+        uvMat4Mul(&D_80371D50, &sp80, &D_80371D10);
+        uvDobjPosm(D_803504B4, 0, &D_80371D50);
+        if (D_803504D0 != 0xFF) {
+            uvFxProps(D_803504D0, FX_3(40.0f, 40.0f, 40.0f), FX_END);
+        }
+        if (D_803504D4 != 0xFF) {
+            uvFxProps(D_803504D4, FX_3(40.0f, 40.0f, 40.0f), FX_END);
+        }
+        if (D_803504E4 != 0xFF) {
+            uvFxProps(D_803504E4, FX_3(15.0f, 1.0f, -25.0f), FX_END);
+        }
+        if (D_803504E0 != 0xFF) {
+            uvFxProps(D_803504E0, FX_3(15.0f, 1.0f, -25.0f), FX_END);
+        }
+        if (D_803504C4 >= 0) {
+            smoke_props(D_803504C4, SMOKE_FX_2(D_803504A0), SMOKE_FX_END);
+        }
+    } else if (D_80350494 == 1) {
+        D_8035049C = 0 /*.0f*/;
+        D_80350498 = 0 /*.0f*/;
+        uvMat4SetIdentity(&sp40);
+        uvMat4RotateAxis(&sp40, 3.1415923f, 'z');
+        uvMat4SetIdentity(&D_80371D10);
+        uvMat4LocalTranslate(&D_80371D10, 2870.0f, -2230.0f, 57.51f);
+        uvMat4Mul(&D_80371D50, &sp40, &D_80371D10);
+        uvDobjPosm(D_803504B4, 0, &D_80371D50);
+        if (D_803504C4 >= 0) {
+            smoke_props(D_803504C4, SMOKE_FX_2(D_803504A0), SMOKE_FX_END);
+        }
+    }
+    if (D_80350494 != 4) {
+        uvMat4Copy(&sp40, &D_80371D50);
+        uvMat4LocalTranslate(&sp40, -10.0f, 0.0f, -24.0f);
+        uvMat4RotateAxis(&sp40, 1.5707961f, 'x');
+        uvMat4RotateAxis(&sp40, 0.08726645f, 'y');
+        if (D_803504D0 != 0xFF) {
+            func_8021A4D8(D_803504D0, &sp40);
+        }
+        if (D_803504C8 >= 0) {
+            smoke_props(D_803504C8, SMOKE_FX_6(sp40.m[3][0], sp40.m[3][1], sp40.m[3][2]), SMOKE_FX_END);
+        }
+        if (D_803504E4 != 0xFF) {
+            func_8021A4D8(D_803504E4, &sp40);
+        }
+        uvMat4Copy(&sp40, &D_80371D50);
+        uvMat4LocalTranslate(&sp40, 10.0f, 0.0f, -24.0f);
+        uvMat4RotateAxis(&sp40, 1.5707961f, 'x');
+        uvMat4RotateAxis(&sp40, 0.08726645f, 'y');
+        if (D_803504D4 != 0xFF) {
+            func_8021A4D8(D_803504D4, &sp40);
+        }
+        if (D_803504CC >= 0) {
+            smoke_props(D_803504CC, SMOKE_FX_6(sp40.m[3][0], sp40.m[3][1], sp40.m[3][2]), SMOKE_FX_END);
+        }
+        if (D_803504E0 != 0xFF) {
+            func_8021A4D8(D_803504E0, &sp40);
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80335130.s")
 
