@@ -1,5 +1,6 @@
 #include "common.h"
 #include "code_72B70.h"
+#include "code_9A960.h"
 #include "code_D1ED0.h"
 #include "kernel/code_8170.h"
 #include "shadow.h"
@@ -31,6 +32,7 @@ extern s32 D_80350494;
 extern f32 D_80350498;
 extern f32 D_8035049C;
 extern f32 D_803504A0;
+extern f64 D_803504A8;
 extern s32 D_803504B0;
 extern s32 D_803504B4;
 extern s16 D_803504C4;
@@ -526,7 +528,43 @@ void func_80335700(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_803358D4.s")
+void func_803358D4(void) {
+    if (D_80350494 == 2) {
+        D_80350498 += D_8034F854 * 0.5f;
+        D_8035049C += D_80350498;
+        if (D_803504A0 > 0.0f) {
+            D_803504A0 -= 5.0f;
+        } else {
+            D_803504A0 = 0.0f;
+        }
+        if (D_8035049C > 2048.0f) {
+            D_80350494 = 3;
+            // @fake? should just assign 0 instead
+            D_803504B0 *= 0;
+            uvDobjState(D_803504B4, 0);
+            D_803504A8 = 0.0;
+        }
+        func_80334CCC();
+    } else if (D_80350494 == 1) {
+        D_803504A8 += D_8034F854;
+        D_803504A0 += 5.0f;
+        if (D_803504A8 > 7.0) {
+            D_80350494 = 2;
+        }
+        func_80334CCC();
+    } else if (D_80350494 == 3) {
+        D_803504A8 += D_8034F854;
+        if ((12.0f * D_8034F854) < D_803504A8) {
+            D_80350494 = 4;
+            func_80335700();
+        }
+        func_80335130();
+        uvDobjState(D_803504B4, D_803504B0);
+    } else {
+        func_80335130();
+        uvDobjState(D_803504B4, D_803504B0);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80335AE0.s")
 
