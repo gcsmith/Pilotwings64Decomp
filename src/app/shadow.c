@@ -12,13 +12,7 @@
 #include <uv_fx.h>
 #include <uv_math.h>
 #include <uv_model.h>
-
-// source/impl: kernel/code_19B50
-// move to .h file:
-s32 func_80218F88(void);
-void uvSeqModel(s32 arg0, s32 seqId); // kernel/code_19B50
-void uvSeqProps(s32 arg0, ...);       // kernel/code_19B50
-// TODO: Create FX_SEQ_x macros and use them
+#include <uv_seq.h>
 
 s32 D_80350460 = 0;
 s32 D_80350464 = 0xFFFF; // some model id
@@ -444,7 +438,7 @@ void func_80335130(void) {
         D_803504DC = func_80218F88();
         if (D_803504DC != 0xFF) {
             uvSeqModel(D_803504DC, 0);
-            uvSeqProps(D_803504DC, 4, 60.0f, 0);
+            uvSeqProps(D_803504DC, FX_SEQ_4(60.0f), FX_SEQ_END);
             D_803504E4 = func_8034B464(6);
             if (D_803504E4 != 0xFF) {
                 uvFxProps(D_803504E4, FX_13(D_803504DC), FX_1(1e+20), FX_3(0.0f, 0.0f, 0.0f), FX_END);
@@ -456,7 +450,7 @@ void func_80335130(void) {
         D_803504D8 = func_80218F88();
         if (D_803504D8 != 0xFF) {
             uvSeqModel(D_803504D8, 0);
-            uvSeqProps(D_803504D8, 4, 60.0f, 0);
+            uvSeqProps(D_803504D8, FX_SEQ_4(60.0f), FX_SEQ_END);
             D_803504E0 = func_8034B464(6);
             if (D_803504E0 != 0xFF) {
                 uvFxProps(D_803504E0, FX_13(D_803504D8), FX_1(1e+20), FX_3(0.0f, 0.0f, 0.0f), FX_END);
@@ -506,12 +500,12 @@ void func_80335700(void) {
     }
 
     if (D_803504DC != 0xFF) {
-        uvSeqProps(D_803504DC, 1, 0, 0);
+        uvSeqProps(D_803504DC, FX_SEQ_1(0), FX_SEQ_END);
         D_803504DC = 0xFF;
     }
 
     if (D_803504D8 != 0xFF) {
-        uvSeqProps(D_803504D8, 1, 0, 0);
+        uvSeqProps(D_803504D8, FX_SEQ_1(0), FX_SEQ_END);
         D_803504D8 = 0xFF;
     }
 
