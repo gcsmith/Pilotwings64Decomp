@@ -239,9 +239,68 @@ void func_803347D0(Mtx4F* arg0) {
     uvDobjPosm(D_80350470, 0, &sp58);
 }
 
+#ifndef NON_MATCHING
 #pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80334A38.s")
+#else
+// matches but causes .late_rodata offset?
+// should match once func_80335130 is matched
+f32 func_80334A38(Vec3F* arg0) {
+    s32* surfaceId;
+    f32 temp_fs4;
+    f32 var_fs0;
+    f32 spB0;
+    f32 var_fs1;
+    f32* spA8;
+    Vec3F* spA4;
+    f32 var_fs2;
+    f32 var_fs3;
+    s32 temp_v0;
+    Vec3F sp8C;
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80334C70.s")
+    var_fs0 = 0.0f;
+    var_fs1 = 0.0f;
+    var_fs2 = 0.0f;
+    var_fs3 = 1.0f;
+    temp_fs4 = D_80362690->unkC[D_80362690->unk9C].unk70->unk108.m[3][2];
+    temp_v0 = uvTerraGetPt(D_80362690->terraId, arg0->f[0], arg0->f[1], &surfaceId);
+    for (i = 0; i < temp_v0; i++) {
+        uvTerraGetPlane(D_80362690->terraId, surfaceId[i], arg0->f[0], arg0->f[1], &spB0, &sp8C);
+        if (var_fs0 < spB0) {
+            var_fs0 = spB0;
+            var_fs1 = sp8C.f[0];
+            var_fs2 = sp8C.f[1];
+            var_fs3 = sp8C.f[2];
+        }
+    }
+
+    temp_v0 = uvSobjGetSeg(D_80362690->terraId, arg0->f[0], arg0->f[1], arg0->f[2], arg0->f[0], arg0->f[1], arg0->f[2] - 200.0f, &surfaceId, &spA8, &spA4);
+    for (i = 0; i < temp_v0; i++) {
+        spB0 = arg0->f[2] - (spA8[i] * 200.0f);
+        if (var_fs0 < spB0) {
+            var_fs0 = spB0;
+            var_fs0 += ((temp_fs4 - spB0) / 100.0f) + 0.1f;
+            var_fs1 = spA4[i].f[0];
+            var_fs2 = spA4[i].f[1];
+            var_fs3 = spA4[i].f[2];
+        }
+    }
+    arg0->f[0] = var_fs1;
+    arg0->f[1] = var_fs2;
+    arg0->f[2] = var_fs3;
+    return var_fs0;
+}
+#endif
+
+void func_80334C70(void) {
+    if (D_80350470 != 0xFFFF) {
+        uvDobjModel(D_80350470, MODEL_WORLD);
+        D_80350470 = 0xFFFF;
+    }
+    D_80350464 = 0xFFFF;
+    D_80350468 = 0xFFFF;
+    D_8035046C = 0xFFFF;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80334CC0.s")
 
