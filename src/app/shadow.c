@@ -39,7 +39,7 @@ extern f32 D_803504A0;
 // Not missing D_803504A4 because padding
 extern f64 D_803504A8;
 extern s32 D_803504B0;
-extern s32 D_803504B4;
+extern s32 D_803504B4; // dobj id
 extern s32 D_803504B8;
 extern s32 D_803504BC;
 extern s32 D_803504C0;
@@ -57,6 +57,11 @@ extern Vec3F D_803504E8;
 // .bss
 extern Mtx4F D_80371D10;
 extern Mtx4F D_80371D50;
+extern f32 D_80371D90;
+extern f32 D_80371D94;
+extern s32 D_80371D98;
+extern s32 D_80371D9C;
+extern f64 D_80371DA0;
 
 // forward declarations
 void func_803347D0(Mtx4F*);
@@ -724,8 +729,25 @@ void func_80335FD8(f32 arg0) {
     func_80334CCC();
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80336064.s")
+void func_80336064(void) {
+    if (D_803504B4 != 0xFFFF) {
+        func_80335700();
+    }
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80336094.s")
+void func_80336094(void) {
+    D_80371D90 = D_8035049C;
+    D_80371D98 = D_80350494;
+    D_80371D94 = D_80350498;
+    D_80371D9C = D_803504B0;
+    D_80371DA0 = D_803504A8;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_803360E8.s")
+void func_803360E8(void) {
+    D_8035049C = D_80371D90;
+    D_80350494 = D_80371D98;
+    D_80350498 = D_80371D94;
+    D_803504B0 = D_80371D9C;
+    D_803504A8 = D_80371DA0;
+}
+
