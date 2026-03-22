@@ -17,7 +17,7 @@ extern f32 D_80350478;
 
 // forward declarations
 void func_803347D0(Mtx4F*);
-
+f32 func_80334A38(Vec3F*);
 
 void func_803342F0(f32 arg0) {
     D_80350474 = arg0;
@@ -106,7 +106,73 @@ void func_803344BC(Mtx4F* arg0, f32 arg1) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80334578.s")
+void func_80334578(Mtx4F* arg0, f32 arg1) {
+    Vec3F sp9C;
+    Vec3F sp90;
+    Vec3F sp84;
+    Vec3F sp78;
+    f32 temp_fa0;
+    f32 var_fv0;
+    f32 var_fv1;
+    Mtx4F sp2C;
+    s32 pad;
+
+    if (D_80350470 == 0xFFFF) {
+        return;
+    }
+
+    if (arg1 < 5.0f) {
+        var_fv0 = 0.0f;
+    } else {
+        var_fv0 = (arg1 - 5.0f) / 5.0f;
+        if (var_fv0 < 1.0f) {
+            var_fv1 = var_fv0;
+        } else {
+            var_fv1 = 1.0f;
+        }
+        var_fv0 = var_fv1 * D_80350474 * arg1;
+    }
+
+    sp9C.f[0] = arg0->m[3][0] + (arg0->m[1][0] * var_fv0);
+    sp9C.f[1] = arg0->m[3][1] + (arg0->m[1][1] * var_fv0);
+    sp9C.f[2] = arg0->m[3][2];
+    uvVec3Copy(&sp78, &sp9C);
+    sp9C.f[2] = func_80334A38(&sp78);
+    sp90.f[0] = arg0->m[0][0];
+    sp90.f[1] = arg0->m[0][1];
+    sp90.f[2] = arg0->m[0][2];
+    uvVec3Cross(&sp84, &sp78, &sp90);
+    uvVec3Normal(&sp84, &sp84);
+    uvVec3Cross(&sp90, &sp84, &sp78);
+    uvVec3Normal(&sp90, &sp90);
+    sp2C.m[0][0] = sp90.f[0];
+    sp2C.m[0][1] = sp90.f[1];
+    sp2C.m[0][2] = sp90.f[2];
+    sp2C.m[0][3] = 0 /*.0f*/;
+    sp2C.m[1][0] = sp84.f[0];
+    sp2C.m[1][1] = sp84.f[1];
+    sp2C.m[1][2] = sp84.f[2];
+    sp2C.m[1][3] = 0 /*.0f*/;
+    sp2C.m[2][0] = sp78.f[0];
+    sp2C.m[2][1] = sp78.f[1];
+    sp2C.m[2][2] = sp78.f[2];
+    sp2C.m[2][3] = 0 /*.0f*/;
+    sp2C.m[3][0] = sp9C.f[0];
+    sp2C.m[3][1] = sp9C.f[1];
+    sp2C.m[3][2] = sp9C.f[2] + 0.1;
+    sp2C.m[3][3] = 1.0f;
+    if (arg0->m[3][2] < 2.0f) {
+        temp_fa0 = arg0->m[3][2] * 0.5f;
+        if (temp_fa0 > 0.01f) {
+            var_fv0 = temp_fa0;
+        } else {
+            var_fv0 = 0.01f;
+        }
+        uvMat4Scale(&sp2C, var_fv0, var_fv0, var_fv0);
+    }
+    func_80334308(D_80350466);
+    uvDobjPosm(D_80350470, 0, &sp2C);
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_803347D0.s")
 
