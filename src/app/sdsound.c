@@ -2,15 +2,24 @@
 #include "code_72B70.h"
 #include "code_9A960.h"
 #include "demo.h"
+#include "kernel/code_8170.h"
 #include "snd.h"
+#include "task.h"
 #include <uv_event.h>
 
 typedef struct {
     u8 pad0[0x70];
     u8 unk70;
-    u8 pad71;
+    u8 unk71;
     u8 unk72;
-    u8 pad73[0x160 - 0x73];
+    u8 unk73[3];
+    u8 unk76[3];
+    u8 pad79[0x7C - 0x79];
+    Vec3F unk7C[3];
+    f32 unkA0[3];
+    u8 padAC[0xB8 - 0xAC];
+    u8 unkB8;
+    u8 padB9[0x160 - 0xB9];
     Vec3F unk160;
     u8 pad16C[0x240 - 0x16C];
     s32 unk240;
@@ -26,19 +35,7 @@ typedef struct {
 
 // .bss
 extern EventCallbackInfo D_80371CB0;
-
-typedef struct {
-    s32 unk0;
-    f32 unk4;
-    f32 unk8;
-    f32 unkC;
-    f32 unk10;
-    f32 unk14;
-    f32 unk18;
-    f32 unk1C;
-    f32 unk20;
-} Unk80371CB8; // size = 0x50 - 0x58
-extern Unk80371CB8 D_80371CB8;
+extern Unk803599D0 D_80371CB8;
 
 // forward declarations
 void func_803339C4(s32, UnkSdSound*, s32);
@@ -190,6 +187,70 @@ void func_80333DF0(UnkSdSound* arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/sdsound/func_80333F68.s")
+void func_80333F68(UnkSdSound* arg0) {
+    f32 temp_fs0;
+    s32 temp_v0_4;
+    Unk80362690_Unk0* sp44;
+    s32 i;
+
+    sp44 = &D_80362690->unkC[D_80362690->unk9C];
+    if (D_8034F850 < arg0->unk248) {
+        return;
+    }
+
+    arg0->unk248 = D_8034F850 + 0.5f;
+    for (i = 0; i < arg0->unk72; i++) {
+        temp_fs0 = func_80313F08(&D_80371CB8, ABS_NOEQ(arg0->unkA0[i]));
+        switch (arg0->unk73[i]) {
+        case 4:
+            if (arg0->unkB8 == 0) {
+                continue;
+            }
+            if (arg0->unk240 & 4) {
+                continue;
+            }
+
+            arg0->unk240 |= 4;
+            snd_play_sfx(0x1AU);
+            func_8033F748(0x16U);
+            func_8033F964(0);
+            func_8033FCD0(sp44->veh);
+            uvEventPost(0x12, 0);
+            continue;
+        case 1:
+            if (arg0->unk71 != 0) {
+                // @fake
+                if (1) { }
+                func_8033F758(0x17, temp_fs0, 1.0f, 0.0f);
+            }
+            break;
+        case 2:
+            if (arg0->unk71 != 0) {
+                func_8033F758(0x16, temp_fs0, 1.0f, 0.0f);
+            }
+            break;
+        case 8:
+            temp_v0_4 = uvSobjGetPt(D_80362690->terraId, arg0->unk7C[i].f[0], arg0->unk7C[i].f[1], arg0->unk7C[i].f[2]);
+            if (temp_v0_4 == -1) {
+                break;
+            }
+
+            temp_v0_4 = uvSobj_8022D1E4(temp_v0_4);
+            if (temp_v0_4 == 0x18 || temp_v0_4 == 0x5C || temp_v0_4 == 0x5D || temp_v0_4 == 0x5E || temp_v0_4 == 0x5F || temp_v0_4 == 0x60 ||
+                temp_v0_4 == 0x22 || temp_v0_4 == 0x23 || temp_v0_4 == 0x24) {
+                func_8033F758(0x39, temp_fs0, 1.0f, 0.0f);
+            } else if (arg0->unk71 != 0) {
+                func_8033F758(0x18, temp_fs0, 1.0f, 0.0f);
+            }
+            break;
+        }
+
+        if (arg0->unk76[i] == 0) {
+            func_8033F758(0xC, temp_fs0, 1.0f, 0.0f);
+        } else {
+            func_8033F758(0x35, temp_fs0, 1.0f, 0.0f);
+        }
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/sdsound/func_80334258.s")
