@@ -516,7 +516,7 @@ segments:
       - [0xD6EA0, .data, app/demo_attitude]
       - [0xD6EB0, data] # app/code_A8C30
       - [0xD7000, .data, app/demo]
-      - [0xD7010, data] # app/rings
+      - [0xD7010, .data, app/rings]
       - [0xD70D0, .data, app/code_AE460]
       - [0xD70E0, .data, app/rocket_belt]
       - [0xD7100, .data, app/code_B2900]
@@ -692,7 +692,7 @@ segments:
       - { type: bss, vram: 0x8036D340, name: app/proxanim }
       - { type: bss, vram: 0x8036D8E0, name: app/code_A8C30 }
       - { type: bss, vram: 0x8036DA30, name: app/demo }
-      - { type: bss, vram: 0x8036DA70, name: app/rings }
+      - { type: .bss, vram: 0x8036DA70, name: app/rings }
       - { type: bss, vram: 0x80371070, name: app/code_AC1A0 }
       - { type: bss, vram: 0x80371120, name: app/code_AE460 }
       - { type: bss, vram: 0x80371630, name: app/rocket_belt }

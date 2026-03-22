@@ -738,35 +738,35 @@ struct TaskPHTS {
 } [[static]]; // size = 0x14
 
 struct TaskRNGS {
-    Vec3F pos;
-    Vec3F angle;
-    u8 pad18[5];
-    u8 unk1D;
-    u8 unk1E;
-    u8 pad1F[1];
-    s32 unk20[5]; // size unknown
-    u8 unk34;
-    u8 pad35[3];
-    s32 unk38[5]; // size unknown
-    u8 unk4C;
-    u8 unk4D;
-    u8 pad4E[2];
-    f32 unk50;
+    Vec3F pos [[comment("position vector")]];
+    Vec3F rot [[comment("rotation vector (degrees)")]];
+    s32 unk18;
+    padding[1];
+    u8 childCount;
+    padding[2];
+    s32 childRings[5];
+    u8 timedChildRingCount;
+    padding[3];
+    s32 timedChildRings[5];
+    u8 points;
+    u8 untimed;
+    padding[2];
+    f32 timeRingDuration;
     u8 size;
-    u8 unk55;
-    u8 pad56[2];
-    f32 unk58;
-    f32 unk5C;
-    u8 unk60;
-    u8 pad61[3];
-    f32 unk64;
-    f32 unk68;
-    f32 unk6C;
-    u8 axis;
-    u8 unk71;
-    u8 unk72;
+    u8 isActive;
+    padding[2];
+    f32 rotationRate0;
+    f32 translation;
+    char rotationAxis0;
+    padding[3];
+    f32 rotationRateTimedOut1;
+    f32 rotationRateTiming1;
+    f32 rotationRate1;
+    char rotationAxis1;
+    u8 ringType;
+    u8 ringSubType;
     u8 unk73;
-    char unk74[0x10]; // string name?
+    char name[0x10];
 } [[static]]; // size = 0x84
 
 // SDFM is not present in FS, but is copied in code so only size is known

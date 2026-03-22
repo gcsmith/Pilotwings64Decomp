@@ -38,7 +38,7 @@ typedef struct {
     s16 unk22;
     s16 unk24;
     s16 pad26;
-    s32 unk28;
+    f32 unk28;
     s16 unk2C;
     s16 unk2E;
 } Unk80364210_Unk0_Unk0; // size = 0x30

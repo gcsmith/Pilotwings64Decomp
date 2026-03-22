@@ -737,40 +737,39 @@ There is one entry for each photo required for the test.
 
 #### UPWT::RNGS / rings
 
-`RNGS` are the rings to fly through during hang glider, rocket belt, and
-gyrocopter tests.
+`RNGS` are the rings to fly through during hang glider, rocket belt, and gyrocopter tests.
 
 | Offset | Type   | Description
 |--------|--------|--------------------
 |  0x00  | Vec3F  | position
-|  0x0C  | Vec3F  | angle
-|  0x18  | pad[5] |
-|  0x1D  | u8     | TBD
-|  0x1E  | u8     | TBD
-|  0x1F  | pad[1] |
-|  0x20  | s32[5] | TBD
-|  0x34  | u8     | TBD
+|  0x0C  | Vec3F  | angle (degrees)
+|  0x18  | s32    | TBD
+|  0x1C  | pad[1] |
+|  0x1D  | u8     | child ring count
+|  0x1E  | pad[2] |
+|  0x20  | s32[5] | array of child ring indexes
+|  0x34  | u8     | timed child ring count
 |  0x35  | pad[3] |
-|  0x38  | s32[5] | TBD
-|  0x4C  | u8     | TBD
-|  0x4D  | u8     | TBD
+|  0x38  | s32[5] | array of timed child ring indexes
+|  0x4C  | u8     | points used for some rings
+|  0x4D  | u8     | untimed ring
 |  0x4E  | pad[2] |
-|  0x50  | f32    | TBD
-|  0x54  | u8     | size
-|  0x55  | u8     | TBD
+|  0x50  | f32    | timed ring duration
+|  0x54  | u8     | ring size
+|  0x55  | u8     | is active
 |  0x56  | pad[2] |
-|  0x58  | f32    | TBD
-|  0x5C  | f32    | TBD
-|  0x60  | u8     | TBD
+|  0x58  | f32    | rotation rate 0
+|  0x5C  | f32    | x,y,z traslation
+|  0x60  | char   | rotation axis 0 ('x', 'y', 'z', or 'n')
 |  0x61  | pad[3] |
-|  0x64  | f32    | TBD
-|  0x68  | f32    | TBD
-|  0x6C  | f32    | TBD
-|  0x70  | u8     | axis
-|  0x71  | u8     | TBD
-|  0x72  | u8     | special
-|  0x73  | u8     | TBD
-|  0x74  | u8[16] | string name, unused
+|  0x64  | f32    | rotation rate 1 (after timeout)
+|  0x68  | f32    | rotation rate 1 (before timeout)
+|  0x6C  | f32    | rotation rate 1
+|  0x70  | char   | rotation axis 1 ('x', 'y', 'z', or 'n')
+|  0x71  | u8     | ring type
+|  0x72  | u8     | ring sub-type, used to determine model
+|  0x73  | u8     | unknown. copied but unused
+|  0x74  | u8[16] | string name, always '\0'
 |  0x84  |        | **Total length**
 
 #### UPWT::SDFM
