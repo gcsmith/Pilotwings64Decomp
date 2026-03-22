@@ -523,7 +523,7 @@ segments:
       - [0xD7140, .data, app/code_B3A70]
       - [0xD7170, .data, app/results]
       - [0xD7500, data] # app/skydiving
-      - [0xD7990, data] # app/shadow
+      - [0xD7990, .data, app/shadow]
       - [0xD7A30, .data, app/code_BD670]
       - [0xD7A40, .data, app/snap]
       - [0xD7AE0, .data, app/snd]
