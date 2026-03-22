@@ -60,9 +60,10 @@ void func_803338B0(UnkSdSound* arg0) {
     D_80371CB0.cb = (EventCallback_t)&func_803339C4;
     D_80371CB0.arg = arg0;
     arg0->unk240 = -0x40;
-    uvEventMaxCb(D_80371CB0, 1, 0xD, 0x12, 0x13, 0x10, 0xC, 0x16, 0x24);
+    uvEventMaxCb(D_80371CB0, 1, 13, 18, 19, 16, 12, 22, 36);
 }
 
+// event handler func
 void func_803339C4(s32 arg0, UnkSdSound* arg1, s32 arg2) {
     f32 sp3C;
     f32 temp_ft3;
@@ -255,5 +256,5 @@ void func_80333F68(UnkSdSound* arg0) {
 void func_80334258(UnkSdSound* arg0) {
     arg0->unk244 = func_8033F8CC(arg0->unk244);
     arg0->unk245 = func_8033F8CC(arg0->unk245);
-    uvEventRemoveCb(D_80371CB0, 1, 0xD, 0x12, 0x13, 0x10, 0xC, 0x16, 0x24);
+    uvEventRemoveCb(D_80371CB0, 1, 13, 18, 19, 16, 12, 22, 36);
 }
