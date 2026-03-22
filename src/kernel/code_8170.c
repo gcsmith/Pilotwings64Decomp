@@ -985,7 +985,7 @@ void uvModelGetProps(s32 modelId, ...) {
     }
 }
 
-u32 uvTerraGetPt(s32 terraId, f32 arg1, f32 arg2, s32** arg3) {
+u32 uvTerraGetPt(s32 terraId, f32 arg1, f32 arg2, s32** surfaceId) {
     f32 sp94;
     f32 sp90;
     f32 sp8C;
@@ -1006,12 +1006,12 @@ u32 uvTerraGetPt(s32 terraId, f32 arg1, f32 arg2, s32** arg3) {
         _uvDebugPrintf("uvTerraGetPt: terra %d not defined for level\n", terraId);
     }
     if (func_80212FF4(uvtr, arg1, arg2, 0.0f, &sp94, &sp90, &sp8C, &sp6E, &sp76, 0) == 0) {
-        return *arg3 = NULL;
+        return *surfaceId = NULL;
     }
     var_v0 = &uvtr->unk28[sp6E];
     uvct = var_v0->unk40;
     if (uvct == NULL) {
-        return *arg3 = NULL;
+        return *surfaceId = NULL;
     }
 
     sp94 *= gGfxUnkPtrs->unk1608;
@@ -1038,7 +1038,7 @@ u32 uvTerraGetPt(s32 terraId, f32 arg1, f32 arg2, s32** arg3) {
             }
         }
     }
-    *arg3 = D_802634C8;
+    *surfaceId = D_802634C8;
     return var_s2;
 }
 
@@ -1530,7 +1530,7 @@ s32 uvSobjGetPt(s32 terraId, f32 arg1, f32 arg2, f32 arg3) {
     return -1;
 }
 
-s32 uvSobjGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, s32** arg7, f32** arg8, Vec3F** arg9) {
+s32 uvSobjGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, s32** surfaceId, f32** arg8, Vec3F** arg9) {
     u16 sp16E;
     u16 sp16C;
     u16 k;
@@ -1635,7 +1635,7 @@ s32 uvSobjGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
     if ((arg1 == arg4) && (arg2 == arg5) && (arg3 == arg6)) {
         temp_v0_2 = uvSobjGetPt(terraId, arg1, arg2, arg3);
         if (temp_v0_2 == -1) {
-            *arg7 = NULL;
+            *surfaceId = NULL;
             *arg8 = NULL;
             *arg9 = NULL;
             return 0;
@@ -1645,7 +1645,7 @@ s32 uvSobjGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
         D_802635C8[0].x = 0.0f;
         D_802635C8[0].y = 0.0f;
         D_802635C8[0].z = 1.0f;
-        *arg7 = D_802634C8;
+        *surfaceId = D_802634C8;
         *arg8 = D_80263548;
         *arg9 = D_802635C8;
     }
@@ -1653,7 +1653,7 @@ s32 uvSobjGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
     temp_s0 = func_80212FF4(uvtr, arg1, arg2, arg3, &sp154, &sp150, &sp14C, &sp13E, &sp13A, 0);
     temp_t7 = func_80212FF4(uvtr, arg4, arg5, arg6, &sp148, &sp144, &sp140, &sp13C, &sp138, 0);
     if ((temp_s0 == 0) && (temp_t7 == 0)) {
-        *arg7 = NULL;
+        *surfaceId = NULL;
         *arg8 = NULL;
         return 0;
     }
@@ -1770,7 +1770,7 @@ s32 uvSobjGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
             }
         }
     }
-    *arg7 = D_802634C8;
+    *surfaceId = D_802634C8;
     *arg8 = D_80263548;
     *arg9 = D_802635C8;
     _uvDbSortHits();
