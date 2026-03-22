@@ -21,47 +21,45 @@ void uvSeqProps(s32 arg0, ...);       // kernel/code_19B50
 // TODO: Create FX_SEQ_x macros and use them
 
 // .data
-extern s32 D_80350460;
-extern s32 D_80350464;
-extern u16 D_80350466; // some model id
-extern s32 D_80350468;
-extern u16 D_8035046A; // some model id
-extern s32 D_8035046C;
-extern s32 D_80350470;
-extern f32 D_80350474;
-extern f32 D_80350478; // maybe a file split here?
-// missing D_8035047C - D_80350490
-extern s32 D_80350490;
-extern s32 D_80350494; // some state? values between 1 and 4
-extern f32 D_80350498;
-extern f32 D_8035049C;
-extern f32 D_803504A0;
-// Not missing D_803504A4 because padding
-extern f64 D_803504A8;
-extern s32 D_803504B0;
-extern s32 D_803504B4; // dobj id
-extern s32 D_803504B8;
-extern s32 D_803504BC;
-extern s32 D_803504C0;
-extern s16 D_803504C4;
-extern s16 D_803504C8;
-extern s16 D_803504CC;
-extern s32 D_803504D0;
-extern s32 D_803504D4;
-extern s32 D_803504D8;
-extern s32 D_803504DC;
-extern s32 D_803504E0;
-extern s32 D_803504E4;
-extern Vec3F D_803504E8;
+extern s32 D_80350460; // = 0;
+extern s32 D_80350464; // = 0; // some model id
+extern s32 D_80350468; // = 0; // some model id
+extern s32 D_8035046C; // = 0xFFFF;
+extern s32 D_80350470; // = 0xFFFF;
+extern f32 D_80350474; // = 0.0f;
+// this is probably not the way it's supposed to be
+// maybe there's another file split here that has caused this to be weird?
+extern f32 D_80350478;   // = { 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f };
+extern s32 D_80350490;   // = 0;
+extern s32 D_80350494;   // = 0; // some state? values between 1 and 4
+extern f32 D_80350498;   // = 0.0f;
+extern f32 D_8035049C;   // = 0.0f;
+extern f32 D_803504A0;   // = 55.0f;
+extern f64 D_803504A8;   // = 0.0;
+extern s32 D_803504B0;   // = 0;
+extern s32 D_803504B4;   // = 0xFFFF; // dobj id
+extern s32 D_803504B8;   // = 0xFFFF;
+extern s32 D_803504BC;   // = 0xFF;
+extern s32 D_803504C0;   // = 0;
+extern s16 D_803504C4;   // = 0xFFFF;
+extern s16 D_803504C8;   // = 0xFFFF;
+extern s16 D_803504CC;   // = 0xFF;
+extern s32 D_803504D0;   // = 0xFF;
+extern s32 D_803504D4;   // = 0xFF;
+extern s32 D_803504D8;   // = 0xFF;
+extern s32 D_803504DC;   // = 0xFF;
+extern s32 D_803504E0;   // = 0xFF;
+extern s32 D_803504E4;   // = 0xFF;
+extern Vec3F D_803504E8; //  = { 2870.0f, -2230.0f, 57.51f }
 
 // .bss
-extern Mtx4F D_80371D10;
-extern Mtx4F D_80371D50;
-extern f32 D_80371D90;
-extern f32 D_80371D94;
-extern s32 D_80371D98;
-extern s32 D_80371D9C;
-extern f64 D_80371DA0;
+Mtx4F D_80371D10;
+Mtx4F D_80371D50;
+f32 D_80371D90;
+f32 D_80371D94;
+s32 D_80371D98;
+s32 D_80371D9C;
+f64 D_80371DA0;
 
 // forward declarations
 void func_803347D0(Mtx4F*);
@@ -136,9 +134,9 @@ void func_803344BC(Mtx4F* arg0, f32 arg1) {
     }
 
     if (D_80362690->unk0 == 6) {
-        var_v0 = D_80350466;
+        var_v0 = D_80350464;
     } else {
-        var_v0 = D_8035046A;
+        var_v0 = D_80350468;
     }
 
     if (var_v0 == MODEL_WORLD) {
@@ -221,7 +219,7 @@ void func_80334578(Mtx4F* arg0, f32 arg1) {
         }
         uvMat4Scale(&sp2C, var_fv0, var_fv0, var_fv0);
     }
-    func_80334308(D_80350466);
+    func_80334308(D_80350464);
     uvDobjPosm(D_80350470, 0, &sp2C);
 }
 
@@ -269,9 +267,9 @@ void func_803347D0(Mtx4F* arg0) {
     sp54 = (sp58.m[3][2] * (sp58.xy * D_80350474)) + sp58.xw;
     sp50 = (sp58.m[3][2] * (sp58.yy * D_80350474)) + sp58.yw;
     if (uvTerraGetPt(D_80362690->terraId, sp54, sp50, &sp2C) != 0) {
-        func_80334308(D_8035046A);
+        func_80334308(D_80350468);
     } else {
-        func_80334308(D_80350466);
+        func_80334308(D_80350464);
         if (arg0->m[3][2] < 2.0f) {
             temp_fv1_3 = arg0->m[3][2] * 0.5f;
             if (temp_fv1_3 > 0.01f) {
@@ -339,6 +337,8 @@ f32 func_80334A38(Vec3F* arg0) {
     return var_fs0;
 }
 #endif
+
+// maybe split here?
 
 void func_80334C70(void) {
     if (D_80350470 != 0xFFFF) {
