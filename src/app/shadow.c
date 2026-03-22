@@ -709,7 +709,20 @@ s32 func_80335F84(void) {
     return D_80350494;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80335FD8.s")
+void func_80335FD8(f32 arg0) {
+    if (D_803504B4 == 0xFFFF) {
+        return;
+    }
+
+    func_80335130();
+    D_80350494 = 1;
+    D_803504B0 = 3;
+    D_803504A8 = 0.0;
+    func_80334CCC();
+    D_80350494 = 2;
+    D_8035049C = 2.0f * arg0 * 255.0f;
+    func_80334CCC();
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80336064.s")
 
