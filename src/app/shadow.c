@@ -1,5 +1,6 @@
 #include "common.h"
 #include "code_72B70.h"
+#include "code_D1ED0.h"
 #include "kernel/code_8170.h"
 #include "shadow.h"
 #include "smoke.h"
@@ -7,6 +8,12 @@
 #include <uv_fx.h>
 #include <uv_math.h>
 #include <uv_model.h>
+
+// source/impl: kernel/code_19B50
+// move to .h file:
+s32 func_80218F88(void);
+void uvSeqModel(s32 arg0, s32 seqId); // kernel/code_19B50
+void uvSeqProps(s32 arg0, ...);       // kernel/code_19B50
 
 // .data
 extern s32 D_80350460;
@@ -30,6 +37,8 @@ extern s16 D_803504C8;
 extern s16 D_803504CC;
 extern s32 D_803504D0;
 extern s32 D_803504D4;
+extern s32 D_803504D8;
+extern s32 D_803504DC;
 extern s32 D_803504E0;
 extern s32 D_803504E4;
 extern Mtx4F D_80371D10;
@@ -262,7 +271,6 @@ void func_803347D0(Mtx4F* arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80334A38.s")
 #else
 // matches but causes .late_rodata offset?
-// should match once func_80335130 is matched
 f32 func_80334A38(Vec3F* arg0) {
     s32* surfaceId;
     f32 temp_fs4;
@@ -395,7 +403,76 @@ void func_80334CCC(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80335130.s")
+void func_80335130(void) {
+    if (D_803504D0 == 0xFF) {
+        D_803504D0 = func_8034B464(2);
+    }
+
+    if (D_803504D0 != 0xFF) {
+        uvFxProps(D_803504D0, FX_3(0.0f, 0.0f, 0.0f), FX_5(1.0f, 0.925f, 0.709f, 0.75f), FX_6(1.0f, 1.0f, 1.0f, 0.0f), FX_4(1.0f, 1.0f, 1.0f), FX_1(1e+20),
+                  FX_END);
+    }
+
+    if (D_803504D4 == 0xFF) {
+        D_803504D4 = func_8034B464(2);
+    }
+
+    if (D_803504D4 != 0xFF) {
+        uvFxProps(D_803504D4, FX_3(0.0f, 0.0f, 0.0f), FX_5(1.0f, 0.925f, 0.709f, 0.75f), FX_6(1.0f, 1.0f, 1.0f, 0.0f), FX_4(1.0f, 1.0f, 1.0f), FX_1(1e+20),
+                  FX_END);
+    }
+
+    if (D_803504DC == 0xFF) {
+        D_803504DC = func_80218F88();
+        if (D_803504DC != 0xFF) {
+            uvSeqModel(D_803504DC, 0);
+            uvSeqProps(D_803504DC, 4, 60.0f, 0);
+            D_803504E4 = func_8034B464(6);
+            if (D_803504E4 != 0xFF) {
+                uvFxProps(D_803504E4, FX_13(D_803504DC), FX_1(1e+20), FX_3(0.0f, 0.0f, 0.0f), FX_END);
+            }
+        }
+    }
+
+    if (D_803504D8 == 0xFF) {
+        D_803504D8 = func_80218F88();
+        if (D_803504D8 != 0xFF) {
+            uvSeqModel(D_803504D8, 0);
+            uvSeqProps(D_803504D8, 4, 60.0f, 0);
+            D_803504E0 = func_8034B464(6);
+            if (D_803504E0 != 0xFF) {
+                uvFxProps(D_803504E0, FX_13(D_803504D8), FX_1(1e+20), FX_3(0.0f, 0.0f, 0.0f), FX_END);
+            }
+        }
+    }
+
+    if (D_803504C4 == -1) {
+        D_803504C4 = smoke_create();
+    }
+
+    if (D_803504C4 >= 0) {
+        smoke_props(D_803504C4, SMOKE_FX_5(0.0f, 0.0f, 0.0f), SMOKE_FX_3(10.0f), SMOKE_FX_4(1000.0f), SMOKE_FX_2(0.0f),
+                    SMOKE_FX_6(2870.0f, -2230.0f, 27.509998f), SMOKE_FX_7(0), SMOKE_FX_END);
+    }
+
+    if (D_803504C8 == -1) {
+        D_803504C8 = smoke_create();
+    }
+
+    if (D_803504C8 >= 0) {
+        smoke_props(D_803504C8, SMOKE_FX_5(0.0f, 0.0f, -1.0f), SMOKE_FX_3(3.0f), SMOKE_FX_4(1000.0f), SMOKE_FX_9(80.0f, 80.0f, 160.0f), SMOKE_FX_7(1),
+                    SMOKE_FX_END);
+    }
+
+    if (D_803504CC == -1) {
+        D_803504CC = smoke_create();
+    }
+
+    if (D_803504CC >= 0) {
+        smoke_props(D_803504CC, SMOKE_FX_5(0.0f, 0.0f, -1.0f), SMOKE_FX_3(3.0f), SMOKE_FX_4(1000.0f), SMOKE_FX_9(80.0f, 80.0f, 160.0f), SMOKE_FX_7(1),
+                    SMOKE_FX_END);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80335700.s")
 
