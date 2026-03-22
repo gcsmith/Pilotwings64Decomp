@@ -707,7 +707,7 @@ segments:
       - { type: .bss, vram: 0x80371960, name: app/skydiving }
       - { type: .bss, vram: 0x80371B50, name: app/code_BA190 }
       - { type: bss, vram: 0x80371CB0, name: app/sdsound }
-      - { type: bss, vram: 0x80371D10, name: app/shadow }
+      - { type: .bss, vram: 0x80371D10, name: app/shadow }
       - { type: .bss, vram: 0x80371DB0, name: app/code_BD670 }
       - { type: .bss, vram: 0x80371E60, name: app/smoke }
       - { type: .bss, vram: 0x80373060, name: app/snap }
