@@ -699,7 +699,15 @@ void func_80335F24(Vec3F* arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80335F84.s")
+s32 func_80335F84(void) {
+    Unk80362690_Unk0* temp = &D_80362690->unkC[D_80362690->unk9C];
+
+    if (temp->unkA == 4 || temp->unkA == 5) {
+        return 4;
+    }
+
+    return D_80350494;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80335FD8.s")
 
