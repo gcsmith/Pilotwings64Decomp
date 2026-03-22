@@ -57,13 +57,14 @@ void func_80336600(void) {
     Smoke* smoke;
     f32 temp_fa0;
     f32 temp_fa1;
+    f32 temp_fv1;
     f32 temp_fs0;
     f32 temp_fs1;
-    f32 temp_fv0_2;
-    s32 pad;
-    Mtx4F spC0;
-    f32 temp_fv1;
     u8 var_s3;
+    Mtx4F spC0;
+    f32 x;
+    f32 y;
+    f32 z;
     s32 i;
     s32 j;
 
@@ -93,30 +94,31 @@ void func_80336600(void) {
             if (smoke->unk140 < var_s0->unk0) {
                 uvFxProps(var_s0->unk1C, FX_11(0), FX_END);
                 var_s0->unk1C = 0xFF;
-            } else {
-                temp_fv1 = var_s0->unk4 * (var_s0->unk0 / smoke->unk140) * 10.0f;
-                temp_fa0 = var_s0->unk8 * (var_s0->unk0 / smoke->unk140) * 10.0f;
-                temp_fs1 = var_s0->unkC * (var_s0->unk0 / smoke->unk140) * 10.0f;
-                temp_fs0 = SQ(var_s0->unk0 / smoke->unk140);
-                uvFxProps(var_s0->unk1C, FX_7(1.0 - temp_fs0), FX_3(temp_fv1, temp_fa0, temp_fs1), FX_END);
-                // @fake
-                do {
-                } while (0);
-                temp_fv0_2 = smoke->unk158.f[0] * (0, temp_fs0);
-                temp_fv1 = smoke->unk158.f[1] * (0, temp_fs0);
-                temp_fa0 = smoke->unk158.f[2] * (0, temp_fs0);
-                if (smoke->unk17E != 0) {
-                    spC0.m[3][0] = (smoke->unk16C.f[0] * temp_fv0_2) + smoke->unk14C.f[0];
-                    spC0.m[3][1] = (smoke->unk16C.f[1] * temp_fv1) + smoke->unk14C.f[1];
-                    spC0.m[3][2] = ((smoke->unk16C.f[2] * temp_fa0) + smoke->unk14C.f[2]) - (temp_fs1 * 0.5f);
-                } else {
-                    spC0.m[3][0] = (smoke->unk16C.f[0] * temp_fv0_2) + var_s0->unk10.f[0];
-                    spC0.m[3][1] = (smoke->unk16C.f[1] * temp_fv1) + var_s0->unk10.f[1];
-                    spC0.m[3][2] = ((smoke->unk16C.f[2] * temp_fa0) + var_s0->unk10.f[2]) - (temp_fs1 * 0.5f);
-                }
-                func_8021A4D8(var_s0->unk1C, &spC0);
-                var_s3++;
+                continue;
             }
+            temp_fv1 = var_s0->unk4 * (var_s0->unk0 / smoke->unk140) * 10.0f;
+            temp_fa0 = var_s0->unk8 * (var_s0->unk0 / smoke->unk140) * 10.0f;
+            temp_fs1 = var_s0->unkC * (var_s0->unk0 / smoke->unk140) * 10.0f;
+            temp_fs0 = SQ(var_s0->unk0 / smoke->unk140);
+            uvFxProps(var_s0->unk1C, FX_7(1.0 - temp_fs0), FX_3(temp_fv1, temp_fa0, temp_fs1), FX_END);
+
+            x = temp_fs0;
+            y = temp_fs0;
+            z = temp_fs0;
+            x *= smoke->unk158.x;
+            y *= smoke->unk158.y;
+            z *= smoke->unk158.z;
+            if (smoke->unk17E != 0) {
+                spC0.m[3][0] = smoke->unk14C.x + (smoke->unk16C.x * x);
+                spC0.m[3][1] = smoke->unk14C.y + (smoke->unk16C.y * y);
+                spC0.m[3][2] = (smoke->unk14C.z + (smoke->unk16C.z * z)) - (temp_fs1 * 0.5f);
+            } else {
+                spC0.m[3][0] = var_s0->unk10.x + (smoke->unk16C.x * x);
+                spC0.m[3][1] = var_s0->unk10.y + (smoke->unk16C.y * y);
+                spC0.m[3][2] = (var_s0->unk10.z + (smoke->unk16C.z * z)) - (temp_fs1 * 0.5f);
+            }
+            func_8021A4D8(var_s0->unk1C, &spC0);
+            var_s3++;
         }
         if (var_s3 == 0) {
             smoke->created = FALSE;
@@ -226,7 +228,7 @@ void smokeProps(s32 smokeIdx, ...) {
             }
             break;
         default:
-            _uvDebugPrintf("smokeProps: Unknown property type %d\n", propertyType);
+            _uvDebugPrintf("smoke_props: Unknown property type %d\n", propertyType);
             return;
         case 0:
             return;
@@ -289,7 +291,7 @@ void smokeGetProps(s32 smokeIdx, ...) {
             *va_arg(args, s16*) = smoke->created;
             break;
         default:
-            _uvDebugPrintf("smokeGetProps: Unknown property type %d\n", propertyType);
+            _uvDebugPrintf("smoke_getprops: Unknown property type %d\n", propertyType);
             return;
         case 0:
             return;
@@ -311,7 +313,7 @@ void smokeDelete(s32 smokeIdx) {
     s32 i;
 
     if (smokeIdx < 0 || smokeIdx > ARRAY_COUNT(sSmokeObjects)) {
-        _uvDebugPrintf("smokeDelete : smoke id [%d]out of range\n", smokeIdx);
+        _uvDebugPrintf("smoke_delete : smoke id [%d]out of range\n", smokeIdx);
         return;
     }
 
@@ -407,7 +409,7 @@ void smokeCreateTerra(void) {
         smokeProps(smokeIdx, SMOKE_FX_5(-1.0f, 0.0f, 1.0f), SMOKE_FX_2(20.0), SMOKE_FX_1(0, 0, 0), SMOKE_FX_6(-393.6, -930.8, 94.7), SMOKE_FX_END);
         return;
     default:
-        _uvDebugPrintf("smokeCreate : unknown terra id %d\n", D_80362690->terraId);
+        _uvDebugPrintf("smoke_create : unknown terra id %d\n", D_80362690->terraId);
         return;
     case 2:
         return;
