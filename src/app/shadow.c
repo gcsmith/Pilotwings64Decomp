@@ -677,7 +677,15 @@ void func_80335E44(void) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80335EE4.s")
+f32 func_80335EE4(void) {
+    f32 var_fv1;
+
+    var_fv1 = D_8035049C;
+    if (var_fv1 > 512.0f) {
+        var_fv1 = 512.0f;
+    }
+    return (var_fv1 * 0.5f) / 255.0f;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80335F24.s")
 
