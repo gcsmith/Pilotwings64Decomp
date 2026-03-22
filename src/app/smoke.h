@@ -14,12 +14,12 @@
 #define SMOKE_FX_9(x, y, z) 9, (x), (y), (z)
 #define SMOKE_FX_END 0
 
-void smoke_init(void);
-s32 smoke_create(void);
-void smoke_props(s32, ...);
-void smoke_getprops(s32, ...);
-void smoke_delete(s32);
-void smoke_delete_all(void);
+void smokeInit(void);
+s32 smokeCreate(void);
+void smokeProps(s32, ...);
+void smokeGetProps(s32, ...);
+void smokeDelete(s32);
+void smokeDeleteAll(void);
 void func_80336600(void);
 
 #endif // APP_SMOKE_H

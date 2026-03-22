@@ -739,11 +739,11 @@ void func_802F764C(GyrocopterData* arg0) {
         if (func_802E0C30(sp4B, sp50) != 0) {
             arg0->unkD0 = 1;
             if (arg0->unk96 != 0xFF) {
-                smoke_props(arg0->unk96, SMOKE_FX_8(0), SMOKE_FX_END);
+                smokeProps(arg0->unk96, SMOKE_FX_8(0), SMOKE_FX_END);
             }
         } else {
             if (arg0->unk96 != 0xFF) {
-                smoke_props(arg0->unk96, SMOKE_FX_6(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2]), SMOKE_FX_END);
+                smokeProps(arg0->unk96, SMOKE_FX_6(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2]), SMOKE_FX_END);
             }
             uvDobjModel(arg0->objId, arg0->crashModelId);
             uvDobjPosm(arg0->objId, 0, &arg0->unk10);

@@ -238,7 +238,7 @@ void func_80303714(GyrocopterData* arg0) {
     arg0->unk9A = 0xFF;
     arg0->unk94 = 0xFF;
     if (arg0->unk96 != 0xFF) {
-        smoke_props(arg0->unk96, SMOKE_FX_8(0), SMOKE_FX_END);
+        smokeProps(arg0->unk96, SMOKE_FX_8(0), SMOKE_FX_END);
     }
 
     uvMat4Copy(&arg0->unk150, &arg0->unk10);
@@ -445,45 +445,45 @@ void func_8030399C(GyrocopterData* arg0) {
     if ((ABS_NOEQ(arg0->unk1F0) > 0.8028515f) || (ABS_NOEQ(arg0->unk1F4) > 1.0646509f)) {
         if (arg0->unkC0 != 2) {
             arg0->unkC0 = 2;
-            arg0->unk96 = smoke_create();
-            smoke_props(arg0->unk96, SMOKE_FX_1(0, 0, 0), SMOKE_FX_2(20.0f), SMOKE_FX_3(2.0f), SMOKE_FX_5(0.0f, 0.0f, 0.0f), SMOKE_FX_END);
+            arg0->unk96 = smokeCreate();
+            smokeProps(arg0->unk96, SMOKE_FX_1(0, 0, 0), SMOKE_FX_2(20.0f), SMOKE_FX_3(2.0f), SMOKE_FX_5(0.0f, 0.0f, 0.0f), SMOKE_FX_END);
         }
     }
     if (arg0->unkC0 == 2) {
-        smoke_props(arg0->unk96, SMOKE_FX_6(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2]), SMOKE_FX_END);
+        smokeProps(arg0->unk96, SMOKE_FX_6(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2]), SMOKE_FX_END);
     } else {
         if ((arg0->unk98 != -1) && (arg0->unk98 != 0xFF)) {
-            smoke_getprops(arg0->unk98, 8, &spD6, 0);
+            smokeGetProps(arg0->unk98, 8, &spD6, 0);
             if (spD6 != 0) {
-                smoke_props(arg0->unk98, SMOKE_FX_6(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2]), SMOKE_FX_END);
-                smoke_props(arg0->unk9A, SMOKE_FX_6(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2]), SMOKE_FX_END);
+                smokeProps(arg0->unk98, SMOKE_FX_6(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2]), SMOKE_FX_END);
+                smokeProps(arg0->unk9A, SMOKE_FX_6(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2]), SMOKE_FX_END);
             } else {
                 arg0->unk98 = -1;
                 arg0->unk9A = -1;
             }
         }
         if (arg0->unk94 != 0xFF) {
-            smoke_getprops(arg0->unk94, 8, &spD6, 0);
+            smokeGetProps(arg0->unk94, 8, &spD6, 0);
             if (spD6 != 0) {
                 if ((arg0->unkC0 == 1) && (arg0->unk1A8 > 5.952f) && (arg0->unk6C == 0) && (func_802DC930(arg0->unkF8) != 0)) {
-                    smoke_getprops(arg0->unk94, 4, &spD0, 0);
-                    smoke_props(arg0->unk94,
-                                SMOKE_FX_6(((arg0->unk3B0[1].unk0.x + arg0->unk3B0[2].unk0.x) * 0.5f), (arg0->unk3B0[1].unk0.y + arg0->unk3B0[2].unk0.y) * 0.5f,
-                                           arg0->unk3B0[1].unk0.z),
-                                SMOKE_FX_4(spD0 + D_8034F854), SMOKE_FX_7(1), SMOKE_FX_END);
+                    smokeGetProps(arg0->unk94, 4, &spD0, 0);
+                    smokeProps(arg0->unk94,
+                               SMOKE_FX_6(((arg0->unk3B0[1].unk0.x + arg0->unk3B0[2].unk0.x) * 0.5f), (arg0->unk3B0[1].unk0.y + arg0->unk3B0[2].unk0.y) * 0.5f,
+                                          arg0->unk3B0[1].unk0.z),
+                               SMOKE_FX_4(spD0 + D_8034F854), SMOKE_FX_7(1), SMOKE_FX_END);
                 } else {
-                    smoke_props(arg0->unk94, SMOKE_FX_4(0.0f), SMOKE_FX_END);
+                    smokeProps(arg0->unk94, SMOKE_FX_4(0.0f), SMOKE_FX_END);
                 }
             } else {
                 arg0->unk94 = 0xFF;
             }
         } else if ((arg0->unkC0 == 1) && (arg0->unk1A8 > 5.952f) && (arg0->unk50 >= 0) && (arg0->unk6C == 0) && (func_802DC930(arg0->unkF8) != 0)) {
-            arg0->unk94 = smoke_create();
-            smoke_props(arg0->unk94, SMOKE_FX_1(160, 120, 70), SMOKE_FX_2(4.0f), SMOKE_FX_3(3.0f), SMOKE_FX_4(1.0f),
-                        SMOKE_FX_5(-arg0->unk10.m[1][0], -arg0->unk10.m[1][1], 0.5f),
-                        SMOKE_FX_6((arg0->unk3B0[1].unk0.x + arg0->unk3B0[2].unk0.x) * 0.5f, (arg0->unk3B0[1].unk0.y + arg0->unk3B0[2].unk0.y) * 0.5f,
-                                   arg0->unk3B0[1].unk0.z),
-                        SMOKE_FX_7(1), SMOKE_FX_END);
+            arg0->unk94 = smokeCreate();
+            smokeProps(arg0->unk94, SMOKE_FX_1(160, 120, 70), SMOKE_FX_2(4.0f), SMOKE_FX_3(3.0f), SMOKE_FX_4(1.0f),
+                       SMOKE_FX_5(-arg0->unk10.m[1][0], -arg0->unk10.m[1][1], 0.5f),
+                       SMOKE_FX_6((arg0->unk3B0[1].unk0.x + arg0->unk3B0[2].unk0.x) * 0.5f, (arg0->unk3B0[1].unk0.y + arg0->unk3B0[2].unk0.y) * 0.5f,
+                                  arg0->unk3B0[1].unk0.z),
+                       SMOKE_FX_7(1), SMOKE_FX_END);
         }
     }
     if (D_80362690->unkA4 != 0) {
@@ -900,7 +900,7 @@ s32 func_80305DC0(GyrocopterData* arg0) {
         temp_s0 = db_getgnd(&arg0->unk3B0[i].unk0, &sp24C[i], &sp238, &sp2C0, &sp2F8, &sp2E8);
         if (temp_s0 == 4) {
             if (arg0->unkC0 == 2) {
-                smoke_props((s32)arg0->unk96, SMOKE_FX_8(0), SMOKE_FX_END);
+                smokeProps((s32)arg0->unk96, SMOKE_FX_8(0), SMOKE_FX_END);
             }
             arg0->unkC0 = 3;
             arg0->unkD0 = 1;
@@ -977,7 +977,7 @@ s32 func_80305DC0(GyrocopterData* arg0) {
     if ((sp2FF != 0) && (sp249 != 2) && (sp249 != 8)) {
         if ((arg0->unkF8 == -1) || ((arg0->unkF8 != -1) && (func_802DC8E4(arg0->unkF8) != 0))) {
             if (arg0->unkC0 == 2) {
-                smoke_props(arg0->unk96, SMOKE_FX_8(0), SMOKE_FX_END);
+                smokeProps(arg0->unk96, SMOKE_FX_8(0), SMOKE_FX_END);
             }
             arg0->unkC0 = 3;
             arg0->unkD0 = 1;
@@ -1218,10 +1218,10 @@ s32 func_80305DC0(GyrocopterData* arg0) {
                 arg0->unk8C = D_8034F854;
             }
             if ((arg0->unk94 == 0xFF) && (arg0->unk50 >= 0) && (arg0->unk6C == 0) && (arg0->unk1A8 > 5.952f) && (func_802DC930(arg0->unkF8) != 0)) {
-                arg0->unk94 = smoke_create();
-                smoke_props(arg0->unk94, SMOKE_FX_1(160, 120, 70), SMOKE_FX_2(4.0f), SMOKE_FX_3(3.0f), SMOKE_FX_4(1.0f),
-                            SMOKE_FX_5(-arg0->unk10.m[1][0], -arg0->unk10.m[1][1], 0.5f),
-                            SMOKE_FX_6((sp27C[1].x + sp27C[2].x) * 0.5f, (sp27C[1].y + sp27C[2].y) * 0.5f, sp27C[1].z), SMOKE_FX_7(1), SMOKE_FX_END);
+                arg0->unk94 = smokeCreate();
+                smokeProps(arg0->unk94, SMOKE_FX_1(160, 120, 70), SMOKE_FX_2(4.0f), SMOKE_FX_3(3.0f), SMOKE_FX_4(1.0f),
+                           SMOKE_FX_5(-arg0->unk10.m[1][0], -arg0->unk10.m[1][1], 0.5f),
+                           SMOKE_FX_6((sp27C[1].x + sp27C[2].x) * 0.5f, (sp27C[1].y + sp27C[2].y) * 0.5f, sp27C[1].z), SMOKE_FX_7(1), SMOKE_FX_END);
             }
             if ((arg0->unk50 == 0) && (sp23C < 12.698f)) {
                 func_8032BE10()->unkC = func_80317978(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2], &arg0->unk6C);
@@ -1505,16 +1505,16 @@ void func_80307EA8(GyrocopterData* arg0) {
             spC8.y = -0.707f;
             spC8.z = 0.2f;
             uvMat4LocalToWorld(&arg0->unk150, &spC8, &spC8);
-            arg0->unk98 = smoke_create();
-            smoke_props(arg0->unk98, SMOKE_FX_1(200, 200, 200), SMOKE_FX_2(1.8f), SMOKE_FX_3(1.0f), SMOKE_FX_4(2.0f), SMOKE_FX_5(spC8.x, spC8.y, spC8.z),
-                        SMOKE_FX_6(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2]), SMOKE_FX_7(1), SMOKE_FX_END);
+            arg0->unk98 = smokeCreate();
+            smokeProps(arg0->unk98, SMOKE_FX_1(200, 200, 200), SMOKE_FX_2(1.8f), SMOKE_FX_3(1.0f), SMOKE_FX_4(2.0f), SMOKE_FX_5(spC8.x, spC8.y, spC8.z),
+                       SMOKE_FX_6(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2]), SMOKE_FX_7(1), SMOKE_FX_END);
             spC8.x = 0.707f;
             spC8.y = -0.707f;
             spC8.z = 0.2f;
             uvMat4LocalToWorld(&arg0->unk150, &spC8, &spC8);
-            arg0->unk9A = smoke_create();
-            smoke_props(arg0->unk9A, SMOKE_FX_1(200, 200, 200), SMOKE_FX_2(1.8f), SMOKE_FX_3(1.0f), SMOKE_FX_4(2.0f), SMOKE_FX_5(spC8.x, spC8.y, spC8.z),
-                        SMOKE_FX_6(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2]), SMOKE_FX_7(1), SMOKE_FX_END);
+            arg0->unk9A = smokeCreate();
+            smokeProps(arg0->unk9A, SMOKE_FX_1(200, 200, 200), SMOKE_FX_2(1.8f), SMOKE_FX_3(1.0f), SMOKE_FX_4(2.0f), SMOKE_FX_5(spC8.x, spC8.y, spC8.z),
+                       SMOKE_FX_6(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2]), SMOKE_FX_7(1), SMOKE_FX_END);
         }
     } else {
         arg0->unkF0 = func_80313AF4(0.0f, arg0->unkF0, 0.5f);
@@ -1656,7 +1656,7 @@ void func_8030877C(GyrocopterData* arg0) {
             break;
         case 4:
             if (arg0->unkC0 == 2) {
-                smoke_props(arg0->unk96, SMOKE_FX_8(0), SMOKE_FX_END);
+                smokeProps(arg0->unk96, SMOKE_FX_8(0), SMOKE_FX_END);
             }
             arg0->unkC0 = 3;
             arg0->unkD0 = 1;
@@ -1688,8 +1688,8 @@ void func_8030877C(GyrocopterData* arg0) {
 
         if (ABS_NOEQ(temp_fv0) > sp234) {
             if (arg0->unkC0 != 2) {
-                arg0->unk96 = smoke_create();
-                smoke_props(arg0->unk96, SMOKE_FX_1(0, 0, 0), SMOKE_FX_2(20.0f), SMOKE_FX_3(2.0f), SMOKE_FX_5(0.0f, 0.0f, 0.0f), SMOKE_FX_END);
+                arg0->unk96 = smokeCreate();
+                smokeProps(arg0->unk96, SMOKE_FX_1(0, 0, 0), SMOKE_FX_2(20.0f), SMOKE_FX_3(2.0f), SMOKE_FX_5(0.0f, 0.0f, 0.0f), SMOKE_FX_END);
             }
             arg0->unkC0 = 2;
         } else {
@@ -1697,8 +1697,8 @@ void func_8030877C(GyrocopterData* arg0) {
                 var_fa0 = ABS_NOEQ(temp_fv0 / arg0->unk1A8);
                 if (var_fa0 > 0.707f) {
                     if (arg0->unkC0 != 2) {
-                        arg0->unk96 = smoke_create();
-                        smoke_props(arg0->unk96, SMOKE_FX_1(0, 0, 0), SMOKE_FX_2(20.0f), SMOKE_FX_3(2.0f), SMOKE_FX_5(0.0f, 0.0f, 0.0f), SMOKE_FX_END);
+                        arg0->unk96 = smokeCreate();
+                        smokeProps(arg0->unk96, SMOKE_FX_1(0, 0, 0), SMOKE_FX_2(20.0f), SMOKE_FX_3(2.0f), SMOKE_FX_5(0.0f, 0.0f, 0.0f), SMOKE_FX_END);
                     }
                     arg0->unkC0 = 2;
                 } else if (arg0->unkC0 != 2) {
@@ -1740,7 +1740,7 @@ void func_80308F1C(GyrocopterData* arg0) {
     if (sp37) {
         if (sp37 == 4) {
             if (arg0->unkC0 == 2) {
-                smoke_props((s32)arg0->unk96, SMOKE_FX_8(0), SMOKE_FX_END);
+                smokeProps((s32)arg0->unk96, SMOKE_FX_8(0), SMOKE_FX_END);
             }
             arg0->unkD0 = 1;
             arg0->unkC0 = 3;
