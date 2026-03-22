@@ -253,4 +253,8 @@ void func_80333F68(UnkSdSound* arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/sdsound/func_80334258.s")
+void func_80334258(UnkSdSound* arg0) {
+    arg0->unk244 = func_8033F8CC(arg0->unk244);
+    arg0->unk245 = func_8033F8CC(arg0->unk245);
+    uvEventRemoveCb(D_80371CB0, 1, 0xD, 0x12, 0x13, 0x10, 0xC, 0x16, 0x24);
+}
