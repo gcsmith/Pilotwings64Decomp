@@ -130,6 +130,7 @@ void hudSetCameraState(s32 state);
 void hud_8031A2CC(void);
 void hudMoveWaypoint(s32 idx, f32 x, f32 y, f32 z);
 void hud_8031A874(s32 idx);
+void hud_8031A66C(s32 idx, s32);
 s32 hudAddWaypoint(f32 x, f32 y, f32 z);
 void hud_8031A810(s32 idx);
 void hud_8031A8E0(s32 idx);

@@ -26,13 +26,27 @@ ID    | String
  0x1f | "Vol. >>>4"
  0x22 | "The controller is"
  0x23 | "SELECT FILE"
- 0x28 | "JUmp tp the goal are"
+ 0x28 | "Jump to the goal area"
  0x29 | "to go"
  0x2c | "Congratulations!!!"
- 0x2f | <NOTHING>?
+ 0x2f | <Empty>
+ 0x30 | "Jump to the goal area"
+ 0x31 | "Sky Dive 1"
+ 0x32 | "Touch & Go 2"
+ 0x33 | <Empty>
+ 0x34 | "There's no test for Birdman"
  0x35 | "LARK"
  0x36 | "Meca Hawk Again"
+ 0x37 | "Albatross Nest"
+ 0x38 | "Jump to the goal area"
+ 0x39 | "Sky Dive 2"
+ 0x3a | <Empty>
+ 0x3b | "You can take photos with"
+ 0x3c | <Empty>
  0x3d | "Time ring start"
+ 0x3e | <Empty>
+ 0x3f | "Sky Dive 2"
+ 0x40 | "Missi the Monster"
  0x46 | "<< Thermal >>" (HangGlider)
  0x47 | "and try again."
  0x4a | "Out of fuel!"
@@ -74,10 +88,12 @@ ID    | String
  0xdc | "Continue"
  0xf0 | "Destroy 20 of the 30 balloons,"
  0xf5 | "Pts"
+ 0xf6 | "Ring cleared"
  0xff | "Iron Head"
 0x100 | "Mono"
 0x101 | "Are you sure?" (File Select, delete)
 0x105 | "SELECT VEHICLE & CLASS"
+0x108 | "Ring cleared"
 0x10b | "Now try for the perfect score..."
 0x111 | "Target 1"
 0x116 | "File 1 .......... Continue"
@@ -96,9 +112,9 @@ ID    | String
 0x148 | "5 pts deducted"
 0x14e | "Check map"
 0x152 | "not connected correctly."
-0x157 | "Caution! Speed decreasing" (HangGlider)
+0x157 | "Caution! Speed decreasing"
 0x158 | "Shots to go:"
-0x15c | "Caution! Speed decreasing" (HangGlider) (dupe?)
+0x15c | "Caution! Speed decreasing"
 0x15d | "Goal!"
 0x166 | "Another test"
 0x16a | "Start !"
@@ -107,6 +123,7 @@ ID    | String
 0x174 | "Meca Hawk destroyed"
 0x17b | "Low fuel!"
 0x17d | "File 1 .......... New"
+0x17e | "Time ring cleared"
 0x181 | "File 2 .......... New"
 0x183 | "Vol. >>>>5"
 0x187 | "Thermal Flyer"

@@ -166,17 +166,17 @@ typedef struct {
 } TaskHOPD; // size = 0x20
 
 typedef struct {
-    Vec3F unk0;
-    Vec3F unkC;
-    u8 pad18[4];
-    u8 unk1C;
-    u8 unk1D;
+    Vec3F pos;
+    Vec3F rot;
+    s32 unk18;
+    u8 type;
+    u8 points;
     u8 pad1E[2];
-    f32 unk20;
-    u8 unk24;
+    f32 fuelAdded;
+    u8 nextHpadCount;
     u8 pad25[3];
-    s32 unk28[5]; // size unknown
-    u8 unk3C;
+    s32 nextHpads[5];
+    u8 active;
     u8 pad3D[3];
 } TaskHPAD; // size = 0x40
 
@@ -232,33 +232,33 @@ typedef struct {
 typedef struct {
     Vec3F pos;
     Vec3F angle;
-    u8 pad18[5];
-    u8 unk1D;
-    u8 unk1E;
-    u8 pad1F[1];
-    s32 unk20[5]; // size unknown
-    u8 unk34;
+    s32 unk18;
+    u8 pad1C[1];
+    u8 childCount;
+    u8 pad1E[2];
+    s32 childRings[5];
+    u8 timedChildRingCount;
     u8 pad35[3];
-    s32 unk38[5]; // size unknown
-    u8 unk4C;
-    u8 unk4D;
+    s32 timedChildRings[5];
+    u8 points;
+    u8 untimed;
     u8 pad4E[2];
-    f32 unk50;
+    f32 timeRingDuration;
     u8 size;
-    u8 unk55;
+    u8 isActive;
     u8 pad56[2];
-    f32 unk58;
-    f32 unk5C;
-    u8 unk60;
+    f32 rotRate0;
+    f32 translation;
+    u8 rotAxis0;
     u8 pad61[3];
-    f32 unk64;
-    f32 unk68;
-    f32 unk6C;
-    u8 axis;
-    u8 unk71;
-    u8 unk72;
-    u8 unk73;
-    char unk74[0x10]; // string name?
+    f32 rotRateTimedOut1;
+    f32 rotRateTiming1;
+    f32 rotRate1;
+    u8 rotAxis1;
+    u8 ringType;
+    u8 ringSubtype;
+    u8 unk73; // copied, unused
+    char name[0x10];
 } TaskRNGS; // size = 0x84
 
 typedef struct {
@@ -326,7 +326,9 @@ typedef struct {
     Unk803599D0 unkFC;
     Unk803599D0 unk150;
     // maybe more Unk803599D0 here
-    u8 pad1A4[0x3B4-0x1A4];
+    u8 pad1A4[0x39C-0x1A4];
+    s16 unk39C[4];
+    f32 unk3A4[4];
     s32 unk3B4;
     s32 unk3B8;
     f32 unk3BC;

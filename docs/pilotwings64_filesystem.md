@@ -634,23 +634,21 @@ gyrocopter tests where Falco must be defeated.
 
 #### UPWT::HPAD / hover pad
 
-`HPAD` are the hovering pads used in some rocket belt tests.
+`HPAD` are the hovering pads used in two of the rocket belt tests.
 
 | Offset | Type   | Description
-|--------|--------|------------
+|--------|--------|--------------------------------------
 |  0x00  | Vec3F  | position
-|  0x0C  | f32    | TBD
-|  0x10  | f32    | TBD
-|  0x14  | f32    | TBD
-|  0x18  | pad[4] | TBD
-|  0x1C  | u8     | TBD
-|  0x1D  | u8     | TBD
+|  0x0C  | Vec3F  | rotation (degrees)
+|  0x18  | s32    | TBD (always 0)
+|  0x1C  | u8     | type (0=large, 1=standard)
+|  0x1D  | u8     | points if landed on (typically 5 or 3)
 |  0x1E  | pad[2] |
-|  0x20  | f32    | TBD
-|  0x24  | u8     | TBD
+|  0x20  | f32    | fuel added upon landing [0.0-1.0]
+|  0x24  | u8     | number of hover pads to activate next
 |  0x25  | pad[3] |
-|  0x28  | s32[5] | TBD
-|  0x3C  | u8     | TBD
+|  0x28  | s32[5] | array of HPADs to activate
+|  0x3C  | u8     | active at start
 |  0x3D  | pad[3] |
 |  0x40  |        | **Total length**
 
@@ -739,40 +737,39 @@ There is one entry for each photo required for the test.
 
 #### UPWT::RNGS / rings
 
-`RNGS` are the rings to fly through during hang glider, rocket belt, and
-gyrocopter tests.
+`RNGS` are the rings to fly through during hang glider, rocket belt, and gyrocopter tests.
 
 | Offset | Type   | Description
 |--------|--------|--------------------
 |  0x00  | Vec3F  | position
-|  0x0C  | Vec3F  | angle
-|  0x18  | pad[5] |
-|  0x1D  | u8     | TBD
-|  0x1E  | u8     | TBD
-|  0x1F  | pad[1] |
-|  0x20  | s32[5] | TBD
-|  0x34  | u8     | TBD
+|  0x0C  | Vec3F  | angle (degrees)
+|  0x18  | s32    | TBD
+|  0x1C  | pad[1] |
+|  0x1D  | u8     | child ring count
+|  0x1E  | pad[2] |
+|  0x20  | s32[5] | array of child ring indexes
+|  0x34  | u8     | timed child ring count
 |  0x35  | pad[3] |
-|  0x38  | s32[5] | TBD
-|  0x4C  | u8     | TBD
-|  0x4D  | u8     | TBD
+|  0x38  | s32[5] | array of timed child ring indexes
+|  0x4C  | u8     | points used for some rings
+|  0x4D  | u8     | untimed ring
 |  0x4E  | pad[2] |
-|  0x50  | f32    | TBD
-|  0x54  | u8     | size
-|  0x55  | u8     | TBD
+|  0x50  | f32    | timed ring duration
+|  0x54  | u8     | ring size
+|  0x55  | u8     | is active
 |  0x56  | pad[2] |
-|  0x58  | f32    | TBD
-|  0x5C  | f32    | TBD
-|  0x60  | u8     | TBD
+|  0x58  | f32    | rotation rate 0
+|  0x5C  | f32    | x,y,z traslation
+|  0x60  | char   | rotation axis 0 ('x', 'y', 'z', or 'n')
 |  0x61  | pad[3] |
-|  0x64  | f32    | TBD
-|  0x68  | f32    | TBD
-|  0x6C  | f32    | TBD
-|  0x70  | u8     | axis
-|  0x71  | u8     | TBD
-|  0x72  | u8     | special
-|  0x73  | u8     | TBD
-|  0x74  | u8[16] | string name, unused
+|  0x64  | f32    | rotation rate 1 (after timeout)
+|  0x68  | f32    | rotation rate 1 (before timeout)
+|  0x6C  | f32    | rotation rate 1
+|  0x70  | char   | rotation axis 1 ('x', 'y', 'z', or 'n')
+|  0x71  | u8     | ring type
+|  0x72  | u8     | ring sub-type, used to determine model
+|  0x73  | u8     | unknown. copied but unused
+|  0x74  | u8[16] | string name, always '\0'
 |  0x84  |        | **Total length**
 
 #### UPWT::SDFM

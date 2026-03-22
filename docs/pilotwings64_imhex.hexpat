@@ -80,11 +80,19 @@ using f32 = be float;
 struct VecTimeVal {
     f32 time;
     f32 value;
-} [[static]]; // size = 0x8
+} [[static, format("format_VecTimeVal")]]; // size = 0x8
+
+fn format_VecTimeVal(VecTimeVal v) {
+    return std::format("[ {}, {}, {} ]", v.time, v.value);
+};
 
 struct Vec3F {
     f32 x, y, z;
-} [[static]]; // size = 0xC
+} [[static, format("format_Vec3F")]]; // size = 0xC
+
+fn format_Vec3F(Vec3F v) {
+    return std::format("[ {}, {}, {} ]", v.x, v.y, v.z);
+};
 
 struct Vec4F {
     f32 x, y, z, w;
@@ -659,18 +667,23 @@ struct TaskHOPD {
     u8 pad1C[4];
 } [[static]]; // size = 0x20
 
+enum HPADType : u8 {
+    Large = 0x00,
+    Small = 0x01,
+};
+
 struct TaskHPAD {
-    Vec3F unk0;
-    Vec3F unkC;
-    u8 pad18[4];
-    u8 unk1C;
-    u8 unk1D;
+    Vec3F pos [[comment("position vector")]];
+    Vec3F rot [[comment("rotation vector (degrees)")]];
+    s32 unk18;
+    HPADType type;
+    u8 points;
     u8 pad1E[2];
-    f32 unk20;
-    u8 unk24;
+    f32 fuelAdded;
+    u8 nextHpadCount [[comment("number of HPADs to activate")]];
     u8 pad25[3];
-    s32 unk28[5]; // size unknown
-    u8 unk3C;
+    s32 nextHpads[5] [[comment("array of HPADs to activate")]];
+    u8 active [[comment("active at start")]];
     padding[3];
 } [[static]] ; // size = 0x40
 
@@ -725,35 +738,35 @@ struct TaskPHTS {
 } [[static]]; // size = 0x14
 
 struct TaskRNGS {
-    Vec3F pos;
-    Vec3F angle;
-    u8 pad18[5];
-    u8 unk1D;
-    u8 unk1E;
-    u8 pad1F[1];
-    s32 unk20[5]; // size unknown
-    u8 unk34;
-    u8 pad35[3];
-    s32 unk38[5]; // size unknown
-    u8 unk4C;
-    u8 unk4D;
-    u8 pad4E[2];
-    f32 unk50;
+    Vec3F pos [[comment("position vector")]];
+    Vec3F rot [[comment("rotation vector (degrees)")]];
+    s32 unk18;
+    padding[1];
+    u8 childCount;
+    padding[2];
+    s32 childRings[5];
+    u8 timedChildRingCount;
+    padding[3];
+    s32 timedChildRings[5];
+    u8 points;
+    u8 untimed;
+    padding[2];
+    f32 timeRingDuration;
     u8 size;
-    u8 unk55;
-    u8 pad56[2];
-    f32 unk58;
-    f32 unk5C;
-    u8 unk60;
-    u8 pad61[3];
-    f32 unk64;
-    f32 unk68;
-    f32 unk6C;
-    u8 axis;
-    u8 unk71;
-    u8 unk72;
+    u8 isActive;
+    padding[2];
+    f32 rotationRate0;
+    f32 translation;
+    char rotationAxis0;
+    padding[3];
+    f32 rotationRateTimedOut1;
+    f32 rotationRateTiming1;
+    f32 rotationRate1;
+    char rotationAxis1;
+    u8 ringType;
+    u8 ringSubType;
     u8 unk73;
-    char unk74[0x10]; // string name?
+    char name[0x10];
 } [[static]]; // size = 0x84
 
 // SDFM is not present in FS, but is copied in code so only size is known
