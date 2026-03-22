@@ -1,14 +1,23 @@
 #include "common.h"
-#include <uv_dobj.h>
+#include "code_72B70.h"
 #include "shadow.h"
+#include <uv_dobj.h>
+#include <uv_model.h>
 
+// .data
 extern s32 D_80350460;
 extern s32 D_80350464;
+extern u16 D_80350466;
 extern s32 D_80350468;
+extern u16 D_8035046A;
 extern s32 D_8035046C;
 extern s32 D_80350470;
 extern f32 D_80350474;
 extern f32 D_80350478;
+
+// forward declarations
+void func_803347D0(Mtx4F*);
+
 
 void func_803342F0(f32 arg0) {
     D_80350474 = arg0;
@@ -67,7 +76,35 @@ void func_80334454(u16 arg0, u16 arg1) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_803344BC.s")
+void func_803344BC(Mtx4F* arg0, f32 arg1) {
+    u16 var_v0;
+    u8 sp1D;
+
+    if (D_80350470 == 0xFFFF || D_80350460 == 0) {
+        return;
+    }
+
+    if (D_80362690->unk0 == 6) {
+        var_v0 = D_80350466;
+    } else {
+        var_v0 = D_8035046A;
+    }
+
+    if (var_v0 == 0xFFFF) {
+        return;
+    }
+
+    sp1D = 0;
+    if (D_80350468 == var_v0) {
+        uvModelGetProps(var_v0, 5, &sp1D, 0);
+    }
+
+    if (sp1D != 0) {
+        func_803347D0(arg0);
+    } else {
+        func_80334578(arg0, arg1);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80334578.s")
 
