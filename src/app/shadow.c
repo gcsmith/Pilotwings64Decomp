@@ -20,39 +20,36 @@ void uvSeqModel(s32 arg0, s32 seqId); // kernel/code_19B50
 void uvSeqProps(s32 arg0, ...);       // kernel/code_19B50
 // TODO: Create FX_SEQ_x macros and use them
 
-// .data
-extern s32 D_80350460; // = 0;
-extern s32 D_80350464; // = 0; // some model id
-extern s32 D_80350468; // = 0; // some model id
-extern s32 D_8035046C; // = 0xFFFF;
-extern s32 D_80350470; // = 0xFFFF;
-extern f32 D_80350474; // = 0.0f;
-// this is probably not the way it's supposed to be
-// maybe there's another file split here that has caused this to be weird?
-extern f32 D_80350478;   // = { 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f };
-extern s32 D_80350490;   // = 0;
-extern s32 D_80350494;   // = 0; // some state? values between 1 and 4
-extern f32 D_80350498;   // = 0.0f;
-extern f32 D_8035049C;   // = 0.0f;
-extern f32 D_803504A0;   // = 55.0f;
-extern f64 D_803504A8;   // = 0.0;
-extern s32 D_803504B0;   // = 0;
-extern s32 D_803504B4;   // = 0xFFFF; // dobj id
-extern s32 D_803504B8;   // = 0xFFFF;
-extern s32 D_803504BC;   // = 0xFF;
-extern s32 D_803504C0;   // = 0;
-extern s16 D_803504C4;   // = 0xFFFF;
-extern s16 D_803504C8;   // = 0xFFFF;
-extern s16 D_803504CC;   // = 0xFF;
-extern s32 D_803504D0;   // = 0xFF;
-extern s32 D_803504D4;   // = 0xFF;
-extern s32 D_803504D8;   // = 0xFF;
-extern s32 D_803504DC;   // = 0xFF;
-extern s32 D_803504E0;   // = 0xFF;
-extern s32 D_803504E4;   // = 0xFF;
-extern Vec3F D_803504E8; //  = { 2870.0f, -2230.0f, 57.51f }
+s32 D_80350460 = 0;
+s32 D_80350464 = 0xFFFF; // some model id
+s32 D_80350468 = 0xFFFF; // some model id
+s32 D_8035046C = 0xFFFF;
+s32 D_80350470 = 0xFFFF;
+f32 D_80350474 = 0.0f;
+f32 D_80350478 = 0.0f;
+// No idea where this data is used
+f32 pad_D_8035047C[] = { 0.0f, 0.0f, 0.0f, 1.0f, 0.0f };
+s32 D_80350490 = 0;
+s32 D_80350494 = 0; // some state? values between 1 and 4
+f32 D_80350498 = 0.0f;
+f32 D_8035049C = 0.0f;
+f32 D_803504A0 = 55.0f;
+f64 D_803504A8 = 0.0;
+s32 D_803504B0 = 0;
+s32 D_803504B4 = 0xFFFF; // dobj id
+s32 D_803504B8 = 0xFFFF;
+s32 D_803504BC = 0xFF;
+s32 D_803504C0 = 0;
+s16 D_803504C4 = 0xFFFF;
+s16 D_803504C8 = 0xFFFF;
+s16 D_803504CC = 0xFFFF;
+s32 D_803504D0 = 0xFF;
+s32 D_803504D4 = 0xFF;
+s32 D_803504D8 = 0xFF;
+s32 D_803504DC = 0xFF;
+s32 D_803504E0 = 0xFF;
+s32 D_803504E4 = 0xFF;
 
-// .bss
 Mtx4F D_80371D10;
 Mtx4F D_80371D50;
 f32 D_80371D90;
@@ -620,7 +617,7 @@ void func_80335BE4(void) {
     u16 vehIdx;
     u16 testIdx;
     s32 var_v1;
-    Vec3F sp70 = D_803504E8;
+    Vec3F sp70 = { 2870.0f, -2230.0f, 57.51f };
     Mtx4F sp30;
 
     D_803504B8 = uvDobjAllocIdx();
