@@ -33,9 +33,8 @@ typedef struct {
     f32 unk2CC;
 } UnkSdSound;
 
-// .bss
-extern EventCallbackInfo D_80371CB0;
-extern Unk803599D0 D_80371CB8;
+EventCallbackInfo D_80371CB0;
+Unk803599D0 D_80371CB8;
 
 // forward declarations
 void func_803339C4(s32, UnkSdSound*, s32);
