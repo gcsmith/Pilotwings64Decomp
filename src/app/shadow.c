@@ -2,6 +2,8 @@
 #include "code_72B70.h"
 #include "code_9A960.h"
 #include "code_D1ED0.h"
+#include "env_sound.h"
+#include "hud.h"
 #include "kernel/code_8170.h"
 #include "shadow.h"
 #include "smoke.h"
@@ -21,21 +23,26 @@ void uvSeqProps(s32 arg0, ...);       // kernel/code_19B50
 // .data
 extern s32 D_80350460;
 extern s32 D_80350464;
-extern u16 D_80350466;
+extern u16 D_80350466; // some model id
 extern s32 D_80350468;
-extern u16 D_8035046A;
+extern u16 D_8035046A; // some model id
 extern s32 D_8035046C;
 extern s32 D_80350470;
 extern f32 D_80350474;
-extern f32 D_80350478;
+extern f32 D_80350478; // maybe a file split here?
+// missing D_8035047C - D_80350490
 extern s32 D_80350490;
 extern s32 D_80350494; // some state? values between 1 and 4
 extern f32 D_80350498;
 extern f32 D_8035049C;
 extern f32 D_803504A0;
+// Not missing D_803504A4 because padding
 extern f64 D_803504A8;
 extern s32 D_803504B0;
 extern s32 D_803504B4;
+extern s32 D_803504B8;
+extern s32 D_803504BC;
+extern s32 D_803504C0;
 extern s16 D_803504C4;
 extern s16 D_803504C8;
 extern s16 D_803504CC;
@@ -45,6 +52,9 @@ extern s32 D_803504D8;
 extern s32 D_803504DC;
 extern s32 D_803504E0;
 extern s32 D_803504E4;
+extern Vec3F D_803504E8;
+
+// .bss
 extern Mtx4F D_80371D10;
 extern Mtx4F D_80371D50;
 
@@ -66,9 +76,9 @@ void func_80334308(u16 modelId) {
         return;
     }
     D_8035046C = modelId;
-    if (modelId == 0xFFFF) {
+    if (modelId == MODEL_WORLD) {
         if (D_80350470 != 0xFFFF) {
-            uvDobjModel(D_80350470, 0xFFFF);
+            uvDobjModel(D_80350470, MODEL_WORLD);
             D_80350470 = 0xFFFF;
         }
     } else {
@@ -85,28 +95,30 @@ void func_80334308(u16 modelId) {
 }
 
 void func_803343D8(s32 arg0) {
-    if (D_80350470 != 0xFFFF) {
-        if (arg0 != 0) {
-            if (D_80350460 == 0) {
-                uvDobjState(D_80350470, 2);
-            }
-            D_80350460 = 2;
-        } else {
-            if (D_80350460 != 0) {
-                uvDobjState(D_80350470, 0);
-            }
-            D_80350460 = 0;
+    if (D_80350470 == 0xFFFF) {
+        return;
+    }
+
+    if (arg0 != 0) {
+        if (D_80350460 == 0) {
+            uvDobjState(D_80350470, 2);
         }
+        D_80350460 = 2;
+    } else {
+        if (D_80350460 != 0) {
+            uvDobjState(D_80350470, 0);
+        }
+        D_80350460 = 0;
     }
 }
 
-void func_80334454(u16 arg0, u16 arg1) {
-    D_80350468 = arg0;
-    D_80350464 = arg1;
-    if (arg0 != 0xFFFF) {
-        func_80334308(arg0);
-    } else if (arg1 != 0xFFFF) {
-        func_80334308(arg1);
+void func_80334454(u16 modelId, u16 modelId2) {
+    D_80350468 = modelId;
+    D_80350464 = modelId2;
+    if (modelId != MODEL_WORLD) {
+        func_80334308(modelId);
+    } else if (modelId2 != MODEL_WORLD) {
+        func_80334308(modelId2);
     }
 }
 
@@ -124,7 +136,7 @@ void func_803344BC(Mtx4F* arg0, f32 arg1) {
         var_v0 = D_8035046A;
     }
 
-    if (var_v0 == 0xFFFF) {
+    if (var_v0 == MODEL_WORLD) {
         return;
     }
 
@@ -567,13 +579,11 @@ void func_803358D4(void) {
     }
 }
 
-// referenced in func_80335BE4
-s32 func_80335AE0(UNK_TYPE arg0, UNK_TYPE arg1, UNK_TYPE arg2) {
+s32 func_80335AE0(s32 arg0, s32 arg1, s32 arg2) {
     return 0;
 }
 
-// referenced in func_80335BE4
-s32 func_80335AF4(UNK_TYPE arg0, UNK_TYPE arg1, UNK_TYPE arg2) {
+s32 func_80335AF4(s32 arg0, s32 arg1, s32 arg2) {
     s32 pad;
     s32 sp18 = 0;
 
@@ -599,7 +609,54 @@ void shadowInit(void) {
     D_803504B0 = 3;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80335BE4.s")
+void func_80335BE4(void) {
+    LevelESND sp88;
+    u16 classIdx;
+    u16 vehIdx;
+    u16 testIdx;
+    s32 var_v1;
+    Vec3F sp70 = D_803504E8;
+    Mtx4F sp30;
+
+    D_803504B8 = uvDobjAllocIdx();
+    if (D_803504B8 != 0xFFFF) {
+        uvDobjModel(D_803504B8, MODEL_BIG_RED_SQUARE);
+        uvDobjState(D_803504B8, 0x22);
+        uvMat4SetIdentity(&sp30);
+        uvMat4LocalTranslate(&sp30, 2870.0f, -2230.0f, 57.51f);
+        uvDobjPosm(D_803504B8, 0, &sp30);
+    }
+    D_803504B4 = uvDobjAllocIdx();
+    if (D_803504B4 == 0xFFFF) {
+        return;
+    }
+
+    uvDobjModel(D_803504B4, MODEL_SPACE_SHUTTLE);
+    uvDobjState(D_803504B4, D_803504B0);
+    D_803504C0 = func_80321210(func_80335AF4, func_80335AE0, sp70, 750.0f, 0.0f, 1);
+    func_80334CCC();
+    uvMat4SetIdentity(&sp88.unk0);
+    sp88.sndId = 0x14;
+    sp88.unk64 = 0;
+    sp88.unk74 = 8;
+    sp88.unk70 = 0;
+    sp88.unk5C = 1.0f;
+    sp88.unk60 = 1.0f;
+    sp88.unk0.m[3][0] = 2870.0f;
+    sp88.unk0.m[3][1] = -2230.0f;
+    sp88.unk0.m[3][2] = 57.51f;
+    sp88.unk68 = 500.0f;
+    sp88.unk6C = 1500.0f;
+    envSoundLoad(&sp88);
+    taskGetClsVehTest(&classIdx, &vehIdx, &testIdx);
+    var_v1 = (testIdx == 0 && classIdx == CLASS_A && vehIdx == VEHICLE_HANG_GLIDER) || (testIdx == 1 && classIdx == CLASS_B && vehIdx == VEHICLE_HANG_GLIDER) ||
+             (testIdx == 2 && classIdx == CLASS_PILOT && vehIdx == VEHICLE_HANG_GLIDER);
+    if (var_v1 != 0) {
+        D_803504BC = hudAddWaypoint(D_80371D50.m[3][0], D_80371D50.m[3][1], D_80371D50.m[3][2]);
+    } else {
+        D_803504BC = 0xFF;
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80335E44.s")
 
