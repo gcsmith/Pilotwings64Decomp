@@ -1,18 +1,11 @@
 #include "common.h"
 #include "code_72B70.h"
-#include "code_9A960.h"
-#include "code_D1ED0.h"
-#include "env_sound.h"
-#include "hud.h"
 #include "kernel/code_8170.h"
 #include "shadow.h"
-#include "smoke.h"
-#include "proxanim.h"
-#include <uv_dobj.h>
-#include <uv_fx.h>
 #include <uv_math.h>
 #include <uv_model.h>
-#include <uv_seq.h>
+#include <uv_matrix.h>
+#include <uv_vector.h>
 
 s32 D_80350460 = 0;
 s32 D_80350464 = 0xFFFF; // some model id
@@ -21,36 +14,6 @@ s32 D_8035046C = 0xFFFF;
 s32 D_80350470 = 0xFFFF;
 f32 D_80350474 = 0.0f;
 f32 D_80350478 = 0.0f;
-// No idea where this data is used
-f32 pad_D_8035047C[] = { 0.0f, 0.0f, 0.0f, 1.0f, 0.0f };
-s32 D_80350490 = 0;
-s32 D_80350494 = 0; // some state? values between 1 and 4
-f32 D_80350498 = 0.0f;
-f32 D_8035049C = 0.0f;
-f32 D_803504A0 = 55.0f;
-f64 D_803504A8 = 0.0;
-s32 D_803504B0 = 0;
-s32 D_803504B4 = 0xFFFF; // dobj id
-s32 D_803504B8 = 0xFFFF;
-s32 D_803504BC = 0xFF;
-s32 D_803504C0 = 0;
-s16 D_803504C4 = 0xFFFF;
-s16 D_803504C8 = 0xFFFF;
-s16 D_803504CC = 0xFFFF;
-s32 D_803504D0 = 0xFF;
-s32 D_803504D4 = 0xFF;
-s32 D_803504D8 = 0xFF;
-s32 D_803504DC = 0xFF;
-s32 D_803504E0 = 0xFF;
-s32 D_803504E4 = 0xFF;
-
-Mtx4F D_80371D10;
-Mtx4F D_80371D50;
-f32 D_80371D90;
-f32 D_80371D94;
-s32 D_80371D98;
-s32 D_80371D9C;
-f64 D_80371DA0;
 
 // forward declarations
 void func_803347D0(Mtx4F*);
@@ -65,7 +28,7 @@ void func_803342FC(f32 arg0) {
     D_80350478 = arg0;
 }
 
-void func_80334308(u16 modelId) {
+void shadowModels(u16 modelId) {
     if (D_8035046C == modelId) {
         return;
     }
@@ -110,9 +73,9 @@ void func_80334454(u16 modelId, u16 modelId2) {
     D_80350468 = modelId;
     D_80350464 = modelId2;
     if (modelId != MODEL_WORLD) {
-        func_80334308(modelId);
+        shadowModels(modelId);
     } else if (modelId2 != MODEL_WORLD) {
-        func_80334308(modelId2);
+        shadowModels(modelId2);
     }
 }
 
@@ -210,7 +173,7 @@ void func_80334578(Mtx4F* arg0, f32 arg1) {
         }
         uvMat4Scale(&sp2C, var_fv0, var_fv0, var_fv0);
     }
-    func_80334308(D_80350464);
+    shadowModels(D_80350464);
     uvDobjPosm(D_80350470, 0, &sp2C);
 }
 
@@ -258,9 +221,9 @@ void func_803347D0(Mtx4F* arg0) {
     sp54 = sp58.m[3][0] + ((sp58.m[1][0] * D_80350474) * sp58.m[3][2]);
     sp50 = sp58.m[3][1] + ((sp58.m[1][1] * D_80350474) * sp58.m[3][2]);
     if (uvTerraGetPt(D_80362690->terraId, sp54, sp50, &sp2C) != 0) {
-        func_80334308(D_80350468);
+        shadowModels(D_80350468);
     } else {
-        func_80334308(D_80350464);
+        shadowModels(D_80350464);
         if (arg0->m[3][2] < 2.0f) {
             temp_fv1_3 = arg0->m[3][2] * 0.5f;
             if (temp_fv1_3 > 0.01f) {
@@ -277,10 +240,6 @@ void func_803347D0(Mtx4F* arg0) {
     uvDobjPosm(D_80350470, 0, &sp58);
 }
 
-#ifndef NON_MATCHING
-#pragma GLOBAL_ASM("asm/nonmatchings/app/shadow/func_80334A38.s")
-#else
-// matches but causes .late_rodata offset?
 f32 func_80334A38(Vec3F* arg0) {
     s32* surfaceId;
     f32 temp_fs4;
@@ -316,7 +275,7 @@ f32 func_80334A38(Vec3F* arg0) {
         spB0 = arg0->f[2] - (spA8[i] * 200.0f);
         if (var_fs0 < spB0) {
             var_fs0 = spB0;
-            var_fs0 += ((temp_fs4 - spB0) / 100.0f) + 0.1f;
+            var_fs0 += ((temp_fs4 - spB0) / 100.0f) + 0.1000000015f;
             var_fs1 = spA4[i].f[0];
             var_fs2 = spA4[i].f[1];
             var_fs3 = spA4[i].f[2];
@@ -327,9 +286,6 @@ f32 func_80334A38(Vec3F* arg0) {
     arg0->f[2] = var_fs3;
     return var_fs0;
 }
-#endif
-
-// maybe split here?
 
 void func_80334C70(void) {
     if (D_80350470 != 0xFFFF) {
@@ -340,405 +296,3 @@ void func_80334C70(void) {
     D_80350468 = 0xFFFF;
     D_8035046C = 0xFFFF;
 }
-
-s32 func_80334CC0(void) {
-    return D_80350490;
-}
-
-void func_80334CCC(void) {
-    Mtx4F sp80;
-    Mtx4F sp40;
-
-    func_80335130();
-    uvDobjState(D_803504B4, D_803504B0);
-    if (D_80350494 == 2) {
-        uvMat4SetIdentity(&sp80);
-        uvMat4RotateAxis(&sp80, 3.1415923f, 'z');
-        uvMat4LocalTranslate(&sp80, 0.0f, 0.0f, D_8035049C);
-        uvMat4Mul(&D_80371D50, &sp80, &D_80371D10);
-        uvDobjPosm(D_803504B4, 0, &D_80371D50);
-        if (D_803504D0 != 0xFF) {
-            uvFxProps(D_803504D0, FX_3(40.0f, 40.0f, 40.0f), FX_END);
-        }
-        if (D_803504D4 != 0xFF) {
-            uvFxProps(D_803504D4, FX_3(40.0f, 40.0f, 40.0f), FX_END);
-        }
-        if (D_803504E4 != 0xFF) {
-            uvFxProps(D_803504E4, FX_3(15.0f, 1.0f, -25.0f), FX_END);
-        }
-        if (D_803504E0 != 0xFF) {
-            uvFxProps(D_803504E0, FX_3(15.0f, 1.0f, -25.0f), FX_END);
-        }
-        if (D_803504C4 >= 0) {
-            smoke_props(D_803504C4, SMOKE_FX_2(D_803504A0), SMOKE_FX_END);
-        }
-    } else if (D_80350494 == 1) {
-        D_8035049C = 0 /*.0f*/;
-        D_80350498 = 0 /*.0f*/;
-        uvMat4SetIdentity(&sp40);
-        uvMat4RotateAxis(&sp40, 3.1415923f, 'z');
-        uvMat4SetIdentity(&D_80371D10);
-        uvMat4LocalTranslate(&D_80371D10, 2870.0f, -2230.0f, 57.51f);
-        uvMat4Mul(&D_80371D50, &sp40, &D_80371D10);
-        uvDobjPosm(D_803504B4, 0, &D_80371D50);
-        if (D_803504C4 >= 0) {
-            smoke_props(D_803504C4, SMOKE_FX_2(D_803504A0), SMOKE_FX_END);
-        }
-    }
-    if (D_80350494 != 4) {
-        uvMat4Copy(&sp40, &D_80371D50);
-        uvMat4LocalTranslate(&sp40, -10.0f, 0.0f, -24.0f);
-        uvMat4RotateAxis(&sp40, 1.5707961f, 'x');
-        uvMat4RotateAxis(&sp40, 0.08726645f, 'y');
-        if (D_803504D0 != 0xFF) {
-            func_8021A4D8(D_803504D0, &sp40);
-        }
-        if (D_803504C8 >= 0) {
-            smoke_props(D_803504C8, SMOKE_FX_6(sp40.m[3][0], sp40.m[3][1], sp40.m[3][2]), SMOKE_FX_END);
-        }
-        if (D_803504E4 != 0xFF) {
-            func_8021A4D8(D_803504E4, &sp40);
-        }
-        uvMat4Copy(&sp40, &D_80371D50);
-        uvMat4LocalTranslate(&sp40, 10.0f, 0.0f, -24.0f);
-        uvMat4RotateAxis(&sp40, 1.5707961f, 'x');
-        uvMat4RotateAxis(&sp40, 0.08726645f, 'y');
-        if (D_803504D4 != 0xFF) {
-            func_8021A4D8(D_803504D4, &sp40);
-        }
-        if (D_803504CC >= 0) {
-            smoke_props(D_803504CC, SMOKE_FX_6(sp40.m[3][0], sp40.m[3][1], sp40.m[3][2]), SMOKE_FX_END);
-        }
-        if (D_803504E0 != 0xFF) {
-            func_8021A4D8(D_803504E0, &sp40);
-        }
-    }
-}
-
-void func_80335130(void) {
-    if (D_803504D0 == 0xFF) {
-        D_803504D0 = func_8034B464(2);
-    }
-
-    if (D_803504D0 != 0xFF) {
-        uvFxProps(D_803504D0, FX_3(0.0f, 0.0f, 0.0f), FX_5(1.0f, 0.925f, 0.709f, 0.75f), FX_6(1.0f, 1.0f, 1.0f, 0.0f), FX_4(1.0f, 1.0f, 1.0f), FX_1(1e+20),
-                  FX_END);
-    }
-
-    if (D_803504D4 == 0xFF) {
-        D_803504D4 = func_8034B464(2);
-    }
-
-    if (D_803504D4 != 0xFF) {
-        uvFxProps(D_803504D4, FX_3(0.0f, 0.0f, 0.0f), FX_5(1.0f, 0.925f, 0.709f, 0.75f), FX_6(1.0f, 1.0f, 1.0f, 0.0f), FX_4(1.0f, 1.0f, 1.0f), FX_1(1e+20),
-                  FX_END);
-    }
-
-    if (D_803504DC == 0xFF) {
-        D_803504DC = func_80218F88();
-        if (D_803504DC != 0xFF) {
-            uvSeqModel(D_803504DC, 0);
-            uvSeqProps(D_803504DC, FX_SEQ_4(60.0f), FX_SEQ_END);
-            D_803504E4 = func_8034B464(6);
-            if (D_803504E4 != 0xFF) {
-                uvFxProps(D_803504E4, FX_13(D_803504DC), FX_1(1e+20), FX_3(0.0f, 0.0f, 0.0f), FX_END);
-            }
-        }
-    }
-
-    if (D_803504D8 == 0xFF) {
-        D_803504D8 = func_80218F88();
-        if (D_803504D8 != 0xFF) {
-            uvSeqModel(D_803504D8, 0);
-            uvSeqProps(D_803504D8, FX_SEQ_4(60.0f), FX_SEQ_END);
-            D_803504E0 = func_8034B464(6);
-            if (D_803504E0 != 0xFF) {
-                uvFxProps(D_803504E0, FX_13(D_803504D8), FX_1(1e+20), FX_3(0.0f, 0.0f, 0.0f), FX_END);
-            }
-        }
-    }
-
-    if (D_803504C4 == -1) {
-        D_803504C4 = smoke_create();
-    }
-
-    if (D_803504C4 >= 0) {
-        smoke_props(D_803504C4, SMOKE_FX_5(0.0f, 0.0f, 0.0f), SMOKE_FX_3(10.0f), SMOKE_FX_4(1000.0f), SMOKE_FX_2(0.0f),
-                    SMOKE_FX_6(2870.0f, -2230.0f, 27.509998f), SMOKE_FX_7(0), SMOKE_FX_END);
-    }
-
-    if (D_803504C8 == -1) {
-        D_803504C8 = smoke_create();
-    }
-
-    if (D_803504C8 >= 0) {
-        smoke_props(D_803504C8, SMOKE_FX_5(0.0f, 0.0f, -1.0f), SMOKE_FX_3(3.0f), SMOKE_FX_4(1000.0f), SMOKE_FX_9(80.0f, 80.0f, 160.0f), SMOKE_FX_7(1),
-                    SMOKE_FX_END);
-    }
-
-    if (D_803504CC == -1) {
-        D_803504CC = smoke_create();
-    }
-
-    if (D_803504CC >= 0) {
-        smoke_props(D_803504CC, SMOKE_FX_5(0.0f, 0.0f, -1.0f), SMOKE_FX_3(3.0f), SMOKE_FX_4(1000.0f), SMOKE_FX_9(80.0f, 80.0f, 160.0f), SMOKE_FX_7(1),
-                    SMOKE_FX_END);
-    }
-}
-
-void func_80335700(void) {
-    if (D_803504E4 != 0xFF) {
-        uvModelGet(D_803504E4, 0xFF);
-        uvFxProps(D_803504E4, FX_11(0), FX_END);
-        D_803504E4 = 0xFF;
-    }
-
-    if (D_803504E0 != 0xFF) {
-        uvModelGet(D_803504E0, 0xFF);
-        uvFxProps(D_803504E0, FX_11(0), FX_END);
-        D_803504E0 = 0xFF;
-    }
-
-    if (D_803504DC != 0xFF) {
-        uvSeqProps(D_803504DC, FX_SEQ_1(0), FX_SEQ_END);
-        D_803504DC = 0xFF;
-    }
-
-    if (D_803504D8 != 0xFF) {
-        uvSeqProps(D_803504D8, FX_SEQ_1(0), FX_SEQ_END);
-        D_803504D8 = 0xFF;
-    }
-
-    if (D_803504D0 != 0xFF) {
-        uvModelGet(D_803504D0, 0xFF);
-        uvFxProps(D_803504D0, FX_11(0), FX_END);
-        D_803504D0 = 0xFF;
-    }
-
-    if (D_803504D4 != 0xFF) {
-        uvModelGet(D_803504D4, 0xFF);
-        uvFxProps(D_803504D4, FX_11(0), FX_END);
-        D_803504D4 = 0xFF;
-    }
-
-    if (D_803504C4 >= 0) {
-        smoke_props(D_803504C4, 8, 0, 0);
-        D_803504C4 = -1;
-    }
-
-    if (D_803504C8 >= 0) {
-        smoke_props(D_803504C8, 8, 0, 0);
-        D_803504C8 = -1;
-    }
-
-    if (D_803504CC >= 0) {
-        smoke_props(D_803504CC, 8, 0, 0);
-        D_803504CC = -1;
-    }
-}
-
-void func_803358D4(void) {
-    if (D_80350494 == 2) {
-        D_80350498 += D_8034F854 * 0.5f;
-        D_8035049C += D_80350498;
-        if (D_803504A0 > 0.0f) {
-            D_803504A0 -= 5.0f;
-        } else {
-            D_803504A0 = 0.0f;
-        }
-        if (D_8035049C > 2048.0f) {
-            D_80350494 = 3;
-            // @fake? should just assign 0 instead
-            D_803504B0 *= 0;
-            uvDobjState(D_803504B4, 0);
-            D_803504A8 = 0.0;
-        }
-        func_80334CCC();
-    } else if (D_80350494 == 1) {
-        D_803504A8 += D_8034F854;
-        D_803504A0 += 5.0f;
-        if (D_803504A8 > 7.0) {
-            D_80350494 = 2;
-        }
-        func_80334CCC();
-    } else if (D_80350494 == 3) {
-        D_803504A8 += D_8034F854;
-        if ((12.0f * D_8034F854) < D_803504A8) {
-            D_80350494 = 4;
-            func_80335700();
-        }
-        func_80335130();
-        uvDobjState(D_803504B4, D_803504B0);
-    } else {
-        func_80335130();
-        uvDobjState(D_803504B4, D_803504B0);
-    }
-}
-
-s32 func_80335AE0(s32 arg0, s32 arg1, s32 arg2) {
-    return 0;
-}
-
-s32 func_80335AF4(s32 arg0, s32 arg1, s32 arg2) {
-    s32 pad;
-    s32 sp18 = 0;
-
-    func_80335130();
-    uvDobjState(D_803504B4, D_803504B0);
-    if (func_80321420(arg0) > 750.0f && (D_80350494 == 4 || D_80350494 == 1)) {
-        D_80350490 = 0;
-        sp18 = 2;
-    } else {
-        D_80350490 = 1;
-        func_803358D4();
-    }
-    return sp18;
-}
-
-void shadowInit(void) {
-    D_80350490 = 0;
-    D_80350494 = 1;
-    D_803504A8 = 0.0;
-    D_803504A0 = 0.0f;
-    D_8035049C = 0.0f;
-    D_80350498 = 0.0f;
-    D_803504B0 = 3;
-}
-
-void func_80335BE4(void) {
-    LevelESND sp88;
-    u16 classIdx;
-    u16 vehIdx;
-    u16 testIdx;
-    s32 var_v1;
-    Vec3F sp70 = { 2870.0f, -2230.0f, 57.51f };
-    Mtx4F sp30;
-
-    D_803504B8 = uvDobjAllocIdx();
-    if (D_803504B8 != 0xFFFF) {
-        uvDobjModel(D_803504B8, MODEL_BIG_RED_SQUARE);
-        uvDobjState(D_803504B8, 0x22);
-        uvMat4SetIdentity(&sp30);
-        uvMat4LocalTranslate(&sp30, 2870.0f, -2230.0f, 57.51f);
-        uvDobjPosm(D_803504B8, 0, &sp30);
-    }
-    D_803504B4 = uvDobjAllocIdx();
-    if (D_803504B4 == 0xFFFF) {
-        return;
-    }
-
-    uvDobjModel(D_803504B4, MODEL_SPACE_SHUTTLE);
-    uvDobjState(D_803504B4, D_803504B0);
-    D_803504C0 = func_80321210(func_80335AF4, func_80335AE0, sp70, 750.0f, 0.0f, 1);
-    func_80334CCC();
-    uvMat4SetIdentity(&sp88.unk0);
-    sp88.sndId = 0x14;
-    sp88.unk64 = 0;
-    sp88.unk74 = 8;
-    sp88.unk70 = 0;
-    sp88.unk5C = 1.0f;
-    sp88.unk60 = 1.0f;
-    sp88.unk0.m[3][0] = 2870.0f;
-    sp88.unk0.m[3][1] = -2230.0f;
-    sp88.unk0.m[3][2] = 57.51f;
-    sp88.unk68 = 500.0f;
-    sp88.unk6C = 1500.0f;
-    envSoundLoad(&sp88);
-    taskGetClsVehTest(&classIdx, &vehIdx, &testIdx);
-    var_v1 = (testIdx == 0 && classIdx == CLASS_A && vehIdx == VEHICLE_HANG_GLIDER) || (testIdx == 1 && classIdx == CLASS_B && vehIdx == VEHICLE_HANG_GLIDER) ||
-             (testIdx == 2 && classIdx == CLASS_PILOT && vehIdx == VEHICLE_HANG_GLIDER);
-    if (var_v1 != 0) {
-        D_803504BC = hudAddWaypoint(D_80371D50.m[3][0], D_80371D50.m[3][1], D_80371D50.m[3][2]);
-    } else {
-        D_803504BC = 0xFF;
-    }
-}
-
-void func_80335E44(void) {
-    if (D_803504B8 != 0xFFFF) {
-        uvDobjModel(D_803504B8, MODEL_WORLD);
-        D_803504B8 = 0xFFFF;
-    }
-
-    if (D_803504B4 != 0xFFFF) {
-        uvDobjModel(D_803504B4, MODEL_WORLD);
-        D_803504B4 = 0xFFFF;
-        func_80335700();
-        func_803212DC(D_803504C0);
-        D_803504C0 = 0;
-        if (D_803504BC != 0xFF) {
-            hud_8031A8E0(D_803504BC);
-        }
-        D_803504BC = 0xFF;
-    }
-}
-
-f32 func_80335EE4(void) {
-    f32 var_fv1;
-
-    var_fv1 = D_8035049C;
-    if (var_fv1 > 512.0f) {
-        var_fv1 = 512.0f;
-    }
-    return (var_fv1 * 0.5f) / 255.0f;
-}
-
-void func_80335F24(Vec3F* arg0) {
-    if (D_803504B4 == 0xFFFF) {
-        arg0->f[0] = 2870.0f;
-        arg0->f[1] = -2230.0f;
-        arg0->f[2] = 57.51f;
-    } else {
-        arg0->f[0] = D_80371D50.m[3][0];
-        arg0->f[1] = D_80371D50.m[3][1];
-        arg0->f[2] = D_80371D50.m[3][2];
-    }
-}
-
-s32 func_80335F84(void) {
-    Unk80362690_Unk0* temp = &D_80362690->unkC[D_80362690->unk9C];
-
-    if (temp->unkA == 4 || temp->unkA == 5) {
-        return 4;
-    }
-
-    return D_80350494;
-}
-
-void func_80335FD8(f32 arg0) {
-    if (D_803504B4 == 0xFFFF) {
-        return;
-    }
-
-    func_80335130();
-    D_80350494 = 1;
-    D_803504B0 = 3;
-    D_803504A8 = 0.0;
-    func_80334CCC();
-    D_80350494 = 2;
-    D_8035049C = 2.0f * arg0 * 255.0f;
-    func_80334CCC();
-}
-
-void func_80336064(void) {
-    if (D_803504B4 != 0xFFFF) {
-        func_80335700();
-    }
-}
-
-void func_80336094(void) {
-    D_80371D90 = D_8035049C;
-    D_80371D98 = D_80350494;
-    D_80371D94 = D_80350498;
-    D_80371D9C = D_803504B0;
-    D_80371DA0 = D_803504A8;
-}
-
-void func_803360E8(void) {
-    D_8035049C = D_80371D90;
-    D_80350494 = D_80371D98;
-    D_80350498 = D_80371D94;
-    D_803504B0 = D_80371D9C;
-    D_803504A8 = D_80371DA0;
-}
-

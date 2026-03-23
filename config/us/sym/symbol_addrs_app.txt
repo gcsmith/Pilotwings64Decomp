@@ -266,6 +266,7 @@ resultDeinit        = 0x8032E698; // type:func
 resultGenTipText    = 0x8032EF10; // type:func
 
 shadowInit          = 0x80335B94; // type:func
+shadowModels        = 0x80334308; // type:func
 
 smoke_create        = 0x80336934; // type:func
 smoke_props         = 0x80336A04; // type:func
