@@ -84,7 +84,7 @@ void func_8032B508(Unk80364210* arg0) {
     arg0->unk1C = 0.0f;
     arg0->unk20 = 0.0f;
     arg0->unk8 = 10000.0f;
-    arg0->unkC = 10000.0f;
+    arg0->landedDist = 10000.0f;
     arg0->unk10 = 10000.0f;
     D_8034FBD0 = arg0;
 }
@@ -150,7 +150,7 @@ s32 func_8032B560(Unk80364210* arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
     sp60 = 0.0f;
     if (arg0->unk0 & 1) {
         if (sp74->unk0.unk0 > 0) {
-            sp60 = func_80313F08(&sp74->unk0, arg0->unkC);
+            sp60 = func_80313F08(&sp74->unk0, arg0->landedDist);
         }
         temp_v1->unk2 = sp60 + 0.001f;
     }
@@ -220,7 +220,7 @@ s32 func_8032B560(Unk80364210* arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
 
     sp6A = temp_v1->unk8 + temp_v1->unk14 + temp_v1->unkC + temp_v1->unkA + temp_v1->unkE + temp_v1->unk12 + temp_v1->unk18 + temp_v1->unk16 + temp_v1->unk6 +
            temp_v1->unk1A + temp_v1->unk1C + temp_v1->unk1E + temp_v1->unk20 + temp_v1->unk22 + temp_v1->unk24 + arg0->unk38;
-    if (arg0->unkC != 10000.0f) {
+    if (arg0->landedDist != 10000.0f) {
         temp_v1->unk4 = (sp64 * sp60) + 0.5f;
         temp_v1->unk2 = 0;
     }

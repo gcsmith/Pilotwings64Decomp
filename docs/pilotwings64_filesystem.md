@@ -333,7 +333,7 @@ Each map only defines one bonus star, but the game can support up to two.
 #### UPWL::LPAD / landing pads
 
 Landing pads are the *potential* landing pads used in the rocket belt and hang
-glider missions. The Pilotwings Task file has a separate `UPWT::LPAD` entry
+glider tests. The Pilotwings Task file has a separate `UPWT::LPAD` entry
 elaborating more details on the landing pad to use for a given test.
 
 | Offset | Type    | Description
@@ -343,11 +343,11 @@ elaborating more details on the landing pad to use for a given test.
 |  0x08  | LPAD[]  | array of entries
 
 | Entry  | Type   | Description
-|--------|--------|------------
+|--------|--------|--------------------------------------------
 |  0x00  | Vec3F  | position
-|  0x0C  | f32    | heading
-|  0x10  | s32    | TBD (always 0x0)
-|  0x14  | u8     | TBD (always 0x0)
+|  0x0C  | f32    | angle
+|  0x10  | s32    | is used (0 in FS, updated by test)
+|  0x14  | u8     | landing pad type (0, 1, 2). updated from `UWPT::LPAD`
 |  0x15  | pad[3] |
 | *0x18* |        | **Total length**
 
@@ -656,7 +656,7 @@ gyrocopter tests where Falco must be defeated.
 #### UPWT::LPAD / test landing pad
 
 `UPWT::LPAD` are the landing pads to be used for a test. This differs from the
-list of potential landings pads in the `UPWL` level (map) data. There will only
+list of `UPWL::LPAD` potential landings pads level (map) data. There will only
 be one test landing pad, but there can be many potential level landing pads.
 
 | Offset | Type    | Description
@@ -666,14 +666,13 @@ be one test landing pad, but there can be many potential level landing pads.
 |  0x08  | LPAD[]  | array of entries
 
 | Entry  | Type    | Description
-|--------|---------|------------
+|--------|---------|-------------------------------
 |  0x00  | Vec3F   | position
-|  0x0C  | Vec3F   | angle
+|  0x0C  | Vec3F   | unused, always (0, 0, 0)
 |  0x18  | pad[4]  |
-|  0x1C  | Vec3F   | TBD
-|  0x28  | u8      | TBD
-|  0x28  | pad[3]  |
-|  0x2C  | u8      | TBD
+|  0x1C  | Vec3F   | unused, always (0, 0, 0)
+|  0x28  | pad[4]  |
+|  0x2C  | u8      | pad type, used in model lookup
 |  0x2D  | pad[3]  |
 |  0x30  |         | **Total length**
 
@@ -682,13 +681,13 @@ be one test landing pad, but there can be many potential level landing pads.
 `LSTP` are the landing strips used for takeoff and landing in the gyrocopter tests.
 
 | Offset | Type   | Description
-|--------|--------|---------------------
-|  0x00  | f32    | upper-left position
-|  0x0C  | f32    | lower-right position
+|--------|--------|-----------------------------
+|  0x00  | Vec3F  | upper-left position
+|  0x0C  | Vec3F  | lower-right position
 |  0x18  | pad[4] |
-|  0x1C  | u8     | TBD
+|  0x1C  | u8     | valid landing strip for test
 |  0x1D  | pad[3] |
-|  0x20  | f32    | TBD
+|  0x20  | f32    | landing alignment requirement
 |  0x24  |        | **Total length**
 
 #### UPWT::LWIN / local winds

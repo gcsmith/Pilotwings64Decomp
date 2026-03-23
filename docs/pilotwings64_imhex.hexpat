@@ -436,9 +436,9 @@ struct LevelESND {
 // potential landing pad defined for Map (Level)
 struct LevelLPAD {
     Vec3F pos;
-    f32 unkC;
-    s32 unk10;
-    u8 unk14;
+    f32 angle;
+    s32 isUsed [[comment("0 in FS, update from UWPT::LPAD")]];
+    u8 type [[comment("type of landing pad model. updated from UWPT::LPAD")]];
     padding[3];
 } [[static]]; // size = 0x18
 
@@ -695,23 +695,22 @@ struct TaskHPAD {
 } [[static]] ; // size = 0x40
 
 struct TaskLPAD {
-    Vec3F pos;
-    Vec3F angle;
-    u8 pad18[4];
-    Vec3F unk1C;
-    u8 unk28;
-    u8 pad29[3];
-    u8 unk2C;
+    Vec3F pos [[comment("position vector")]];
+    Vec3F unkC [[comment("unused, always (0, 0, 0)")]];
+    padding[4];
+    Vec3F unk1C [[comment("unused, always (0, 0, 0)")]];
+    padding[4];
+    u8 padType [[comment("pad type, used in model lookup")]];
     padding[3];
 } [[static]]; // size = 0x30
 
 struct TaskLSTP {
-    Vec3F pos;
-    Vec3F unkC;
-    u8 pad10[0x4];
-    u8 unk1C;
+    Vec3F positionUL [[comment("upper-left position")]];
+    Vec3F positionLR [[comment("lower-right position")]];
+    padding[4];
+    u8 canLand [[comment("valid landing strip for test")]];
     padding[3];
-    f32 unk20;
+    f32 landingAlignment [[comment("landing alignment requirement")]];
 } [[static]]; // size = 0x24 (padded to 0x28 in FS)
 
 struct TaskLWIN {

@@ -684,7 +684,7 @@ segments:
       - { type: bss, vram: 0x8036BFF0, name: app/code_9C080 }
       - { type: bss, vram: 0x8036C0D0, name: app/code_9CF50 }
       - { type: .bss, vram: 0x8036C120, name: app/options }
-      - { type: bss, vram: 0x8036C150, name: app/pads }
+      - { type: .bss, vram: 0x8036C150, name: app/pads }
       - { type: .bss, vram: 0x8036C520, name: app/hud }
       - { type: bss, vram: 0x8036D230, name: app/code_A64C0 }
       - { type: bss, vram: 0x8036D2B0, name: app/code_A7460 }

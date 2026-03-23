@@ -163,7 +163,12 @@ map3d_mslot         = 0x80312684; // type:func
 padsInit            = 0x80316DC0; // type:func
 padsLoad            = 0x80316E40; // type:func
 padsFrameUpdate     = 0x80317634; // type:func
+padsUnused          = 0x80317764; // type:func
 padsDeinit          = 0x8031776C; // type:func
+padsInitLandingPads = 0x80317854; // type:func
+padsLandedPadStrip  = 0x80317978; // type:func
+padsCannonTgtDist   = 0x80317B50; // type:func
+padsStripAlignment  = 0x80317C2C; // type:func
 
 hudInit             = 0x80317DA0; // type:func
 hudGetState         = 0x80318294; // type:func
@@ -672,6 +677,7 @@ gTakeoffPads              = 0x8036C2C0; // size:0x24
 gLandingPads              = 0x8036C2E8; // size:0x150
 gLandingStrips            = 0x8036C438; // size:0x78
 gCannonTargets            = 0x8036C4B0; // size:0x48
+gLandingPadObjIds         = 0x8036C4F8; // size:0x28
 
 gRadarThermCirc           = 0x8036C520; // size:0x88
 gHudState                 = 0x8036C5A8; // size:0xC7C

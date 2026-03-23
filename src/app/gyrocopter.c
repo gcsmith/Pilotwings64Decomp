@@ -875,7 +875,7 @@ s32 func_80305DC0(GyrocopterData* arg0) {
     var_s6 = 0;
     var_fs1 = 0.0f;
 
-    func_80317978(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2], &arg0->unk6C);
+    padsLandedPadStrip(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2], &arg0->unk6C);
 
     for (i = 0; i < 4; i++) {
         uvMat4LocalToWorld(&arg0->unk10, &sp27C[i], &arg0->unk5EC[i]);
@@ -1219,7 +1219,7 @@ s32 func_80305DC0(GyrocopterData* arg0) {
                             (sp27C[1].x + sp27C[2].x) * 0.5f, (sp27C[1].y + sp27C[2].y) * 0.5f, sp27C[1].z, 7, 1, 0);
             }
             if ((arg0->unk50 == 0) && (sp23C < 12.698f)) {
-                func_8032BE10()->unkC = func_80317978(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2], &arg0->unk6C);
+                func_8032BE10()->landedDist = padsLandedPadStrip(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2], &arg0->unk6C);
                 arg0->unk50 = 1;
                 arg0->unk54 = sp23C;
                 if (arg0->unk6C != 0) {
