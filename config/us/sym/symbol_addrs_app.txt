@@ -283,7 +283,8 @@ resultDrawTally     = 0x8032E940; // type:func
 resultDeinit        = 0x8032E698; // type:func
 resultGenTipText    = 0x8032EF10; // type:func
 
-shuttleInit         = 0x80335B94; // type:func
+shadowInit          = 0x80335B94; // type:func
+shadowModels        = 0x80334308; // type:func
 
 smokeInit           = 0x803365A0; // type:func
 smokeCreate         = 0x80336934; // type:func
