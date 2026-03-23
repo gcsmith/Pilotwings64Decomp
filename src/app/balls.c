@@ -216,7 +216,7 @@ void ballsDeinit(void) {
 
     for (i = 0; i < gBallCount + gBallSplitCount; i++) {
         if (gBalls[i].objId != 0xFFFF) {
-            uvDobjModel(gBalls[i].objId, 0xFFFF);
+            uvDobjModel(gBalls[i].objId, MODEL_WORLD);
             gBalls[i].objId = 0xFFFF;
         }
     }
@@ -405,7 +405,7 @@ s32 ballsCollision(ParsedBALS* pb, Unk802D3658_Unk1228* arg1, Vec3F* arg2) {
     pb->unk74 = uvVec3Len(&sp48);
     if (pb->unk70 < pb->unk74) {
         func_802F996C(pb->unk4.m[3][0], pb->unk4.m[3][1], pb->unk4.m[3][2], (2.0f * D_80359388 * pb->unk7C));
-        uvDobjModel(pb->objId, 0xFFFF);
+        uvDobjModel(pb->objId, MODEL_WORLD);
         pb->objId = 0xFFFF;
         if (pb->unk1A8 != 0xFF) {
             hud_8031A8E0(pb->unk1A8);

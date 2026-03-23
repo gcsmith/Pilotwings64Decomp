@@ -5,6 +5,7 @@
 #include <uv_graphics.h>
 #include <uv_math.h>
 #include <uv_vector.h>
+#include <uv_seq.h>
 #include <libc/stdarg.h>
 #include "kernel/code_58E0.h"
 #include "kernel/code_7150.h"

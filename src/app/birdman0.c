@@ -121,7 +121,7 @@ void birdEnterLeave(BirdmanData* arg0) {
 
 // called when exiting a birdman level
 void bird_802CC51C(Unk802CC51C* arg0) {
-    uvDobjModel(arg0->objId, 0xFFFF);
+    uvDobjModel(arg0->objId, MODEL_WORLD);
     arg0->unkC = 0xFFFF;
     arg0->objId = 0xFFFF;
     func_80334C70();

@@ -301,11 +301,11 @@ void func_802D206C(void) {
     s32 i;
     for (i = 0; i < ARRAY_COUNT(D_803596A0); i++) {
         if (D_803596A0[i].unk8 != 0xFFFF) {
-            uvDobjModel(D_803596A0[i].unk8, 0xFFFF);
+            uvDobjModel(D_803596A0[i].unk8, MODEL_WORLD);
             D_803596A0[i].unk8 = 0xFFFF;
         }
         if (D_803596A0[i].unk0 != 0xFFFF) {
-            uvDobjModel(D_803596A0[i].unk0, 0xFFFF);
+            uvDobjModel(D_803596A0[i].unk0, MODEL_WORLD);
             D_803596A0[i].unk0 = 0xFFFF;
             func_803212DC(D_803596A0[i].unk40);
         }

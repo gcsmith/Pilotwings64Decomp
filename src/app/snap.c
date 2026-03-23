@@ -439,8 +439,8 @@ void func_80338A14(void) {
     temp_s1->unk36 = 1;
     taskGetClsVehTest(&temp_s1->cls, &temp_s1->veh, &temp_s1->test);
 
-    sp78 = (((temp_s1->test == 0) && (temp_s1->cls == CLASS_A))) || ((temp_s1->test == 1) && (temp_s1->cls == CLASS_B)) ||
-           ((temp_s1->test == 2) && (temp_s1->cls == CLASS_PILOT));
+    sp78 = ((temp_s1->test == 0 && temp_s1->cls == CLASS_A)) || (temp_s1->test == 1 && temp_s1->cls == CLASS_B) ||
+           (temp_s1->test == 2 && temp_s1->cls == CLASS_PILOT);
     temp_s1->unk28 = spDC->unk3C;
     temp_s1->unk2C = spDC->unk40;
     temp_s1->unk18 = (spDC->unk2C * spDC->unk3C) * 0.45;
@@ -1796,9 +1796,9 @@ s32 func_8033E3A8(s32 arg0) {
     Unk802D3658_Arg0* temp_s4;
     s32 renderFlags;
     u8* ptr;
-    u16 sp52;
-    u16 sp50;
-    u16 sp4E;
+    u16 classIdx;
+    u16 vehIdx;
+    u16 testIdx;
 
     temp_s4 = D_80362690->unkC[D_80362690->unk9C].unk70;
     ptr = taskGet_80345CB0();
@@ -1885,8 +1885,8 @@ s32 func_8033E3A8(s32 arg0) {
         func_802EBBB8();
     }
     D_80350594 = 0;
-    taskGetClsVehTest(&sp52, &sp50, &sp4E);
-    func_8033FCD0(sp50);
+    taskGetClsVehTest(&classIdx, &vehIdx, &testIdx);
+    func_8033FCD0(vehIdx);
     return D_80350550;
 }
 

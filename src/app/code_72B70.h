@@ -37,7 +37,8 @@ typedef struct {
     void* vehicleData;
     Unk802D3658_Arg0 *unk70;
     Unk80364210 *unk74;
-    u8 pad78[0x7B - 0x78];
+    u8 pad78[0x7A - 0x78];
+    u8 unk7A;
     u8 unk7B;
     u8 pad7C[0x80 - 0x7C];
     s32 unk80;

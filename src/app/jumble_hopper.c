@@ -97,7 +97,7 @@ void jumbleHopperEnterLeave(JumbleHopperData* arg0) {
 }
 
 void func_802FA290(JumbleHopperData* arg0) {
-    uvDobjModel(arg0->objId, 0xFFFF);
+    uvDobjModel(arg0->objId, MODEL_WORLD);
     arg0->contIdx = 0xFFFF;
     arg0->objId = 0xFFFF;
     func_80334C70();

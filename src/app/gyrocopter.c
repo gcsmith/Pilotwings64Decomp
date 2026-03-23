@@ -42,7 +42,7 @@ Unk803599D0 D_80369478;
 Unk803599D0 D_803694D0;
 Unk803599D0 D_80369528;
 u16 D_8036957C;
-u16 D_8036957E;
+u16 D_8036957E; // holds a class value
 
 void func_80303230(GyrocopterData* arg0) {
     s32 pad;

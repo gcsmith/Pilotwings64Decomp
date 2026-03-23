@@ -15,6 +15,7 @@
 #include <uv_sched.h>
 #include <uv_sprite.h>
 #include <uv_texture.h>
+#include <uv_seq.h>
 #include <macros.h>
 #include <segment_symbols.h>
 
@@ -62,7 +63,6 @@ void func_8022E558(void);
 
 void func_8020F9F4(void);
 void func_80218700(void);
-void func_80218BA0(void);
 void func_80219FD0(void);
 
 extern s32 gGfxSyncNeeded;

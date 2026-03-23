@@ -198,7 +198,7 @@ s32 ballTgtInGoal(void) {
                     bt->unk5B = 1;
                     ret = 1;
                     snd_play_sfx(0x11);
-                    uvDobjModel(bt->objId, 0xFFFF);
+                    uvDobjModel(bt->objId, MODEL_WORLD);
                     ballTgtInitDobj(bt);
                     bt->unk5A = j;
                 }
@@ -215,7 +215,7 @@ void ballTgtDeinit(void) {
     for (i = 0; i < sBallTgtCount; i++) {
         bt = &sBallTgts[i];
         if (bt->objId != 0xFFFF) {
-            uvDobjModel(bt->objId, 0xFFFF);
+            uvDobjModel(bt->objId, MODEL_WORLD);
             bt->objId = 0xFFFF;
         }
     }
