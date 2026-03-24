@@ -683,7 +683,7 @@ void func_80339C8C(HangGliderData* arg0) {
     s32 var_a2;
 
     var_a2 = demoGetButtons(0);
-    if (D_80362690->state != GAME_STATE_6) {
+    if (D_80362690->state != GAME_STATE_RESULTS) {
         if (D_8035054C != 0) {
             D_8035054C = 0;
             if (var_a2 & Z_TRIG) {
@@ -723,7 +723,7 @@ void func_80339E1C(BirdmanData* arg0) {
     s32 var_v1;
 
     var_v1 = demoGetButtons(0);
-    if (D_80362690->state != GAME_STATE_6) {
+    if (D_80362690->state != GAME_STATE_RESULTS) {
         if (D_8035054C != 0) {
             D_8035054C = 0;
             if (var_v1 & Z_TRIG) {
@@ -811,7 +811,7 @@ void func_8033A078(s32 arg0) {
     u8* ptr;
 
     ptr = taskGet_80345CB0();
-    if ((D_80362690->state != GAME_STATE_7) && (ptr[1] == 1)) {
+    if ((D_80362690->state != GAME_STATE_OPTIONS) && (ptr[1] == 1)) {
         func_803405C0();
     }
     if (D_80350590 != 0) {
@@ -853,7 +853,7 @@ void func_8033A128(s32 arg0, Unk80373060* arg1) {
         D_8035059C = temp_v1->cls;
         D_803505A0 = temp_v1->test;
         D_80362690->unkA2 = 1;
-        gameUpdateState4(D_80362690);
+        gameUpdateStateTestSetup(D_80362690);
     }
 }
 
@@ -1803,7 +1803,7 @@ s32 func_8033E3A8(s32 arg0) {
     temp_s4 = D_80362690->unkC[D_80362690->unk9C].unk70;
     ptr = taskGet_80345CB0();
     D_80350550 = 0;
-    if ((D_80362690->state != GAME_STATE_7) && (ptr[1] == 1)) {
+    if ((D_80362690->state != GAME_STATE_OPTIONS) && (ptr[1] == 1)) {
         func_803405E4();
     }
     if (arg0 == 3) {

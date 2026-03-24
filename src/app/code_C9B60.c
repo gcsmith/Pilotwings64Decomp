@@ -100,12 +100,12 @@ s32 func_80342630(void) {
                 var_fs1 = 1.0f;
             }
         }
-    } while (var_s1 == GAME_STATE_0 && var_fs1 == 0.0f);
+    } while (var_s1 == GAME_STATE_TITLE && var_fs1 == 0.0f);
 
     D_80350694++;
     func_80343294();
     if (var_fs1 != 0.0f) {
-        var_s1 = GAME_STATE_8;
+        var_s1 = GAME_STATE_DEMO_PILOT;
     }
 
     return var_s1;
@@ -290,7 +290,7 @@ STATIC_FUNC s32 func_80343550(void) {
     s32 temp_v0;
     s32 gameState;
 
-    gameState = GAME_STATE_0;
+    gameState = GAME_STATE_TITLE;
     func_80313D74();
     if (D_80350694 != 0 && D_80378CE0->unk28 < 7) {
         demo_80323020();
@@ -301,7 +301,7 @@ STATIC_FUNC s32 func_80343550(void) {
                 snd_play_sfx(1);
             }
             if (D_80378CE0->unk264 != 0) {
-                gameState = GAME_STATE_A;
+                gameState = GAME_STATE_FILE_MENU;
             } else {
                 D_80378CE0->unk264 = 1;
                 D_80378CE0->unk23C = -0.17453f;
@@ -354,7 +354,7 @@ STATIC_FUNC s32 func_80343550(void) {
         break;
     case 8:
         if (uvClkGetSec(4) >= 1.0) {
-            gameState = GAME_STATE_A;
+            gameState = GAME_STATE_FILE_MENU;
         }
         break;
     }
@@ -383,7 +383,7 @@ STATIC_FUNC s32 func_80343550(void) {
             D_80378CE0->unk28 = 8;
             break;
         case 1:
-            gameState = GAME_STATE_7;
+            gameState = GAME_STATE_OPTIONS;
             break;
         case -1:
             break;

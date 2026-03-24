@@ -113,7 +113,7 @@ void bird_802CE190(BirdmanData* arg0, u8 gameState) {
         uvMat4RotateAxis(&sp558, arg0->unk2EC, 'z');
         uvDobjPosm(arg0->objId, 0x17, &sp558);
     }
-    if (gameState != GAME_STATE_6) {
+    if (gameState != GAME_STATE_RESULTS) {
         arg0->unk2FC = func_80313AF4(uvSinF(arg0->unkD0) * (2.0f * arg0->unk24C), arg0->unk2FC, 0.5f);
         if (arg0->unk2FC < -1.047f) {
             arg0->unk2FC = -1.047f;

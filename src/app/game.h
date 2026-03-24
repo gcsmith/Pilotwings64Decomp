@@ -12,22 +12,22 @@
 #include "skydiving.h"
 
 typedef enum GameState {
-    /*  0 */ GAME_STATE_0,
+    /*  0 */ GAME_STATE_TITLE,
     /*  1 */ GAME_STATE_1,
-    /*  2 */ GAME_STATE_2,
-    /*  3 */ GAME_STATE_3,
-    /*  4 */ GAME_STATE_4,
-    /*  5 */ GAME_STATE_5,
-    /*  6 */ GAME_STATE_6,
-    /*  7 */ GAME_STATE_7,
-    /*  8 */ GAME_STATE_8,
-    /*  9 */ GAME_STATE_9,
-    /* 10 */ GAME_STATE_A,
-    /* 11 */ GAME_STATE_B,
-    /* 12 */ GAME_STATE_C,
-    /* 13 */ GAME_STATE_D,
-    /* 14 */ GAME_STATE_E,
-    /* 15 */ GAME_STATE_F,
+    /*  2 */ GAME_STATE_TEST_DETAILS,
+    /*  3 */ GAME_STATE_PILOT_SELECT,
+    /*  4 */ GAME_STATE_TEST_SETUP,
+    /*  5 */ GAME_STATE_TEST_UPDATE,
+    /*  6 */ GAME_STATE_RESULTS,
+    /*  7 */ GAME_STATE_OPTIONS,
+    /*  8 */ GAME_STATE_DEMO_PILOT,
+    /*  9 */ GAME_STATE_DEMO_TEST_SETUP,
+    /* 10 */ GAME_STATE_FILE_MENU,
+    /* 11 */ GAME_STATE_VEHICLE_CLASS_SELECT,
+    /* 12 */ GAME_STATE_TEST_OVERVIEW,
+    /* 13 */ GAME_STATE_RESULTS_CB,
+    /* 14 */ GAME_STATE_CONGRATULATIONS,
+    /* 15 */ GAME_STATE_CREDITS,
     /* 16 */ GAME_STATE_COUNT,
 } GameState;
 
@@ -115,7 +115,7 @@ extern Unk80362690* D_80362690;
 void gameInit(void);
 void func_802EBBB8(void);
 void gameUpdate(void);
-s32 gameUpdateState4(Unk80362690*);
+s32 gameUpdateStateTestSetup(Unk80362690*);
 void func_802ECE94(Unk80362690*);
 void func_802EDD9C(Unk80362690_Unk0*, Mtx4F*);
 void func_802EDDEC(Mtx4F*);

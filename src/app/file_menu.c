@@ -289,7 +289,7 @@ s32 fileMenuChoose(void) {
     switch (menuChoice) {
     case 0:
     case 1:
-        ret = GAME_STATE_B;
+        ret = GAME_STATE_VEHICLE_CLASS_SELECT;
         break;
     case 2:
         fileMenuSetup(1);
@@ -297,7 +297,7 @@ s32 fileMenuChoose(void) {
         fileMenu_802E8FF4(0);
         break;
     case -1:
-        ret = GAME_STATE_0;
+        ret = GAME_STATE_TITLE;
         break;
     case -3:
         menuChoice = menu_8030B668();

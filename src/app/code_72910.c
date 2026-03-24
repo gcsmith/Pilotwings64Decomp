@@ -4,9 +4,12 @@
 #include <uv_fx.h>
 #include <uv_math.h>
 #include "kernel/code_8170.h"
+#include "app/fire_effects.h"
+#include "app/game.h"
 #include "app/smoke.h"
 #include "app/snd.h"
-#include "app/game.h"
+#include "app/splash.h"
+#include "app/code_9B960.h"
 
 extern s16 D_8034EE30[VEHICLE_COUNT][PILOT_COUNT];
 extern u8 D_80359DB4;

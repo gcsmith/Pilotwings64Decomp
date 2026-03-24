@@ -79,7 +79,7 @@ s32 func_802DA574(Unk80362690* arg0) {
 
     temp_s0 = &arg0->unkC[arg0->unk9C];
     func_802DA6E0(arg0, D_8034EA64[D_8034EA40]);
-    while ((gameState = func_802DAA34()) == GAME_STATE_8) {
+    while ((gameState = func_802DAA34()) == GAME_STATE_DEMO_PILOT) {
         uvGfxBegin();
         func_802DAB18(temp_s0->unk70);
         uvGfxEnd();
@@ -212,7 +212,7 @@ s32 func_802DAA34(void) {
     func_80313D74();
     D_80359C40 += D_8034F854;
     if (D_80359C40 >= 5.0f) {
-        return GAME_STATE_9;
+        return GAME_STATE_DEMO_TEST_SETUP;
     }
     if (uvControllerButtonPress(D_80362690->unk9C, A_BUTTON | B_BUTTON | START_BUTTON)) {
         func_80344258(0);
@@ -221,9 +221,9 @@ s32 func_802DAA34(void) {
         } else if (uvControllerButtonPress(D_80362690->unk9C, B_BUTTON)) {
             snd_play_sfx(0x01);
         }
-        return GAME_STATE_0;
+        return GAME_STATE_TITLE;
     }
-    return GAME_STATE_8;
+    return GAME_STATE_DEMO_PILOT;
 }
 
 void func_802DAB18(Camera* arg0) {

@@ -14,6 +14,7 @@
 #include "code_9A960.h"
 #include "code_B3A70.h"
 #include "code_D1ED0.h"
+#include "code_D2B10.h"
 #include "code_D2D50.h"
 #include "demo.h"
 #include "environment.h"

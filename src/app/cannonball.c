@@ -187,14 +187,14 @@ void cannonMovementFrame(CannonballData* arg0, u8 gameState) {
 
     arg0->unk8 += D_8034F854;
     arg0->unk11D = 0;
-    if (gameState != GAME_STATE_6) {
+    if (gameState != GAME_STATE_RESULTS) {
         stickX = demoGetInputs(arg0->unk10, INPUT_AXIS_X);
         stickY = demoGetInputs(arg0->unk10, INPUT_AXIS_Y);
         spE4 = demoGetButtons(arg0->unk10);
     }
     sp2C = &arg0->unk14;
     func_802E65AC(&arg0->unk14, &D_80362690->terraId, &stickX, &stickY, &spE4);
-    if (gameState != GAME_STATE_6) {
+    if (gameState != GAME_STATE_RESULTS) {
         spC8[0] = arg0->zAxis;
         spC8[1] = arg0->xAxis;
         spC7 = (arg0->unkD4 * 2) | (arg0->unkC4 & 1);
@@ -233,7 +233,7 @@ void cannonMovementFrame(CannonballData* arg0, u8 gameState) {
     if (arg0->unkD4 == 0) {
         cannonAimingFrame(arg0);
     }
-    if ((gameState != GAME_STATE_6) && (arg0->unkD4 == 1)) {
+    if ((gameState != GAME_STATE_RESULTS) && (arg0->unkD4 == 1)) {
         func_802D95D8(arg0);
     }
     if (arg0->unkD4 == 2) {
@@ -265,7 +265,7 @@ void cannonMovementFrame(CannonballData* arg0, u8 gameState) {
         }
         arg0->unkD0 = func_80313AF4(var_fa0_2, arg0->unkD0, 2.0f);
     }
-    if (gameState != GAME_STATE_6) {
+    if (gameState != GAME_STATE_RESULTS) {
         if (arg0->unkD4 == 0 || (D_8034F850 - arg0->unkC8) < 0.5f) {
             arg0->unkB4 = 5;
             arg0->unkB8 = 1.0f;
@@ -321,7 +321,7 @@ void cannonMovementFrame(CannonballData* arg0, u8 gameState) {
         func_802D5884(arg0->unkB0, arg0->unkB4);
         func_802D45C4(arg0->unkB0, arg0->unkB8);
     }
-    if (gameState != GAME_STATE_6) {
+    if (gameState != GAME_STATE_RESULTS) {
         hud = hudGetState();
         if (arg0->unkD4 == 0) {
             uvMat4Copy(&hud->unk28, &arg0->unk58);
@@ -839,7 +839,7 @@ s32 cannonLoad802D77D8(Unk80362690* arg0, CannonballData* arg1) {
     uvEventPost(0xB, 0);
     D_80359A84 = 0;
     hudWarningText(0xDB, 1.5f, 8.0f);
-    return GAME_STATE_5;
+    return GAME_STATE_TEST_UPDATE;
 }
 
 // cannonFrame802D7B7C called every frame while aiming cannon and while in flight before landing
@@ -964,7 +964,7 @@ s32 cannonLandedFrame(CannonballData* arg0) {
         uvGfxBegin();
         func_8034B624(temp_s0->unk70);
         uvGfxEnd();
-        return GAME_STATE_6;
+        return GAME_STATE_RESULTS;
     }
     D_8034EA00 = 0.0f;
     if (arg0->unkE == 2 && arg0->unkC < 3) {
@@ -974,11 +974,11 @@ s32 cannonLandedFrame(CannonballData* arg0) {
         resultHandler(1);
     }
     if (cannonEndShot(arg0) != 0) {
-        return GAME_STATE_5;
+        return GAME_STATE_TEST_UPDATE;
     }
     hudText_8031D8E0(-1, 0, 0.0f);
     hudWarningText(-1, 0.0f, 0.0f);
-    return GAME_STATE_D;
+    return GAME_STATE_RESULTS_CB;
 }
 
 // cannonEndShot called once after landing before the cannon is reset for next shot

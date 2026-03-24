@@ -104,7 +104,7 @@ void bonusFrameUpdate(Mtx4F* arg0) {
         }
     }
 
-    if ((D_80362690->state != GAME_STATE_6) && (D_80362690->unkC[D_80362690->unk9C].unkA == 1)) {
+    if ((D_80362690->state != GAME_STATE_RESULTS) && (D_80362690->unkC[D_80362690->unk9C].unkA == 1)) {
         px = arg0->m[3][0];
         py = arg0->m[3][1];
         pz = arg0->m[3][2];

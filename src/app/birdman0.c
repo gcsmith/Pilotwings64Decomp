@@ -152,7 +152,7 @@ void birdMovementFrame(BirdmanData* arg0, u8 gameState) {
         if (D_80362690->unkC[D_80362690->unk9C].unk7B == 0) {
             func_80339E1C(arg0);
         }
-        if (gameState == GAME_STATE_6) {
+        if (gameState == GAME_STATE_RESULTS) {
             func_802E65AC(&arg0->unk10, &D_80362690->terraId, &sp7C, &sp78, &buttons);
         } else {
             sp7C = demoGetInputs(arg0->controller, INPUT_AXIS_X);
@@ -213,11 +213,11 @@ void birdMovementFrame(BirdmanData* arg0, u8 gameState) {
             arg0->unk2D0 = func_80313AF4(0.0f, arg0->unk2D0, 0.5f);
             arg0->unk2D4 = func_80313AF4(0.0f, arg0->unk2D4, 0.4f);
         }
-        if (gameState != GAME_STATE_6) {
+        if (gameState != GAME_STATE_RESULTS) {
             bird_802CEDF8(arg0);
         }
         bird_802CE190(arg0, gameState);
-        if (gameState != GAME_STATE_6) {
+        if (gameState != GAME_STATE_RESULTS) {
             sp4C[0] = arg0->unkD0;
             sp4C[1] = arg0->unk2D0;
             sp4C[2] = arg0->unk2D4;
@@ -234,7 +234,7 @@ void birdMovementFrame(BirdmanData* arg0, u8 gameState) {
             arg0->unk304 = sp4C[4];
             arg0->unk308 = sp4C[5];
         }
-        if (gameState != GAME_STATE_6) {
+        if (gameState != GAME_STATE_RESULTS) {
             arg0->unkD0 = -1.57f;
             if (arg0->unk224 < 25.0f) {
                 var_fa0 = (((25.0f - arg0->unk224) * 1.57f) / 25.0f) + -1.57f;
@@ -306,7 +306,7 @@ void birdMovementFrame(BirdmanData* arg0, u8 gameState) {
             arg0->unkEC = func_80313AF4(demoGetInputs(arg0->controller, 0) * -1.5707963f, arg0->unkEC, 3.0f);
             arg0->unkF0 = func_80313AF4(demoGetInputs(arg0->controller, 1) * -1.5707963f, arg0->unkF0, 3.0f);
         }
-        if (demoButtonPress(arg0->controller, R_TRIG) && (gameState != GAME_STATE_6) && (arg0->unk104 != 1)) {
+        if (demoButtonPress(arg0->controller, R_TRIG) && (gameState != GAME_STATE_RESULTS) && (arg0->unk104 != 1)) {
             D_803593E4 = 0;
             if (arg0->unkD8 == 1) {
                 func_8033F758(0x6A, 1.0f, 0.5f, 0.0f);
@@ -326,7 +326,7 @@ void birdMovementFrame(BirdmanData* arg0, u8 gameState) {
             func_802D5884(arg0->unkD4, arg0->unkD8);
             func_802D45C4(arg0->unkD4, arg0->unkDC);
         }
-        if (gameState != GAME_STATE_6) {
+        if (gameState != GAME_STATE_RESULTS) {
             arg0->unkD4->unk4 = arg0->objId;
             arg0->unkD4->unk6 = arg0->unk2;
             arg0->unkD4->unk78 = arg0->unkEC;
@@ -343,7 +343,7 @@ void birdMovementFrame(BirdmanData* arg0, u8 gameState) {
             }
             func_802D45C4(arg0->unkD4, arg0->unkDC);
         }
-        if ((arg0->unkD8 == 1) && (arg0->unk104 != 1) && (gameState != GAME_STATE_6)) {
+        if ((arg0->unkD8 == 1) && (arg0->unk104 != 1) && (gameState != GAME_STATE_RESULTS)) {
             arg0->unk290 = 0;
         } else {
             arg0->unk290 = 1;
@@ -352,7 +352,7 @@ void birdMovementFrame(BirdmanData* arg0, u8 gameState) {
             arg0->unk290 = 1;
         }
         bird_802CE0A4(arg0);
-        if (gameState != GAME_STATE_6) {
+        if (gameState != GAME_STATE_RESULTS) {
             hud = hudGetState();
             uvMat4Copy(&hud->unk28, &arg0->unk10);
             hud->renderFlags = HUD_RENDER_BIRDMAN;
@@ -367,7 +367,7 @@ void birdMovementFrame(BirdmanData* arg0, u8 gameState) {
             hud->renderFlags = 0;
         }
         func_802E06AC(&arg0->unk10);
-        if (gameState != GAME_STATE_6) {
+        if (gameState != GAME_STATE_RESULTS) {
             if (arg0->unk104 == 2) {
                 func_802E66DC();
             }

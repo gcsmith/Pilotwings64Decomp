@@ -2,56 +2,6 @@
 #include "credits.h"
 #include <uv_vector.h>
 
-u8 D_8034F420[][4] = {
-    { 0, 3, 1, 2 },
-    { 0, 2, 3, 1 },
-    { 0, 1, 2, 3 },
-    { 2, 1, 3, 0 },
-    { 1, 0, 3, 2 },
-    { 0, 1, 2, 0 },
-    { 0, 3, 1, 2 }
-};
-
-u8 D_8034F43C[] = { 0, 2, 4, 9 };
-
-s16 D_8034F440[] = { 0, 0x28, 0x51, 0xA5, 0, 0, 0, 0 };
-
-Vec3F D_8034F450[] = {
-    { 120.0f,                 0.0f, 0.7853980660438538f },
-    { 300.0f, 0.20000000298023224f, 0.6108651757240295f },
-    { 500.0f, -1.3707962036132812f, 0.6981316208839417f },
-    { 340.0f,  3.4000000953674316f, 0.6108651757240295f }
-};
-
-u16 D_8034F480[][2] = {
-    { 0x21, 0xDC },
-    { 0x1F, 0xDC },
-    { 0x20, 0xDC },
-    { 0x22, 0xDC },
-    { 0x23, 0xDC },
-    { 0x24, 0xDC },
-    { 0x25, 0xDC },
-    { 0x2D, 0xDC },
-};
-
-u16 D_8034F4A0[][2] = {
-    { 0x27, 0xDC },
-    { 0x28, 0xDC },
-    { 0x26, 0xDC },
-    { 0x2A, 0xDC },
-    { 0x2B, 0xDC },
-    { 0x2C, 0xDC },
-    { 0x29, 0xDC }
-};
-
-u16 D_8034F4BC[] = { 0xEB, 0x13B, 0x125, 0x1B5 };
-
-s32 D_8034F4C4 = 0x1720000;
-
-u16 D_8034F4C8[] = { 0x129, 0x10D, 0xE0, 0xE0, 0x0129, 0x0129, 0x0129, 0xE0 };
-
-u16 D_8034F4D8[] = { 0x9E, 0x9D, 0x07, 0x93 };
-
 typedef struct {
     const char* unk0;
     s32 unk4;
@@ -149,18 +99,6 @@ u8 D_8034F784 = 1;
 f32 D_8034F788 = 0.0f;
 f32 D_8034F78C = -1.0f;
 f32 D_8034F790 = 0.0f;
-
-#pragma GLOBAL_ASM("asm/nonmatchings/app/credits/func_8030C1C0.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/app/credits/func_8030C22C.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/app/credits/func_8030C54C.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/app/credits/func_8030C61C.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/app/credits/func_8030C6A0.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/app/credits/func_8030CB10.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/credits/func_8030CB60.s")
 
