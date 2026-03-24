@@ -100,7 +100,7 @@ typedef struct {
 f32 D_8034EFA0 = 0.0f;
 s32 padD_8034EFA4[3] = { 0 };
 
-extern LevelFALC* gRefFALC;
+extern TaskFALC* gRefFALC;
 
 extern f32 D_8035AF30;
 extern f32 D_8035AF34;
@@ -125,7 +125,7 @@ extern s32 D_8035A918;
 extern Unk8035A920 D_8035A920[16];
 
 // forward declarations
-void falco_802E38F0(Falco*, LevelFALC*);
+void falco_802E38F0(Falco*, TaskFALC*);
 void falco_802E478C(Falco*, Unk8035A858*);
 
 void falcoInit(void) {
@@ -174,7 +174,7 @@ void falcoInit(void) {
 
 void falcoLoad(void) {
     Falco* pFalco;
-    LevelFALC* falc;
+    TaskFALC* falc;
     Unk8035A858* var_s2;
     s32 falcoCount;
     s32 i;

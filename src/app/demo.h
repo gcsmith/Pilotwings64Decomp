@@ -17,7 +17,7 @@ f32 demoRecGetStickX(DemoRecordingEntry* entry);
 f32 demoRecGetStickY(DemoRecordingEntry* entry);
 u32 demoRecGetButtons(DemoRecordingEntry* entry);
 void demoPackInputs(DemoRecordingEntry* entry, f32 stickX, f32 stickY, u32 buttons);
-s32 demo_803229EC(s32 arg0, s32 arg1);
+s32 demoGetUserFileIdx(s32 arg0, s32 arg1);
 s32 demoGet_80322B60(void);
 s32 demoGet_80322B6C(void);
 s32 demoGet_80322B78(void);

@@ -2,8 +2,9 @@
 #include <uv_dobj.h>
 #include <uv_math.h>
 #include <uv_util.h>
-#include "code_69BF0.h"
 #include "game.h"
+#include "env_sound.h"
+#include "level.h"
 #include "task.h"
 #include "wind.h"
 
@@ -18,16 +19,16 @@ typedef struct {
 } LocalWind; // size = 0xA8
 
 // bss
-LevelLWIN* sRefLWIN;
+TaskLWIN* sRefLWIN;
 u8 sLocalWindCount;
 LocalWind sLocalWinds[6];
 
 // forward declarations
-STATIC_FUNC void wind_8034D6D4(LevelLWIN*, LocalWind*);
-STATIC_FUNC void wind_8034D90C(f32, f32, f32, LevelLWIN*, LocalWind*, Vec3F*);
-STATIC_FUNC void wind_8034DA4C(f32, f32, f32, LevelLWIN*, LocalWind*, Vec3F*);
-STATIC_FUNC void wind_8034DD18(f32, f32, f32, LevelLWIN*, LocalWind*, Vec3F*);
-STATIC_FUNC void wind_8034DF58(LevelLWIN*, f32, Vec3F*);
+STATIC_FUNC void wind_8034D6D4(TaskLWIN*, LocalWind*);
+STATIC_FUNC void wind_8034D90C(f32, f32, f32, TaskLWIN*, LocalWind*, Vec3F*);
+STATIC_FUNC void wind_8034DA4C(f32, f32, f32, TaskLWIN*, LocalWind*, Vec3F*);
+STATIC_FUNC void wind_8034DD18(f32, f32, f32, TaskLWIN*, LocalWind*, Vec3F*);
+STATIC_FUNC void wind_8034DF58(TaskLWIN*, f32, Vec3F*);
 STATIC_FUNC f32 wind_8034DFC4(u8, f32);
 
 void windInit(void) {
@@ -36,8 +37,8 @@ void windInit(void) {
 void windLoad(void) {
     s32 i;
     LocalWind* wind;
-    LevelLWIN* lwin;
-    Unk802E27A8_Arg0 spD4;
+    TaskLWIN* lwin;
+    LevelESND esnd;
     f32 temp_fs0;
     f32 var_fv1;
     Vec3F spC0;
@@ -60,21 +61,21 @@ void windLoad(void) {
         wind = &sLocalWinds[i];
         lwin = &sRefLWIN[i];
         uvMat4SetIdentity(&wind->unk4);
-        uvMat4SetIdentity(&spD4.unk0);
-        spD4.unk0.m[3][0] = lwin->unk0.f[0];
-        spD4.unk0.m[3][1] = lwin->unk0.f[1];
-        spD4.unk0.m[3][2] = lwin->unk0.f[2];
-        spD4.unk58 = 0xB;
-        spD4.unk5C = 1.0f;
-        spD4.unk64 = 0;
-        spD4.unk68 = lwin->unk4C;
-        spD4.unk6C = spD4.unk68;
-        spD4.unk70 = lwin->unk3C;
-        spD4.unk60 = uvSqrtF(SQ(lwin->unk40.x) + SQ(lwin->unk40.y) + SQ(lwin->unk40.z)) + 0.9f;
-        if (spD4.unk60 < 0.0f) {
-            spD4.unk60 = 0.0f;
-        } else if (spD4.unk60 > 1.0f) {
-            spD4.unk60 = 1.0f;
+        uvMat4SetIdentity(&esnd.unk0);
+        esnd.unk0.m[3][0] = lwin->unk0.f[0];
+        esnd.unk0.m[3][1] = lwin->unk0.f[1];
+        esnd.unk0.m[3][2] = lwin->unk0.f[2];
+        esnd.sndId = 0xB;
+        esnd.unk5C = 1.0f;
+        esnd.unk64 = 0;
+        esnd.unk68 = lwin->unk4C;
+        esnd.unk6C = esnd.unk68;
+        esnd.unk70 = lwin->unk3C;
+        esnd.unk60 = uvSqrtF(SQ(lwin->unk40.x) + SQ(lwin->unk40.y) + SQ(lwin->unk40.z)) + 0.9f;
+        if (esnd.unk60 < 0.0f) {
+            esnd.unk60 = 0.0f;
+        } else if (esnd.unk60 > 1.0f) {
+            esnd.unk60 = 1.0f;
         }
         s2 = &lwin->unkC;
         if (lwin->unk50 == 0) {
@@ -87,9 +88,9 @@ void windLoad(void) {
             uvDobjPosm(wind->unk0, 0, &wind->unk4);
             uvDobjState(wind->unk0, 2U);
             uvDobjProps(wind->unk0, 3, lwin->unk4C, 0);
-            spD4.unk74 = 8;
-            spD4.unk40 = lwin->unk0;
-            spD4.unk4C = lwin->unkC;
+            esnd.unk74 = 8;
+            esnd.unk40 = lwin->unk0;
+            esnd.unk4C = lwin->unkC;
         } else if (lwin->unk50 == 1) {
             spB4.f[0] = s2->f[0] - lwin->unk0.f[0];
             spB4.f[1] = s2->f[1] - lwin->unk0.f[1];
@@ -133,9 +134,9 @@ void windLoad(void) {
                 var_fv1 = temp_fs0;
             }
             uvDobjProps(wind->unk0, 3, var_fv1, 0);
-            spD4.unk74 = 0xA;
-            spD4.unk40 = lwin->unk0;
-            spD4.unk4C = lwin->unkC;
+            esnd.unk74 = 0xA;
+            esnd.unk40 = lwin->unk0;
+            esnd.unk4C = lwin->unkC;
         } else if (lwin->unk50 == 2) {
             uvMat4RotateAxis(&wind->unk4, lwin->unk24.f[0] * 0.0174533f, 'z'); // almost DEG_TO_RAD(1)
             uvMat4RotateAxis(&wind->unk4, lwin->unk24.f[1] * 0.0174533f, 'x'); // almost DEG_TO_RAD(1)
@@ -164,20 +165,20 @@ void windLoad(void) {
                 var_fv1 = lwin->unk30.f[1];
             }
             uvDobjProps(wind->unk0, 3, var_fv1, 0);
-            spD4.unk74 = 0xA;
-            spD4.unk40.f[0] = lwin->unk18.f[0];
-            spD4.unk40.f[1] = lwin->unk18.f[1];
-            spD4.unk40.f[2] = lwin->unk18.f[2];
-            spD4.unk4C.f[0] = lwin->unk30.f[0];
-            spD4.unk4C.f[1] = lwin->unk30.f[1];
-            spD4.unk4C.f[2] = lwin->unk30.f[2];
-            spD4.unk6C = spD4.unk68 = uvSqrtF(SQ(lwin->unk30.x) + SQ(lwin->unk30.y) + SQ(lwin->unk30.z)) * 0.50;
+            esnd.unk74 = 0xA;
+            esnd.unk40.f[0] = lwin->unk18.f[0];
+            esnd.unk40.f[1] = lwin->unk18.f[1];
+            esnd.unk40.f[2] = lwin->unk18.f[2];
+            esnd.unk4C.f[0] = lwin->unk30.f[0];
+            esnd.unk4C.f[1] = lwin->unk30.f[1];
+            esnd.unk4C.f[2] = lwin->unk30.f[2];
+            esnd.unk6C = esnd.unk68 = uvSqrtF(SQ(lwin->unk30.x) + SQ(lwin->unk30.y) + SQ(lwin->unk30.z)) * 0.50;
         } else {
             _uvDebugPrintf("wind : unknown wind shape [%d]\n", lwin->unk50);
             return;
         }
         wind_8034D6D4(lwin, wind);
-        func_802E27A8(&spD4);
+        envSoundLoad(&esnd);
     }
 }
 
@@ -199,7 +200,7 @@ void wind_8034D548(void) {
 
 void wind_8034D550(f32 arg0, f32 arg1, f32 arg2, Vec3F* arg3) {
     s32 i;
-    LevelLWIN* lwin;
+    TaskLWIN* lwin;
 
     arg3->x = 0.0f;
     arg3->y = 0.0f;
@@ -220,7 +221,7 @@ void wind_8034D550(f32 arg0, f32 arg1, f32 arg2, Vec3F* arg3) {
     }
 }
 
-STATIC_FUNC void wind_8034D6D4(LevelLWIN* arg0, LocalWind* arg1) {
+STATIC_FUNC void wind_8034D6D4(TaskLWIN* arg0, LocalWind* arg1) {
     switch (arg0->unk50) {
     case 0:
         arg1->unk84.x = arg0->unk0.x - arg0->unk4C;
@@ -267,7 +268,7 @@ STATIC_FUNC void wind_8034D6D4(LevelLWIN* arg0, LocalWind* arg1) {
     }
 }
 
-STATIC_FUNC void wind_8034D90C(f32 arg0, f32 arg1, f32 arg2, LevelLWIN* arg3, LocalWind* arg4, Vec3F* arg5) {
+STATIC_FUNC void wind_8034D90C(f32 arg0, f32 arg1, f32 arg2, TaskLWIN* arg3, LocalWind* arg4, Vec3F* arg5) {
     f32 f0;
     f32 f12;
     f32 f14;
@@ -306,7 +307,7 @@ STATIC_FUNC void wind_8034D90C(f32 arg0, f32 arg1, f32 arg2, LevelLWIN* arg3, Lo
     }
 }
 
-STATIC_FUNC void wind_8034DA4C(f32 arg0, f32 arg1, f32 arg2, LevelLWIN* arg3, LocalWind* arg4, Vec3F* arg5) {
+STATIC_FUNC void wind_8034DA4C(f32 arg0, f32 arg1, f32 arg2, TaskLWIN* arg3, LocalWind* arg4, Vec3F* arg5) {
     f32 sp6C;
     f32 sp68;
     f32 sp64;
@@ -382,7 +383,7 @@ STATIC_FUNC void wind_8034DA4C(f32 arg0, f32 arg1, f32 arg2, LevelLWIN* arg3, Lo
     arg5->z += sp34.z;
 }
 
-STATIC_FUNC void wind_8034DD18(f32 arg0, f32 arg1, f32 arg2, LevelLWIN* arg3, LocalWind* arg4, Vec3F* arg5) {
+STATIC_FUNC void wind_8034DD18(f32 arg0, f32 arg1, f32 arg2, TaskLWIN* arg3, LocalWind* arg4, Vec3F* arg5) {
     Vec3F sp5C;
     Vec3F sp50;
     f32 temp_fa1;
@@ -458,7 +459,7 @@ STATIC_FUNC void wind_8034DD18(f32 arg0, f32 arg1, f32 arg2, LevelLWIN* arg3, Lo
     arg5->z += temp_fa1;
 }
 
-STATIC_FUNC void wind_8034DF58(LevelLWIN* arg0, f32 arg1, Vec3F* arg2) {
+STATIC_FUNC void wind_8034DF58(TaskLWIN* arg0, f32 arg1, Vec3F* arg2) {
     f32 temp_fv0;
 
     temp_fv0 = arg1 / arg0->unk4C;

@@ -121,7 +121,7 @@ void uvMemInitBlockHdr(void) {
                     gUVBlockOffsets.UVSX[gUVBlockCounts.UVSX++] = romOffset;
                     break;
                 default:
-                    gUVBlockOffsets.unk1838[gUVBlockCounts.unk1C++] = romOffset;
+                    gUVBlockOffsets.userFiles[gUVBlockCounts.userFile++] = romOffset;
                     break;
                 }
                 romOffset += var_a0->size;
@@ -1325,4 +1325,3 @@ s32 func_80227E5C(s32 arg0, s32 arg1) {
     }
     return FALSE;
 }
-

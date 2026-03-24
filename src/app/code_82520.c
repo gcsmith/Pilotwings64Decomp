@@ -77,7 +77,7 @@ void func_802FB1D8(Unk80368B80* arg0) {
 
 void func_802FB22C(void) {
     s32 i;
-    LevelHOPD* hopd;
+    TaskHOPD* hopd;
 
     if (D_80362690->unkA0 != 0) {
         D_8034F3A0 = taskGetHOPD(&hopd);

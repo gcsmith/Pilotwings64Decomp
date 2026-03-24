@@ -8,13 +8,11 @@
 #include "balls.h"
 #include "bonus.h"
 #include "code_58B00.h"
-#include "code_69BF0.h"
 #include "code_6ECD0.h"
 #include "code_722D0.h"
 #include "code_72910.h"
 #include "game.h"
 #include "code_78620.h"
-#include "jumble_hopper.h"
 #include "code_82520.h"
 #include "code_9A960.h"
 #include "code_9C080.h"
@@ -22,9 +20,11 @@
 #include "code_B2900.h"
 #include "code_D2D50.h"
 #include "code_D3810.h"
+#include "env_sound.h"
 #include "environment.h"
 #include "falco.h"
 #include "hover_pads.h"
+#include "jumble_hopper.h"
 #include "level.h"
 #include "mem.h"
 #include "pads.h"
@@ -39,15 +39,11 @@
 #include "wind.h"
 
 typedef struct {
-    void* unk0;
-    void* unk4;
-    u8 unk8;
+    void* taskName; // short string name "BIRD 1C"
+    void* taskId;   // string identifier "E_BD_3"
+    u8 taskIdx;
     u8 pad9[0x3];
 } Unk803798E0;
-
-typedef struct {
-    u8 unk0[0x30];
-} Unk8037AA88;
 
 u8 gTaskClassU8 = 0;
 u8 gTaskVehicleU8 = 0;
@@ -56,7 +52,7 @@ u8 D_8035079C = 0;
 u8 D_803507A0 = 0;
 u8 D_803507A4 = 0;
 u8 gTaskMapLookup[] = { MAP_HOLIDAY_ISLAND, MAP_CRESCENT_ISLAND, MAP_LITTLE_STATES, MAP_EVER_FROST_ISLAND };
-u8 D_803507AC[] = {
+u8 gTaskUserFileIdxLookup[] = {
     0x27, 0x28, 0x29, 0x2A, 0x2B, 0x2C, 0x2D, 0x2E, 0x2F, 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3A, 0x3B, 0x3C, 0x3D,
     0x3E, 0x3F, 0x40, 0x41, 0x11, 0x12, 0x13, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x10, 0x14, 0x15, 0x16, 0x17,
     0x18, 0x19, 0x1A, 0x1B, 0x1C, 0x1D, 0x1E, 0x1F, 0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -72,7 +68,7 @@ extern TaskObjects gTaskObjects;
 extern s32 gTaskClass; // ClassId
 extern s32 gTaskTest;
 extern s32 gTaskVehicle; // VehicleId
-extern Unk8037AA88 D_8037AA88[];
+extern TaskTPAD gTaskTakeoffPads[4];
 
 // forward declarations
 void taskDeinit(void);
@@ -80,10 +76,10 @@ void taskDeinit(void);
 void taskInit(void) {
     s32 classIdx, testIdx, vehIdx;
     TaskObjects* obj;
-    Unk803798E0* temp_s0_2;
+    Unk803798E0* taskInfo;
     s32 i;
-    u8 sp88[0x28];
-    u8 sp60[0x28];
+    u8 commName[0x28];
+    u8 taskName[0x28];
 
     thermInit();
     ringsInit();
@@ -113,9 +109,9 @@ void taskInit(void) {
     for (classIdx = 0; classIdx < MAX_CLASSES; classIdx++) {
         for (testIdx = 0; testIdx < MAX_TESTS; testIdx++) {
             for (vehIdx = 0; vehIdx < VEHICLE_COUNT; vehIdx++) {
-                D_803798E0[classIdx][testIdx][vehIdx].unk8 = 0xFF;
-                D_803798E0[classIdx][testIdx][vehIdx].unk0 = 0;
-                D_803798E0[classIdx][testIdx][vehIdx].unk4 = 0;
+                D_803798E0[classIdx][testIdx][vehIdx].taskIdx = 0xFF;
+                D_803798E0[classIdx][testIdx][vehIdx].taskName = NULL;
+                D_803798E0[classIdx][testIdx][vehIdx].taskId = NULL;
             }
         }
     }
@@ -125,7 +121,7 @@ void taskInit(void) {
         classIdx = obj->comm.classNum;
         testIdx = obj->comm.testNum;
         vehIdx = obj->comm.vehNum;
-        _uvMediaCopy(sp88, (void*)obj->dataNAME, 0x28);
+        _uvMediaCopy(commName, (void*)obj->dataNAME, 0x28);
         if (classIdx >= MAX_CLASSES) {
             _uvDebugPrintf("\ntask : level index out of range - current limit %d\n", MAX_CLASSES - 1);
         }
@@ -135,23 +131,23 @@ void taskInit(void) {
         if (vehIdx >= VEHICLE_COUNT) {
             _uvDebugPrintf("\ntask : vehicle index out of range - current limit %d\n", VEHICLE_COUNT - 1);
         }
-        temp_s0_2 = &D_803798E0[classIdx][testIdx][vehIdx];
-        if (temp_s0_2->unk8 != 0xFF) {
-            _uvMediaCopy(sp60, (void*)temp_s0_2->unk0, 0x28);
-            _uvDebugPrintf("task : oops! redefining [%s] idx:%d veh:%d stage:%d lev:%d -> [%s]\n", sp60, temp_s0_2->unk8, vehIdx, (s32)testIdx, (s32)classIdx,
-                           sp88);
+        taskInfo = &D_803798E0[classIdx][testIdx][vehIdx];
+        if (taskInfo->taskIdx != 0xFF) {
+            _uvMediaCopy(taskName, taskInfo->taskName, sizeof(taskName));
+            _uvDebugPrintf("task : oops! redefining [%s] idx:%d veh:%d stage:%d lev:%d -> [%s]\n", taskName, taskInfo->taskIdx, vehIdx, testIdx, classIdx,
+                           commName);
         }
-        temp_s0_2->unk8 = i;
-        temp_s0_2->unk0 = obj->dataNAME;
-        temp_s0_2->unk4 = obj->dataJPTX;
-        if ((vehIdx == 6) && (testIdx == 0)) {
-            _uvMediaCopy(&D_8037AA88[classIdx], (void*)obj->dataTPAD, 0x30);
+        taskInfo->taskIdx = i;
+        taskInfo->taskName = obj->dataNAME;
+        taskInfo->taskId = obj->dataJPTX;
+        if ((vehIdx == VEHICLE_BIRDMAN) && (testIdx == 0)) {
+            _uvMediaCopy(&gTaskTakeoffPads[classIdx], obj->dataTPAD, sizeof(TaskTPAD));
         }
     }
 }
 
 s32 taskIsValidIndex(s32 classIdx, s32 testIdx, s32 vehicle) {
-    if (D_803798E0[classIdx][testIdx][vehicle].unk8 == 0xFF) {
+    if (D_803798E0[classIdx][testIdx][vehicle].taskIdx == 0xFF) {
         return 0;
     }
     return 1;
@@ -168,21 +164,21 @@ void strToUpper(char* str, s32 length) {
     }
 }
 
-s32 taskLoadNames(s32 classIdx, s32 testIdx, s32 vehicle, char* arg3, char* arg4) {
+s32 taskLoadNames(s32 classIdx, s32 testIdx, s32 vehicle, char* arg3, char* strId) {
     u8 sp48[0x28];
     u8 sp20[0x28];
     Unk803798E0* sp18;
 
     sp18 = &D_803798E0[classIdx][testIdx][vehicle];
-    if (sp18->unk8 == 0xFF) {
+    if (sp18->taskIdx == 0xFF) {
         return 0;
     }
-    _uvMediaCopy(&sp48, (void*)sp18->unk0, sizeof(sp48));
-    _uvMediaCopy(arg3, arg3, sizeof(sp48));
-    _uvMediaCopy(&sp20, (void*)sp18->unk4, sizeof(sp20));
-    _uvMediaCopy(arg4, &sp20, sizeof(sp20));
+    _uvMediaCopy(&sp48, sp18->taskName, sizeof(sp48));
+    _uvMediaCopy(arg3, arg3, sizeof(sp48)); //! @bug: copy should be sp48->arg3
+    _uvMediaCopy(&sp20, sp18->taskId, sizeof(sp20));
+    _uvMediaCopy(strId, &sp20, sizeof(sp20));
     strToUpper(arg3, 0x28);
-    strToUpper(arg4, 0x28);
+    strToUpper(strId, 0x28);
     return 1;
 }
 
@@ -199,7 +195,7 @@ s32 taskGetTestCount(s32 classIdx, s32 vehicle) {
     }
 
     for (i = 0; i < MAX_TESTS; i++) {
-        if (D_803798E0[classIdx][i][vehicle].unk8 != 0xFF) {
+        if (D_803798E0[classIdx][i][vehicle].taskIdx != 0xFF) {
             testCount++;
         }
     }
@@ -207,7 +203,7 @@ s32 taskGetTestCount(s32 classIdx, s32 vehicle) {
 }
 
 s32 taskInitTest(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* terraId, u16* envId) {
-    u8 tmp8;
+    u8 taskIdx;
 
     gTaskClass = classIdx;
     gTaskVehicle = vehicle;
@@ -223,11 +219,11 @@ s32 taskInitTest(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* terraId,
         return 0;
     }
 
-    tmp8 = D_803798E0[classIdx][testIdx][vehicle].unk8;
-    if (tmp8 == 0xFF) {
+    taskIdx = D_803798E0[classIdx][testIdx][vehicle].taskIdx;
+    if (taskIdx == 0xFF) {
         return 0;
     }
-    D_8035078C = taskLoadCommObj(tmp8);
+    D_8035078C = taskLoadCommObj(taskIdx);
     gTaskClassU8 = (u8)classIdx;
     gTaskVehicleU8 = (u8)vehicle;
     gTaskTestU8 = (u8)testIdx;
@@ -356,7 +352,7 @@ s32 taskFrameUpdate(Mtx4F* arg0, f32 arg1) {
         bonusFrameUpdate(arg0);
     }
     func_802EB424(arg0, arg1);
-    func_802E344C(arg0);
+    envSoundFrameUpdate(arg0);
     if (ballTgtInGoal() == 1) {
         D_803507A4 = 1;
         sp18 = 1;
@@ -367,7 +363,7 @@ s32 taskFrameUpdate(Mtx4F* arg0, f32 arg1) {
             func_8033FCD0(D_80362690->unkC[0].veh);
         }
     }
-    if (func_803243D8(arg0) == 1) {
+    if (rings_803243D8(arg0) == 1) {
         D_803507A4 = 1;
         sp18 = 1;
         D_80362690->unkC[0].veh = VEHICLE_ROCKET_BELT;
@@ -484,7 +480,7 @@ void taskUpdateState(void) {
     u16 veh;
 
     veh = D_80362690->unkC[D_80362690->unk9C].veh;
-    func_80323364();
+    rings_80323364();
     if ((veh != VEHICLE_CANNONBALL) && (veh != VEHICLE_SKY_DIVING)) {
         bonusUpdateState();
     }
@@ -494,12 +490,12 @@ void taskUpdateState(void) {
     func_802FAFF0();
 }
 
-s32 taskGetTHER(LevelTHER** data) {
+s32 taskGetTHER(TaskTHER** data) {
     *data = D_8035078C->dataTHER;
     return D_8035078C->comm.countTHER;
 }
 
-s32 taskGetLWIN(LevelLWIN** data) {
+s32 taskGetLWIN(TaskLWIN** data) {
     *data = D_8035078C->dataLWIN;
     return D_8035078C->comm.countLWIN;
 }
@@ -508,62 +504,62 @@ s32* taskGet_80345AEC(void) {
     return &D_8035078C->comm.unk10;
 }
 
-s32 taskGetTPAD(LevelTPAD** data) {
+s32 taskGetTPAD(TaskTPAD** data) {
     *data = D_8035078C->dataTPAD;
     return D_8035078C->comm.countTPAD;
 }
 
-s32 taskGetCNTG(LevelCNTG** data) {
+s32 taskGetCNTG(TaskCNTG** data) {
     *data = D_8035078C->dataCNTG;
     return D_8035078C->comm.countCNTG;
 }
 
-s32 taskGetOBSV(LevelOBSV** data) {
+s32 taskGetOBSV(TaskOBSV** data) {
     *data = D_8035078C->dataOBSV;
     return D_8035078C->comm.countOBSV;
 }
 
-s32 taskGetLPAD(LevelLPAD** data) {
+s32 taskGetLPAD(TaskLPAD** data) {
     *data = D_8035078C->dataLPAD;
     return D_8035078C->comm.countLPAD;
 }
 
-s32 taskGetLSTP(LevelLSTP** data) {
+s32 taskGetLSTP(TaskLSTP** data) {
     *data = D_8035078C->dataLSTP;
     return D_8035078C->comm.countLSTP;
 }
 
-s32 taskGetRNGS(LevelRNGS** data) {
+s32 taskGetRNGS(TaskRNGS** data) {
     *data = D_8035078C->dataRNGS;
     return D_8035078C->comm.countRNGS;
 }
 
-s32 taskGetBALS(LevelBALS** data) {
+s32 taskGetBALS(TaskBALS** data) {
     *data = D_8035078C->dataBALS;
     return D_8035078C->comm.countBALS;
 }
 
-s32 taskGetTARG(LevelTARG** data) {
+s32 taskGetTARG(TaskTARG** data) {
     *data = D_8035078C->dataTARG;
     return D_8035078C->comm.countTARG;
 }
 
-s32 taskGetHPAD(LevelHPAD** data) {
+s32 taskGetHPAD(TaskHPAD** data) {
     *data = D_8035078C->dataHPAD;
     return D_8035078C->comm.countHPAD;
 }
 
-s32 taskGetBTGT(LevelBTGT** data) {
+s32 taskGetBTGT(TaskBTGT** data) {
     *data = D_8035078C->dataBTGT;
     return D_8035078C->comm.countBTGT;
 }
 
-s32 taskGetPHTS(LevelPHTS** data) {
+s32 taskGetPHTS(TaskPHTS** data) {
     *data = D_8035078C->dataPHTS;
     return D_8035078C->comm.countPHTS;
 }
 
-s32 taskGetFALC(LevelFALC** data) {
+s32 taskGetFALC(TaskFALC** data) {
     if (data != NULL) {
         *data = D_8035078C->dataFALC;
     }
@@ -591,7 +587,7 @@ void taskGet_80345CC0(f32* arg0, f32* arg1) {
     *arg1 = D_8035078C->comm.unk48.unk3C0;
 }
 
-TaskObjects* taskLoadCommObj(u32 arg0) {
+TaskObjects* taskLoadCommObj(u32 taskIdx) {
     void* sp34;
     s32 idx;
     u32 size;
@@ -600,7 +596,7 @@ TaskObjects* taskLoadCommObj(u32 arg0) {
     TaskObjects* dst;
 
     dst = &gTaskObjects;
-    sp34 = func_802314D0(D_803507AC[arg0], 2);
+    sp34 = uvUserFileRead(gTaskUserFileIdxLookup[taskIdx], MEM_ROM_OFFSET);
     idx = uvFileReadHeader((s32)sp34);
     uvMemSet(&gTaskObjects, 0, sizeof(gTaskObjects));
 
@@ -618,22 +614,22 @@ TaskObjects* taskLoadCommObj(u32 arg0) {
         case 'COMM': // 0x434F4D4D
             _uvMediaCopy(&dst->comm, data, sizeof(dst->comm));
             mem_init();
-            dst->dataTPAD = mem_get(dst->comm.countTPAD * sizeof(LevelTPAD));
-            dst->dataLPAD = mem_get(dst->comm.countLPAD * sizeof(LevelLPAD));
-            dst->dataLSTP = mem_get(dst->comm.countLSTP * sizeof(LevelLSTP));
-            dst->dataLWIN = mem_get(dst->comm.countLWIN * sizeof(LevelLWIN));
-            dst->dataRNGS = mem_get(dst->comm.countRNGS * sizeof(LevelRNGS));
-            dst->dataTHER = mem_get(dst->comm.countTHER * sizeof(LevelTHER));
-            dst->dataBALS = mem_get(dst->comm.countBALS * sizeof(LevelBALS));
-            dst->dataTARG = mem_get(dst->comm.countTARG * sizeof(LevelTARG));
-            dst->dataHPAD = mem_get(dst->comm.countHPAD * sizeof(LevelHPAD));
-            dst->dataBTGT = mem_get(dst->comm.countBTGT * sizeof(LevelBTGT));
-            dst->dataPHTS = mem_get(dst->comm.countPHTS * sizeof(LevelPHTS));
-            dst->dataFALC = mem_get(dst->comm.countFALC * sizeof(LevelFALC));
-            dst->dataCNTG = mem_get(dst->comm.countCNTG * sizeof(LevelCNTG));
-            dst->dataSDFM = mem_get(dst->comm.countSDFM * sizeof(LevelSDFM));
-            dst->dataHOPD = mem_get(dst->comm.countHOPD * sizeof(LevelHOPD));
-            dst->dataOBSV = mem_get(dst->comm.countOBSV * sizeof(LevelOBSV));
+            dst->dataTPAD = mem_get(dst->comm.countTPAD * sizeof(TaskTPAD));
+            dst->dataLPAD = mem_get(dst->comm.countLPAD * sizeof(TaskLPAD));
+            dst->dataLSTP = mem_get(dst->comm.countLSTP * sizeof(TaskLSTP));
+            dst->dataLWIN = mem_get(dst->comm.countLWIN * sizeof(TaskLWIN));
+            dst->dataRNGS = mem_get(dst->comm.countRNGS * sizeof(TaskRNGS));
+            dst->dataTHER = mem_get(dst->comm.countTHER * sizeof(TaskTHER));
+            dst->dataBALS = mem_get(dst->comm.countBALS * sizeof(TaskBALS));
+            dst->dataTARG = mem_get(dst->comm.countTARG * sizeof(TaskTARG));
+            dst->dataHPAD = mem_get(dst->comm.countHPAD * sizeof(TaskHPAD));
+            dst->dataBTGT = mem_get(dst->comm.countBTGT * sizeof(TaskBTGT));
+            dst->dataPHTS = mem_get(dst->comm.countPHTS * sizeof(TaskPHTS));
+            dst->dataFALC = mem_get(dst->comm.countFALC * sizeof(TaskFALC));
+            dst->dataCNTG = mem_get(dst->comm.countCNTG * sizeof(TaskCNTG));
+            dst->dataSDFM = mem_get(dst->comm.countSDFM * sizeof(TaskSDFM));
+            dst->dataHOPD = mem_get(dst->comm.countHOPD * sizeof(TaskHOPD));
+            dst->dataOBSV = mem_get(dst->comm.countOBSV * sizeof(TaskOBSV));
             break;
         case 'THER': // 0x54484552
             _uvMediaCopy(dst->dataTHER, data, size);
@@ -689,14 +685,12 @@ TaskObjects* taskLoadCommObj(u32 arg0) {
     return &gTaskObjects;
 }
 
-void task_803462D4(u16 idx) {
-    Unk8037AA88* src;
-    if (idx > 3) {
-        _uvDebugPrintf("task_birdpad : level out of valid range [%d] - set to 0\n", idx);
-        idx = 0;
+void taskBirdmanPad(u16 mapIdx) {
+    if (mapIdx >= ARRAY_COUNT(gTaskTakeoffPads)) {
+        _uvDebugPrintf("task_birdpad : level out of valid range [%d] - set to 0\n", mapIdx);
+        mapIdx = 0;
     }
-    src = &D_8037AA88[idx];
-    _uvMediaCopy((void*)D_8035078C->dataTPAD, src, 0x30);
+    _uvMediaCopy(D_8035078C->dataTPAD, &gTaskTakeoffPads[mapIdx], sizeof(TaskTPAD));
 }
 
 void taskGetClsVehTest(u16* classIdx, u16* vehIdx, u16* testIdx) {
@@ -769,7 +763,7 @@ u8 taskGet_80346468(void) {
     return D_803507A4;
 }
 
-s32 taskGetHOPD(LevelHOPD** data) {
+s32 taskGetHOPD(TaskHOPD** data) {
     *data = D_8035078C->dataHOPD;
     return D_8035078C->comm.countHOPD;
 }

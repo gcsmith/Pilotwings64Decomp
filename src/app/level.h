@@ -6,6 +6,17 @@
 #include "task.h"
 
 typedef struct {
+    u8 countESND;
+    u8 countWOBJ;
+    u8 countLPAD;
+    u8 countTOYS;
+    u8 countTPTS;
+    u8 countAPTS;
+    u8 countBNUS;
+    u8 pad7[1];
+} LevelLEVL;
+
+typedef struct {
     u8 unk0;
     u8 pad1;
     s16 unk2;
@@ -27,7 +38,7 @@ typedef struct {
     s16 unk22;
     s16 unk24;
     s16 pad26;
-    s32 unk28;
+    f32 unk28;
     s16 unk2C;
     s16 unk2E;
 } Unk80364210_Unk0_Unk0; // size = 0x30
@@ -42,7 +53,7 @@ typedef struct {
     s32 unk0;
     f32 unk4;
     f32 unk8;
-    f32 unkC;
+    f32 landedDist;
     f32 unk10;
     f32 unk14;
     f32 unk18;
@@ -55,11 +66,20 @@ typedef struct {
     s32 unk34;
     s32 unk38;
     u8 unk3C;
-    s8 unk3D;
+    u8 unk3D;
     u8 pad3E;
     u8 pad3F;
     Unk80364210_Unk0 unk40[MAX_CLASSES];
 } Unk80364210; // size = 0x34E0
+
+typedef struct {
+    Vec3F pos;
+    f32 unkC;
+    f32 unk10;
+    s32 unk14;
+    f32 unk18;
+    f32 unk1C;
+} LevelAPTS; // size = 0x20
 
 typedef struct {
     Vec3F pos;
@@ -70,15 +90,32 @@ typedef struct {
 } LevelBNUS; // size = 0x1C
 
 typedef struct {
-    Vec3F pos;
-    f32 unkC;
-    s32 unk10;
-    u8 unk14;
-    u8 pad15[3];
-} PotentialLPAD; // size = 0x18
+    Mtx4F unk0;
+    Vec3F unk40;
+    Vec3F unk4C;
+    u8 sndId;
+    u8 pad59[3];
+    f32 unk5C;
+    f32 unk60;
+    s32 unk64;
+    f32 unk68;
+    f32 unk6C;
+    u8 unk70;
+    u8 pad71[3];
+    s32 unk74;
+} LevelESND; // size = 0x78
 
 typedef struct {
-    s32 unk0[4];
+    Vec3F pos;
+    f32 angle;
+    s32 isUsed;
+    u8 type;
+    u8 pad15[3];
+} LevelLPAD; // size = 0x18
+
+typedef struct {
+    Vec3F pos;
+    u8 padC[4];
 } LevelTOYS; // size = 0x10
 
 typedef struct {
@@ -98,6 +135,17 @@ typedef struct {
     f32 unk30_Z;
 } LevelTPTS; // size = 0x34
 
+enum WindObjectType {
+    WIND_OBJ_WINDSOCK_JOINTED = 0,
+    WIND_OBJ_TURBINE          = 1,
+    WIND_OBJ_WINDSOCK_SIMPLE  = 2
+};
+
+typedef struct {
+    Vec3F pos;
+    u8 type; // WindObjectType
+} LevelWOBJ; // size: 0x10
+
 typedef struct {
     u8 countESND;
     u8 countWOBJ;
@@ -107,11 +155,11 @@ typedef struct {
     u8 countAPTS;
     u8 countBNUS;
     u8 pad7;
-    void* dataWOBJ;
-    PotentialLPAD* dataLPAD;
+    LevelWOBJ* dataWOBJ;
+    LevelLPAD* dataLPAD;
     LevelTPTS* dataTPTS;
     LevelTOYS* dataTOYS;
-    void* dataAPTS;
+    LevelAPTS* dataAPTS;
     LevelBNUS* dataBNUS;
 } LevelObjects;
 
@@ -121,10 +169,10 @@ void level_8030B964(void);
 void level_8030BA60(void);
 void levelComputeAppend(u8 pilot, u8 vehicle);
 void level_8030BD20(void);
-u8 levelGetWOBJ(void** data);
+u8 levelGetWOBJ(LevelWOBJ** data);
 u8 levelGetTPTS(LevelTPTS** data);
-u8 levelGetAPTS(void** data);
-u8 levelGetLPAD(PotentialLPAD** data);
+u8 levelGetAPTS(LevelAPTS** data);
+u8 levelGetLPAD(LevelLPAD** data);
 u8 levelGetBNUS(LevelBNUS** data);
 LevelObjects* levelLoadMapObjects(u8 mapIdx);
 

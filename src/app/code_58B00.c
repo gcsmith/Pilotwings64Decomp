@@ -4,9 +4,9 @@
 #include <uv_matrix.h>
 #include <uv_model.h>
 #include "code_58B00.h"
-#include "code_69BF0.h"
 #include "code_9A960.h"
-#include "macros.h"
+#include "env_sound.h"
+#include "level.h"
 #include "proxanim.h"
 
 typedef struct {
@@ -258,30 +258,30 @@ void func_802D1CE8(void) {
 }
 
 void func_802D1F58(s32 arg0) {
-    Unk802E27A8_Arg0 sp28;
+    LevelESND esnd;
     Unk803596A0* temp_v0;
     s32 temp_v0_2;
 
     temp_v0 = &D_803596A0[arg0];
     if (temp_v0->unk0 != 0xFFFF) {
         if (temp_v0->unk4 == 0x29) {
-            sp28.unk58 = 0x16;
-            sp28.unk5C = 1.6f;
+            esnd.sndId = 0x16;
+            esnd.unk5C = 1.6f;
         } else if (temp_v0->unk4 == 3) {
-            sp28.unk58 = 0x15;
-            sp28.unk5C = 2.0f;
+            esnd.sndId = 0x15;
+            esnd.unk5C = 2.0f;
         } else {
             return;
         }
-        temp_v0_2 = func_802D2018(arg0, &sp28.unk0);
-        sp28.unk64 = 0;
-        sp28.unk74 = 8;
-        sp28.unk70 = 0;
-        sp28.unk60 = 1.0f;
-        sp28.unk68 = 0.0f;
-        sp28.unk6C = 200.0f;
+        temp_v0_2 = func_802D2018(arg0, &esnd.unk0);
+        esnd.unk64 = 0;
+        esnd.unk74 = 8;
+        esnd.unk70 = 0;
+        esnd.unk60 = 1.0f;
+        esnd.unk68 = 0.0f;
+        esnd.unk6C = 200.0f;
         if (temp_v0_2 != 0) {
-            func_802E27A8(&sp28);
+            envSoundLoad(&esnd);
         }
     }
 }

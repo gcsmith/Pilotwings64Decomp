@@ -404,7 +404,7 @@ STATIC_FUNC s32 func_802D408C(Camera* arg0) {
     f32 dy;
     f32 dz;
     f32 length;
-    LevelOBSV* sp58;
+    TaskOBSV* obsv;
     s32 i;
     u8 countOBSV;
     u8 tmp;
@@ -413,14 +413,14 @@ STATIC_FUNC s32 func_802D408C(Camera* arg0) {
     argY = arg0->unk80.m[3][1];
     argZ = arg0->unk80.m[3][2];
     arg0->unk18C = 1000000.0f;
-    countOBSV = taskGetOBSV(&sp58) & 0xFF; // extra & 0xFF for matching
+    countOBSV = taskGetOBSV(&obsv) & 0xFF; // extra & 0xFF for matching
 
     for (i = 0; i < countOBSV; i++) {
-        dx = sp58[i].x - argX;
-        dy = sp58[i].y - argY;
-        dz = sp58[i].z - argZ;
+        dx = obsv[i].x - argX;
+        dy = obsv[i].y - argY;
+        dz = obsv[i].z - argZ;
         length = uvLength3D(dx, dy, dz);
-        if (length < sp58[i].unkC) {
+        if (length < obsv[i].unkC) {
             arg0->unk18C = length;
             break;
         }
@@ -428,9 +428,9 @@ STATIC_FUNC s32 func_802D408C(Camera* arg0) {
     if (i < countOBSV) {
         arg0->unk1 = 2;
         uvMat4SetIdentity(&arg0->unk14C);
-        arg0->unk14C.m[3][0] = sp58[i].x;
-        arg0->unk14C.m[3][1] = sp58[i].y;
-        arg0->unk14C.m[3][2] = sp58[i].z;
+        arg0->unk14C.m[3][0] = obsv[i].x;
+        arg0->unk14C.m[3][1] = obsv[i].y;
+        arg0->unk14C.m[3][2] = obsv[i].z;
         arg0->unk148 = 1;
         return 1;
     }

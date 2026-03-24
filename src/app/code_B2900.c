@@ -84,7 +84,7 @@ void func_8032B508(Unk80364210* arg0) {
     arg0->unk1C = 0.0f;
     arg0->unk20 = 0.0f;
     arg0->unk8 = 10000.0f;
-    arg0->unkC = 10000.0f;
+    arg0->landedDist = 10000.0f;
     arg0->unk10 = 10000.0f;
     D_8034FBD0 = arg0;
 }
@@ -150,7 +150,7 @@ s32 func_8032B560(Unk80364210* arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
     sp60 = 0.0f;
     if (arg0->unk0 & 1) {
         if (sp74->unk0.unk0 > 0) {
-            sp60 = func_80313F08(&sp74->unk0, arg0->unkC);
+            sp60 = func_80313F08(&sp74->unk0, arg0->landedDist);
         }
         temp_v1->unk2 = sp60 + 0.001f;
     }
@@ -168,7 +168,7 @@ s32 func_8032B560(Unk80364210* arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
     }
     temp_v1->unkE = 0;
     if (arg0->unk0 & 0x20) {
-        temp_v1->unkE = func_80324B60(&temp_v1->unk28);
+        temp_v1->unkE = ringsGetPoints(&temp_v1->unk28);
     }
     temp_v1->unk14 = 0;
     if (arg0->unk0 & 0x100) {
@@ -176,7 +176,7 @@ s32 func_8032B560(Unk80364210* arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
     }
     temp_v1->unk16 = 0;
     if (arg0->unk0 & 0x200) {
-        temp_v1->unk16 = ballsGet_802CC064();
+        temp_v1->unk16 = ballsGetPoints();
     }
     temp_v1->unkC = 0;
     if ((arg0->unk0 & 0x800) && sp74->unkFC.unk0 > 0) {
@@ -203,7 +203,7 @@ s32 func_8032B560(Unk80364210* arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
     }
     temp_v1->unk1E = 0;
     if (arg0->unk0 & 0x4000) {
-        temp_v1->unk1E = hoverPad_8030A0DC();
+        temp_v1->unk1E = hoverPadGetPoints();
     }
     temp_v1->unk20 = 0;
     if (arg0->unk0 & 0x8000) {
@@ -220,7 +220,7 @@ s32 func_8032B560(Unk80364210* arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
 
     sp6A = temp_v1->unk8 + temp_v1->unk14 + temp_v1->unkC + temp_v1->unkA + temp_v1->unkE + temp_v1->unk12 + temp_v1->unk18 + temp_v1->unk16 + temp_v1->unk6 +
            temp_v1->unk1A + temp_v1->unk1C + temp_v1->unk1E + temp_v1->unk20 + temp_v1->unk22 + temp_v1->unk24 + arg0->unk38;
-    if (arg0->unkC != 10000.0f) {
+    if (arg0->landedDist != 10000.0f) {
         temp_v1->unk4 = (sp64 * sp60) + 0.5f;
         temp_v1->unk2 = 0;
     }
@@ -312,9 +312,9 @@ STATIC_FUNC u8 func_8032BF54(void) {
     if (taskGet_80346364() != 2) {
         return 0;
     }
-    return (func_80324AF4() != taskGetRNGS((LevelRNGS**)&tmp) || targets_803448F4() != taskGetTARG((LevelTARG**)&tmp) || ballsGet_802CC15C() == 0 ||
-            hoverPad_8030A080() != taskGetHPAD((LevelHPAD**)&tmp) || falco_802E57C4() != D_8035A5F0 || ballTgtCount_5B() != taskGetBTGT((LevelBTGT**)&tmp) ||
-            func_802FB5A0() != taskGetHOPD((LevelHOPD**)&tmp));
+    return (ringsGetCleared() != taskGetRNGS((TaskRNGS**)&tmp) || targets_803448F4() != taskGetTARG((TaskTARG**)&tmp) || ballsGetAllPopped() == 0 ||
+            hoverPadGetCount() != taskGetHPAD((TaskHPAD**)&tmp) || falco_802E57C4() != D_8035A5F0 || ballTgtCount_5B() != taskGetBTGT((TaskBTGT**)&tmp) ||
+            func_802FB5A0() != taskGetHOPD((TaskHOPD**)&tmp));
 }
 
 u8 func_8032C080(s32* arg0) {
@@ -329,7 +329,7 @@ u8 func_8032C080(s32* arg0) {
         }
         return 0;
     }
-    var_v1 = sp2C->unk3C4 - (ballTgtCount_5B() + (falco_802E57C4() + (hoverPad_8030A080() + (targets_803448F4() + (func_80324AF4() + func_802FB5A0())))));
+    var_v1 = sp2C->unk3C4 - (ballTgtCount_5B() + (falco_802E57C4() + (hoverPadGetCount() + (targets_803448F4() + (ringsGetCleared() + func_802FB5A0())))));
     if (var_v1 < 0) {
         var_v1 = 0;
     }

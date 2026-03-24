@@ -3,7 +3,7 @@
 
 #include <uv_matrix.h>
 
-void demoAttInit(s32);
+void demoAttInit(s32 userFileIdx);
 void demoAttLoadPos(void);
 void demoAttGetMtxRT(Mtx4F* mat, f32* tx, f32* ty, f32* tz, f32* rz, f32* rx, f32* ry);
 void demoAttPrintRecord(void);

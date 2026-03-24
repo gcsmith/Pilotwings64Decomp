@@ -7,6 +7,7 @@
 typedef struct {
     u8 pad0[0x14];
     s32 unk14;
+    Vec3F unk18;
 } Unk803216A4; // size = unknown, >= 0x18
 
 void proxanimInit(void);

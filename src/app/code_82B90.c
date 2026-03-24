@@ -378,7 +378,7 @@ s32 func_802FC3B4(JumbleHopperData* arg0, s32 arg1, Vec3F* arg2, Vec3F* arg3) {
             }
             return 4;
         case 2:
-            if (balls_802CC0D4(var_s1->surfaceId) != 0) {
+            if (ballsObjIdExists(var_s1->surfaceId)) {
                 ballsPopped(var_s1->surfaceId, &arg0->unk15C, &D_80368F18);
                 break;
             }

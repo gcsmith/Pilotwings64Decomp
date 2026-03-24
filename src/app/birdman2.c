@@ -698,7 +698,7 @@ void bird_802D0080(BirdmanData* arg0) {
         }
         if (arg0->unk104 != 2) {
             if ((temp_s1->unk4 != 4) && (arg0->unk105 == 0)) {
-                if ((temp_s1->unk4 == 2) && (balls_802CC0D4(temp_s1->surfaceId) != 0)) {
+                if ((temp_s1->unk4 == 2) && ballsObjIdExists(temp_s1->surfaceId)) {
                     break;
                 }
                 temp_v0_3 = &D_803593F0.unk4[temp_s1->unk0];

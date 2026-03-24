@@ -395,7 +395,7 @@ void func_80338A14(void) {
     s32 sp144[10];
     s32 sp11C[10];
     Unk80362690_Unk0* temp_s4;
-    LevelPHTS* sp114;
+    TaskPHTS* phts;
     s32 i;
     s32 j;
     Unk80373060* temp_s1;
@@ -584,10 +584,10 @@ void func_80338A14(void) {
     }
     if (var_s2 != 0) {
         temp_s1->unk42 = 1;
-        temp_v0_2 = taskGetPHTS(&sp114);
+        temp_v0_2 = taskGetPHTS(&phts);
 
         for (i = 0; i < temp_v0_2; i++) {
-            if (sp114[i].unk0 == temp_s1->unk43[0]) {
+            if (phts[i].unk0 == temp_s1->unk43[0]) {
                 func_8034B354(0, spF0, &spA8);
                 sp9C = spA8.x / SCREEN_WIDTH;
                 spA0 = spA8.y / SCREEN_HEIGHT;
@@ -598,20 +598,20 @@ void func_80338A14(void) {
                     sp84 = 0;
                     func_8034B268(spF0, temp_s1->unk0, &sp88);
                     temp_fs1 = func_8034B2B0(&sp88);
-                    if (sp114[i].unk4 == 1) {
+                    if (phts[i].unk4 == 1) {
                         func_8034A9E8(sp88, &spE4);
-                        if ((sp114[i].unk8 - spE4.x) > 180.0f) {
+                        if ((phts[i].unk8 - spE4.x) > 180.0f) {
                             spE4.x += 360.0f;
-                        } else if ((spE4.x - sp114[i].unk8) > 180.0f) {
+                        } else if ((spE4.x - phts[i].unk8) > 180.0f) {
                             spE4.x -= 360.0f;
                         }
 
-                        if (FABS(sp114[i].unk8 - spE4.x) < (sp114[i].unkC * 0.5f)) {
+                        if (FABS(phts[i].unk8 - spE4.x) < (phts[i].unkC * 0.5f)) {
                             sp84 = 1;
                         }
                     }
 
-                    if ((sp114[i].unk4 != 1) || ((sp114[i].unk4 == 1) && (sp84 == 1))) {
+                    if ((phts[i].unk4 != 1) || ((phts[i].unk4 == 1) && (sp84 == 1))) {
                         spB8 = 1;
                         sp9C = (sp9C * 4.0f) - 1.0f;
                         spA0 = (spA0 * 4.0f) - 1.0f;
@@ -619,7 +619,7 @@ void func_80338A14(void) {
                         if (var_fa0 > 1) {
                             var_fa0 = 1;
                         }
-                        temp_s1->unk38 = sp114[i].unk10 * var_fa0;
+                        temp_s1->unk38 = phts[i].unk10 * var_fa0;
                         temp_s1->unk3C = func_80313F08(spBC[0], temp_fs1);
                     }
                 }

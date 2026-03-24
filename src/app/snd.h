@@ -2,11 +2,12 @@
 #define APP_SND_H
 
 #include <PR/ultratypes.h>
+#include <uv_matrix.h>
 
 extern u16 D_803505B0;
 
 void snd_init(void);
-void func_8033F6F8(s32, s32);
+void func_8033F6F8(Mtx4F*, Mtx4F*);
 void func_8033F748(u16);
 void func_8033F758(u8, f32, f32, f32);
 void snd_play_sfx(u8);

@@ -4,10 +4,9 @@
 #include "game.h"
 #include "level.h"
 
-void toysInit(void);
-void func_80348280(LevelTOYS*);
-void func_803483AC(void);
-void func_80348418(s32, s32, f32, f32, s32);
-s32 func_803485F0(Unk80362690_Unk0*, Unk80367710*);
+void toyInit(void);
+void toyLoad(LevelTOYS*);
+void toy_803483AC(void);
+void toy_80348418(s32, f32, f32, f32, s32);
 
 #endif // APP_TOYS_H

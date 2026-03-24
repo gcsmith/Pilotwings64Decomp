@@ -17,6 +17,7 @@ void func_80335BE4(void);
 void func_80335E44(void);
 f32 func_80335EE4(void);
 void func_80335F24(Vec3F*);
+u32 func_80335F84(void);
 void func_80335FD8(f32);
 void func_80336064(void);
 void func_80336094(void);

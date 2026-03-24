@@ -5,7 +5,6 @@
 #include <uv_texture.h>
 #include <uv_util.h>
 #include "code_58B00.h"
-#include "code_69BF0.h"
 #include "code_6ECD0.h"
 #include "code_722D0.h"
 #include "game.h"
@@ -16,6 +15,7 @@
 #include "code_BD670.h"
 #include "code_D2D50.h"
 #include "code_D3810.h"
+#include "env_sound.h"
 #include "environment.h"
 #include "level.h"
 #include "shadow.h"
@@ -25,16 +25,16 @@
 
 s32 D_8034F400 = 0;
 s32 D_8034F404 = 0;
-LevelObjects* D_8034F408 = NULL;
+LevelObjects* gLevelCurObjects = NULL;
 s32 gLevelCurMap = 0;
-s32 D_8034F410[] = { 0, 1, 2, 3 };
+s32 gLevelUserFileLookup[] = { 0, 1, 2, 3 };
 
 // likely arrays of structs for level data
-extern s32 gLevelWOBJ[16];
-extern PotentialLPAD gLevelLPAD[14];
+extern LevelWOBJ gLevelWOBJ[16];
+extern LevelLPAD gLevelLPAD[14];
 extern LevelTPTS gLevelTPTS[16];
 extern LevelTOYS gLevelTOYS[16];
-extern s32 gLevelAPTS[20];
+extern LevelAPTS gLevelAPTS[20];
 extern LevelBNUS gLevelBNUS[2];
 extern LevelObjects gLevelObjects;
 
@@ -48,22 +48,22 @@ void levelLoad(u8 map, u8 pilot, u8 vehicle, s32 animateToys) {
     uvLevelAppend(map);
     switch (map) {
     case MAP_HOLIDAY_ISLAND:
-        D_8034F408 = levelLoadMapObjects(0);
+        gLevelCurObjects = levelLoadMapObjects(0);
         break;
     case MAP_CRESCENT_ISLAND:
-        D_8034F408 = levelLoadMapObjects(1);
+        gLevelCurObjects = levelLoadMapObjects(1);
         break;
     case MAP_LITTLE_STATES:
-        D_8034F408 = levelLoadMapObjects(2);
+        gLevelCurObjects = levelLoadMapObjects(2);
         break;
     case MAP_EVER_FROST_ISLAND:
-        D_8034F408 = levelLoadMapObjects(3);
+        gLevelCurObjects = levelLoadMapObjects(3);
         break;
     }
     uvLevelAppend(0x1A);
     if (animateToys) {
         for (i = 0; i < (s32)gLevelObjects.countTOYS; i++) {
-            func_80348280(&gLevelObjects.dataTOYS[i]);
+            toyLoad(&gLevelObjects.dataTOYS[i]);
         }
         D_8034F400 = 1;
     } else {
@@ -152,7 +152,7 @@ void level_8030B964(void) {
 
 void level_8030BA60(void) {
     if (D_8034F400 != 0) {
-        func_803483AC();
+        toy_803483AC();
         level_8030B964();
     }
 }
@@ -241,29 +241,29 @@ void levelComputeAppend(u8 pilot, u8 vehicle) {
 void level_8030BD20(void) {
 }
 
-u8 levelGetWOBJ(void** data) {
-    *data = D_8034F408->dataWOBJ;
-    return D_8034F408->countWOBJ;
+u8 levelGetWOBJ(LevelWOBJ** data) {
+    *data = gLevelCurObjects->dataWOBJ;
+    return gLevelCurObjects->countWOBJ;
 }
 
 u8 levelGetTPTS(LevelTPTS** data) {
-    *data = D_8034F408->dataTPTS;
-    return D_8034F408->countTPTS;
+    *data = gLevelCurObjects->dataTPTS;
+    return gLevelCurObjects->countTPTS;
 }
 
-u8 levelGetAPTS(void** data) {
-    *data = D_8034F408->dataAPTS;
-    return D_8034F408->countAPTS;
+u8 levelGetAPTS(LevelAPTS** data) {
+    *data = gLevelCurObjects->dataAPTS;
+    return gLevelCurObjects->countAPTS;
 }
 
-u8 levelGetLPAD(PotentialLPAD** data) {
-    *data = D_8034F408->dataLPAD;
-    return D_8034F408->countLPAD;
+u8 levelGetLPAD(LevelLPAD** data) {
+    *data = gLevelCurObjects->dataLPAD;
+    return gLevelCurObjects->countLPAD;
 }
 
 u8 levelGetBNUS(LevelBNUS** data) {
-    *data = D_8034F408->dataBNUS;
-    return D_8034F408->countBNUS;
+    *data = gLevelCurObjects->dataBNUS;
+    return gLevelCurObjects->countBNUS;
 }
 
 LevelObjects* levelLoadMapObjects(u8 mapIdx) {
@@ -272,12 +272,12 @@ LevelObjects* levelLoadMapObjects(u8 mapIdx) {
     u32 size;
     u32 tag;
     u8* srcPtr;
-    Unk802E27A8_Arg0 sp3C;
+    LevelESND esnd;
     LevelLEVL* ptr;
     LevelObjects* temp;
     u8 tmp8;
 
-    idx = uvFileReadHeader((s32)func_802314D0(D_8034F410[mapIdx], 2));
+    idx = uvFileReadHeader((s32)uvUserFileRead(gLevelUserFileLookup[mapIdx], MEM_ROM_OFFSET));
     temp = &gLevelObjects;
     uvMemSet((void*)temp, 0, sizeof(LevelObjects));
     gLevelObjects.dataWOBJ = gLevelWOBJ;
@@ -291,9 +291,9 @@ LevelObjects* levelLoadMapObjects(u8 mapIdx) {
         switch (tag) {
         case 'ESND': // 0x45534E44
             for (i = 0; i < temp->countESND; i++) {
-                _uvMediaCopy(&sp3C, srcPtr, sizeof(sp3C));
-                srcPtr += sizeof(sp3C);
-                func_802E27A8(&sp3C);
+                _uvMediaCopy(&esnd, srcPtr, sizeof(esnd));
+                srcPtr += sizeof(esnd);
+                envSoundLoad(&esnd);
             }
             break;
         case 'WOBJ': // 0x574F424A

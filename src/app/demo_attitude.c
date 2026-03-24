@@ -34,10 +34,10 @@ extern s32 D_8036D320;
 extern s32 D_8036D324;
 extern f32 D_8036D328;
 extern f32 D_8036D32C;
-extern s32 D_8036D330;
+extern s32 gDemoUserFileIdx;
 
-void demoAttInit(s32 arg0) {
-    D_8036D330 = arg0;
+void demoAttInit(s32 userFileIdx) {
+    gDemoUserFileIdx = userFileIdx;
     demoAttLoadPos();
 }
 
@@ -53,7 +53,7 @@ void demoAttLoadPos(void) {
     idx = 0;
     gotHdr = 0;
     D_8036D328 = -1.0f;
-    sp60 = uvFileReadHeader((s32)func_802314D0(D_8036D330, 2));
+    sp60 = uvFileReadHeader((s32)uvUserFileRead(gDemoUserFileIdx, MEM_ROM_OFFSET));
     D_8036D320 = 0;
     D_8036D324 = 0;
 

@@ -18,7 +18,7 @@ f32 D_803506A0[] = {
 };
 s32 D_8035078C = 0;
 
-LevelTARG* sRefTARG;
+TaskTARG* sRefTARG;
 u8 sMissileTargetCount;
 MissileTarget sMissileTargets[40];
 
@@ -36,7 +36,7 @@ void targetsInit(void) {
 void targetsLoad(void) {
     MissileTarget* var_s1;
     s32 i;
-    LevelTARG* missileTarget;
+    TaskTARG* missileTarget;
 
     if (D_80362690->unkA0 == 0) {
         return;
@@ -167,7 +167,7 @@ f32 targets_8034473C(s32 arg0, s32 arg1) {
         sp4C = func_8021EFF0(8);
         if (sp4C != 0xFF) {
             uvModelGet(sp4C, 8);
-            uvFxProps(sp4C, 0xA, var_s0->unk4.m[3][0], var_s0->unk4.m[3][1], var_s0->unk4.m[3][2], 0);
+            uvFxProps(sp4C, FX_10(var_s0->unk4.m[3][0], var_s0->unk4.m[3][1], var_s0->unk4.m[3][2]), FX_END);
         }
 
         uvDobjModel(var_s0->objId, MODEL_WORLD);

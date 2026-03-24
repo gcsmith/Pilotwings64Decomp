@@ -3,6 +3,7 @@
 #include <uv_font.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>
+#include <uv_matrix.h>
 #include <uv_memory.h>
 #include <uv_sprite.h>
 #include <uv_string.h>
@@ -57,7 +58,45 @@ s32 gCurTestIdx = 0;
 static s32 D_803509B8 = 0; // unused, only ever set to 0
 
 // forward declarations
+void testMenuInitText(s32 testIdx);
+void testMenuInit(Unk80367710*, s32);
+u8 testMenuHandler(Unk80367710*);
+void testMenuDraw(Unk802D3658_Arg0*, u8 classIdx, u8 vehIdx);
 void testMenu_8034A428(void);
+
+s32 testMenuMainRender(Unk80362690_Unk0* arg0, Unk80367710* arg1) {
+    Unk802D3658_Arg0* temp_s3;
+    u8 classIdx;
+    u8 temp_s0_3;
+    u8 vehIdx;
+    u8 temp_v0;
+
+    temp_s3 = arg0->unk70;
+    vehIdx = arg0->veh;
+    testMenuInit(arg1, D_8037DC84);
+    if (D_8037DC84 != 0) {
+        D_8037DC84 = 0;
+    }
+    classIdx = arg0->cls;
+    uvGfxBegin();
+    testMenuDraw(temp_s3, classIdx, vehIdx);
+    uvGfxEnd();
+    do {
+        classIdx = arg0->cls;
+        uvGfxBegin();
+        testMenuDraw(temp_s3, classIdx, vehIdx);
+        uvGfxEnd();
+        temp_v0 = testMenuHandler(arg1);
+    } while (temp_v0 == 6);
+    testMenu_8034A428();
+    if (temp_v0 == 0xFE) {
+        D_8037DC84 = 1;
+    }
+    if ((temp_v0 == 0xFF) || (temp_v0 == 0xFE)) {
+        return temp_v0;
+    }
+    return arg1->unk4[gCurTestIdx].unk0[0];
+}
 
 // returns true if test is one of the Shutter Bug tests
 s32 testMenuShutterBug(void) {
@@ -428,7 +467,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
     return 6;
 }
 
-void testMenuDraw(s32 arg0, u8 arg1, u8 arg2) {
+void testMenuDraw(Unk802D3658_Arg0* arg0, u8 classIdx, u8 vehIdx) {
     s32 pad1;
     s32 pad21;
     s32 var_s0;
@@ -440,16 +479,16 @@ void testMenuDraw(s32 arg0, u8 arg1, u8 arg2) {
     char sp8C[108];
     char strId[52];
     s16* sp54;
-    s32 temp_a0;
+    Mtx4F* temp_a0;
     s32 temp_v0_3;
     Unk80362690_Unk0* sp48;
     s32 var_a1;
 
     sp48 = &D_80362690->unkC[D_80362690->unk9C];
-    if ((sp48->veh != VEHICLE_BIRDMAN) && (arg2 >= 3)) {
-        taskLoadNames(arg1, 0, arg2, sp8C, strId);
+    if ((sp48->veh != VEHICLE_BIRDMAN) && IS_BONUS_VEHICLE(vehIdx)) {
+        taskLoadNames(classIdx, 0, vehIdx, sp8C, strId);
     } else {
-        taskLoadNames(arg1, gCurTestIdx, arg2, sp8C, strId);
+        taskLoadNames(classIdx, gCurTestIdx, vehIdx, sp8C, strId);
     }
     strIdLen = uvStrlen(strId);
     if (strIdLen == 0) {
@@ -460,7 +499,7 @@ void testMenuDraw(s32 arg0, u8 arg1, u8 arg2) {
     strIdAppend[0] = '_';
     strIdAppend[1] = 'M';
     strIdAppend[2] = '\0';
-    temp_a0 = arg0 + 264;
+    temp_a0 = &arg0->unk108;
     func_8033F6F8(temp_a0, temp_a0);
     func_80311C68(D_80362690, 0);
     if (sTestMenuState != 1) {

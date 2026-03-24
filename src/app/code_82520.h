@@ -2,11 +2,11 @@
 #define APP_CODE_82520_H
 
 #include <PR/ultratypes.h>
-#include "app/task.h"
-#include "app/jumble_hopper.h"
+#include "jumble_hopper.h"
+#include "task.h"
 
 typedef struct {
-    LevelHOPD* unk0;
+    TaskHOPD* unk0;
     u16 objId;
     u8 unk6;
     u8 unk7;

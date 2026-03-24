@@ -5,47 +5,43 @@
 #include <uv_texture.h>
 #include <uv_vector.h>
 #include "code_9A960.h"
+#include "code_B2900.h"
 #include "hud.h"
 #include "level.h"
 #include "macros.h"
 #include "pads.h"
 #include "task.h"
 
+#define MAX_LANDING_PADS 14
+
 typedef struct {
     u8 pad0[0x10];
     s32 unk10;
     u8 pad14[4];
-} Unk8036C168;
+} Unk8036C168; // size = 0x18
 
-typedef struct {
-    u16 objId;
-    u8 unk2;
-    u8 pad3[1];
-    Mtx4F unk4;
-    f32 unk44;
-} CannonTarget; // size = 0x48
+TaskLPAD* gRefLPAD;
+TaskLSTP* gRefLSTP;
+TaskTPAD* gRefTPAD;
+TaskCNTG* gRefCNTG;
+LevelLPAD* gRefPotLPAD;
+Unk8036C168 D_8036C168[MAX_LANDING_PADS]; // written to, but unused
+u8 gPotLandPadCount;
+u8 gLandingPadCount;
+u8 gLandingStripCount;
+u8 gTakeoffPadCount;
+u8 gCannonTargetCount;
+TakeoffPad gTakeoffPads[3];
+LandingPad gLandingPads[MAX_LANDING_PADS];
+LandingStrip gLandingStrips[2];
+CannonTarget gCannonTargets[1];
+u16 gLandingPadObjIds[MAX_LANDING_PADS];
 
-typedef struct {
-    Vec3F pos;
-} TakeoffPad; // size = 0xC
+s8 gPadsInitialized = FALSE;
+u16 gLandingPadModels[3] = { MODEL_LANDING_PAD_1, MODEL_LANDING_PAD_2, MODEL_LANDING_PAD_3 };
 
-extern LevelLPAD* gRefLPAD;
-extern LevelLSTP* gRefLSTP;
-extern LevelTPAD* gRefTPAD;
-extern LevelCNTG* gRefCNTG;
-extern PotentialLPAD* gRefPotLPAD;
-
-extern Unk8036C168 D_8036C168[];
-extern u8 gPotLandPadCount;
-extern u8 gTakeoffPadCount;
-extern u8 gCannonTargetCount;
-
-extern TakeoffPad gTakeoffPads[3];
-extern CannonTarget gCannonTargets[1];
-extern u16 D_8036C4F8[];
-
-s8 D_8034F900 = 0;
-u16 D_8034F904[] = { 0x0102, 0x0103, 0x0104, 0x0000, 0x0000, 0x0000 };
+// forward declarations
+f32 padsStripAlignment(f32, f32, f32, LandingStrip*);
 
 void padsInit(void) {
     Unk8036C168* var_a0;
@@ -54,13 +50,13 @@ void padsInit(void) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gLandingPads); i++) {
-        gLandingPads[i].unk15 = 0;
-        gLandingPads[i].unk14 = 0;
+        gLandingPads[i].initialized = FALSE;
+        gLandingPads[i].isUsed = FALSE;
         D_8036C168[i].unk10 = 0;
     }
     for (i = 0; i < ARRAY_COUNT(gLandingStrips); i++) {
-        gLandingStrips[i].unk39 = 0;
-        gLandingStrips[i].unk38 = 0;
+        gLandingStrips[i].initialized = FALSE;
+        gLandingStrips[i].validStrip = FALSE;
     }
     gLandingStripCount = 0;
     gLandingPadCount = 0;
@@ -70,25 +66,25 @@ void padsInit(void) {
 }
 
 void padsLoad(void) {
-    LandingPad* landpad;
+    LandingPad* landPad;
     LandingStrip* landstrip;
-    LevelLSTP* lstp;
+    TaskLSTP* lstp;
     s32 pad1;
-    PotentialLPAD* plpad;
-    LevelLPAD* lpad;
-    f32 minVal;
+    LevelLPAD* plpad;
+    TaskLPAD* lpad;
+    f32 minDist;
     s32 var_s0;
     s32 j;
-    s32 minIdx;
+    s32 lpadIdx;
     s32 i;
     f32 dx;
     f32 dy;
     f32 dz;
-    LevelCNTG* cntg;
-    CannonTarget* cannontgt;
+    TaskCNTG* cntg;
+    CannonTarget* cannonTarg;
     s32 pad0;
-    Mtx4F spA4;
-    f32 temp_fv0;
+    Mtx4F pose;
+    f32 dist;
 
     gPotLandPadCount = levelGetLPAD(&gRefPotLPAD);
     if (gPotLandPadCount > ARRAY_COUNT(gLandingPads)) {
@@ -106,34 +102,34 @@ void padsLoad(void) {
 
     for (i = 0; i < gLandingPadCount; i++) {
         lpad = &gRefLPAD[i];
-        landpad = &gLandingPads[i];
-        uvVec3Copy(&landpad->pos, &lpad->pos);
-        landpad->unk17 = lpad->unk2C;
+        landPad = &gLandingPads[i];
+        uvVec3Copy(&landPad->pos, &lpad->pos);
+        landPad->type = lpad->type;
     }
 
     for (i = 0; i < gLandingPadCount; i++) {
-        landpad = &gLandingPads[i];
-        minVal = 100.0f;
-        minIdx = -1;
+        landPad = &gLandingPads[i];
+        minDist = 100.0f;
+        lpadIdx = -1;
         for (j = 0; j < gPotLandPadCount; j++) {
-            dx = landpad->pos.x - gRefPotLPAD[j].pos.x;
-            dy = landpad->pos.y - gRefPotLPAD[j].pos.y;
-            dz = landpad->pos.z - gRefPotLPAD[j].pos.z;
-            temp_fv0 = uvLength3D(dx, dy, dz);
-            if ((temp_fv0 < minVal) && (gRefPotLPAD[j].unk10 == 0)) {
-                minVal = temp_fv0;
-                minIdx = j;
+            dx = landPad->pos.x - gRefPotLPAD[j].pos.x;
+            dy = landPad->pos.y - gRefPotLPAD[j].pos.y;
+            dz = landPad->pos.z - gRefPotLPAD[j].pos.z;
+            dist = uvLength3D(dx, dy, dz);
+            if ((dist < minDist) && !gRefPotLPAD[j].isUsed) {
+                minDist = dist;
+                lpadIdx = j;
             }
         }
-        if ((minIdx != -1) && (D_80362690->unkC[D_80362690->unk9C].unk7B == 0)) {
-            gLandingPads[i].pos.x = gRefPotLPAD[minIdx].pos.x;
-            gLandingPads[i].pos.y = gRefPotLPAD[minIdx].pos.y;
-            gLandingPads[i].pos.z = gRefPotLPAD[minIdx].pos.z;
-            gRefPotLPAD[minIdx].unk10 = 1;
-            gLandingPads[i].unk14 = gRefPotLPAD[minIdx].unk10;
-            gLandingPads[i].unk10 = 30.0f;
-            gLandingPads[i].unk16 = minIdx;
-            gRefPotLPAD[minIdx].unk14 = gLandingPads[i].unk17;
+        if ((lpadIdx != -1) && (D_80362690->unkC[D_80362690->unk9C].unk7B == 0)) {
+            gLandingPads[i].pos.x = gRefPotLPAD[lpadIdx].pos.x;
+            gLandingPads[i].pos.y = gRefPotLPAD[lpadIdx].pos.y;
+            gLandingPads[i].pos.z = gRefPotLPAD[lpadIdx].pos.z;
+            gRefPotLPAD[lpadIdx].isUsed = TRUE;
+            gLandingPads[i].isUsed = gRefPotLPAD[lpadIdx].isUsed;
+            gLandingPads[i].landingDistance = 30.0f;
+            gLandingPads[i].idxLevelLPAD = lpadIdx;
+            gRefPotLPAD[lpadIdx].type = gLandingPads[i].type;
         }
     }
 
@@ -147,26 +143,26 @@ void padsLoad(void) {
     for (i = 0; i < gLandingStripCount; i++) {
         lstp = &gRefLSTP[i];
         landstrip = &gLandingStrips[i];
-        landstrip->unk38 = lstp->unk1C;
-        uvVec3Copy(&landstrip->pos, &lstp->pos);
-        uvVec3Copy(&landstrip->unkC, &lstp->unkC);
-        landstrip->dx = (landstrip->pos.x + landstrip->unkC.x) * 0.5f;
-        landstrip->dy = (landstrip->pos.y + landstrip->unkC.y) * 0.5f;
-        landstrip->dz = (landstrip->pos.z + landstrip->unkC.z) * 0.5f;
-        dx = landstrip->unkC.x - landstrip->pos.x;
-        dy = landstrip->unkC.y - landstrip->pos.y;
-        dz = landstrip->unkC.z - landstrip->pos.z;
-        temp_fv0 = uvSqrtF(SQ(dx) + SQ(dy) + SQ(dz));
-        landstrip->unk18 = dx / temp_fv0;
-        landstrip->unk1C = dy / temp_fv0;
-        landstrip->unk20 = dz / temp_fv0;
-        landstrip->unk30 = 0.5f * temp_fv0;
-        landstrip->unk34 = lstp->unk20;
-        landstrip->unk39 = 1;
+        landstrip->validStrip = lstp->validStrip;
+        uvVec3Copy(&landstrip->pos0, &lstp->posUL);
+        uvVec3Copy(&landstrip->pos1, &lstp->posLR);
+        landstrip->midpoint.x = (landstrip->pos0.x + landstrip->pos1.x) * 0.5f;
+        landstrip->midpoint.y = (landstrip->pos0.y + landstrip->pos1.y) * 0.5f;
+        landstrip->midpoint.z = (landstrip->pos0.z + landstrip->pos1.z) * 0.5f;
+        dx = landstrip->pos1.x - landstrip->pos0.x;
+        dy = landstrip->pos1.y - landstrip->pos0.y;
+        dz = landstrip->pos1.z - landstrip->pos0.z;
+        dist = uvSqrtF(SQ(dx) + SQ(dy) + SQ(dz));
+        landstrip->normal.x = dx / dist;
+        landstrip->normal.y = dy / dist;
+        landstrip->normal.z = dz / dist;
+        landstrip->landingDistance = 0.5f * dist;
+        landstrip->landingAlignment = lstp->landingAlignment;
+        landstrip->initialized = TRUE;
     }
 
     gTakeoffPadCount = taskGetTPAD(&gRefTPAD);
-    if (gTakeoffPadCount > 3) {
+    if (gTakeoffPadCount > ARRAY_COUNT(gTakeoffPads)) {
         _uvDebugPrintf("pads : too many takeoff pads defined in level [%d]\n", gTakeoffPadCount);
         gTakeoffPadCount = 0;
         return;
@@ -178,35 +174,35 @@ void padsLoad(void) {
 
     for (i = 0; i < gPotLandPadCount; i++) {
         plpad = &gRefPotLPAD[i];
-        if (plpad->unk10) {
+        if (plpad->isUsed) {
             uvLevelAppend(0x17);
             break;
         }
     }
 
     for (i = 0; i < gPotLandPadCount; i++) {
-        uvMat4SetIdentity(&spA4);
-        D_8036C4F8[i] = uvDobjAllocIdx();
-        if (gRefPotLPAD[i].unk10 != 0) {
-            uvDobjModel(D_8036C4F8[i], D_8034F904[gRefPotLPAD[i].unk14]);
+        uvMat4SetIdentity(&pose);
+        gLandingPadObjIds[i] = uvDobjAllocIdx();
+        if (gRefPotLPAD[i].isUsed) {
+            uvDobjModel(gLandingPadObjIds[i], gLandingPadModels[gRefPotLPAD[i].type]);
         } else {
-            uvDobjModel(D_8036C4F8[i], 0xD4); // no-target landing pad
+            uvDobjModel(gLandingPadObjIds[i], MODEL_LANDING_PAD_NOTARGET);
         }
-        func_80313640(gRefPotLPAD[i].pos.x, gRefPotLPAD[i].pos.y, gRefPotLPAD[i].pos.z, gRefPotLPAD[i].unkC, 0.0f, 0.0f, &spA4);
-        uvDobjPosm(D_8036C4F8[i], 0, &spA4);
+        func_80313640(gRefPotLPAD[i].pos.x, gRefPotLPAD[i].pos.y, gRefPotLPAD[i].pos.z, gRefPotLPAD[i].angle, 0.0f, 0.0f, &pose);
+        uvDobjPosm(gLandingPadObjIds[i], 0, &pose);
     }
 
     for (i = 0; i < gLandingPadCount; i++) {
-        gLandingPads[i].unk15 = 1;
+        gLandingPads[i].initialized = TRUE;
     }
 
     for (i = 0; i < gLandingStripCount; i++) {
-        gLandingStrips[i].unk39 = 1;
+        gLandingStrips[i].initialized = TRUE;
     }
 
     if (D_80362690->unkC[D_80362690->unk9C].unk7B == 0) {
         gCannonTargetCount = taskGetCNTG(&gRefCNTG);
-        if (gCannonTargetCount > 1) {
+        if (gCannonTargetCount > ARRAY_COUNT(gCannonTargets)) {
             _uvDebugPrintf("pads : too many cannon targets defined in level [%d]\n", gCannonTargetCount);
             gCannonTargetCount = 0;
             return;
@@ -218,45 +214,218 @@ void padsLoad(void) {
 
         for (i = 0; i < gCannonTargetCount; i++) {
             cntg = &gRefCNTG[i];
-            cannontgt = &gCannonTargets[i];
-            cannontgt->objId = uvDobjAllocIdx();
-            cannontgt->unk2 = hudAddWaypoint(cntg->pos.x, cntg->pos.y, cntg->pos.z);
-            switch (cntg->unk18) {
+            cannonTarg = &gCannonTargets[i];
+            cannonTarg->objId = uvDobjAllocIdx();
+            cannonTarg->radarIdx = hudAddWaypoint(cntg->pos.x, cntg->pos.y, cntg->pos.z);
+            switch (cntg->type) {
             case 0:
-                uvDobjModel(cannontgt->objId, MODEL_CANNONB_TARGET_2);
-                cannontgt->unk44 = 35.0f;
+                uvDobjModel(cannonTarg->objId, MODEL_CANNONB_TARGET_2);
+                cannonTarg->deltaZ = 35.0f;
                 break;
             case 1:
-                uvDobjModel(cannontgt->objId, MODEL_CANNONB_TARGET_3);
-                cannontgt->unk44 = 42.5f;
+                uvDobjModel(cannonTarg->objId, MODEL_CANNONB_TARGET_3);
+                cannonTarg->deltaZ = 42.5f;
                 break;
             case 2:
-                uvDobjModel(cannontgt->objId, MODEL_CANNONB_TARGET_4);
-                cannontgt->unk44 = 50.0f;
+                uvDobjModel(cannonTarg->objId, MODEL_CANNONB_TARGET_4);
+                cannonTarg->deltaZ = 50.0f;
                 break;
             default:
-                _uvDebugPrintf("pads : unknown cannon target type [%d]\n", cntg->unk18);
-                uvDobjModel(cannontgt->objId, MODEL_CANNONB_TARGET_4);
-                cannontgt->unk44 = 50.0f;
+                _uvDebugPrintf("pads : unknown cannon target type [%d]\n", cntg->type);
+                uvDobjModel(cannonTarg->objId, MODEL_CANNONB_TARGET_4);
+                cannonTarg->deltaZ = 50.0f;
                 break;
             }
-            func_80313640(cntg->pos.x, cntg->pos.y, cntg->pos.z, cntg->unkC * 0.01745329f, cntg->unk10 * 0.01745329f, cntg->unk14 * 0.01745329f,
-                          &cannontgt->unk4);
-            uvDobjPosm(cannontgt->objId, 0, &cannontgt->unk4);
+            func_80313640(cntg->pos.x, cntg->pos.y, cntg->pos.z, cntg->angle.x * 0.01745329f, cntg->angle.y * 0.01745329f, cntg->angle.z * 0.01745329f,
+                          &cannonTarg->pose);
+            uvDobjPosm(cannonTarg->objId, 0, &cannonTarg->pose);
         }
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/pads/padsFrameUpdate.s")
+void padsFrameUpdate(Mtx4F* pose) {
+    TakeoffPad* var_s0;
+    Unk80364210* temp_v0;
+    f32 x;
+    f32 y;
+    f32 z;
+    f32 dist;
+    f32 minDist;
+    f32 dx, dy, dz;
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/pads/func_80317764.s")
+    minDist = 1000000.0f;
+    x = pose->m[3][0];
+    y = pose->m[3][1];
+    z = pose->m[3][2];
+    temp_v0 = func_8032BE10();
+    temp_v0->unk3D = 0;
+    if ((gLandingPadCount > 0) || (gLandingStripCount > 0)) {
+        temp_v0->unk8 = padsLandedPadStrip(x, y, z, &temp_v0->unk3D);
+    }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/pads/padsDeinit.s")
+    for (i = 0; i < gTakeoffPadCount; i++) {
+        var_s0 = &gTakeoffPads[i];
+        dx = var_s0->pos.x - x;
+        dy = var_s0->pos.y - y;
+        dz = var_s0->pos.z - z;
+        dist = uvLength3D(dx, dy, dz);
+        if (dist < minDist) {
+            minDist = dist;
+        }
+    }
+    if (func_8032BE10()->unk4 < minDist) {
+        func_8032BE10()->unk4 = minDist;
+    }
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/pads/func_80317854.s")
+s32 padsUnused(void) {
+    return 1;
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/pads/func_80317978.s")
+void padsDeinit(void) {
+    CannonTarget* cannonTarg;
+    s32 i;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/pads/func_80317B50.s")
+    for (i = 0; i < gPotLandPadCount; i++) {
+        if (gLandingPadObjIds[i] != 0xFFFF) {
+            uvDobjModel(gLandingPadObjIds[i], 0xFFFF);
+            gLandingPadObjIds[i] = 0xFFFF;
+        }
+    }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/pads/func_80317C2C.s")
+    gPadsInitialized = FALSE;
+    for (i = 0; i < gCannonTargetCount; i++) {
+        cannonTarg = &gCannonTargets[i];
+        if (cannonTarg->objId != 0xFFFF) {
+            hud_8031A8E0(cannonTarg->radarIdx);
+            uvDobjModel(cannonTarg->objId, 0xFFFF);
+            cannonTarg->objId = 0xFFFF;
+        }
+    }
+}
+
+void padsInitLandingPads(void) {
+    s32 i;
+    Mtx4F pose;
+
+    for (i = 0; i < gPotLandPadCount; i++) {
+        if (gRefPotLPAD[i].isUsed) {
+            uvDobjModel(gLandingPadObjIds[i], MODEL_LANDING_PAD_NOTARGET);
+        }
+        uvMat4SetIdentity(&pose);
+        func_80313640(gRefPotLPAD[i].pos.x, gRefPotLPAD[i].pos.y, gRefPotLPAD[i].pos.z, gRefPotLPAD[i].angle, 0.0f, 0.0f, &pose);
+        uvDobjPosm(gLandingPadObjIds[i], 0, &pose);
+        gRefPotLPAD[i].isUsed = FALSE;
+        gPadsInitialized = TRUE;
+    }
+}
+
+f32 padsLandedPadStrip(f32 x, f32 y, f32 z, u8* outIdx) {
+    LandingPad* landPad;
+    LandingStrip* lstrip;
+    f32 dx;
+    f32 dist;
+    f32 dy;
+    f32 minDist;
+    s32 i;
+
+    minDist = 1000000.0f;
+
+    for (i = 0; i < gLandingPadCount; i++) {
+        landPad = &gLandingPads[i];
+        if (landPad->isUsed) {
+            dx = landPad->pos.x - x;
+            dy = landPad->pos.y - y;
+            dist = uvSqrtF(SQ(dx) + SQ(dy));
+            if (dist < minDist) {
+                minDist = dist;
+            }
+            if (dist < landPad->landingDistance) {
+                *outIdx = i + 1;
+            }
+        }
+    }
+
+    for (i = 0; i < gLandingStripCount; i++) {
+        lstrip = &gLandingStrips[i];
+        if (lstrip->validStrip) {
+            dx = lstrip->midpoint.x - x;
+            dy = lstrip->midpoint.y - y;
+            dist = uvSqrtF(SQ(dx) + SQ(dy));
+            if (dist <= lstrip->landingDistance) {
+                dist = padsStripAlignment(x, y, z, lstrip);
+                if (dist < (lstrip->landingAlignment * 0.5f)) {
+                    *outIdx = 0xFF;
+                }
+            }
+            if (dist < minDist) {
+                minDist = dist;
+            }
+        }
+    }
+
+    return minDist;
+}
+
+f32 padsCannonTgtDist(f32 x, f32 y, f32 z, u16 targetObjId) {
+    Mtx4F sp48;
+    Vec3F sp3C;
+    Vec3F sp30;
+    s32 i;
+    s32 pad;
+
+    for (i = 0; i < gCannonTargetCount; i++) {
+        if (targetObjId == gCannonTargets[i].objId) {
+            break;
+        }
+    }
+    if (i == gCannonTargetCount) {
+        return 1000.0f;
+    }
+
+    sp30.x = x;
+    sp30.y = y;
+    sp30.z = z;
+    uvMat4InvertTranslationRotation(&sp48, &gCannonTargets[i].pose);
+    uvMat4LocalToWorld(&sp48, &sp3C, &sp30);
+    sp3C.y = 0.0f;
+    sp3C.z -= gCannonTargets[i].deltaZ;
+    return uvVec3Len(&sp3C);
+}
+
+f32 padsStripAlignment(f32 x, f32 y, f32 z, LandingStrip* lstrip) {
+    f32 nx, ny, nz;
+    f32 dx, dy, dz;
+    f32 tx, ty, tz;
+    f32 sum;
+    f32 ret;
+
+    nx = lstrip->normal.x;
+    ny = lstrip->normal.y;
+    nz = lstrip->normal.z;
+    dx = (x - lstrip->pos0.x);
+    dy = (y - lstrip->pos0.y);
+    dz = (z - lstrip->pos0.z);
+    sum = nx * dx + ny * dy + nz * dz;
+    if (sum < 0.0f) {
+        return 1000000.0f;
+    }
+
+    nx = -nx;
+    ny = -ny;
+    nz = -nz;
+    dx = (x - lstrip->pos1.x);
+    dy = (y - lstrip->pos1.y);
+    dz = (z - lstrip->pos1.z);
+    sum = nx * dx + ny * dy + nz * dz;
+    if (sum < 0.0f) {
+        return 1000000.0f;
+    }
+
+    tx = (lstrip->pos1.x + (nx * sum)) - x;
+    ty = (lstrip->pos1.y + (ny * sum)) - y;
+    tz = (lstrip->pos1.z + (nz * sum)) - z;
+    ret = uvSqrtF(SQ(tx) + SQ(ty) + SQ(tz));
+    return ret;
+}

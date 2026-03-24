@@ -15,7 +15,6 @@
 #include "camera.h"
 #include "code_60020.h"
 #include "code_66160.h"
-#include "code_69BF0.h"
 #include "code_72010.h"
 #include "game.h"
 #include "code_7FE00.h"
@@ -24,6 +23,7 @@
 #include "code_B3A70.h"
 #include "code_D2B10.h"
 #include "demo.h"
+#include "env_sound.h"
 #include "environment.h"
 #include "fdr.h"
 #include "hud.h"
@@ -800,7 +800,7 @@ s32 cannonLoad802D77D8(Unk80362690* arg0, CannonballData* arg1) {
             temp_s1->unk74->unk40[temp_s1->cls].unk0[i][temp_s1->veh].unk4 = 0x7F;
         }
     }
-    func_802E26C0();
+    envSoundInit();
     func_8033F964(1);
     hud_8031DAA8(0, 0.0f);
     temp_s1->test = 0;
@@ -810,7 +810,7 @@ s32 cannonLoad802D77D8(Unk80362690* arg0, CannonballData* arg1) {
     hudInit();
     hud_8031A2CC();
     taskLoad();
-    func_8034E0B4();
+    windObjLoad();
     uvChanTerra(temp_s1->unk70->unk22C, arg0->terraId);
     uvEnvFunc(arg0->envId, 0, func_802E0CF0);
     func_8034B5E0(temp_s1->unk70->unk22C, temp_s1->unk70);
@@ -1013,11 +1013,11 @@ s32 cannonEndShot(CannonballData* arg0) {
     func_8033FCD0(temp_s1->veh);
     if (arg0->unkC != sp2E) {
         uvEventPost(0x19, 0);
-        func_802E26C0();
+        envSoundInit();
         sp2A = arg0->unkE;
         sp2C = arg0->unkC;
         taskDeinitLevel();
-        func_8034E628();
+        windObjDeinit();
         func_803214E4();
         level_8030BA60();
         cannonLevelEnterLeave(arg0);
@@ -1027,7 +1027,7 @@ s32 cannonEndShot(CannonballData* arg0) {
         hudInit();
         hud_8031A2CC();
         taskLoad();
-        func_8034E0B4();
+        windObjLoad();
         uvChanTerra(temp_s1->unk70->unk22C, D_80362690->terraId);
         uvEnvFunc(D_80362690->envId, 0, func_802E0CF0);
         cannonLoadLevel(D_80362690->unk9C, temp_s1->pilot, arg0, temp_s1->unk70);

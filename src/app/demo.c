@@ -57,7 +57,7 @@ void demoPackInputs(DemoRecordingEntry* entry, f32 stickX, f32 stickY, u32 butto
     entry->inputs = (u32)(((u32)((stickX + 1.0) * 127.0) << 0x18) | ((u32)((1.0 + stickY) * 127.0) << 0x10) | buttons);
 }
 
-s32 demo_803229EC(s32 pilot, s32 veh) {
+s32 demoGetUserFileIdx(s32 pilot, s32 veh) {
     if (veh < 0) {
         switch (pilot) {
         case PILOT_LARK:
@@ -171,7 +171,7 @@ void demoInit(void) {
     idx = 0;
     done = 0;
     demoAllocate();
-    temp_s4 = uvFileReadHeader((s32)func_802314D0(demo_803229EC(D_8036DA44, D_8036DA48), 2));
+    temp_s4 = uvFileReadHeader((s32)uvUserFileRead(demoGetUserFileIdx(D_8036DA44, D_8036DA48), 2));
     uvMemSet(D_8036DA30->entries, 0, sizeof(D_8036DA30->entries));
     uvMemSet(&D_8036DA50, 0, sizeof(D_8036DA50));
 
@@ -198,12 +198,12 @@ void demoInit(void) {
 }
 
 void demo_80322D60(s32 pilot, s32 veh) {
-    s32 idx;
+    s32 userFileIdx;
     D_8036DA44 = pilot;
     D_8036DA48 = veh;
     demoInit();
-    idx = demo_803229EC(D_8036DA44, D_8036DA48);
-    demoAttInit(idx);
+    userFileIdx = demoGetUserFileIdx(D_8036DA44, D_8036DA48);
+    demoAttInit(userFileIdx);
 }
 
 void demoSetRecMode(s32 mode) {

@@ -12,13 +12,13 @@
 #include "kernel/code_8170.h"
 #include "kernel/code_30EA0.h"
 #include "code_61A60.h"
-#include "code_69BF0.h"
-#include "game.h"
 #include "code_9A960.h"
 #include "code_B3A70.h"
 #include "code_C9B60.h"
 #include "code_D2B10.h"
 #include "demo.h"
+#include "env_sound.h"
+#include "game.h"
 #include "hud.h"
 #include "level.h"
 #include "snd.h"
@@ -133,7 +133,7 @@ void func_802DA6E0(Unk80362690* arg0, s32 pilot) {
     temp_s0 = arg0->unkC[arg0->unk9C].unk70;
     D_8034EA48 = 0;
     D_80359C88 = 0.0f;
-    func_802E26C0();
+    envSoundInit();
     arg0->map = 1;
     arg0->terraId = 0;
     arg0->envId = (u16)D_8034EA94[D_8034EA40];

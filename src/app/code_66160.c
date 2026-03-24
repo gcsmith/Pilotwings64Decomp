@@ -86,8 +86,8 @@ s32 func_802E02F8(void) {
 void db_getstart(Mtx4F* arg0, Vec3F* arg1, u8* arg2, f32* fuel) {
     Vec3F pos;
     Vec3F ang;
-    LevelTPAD* sp44;
-    LevelTPAD* first;
+    TaskTPAD* sp44;
+    TaskTPAD* first;
     ParsedUVTR* sp3C;
     s32 idx;
     u8 temp_v1;

@@ -31,7 +31,7 @@ STATIC_FUNC s32 userPathAlloc(void) {
     return -1;
 }
 
-Unk8037DCA0* userPath_8034A4F8(s32 arg0) {
+Unk8037DCA0* userPath_8034A4F8(s32 userFileIdx) {
     Unk8037DCA0* temp_s0;
     s32 temp_v0;
     u32 sp8C;
@@ -57,7 +57,7 @@ Unk8037DCA0* userPath_8034A4F8(s32 arg0) {
     temp_s0 = &D_8037DCA0[temp_v0];
     temp_s0->unk38 = temp_v0;
     temp_s0->allocated = 1;
-    temp_v0_2 = uvFileReadHeader(func_802314D0(arg0, 2));
+    temp_v0_2 = uvFileReadHeader(uvUserFileRead(userFileIdx, MEM_ROM_OFFSET));
     while ((var_v0 = uvFileReadBlock(temp_v0_2, &sp8C, &sp88, 1)) != 0) {
         switch (var_v0) {
         case 'COMM':

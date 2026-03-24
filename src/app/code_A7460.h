@@ -3,6 +3,7 @@
 
 #include <uv_vector.h>
 
+void func_803203D0(s32, Vec3F*);
 void func_80320534(void);
 void func_8032079C(void);
 void func_80320810(void);

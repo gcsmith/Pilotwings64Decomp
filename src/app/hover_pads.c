@@ -1,15 +1,19 @@
 #include "common.h"
+#include <uv_audio.h>
 #include <uv_dobj.h>
 #include <uv_texture.h>
 #include <uv_util.h>
 #include "code_9A960.h"
 #include "hover_pads.h"
 #include "hud.h"
+#include "snd.h"
 #include "task.h"
 
-s32 D_8034F3F0[2] = { MODEL_RB_HOVERPAD_LARGE, MODEL_RB_HOVERPAD_STANDARD };
+#define INVALID_OBJECT_ID 0xFFFF
 
-LevelHPAD* gRefHPAD;
+s32 gHoverPadModels[2] = { MODEL_RB_HOVERPAD_LARGE, MODEL_RB_HOVERPAD_STANDARD };
+
+TaskHPAD* gRefHPAD;
 u8 gHoverPadCount;
 HoverPad gHoverPads[20];
 
@@ -22,38 +26,57 @@ void hoverPadInit(void) {
 
     for (i = 0; i < ARRAY_COUNT(gHoverPads); i++) {
         hover = &gHoverPads[i];
-        hover->objId = 0xFFFF;
-        hover->unk68 = 0;
-        hover->unk6B = 0;
+        hover->objId = INVALID_OBJECT_ID;
+        hover->wasLandedOn = FALSE;
+        hover->active = FALSE;
         hover->unk6C = 0;
-        hover->unk69 = 0;
+        hover->initialized = FALSE;
         hover->unk64 = 0.0f;
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/hover_pads/hoverPad_80309868.s")
+void hoverPad_80309868(void) {
+    s32 i;
+
+    for (i = 0; i < gHoverPadCount; i++) {
+        if (D_80362690->unkC[D_80362690->unk9C].unk8 == gRefHPAD[i].unk18) {
+            gHoverPads[i].unk6A = TRUE;
+            if (gHoverPads[i].objId != INVALID_OBJECT_ID) {
+                uvDobjSetState(gHoverPads[i].objId, 3);
+            }
+            if (gHoverPads[i].radarIdx != 0xFF) {
+                hud_8031A874(gHoverPads[i].radarIdx);
+            }
+        } else {
+            gHoverPads[i].unk6A = FALSE;
+            if (gHoverPads[i].objId != INVALID_OBJECT_ID) {
+                uvDobjClearState(gHoverPads[i].objId, 3);
+            }
+            if (gHoverPads[i].radarIdx != 0xFF) {
+                hud_8031A810(gHoverPads[i].radarIdx);
+            }
+        }
+    }
+}
 
 void hoverPadObjSetup(HoverPad* hover) {
-    s32 var_a1;
-
     hover->objId = uvDobjAllocIdx();
-    if (hover->unk6B != 0) {
+    if (hover->active) {
         if (hover->type > 1) {
             _uvDebugPrintf("Bad hpad type %d\n", hover->type);
             hover->type = 1;
         }
-        uvDobjModel(hover->objId, D_8034F3F0[hover->type]);
+        uvDobjModel(hover->objId, gHoverPadModels[hover->type]);
     } else {
         uvDobjModel(hover->objId, MODEL_RB_HOVERPAD_LOCKED);
     }
-    var_a1 = (hover->unk6A != 0) ? 3 : 0;
-    uvDobjState(hover->objId, var_a1);
-    uvDobjPosm(hover->objId, 0, &hover->unk4);
+    uvDobjState(hover->objId, (hover->unk6A) ? 3 : 0);
+    uvDobjPosm(hover->objId, 0, &hover->pose);
 }
 
 void hoverPadLoad(void) {
     HoverPad* hover;
-    LevelHPAD* hpad;
+    TaskHPAD* hpad;
     s32 i;
     s32 j;
 
@@ -76,57 +99,162 @@ void hoverPadLoad(void) {
     for (i = 0; i < gHoverPadCount; i++) {
         hover = &gHoverPads[i];
         hpad = &gRefHPAD[i];
-        if (hover->unk68 == 0) {
-            if (hover->unk69 == 0) {
-                hover->type = hpad->unk1C;
-                hover->unk6B = hpad->unk3C;
-                hover->unk4C = hpad->unk24;
-                hover->unk45 = hpad->unk1D;
-                hover->unk48 = hpad->unk20;
-
-                for (j = 0; j < hover->unk4C; j++) {
-                    hover->unk50[j] = hpad->unk28[j];
-                }
-
-                if ((hover->unk6B != 0) && (hover->unk4C > 0)) {
-                    hover->unk6C = 1;
-                }
-                func_80313640(hpad->unk0.x, hpad->unk0.y, hpad->unk0.z, hpad->unkC.x * 0.0174533f, hpad->unkC.y * 0.0174533f, hpad->unkC.z * 0.0174533f,
-                              &hover->unk4);
-                hover->unk69 = 1;
-                if (hover->unk6B != 0) {
-                    hover->unk6D = hudAddWaypoint(hpad->unk0.x, hpad->unk0.y, hpad->unk0.z);
-                }
-            }
-            hoverPadObjSetup(hover);
+        if (hover->wasLandedOn) {
+            continue;
         }
+        if (!hover->initialized) {
+            hover->type = hpad->type;
+            hover->active = hpad->active;
+            hover->nextHoverPadCount = hpad->nextHpadCount;
+            hover->points = hpad->points;
+            hover->fuelAdded = hpad->fuelAdded;
+
+            for (j = 0; j < hover->nextHoverPadCount; j++) {
+                hover->nextHoverPads[j] = hpad->nextHpads[j];
+            }
+
+            if ((hover->active) && (hover->nextHoverPadCount > 0)) {
+                hover->unk6C = 1;
+            }
+            func_80313640(hpad->pos.x, hpad->pos.y, hpad->pos.z, hpad->rot.x * 0.0174533f, hpad->rot.y * 0.0174533f, hpad->rot.z * 0.0174533f,
+                          &hover->pose); // DEG_TO_RAD(1)
+            hover->initialized = TRUE;
+            if (hover->active) {
+                hover->radarIdx = hudAddWaypoint(hpad->pos.x, hpad->pos.y, hpad->pos.z);
+            }
+        }
+        hoverPadObjSetup(hover);
     }
     hoverPad_80309868();
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/hover_pads/hoverPad_80309C48.s")
+void hoverPadActivateNext(s32 hoverIdx) {
+    HoverPad* hover;
+    HoverPad* nextHover;
+    s32 i;
+    s32 idx;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/hover_pads/hoverPadFrameUpdate.s")
+    hover = &gHoverPads[hoverIdx];
+    hover->unk6C = 0;
+    for (i = 0; i < hover->nextHoverPadCount; i++) {
+        idx = hover->nextHoverPads[i];
+        nextHover = &gHoverPads[idx];
+        if (nextHover->active) {
+            continue;
+        }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/hover_pads/hoverPad_80309D6C.s")
+        if (nextHover->wasLandedOn) {
+            continue;
+        }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/hover_pads/hoverPad_80309E68.s")
+        nextHover->active = TRUE;
+        nextHover->unk6C = 1;
+        if (nextHover->objId != INVALID_OBJECT_ID) {
+            uvDobjModel(nextHover->objId, 0xFFFF);
+        }
+        hoverPadObjSetup(nextHover);
+        nextHover->radarIdx = hudAddWaypoint(nextHover->pose.m[3][0], nextHover->pose.m[3][1], nextHover->pose.m[3][2]);
+    }
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/hover_pads/hoverPad_80309EA8.s")
+void hoverPadFrameUpdate(UNUSED Mtx4F* arg0) {
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/hover_pads/hoverPad_80309F04.s")
+void hoverPadLanded(s32 hoverIdx) {
+    u8 objId;
+    HoverPad* hover;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/hover_pads/hoverPadDeinit.s")
+    hover = &gHoverPads[hoverIdx];
+    if (hover->objId != INVALID_OBJECT_ID) {
+        objId = uvEmitterLookup();
+        uvEmitterFromModel(objId, 0x3E);
+        uvEmitterProp(objId, 1, 0.0f, 2, 500.0f, 5, 0x38, 0);
+        uvEmitterSetMatrix(objId, &hover->pose);
+        uvEmitterTrigger(objId);
+        uvDobjModel(hover->objId, 0xFFFF);
+        hover->objId = INVALID_OBJECT_ID;
+        hover->wasLandedOn = TRUE;
+        hover->active = FALSE;
+    }
+    if (hover->radarIdx != 0xFF) {
+        hud_8031A8E0(hover->radarIdx);
+        hover->radarIdx = 0xFF;
+    }
+}
 
-u8 hoverPad_8030A080(void) {
+f32 hoverPadGetAltitude(s32 hoverIdx) {
+    if (gHoverPads[hoverIdx].objId == INVALID_OBJECT_ID) {
+        return 0.0f;
+    } else {
+        return gHoverPads[hoverIdx].pose.m[3][2];
+    }
+}
+
+f32 hoverPadGetFuel(s32 hoverIdx) {
+    if (gHoverPads[hoverIdx].objId == INVALID_OBJECT_ID) {
+        return 0.0f;
+    } else {
+        snd_play_sfx(0x6D);
+        return gHoverPads[hoverIdx].fuelAdded;
+    }
+}
+
+s32 hoverPadGetLandedIdx(s32 objId, UNUSED s32 arg1) {
+    HoverPad* hover;
+    Unk80362690_Unk0* unkC;
+    s32 i;
+    s32 hoverIdx;
+    f32 dx, dy, dz;
+    f32 sum;
+
+    hoverIdx = -1;
+    unkC = &D_80362690->unkC[D_80362690->unk9C];
+    for (i = 0; i < gHoverPadCount; i++) {
+        hover = &gHoverPads[i];
+        if ((hover->objId != INVALID_OBJECT_ID) && (objId == hover->objId)) {
+            dx = hover->pose.m[3][0] - unkC->unk2C.m[3][0];
+            dy = hover->pose.m[3][1] - unkC->unk2C.m[3][1];
+            dz = hover->pose.m[3][2] - unkC->unk2C.m[3][2];
+            sum = dx * hover->pose.m[2][0] + dy * hover->pose.m[2][1] + dz * hover->pose.m[2][2];
+            if (sum < 0.0f) {
+                if (hover->active) {
+                    hoverIdx = i;
+                }
+                break;
+            }
+        }
+    }
+    return hoverIdx;
+}
+
+void hoverPadDeinit(void) {
+    s32 i;
+    for (i = 0; i < gHoverPadCount; i++) {
+        if (gHoverPads[i].objId != INVALID_OBJECT_ID) {
+            uvDobjModel(gHoverPads[i].objId, 0xFFFF);
+            gHoverPads[i].objId = INVALID_OBJECT_ID;
+        }
+    }
+}
+
+u8 hoverPadGetCount(void) {
     u8 ret;
     s32 i;
 
     ret = 0;
     for (i = 0; i < gHoverPadCount; i++) {
-        ret += (gHoverPads[i].unk68 != 0) ? 1 : 0;
+        ret += (gHoverPads[i].wasLandedOn) ? 1 : 0;
     }
     return ret;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/hover_pads/hoverPad_8030A0DC.s")
+s16 hoverPadGetPoints(void) {
+    s32 points;
+    s32 i;
+
+    points = 0;
+    for (i = 0; i < gHoverPadCount; i++) {
+        points += (gHoverPads[i].wasLandedOn) ? gHoverPads[i].points : 0;
+    }
+    return points;
+}
