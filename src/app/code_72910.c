@@ -20,7 +20,7 @@ s16 D_8034F154[6] = { 0 };
 void func_802EB3E0(void) {
     func_802E9FD0();
     func_80341CB0();
-    func_803365A0();
+    smokeInit();
     func_80314430();
     D_8034F150 = 0;
     D_80359DB4 = 0;
@@ -86,8 +86,8 @@ s32 func_802EB640(Unk80362690_Unk0* arg0, u16 arg1) {
     }
 
     if (arg0->unk88 == -1) {
-        arg0->unk88 = smoke_create();
-        smoke_props(arg0->unk88, 1, 0, 0, 0, 2, 3.0f, 3, 2.0f, 5, 0.0f, 0.0f, 0.5f, 4, 5.0f, 7, 1, 0);
+        arg0->unk88 = smokeCreate();
+        smokeProps(arg0->unk88, 1, 0, 0, 0, 2, 3.0f, 3, 2.0f, 5, 0.0f, 0.0f, 0.5f, 4, 5.0f, 7, 1, 0);
         temp_s0 = uvEmitterLookup();
         snd_getpilot(&sp90, &sp8C);
         uvEmitterFromModel(temp_s0, sp90);

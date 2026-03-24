@@ -9,6 +9,7 @@
 #include "app/credits.h"
 #include "app/demo.h"
 #include "app/environment.h"
+#include "app/env_sound.h"
 #include "app/falco.h"
 #include "app/fdr.h"
 #include "app/file_menu.h"
@@ -30,7 +31,6 @@
 #include "app/wind_objects.h"
 #include "app/code_61A60.h"
 #include "app/code_64730.h"
-#include "app/code_69BF0.h"
 #include "app/code_78620.h"
 #include "app/code_7C4C0.h"
 #include "app/code_7FE00.h"
@@ -127,8 +127,8 @@ void gameInit(void) {
     taskInit();
     envInit();
     snd_init();
-    windObjectsInit();
-    toysInit();
+    windObjInit();
+    toyInit();
     proxanimInit();
     falcoInit();
     userPathInit();
@@ -352,7 +352,7 @@ s32 gameUpdateStateTestDetails(Unk80362690* arg0) {
     }
 
     ptr->testCount = var_a2;
-    sp1F = func_803485F0(sp2C, ptr);
+    sp1F = testMenuMainRender(sp2C, ptr);
     func_8033FB14();
     if (sp1F == 0xFE) {
         gameState = GAME_STATE_DEMO_TEST_SETUP;
@@ -447,7 +447,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
         return cannonLoad802D77D8(arg0, D_803676FC);
     }
     if (arg0->unkA2 == 0) {
-        func_802E26C0();
+        envSoundInit();
         func_8033F964(1);
     }
     hud_8031A2CC();
@@ -461,7 +461,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
     uvEnvFunc(arg0->envId, 0, func_802E0CF0);
     arg0->unkA0 = 1;
     taskLoad();
-    func_8034E0B4();
+    windObjLoad();
     if (arg0->unkA2 == 0) {
         func_8034B5E0(temp_s0->unk70->unk22C, temp_s0->unk70);
     } else {
@@ -715,7 +715,7 @@ void func_802ECE94(Unk80362690* arg0) {
             break;
         }
         taskDeinitLevel();
-        func_8034E628();
+        windObjDeinit();
         level_8030BA60();
         if (arg0->unkA2 == 0) {
             func_8033F964(1);
@@ -768,7 +768,7 @@ s32 gameUpdateStateTestUpdate(Unk80362690* arg0) {
     level_8030BD20();
     func_802E15F0();
     func_802F89A0(D_80362E88);
-    func_8034E274();
+    windObjFrameUpdate();
 
     switch (sp6C->veh) {
     case VEHICLE_HANG_GLIDER:
@@ -1205,7 +1205,7 @@ void func_802EE14C(u16 veh) {
     }
     temp_s0->veh = veh;
     levelComputeAppend(temp_s0->pilot, temp_s0->veh);
-    task_803462D4(temp_s0->cls);
+    taskBirdmanPad(temp_s0->cls);
     hudGetState()->renderFlags = 0;
     temp_s0->unk8 = 0;
     D_80362690->terraId = task_80346370(temp_s0->unk8);
@@ -1214,7 +1214,7 @@ void func_802EE14C(u16 veh) {
     taskDeinit();
     thermDeinit();
     windDeinit();
-    func_80317854();
+    padsInitLandingPads();
     sp30.x = sp30.y = sp30.z = 0.0f;
     func_802E14E8(&sp30, 0.0f, 0.0f, 0.0f, 0.0f);
     switch (temp_s0->veh) {

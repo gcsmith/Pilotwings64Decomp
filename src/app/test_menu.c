@@ -61,11 +61,11 @@ static s32 D_803509B8 = 0; // unused, only ever set to 0
 void testMenuInitText(s32 testIdx);
 void testMenuInit(Unk80367710*, s32);
 u8 testMenuHandler(Unk80367710*);
-void testMenuDraw(Unk802D3658_Arg0*, u8 classIdx, u8 vehIdx);
+void testMenuDraw(Camera*, u8 classIdx, u8 vehIdx);
 void testMenu_8034A428(void);
 
 s32 testMenuMainRender(Unk80362690_Unk0* arg0, Unk80367710* arg1) {
-    Unk802D3658_Arg0* temp_s3;
+    Camera* temp_s3;
     u8 classIdx;
     u8 temp_s0_3;
     u8 vehIdx;
@@ -95,7 +95,7 @@ s32 testMenuMainRender(Unk80362690_Unk0* arg0, Unk80367710* arg1) {
     if ((temp_v0 == 0xFF) || (temp_v0 == 0xFE)) {
         return temp_v0;
     }
-    return arg1->unk4[gCurTestIdx].unk0[0];
+    return arg1->unk4[gCurTestIdx].unk0;
 }
 
 // returns true if test is one of the Shutter Bug tests
@@ -467,7 +467,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
     return 6;
 }
 
-void testMenuDraw(Unk802D3658_Arg0* arg0, u8 classIdx, u8 vehIdx) {
+void testMenuDraw(Camera* arg0, u8 classIdx, u8 vehIdx) {
     s32 pad1;
     s32 pad21;
     s32 var_s0;
@@ -499,8 +499,7 @@ void testMenuDraw(Unk802D3658_Arg0* arg0, u8 classIdx, u8 vehIdx) {
     strIdAppend[0] = '_';
     strIdAppend[1] = 'M';
     strIdAppend[2] = '\0';
-    temp_a0 = &arg0->unk108;
-    func_8033F6F8(temp_a0, temp_a0);
+    func_8033F6F8(&arg0->unk108, &arg0->unk108);
     func_80311C68(D_80362690, 0);
     if (sTestMenuState != 1) {
         if (sTestMenuState != 2) {

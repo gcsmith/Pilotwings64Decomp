@@ -5,15 +5,15 @@
 #include <uv_math.h>
 #include "kernel/code_1050.h"
 #include "code_58B00.h"
-#include "code_5A6A0.h"
 #include "code_61A60.h"
 #include "code_6ECD0.h"
-#include "code_72B70.h"
 #include "code_9A960.h"
 #include "code_A7460.h"
+#include "camera.h"
 #include "demo.h"
 #include "env_sound.h"
 #include "environment.h"
+#include "game.h"
 #include "shadow.h"
 #include "snd.h"
 
