@@ -16,9 +16,8 @@ f32 D_80350474 = 0.0f;
 f32 D_80350478 = 0.0f;
 
 // forward declarations
-void func_803347D0(Mtx4F*);
-f32 func_80334A38(Vec3F*);
-void func_80335130(void);
+STATIC_FUNC void shadow_803347D0(Mtx4F*);
+STATIC_FUNC f32 shadow_80334A38(Vec3F*);
 
 void shadow_803342F0(f32 arg0) {
     D_80350474 = arg0;
@@ -103,7 +102,7 @@ void shadow_803344BC(Mtx4F* arg0, f32 arg1) {
     }
 
     if (sp1D != 0) {
-        func_803347D0(arg0);
+        shadow_803347D0(arg0);
     } else {
         shadow_80334578(arg0, arg1);
     }
@@ -140,7 +139,7 @@ void shadow_80334578(Mtx4F* arg0, f32 arg1) {
     sp9C.f[1] = arg0->m[3][1] + (arg0->m[1][1] * var_fv0);
     sp9C.f[2] = arg0->m[3][2];
     uvVec3Copy(&sp78, &sp9C);
-    sp9C.f[2] = func_80334A38(&sp78);
+    sp9C.f[2] = shadow_80334A38(&sp78);
     sp90.f[0] = arg0->m[0][0];
     sp90.f[1] = arg0->m[0][1];
     sp90.f[2] = arg0->m[0][2];
@@ -177,7 +176,7 @@ void shadow_80334578(Mtx4F* arg0, f32 arg1) {
     uvDobjPosm(D_80350470, 0, &sp2C);
 }
 
-void func_803347D0(Mtx4F* arg0) {
+STATIC_FUNC void shadow_803347D0(Mtx4F* arg0) {
     Mtx4F sp58;
     f32 sp54;
     f32 sp50;
@@ -240,7 +239,7 @@ void func_803347D0(Mtx4F* arg0) {
     uvDobjPosm(D_80350470, 0, &sp58);
 }
 
-f32 func_80334A38(Vec3F* arg0) {
+STATIC_FUNC f32 shadow_80334A38(Vec3F* arg0) {
     s32* surfaceId;
     f32 temp_fs4;
     f32 var_fs0;
