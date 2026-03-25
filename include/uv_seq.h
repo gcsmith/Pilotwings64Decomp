@@ -3,12 +3,12 @@
 
 #include <PR/ultratypes.h>
 
-#define SEQ_PROPS_1(x) 1, (x)
-#define SEQ_PROPS_2(x) 2, (x)
-#define SEQ_PROPS_3(x) 3, (x)
-#define SEQ_PROPS_4(x) 4, (x)
-#define SEQ_PROPS_5(x) 5, (x)
-#define SEQ_PROPS_END 0
+#define SEQ_PROP_1(x) 1, (x)
+#define SEQ_PROP_2(x) 2, (x)
+#define SEQ_PROP_3(x) 3, (x)
+#define SEQ_PROP_4(x) 4, (x)
+#define SEQ_PROP_5(x) 5, (x)
+#define SEQ_PROP_END 0
 
 void func_80218BA0(void);
 void func_80218CA4(void);

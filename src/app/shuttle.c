@@ -62,19 +62,19 @@ STATIC_FUNC void shuttle_80334CCC(void) {
         uvMat4Mul(&D_80371D50, &sp80, &D_80371D10);
         uvDobjPosm(D_803504B4, 0, &D_80371D50);
         if (D_803504D0 != 0xFF) {
-            uvFxProps(D_803504D0, FX_PROPS_3(40.0f, 40.0f, 40.0f), FX_END);
+            uvFxProps(D_803504D0, FX_PROP_3(40.0f, 40.0f, 40.0f), FX_PROP_END);
         }
         if (D_803504D4 != 0xFF) {
-            uvFxProps(D_803504D4, FX_PROPS_3(40.0f, 40.0f, 40.0f), FX_END);
+            uvFxProps(D_803504D4, FX_PROP_3(40.0f, 40.0f, 40.0f), FX_PROP_END);
         }
         if (D_803504E4 != 0xFF) {
-            uvFxProps(D_803504E4, FX_PROPS_3(15.0f, 1.0f, -25.0f), FX_END);
+            uvFxProps(D_803504E4, FX_PROP_3(15.0f, 1.0f, -25.0f), FX_PROP_END);
         }
         if (D_803504E0 != 0xFF) {
-            uvFxProps(D_803504E0, FX_PROPS_3(15.0f, 1.0f, -25.0f), FX_END);
+            uvFxProps(D_803504E0, FX_PROP_3(15.0f, 1.0f, -25.0f), FX_PROP_END);
         }
         if (D_803504C4 >= 0) {
-            smokeProps(D_803504C4, SMOKE_PROPS_2(D_803504A0), SMOKE_FX_END);
+            smokeProps(D_803504C4, SMOKE_PROP_2(D_803504A0), SMOKE_PROP_END);
         }
     } else if (D_80350494 == 1) {
         D_8035049C = 0 /*.0f*/;
@@ -86,7 +86,7 @@ STATIC_FUNC void shuttle_80334CCC(void) {
         uvMat4Mul(&D_80371D50, &sp40, &D_80371D10);
         uvDobjPosm(D_803504B4, 0, &D_80371D50);
         if (D_803504C4 >= 0) {
-            smokeProps(D_803504C4, SMOKE_PROPS_2(D_803504A0), SMOKE_FX_END);
+            smokeProps(D_803504C4, SMOKE_PROP_2(D_803504A0), SMOKE_PROP_END);
         }
     }
     if (D_80350494 != 4) {
@@ -98,7 +98,7 @@ STATIC_FUNC void shuttle_80334CCC(void) {
             func_8021A4D8(D_803504D0, &sp40);
         }
         if (D_803504C8 >= 0) {
-            smokeProps(D_803504C8, SMOKE_PROPS_6(sp40.m[3][0], sp40.m[3][1], sp40.m[3][2]), SMOKE_FX_END);
+            smokeProps(D_803504C8, SMOKE_PROP_6(sp40.m[3][0], sp40.m[3][1], sp40.m[3][2]), SMOKE_PROP_END);
         }
         if (D_803504E4 != 0xFF) {
             func_8021A4D8(D_803504E4, &sp40);
@@ -111,7 +111,7 @@ STATIC_FUNC void shuttle_80334CCC(void) {
             func_8021A4D8(D_803504D4, &sp40);
         }
         if (D_803504CC >= 0) {
-            smokeProps(D_803504CC, SMOKE_PROPS_6(sp40.m[3][0], sp40.m[3][1], sp40.m[3][2]), SMOKE_FX_END);
+            smokeProps(D_803504CC, SMOKE_PROP_6(sp40.m[3][0], sp40.m[3][1], sp40.m[3][2]), SMOKE_PROP_END);
         }
         if (D_803504E0 != 0xFF) {
             func_8021A4D8(D_803504E0, &sp40);
@@ -125,8 +125,17 @@ STATIC_FUNC void shuttle_80335130(void) {
     }
 
     if (D_803504D0 != 0xFF) {
-        uvFxProps(D_803504D0, FX_PROPS_3(0.0f, 0.0f, 0.0f), FX_PROPS_5(1.0f, 0.925f, 0.709f, 0.75f), FX_PROPS_6(1.0f, 1.0f, 1.0f, 0.0f),
-                  FX_PROPS_4(1.0f, 1.0f, 1.0f), FX_PROPS_1(1e+20), FX_END);
+        // clang-format off
+        uvFxProps(
+            D_803504D0,
+            FX_PROP_3(0.0f, 0.0f, 0.0f),
+            FX_PROP_5(1.0f, 0.925f, 0.709f, 0.75f),
+            FX_PROP_6(1.0f, 1.0f, 1.0f, 0.0f),
+            FX_PROP_4(1.0f, 1.0f, 1.0f),
+            FX_PROP_1(1e+20),
+            FX_PROP_END
+        );
+        // clang-format on
     }
 
     if (D_803504D4 == 0xFF) {
@@ -134,18 +143,35 @@ STATIC_FUNC void shuttle_80335130(void) {
     }
 
     if (D_803504D4 != 0xFF) {
-        uvFxProps(D_803504D4, FX_PROPS_3(0.0f, 0.0f, 0.0f), FX_PROPS_5(1.0f, 0.925f, 0.709f, 0.75f), FX_PROPS_6(1.0f, 1.0f, 1.0f, 0.0f),
-                  FX_PROPS_4(1.0f, 1.0f, 1.0f), FX_PROPS_1(1e+20), FX_END);
+        // clang-format off
+        uvFxProps(
+            D_803504D4,
+            FX_PROP_3(0.0f, 0.0f, 0.0f),
+            FX_PROP_5(1.0f, 0.925f, 0.709f, 0.75f),
+            FX_PROP_6(1.0f, 1.0f, 1.0f, 0.0f),
+            FX_PROP_4(1.0f, 1.0f, 1.0f),
+            FX_PROP_1(1e+20),
+            FX_PROP_END
+        );
+        // clang-format on
     }
 
     if (D_803504DC == 0xFF) {
         D_803504DC = func_80218F88();
         if (D_803504DC != 0xFF) {
             uvSeqModel(D_803504DC, 0);
-            uvSeqProps(D_803504DC, SEQ_PROPS_4(60.0f), SEQ_PROPS_END);
+            uvSeqProps(D_803504DC, SEQ_PROP_4(60.0f), SEQ_PROP_END);
             D_803504E4 = func_8034B464(6);
             if (D_803504E4 != 0xFF) {
-                uvFxProps(D_803504E4, FX_PROPS_13(D_803504DC), FX_PROPS_1(1e+20), FX_PROPS_3(0.0f, 0.0f, 0.0f), FX_END);
+                // clang-format off
+                uvFxProps(
+                    D_803504E4,
+                    FX_PROP_13(D_803504DC),
+                    FX_PROP_1(1e+20),
+                    FX_PROP_3(0.0f, 0.0f, 0.0f),
+                    FX_PROP_END
+                );
+                // clang-format on
             }
         }
     }
@@ -154,10 +180,18 @@ STATIC_FUNC void shuttle_80335130(void) {
         D_803504D8 = func_80218F88();
         if (D_803504D8 != 0xFF) {
             uvSeqModel(D_803504D8, 0);
-            uvSeqProps(D_803504D8, SEQ_PROPS_4(60.0f), SEQ_PROPS_END);
+            uvSeqProps(D_803504D8, SEQ_PROP_4(60.0f), SEQ_PROP_END);
             D_803504E0 = func_8034B464(6);
             if (D_803504E0 != 0xFF) {
-                uvFxProps(D_803504E0, FX_PROPS_13(D_803504D8), FX_PROPS_1(1e+20), FX_PROPS_3(0.0f, 0.0f, 0.0f), FX_END);
+                // clang-format off
+                uvFxProps(
+                    D_803504E0,
+                    FX_PROP_13(D_803504D8),
+                    FX_PROP_1(1e+20),
+                    FX_PROP_3(0.0f, 0.0f, 0.0f),
+                    FX_PROP_END
+                );
+                // clang-format on
             }
         }
     }
@@ -167,8 +201,18 @@ STATIC_FUNC void shuttle_80335130(void) {
     }
 
     if (D_803504C4 >= 0) {
-        smokeProps(D_803504C4, SMOKE_PROPS_5(0.0f, 0.0f, 0.0f), SMOKE_PROPS_3(10.0f), SMOKE_PROPS_4(1000.0f), SMOKE_PROPS_2(0.0f),
-                   SMOKE_PROPS_6(2870.0f, -2230.0f, 27.509998f), SMOKE_PROPS_7(0), SMOKE_FX_END);
+        // clang-format off
+        smokeProps(
+            D_803504C4,
+            SMOKE_PROP_5(0.0f, 0.0f, 0.0f),
+            SMOKE_PROP_3(10.0f),
+            SMOKE_PROP_4(1000.0f),
+            SMOKE_PROP_2(0.0f),
+            SMOKE_PROP_6(2870.0f, -2230.0f, 27.509998f),
+            SMOKE_PROP_7(0),
+            SMOKE_PROP_END
+        );
+        // clang-format on
     }
 
     if (D_803504C8 == -1) {
@@ -176,8 +220,17 @@ STATIC_FUNC void shuttle_80335130(void) {
     }
 
     if (D_803504C8 >= 0) {
-        smokeProps(D_803504C8, SMOKE_PROPS_5(0.0f, 0.0f, -1.0f), SMOKE_PROPS_3(3.0f), SMOKE_PROPS_4(1000.0f), SMOKE_PROPS_9(80.0f, 80.0f, 160.0f),
-                   SMOKE_PROPS_7(1), SMOKE_FX_END);
+        // clang-format off
+        smokeProps(
+            D_803504C8,
+            SMOKE_PROP_5(0.0f, 0.0f, -1.0f),
+            SMOKE_PROP_3(3.0f),
+            SMOKE_PROP_4(1000.0f),
+            SMOKE_PROP_9(80.0f, 80.0f, 160.0f),
+            SMOKE_PROP_7(1),
+            SMOKE_PROP_END
+        );
+        // clang-format on
     }
 
     if (D_803504CC == -1) {
@@ -185,43 +238,52 @@ STATIC_FUNC void shuttle_80335130(void) {
     }
 
     if (D_803504CC >= 0) {
-        smokeProps(D_803504CC, SMOKE_PROPS_5(0.0f, 0.0f, -1.0f), SMOKE_PROPS_3(3.0f), SMOKE_PROPS_4(1000.0f), SMOKE_PROPS_9(80.0f, 80.0f, 160.0f),
-                   SMOKE_PROPS_7(1), SMOKE_FX_END);
+        // clang-format off
+        smokeProps(
+            D_803504CC,
+            SMOKE_PROP_5(0.0f, 0.0f, -1.0f),
+            SMOKE_PROP_3(3.0f),
+            SMOKE_PROP_4(1000.0f),
+            SMOKE_PROP_9(80.0f, 80.0f, 160.0f),
+            SMOKE_PROP_7(1),
+            SMOKE_PROP_END
+        );
+        // clang-format on
     }
 }
 
 STATIC_FUNC void shuttle_80335700(void) {
     if (D_803504E4 != 0xFF) {
         uvModelGet(D_803504E4, 0xFF);
-        uvFxProps(D_803504E4, FX_PROPS_11(0), FX_END);
+        uvFxProps(D_803504E4, FX_PROP_11(0), FX_PROP_END);
         D_803504E4 = 0xFF;
     }
 
     if (D_803504E0 != 0xFF) {
         uvModelGet(D_803504E0, 0xFF);
-        uvFxProps(D_803504E0, FX_PROPS_11(0), FX_END);
+        uvFxProps(D_803504E0, FX_PROP_11(0), FX_PROP_END);
         D_803504E0 = 0xFF;
     }
 
     if (D_803504DC != 0xFF) {
-        uvSeqProps(D_803504DC, SEQ_PROPS_1(0), SEQ_PROPS_END);
+        uvSeqProps(D_803504DC, SEQ_PROP_1(0), SEQ_PROP_END);
         D_803504DC = 0xFF;
     }
 
     if (D_803504D8 != 0xFF) {
-        uvSeqProps(D_803504D8, SEQ_PROPS_1(0), SEQ_PROPS_END);
+        uvSeqProps(D_803504D8, SEQ_PROP_1(0), SEQ_PROP_END);
         D_803504D8 = 0xFF;
     }
 
     if (D_803504D0 != 0xFF) {
         uvModelGet(D_803504D0, 0xFF);
-        uvFxProps(D_803504D0, FX_PROPS_11(0), FX_END);
+        uvFxProps(D_803504D0, FX_PROP_11(0), FX_PROP_END);
         D_803504D0 = 0xFF;
     }
 
     if (D_803504D4 != 0xFF) {
         uvModelGet(D_803504D4, 0xFF);
-        uvFxProps(D_803504D4, FX_PROPS_11(0), FX_END);
+        uvFxProps(D_803504D4, FX_PROP_11(0), FX_PROP_END);
         D_803504D4 = 0xFF;
     }
 

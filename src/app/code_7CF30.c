@@ -593,11 +593,27 @@ s32 func_802F6EE0(GyrocopterData* arg0) {
     temp_s0->unk48 = 1;
     temp_s0->unk44 = D_8034F850;
     arg0->unk738 = D_8034F850;
-    uvFxProps(temp_s0->unk4C, FX_PROPS_1(4.0f * D_8034F854), FX_PROPS_5(0.8f, 0.8f, 0.8f, 1.0f), FX_PROPS_6(0.2f, 0.2f, 0.2f, 0.0f),
-              FX_PROPS_3(0.4f, 0.4f, 0.4f), FX_PROPS_8(0x147), FX_END);
+    // clang-format off
+    uvFxProps(
+        temp_s0->unk4C,
+        FX_PROP_1(4.0f * D_8034F854),
+        FX_PROP_5(0.8f, 0.8f, 0.8f, 1.0f),
+        FX_PROP_6(0.2f, 0.2f, 0.2f, 0.0f),
+        FX_PROP_3(0.4f, 0.4f, 0.4f),
+        FX_PROP_8(0x147),
+        FX_PROP_END
+    );
     func_8021A4D8(temp_s0->unk4C, &temp_s0->unk0);
-    uvFxProps(temp_s0->unk4E, FX_PROPS_1(8.0f), FX_PROPS_3(14.0f, 14.0f, 14.0f), FX_PROPS_5(1.0f, 0.8f, 0.0f, 1.0f),
-              FX_PROPS_10(temp_s0->unk0.m[3][0], temp_s0->unk0.m[3][1], temp_s0->unk0.m[3][2]), FX_PROPS_4(1.0f, 1.0f, 1.0f), FX_END);
+    uvFxProps(
+        temp_s0->unk4E,
+        FX_PROP_1(8.0f),
+        FX_PROP_3(14.0f, 14.0f, 14.0f),
+        FX_PROP_5(1.0f, 0.8f, 0.0f, 1.0f),
+        FX_PROP_10(temp_s0->unk0.m[3][0], temp_s0->unk0.m[3][1], temp_s0->unk0.m[3][2]),
+        FX_PROP_4(1.0f, 1.0f, 1.0f),
+        FX_PROP_END
+    );
+    // clang-format on
     D_8034F384 = 0;
     return 1;
 }
@@ -664,7 +680,14 @@ void func_802F7224(GyrocopterData* arg0) {
                 if (var_s0->unk4E != 0xFF) {
                     func_8021A4D8(var_s0->unk4E, &var_s0->unk0);
                     if ((var_s0->unk44 + 0.2f) < D_8034F850) {
-                        uvFxProps(var_s0->unk4E, FX_PROPS_3(2.0f, 2.0f, 2.0f), FX_PROPS_4(0.0f, 0.0f, 0.0f), FX_END);
+                        // clang-format off
+                        uvFxProps(
+                            var_s0->unk4E,
+                            FX_PROP_3(2.0f, 2.0f, 2.0f),
+                            FX_PROP_4(0.0f, 0.0f, 0.0f),
+                            FX_PROP_END
+                        );
+                        // clang-format on
                     }
                 }
                 if ((var_s0->unk44 + 5.0f) < D_8034F850) {
@@ -740,11 +763,11 @@ void func_802F764C(GyrocopterData* arg0) {
         if (func_802E0C30(sp4B, sp50) != 0) {
             arg0->unkD0 = 1;
             if (arg0->unk96 != 0xFF) {
-                smokeProps(arg0->unk96, SMOKE_PROPS_8(0), SMOKE_FX_END);
+                smokeProps(arg0->unk96, SMOKE_PROP_8(0), SMOKE_PROP_END);
             }
         } else {
             if (arg0->unk96 != 0xFF) {
-                smokeProps(arg0->unk96, SMOKE_PROPS_6(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2]), SMOKE_FX_END);
+                smokeProps(arg0->unk96, SMOKE_PROP_6(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2]), SMOKE_PROP_END);
             }
             uvDobjModel(arg0->objId, arg0->crashModelId);
             uvDobjPosm(arg0->objId, 0, &arg0->unk10);

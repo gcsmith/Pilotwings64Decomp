@@ -39,17 +39,17 @@ void sdsound_803338B0(UnkSdSound* arg0) {
 }
 
 // event handler func
-STATIC_FUNC void sdsound_803339C4(s32 arg0, UnkSdSound* arg1, s32 arg2) {
+STATIC_FUNC void sdsound_803339C4(s32 eventType, UnkSdSound* arg1, s32 eventData) {
     f32 sp3C;
     f32 temp_ft3;
     f32 sp34;
     UnkSdSound* temp = arg1;
     s32 pad;
 
-    if (arg2 != 0) {
+    if (eventData != 0) {
         _uvAssertMsg("eventData == 0", "sdsound.c", 88);
     }
-    switch (arg0) {
+    switch (eventType) {
     case 13:
         sdsound_80334258(temp);
         return;
@@ -106,7 +106,7 @@ STATIC_FUNC void sdsound_803339C4(s32 arg0, UnkSdSound* arg1, s32 arg2) {
         func_8033F904(temp->unk245, sp3C, sp34, 0.5f);
         return;
     default:
-        _uvDebugPrintf("Got unknown event type %d\n", arg0);
+        _uvDebugPrintf("Got unknown event type %d\n", eventType);
         break;
     }
 }
