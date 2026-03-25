@@ -43,13 +43,13 @@ s32 D_80371D9C;
 f64 D_80371DA0;
 
 // forward declarations
-void func_80335130(void);
+STATIC_FUNC void shuttle_80335130(void);
 
 s32 shuttle_80334CC0(void) {
     return D_80350490;
 }
 
-void func_80334CCC(void) {
+STATIC_FUNC void shuttle_80334CCC(void) {
     Mtx4F sp80;
     Mtx4F sp40;
 
@@ -119,7 +119,7 @@ void func_80334CCC(void) {
     }
 }
 
-void func_80335130(void) {
+STATIC_FUNC void shuttle_80335130(void) {
     if (D_803504D0 == 0xFF) {
         D_803504D0 = func_8034B464(2);
     }
@@ -190,7 +190,7 @@ void func_80335130(void) {
     }
 }
 
-void func_80335700(void) {
+STATIC_FUNC void shuttle_80335700(void) {
     if (D_803504E4 != 0xFF) {
         uvModelGet(D_803504E4, 0xFF);
         uvFxProps(D_803504E4, FX_PROPS_11(0), FX_END);
@@ -241,7 +241,7 @@ void func_80335700(void) {
     }
 }
 
-void func_803358D4(void) {
+STATIC_FUNC void shuttle_803358D4(void) {
     if (D_80350494 == 2) {
         D_80350498 += D_8034F854 * 0.5f;
         D_8035049C += D_80350498;
@@ -257,14 +257,14 @@ void func_803358D4(void) {
             uvDobjState(D_803504B4, 0);
             D_803504A8 = 0.0;
         }
-        func_80334CCC();
+        shuttle_80334CCC();
     } else if (D_80350494 == 1) {
         D_803504A8 += D_8034F854;
         D_803504A0 += 5.0f;
         if (D_803504A8 > 7.0) {
             D_80350494 = 2;
         }
-        func_80334CCC();
+        shuttle_80334CCC();
     } else if (D_80350494 == 3) {
         D_803504A8 += D_8034F854;
         if ((12.0f * D_8034F854) < D_803504A8) {
@@ -279,11 +279,11 @@ void func_803358D4(void) {
     }
 }
 
-s32 func_80335AE0(s32 arg0, s32 arg1, s32 arg2) {
+STATIC_FUNC s32 shuttle_80335AE0(s32 arg0, s32 arg1, s32 arg2) {
     return 0;
 }
 
-s32 func_80335AF4(s32 arg0, s32 arg1, s32 arg2) {
+STATIC_FUNC s32 shuttle_80335AF4(s32 arg0, s32 arg1, s32 arg2) {
     s32 pad;
     s32 sp18 = 0;
 
@@ -334,7 +334,7 @@ void shuttle_80335BE4(void) {
     uvDobjModel(D_803504B4, MODEL_SPACE_SHUTTLE);
     uvDobjState(D_803504B4, D_803504B0);
     D_803504C0 = func_80321210(func_80335AF4, func_80335AE0, sp70, 750.0f, 0.0f, 1);
-    func_80334CCC();
+    shuttle_80334CCC();
     uvMat4SetIdentity(&sp88.unk0);
     sp88.sndId = 0x14;
     sp88.unk64 = 0;
@@ -419,10 +419,10 @@ void shuttle_80335FD8(f32 arg0) {
     D_80350494 = 1;
     D_803504B0 = 3;
     D_803504A8 = 0.0;
-    func_80334CCC();
+    shuttle_80334CCC();
     D_80350494 = 2;
     D_8035049C = 2.0f * arg0 * 255.0f;
-    func_80334CCC();
+    shuttle_80334CCC();
 }
 
 void shuttle_80336064(void) {
