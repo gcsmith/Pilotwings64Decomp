@@ -56,10 +56,10 @@ void bird_802CC270(u8 arg0, u8 pilot, BirdmanData* arg2, Camera* arg3) {
     uvDobjPosm(arg2->objId, 0, &arg2->unk10);
     uvDobjState(arg2->objId, arg2->unk2);
     uvMat4Copy(&arg2->unk50, &arg2->unk10);
-    func_80334454(MODEL_BIRDMAN_SHADOW_COLUMN, MODEL_BIRDMAN_SHADOW);
-    func_803342F0(1.0f);
-    func_803342FC(-2.0f);
-    func_803343D8(1);
+    shadow_80334454(MODEL_BIRDMAN_SHADOW_COLUMN, MODEL_BIRDMAN_SHADOW);
+    shadow_803342F0(1.0f);
+    shadow_803342FC(-2.0f);
+    shadow_803343D8(1);
     arg2->controller = arg0;
     arg2->unk2F0 = 0;
     arg2->unk2CC = 0x1A;
@@ -123,7 +123,7 @@ void bird_802CC51C(Unk802CC51C* arg0) {
     uvDobjModel(arg0->objId, MODEL_WORLD);
     arg0->unkC = 0xFFFF;
     arg0->objId = 0xFFFF;
-    func_80334C70();
+    shadow_80334C70();
 }
 
 // called every frame in a birdman stage
@@ -255,7 +255,7 @@ void birdMovementFrame(BirdmanData* arg0, u8 gameState) {
         uvMat4RotateAxis(&arg0->unk90, arg0->unkD0, 'x');
         uvMat4Mul(&arg0->unk50, &arg0->unk90, &arg0->unk10);
         uvDobjPosm(arg0->objId, 0, &arg0->unk50);
-        func_803344BC(&arg0->unk10, arg0->unk16C);
+        shadow_803344BC(&arg0->unk10, arg0->unk16C);
         if (arg0->unk224 > 25.0f) {
             arg0->unkD4->unk48 = 0.0125f;
             arg0->unkD4->unk5C = 0.0f;
@@ -312,14 +312,14 @@ void birdMovementFrame(BirdmanData* arg0, u8 gameState) {
                 func_8033F758(0x6A, 1.0f, 0.5f, 0.0f);
                 arg0->unkD8 = 0;
                 arg0->unkDC = 1.0f;
-                func_80334454(MODEL_BIRDMAN_SHADOW_COLUMN, MODEL_BIRDMAN_SHADOW);
+                shadow_80334454(MODEL_BIRDMAN_SHADOW_COLUMN, MODEL_BIRDMAN_SHADOW);
                 arg0->unk290 = 1;
                 bird_802CE0A4(arg0);
             } else {
                 func_8033F758(0x6A, 1.0f, 0.5f, 0.0f);
                 arg0->unkD8 = 1;
                 arg0->unkDC = 0.8f;
-                func_80334454(MODEL_BIRDMAN_SHADOW_COLUMN, MODEL_BIRDMAN_SHADOW);
+                shadow_80334454(MODEL_BIRDMAN_SHADOW_COLUMN, MODEL_BIRDMAN_SHADOW);
                 arg0->unk290 = 0;
                 bird_802CE0A4(arg0);
             }
@@ -427,7 +427,7 @@ void bird_802CD0F8(BirdmanData* arg0) {
         }
         arg0->unk290 = 1;
         bird_802CE0A4(arg0);
-        func_803343D8(0);
+        shadow_803343D8(0);
     }
     func_802D5884(arg0->unkD4, 3);
     hudGetState()->renderFlags = 0;

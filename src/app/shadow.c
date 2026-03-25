@@ -20,11 +20,11 @@ void func_803347D0(Mtx4F*);
 f32 func_80334A38(Vec3F*);
 void func_80335130(void);
 
-void func_803342F0(f32 arg0) {
+void shadow_803342F0(f32 arg0) {
     D_80350474 = arg0;
 }
 
-void func_803342FC(f32 arg0) {
+void shadow_803342FC(f32 arg0) {
     D_80350478 = arg0;
 }
 
@@ -51,7 +51,7 @@ void shadowModels(u16 modelId) {
     }
 }
 
-void func_803343D8(s32 arg0) {
+void shadow_803343D8(s32 arg0) {
     if (D_80350470 == 0xFFFF) {
         return;
     }
@@ -69,7 +69,7 @@ void func_803343D8(s32 arg0) {
     }
 }
 
-void func_80334454(u16 modelId, u16 modelId2) {
+void shadow_80334454(u16 modelId, u16 modelId2) {
     D_80350468 = modelId;
     D_80350464 = modelId2;
     if (modelId != MODEL_WORLD) {
@@ -79,7 +79,7 @@ void func_80334454(u16 modelId, u16 modelId2) {
     }
 }
 
-void func_803344BC(Mtx4F* arg0, f32 arg1) {
+void shadow_803344BC(Mtx4F* arg0, f32 arg1) {
     u16 var_v0;
     u8 sp1D;
 
@@ -105,11 +105,11 @@ void func_803344BC(Mtx4F* arg0, f32 arg1) {
     if (sp1D != 0) {
         func_803347D0(arg0);
     } else {
-        func_80334578(arg0, arg1);
+        shadow_80334578(arg0, arg1);
     }
 }
 
-void func_80334578(Mtx4F* arg0, f32 arg1) {
+void shadow_80334578(Mtx4F* arg0, f32 arg1) {
     Vec3F sp9C;
     Vec3F sp90;
     Vec3F sp84;
@@ -287,7 +287,7 @@ f32 func_80334A38(Vec3F* arg0) {
     return var_fs0;
 }
 
-void func_80334C70(void) {
+void shadow_80334C70(void) {
     if (D_80350470 != 0xFFFF) {
         uvDobjModel(D_80350470, MODEL_WORLD);
         D_80350470 = 0xFFFF;

@@ -30,6 +30,7 @@
 #include "pads.h"
 #include "rings.h"
 #include "shadow.h"
+#include "shuttle.h"
 #include "skydiving.h"
 #include "snap.h"
 #include "snd.h"

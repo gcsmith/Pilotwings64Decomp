@@ -15,6 +15,7 @@
 #include "environment.h"
 #include "game.h"
 #include "shadow.h"
+#include "shuttle.h"
 #include "snd.h"
 
 typedef struct {
@@ -323,7 +324,7 @@ void envSound_802E2A00(s32 eventType, void* arg1, s32 eventData) {
                         uvEmitterSetUnk70(emitter->objId, temp_fs0);
                         break;
                     case 20:
-                        switch (func_80335F84()) { // shuttle state
+                        switch (shuttle_80335F84()) { // shuttle state
                         case 0:
                             uvEmitterSetUnk74(emitter->objId, 1.0f);
                             uvEmitterSetUnk70(emitter->objId, 0.0f);
@@ -335,7 +336,7 @@ void envSound_802E2A00(s32 eventType, void* arg1, s32 eventData) {
                         case 2:
                             uvEmitterSetUnk74(emitter->objId, 0.33f);
                             uvEmitterSetUnk70(emitter->objId, 1.0f);
-                            func_80335F24(&sp9C);
+                            shuttle_80335F24(&sp9C);
                             uvMat4SetIdentity(&sp5C);
                             sp5C.m[3][0] = sp9C.x;
                             sp5C.m[3][1] = sp9C.y;
@@ -345,7 +346,7 @@ void envSound_802E2A00(s32 eventType, void* arg1, s32 eventData) {
                         case 3:
                             uvEmitterSetUnk74(emitter->objId, 1.0f);
                             uvEmitterSetUnk70(emitter->objId, 0.5f);
-                            func_80335F24(&sp9C);
+                            shuttle_80335F24(&sp9C);
                             uvMat4SetIdentity(&sp5C);
                             sp5C.m[3][0] = sp9C.x;
                             sp5C.m[3][1] = sp9C.y;

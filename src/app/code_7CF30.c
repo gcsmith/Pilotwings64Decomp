@@ -65,10 +65,10 @@ void func_802F5AE0(u8 contIdx, u8 pilot, GyrocopterData* arg2, Camera* arg3) {
     uvDobjModel(arg2->objId, arg2->modelId);
     uvDobjPosm(arg2->objId, 0, &arg2->unk10);
     uvDobjState(arg2->objId, arg2->unk2);
-    func_80334454(MODEL_GYRO_SHADOW_COLUMN, MODEL_GYRO_SHADOW);
-    func_803342F0(1.0f);
-    func_803342FC(0.0f);
-    func_803343D8(1);
+    shadow_80334454(MODEL_GYRO_SHADOW_COLUMN, MODEL_GYRO_SHADOW);
+    shadow_803342F0(1.0f);
+    shadow_803342FC(0.0f);
+    shadow_803343D8(1);
     func_802F4F98(arg2);
     func_8030A140(arg2);
     func_80303230(arg2);
@@ -199,7 +199,7 @@ void func_802F5F80(GyrocopterData* arg0) {
             uvModelGet(var_s0->unk4D, 0xFF);
         }
     }
-    func_80334C70();
+    shadow_80334C70();
 }
 
 void gyrocopterMovementFrame(GyrocopterData* arg0, u8 gameState) {
@@ -220,7 +220,7 @@ void gyrocopterMovementFrame(GyrocopterData* arg0, u8 gameState) {
         return;
     }
     if (func_802E6B5C() != 4) {
-        func_803343D8(1);
+        shadow_803343D8(1);
 
         if (gameState == GAME_STATE_RESULTS) {
             func_802E65AC(&arg0->unk10, &D_80362690->terraId, &xAxisInput, &yAxisInput, &buttons);
@@ -513,7 +513,7 @@ void gyrocopterMovementFrame(GyrocopterData* arg0, u8 gameState) {
         if ((arg0->unkC0 == 3) || (arg0->unkC0 == 2)) {
             hud->renderFlags = 0;
         }
-        func_803344BC(&arg0->unk10, arg0->unkDC);
+        shadow_803344BC(&arg0->unk10, arg0->unkDC);
         D_8034F380 = buttons;
         func_802E06AC(&arg0->unk10);
         if (gameState != GAME_STATE_RESULTS) {
@@ -592,10 +592,11 @@ s32 func_802F6EE0(GyrocopterData* arg0) {
     temp_s0->unk48 = 1;
     temp_s0->unk44 = D_8034F850;
     arg0->unk738 = D_8034F850;
-    uvFxProps(temp_s0->unk4C, FX_1(4.0f * D_8034F854), FX_5(0.8f, 0.8f, 0.8f, 1.0f), FX_6(0.2f, 0.2f, 0.2f, 0.0f), FX_3(0.4f, 0.4f, 0.4f), FX_8(0x147), FX_END);
+    uvFxProps(temp_s0->unk4C, FX_PROPS_1(4.0f * D_8034F854), FX_PROPS_5(0.8f, 0.8f, 0.8f, 1.0f), FX_PROPS_6(0.2f, 0.2f, 0.2f, 0.0f),
+              FX_PROPS_3(0.4f, 0.4f, 0.4f), FX_PROPS_8(0x147), FX_END);
     func_8021A4D8(temp_s0->unk4C, &temp_s0->unk0);
-    uvFxProps(temp_s0->unk4E, FX_1(8.0f), FX_3(14.0f, 14.0f, 14.0f), FX_5(1.0f, 0.8f, 0.0f, 1.0f),
-              FX_10(temp_s0->unk0.m[3][0], temp_s0->unk0.m[3][1], temp_s0->unk0.m[3][2]), FX_4(1.0f, 1.0f, 1.0f), FX_END);
+    uvFxProps(temp_s0->unk4E, FX_PROPS_1(8.0f), FX_PROPS_3(14.0f, 14.0f, 14.0f), FX_PROPS_5(1.0f, 0.8f, 0.0f, 1.0f),
+              FX_PROPS_10(temp_s0->unk0.m[3][0], temp_s0->unk0.m[3][1], temp_s0->unk0.m[3][2]), FX_PROPS_4(1.0f, 1.0f, 1.0f), FX_END);
     D_8034F384 = 0;
     return 1;
 }
@@ -662,7 +663,7 @@ void func_802F7224(GyrocopterData* arg0) {
                 if (var_s0->unk4E != 0xFF) {
                     func_8021A4D8(var_s0->unk4E, &var_s0->unk0);
                     if ((var_s0->unk44 + 0.2f) < D_8034F850) {
-                        uvFxProps(var_s0->unk4E, FX_3(2.0f, 2.0f, 2.0f), FX_4(0.0f, 0.0f, 0.0f), FX_END);
+                        uvFxProps(var_s0->unk4E, FX_PROPS_3(2.0f, 2.0f, 2.0f), FX_PROPS_4(0.0f, 0.0f, 0.0f), FX_END);
                     }
                 }
                 if ((var_s0->unk44 + 5.0f) < D_8034F850) {
@@ -738,17 +739,17 @@ void func_802F764C(GyrocopterData* arg0) {
         if (func_802E0C30(sp4B, sp50) != 0) {
             arg0->unkD0 = 1;
             if (arg0->unk96 != 0xFF) {
-                smokeProps(arg0->unk96, SMOKE_FX_8(0), SMOKE_FX_END);
+                smokeProps(arg0->unk96, SMOKE_PROPS_8(0), SMOKE_FX_END);
             }
         } else {
             if (arg0->unk96 != 0xFF) {
-                smokeProps(arg0->unk96, SMOKE_FX_6(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2]), SMOKE_FX_END);
+                smokeProps(arg0->unk96, SMOKE_PROPS_6(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2]), SMOKE_FX_END);
             }
             uvDobjModel(arg0->objId, arg0->crashModelId);
             uvDobjPosm(arg0->objId, 0, &arg0->unk10);
         }
     }
-    func_803343D8(0);
+    shadow_803343D8(0);
     func_802F5910(arg0);
 }
 

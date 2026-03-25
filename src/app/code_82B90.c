@@ -623,7 +623,7 @@ void func_802FD114(JumbleHopperData* arg0) {
         break;
     }
     arg0->unk19C = 0;
-    func_803343D8(1);
+    shadow_803343D8(1);
     arg0->unk4D = 3;
     arg0->unk4C = 3;
     arg0->unk50 = 0;
@@ -1975,7 +1975,7 @@ void func_80301D28(JumbleHopperData* arg0) {
     arg0->unk538++;
     arg0->unk65D = 0;
     arg0->unk1C0 = 0.0;
-    func_803343D8(0);
+    shadow_803343D8(0);
     arg0->unk1B8 = 0.0;
     arg0->unk50 = 0;
     arg0->unk4F = 0;
@@ -2215,7 +2215,7 @@ void func_803029CC(JumbleHopperData* arg0) {
         uvDobjState(arg0->objId, 2);
         arg0->unk1C0 = 0.0;
         func_802FBD90(arg0);
-        func_803343D8(1);
+        shadow_803343D8(1);
         if (sp24 != 0) {
             if (arg0->unk1C != arg0->unk18->unk1374) {
                 _uvDebugPrintf("Camera follow distance not right.");
@@ -2280,7 +2280,7 @@ void func_80302BA0(JumbleHopperData* arg0) {
         arg0->unk4C = 3;
         arg0->unk1C0 = 0.0;
         func_802FBD90(arg0);
-        func_803343D8(1);
+        shadow_803343D8(1);
         if (sp20 != 0) {
             if (arg0->unk140.y != 0.0f) {
                 _uvDebugPrintf("Pitch not zeroed.");
@@ -2340,7 +2340,7 @@ void func_80303028(JumbleHopperData* arg0) {
     uvDobjPosm(arg0->objId, 0, &arg0->unk74);
 
     if ((arg0->unk4C != 8) && (arg0->unk4C != 7)) {
-        func_80334578(&arg0->unk74, arg0->unk64);
+        shadow_80334578(&arg0->unk74, arg0->unk64);
     }
     uvMat4InvertTranslationRotation(&arg0->unkB4, &arg0->unk74);
     arg0->unk180 = uvVec3Len(&arg0->unk15C);
