@@ -476,7 +476,7 @@ void envSoundFrameUpdate(Mtx4F* arg0) {
                     if ((gEnvSoundStateCount[1] > 0) && (D_80362690->unkC[0].unkA != 4) && (D_80362690->unkC[0].veh != VEHICLE_JUMBLE_HOPPER)) {
                         if (gEnvSoundFutureTime < D_8034F850) {
                             gEnvSoundFutureTime = D_8034F850 + 4.0f;
-                            snd_play_sfx(0x50);
+                            sndPlaySfx(0x50);
                         }
                     }
                     gEnvSoundStateCount[1] = 0;

@@ -141,9 +141,9 @@ void func_8032C540(Unk80362690* arg0) {
         demo_80323020();
         if (demoButtonPress(arg0->unk9C, A_BUTTON | START_BUTTON | B_BUTTON) != 0) {
             if (demoButtonPress(arg0->unk9C, A_BUTTON | START_BUTTON) != 0) {
-                snd_play_sfx(0x6EU);
+                sndPlaySfx(0x6EU);
             } else if (demoButtonPress(arg0->unk9C, B_BUTTON) != 0) {
-                snd_play_sfx(1U);
+                sndPlaySfx(1U);
             }
             break;
         }
@@ -354,7 +354,7 @@ s32 func_8032CF28(Unk80362690* arg0) {
 
     sp6C = &arg0->unkC[arg0->unk9C];
     sp68 = sp6C->unk70;
-    snd_play_sfx(4U);
+    sndPlaySfx(4U);
     var_s0 = 0x4C;
     hud = hudGetState();
     sp5B = hud->renderFlags;

@@ -24,7 +24,7 @@ ballsGetCount       = 0x802CC13C; // type:func
 ballsGetAllPopped   = 0x802CC15C; // type:func
 
 // birdman0
-birdInit       = 0x802CC1B0; // type:func
+birdInit            = 0x802CC1B0; // type:func
 bird_802CC270       = 0x802CC270; // type:func
 birdEnterLeave      = 0x802CC39C; // type:func
 bird_802CC51C       = 0x802CC51C; // type:func
@@ -283,7 +283,7 @@ resultDrawTally     = 0x8032E940; // type:func
 resultDeinit        = 0x8032E698; // type:func
 resultGenTipText    = 0x8032EF10; // type:func
 
-shadowInit          = 0x80335B94; // type:func
+shuttleInit         = 0x80335B94; // type:func
 
 smokeInit           = 0x803365A0; // type:func
 smokeCreate         = 0x80336934; // type:func
@@ -298,11 +298,11 @@ snapInit            = 0x80337DB8; // type:func
 snapDeinit          = 0x803383FC; // type:func
 snapGetPhotoCount   = 0x8033F618; // type:func
 
-snd_init            = 0x8033F640; // type:func
-snd_play_sfx        = 0x8033F7F8; // type:func
-snd_makedev         = 0x8033F860; // type:func
-snd_event           = 0x8033FB44; // type:func
-snd_getpilot        = 0x8033FBCC; // type:func
+sndInit             = 0x8033F640; // type:func
+sndPlaySfx          = 0x8033F7F8; // type:func
+sndMakeDev          = 0x8033F860; // type:func
+sndEvent            = 0x8033FB44; // type:func
+sndGetPilot         = 0x8033FBCC; // type:func
 
 snow_create         = 0x8033FE40; // type:func
 snow_draw           = 0x8033FF30; // type:func

@@ -296,9 +296,9 @@ STATIC_FUNC s32 func_80343550(void) {
         demo_80323020();
         if (demoButtonPress(D_80362690->unk9C, A_BUTTON | B_BUTTON | START_BUTTON) != 0) {
             if (demoButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON) != 0) {
-                snd_play_sfx(0x6E);
+                sndPlaySfx(0x6E);
             } else if (demoButtonPress(D_80362690->unk9C, B_BUTTON) != 0) {
-                snd_play_sfx(1);
+                sndPlaySfx(1);
             }
             if (D_80378CE0->unk264 != 0) {
                 gameState = GAME_STATE_FILE_MENU;
@@ -496,7 +496,7 @@ STATIC_FUNC void func_80343E84(void) {
         uvMat4Mul(&D_80378CE0->unkAC, &D_80378CE0->unkAC, &D_80378CE0->unk1EC);
         uvDobjPosm(D_80378CE0->unkC, 0, &D_80378CE0->unkAC);
         if ((D_80378CE0->unk265 != 0) && (sp2C > 40.0f)) {
-            snd_play_sfx(0x3DU);
+            sndPlaySfx(0x3DU);
             D_80378CE0->unk265 = 0;
         }
     }
@@ -506,7 +506,7 @@ STATIC_FUNC void func_80343E84(void) {
         uvMat4Mul(&D_80378CE0->unkEC, &D_80378CE0->unkEC, &D_80378CE0->unk1EC);
         uvDobjPosm(D_80378CE0->unk10, 0, &D_80378CE0->unkEC);
         if ((D_80378CE0->unk266 != 0) && (sp2C > 47.0f)) {
-            snd_play_sfx(0x3DU);
+            sndPlaySfx(0x3DU);
             D_80378CE0->unk266 = 0;
         }
     }

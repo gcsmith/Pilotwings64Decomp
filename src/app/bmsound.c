@@ -29,8 +29,8 @@ void bmSoundInit(BirdmanData* arg0) {
     D_80359648.unk18 = 0.8f;
     D_80359648.unk1C = 10.0f;
     D_80359648.unk20 = 1.0f;
-    arg0->unk414 = snd_makedev(0x13);
-    arg0->unk415 = snd_makedev(0x13);
+    arg0->unk414 = sndMakeDev(0x13);
+    arg0->unk415 = sndMakeDev(0x13);
     gBmSoundCbInfo.cb = bmSoundCallback;
     gBmSoundCbInfo.arg = arg0;
     arg0->unk410 = 0xFFFFFFC0;
@@ -132,7 +132,7 @@ void bmSound_802D112C(BirdmanData* arg0) {
     if (arg0->unk104 == 2) {
         if (!(arg0->unk410 & 0x02)) {
             arg0->unk410 |= 0x02;
-            snd_play_sfx(0x36);
+            sndPlaySfx(0x36);
             if (!(arg0->unk410 & 0x10)) {
                 func_8033F748(0x1B);
                 func_8033F964(0);
@@ -144,7 +144,7 @@ void bmSound_802D112C(BirdmanData* arg0) {
         if (arg0->unk104 == 1) {
             if (!(arg0->unk410 & 0x10)) {
                 arg0->unk410 |= 0x10;
-                snd_getpilot(&sp30, &sp2C);
+                sndGetPilot(&sp30, &sp2C);
                 func_8033F758(sp30, 1.0f, sp2C, 0.0f);
                 func_8033F748(0x1B);
                 func_8033F964(0);
@@ -194,7 +194,7 @@ void bmSound_802D1334(BirdmanData* arg0) {
                 if ((arg0->unk15C != 0) && (arg0->unk104 == 2)) {
                     if (!(arg0->unk410 & 0x04)) {
                         arg0->unk410 |= 0x04;
-                        snd_play_sfx(0x1A);
+                        sndPlaySfx(0x1A);
                     }
                 }
                 break;

@@ -491,7 +491,7 @@ void gyrocopterMovementFrame(GyrocopterData* arg0, u8 gameState) {
             }
             if (arg0->unkC1 != 0) {
                 hudWarningText(0x148, 1.5f, 8.0f);
-                snd_play_sfx(0x69);
+                sndPlaySfx(0x69);
             } else {
                 if ((arg0->fuel <= 0.0f) && !arg0->fuelEmpty) {
                     hudWarningText(0x4A, 1.5f, 8.0f);
@@ -500,7 +500,7 @@ void gyrocopterMovementFrame(GyrocopterData* arg0, u8 gameState) {
                     hudWarningText(0x17B, 1.5f, 8.0f);
                     arg0->hasLowFuel = TRUE;
                 } else if ((func_8032C080(NULL) != 0) && !arg0->pleaseLandShown) {
-                    snd_play_sfx(5);
+                    sndPlaySfx(5);
                     hudText_8031D8E0(0x1AA, 1.5f, 8.0f);
                     arg0->pleaseLandShown = TRUE;
                 } else if ((taskGet_80346468() != 0) && !arg0->unkD5) {

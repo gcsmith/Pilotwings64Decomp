@@ -469,7 +469,7 @@ void cannonShoot(CannonballData* arg0) {
     uvMat4RotateAxis(&sp50, arg0->xAxis, 'x');
     uvMat4LocalTranslate(&sp50, 0.0f, 6.0f, 0.0f);
     func_802F9BF8(2, sp50.m[3][0], sp50.m[3][1], sp50.m[3][2], 20.0f, 0.3f, 0.0f, 1.0f, 0.8f, 0.0f, 1.0f);
-    snd_play_sfx(0x4B);
+    sndPlaySfx(0x4B);
     uvEmitterTrigger(arg0->unk2B4);
     arg0->unkD4 = 1;
     arg0->unk1B8.x = 0.0f;
@@ -947,9 +947,9 @@ s32 cannonLandedFrame(CannonballData* arg0) {
             if (var_a2 == 0x19) {
                 hudWarningText(0x16F, 2.0f, 8.0f);
                 func_8033F964(1);
-                snd_play_sfx(0x11);
+                sndPlaySfx(0x11);
             } else {
-                snd_play_sfx(0x36);
+                sndPlaySfx(0x36);
                 func_8033F748(0x11);
                 func_8033F964(0);
                 func_8033FCD0(temp_s0->veh);

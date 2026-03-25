@@ -152,11 +152,11 @@ s32 func_8030C61C(void) {
     demo_80323020();
     if (demoButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON) != 0) {
         ret = GAME_STATE_TEST_DETAILS;
-        snd_play_sfx(0x6E);
+        sndPlaySfx(0x6E);
         func_8033FB14();
     } else if (demoButtonPress(D_80362690->unk9C, B_BUTTON) != 0) {
         ret = GAME_STATE_PILOT_SELECT;
-        snd_play_sfx(1);
+        sndPlaySfx(1);
     }
     return ret;
 }
@@ -175,7 +175,7 @@ void func_8030C6A0(void) {
     s32 pad2[2];
 
     sp74 = &D_80362690->unkC[D_80362690->unk9C];
-    if (sp74->veh < 3) {
+    if (IS_MAIN_VEHICLE(sp74->veh)) {
         sp58 = sp74->cls;
     } else {
         sp58 = sp74->veh + 1;

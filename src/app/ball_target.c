@@ -143,7 +143,7 @@ void ballTgt_802D2C20(BallTarget* bt) {
         var_fv1 = ball->scale * D_80359388;
         if (((dist - var_fv1) <= temp_fa0) && ((var_fv1 + dist) >= temp_fa0)) {
             var_s2 = 1;
-            snd_play_sfx(0x37);
+            sndPlaySfx(0x37);
             dx = -(dx / dist);
             dy = -(dy / dist);
             dist = uvSqrtF(SQ(ball->velocity.x) + SQ(ball->velocity.y));
@@ -153,7 +153,7 @@ void ballTgt_802D2C20(BallTarget* bt) {
         var_fv1 = ball->scale * D_80359388;
         if (bt->unk54 <= (var_fv1 + dz)) {
             if (var_s2 == 0) {
-                snd_play_sfx(0x37);
+                sndPlaySfx(0x37);
             }
             ball->velocity.z = -ball->velocity.z;
         }
@@ -197,7 +197,7 @@ s32 ballTgtInGoal(void) {
                 if ((dist < target->unk50) && (dz < target->unk54)) {
                     target->unk5B = 1;
                     ret = 1;
-                    snd_play_sfx(0x11);
+                    sndPlaySfx(0x11);
                     uvDobjModel(target->objId, 0xFFFF);
                     ballTgtInitDobj(target);
                     target->unk5A = j;

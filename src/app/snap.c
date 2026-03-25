@@ -676,7 +676,7 @@ void func_80338A14(void) {
             }
         }
     }
-    snd_play_sfx(0x3A);
+    sndPlaySfx(0x3A);
 }
 
 void func_80339C8C(HangGliderData* arg0) {
@@ -1466,7 +1466,7 @@ s32 func_8033D3EC(s32 arg0, s32 arg1, Unk80373060* arg2, s32* arg3, s32* arg4) {
             if ((i < arg1) && (arg2[i].unk43[0] != 0)) {
                 func_8033A610(D_80350560[i % 6][0], D_80350560[i % 6][0] + 80, D_80350560[i % 6][1], D_80350560[i % 6][1] + 59);
                 func_8033A128(arg0, &arg2[i]);
-                snd_play_sfx(0x54);
+                sndPlaySfx(0x54);
                 func_8033FB14();
                 uvCopyFrameBuf(0);
                 func_8033A244(arg0, &arg2[i]);
@@ -1475,7 +1475,7 @@ s32 func_8033D3EC(s32 arg0, s32 arg1, Unk80373060* arg2, s32* arg3, s32* arg4) {
             } else {
                 func_80204D94(0, D_80350560[i % 6][0], D_80350560[i % 6][0] + 80, D_80350560[i % 6][1] - 1, D_80350560[i % 6][1] + 59);
                 func_8033A128(arg0, NULL);
-                snd_play_sfx(0x54);
+                sndPlaySfx(0x54);
                 func_8033FB14();
                 uvCopyFrameBuf(0);
                 func_8033A244(arg0, NULL);
@@ -1513,16 +1513,16 @@ s32 func_8033D3EC(s32 arg0, s32 arg1, Unk80373060* arg2, s32* arg3, s32* arg4) {
             uvGfxEnd();
             if ((demoButtonPress(0, B_BUTTON) != 0) || ((arg1 == 0) && (demoButtonPress(0, START_BUTTON) != 0))) {
                 spBC = TRUE;
-                snd_play_sfx(1);
+                sndPlaySfx(1);
                 break;
             }
             if ((arg1 != 0) && (demoButtonPress(0, A_BUTTON | START_BUTTON) != 0)) {
                 if ((((arg0 == 0) && (*arg4 < D_80350528)) || ((arg0 == 2) && (*arg4 < D_8035052C))) && (arg2[*arg4].unk43[0] != 0)) {
                     spC0 = TRUE;
-                    snd_play_sfx(0x6E);
+                    sndPlaySfx(0x6E);
                     break;
                 }
-                snd_play_sfx(1);
+                sndPlaySfx(1);
             }
 
             if (arg1 != 0) {
@@ -1679,7 +1679,7 @@ s32 func_8033DDD8(s32 arg0, Unk80373060* arg1, s32* arg2) {
         uvGfxBegin();
         uvGfxEnd();
         if (demoButtonPress(0, B_BUTTON) != 0) {
-            snd_play_sfx(1);
+            sndPlaySfx(1);
             sp2C = 1;
             break;
         } else if (demoButtonPress(0, L_CBUTTONS) != 0) {
@@ -1741,11 +1741,11 @@ void func_8033DFD0(s32 arg0, Unk80373060* arg1, s32 arg2) {
         uvGfxBegin();
         uvGfxEnd();
         if (demoButtonPress(0, B_BUTTON) != 0) {
-            snd_play_sfx(1);
+            sndPlaySfx(1);
             break;
         }
         if (demoButtonPress(0, A_BUTTON | START_BUTTON) != 0) {
-            snd_play_sfx(0x6E);
+            sndPlaySfx(0x6E);
             if (arg0 == 0) {
                 if (var_s2) {
                     D_80373060[arg2].unk43[0] = 0;

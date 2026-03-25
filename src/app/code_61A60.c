@@ -157,7 +157,7 @@ void func_802DA6E0(Unk80362690* arg0, s32 pilot) {
     D_8034EA44 = uvDobjAllocIdx();
     uvDobjModel(D_8034EA44, func_802DA684((u32)pilot));
     uvMat4SetIdentity(&D_80359C48);
-    if (pilot != 3) {
+    if (pilot != PILOT_KIWI) {
         uvMat4RotateAxis(&D_80359C48, 0.2f, 'z');
     }
     uvMat4RotateAxis(&D_80359C48, 0.2f, 'x');
@@ -217,9 +217,9 @@ s32 func_802DAA34(void) {
     if (uvControllerButtonPress(D_80362690->unk9C, A_BUTTON | B_BUTTON | START_BUTTON)) {
         func_80344258(0);
         if (uvControllerButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON)) {
-            snd_play_sfx(0x6E);
+            sndPlaySfx(0x6E);
         } else if (uvControllerButtonPress(D_80362690->unk9C, B_BUTTON)) {
-            snd_play_sfx(0x01);
+            sndPlaySfx(0x01);
         }
         return GAME_STATE_TITLE;
     }
@@ -241,40 +241,40 @@ void func_802DAB18(Camera* arg0) {
     switch (pilot) {
     case PILOT_LARK:
         if ((D_80359C88 > 0.45f) && (var_fs0 < 0.54f) && ((D_8034EA48 & 1) == 0)) {
-            snd_play_sfx(0x61);
+            sndPlaySfx(0x61);
             D_8034EA48 |= 1;
         }
         var_fs0 *= 2.55;
         break;
     case PILOT_GOOSE:
         if ((D_80359C88 > 0.0f) && (var_fs0 < 0.1f) && ((D_8034EA48 & 2) == 0)) {
-            snd_play_sfx(0x63);
+            sndPlaySfx(0x63);
             D_8034EA48 |= 2;
         }
         break;
     case PILOT_HAWK:
         if ((D_80359C88 > 0.0f) && (var_fs0 < 0.5f) && ((D_8034EA48 & 3) == 0)) {
-            snd_play_sfx(0x65);
+            sndPlaySfx(0x65);
             D_8034EA48 |= 3;
         }
         break;
     case PILOT_KIWI:
         if ((D_80359C88 > 0.5f) && (var_fs0 < 0.8f) && ((D_8034EA48 & 4) == 0)) {
-            snd_play_sfx(0x62);
+            sndPlaySfx(0x62);
             D_8034EA48 |= 4;
         }
         var_fs0 *= 1.5;
         break;
     case PILOT_IBIS:
         if ((D_80359C88 > 0.5f) && (var_fs0 < 1.0f) && ((D_8034EA48 & 5) == 0)) {
-            snd_play_sfx(0x64);
+            sndPlaySfx(0x64);
             D_8034EA48 |= 5;
         }
         var_fs0 *= 1.5;
         break;
     case PILOT_ROBIN:
         if ((D_80359C88 > 0.25f) && (var_fs0 < 0.75f) && !(D_8034EA48 & 6)) {
-            snd_play_sfx(0x66);
+            sndPlaySfx(0x66);
             D_8034EA48 |= 6;
         }
         break;

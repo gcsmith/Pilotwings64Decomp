@@ -252,9 +252,9 @@ u8 testMenuHandler(Unk80367710* arg0) {
         if (demoButtonPress(D_80362690->unk9C, A_BUTTON | B_BUTTON | START_BUTTON) != 0) {
             sTestMenuState = 0;
             if (demoButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON) != 0) {
-                snd_play_sfx(0x71);
+                sndPlaySfx(0x71);
             } else if (demoButtonPress(D_80362690->unk9C, B_BUTTON) != 0) {
-                snd_play_sfx(1);
+                sndPlaySfx(1);
             }
             return 6;
         }
@@ -401,14 +401,14 @@ u8 testMenuHandler(Unk80367710* arg0) {
             } else {
                 switch (sp64) {
                 case 3:
-                    snd_play_sfx(0xF);
+                    sndPlaySfx(0xF);
                     return gCurTestIdx;
                 case 0:
-                    snd_play_sfx(0x73);
+                    sndPlaySfx(0x73);
                     resultHandler(0);
                     break;
                 case 4:
-                    snd_play_sfx(0x71);
+                    sndPlaySfx(0x71);
                     db_getstart(&sp6C->unk2C, &sp48, NULL, NULL);
                     testMenu_8034A428();
                     hud_8031A2CC();
@@ -430,7 +430,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
                     sTestMenuState = 2;
                     break;
                 case 2:
-                    snd_play_sfx(0x6E);
+                    sndPlaySfx(0x6E);
                     func_8033FB14();
                     testMenu_8034A428();
                     func_8033E3A8(3);
@@ -448,7 +448,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
             }
         } else {
             if (demoButtonPress(D_80362690->unk9C, B_BUTTON) != 0) {
-                snd_play_sfx(1);
+                sndPlaySfx(1);
                 if (sTestMenuState == 2) {
                     // these u8 values are needed to load integer literals at runtime
                     u16 col2ScreenX = (2 * 78) + 47;
@@ -479,8 +479,8 @@ void testMenuDraw(Camera* arg0, u8 classIdx, u8 vehIdx) {
     char sp8C[108];
     char strId[52];
     s16* sp54;
-    Mtx4F* temp_a0;
     s32 temp_v0_3;
+    UNUSED s32 pad4;
     Unk80362690_Unk0* sp48;
     s32 var_a1;
 

@@ -89,13 +89,13 @@ s32 func_802EB640(Unk80362690_Unk0* arg0, u16 arg1) {
         arg0->unk88 = smokeCreate();
         smokeProps(arg0->unk88, 1, 0, 0, 0, 2, 3.0f, 3, 2.0f, 5, 0.0f, 0.0f, 0.5f, 4, 5.0f, 7, 1, 0);
         temp_s0 = uvEmitterLookup();
-        snd_getpilot(&sp90, &sp8C);
+        sndGetPilot(&sp90, &sp8C);
         uvEmitterFromModel(temp_s0, sp90);
         uvEmitterSetUnk70(temp_s0, 1.0f);
         uvEmitterSetUnk74(temp_s0, sp8C);
         uvEmitterProp(temp_s0, 1, 0.0f, 2, 5000.0f, 5, 0x30, 0);
         uvEmitterTrigger(temp_s0);
-        snd_play_sfx(0x5A);
+        sndPlaySfx(0x5A);
         return 1;
     }
     return 0;

@@ -131,7 +131,7 @@ s32 func_802FB308(JumbleHopperData* arg0) {
                 hudText_8031D8E0(0x15D, 1.5f, 8.0f);
                 D_80368B80[i].unk6 = 1;
                 D_80368B80[i].unk10 = 0.0;
-                snd_play_sfx(0x11);
+                sndPlaySfx(0x11);
                 func_8033F748(0x18);
                 func_8033F964(0);
                 uvDobjModel(D_80368B80[i].objId, MODEL_WORLD);
