@@ -24,7 +24,7 @@ STATIC_FUNC void func_80336140(void) {
             if (D_80371DB0[i].unk4 >= 100.0f) {
                 D_80371DB0[i].unk4 -= 100.0f;
             }
-            spath_update2(&sp64, D_80371E58, D_80371DB0[i].unk4, 1.0f, 512.0f);
+            spathUpdate2(&sp64, D_80371E58, D_80371DB0[i].unk4, 1.0f, 512.0f);
             uvDobjPosm(D_80371DB0[i].objId, 0, &sp64);
         }
     }
@@ -83,7 +83,7 @@ void func_803363E0(void) {
     Vec3F sp50 = { -207.927f, -897.804f, 112.643f };
     s32 i;
 
-    D_80371E58 = func_80340668(4);
+    D_80371E58 = spathLoadFile(4);
     D_80371E50 = func_80321210(func_803362EC, func_80336248, sp50, 1500.0f, 0.0f, 0);
     for (i = 0; i < ARRAY_COUNT(D_80371DB0); i++) {
         D_80371DB0[i].objId = uvDobjAllocIdx();
@@ -99,7 +99,7 @@ void func_803363E0(void) {
 void func_8033651C(void) {
     s32 i;
 
-    spath_free(D_80371E58);
+    spathFree(D_80371E58);
     func_803212DC(D_80371E50);
     for (i = 0; i < ARRAY_COUNT(D_80371DB0); i++) {
         if (D_80371DB0[i].objId != 0xFFFF) {
@@ -108,4 +108,3 @@ void func_8033651C(void) {
         }
     }
 }
-
