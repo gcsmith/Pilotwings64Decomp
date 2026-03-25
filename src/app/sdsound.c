@@ -3,48 +3,23 @@
 #include "code_9A960.h"
 #include "demo.h"
 #include "kernel/code_8170.h"
+#include "sdsound.h"
 #include "snd.h"
 #include "task.h"
 #include <uv_event.h>
-
-typedef struct {
-    u8 pad0[0x70];
-    u8 unk70;
-    u8 unk71;
-    u8 unk72;
-    u8 unk73[3];
-    u8 unk76[3];
-    u8 pad79[0x7C - 0x79];
-    Vec3F unk7C[3];
-    f32 unkA0[3];
-    u8 padAC[0xB8 - 0xAC];
-    u8 unkB8;
-    u8 padB9[0x160 - 0xB9];
-    Vec3F unk160;
-    u8 pad16C[0x240 - 0x16C];
-    s32 unk240;
-    u8 unk244;
-    u8 unk245;
-    u16 pad246;
-    f32 unk248;
-    u8 pad24C[0x25E - 0x24C];
-    u16 unk25E;
-    u8 pad260[0x2CC - 0x260];
-    f32 unk2CC;
-} UnkSdSound;
 
 EventCallbackInfo D_80371CB0;
 Unk803599D0 D_80371CB8;
 
 // forward declarations
-void func_803339C4(s32, UnkSdSound*, s32);
-void func_80333D80(UnkSdSound*);
-void func_80333DDC(UnkSdSound*);
-void func_80333DF0(UnkSdSound*);
-void func_80334258(UnkSdSound*);
-void func_80333F68(UnkSdSound*);
+STATIC_FUNC void sdsound_803339C4(s32, UnkSdSound*, s32);
+STATIC_FUNC void sdsound_80333D80(UnkSdSound*);
+STATIC_FUNC void sdsound_80333DDC(UnkSdSound*);
+STATIC_FUNC void sdsound_80333DF0(UnkSdSound*);
+STATIC_FUNC void sdsound_80334258(UnkSdSound*);
+STATIC_FUNC void sdsound_80333F68(UnkSdSound*);
 
-void func_803338B0(UnkSdSound* arg0) {
+void sdsound_803338B0(UnkSdSound* arg0) {
     arg0->unk248 = 0.0f;
     D_80371CB8.unk0 = 4;
     D_80371CB8.unk4 = 0 /*.0f*/;
@@ -57,14 +32,14 @@ void func_803338B0(UnkSdSound* arg0) {
     D_80371CB8.unk20 = 1.0f;
     arg0->unk244 = snd_makedev(0x13);
     arg0->unk245 = snd_makedev(0x13);
-    D_80371CB0.cb = (EventCallback_t)&func_803339C4;
+    D_80371CB0.cb = (EventCallback_t)&sdsound_803339C4;
     D_80371CB0.arg = arg0;
     arg0->unk240 = -0x40;
     uvEventMaxCb(D_80371CB0, 1, 13, 18, 19, 16, 12, 22, 36);
 }
 
 // event handler func
-void func_803339C4(s32 arg0, UnkSdSound* arg1, s32 arg2) {
+STATIC_FUNC void sdsound_803339C4(s32 arg0, UnkSdSound* arg1, s32 arg2) {
     f32 sp3C;
     f32 temp_ft3;
     f32 sp34;
@@ -76,22 +51,22 @@ void func_803339C4(s32 arg0, UnkSdSound* arg1, s32 arg2) {
     }
     switch (arg0) {
     case 13:
-        func_80334258(temp);
+        sdsound_80334258(temp);
         return;
     case 12:
-        func_80333D80(temp);
+        sdsound_80333D80(temp);
         return;
     case 19:
-        func_80333DDC(temp);
+        sdsound_80333DDC(temp);
         return;
     case 16:
         temp->unk240 = -0x40;
         return;
     case 18:
-        func_80333D80(temp);
+        sdsound_80333D80(temp);
         return;
     case 22:
-        func_80333DF0(temp);
+        sdsound_80333DF0(temp);
         return;
     case 1:
         if (temp->unk240 & 1) {
@@ -136,17 +111,17 @@ void func_803339C4(s32 arg0, UnkSdSound* arg1, s32 arg2) {
     }
 }
 
-void func_80333D80(UnkSdSound* arg0) {
+STATIC_FUNC void sdsound_80333D80(UnkSdSound* arg0) {
     arg0->unk240 |= 1;
     func_8033F904(arg0->unk244, 1.0f, 0.0f, 0.0f);
     func_8033F904(arg0->unk245, 1.0f, 0.0f, 0.0f);
 }
 
-void func_80333DDC(UnkSdSound* arg0) {
+STATIC_FUNC void sdsound_80333DDC(UnkSdSound* arg0) {
     arg0->unk240 &= ~1;
 }
 
-void func_80333DF0(UnkSdSound* arg0) {
+STATIC_FUNC void sdsound_80333DF0(UnkSdSound* arg0) {
     Unk80362690_Unk0* sp24;
 
     sp24 = &D_80362690->unkC[D_80362690->unk9C];
@@ -164,12 +139,12 @@ void func_80333DF0(UnkSdSound* arg0) {
         func_8033F964(0);
         func_8033FCD0(sp24->veh);
         uvEventPost(0x12, 0);
-        func_80333D80(arg0);
+        sdsound_80333D80(arg0);
         return;
     }
 
     if (arg0->unk72 != 0) {
-        func_80333F68(arg0);
+        sdsound_80333F68(arg0);
     }
 
     if (arg0->unk70 == 2) {
@@ -187,7 +162,7 @@ void func_80333DF0(UnkSdSound* arg0) {
     }
 }
 
-void func_80333F68(UnkSdSound* arg0) {
+STATIC_FUNC void sdsound_80333F68(UnkSdSound* arg0) {
     f32 temp_fs0;
     s32 temp_v0_4;
     Unk80362690_Unk0* sp44;
@@ -253,7 +228,7 @@ void func_80333F68(UnkSdSound* arg0) {
     }
 }
 
-void func_80334258(UnkSdSound* arg0) {
+STATIC_FUNC void sdsound_80334258(UnkSdSound* arg0) {
     arg0->unk244 = func_8033F8CC(arg0->unk244);
     arg0->unk245 = func_8033F8CC(arg0->unk245);
     uvEventRemoveCb(D_80371CB0, 1, 13, 18, 19, 16, 12, 22, 36);
