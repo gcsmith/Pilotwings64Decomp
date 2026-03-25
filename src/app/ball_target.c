@@ -119,7 +119,7 @@ void ballTgtLoad(void) {
 }
 
 void ballTgt_802D2C20(BallTarget* bt) {
-    ParsedBALS* pb;
+    Ball* ball;
     f32 temp_fa0;
     f32 dx;
     f32 dy;
@@ -131,38 +131,38 @@ void ballTgt_802D2C20(BallTarget* bt) {
 
     var_s2 = 0;
     for (i = 0; i < gBallCount + gBallSplitCount; i++) {
-        pb = &gBalls[i];
-        if ((pb->unk94 != 0) || (pb->unk96 == 0)) {
+        ball = &gBalls[i];
+        if ((ball->hasPopped != 0) || (ball->active == 0)) {
             continue;
         }
-        dx = bt->unk4.x - pb->unk4.m[3][0];
-        dy = bt->unk4.y - pb->unk4.m[3][1];
-        dz = bt->unk4.z - pb->unk4.m[3][2];
+        dx = bt->unk4.x - ball->pose.m[3][0];
+        dy = bt->unk4.y - ball->pose.m[3][1];
+        dz = bt->unk4.z - ball->pose.m[3][2];
         dist = uvSqrtF(SQ(dx) + SQ(dy));
         temp_fa0 = bt->unk50 - 0.25f;
-        var_fv1 = pb->unk7C * D_80359388;
+        var_fv1 = ball->scale * D_80359388;
         if (((dist - var_fv1) <= temp_fa0) && ((var_fv1 + dist) >= temp_fa0)) {
             var_s2 = 1;
             snd_play_sfx(0x37);
             dx = -(dx / dist);
             dy = -(dy / dist);
-            dist = uvSqrtF(SQ(pb->unk44.x) + SQ(pb->unk44.y));
-            pb->unk44.x -= dist * dx;
-            pb->unk44.y -= dist * dy;
+            dist = uvSqrtF(SQ(ball->velocity.x) + SQ(ball->velocity.y));
+            ball->velocity.x -= dist * dx;
+            ball->velocity.y -= dist * dy;
         }
-        var_fv1 = pb->unk7C * D_80359388;
+        var_fv1 = ball->scale * D_80359388;
         if (bt->unk54 <= (var_fv1 + dz)) {
             if (var_s2 == 0) {
                 snd_play_sfx(0x37);
             }
-            pb->unk44.z = -pb->unk44.z;
+            ball->velocity.z = -ball->velocity.z;
         }
     }
 }
 
 s32 ballTgtInGoal(void) {
-    BallTarget* bt;
-    ParsedBALS* pb;
+    BallTarget* target;
+    Ball* ball;
     f32 dz;
     f32 dx;
     f32 dy;
@@ -177,30 +177,30 @@ s32 ballTgtInGoal(void) {
     }
 
     for (i = 0; i < sBallTgtCount; i++) {
-        bt = &sBallTgts[i];
-        if (bt->unk5D == 0) {
+        target = &sBallTgts[i];
+        if (target->unk5D == 0) {
             continue;
         }
 
-        if (bt->unk5B != 0) {
-            ballTgt_802D2C20(bt);
+        if (target->unk5B != 0) {
+            ballTgt_802D2C20(target);
         } else {
             for (j = 0; j < gBallCount + gBallSplitCount; j++) {
-                pb = &gBalls[j];
-                if ((pb->unk94 != 0) || (pb->unk96 == 0)) {
+                ball = &gBalls[j];
+                if ((ball->hasPopped != 0) || (ball->active == 0)) {
                     continue;
                 }
-                dx = bt->unk4.x - pb->unk4.m[3][0];
-                dy = bt->unk4.y - pb->unk4.m[3][1];
-                dz = bt->unk4.z - pb->unk4.m[3][2];
+                dx = target->unk4.x - ball->pose.m[3][0];
+                dy = target->unk4.y - ball->pose.m[3][1];
+                dz = target->unk4.z - ball->pose.m[3][2];
                 dist = uvSqrtF(SQ(dx) + SQ(dy));
-                if ((dist < bt->unk50) && (dz < bt->unk54)) {
-                    bt->unk5B = 1;
+                if ((dist < target->unk50) && (dz < target->unk54)) {
+                    target->unk5B = 1;
                     ret = 1;
                     snd_play_sfx(0x11);
-                    uvDobjModel(bt->objId, MODEL_WORLD);
-                    ballTgtInitDobj(bt);
-                    bt->unk5A = j;
+                    uvDobjModel(target->objId, MODEL_WORLD);
+                    ballTgtInitDobj(target);
+                    target->unk5A = j;
                 }
             }
         }

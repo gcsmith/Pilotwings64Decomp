@@ -80,11 +80,19 @@ using f32 = be float;
 struct VecTimeVal {
     f32 time;
     f32 value;
-} [[static]]; // size = 0x8
+} [[static, format("format_VecTimeVal")]]; // size = 0x8
+
+fn format_VecTimeVal(VecTimeVal v) {
+    return std::format("[ {}, {}, {} ]", v.time, v.value);
+};
 
 struct Vec3F {
     f32 x, y, z;
-} [[static]]; // size = 0xC
+} [[static, format("format_Vec3F")]]; // size = 0xC
+
+fn format_Vec3F(Vec3F v) {
+    return std::format("[ {}, {}, {} ]", v.x, v.y, v.z);
+};
 
 struct Vec4F {
     f32 x, y, z, w;
@@ -428,9 +436,9 @@ struct LevelESND {
 // potential landing pad defined for Map (Level)
 struct LevelLPAD {
     Vec3F pos;
-    f32 unkC;
-    s32 unk10;
-    u8 unk14;
+    f32 angle;
+    s32 isUsed [[comment("0 in FS, update from UWPT::LPAD")]];
+    u8 type [[comment("type of landing pad model. updated from UWPT::LPAD")]];
     padding[3];
 } [[static]]; // size = 0x18
 
@@ -557,23 +565,30 @@ struct UPWT_COMM {
     u8 countOBSV;
 } [[static]]; // size = 0x42C (padded to 0x430 in FS)
 
+enum BallType : u8 {
+    Orange = 0x00,
+    Green  = 0x01,
+    Blue   = 0x02,
+};
+
 struct TaskBALS {
-    Vec3F pos;
-    u8 padC[0x18 - 0xC];
+    Vec3F pos [[comment("position vector")]];
+    Vec3F rot [[comment("rotation vector (unused)")]];
     s32 unk18;
     f32 unk1C;
-    u8 type;
-    u8 unk21;
-    u8 pad22[2];
+    BallType type;
+    u8 willSplit [[comment("splits into 5 balls when popped")]];
+    padding[2];
     f32 unk24;
     f32 unk28;
     f32 unk2C;
     f32 scale;
-    s32 unk34;
-    s32 unk38;
-    f32 unk3C;
-    f32 unk40;
-    u8 pad44[4];
+    s32 points;
+    s32 unk38 [[comment("copied, but unused")]];
+    f32 dragCoef;
+    f32 gravity;
+    u8 unk44;
+    padding[3];
     f32 unk48;
     f32 unk4C;
     f32 unk50;
@@ -581,7 +596,7 @@ struct TaskBALS {
     s32 unk58;
     f32 unk5C;
     f32 unk60;
-    f32 unk64;
+    f32 splitBallGravity [[comment("gravity assigned to balls split off")]];
 } [[static]]; // size = 0x68
 
 struct TaskBTGT {
@@ -659,39 +674,43 @@ struct TaskHOPD {
     u8 pad1C[4];
 } [[static]]; // size = 0x20
 
+enum HPADType : u8 {
+    Large = 0x00,
+    Small = 0x01,
+};
+
 struct TaskHPAD {
-    Vec3F unk0;
-    Vec3F unkC;
-    u8 pad18[4];
-    u8 unk1C;
-    u8 unk1D;
+    Vec3F pos [[comment("position vector")]];
+    Vec3F rot [[comment("rotation vector (degrees)")]];
+    s32 unk18;
+    HPADType type;
+    u8 points;
     u8 pad1E[2];
-    f32 unk20;
-    u8 unk24;
+    f32 fuelAdded;
+    u8 nextHpadCount [[comment("number of HPADs to activate")]];
     u8 pad25[3];
-    s32 unk28[5]; // size unknown
-    u8 unk3C;
+    s32 nextHpads[5] [[comment("array of HPADs to activate")]];
+    u8 active [[comment("active at start")]];
     padding[3];
 } [[static]] ; // size = 0x40
 
 struct TaskLPAD {
-    Vec3F pos;
-    Vec3F angle;
-    u8 pad18[4];
-    Vec3F unk1C;
-    u8 unk28;
-    u8 pad29[3];
-    u8 unk2C;
+    Vec3F pos [[comment("position vector")]];
+    Vec3F unkC [[comment("unused, always (0, 0, 0)")]];
+    padding[4];
+    Vec3F unk1C [[comment("unused, always (0, 0, 0)")]];
+    padding[4];
+    u8 padType [[comment("pad type, used in model lookup")]];
     padding[3];
 } [[static]]; // size = 0x30
 
 struct TaskLSTP {
-    Vec3F pos;
-    Vec3F unkC;
-    u8 pad10[0x4];
-    u8 unk1C;
+    Vec3F positionUL [[comment("upper-left position")]];
+    Vec3F positionLR [[comment("lower-right position")]];
+    padding[4];
+    u8 canLand [[comment("valid landing strip for test")]];
     padding[3];
-    f32 unk20;
+    f32 landingAlignment [[comment("landing alignment requirement")]];
 } [[static]]; // size = 0x24 (padded to 0x28 in FS)
 
 struct TaskLWIN {
@@ -725,35 +744,35 @@ struct TaskPHTS {
 } [[static]]; // size = 0x14
 
 struct TaskRNGS {
-    Vec3F pos;
-    Vec3F angle;
-    u8 pad18[5];
-    u8 unk1D;
-    u8 unk1E;
-    u8 pad1F[1];
-    s32 unk20[5]; // size unknown
-    u8 unk34;
-    u8 pad35[3];
-    s32 unk38[5]; // size unknown
-    u8 unk4C;
-    u8 unk4D;
-    u8 pad4E[2];
-    f32 unk50;
+    Vec3F pos [[comment("position vector")]];
+    Vec3F rot [[comment("rotation vector (degrees)")]];
+    s32 unk18;
+    padding[1];
+    u8 childCount;
+    padding[2];
+    s32 childRings[5];
+    u8 timedChildRingCount;
+    padding[3];
+    s32 timedChildRings[5];
+    u8 points;
+    u8 untimed;
+    padding[2];
+    f32 timeRingDuration;
     u8 size;
-    u8 unk55;
-    u8 pad56[2];
-    f32 unk58;
-    f32 unk5C;
-    u8 unk60;
-    u8 pad61[3];
-    f32 unk64;
-    f32 unk68;
-    f32 unk6C;
-    u8 axis;
-    u8 unk71;
-    u8 unk72;
+    u8 isActive;
+    padding[2];
+    f32 rotationRate0;
+    f32 translation;
+    char rotationAxis0;
+    padding[3];
+    f32 rotationRateTimedOut1;
+    f32 rotationRateTiming1;
+    f32 rotationRate1;
+    char rotationAxis1;
+    u8 ringType;
+    u8 ringSubType;
     u8 unk73;
-    char unk74[0x10]; // string name?
+    char name[0x10];
 } [[static]]; // size = 0x84
 
 // SDFM is not present in FS, but is copied in code so only size is known

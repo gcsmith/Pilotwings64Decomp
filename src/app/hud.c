@@ -676,7 +676,7 @@ void hud_8031A378(void) {
     }
 
     for (i = 0; i < gLandingPadCount; i++) {
-        if (gLandingPads[i].unk14 == 0) {
+        if (gLandingPads[i].isUsed == 0) {
             continue;
         }
         radar->goals[idx].x = gLandingPads[i].pos.x;
@@ -686,9 +686,9 @@ void hud_8031A378(void) {
     }
 
     for (i = 0; i < gLandingStripCount; i++) {
-        radar->goals[idx].x = gLandingStrips[i].dx;
-        radar->goals[idx].y = gLandingStrips[i].dy;
-        func_80313430(gLandingStrips[i].unkC.x - gLandingStrips[i].pos.x, gLandingStrips[i].unkC.y - gLandingStrips[i].pos.y, 0.0f, &sp74, &sp70, &sp6C);
+        radar->goals[idx].x = gLandingStrips[i].midpoint.x;
+        radar->goals[idx].y = gLandingStrips[i].midpoint.y;
+        func_80313430(gLandingStrips[i].pos1.x - gLandingStrips[i].pos0.x, gLandingStrips[i].pos1.y - gLandingStrips[i].pos0.y, 0.0f, &sp74, &sp70, &sp6C);
         radar->goals[idx].unk8 = sp70;
         radar->goals[idx].unkC = 1;
         idx++;

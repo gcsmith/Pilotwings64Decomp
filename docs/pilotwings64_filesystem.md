@@ -333,7 +333,7 @@ Each map only defines one bonus star, but the game can support up to two.
 #### UPWL::LPAD / landing pads
 
 Landing pads are the *potential* landing pads used in the rocket belt and hang
-glider missions. The Pilotwings Task file has a separate `UPWT::LPAD` entry
+glider tests. The Pilotwings Task file has a separate `UPWT::LPAD` entry
 elaborating more details on the landing pad to use for a given test.
 
 | Offset | Type    | Description
@@ -343,11 +343,11 @@ elaborating more details on the landing pad to use for a given test.
 |  0x08  | LPAD[]  | array of entries
 
 | Entry  | Type   | Description
-|--------|--------|------------
+|--------|--------|--------------------------------------------
 |  0x00  | Vec3F  | position
-|  0x0C  | f32    | heading
-|  0x10  | s32    | TBD (always 0x0)
-|  0x14  | u8     | TBD (always 0x0)
+|  0x0C  | f32    | angle
+|  0x10  | s32    | is used (0 in FS, updated by test)
+|  0x14  | u8     | landing pad type (0, 1, 2). updated from `UWPT::LPAD`
 |  0x15  | pad[3] |
 | *0x18* |        | **Total length**
 
@@ -508,23 +508,24 @@ pop the balloon land and land on the designated landing area
 `BALS` are the balloons to pop or balls to push during rocket belt tests.
 
 | Offset | Type   | Description
-|--------|--------|------------
-|  0x00  | Vec3F  | position
-|  0x0C  | ??     | TBD
+|--------|--------|--------------------------------
+|  0x00  | Vec3F  | position vector
+|  0x0C  | Vec3F  | likely rotation vector (unused)
 |  0x18  | s32    | TBD
 |  0x1C  | f32    | TBD
-|  0x20  | u8     | type
-|  0x21  | u8     | TBD
+|  0x20  | u8     | type (0 = orange, 1 = green, 2 = blue)
+|  0x21  | u8     | will split into 5 balls when popped
 |  0x22  | pad[2] |
 |  0x24  | f32    | TBD
 |  0x28  | f32    | TBD
 |  0x2C  | f32    | TBD
 |  0x30  | f32    | scale
-|  0x34  | s32    | TBD
-|  0x38  | s32    | TBD
-|  0x3C  | f32    | TBD
-|  0x40  | f32    | TBD
-|  0x44  | pad[4] |
+|  0x34  | s32    | points for popping
+|  0x38  | s32    | copied, but unused
+|  0x3C  | f32    | drag coefficient
+|  0x40  | f32    | gravity
+|  0x44  | u8     | TBD
+|  0x45  | pad[3] |
 |  0x48  | f32    | TBD
 |  0x4C  | f32    | TBD
 |  0x50  | f32    | TBD
@@ -532,7 +533,7 @@ pop the balloon land and land on the designated landing area
 |  0x58  | s32    | TBD
 |  0x5C  | f32    | TBD
 |  0x60  | f32    | TBD
-|  0x64  | f32    | TBD
+|  0x64  | f32    | gravity for the balls split
 |  0x68  |        | **Total length**
 
 #### UPWT::BTGT / ball target
@@ -634,30 +635,28 @@ gyrocopter tests where Falco must be defeated.
 
 #### UPWT::HPAD / hover pad
 
-`HPAD` are the hovering pads used in some rocket belt tests.
+`HPAD` are the hovering pads used in two of the rocket belt tests.
 
 | Offset | Type   | Description
-|--------|--------|------------
+|--------|--------|--------------------------------------
 |  0x00  | Vec3F  | position
-|  0x0C  | f32    | TBD
-|  0x10  | f32    | TBD
-|  0x14  | f32    | TBD
-|  0x18  | pad[4] | TBD
-|  0x1C  | u8     | TBD
-|  0x1D  | u8     | TBD
+|  0x0C  | Vec3F  | rotation (degrees)
+|  0x18  | s32    | TBD (always 0)
+|  0x1C  | u8     | type (0=large, 1=standard)
+|  0x1D  | u8     | points if landed on (typically 5 or 3)
 |  0x1E  | pad[2] |
-|  0x20  | f32    | TBD
-|  0x24  | u8     | TBD
+|  0x20  | f32    | fuel added upon landing [0.0-1.0]
+|  0x24  | u8     | number of hover pads to activate next
 |  0x25  | pad[3] |
-|  0x28  | s32[5] | TBD
-|  0x3C  | u8     | TBD
+|  0x28  | s32[5] | array of HPADs to activate
+|  0x3C  | u8     | active at start
 |  0x3D  | pad[3] |
 |  0x40  |        | **Total length**
 
 #### UPWT::LPAD / test landing pad
 
 `UPWT::LPAD` are the landing pads to be used for a test. This differs from the
-list of potential landings pads in the `UPWL` level (map) data. There will only
+list of `UPWL::LPAD` potential landings pads level (map) data. There will only
 be one test landing pad, but there can be many potential level landing pads.
 
 | Offset | Type    | Description
@@ -667,14 +666,13 @@ be one test landing pad, but there can be many potential level landing pads.
 |  0x08  | LPAD[]  | array of entries
 
 | Entry  | Type    | Description
-|--------|---------|------------
+|--------|---------|-------------------------------
 |  0x00  | Vec3F   | position
-|  0x0C  | Vec3F   | angle
+|  0x0C  | Vec3F   | unused, always (0, 0, 0)
 |  0x18  | pad[4]  |
-|  0x1C  | Vec3F   | TBD
-|  0x28  | u8      | TBD
-|  0x28  | pad[3]  |
-|  0x2C  | u8      | TBD
+|  0x1C  | Vec3F   | unused, always (0, 0, 0)
+|  0x28  | pad[4]  |
+|  0x2C  | u8      | pad type, used in model lookup
 |  0x2D  | pad[3]  |
 |  0x30  |         | **Total length**
 
@@ -683,13 +681,13 @@ be one test landing pad, but there can be many potential level landing pads.
 `LSTP` are the landing strips used for takeoff and landing in the gyrocopter tests.
 
 | Offset | Type   | Description
-|--------|--------|---------------------
-|  0x00  | f32    | upper-left position
-|  0x0C  | f32    | lower-right position
+|--------|--------|-----------------------------
+|  0x00  | Vec3F  | upper-left position
+|  0x0C  | Vec3F  | lower-right position
 |  0x18  | pad[4] |
-|  0x1C  | u8     | TBD
+|  0x1C  | u8     | valid landing strip for test
 |  0x1D  | pad[3] |
-|  0x20  | f32    | TBD
+|  0x20  | f32    | landing alignment requirement
 |  0x24  |        | **Total length**
 
 #### UPWT::LWIN / local winds
@@ -739,40 +737,39 @@ There is one entry for each photo required for the test.
 
 #### UPWT::RNGS / rings
 
-`RNGS` are the rings to fly through during hang glider, rocket belt, and
-gyrocopter tests.
+`RNGS` are the rings to fly through during hang glider, rocket belt, and gyrocopter tests.
 
 | Offset | Type   | Description
 |--------|--------|--------------------
 |  0x00  | Vec3F  | position
-|  0x0C  | Vec3F  | angle
-|  0x18  | pad[5] |
-|  0x1D  | u8     | TBD
-|  0x1E  | u8     | TBD
-|  0x1F  | pad[1] |
-|  0x20  | s32[5] | TBD
-|  0x34  | u8     | TBD
+|  0x0C  | Vec3F  | angle (degrees)
+|  0x18  | s32    | TBD
+|  0x1C  | pad[1] |
+|  0x1D  | u8     | child ring count
+|  0x1E  | pad[2] |
+|  0x20  | s32[5] | array of child ring indexes
+|  0x34  | u8     | timed child ring count
 |  0x35  | pad[3] |
-|  0x38  | s32[5] | TBD
-|  0x4C  | u8     | TBD
-|  0x4D  | u8     | TBD
+|  0x38  | s32[5] | array of timed child ring indexes
+|  0x4C  | u8     | points used for some rings
+|  0x4D  | u8     | untimed ring
 |  0x4E  | pad[2] |
-|  0x50  | f32    | TBD
-|  0x54  | u8     | size
-|  0x55  | u8     | TBD
+|  0x50  | f32    | timed ring duration
+|  0x54  | u8     | ring size
+|  0x55  | u8     | is active
 |  0x56  | pad[2] |
-|  0x58  | f32    | TBD
-|  0x5C  | f32    | TBD
-|  0x60  | u8     | TBD
+|  0x58  | f32    | rotation rate 0
+|  0x5C  | f32    | x,y,z traslation
+|  0x60  | char   | rotation axis 0 ('x', 'y', 'z', or 'n')
 |  0x61  | pad[3] |
-|  0x64  | f32    | TBD
-|  0x68  | f32    | TBD
-|  0x6C  | f32    | TBD
-|  0x70  | u8     | axis
-|  0x71  | u8     | TBD
-|  0x72  | u8     | special
-|  0x73  | u8     | TBD
-|  0x74  | u8[16] | string name, unused
+|  0x64  | f32    | rotation rate 1 (after timeout)
+|  0x68  | f32    | rotation rate 1 (before timeout)
+|  0x6C  | f32    | rotation rate 1
+|  0x70  | char   | rotation axis 1 ('x', 'y', 'z', or 'n')
+|  0x71  | u8     | ring type
+|  0x72  | u8     | ring sub-type, used to determine model
+|  0x73  | u8     | unknown. copied but unused
+|  0x74  | u8[16] | string name, always '\0'
 |  0x84  |        | **Total length**
 
 #### UPWT::SDFM

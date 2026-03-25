@@ -18,10 +18,10 @@ balls_802CB6D4      = 0x802CB6D4; // type:func
 balls_802CB9B4      = 0x802CB9B4; // type:func
 ballsCollision      = 0x802CBC9C; // type:func
 ballsPopped         = 0x802CBE94; // type:func
-ballsGet_802CC064   = 0x802CC064; // type:func
-balls_802CC0D4      = 0x802CC0D4; // type:func
+ballsGetPoints      = 0x802CC064; // type:func
+ballsObjIdExists    = 0x802CC0D4; // type:func
 ballsGetCount       = 0x802CC13C; // type:func
-ballsGet_802CC15C   = 0x802CC15C; // type:func
+ballsGetAllPopped   = 0x802CC15C; // type:func
 
 // birdman0
 bird_802CC1B0       = 0x802CC1B0; // type:func
@@ -139,19 +139,19 @@ envSound_802E3310   = 0x802E3310; // type:func
 envSound_802E3398   = 0x802E3398; // type:func
 envSoundFrameUpdate = 0x802E344C; // type:func
 
-hoverPadInit        = 0x803097E0; // type:func
-hoverPad_80309868   = 0x80309868; // type:func
-hoverPadLoad        = 0x80309A64; // type:func
-hoverPadObjSetup    = 0x803099A8; // type:func
-hoverPad_80309C48   = 0x80309C48; // type:func
-hoverPadFrameUpdate = 0x80309D64; // type:func
-hoverPad_80309D6C   = 0x80309D6C; // type:func
-hoverPad_80309E68   = 0x80309E68; // type:func
-hoverPad_80309EA8   = 0x80309EA8; // type:func
-hoverPad_80309F04   = 0x80309F04; // type:func
-hoverPadDeinit      = 0x80309FFC; // type:func
-hoverPad_8030A080   = 0x8030A080; // type:func
-hoverPad_8030A0DC   = 0x8030A0DC; // type:func
+hoverPadInit         = 0x803097E0; // type:func
+hoverPad_80309868    = 0x80309868; // type:func
+hoverPadLoad         = 0x80309A64; // type:func
+hoverPadObjSetup     = 0x803099A8; // type:func
+hoverPadActivateNext = 0x80309C48; // type:func
+hoverPadFrameUpdate  = 0x80309D64; // type:func
+hoverPadLanded       = 0x80309D6C; // type:func
+hoverPadGetAltitude  = 0x80309E68; // type:func
+hoverPadGetFuel      = 0x80309EA8; // type:func
+hoverPadGetLandedIdx = 0x80309F04; // type:func
+hoverPadDeinit       = 0x80309FFC; // type:func
+hoverPadGetCount     = 0x8030A080; // type:func
+hoverPadGetPoints    = 0x8030A0DC; // type:func
 
 fx_create           = 0x802EA03C; // type:func
 fx_create_fire      = 0x802EA8E0; // type:func
@@ -163,7 +163,12 @@ map3d_mslot         = 0x80312684; // type:func
 padsInit            = 0x80316DC0; // type:func
 padsLoad            = 0x80316E40; // type:func
 padsFrameUpdate     = 0x80317634; // type:func
+padsUnused          = 0x80317764; // type:func
 padsDeinit          = 0x8031776C; // type:func
+padsInitLandingPads = 0x80317854; // type:func
+padsLandedPadStrip  = 0x80317978; // type:func
+padsCannonTgtDist   = 0x80317B50; // type:func
+padsStripAlignment  = 0x80317C2C; // type:func
 
 hudInit             = 0x80317DA0; // type:func
 hudGetState         = 0x80318294; // type:func
@@ -251,8 +256,18 @@ demoButtonRelease   = 0x80323240; // type:func
 demoRandF           = 0x803232A0; // type:func
 
 ringsInit           = 0x803232F0; // type:func
+rings_80323364      = 0x80323364; // type:func
+rings_803234A4      = 0x803234A4; // type:func
+rings_80323720      = 0x80323720; // type:func
+rings_80323864      = 0x80323864; // type:func
+rings_8032390C      = 0x8032390C; // type:func
 ringsLoad           = 0x803239B4; // type:func
+rings_80323DCC      = 0x80323DCC; // type:func
+rings_80323FFC      = 0x80323FFC; // type:func
+rings_803243D8      = 0x803243D8; // type:func
 ringsDeinit         = 0x80324A34; // type:func
+ringsGetCleared     = 0x80324AF4; // type:func
+ringsGetPoints      = 0x80324B60; // type:func
 
 testGetPointCount         = 0x8032BE1C; // type:func
 levelGetTotalPoints       = 0x8032BD20; // type:func
@@ -268,12 +283,14 @@ resultGenTipText    = 0x8032EF10; // type:func
 shadowInit          = 0x80335B94; // type:func
 shadowModels        = 0x80334308; // type:func
 
-smoke_create        = 0x80336934; // type:func
-smoke_props         = 0x80336A04; // type:func
-smoke_getprops      = 0x80336EC0; // type:func
-smoke_delete        = 0x80337154; // type:func
-smoke_puff_add      = 0x8033720C; // type:func
-smoke_create_terra  = 0x80337528; // type:func
+smokeInit           = 0x803365A0; // type:func
+smokeCreate         = 0x80336934; // type:func
+smokeProps          = 0x80336A04; // type:func
+smokeGetProps       = 0x80336EC0; // type:func
+smokeDelete         = 0x80337154; // type:func
+smokePuffAdd        = 0x8033720C; // type:func
+smokeCreateTerra    = 0x80337528; // type:func
+smokeDeleteAll      = 0x80337114; // type:func
 
 snapInit            = 0x80337DB8; // type:func
 snapDeinit          = 0x803383FC; // type:func
@@ -573,6 +590,8 @@ sFileMenuFadeRate         = 0x8034F118;
 gLevelCurObjects          = 0x8034F408;
 gLevelUserFileLookup      = 0x8034F410;
 
+gRingModelIdLookup        = 0x8034FAF4; // size:0xA0
+
 gMedalPointRequirements   = 0x8034FBD4;
 
 sShutterBugTestItems      = 0x8034FC10; // size:0x10
@@ -661,11 +680,16 @@ gTakeoffPads              = 0x8036C2C0; // size:0x24
 gLandingPads              = 0x8036C2E8; // size:0x150
 gLandingStrips            = 0x8036C438; // size:0x78
 gCannonTargets            = 0x8036C4B0; // size:0x48
+gLandingPadObjIds         = 0x8036C4F8; // size:0x28
 
 gRadarThermCirc           = 0x8036C520; // size:0x88
 gHudState                 = 0x8036C5A8; // size:0xC7C
 
 gDemoUserFileIdx          = 0x8036D330;
+
+gRefRNGS                  = 0x8036DA70;
+gRingsCount               = 0x8036DA74;
+gRings                    = 0x8036DA78; // size:0x35E8
 
 sTextName                 = 0x80377F10; // size:0x6E0
 sTextData                 = 0x803785F0; // size:0x6DC
@@ -697,3 +721,5 @@ sLocalWinds               = 0x8037F518; // size:0x3F0
 sWindObjectsData          = 0x8037F910;
 sWindObjectsInLevel       = 0x8037F914;
 sWindObjects              = 0x8037F918;
+
+sSmokeObjects             = 0x80371E60; // size:0x1200

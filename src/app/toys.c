@@ -242,7 +242,7 @@ void toy_80348418(s32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4) {
             fxId = func_8021EFF0(8);
             if (fxId != 0xFF) {
                 uvModelGet(fxId, 8);
-                uvFxProps(fxId, 3, 5.0f, 5.0f, 5.0f, 1, 3.0f, 4, 2.0f, 2.0f, 2.0f, 0xA, arg1, arg2, arg3, 0);
+                uvFxProps(fxId, FX_3(5.0f, 5.0f, 5.0f), FX_1(3.0f), FX_4(2.0f, 2.0f, 2.0f), FX_10(arg1, arg2, arg3), FX_END);
             }
             toy->unk24C += 1.0f;
             if ((s32)toy->unk24C >= arg4) {

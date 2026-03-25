@@ -517,7 +517,7 @@ segments:
       - [0xD6EA0, .data, app/demo_attitude]
       - [0xD6EB0, data] # app/code_A8C30
       - [0xD7000, .data, app/demo]
-      - [0xD7010, data] # app/rings
+      - [0xD7010, .data, app/rings]
       - [0xD70D0, .data, app/code_AE460]
       - [0xD70E0, .data, app/rocket_belt]
       - [0xD7100, .data, app/code_B2900]
@@ -687,7 +687,7 @@ segments:
       - { type: bss, vram: 0x8036BFF0, name: app/code_9C080 }
       - { type: bss, vram: 0x8036C0D0, name: app/code_9CF50 }
       - { type: .bss, vram: 0x8036C120, name: app/options }
-      - { type: bss, vram: 0x8036C150, name: app/pads }
+      - { type: .bss, vram: 0x8036C150, name: app/pads }
       - { type: .bss, vram: 0x8036C520, name: app/hud }
       - { type: bss, vram: 0x8036D230, name: app/code_A64C0 }
       - { type: bss, vram: 0x8036D2B0, name: app/code_A7460 }
@@ -695,7 +695,7 @@ segments:
       - { type: bss, vram: 0x8036D340, name: app/proxanim }
       - { type: bss, vram: 0x8036D8E0, name: app/code_A8C30 }
       - { type: bss, vram: 0x8036DA30, name: app/demo }
-      - { type: bss, vram: 0x8036DA70, name: app/rings }
+      - { type: .bss, vram: 0x8036DA70, name: app/rings }
       - { type: bss, vram: 0x80371070, name: app/code_AC1A0 }
       - { type: bss, vram: 0x80371120, name: app/code_AE460 }
       - { type: bss, vram: 0x80371630, name: app/rocket_belt }
@@ -705,7 +705,7 @@ segments:
       - { type: .bss, vram: 0x80371CB0, name: app/sdsound }
       - { type: .bss, vram: 0x80371D10, name: app/shadow }
       - { type: .bss, vram: 0x80371DB0, name: app/code_BD670 }
-      - { type: bss, vram: 0x80371E60, name: app/smoke }
+      - { type: .bss, vram: 0x80371E60, name: app/smoke }
       - { type: .bss, vram: 0x80373060, name: app/snap }
       - { type: bss, vram: 0x80373E20, name: app/snd }
       - { type: bss, vram: 0x80373EF0, name: app/snow }
