@@ -127,17 +127,17 @@ STATIC_FUNC void func_803427FC(void) {
     uvChanEnv(sp54->unk22C, 0x17);
     func_80204C94(sp54->unk22C, -0.7009346f, 0.7009346f, -0.5f, 0.5f, 1.0f, 4000.0f);
     func_80204AB0(sp54->unk22C, 1, func_8034B6F8);
-    D_80378CE0->unk14 = func_80340668(0x43);
-    D_80378CE0->unk18 = func_80340668(0x44);
-    D_80378CE0->unk1C = func_80340668(0x45);
-    D_80378CE0->unk20 = func_80340668(0x46);
-    D_80378CE0->unk24 = func_80340668(0x47);
+    D_80378CE0->unk14 = spathLoadFile(0x43);
+    D_80378CE0->unk18 = spathLoadFile(0x44);
+    D_80378CE0->unk1C = spathLoadFile(0x45);
+    D_80378CE0->unk20 = spathLoadFile(0x46);
+    D_80378CE0->unk24 = spathLoadFile(0x47);
     uvMat4SetIdentity(&sp54->unk108);
-    spath_update(&sp54->unk108, D_80378CE0->unk14, 0, 1.0f);
-    spath_update(&D_80378CE0->unk2C, D_80378CE0->unk18, 0, 1.0f);
-    spath_update(&D_80378CE0->unk6C, D_80378CE0->unk18, 0, 1.0f);
-    spath_update(&D_80378CE0->unkAC, D_80378CE0->unk18, 0, 1.0f);
-    spath_update(&D_80378CE0->unkEC, D_80378CE0->unk18, 0, 1.0f);
+    spathUpdate(&sp54->unk108, D_80378CE0->unk14, 0, 1.0f);
+    spathUpdate(&D_80378CE0->unk2C, D_80378CE0->unk18, 0, 1.0f);
+    spathUpdate(&D_80378CE0->unk6C, D_80378CE0->unk18, 0, 1.0f);
+    spathUpdate(&D_80378CE0->unkAC, D_80378CE0->unk18, 0, 1.0f);
+    spathUpdate(&D_80378CE0->unkEC, D_80378CE0->unk18, 0, 1.0f);
     D_80378CE0->unk0 = uvDobjAllocIdx();
     uvDobjModel(D_80378CE0->unk0, MODEL_LOW_POLY_INTRO_CRESCENT_ISLAND);
     uvMat4SetIdentity(&sp58);
@@ -236,11 +236,11 @@ STATIC_FUNC void func_80343294(void) {
     uvDobjModel(D_80378CE0->unk8, MODEL_WORLD);
     uvDobjModel(D_80378CE0->unkC, MODEL_WORLD);
     uvDobjModel(D_80378CE0->unk10, MODEL_WORLD);
-    spath_free(D_80378CE0->unk14);
-    spath_free(D_80378CE0->unk18);
-    spath_free(D_80378CE0->unk1C);
-    spath_free(D_80378CE0->unk20);
-    spath_free(D_80378CE0->unk24);
+    spathFree(D_80378CE0->unk14);
+    spathFree(D_80378CE0->unk18);
+    spathFree(D_80378CE0->unk1C);
+    spathFree(D_80378CE0->unk20);
+    spathFree(D_80378CE0->unk24);
     uvSprtProps(1, 3, 0, 0);
     uvSprtProps(2, 3, 0, 0);
     uvSprtProps(3, 3, 0, 0);
@@ -434,7 +434,7 @@ STATIC_FUNC void func_80343B5C(void) {
 
     sp20 = D_80362690->unkC[D_80362690->unk9C].unk70;
     f0 = ((1.0 - ((4.65f - D_80378CE0->unk22C) / 4.65f)) * 100.0);
-    spath_update(&sp20->unk108, D_80378CE0->unk14, f0, 1.0f);
+    spathUpdate(&sp20->unk108, D_80378CE0->unk14, f0, 1.0f);
     uvMat4Copy(&D_80378CE0->unk1AC, &sp20->unk108);
     uvMat4Mul(&sp20->unk108, &sp20->unk108, &D_80378CE0->unk1EC);
     func_80204B34(sp20->unk22C, &sp20->unk108);
@@ -480,19 +480,19 @@ STATIC_FUNC void func_80343E84(void) {
     temp_fs0 = D_80378CE0->unk22C - D_80378CE0->unk238;
     if (temp_fs0 >= 0.0f) {
         sp2C = ((temp_fs0 - 0.0f) * 100.0f) / 1.5f;
-        spath_update(&D_80378CE0->unk2C, D_80378CE0->unk18, sp2C, 1.0f);
+        spathUpdate(&D_80378CE0->unk2C, D_80378CE0->unk18, sp2C, 1.0f);
         uvMat4Mul(&D_80378CE0->unk2C, &D_80378CE0->unk2C, &D_80378CE0->unk1EC);
         uvDobjPosm(D_80378CE0->unk4, 0, &D_80378CE0->unk2C);
     }
     if (temp_fs0 >= (0.5f * 3)) {
         sp2C = ((temp_fs0 - (0.5f * 3)) * 100.0f) / 2 /*.0f*/;
-        spath_update(&D_80378CE0->unk6C, D_80378CE0->unk1C, sp2C, 1.0f);
+        spathUpdate(&D_80378CE0->unk6C, D_80378CE0->unk1C, sp2C, 1.0f);
         uvMat4Mul(&D_80378CE0->unk6C, &D_80378CE0->unk6C, &D_80378CE0->unk1EC);
         uvDobjPosm(D_80378CE0->unk8, 0, &D_80378CE0->unk6C);
     }
     if (temp_fs0 >= 3.5f) {
         sp2C = ((temp_fs0 - 3.5f) * 100.0f) / 0.5f;
-        spath_update(&D_80378CE0->unkAC, D_80378CE0->unk20, sp2C, 1.0f);
+        spathUpdate(&D_80378CE0->unkAC, D_80378CE0->unk20, sp2C, 1.0f);
         uvMat4Mul(&D_80378CE0->unkAC, &D_80378CE0->unkAC, &D_80378CE0->unk1EC);
         uvDobjPosm(D_80378CE0->unkC, 0, &D_80378CE0->unkAC);
         if ((D_80378CE0->unk265 != 0) && (sp2C > 40.0f)) {
@@ -502,7 +502,7 @@ STATIC_FUNC void func_80343E84(void) {
     }
     if (temp_fs0 >= 4.0f) {
         sp2C = ((temp_fs0 - 4.0f) * 100.0f) / 0.5f;
-        spath_update(&D_80378CE0->unkEC, D_80378CE0->unk24, sp2C, 1.0f);
+        spathUpdate(&D_80378CE0->unkEC, D_80378CE0->unk24, sp2C, 1.0f);
         uvMat4Mul(&D_80378CE0->unkEC, &D_80378CE0->unkEC, &D_80378CE0->unk1EC);
         uvDobjPosm(D_80378CE0->unk10, 0, &D_80378CE0->unkEC);
         if ((D_80378CE0->unk266 != 0) && (sp2C > 47.0f)) {
@@ -541,4 +541,3 @@ void func_80344258(u8 arg0) {
         D_80350690 = 0;
     }
 }
-

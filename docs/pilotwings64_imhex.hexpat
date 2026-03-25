@@ -83,7 +83,7 @@ struct VecTimeVal {
 } [[static, format("format_VecTimeVal")]]; // size = 0x8
 
 fn format_VecTimeVal(VecTimeVal v) {
-    return std::format("[ {}, {}, {} ]", v.time, v.value);
+    return std::format("[ {}, {} ]", v.time, v.value);
 };
 
 struct Vec3F {
@@ -695,10 +695,10 @@ struct TaskHPAD {
 } [[static]] ; // size = 0x40
 
 struct TaskLPAD {
-    Vec3F pos [[comment("position vector")]];
-    Vec3F unkC [[comment("unused, always (0, 0, 0)")]];
+    Vec3F pos;
+    Vec3F angle;
     padding[4];
-    Vec3F unk1C [[comment("unused, always (0, 0, 0)")]];
+    Vec3F unk1C [[comment("unused, always (0,0,0)")]];
     padding[4];
     u8 padType [[comment("pad type, used in model lookup")]];
     padding[3];
