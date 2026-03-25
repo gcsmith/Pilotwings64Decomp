@@ -29,7 +29,7 @@ void func_8034B688(void) {
 }
 
 void func_8034B6F8(void) {
-    func_803415C8();
+    splash_803415C8();
     func_8034B688();
     if (D_80362690->debugFlag < 5) {
         hudMainRender();

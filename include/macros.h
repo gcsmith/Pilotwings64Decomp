@@ -85,6 +85,8 @@
 
 #define SQ(x) ((x) * (x))
 
+#define CUBE(x) ((x) * (x) * (x))
+
 #define FABS(x) (0.0f < (x) ? ((x)) : (-(x)))
 
 #define FABS2(x) (0.0f > (x) ? (-(x)) : ((x)))
