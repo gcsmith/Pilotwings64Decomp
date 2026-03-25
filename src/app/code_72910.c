@@ -19,7 +19,7 @@ s16 D_8034F154[6] = { 0 };
 
 void func_802EB3E0(void) {
     func_802E9FD0();
-    func_80341CB0();
+    splash_80341CB0();
     smokeInit();
     func_80314430();
     D_8034F150 = 0;
