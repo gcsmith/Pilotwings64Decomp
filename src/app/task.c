@@ -30,6 +30,7 @@
 #include "pads.h"
 #include "rings.h"
 #include "shadow.h"
+#include "shuttle.h"
 #include "skydiving.h"
 #include "snap.h"
 #include "snd.h"
@@ -95,7 +96,7 @@ void taskInit(void) {
     func_802EB3E0();
     skydivingInit();
     func_802FAF80();
-    shadowInit();
+    shuttleInit();
     func_802E79D8();
     func_802EB0BC();
     func_80315474();
@@ -265,7 +266,7 @@ s32 taskInitTest(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* terraId,
     func_802FAF80();
     func_802E79D8();
     func_802EB0BC();
-    shadowInit();
+    shuttleInit();
     func_80315474();
     func_80315550();
     func_8034C224();

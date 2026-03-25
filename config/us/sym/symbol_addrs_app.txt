@@ -280,8 +280,34 @@ resultDrawTally     = 0x8032E940; // type:func
 resultDeinit        = 0x8032E698; // type:func
 resultGenTipText    = 0x8032EF10; // type:func
 
-shadowInit          = 0x80335B94; // type:func
+shadow_803342F0     = 0x803342F0; // type:func
+shadow_803342FC     = 0x803342FC; // type:func
 shadowModels        = 0x80334308; // type:func
+shadow_803343D8     = 0x803343D8; // type:func
+shadow_80334454     = 0x80334454; // type:func
+shadow_803344BC     = 0x803344BC; // type:func
+shadow_80334578     = 0x80334578; // type:func
+shadow_803347D0     = 0x803347D0; // type:func
+shadow_80334A38     = 0x80334A38; // type:func
+shadow_80334C70     = 0x80334C70; // type:func
+
+shuttle_80334CC0    = 0x80334CC0; // type:func
+shuttle_80334CCC    = 0x80334CCC; // type:func
+shuttle_80335130    = 0x80335130; // type:func
+shuttle_80335700    = 0x80335700; // type:func
+shuttle_803358D4    = 0x803358D4; // type:func
+shuttle_80335AE0    = 0x80335AE0; // type:func
+shuttle_80335AF4    = 0x80335AF4; // type:func
+shuttleInit         = 0x80335B94; // type:func
+shuttle_80335BE4    = 0x80335BE4; // type:func
+shuttle_80335E44    = 0x80335E44; // type:func
+shuttle_80335EE4    = 0x80335EE4; // type:func
+shuttle_80335F84    = 0x80335F84; // type:func
+shuttle_80335F24    = 0x80335F24; // type:func
+shuttle_80335FD8    = 0x80335FD8; // type:func
+shuttle_80336064    = 0x80336064; // type:func
+shuttle_80336094    = 0x80336094; // type:func
+shuttle_803360E8    = 0x803360E8; // type:func
 
 smokeInit           = 0x803365A0; // type:func
 smokeCreate         = 0x80336934; // type:func
@@ -723,3 +749,5 @@ sWindObjectsInLevel       = 0x8037F914;
 sWindObjects              = 0x8037F918;
 
 sSmokeObjects             = 0x80371E60; // size:0x1200
+
+sShuttleRadarIdx          = 0x803504BC;
