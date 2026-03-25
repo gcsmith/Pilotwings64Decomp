@@ -53,7 +53,7 @@ STATIC_FUNC void shuttle_80334CCC(void) {
     Mtx4F sp80;
     Mtx4F sp40;
 
-    func_80335130();
+    shuttle_80335130();
     uvDobjState(D_803504B4, D_803504B0);
     if (D_80350494 == 2) {
         uvMat4SetIdentity(&sp80);
@@ -269,12 +269,12 @@ STATIC_FUNC void shuttle_803358D4(void) {
         D_803504A8 += D_8034F854;
         if ((12.0f * D_8034F854) < D_803504A8) {
             D_80350494 = 4;
-            func_80335700();
+            shuttle_80335700();
         }
-        func_80335130();
+        shuttle_80335130();
         uvDobjState(D_803504B4, D_803504B0);
     } else {
-        func_80335130();
+        shuttle_80335130();
         uvDobjState(D_803504B4, D_803504B0);
     }
 }
@@ -287,14 +287,14 @@ STATIC_FUNC s32 shuttle_80335AF4(s32 arg0, s32 arg1, s32 arg2) {
     s32 pad;
     s32 sp18 = 0;
 
-    func_80335130();
+    shuttle_80335130();
     uvDobjState(D_803504B4, D_803504B0);
     if (func_80321420(arg0) > 750.0f && (D_80350494 == 4 || D_80350494 == 1)) {
         D_80350490 = 0;
         sp18 = 2;
     } else {
         D_80350490 = 1;
-        func_803358D4();
+        shuttle_803358D4();
     }
     return sp18;
 }
@@ -333,7 +333,7 @@ void shuttle_80335BE4(void) {
 
     uvDobjModel(D_803504B4, MODEL_SPACE_SHUTTLE);
     uvDobjState(D_803504B4, D_803504B0);
-    D_803504C0 = func_80321210(func_80335AF4, func_80335AE0, sp70, 750.0f, 0.0f, 1);
+    D_803504C0 = func_80321210(shuttle_80335AF4, shuttle_80335AE0, sp70, 750.0f, 0.0f, 1);
     shuttle_80334CCC();
     uvMat4SetIdentity(&sp88.unk0);
     sp88.sndId = 0x14;
@@ -368,7 +368,7 @@ void shuttle_80335E44(void) {
     if (D_803504B4 != 0xFFFF) {
         uvDobjModel(D_803504B4, MODEL_WORLD);
         D_803504B4 = 0xFFFF;
-        func_80335700();
+        shuttle_80335700();
         func_803212DC(D_803504C0);
         D_803504C0 = 0;
         if (sShuttleRadarIdx != 0xFF) {
@@ -415,7 +415,7 @@ void shuttle_80335FD8(f32 arg0) {
         return;
     }
 
-    func_80335130();
+    shuttle_80335130();
     D_80350494 = 1;
     D_803504B0 = 3;
     D_803504A8 = 0.0;
@@ -427,7 +427,7 @@ void shuttle_80335FD8(f32 arg0) {
 
 void shuttle_80336064(void) {
     if (D_803504B4 != 0xFFFF) {
-        func_80335700();
+        shuttle_80335700();
     }
 }
 
