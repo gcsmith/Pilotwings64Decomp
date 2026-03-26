@@ -220,7 +220,7 @@ void func_8032FACC(u8 contIdx, u8 pilot, SkyDivingData* arg2, Camera* arg3) {
     arg2->unk250 = 11.0f;
     arg2->unk254 = 1.0f;
     func_80332C60(arg2);
-    func_803338B0(arg2);
+    sdSoundInit(arg2);
     db_getstart(&arg2->unk10, &arg2->unk154, NULL, NULL);
     arg2->unk10.m[3][2] -= 1000.0f;
     arg2->unk2B8 = arg2->unk10.m[3][0];

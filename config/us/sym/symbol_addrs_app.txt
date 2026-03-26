@@ -283,8 +283,8 @@ resultDrawTally     = 0x8032E940; // type:func
 resultDeinit        = 0x8032E698; // type:func
 resultGenTipText    = 0x8032EF10; // type:func
 
-sdsound_803338B0    = 0x803338B0; // type:func
-sdsound_803339C4    = 0x803339C4; // type:func
+sdSoundInit    = 0x803338B0; // type:func
+sdSoundCallback    = 0x803339C4; // type:func
 sdsound_80333D80    = 0x80333D80; // type:func
 sdsound_80333DDC    = 0x80333DDC; // type:func
 sdsound_80333DF0    = 0x80333DF0; // type:func

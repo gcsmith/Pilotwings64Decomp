@@ -1,6 +1,6 @@
 #include "common.h"
-#include "code_72B70.h"
 #include "kernel/code_8170.h"
+#include "game.h"
 #include "shadow.h"
 #include <uv_math.h>
 #include <uv_model.h>
@@ -86,7 +86,7 @@ void shadow_803344BC(Mtx4F* arg0, f32 arg1) {
         return;
     }
 
-    if (D_80362690->unk0 == 6) {
+    if (D_80362690->state == GAME_STATE_RESULTS) {
         var_v0 = D_80350464;
     } else {
         var_v0 = D_80350468;
