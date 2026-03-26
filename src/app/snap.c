@@ -18,7 +18,6 @@
 #include "code_9A960.h"
 #include "code_9C080.h"
 #include "code_D1ED0.h"
-#include "code_D2D50.h"
 #include "code_D3810.h"
 #include "demo.h"
 #include "file_menu.h"
@@ -29,6 +28,7 @@
 #include "snd.h"
 #include "snow.h"
 #include "text_data.h"
+#include "whale.h"
 
 typedef struct Unk8033F050 {
     s16 unk0;
@@ -160,7 +160,7 @@ void snapInit(void) {
     D_80373630[0].unk3C = 0;
     D_80373630[0].unk38 = 0;
     D_80373630[0].unk4C[0] = 0;
-    func_8034C16C(&D_80373630[0].unk0);
+    whaleGetPos(&D_80373630[0].unk0);
     D_80373630[0].unk0.z += uvSinF(0.4363325f) * 105.0f;
     sp34 = uvCosF(0.4363325f) * 105.0f;
     D_80373630[0].unk0.x += uvSinF(0.6108655f) * sp34;
@@ -462,8 +462,8 @@ void func_80338A14(void) {
     for (i = 0; i < ARRAY_COUNT(D_80350510); i++) {
         switch (D_80350510[i]) {
         case 4:
-            if (func_8034B820() != 0) {
-                func_8034C16C(&spFC);
+            if (whaleIsActive() != 0) {
+                whaleGetPos(&spFC);
                 if (func_80338964(temp_s1->unk0, spFC, &temp_s4->unk70->unk108) != 0) {
                     func_8034B354(0, spFC, &spA8);
                     if ((spA8.x < -50.0f) || (spA8.x > 370.0f) || (spA8.y < -50.0f) || (spA8.y > 290.0f)) {
@@ -475,7 +475,7 @@ void func_80338A14(void) {
                         var_s2 = 1;
                         var_fs0 = temp_fv0;
                         spBC[0] = &temp_s5[10];
-                        temp_s1->unk4C[0] = func_8034C154();
+                        temp_s1->unk4C[0] = whaleGetInterval();
                         spF0 = spFC;
                     }
                 }
@@ -878,7 +878,7 @@ void func_8033A244(s32 arg0, Unk80373060* arg1) {
                 func_802EB368();
                 break;
             case 4:
-                func_8034C25C();
+                whaleStateSave();
                 break;
             case 3:
                 func_803154C0();
@@ -898,7 +898,7 @@ void func_8033A244(s32 arg0, Unk80373060* arg1) {
                 func_802EB328(arg1->unk4C[i]);
                 break;
             case 4:
-                func_8034C1CC(arg1->unk4C[i]);
+                whaleSetInterval(arg1->unk4C[i]);
                 break;
             case 3:
                 func_80315418(arg1->unk4C[i]);
@@ -936,7 +936,7 @@ void func_8033A244(s32 arg0, Unk80373060* arg1) {
                 func_802EB38C();
                 break;
             case 4:
-                func_8034C298();
+                whaleStateRestore();
                 break;
             case 3:
                 func_80315508();

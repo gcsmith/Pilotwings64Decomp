@@ -15,7 +15,7 @@ typedef struct {
     f32 unk18;
     f32 unk1C;
     f32 unk20;
-} Unk8037F450;
+} Unk8037F450; // size = 0x24
 
 // .data
 s32 D_803509F0 = 0;

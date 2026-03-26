@@ -17,7 +17,6 @@
 #include "code_9A960.h"
 #include "code_9C080.h"
 #include "code_B2900.h"
-#include "code_D2D50.h"
 #include "code_D3810.h"
 #include "env_sound.h"
 #include "environment.h"
@@ -37,6 +36,7 @@
 #include "task.h"
 #include "thermals.h"
 #include "wind.h"
+#include "whale.h"
 
 typedef struct {
     void* taskName; // short string name "BIRD 1C"
@@ -99,7 +99,7 @@ void taskInit(void) {
     func_802E79D8();
     func_802EB0BC();
     func_80315474();
-    func_8034C224();
+    whaleInit();
     func_80315550();
     func_802F1FA0();
     boatsInit();
@@ -268,7 +268,7 @@ s32 taskInitTest(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* terraId,
     shuttleInit();
     func_80315474();
     func_80315550();
-    func_8034C224();
+    whaleInit();
     func_802F1FA0();
     boatsInit();
     planesInit();

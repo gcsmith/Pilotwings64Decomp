@@ -511,6 +511,20 @@ userPathFree        = 0x8034A840; // type:func
 userPath_8034A8B0   = 0x8034A8B0; // type:func
 userPath_8034A950   = 0x8034A950; // type:func
 
+whaleIsActive       = 0x8034B820; // type:func
+whaleUpdate         = 0x8034B82C; // type:func
+whaleStateMachine   = 0x8034BA68; // type:func
+whale_8034BC68      = 0x8034BC68; // type:func
+whale_8034BDCC      = 0x8034BDCC; // type:func
+whaleLoad           = 0x8034BEDC; // type:func
+whaleDeinit         = 0x8034C0BC; // type:func
+whaleGetInterval    = 0x8034C154; // type:func
+whaleGetPos         = 0x8034C16C; // type:func
+whaleSetInterval    = 0x8034C1CC; // type:func
+whaleInit           = 0x8034C224; // type:func
+whaleStateSave      = 0x8034C25C; // type:func
+whaleStateRestore   = 0x8034C298; // type:func
+
 windObjInit         = 0x8034E080; // type:func
 windObjLoad         = 0x8034E0B4; // type:func
 windObjFrameUpdate  = 0x8034E274; // type:func

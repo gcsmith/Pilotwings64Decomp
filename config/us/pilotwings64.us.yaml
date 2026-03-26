@@ -470,7 +470,7 @@ segments:
       - [0xD1980, c, app/user_paths]
       - [0xD1ED0, c, app/code_D1ED0]
       - [0xD2B10, c, app/code_D2B10]
-      - [0xD2D50, c, app/code_D2D50]
+      - [0xD2D50, c, app/whale]
       - [0xD3810, c, app/code_D3810]
       - [0xD4290, c, app/wind]
       - [0xD55B0, c, app/wind_objects]
@@ -538,7 +538,7 @@ segments:
       - [0xD7D30, data]
       - [0xD7E10, .data, app/total_results]
       - [0xD7EA0, .data, app/test_menu]
-      - [0xD7EF0, .data, app/code_D2D50]
+      - [0xD7EF0, .data, app/whale]
       - [0xD7F20, .data, app/code_D3810]
       - [0xD7F40, .rodata, app/code_51E30]
       - [0xD7F60, .rodata, app/balls]
@@ -630,7 +630,7 @@ segments:
       - [0xDE550, .rodata, app/user_paths]
       - [0xDE5A0, .rodata, app/code_D1ED0]
       - [0xDE5D0, .rodata, app/code_D2B10]
-      - [0xDE5F0, .rodata, app/code_D2D50]
+      - [0xDE5F0, .rodata, app/whale]
       - [0xDE600, .rodata, app/code_D3810]
       - [0xDE640, .rodata, app/wind]
       - [0xDE6B0, .rodata, app/wind_objects]
@@ -720,7 +720,7 @@ segments:
       - { type: bss, vram: 0x8037AD70, name: app/toys }
       - { type: .bss, vram: 0x8037DC60, name: app/test_menu }
       - { type: .bss, vram: 0x8037DCA0, name: app/user_paths }
-      - { type: bss, vram: 0x8037F380, name: app/code_D2D50 }
+      - { type: .bss, vram: 0x8037F380, name: app/whale }
       - { type: bss, vram: 0x8037F450, name: app/code_D3810 }
       - { type: .bss, vram: 0x8037F510, name: app/wind }
       - { type: bss, vram: 0x8037F910, name: app/wind_objects }

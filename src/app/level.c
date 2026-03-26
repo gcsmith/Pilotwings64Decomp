@@ -12,7 +12,6 @@
 #include "code_9C080.h"
 #include "code_9CF50.h"
 #include "code_BD670.h"
-#include "code_D2D50.h"
 #include "code_D3810.h"
 #include "env_sound.h"
 #include "environment.h"
@@ -22,6 +21,7 @@
 #include "task.h"
 #include "text_data.h"
 #include "toys.h"
+#include "whale.h"
 
 s32 D_8034F400 = 0;
 s32 D_8034F404 = 0;
@@ -93,7 +93,7 @@ void level_8030B868(void) {
             boatsLoadHoliday();
             break;
         case MAP_CRESCENT_ISLAND:
-            func_8034BEDC();
+            whaleLoad();
             func_802EB0D4();
             boatsLoadCrescent();
             func_802F15C8();
@@ -127,7 +127,7 @@ void level_8030B964(void) {
             boatsDeinit();
             break;
         case MAP_CRESCENT_ISLAND:
-            func_8034C0BC();
+            whaleDeinit();
             func_802EB270();
             boatsDeinit();
             func_802F1FF0();
