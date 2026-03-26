@@ -30,8 +30,8 @@ void sdSoundInit(SkyDivingData* arg0) {
     D_80371CB8.unk18 = 0.8f;
     D_80371CB8.unk1C = 10.0f;
     D_80371CB8.unk20 = 1.0f;
-    arg0->unk244 = snd_makedev(0x13);
-    arg0->unk245 = snd_makedev(0x13);
+    arg0->unk244 = sndMakeDev(0x13);
+    arg0->unk245 = sndMakeDev(0x13);
     D_80371CB0.cb = sdSoundCallback;
     D_80371CB0.arg = arg0;
     arg0->unk240 = ~0x3F;
@@ -131,9 +131,9 @@ STATIC_FUNC void sdsound_80333DF0(SkyDivingData* arg0) {
         }
 
         arg0->unk240 |= 2;
-        snd_play_sfx(0x36);
+        sndPlaySfx(0x36);
         if (sp24->unk7A != 0) {
-            snd_play_sfx(0x1A);
+            sndPlaySfx(0x1A);
         }
         func_8033F748(0x16);
         func_8033F964(0);
@@ -148,7 +148,7 @@ STATIC_FUNC void sdsound_80333DF0(SkyDivingData* arg0) {
     }
 
     if (arg0->unk70 == 2) {
-        snd_play_sfx(0x48);
+        sndPlaySfx(0x48);
         if (arg0->unk25E == 1) {
             func_8033F748(0x14);
         } else {
@@ -186,7 +186,7 @@ STATIC_FUNC void sdsound_80333F68(SkyDivingData* arg0) {
             }
 
             arg0->unk240 |= 4;
-            snd_play_sfx(0x1A);
+            sndPlaySfx(0x1A);
             func_8033F748(0x16);
             func_8033F964(0);
             func_8033FCD0(sp44->veh);
