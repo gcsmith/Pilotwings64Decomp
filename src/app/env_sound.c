@@ -6,12 +6,12 @@
 #include "kernel/code_1050.h"
 #include "boats.h"
 #include "code_61A60.h"
-#include "code_6ECD0.h"
 #include "code_9A960.h"
 #include "camera.h"
 #include "demo.h"
 #include "env_sound.h"
 #include "environment.h"
+#include "ferry.h"
 #include "game.h"
 #include "planes.h"
 #include "shadow.h"
@@ -275,7 +275,7 @@ void envSound_802E2A00(s32 eventType, void* arg1, s32 eventData) {
                         uvEmitterSetUnk74(emitter->objId, temp_fs1);
                         break;
                     case 26:
-                        func_802E7CB8(&sp208);
+                        ferryGetPos(&sp208);
                         sp1C8.m[3][0] = sp208.x;
                         sp1C8.m[3][1] = sp208.y;
                         sp1C8.m[3][2] = sp208.z;

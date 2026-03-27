@@ -11,7 +11,6 @@
 #include <uv_texture.h>
 #include <uv_vector.h>
 #include "boats.h"
-#include "code_6ECD0.h"
 #include "code_722D0.h"
 #include "game.h"
 #include "code_78620.h"
@@ -19,6 +18,7 @@
 #include "code_9C080.h"
 #include "code_D1ED0.h"
 #include "demo.h"
+#include "ferry.h"
 #include "file_menu.h"
 #include "hud.h"
 #include "planes.h"
@@ -270,7 +270,7 @@ void snapInit(void) {
     D_803738D0[1].unk42 = 1;
     D_803738D0[1].unk43[0] = 2;
     D_803738D0[1].unk4C[0] = 0.0f;
-    func_802E7CB8(&D_803738D0[1].unk0);
+    ferryGetPos(&D_803738D0[1].unk0);
     D_803738D0[1].unk0.z += uvSinF(0.26179948f) * 230.0f;
     sp34 = uvCosF(0.26179948f) * 230.0f;
     D_803738D0[1].unk0.x += uvSinF(0.6108655f) * sp34;
@@ -522,8 +522,8 @@ void func_80338A14(void) {
             }
             break;
         case 2:
-            if (func_802E77A0() != 0) {
-                func_802E7CB8(&spFC);
+            if (ferryIsActive() != 0) {
+                ferryGetPos(&spFC);
                 if (func_80338964(temp_s1->unk0, spFC, &temp_s4->unk70->unk108) != 0) {
                     func_8034B354(0, spFC, &spA8);
                     if ((spA8.x < -50.0f) || (spA8.x > 370.0f) || (spA8.y < -50.0f) || (spA8.y > 290.0f)) {
@@ -535,7 +535,7 @@ void func_80338A14(void) {
                         var_s2 = 1;
                         var_fs0 = temp_fv0;
                         spBC[0] = &temp_s5[5];
-                        temp_s1->unk4C[0] = func_802E7CA0();
+                        temp_s1->unk4C[0] = ferryGetInterval();
                         spF0 = spFC;
                     }
                 }
@@ -887,7 +887,7 @@ void func_8033A244(s32 arg0, Unk80373060* arg1) {
                 func_80336094();
                 break;
             case 2:
-                func_802E7D58();
+                ferryStateSave();
                 break;
             }
         }
@@ -907,7 +907,7 @@ void func_8033A244(s32 arg0, Unk80373060* arg1) {
                 func_80335FD8(arg1->unk4C[i]);
                 break;
             case 2:
-                func_802E7D18(arg1->unk4C[i]);
+                ferrySetInterval(arg1->unk4C[i]);
                 break;
             case 7:
                 whalePodSetInterval(arg1->unk64[i], arg1->unk4C[i]);
@@ -946,7 +946,7 @@ void func_8033A244(s32 arg0, Unk80373060* arg1) {
                 func_80336064();
                 break;
             case 2:
-                func_802E7D6C();
+                ferryStateRestore();
                 break;
             }
         }

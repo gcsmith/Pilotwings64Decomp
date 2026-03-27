@@ -8,7 +8,6 @@
 #include "balls.h"
 #include "boats.h"
 #include "bonus.h"
-#include "code_6ECD0.h"
 #include "code_722D0.h"
 #include "code_72910.h"
 #include "game.h"
@@ -20,6 +19,7 @@
 #include "env_sound.h"
 #include "environment.h"
 #include "falco.h"
+#include "ferry.h"
 #include "hover_pads.h"
 #include "jumble_hopper.h"
 #include "level.h"
@@ -96,7 +96,7 @@ void taskInit(void) {
     skydivingInit();
     func_802FAF80();
     shuttleInit();
-    func_802E79D8();
+    ferryInit();
     func_802EB0BC();
     func_80315474();
     whaleInit();
@@ -263,7 +263,7 @@ s32 taskInitTest(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* terraId,
     skydivingInit();
     func_802EB3E0();
     func_802FAF80();
-    func_802E79D8();
+    ferryInit();
     func_802EB0BC();
     shuttleInit();
     func_80315474();

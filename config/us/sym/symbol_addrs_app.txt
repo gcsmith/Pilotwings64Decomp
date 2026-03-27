@@ -93,6 +93,20 @@ screenDrawBox       = 0x802DED44; // type:func
 screenDrawBox2      = 0x802DF03C; // type:func
 screenDrawBoxSetup  = 0x802DF988; // type:func
 
+ferryIsActive       = 0x802E77A0; // type:func
+ferryUpdatePos      = 0x802E77AC; // type:func
+ferryUpdate         = 0x802E7860; // type:func
+ferry_802E78D4      = 0x802E78D4; // type:func
+ferry_802E7974      = 0x802E7974; // type:func
+ferryInit           = 0x802E79D8; // type:func
+ferryLoad           = 0x802E79F0; // type:func
+ferryDeinit         = 0x802E7C28; // type:func
+ferryGetInterval    = 0x802E7CA0; // type:func
+ferryGetPos         = 0x802E7CB8; // type:func
+ferrySetInterval    = 0x802E7D18; // type:func
+ferryStateSave      = 0x802E7D58; // type:func
+ferryStateRestore   = 0x802E7D6C; // type:func
+
 saveBitScramble     = 0x802E7FA0; // type:func
 saveFatalError      = 0x802E81BC; // type:func
 saveFileInit        = 0x802E8294; // type:func
