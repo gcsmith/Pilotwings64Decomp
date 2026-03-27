@@ -125,12 +125,12 @@ STATIC_FUNC s32 whalePod_8034C6CC(s32 arg0, s32 arg1, s32 arg2) {
     return 0;
 }
 
-STATIC_FUNC s32 whalePod_8034C7F0(s32 arg0, s32 arg1, s32 arg2) {
+STATIC_FUNC s32 whalePod_8034C7F0(s32 arg0, f32 arg1, s32 arg2) {
     s32 pad;
     s32 sp18;
 
     sp18 = 0;
-    if (func_80321420(arg0) > 1750.0f) {
+    if (proxAnimGetRange(arg0) > 1750.0f) {
         sp18 = 2;
     } else {
         whalePodUpdate();
@@ -178,7 +178,7 @@ void whalePodLoad(void) {
     s32 i;
     Vec3F pos = sWhalePodInitPos;
 
-    sWhalePodProxId = func_80321210(whalePod_8034C7F0, whalePod_8034C6CC, pos, 1750.0f, 0.0f, 0);
+    sWhalePodProxId = proxAnimAddCallback(whalePod_8034C7F0, whalePod_8034C6CC, pos, 1750.0f, 0.0f, 0);
     for (i = 0; i < ARRAY_COUNT(gWhalePod); i++) {
         gWhalePod[i].objId4 = uvDobjAllocIdx();
         if (gWhalePod[i].objId4 != 0xFFFF) {
@@ -243,7 +243,7 @@ void whalePodDeinit(void) {
             }
         }
     }
-    func_803212DC(sWhalePodProxId);
+    proxAnimDeleteCallback(sWhalePodProxId);
     sWhalePodProxId = 0;
 }
 

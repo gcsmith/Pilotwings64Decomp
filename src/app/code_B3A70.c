@@ -215,7 +215,7 @@ void func_8032C540(Unk80362690* arg0) {
         func_802D4A30(temp_s0->unk70, &temp_s0->unk70->unk108);
         func_802D3444(temp_s0->unk70);
         taskFrameUpdate(&sp148, 0.0f);
-        func_8032150C();
+        proxAnimUpdate();
         uvFontSet(0);
         uvFontScale(1.0, 0.800000011920929);
         uvGfxBegin();
@@ -258,7 +258,7 @@ void func_8032CC44(Unk80362690* arg0) {
     }
     taskDeinitLevel();
     windObjDeinit();
-    func_803213E0();
+    proxAnimDispatchEvent2();
     cannon_802D8A40(1U, (CannonballData*)sp2C->vehicleData);
     sp20 = 0xFFFF;
     sp1C = 0;
@@ -331,7 +331,7 @@ void func_8032CC44(Unk80362690* arg0) {
     if (sp20 != 0xFFFF) {
         uvDobjState(sp20, sp1C);
     }
-    func_80321400();
+    proxAnimDispatchEvent3();
     windObjLoad();
     if (sp1B != 0) {
         arg0->unkA0 = 1;

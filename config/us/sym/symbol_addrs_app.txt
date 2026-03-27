@@ -293,6 +293,18 @@ planesInit           = 0x80320810; // type:func
 planesGetObjData     = 0x80320848; // type:func
 planesUpdateInterval = 0x80320900; // type:func
 
+proxAnimInit           = 0x80321100; // type:func
+proxAnimFreeSlot       = 0x80321174; // type:func
+proxAnimAddCallback    = 0x80321210; // type:func
+proxAnimDeleteCallback = 0x803212DC; // type:func
+proxAnimDispatchEvent  = 0x80321364; // type:func
+proxAnimDispatchEvent2 = 0x803213E0; // type:func
+proxAnimDispatchEvent3 = 0x80321400; // type:func
+proxAnimGetRange       = 0x80321420; // type:func
+proxAnimDispatchInit   = 0x803214E4; // type:func
+proxAnimUpdate         = 0x8032150C; // type:func
+proxAnimGetHandle      = 0x803216A4; // type:func
+
 demoAttInit         = 0x803209F0; // type:func
 demoAttLoadPos      = 0x80320A14; // type:func
 demoAttGetMtxRT     = 0x80320BF4; // type:func
@@ -326,8 +338,6 @@ demoButtonCheck     = 0x803231A0; // type:func
 demoButtonPress     = 0x803231E0; // type:func
 demoButtonRelease   = 0x80323240; // type:func
 demoRandF           = 0x803232A0; // type:func
-
-proxanimInit        = 0x80321100; // type:func
 
 ringsInit           = 0x803232F0; // type:func
 rings_80323364      = 0x80323364; // type:func

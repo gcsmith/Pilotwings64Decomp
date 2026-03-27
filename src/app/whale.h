@@ -1,5 +1,5 @@
-#ifndef APP_CODE_D2D50_H
-#define APP_CODE_D2D50_H
+#ifndef APP_WHALE_H
+#define APP_WHALE_H
 
 #include <PR/ultratypes.h>
 #include <uv_vector.h>
@@ -14,4 +14,4 @@ void whaleInit(void);
 void whaleStateSave(void);
 void whaleStateRestore(void);
 
-#endif // APP_CODE_D2D50_H
+#endif // APP_WHALE_H

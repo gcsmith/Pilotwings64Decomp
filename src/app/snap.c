@@ -891,7 +891,7 @@ void func_8033A244(s32 arg0, Unk80373060* arg1) {
                 break;
             }
         }
-        func_8032150C();
+        proxAnimUpdate();
         for (i = 0; i < arg1->unk42; i++) {
             switch (arg1->unk43[i]) {
             case 5:

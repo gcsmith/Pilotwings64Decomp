@@ -74,12 +74,12 @@ STATIC_FUNC s32 fountain_802EAF14(s32 arg0, s32 arg1, s32 arg2) {
     return 0;
 }
 
-STATIC_FUNC s32 fountain_802EAFD8(s32 arg0, s32 arg1, s32 arg2) {
+STATIC_FUNC s32 fountain_802EAFD8(s32 arg0, f32 arg1, s32 arg2) {
     f32 val;
     s32 sp18;
 
     sp18 = 0;
-    val = func_80321420(arg0);
+    val = proxAnimGetRange(arg0);
     if (val > 350.0f) {
         if (sFountainActive) {
             sFountainState = 1;
@@ -119,7 +119,7 @@ void fountainLoad(void) {
     if (sFountainObjId != 0xFFFF) {
         uvDobjModel(sFountainObjId, MODEL_DOUBLE_WATER_FOUNTAIN);
         uvDobjState(sFountainObjId, 0);
-        sFountainProxId = func_80321210(fountain_802EAFD8, fountain_802EAF14, pos, 350.0f, 0.0f, 5);
+        sFountainProxId = proxAnimAddCallback(fountain_802EAFD8, fountain_802EAF14, pos, 350.0f, 0.0f, 5);
         taskGetClsVehTest(&cls, &veh, &test);
         showHudWaypoint = (test == 0 && cls == CLASS_A && veh == VEHICLE_HANG_GLIDER) || (test == 1 && cls == CLASS_B && veh == VEHICLE_HANG_GLIDER) ||
                           (test == 2 && cls == CLASS_PILOT && veh == VEHICLE_HANG_GLIDER);
@@ -141,7 +141,7 @@ void fountainDeinit(void) {
 
     uvDobjModel(sFountainObjId, 0xFFFF);
     sFountainObjId = 0xFFFF;
-    func_803212DC(sFountainProxId);
+    proxAnimDeleteCallback(sFountainProxId);
     sFountainProxId = 0;
     if (sFountainRadarId != 0xFF) {
         hud_8031A8E0(sFountainRadarId);

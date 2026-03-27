@@ -108,18 +108,18 @@ STATIC_FUNC s32 boats_802D1900(s32 arg0, s32 arg1, s32 arg2) {
     return 0;
 }
 
-STATIC_FUNC s32 boats_802D19A4(s32 arg0, s32 arg1, s32 arg2) {
-    Unk803216A4* tmp;
+STATIC_FUNC s32 boats_802D19A4(s32 arg0, f32 arg1, s32 arg2) {
+    ProxAnim* tmp;
     s32 idx;
     s32 res;
     s32 pad;
     Boat* temp_v0;
 
     res = 0;
-    tmp = func_803216A4();
-    idx = tmp->unk14;
+    tmp = proxAnimGetHandle(arg0);
+    idx = tmp->arg;
     temp_v0 = &sBoats[idx];
-    if (func_80321420(arg0) > 1500.0f) {
+    if (proxAnimGetRange(arg0) > 1500.0f) {
         if (temp_v0->unk44 != 0) {
             boatsUpdate(idx);
             temp_v0->unk44 = 0;
@@ -187,7 +187,7 @@ void boatsLoadCrescent(void) {
                 boat->pos.f[1] = -200.0f;
                 break;
             }
-            boat->unk40 = func_80321210(boats_802D19A4, boats_802D1900, boat->pos, 1500.0f, 0.0f, i);
+            boat->unk40 = proxAnimAddCallback(boats_802D19A4, boats_802D1900, boat->pos, 1500.0f, 0.0f, i);
             boatsUpdate(i);
             boatsSetupEnvSound(i);
         }
@@ -246,7 +246,7 @@ void boatsLoadHoliday(void) {
                 boat->pos.y = -500.0f;
                 break;
             }
-            boat->unk40 = func_80321210(boats_802D19A4, boats_802D1900, boat->pos, 1500.0f, 0.0f, i);
+            boat->unk40 = proxAnimAddCallback(boats_802D19A4, boats_802D1900, boat->pos, 1500.0f, 0.0f, i);
             boatsUpdate(i);
             boatsSetupEnvSound(i);
         }
@@ -303,7 +303,7 @@ void boatsDeinit(void) {
         if (sBoats[i].objId0 != 0xFFFF) {
             uvDobjModel(sBoats[i].objId0, 0xFFFF);
             sBoats[i].objId0 = 0xFFFF;
-            func_803212DC(sBoats[i].unk40);
+            proxAnimDeleteCallback(sBoats[i].unk40);
         }
     }
 }

@@ -692,7 +692,7 @@ segments:
       - { type: bss, vram: 0x8036D230, name: app/code_A64C0 }
       - { type: .bss, vram: 0x8036D2B0, name: app/planes }
       - { type: .bss, vram: 0x8036D320, name: app/demo_attitude }
-      - { type: bss, vram: 0x8036D340, name: app/proxanim }
+      - { type: .bss, vram: 0x8036D340, name: app/proxanim }
       - { type: bss, vram: 0x8036D8E0, name: app/code_A8C30 }
       - { type: bss, vram: 0x8036DA30, name: app/demo }
       - { type: .bss, vram: 0x8036DA70, name: app/rings }

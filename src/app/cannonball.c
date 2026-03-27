@@ -804,7 +804,7 @@ s32 cannonLoad802D77D8(Unk80362690* arg0, CannonballData* arg1) {
     func_8033F964(1);
     hud_8031DAA8(0, 0.0f);
     temp_s1->test = 0;
-    func_803214E4();
+    proxAnimDispatchInit();
     taskInitTest(temp_s1->cls, temp_s1->veh, temp_s1->test, &arg0->map, &arg0->terraId, &arg0->envId);
     levelLoad(arg0->map, temp_s1->pilot, temp_s1->veh, 1);
     hudInit();
@@ -856,7 +856,7 @@ s32 cannonFrame802D7B7C(Unk80362690* arg0) {
     sp50 = 5;
     uvEventPost(0xE, 0);
     func_802E15F0();
-    func_8032150C();
+    proxAnimUpdate();
     func_80313D74();
     temp_s1 = (CannonballData*)temp_s0->vehicleData;
     cannonMovementFrame(temp_s1, arg0->state);
@@ -1018,7 +1018,7 @@ s32 cannonEndShot(CannonballData* arg0) {
         sp2C = arg0->unkC;
         taskDeinitLevel();
         windObjDeinit();
-        func_803214E4();
+        proxAnimDispatchInit();
         level_8030BA60();
         cannonLevelEnterLeave(arg0);
         cannonEndTarget(arg0);

@@ -52,12 +52,12 @@ STATIC_FUNC s32 skiLift_80336248(s32 arg0, s32 arg1, s32 arg2) {
     return 0;
 }
 
-STATIC_FUNC s32 skiLift_803362EC(s32 arg0, s32 arg1, s32 arg2) {
+STATIC_FUNC s32 skiLift_803362EC(s32 arg0, f32 arg1, s32 arg2) {
     s32 i;
     s32 sp20;
 
     sp20 = 0;
-    if (func_80321420(arg0) > 1500.0f) {
+    if (proxAnimGetRange(arg0) > 1500.0f) {
         if (sSkiLiftActive) {
             skiLiftUpdate();
             sSkiLiftActive = FALSE;
@@ -85,7 +85,7 @@ void skiLiftLoad(void) {
     s32 i;
 
     sSkiLiftSpathId = spathLoadFile(4);
-    sSkiLiftProxId = func_80321210(skiLift_803362EC, skiLift_80336248, sp50, 1500.0f, 0.0f, 0);
+    sSkiLiftProxId = proxAnimAddCallback(skiLift_803362EC, skiLift_80336248, sp50, 1500.0f, 0.0f, 0);
     for (i = 0; i < ARRAY_COUNT(sSkiLift); i++) {
         sSkiLift[i].objId = uvDobjAllocIdx();
         if (sSkiLift[i].objId != 0xFFFF) {
@@ -101,7 +101,7 @@ void skiLiftDeinit(void) {
     s32 i;
 
     spathFree(sSkiLiftSpathId);
-    func_803212DC(sSkiLiftProxId);
+    proxAnimDeleteCallback(sSkiLiftProxId);
     for (i = 0; i < ARRAY_COUNT(sSkiLift); i++) {
         if (sSkiLift[i].objId != 0xFFFF) {
             uvDobjModel(sSkiLift[i].objId, MODEL_WORLD);

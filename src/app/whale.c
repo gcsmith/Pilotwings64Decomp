@@ -140,12 +140,12 @@ STATIC_FUNC s32 whale_8034BC68(s32 arg0, s32 arg1, s32 arg2) {
     return 0;
 }
 
-STATIC_FUNC s32 whale_8034BDCC(s32 arg0, s32 arg1, s32 arg2) {
+STATIC_FUNC s32 whale_8034BDCC(s32 arg0, f32 arg1, s32 arg2) {
     s32 pad;
     s32 sp18;
 
     sp18 = 0;
-    if (func_80321420(arg0) > 450.0f) {
+    if (proxAnimGetRange(arg0) > 450.0f) {
         if (sWhaleActive) {
             sWhaleState = 2.0f;
             whaleStateMachine();
@@ -188,7 +188,7 @@ void whaleLoad(void) {
     } else {
         uvDobjModel(sWhaleObjId0, MODEL_GREY_WHALE);
         uvDobjState(sWhaleObjId0, 0);
-        sWhaleProxId = func_80321210(whale_8034BDCC, whale_8034BC68, pos, 450.0f, 0.0f, 4);
+        sWhaleProxId = proxAnimAddCallback(whale_8034BDCC, whale_8034BC68, pos, 450.0f, 0.0f, 4);
         sWhalePathAngle = 0.0f;
         taskGetClsVehTest(&class, &veh, &test);
         showHudWaypoint = (test == 0 && class == CLASS_A && veh == VEHICLE_HANG_GLIDER) || (test == 1 && class == CLASS_B && veh == VEHICLE_HANG_GLIDER) ||
@@ -212,7 +212,7 @@ void whaleDeinit(void) {
         uvDobjModel(sWhaleObjId4, MODEL_WORLD);
         sWhaleObjId4 = 0xFFFF;
     }
-    func_803212DC(sWhaleProxId);
+    proxAnimDeleteCallback(sWhaleProxId);
     sWhaleProxId = 0;
     if (sWhaleRadarId != 0xFF) {
         hud_8031A8E0(sWhaleRadarId);

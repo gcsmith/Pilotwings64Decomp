@@ -68,12 +68,12 @@ STATIC_FUNC s32 ferry_802E78D4(s32 arg0, s32 arg1, s32 arg2) {
     return 0;
 }
 
-STATIC_FUNC s32 ferry_802E7974(s32 arg0, s32 arg1, s32 arg2) {
+STATIC_FUNC s32 ferry_802E7974(s32 arg0, f32 arg1, s32 arg2) {
     f32 val;
     s32 ret;
 
     ret = 0;
-    val = func_80321420(arg0);
+    val = proxAnimGetRange(arg0);
     if (val > 1200.0f) {
         sFerryActive = FALSE;
         ret = 2;
@@ -104,7 +104,7 @@ void ferryLoad(void) {
     }
 
     uvDobjModel(sFerryObjId, MODEL_BIG_CRUISE_SHIP);
-    sFerryProxId = func_80321210(ferry_802E7974, ferry_802E78D4, pos, 1200.0f, 0.0f, 2);
+    sFerryProxId = proxAnimAddCallback(ferry_802E7974, ferry_802E78D4, pos, 1200.0f, 0.0f, 2);
     uvDobjState(sFerryObjId, 3);
     uvMat4SetIdentity(&sFerryTranslateX);
     uvMat4LocalTranslate(&sFerryTranslateX, 200.0f, 0.0f, 0.0f);
@@ -141,7 +141,7 @@ void ferryDeinit(void) {
 
     uvDobjModel(sFerryObjId, 0xFFFF);
     sFerryObjId = 0xFFFF;
-    func_803212DC(sFerryProxId);
+    proxAnimDeleteCallback(sFerryProxId);
     sFerryProxId = 0;
     if (sFerryRadarId != 0xFF) {
         hud_8031A8E0(sFerryRadarId);

@@ -63,15 +63,15 @@ STATIC_FUNC s32 gliderToy_802F11F8(s32 arg0, s32 arg1, s32 arg2) {
     return 0;
 }
 
-STATIC_FUNC s32 gliderToy_802F12BC(s32 arg0, s32 arg1, s32 arg2) {
+STATIC_FUNC s32 gliderToy_802F12BC(s32 arg0, f32 arg1, s32 arg2) {
     GliderToy* glider;
     s32 ret;
     s32 idx;
     f32 dist;
 
     ret = 0;
-    idx = func_803216A4()->unk14;
-    dist = func_80321420(arg0);
+    idx = proxAnimGetHandle(arg0)->arg;
+    dist = proxAnimGetRange(arg0);
     if (dist > 2500.0f) {
         glider = &sGliderToys[idx];
         if (glider->active) {
@@ -229,7 +229,7 @@ void gliderToyLoadCrescent(void) {
                 glider->pos.z = 265.0f;
                 break;
             }
-            glider->proxId = func_80321210(gliderToy_802F12BC, gliderToy_802F11F8, glider->pos, 2500.0f, 0.0f, i);
+            glider->proxId = proxAnimAddCallback(gliderToy_802F12BC, gliderToy_802F11F8, glider->pos, 2500.0f, 0.0f, i);
             gliderToyUpdate(i);
         }
     }
@@ -285,7 +285,7 @@ void gliderToyLoadLStates(void) {
                 glider->pos.z = 170.0f;
                 break;
             }
-            glider->proxId = func_80321210(gliderToy_802F12BC, gliderToy_802F11F8, glider->pos, 2500.0f, 0.0f, i);
+            glider->proxId = proxAnimAddCallback(gliderToy_802F12BC, gliderToy_802F11F8, glider->pos, 2500.0f, 0.0f, i);
             gliderToyUpdate(i);
         }
     }
@@ -332,7 +332,7 @@ void gliderToyLoadHoliday(void) {
                 glider->pos.z = 155.0f;
                 break;
             }
-            glider->proxId = func_80321210(gliderToy_802F12BC, gliderToy_802F11F8, glider->pos, 2500.0f, 0.0f, i);
+            glider->proxId = proxAnimAddCallback(gliderToy_802F12BC, gliderToy_802F11F8, glider->pos, 2500.0f, 0.0f, i);
             gliderToyUpdate(i);
         }
     }
@@ -379,7 +379,7 @@ void gliderToyLoadEFrost(void) {
                 glider->pos.z = 170.0f;
                 break;
             }
-            glider->proxId = func_80321210(gliderToy_802F12BC, gliderToy_802F11F8, glider->pos, 2500.0f, 0.0f, i);
+            glider->proxId = proxAnimAddCallback(gliderToy_802F12BC, gliderToy_802F11F8, glider->pos, 2500.0f, 0.0f, i);
             gliderToyUpdate(i);
         }
     }
@@ -404,7 +404,7 @@ void gliderToyDeinit(void) {
         if (glider->objId != 0xFFFF) {
             uvDobjModel(glider->objId, 0xFFFF);
             glider->objId = 0xFFFF;
-            func_803212DC(glider->proxId);
+            proxAnimDeleteCallback(glider->proxId);
         }
     }
 }

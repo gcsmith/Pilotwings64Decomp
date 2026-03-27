@@ -129,7 +129,7 @@ void gameInit(void) {
     sndInit();
     windObjInit();
     toyInit();
-    proxanimInit();
+    proxAnimInit();
     falcoInit();
     userPathInit();
     func_80337D50();
@@ -454,7 +454,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
     hudText_8031D8E0(-1, 0.0f, 0.0f);
     hudWarningText(-1, 0.0f, 0.0f);
     hud_8031DAA8(0, 0.0f);
-    func_803214E4();
+    proxAnimDispatchInit();
     taskInitTest(temp_s0->cls, temp_s0->veh, temp_s0->test, &arg0->map, &arg0->terraId, &arg0->envId);
     levelLoad(arg0->map, temp_s0->pilot, temp_s0->veh, TRUE);
     uvChanTerra(temp_s0->unk70->unk22C, arg0->terraId);
@@ -617,7 +617,7 @@ s32 gameUpdateStateResults(Unk80362690* arg0) {
             break;
         }
         uvGfxBegin();
-        func_8032150C();
+        proxAnimUpdate();
         taskFrameUpdate(&temp_s0->unk2C, 0.0f);
         func_8034B624(temp_s0->unk70);
         func_80313D74();
@@ -651,7 +651,7 @@ s32 gameUpdateStateResults(Unk80362690* arg0) {
             break;
         }
         uvGfxBegin();
-        func_8032150C();
+        proxAnimUpdate();
         taskFrameUpdate(&temp_s0->unk2C, 0.0f);
         func_8034B624(temp_s0->unk70);
         resultDrawTally(1);
@@ -764,7 +764,7 @@ s32 gameUpdateStateTestUpdate(Unk80362690* arg0) {
     if (sp6C->veh == VEHICLE_CANNONBALL) {
         return cannonFrame802D7B7C(arg0);
     }
-    func_8032150C();
+    proxAnimUpdate();
     level_8030BD20();
     func_802E15F0();
     func_802F89A0(D_80362E88);
