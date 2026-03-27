@@ -11,8 +11,6 @@
 #include <uv_texture.h>
 #include <uv_vector.h>
 #include "boats.h"
-#include "game.h"
-#include "code_78620.h"
 #include "code_9A960.h"
 #include "code_9C080.h"
 #include "code_D1ED0.h"
@@ -20,6 +18,8 @@
 #include "ferry.h"
 #include "file_menu.h"
 #include "fountain.h"
+#include "game.h"
+#include "glider_toys.h"
 #include "hud.h"
 #include "planes.h"
 #include "proxanim.h"
@@ -353,7 +353,7 @@ void func_803386A4(s32 arg0, s32* arg1, s32* arg2, f32* arg3, f32* arg4, s32* ar
             planesGetObjData(i, &sp90, &sp70, &sp84);
             break;
         case 9:
-            func_802F205C(i, &sp90, &sp70, &sp84);
+            gliderToyGetObjData(i, &sp90, &sp70, &sp84);
             break;
         }
         if (sp90 != 0xFFFF) {
@@ -916,7 +916,7 @@ void func_8033A244(s32 arg0, Unk80373060* arg1) {
                 boatsUpdateInterval(arg1->unk64[i], arg1->unk4C[i]);
                 break;
             case 9:
-                func_802F2110(arg1->unk64[i], arg1->unk4C[i]);
+                gliderToySetInterval(arg1->unk64[i], arg1->unk4C[i]);
                 break;
             case 8:
                 planesUpdateInterval(arg1->unk64[i], arg1->unk4C[i]);

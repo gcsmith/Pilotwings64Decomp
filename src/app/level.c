@@ -5,7 +5,6 @@
 #include <uv_texture.h>
 #include <uv_util.h>
 #include "boats.h"
-#include "code_78620.h"
 #include "code_9C080.h"
 #include "code_9CF50.h"
 #include "env_sound.h"
@@ -13,6 +12,7 @@
 #include "ferry.h"
 #include "fountain.h"
 #include "game.h"
+#include "glider_toys.h"
 #include "level.h"
 #include "planes.h"
 #include "shadow.h"
@@ -89,27 +89,27 @@ void level_8030B868(void) {
         }
         switch (gLevelCurMap) {
         case MAP_HOLIDAY_ISLAND:
-            func_802F1AE8();
+            gliderToyLoadHoliday();
             boatsLoadHoliday();
             break;
         case MAP_CRESCENT_ISLAND:
             whaleLoad();
             fountainLoad();
             boatsLoadCrescent();
-            func_802F15C8();
+            gliderToyLoadCrescent();
             break;
         case MAP_LITTLE_STATES:
             func_80335BE4();
             ferryLoad();
             func_803151AC();
-            func_802F182C();
+            gliderToyLoadLStates();
             planesLoad();
             break;
         case MAP_EVER_FROST_ISLAND:
             func_80315D68();
             func_80315734();
             skiLiftLoad();
-            func_802F1D3C();
+            gliderToyLoadEFrost();
             whalePodLoad();
             break;
         }
@@ -123,27 +123,27 @@ void level_8030B964(void) {
         }
         switch (gLevelCurMap) {
         case MAP_HOLIDAY_ISLAND:
-            func_802F1FF0();
+            gliderToyDeinit();
             boatsDeinit();
             break;
         case MAP_CRESCENT_ISLAND:
             whaleDeinit();
             fountainDeinit();
             boatsDeinit();
-            func_802F1FF0();
+            gliderToyDeinit();
             break;
         case MAP_LITTLE_STATES:
             func_80335E44();
             ferryDeinit();
             func_8031531C();
-            func_802F1FF0();
+            gliderToyDeinit();
             planesDeinit();
             break;
         case MAP_EVER_FROST_ISLAND:
             func_80315E3C();
             func_8031596C();
             skiLiftDeinit();
-            func_802F1FF0();
+            gliderToyDeinit();
             whalePodDeinit();
             break;
         }

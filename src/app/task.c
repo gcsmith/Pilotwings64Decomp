@@ -9,8 +9,6 @@
 #include "boats.h"
 #include "bonus.h"
 #include "code_72910.h"
-#include "game.h"
-#include "code_78620.h"
 #include "code_82520.h"
 #include "code_9A960.h"
 #include "code_9C080.h"
@@ -20,6 +18,8 @@
 #include "falco.h"
 #include "ferry.h"
 #include "fountain.h"
+#include "game.h"
+#include "glider_toys.h"
 #include "hover_pads.h"
 #include "jumble_hopper.h"
 #include "level.h"
@@ -101,7 +101,7 @@ void taskInit(void) {
     func_80315474();
     whaleInit();
     func_80315550();
-    func_802F1FA0();
+    gliderToyInit();
     boatsInit();
     planesInit();
     whalePodInit();
@@ -269,7 +269,7 @@ s32 taskInitTest(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* terraId,
     func_80315474();
     func_80315550();
     whaleInit();
-    func_802F1FA0();
+    gliderToyInit();
     boatsInit();
     planesInit();
     whalePodInit();

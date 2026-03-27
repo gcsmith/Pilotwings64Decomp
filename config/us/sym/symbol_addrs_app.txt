@@ -147,6 +147,19 @@ fountainStateSave    = 0x802EB368; // type:func
 fountainStateRestore = 0x802EB38C; // type:func
 fountainInitUpdate   = 0x802EB3B0; // type:func
 
+gliderToyUpdate       = 0x802F10F0; // type:func
+gliderToy_802F11F8    = 0x802F11F8; // type:func
+gliderToy_802F12BC    = 0x802F12BC; // type:func
+gliderToyModelLookup  = 0x802F13C0; // type:func
+gliderToyLoadCrescent = 0x802F15C8; // type:func
+gliderToyLoadLStates  = 0x802F182C; // type:func
+gliderToyLoadHoliday  = 0x802F1AE8; // type:func
+gliderToyLoadEFrost   = 0x802F1D3C; // type:func
+gliderToyInit         = 0x802F1FA0; // type:func
+gliderToyDeinit       = 0x802F1FF0; // type:func
+gliderToyGetObjData   = 0x802F205C; // type:func
+gliderToySetInterval  = 0x802F2110; // type:func
+
 bmSoundInit         = 0x802D0BF0; // type:func
 bmSoundCallback     = 0x802D0D04; // type:func
 bmSound_802D112C    = 0x802D112C; // type:func

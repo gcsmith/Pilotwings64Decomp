@@ -13,6 +13,7 @@
 #include "app/falco.h"
 #include "app/fdr.h"
 #include "app/file_menu.h"
+#include "app/glider_toys.h"
 #include "app/hud.h"
 #include "app/jumble_hopper.h"
 #include "app/options.h"
@@ -31,7 +32,6 @@
 #include "app/wind_objects.h"
 #include "app/code_61A60.h"
 #include "app/code_64730.h"
-#include "app/code_78620.h"
 #include "app/code_7C4C0.h"
 #include "app/code_7FE00.h"
 #include "app/code_936F0.h"
@@ -135,7 +135,7 @@ void gameInit(void) {
     func_80337D50();
     saveModuleInit();
     shuttleInit();
-    func_802F1FA0();
+    gliderToyInit();
 
     for (i = 0; i < 1; i++) {
         temp_s0 = &D_80362690->unkC[i];
