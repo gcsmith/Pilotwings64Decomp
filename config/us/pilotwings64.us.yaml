@@ -400,7 +400,7 @@ segments:
       - [0x6FFB0, c, app/file_menu]
       - [0x71500, c, app/fire_effects]
       - [0x72010, c, app/code_72010]
-      - [0x722D0, c, app/code_722D0]
+      - [0x722D0, c, app/fountain]
       - [0x72910, c, app/code_72910]
       - [0x72EF0, c, app/game]
       - [0x75A60, c, app/code_75A60]
@@ -491,7 +491,7 @@ segments:
       - [0xD65F0, .data, app/ferry]
       - [0xD6610, .data, app/file_menu]
       - [0xD6650, .data, app/fire_effects]
-      - [0xD6660, .data, app/code_722D0]
+      - [0xD6660, .data, app/fountain]
       - [0xD6680, .data, app/code_72910]
       - [0xD6690, .data, app/game]
       - [0xD66E0, .data, app/code_75A60]
@@ -565,7 +565,7 @@ segments:
       - [0xD9510, .rodata, app/save]
       - [0xD95D0, .rodata, app/file_menu]
       - [0xD95F0, .rodata, app/fire_effects]
-      - [0xD9810, .rodata, app/code_722D0]
+      - [0xD9810, .rodata, app/fountain]
       - [0xD9830, .rodata, app/code_72910]
       - [0xD9840, .rodata, app/game]
       - [0xD99C0, .rodata, app/code_75A60]
@@ -659,7 +659,7 @@ segments:
       - { type: .bss, vram: 0x803620E0, name: app/save }
       - { type: .bss, vram: 0x803624E0, name: app/file_menu }
       - { type: bss, vram: 0x80362500, name: app/fire_effects }
-      - { type: bss, vram: 0x80362630, name: app/code_722D0 }
+      - { type: .bss, vram: 0x80362630, name: app/fountain }
       - { type: .bss, vram: 0x80362690, name: app/game }
       - { type: bss, vram: 0x80367A40, name: app/code_75A60 }
       - { type: bss, vram: 0x80367F60, name: app/code_76670 }

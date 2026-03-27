@@ -132,6 +132,21 @@ fileMenuSubRender   = 0x802E9A10; // type:func
 fileMenuColorLerp   = 0x802E9A84; // type:func
 fileMenu_802E9AE0   = 0x802E9AE0; // type:func
 
+fountainIsActive     = 0x802EADA0; // type:func
+fountainUpdatePose   = 0x802EADAC; // type:func
+fountainUpdate       = 0x802EAE3C; // type:func
+fountain_802EAF14    = 0x802EAF14; // type:func
+fountain_802EAFD8    = 0x802EAFD8; // type:func
+fountainInit         = 0x802EB0BC; // type:func
+fountainLoad         = 0x802EB0D4; // type:func
+fountainDeinit       = 0x802EB270; // type:func
+fountainGetInterval  = 0x802EB2E8; // type:func
+fountainGetPos       = 0x802EB300; // type:func
+fountainSetInterval  = 0x802EB328; // type:func
+fountainStateSave    = 0x802EB368; // type:func
+fountainStateRestore = 0x802EB38C; // type:func
+fountainInitUpdate   = 0x802EB3B0; // type:func
+
 bmSoundInit         = 0x802D0BF0; // type:func
 bmSoundCallback     = 0x802D0D04; // type:func
 bmSound_802D112C    = 0x802D112C; // type:func

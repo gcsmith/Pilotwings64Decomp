@@ -11,7 +11,6 @@
 #include <uv_texture.h>
 #include <uv_vector.h>
 #include "boats.h"
-#include "code_722D0.h"
 #include "game.h"
 #include "code_78620.h"
 #include "code_9A960.h"
@@ -20,6 +19,7 @@
 #include "demo.h"
 #include "ferry.h"
 #include "file_menu.h"
+#include "fountain.h"
 #include "hud.h"
 #include "planes.h"
 #include "proxanim.h"
@@ -184,7 +184,7 @@ void snapInit(void) {
     D_80373630[1].unk42 = 1;
     D_80373630[1].unk43[0] = 5;
     D_80373630[1].unk4C[0] = 1.0f;
-    func_802EB300(&D_80373630[1].unk0);
+    fountainGetPos(&D_80373630[1].unk0);
     D_80373630[1].unk0.x += uvCosF(0.349066f) * 85.0f;
     D_80373630[1].unk0.z += uvSinF(0.349066f) * 85.0f;
     D_80373630[1].unkC.x = 90.0f;
@@ -561,8 +561,8 @@ void func_80338A14(void) {
             }
             break;
         case 5:
-            if (func_802EADA0() != 0) {
-                func_802EB300(&spFC);
+            if (fountainIsActive() != 0) {
+                fountainGetPos(&spFC);
                 if (func_80338964(temp_s1->unk0, spFC, &temp_s4->unk70->unk108) != 0) {
                     func_8034B354(0, spFC, &spA8);
                     if ((spA8.x < -50.0f) || (spA8.x > 370.f) || (spA8.y < -50.0f) || (spA8.y > 290.f)) {
@@ -574,7 +574,7 @@ void func_80338A14(void) {
                         var_s2 = 1;
                         var_fs0 = temp_fv0;
                         spBC[0] = &temp_s5[6];
-                        temp_s1->unk4C[0] = func_802EB2E8();
+                        temp_s1->unk4C[0] = fountainGetInterval();
                         spF0 = spFC;
                     }
                 }
@@ -875,7 +875,7 @@ void func_8033A244(s32 arg0, Unk80373060* arg1) {
         for (i = 0; i < arg1->unk42; i++) {
             switch (arg1->unk43[i]) {
             case 5:
-                func_802EB368();
+                fountainStateSave();
                 break;
             case 4:
                 whaleStateSave();
@@ -895,7 +895,7 @@ void func_8033A244(s32 arg0, Unk80373060* arg1) {
         for (i = 0; i < arg1->unk42; i++) {
             switch (arg1->unk43[i]) {
             case 5:
-                func_802EB328(arg1->unk4C[i]);
+                fountainSetInterval(arg1->unk4C[i]);
                 break;
             case 4:
                 whaleSetInterval(arg1->unk4C[i]);
@@ -933,7 +933,7 @@ void func_8033A244(s32 arg0, Unk80373060* arg1) {
         if (arg1->unk43[0] != 11 && arg1->unk43[0] != 0) {
             switch (arg1->unk43[0]) {
             case 5:
-                func_802EB38C();
+                fountainStateRestore();
                 break;
             case 4:
                 whaleStateRestore();
