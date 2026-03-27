@@ -172,10 +172,10 @@ STATIC_FUNC s32 func_8034BDCC(s32 arg0, s32 arg1, s32 arg2) {
 }
 
 void func_8034BEDC(void) {
-    u16 sp46;
-    u16 sp44;
-    u16 sp42;
-    s32 var_v1;
+    u16 classIdx;
+    u16 vehIdx;
+    u16 testIdx;
+    s32 shouldAddPhotoWaypoint;
     Vec3F sp30 = D_803509DC;
 
     D_803509C4 = uvDobjAllocIdx();
@@ -194,13 +194,15 @@ void func_8034BEDC(void) {
         uvDobjState(D_803509C0, 0);
         D_803509CC = func_80321210(func_8034BDCC, func_8034BC68, sp30, 450.0f, 0.0f, 4);
         D_803509D0 = 0.0f;
-        taskGetClsVehTest(&sp46, &sp44, &sp42);
-        var_v1 = (sp42 == 0 && sp46 == 1 && sp44 == 0) || (sp42 == 1 && sp46 == 2 && sp44 == 0) || (sp42 == 2 && sp46 == 3 && sp44 == 0);
-        if (var_v1) {
+        taskGetClsVehTest(&classIdx, &vehIdx, &testIdx);
+        shouldAddPhotoWaypoint = (testIdx == 0 && classIdx == CLASS_A && vehIdx == VEHICLE_HANG_GLIDER) ||
+                                 (testIdx == 1 && classIdx == CLASS_B && vehIdx == VEHICLE_HANG_GLIDER) ||
+                                 (testIdx == 2 && classIdx == CLASS_PILOT && vehIdx == VEHICLE_HANG_GLIDER);
+        if (shouldAddPhotoWaypoint) {
             D_803509C8 = hudAddWaypoint(750.0f, 100.0f, 4.5f);
-            return;
+        } else {
+            D_803509C8 = 0xFF;
         }
-        D_803509C8 = 0xFF;
     }
 }
 

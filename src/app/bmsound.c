@@ -33,7 +33,7 @@ void bmSoundInit(BirdmanData* arg0) {
     arg0->unk415 = sndMakeDev(0x13);
     gBmSoundCbInfo.cb = bmSoundCallback;
     gBmSoundCbInfo.arg = arg0;
-    arg0->unk410 = 0xFFFFFFC0;
+    arg0->unk410 = ~0x3F;
     uvEventMaxCb(gBmSoundCbInfo, 1, 0xD, 0x12, 0x13, 0x16, 0xC, 0x10, 0x24);
 }
 
@@ -166,7 +166,7 @@ void bmSound_802D112C(BirdmanData* arg0) {
             return;
         }
         if (!(arg0->unk410 & 0x10)) {
-            arg0->unk410 = 0xFFFFFFC0;
+            arg0->unk410 = ~0x3F;
         }
     }
 }
@@ -178,7 +178,7 @@ void bmSound_802D12C4(BirdmanData* arg0) {
 }
 
 void bmSound_802D1320(BirdmanData* arg0) {
-    arg0->unk410 &= 0xFFFFFFFE;
+    arg0->unk410 &= ~1;
 }
 
 void bmSound_802D1334(BirdmanData* arg0) {

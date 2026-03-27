@@ -45,9 +45,9 @@ void func_802FA020(u8 contIdx, u8 pilot, JumbleHopperData* arg2, Camera* arg3) {
     uvDobjModel(arg2->objId, arg2->modelId);
     uvDobjPosm(arg2->objId, 0, &arg2->unk74);
     uvDobjState(arg2->objId, arg2->unk2);
-    func_80334454(MODEL_WORLD, MODEL_JUMBLEH_SHADOW);
-    func_803342F0(0.0f);
-    func_803342FC(0.0f);
+    shadow_80334454(MODEL_WORLD, MODEL_JUMBLEH_SHADOW);
+    shadow_803342F0(0.0f);
+    shadow_803342FC(0.0f);
     arg2->contIdx = contIdx;
     arg2->unk18 = arg3;
     arg2->unk65E[0] = 0;
@@ -97,10 +97,10 @@ void jumbleHopperEnterLeave(JumbleHopperData* arg0) {
 }
 
 void func_802FA290(JumbleHopperData* arg0) {
-    uvDobjModel(arg0->objId, 0xFFFF);
+    uvDobjModel(arg0->objId, MODEL_WORLD);
     arg0->contIdx = 0xFFFF;
     arg0->objId = 0xFFFF;
-    func_80334C70();
+    shadow_80334C70();
 }
 
 void jumbleHopperMovementFrame(JumbleHopperData* arg0, u8 gameState) {

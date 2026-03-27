@@ -19,6 +19,7 @@
 #include "environment.h"
 #include "level.h"
 #include "shadow.h"
+#include "shuttle.h"
 #include "task.h"
 #include "text_data.h"
 #include "toys.h"
@@ -99,7 +100,7 @@ void level_8030B868(void) {
             func_802F15C8();
             break;
         case MAP_LITTLE_STATES:
-            func_80335BE4();
+            shuttle_80335BE4();
             func_802E79F0();
             func_803151AC();
             func_802F182C();
@@ -133,7 +134,7 @@ void level_8030B964(void) {
             func_802F1FF0();
             break;
         case MAP_LITTLE_STATES:
-            func_80335E44();
+            shuttle_80335E44();
             func_802E7C28();
             func_8031531C();
             func_802F1FF0();

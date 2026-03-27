@@ -26,6 +26,7 @@
 #include "hud.h"
 #include "proxanim.h"
 #include "shadow.h"
+#include "shuttle.h"
 #include "snd.h"
 #include "snow.h"
 #include "text_data.h"
@@ -227,7 +228,7 @@ void snapInit(void) {
     D_803738D0[2].unk42 = 1;
     D_803738D0[2].unk43[0] = 1;
     D_803738D0[2].unk4C[0] = 0.0f;
-    func_80335F24(&D_803738D0[2].unk0);
+    shuttle_80335F24(&D_803738D0[2].unk0);
     D_803738D0[2].unk0.y += 250.0f;
     D_803738D0[2].unkC.x = 180.0f;
     D_803738D0[2].unkC.y = 0.0f;
@@ -439,8 +440,8 @@ void func_80338A14(void) {
     temp_s1->unk36 = 1;
     taskGetClsVehTest(&temp_s1->cls, &temp_s1->veh, &temp_s1->test);
 
-    sp78 = (((temp_s1->test == 0) && (temp_s1->cls == CLASS_A))) || ((temp_s1->test == 1) && (temp_s1->cls == CLASS_B)) ||
-           ((temp_s1->test == 2) && (temp_s1->cls == CLASS_PILOT));
+    sp78 = ((temp_s1->test == 0 && temp_s1->cls == CLASS_A)) || (temp_s1->test == 1 && temp_s1->cls == CLASS_B) ||
+           (temp_s1->test == 2 && temp_s1->cls == CLASS_PILOT);
     temp_s1->unk28 = spDC->unk3C;
     temp_s1->unk2C = spDC->unk40;
     temp_s1->unk18 = (spDC->unk2C * spDC->unk3C) * 0.45;
@@ -502,8 +503,8 @@ void func_80338A14(void) {
             }
             break;
         case 1:
-            if (func_80334CC0() != 0) {
-                func_80335F24(&spFC);
+            if (shuttle_80334CC0() != 0) {
+                shuttle_80335F24(&spFC);
                 if (func_80338964(temp_s1->unk0, spFC, &temp_s4->unk70->unk108) != 0) {
                     func_8034B354(0, spFC, &spA8);
                     if ((spA8.x < -50.0f) || (spA8.x > 370.0f) || (spA8.y < -50.0f) || (spA8.y > 290.0f)) {
@@ -515,7 +516,7 @@ void func_80338A14(void) {
                         var_s2 = 1;
                         var_fs0 = temp_fv0;
                         spBC[0] = &temp_s5[9];
-                        temp_s1->unk4C[0] = func_80335EE4();
+                        temp_s1->unk4C[0] = shuttle_80335EE4();
                         spF0 = spFC;
                     }
                 }
@@ -884,7 +885,7 @@ void func_8033A244(s32 arg0, Unk80373060* arg1) {
                 func_803154C0();
                 break;
             case 1:
-                func_80336094();
+                shuttle_80336094();
                 break;
             case 2:
                 func_802E7D58();
@@ -904,7 +905,7 @@ void func_8033A244(s32 arg0, Unk80373060* arg1) {
                 func_80315418(arg1->unk4C[i]);
                 break;
             case 1:
-                func_80335FD8(arg1->unk4C[i]);
+                shuttle_80335FD8(arg1->unk4C[i]);
                 break;
             case 2:
                 func_802E7D18(arg1->unk4C[i]);
@@ -942,8 +943,8 @@ void func_8033A244(s32 arg0, Unk80373060* arg1) {
                 func_80315508();
                 break;
             case 1:
-                func_803360E8();
-                func_80336064();
+                shuttle_803360E8();
+                shuttle_80336064();
                 break;
             case 2:
                 func_802E7D6C();
@@ -1796,9 +1797,9 @@ s32 func_8033E3A8(s32 arg0) {
     Camera* temp_s4;
     s32 renderFlags;
     u8* ptr;
-    u16 sp52;
-    u16 sp50;
-    u16 sp4E;
+    u16 classIdx;
+    u16 vehIdx;
+    u16 testIdx;
 
     temp_s4 = D_80362690->unkC[D_80362690->unk9C].unk70;
     ptr = taskGet_80345CB0();
@@ -1885,8 +1886,8 @@ s32 func_8033E3A8(s32 arg0) {
         func_802EBBB8();
     }
     D_80350594 = 0;
-    taskGetClsVehTest(&sp52, &sp50, &sp4E);
-    func_8033FCD0(sp50);
+    taskGetClsVehTest(&classIdx, &vehIdx, &testIdx);
+    func_8033FCD0(vehIdx);
     return D_80350550;
 }
 
