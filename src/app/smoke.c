@@ -514,8 +514,6 @@ void smokeCreateTerra(void) {
             SMOKE_PROP_2(20.0),
             SMOKE_PROP_1(0, 0, 0),
             SMOKE_PROP_6(-166.39999999999998, -1600.0, 24.9),
-                   
-            
             SMOKE_PROP_END
         );
         smokeIdx = smokeCreate();
