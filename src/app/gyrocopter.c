@@ -486,7 +486,7 @@ void func_8030399C(GyrocopterData* arg0) {
                        SMOKE_FX_7(1), SMOKE_FX_END);
         }
     }
-    if (D_80362690->unkA4 != 0) {
+    if (D_80362690->unkA4) {
         demoAttUpdate(D_8034F850, &arg0->unk10);
     }
 }
@@ -1450,7 +1450,7 @@ void func_80307EA8(GyrocopterData* arg0) {
         if (func_802E08F4(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2]) != 0) {
             if (arg0->unk67E == 0) {
                 arg0->unk67E = 1;
-                snd_play_sfx(0x6D);
+                sndPlaySfx(0x6D);
             }
             hudWarningText(-1, 0.0f, 0.0f);
             arg0->hasLowFuel = FALSE;

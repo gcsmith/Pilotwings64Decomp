@@ -3,7 +3,7 @@
 
 #include <uv_matrix.h>
 #include <uv_vector.h>
-#include "code_72B70.h"
+#include "game.h"
 #include "task.h"
 
 typedef struct {
@@ -32,6 +32,6 @@ s32 func_80314114(s32, s32, s32);
 void func_80314154(void);
 void func_803141E4(void);
 void func_8031420C(f32, f32, f32, f32*, f32*, f32*);
-f32 func_8031385C(Mtx4F*, Mtx4F*, Unk802D3658_Arg0*);
+f32 func_8031385C(Mtx4F*, Mtx4F*);
 
 #endif // APP_CODE_9A960_H

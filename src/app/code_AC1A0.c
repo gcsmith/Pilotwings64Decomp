@@ -1,6 +1,6 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_AC1A0/func_80324C70.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/code_AC1A0/rocketBeltInit.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_AC1A0/func_80324DB4.s")
 

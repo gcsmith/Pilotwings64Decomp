@@ -12,7 +12,7 @@ void func_803344BC(Mtx4F*, f32);
 void func_80334578(Mtx4F*, f32);
 void func_80334C70(void);
 s32 func_80334CC0(void);
-void shadowInit(void);
+void shuttleInit(void);
 void func_80335BE4(void);
 void func_80335E44(void);
 f32 func_80335EE4(void);

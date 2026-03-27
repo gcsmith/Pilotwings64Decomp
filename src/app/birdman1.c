@@ -8,7 +8,7 @@
 #include "code_9A960.h"
 #include "demo.h"
 
-void bird_802CE190(BirdmanData* arg0, u8 arg1) {
+void bird_802CE190(BirdmanData* arg0, u8 gameState) {
     Mtx4F sp558;
     Unk80371120 sp3A8;
     Unk80371120 sp1F8;
@@ -113,7 +113,7 @@ void bird_802CE190(BirdmanData* arg0, u8 arg1) {
         uvMat4RotateAxis(&sp558, arg0->unk2EC, 'z');
         uvDobjPosm(arg0->objId, 0x17, &sp558);
     }
-    if (arg1 != 6) {
+    if (gameState != GAME_STATE_RESULTS) {
         arg0->unk2FC = func_80313AF4(uvSinF(arg0->unkD0) * (2.0f * arg0->unk24C), arg0->unk2FC, 0.5f);
         if (arg0->unk2FC < -1.047f) {
             arg0->unk2FC = -1.047f;

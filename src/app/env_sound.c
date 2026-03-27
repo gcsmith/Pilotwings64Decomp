@@ -5,15 +5,15 @@
 #include <uv_math.h>
 #include "kernel/code_1050.h"
 #include "code_58B00.h"
-#include "code_5A6A0.h"
 #include "code_61A60.h"
 #include "code_6ECD0.h"
-#include "code_72B70.h"
 #include "code_9A960.h"
 #include "code_A7460.h"
+#include "camera.h"
 #include "demo.h"
 #include "env_sound.h"
 #include "environment.h"
+#include "game.h"
 #include "shadow.h"
 #include "snd.h"
 
@@ -476,7 +476,7 @@ void envSoundFrameUpdate(Mtx4F* arg0) {
                     if ((gEnvSoundStateCount[1] > 0) && (D_80362690->unkC[0].unkA != 4) && (D_80362690->unkC[0].veh != VEHICLE_JUMBLE_HOPPER)) {
                         if (gEnvSoundFutureTime < D_8034F850) {
                             gEnvSoundFutureTime = D_8034F850 + 4.0f;
-                            snd_play_sfx(0x50);
+                            sndPlaySfx(0x50);
                         }
                     }
                     gEnvSoundStateCount[1] = 0;

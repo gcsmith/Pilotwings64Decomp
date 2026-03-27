@@ -383,7 +383,7 @@ segments:
       - [0x58B00, c, app/code_58B00]
       - [0x597E0, c, app/bonus]
       - [0x59D80, c, app/ball_target]
-      - [0x5A6A0, c, app/code_5A6A0]
+      - [0x5A6A0, c, app/camera]
       - [0x5CFC0, c, app/cannonball]
       - [0x60020, c, app/code_60020]
       - [0x611E0, c, app/cbsound]
@@ -402,7 +402,7 @@ segments:
       - [0x72010, c, app/code_72010]
       - [0x722D0, c, app/code_722D0]
       - [0x72910, c, app/code_72910]
-      - [0x72B70, c, app/code_72B70]
+      - [0x72EF0, c, app/game]
       - [0x75A60, c, app/code_75A60]
       - [0x76670, c, app/code_76670]
       - [0x78620, c, app/code_78620]
@@ -419,7 +419,8 @@ segments:
       - [0x91670, c, app/hsound]
       - [0x92810, c, app/menu]
       - [0x92BF0, c, app/level]
-      - [0x936F0, c, app/credits]
+      - [0x936F0, c, app/code_936F0]
+      - [0x94090, c, app/credits]
       - [0x94E60, c, app/code_94E60]
       - [0x97350, c, app/map3d]
       - [0x99C70, c, app/mem]
@@ -477,7 +478,7 @@ segments:
       - [0xD5C40, data] # app/code_51E30
       - [0xD5D40, .data, app/balls]
       - [0xD5D50, .data, app/birdman2]
-      - [0xD5F10, .data, app/code_5A6A0]
+      - [0xD5F10, .data, app/camera]
       - [0xD5F20, .data, app/cannonball]
       - [0xD5F40, .data, app/code_60020]
       - [0xD5F70, .data, app/code_61A60]
@@ -492,7 +493,7 @@ segments:
       - [0xD6650, .data, app/fire_effects]
       - [0xD6660, .data, app/code_722D0]
       - [0xD6680, .data, app/code_72910]
-      - [0xD6690, .data, app/code_72B70]
+      - [0xD6690, .data, app/game]
       - [0xD66E0, .data, app/code_75A60]
       - [0xD66F0, .data, app/hang_glider]
       - [0xD68A0, .data, app/code_7C4C0]
@@ -503,7 +504,8 @@ segments:
       - [0xD6910, .data, app/gyrocopter]
       - [0xD6920, .data, app/hover_pads]
       - [0xD6930, .data, app/level]
-      - [0xD6950, .data, app/credits]
+      - [0xD6950, .data, app/code_936F0]
+      - [0xD6A10, .data, app/credits]
       - [0xD6CD0, .data, app/code_94E60]
       - [0xD6D20, .data, app/map3d]
       - [0xD6D70, .data, app/mem]
@@ -547,7 +549,7 @@ segments:
       - [0xD8590, .rodata, app/code_58B00]
       - [0xD85D0, .rodata, app/bonus]
       - [0xD8610, .rodata, app/ball_target]
-      - [0xD8670, .rodata, app/code_5A6A0]
+      - [0xD8670, .rodata, app/camera]
       - [0xD8730, .rodata, app/cannonball]
       - [0xD8980, .rodata, app/code_60020]
       - [0xD8A00, .rodata, app/cbsound]
@@ -565,7 +567,7 @@ segments:
       - [0xD95F0, .rodata, app/fire_effects]
       - [0xD9810, .rodata, app/code_722D0]
       - [0xD9830, .rodata, app/code_72910]
-      - [0xD9840, .rodata, app/code_72B70]
+      - [0xD9840, .rodata, app/game]
       - [0xD99C0, .rodata, app/code_75A60]
       - [0xD9A10, .rodata, app/code_76670]
       - [0xD9CF0, .rodata, app/code_78620]
@@ -641,7 +643,7 @@ segments:
       - { type: .bss, vram: 0x803596A0, name: app/code_58B00 }
       - { type: .bss, vram: 0x80359730, name: app/bonus }
       - { type: .bss, vram: 0x803597E0, name: app/ball_target }
-      - { type: .bss, vram: 0x803599D0, name: app/code_5A6A0 }
+      - { type: .bss, vram: 0x803599D0, name: app/camera }
       - { type: .bss, vram: 0x80359A30, name: app/cannonball }
       - { type: bss, vram: 0x80359AD0, name: app/code_60020 }
       - { type: bss, vram: 0x80359BE0, name: app/cbsound }
@@ -658,7 +660,7 @@ segments:
       - { type: .bss, vram: 0x803624E0, name: app/file_menu }
       - { type: bss, vram: 0x80362500, name: app/fire_effects }
       - { type: bss, vram: 0x80362630, name: app/code_722D0 }
-      - { type: bss, vram: 0x80362690, name: app/code_72B70 }
+      - { type: .bss, vram: 0x80362690, name: app/game }
       - { type: bss, vram: 0x80367A40, name: app/code_75A60 }
       - { type: bss, vram: 0x80367F60, name: app/code_76670 }
       - { type: bss, vram: 0x80368010, name: app/code_78620 }
@@ -675,7 +677,8 @@ segments:
       - { type: .bss, vram: 0x80369E50, name: app/hsound }
       - { type: .bss, vram: 0x80369F10, name: app/menu }
       - { type: bss, vram: 0x80369F30, name: app/level }
-      - { type: bss, vram: 0x8036A8A0, name: app/credits }
+      - { type: .bss, vram: 0x8036A8A0, name: app/code_936F0 }
+      - { type: bss, vram: 0x8036A8B0, name: app/credits }
       - { type: bss, vram: 0x8036A8C0, name: app/code_94E60 }
       - { type: bss, vram: 0x8036A8E0, name: app/map3d }
       - { type: bss, vram: 0x8036AA60, name: app/mem }
