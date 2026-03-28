@@ -1,8 +1,10 @@
 #include "common.h"
 #include "code_64730.h"
+#include "code_66160.h"
 #include "code_A64C0.h"
 #include "code_A8C30.h"
 #include "code_B2900.h"
+#include "credits.h"
 #include "env_sound.h"
 #include "environment.h"
 #include "demo.h"
@@ -260,9 +262,9 @@ void func_80321760(void) {
         i = ((u8*)D_8034F980)[(sp3D4->cls + sp3D4->veh * 3) + 15];
         D_8036D8E0 = 12.0f;
     }
-    if (i > 0xB) {
+    if (i > 11) {
         _uvDebugPrintf("WARNING:  No camera coords set up for level %d, vehicle %d\n", sp3D4->cls, sp3D4->veh);
-        i = 0xB;
+        i = 11;
     }
     uvMat4SetIdentity(&D_8036D9E0);
     uvMat4SetIdentity(&D_8036D960);
@@ -301,24 +303,107 @@ void func_80321760(void) {
     }
     D_8036DA20 = sp3D4->veh;
     func_8031EF90(D_8036DA20);
-    uvSprtProps(0, 3, 1, 9, sp3C6, 0xB, 1, 0xA, 0, 0);
+    uvSprtProps(0, 3, 1, 9, sp3C6, 11, 1, 0xA, 0, 0);
     temp2 = 0xA0 - (uvSprtGetWidth(0) / 2);
     uvSprtProps(0, 2, temp2, 0xDC, 0);
-    uvSprtProps(1, 3, 1, 9, sp3C4, 0xB, 1, 0xA, 0, 0);
+    uvSprtProps(1, 3, 1, 9, sp3C4, 11, 1, 0xA, 0, 0);
     temp2 = 0xA0 - (uvSprtGetWidth(1) / 2);
     uvSprtProps(1, 2, temp2, 0xBE, 0);
-    uvSprtProps(2, 3, 1, 9, sp3C8, 0xB, 1, 0xA, 0, 0);
+    uvSprtProps(2, 3, 1, 9, sp3C8, 11, 1, 0xA, 0, 0);
     temp2 = 0xA0 - (uvSprtGetWidth(2) / 2);
     uvSprtProps(2, 2, temp2, 0x62, 0);
-    uvSprtProps(3, 3, 1, 9, 0x48, 0xB, 1, 0xA, 0, 0);
+    uvSprtProps(3, 3, 1, 9, 0x48, 11, 1, 0xA, 0, 0);
     temp2 = 0xA0 - (uvSprtGetWidth(3) / 2);
     uvSprtProps(3, 2, temp2, 0x32, 0);
     func_8033F748(0x1DU);
     func_8033F964(0);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_A8C30/func_8032232C.s")
+s32 func_8032232C(void) {
+    s16 i;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_A8C30/func_80322464.s")
+    for (i = 0; i < ARRAY_COUNT(D_8036D908); i++) {
+        if (D_8036D908[i] != NULL) {
+            func_8031EF68(D_8036D908[i]);
+        }
+        D_8036D908[i] = NULL;
+        uvDobjModel(D_8036D8E8[i], 0xFFFF);
+        userPathFree(i);
+    }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_A8C30/func_803226DC.s")
+    uvSprtProps(0, 3, 0, 0);
+    uvSprtProps(1, 3, 0, 0);
+    uvSprtProps(2, 3, 0, 0);
+    uvSprtProps(3, 3, 0, 0);
+    taskDeinitLevel();
+    func_8031FE18(D_8036DA20);
+    func_8033F964(1);
+
+    if (D_80362690->unkA8 < func_8030CC48()) {
+        func_8030CCFC();
+        return 0;
+    }
+
+    return 11;
+}
+
+s32 func_80322464(void) {
+    Camera* temp_s4;
+    Mtx4F sp64;
+    s32 i;
+
+    temp_s4 = D_80362690->unkC[D_80362690->unk9C].unk70;
+    demo_80323020();
+    func_80313D74();
+    D_8036D8E0 += D_8034F854;
+    if (demoButtonPress(D_80362690->unk9C, A_BUTTON | B_BUTTON | START_BUTTON) != 0) {
+        if (demoButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON) != 0) {
+            sndPlaySfx(0x6EU);
+        }
+
+        if (D_8036DA24 == 0) {
+            return 1;
+        }
+
+        D_8036DA24 = 0;
+    }
+
+    for (i = 0; i < ARRAY_COUNT(D_8036D8F8); i++) {
+        userPath_8034A8B0(D_8036D908[i], 1U, D_8036D8E0 / 12.0f);
+        uvDobjGetPosm((D_8036D908[i])->unk352, 0, &sp64);
+        uvMat4MulBA(&sp64, &D_8036D9A0, &sp64);
+        uvMat4Mul(&sp64, &D_8036D920, &sp64);
+        sp64.m[3][0] += D_8036D960.m[3][0];
+        sp64.m[3][1] += D_8036D960.m[3][1];
+        sp64.m[3][2] += D_8036D960.m[3][2];
+        uvDobjPosm(D_8036D908[i]->unk352, 0, &sp64);
+        func_8031FA0C(D_8036DA20, i, D_8036D8F8[i], (D_8036D908[i])->unk352, &sp64, &temp_s4->unk108);
+    }
+
+    if (D_8036D8E0 > 12.25f || D_8036DA24 == 0) {
+        func_8031FD70(0.0f);
+        if (D_8036DA24 != 0) {
+            D_8036DA24 = 0;
+        }
+    }
+
+    return 0;
+}
+
+void func_803226DC(void) {
+    Camera* sp2C;
+
+    sp2C = D_80362690->unkC[D_80362690->unk9C].unk70;
+    func_80204B34(sp2C->unk22C, &sp2C->unk108);
+    func_80204FC4(sp2C->unk22C);
+    if (D_8036D8E0 > 12.0f || D_8036DA24 == 0) {
+        screenDrawBoxSetup();
+        uvGfxSetFlags(0x400000);
+        screenDrawBox(0, 0, 0x13F, 0xEF, 0U, 0U, 0U, 0x66U);
+        func_802DFA18();
+        uvSprtDraw(0);
+        uvSprtDraw(1);
+        uvSprtDraw(2);
+        uvSprtDraw(3);
+    }
+}
