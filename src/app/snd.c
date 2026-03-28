@@ -14,7 +14,7 @@ f32 D_803505D4 = 0.65f;
 f32 D_803505D8[] = { 0.9f, 1.0f, 0.5f, 1.0f, 1.0f, 1.0f, 1.0f, 0.7f, 1.0f };
 f32 D_803505FC[] = { 1.0f, 1.0f, 0.0f, 0.0f, 0.0f };
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/snd/func_8033F640.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/snd/sndInit.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/snd/func_8033F6F8.s")
 
@@ -22,9 +22,9 @@ f32 D_803505FC[] = { 1.0f, 1.0f, 0.0f, 0.0f, 0.0f };
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/snd/func_8033F758.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/snd/snd_play_sfx.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/snd/sndPlaySfx.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/snd/snd_makedev.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/snd/sndMakeDev.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/snd/func_8033F8CC.s")
 
@@ -38,9 +38,9 @@ f32 D_803505FC[] = { 1.0f, 1.0f, 0.0f, 0.0f, 0.0f };
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/snd/func_8033FB14.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/snd/snd_event.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/snd/sndEvent.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/snd/snd_getpilot.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/snd/sndGetPilot.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/snd/func_8033FCD0.s")
 

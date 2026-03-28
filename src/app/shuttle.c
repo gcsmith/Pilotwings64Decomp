@@ -1,10 +1,11 @@
 #include "common.h"
-#include "code_72B70.h"
+#include "game.h"
 #include "code_9A960.h"
 #include "code_D1ED0.h"
 #include "env_sound.h"
 #include "hud.h"
 #include "smoke.h"
+#include "shuttle.h"
 #include "proxanim.h"
 #include <uv_fx.h>
 #include <uv_matrix.h>
@@ -14,7 +15,7 @@
 
 f32 pad_D_80350480[] = { 0.0f, 0.0f, 1.0f, 0.0f };
 s32 D_80350490 = 0;
-s32 D_80350494 = 0; // some state? values between 1 and 4
+s32 sShuttleState = SHUTTLE_STATE_0;
 f32 D_80350498 = 0.0f;
 f32 D_8035049C = 0.0f;
 f32 D_803504A0 = 55.0f;
@@ -23,7 +24,7 @@ s32 D_803504B0 = 0;
 s32 D_803504B4 = 0xFFFF; // dobj id
 s32 D_803504B8 = 0xFFFF;
 s32 sShuttleRadarIdx = 0xFF;
-s32 D_803504C0 = 0;
+s32 D_803504C0 = 0; // prox id
 s16 D_803504C4 = 0xFFFF;
 s16 D_803504C8 = 0xFFFF;
 s16 D_803504CC = 0xFFFF;
@@ -38,7 +39,7 @@ Mtx4F D_80371D10;
 Mtx4F D_80371D50;
 f32 D_80371D90;
 f32 D_80371D94;
-s32 D_80371D98;
+s32 D_80371D98; // stored shuttle state?
 s32 D_80371D9C;
 f64 D_80371DA0;
 
@@ -55,7 +56,7 @@ STATIC_FUNC void shuttle_80334CCC(void) {
 
     shuttle_80335130();
     uvDobjState(D_803504B4, D_803504B0);
-    if (D_80350494 == 2) {
+    if (sShuttleState == SHUTTLE_STATE_2) {
         uvMat4SetIdentity(&sp80);
         uvMat4RotateAxis(&sp80, 3.1415923f, 'z');
         uvMat4LocalTranslate(&sp80, 0.0f, 0.0f, D_8035049C);
@@ -76,7 +77,7 @@ STATIC_FUNC void shuttle_80334CCC(void) {
         if (D_803504C4 >= 0) {
             smokeProps(D_803504C4, SMOKE_PROP_2(D_803504A0), SMOKE_PROP_END);
         }
-    } else if (D_80350494 == 1) {
+    } else if (sShuttleState == SHUTTLE_STATE_1) {
         D_8035049C = 0 /*.0f*/;
         D_80350498 = 0 /*.0f*/;
         uvMat4SetIdentity(&sp40);
@@ -89,7 +90,7 @@ STATIC_FUNC void shuttle_80334CCC(void) {
             smokeProps(D_803504C4, SMOKE_PROP_2(D_803504A0), SMOKE_PROP_END);
         }
     }
-    if (D_80350494 != 4) {
+    if (sShuttleState != SHUTTLE_STATE_4) {
         uvMat4Copy(&sp40, &D_80371D50);
         uvMat4LocalTranslate(&sp40, -10.0f, 0.0f, -24.0f);
         uvMat4RotateAxis(&sp40, 1.5707961f, 'x');
@@ -304,7 +305,7 @@ STATIC_FUNC void shuttle_80335700(void) {
 }
 
 STATIC_FUNC void shuttle_803358D4(void) {
-    if (D_80350494 == 2) {
+    if (sShuttleState == SHUTTLE_STATE_2) {
         D_80350498 += D_8034F854 * 0.5f;
         D_8035049C += D_80350498;
         if (D_803504A0 > 0.0f) {
@@ -313,24 +314,24 @@ STATIC_FUNC void shuttle_803358D4(void) {
             D_803504A0 = 0.0f;
         }
         if (D_8035049C > 2048.0f) {
-            D_80350494 = 3;
+            sShuttleState = SHUTTLE_STATE_3;
             // @fake? should just assign 0 instead
             D_803504B0 *= 0;
             uvDobjState(D_803504B4, 0);
             D_803504A8 = 0.0;
         }
         shuttle_80334CCC();
-    } else if (D_80350494 == 1) {
+    } else if (sShuttleState == SHUTTLE_STATE_1) {
         D_803504A8 += D_8034F854;
         D_803504A0 += 5.0f;
         if (D_803504A8 > 7.0) {
-            D_80350494 = 2;
+            sShuttleState = SHUTTLE_STATE_2;
         }
         shuttle_80334CCC();
-    } else if (D_80350494 == 3) {
+    } else if (sShuttleState == SHUTTLE_STATE_3) {
         D_803504A8 += D_8034F854;
         if ((12.0f * D_8034F854) < D_803504A8) {
-            D_80350494 = 4;
+            sShuttleState = SHUTTLE_STATE_4;
             shuttle_80335700();
         }
         shuttle_80335130();
@@ -341,17 +342,17 @@ STATIC_FUNC void shuttle_803358D4(void) {
     }
 }
 
-STATIC_FUNC s32 shuttle_80335AE0(s32 arg0, s32 arg1, s32 arg2) {
+STATIC_FUNC s32 shuttleProxEventCb(s32 arg0, s32 arg1, s32 arg2) {
     return 0;
 }
 
-STATIC_FUNC s32 shuttle_80335AF4(s32 arg0, s32 arg1, s32 arg2) {
+STATIC_FUNC s32 shuttleProxAnimCb(s32 arg0, f32 arg1, s32 arg2) {
     s32 pad;
     s32 sp18 = 0;
 
     shuttle_80335130();
     uvDobjState(D_803504B4, D_803504B0);
-    if (func_80321420(arg0) > 750.0f && (D_80350494 == 4 || D_80350494 == 1)) {
+    if (proxAnimGetRange(arg0) > 750.0f && (sShuttleState == SHUTTLE_STATE_4 || sShuttleState == SHUTTLE_STATE_1)) {
         D_80350490 = 0;
         sp18 = 2;
     } else {
@@ -363,7 +364,7 @@ STATIC_FUNC s32 shuttle_80335AF4(s32 arg0, s32 arg1, s32 arg2) {
 
 void shuttleInit(void) {
     D_80350490 = 0;
-    D_80350494 = 1;
+    sShuttleState = SHUTTLE_STATE_1;
     D_803504A8 = 0.0;
     D_803504A0 = 0.0f;
     D_8035049C = 0.0f;
@@ -371,12 +372,12 @@ void shuttleInit(void) {
     D_803504B0 = 3;
 }
 
-void shuttle_80335BE4(void) {
+void shuttleLoad(void) {
     LevelESND sp88;
     u16 classIdx;
     u16 vehIdx;
     u16 testIdx;
-    s32 shouldAddPhotoWaypoint;
+    s32 showHudWaypoint;
     Vec3F sp70 = { 2870.0f, -2230.0f, 57.51f };
     Mtx4F sp30;
 
@@ -395,7 +396,7 @@ void shuttle_80335BE4(void) {
 
     uvDobjModel(D_803504B4, MODEL_SPACE_SHUTTLE);
     uvDobjState(D_803504B4, D_803504B0);
-    D_803504C0 = func_80321210(shuttle_80335AF4, shuttle_80335AE0, sp70, 750.0f, 0.0f, 1);
+    D_803504C0 = proxAnimAddCallback(shuttleProxAnimCb, shuttleProxEventCb, sp70, 750.0f, 0.0f, 1);
     shuttle_80334CCC();
     uvMat4SetIdentity(&sp88.unk0);
     sp88.sndId = 0x14;
@@ -411,17 +412,17 @@ void shuttle_80335BE4(void) {
     sp88.unk6C = 1500.0f;
     envSoundLoad(&sp88);
     taskGetClsVehTest(&classIdx, &vehIdx, &testIdx);
-    shouldAddPhotoWaypoint = (testIdx == 0 && classIdx == CLASS_A && vehIdx == VEHICLE_HANG_GLIDER) ||
-                             (testIdx == 1 && classIdx == CLASS_B && vehIdx == VEHICLE_HANG_GLIDER) ||
-                             (testIdx == 2 && classIdx == CLASS_PILOT && vehIdx == VEHICLE_HANG_GLIDER);
-    if (shouldAddPhotoWaypoint != 0) {
+    showHudWaypoint = (testIdx == 0 && classIdx == CLASS_A && vehIdx == VEHICLE_HANG_GLIDER) ||
+                      (testIdx == 1 && classIdx == CLASS_B && vehIdx == VEHICLE_HANG_GLIDER) ||
+                      (testIdx == 2 && classIdx == CLASS_PILOT && vehIdx == VEHICLE_HANG_GLIDER);
+    if (showHudWaypoint != 0) {
         sShuttleRadarIdx = hudAddWaypoint(D_80371D50.m[3][0], D_80371D50.m[3][1], D_80371D50.m[3][2]);
     } else {
         sShuttleRadarIdx = 0xFF;
     }
 }
 
-void shuttle_80335E44(void) {
+void shuttleDeinit(void) {
     if (D_803504B8 != 0xFFFF) {
         uvDobjModel(D_803504B8, MODEL_WORLD);
         D_803504B8 = 0xFFFF;
@@ -431,7 +432,7 @@ void shuttle_80335E44(void) {
         uvDobjModel(D_803504B4, MODEL_WORLD);
         D_803504B4 = 0xFFFF;
         shuttle_80335700();
-        func_803212DC(D_803504C0);
+        proxAnimDeleteCallback(D_803504C0);
         D_803504C0 = 0;
         if (sShuttleRadarIdx != 0xFF) {
             hud_8031A8E0(sShuttleRadarIdx);
@@ -462,14 +463,14 @@ void shuttle_80335F24(Vec3F* arg0) {
     }
 }
 
-s32 shuttle_80335F84(void) {
+s32 shuttleGetState(void) {
     Unk80362690_Unk0* temp = &D_80362690->unkC[D_80362690->unk9C];
 
     if (temp->unkA == 4 || temp->unkA == 5) {
-        return 4;
+        return SHUTTLE_STATE_4;
     }
 
-    return D_80350494;
+    return sShuttleState;
 }
 
 void shuttle_80335FD8(f32 arg0) {
@@ -478,11 +479,11 @@ void shuttle_80335FD8(f32 arg0) {
     }
 
     shuttle_80335130();
-    D_80350494 = 1;
+    sShuttleState = SHUTTLE_STATE_1;
     D_803504B0 = 3;
     D_803504A8 = 0.0;
     shuttle_80334CCC();
-    D_80350494 = 2;
+    sShuttleState = SHUTTLE_STATE_2;
     D_8035049C = 2.0f * arg0 * 255.0f;
     shuttle_80334CCC();
 }
@@ -495,7 +496,7 @@ void shuttle_80336064(void) {
 
 void shuttle_80336094(void) {
     D_80371D90 = D_8035049C;
-    D_80371D98 = D_80350494;
+    D_80371D98 = sShuttleState;
     D_80371D94 = D_80350498;
     D_80371D9C = D_803504B0;
     D_80371DA0 = D_803504A8;
@@ -503,7 +504,7 @@ void shuttle_80336094(void) {
 
 void shuttle_803360E8(void) {
     D_8035049C = D_80371D90;
-    D_80350494 = D_80371D98;
+    sShuttleState = D_80371D98;
     D_80350498 = D_80371D94;
     D_803504B0 = D_80371D9C;
     D_803504A8 = D_80371DA0;

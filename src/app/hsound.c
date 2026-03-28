@@ -44,10 +44,10 @@ void func_8030A140(GyrocopterData* arg0) {
     D_80369EB0.unk18 = 1.0f;
     D_80369EB0.unk1C = 400.0f;
     D_80369EB0.unk20 = 1.8f;
-    arg0->unk67C = snd_makedev(0x1F);
-    arg0->unk67D = snd_makedev(0x42);
-    arg0->unk67A = snd_makedev(0x13);
-    arg0->unk67B = snd_makedev(0x13);
+    arg0->unk67C = sndMakeDev(0x1F);
+    arg0->unk67D = sndMakeDev(0x42);
+    arg0->unk67A = sndMakeDev(0x13);
+    arg0->unk67B = sndMakeDev(0x13);
 
     for (i = 0; i < 2; i++) {
         arg0->unk690[i].unk50 = uvEmitterLookup();
@@ -211,7 +211,7 @@ void func_8030ABF8(GyrocopterData* arg0) {
         if (!(arg0->unk678 & 2)) {
             arg0->unk678 |= 2;
             func_8030ADCC(arg0);
-            snd_play_sfx(0x3F);
+            sndPlaySfx(0x3F);
             if (!(arg0->unk678 & 0x10)) {
                 func_8033F748(0xF);
                 func_8033F964(0);
@@ -222,7 +222,7 @@ void func_8030ABF8(GyrocopterData* arg0) {
         if (arg0->unkC0 == 2) {
             if (!(arg0->unk678 & 0x10)) {
                 arg0->unk678 |= 0x10;
-                snd_getpilot(&sp30, &sp2C);
+                sndGetPilot(&sp30, &sp2C);
                 func_8033F758(sp30, 1.0f, sp2C, 0.0f);
                 func_8033F748(0xF);
                 func_8033F964(0);
@@ -286,7 +286,7 @@ void func_8030AEB0(GyrocopterData* arg0) {
             if ((arg0->unkD0 != 0) && (arg0->unkC0 == 3)) {
                 if (!(arg0->unk678 & 4)) {
                     arg0->unk678 |= 4;
-                    snd_play_sfx(0x1A);
+                    sndPlaySfx(0x1A);
                 }
             }
             break;
@@ -338,7 +338,7 @@ void func_8030B168(GyrocopterData* arg0) {
 void func_8030B240(Mtx4F* arg0) {
     u8 sp3F;
 
-    sp3F = snd_makedev(0x30);
+    sp3F = sndMakeDev(0x30);
     uvEmitterProp(sp3F, 1, 0.0f, 2, 2000.0f, 5, 0x38, 0);
     uvEmitterSetUnk70(sp3F, 1.0f);
     uvEmitterSetUnk74(sp3F, 1.0f);

@@ -6,6 +6,8 @@
 s32 resultHandler(s32);
 void resultSumTally(s32);
 void result_8032E698(void);
+void resultInit(s32);
+void resultDeinit(void);
 s32 resultMenuChoose(s32);
 void resultDrawTally(s32);
 

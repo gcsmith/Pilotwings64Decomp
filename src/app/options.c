@@ -303,7 +303,7 @@ s32 optionsHandlerSound(void) {
             func_80200180(0, 8, 1, 0);
         }
         if (optInc != 0) {
-            snd_play_sfx(0x54);
+            sndPlaySfx(0x54);
         }
         optionsSetSetting(0, sStereoMono);
         return -1;
@@ -316,7 +316,7 @@ s32 optionsHandlerSound(void) {
             func_8033FCD0(0xFF);
         }
         if (optInc != 0) {
-            snd_play_sfx(0x54);
+            sndPlaySfx(0x54);
         }
         optionsSetTrack(1, sSoundTrack);
         return -1;
@@ -334,7 +334,7 @@ s32 optionsHandlerSound(void) {
     case 3:
         sVolumeSfx += optInc;
         if (optInc != 0) {
-            snd_play_sfx(0x6E);
+            sndPlaySfx(0x6E);
         }
         if (sVolumeSfx < 0) {
             sVolumeSfx = 0;
@@ -347,7 +347,7 @@ s32 optionsHandlerSound(void) {
         return -1;
     case 4:
         if (sp24 == menuItem) {
-            snd_play_sfx(0x6E);
+            sndPlaySfx(0x6E);
             func_8032D51C(0);
             return 0;
         }

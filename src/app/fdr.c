@@ -2,7 +2,7 @@
 
 #include "fdr.h"
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/fdr/func_802E6570.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/app/fdr/fdrInit.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/fdr/func_802E65AC.s")
 

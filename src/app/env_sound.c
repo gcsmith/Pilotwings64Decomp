@@ -4,16 +4,16 @@
 #include <uv_event.h>
 #include <uv_math.h>
 #include "kernel/code_1050.h"
-#include "code_58B00.h"
-#include "code_5A6A0.h"
+#include "boats.h"
 #include "code_61A60.h"
-#include "code_6ECD0.h"
-#include "code_72B70.h"
 #include "code_9A960.h"
-#include "code_A7460.h"
+#include "camera.h"
 #include "demo.h"
 #include "env_sound.h"
 #include "environment.h"
+#include "ferry.h"
+#include "game.h"
+#include "planes.h"
 #include "shadow.h"
 #include "shuttle.h"
 #include "snd.h"
@@ -276,35 +276,35 @@ void envSound_802E2A00(s32 eventType, void* arg1, s32 eventData) {
                         uvEmitterSetUnk74(emitter->objId, temp_fs1);
                         break;
                     case 26:
-                        func_802E7CB8(&sp208);
+                        ferryGetPos(&sp208);
                         sp1C8.m[3][0] = sp208.x;
                         sp1C8.m[3][1] = sp208.y;
                         sp1C8.m[3][2] = sp208.z;
                         uvEmitterSetMatrix(emitter->objId, &sp1C8);
                         break;
                     case 23:
-                        func_803203D0(0, &sp1BC);
+                        planesGetPos(0, &sp1BC);
                         sp17C.m[3][0] = sp1BC.x;
                         sp17C.m[3][1] = sp1BC.y;
                         sp17C.m[3][2] = sp1BC.z;
                         uvEmitterSetMatrix(emitter->objId, &sp17C);
                         break;
                     case 24:
-                        func_803203D0(1, &sp170);
+                        planesGetPos(1, &sp170);
                         sp130.m[3][0] = sp170.x;
                         sp130.m[3][1] = sp170.y;
                         sp130.m[3][2] = sp170.z;
                         uvEmitterSetMatrix(emitter->objId, &sp130);
                         break;
                     case 21:
-                        if (func_802D2018(0, &spF0) != 0) {
+                        if (boatsGetPose(0, &spF0) != 0) {
                             uvEmitterSetMatrix(emitter->objId, &spF0);
                         } else {
                             uvEmitterRelease(emitter->objId);
                         }
                         break;
                     case 22:
-                        if (func_802D2018(1, &spAC) != 0) {
+                        if (boatsGetPose(1, &spAC) != 0) {
                             uvEmitterSetMatrix(emitter->objId, &spAC);
                         } else {
                             uvEmitterRelease(emitter->objId);
@@ -324,7 +324,7 @@ void envSound_802E2A00(s32 eventType, void* arg1, s32 eventData) {
                         uvEmitterSetUnk70(emitter->objId, temp_fs0);
                         break;
                     case 20:
-                        switch (shuttle_80335F84()) { // shuttle state
+                        switch (shuttleGetState()) {
                         case 0:
                             uvEmitterSetUnk74(emitter->objId, 1.0f);
                             uvEmitterSetUnk70(emitter->objId, 0.0f);
@@ -476,7 +476,7 @@ void envSoundFrameUpdate(Mtx4F* arg0) {
                     if ((gEnvSoundStateCount[1] > 0) && (D_80362690->unkC[0].unkA != 4) && (D_80362690->unkC[0].veh != VEHICLE_JUMBLE_HOPPER)) {
                         if (gEnvSoundFutureTime < D_8034F850) {
                             gEnvSoundFutureTime = D_8034F850 + 4.0f;
-                            snd_play_sfx(0x50);
+                            sndPlaySfx(0x50);
                         }
                     }
                     gEnvSoundStateCount[1] = 0;

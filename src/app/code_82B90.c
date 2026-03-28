@@ -16,7 +16,7 @@
 #include "app/snd.h"
 #include "app/splash.h"
 #include "app/task.h"
-#include "app/code_5A6A0.h"
+#include "app/camera.h"
 #include "app/code_61A60.h"
 #include "app/code_66160.h"
 #include "app/jumble_hopper.h"
@@ -173,7 +173,7 @@ void func_802FBC6C(JumbleHopperData* arg0) {
     arg0->unk4C = 3;
     arg0->unk5E0 = 0.0f;
     if (arg0->unk4F == 0) {
-        snd_play_sfx(0x17);
+        sndPlaySfx(0x17);
     }
 }
 
@@ -229,7 +229,7 @@ void func_802FBEFC(JumbleHopperData* arg0, f32 arg1) {
     if (arg0->unk4F == 0) {
         sp2C = &taskGet_80345C80()->unk0;
         hudWarningText(0x4F, 1.5f, 8.0f);
-        snd_play_sfx(0x69);
+        sndPlaySfx(0x69);
         arg0->unk4F = 1;
 
         D_80364210[D_80362690->unk9C].unk38 = D_80364210[D_80362690->unk9C].unk38 - sp2C[11].unk30;
@@ -243,7 +243,7 @@ void func_802FBEFC(JumbleHopperData* arg0, f32 arg1) {
         sp30.m[3][1] = arg0->unkF4.y;
         sp30.m[3][2] = arg1;
         splashAdd(&sp30, 0.75f);
-        snd_play_sfx(0x1A);
+        sndPlaySfx(0x1A);
     }
 }
 
@@ -827,7 +827,7 @@ void func_802FD8C0(JumbleHopperData* arg0) {
             arg0->unk1AC = 0;
         }
         arg0->unk1A4 = 0;
-        snd_play_sfx(0x4A);
+        sndPlaySfx(0x4A);
         arg0->unk15C.x = (f64)arg0->unk184.x * 30.0f * arg0->unk194;
         arg0->unk15C.y = (f64)arg0->unk184.y * 30.0f * arg0->unk194;
         arg0->unk15C.z = (f64)arg0->unk184.z * 30.0f * arg0->unk194;
@@ -1283,13 +1283,13 @@ void func_802FF654(JumbleHopperData* arg0) {
             arg0->unk594 = (arg0->unk140.y + 360.0f) * 0.5f;
             if (arg0->unk1AC >= 2) {
                 arg0->unk1A4 = 1;
-                snd_play_sfx(0x5B);
+                sndPlaySfx(0x5B);
                 func_802FF5B4(arg0);
                 break;
             }
             if (arg0->unk140.y < -240.0f) {
                 arg0->unk1A4 = 3;
-                snd_play_sfx(0x5B);
+                sndPlaySfx(0x5B);
                 func_802FB8CC(arg0, arg0->unk5A0, 0, 0);
                 func_802FB988(arg0, arg0->unk5A8, 0, 0);
                 func_802FBA44(arg0, arg0->unk5CC, 0, 3);
@@ -1313,7 +1313,7 @@ void func_802FF654(JumbleHopperData* arg0) {
         arg0->unk140.y -= 300.0f * D_8034F854 * arg0->unk1A8;
         if (arg0->unk140.y < -240.0f) {
             arg0->unk1A4 = 3;
-            snd_play_sfx(0x5B);
+            sndPlaySfx(0x5B);
             func_802FB8CC(arg0, arg0->unk5A0, 0, 0);
             func_802FB988(arg0, arg0->unk5A8, 0, 0);
             func_802FBA44(arg0, arg0->unk5CC, 0, 3);
@@ -1358,13 +1358,13 @@ void func_802FFB3C(JumbleHopperData* arg0) {
             arg0->unk594 = (360.0f - arg0->unk140.y) * 0.5f;
             if (arg0->unk1B0 >= 2) {
                 arg0->unk1A4 = 1;
-                snd_play_sfx(0x5B);
+                sndPlaySfx(0x5B);
                 func_802FF5B4(arg0);
                 break;
             }
             if (arg0->unk140.y > 180.0f) {
                 arg0->unk1A4 = 3;
-                snd_play_sfx(0x5B);
+                sndPlaySfx(0x5B);
                 func_802FB8CC(arg0, arg0->unk5A0, 0, 0);
                 func_802FB988(arg0, arg0->unk5A8, 0, 0);
                 func_802FBA44(arg0, arg0->unk5CC, 0, 3);
@@ -1388,7 +1388,7 @@ void func_802FFB3C(JumbleHopperData* arg0) {
         arg0->unk140.y += 300.0f * D_8034F854 * arg0->unk1A8;
         if (arg0->unk140.y > 180.0f) {
             arg0->unk1A4 = 3;
-            snd_play_sfx(0x5B);
+            sndPlaySfx(0x5B);
             func_802FB8CC(arg0, arg0->unk5A0, 0, 0);
             func_802FB988(arg0, arg0->unk5A8, 0, 0);
             func_802FBA44(arg0, arg0->unk5CC, 0, 3);
@@ -1580,9 +1580,9 @@ void func_803006E8(JumbleHopperData* arg0) {
     default:
         if (func_802FB784(arg0, 0.70710677f) == 0) {
             arg0->unk4C = 6;
-            snd_play_sfx(0x36);
+            sndPlaySfx(0x36);
         } else if ((uvVec3Dot(&arg0->unk168, &arg0->unk174) < 0.0f) && (arg0->unk4D == 4)) {
-            snd_play_sfx(0x36);
+            sndPlaySfx(0x36);
             func_802FCC0C(arg0);
         } else {
             func_80300448(arg0);
@@ -1612,7 +1612,7 @@ void func_8030089C(JumbleHopperData* arg0) {
     arg0->unkF4.z = arg0->unk134.z + (arg0->unk168.z * 0.5f);
     func_802FC8B0(arg0);
     if (arg0->unk168.z < 0.0f) {
-        snd_play_sfx(0x36);
+        sndPlaySfx(0x36);
         func_802FD55C(arg0, arg0->unkF4);
         func_80300624(arg0);
         return;
@@ -1631,13 +1631,13 @@ void func_8030089C(JumbleHopperData* arg0) {
         break;
     case 3:
         func_802FC018(arg0);
-        snd_play_sfx(0x39);
+        sndPlaySfx(0x39);
         arg0->unkF4.x = arg0->unk670.x;
         arg0->unkF4.y = arg0->unk670.y;
         arg0->unkF4.z = arg0->unk670.z;
         break;
     default:
-        snd_play_sfx(0x36);
+        sndPlaySfx(0x36);
         if (func_802FB784(arg0, 0.70710677f) != 0) {
             if (func_8030055C(arg0) != 0) {
                 func_802FD55C(arg0, arg0->unkF4);
@@ -1684,7 +1684,7 @@ void func_80300B04(JumbleHopperData* arg0) {
         func_802FC8B0(arg0);
         arg0->unk4C = 5;
         func_802FD55C(arg0, arg0->unkF4);
-        snd_play_sfx(0x36);
+        sndPlaySfx(0x36);
         return;
     }
     arg0->unk50 = 0;
@@ -1701,7 +1701,7 @@ void func_80300B04(JumbleHopperData* arg0) {
     case 3:
         arg0->unk4C = 5;
         func_802FC018(arg0);
-        snd_play_sfx(0x39);
+        sndPlaySfx(0x39);
         arg0->unkF4.x = arg0->unk670.x;
         arg0->unkF4.y = arg0->unk670.y;
         arg0->unkF4.z = arg0->unk670.z;
@@ -1712,7 +1712,7 @@ void func_80300B04(JumbleHopperData* arg0) {
             arg0->unkF4.y = arg0->unk134.y + (arg0->unk168.y * 0.5f);
             arg0->unkF4.z = arg0->unk134.z + (arg0->unk168.z * 0.5f);
             func_802FC8B0(arg0);
-            snd_play_sfx(0x36);
+            sndPlaySfx(0x36);
             if (func_8030055C(arg0) != 0) {
                 arg0->unk4C = 5;
                 func_802FD55C(arg0, arg0->unkF4);
@@ -1725,7 +1725,7 @@ void func_80300B04(JumbleHopperData* arg0) {
 
         if ((arg0->unk140.y > 45.0f) || (arg0->unk140.y < -45.0f)) {
             arg0->unk4C = 6;
-            snd_play_sfx(0x36);
+            sndPlaySfx(0x36);
             arg0->unkF4.x = arg0->unk134.x + (arg0->unk168.x * 0.5f);
             arg0->unkF4.y = arg0->unk134.y + (arg0->unk168.y * 0.5f);
             arg0->unkF4.z = arg0->unk134.z + (arg0->unk168.z * 0.5f);
@@ -2246,19 +2246,19 @@ void func_80302BA0(JumbleHopperData* arg0) {
         arg0->unk1D0 = 1.0f;
     }
     if ((arg0->unk1D0 > 0.3478261f) && (D_8036905C[0] == 0)) {
-        snd_play_sfx(0x3D);
+        sndPlaySfx(0x3D);
         D_8036905C[0] = 1;
     } else if ((arg0->unk1D0 > 0.39130434f) && (D_8036905C[1] == 0)) {
-        snd_play_sfx(0x3D);
+        sndPlaySfx(0x3D);
         D_8036905C[1] = 1;
     } else if ((arg0->unk1D0 > 0.43478262f) && (D_8036905C[2] == 0)) {
-        snd_play_sfx(0x3D);
+        sndPlaySfx(0x3D);
         D_8036905C[2] = 1;
     } else if ((arg0->unk1D0 > 0.47826087f) && (D_8036905C[3] == 0)) {
-        snd_play_sfx(0x3D);
+        sndPlaySfx(0x3D);
         D_8036905C[3] = 1;
     } else if ((arg0->unk1D0 > 0.5217391f) && (D_8036905C[4] == 0)) {
-        snd_play_sfx(0x3D);
+        sndPlaySfx(0x3D);
         D_8036905C[4] = 1;
     }
     if (arg0->unk1D0 > 0.708f) {

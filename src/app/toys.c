@@ -24,11 +24,6 @@ typedef struct {
 extern u8 gToyCount;
 extern Toy gToys[20];
 
-// forward declarations
-void toyAnimate(Toy*);
-s32 toy_8034819C(s32, s32, s32);
-s32 toy_80348214(s32, s32, s32);
-
 void toyInit(void) {
     s32 i;
 
@@ -169,14 +164,12 @@ void toyAnimate(Toy* toy) {
 }
 
 s32 toy_8034819C(s32 arg0, s32 arg1, s32 toy) {
-    Unk803216A4* tmp;
-
-    if (arg0) { } // fakematch
+    ProxAnim* tmp;
 
     switch (arg1) {
     case 0:
-        tmp = func_803216A4();
-        if (toy_80347C2C(tmp->unk18, (Toy*)toy) == -1) {
+        tmp = proxAnimGetHandle(arg0);
+        if (toy_80347C2C(tmp->pos, (Toy*)toy) == -1) {
             return -1;
         }
         break;
@@ -187,13 +180,13 @@ s32 toy_8034819C(s32 arg0, s32 arg1, s32 toy) {
     return 0;
 }
 
-s32 toy_80348214(s32 arg0, s32 arg1, s32 arg2) {
+s32 toy_80348214(s32 arg0, f32 arg1, s32 arg2) {
     Toy* toy;
     s32 res;
 
     toy = (Toy*)arg2;
     res = 0;
-    if ((func_80321420(arg0) > 100.0f) && (toy->toyType != 4)) {
+    if ((proxAnimGetRange(arg0) > 100.0f) && (toy->toyType != 4)) {
         res = 2;
     } else {
         toyAnimate(toy);
@@ -210,7 +203,7 @@ void toyLoad(LevelTOYS* lvlToy) {
     }
 
     toy = &gToys[gToyCount];
-    gToys[gToyCount].unk0 = func_80321210(toy_80348214, toy_8034819C, lvlToy->pos, 100.0f, 0.0f, (s32)toy);
+    gToys[gToyCount].unk0 = proxAnimAddCallback(toy_80348214, toy_8034819C, lvlToy->pos, 100.0f, 0.0f, (s32)toy);
     if (gToys[gToyCount].unk250 == 1.0f) {
         uvSobjModel(toy->terraId, 0x55);
     }
@@ -221,7 +214,7 @@ void toy_803483AC(void) {
     s32 i;
 
     for (i = 0; i < gToyCount; i++) {
-        func_803212DC(gToys[i].unk0);
+        proxAnimDeleteCallback(gToys[i].unk0);
     }
     gToyCount = 0;
 }

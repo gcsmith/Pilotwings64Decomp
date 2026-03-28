@@ -3,6 +3,7 @@
 
 #include <PR/ultratypes.h>
 #include <uv_vector.h>
+#include "code_9A960.h"
 #include "code_A6000.h"
 
 void userPathInit(void);

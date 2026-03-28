@@ -2,7 +2,7 @@
 #define APP_CODE_B2900_H
 
 #include <PR/ultratypes.h>
-#include "code_72B70.h"
+#include "game.h"
 
 enum Medals {
     MEDAL_BRONZE = 0,

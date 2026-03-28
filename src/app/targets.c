@@ -151,7 +151,7 @@ f32 targets_8034473C(s32 arg0, s32 arg1) {
         }
 
         if (arg1 != 0) {
-            snd_play_sfx(0x38U);
+            sndPlaySfx(0x38U);
             hudText_8031D8E0(0x1AD, 1.5f, 8.0f);
         } else {
             hudText_8031D8E0(0x18A, 1.5f, 8.0f);

@@ -3,6 +3,7 @@
 
 #include <uv_matrix.h>
 
+void fdrInit(void);
 void func_802E68B0(s32);
 s32 func_802E6B5C(void);
 void func_802E65AC(Mtx4F*, u16*, f32*, f32*, s32*);

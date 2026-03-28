@@ -10,26 +10,26 @@
 #include <uv_memory.h>
 #include <uv_texture.h>
 #include <uv_vector.h>
-#include "code_58B00.h"
-#include "code_6ECD0.h"
-#include "code_722D0.h"
-#include "code_72B70.h"
-#include "code_78620.h"
+#include "boats.h"
 #include "code_9A960.h"
 #include "code_9C080.h"
-#include "code_A7460.h"
 #include "code_D1ED0.h"
-#include "code_D2D50.h"
-#include "code_D3810.h"
 #include "demo.h"
+#include "ferry.h"
 #include "file_menu.h"
+#include "fountain.h"
+#include "game.h"
+#include "glider_toys.h"
 #include "hud.h"
+#include "planes.h"
 #include "proxanim.h"
 #include "shadow.h"
 #include "shuttle.h"
 #include "snd.h"
 #include "snow.h"
 #include "text_data.h"
+#include "whale.h"
+#include "whale_pod.h"
 
 typedef struct Unk8033F050 {
     s16 unk0;
@@ -161,7 +161,7 @@ void snapInit(void) {
     D_80373630[0].unk3C = 0;
     D_80373630[0].unk38 = 0;
     D_80373630[0].unk4C[0] = 0;
-    func_8034C16C(&D_80373630[0].unk0);
+    whaleGetPos(&D_80373630[0].unk0);
     D_80373630[0].unk0.z += uvSinF(0.4363325f) * 105.0f;
     sp34 = uvCosF(0.4363325f) * 105.0f;
     D_80373630[0].unk0.x += uvSinF(0.6108655f) * sp34;
@@ -185,7 +185,7 @@ void snapInit(void) {
     D_80373630[1].unk42 = 1;
     D_80373630[1].unk43[0] = 5;
     D_80373630[1].unk4C[0] = 1.0f;
-    func_802EB300(&D_80373630[1].unk0);
+    fountainGetPos(&D_80373630[1].unk0);
     D_80373630[1].unk0.x += uvCosF(0.349066f) * 85.0f;
     D_80373630[1].unk0.z += uvSinF(0.349066f) * 85.0f;
     D_80373630[1].unkC.x = 90.0f;
@@ -271,7 +271,7 @@ void snapInit(void) {
     D_803738D0[1].unk42 = 1;
     D_803738D0[1].unk43[0] = 2;
     D_803738D0[1].unk4C[0] = 0.0f;
-    func_802E7CB8(&D_803738D0[1].unk0);
+    ferryGetPos(&D_803738D0[1].unk0);
     D_803738D0[1].unk0.z += uvSinF(0.26179948f) * 230.0f;
     sp34 = uvCosF(0.26179948f) * 230.0f;
     D_803738D0[1].unk0.x += uvSinF(0.6108655f) * sp34;
@@ -345,16 +345,16 @@ void func_803386A4(s32 arg0, s32* arg1, s32* arg2, f32* arg3, f32* arg4, s32* ar
     for (i = 0; i < sp74; i++) {
         switch (arg0) {
         case 7:
-            func_8034CC10(i, &sp90, &sp70, &sp84);
+            whalePodGetObjState(i, &sp90, &sp70, &sp84);
             break;
         case 10:
-            func_802D2124(i, &sp90, &sp70, &sp84);
+            boatsGetObjData(i, &sp90, &sp70, &sp84);
             break;
         case 8:
-            func_80320848(i, &sp90, &sp70, &sp84);
+            planesGetObjData(i, &sp90, &sp70, &sp84);
             break;
         case 9:
-            func_802F205C(i, &sp90, &sp70, &sp84);
+            gliderToyGetObjData(i, &sp90, &sp70, &sp84);
             break;
         }
         if (sp90 != 0xFFFF) {
@@ -404,7 +404,7 @@ void func_80338A14(void) {
     Vec3F spF0;
     Vec3F spE4;
     Unk803599D0* temp_s5;
-    Unk802D3658_Arg0* spDC;
+    Camera* spDC;
     s32 pad[4];
     s32 var_a0;
     s32 var_s2;
@@ -463,8 +463,8 @@ void func_80338A14(void) {
     for (i = 0; i < ARRAY_COUNT(D_80350510); i++) {
         switch (D_80350510[i]) {
         case 4:
-            if (func_8034B820() != 0) {
-                func_8034C16C(&spFC);
+            if (whaleIsActive() != 0) {
+                whaleGetPos(&spFC);
                 if (func_80338964(temp_s1->unk0, spFC, &temp_s4->unk70->unk108) != 0) {
                     func_8034B354(0, spFC, &spA8);
                     if ((spA8.x < -50.0f) || (spA8.x > 370.0f) || (spA8.y < -50.0f) || (spA8.y > 290.0f)) {
@@ -476,7 +476,7 @@ void func_80338A14(void) {
                         var_s2 = 1;
                         var_fs0 = temp_fv0;
                         spBC[0] = &temp_s5[10];
-                        temp_s1->unk4C[0] = func_8034C154();
+                        temp_s1->unk4C[0] = whaleGetInterval();
                         spF0 = spFC;
                     }
                 }
@@ -523,8 +523,8 @@ void func_80338A14(void) {
             }
             break;
         case 2:
-            if (func_802E77A0() != 0) {
-                func_802E7CB8(&spFC);
+            if (ferryIsActive() != 0) {
+                ferryGetPos(&spFC);
                 if (func_80338964(temp_s1->unk0, spFC, &temp_s4->unk70->unk108) != 0) {
                     func_8034B354(0, spFC, &spA8);
                     if ((spA8.x < -50.0f) || (spA8.x > 370.0f) || (spA8.y < -50.0f) || (spA8.y > 290.0f)) {
@@ -536,7 +536,7 @@ void func_80338A14(void) {
                         var_s2 = 1;
                         var_fs0 = temp_fv0;
                         spBC[0] = &temp_s5[5];
-                        temp_s1->unk4C[0] = func_802E7CA0();
+                        temp_s1->unk4C[0] = ferryGetInterval();
                         spF0 = spFC;
                     }
                 }
@@ -562,8 +562,8 @@ void func_80338A14(void) {
             }
             break;
         case 5:
-            if (func_802EADA0() != 0) {
-                func_802EB300(&spFC);
+            if (fountainIsActive() != 0) {
+                fountainGetPos(&spFC);
                 if (func_80338964(temp_s1->unk0, spFC, &temp_s4->unk70->unk108) != 0) {
                     func_8034B354(0, spFC, &spA8);
                     if ((spA8.x < -50.0f) || (spA8.x > 370.f) || (spA8.y < -50.0f) || (spA8.y > 290.f)) {
@@ -575,7 +575,7 @@ void func_80338A14(void) {
                         var_s2 = 1;
                         var_fs0 = temp_fv0;
                         spBC[0] = &temp_s5[6];
-                        temp_s1->unk4C[0] = func_802EB2E8();
+                        temp_s1->unk4C[0] = fountainGetInterval();
                         spF0 = spFC;
                     }
                 }
@@ -677,14 +677,14 @@ void func_80338A14(void) {
             }
         }
     }
-    snd_play_sfx(0x3A);
+    sndPlaySfx(0x3A);
 }
 
 void func_80339C8C(HangGliderData* arg0) {
     s32 var_a2;
 
     var_a2 = demoGetButtons(0);
-    if (D_80362690->unk0 != 6) {
+    if (D_80362690->state != GAME_STATE_RESULTS) {
         if (D_8035054C != 0) {
             D_8035054C = 0;
             if (var_a2 & Z_TRIG) {
@@ -724,7 +724,7 @@ void func_80339E1C(BirdmanData* arg0) {
     s32 var_v1;
 
     var_v1 = demoGetButtons(0);
-    if (D_80362690->unk0 != 6) {
+    if (D_80362690->state != GAME_STATE_RESULTS) {
         if (D_8035054C != 0) {
             D_8035054C = 0;
             if (var_v1 & Z_TRIG) {
@@ -812,7 +812,7 @@ void func_8033A078(s32 arg0) {
     u8* ptr;
 
     ptr = taskGet_80345CB0();
-    if ((D_80362690->unk0 != 7) && (ptr[1] == 1)) {
+    if ((D_80362690->state != GAME_STATE_OPTIONS) && (ptr[1] == 1)) {
         func_803405C0();
     }
     if (D_80350590 != 0) {
@@ -854,7 +854,7 @@ void func_8033A128(s32 arg0, Unk80373060* arg1) {
         D_8035059C = temp_v1->cls;
         D_803505A0 = temp_v1->test;
         D_80362690->unkA2 = 1;
-        func_802EC50C(D_80362690);
+        gameUpdateStateTestSetup(D_80362690);
     }
 }
 
@@ -876,10 +876,10 @@ void func_8033A244(s32 arg0, Unk80373060* arg1) {
         for (i = 0; i < arg1->unk42; i++) {
             switch (arg1->unk43[i]) {
             case 5:
-                func_802EB368();
+                fountainStateSave();
                 break;
             case 4:
-                func_8034C25C();
+                whaleStateSave();
                 break;
             case 3:
                 func_803154C0();
@@ -888,18 +888,18 @@ void func_8033A244(s32 arg0, Unk80373060* arg1) {
                 shuttle_80336094();
                 break;
             case 2:
-                func_802E7D58();
+                ferryStateSave();
                 break;
             }
         }
-        func_8032150C();
+        proxAnimUpdate();
         for (i = 0; i < arg1->unk42; i++) {
             switch (arg1->unk43[i]) {
             case 5:
-                func_802EB328(arg1->unk4C[i]);
+                fountainSetInterval(arg1->unk4C[i]);
                 break;
             case 4:
-                func_8034C1CC(arg1->unk4C[i]);
+                whaleSetInterval(arg1->unk4C[i]);
                 break;
             case 3:
                 func_80315418(arg1->unk4C[i]);
@@ -908,19 +908,19 @@ void func_8033A244(s32 arg0, Unk80373060* arg1) {
                 shuttle_80335FD8(arg1->unk4C[i]);
                 break;
             case 2:
-                func_802E7D18(arg1->unk4C[i]);
+                ferrySetInterval(arg1->unk4C[i]);
                 break;
             case 7:
-                func_8034CCC4(arg1->unk64[i], arg1->unk4C[i]);
+                whalePodSetInterval(arg1->unk64[i], arg1->unk4C[i]);
                 break;
             case 10:
-                func_802D21D8(arg1->unk64[i], arg1->unk4C[i]);
+                boatsUpdateInterval(arg1->unk64[i], arg1->unk4C[i]);
                 break;
             case 9:
-                func_802F2110(arg1->unk64[i], arg1->unk4C[i]);
+                gliderToySetInterval(arg1->unk64[i], arg1->unk4C[i]);
                 break;
             case 8:
-                func_80320900(arg1->unk64[i], arg1->unk4C[i]);
+                planesUpdateInterval(arg1->unk64[i], arg1->unk4C[i]);
                 break;
             }
         }
@@ -934,10 +934,10 @@ void func_8033A244(s32 arg0, Unk80373060* arg1) {
         if (arg1->unk43[0] != 11 && arg1->unk43[0] != 0) {
             switch (arg1->unk43[0]) {
             case 5:
-                func_802EB38C();
+                fountainStateRestore();
                 break;
             case 4:
-                func_8034C298();
+                whaleStateRestore();
                 break;
             case 3:
                 func_80315508();
@@ -947,7 +947,7 @@ void func_8033A244(s32 arg0, Unk80373060* arg1) {
                 shuttle_80336064();
                 break;
             case 2:
-                func_802E7D6C();
+                ferryStateRestore();
                 break;
             }
         }
@@ -1467,7 +1467,7 @@ s32 func_8033D3EC(s32 arg0, s32 arg1, Unk80373060* arg2, s32* arg3, s32* arg4) {
             if ((i < arg1) && (arg2[i].unk43[0] != 0)) {
                 func_8033A610(D_80350560[i % 6][0], D_80350560[i % 6][0] + 80, D_80350560[i % 6][1], D_80350560[i % 6][1] + 59);
                 func_8033A128(arg0, &arg2[i]);
-                snd_play_sfx(0x54);
+                sndPlaySfx(0x54);
                 func_8033FB14();
                 uvCopyFrameBuf(0);
                 func_8033A244(arg0, &arg2[i]);
@@ -1476,7 +1476,7 @@ s32 func_8033D3EC(s32 arg0, s32 arg1, Unk80373060* arg2, s32* arg3, s32* arg4) {
             } else {
                 func_80204D94(0, D_80350560[i % 6][0], D_80350560[i % 6][0] + 80, D_80350560[i % 6][1] - 1, D_80350560[i % 6][1] + 59);
                 func_8033A128(arg0, NULL);
-                snd_play_sfx(0x54);
+                sndPlaySfx(0x54);
                 func_8033FB14();
                 uvCopyFrameBuf(0);
                 func_8033A244(arg0, NULL);
@@ -1514,16 +1514,16 @@ s32 func_8033D3EC(s32 arg0, s32 arg1, Unk80373060* arg2, s32* arg3, s32* arg4) {
             uvGfxEnd();
             if ((demoButtonPress(0, B_BUTTON) != 0) || ((arg1 == 0) && (demoButtonPress(0, START_BUTTON) != 0))) {
                 spBC = TRUE;
-                snd_play_sfx(1);
+                sndPlaySfx(1);
                 break;
             }
             if ((arg1 != 0) && (demoButtonPress(0, A_BUTTON | START_BUTTON) != 0)) {
                 if ((((arg0 == 0) && (*arg4 < D_80350528)) || ((arg0 == 2) && (*arg4 < D_8035052C))) && (arg2[*arg4].unk43[0] != 0)) {
                     spC0 = TRUE;
-                    snd_play_sfx(0x6E);
+                    sndPlaySfx(0x6E);
                     break;
                 }
-                snd_play_sfx(1);
+                sndPlaySfx(1);
             }
 
             if (arg1 != 0) {
@@ -1680,7 +1680,7 @@ s32 func_8033DDD8(s32 arg0, Unk80373060* arg1, s32* arg2) {
         uvGfxBegin();
         uvGfxEnd();
         if (demoButtonPress(0, B_BUTTON) != 0) {
-            snd_play_sfx(1);
+            sndPlaySfx(1);
             sp2C = 1;
             break;
         } else if (demoButtonPress(0, L_CBUTTONS) != 0) {
@@ -1742,11 +1742,11 @@ void func_8033DFD0(s32 arg0, Unk80373060* arg1, s32 arg2) {
         uvGfxBegin();
         uvGfxEnd();
         if (demoButtonPress(0, B_BUTTON) != 0) {
-            snd_play_sfx(1);
+            sndPlaySfx(1);
             break;
         }
         if (demoButtonPress(0, A_BUTTON | START_BUTTON) != 0) {
-            snd_play_sfx(0x6E);
+            sndPlaySfx(0x6E);
             if (arg0 == 0) {
                 if (var_s2) {
                     D_80373060[arg2].unk43[0] = 0;
@@ -1794,7 +1794,7 @@ s32 func_8033E3A8(s32 arg0) {
     f32 spA4;
     f32 spA0;
     Mtx4F sp60;
-    Unk802D3658_Arg0* temp_s4;
+    Camera* temp_s4;
     s32 renderFlags;
     u8* ptr;
     u16 classIdx;
@@ -1804,7 +1804,7 @@ s32 func_8033E3A8(s32 arg0) {
     temp_s4 = D_80362690->unkC[D_80362690->unk9C].unk70;
     ptr = taskGet_80345CB0();
     D_80350550 = 0;
-    if ((D_80362690->unk0 != 7) && (ptr[1] == 1)) {
+    if ((D_80362690->state != GAME_STATE_OPTIONS) && (ptr[1] == 1)) {
         func_803405E4();
     }
     if (arg0 == 3) {
@@ -1994,7 +1994,7 @@ void func_8033E860(Unk8033F050** arg0) {
 void func_8033F050(s32 arg0) {
     Unk8033F050* var_s1;
     Unk8033F050 sp84;
-    Unk802D3658_Arg0* temp_s4;
+    Camera* temp_s4;
     Unk80362690_Unk0* var_v1;
     s32 i;
     s32 j;

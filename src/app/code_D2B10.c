@@ -1,17 +1,17 @@
 #include <uv_debug.h>
 #include <uv_graphics.h>
 #include <uv_geometry.h>
-#include "code_5A6A0.h"
+#include "camera.h"
 #include "code_D2B10.h"
 #include "hud.h"
 #include "splash.h"
 
-void func_8034B5E0(u8 arg0, Unk802D3658_Arg0* arg1) {
+void func_8034B5E0(u8 arg0, Camera* arg1) {
     func_802D3170(arg0, arg1);
     func_80204AB0(arg1->unk22C, 1, func_8034B6F8);
 }
 
-void func_8034B624(Unk802D3658_Arg0* arg0) {
+void func_8034B624(Camera* arg0) {
     func_802D3444(arg0);
     func_802D50D0(arg0);
     func_80204B34(arg0->unk22C, &arg0->unk108);

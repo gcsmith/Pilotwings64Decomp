@@ -25,11 +25,11 @@ typedef struct {
     PathAxis scpr;
     u8 inUse;
     u8 pad799[3];
-} Unk80373F10; // size = 0x79C
+} SPath; // size = 0x79C
 
-extern Unk80373F10 D_80373F10[6];
+static SPath sSpathData[6];
 
-f32 D_80350650[4][4] = {
+static f32 sSpathCoef[4][4] = {
     {  2.0f, -2.0f,  1.0f,  1.0f },
     { -3.0f,  3.0f, -2.0f, -1.0f },
     {  0.0f,  0.0f,  1.0f,  0.0f },
@@ -42,8 +42,8 @@ f32 spath_80340E7C(PathAxis*, f32, u32, f32, f32);
 
 s32 spathCreate(void) {
     s32 i;
-    for (i = 0; i < ARRAY_COUNT(D_80373F10); i++) {
-        if (D_80373F10[i].inUse == FALSE) {
+    for (i = 0; i < ARRAY_COUNT(sSpathData); i++) {
+        if (sSpathData[i].inUse == FALSE) {
             return i;
         }
     }
@@ -52,21 +52,21 @@ s32 spathCreate(void) {
 }
 
 s32 spathLoadFile(s32 userFile) {
-    Unk80373F10* spath;
+    SPath* spath;
     u32 tag;
-    s32 spathIdx;
+    s32 pathId;
     u32 size;
     s32 fileIdx;
     void* src;
 
-    spathIdx = spathCreate();
-    if (spathIdx == -1) {
+    pathId = spathCreate();
+    if (pathId == -1) {
         return -1;
     }
-    spath = &D_80373F10[spathIdx];
+
+    spath = &sSpathData[pathId];
     spath->inUse = TRUE;
     fileIdx = uvFileReadHeader(uvUserFileRead(userFile, MEM_ROM_OFFSET));
-
     while ((tag = uvFileReadBlock(fileIdx, &size, &src, 1)) != 0) {
         switch (tag) {
         case 'SCPX':
@@ -90,19 +90,19 @@ s32 spathLoadFile(s32 userFile) {
         }
     }
     uvFile_80223F30(fileIdx);
-    return spathIdx;
+    return pathId;
 }
 
-void spathFree(s32 idx) {
-    if (D_80373F10[idx].inUse != TRUE) {
-        _uvDebugPrintf("Spath: Freed unused path %d\n", idx);
+void spathFree(s32 pathId) {
+    if (sSpathData[pathId].inUse != TRUE) {
+        _uvDebugPrintf("Spath: Freed unused path %d\n", pathId);
         return;
     }
-    D_80373F10[idx].inUse = FALSE;
+    sSpathData[pathId].inUse = FALSE;
 }
 
-void spathUpdate2(Mtx4F* mtx, s32 pathId, f32 time, f32 scale, f32 arg4) {
-    Unk80373F10* spath;
+void spathScaleUpdate(Mtx4F* pose, s32 pathId, f32 time, f32 posScale, f32 timeScale) {
+    SPath* spath;
     f32 x;
     f32 y;
     f32 z;
@@ -116,14 +116,16 @@ void spathUpdate2(Mtx4F* mtx, s32 pathId, f32 time, f32 scale, f32 arg4) {
     u32 nextIdx;
     f32 sp40;
 
-    if ((pathId < 0) || (pathId >= ARRAY_COUNT(D_80373F10))) {
+    if ((pathId < 0) || (pathId >= ARRAY_COUNT(sSpathData))) {
         _uvDebugPrintf("spath_update: pathid invalid  <%d>\n");
         return;
     }
-    spath = &D_80373F10[pathId];
+    spath = &sSpathData[pathId];
 
     for (idx = 1; (u32)idx < spath->scpx.count && spath->scpx.v[idx].time < time; idx++) { }
 
+    // four indexes in this order: [(idx-2), (idx-1), idx, (idx+1)]
+    // idx is the index with time >= time requested
     nextIdx = idx + 1;
     if (nextIdx >= spath->scpx.count) {
         nextIdx = 0;
@@ -136,7 +138,7 @@ void spathUpdate2(Mtx4F* mtx, s32 pathId, f32 time, f32 scale, f32 arg4) {
     p1.y = spath->scpy.v[idx - 1].val - spath->scpy.v[prevIdx].val;
     p1.z = spath->scpz.v[idx - 1].val - spath->scpz.v[prevIdx].val;
     func_8034B2B0(&p1);
-    sp40 = FABS(spath->scpx.v[idx].time - spath->scpx.v[idx - 1].time) * 0.01f * arg4;
+    sp40 = FABS(spath->scpx.v[idx].time - spath->scpx.v[idx - 1].time) * 0.01f * timeScale;
     p1.x *= sp40;
     p1.y *= sp40;
     p1.z *= sp40;
@@ -149,17 +151,17 @@ void spathUpdate2(Mtx4F* mtx, s32 pathId, f32 time, f32 scale, f32 arg4) {
     p2.y *= sp40;
     p2.z *= sp40;
 
-    x = spath_80340E7C(&spath->scpx, time, idx, p1.x, p2.x) * scale;
-    y = spath_80340E7C(&spath->scpy, time, idx, p1.y, p2.y) * scale;
-    z = spath_80340E7C(&spath->scpz, time, idx, p1.z, p2.z) * scale;
+    x = spath_80340E7C(&spath->scpx, time, idx, p1.x, p2.x) * posScale;
+    y = spath_80340E7C(&spath->scpy, time, idx, p1.y, p2.y) * posScale;
+    z = spath_80340E7C(&spath->scpz, time, idx, p1.z, p2.z) * posScale;
     heading = spath_80340CB8(&spath->scph, time) * 0.01745329f;
     pitch = spath_80340CB8(&spath->scpp, time) * 0.01745329f;
     roll = spath_80340CB8(&spath->scpr, time) * 0.01745329f;
-    func_80313640(x, y, z, heading, pitch, roll, mtx);
+    func_80313640(x, y, z, heading, pitch, roll, pose);
 }
 
-void spathUpdate(Mtx4F* mtxOut, s32 pathId, f32 arg2, f32 arg3) {
-    Unk80373F10* spath;
+void spathUpdate(Mtx4F* pose, s32 pathId, f32 time, f32 posScale) {
+    SPath* spath;
     f32 x;
     f32 y;
     f32 z;
@@ -167,19 +169,19 @@ void spathUpdate(Mtx4F* mtxOut, s32 pathId, f32 arg2, f32 arg3) {
     f32 p;
     f32 r;
 
-    if ((pathId < 0) || (pathId >= ARRAY_COUNT(D_80373F10))) {
+    if ((pathId < 0) || (pathId >= ARRAY_COUNT(sSpathData))) {
         _uvDebugPrintf("spath_update: pathid invalid  <%d>\n", pathId);
         return;
     }
 
-    spath = &D_80373F10[pathId];
-    x = spath_80340CB8(&spath->scpx, arg2) * arg3;
-    y = spath_80340CB8(&spath->scpy, arg2) * arg3;
-    z = spath_80340CB8(&spath->scpz, arg2) * arg3;
-    h = spath_80340CB8(&spath->scph, arg2) * 0.01745329f;
-    p = spath_80340CB8(&spath->scpp, arg2) * 0.01745329f;
-    r = spath_80340CB8(&spath->scpr, arg2) * 0.01745329f;
-    func_80313640(x, y, z, h, p, r, mtxOut);
+    spath = &sSpathData[pathId];
+    x = spath_80340CB8(&spath->scpx, time) * posScale;
+    y = spath_80340CB8(&spath->scpy, time) * posScale;
+    z = spath_80340CB8(&spath->scpz, time) * posScale;
+    h = spath_80340CB8(&spath->scph, time) * 0.01745329f;
+    p = spath_80340CB8(&spath->scpp, time) * 0.01745329f;
+    r = spath_80340CB8(&spath->scpr, time) * 0.01745329f;
+    func_80313640(x, y, z, h, p, r, pose);
 }
 
 // some sort of cubic interpolation with only time input
@@ -220,10 +222,10 @@ f32 spath_80340CB8(PathAxis* path, f32 time) {
     tpow[1] = SQ(t1);
     tpow[0] = CUBE(t1);
 
-    for (i = 0; i < ARRAY_COUNT(D_80350650); i++) {
-        coef[i] = D_80350650[i][0] * sp50[0];
-        for (j = 1; j < ARRAY_COUNT(D_80350650[i]); j++) {
-            coef[i] += D_80350650[i][j] * sp50[j];
+    for (i = 0; i < ARRAY_COUNT(sSpathCoef); i++) {
+        coef[i] = sSpathCoef[i][0] * sp50[0];
+        for (j = 1; j < ARRAY_COUNT(sSpathCoef[i]); j++) {
+            coef[i] += sSpathCoef[i][j] * sp50[j];
         }
     }
     return (tpow[0] * coef[0]) + (tpow[1] * coef[1]) + (t1 * coef[2]) + (1 * coef[3]);
@@ -262,44 +264,44 @@ f32 spath_80340E7C(PathAxis* path, f32 time, u32 idx, f32 ptA, f32 ptB) {
     tpow[1] = SQ(t1);
     tpow[0] = CUBE(t1);
 
-    for (i = 0; i < ARRAY_COUNT(D_80350650); i++) {
-        coef[i] = D_80350650[i][0] * sp48[0];
-        for (j = 1; j < ARRAY_COUNT(D_80350650[i]); j++) {
-            coef[i] += D_80350650[i][j] * sp48[j];
+    for (i = 0; i < ARRAY_COUNT(sSpathCoef); i++) {
+        coef[i] = sSpathCoef[i][0] * sp48[0];
+        for (j = 1; j < ARRAY_COUNT(sSpathCoef[i]); j++) {
+            coef[i] += sSpathCoef[i][j] * sp48[j];
         }
     }
     return (tpow[0] * coef[0]) + (tpow[1] * coef[1]) + (t1 * coef[2]) + (1 * coef[3]);
 }
 
-void spath_80340FEC(Vec3F* vecOut, f32* angOut1, f32* angOut2, s32 pathId, f32 time) {
-    PathTimeVal* temp_t0;
+void spathInterpolate(Vec3F* vecOut, f32* angOut1, f32* angOut2, s32 pathId, f32 time) {
+    PathTimeVal* posAxis;
     PathTimeVal* valsPt;
     f32 dTime;
-    PathTimeVal* var_v0_2;
+    PathTimeVal* posVals;
     Vec3F spDC;
     Vec3F spD0;
     f32 spC0[4];
     f32 coef[4];
     f32 t[4];
     f32 dt[4];
-    Unk80373F10* temp_ra;
+    SPath* temp_ra;
     f32 sp88;
     f32 t1;
     s32 i, j, k;
     s32 idx;
     s32 pathCount;
-    PathTimeVal* var_v1;
-    PathAxis* sp68;
+    PathTimeVal* rotVals;
+    PathAxis* rotAxis;
     f32 len;
     f32 temp_fv1;
 
-    temp_ra = &D_80373F10[pathId];
+    temp_ra = &sSpathData[pathId];
     pathCount = temp_ra->scpx.count;
-    temp_t0 = temp_ra->scpx.v;
+    posAxis = temp_ra->scpx.v;
 
-    for (idx = 1; idx < pathCount && temp_t0[idx].time < time; idx++) { }
+    for (idx = 1; idx < pathCount && posAxis[idx].time < time; idx++) { }
 
-    valsPt = temp_t0;
+    valsPt = posAxis;
     valsPt += idx;
     dTime = (valsPt[0].time - valsPt[-1].time);
     t1 = (time - valsPt[-1].time) / dTime;
@@ -317,31 +319,31 @@ void spath_80340FEC(Vec3F* vecOut, f32* angOut1, f32* angOut2, s32 pathId, f32 t
     for (i = 0; i < 3; i++) {
         switch (i) {
         case 0:
-            sp68 = &temp_ra->scph;
+            rotAxis = &temp_ra->scph;
             break;
         case 1:
-            temp_t0 = temp_ra->scpy.v;
-            sp68 = &temp_ra->scpp;
+            posAxis = temp_ra->scpy.v;
+            rotAxis = &temp_ra->scpp;
             break;
         case 2:
-            temp_t0 = temp_ra->scpz.v;
-            sp68 = &temp_ra->scpr;
+            posAxis = temp_ra->scpz.v;
+            rotAxis = &temp_ra->scpr;
             break;
         default:
             break;
         }
-        var_v0_2 = temp_t0;
-        var_v0_2 += idx;
-        var_v1 = sp68->v + idx;
-        spC0[0] = var_v0_2[-1].val;
-        spC0[1] = var_v0_2->val;
-        spC0[2] = var_v1[-1].val * dTime;
-        spC0[3] = var_v1->val * dTime;
+        posVals = posAxis;
+        posVals += idx;
+        rotVals = rotAxis->v + idx;
+        spC0[0] = posVals[-1].val;
+        spC0[1] = posVals->val;
+        spC0[2] = rotVals[-1].val * dTime;
+        spC0[3] = rotVals->val * dTime;
 
-        for (j = 0; j < 4; j++) {
-            coef[j] = D_80350650[j][0] * spC0[0];
+        for (j = 0; j < ARRAY_COUNT(sSpathCoef); j++) {
+            coef[j] = sSpathCoef[j][0] * spC0[0];
             for (k = 1; k < 4; k++) {
-                coef[j] += D_80350650[j][k] * spC0[k];
+                coef[j] += sSpathCoef[j][k] * spC0[k];
             }
         }
 
