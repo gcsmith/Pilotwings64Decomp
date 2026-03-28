@@ -247,6 +247,9 @@ s32 totResultMenuChoose(void) {
 #if defined(__clang__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wsometimes-uninitialized"
+#elif defined(__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
 #endif
 void totResultDrawTally(void) {
     Unk80362690_Unk0* sp6C;
@@ -319,6 +322,6 @@ void totResultDrawTally(void) {
     menuInit();
     uvFontGenDlist();
 }
-#if defined(__clang__)
+#if defined(__GNUC__) || defined(__clang__)
 #pragma GCC diagnostic pop
 #endif

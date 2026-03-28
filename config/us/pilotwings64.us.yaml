@@ -475,7 +475,7 @@ segments:
       - [0xD4290, c, app/wind]
       - [0xD55B0, c, app/wind_objects]
 
-      - [0xD5C40, data] # app/code_51E30
+      - [0xD5C40, .data, app/code_51E30]
       - [0xD5D40, .data, app/balls]
       - [0xD5D50, .data, app/birdman2]
       - [0xD5F10, .data, app/camera]
@@ -635,7 +635,7 @@ segments:
       - [0xDE640, .rodata, app/wind]
       - [0xDE6B0, .rodata, app/wind_objects]
 
-      - { type: bss, vram: 0x803571F0, name: app/code_51E30 }
+      - { type: .bss, vram: 0x803571F0, name: app/code_51E30 }
       - { type: .bss, vram: 0x80357210, name: app/balls }
       - { type: .bss, vram: 0x80359390, name: app/birdman0 }
       - { type: .bss, vram: 0x803593F0, name: app/birdman2 }
