@@ -4,6 +4,13 @@
 #include <PR/ultratypes.h>
 #include <uv_dobj.h>
 
+typedef struct {
+    u32 unk0_0 : 1;
+    u32 animationIndex : 31;
+    f32 *unk4;
+    f32 *unk8;
+} Unk802CAC48;
+
 typedef struct Unk8034E788 {
     u32 unk0_0 : 1;
     u32 animationIndex : 31;

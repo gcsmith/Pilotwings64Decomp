@@ -863,3 +863,8 @@ sWindObjectsInLevel       = 0x8037F914;
 sWindObjects              = 0x8037F918;
 
 sSmokeObjects             = 0x80371E60; // size:0x1200
+
+gEnvSoundEventCb          = 0x80359DC0; // size:0x8
+gEnvSoundState            = 0x80359DC8; // size:0x804
+gEnvSoundFutureTime       = 0x8035A5CC;
+gEnvSoundStateCount       = 0x8035A5D0; // size:0x20

@@ -487,7 +487,7 @@ segments:
       - [0xD6410, .data, app/environment]
       - [0xD6450, .data, app/env_sound]
       - [0xD64D0, .data, app/falco]
-      - [0xD6540, data] # also part of app/falco
+      - [0xD65D0, .data, app/fdr]
       - [0xD65F0, .data, app/ferry]
       - [0xD6610, .data, app/file_menu]
       - [0xD6650, .data, app/fire_effects]

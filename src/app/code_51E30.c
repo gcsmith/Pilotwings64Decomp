@@ -2,13 +2,6 @@
 #include "code_51E30.h"
 #include <uv_janim.h>
 
-typedef struct {
-    u32 unk0_0 : 1;
-    u32 animationIndex : 31;
-    f32 *unk4;
-    f32 *unk8;
-} Unk802CAC48;
-
 // .bss
 f32 D_803571F0;
 f32 D_803571F4;

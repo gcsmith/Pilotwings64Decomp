@@ -1,6 +1,11 @@
 #include "common.h"
-
 #include "fdr.h"
+
+s32 D_8034F0A0 = 0;
+s32 D_8034F0A4 = 0;
+s32 D_8034F0A8 = 0;
+s32 D_8034F0AC = 0;
+f32 pad_D_8034F0B0 = 1.0f;
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/fdr/fdrInit.s")
 

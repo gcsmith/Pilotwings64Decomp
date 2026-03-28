@@ -84,12 +84,6 @@ typedef struct {
 } Falco; // size = 0x258
 
 typedef struct {
-    s32 unk0;
-    void* unk4; // maybe f32 pointer
-    s32 unk8;   // always 0, maybe a pointer to something?
-} Unk8034EFB0;
-
-typedef struct {
     Vec3F unk0;
     f32 unkC;
 } Unk8035A858;
@@ -99,12 +93,14 @@ typedef struct {
     u8 pad4[0x60 - 0x4];
 } Unk8035A920; // size = 0x60
 
-// .data
-f32 D_8034EFA0 = 0.0f;
-s32 padD_8034EFA4[3] = { 0 };
-
+// .bss
+extern s32 D_8035A5F0;
+extern Falco gFalcos[1];
+extern Unk8035A858 D_8035A858[12];
+extern s32 gFalcoCount;
+extern s32 D_8035A918;
+extern Unk8035A920 D_8035A920[16];
 extern TaskFALC* gRefFALC;
-
 extern f32 D_8035AF30;
 extern f32 D_8035AF34;
 extern f32 D_8035AF38;
@@ -117,23 +113,27 @@ extern f32 D_8035AF50;
 extern f32 D_8035AF54;
 extern f32 D_8035AF58;
 
-// referenced in D_8034F03C
-Unk8034EFB0 D_8034EFB0 = { 0xA, &D_8035AF30, 0 };
-Unk8034EFB0 D_8034EFBC = { 0x5, &D_8035AF34, 0 };
-Unk8034EFB0 D_8034EFC8 = { 0x6, &D_8035AF30, 0 };
-Unk8034EFB0 D_8034EFD4 = { 0x9, &D_8035AF38, 0 };
-Unk8034EFB0 D_8034EFE0 = { 0x8, &D_8035AF3C, 0 };
-Unk8034EFB0 D_8034EFEC = { 0x7, &D_8035AF3C, 0 };
-Unk8034EFB0 D_8034EFF8 = { 0x4, &D_8035AF3C, 0 };
-Unk8034EFB0 D_8034EF04 = { 0x3, &D_8035AF3C, 0 };
-extern s32 D_8034F09C;
-
-// .bss
-extern Falco gFalcos[1];
-extern s32 gFalcoCount;
-extern Unk8035A858 D_8035A858[];
-extern s32 D_8035A918;
-extern Unk8035A920 D_8035A920[16];
+// .data
+f32 D_8034EFA0 = 0.0f;
+s32 padD_8034EFA4[3] = { 0 };
+Unk802CAC48 D_8034EFB0 = { 0, 10, &D_8035AF30, NULL };
+Unk802CAC48 D_8034EFBC = { 0, 5, &D_8035AF34, NULL };
+Unk802CAC48 D_8034EFC8 = { 0, 6, &D_8035AF30, NULL };
+Unk802CAC48 D_8034EFD4 = { 0, 9, &D_8035AF38, NULL };
+Unk802CAC48 D_8034EFE0 = { 0, 8, &D_8035AF3C, NULL };
+Unk802CAC48 D_8034EFEC = { 0, 7, &D_8035AF3C, NULL };
+Unk802CAC48 D_8034EFF8 = { 0, 4, &D_8035AF3C, NULL };
+Unk802CAC48 D_8034EF04 = { 0, 3, &D_8035AF3C, NULL };
+Unk802CAC48 D_8034F010 = { 0, 1, &D_8035AF3C, NULL };
+Unk8034E788 D_8034F01C = { 1, 0, &D_8035AF40, &D_8034EFE0, &D_8034EFEC };
+Unk8034E788 D_8034F02C = { 1, 0, &D_8035AF40, &D_8034EFF8, &D_8034EF04 };
+Unk8034E788 D_8034F03C = { 1, 0, &D_8035AF44, &D_8034EFBC, &D_8034EFB0 };
+Unk8034E788 D_8034F04C = { 1, 0, &D_8035AF48, &D_8034EFC8, &D_8034EFD4 };
+Unk8034E788 D_8034F05C = { 1, 0, &D_8035AF4C, &D_8034F01C, &D_8034F02C };
+Unk8034E788 D_8034F06C = { 1, 0, &D_8035AF50, &D_8034F05C, &D_8034F03C };
+Unk8034E788 D_8034F07C = { 1, 0, &D_8035AF54, &D_8034F06C, &D_8034F04C };
+Unk8034E788 D_8034F08C = { 1, 0, &D_8035AF58, &D_8034F07C, &D_8034F010 };
+Unk8034E788 *D_8034F09C = &D_8034F08C;
 
 // forward declarations
 void falco_802E38F0(Falco*, TaskFALC*);
