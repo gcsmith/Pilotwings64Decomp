@@ -93,7 +93,7 @@ void cannonLoadLevel(u8 arg0, u8 pilot, CannonballData* arg2, Camera* arg3) {
     arg2->unk293 = 0;
     arg2->unk4 = 2;
     func_802D9430(arg2);
-    func_802D9CB0(arg2);
+    cbSoundInit(arg2);
 }
 
 // cannonLevelEnterLeave is invoked when loading and exiting cannonball level
@@ -313,9 +313,9 @@ void cannonMovementFrame(CannonballData* arg0, u8 gameState) {
         arg0->unkB0->unk6 = arg0->unk2;
         arg0->unkB0->unk78 = arg0->unkCC;
         arg0->unkB0->unk7C = arg0->unkD0;
-        arg0->unkB0->unk204.x = arg0->unk1C4;
-        arg0->unkB0->unk204.y = arg0->unk1C8;
-        arg0->unkB0->unk204.z = arg0->unk1CC;
+        arg0->unkB0->unk204.x = arg0->unk1C4.x;
+        arg0->unkB0->unk204.y = arg0->unk1C4.y;
+        arg0->unkB0->unk204.z = arg0->unk1C4.z;
         arg0->unkB0->unk228 = arg0->unk120;
         uvMat4Copy(&arg0->unkB0->unk80, sp2C);
         func_802D5884(arg0->unkB0, arg0->unkB4);
@@ -337,7 +337,7 @@ void cannonMovementFrame(CannonballData* arg0, u8 gameState) {
         hud->att.heading = arg0->unk14.m[3][2];
         hud->elapsedTime = arg0->unk8;
         hud->power = arg0->unkA4;
-        hud->unk8C = arg0->unk1CC * 4.0f * 0.7f;
+        hud->unk8C = arg0->unk1C4.z * 4.0f * 0.7f;
         hud->altitude = arg0->unk120 * 0.7f;
         hud->altSeaLevel = arg0->unk14.m[3][2] * 0.7f;
         hud->speed = arg0->unk1D0 * 3.6f * 0.7f;
@@ -509,9 +509,9 @@ void cannonPilotLand(CannonballData* arg0) {
         D_80359AB0.x = arg0->unkB0->unk108.m[3][0];
         D_80359AB0.y = arg0->unkB0->unk108.m[3][1];
         D_80359AB0.z = arg0->unkB0->unk108.m[3][2];
-        D_80359AC0.x = arg0->unk14.m[3][0] + (arg0->unk12C * 100.0f);
-        D_80359AC0.y = arg0->unk14.m[3][1] + (arg0->unk130 * 100.0f);
-        D_80359AC0.z = arg0->unk14.m[3][2] + (arg0->unk134 * 100.0f);
+        D_80359AC0.x = arg0->unk14.m[3][0] + (arg0->unk12C.x * 100.0f);
+        D_80359AC0.y = arg0->unk14.m[3][1] + (arg0->unk12C.y * 100.0f);
+        D_80359AC0.z = arg0->unk14.m[3][2] + (arg0->unk12C.z * 100.0f);
         D_8034E9FC = 0;
     }
     arg0->unkB4 = 5;
@@ -543,24 +543,12 @@ void cannonPilotLand(CannonballData* arg0) {
 void cannonLoadPilot(u8 pilot, CannonballData* arg1) {
     switch (pilot) {
     case PILOT_LARK:
-        arg1->unk224 = -0.025f;
-        arg1->unk228 = 0.097f;
-        arg1->unk22C = 0.675f;
-        arg1->unk234 = 0.0f;
-        arg1->unk230 = 0.0f;
-        arg1->unk238 = -0.745f;
-        arg1->unk23C = -0.027f;
-        arg1->unk240 = 0.442f;
-        arg1->unk244 = 0.012f;
-        arg1->unk248 = -0.024f;
-        arg1->unk24C = -0.27f;
-        arg1->unk250 = 0.101f;
-        arg1->unk254 = -0.54f;
-        arg1->unk258 = -0.156f;
-        arg1->unk25C = 0.105f;
-        arg1->unk260 = 0.486f;
-        arg1->unk264 = -0.156f;
-        arg1->unk268 = 0.105f;
+        arg1->unk224.x = -0.025f, arg1->unk224.y = 0.097f, arg1->unk224.z = 0.675f;
+        arg1->unk230.x = 0.0f, arg1->unk230.y = 0.0f, arg1->unk230.z = -0.745f;
+        arg1->unk23C.x = -0.027f, arg1->unk23C.y = 0.442f, arg1->unk23C.z = 0.012f;
+        arg1->unk248.x = -0.024f, arg1->unk248.y = -0.27f, arg1->unk248.z = 0.101f;
+        arg1->unk254.x = -0.54f, arg1->unk254.y = -0.156f, arg1->unk254.z = 0.105f;
+        arg1->unk260.x = 0.486f, arg1->unk260.y = -0.156f, arg1->unk260.z = 0.105f;
         arg1->unk26C = -0.025f;
         arg1->unk270 = 0.307f;
         arg1->unk274 = 0.478f;
@@ -583,24 +571,12 @@ void cannonLoadPilot(u8 pilot, CannonballData* arg1) {
         arg1->unk284 = 0x3E;
         break;
     case PILOT_GOOSE:
-        arg1->unk224 = -0.001f;
-        arg1->unk228 = 0.172f;
-        arg1->unk22C = 0.782f;
-        arg1->unk234 = 0.0f;
-        arg1->unk230 = 0.0f;
-        arg1->unk238 = -1.336f;
-        arg1->unk23C = 0.001f;
-        arg1->unk240 = 0.647f;
-        arg1->unk244 = -0.002f;
-        arg1->unk248 = -0.001f;
-        arg1->unk24C = -0.341f;
-        arg1->unk250 = 0.19f;
-        arg1->unk254 = -0.722f;
-        arg1->unk258 = -0.178f;
-        arg1->unk25C = 0.148f;
-        arg1->unk260 = 0.73f;
-        arg1->unk264 = -0.178f;
-        arg1->unk268 = 0.148f;
+        arg1->unk224.x = -0.001f, arg1->unk224.y = 0.172f, arg1->unk224.z = 0.782f;
+        arg1->unk230.x = 0.0f, arg1->unk230.y = 0.0f, arg1->unk230.z = -1.336f;
+        arg1->unk23C.x = 0.001f, arg1->unk23C.y = 0.647f, arg1->unk23C.z = -0.002f;
+        arg1->unk248.x = -0.001f, arg1->unk248.y = -0.341f, arg1->unk248.z = 0.19f;
+        arg1->unk254.x = -0.722f, arg1->unk254.y = -0.178f, arg1->unk254.z = 0.148f;
+        arg1->unk260.x = 0.73f, arg1->unk260.y = -0.178f, arg1->unk260.z = 0.148f;
         arg1->unk26C = 0.0f;
         arg1->unk270 = 0.315f;
         arg1->unk274 = 0.603f;
@@ -623,24 +599,12 @@ void cannonLoadPilot(u8 pilot, CannonballData* arg1) {
         arg1->unk284 = 0x3F;
         break;
     case PILOT_HAWK:
-        arg1->unk224 = 0.003f;
-        arg1->unk228 = 0.187f;
-        arg1->unk22C = 0.634f;
-        arg1->unk234 = 0.0f;
-        arg1->unk230 = 0.0f;
-        arg1->unk238 = -1.221f;
-        arg1->unk23C = -0.01f;
-        arg1->unk240 = 0.698f;
-        arg1->unk244 = -0.013f;
-        arg1->unk248 = -0.004f;
-        arg1->unk24C = -0.43f;
-        arg1->unk250 = -0.117f;
-        arg1->unk254 = -0.819f;
-        arg1->unk258 = -0.245f;
-        arg1->unk25C = 0.069f;
-        arg1->unk260 = 0.837f;
-        arg1->unk264 = -0.245f;
-        arg1->unk268 = 0.069f;
+        arg1->unk224.x = 0.003f, arg1->unk224.y = 0.187f, arg1->unk224.z = 0.634f;
+        arg1->unk230.x = 0.0f, arg1->unk230.y = 0.0f, arg1->unk230.z = -1.221f;
+        arg1->unk23C.x = -0.01f, arg1->unk23C.y = 0.698f, arg1->unk23C.z = -0.013f;
+        arg1->unk248.x = -0.004f, arg1->unk248.y = -0.43f, arg1->unk248.z = -0.117f;
+        arg1->unk254.x = -0.819f, arg1->unk254.y = -0.245f, arg1->unk254.z = 0.069f;
+        arg1->unk260.x = 0.837f, arg1->unk260.y = -0.245f, arg1->unk260.z = 0.069f;
         arg1->unk26C = 0.002f;
         arg1->unk270 = 0.325f;
         arg1->unk274 = 0.52f;
@@ -663,24 +627,12 @@ void cannonLoadPilot(u8 pilot, CannonballData* arg1) {
         arg1->unk284 = 0x40;
         break;
     case PILOT_KIWI:
-        arg1->unk224 = 0.002f;
-        arg1->unk228 = 0.084f;
-        arg1->unk22C = 0.706f;
-        arg1->unk234 = 0.0f;
-        arg1->unk230 = 0.0f;
-        arg1->unk238 = -0.828f;
-        arg1->unk23C = 0.0f;
-        arg1->unk240 = 0.426f;
-        arg1->unk244 = 0.03f;
-        arg1->unk248 = 0.0f;
-        arg1->unk24C = -0.261f;
-        arg1->unk250 = 0.107f;
-        arg1->unk254 = -0.479f;
-        arg1->unk258 = -0.153f;
-        arg1->unk25C = 0.079f;
-        arg1->unk260 = 0.489f;
-        arg1->unk264 = -0.153f;
-        arg1->unk268 = 0.079f;
+        arg1->unk224.x = 0.002f, arg1->unk224.y = 0.084f, arg1->unk224.z = 0.706f;
+        arg1->unk230.x = 0.0f, arg1->unk230.y = 0.0f, arg1->unk230.z = -0.828f;
+        arg1->unk23C.x = 0.0f, arg1->unk23C.y = 0.426f, arg1->unk23C.z = 0.03f;
+        arg1->unk248.x = 0.0f, arg1->unk248.y = -0.261f, arg1->unk248.z = 0.107f;
+        arg1->unk254.x = -0.479f, arg1->unk254.y = -0.153f, arg1->unk254.z = 0.079f;
+        arg1->unk260.x = 0.489f, arg1->unk260.y = -0.153f, arg1->unk260.z = 0.079f;
         arg1->unk26C = 0.002f;
         arg1->unk270 = 0.308f;
         arg1->unk274 = 0.473f;
@@ -703,24 +655,12 @@ void cannonLoadPilot(u8 pilot, CannonballData* arg1) {
         arg1->unk284 = 0x41;
         break;
     case PILOT_IBIS:
-        arg1->unk224 = -0.002f;
-        arg1->unk228 = 0.085f;
-        arg1->unk22C = 0.799f;
-        arg1->unk234 = 0.0f;
-        arg1->unk230 = 0; // float, but needs other zero literal to match
-        arg1->unk238 = -1.36f;
-        arg1->unk23C = 0.0f;
-        arg1->unk240 = 0.586f;
-        arg1->unk244 = -0.034f;
-        arg1->unk248 = 0.0f;
-        arg1->unk24C = -0.314f;
-        arg1->unk250 = 0.091f;
-        arg1->unk254 = -0.666f;
-        arg1->unk258 = -0.164f;
-        arg1->unk25C = 0.141f;
-        arg1->unk260 = 0.678f;
-        arg1->unk264 = -0.164f;
-        arg1->unk268 = 0.141f;
+        arg1->unk224.x = -0.002f, arg1->unk224.y = 0.085f, arg1->unk224.z = 0.799f;
+        arg1->unk230.x = 0, arg1->unk230.y = 0.0f, arg1->unk230.z = -1.36f;
+        arg1->unk23C.x = 0.0f, arg1->unk23C.y = 0.586f, arg1->unk23C.z = -0.034f;
+        arg1->unk248.x = 0.0f, arg1->unk248.y = -0.314f, arg1->unk248.z = 0.091f;
+        arg1->unk254.x = -0.666f, arg1->unk254.y = -0.164f, arg1->unk254.z = 0.141f;
+        arg1->unk260.x = 0.678f, arg1->unk260.y = -0.164f, arg1->unk260.z = 0.141f;
         arg1->unk26C = 0.0f;
         arg1->unk270 = 0.212f;
         arg1->unk274 = 0.599f;
@@ -743,24 +683,12 @@ void cannonLoadPilot(u8 pilot, CannonballData* arg1) {
         arg1->unk284 = 0x42;
         break;
     case PILOT_ROBIN:
-        arg1->unk224 = -0.001f;
-        arg1->unk228 = 0.095f;
-        arg1->unk22C = 0.844f;
-        arg1->unk234 = 0.0f;
-        arg1->unk230 = 0.0f;
-        arg1->unk238 = -1.076f;
-        arg1->unk23C = 0.0f;
-        arg1->unk240 = 0.563f;
-        arg1->unk244 = -0.018f;
-        arg1->unk248 = 0.0f;
-        arg1->unk24C = -0.433f;
-        arg1->unk250 = 0.155f;
-        arg1->unk254 = -0.737f;
-        arg1->unk258 = -0.266f;
-        arg1->unk25C = 0.112f;
-        arg1->unk260 = 0.751f;
-        arg1->unk264 = -0.266f;
-        arg1->unk268 = 0.112f;
+        arg1->unk224.x = -0.001f, arg1->unk224.y = 0.095f, arg1->unk224.z = 0.844f;
+        arg1->unk230.x = 0.0f, arg1->unk230.y = 0.0f, arg1->unk230.z = -1.076f;
+        arg1->unk23C.x = 0.0f, arg1->unk23C.y = 0.563f, arg1->unk23C.z = -0.018f;
+        arg1->unk248.x = 0.0f, arg1->unk248.y = -0.433f, arg1->unk248.z = 0.155f;
+        arg1->unk254.x = -0.737f, arg1->unk254.y = -0.266f, arg1->unk254.z = 0.112f;
+        arg1->unk260.x = 0.751f, arg1->unk260.y = -0.266f, arg1->unk260.z = 0.112f;
         arg1->unk26C = 0.0f;
         arg1->unk270 = 0.217f;
         arg1->unk274 = 0.621f;
