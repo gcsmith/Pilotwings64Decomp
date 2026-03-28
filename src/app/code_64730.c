@@ -1,5 +1,6 @@
 #include "common.h"
 #include "task.h"
+#include "code_64730.h"
 #include <uv_dobj.h>
 
 s8 D_8034EDA0 = 0;
@@ -31,7 +32,7 @@ s16 D_8034EE30[VEHICLE_COUNT][PILOT_COUNT] = {
     {          MODEL_BIRDMAN_LARK,          MODEL_BIRDMAN_GOOSE,          MODEL_BIRDMAN_HAWK,          MODEL_BIRDMAN_KIWI,          MODEL_BIRDMAN_IBIS,   MODEL_BIRDMAN_ROBIN },
 };
 
-u8 D_8034EE84[] = {
+u8 D_8034EE84[8] = {
     0x4C, 0x4D, 0x4B, 0x51, 0x50, 0x4F, 0x4E, 0x00,
 };
 
