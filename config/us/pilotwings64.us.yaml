@@ -535,7 +535,6 @@ segments:
       - [0xD7BD0, .data, app/targets]
       - [0xD7CC0, .data, app/task]
       - [0xD7D20, .data, app/thermals]
-      - [0xD7D30, data]
       - [0xD7E10, .data, app/total_results]
       - [0xD7EA0, .data, app/test_menu]
       - [0xD7EF0, .data, app/whale]
