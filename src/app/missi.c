@@ -11,75 +11,66 @@
 #include "snd.h"
 #include "task.h"
 
-// TODO: variables can be made static once file is matched
-s32 sMissiObjId = 0xFFFF;
-s32 sMissiRadarIdLS = 0xFF;
-s32 sMissiProxIdLS = 0;
-f32 sMissiInterval = 180.0f;
-f32 sMissiDepth = 0.0f;
-s32 sMissiActive = FALSE;
-s32 sMissiStateLoaded = TRUE;
-s32 sMissiSoundPlayed = FALSE;
-Vec3F sMissiInitPosLS = { 1725.0f, -659.0f, 28.0f };
-s32 padD_8034F88C = 0;
-s32 sMissiRadarIdEF = 0xFF;
-s32 sMissiProximity = 0;
-Vec3F sMissiInitPosEF = { -368.0f, 648.0f, 106.0f };
+static s32 sMissiObjId = 0xFFFF;
+static s32 sMissiRadarIdLS = 0xFF;
+static s32 sMissiProxIdLS = 0;
+static f32 sMissiInterval = 180.0f;
+static f32 sMissiDepth = 0.0f;
+static s32 sMissiActive = FALSE;
+static s32 sMissiStateLoaded = TRUE;
+static s32 sMissiSoundPlayed = FALSE;
+static Vec3F sMissiInitPosLS = { 1725.0f, -659.0f, 28.0f };
+static s32 padD_8034F88C = 0;
+static s32 sMissiRadarIdEF = 0xFF;
+static s32 sMissiProximity = 0;
+static Vec3F sMissiInitPosEF = { -368.0f, 648.0f, 106.0f };
 
-Mtx4F sMissiAdjustment;
-Mtx4F sMissiTranslate;
-Mtx4F sMissiPose;
-f32 sMissiState; //! #bug this state should be s32
-f32 sMissiDepthCopy;
-f32 sMissiIntervalCopy;
-s32 sMissiStateCopy;
-s32 sMissiProxIdEF;
-s32 sMissiSeqId;
-s32 sMissiFxId;
+static Mtx4F sMissiAdjustment;
+static Mtx4F sMissiTranslate;
+static Mtx4F sMissiPose;
+static f32 sMissiState; //! @bug this state should be s32
+static f32 sMissiDepthCopy;
+static f32 sMissiIntervalCopy;
+static s32 sMissiStateCopy;
+static s32 sMissiProxIdEF;
+static s32 sMissiSeqId;
+static s32 sMissiFxId;
 
 s32 missiIsActive(void) {
     return sMissiActive;
 }
 
-#ifndef NON_MATCHING
-void missiUpdatePos(void);
-#pragma GLOBAL_ASM("asm/nonmatchings/app/missi/missiUpdatePos.s")
-#else
 STATIC_FUNC void missiUpdatePos(void) {
-    Mtx4F spF0;
-    Mtx4F spB0;
-    Mtx4F sp70;
-    Mtx4F sp30;
-    f32 offset;
+    Mtx4F depthMtx;
+    Mtx4F adjMtx;
+    Mtx4F pathMtx;
+    Mtx4F depthAdjMtx;
+    f32 depthOffset;
     s32 tmpDiv;
-    f32 var_fv0;
+    f32 depth;
     s32 temp_hi;
     s32 tmpInt;
 
-    uvMat4SetIdentity(&sp70);
-    uvMat4RotateAxis(&sp70, sMissiInterval * 0.01745329f, 'z');
-    uvMat4Mul(&spB0, &sMissiAdjustment, &sp70);
-    var_fv0 = 30 + sMissiInterval;
-    if (1) { }
-    tmpInt = var_fv0;
-    temp_hi = tmpInt % 30;
-    tmpDiv = (s32)(var_fv0 / 30.0f);
+    uvMat4SetIdentity(&pathMtx);
+    uvMat4RotateAxis(&pathMtx, sMissiInterval * 0.01745329f, 'z');
+    uvMat4Mul(&adjMtx, &sMissiAdjustment, &pathMtx);
+    tmpDiv = (s32)((sMissiInterval + 30.0f) / 30);
+    temp_hi = (s32)(sMissiInterval + 30.0f) % 30;
     if (tmpDiv % 2) {
-        var_fv0 = (30.0f - temp_hi) / 30.0f;
+        depth = (30.0f - temp_hi) / 30.0f;
     } else {
-        var_fv0 = temp_hi / 30.0f;
+        depth = temp_hi / 30.0f;
     }
-    offset = 2.0f * var_fv0;
-    uvMat4SetIdentity(&spF0);
-    uvMat4LocalTranslate(&spF0, 0.0f, 0.0f, sMissiDepth + offset);
-    uvMat4Mul(&sp30, &spB0, &spF0);
-    uvMat4Mul(&sMissiPose, &sp30, &sMissiTranslate);
+    depthOffset = 2.0f * depth;
+    uvMat4SetIdentity(&depthMtx);
+    uvMat4LocalTranslate(&depthMtx, 0.0f, 0.0f, sMissiDepth + depthOffset);
+    uvMat4Mul(&depthAdjMtx, &adjMtx, &depthMtx);
+    uvMat4Mul(&sMissiPose, &depthAdjMtx, &sMissiTranslate);
     uvDobjPosm(sMissiObjId, 0, &sMissiPose);
-    if (sMissiRadarId != 0xFF) {
-        hudMoveWaypoint(sMissiRadarId, sMissiPose.m[3][0], sMissiPose.m[3][1], sMissiPose.m[3][2]);
+    if (sMissiRadarIdLS != 0xFF) {
+        hudMoveWaypoint(sMissiRadarIdLS, sMissiPose.m[3][0], sMissiPose.m[3][1], sMissiPose.m[3][2]);
     }
 }
-#endif
 
 STATIC_FUNC void missiUpdate(void) {
     if (sMissiState == 1.0f) {
