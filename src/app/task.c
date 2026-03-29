@@ -11,7 +11,6 @@
 #include "code_72910.h"
 #include "code_82520.h"
 #include "code_9A960.h"
-#include "code_9C080.h"
 #include "code_B2900.h"
 #include "env_sound.h"
 #include "environment.h"
@@ -24,10 +23,12 @@
 #include "jumble_hopper.h"
 #include "level.h"
 #include "mem.h"
+#include "missi.h"
 #include "pads.h"
 #include "planes.h"
 #include "rings.h"
 #include "shadow.h"
+#include "shuttle.h"
 #include "skydiving.h"
 #include "snap.h"
 #include "snd.h"
@@ -98,9 +99,9 @@ void taskInit(void) {
     shuttleInit();
     ferryInit();
     fountainInit();
-    func_80315474();
+    missiInit();
     whaleInit();
-    func_80315550();
+    missiInitState();
     gliderToyInit();
     boatsInit();
     planesInit();
@@ -266,8 +267,8 @@ s32 taskInitTest(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* terraId,
     ferryInit();
     fountainInit();
     shuttleInit();
-    func_80315474();
-    func_80315550();
+    missiInit();
+    missiInitState();
     whaleInit();
     gliderToyInit();
     boatsInit();

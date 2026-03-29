@@ -196,7 +196,7 @@ void func_802DA6E0(Unk80362690* arg0, s32 pilot) {
 
 void func_802DA9E0(void) {
     uvEventPost(0xD, 0);
-    uvDobjModel(D_8034EA44, 0xFFFF);
+    uvDobjModel(D_8034EA44, MODEL_WORLD);
     D_8034EA44 = 0xFFFF;
     level_8030BA60();
     uvLevelInit();
