@@ -1,8 +1,8 @@
 #include "common.h"
 #include <uv_font.h>
 #include <uv_graphics.h>
-#include <uv_level.h>
 #include <uv_memory.h>
+#include <uv_texture.h>
 #include <uv_util.h>
 #include "code_B2900.h"
 #include "credits.h"
@@ -18,8 +18,8 @@ typedef union {
     u8 raw[0x100];
 } PilotwingsSaveFile;
 
-extern PilotwingsSaveFile D_803620E0[2];
-extern PilotwingsSaveFile D_803622E0[2];
+PilotwingsSaveFile D_803620E0[2];
+PilotwingsSaveFile D_803622E0[2];
 
 void saveBitScramble(u8* data, s32* bitOffset, s32 bits, s32 bitCount) {
     u8* bytePtr;
@@ -55,24 +55,15 @@ void saveFatalError(char* msg) {
     }
 }
 
-#ifndef NON_MATCHING
-#pragma GLOBAL_ASM("asm/nonmatchings/app/save/saveFileInit.s")
-#else
 s32 saveFileInit(s32 fileIdx) {
     uvMemSet(D_803620E0[fileIdx].raw, 0, sizeof(PilotwingsSaveFile));
 
-    /* i don't even know. this *should* be something more like:
-    D_803620E0[fileIdx].magic[0] = 'p';
-    D_803620E0[fileIdx].magic[1] = 'w';
-    */
-
-    D_803620E0[0].raw[fileIdx * sizeof(PilotwingsSaveFile) + 0] = 'p';
-    D_803620E0[0].raw[fileIdx * sizeof(PilotwingsSaveFile) + 1] = 'w';
+    D_803620E0[(u32)fileIdx].magic[0] = 'p';
+    D_803620E0[(u32)fileIdx].magic[1] = 'w';
 
     // cast sizeof to int/u16 to match?
     return uvFileWrite(D_803620E0[fileIdx].raw, fileIdx * (int)sizeof(PilotwingsSaveFile), sizeof(PilotwingsSaveFile)) != sizeof(PilotwingsSaveFile);
 }
-#endif
 
 void saveModuleInit(void) {
     if (uvFileRead(D_803620E0, 0, sizeof(D_803620E0)) != sizeof(D_803620E0)) {

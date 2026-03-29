@@ -75,13 +75,10 @@ void func_80313E0C(f32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_9A960/func_80313FD0.s")
 
 s32 func_80314114(s32 arg0, s32 arg1, s32 arg2) {
-    s32 temp_v0;
-
-    temp_v0 = arg1 & arg2;
-    if ((temp_v0 != 0) && !(arg0 & arg2)) {
+    if ((arg1 & arg2) && !(arg0 & arg2)) {
         return 1;
     }
-    if ((temp_v0 == 0) && (arg0 & arg2)) {
+    if (!(arg1 & arg2) && (arg0 & arg2)) {
         return -1;
     }
     return 0;

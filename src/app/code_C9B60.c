@@ -61,15 +61,15 @@ Unk80378CE0* D_80378CE0;
 f32 D_80378CE4;
 
 // forward decls
-static void func_803427FC(void);
-static void func_80343294(void);
-static s32 func_80343550(void);
-static void introSceneRunner(void);
-static void func_803433A4(void);
-static void func_80343B5C(void);
-static void func_80343C44(void);
-static void func_80343E84(void);
-static void func_8034411C(void);
+STATIC_FUNC void func_803427FC(void);
+STATIC_FUNC void func_80343294(void);
+STATIC_FUNC s32 func_80343550(void);
+STATIC_FUNC void introSceneRunner(void);
+STATIC_FUNC void func_803433A4(void);
+STATIC_FUNC void func_80343B5C(void);
+STATIC_FUNC void func_80343C44(void);
+STATIC_FUNC void func_80343E84(void);
+STATIC_FUNC void func_8034411C(void);
 
 s32 func_80342630(void) {
     f32 var_fs0;
@@ -111,7 +111,7 @@ s32 func_80342630(void) {
     return var_s1;
 }
 
-static void func_803427FC(void) {
+STATIC_FUNC void func_803427FC(void) {
     Mtx4F sp58;
     Unk802D3658_Arg0* sp54;
     s32 var_v0;
@@ -121,23 +121,23 @@ static void func_803427FC(void) {
     uvSprtProps(1, 3, 1, 2, 0x21, 0x96, 9, 9, 0xA, 0, 0xB, 1, 0);
     uvSprtProps(3, 3, 1, 2, 0x11B, 0xD5, 9, 0xA, 0);
     uvSprtProps(4, 3, 1, 2, 0x21, 0x1E, 9, 0x1E, 0);
-    sp54 = D_80362690->unk0[D_80362690->unk9C].unkC.unk70;
+    sp54 = D_80362690->unkC[D_80362690->unk9C].unk70;
     func_80204BD4(sp54->unk22C, 1, 1.0f);
     func_80204A8C(sp54->unk22C, 1);
     uvChanEnv(sp54->unk22C, 0x17);
     func_80204C94(sp54->unk22C, -0.7009346f, 0.7009346f, -0.5f, 0.5f, 1.0f, 4000.0f);
     func_80204AB0(sp54->unk22C, 1, func_8034B6F8);
-    D_80378CE0->unk14 = func_80340668(0x43);
-    D_80378CE0->unk18 = func_80340668(0x44);
-    D_80378CE0->unk1C = func_80340668(0x45);
-    D_80378CE0->unk20 = func_80340668(0x46);
-    D_80378CE0->unk24 = func_80340668(0x47);
+    D_80378CE0->unk14 = spathLoadFile(0x43);
+    D_80378CE0->unk18 = spathLoadFile(0x44);
+    D_80378CE0->unk1C = spathLoadFile(0x45);
+    D_80378CE0->unk20 = spathLoadFile(0x46);
+    D_80378CE0->unk24 = spathLoadFile(0x47);
     uvMat4SetIdentity(&sp54->unk108);
-    spath_update(&sp54->unk108, D_80378CE0->unk14, 0, 1.0f);
-    spath_update(&D_80378CE0->unk2C, D_80378CE0->unk18, 0, 1.0f);
-    spath_update(&D_80378CE0->unk6C, D_80378CE0->unk18, 0, 1.0f);
-    spath_update(&D_80378CE0->unkAC, D_80378CE0->unk18, 0, 1.0f);
-    spath_update(&D_80378CE0->unkEC, D_80378CE0->unk18, 0, 1.0f);
+    spathUpdate(&sp54->unk108, D_80378CE0->unk14, 0, 1.0f);
+    spathUpdate(&D_80378CE0->unk2C, D_80378CE0->unk18, 0, 1.0f);
+    spathUpdate(&D_80378CE0->unk6C, D_80378CE0->unk18, 0, 1.0f);
+    spathUpdate(&D_80378CE0->unkAC, D_80378CE0->unk18, 0, 1.0f);
+    spathUpdate(&D_80378CE0->unkEC, D_80378CE0->unk18, 0, 1.0f);
     D_80378CE0->unk0 = uvDobjAllocIdx();
     uvDobjModel(D_80378CE0->unk0, MODEL_LOW_POLY_INTRO_CRESCENT_ISLAND);
     uvMat4SetIdentity(&sp58);
@@ -158,7 +158,7 @@ static void func_803427FC(void) {
     uvDobjModel(D_80378CE0->unk10, MODEL_PILOTWINGS_LOGO_FOUR);
     uvDobjPosm(D_80378CE0->unk10, 0, &D_80378CE0->unkEC);
     uvDobjState(D_80378CE0->unk10, 2);
-    menuCreateItems(0x66, 0x3C, 6, 1.0f, 1.0f, D_80350698, 2);
+    menuCreateItems(102, 60, 6, 1.0f, 1.0f, D_80350698, 2);
     func_80312F5C(0, 0xFF, 0xFF, 0);
     func_80312F5C(1, 0xFF, 0xFF, 0xFF);
     func_80312F5C(2, 0xFF, 0xFF, 0);
@@ -185,7 +185,7 @@ static void func_803427FC(void) {
     }
 }
 
-static void func_80342D2C(void) {
+STATIC_FUNC void func_80342D2C(void) {
     Unk803136C4_Arg0 sp2FC;
     s32 allocIdx;
     s32 i;
@@ -229,18 +229,18 @@ static void func_80342D2C(void) {
     func_8031EF90(2);
 }
 
-static void func_80343294(void) {
+STATIC_FUNC void func_80343294(void) {
     func_803433A4();
     uvDobjModel(D_80378CE0->unk0, MODEL_WORLD);
     uvDobjModel(D_80378CE0->unk4, MODEL_WORLD);
     uvDobjModel(D_80378CE0->unk8, MODEL_WORLD);
     uvDobjModel(D_80378CE0->unkC, MODEL_WORLD);
     uvDobjModel(D_80378CE0->unk10, MODEL_WORLD);
-    spath_free(D_80378CE0->unk14);
-    spath_free(D_80378CE0->unk18);
-    spath_free(D_80378CE0->unk1C);
-    spath_free(D_80378CE0->unk20);
-    spath_free(D_80378CE0->unk24);
+    spathFree(D_80378CE0->unk14);
+    spathFree(D_80378CE0->unk18);
+    spathFree(D_80378CE0->unk1C);
+    spathFree(D_80378CE0->unk20);
+    spathFree(D_80378CE0->unk24);
     uvSprtProps(1, 3, 0, 0);
     uvSprtProps(2, 3, 0, 0);
     uvSprtProps(3, 3, 0, 0);
@@ -248,7 +248,7 @@ static void func_80343294(void) {
     menuSetProps();
 }
 
-static void func_803433A4(void) {
+STATIC_FUNC void func_803433A4(void) {
     Unk8037DCA0* temp_a0;
 
     temp_a0 = D_80378CE0->unk240[0];
@@ -286,7 +286,7 @@ void func_803434E8(void) {
     while (uvClkGetSec(4) < 1.0) { }
 }
 
-static s32 func_80343550(void) {
+STATIC_FUNC s32 func_80343550(void) {
     s32 temp_v0;
     s32 sp18;
 
@@ -393,8 +393,8 @@ static s32 func_80343550(void) {
     return sp18;
 }
 
-static void introSceneRunner(void) {
-    Unk802D3658_Arg0* temp = D_80362690->unk0[D_80362690->unk9C].unkC.unk70;
+STATIC_FUNC void introSceneRunner(void) {
+    Unk802D3658_Arg0* temp = D_80362690->unkC[D_80362690->unk9C].unk70;
     s32 sp30;
 
     func_80204FC4(temp->unk22C);
@@ -428,23 +428,23 @@ static void introSceneRunner(void) {
     uvSprtDraw(4);
 }
 
-static void func_80343B5C(void) {
+STATIC_FUNC void func_80343B5C(void) {
     f32 f0;
     Unk802D3658_Arg0* sp20;
 
-    sp20 = D_80362690->unk0[D_80362690->unk9C].unkC.unk70;
+    sp20 = D_80362690->unkC[D_80362690->unk9C].unk70;
     f0 = ((1.0 - ((4.65f - D_80378CE0->unk22C) / 4.65f)) * 100.0);
-    spath_update(&sp20->unk108, D_80378CE0->unk14, f0, 1.0f);
+    spathUpdate(&sp20->unk108, D_80378CE0->unk14, f0, 1.0f);
     uvMat4Copy(&D_80378CE0->unk1AC, &sp20->unk108);
     uvMat4Mul(&sp20->unk108, &sp20->unk108, &D_80378CE0->unk1EC);
     func_80204B34(sp20->unk22C, &sp20->unk108);
 }
 
-static void func_80343C44(void) {
+STATIC_FUNC void func_80343C44(void) {
     s32 i;
     Mtx4F spCC;
     Mtx4F sp8C;
-    Unk802D3658_Arg0* temp = D_80362690->unk0[D_80362690->unk9C].unkC.unk70;
+    Unk802D3658_Arg0* temp = D_80362690->unkC[D_80362690->unk9C].unk70;
     f32 f0;
     f32 var_fs0;
 
@@ -473,26 +473,26 @@ static void func_80343C44(void) {
     }
 }
 
-static void func_80343E84(void) {
+STATIC_FUNC void func_80343E84(void) {
     f32 sp2C;
     f32 temp_fs0;
 
     temp_fs0 = D_80378CE0->unk22C - D_80378CE0->unk238;
     if (temp_fs0 >= 0.0f) {
         sp2C = ((temp_fs0 - 0.0f) * 100.0f) / 1.5f;
-        spath_update(&D_80378CE0->unk2C, D_80378CE0->unk18, sp2C, 1.0f);
+        spathUpdate(&D_80378CE0->unk2C, D_80378CE0->unk18, sp2C, 1.0f);
         uvMat4Mul(&D_80378CE0->unk2C, &D_80378CE0->unk2C, &D_80378CE0->unk1EC);
         uvDobjPosm(D_80378CE0->unk4, 0, &D_80378CE0->unk2C);
     }
     if (temp_fs0 >= (0.5f * 3)) {
         sp2C = ((temp_fs0 - (0.5f * 3)) * 100.0f) / 2 /*.0f*/;
-        spath_update(&D_80378CE0->unk6C, D_80378CE0->unk1C, sp2C, 1.0f);
+        spathUpdate(&D_80378CE0->unk6C, D_80378CE0->unk1C, sp2C, 1.0f);
         uvMat4Mul(&D_80378CE0->unk6C, &D_80378CE0->unk6C, &D_80378CE0->unk1EC);
         uvDobjPosm(D_80378CE0->unk8, 0, &D_80378CE0->unk6C);
     }
     if (temp_fs0 >= 3.5f) {
         sp2C = ((temp_fs0 - 3.5f) * 100.0f) / 0.5f;
-        spath_update(&D_80378CE0->unkAC, D_80378CE0->unk20, sp2C, 1.0f);
+        spathUpdate(&D_80378CE0->unkAC, D_80378CE0->unk20, sp2C, 1.0f);
         uvMat4Mul(&D_80378CE0->unkAC, &D_80378CE0->unkAC, &D_80378CE0->unk1EC);
         uvDobjPosm(D_80378CE0->unkC, 0, &D_80378CE0->unkAC);
         if ((D_80378CE0->unk265 != 0) && (sp2C > 40.0f)) {
@@ -502,7 +502,7 @@ static void func_80343E84(void) {
     }
     if (temp_fs0 >= 4.0f) {
         sp2C = ((temp_fs0 - 4.0f) * 100.0f) / 0.5f;
-        spath_update(&D_80378CE0->unkEC, D_80378CE0->unk24, sp2C, 1.0f);
+        spathUpdate(&D_80378CE0->unkEC, D_80378CE0->unk24, sp2C, 1.0f);
         uvMat4Mul(&D_80378CE0->unkEC, &D_80378CE0->unkEC, &D_80378CE0->unk1EC);
         uvDobjPosm(D_80378CE0->unk10, 0, &D_80378CE0->unkEC);
         if ((D_80378CE0->unk266 != 0) && (sp2C > 47.0f)) {
@@ -512,7 +512,7 @@ static void func_80343E84(void) {
     }
 }
 
-static void func_8034411C(void) {
+STATIC_FUNC void func_8034411C(void) {
     f32 temp_fv0;
     s32 var_s0;
 
@@ -541,4 +541,3 @@ void func_80344258(u8 arg0) {
         D_80350690 = 0;
     }
 }
-

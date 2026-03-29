@@ -3,11 +3,11 @@
 #include <uv_dobj.h>
 #include <uv_matrix.h>
 #include <uv_model.h>
-#include <uv_level.h>
 #include "code_9A960.h"
 #include "code_D2D50.h"
 #include "hud.h"
 #include "proxanim.h"
+#include "task.h"
 
 // .data
 s32 D_803509C0 = 0xFFFF;
@@ -36,7 +36,7 @@ s32 func_8034B820(void) {
     return D_803509D8;
 }
 
-static void func_8034B82C(void) {
+STATIC_FUNC void func_8034B82C(void) {
     Mtx4F spF0;
     Mtx4F spB0;
     Mtx4F sp70;
@@ -67,14 +67,14 @@ static void func_8034B82C(void) {
     }
     func_80200B00(D_803509C0, 0, 1.0f - sp24);
     if (D_803509C8 != 0xFF) {
-        hud_8031A794(D_803509C8, D_8037F430, D_8037F434, D_8037F438);
+        hudMoveWaypoint(D_803509C8, D_8037F430, D_8037F434, D_8037F438);
     }
     uvModelGetPosm(0xD7, 1, &spB0);
     uvMat4Scale(&spB0, 2.0 * sp24, 2.0 * sp24, 2.0 * sp24);
     uvDobjPosm(D_803509C0, 1, &spB0);
 }
 
-static void func_8034BA68(void) {
+STATIC_FUNC void func_8034BA68(void) {
     if (D_8037F440 == 1.0f) {
         D_803509D4 += 4.0f * D_8034F854;
         if (D_803509D4 > 0 /*.0f*/) {
@@ -109,7 +109,7 @@ static void func_8034BA68(void) {
     }
 }
 
-static s32 func_8034BC68(s32 arg0, s32 arg1, s32 arg2) {
+STATIC_FUNC s32 func_8034BC68(s32 arg0, s32 arg1, s32 arg2) {
     switch (arg1) {
     case 0:
         uvDobjState(D_803509C0, 3);
@@ -144,7 +144,7 @@ static s32 func_8034BC68(s32 arg0, s32 arg1, s32 arg2) {
     return 0;
 }
 
-static s32 func_8034BDCC(s32 arg0, s32 arg1, s32 arg2) {
+STATIC_FUNC s32 func_8034BDCC(s32 arg0, s32 arg1, s32 arg2) {
     s32 pad;
     s32 sp18;
 
@@ -194,10 +194,10 @@ void func_8034BEDC(void) {
         uvDobjState(D_803509C0, 0);
         D_803509CC = func_80321210(func_8034BDCC, func_8034BC68, sp30, 450.0f, 0.0f, 4);
         D_803509D0 = 0.0f;
-        levelGetClsVehTest(&sp46, &sp44, &sp42);
+        taskGetClsVehTest(&sp46, &sp44, &sp42);
         var_v1 = (sp42 == 0 && sp46 == 1 && sp44 == 0) || (sp42 == 1 && sp46 == 2 && sp44 == 0) || (sp42 == 2 && sp46 == 3 && sp44 == 0);
         if (var_v1) {
-            D_803509C8 = hud_8031A6C8(750.0f, 100.0f, 4.5f);
+            D_803509C8 = hudAddWaypoint(750.0f, 100.0f, 4.5f);
             return;
         }
         D_803509C8 = 0xFF;

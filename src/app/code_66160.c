@@ -1,13 +1,12 @@
 #include <uv_geometry.h>
 #include <uv_graphics.h>
-#include <uv_level.h>
 #include <uv_matrix.h>
 #include <uv_util.h>
-
 #include "kernel/code_8170.h"
 #include "code_61A60.h"
 #include "code_66160.h"
 #include "code_9A960.h"
+#include "task.h"
 
 extern Vec3F D_80359D70;
 extern s32 D_80359D7C;
@@ -84,19 +83,19 @@ s32 func_802E02F8(void) {
     return D_80359D7C;
 }
 
-void db_getstart(Mtx4F* arg0, Vec3F* arg1, u8* arg2, f32* arg3) {
+void db_getstart(Mtx4F* arg0, Vec3F* arg1, u8* arg2, f32* fuel) {
     Vec3F pos;
     Vec3F ang;
-    LevelTPAD* sp44;
-    LevelTPAD* first;
+    TaskTPAD* sp44;
+    TaskTPAD* first;
     ParsedUVTR* sp3C;
     s32 idx;
     u8 temp_v1;
 
-    temp_v1 = levelDataGetTPAD(&sp44);
+    temp_v1 = taskGetTPAD(&sp44);
     if (temp_v1 == 0) {
         _uvDebugPrintf("db_getstart :  no starting pads in task!!!\n");
-        sp3C = uvTerraGetBox(D_80362690->unk0[0].unk6);
+        sp3C = uvTerraGetBox(D_80362690->terraId);
         uvMat4SetIdentity(arg0);
         arg0->m[3][0] = (sp3C->unk0.unk0 + sp3C->unk0.unkC) * 0.5f;
         arg0->m[3][1] = (sp3C->unk0.unk4 + sp3C->unk0.unk10) * 0.5f;
@@ -104,8 +103,8 @@ void db_getstart(Mtx4F* arg0, Vec3F* arg1, u8* arg2, f32* arg3) {
         if (arg2 != NULL) {
             *arg2 = 1;
         }
-        if (arg3 != NULL) {
-            *arg3 = 0.0f;
+        if (fuel != NULL) {
+            *fuel = 0.0f;
         }
     } else {
         if (temp_v1 > 1) {
@@ -125,8 +124,8 @@ void db_getstart(Mtx4F* arg0, Vec3F* arg1, u8* arg2, f32* arg3) {
         if (arg2 != NULL) {
             *arg2 = first->unk28;
         }
-        if (arg3 != NULL) {
-            *arg3 = first->unk2C;
+        if (fuel != NULL) {
+            *fuel = first->unk2C;
         }
     }
 }

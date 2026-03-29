@@ -372,10 +372,11 @@ enum Models {
     MODEL_SKYBOX_INTRO_GIANT_CIRCULAR_SKY_OCEAN             = 0x16A, // Giant circular sky+ocean skybox with high-resh skybox/clouds AND empty ocean (used in Intro)
 
     MODEL_WORLD                                             = 0xFFFF // used to indicate a model that's not bound to a level? (Possibly used to make a model dissappear without freeing it?)
+    MODEL_WORLD                                             = 0xFFFF // used to indicate a model that's not bound to a level? (Possibly used to make a model dissappear without freeing it?)
 };
 
 typedef struct {
-    u16 unk0;
+    u16 modelId;
     u16 unk2[1]; // unknown size, might take up everything till unk34
     u8 pad4[0x34-0x4];
     u8 unk34;
@@ -398,7 +399,7 @@ extern u16 D_80269CB0[100];
 extern u16 D_80269F08;
 extern u16 D_80269F0A;
 
-void uvDobjModel(s32 objId, s32 mdlId);
+void uvDobjModel(s32 objId, s32 modelId);
 void uvDobjProps(s32 objId, ...);
 void uvDobjPosm(s32 objId, s32 part, Mtx4F* src);
 void uvDobjGetPosm(s32 objId, s32, Mtx4F* dst);
@@ -409,7 +410,7 @@ s32 uvDobjAllocIdx(void);
 void uvDobjInit(void);
 void _uvDobjsDraw(UnkStruct_80204D94* arg0, s32 arg1);
 void uvDobj_8021771C(UnkStruct_80204D94*);
-u8 uvDobj_80217AB4(ParsedUVMD*, f32);
+u8 uvDobjGetLODIndex(ParsedUVMD* uvmd, f32 dist);
 s32 uvDobj_80217B34(s32**);
 void uvDobj_80217B4C(Unk80263780*, ParsedUVMD*, u8);
 void uvDobj_80217E24(Unk80263780*, ParsedUVMD*, u8, f32, f32);

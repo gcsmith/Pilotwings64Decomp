@@ -2,13 +2,13 @@
 #include <uv_font.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>
-#include <uv_level.h>
 #include "cannonball.h"
 #include "code_99D40.h"
 #include "code_9A960.h"
 #include "code_B2900.h"
 #include "menu.h"
 #include "save.h"
+#include "task.h"
 #include "text_data.h"
 #include "total_results.h"
 
@@ -56,7 +56,7 @@ void totResultDeinit(void);
 s32 totResultMenuChoose(void);
 void totResultDrawTally(void);
 
-u8 totResult_80346FC0(Unk80362690_Unk0_UnkC* arg0) {
+u8 totResult_80346FC0(Unk80362690_Unk0* arg0) {
     s32 sp2C;
     s32 sp28;
     s32 sp24;
@@ -65,14 +65,14 @@ u8 totResult_80346FC0(Unk80362690_Unk0_UnkC* arg0) {
 
     veh = arg0->veh;
     if (veh == VEHICLE_CANNONBALL) {
-        sp28 = func_8032C174(&sp2C, D_80359AAE, 4);
-        temp_v0 = func_8032C174(&sp24, D_80359AAA, 4);
+        sp28 = levelSetPointsToNextMedal(&sp2C, D_80359AAC, CLASS_COUNT);
+        temp_v0 = levelSetPointsToNextMedal(&sp24, D_80359AA8, CLASS_COUNT);
         if ((sp28 < temp_v0) || ((sp28 == 3) && (temp_v0 == 3) && (sp24 == 0))) {
             return TRUE;
         }
         return FALSE;
     }
-    return D_80364210[D_80362690->unk9C].unk0[arg0->cls].unk0[arg0->test][veh + 1].result.unk0 == 4;
+    return D_80364210[D_80362690->unk9C].unk40[arg0->cls].unk0[arg0->test][veh].unk0 == 4;
 }
 
 s32 totResultHandler(void) {
@@ -89,16 +89,16 @@ s32 totResultHandler(void) {
 }
 
 s32 totResult_80347150(s32 arg0) {
-    Unk80362690_Unk0_UnkC* unkC;
+    Unk80362690_Unk0* unkC;
 
-    unkC = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    unkC = &D_80362690->unkC[D_80362690->unk9C];
     if (arg0 < 0) {
         return arg0;
     }
-    if (totResult_80346FC0(&D_80362690->unk0[D_80362690->unk9C].unkC)) {
+    if (totResult_80346FC0(&D_80362690->unkC[D_80362690->unk9C])) {
         return 6;
     }
-    if (unkC->veh <= VEHICLE_GYROCOPTER) { // HG/RP/GC
+    if (IS_MAIN_VEHICLE(unkC->veh)) {
         if (unkC->cls == CLASS_BEGINNER) {
             switch (arg0) {
             case 0:
@@ -128,7 +128,7 @@ s32 totResult_80347150(s32 arg0) {
 }
 
 void totResultInit(void) {
-    Unk80362690_Unk0_UnkC* temp_s4;
+    Unk80362690_Unk0* temp_s4;
     s32 temp_v0;
     s32 var_a0;
     s32 var_s5;
@@ -141,7 +141,7 @@ void totResultInit(void) {
     u8* var_v1_3;
     s32 i;
 
-    temp_s4 = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    temp_s4 = &D_80362690->unkC[D_80362690->unk9C];
     var_s5 = 0;
     sp4C = &D_80364210[D_80362690->unk9C];
     sUnused_8037AD20[0] = 0;
@@ -152,7 +152,7 @@ void totResultInit(void) {
         sTestPtsStr[i][4] = -1;
     }
 
-    for (i = 0; i < levelGetTestCount(temp_s4->cls, temp_s4->veh); i++) {
+    for (i = 0; i < taskGetTestCount(temp_s4->cls, temp_s4->veh); i++) {
         temp_v0 = testGetPointCount(sp4C, temp_s4->cls, i, temp_s4->veh);
         if (temp_v0 != 127) {
             var_s5 += temp_v0;
@@ -162,12 +162,12 @@ void totResultInit(void) {
         sTestPtUnitStr[i] = textGetDataByIdx(var_a0);
     }
 
-    if (temp_s4->veh <= VEHICLE_GYROCOPTER) { // HG/RP/GC
+    if (IS_MAIN_VEHICLE(temp_s4->veh)) {
         var_v1 = temp_s4->cls;
     } else { // bonus: CB/SD/JH/BD
         var_v1 = temp_s4->veh + 1;
     }
-    D_8037AD42 = func_8032C174(&sp50, var_s5, var_v1);
+    D_8037AD42 = levelSetPointsToNextMedal(&sp50, var_s5, var_v1);
     textFmtInt(sTotalPtsStr, var_s5, 3);
     var_a0 = (var_s5 == 1) ? 0x8A : 0x131; // "pt." : "pts."
     sTotPtUnitStr = textGetDataByIdx(var_a0);
@@ -176,7 +176,7 @@ void totResultInit(void) {
     if ((var_v1 == 3) && (sp50 == 0)) {
         var_v1 = D_8037AD42 = 4;
     }
-    if (temp_s4->veh <= VEHICLE_GYROCOPTER) { // HG/RP/GC
+    if (IS_MAIN_VEHICLE(temp_s4->veh)) {
         var_a1 = sStageMedalName[temp_s4->cls][var_v1];
     } else { // bonus: CB/SD/JH/BD
         var_a1 = sBonusMedalName[var_v1];
@@ -191,18 +191,18 @@ void totResultInit(void) {
 }
 
 void totResultCreateMenu(void) {
-    Unk80362690_Unk0_UnkC* temp_a0;
+    Unk80362690_Unk0* temp_a0;
 
-    if (totResult_80346FC0(&D_80362690->unk0[D_80362690->unk9C].unkC)) {
+    if (totResult_80346FC0(&D_80362690->unkC[D_80362690->unk9C])) {
         menuCreateItems(170, 2, 6, 1.0f, 1.0f, &sResultNextMenu, 1);
         return;
     }
-    temp_a0 = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    temp_a0 = &D_80362690->unkC[D_80362690->unk9C];
 
     sResultRetryQuitIdx = 0;
     sResultRetryQuitMenu[sResultRetryQuitIdx++] = 0x189; // Retry
     // Only show "Another test" for non-bonus vehicles HG/RP/GC and class A/B/Pilot
-    if ((temp_a0->veh <= VEHICLE_GYROCOPTER) && (temp_a0->cls != CLASS_BEGINNER)) {
+    if ((IS_MAIN_VEHICLE(temp_a0->veh)) && (temp_a0->cls != CLASS_BEGINNER)) {
         sResultRetryQuitMenu[sResultRetryQuitIdx++] = 0x166; // Another test
     }
     sResultRetryQuitMenu[sResultRetryQuitIdx++] = 0x1D; // Quit
@@ -213,10 +213,10 @@ void totResultDeinit(void) {
 }
 
 s32 totResultMenuChoose(void) {
-    Unk80362690_Unk0_UnkC* sp1C;
+    Unk80362690_Unk0* sp1C;
     s32 temp_v0;
 
-    sp1C = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    sp1C = &D_80362690->unkC[D_80362690->unk9C];
     if (totResult_80347150(menu_8030B668()) == 3) {
         func_80312FF8(4);
     } else {
@@ -249,7 +249,7 @@ s32 totResultMenuChoose(void) {
 #pragma GCC diagnostic ignored "-Wsometimes-uninitialized"
 #endif
 void totResultDrawTally(void) {
-    Unk80362690_Unk0_UnkC* sp6C;
+    Unk80362690_Unk0* sp6C;
     s32 len;
     s32 x2;
     s32 x1;
@@ -259,7 +259,7 @@ void totResultDrawTally(void) {
     s32 numTests;
 
     offset = 0;
-    sp6C = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    sp6C = &D_80362690->unkC[D_80362690->unk9C];
     func_80204FC4(sp6C->unk70->unk22C);
     func_80314154();
 
@@ -301,7 +301,7 @@ void totResultDrawTally(void) {
         func_80219874(202, 116, sTotalPtsStr, 3, 0xFFE);
         func_80219874(236, 116, sTotPtUnitStr, 4, 0xFFE);
     } else {
-        numTests = levelGetTestCount(sp6C->cls, sp6C->veh);
+        numTests = taskGetTestCount(sp6C->cls, sp6C->veh);
         for (i = 0; i < numTests; i++) {
             y = ((numTests * 16) + 100) - 16 * i;
             func_80219874(202, y, sTestPtsStr[i], 3, 0xFFE);

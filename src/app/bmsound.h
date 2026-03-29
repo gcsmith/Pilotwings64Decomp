@@ -4,6 +4,6 @@
 #include <PR/ultratypes.h>
 #include "code_72B70.h"
 
-void bmSoundInit(Unk80367704*);
+void bmSoundInit(BirdmanData*);
 
 #endif // APP_BMSOUND_H

@@ -9,7 +9,6 @@
 #include <uv_dobj.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>
-#include <uv_level.h>
 #include <uv_main.h>
 #include <uv_matrix.h>
 #include <uv_memory.h>
@@ -66,7 +65,7 @@ void func_80218700(void);
 void func_80218BA0(void);
 void func_80219FD0(void);
 
-extern s32 D_80249200;
+extern s32 gGfxSyncNeeded;
 extern s32 gNmiAsserted;
 
 s32 func_8022E2D4(s32 arg0);
@@ -184,7 +183,7 @@ void uvWaitForMesg(char msg_type) {
         return;
     case UV_MESG_GFX:
         osRecvMesg(&D_802C3B90, NULL, OS_MESG_BLOCK);
-        D_80249200 = 0;
+        gGfxSyncNeeded = FALSE;
         return;
     }
 }
@@ -346,7 +345,7 @@ s32 uvReadController(ControllerInfo* contInfo, s32 contIdx) {
     s8 stickX;
     s8 stickY;
 
-    if (gNmiAsserted != 0) {
+    if (gNmiAsserted != FALSE) {
         return 0;
     }
 
@@ -408,7 +407,7 @@ void _uvDebugPrintf(char* fmt, ...) {
 
 void _uvDMA(void* vAddr, u32 devAddr, u32 nbytes) {
     s32 dest = vAddr;
-    if (gNmiAsserted == 0) {
+    if (gNmiAsserted == FALSE) {
         if (dest % 8) {
             _uvDebugPrintf("_uvDMA: RAM address not 8 byte aligned 0x%x\n", dest);
             return;

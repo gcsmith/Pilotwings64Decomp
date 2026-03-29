@@ -1,6 +1,5 @@
 #include "common.h"
 #include <uv_graphics.h>
-#include <uv_level.h>
 #include <uv_math.h>
 #include <uv_matrix.h>
 #include <uv_vector.h>
@@ -11,6 +10,7 @@
 #include "code_D1ED0.h"
 #include "demo.h"
 #include "environment.h"
+#include "task.h"
 
 // TODO: Unk802D472C_SP60 needs to be merged with some combination of Unk802D3658_Unk1224/8
 typedef struct {
@@ -26,22 +26,21 @@ u8 D_8034E9E4 = 0;
 s32 pad_D_8034E9E8 = 0;
 
 // .bss
-extern Unk803599D0 D_803599D0;
-extern f32 D_80359A24;
+Unk803599D0 D_803599D0;
 
 // forward declarations
-static s32 func_802D408C(Unk802D3658_Arg0* arg0);
-static void func_802D3658(Unk802D3658_Arg0* arg0);
-static void func_802D3790(Unk802D3658_Arg0* arg0);
-static void func_802D3BE8(Unk802D3658_Arg0* arg0);
-static void func_802D3FA4(Unk802D3658_Arg0* arg0);
-static void func_802D41D8(Unk802D3658_Arg0* arg0);
-static void func_802D46A4(Unk802D3658_Arg0* arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4);
-static void func_802D532C(Unk802D3658_Arg0* arg0);
-static void func_802D559C(Unk802D3658_Arg0* arg0);
-static s32 func_802D4CA4(Unk802D3658_Arg0*, Mtx4F*);
-static void func_802D58EC(Unk802D3658_Arg0*, Mtx4F*);
-/* static */ void func_802D4274(Unk802D3658_Arg0* arg0);
+STATIC_FUNC s32 func_802D408C(Unk802D3658_Arg0* arg0);
+STATIC_FUNC void func_802D3658(Unk802D3658_Arg0* arg0);
+STATIC_FUNC void func_802D3790(Unk802D3658_Arg0* arg0);
+STATIC_FUNC void func_802D3BE8(Unk802D3658_Arg0* arg0);
+STATIC_FUNC void func_802D3FA4(Unk802D3658_Arg0* arg0);
+STATIC_FUNC void func_802D41D8(Unk802D3658_Arg0* arg0);
+STATIC_FUNC void func_802D46A4(Unk802D3658_Arg0* arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4);
+STATIC_FUNC void func_802D532C(Unk802D3658_Arg0* arg0);
+STATIC_FUNC void func_802D559C(Unk802D3658_Arg0* arg0);
+STATIC_FUNC s32 func_802D4CA4(Unk802D3658_Arg0*, Mtx4F*);
+STATIC_FUNC void func_802D58EC(Unk802D3658_Arg0*, Mtx4F*);
+/* STATIC_FUNC */ void func_802D4274(Unk802D3658_Arg0* arg0);
 
 void func_802D3170(u8 arg0, Unk802D3658_Arg0* arg1) {
     f32 one;
@@ -188,7 +187,7 @@ void func_802D3444(Unk802D3658_Arg0* arg0) {
     }
 }
 
-static void func_802D3658(Unk802D3658_Arg0* arg0) {
+STATIC_FUNC void func_802D3658(Unk802D3658_Arg0* arg0) {
     Mtx4F sp30;
     f32 temp_fa0;
 
@@ -214,7 +213,7 @@ static void func_802D3658(Unk802D3658_Arg0* arg0) {
     }
 }
 
-static void func_802D3790(Unk802D3658_Arg0* arg0) {
+STATIC_FUNC void func_802D3790(Unk802D3658_Arg0* arg0) {
     Vec3F spBC;
     Vec3F spB0;
     Vec3F spA4;
@@ -302,7 +301,7 @@ static void func_802D3790(Unk802D3658_Arg0* arg0) {
     arg0->unk108.m[2][2] /= temp_fv0;
 }
 
-static void func_802D3BE8(Unk802D3658_Arg0* arg0) {
+STATIC_FUNC void func_802D3BE8(Unk802D3658_Arg0* arg0) {
     Mtx4F sp60;
     f32 sp5C;
     f32 sp58;
@@ -379,7 +378,7 @@ static void func_802D3BE8(Unk802D3658_Arg0* arg0) {
     }
 }
 
-static void func_802D3FA4(Unk802D3658_Arg0* arg0) {
+STATIC_FUNC void func_802D3FA4(Unk802D3658_Arg0* arg0) {
     Vec3F sp24;
 
     uvMat4Copy(&arg0->unk108, &arg0->unk80);
@@ -397,7 +396,7 @@ static void func_802D3FA4(Unk802D3658_Arg0* arg0) {
     (void)func_802D4A30(arg0, &arg0->unk108);
 }
 
-static s32 func_802D408C(Unk802D3658_Arg0* arg0) {
+STATIC_FUNC s32 func_802D408C(Unk802D3658_Arg0* arg0) {
     f32 argX;
     f32 argY;
     f32 argZ;
@@ -405,7 +404,7 @@ static s32 func_802D408C(Unk802D3658_Arg0* arg0) {
     f32 dy;
     f32 dz;
     f32 length;
-    LevelOBSV* sp58;
+    TaskOBSV* obsv;
     s32 i;
     u8 countOBSV;
     u8 tmp;
@@ -414,14 +413,14 @@ static s32 func_802D408C(Unk802D3658_Arg0* arg0) {
     argY = arg0->unk80.m[3][1];
     argZ = arg0->unk80.m[3][2];
     arg0->unk18C = 1000000.0f;
-    countOBSV = levelDataGetOBSV(&sp58) & 0xFF; // extra & 0xFF for matching
+    countOBSV = taskGetOBSV(&obsv) & 0xFF; // extra & 0xFF for matching
 
     for (i = 0; i < countOBSV; i++) {
-        dx = sp58[i].x - argX;
-        dy = sp58[i].y - argY;
-        dz = sp58[i].z - argZ;
+        dx = obsv[i].x - argX;
+        dy = obsv[i].y - argY;
+        dz = obsv[i].z - argZ;
         length = uvLength3D(dx, dy, dz);
-        if (length < sp58[i].unkC) {
+        if (length < obsv[i].unkC) {
             arg0->unk18C = length;
             break;
         }
@@ -429,9 +428,9 @@ static s32 func_802D408C(Unk802D3658_Arg0* arg0) {
     if (i < countOBSV) {
         arg0->unk1 = 2;
         uvMat4SetIdentity(&arg0->unk14C);
-        arg0->unk14C.m[3][0] = sp58[i].x;
-        arg0->unk14C.m[3][1] = sp58[i].y;
-        arg0->unk14C.m[3][2] = sp58[i].z;
+        arg0->unk14C.m[3][0] = obsv[i].x;
+        arg0->unk14C.m[3][1] = obsv[i].y;
+        arg0->unk14C.m[3][2] = obsv[i].z;
         arg0->unk148 = 1;
         return 1;
     }
@@ -439,7 +438,7 @@ static s32 func_802D408C(Unk802D3658_Arg0* arg0) {
     return 0;
 }
 
-static void func_802D41D8(Unk802D3658_Arg0* arg0) {
+STATIC_FUNC void func_802D41D8(Unk802D3658_Arg0* arg0) {
     f32 var_fv0;
 
     uvMat4UnkOp6(&arg0->unk108, &arg0->unk80, &arg0->unk14C);
@@ -452,13 +451,8 @@ static void func_802D41D8(Unk802D3658_Arg0* arg0) {
     func_802D45C4(arg0, var_fv0);
 }
 
-#ifndef NON_MATCHING
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_5A6A0/func_802D4274.s")
-#else
-// rom size changes when this gets compiled in, probably some .bss/.data mapping problem related to static var
 void func_802D4274(Unk802D3658_Arg0* arg0) {
     static f32 D_80359A24;
-
     Mtx4F sp70; // 70:AF
     f32 sp6C;
     f32 sp68;
@@ -475,7 +469,7 @@ void func_802D4274(Unk802D3658_Arg0* arg0) {
             sp6C /= var_fs0;
             sp68 /= var_fs0;
             sp64 /= var_fs0;
-            arg0->unk194 = func_8022A27C(sp68, sp6C);
+            arg0->unk194 = uvAtan2F(sp68, sp6C);
             D_80359A24 = var_fs0;
         } else {
             arg0->unk194 = 0.0f;
@@ -511,9 +505,8 @@ void func_802D4274(Unk802D3658_Arg0* arg0) {
         arg0->unk198 = var_fs0;
     }
     uvMat4UnkOp6(&arg0->unk108, &arg0->unk80, &sp70);
-    (void)func_802D4A30(arg0, arg0->unk108.m);
+    func_802D4A30(arg0, &arg0->unk108);
 }
-#endif
 
 void func_802D4514(Unk802D3658_Arg0* arg0) {
     f32 var_fv0;
@@ -576,7 +569,7 @@ void func_802D45C4(Unk802D3658_Arg0* arg0, f32 arg1) {
     }
 }
 
-static void func_802D46A4(Unk802D3658_Arg0* arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
+STATIC_FUNC void func_802D46A4(Unk802D3658_Arg0* arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
     s16 temp_a1;
     s16 temp_a2;
     s16 temp_a3;
@@ -718,7 +711,7 @@ s32 func_802D4A30(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
     return 1;
 }
 
-static s32 func_802D4CA4(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
+STATIC_FUNC s32 func_802D4CA4(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
     Mtx4F sp30;
     f32 temp_fa1;
     f32 temp_fv0;
@@ -804,7 +797,7 @@ void func_802D50D0(Unk802D3658_Arg0* arg0) {
     f32 temp_fv1;
 
     var_ft4 = 3.0f;
-    if ((arg0->unk1 == 5) || (D_80362690->unk0[0].unk0 != 5)) {
+    if ((arg0->unk1 == 5) || (D_80362690->unk0 != 5)) {
         if (D_8034E9E4 != 0) {
             temp_fv0 = 1.0f / arg0->unk20;
             a = arg0->unk2C * temp_fv0;
@@ -817,7 +810,7 @@ void func_802D50D0(Unk802D3658_Arg0* arg0) {
             D_8034E9E4 = 0;
         }
     } else {
-        if ((D_80362690->unk0[0].unk6 == 2) || (D_80362690->unk0[0].unk6 == 8)) {
+        if ((D_80362690->terraId == 2) || (D_80362690->terraId == 8)) {
             var_ft4 = 1.0f;
         }
         if (arg0->unk1 == 1) {
@@ -861,7 +854,7 @@ void func_802D50D0(Unk802D3658_Arg0* arg0) {
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
 #endif
-static void func_802D532C(Unk802D3658_Arg0* arg0) {
+STATIC_FUNC void func_802D532C(Unk802D3658_Arg0* arg0) {
     Mtx4F sp80; // 80:BF
     Mtx4F sp40; // 40:7F
     f32 var_fa0;
@@ -922,7 +915,7 @@ static void func_802D532C(Unk802D3658_Arg0* arg0) {
 #pragma GCC diagnostic pop
 #endif
 
-static void func_802D559C(Unk802D3658_Arg0* arg0) {
+STATIC_FUNC void func_802D559C(Unk802D3658_Arg0* arg0) {
     Mtx4F sp48; // 48:87
     f32 temp_fa0;
     f32 temp_fa0_2;
@@ -994,7 +987,7 @@ void func_802D5884(Unk802D3658_Arg0* arg0, u8 arg1) {
     }
 }
 
-static void func_802D58EC(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
+STATIC_FUNC void func_802D58EC(Unk802D3658_Arg0* arg0, Mtx4F* arg1) {
     Mtx4F sp88; // 88:C7
     Mtx4F sp48; // 48:87
     Vec3F sp3C;

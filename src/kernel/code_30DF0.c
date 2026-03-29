@@ -2,6 +2,7 @@
 #include <uv_graphics.h>
 #include <uv_sobj.h>
 #include "kernel/code_30DF0.h"
+#include "kernel/code_30EA0.h"
 
 void func_8022FE40(UnkStruct_80204D94* arg0, uvUnkTileStruct* arg1, u16 arg2, u16 arg3, s32 arg4) {
     ParsedUVCT* temp_v0;

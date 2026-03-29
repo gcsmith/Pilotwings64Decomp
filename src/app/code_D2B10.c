@@ -1,5 +1,4 @@
 #include <uv_debug.h>
-#include <uv_level.h>
 #include <uv_graphics.h>
 #include <uv_geometry.h>
 #include "code_5A6A0.h"
@@ -30,13 +29,13 @@ void func_8034B688(void) {
 }
 
 void func_8034B6F8(void) {
-    func_803415C8();
+    splash_803415C8();
     func_8034B688();
-    if (D_80362690->unk0[0].debugFlag < 5) {
+    if (D_80362690->debugFlag < 5) {
         hudMainRender();
     }
 
-    switch (D_80362690->unk0[0].debugFlag) {
+    switch (D_80362690->debugFlag) {
     case 1:
         uvDbg_8023345C(7, 1, 1);
         break;
@@ -56,8 +55,7 @@ void func_8034B6F8(void) {
         break;
     case 6:
         uvDbg_80233590();
-        D_80362690->unk0[0].debugFlag -= 1;
+        D_80362690->debugFlag -= 1;
         break;
     }
 }
-

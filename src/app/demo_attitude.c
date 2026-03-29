@@ -1,14 +1,12 @@
 #include "common.h"
 #include <uv_filesystem.h>
 #include <uv_graphics.h>
-#include <uv_level.h>
 #include <uv_memory.h>
 #include <uv_util.h>
 #include <uv_vector.h>
 #include "code_9A960.h"
 #include "demo_attitude.h"
 #include "environment.h"
-#include "file_menu.h"
 #include "fire_effects.h"
 
 typedef struct {
@@ -36,10 +34,10 @@ extern s32 D_8036D320;
 extern s32 D_8036D324;
 extern f32 D_8036D328;
 extern f32 D_8036D32C;
-extern s32 D_8036D330;
+extern s32 gDemoUserFileIdx;
 
-void demoAttInit(s32 arg0) {
-    D_8036D330 = arg0;
+void demoAttInit(s32 userFileIdx) {
+    gDemoUserFileIdx = userFileIdx;
     demoAttLoadPos();
 }
 
@@ -55,7 +53,7 @@ void demoAttLoadPos(void) {
     idx = 0;
     gotHdr = 0;
     D_8036D328 = -1.0f;
-    sp60 = uvFileReadHeader((s32)func_802314D0(D_8036D330, 2));
+    sp60 = uvFileReadHeader((s32)uvUserFileRead(gDemoUserFileIdx, MEM_ROM_OFFSET));
     D_8036D320 = 0;
     D_8036D324 = 0;
 
@@ -98,7 +96,7 @@ void demoAttGetMtxRT(Mtx4F* mat, f32* tx, f32* ty, f32* tz, f32* rz, f32* rx, f3
 }
 
 void demoAttPrintRecord(void) {
-    demoAttPrintRT(&D_80362690->unk0[D_80362690->unk9C].unkC.unk70->unk108);
+    demoAttPrintRT(&D_80362690->unkC[D_80362690->unk9C].unk70->unk108);
 }
 
 f32 demoPositionLerp(f32 a, f32 b, f32 t) {
@@ -171,9 +169,9 @@ void demoAttUpdate(f32 curTime, Mtx4F* mat) {
 
 void demoAtt_80320FBC(void) {
     Unk802D3658_Arg0* unk7C;
-    unk7C = D_80362690->unk0[D_80362690->unk9C].unkC.unk70;
+    unk7C = D_80362690->unkC[D_80362690->unk9C].unk70;
     demoAttUpdate(D_8034F850, &unk7C->unk108);
-    func_80204B34(D_80362690->unk0[D_80362690->unk9C].unkC.unk70->unk22C, &unk7C->unk108);
+    func_80204B34(D_80362690->unkC[D_80362690->unk9C].unk70->unk22C, &unk7C->unk108);
     func_802E2060();
     func_802E9FE4();
 }

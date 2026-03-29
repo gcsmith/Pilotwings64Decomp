@@ -18,17 +18,17 @@ balls_802CB6D4      = 0x802CB6D4; // type:func
 balls_802CB9B4      = 0x802CB9B4; // type:func
 ballsCollision      = 0x802CBC9C; // type:func
 ballsPopped         = 0x802CBE94; // type:func
-ballsGet_802CC064   = 0x802CC064; // type:func
-balls_802CC0D4      = 0x802CC0D4; // type:func
+ballsGetPoints      = 0x802CC064; // type:func
+ballsObjIdExists    = 0x802CC0D4; // type:func
 ballsGetCount       = 0x802CC13C; // type:func
-ballsGet_802CC15C   = 0x802CC15C; // type:func
+ballsGetAllPopped   = 0x802CC15C; // type:func
 
 // birdman0
 bird_802CC1B0       = 0x802CC1B0; // type:func
 bird_802CC270       = 0x802CC270; // type:func
-bird_802CC39C       = 0x802CC39C; // type:func
+birdEnterLeave      = 0x802CC39C; // type:func
 bird_802CC51C       = 0x802CC51C; // type:func
-bird_802CC55C       = 0x802CC55C; // type:func
+birdMovementFrame   = 0x802CC55C; // type:func
 bird_802CD0F8       = 0x802CD0F8; // type:func
 bird_802CD2E8       = 0x802CD2E8; // type:func
 bird_802CE0A4       = 0x802CE0A4; // type:func
@@ -61,21 +61,21 @@ bonusLoad           = 0x802D23EC; // type:func
 bonusFrameUpdate    = 0x802D25AC; // type:func
 bonusDeinit         = 0x802D27CC; // type:func
 
-cannon_802D5A90     = 0x802D5A90; // type:func
-cannonLoadLevel     = 0x802D5B50; // type:func
-cannon_802D5C5C     = 0x802D5C5C; // type:func
-cannonEndTarget     = 0x802D5E98; // type:func
-cannonMovementFrame = 0x802D5F00; // type:func
-cannonAimingFrame   = 0x802D66C4; // type:func
-cannonShoot         = 0x802D6B7C; // type:func
-cannonPilotLand     = 0x802D6CC4; // type:func
-cannonLoadPilot     = 0x802D6F38; // type:func
-cannonLoad802D77D8  = 0x802D77D8; // type:func
-cannonFrame802D7B7C = 0x802D7B7C; // type:func
-cannonLandedFrame   = 0x802D8098; // type:func
-cannonEndShot       = 0x802D8494; // type:func
-cannonEndAllTgts    = 0x802D8730; // type:func
-cannon_802D8A40     = 0x802D8A40; // type:func
+cannon_802D5A90       = 0x802D5A90; // type:func
+cannonLoadLevel       = 0x802D5B50; // type:func
+cannonLevelEnterLeave = 0x802D5C5C; // type:func
+cannonEndTarget       = 0x802D5E98; // type:func
+cannonMovementFrame   = 0x802D5F00; // type:func
+cannonAimingFrame     = 0x802D66C4; // type:func
+cannonShoot           = 0x802D6B7C; // type:func
+cannonPilotLand       = 0x802D6CC4; // type:func
+cannonLoadPilot       = 0x802D6F38; // type:func
+cannonLoad802D77D8    = 0x802D77D8; // type:func
+cannonFrame802D7B7C   = 0x802D7B7C; // type:func
+cannonLandedFrame     = 0x802D8098; // type:func
+cannonEndShot         = 0x802D8494; // type:func
+cannonEndAllTgts      = 0x802D8730; // type:func
+cannon_802D8A40       = 0x802D8A40; // type:func
 
 screenDrawBox       = 0x802DED44; // type:func
 screenDrawBox2      = 0x802DF03C; // type:func
@@ -126,13 +126,49 @@ ballTgtDeinit       = 0x802D3030; // type:func
 
 db_getgnd           = 0x802DFE70; // type:func
 db_getstart         = 0x802E0304; // type:func
+
+envLoad             = 0x802E1278; // type:func
 env_loadtpal        = 0x802E1990; // type:func
+
+envSoundInit        = 0x802E26C0; // type:func
+envSoundLoad        = 0x802E27A8; // type:func
+envSound_802E2904   = 0x802E2904; // type:func
+envSound_802E2A00   = 0x802E2A00; // type:func
+envSound_802E3250   = 0x802E3250; // type:func
+envSound_802E3310   = 0x802E3310; // type:func
+envSound_802E3398   = 0x802E3398; // type:func
+envSoundFrameUpdate = 0x802E344C; // type:func
+
+hoverPadInit         = 0x803097E0; // type:func
+hoverPad_80309868    = 0x80309868; // type:func
+hoverPadLoad         = 0x80309A64; // type:func
+hoverPadObjSetup     = 0x803099A8; // type:func
+hoverPadActivateNext = 0x80309C48; // type:func
+hoverPadFrameUpdate  = 0x80309D64; // type:func
+hoverPadLanded       = 0x80309D6C; // type:func
+hoverPadGetAltitude  = 0x80309E68; // type:func
+hoverPadGetFuel      = 0x80309EA8; // type:func
+hoverPadGetLandedIdx = 0x80309F04; // type:func
+hoverPadDeinit       = 0x80309FFC; // type:func
+hoverPadGetCount     = 0x8030A080; // type:func
+hoverPadGetPoints    = 0x8030A0DC; // type:func
+
 fx_create           = 0x802EA03C; // type:func
 fx_create_fire      = 0x802EA8E0; // type:func
 hsound_callback     = 0x8030A390; // type:func
 app_entrypoint      = 0x8030FE20; // type:func
 map3d               = 0x8030FF00; // type:func
 map3d_mslot         = 0x80312684; // type:func
+
+padsInit            = 0x80316DC0; // type:func
+padsLoad            = 0x80316E40; // type:func
+padsFrameUpdate     = 0x80317634; // type:func
+padsUnused          = 0x80317764; // type:func
+padsDeinit          = 0x8031776C; // type:func
+padsInitLandingPads = 0x80317854; // type:func
+padsLandedPadStrip  = 0x80317978; // type:func
+padsCannonTgtDist   = 0x80317B50; // type:func
+padsStripAlignment  = 0x80317C2C; // type:func
 
 hudInit             = 0x80317DA0; // type:func
 hudGetState         = 0x80318294; // type:func
@@ -149,8 +185,8 @@ hudGenThermCircle   = 0x8031A224; // type:func
 hud_8031A2CC        = 0x8031A2CC; // type:func
 hud_8031A378        = 0x8031A378; // type:func
 hud_8031A66C        = 0x8031A66C; // type:func
-hud_8031A6C8        = 0x8031A6C8; // type:func
-hud_8031A794        = 0x8031A794; // type:func
+hudAddWaypoint      = 0x8031A6C8; // type:func
+hudMoveWaypoint     = 0x8031A794; // type:func
 hud_8031A810        = 0x8031A810; // type:func
 hud_8031A874        = 0x8031A874; // type:func
 hud_8031A8E0        = 0x8031A8E0; // type:func
@@ -180,9 +216,10 @@ hudDrawRect         = 0x8031E69C; // type:func
 hudDrawPhotoCount   = 0x8031E9F8; // type:func
 hudDemoControllerEn = 0x8031EABC; // type:func
 
-sdive_land          = 0x80331794; // type:func
-sdive_getpoints     = 0x80331A78; // type:func
-sdive_below         = 0x80331B88; // type:func
+skydivingInit       = 0x8032FAB0; // type:func
+skydivingLand       = 0x80331794; // type:func
+skydivingGetPoints  = 0x80331A78; // type:func
+skydivingBelow      = 0x80331B88; // type:func
 
 demoAttInit         = 0x803209F0; // type:func
 demoAttLoadPos      = 0x80320A14; // type:func
@@ -198,7 +235,7 @@ demoRecGetStickX    = 0x803227D0; // type:func
 demoRecGetStickY    = 0x80322828; // type:func
 demoRecGetButtons   = 0x80322880; // type:func
 demoPackInputs      = 0x80322890; // type:func
-demo_803229EC       = 0x803229EC; // type:func
+demoGetUserFileIdx  = 0x803229EC; // type:func
 demoGet_80322B60    = 0x80322B60; // type:func
 demoGet_80322B6C    = 0x80322B6C; // type:func
 demoGet_80322B78    = 0x80322B78; // type:func
@@ -218,7 +255,23 @@ demoButtonPress     = 0x803231E0; // type:func
 demoButtonRelease   = 0x80323240; // type:func
 demoRandF           = 0x803232A0; // type:func
 
-testGetPointCount   = 0x8032BE1C; // type:func
+ringsInit           = 0x803232F0; // type:func
+rings_80323364      = 0x80323364; // type:func
+rings_803234A4      = 0x803234A4; // type:func
+rings_80323720      = 0x80323720; // type:func
+rings_80323864      = 0x80323864; // type:func
+rings_8032390C      = 0x8032390C; // type:func
+ringsLoad           = 0x803239B4; // type:func
+rings_80323DCC      = 0x80323DCC; // type:func
+rings_80323FFC      = 0x80323FFC; // type:func
+rings_803243D8      = 0x803243D8; // type:func
+ringsDeinit         = 0x80324A34; // type:func
+ringsGetCleared     = 0x80324AF4; // type:func
+ringsGetPoints      = 0x80324B60; // type:func
+
+testGetPointCount         = 0x8032BE1C; // type:func
+levelGetTotalPoints       = 0x8032BD20; // type:func
+levelSetPointsToNextMedal = 0x8032C174; // type:func
 
 resultHandler       = 0x8032DD50; // type:func
 resultInit          = 0x8032E060; // type:func
@@ -227,13 +280,19 @@ resultDrawTally     = 0x8032E940; // type:func
 resultDeinit        = 0x8032E698; // type:func
 resultGenTipText    = 0x8032EF10; // type:func
 
-smoke_create        = 0x80336934; // type:func
-smoke_props         = 0x80336A04; // type:func
-smoke_getprops      = 0x80336EC0; // type:func
-smoke_delete        = 0x80337154; // type:func
-smoke_puff_add      = 0x8033720C; // type:func
-smoke_create_terra  = 0x80337528; // type:func
+shadowInit          = 0x80335B94; // type:func
 
+smokeInit           = 0x803365A0; // type:func
+smokeCreate         = 0x80336934; // type:func
+smokeProps          = 0x80336A04; // type:func
+smokeGetProps       = 0x80336EC0; // type:func
+smokeDelete         = 0x80337154; // type:func
+smokePuffAdd        = 0x8033720C; // type:func
+smokeCreateTerra    = 0x80337528; // type:func
+smokeDeleteAll      = 0x80337114; // type:func
+
+snapInit            = 0x80337DB8; // type:func
+snapDeinit          = 0x803383FC; // type:func
 snapGetPhotoCount   = 0x8033F618; // type:func
 
 snd_play_sfx        = 0x8033F7F8; // type:func
@@ -245,13 +304,37 @@ snow_create         = 0x8033FE40; // type:func
 snow_draw           = 0x8033FF30; // type:func
 snow_update         = 0x8033FFB4; // type:func
 
-spath_create        = 0x80340610; // type:func
-spath_free          = 0x80340800; // type:func
-spath_update2       = 0x80340868; // type:func
-spath_update        = 0x80340B74; // type:func
-splash_add          = 0x803417CC; // type:func
-toy_animate         = 0x80347E9C; // type:func
-wind_render         = 0x8034CD68; // type:func
+spathCreate         = 0x80340610; // type:func
+spathLoadFile       = 0x80340668; // type:func
+spathFree           = 0x80340800; // type:func
+spathUpdate2        = 0x80340868; // type:func
+spathUpdate         = 0x80340B74; // type:func
+spath_80340CB8      = 0x80340CB8; // type:func
+spath_80340E7C      = 0x80340E7C; // type:func
+spath_80340FEC      = 0x80340FEC; // type:func
+
+splash_80341460     = 0x80341460; // type:func
+splash_803415C8     = 0x803415C8; // type:func
+splash_8034170C     = 0x8034170C; // type:func
+splashAdd           = 0x803417CC; // type:func
+splash_80341974     = 0x80341974; // type:func
+splash_80341CB0     = 0x80341CB0; // type:func
+splash_80341E30     = 0x80341E30; // type:func
+
+toyInit             = 0x80347BD0; // type:func
+toy_80347C2C        = 0x80347C2C; // type:func
+toyAnimate          = 0x80347E9C; // type:func
+toy_8034819C        = 0x8034819C; // type:func
+toy_80348214        = 0x80348214; // type:func
+toyLoad             = 0x80348280; // type:func
+toy_803483AC        = 0x803483AC; // type:func
+toy_80348418        = 0x80348418; // type:func
+
+windInit            = 0x8034CD60; // type:func
+windLoad            = 0x8034CD68; // type:func
+windDeinit          = 0x8034D4AC; // type:func
+wind_8034D548       = 0x8034D548; // type:func
+wind_8034D550       = 0x8034D550; // type:func
 
 levelLoad           = 0x8030B6C0; // type:func
 level_8030B868      = 0x8030B868; // type:func
@@ -287,49 +370,93 @@ textFmtIntAt        = 0x80342404; // type:func
 
 introSceneRunner    = 0x803439B4; // type:func
 
-level_803449B0      = 0x803449B0; // type:func
-levelIsValidIndex   = 0x80344CD0; // type:func
+falcoInit           = 0x802E37B0; // type:func
+falco_802E38F0      = 0x802E38F0; // type:func
+falcoLoad           = 0x802E3A5C; // type:func
+falcoDeinit         = 0x802E3E6C; // type:func
+falcoFrameUpdate    = 0x802E3F7C; // type:func
+falco_802E43C4      = 0x802E43C4; // type:func
+falco_802E45B0      = 0x802E45B0; // type:func
+falco_802E478C      = 0x802E478C; // type:func
+falco_802E4794      = 0x802E4794; // type:func
+falco_802E49B0      = 0x802E49B0; // type:func
+falco_802E4AA8      = 0x802E4AA8; // type:func
+falco_802E4E70      = 0x802E4E70; // type:func
+falco_802E51E8      = 0x802E51E8; // type:func
+falco_802E55A0      = 0x802E55A0; // type:func
+falco_802E57C4      = 0x802E57C4; // type:func
+falco_802E5818      = 0x802E5818; // type:func
+falco_802E587C      = 0x802E587C; // type:func
+falco_802E5AFC      = 0x802E5AFC; // type:func
+falco_802E5BF8      = 0x802E5BF8; // type:func
+falco_802E5D78      = 0x802E5D78; // type:func
+falco_802E5F44      = 0x802E5F44; // type:func
+falco_802E5F90      = 0x802E5F90; // type:func
+falco_802E60A4      = 0x802E60A4; // type:func
+falco_802E60E8      = 0x802E60E8; // type:func
+falco_802E6128      = 0x802E6128; // type:func
+falco_802E6184      = 0x802E6184; // type:func
+falco_802E61E4      = 0x802E61E4; // type:func
+falco_802E6224      = 0x802E6224; // type:func
+falco_802E6284      = 0x802E6284; // type:func
+falco_802E62E4      = 0x802E62E4; // type:func
+falco_802E6344      = 0x802E6344; // type:func
+falco_802E6380      = 0x802E6380; // type:func
+falco_802E63BC      = 0x802E63BC; // type:func
+falco_802E64E0      = 0x802E64E0; // type:func
+
+targetsInit         = 0x80344290; // type:func
+targetsLoad         = 0x803442F8; // type:func
+targetsFrameUpdate  = 0x8034450C; // type:func
+targetsDeinit       = 0x8034467C; // type:func
+targets_8034473C    = 0x8034473C; // type:func
+targets_803448F4    = 0x803448F4; // type:func
+targets_80344948    = 0x80344948; // type:func
+
+taskInit            = 0x803449B0; // type:func
+taskIsValidIndex    = 0x80344CD0; // type:func
 strToUpper          = 0x80344D40; // type:func
-level_80344E0C      = 0x80344E0C; // type:func
-levelGetTestCount   = 0x80344EF0; // type:func
-level_80344FC8      = 0x80344FC8; // type:func
-level_8034528C      = 0x8034528C; // type:func
-level_8034536C      = 0x8034536C; // type:func
-level_803453AC      = 0x803453AC; // type:func
-level_80345464      = 0x80345464; // type:func
-level_803456D8      = 0x803456D8; // type:func
-level_80345A24      = 0x80345A24; // type:func
-levelGet_80345C80   = 0x80345C80; // type:func
-levelGet_80345C90   = 0x80345C90; // type:func
-levelGet_80345CA0   = 0x80345CA0; // type:func
-levelGet_80345CB0   = 0x80345CB0; // type:func
-levelGet_80345CC0   = 0x80345CC0; // type:func
-levelLoadCommObj    = 0x80345CE4; // type:func
-level_803462D4      = 0x803462D4; // type:func
-levelGetClsVehTest  = 0x8034633C; // type:func
-levelGet_80346364   = 0x80346364; // type:func
-level_80346370      = 0x80346370; // type:func
-levelGet_80346468   = 0x80346468; // type:func
-levelDataGetTHER    = 0x80345AAC; // type:func
-levelDataGetLWIN    = 0x80345ACC; // type:func
-levelDataGetTPAD    = 0x80345AFC; // type:func
-levelDataGetCNTG    = 0x80345B1C; // type:func
-levelDataGetOBSV    = 0x80345B3C; // type:func
-levelDataGetLPAD    = 0x80345B5C; // type:func
-levelDataGetLSTP    = 0x80345B7C; // type:func
-levelDataGetRNGS    = 0x80345B9C; // type:func
-levelDataGetBALS    = 0x80345BBC; // type:func
-levelDataGetTARG    = 0x80345BDC; // type:func
-levelDataGetHPAD    = 0x80345BFC; // type:func
-levelDataGetBTGT    = 0x80345C1C; // type:func
-levelDataGetPHTS    = 0x80345C3C; // type:func
-levelDataGetFALC    = 0x80345C5C; // type:func
-levelDataGetHOPD    = 0x80346474; // type:func
+taskLoadNames       = 0x80344E0C; // type:func
+taskGetTestCount    = 0x80344EF0; // type:func
+taskInitTest        = 0x80344FC8; // type:func
+taskLoad            = 0x8034528C; // type:func
+taskDeinitLevel     = 0x8034536C; // type:func
+taskDeinit          = 0x803453AC; // type:func
+taskFrameUpdate     = 0x80345464; // type:func
+task_803456D8       = 0x803456D8; // type:func
+taskUpdateState     = 0x80345A24; // type:func
+taskGetTHER         = 0x80345AAC; // type:func
+taskGetLWIN         = 0x80345ACC; // type:func
+taskGet_80345AEC    = 0x80345AEC; // type:func
+taskGetTPAD         = 0x80345AFC; // type:func
+taskGetCNTG         = 0x80345B1C; // type:func
+taskGetOBSV         = 0x80345B3C; // type:func
+taskGetLPAD         = 0x80345B5C; // type:func
+taskGetLSTP         = 0x80345B7C; // type:func
+taskGetRNGS         = 0x80345B9C; // type:func
+taskGetBALS         = 0x80345BBC; // type:func
+taskGetTARG         = 0x80345BDC; // type:func
+taskGetHPAD         = 0x80345BFC; // type:func
+taskGetBTGT         = 0x80345C1C; // type:func
+taskGetPHTS         = 0x80345C3C; // type:func
+taskGetFALC         = 0x80345C5C; // type:func
+taskGet_80345C80    = 0x80345C80; // type:func
+taskGet_80345C90    = 0x80345C90; // type:func
+taskGet_80345CA0    = 0x80345CA0; // type:func
+taskGet_80345CB0    = 0x80345CB0; // type:func
+taskGet_80345CC0    = 0x80345CC0; // type:func
+taskLoadCommObj     = 0x80345CE4; // type:func
+taskBirdmanPad      = 0x803462D4; // type:func
+taskGetClsVehTest   = 0x8034633C; // type:func
+taskGet_80346364    = 0x80346364; // type:func
+task_80346370       = 0x80346370; // type:func
+taskGet_80346468    = 0x80346468; // type:func
+taskGetHOPD         = 0x80346474; // type:func
 
 thermInit           = 0x803465F0; // type:func
-therm_8034662C      = 0x8034662C; // type:func
+thermLoad           = 0x8034662C; // type:func
 therm_8034695C      = 0x8034695C; // type:func
-therm_80346B84      = 0x80346B84; // type:func
+thermDeinit         = 0x80346B84; // type:func
 therm_80346C08      = 0x80346C08; // type:func
 therm_80346E04      = 0x80346E04; // type:func
 
@@ -342,12 +469,13 @@ totResultDeinit     = 0x80347694; // type:func
 totResultMenuChoose = 0x8034769C; // type:func
 totResultDrawTally  = 0x80347780; // type:func
 
-testMenuShutterBug   = 0x80348710; // type:func
-testMenuInitText     = 0x803487A4; // type:func
-testMenuInit         = 0x80348B84; // type:func
-testMenuHandler      = 0x8034926C; // type:func
-testMenuDraw         = 0x80349C38; // type:func
-testMenu_8034A428    = 0x8034A428; // type:func
+testMenuMainRender  = 0x803485F0; // type:func
+testMenuShutterBug  = 0x80348710; // type:func
+testMenuInitText    = 0x803487A4; // type:func
+testMenuInit        = 0x80348B84; // type:func
+testMenuHandler     = 0x8034926C; // type:func
+testMenuDraw        = 0x80349C38; // type:func
+testMenu_8034A428   = 0x8034A428; // type:func
 
 userPathInit        = 0x8034A450; // type:func
 userPath_8034A4F8   = 0x8034A4F8; // type:func
@@ -355,7 +483,11 @@ userPathFree        = 0x8034A840; // type:func
 userPath_8034A8B0   = 0x8034A8B0; // type:func
 userPath_8034A950   = 0x8034A950; // type:func
 
-windObjectsInit     = 0x8034E080; // type:func
+windObjInit         = 0x8034E080; // type:func
+windObjLoad         = 0x8034E0B4; // type:func
+windObjFrameUpdate  = 0x8034E274; // type:func
+windObjDeinit       = 0x8034E628; // type:func
+windObjIsLoadedId   = 0x8034E6AC; // type:func
 
 mem_get             = 0x80312740; // type:func
 mem_init            = 0x803127BC; // type:func
@@ -381,6 +513,26 @@ optionsSetSetting   = 0x80316BEC; // type:func
 optionsSetTrack     = 0x80316D34; // type:func
 optionsItemWrap     = 0x80316D88; // type:func
 
+gyrocopterEnterLeave = 0x802F5BF0; // type:func
+
+gyrocopterMovementFrame = 0x802F604C; // type:func
+
+hangGliderEnterLeave = 0x802EF368; // type:func
+
+hangGliderMovementFrame = 0x802EF5B0; // type:func
+
+jumbleHopperEnterLeave = 0x802FA108; // type:func
+
+jumbleHopperMovementFrame = 0x802FA2D0; // type:func
+
+rocketBeltEnterLeave = 0x80324EC4; // type:func
+
+rocketBeltMovementFrame = 0x80325160; // type:func
+
+skydivingEnterLeave = 0x8032FC08; // type:func
+
+skydivingMovementFrame = 0x803308C4; // type:func
+
 // -----------------------------------------------------------------------------
 // Data Symbols
 // -----------------------------------------------------------------------------
@@ -404,6 +556,10 @@ D_803514A4 = 0x803514A4; // type:f32 force_migration:True
 D_803514A8 = 0x803514A8; // type:f32 force_migration:True
 
 D_80353578 = 0x80353578; // type:f64 force_migration:True
+D_80353730 = 0x80353730; // type:f32 force_migration:True
+D_80353734 = 0x80353734; // type:f32 force_migration:True
+D_80353738 = 0x80353738; // type:f32 force_migration:True
+D_8035373C = 0x8035373C; // type:f32 force_migration:True
 D_80355000 = 0x80355000; // type:f32 force_migration:True
 D_80355008 = 0x80355008; // type:f32 force_migration:True
 D_8035500C = 0x8035500C; // type:f32 force_migration:True
@@ -421,14 +577,50 @@ D_80355038 = 0x80355038; // type:f32 force_migration:True
 D_8035503C = 0x8035503C; // type:f32 force_migration:True
 D_80355040 = 0x80355040; // type:f32 force_migration:True
 
+D_80359A88 = 0x80359A88; // size:0x10
+D_80359A98 = 0x80359A98; // size:0x10
+
 D_8035AF30 = 0x8035AF30; // type:f32
 D_8035AF34 = 0x8035AF34; // type:f32
 D_8035AF38 = 0x8035AF38; // type:f32
 D_8035AF3C = 0x8035AF3C; // type:f32
 
+D_8034EF30                = 0x8034EF30; // size:0x70
+
+gLevelCurMap              = 0x8034F40C;
+gLevelObjHeapPtr          = 0x8034F840;
+
+sFileMenuTextIds          = 0x8034F0E0; // size:0xC
+sFileMenuConfirm          = 0x8034F0EC; // size:0x8
+sFileMenuCurMenu          = 0x8034F0F4;
+sFileMenu_8034F0F8        = 0x8034F0F8;
+sFileMenuFadeTime         = 0x8034F114;
+sFileMenuFadeRate         = 0x8034F118;
+
+gLevelCurObjects          = 0x8034F408;
+gLevelUserFileLookup      = 0x8034F410;
+
+gRingModelIdLookup        = 0x8034FAF4; // size:0xA0
+
+gMedalPointRequirements   = 0x8034FBD4;
+
+sShutterBugTestItems      = 0x8034FC10; // size:0x10
+sSkyDivingItems           = 0x8034FC20; // size:0x8
+sOtherItems               = 0x8034FC28; // size:0xC
+
+gTaskClassU8              = 0x80350790;
+gTaskVehicleU8            = 0x80350794;
+gTaskTestU8               = 0x80350798;
+gTaskMapLookup            = 0x803507A8;
+gTaskUserFileIdxLookup    = 0x803507AC;
+
+gThermShouldDisable       = 0x803507F0;
+
 gClassShortNames          = 0x80350988; // size:0x10
 gVehShortNames            = 0x80350998; // size:0x1C
 gCurTestIdx               = 0x803509B4;
+
+gTitleMenuDelay           = 0x80356A68;
 
 gBallCount                = 0x80357210;
 gBallSplitCount           = 0x80357211;
@@ -441,16 +633,103 @@ gRefBNUS                  = 0x80359730;
 gBonusStarCount           = 0x80359734;
 gBonusStars               = 0x80359738; // size:0xA0
 
+gFalcos                   = 0x8035A5F8; // size:0x258
+gFalcoCount               = 0x8035A850;
+gRefFALC                  = 0x8035AF20;
+
+sFileMenu_803624E0        = 0x803624E0; // size:0x3
+sFileMenu_803624E3        = 0x803624E3;
+sFileColorR1              = 0x803624E4;
+sFileColorR2              = 0x803624E8;
+sFileColorG1              = 0x803624EC;
+sFileColorG2              = 0x803624F0;
+sFileColorB1              = 0x803624F4;
+sFileColorB2              = 0x803624F8;
+
+D_80368B20                = 0x80368B20; // size:0x54
+
+gRefHPAD                  = 0x80369580;
+gHoverPadCount            = 0x80369584;
+gHoverPads                = 0x80369588; // size:0x8C0
+
+gMenuItems                = 0x80369F10; // size:0x14
+gMenuSpriteIdBase         = 0x80369F24;
+gMenuSpriteHeight         = 0x80369F26;
+gMenuCountVarHeight       = 0x80369F28;
+
+gLevelWOBJ                = 0x80369F30;
+gLevelLPAD                = 0x8036A030;
+gLevelTPTS                = 0x8036A180;
+gLevelTOYS                = 0x8036A4C0;
+gLevelAPTS                = 0x8036A5C0;
+gLevelBNUS                = 0x8036A840;
+gLevelObjects             = 0x8036A878;
+
+gLevelObjHeap             = 0x8036AA60; // size:5000
+
+gFcnDrawMenuItem          = 0x8036BE08;
+
 sOptionsPanel             = 0x8036C120; // type:s16
 sStickHeld                = 0x8036C124;
 sGameComplete             = 0x8036C128;
 sSaveFileIdx              = 0x8036C129;
 sOptionMenuItems          = 0x8036C130; // size:0x14
 
+gRefLPAD                  = 0x8036C150;
+gRefLSTP                  = 0x8036C154;
+gRefTPAD                  = 0x8036C158;
+gRefCNTG                  = 0x8036C15C;
+gRefPotLPAD               = 0x8036C160;
+
+gPotLandPadCount          = 0x8036C2B8;
+gLandingPadCount          = 0x8036C2B9;
+gLandingStripCount        = 0x8036C2BA;
+gTakeoffPadCount          = 0x8036C2BB;
+gCannonTargetCount        = 0x8036C2BC;
+gTakeoffPads              = 0x8036C2C0; // size:0x24
+gLandingPads              = 0x8036C2E8; // size:0x150
+gLandingStrips            = 0x8036C438; // size:0x78
+gCannonTargets            = 0x8036C4B0; // size:0x48
+gLandingPadObjIds         = 0x8036C4F8; // size:0x28
+
+gRadarThermCirc           = 0x8036C520; // size:0x88
+gHudState                 = 0x8036C5A8; // size:0xC7C
+
+gDemoUserFileIdx          = 0x8036D330;
+
+gRefRNGS                  = 0x8036DA70;
+gRingsCount               = 0x8036DA74;
+gRings                    = 0x8036DA78; // size:0x35E8
+
 sTextName                 = 0x80377F10; // size:0x6E0
 sTextData                 = 0x803785F0; // size:0x6DC
 sTextDataCount            = 0x80378CCC;
 sTextNameCount            = 0x80378CD0;
 
-sMissileTargets           = 0x80378CF0;
+sRefTARG                  = 0x80378CF0;
+sMissileTargets           = 0x80378CF8; // size:0xBE0
 sMissileTargetCount       = 0x80378CF4;
+
+gTaskObjects              = 0x8037A600; // size:0x478
+gTaskClass                = 0x8037AA78;
+gTaskTest                 = 0x8037AA7C;
+gTaskVehicle              = 0x8037AA80;
+gTaskTakeoffPads          = 0x8037AA88;
+
+gLevelTHER                = 0x8037AB50;
+gThermalCount             = 0x8037AB54;
+gThermals                 = 0x8037AB58; // size:0x180
+gThermReady               = 0x8037ACD8;
+
+gToyCount                 = 0x8037AD70;
+gToys                     = 0x8037AD78; // size:0x2EE0
+
+sRefLWIN                  = 0x8037F510;
+sLocalWindCount           = 0x8037F514;
+sLocalWinds               = 0x8037F518; // size:0x3F0
+
+sWindObjectsData          = 0x8037F910;
+sWindObjectsInLevel       = 0x8037F914;
+sWindObjects              = 0x8037F918;
+
+sSmokeObjects             = 0x80371E60; // size:0x1200

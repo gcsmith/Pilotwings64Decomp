@@ -1,14 +1,13 @@
 #ifndef APP_CODE_D1ED0_H
 #define APP_CODE_D1ED0_H
 
-#include <uv_level.h>
 #include <uv_matrix.h>
 #include <uv_vector.h>
 #include "code_5A6A0.h"
+#include "code_72B70.h"
 
 void func_8034B624(Unk802D3658_Arg0*);
 void func_8034AD6C(f32, f32, f32, Mtx4F*);
-void func_8034ABB0(Mtx4F*, Vec3F*, Vec3F*);
 
 f32 func_8034A9A0(f32, f32);
 void func_8034A9E8(Vec3F, Vec3F*);

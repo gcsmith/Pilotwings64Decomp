@@ -7,8 +7,8 @@
 #include "text_data.h"
 
 // forward declarations
-static void menuCreate(s32 x, s32 y, s32 arg2, f32 xscale, f32 yscale, s32 itemCount);
-static void menuDrawItem(s16 arg0, s16 arg1, s16 idx);
+STATIC_FUNC void menuCreate(s32 x, s32 y, s32 arg2, f32 xscale, f32 yscale, s32 itemCount);
+STATIC_FUNC void menuDrawItem(s16 arg0, s16 arg1, s16 idx);
 
 // arrays of pointers to 16-bit strings
 // e.g. "Option" from main menu is 0x0078 0x0093 0x0097 0x008c 0x0092 0091 0x0ffe 0xffff
@@ -17,7 +17,7 @@ static s16 gMenuSpriteIdBase;
 static s16 gMenuSpriteHeight;
 static s16 gMenuCountVarHeight;
 
-static void menuCreate(s32 x, s32 y, s32 arg2, f32 xscale, f32 yscale, s32 itemCount) {
+STATIC_FUNC void menuCreate(s32 x, s32 y, s32 arg2, f32 xscale, f32 yscale, s32 itemCount) {
     s32 i;
 
     gMenuSpriteHeight = 0;
@@ -76,7 +76,7 @@ void menuSetProps(void) {
     }
 }
 
-static void menuDrawItem(s16 arg0, s16 arg1, s16 idx) {
+STATIC_FUNC void menuDrawItem(s16 arg0, s16 arg1, s16 idx) {
     if (gMenuSpriteHeight != 0) {
         uvSprtProps(gMenuSpriteIdBase + idx, 2, arg0, arg1 + gMenuSpriteHeight + 2, 0);
         uvSprtDraw(gMenuSpriteIdBase + idx);

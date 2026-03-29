@@ -3,10 +3,10 @@
 
 #include <PR/ultratypes.h>
 
-void windObjectsInit(void);
-void func_8034E0B4(void);
-void func_8034E274(void);
-void func_8034E628(void);
-s32 func_8034E6AC(s32 modelId);
+void windObjInit(void);
+void windObjLoad(void);
+void windObjFrameUpdate(void);
+void windObjDeinit(void);
+s32 windObjIsLoadedId(s32 objId);
 
 #endif // APP_WIND_OBJECTS_H

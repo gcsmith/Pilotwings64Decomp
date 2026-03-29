@@ -26,7 +26,7 @@ Vec3F D_803509F8 = { 1156.66f, 1770.82f, 0.0f };
 extern Unk8037F450 D_8037F450[5];
 extern s32 D_8037F504;
 
-static void func_8034C2E0(s32 arg0) {
+STATIC_FUNC void func_8034C2E0(s32 arg0) {
     Mtx4F sp30;
     s32 v1;
     s32 v0;
@@ -60,7 +60,7 @@ static void func_8034C2E0(s32 arg0) {
     uvDobjPosm(D_8037F450[arg0].unk0, 1, &sp30);
 }
 
-static void func_8034C520(void) {
+STATIC_FUNC void func_8034C520(void) {
     Unk8037F450* var_s0;
     s32 i;
 
@@ -90,7 +90,7 @@ static void func_8034C520(void) {
     }
 }
 
-static s32 func_8034C6CC(s32 arg0, s32 arg1, s32 arg2) {
+STATIC_FUNC s32 func_8034C6CC(s32 arg0, s32 arg1, s32 arg2) {
     Unk8037F450* var_s0;
     s32 i;
 
@@ -126,7 +126,7 @@ static s32 func_8034C6CC(s32 arg0, s32 arg1, s32 arg2) {
     return 0;
 }
 
-static s32 func_8034C7F0(s32 arg0, s32 arg1, s32 arg2) {
+STATIC_FUNC s32 func_8034C7F0(s32 arg0, s32 arg1, s32 arg2) {
     s32 pad;
     s32 sp18;
 

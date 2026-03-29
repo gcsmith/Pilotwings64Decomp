@@ -42,12 +42,12 @@ static u8* gAudioHeapStart = 0x80000400;
 ALSeqPlayer* gSeqPlayer = (ALSeqPlayer*)&gALCSPlayer;
 ALSndPlayer* gSndPlayer = &gALSndPlayer;
 
-static void __amMain(UNUSED void* arg);
-static s32 __amDMA(s32 addr, s32 len, void* state);
-static ALDMAproc __amDmaNew(AMDMAState** state);
-static u32 __amHandleFrameMsg(AudioInfo* info, AudioInfo* lastInfo);
-static void __amHandleDoneMsg(AudioInfo* info);
-static void __clearAudioDMA(void);
+STATIC_FUNC void __amMain(UNUSED void* arg);
+STATIC_FUNC s32 __amDMA(s32 addr, s32 len, void* state);
+STATIC_FUNC ALDMAproc __amDmaNew(AMDMAState** state);
+STATIC_FUNC u32 __amHandleFrameMsg(AudioInfo* info, AudioInfo* lastInfo);
+STATIC_FUNC void __amHandleDoneMsg(AudioInfo* info);
+STATIC_FUNC void __clearAudioDMA(void);
 
 void uvSysInitAudio(void) {
     s32 seqFileSize;
@@ -162,7 +162,7 @@ void amCreateAudioMgr(ALSynConfig* c, OSPri priority) {
     osStartThread(&__am.thread);
 }
 
-static void __amMain(void* entry) {
+STATIC_FUNC void __amMain(void* entry) {
     s32 pad;
     s32 done = FALSE;
     AudioMsg* msg = NULL;
@@ -238,7 +238,7 @@ u32 __amHandleFrameMsg(AudioInfo* info, AudioInfo* previousInfo) {
     return 1;
 }
 
-static void __amHandleDoneMsg(AudioInfo* task) {
+STATIC_FUNC void __amHandleDoneMsg(AudioInfo* task) {
     static s32 firstTime = TRUE;
     s32 samplesLeft = osAiGetLength() >> 2;
 
@@ -248,7 +248,7 @@ static void __amHandleDoneMsg(AudioInfo* task) {
     }
 }
 
-static s32 __amDMA(s32 addr, s32 len, UNUSED void* state) {
+STATIC_FUNC s32 __amDMA(s32 addr, s32 len, UNUSED void* state) {
     void* foundBuffer;
     AMDMABuffer* dmaPtr;
     AMDMABuffer* lastDmaPtr;
@@ -303,7 +303,7 @@ static s32 __amDMA(s32 addr, s32 len, UNUSED void* state) {
     return osVirtualToPhysical(foundBuffer) + delta;
 }
 
-static ALDMAproc __amDmaNew(AMDMAState** state) {
+STATIC_FUNC ALDMAproc __amDmaNew(AMDMAState** state) {
     if (dmaState.initialized == 0) {
         dmaState.firstUsed = NULL;
         dmaState.firstFree = dmaBuffs;
@@ -313,7 +313,7 @@ static ALDMAproc __amDmaNew(AMDMAState** state) {
     return __amDMA;
 }
 
-static void __clearAudioDMA(void) {
+STATIC_FUNC void __clearAudioDMA(void) {
     s32 i;
     OSIoMesg* iomsg = NULL;
     AMDMABuffer* dmaPtr;

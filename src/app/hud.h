@@ -5,7 +5,7 @@
 
 // for HUDState.renderFlags
 #define HUD_RENDER_HANG_GLIDER   0x0002
-#define HUD_RENDER_ROCKET_PACK   0x0004
+#define HUD_RENDER_ROCKET_BELT   0x0004
 #define HUD_RENDER_GYROCOPTER    0x0008
 #define HUD_RENDER_CANNONBALL    0x0010
 #define HUD_RENDER_SKYDIVING     0x0020
@@ -14,7 +14,7 @@
 #define HUD_RENDER_RETICLE       0x0200
 #define HUD_RENDER_DISABLE       0x0400
 #define HUD_RENDER_ANY_VEHICLE (HUD_RENDER_HANG_GLIDER | \
-                                HUD_RENDER_ROCKET_PACK | \
+                                HUD_RENDER_ROCKET_BELT | \
                                 HUD_RENDER_GYROCOPTER | \
                                 HUD_RENDER_CANNONBALL | \
                                 HUD_RENDER_SKYDIVING | \
@@ -26,9 +26,9 @@
 #define HUD_CAM_RENDER_SHUTTER 0x40000000
 
 typedef struct {
-    f32 unk0;
-    f32 unk4;
-    f32 unk8;
+    f32 x;
+    f32 y;
+    f32 z;
     f32 unkC;
     f32 unk10;
     s32 unk14;
@@ -73,7 +73,7 @@ typedef struct {
         s32 cameraState; // camera and shutter
         s32 cloudFade;   // skydiving cloud fade
     };
-    s8 unk8;
+    u8 unk8;
     s8 pad9[3];
     s32 unkC;
     f32 elapsedTime;
@@ -113,9 +113,9 @@ typedef struct {
     u8 padC61[3];
     f32 unkC64;
     f32 unkC68;
-    f32 unkC6C;
-    f32 unkC70;
-    s8 unkC74;
+    f32 reticleX;
+    f32 reticleY;
+    u8 unkC74;
     u8 padC75[3];
     u8 showController;
 } HUDState;
@@ -128,10 +128,13 @@ void hudWarningText(s16, f32, f32);
 void hudDemoControllerEn(u8 enable);
 void hudSetCameraState(s32 state);
 void hud_8031A2CC(void);
-void hud_8031A794(s32 idx, f32 arg1, f32 arg2, f32 arg3);
+void hudMoveWaypoint(s32 idx, f32 x, f32 y, f32 z);
 void hud_8031A874(s32 idx);
-s32 hud_8031A6C8(f32 arg0, f32 arg1, f32 arg2);
+void hud_8031A66C(s32 idx, s32);
+s32 hudAddWaypoint(f32 x, f32 y, f32 z);
 void hud_8031A810(s32 idx);
 void hud_8031A8E0(s32 idx);
+s16 hudGet_8031DA9C(void);
+void hud_8031DAA8(u8, f32);
 
 #endif // APP_HUD_H

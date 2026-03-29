@@ -2,8 +2,9 @@
 #include <uv_font.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>
-#include <uv_level.h>
+#include <uv_memory.h>
 #include <uv_sprite.h>
+#include <uv_texture.h>
 #include "kernel/code_1050.h"
 #include "code_99D40.h"
 #include "code_B3A70.h"
@@ -67,18 +68,18 @@ s32 optionsTopRender(void) {
 }
 
 void optionsInit(void) {
-    D_80362690->unk0[D_80362690->unk9C + 1].debugFlag = 0;
-    saveFileLoad(D_80362690->unk0[D_80362690->unk9C + 1].debugFlag);
+    D_80362690->unkC[D_80362690->unk9C].unk8A = 0;
+    saveFileLoad(D_80362690->unkC[D_80362690->unk9C].unk8A);
     sGameComplete = func_8030CC48();
 
-    D_80362690->unk0[D_80362690->unk9C + 1].debugFlag = 1;
-    saveFileLoad(D_80362690->unk0[D_80362690->unk9C + 1].debugFlag);
+    D_80362690->unkC[D_80362690->unk9C].unk8A = 1;
+    saveFileLoad(D_80362690->unkC[D_80362690->unk9C].unk8A);
 
     if (sGameComplete < func_8030CC48()) {
         sGameComplete = func_8030CC48();
     } else {
-        D_80362690->unk0[D_80362690->unk9C + 1].debugFlag = 0;
-        saveFileLoad(D_80362690->unk0[D_80362690->unk9C + 1].debugFlag);
+        D_80362690->unkC[D_80362690->unk9C].unk8A = 0;
+        saveFileLoad(D_80362690->unkC[D_80362690->unk9C].unk8A);
     }
     if (sOptionsPanel == 3) {
         options_80316B80();
@@ -102,7 +103,7 @@ void optionsInitMain(void) {
     s32 menuY;
     s32 count;
 
-    saveFileLoad(D_80362690->unk0[D_80362690->unk9C + 1].debugFlag);
+    saveFileLoad(D_80362690->unkC[D_80362690->unk9C].unk8A);
     if (sGameComplete != 0) {
         sOptionMenuItems[0] = 0xC2;  // "Check album"
         sOptionMenuItems[1] = 0xBE;  // "Sound"
@@ -117,7 +118,7 @@ void optionsInitMain(void) {
         count = 3;
         menuY = 100;
     }
-    menuCreateItems(0x50, menuY, 6, 1.0f, 1.0f, sOptionMenuItems, count);
+    menuCreateItems(80, menuY, 6, 1.0f, 1.0f, sOptionMenuItems, count);
     func_80312F5C(1, 0xFF, 0xFF, 0xFF);
     func_80312F5C(0, 0xFF, 0xFF, 0x00);
 }

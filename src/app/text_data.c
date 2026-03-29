@@ -10,7 +10,7 @@ static s16* sTextData[439];
 static s32 sTextDataCount;
 static s32 sTextNameCount;
 
-void textLoadBlock(s32 id) {
+void textLoadBlock(s32 userFileIdx) {
     s32 block;
     u32 tag;
     s32 i;
@@ -20,7 +20,7 @@ void textLoadBlock(s32 id) {
     s32 ch;
     s32 newCh;
 
-    block = uvFileReadHeader((s32)func_802314D0(id, 2));
+    block = uvFileReadHeader((s32)uvUserFileRead(userFileIdx, MEM_ROM_OFFSET));
     sTextNameCount = 0;
     sTextDataCount = 0;
 
