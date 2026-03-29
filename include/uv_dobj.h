@@ -372,7 +372,6 @@ enum Models {
     MODEL_SKYBOX_INTRO_GIANT_CIRCULAR_SKY_OCEAN             = 0x16A, // Giant circular sky+ocean skybox with high-resh skybox/clouds AND empty ocean (used in Intro)
 
     MODEL_WORLD                                             = 0xFFFF // used to indicate a model that's not bound to a level? (Possibly used to make a model dissappear without freeing it?)
-    MODEL_WORLD                                             = 0xFFFF // used to indicate a model that's not bound to a level? (Possibly used to make a model dissappear without freeing it?)
 };
 
 typedef struct {
