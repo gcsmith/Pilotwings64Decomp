@@ -147,13 +147,13 @@ void birdMovementFrame(BirdmanData* arg0, u8 gameState) {
         bird_802CD0F8(arg0);
         return;
     }
-    if (func_802E6B5C() != 4) {
+    if (fdr_802E6B5C() != 4) {
         arg0->unk8 += D_8034F854;
         if (D_80362690->unkC[D_80362690->unk9C].unk7B == 0) {
             func_80339E1C(arg0);
         }
         if (gameState == GAME_STATE_RESULTS) {
-            func_802E65AC(&arg0->unk10, &D_80362690->terraId, &sp7C, &sp78, &buttons);
+            fdr_802E65AC(&arg0->unk10, &D_80362690->terraId, &sp7C, &sp78, &buttons);
         } else {
             sp7C = demoGetInputs(arg0->controller, INPUT_AXIS_X);
             sp78 = demoGetInputs(arg0->controller, INPUT_AXIS_Y);
@@ -224,9 +224,9 @@ void birdMovementFrame(BirdmanData* arg0, u8 gameState) {
             sp4C[3] = (f32)arg0->unk2C0;
             sp4C[4] = arg0->unk304;
             sp4C[5] = arg0->unk308;
-            func_802E682C(sp4C, ARRAY_COUNT(sp4C), 0);
+            fdr_802E682C(sp4C, ARRAY_COUNT(sp4C), 0);
         } else {
-            func_802E6870(sp4C, ARRAY_COUNT(sp4C), NULL);
+            fdr_802E6870(sp4C, ARRAY_COUNT(sp4C), NULL);
             arg0->unkD0 = sp4C[0];
             arg0->unk2D0 = sp4C[1];
             arg0->unk2D4 = sp4C[2];
@@ -369,9 +369,9 @@ void birdMovementFrame(BirdmanData* arg0, u8 gameState) {
         func_802E06AC(&arg0->unk10);
         if (gameState != GAME_STATE_RESULTS) {
             if (arg0->unk104 == 2) {
-                func_802E66DC();
+                fdr_802E66DC();
             }
-            func_802E65AC(&arg0->unk10, &D_80362690->terraId, &sp7C, &sp78, &buttons);
+            fdr_802E65AC(&arg0->unk10, &D_80362690->terraId, &sp7C, &sp78, &buttons);
         }
     }
 }

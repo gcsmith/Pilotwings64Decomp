@@ -656,7 +656,7 @@ segments:
       - { type: bss, vram: 0x80359D80, name: app/environment }
       - { type: .bss, vram: 0x80359DC0, name: app/env_sound }
       - { type: bss, vram: 0x8035A5F0, name: app/falco }
-      - { type: bss, vram: 0x8035AF60, name: app/fdr }
+      - { type: .bss, vram: 0x8035AF60, name: app/fdr }
       - { type: .bss, vram: 0x80362010, name: app/ferry }
       - { type: .bss, vram: 0x803620E0, name: app/save }
       - { type: .bss, vram: 0x803624E0, name: app/file_menu }
