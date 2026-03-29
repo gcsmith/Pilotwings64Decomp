@@ -6,28 +6,26 @@
 #include <uv_memory.h>
 #include "ball_target.h"
 #include "balls.h"
+#include "boats.h"
 #include "bonus.h"
-#include "code_58B00.h"
-#include "code_6ECD0.h"
-#include "code_722D0.h"
 #include "code_72910.h"
-#include "code_72B70.h"
-#include "code_78620.h"
 #include "code_82520.h"
 #include "code_9A960.h"
 #include "code_9C080.h"
-#include "code_A7460.h"
 #include "code_B2900.h"
-#include "code_D2D50.h"
-#include "code_D3810.h"
 #include "env_sound.h"
 #include "environment.h"
 #include "falco.h"
+#include "ferry.h"
+#include "fountain.h"
+#include "game.h"
+#include "glider_toys.h"
 #include "hover_pads.h"
 #include "jumble_hopper.h"
 #include "level.h"
 #include "mem.h"
 #include "pads.h"
+#include "planes.h"
 #include "rings.h"
 #include "shadow.h"
 #include "skydiving.h"
@@ -37,6 +35,8 @@
 #include "task.h"
 #include "thermals.h"
 #include "wind.h"
+#include "whale.h"
+#include "whale_pod.h"
 
 typedef struct {
     void* taskName; // short string name "BIRD 1C"
@@ -95,16 +95,16 @@ void taskInit(void) {
     func_802EB3E0();
     skydivingInit();
     func_802FAF80();
-    shadowInit();
-    func_802E79D8();
-    func_802EB0BC();
+    shuttleInit();
+    ferryInit();
+    fountainInit();
     func_80315474();
-    func_8034C224();
+    whaleInit();
     func_80315550();
-    func_802F1FA0();
-    func_802D20F0();
-    func_80320810();
-    func_8034C848();
+    gliderToyInit();
+    boatsInit();
+    planesInit();
+    whalePodInit();
 
     for (classIdx = 0; classIdx < MAX_CLASSES; classIdx++) {
         for (testIdx = 0; testIdx < MAX_TESTS; testIdx++) {
@@ -202,7 +202,7 @@ s32 taskGetTestCount(s32 classIdx, s32 vehicle) {
     return testCount;
 }
 
-s32 taskInitTest(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* terraId, u16* arg5) {
+s32 taskInitTest(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* terraId, u16* envId) {
     u8 taskIdx;
 
     gTaskClass = classIdx;
@@ -263,20 +263,20 @@ s32 taskInitTest(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* terraId,
     skydivingInit();
     func_802EB3E0();
     func_802FAF80();
-    func_802E79D8();
-    func_802EB0BC();
-    shadowInit();
+    ferryInit();
+    fountainInit();
+    shuttleInit();
     func_80315474();
     func_80315550();
-    func_8034C224();
-    func_802F1FA0();
-    func_802D20F0();
-    func_80320810();
-    func_8034C848();
+    whaleInit();
+    gliderToyInit();
+    boatsInit();
+    planesInit();
+    whalePodInit();
     D_8035079C = 1;
     D_803507A0 = 0;
     D_80362690->unkC[D_80362690->unk9C].unk8 = 0;
-    *arg5 = func_802E12B4();
+    *envId = func_802E12B4();
     return 1;
 }
 

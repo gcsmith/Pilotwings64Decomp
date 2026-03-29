@@ -194,7 +194,7 @@ f32 hoverPadGetFuel(s32 hoverIdx) {
     if (gHoverPads[hoverIdx].objId == INVALID_OBJECT_ID) {
         return 0.0f;
     } else {
-        snd_play_sfx(0x6D);
+        sndPlaySfx(0x6D);
         return gHoverPads[hoverIdx].fuelAdded;
     }
 }

@@ -24,7 +24,7 @@ ballsGetCount       = 0x802CC13C; // type:func
 ballsGetAllPopped   = 0x802CC15C; // type:func
 
 // birdman0
-bird_802CC1B0       = 0x802CC1B0; // type:func
+birdInit            = 0x802CC1B0; // type:func
 bird_802CC270       = 0x802CC270; // type:func
 birdEnterLeave      = 0x802CC39C; // type:func
 bird_802CC51C       = 0x802CC51C; // type:func
@@ -55,13 +55,25 @@ bird_802D08F8       = 0x802D08F8; // type:func
 bird_802D0A28       = 0x802D0A28; // type:func
 bird_802D0ABC       = 0x802D0ABC; // type:func
 
+boatsUpdate         = 0x802D15D0; // type:func
+boats_802D1900      = 0x802D1900; // type:func
+boats_802D19A4      = 0x802D19A4; // type:func
+boatsLoadCrescent   = 0x802D1A74; // type:func
+boatsLoadHoliday    = 0x802D1CE8; // type:func
+boatsSetupEnvSound  = 0x802D1F58; // type:func
+boatsGetPose        = 0x802D2018; // type:func
+boatsDeinit         = 0x802D206C; // type:func
+boatsInit           = 0x802D20F0; // type:func
+boatsGetObjData     = 0x802D2124; // type:func
+boatsUpdateInterval = 0x802D21D8; // type:func
+
 bonusInit           = 0x802D22B0; // type:func
 bonusUpdateState    = 0x802D22D8; // type:func
 bonusLoad           = 0x802D23EC; // type:func
 bonusFrameUpdate    = 0x802D25AC; // type:func
 bonusDeinit         = 0x802D27CC; // type:func
 
-cannon_802D5A90       = 0x802D5A90; // type:func
+cannonInit       = 0x802D5A90; // type:func
 cannonLoadLevel       = 0x802D5B50; // type:func
 cannonLevelEnterLeave = 0x802D5C5C; // type:func
 cannonEndTarget       = 0x802D5E98; // type:func
@@ -80,6 +92,20 @@ cannon_802D8A40       = 0x802D8A40; // type:func
 screenDrawBox       = 0x802DED44; // type:func
 screenDrawBox2      = 0x802DF03C; // type:func
 screenDrawBoxSetup  = 0x802DF988; // type:func
+
+ferryIsActive       = 0x802E77A0; // type:func
+ferryUpdatePos      = 0x802E77AC; // type:func
+ferryUpdate         = 0x802E7860; // type:func
+ferry_802E78D4      = 0x802E78D4; // type:func
+ferry_802E7974      = 0x802E7974; // type:func
+ferryInit           = 0x802E79D8; // type:func
+ferryLoad           = 0x802E79F0; // type:func
+ferryDeinit         = 0x802E7C28; // type:func
+ferryGetInterval    = 0x802E7CA0; // type:func
+ferryGetPos         = 0x802E7CB8; // type:func
+ferrySetInterval    = 0x802E7D18; // type:func
+ferryStateSave      = 0x802E7D58; // type:func
+ferryStateRestore   = 0x802E7D6C; // type:func
 
 saveBitScramble     = 0x802E7FA0; // type:func
 saveFatalError      = 0x802E81BC; // type:func
@@ -106,6 +132,34 @@ fileMenuSubRender   = 0x802E9A10; // type:func
 fileMenuColorLerp   = 0x802E9A84; // type:func
 fileMenu_802E9AE0   = 0x802E9AE0; // type:func
 
+fountainIsActive     = 0x802EADA0; // type:func
+fountainUpdatePose   = 0x802EADAC; // type:func
+fountainUpdate       = 0x802EAE3C; // type:func
+fountain_802EAF14    = 0x802EAF14; // type:func
+fountain_802EAFD8    = 0x802EAFD8; // type:func
+fountainInit         = 0x802EB0BC; // type:func
+fountainLoad         = 0x802EB0D4; // type:func
+fountainDeinit       = 0x802EB270; // type:func
+fountainGetInterval  = 0x802EB2E8; // type:func
+fountainGetPos       = 0x802EB300; // type:func
+fountainSetInterval  = 0x802EB328; // type:func
+fountainStateSave    = 0x802EB368; // type:func
+fountainStateRestore = 0x802EB38C; // type:func
+fountainInitUpdate   = 0x802EB3B0; // type:func
+
+gliderToyUpdate       = 0x802F10F0; // type:func
+gliderToy_802F11F8    = 0x802F11F8; // type:func
+gliderToy_802F12BC    = 0x802F12BC; // type:func
+gliderToyModelLookup  = 0x802F13C0; // type:func
+gliderToyLoadCrescent = 0x802F15C8; // type:func
+gliderToyLoadLStates  = 0x802F182C; // type:func
+gliderToyLoadHoliday  = 0x802F1AE8; // type:func
+gliderToyLoadEFrost   = 0x802F1D3C; // type:func
+gliderToyInit         = 0x802F1FA0; // type:func
+gliderToyDeinit       = 0x802F1FF0; // type:func
+gliderToyGetObjData   = 0x802F205C; // type:func
+gliderToySetInterval  = 0x802F2110; // type:func
+
 bmSoundInit         = 0x802D0BF0; // type:func
 bmSoundCallback     = 0x802D0D04; // type:func
 bmSound_802D112C    = 0x802D112C; // type:func
@@ -127,6 +181,7 @@ ballTgtDeinit       = 0x802D3030; // type:func
 db_getgnd           = 0x802DFE70; // type:func
 db_getstart         = 0x802E0304; // type:func
 
+envInit             = 0x802E1238; // type:func
 envLoad             = 0x802E1278; // type:func
 env_loadtpal        = 0x802E1990; // type:func
 
@@ -159,6 +214,13 @@ hsound_callback     = 0x8030A390; // type:func
 app_entrypoint      = 0x8030FE20; // type:func
 map3d               = 0x8030FF00; // type:func
 map3d_mslot         = 0x80312684; // type:func
+
+oilUpdatePos        = 0x80315A20; // type:func
+oilUpdate           = 0x80315AB0; // type:func
+oil_80315BB8        = 0x80315BB8; // type:func
+oil_80315C84        = 0x80315C84; // type:func
+oilInit             = 0x80315D68; // type:func
+oilDeinit           = 0x80315E3C; // type:func
 
 padsInit            = 0x80316DC0; // type:func
 padsLoad            = 0x80316E40; // type:func
@@ -221,6 +283,28 @@ skydivingLand       = 0x80331794; // type:func
 skydivingGetPoints  = 0x80331A78; // type:func
 skydivingBelow      = 0x80331B88; // type:func
 
+planesUpdate         = 0x8031FF30; // type:func
+planesGetPos         = 0x803203D0; // type:func
+planes_8032040C      = 0x8032040C; // type:func
+planes_803204B0      = 0x803204B0; // type:func
+planesLoad           = 0x80320534; // type:func
+planesDeinit         = 0x8032079C; // type:func
+planesInit           = 0x80320810; // type:func
+planesGetObjData     = 0x80320848; // type:func
+planesUpdateInterval = 0x80320900; // type:func
+
+proxAnimInit           = 0x80321100; // type:func
+proxAnimFreeSlot       = 0x80321174; // type:func
+proxAnimAddCallback    = 0x80321210; // type:func
+proxAnimDeleteCallback = 0x803212DC; // type:func
+proxAnimDispatchEvent  = 0x80321364; // type:func
+proxAnimDispatchEvent2 = 0x803213E0; // type:func
+proxAnimDispatchEvent3 = 0x80321400; // type:func
+proxAnimGetRange       = 0x80321420; // type:func
+proxAnimDispatchInit   = 0x803214E4; // type:func
+proxAnimUpdate         = 0x8032150C; // type:func
+proxAnimGetHandle      = 0x803216A4; // type:func
+
 demoAttInit         = 0x803209F0; // type:func
 demoAttLoadPos      = 0x80320A14; // type:func
 demoAttGetMtxRT     = 0x80320BF4; // type:func
@@ -280,7 +364,13 @@ resultDrawTally     = 0x8032E940; // type:func
 resultDeinit        = 0x8032E698; // type:func
 resultGenTipText    = 0x8032EF10; // type:func
 
-shadowInit          = 0x80335B94; // type:func
+shuttleInit         = 0x80335B94; // type:func
+
+skiLiftUpdate       = 0x80336140; // type:func
+skiLift_80336248    = 0x80336248; // type:func
+skiLift_803362EC    = 0x803362EC; // type:func
+skiLiftLoad         = 0x803363E0; // type:func
+skiLiftDeinit       = 0x8033651C; // type:func
 
 smokeInit           = 0x803365A0; // type:func
 smokeCreate         = 0x80336934; // type:func
@@ -295,10 +385,11 @@ snapInit            = 0x80337DB8; // type:func
 snapDeinit          = 0x803383FC; // type:func
 snapGetPhotoCount   = 0x8033F618; // type:func
 
-snd_play_sfx        = 0x8033F7F8; // type:func
-snd_makedev         = 0x8033F860; // type:func
-snd_event           = 0x8033FB44; // type:func
-snd_getpilot        = 0x8033FBCC; // type:func
+sndInit             = 0x8033F640; // type:func
+sndPlaySfx          = 0x8033F7F8; // type:func
+sndMakeDev          = 0x8033F860; // type:func
+sndEvent            = 0x8033FB44; // type:func
+sndGetPilot         = 0x8033FBCC; // type:func
 
 snow_create         = 0x8033FE40; // type:func
 snow_draw           = 0x8033FF30; // type:func
@@ -307,11 +398,11 @@ snow_update         = 0x8033FFB4; // type:func
 spathCreate         = 0x80340610; // type:func
 spathLoadFile       = 0x80340668; // type:func
 spathFree           = 0x80340800; // type:func
-spathUpdate2        = 0x80340868; // type:func
+spathScaleUpdate    = 0x80340868; // type:func
 spathUpdate         = 0x80340B74; // type:func
 spath_80340CB8      = 0x80340CB8; // type:func
 spath_80340E7C      = 0x80340E7C; // type:func
-spath_80340FEC      = 0x80340FEC; // type:func
+spathInterpolate    = 0x80340FEC; // type:func
 
 splash_80341460     = 0x80341460; // type:func
 splash_803415C8     = 0x803415C8; // type:func
@@ -405,6 +496,8 @@ falco_802E6380      = 0x802E6380; // type:func
 falco_802E63BC      = 0x802E63BC; // type:func
 falco_802E64E0      = 0x802E64E0; // type:func
 
+fdrInit             = 0x802E6570; // type:func
+
 targetsInit         = 0x80344290; // type:func
 targetsLoad         = 0x803442F8; // type:func
 targetsFrameUpdate  = 0x8034450C; // type:func
@@ -483,6 +576,30 @@ userPathFree        = 0x8034A840; // type:func
 userPath_8034A8B0   = 0x8034A8B0; // type:func
 userPath_8034A950   = 0x8034A950; // type:func
 
+whaleIsActive       = 0x8034B820; // type:func
+whaleUpdate         = 0x8034B82C; // type:func
+whaleStateMachine   = 0x8034BA68; // type:func
+whale_8034BC68      = 0x8034BC68; // type:func
+whale_8034BDCC      = 0x8034BDCC; // type:func
+whaleLoad           = 0x8034BEDC; // type:func
+whaleDeinit         = 0x8034C0BC; // type:func
+whaleGetInterval    = 0x8034C154; // type:func
+whaleGetPos         = 0x8034C16C; // type:func
+whaleSetInterval    = 0x8034C1CC; // type:func
+whaleInit           = 0x8034C224; // type:func
+whaleStateSave      = 0x8034C25C; // type:func
+whaleStateRestore   = 0x8034C298; // type:func
+
+whalePodUpdateWhale = 0x8034C2E0; // type:func
+whalePodUpdate      = 0x8034C520; // type:func
+whalePod_8034C6CC   = 0x8034C6CC; // type:func
+whalePod_8034C7F0   = 0x8034C7F0; // type:func
+whalePodInit        = 0x8034C848; // type:func
+whalePodLoad        = 0x8034C964; // type:func
+whalePodDeinit      = 0x8034CB80; // type:func
+whalePodGetObjState = 0x8034CC10; // type:func
+whalePodSetInterval = 0x8034CCC4; // type:func
+
 windObjInit         = 0x8034E080; // type:func
 windObjLoad         = 0x8034E0B4; // type:func
 windObjFrameUpdate  = 0x8034E274; // type:func
@@ -517,6 +634,8 @@ gyrocopterEnterLeave = 0x802F5BF0; // type:func
 
 gyrocopterMovementFrame = 0x802F604C; // type:func
 
+hangGliderInit = 0x802EF140; // type:func
+
 hangGliderEnterLeave = 0x802EF368; // type:func
 
 hangGliderMovementFrame = 0x802EF5B0; // type:func
@@ -524,6 +643,8 @@ hangGliderMovementFrame = 0x802EF5B0; // type:func
 jumbleHopperEnterLeave = 0x802FA108; // type:func
 
 jumbleHopperMovementFrame = 0x802FA2D0; // type:func
+
+rocketBeltInit = 0x80324C70; // type:func
 
 rocketBeltEnterLeave = 0x80324EC4; // type:func
 
@@ -608,6 +729,8 @@ sShutterBugTestItems      = 0x8034FC10; // size:0x10
 sSkyDivingItems           = 0x8034FC20; // size:0x8
 sOtherItems               = 0x8034FC28; // size:0xC
 
+sSpathCoef                = 0x80350650; // size:0x40
+
 gTaskClassU8              = 0x80350790;
 gTaskVehicleU8            = 0x80350794;
 gTaskTestU8               = 0x80350798;
@@ -628,6 +751,8 @@ gBalls                    = 0x80357218; // size:0x2170
 sRefBALS                  = 0x8035938C;
 
 gBmSoundCbInfo            = 0x80359640;
+
+sBoats                    = 0x803596A0; // size:0x90
 
 gRefBNUS                  = 0x80359730;
 gBonusStarCount           = 0x80359734;
@@ -695,11 +820,16 @@ gLandingPadObjIds         = 0x8036C4F8; // size:0x28
 gRadarThermCirc           = 0x8036C520; // size:0x88
 gHudState                 = 0x8036C5A8; // size:0xC7C
 
+sPlanes                   = 0x8036D2B0; // size:0x68
+sPlaneInitialized         = 0x8036D318; // size:0x8
+
 gDemoUserFileIdx          = 0x8036D330;
 
 gRefRNGS                  = 0x8036DA70;
 gRingsCount               = 0x8036DA74;
 gRings                    = 0x8036DA78; // size:0x35E8
+
+sSpathData                = 0x80373F10; // size:0x2DA8
 
 sTextName                 = 0x80377F10; // size:0x6E0
 sTextData                 = 0x803785F0; // size:0x6DC

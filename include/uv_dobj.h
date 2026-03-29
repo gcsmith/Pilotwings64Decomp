@@ -174,7 +174,7 @@ enum Models {
     MODEL_0A4                                               = 0x0A4,
     MODEL_EVER_FROST_ISLAND_FULL_MAP                        = 0x0A5, // 0x149084
     MODEL_OIL_SPRAY                                         = 0x0A6, // Oil fountain spray
-    MODEL_0A7                                               = 0x0A7, // railing with vertical pipe?
+    MODEL_SKI_LIFT_CHAIR                                    = 0x0A7,
     MODEL_ICEBERG_1                                         = 0x0A8, // Iceberg
     MODEL_ICEBERG_2                                         = 0x0A9, // Another iceberg (with floating ripples)
     MODEL_ICEBERG_FRACTURED                                 = 0x0AA, // Four icebergs (fragmented pieces)

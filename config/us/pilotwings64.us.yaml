@@ -380,10 +380,10 @@ segments:
       - [0x556C0, c, app/birdman1]
       - [0x560D0, c, app/birdman2]
       - [0x58120, c, app/bmsound]
-      - [0x58B00, c, app/code_58B00]
+      - [0x58B00, c, app/boats]
       - [0x597E0, c, app/bonus]
       - [0x59D80, c, app/ball_target]
-      - [0x5A6A0, c, app/code_5A6A0]
+      - [0x5A6A0, c, app/camera]
       - [0x5CFC0, c, app/cannonball]
       - [0x60020, c, app/code_60020]
       - [0x611E0, c, app/cbsound]
@@ -395,17 +395,17 @@ segments:
       - [0x69BF0, c, app/env_sound]
       - [0x6ACE0, c, app/falco]
       - [0x6DAA0, c, app/fdr]
-      - [0x6ECD0, c, app/code_6ECD0]
-      - [0x6F4D0, c, app/save]
+      - [0x6ECD0, c, app/ferry]
+      - [0x6F2B0, c, app/save]
       - [0x6FFB0, c, app/file_menu]
       - [0x71500, c, app/fire_effects]
       - [0x72010, c, app/code_72010]
-      - [0x722D0, c, app/code_722D0]
+      - [0x722D0, c, app/fountain]
       - [0x72910, c, app/code_72910]
-      - [0x72B70, c, app/code_72B70]
+      - [0x72EF0, c, app/game]
       - [0x75A60, c, app/code_75A60]
       - [0x76670, c, app/code_76670]
-      - [0x78620, c, app/code_78620]
+      - [0x78620, c, app/glider_toys]
       - [0x796C0, c, app/hang_glider]
       - [0x7B9A0, c, app/gsound]
       - [0x7C4C0, c, app/code_7C4C0]
@@ -419,7 +419,8 @@ segments:
       - [0x91670, c, app/hsound]
       - [0x92810, c, app/menu]
       - [0x92BF0, c, app/level]
-      - [0x936F0, c, app/credits]
+      - [0x936F0, c, app/code_936F0]
+      - [0x94090, c, app/credits]
       - [0x94E60, c, app/code_94E60]
       - [0x97350, c, app/map3d]
       - [0x99C70, c, app/mem]
@@ -427,13 +428,13 @@ segments:
       - [0x9A960, c, app/code_9A960]
       - [0x9B960, c, app/code_9B960]
       - [0x9C080, c, app/code_9C080]
-      - [0x9CF50, c, app/code_9CF50]
+      - [0x9CF50, c, app/oil]
       - [0x9D3C0, c, app/options]
       - [0x9E2F0, c, app/pads]
       - [0x9F2D0, c, app/hud]
       - [0xA6000, c, app/code_A6000]
       - [0xA64C0, c, app/code_A64C0]
-      - [0xA7460, c, app/code_A7460]
+      - [0xA7460, c, app/planes]
       - [0xA7F20, c, app/demo_attitude]
       - [0xA8630, c, app/proxanim]
       - [0xA8C30, c, app/code_A8C30]
@@ -450,7 +451,7 @@ segments:
       - [0xB6FE0, c, app/skydiving]
       - [0xBADE0, c, app/sdsound]
       - [0xBB820, c, app/shadow]
-      - [0xBD670, c, app/code_BD670]
+      - [0xBD670, c, app/ski_lift]
       - [0xBDAD0, c, app/smoke]
       - [0xBF280, c, app/snap]
       - [0xC6B70, c, app/snd]
@@ -469,15 +470,15 @@ segments:
       - [0xD1980, c, app/user_paths]
       - [0xD1ED0, c, app/code_D1ED0]
       - [0xD2B10, c, app/code_D2B10]
-      - [0xD2D50, c, app/code_D2D50]
-      - [0xD3810, c, app/code_D3810]
+      - [0xD2D50, c, app/whale]
+      - [0xD3810, c, app/whale_pod]
       - [0xD4290, c, app/wind]
       - [0xD55B0, c, app/wind_objects]
 
       - [0xD5C40, data] # app/code_51E30
       - [0xD5D40, .data, app/balls]
       - [0xD5D50, .data, app/birdman2]
-      - [0xD5F10, .data, app/code_5A6A0]
+      - [0xD5F10, .data, app/camera]
       - [0xD5F20, .data, app/cannonball]
       - [0xD5F40, .data, app/code_60020]
       - [0xD5F70, .data, app/code_61A60]
@@ -487,12 +488,12 @@ segments:
       - [0xD6450, .data, app/env_sound]
       - [0xD64D0, .data, app/falco]
       - [0xD6540, data] # also part of app/falco
-      - [0xD65F0, .data, app/code_6ECD0]
+      - [0xD65F0, .data, app/ferry]
       - [0xD6610, .data, app/file_menu]
       - [0xD6650, .data, app/fire_effects]
-      - [0xD6660, .data, app/code_722D0]
+      - [0xD6660, .data, app/fountain]
       - [0xD6680, .data, app/code_72910]
-      - [0xD6690, .data, app/code_72B70]
+      - [0xD6690, .data, app/game]
       - [0xD66E0, .data, app/code_75A60]
       - [0xD66F0, .data, app/hang_glider]
       - [0xD68A0, .data, app/code_7C4C0]
@@ -503,13 +504,14 @@ segments:
       - [0xD6910, .data, app/gyrocopter]
       - [0xD6920, .data, app/hover_pads]
       - [0xD6930, .data, app/level]
-      - [0xD6950, .data, app/credits]
+      - [0xD6950, .data, app/code_936F0]
+      - [0xD6A10, .data, app/credits]
       - [0xD6CD0, .data, app/code_94E60]
       - [0xD6D20, .data, app/map3d]
       - [0xD6D70, .data, app/mem]
       - [0xD6D80, .data, app/code_9A960]
       - [0xD6D90, .data, app/code_9C080]
-      - [0xD6DE0, .data, app/code_9CF50]
+      - [0xD6DE0, .data, app/oil]
       - [0xD6E00, .data, app/options]
       - [0xD6E30, .data, app/pads]
       - [0xD6E40, .data, app/hud]
@@ -524,7 +526,7 @@ segments:
       - [0xD7170, .data, app/results]
       - [0xD7500, data] # app/skydiving
       - [0xD7990, data] # app/shadow
-      - [0xD7A30, .data, app/code_BD670]
+      - [0xD7A30, .data, app/ski_lift]
       - [0xD7A40, .data, app/snap]
       - [0xD7AE0, .data, app/snd]
       - [0xD7B40, .data, app/snow]
@@ -536,18 +538,18 @@ segments:
       - [0xD7D30, data]
       - [0xD7E10, .data, app/total_results]
       - [0xD7EA0, .data, app/test_menu]
-      - [0xD7EF0, .data, app/code_D2D50]
-      - [0xD7F20, .data, app/code_D3810]
+      - [0xD7EF0, .data, app/whale]
+      - [0xD7F20, .data, app/whale_pod]
       - [0xD7F40, .rodata, app/code_51E30]
       - [0xD7F60, .rodata, app/balls]
       - [0xD7FC0, .rodata, app/birdman0]
       - [0xD8340, .rodata, app/birdman1]
       - [0xD83B0, .rodata, app/birdman2]
       - [0xD84A0, .rodata, app/bmsound]
-      - [0xD8590, .rodata, app/code_58B00]
+      - [0xD8590, .rodata, app/boats]
       - [0xD85D0, .rodata, app/bonus]
       - [0xD8610, .rodata, app/ball_target]
-      - [0xD8670, .rodata, app/code_5A6A0]
+      - [0xD8670, .rodata, app/camera]
       - [0xD8730, .rodata, app/cannonball]
       - [0xD8980, .rodata, app/code_60020]
       - [0xD8A00, .rodata, app/cbsound]
@@ -559,16 +561,16 @@ segments:
       - [0xD9080, .rodata, app/env_sound]
       - [0xD91E0, .rodata, app/falco]
       - [0xD9360, .rodata, app/fdr]
-      - [0xD94F0, .rodata, app/code_6ECD0]
+      - [0xD94F0, .rodata, app/ferry]
       - [0xD9510, .rodata, app/save]
       - [0xD95D0, .rodata, app/file_menu]
       - [0xD95F0, .rodata, app/fire_effects]
-      - [0xD9810, .rodata, app/code_722D0]
+      - [0xD9810, .rodata, app/fountain]
       - [0xD9830, .rodata, app/code_72910]
-      - [0xD9840, .rodata, app/code_72B70]
+      - [0xD9840, .rodata, app/game]
       - [0xD99C0, .rodata, app/code_75A60]
       - [0xD9A10, .rodata, app/code_76670]
-      - [0xD9CF0, .rodata, app/code_78620]
+      - [0xD9CF0, .rodata, app/glider_toys]
       - [0xD9DF0, .rodata, app/hang_glider]
       - [0xD9F20, .rodata, app/gsound]
       - [0xDA000, .rodata, app/code_7C4C0]
@@ -595,7 +597,7 @@ segments:
       - [0xDBC60, .rodata, app/hud]
       - [0xDBE30, .rodata, app/code_A6000]
       - [0xDBE60, .rodata, app/code_A64C0]
-      - [0xDBFD0, .rodata, app/code_A7460]
+      - [0xDBFD0, .rodata, app/planes]
       - [0xDC000, .rodata, app/demo_attitude]
       - [0xDC060, .rodata, app/proxanim]
       - [0xDC250, .rodata, app/code_A8C30]
@@ -612,7 +614,7 @@ segments:
       - [0xDD260, .rodata, app/skydiving]
       - [0xDD5B0, .rodata, app/sdsound]
       - [0xDD680, .rodata, app/shadow]
-      - [0xDD730, .rodata, app/code_BD670]
+      - [0xDD730, .rodata, app/ski_lift]
       - [0xDD740, .rodata, app/smoke]
       - [0xDDA90, .rodata, app/snap]
       - [0xDDC80, .rodata, app/snd]
@@ -628,8 +630,8 @@ segments:
       - [0xDE550, .rodata, app/user_paths]
       - [0xDE5A0, .rodata, app/code_D1ED0]
       - [0xDE5D0, .rodata, app/code_D2B10]
-      - [0xDE5F0, .rodata, app/code_D2D50]
-      - [0xDE600, .rodata, app/code_D3810]
+      - [0xDE5F0, .rodata, app/whale]
+      - [0xDE600, .rodata, app/whale_pod]
       - [0xDE640, .rodata, app/wind]
       - [0xDE6B0, .rodata, app/wind_objects]
 
@@ -638,10 +640,10 @@ segments:
       - { type: .bss, vram: 0x80359390, name: app/birdman0 }
       - { type: .bss, vram: 0x803593F0, name: app/birdman2 }
       - { type: .bss, vram: 0x80359640, name: app/bmsound }
-      - { type: .bss, vram: 0x803596A0, name: app/code_58B00 }
+      - { type: .bss, vram: 0x803596A0, name: app/boats }
       - { type: .bss, vram: 0x80359730, name: app/bonus }
       - { type: .bss, vram: 0x803597E0, name: app/ball_target }
-      - { type: .bss, vram: 0x803599D0, name: app/code_5A6A0 }
+      - { type: .bss, vram: 0x803599D0, name: app/camera }
       - { type: .bss, vram: 0x80359A30, name: app/cannonball }
       - { type: bss, vram: 0x80359AD0, name: app/code_60020 }
       - { type: bss, vram: 0x80359BE0, name: app/cbsound }
@@ -653,16 +655,16 @@ segments:
       - { type: .bss, vram: 0x80359DC0, name: app/env_sound }
       - { type: bss, vram: 0x8035A5F0, name: app/falco }
       - { type: bss, vram: 0x8035AF60, name: app/fdr }
-      - { type: bss, vram: 0x80362010, name: app/code_6ECD0 }
+      - { type: .bss, vram: 0x80362010, name: app/ferry }
       - { type: .bss, vram: 0x803620E0, name: app/save }
       - { type: .bss, vram: 0x803624E0, name: app/file_menu }
       - { type: bss, vram: 0x80362500, name: app/fire_effects }
-      - { type: bss, vram: 0x80362630, name: app/code_722D0 }
-      - { type: bss, vram: 0x80362690, name: app/code_72B70 }
+      - { type: .bss, vram: 0x80362630, name: app/fountain }
+      - { type: .bss, vram: 0x80362690, name: app/game }
       - { type: bss, vram: 0x80367A40, name: app/code_75A60 }
       - { type: bss, vram: 0x80367F60, name: app/code_76670 }
-      - { type: bss, vram: 0x80368010, name: app/code_78620 }
-      - { type: bss, vram: 0x803680C0, name: app/hang_glider }
+      - { type: .bss, vram: 0x80368010, name: app/glider_toys }
+      - { type: bss, vram: 0x803680A0, name: app/hang_glider }
       - { type: bss, vram: 0x80368310, name: app/gsound }
       - { type: .bss, vram: 0x80368370, name: app/code_7C4C0 }
       - { type: .bss, vram: 0x80368880, name: app/code_7CF30 }
@@ -675,21 +677,22 @@ segments:
       - { type: .bss, vram: 0x80369E50, name: app/hsound }
       - { type: .bss, vram: 0x80369F10, name: app/menu }
       - { type: bss, vram: 0x80369F30, name: app/level }
-      - { type: bss, vram: 0x8036A8A0, name: app/credits }
+      - { type: .bss, vram: 0x8036A8A0, name: app/code_936F0 }
+      - { type: bss, vram: 0x8036A8B0, name: app/credits }
       - { type: bss, vram: 0x8036A8C0, name: app/code_94E60 }
       - { type: bss, vram: 0x8036A8E0, name: app/map3d }
       - { type: bss, vram: 0x8036AA60, name: app/mem }
       - { type: bss, vram: 0x8036BDF0, name: app/code_99D40 }
       - { type: bss, vram: 0x8036BE30, name: app/code_9B960 }
       - { type: bss, vram: 0x8036BFF0, name: app/code_9C080 }
-      - { type: bss, vram: 0x8036C0D0, name: app/code_9CF50 }
+      - { type: .bss, vram: 0x8036C0D0, name: app/oil }
       - { type: .bss, vram: 0x8036C120, name: app/options }
       - { type: .bss, vram: 0x8036C150, name: app/pads }
       - { type: .bss, vram: 0x8036C520, name: app/hud }
       - { type: bss, vram: 0x8036D230, name: app/code_A64C0 }
-      - { type: bss, vram: 0x8036D2B0, name: app/code_A7460 }
-      - { type: bss, vram: 0x8036D330, name: app/demo_attitude }
-      - { type: bss, vram: 0x8036D340, name: app/proxanim }
+      - { type: .bss, vram: 0x8036D2B0, name: app/planes }
+      - { type: .bss, vram: 0x8036D320, name: app/demo_attitude }
+      - { type: .bss, vram: 0x8036D340, name: app/proxanim }
       - { type: bss, vram: 0x8036D8E0, name: app/code_A8C30 }
       - { type: bss, vram: 0x8036DA30, name: app/demo }
       - { type: .bss, vram: 0x8036DA70, name: app/rings }
@@ -701,12 +704,12 @@ segments:
       - { type: bss, vram: 0x80371960, name: app/skydiving }
       - { type: bss, vram: 0x80371CB0, name: app/sdsound }
       - { type: bss, vram: 0x80371D10, name: app/shadow }
-      - { type: .bss, vram: 0x80371DB0, name: app/code_BD670 }
+      - { type: .bss, vram: 0x80371DB0, name: app/ski_lift }
       - { type: .bss, vram: 0x80371E60, name: app/smoke }
       - { type: .bss, vram: 0x80373060, name: app/snap }
       - { type: bss, vram: 0x80373E20, name: app/snd }
       - { type: bss, vram: 0x80373EF0, name: app/snow }
-      - { type: bss, vram: 0x80373F10, name: app/spath }
+      - { type: .bss, vram: 0x80373F10, name: app/spath }
       - { type: bss, vram: 0x80376CC0, name: app/splash }
       - { type: .bss, vram: 0x80377F10, name: app/text_data }
       - { type: .bss, vram: 0x80378CE0, name: app/code_C9B60 }
@@ -717,8 +720,8 @@ segments:
       - { type: bss, vram: 0x8037AD70, name: app/toys }
       - { type: .bss, vram: 0x8037DC60, name: app/test_menu }
       - { type: .bss, vram: 0x8037DCA0, name: app/user_paths }
-      - { type: bss, vram: 0x8037F380, name: app/code_D2D50 }
-      - { type: bss, vram: 0x8037F450, name: app/code_D3810 }
+      - { type: .bss, vram: 0x8037F380, name: app/whale }
+      - { type: .bss, vram: 0x8037F450, name: app/whale_pod }
       - { type: .bss, vram: 0x8037F510, name: app/wind }
       - { type: bss, vram: 0x8037F910, name: app/wind_objects }
 

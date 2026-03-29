@@ -4,24 +4,24 @@
 #include <uv_memory.h>
 #include <uv_texture.h>
 #include <uv_util.h>
-#include "code_58B00.h"
-#include "code_6ECD0.h"
-#include "code_722D0.h"
-#include "code_72B70.h"
-#include "code_78620.h"
+#include "boats.h"
 #include "code_9C080.h"
-#include "code_9CF50.h"
-#include "code_A7460.h"
-#include "code_BD670.h"
-#include "code_D2D50.h"
-#include "code_D3810.h"
 #include "env_sound.h"
 #include "environment.h"
+#include "ferry.h"
+#include "fountain.h"
+#include "game.h"
+#include "glider_toys.h"
 #include "level.h"
+#include "oil.h"
+#include "planes.h"
 #include "shadow.h"
+#include "ski_lift.h"
 #include "task.h"
 #include "text_data.h"
 #include "toys.h"
+#include "whale.h"
+#include "whale_pod.h"
 
 s32 D_8034F400 = 0;
 s32 D_8034F404 = 0;
@@ -44,7 +44,7 @@ void levelLoad(u8 map, u8 pilot, u8 vehicle, s32 animateToys) {
     gLevelCurMap = map;
     uvLevelInit();
     textLoadBlock(0x42);
-    env_loadtpal(D_80362690->unk8);
+    env_loadtpal(D_80362690->envId);
     uvLevelAppend(map);
     switch (map) {
     case MAP_HOLIDAY_ISLAND:
@@ -76,7 +76,7 @@ void levelLoad(u8 map, u8 pilot, u8 vehicle, s32 animateToys) {
     uvLevelAppend(0xC);
     uvLevelAppend(0xD);
     uvLevelAppend(0x2E);
-    func_802E1444(D_80362690->unk8);
+    func_802E1444(D_80362690->envId);
     if (animateToys != 0) {
         level_8030B868();
     }
@@ -89,28 +89,28 @@ void level_8030B868(void) {
         }
         switch (gLevelCurMap) {
         case MAP_HOLIDAY_ISLAND:
-            func_802F1AE8();
-            func_802D1CE8();
+            gliderToyLoadHoliday();
+            boatsLoadHoliday();
             break;
         case MAP_CRESCENT_ISLAND:
-            func_8034BEDC();
-            func_802EB0D4();
-            func_802D1A74();
-            func_802F15C8();
+            whaleLoad();
+            fountainLoad();
+            boatsLoadCrescent();
+            gliderToyLoadCrescent();
             break;
         case MAP_LITTLE_STATES:
             func_80335BE4();
-            func_802E79F0();
+            ferryLoad();
             func_803151AC();
-            func_802F182C();
-            func_80320534();
+            gliderToyLoadLStates();
+            planesLoad();
             break;
         case MAP_EVER_FROST_ISLAND:
-            func_80315D68();
+            oilInit();
             func_80315734();
-            func_803363E0();
-            func_802F1D3C();
-            func_8034C964();
+            skiLiftLoad();
+            gliderToyLoadEFrost();
+            whalePodLoad();
             break;
         }
     }
@@ -123,28 +123,28 @@ void level_8030B964(void) {
         }
         switch (gLevelCurMap) {
         case MAP_HOLIDAY_ISLAND:
-            func_802F1FF0();
-            func_802D206C();
+            gliderToyDeinit();
+            boatsDeinit();
             break;
         case MAP_CRESCENT_ISLAND:
-            func_8034C0BC();
-            func_802EB270();
-            func_802D206C();
-            func_802F1FF0();
+            whaleDeinit();
+            fountainDeinit();
+            boatsDeinit();
+            gliderToyDeinit();
             break;
         case MAP_LITTLE_STATES:
             func_80335E44();
-            func_802E7C28();
+            ferryDeinit();
             func_8031531C();
-            func_802F1FF0();
-            func_8032079C();
+            gliderToyDeinit();
+            planesDeinit();
             break;
         case MAP_EVER_FROST_ISLAND:
-            func_80315E3C();
+            oilDeinit();
             func_8031596C();
-            func_8033651C();
-            func_802F1FF0();
-            func_8034CB80();
+            skiLiftDeinit();
+            gliderToyDeinit();
+            whalePodDeinit();
             break;
         }
     }

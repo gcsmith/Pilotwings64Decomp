@@ -11,7 +11,7 @@
 #include "balls.h"
 #include "code_64070.h"
 #include "code_66160.h"
-#include "code_72B70.h"
+#include "game.h"
 #include "code_9A960.h"
 #include "code_B2900.h"
 #include "credits.h"
@@ -61,11 +61,11 @@ static s32 D_803509B8 = 0; // unused, only ever set to 0
 void testMenuInitText(s32 testIdx);
 void testMenuInit(Unk80367710*, s32);
 u8 testMenuHandler(Unk80367710*);
-void testMenuDraw(Unk802D3658_Arg0*, u8 classIdx, u8 vehIdx);
+void testMenuDraw(Camera*, u8 classIdx, u8 vehIdx);
 void testMenu_8034A428(void);
 
 s32 testMenuMainRender(Unk80362690_Unk0* arg0, Unk80367710* arg1) {
-    Unk802D3658_Arg0* temp_s3;
+    Camera* temp_s3;
     u8 classIdx;
     u8 temp_s0_3;
     u8 vehIdx;
@@ -95,7 +95,7 @@ s32 testMenuMainRender(Unk80362690_Unk0* arg0, Unk80367710* arg1) {
     if ((temp_v0 == 0xFF) || (temp_v0 == 0xFE)) {
         return temp_v0;
     }
-    return arg1->unk4[gCurTestIdx].unk0[0];
+    return arg1->unk4[gCurTestIdx].unk0;
 }
 
 // returns true if test is one of the Shutter Bug tests
@@ -207,7 +207,7 @@ void testMenuInit(Unk80367710* arg0, s32 arg1) {
             temp_v1->test = gCurTestIdx;
         }
     }
-    taskInitTest(temp_v1->cls, temp_v1->veh, temp_v1->test, &D_80362690->map, &D_80362690->terraId, &D_80362690->unk8);
+    taskInitTest(temp_v1->cls, temp_v1->veh, temp_v1->test, &D_80362690->map, &D_80362690->terraId, &D_80362690->envId);
     map3d(D_80362690, 0);
     if (arg1 == 0) {
         sTestMenuState = 0;
@@ -252,9 +252,9 @@ u8 testMenuHandler(Unk80367710* arg0) {
         if (demoButtonPress(D_80362690->unk9C, A_BUTTON | B_BUTTON | START_BUTTON) != 0) {
             sTestMenuState = 0;
             if (demoButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON) != 0) {
-                snd_play_sfx(0x71);
+                sndPlaySfx(0x71);
             } else if (demoButtonPress(D_80362690->unk9C, B_BUTTON) != 0) {
-                snd_play_sfx(1);
+                sndPlaySfx(1);
             }
             return 6;
         }
@@ -373,7 +373,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
                     } else {
                         sp6C->test = gCurTestIdx;
                     }
-                    taskInitTest(sp6C->cls, sp6C->veh, sp6C->test, &D_80362690->map, &D_80362690->terraId, &D_80362690->unk8);
+                    taskInitTest(sp6C->cls, sp6C->veh, sp6C->test, &D_80362690->map, &D_80362690->terraId, &D_80362690->envId);
                     map3d(D_80362690, 0);
                     testMenuInitText(sp6C->test);
                 }
@@ -401,14 +401,14 @@ u8 testMenuHandler(Unk80367710* arg0) {
             } else {
                 switch (sp64) {
                 case 3:
-                    snd_play_sfx(0xF);
+                    sndPlaySfx(0xF);
                     return gCurTestIdx;
                 case 0:
-                    snd_play_sfx(0x73);
+                    sndPlaySfx(0x73);
                     resultHandler(0);
                     break;
                 case 4:
-                    snd_play_sfx(0x71);
+                    sndPlaySfx(0x71);
                     db_getstart(&sp6C->unk2C, &sp48, NULL, NULL);
                     testMenu_8034A428();
                     hud_8031A2CC();
@@ -430,7 +430,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
                     sTestMenuState = 2;
                     break;
                 case 2:
-                    snd_play_sfx(0x6E);
+                    sndPlaySfx(0x6E);
                     func_8033FB14();
                     testMenu_8034A428();
                     func_8033E3A8(3);
@@ -448,7 +448,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
             }
         } else {
             if (demoButtonPress(D_80362690->unk9C, B_BUTTON) != 0) {
-                snd_play_sfx(1);
+                sndPlaySfx(1);
                 if (sTestMenuState == 2) {
                     // these u8 values are needed to load integer literals at runtime
                     u16 col2ScreenX = (2 * 78) + 47;
@@ -467,7 +467,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
     return 6;
 }
 
-void testMenuDraw(Unk802D3658_Arg0* arg0, u8 classIdx, u8 vehIdx) {
+void testMenuDraw(Camera* arg0, u8 classIdx, u8 vehIdx) {
     s32 pad1;
     s32 pad21;
     s32 var_s0;
@@ -479,8 +479,8 @@ void testMenuDraw(Unk802D3658_Arg0* arg0, u8 classIdx, u8 vehIdx) {
     char sp8C[108];
     char strId[52];
     s16* sp54;
-    Mtx4F* temp_a0;
     s32 temp_v0_3;
+    UNUSED s32 pad4;
     Unk80362690_Unk0* sp48;
     s32 var_a1;
 
@@ -499,8 +499,7 @@ void testMenuDraw(Unk802D3658_Arg0* arg0, u8 classIdx, u8 vehIdx) {
     strIdAppend[0] = '_';
     strIdAppend[1] = 'M';
     strIdAppend[2] = '\0';
-    temp_a0 = &arg0->unk108;
-    func_8033F6F8(temp_a0, temp_a0);
+    func_8033F6F8(&arg0->unk108, &arg0->unk108);
     func_80311C68(D_80362690, 0);
     if (sTestMenuState != 1) {
         if (sTestMenuState != 2) {

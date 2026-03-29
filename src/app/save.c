@@ -21,6 +21,8 @@ typedef union {
 PilotwingsSaveFile D_803620E0[2];
 PilotwingsSaveFile D_803622E0[2];
 
+#pragma GLOBAL_ASM("asm/nonmatchings/app/save/func_802E7D80.s")
+
 void saveBitScramble(u8* data, s32* bitOffset, s32 bits, s32 bitCount) {
     u8* bytePtr;
     s32 bitMask;

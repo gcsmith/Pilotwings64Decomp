@@ -12,13 +12,13 @@
 #include "kernel/code_8170.h"
 #include "kernel/code_30EA0.h"
 #include "code_61A60.h"
-#include "code_72B70.h"
 #include "code_9A960.h"
 #include "code_B3A70.h"
 #include "code_C9B60.h"
 #include "code_D2B10.h"
 #include "demo.h"
 #include "env_sound.h"
+#include "game.h"
 #include "hud.h"
 #include "level.h"
 #include "snd.h"
@@ -40,7 +40,7 @@ Unk8034EA4C D_8034EA4C = {
     -0.0174533f, 0.1f, 0.0f
 };
 
-s32 D_8034EA64[] = { 0, 3, 1, 4, 2, 5 };
+s32 D_8034EA64[] = { PILOT_LARK, PILOT_KIWI, PILOT_GOOSE, PILOT_IBIS, PILOT_HAWK, PILOT_ROBIN };
 s32 D_8034EA7C[] = { 0x35, 0x14C, 0x9C, 0x1A7, 0x85, 0x128 };
 s32 D_8034EA94[] = { 2, 2, 2, 2, 2, 2 };
 Unk803599D0 D_8034EAAC = { 8, 0.36f, 0.0f, 0.412f, 0.1f, 0.465f, 0.25f, 0.517f, 0.475f, 0.568f, 0.5f, 0.62f, 0.475f, 0.673f, 0.25f, 0.725f, 0.0f, 0, 0, 0, 0 };
@@ -55,7 +55,7 @@ extern f32 D_80359C88;
 void func_802DA6E0(Unk80362690*, s32);
 void func_802DA9E0(void);
 s32 func_802DAA34(void);
-void func_802DAB18(Unk802D3658_Arg0*);
+void func_802DAB18(Camera*);
 s32 func_802DB38C(Unk802D3658_Unk1228*, Vec3F*, Vec3F*);
 s32 func_802DB6D4(Unk802D3658_Unk1228*, Vec3F*, Vec3F*);
 s32 func_802DB9B8(Unk802D3658_Unk1228*, Vec3F*, Vec3F*);
@@ -74,61 +74,61 @@ void func_802DA54C(void) {
 }
 
 s32 func_802DA574(Unk80362690* arg0) {
-    s32 sp24;
+    s32 gameState;
     Unk80362690_Unk0* temp_s0;
 
     temp_s0 = &arg0->unkC[arg0->unk9C];
     func_802DA6E0(arg0, D_8034EA64[D_8034EA40]);
-    while ((sp24 = func_802DAA34()) == 8) {
+    while ((gameState = func_802DAA34()) == GAME_STATE_DEMO_PILOT) {
         uvGfxBegin();
         func_802DAB18(temp_s0->unk70);
         uvGfxEnd();
     }
     func_8032D51C(0);
     func_802DA9E0();
-    return sp24;
+    return gameState;
 }
 
-s32 func_802DA628(u32 arg0) {
-    switch (arg0) {
-    case 0:
+s32 func_802DA628(u32 pilot) {
+    switch (pilot) {
+    case PILOT_LARK:
         return 0x55;
-    case 1:
+    case PILOT_GOOSE:
         return 0x56;
-    case 2:
+    case PILOT_HAWK:
         return 0x57;
-    case 3:
+    case PILOT_KIWI:
         return 0x58;
-    case 4:
+    case PILOT_IBIS:
         return 0x59;
-    case 5:
+    case PILOT_ROBIN:
         return 0x5A;
     default:
         return 0;
     }
 }
 
-s32 func_802DA684(u32 arg0) {
-    switch (arg0) {
-    case 0:
-        return 0x15A;
-    case 1:
-        return 0x15B;
-    case 2:
-        return 0x15C;
-    case 3:
-        return 0x15D;
-    case 4:
-        return 0x15E;
-    case 5:
-        return 0x15F;
+s32 func_802DA684(u32 pilot) {
+    switch (pilot) {
+    case PILOT_LARK:
+        return MODEL_LARK_BODY;
+    case PILOT_GOOSE:
+        return MODEL_GOOSE_BODY;
+    case PILOT_HAWK:
+        return MODEL_HAWK_BODY;
+    case PILOT_KIWI:
+        return MODEL_KIWI_BODY;
+    case PILOT_IBIS:
+        return MODEL_IBIS_BODY;
+    case PILOT_ROBIN:
+        return MODEL_ROBIN_BODY;
     default:
         return 0;
     }
 }
 
-void func_802DA6E0(Unk80362690* arg0, s32 arg1) {
-    Unk802D3658_Arg0* temp_s0;
+void func_802DA6E0(Unk80362690* arg0, s32 pilot) {
+    Camera* temp_s0;
 
     temp_s0 = arg0->unkC[arg0->unk9C].unk70;
     D_8034EA48 = 0;
@@ -136,14 +136,14 @@ void func_802DA6E0(Unk80362690* arg0, s32 arg1) {
     envSoundInit();
     arg0->map = 1;
     arg0->terraId = 0;
-    arg0->unk8 = (u16)D_8034EA94[D_8034EA40];
-    levelLoad(1, arg1, 0, 1);
-    uvLevelAppend(func_802DA628(arg1));
+    arg0->envId = (u16)D_8034EA94[D_8034EA40];
+    levelLoad(1, pilot, 0, 1);
+    uvLevelAppend(func_802DA628(pilot));
     func_80204BD4(temp_s0->unk22C, 1, 1.0f);
     func_80204A8C(temp_s0->unk22C, 3);
     uvChanTerra(temp_s0->unk22C, arg0->terraId);
-    uvLevelAppend(func_802DA628(arg1));
-    uvChanEnv(temp_s0->unk22C, arg0->unk8);
+    uvLevelAppend(func_802DA628(pilot));
+    uvChanEnv(temp_s0->unk22C, arg0->envId);
     func_8034B5E0(temp_s0->unk22C, temp_s0);
     func_80204A8C(temp_s0->unk22C, 3);
     uvMat4SetIdentity(&temp_s0->unk108);
@@ -155,9 +155,9 @@ void func_802DA6E0(Unk80362690* arg0, s32 arg1) {
     temp_s0->unk108.m[3][2] = D_8034EA4C.unk0.z;
     func_80204B34(temp_s0->unk22C, &temp_s0->unk108);
     D_8034EA44 = uvDobjAllocIdx();
-    uvDobjModel(D_8034EA44, func_802DA684((u32)arg1));
+    uvDobjModel(D_8034EA44, func_802DA684((u32)pilot));
     uvMat4SetIdentity(&D_80359C48);
-    if (arg1 != 3) {
+    if (pilot != PILOT_KIWI) {
         uvMat4RotateAxis(&D_80359C48, 0.2f, 'z');
     }
     uvMat4RotateAxis(&D_80359C48, 0.2f, 'x');
@@ -168,23 +168,23 @@ void func_802DA6E0(Unk80362690* arg0, s32 arg1) {
     uvMat4MulBA(&D_80359C48, &temp_s0->unk108, &D_80359C48);
     uvDobjPosm(D_8034EA44, 0, &D_80359C48);
     hudGetState()->renderFlags = 0;
-    switch (arg1) {
-    case 0:
+    switch (pilot) {
+    case PILOT_LARK:
         D_80359C44 = 0x6D;
         break;
-    case 1:
+    case PILOT_GOOSE:
         D_80359C44 = 0x6E;
         break;
-    case 2:
+    case PILOT_HAWK:
         D_80359C44 = 0x6F;
         break;
-    case 3:
+    case PILOT_KIWI:
         D_80359C44 = 0x70;
         break;
-    case 4:
+    case PILOT_IBIS:
         D_80359C44 = 0x71;
         break;
-    case 5:
+    case PILOT_ROBIN:
         D_80359C44 = 0x72;
         break;
     default:
@@ -212,69 +212,69 @@ s32 func_802DAA34(void) {
     func_80313D74();
     D_80359C40 += D_8034F854;
     if (D_80359C40 >= 5.0f) {
-        return 9;
+        return GAME_STATE_DEMO_TEST_SETUP;
     }
     if (uvControllerButtonPress(D_80362690->unk9C, A_BUTTON | B_BUTTON | START_BUTTON)) {
         func_80344258(0);
         if (uvControllerButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON)) {
-            snd_play_sfx(0x6E);
+            sndPlaySfx(0x6E);
         } else if (uvControllerButtonPress(D_80362690->unk9C, B_BUTTON)) {
-            snd_play_sfx(0x01);
+            sndPlaySfx(0x01);
         }
-        return 0;
+        return GAME_STATE_TITLE;
     }
-    return 8;
+    return GAME_STATE_DEMO_PILOT;
 }
 
-void func_802DAB18(Unk802D3658_Arg0* arg0) {
+void func_802DAB18(Camera* arg0) {
     f32 var_fs0;
     Mtx4F spC4;
     Mtx4F sp84;
     Mtx4F sp44;
-    u32 temp_v0;
+    u32 pilot;
 
     var_fs0 = (D_80359C40 - 1.0f) / 4;
     if (var_fs0 < 0.0) {
         var_fs0 = 0.0f;
     }
-    temp_v0 = func_802DA530();
-    switch (temp_v0) {
-    case 0:
+    pilot = func_802DA530();
+    switch (pilot) {
+    case PILOT_LARK:
         if ((D_80359C88 > 0.45f) && (var_fs0 < 0.54f) && ((D_8034EA48 & 1) == 0)) {
-            snd_play_sfx(0x61);
+            sndPlaySfx(0x61);
             D_8034EA48 |= 1;
         }
-        var_fs0 = (f32)(var_fs0 * 2.55);
+        var_fs0 *= 2.55;
         break;
-    case 1:
+    case PILOT_GOOSE:
         if ((D_80359C88 > 0.0f) && (var_fs0 < 0.1f) && ((D_8034EA48 & 2) == 0)) {
-            snd_play_sfx(0x63);
+            sndPlaySfx(0x63);
             D_8034EA48 |= 2;
         }
         break;
-    case 2:
+    case PILOT_HAWK:
         if ((D_80359C88 > 0.0f) && (var_fs0 < 0.5f) && ((D_8034EA48 & 3) == 0)) {
-            snd_play_sfx(0x65);
+            sndPlaySfx(0x65);
             D_8034EA48 |= 3;
         }
         break;
-    case 3:
+    case PILOT_KIWI:
         if ((D_80359C88 > 0.5f) && (var_fs0 < 0.8f) && ((D_8034EA48 & 4) == 0)) {
-            snd_play_sfx(0x62);
+            sndPlaySfx(0x62);
             D_8034EA48 |= 4;
         }
-        var_fs0 = (f32)(var_fs0 * 1.5);
+        var_fs0 *= 1.5;
         break;
-    case 4:
+    case PILOT_IBIS:
         if ((D_80359C88 > 0.5f) && (var_fs0 < 1.0f) && ((D_8034EA48 & 5) == 0)) {
-            snd_play_sfx(0x64);
+            sndPlaySfx(0x64);
             D_8034EA48 |= 5;
         }
-        var_fs0 = (f32)(var_fs0 * 1.5);
+        var_fs0 *= 1.5;
         break;
-    case 5:
+    case PILOT_ROBIN:
         if ((D_80359C88 > 0.25f) && (var_fs0 < 0.75f) && !(D_8034EA48 & 6)) {
-            snd_play_sfx(0x66);
+            sndPlaySfx(0x66);
             D_8034EA48 |= 6;
         }
         break;
