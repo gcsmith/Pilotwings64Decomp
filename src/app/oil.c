@@ -45,8 +45,8 @@ STATIC_FUNC void oilUpdate(void) {
     }
 }
 
-STATIC_FUNC s32 oil_80315BB8(s32 arg0, s32 arg1, s32 arg2) {
-    switch (arg1) {
+STATIC_FUNC s32 oilProxEventCb(s32 proxId, s32 eventType, s32 arg) {
+    switch (eventType) {
     case 0:
         sOilActive = FALSE;
         uvDobjState(sOilObjId, 2);
@@ -65,12 +65,12 @@ STATIC_FUNC s32 oil_80315BB8(s32 arg0, s32 arg1, s32 arg2) {
     return 0;
 }
 
-STATIC_FUNC s32 oil_80315C84(s32 arg0, f32 arg1, s32 arg2) {
+STATIC_FUNC s32 oilProxAnimCb(s32 proxId, f32 timeout, s32 arg) {
     f32 dist;
     s32 ret;
 
     ret = 0;
-    dist = proxAnimGetRange(arg0);
+    dist = proxAnimGetRange(proxId);
     if (dist > 300.0f) {
         if (sOilActive) {
             sOilState = 2;
@@ -101,7 +101,7 @@ void oilInit(void) {
     if (sOilObjId != 0xFFFF) {
         uvDobjModel(sOilObjId, MODEL_OIL_SPRAY);
         uvDobjState(sOilObjId, 0);
-        sOilProxId = proxAnimAddCallback(oil_80315C84, oil_80315BB8, pos, 300.0f, 0.0f, 0);
+        sOilProxId = proxAnimAddCallback(oilProxAnimCb, oilProxEventCb, pos, 300.0f, 0.0f, 0);
         sOilScale = 0.0f;
     }
 }

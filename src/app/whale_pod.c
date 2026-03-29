@@ -60,7 +60,6 @@ STATIC_FUNC void whalePodUpdateWhale(s32 idx) {
 }
 
 STATIC_FUNC void whalePodUpdate(void) {
-    Whale* var_s0;
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gWhalePod); i++) {
@@ -89,35 +88,35 @@ STATIC_FUNC void whalePodUpdate(void) {
     }
 }
 
-STATIC_FUNC s32 whalePod_8034C6CC(s32 arg0, s32 arg1, s32 arg2) {
-    Whale* var_s0;
+STATIC_FUNC s32 whalePodProxEventCb(s32 proxId, s32 eventType, s32 arg) {
+    Whale* whale;
     s32 i;
 
-    switch (arg1) {
+    switch (eventType) {
     case 0:
         for (i = 0; i < ARRAY_COUNT(gWhalePod); i++) {
-            var_s0 = &gWhalePod[i];
-            uvDobjState(var_s0->objId0, 3);
-            if (var_s0->objId4 != 0xFFFF) {
-                uvDobjState(var_s0->objId4, 0x22);
+            whale = &gWhalePod[i];
+            uvDobjState(whale->objId0, 3);
+            if (whale->objId4 != 0xFFFF) {
+                uvDobjState(whale->objId4, 0x22);
             }
         }
         break;
     case 2:
         for (i = 0; i < ARRAY_COUNT(gWhalePod); i++) {
-            var_s0 = &gWhalePod[i];
-            uvDobjState(var_s0->objId0, 0);
-            if (var_s0->objId4 != 0xFFFF) {
-                uvDobjState(var_s0->objId4, 0);
+            whale = &gWhalePod[i];
+            uvDobjState(whale->objId0, 0);
+            if (whale->objId4 != 0xFFFF) {
+                uvDobjState(whale->objId4, 0);
             }
         }
         break;
     case 3:
         for (i = 0; i < ARRAY_COUNT(gWhalePod); i++) {
-            var_s0 = &gWhalePod[i];
-            uvDobjState(var_s0->objId0, 3);
-            if (var_s0->objId4 != 0xFFFF) {
-                uvDobjState(var_s0->objId4, 0x22);
+            whale = &gWhalePod[i];
+            uvDobjState(whale->objId0, 3);
+            if (whale->objId4 != 0xFFFF) {
+                uvDobjState(whale->objId4, 0x22);
             }
         }
         break;
@@ -125,17 +124,18 @@ STATIC_FUNC s32 whalePod_8034C6CC(s32 arg0, s32 arg1, s32 arg2) {
     return 0;
 }
 
-STATIC_FUNC s32 whalePod_8034C7F0(s32 arg0, f32 arg1, s32 arg2) {
-    s32 pad;
-    s32 sp18;
+STATIC_FUNC s32 whalePodProxAnimCb(s32 proxId, f32 timeout, s32 arg) {
+    f32 dist;
+    s32 ret;
 
-    sp18 = 0;
-    if (proxAnimGetRange(arg0) > 1750.0f) {
-        sp18 = 2;
+    ret = 0;
+    dist = proxAnimGetRange(proxId);
+    if (dist > 1750.0f) {
+        ret = 2;
     } else {
         whalePodUpdate();
     }
-    return sp18;
+    return ret;
 }
 
 void whalePodInit(void) {
@@ -178,7 +178,7 @@ void whalePodLoad(void) {
     s32 i;
     Vec3F pos = sWhalePodInitPos;
 
-    sWhalePodProxId = proxAnimAddCallback(whalePod_8034C7F0, whalePod_8034C6CC, pos, 1750.0f, 0.0f, 0);
+    sWhalePodProxId = proxAnimAddCallback(whalePodProxAnimCb, whalePodProxEventCb, pos, 1750.0f, 0.0f, 0);
     for (i = 0; i < ARRAY_COUNT(gWhalePod); i++) {
         gWhalePod[i].objId4 = uvDobjAllocIdx();
         if (gWhalePod[i].objId4 != 0xFFFF) {
@@ -202,16 +202,16 @@ void whalePodLoad(void) {
                 gWhalePod[i].pos.z = 0.0f;
                 break;
             case 1:
+                gWhalePod[i].translateX = 220.0f;
                 gWhalePod[i].pos.x = 1156.66f;
                 gWhalePod[i].pos.y = 1770.82f;
                 gWhalePod[i].pos.z = 0.0f;
-                gWhalePod[i].translateX = 220.0f;
                 break;
             case 2:
+                gWhalePod[i].translateX = 230.0f;
                 gWhalePod[i].pos.x = 1156.66f;
                 gWhalePod[i].pos.y = 1770.82f;
                 gWhalePod[i].pos.z = 0.0f;
-                gWhalePod[i].translateX = 230.0f;
                 break;
             case 3:
                 gWhalePod[i].translateX = 180.0f;
@@ -248,17 +248,16 @@ void whalePodDeinit(void) {
 }
 
 void whalePodGetObjState(s32 whaleIdx, s32* objId, f32* interval, Vec3F* pos) {
-    Mtx4F sp28;
-    Whale* temp_v0;
-    s32 temp_v1;
+    Mtx4F pose;
+    Whale* whale;
 
     if (gWhalePod[whaleIdx].objId0 != 0xFFFF) {
         *objId = gWhalePod[whaleIdx].objId0;
         *interval = gWhalePod[whaleIdx].pathAngle / 360.0f;
-        uvDobjGetPosm(*objId, 0, &sp28);
-        pos->x = sp28.m[3][0];
-        pos->y = sp28.m[3][1];
-        pos->z = sp28.m[3][2];
+        uvDobjGetPosm(*objId, 0, &pose);
+        pos->x = pose.m[3][0];
+        pos->y = pose.m[3][1];
+        pos->z = pose.m[3][2];
     } else {
         *objId = 0xFFFF;
         *interval = 0.0f;

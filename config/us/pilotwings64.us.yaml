@@ -719,7 +719,7 @@ segments:
       - { type: bss, vram: 0x803798E0, name: app/task }
       - { type: .bss, vram: 0x8037AB50, name: app/thermals }
       - { type: .bss, vram: 0x8037ACE0, name: app/total_results }
-      - { type: bss, vram: 0x8037AD70, name: app/toys }
+      - { type: .bss, vram: 0x8037AD70, name: app/toys }
       - { type: .bss, vram: 0x8037DC60, name: app/test_menu }
       - { type: .bss, vram: 0x8037DCA0, name: app/user_paths }
       - { type: .bss, vram: 0x8037F380, name: app/whale }

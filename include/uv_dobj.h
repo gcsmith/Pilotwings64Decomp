@@ -91,8 +91,8 @@ enum Models {
     MODEL_LITTLE_STATES_FULL_MAP                            = 0x051, // 0x1114fc
     MODEL_BIG_CRUISE_SHIP                                   = 0x052,
     MODEL_WIND_TURBINE                                      = 0x053,
-    MODEL_054                                               = 0x054,
-    MODEL_055                                               = 0x055,
+    MODEL_PUMP_JACK                                         = 0x054,
+    MODEL_STONE_WARIO_HEAD                                  = 0x055,
     MODEL_SPACE_SHUTTLE                                     = 0x056,
     MODEL_BIG_RED_SQUARE                                    = 0x057, // not sure if this is used?
     MODEL_NESSIES_HEAD                                      = 0x058,
@@ -160,7 +160,7 @@ enum Models {
     MODEL_096                                               = 0x096,
     MODEL_097                                               = 0x097,
     MODEL_098                                               = 0x098,
-    MODEL_099                                               = 0x099,
+    MODEL_STONE_MARIO_HEAD                                  = 0x099,
     MODEL_09A                                               = 0x09A,
     MODEL_09B                                               = 0x09B,
     MODEL_09C                                               = 0x09C,
