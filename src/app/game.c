@@ -536,7 +536,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
     arg0->unkA1 = 0;
     func_8032B508(temp_s0->unk74);
     func_80313E0C(0.0f);
-    fdrSetblen(sp28);
+    fdrSetBlen(sp28);
     fdr_802E68B0(1);
     if (arg0->unkA2 == 0) {
         func_8033F964(0);
@@ -1267,7 +1267,7 @@ void func_802EE14C(u16 veh) {
     func_8033F964(0);
     func_8033FCD0(temp_s0->veh);
     hud_8031DAA8(2, 1.0f);
-    fdrSetblen(sp3C);
+    fdrSetBlen(sp3C);
     fdr_802E68B0(1);
     temp_s0->unk7B = 1;
 }

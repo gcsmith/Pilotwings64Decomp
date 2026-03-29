@@ -2,6 +2,8 @@
 #include "code_9A960.h"
 #include "fdr.h"
 
+#define FDR_SIZE 200
+
 typedef struct Unk8035B5B0 {
     f32 unk0;
     f32 xStickData;
@@ -41,14 +43,14 @@ f32 pad_D_8034F0B0 = 1.0f;
 s32 D_8035AF60; // vehicle id?
 u8 D_8035AF64;  // state
 f32 D_8035AF68;
-Unk8035AF70 D_8035AF70[200];
-Unk8035B5B0 D_8035B5B0[200];
+Unk8035AF70 D_8035AF70[FDR_SIZE];
+Unk8035B5B0 D_8035B5B0[FDR_SIZE];
 Unk8035B5B0* D_8035C230;
-Unk8035C238 D_8035C238[200];
+Unk8035C238 D_8035C238[FDR_SIZE];
 Unk8035C238* D_8035FD98;
-Unk8035FDA0 D_8035FDA0[200];
+Unk8035FDA0 D_8035FDA0[FDR_SIZE];
 Unk8035FDA0* D_803619C0;
-Unk803619C8 D_803619C8[200];
+Unk803619C8 D_803619C8[FDR_SIZE];
 s32 D_80362008;
 
 STATIC_FUNC void fdrControls(f32, f32);
@@ -65,7 +67,7 @@ STATIC_FUNC void fdr_802E6EE4(f32* arg0, u8 arg1);
 void fdrInit(void) {
     D_8035AF64 = 0;
     D_8035AF68 = 0.0f;
-    fdrSetblen(1.0f);
+    fdrSetBlen(1.0f);
 }
 
 void fdr_802E65AC(Mtx4F* arg0, u16* arg1, f32* arg2, f32* arg3, s32* arg4) {
@@ -108,7 +110,7 @@ void fdr_802E66DC(void) {
     D_8034F0A0 = 1;
 }
 
-void fdrSetblen(f32 arg0) {
+void fdrSetBlen(f32 arg0) {
     s32 temp_ft5;
     s32 i;
 
@@ -116,7 +118,7 @@ void fdrSetblen(f32 arg0) {
         _uvDebugPrintf("fdr_setblen : invalid relative length [%f]\n", arg0);
         return;
     }
-    temp_ft5 = arg0 * 200.0f;
+    temp_ft5 = arg0 * FDR_SIZE;
     for (i = 0; i < (temp_ft5 - 1); i++) {
         D_8035B5B0[i].next = &D_8035B5B0[i + 1];
         D_8035C238[i].next = &D_8035C238[i + 1];
@@ -156,7 +158,7 @@ void fdr_802E68B0(u8 arg0) {
         D_8034F0AC = 0;
         D_8035FD98 = D_8035C238;
         D_8035C230 = D_8035B5B0;
-        D_803619C0 = (Unk8035FDA0*)D_8035FDA0;
+        D_803619C0 = D_8035FDA0;
         D_8035AF60 = 2;
         for (i = 0; i < ARRAY_COUNT(D_8035FDA0); i++) {
             D_8035C238[i].unk0 = 1000000.0f;
@@ -178,7 +180,7 @@ void fdr_802E68B0(u8 arg0) {
         }
         D_8035FD98 = &D_8035C238[var_a0_2]; // possible UB if var_a0_2 is never set
         D_8035C230 = &D_8035B5B0[var_a0_2];
-        D_803619C0 = (Unk8035FDA0*)&D_8035FDA0[var_a0_2];
+        D_803619C0 = &D_8035FDA0[var_a0_2];
         D_8035AF68 = D_8035FD98->unk0;
         for (i = 0; i < ARRAY_COUNT(D_8035AF70) - 1; i++) {
             if ((D_8035AF70[i].unk0 <= var_fv0) && (var_fv0 <= D_8035AF70[i + 1].unk0)) {
@@ -321,7 +323,7 @@ s32 fdr_802E7278(Mtx4F* arg0, u16* arg1) {
     f32 temp;
 
     if (D_8035FD98->unk0 < D_8035FD98->next->unk0) {
-        for (i = 0, current = D_8035FD98; i < 201; i++, current = current->next) {
+        for (i = 0, current = D_8035FD98; i <= FDR_SIZE; i++, current = current->next) {
             if (D_8035AF68 < current->next->unk0) {
                 break;
             }
@@ -332,7 +334,7 @@ s32 fdr_802E7278(Mtx4F* arg0, u16* arg1) {
         current = D_8035FD98;
         next = current->next;
     }
-    if ((i >= 0xC9) || next->unk0 < current->unk0 || next->unk0 == 1000000.0f) {
+    if ((i > FDR_SIZE) || next->unk0 < current->unk0 || next->unk0 == 1000000.0f) {
         uvMat4Copy(arg0, &D_8035FD98->unk4);
         *arg1 = D_8035FD98->unk44;
         return 0;
@@ -352,7 +354,7 @@ STATIC_FUNC void fdr_802E73BC(s32 arg0) {
     D_8034F0A8 = arg0;
     // @fake
     if (1) { }
-    if (D_8034F0A4 == 200) {
+    if (D_8034F0A4 == ARRAY_COUNT(D_8035AF70)) {
         D_8034F0A4 = 0;
         return;
     }
@@ -390,13 +392,13 @@ STATIC_FUNC s32 fdr_802E7424(s32* arg0) {
         return 1;
     }
 
-    for (i = D_8034F0A4; i < 200; i++) {
+    for (i = D_8034F0A4; i < ARRAY_COUNT(D_8035AF70); i++) {
         if ((D_8035AF70[i].unk0 <= D_8035AF68)) {
             break;
         }
     }
 
-    if (i == 200) {
+    if (i == ARRAY_COUNT(D_8035AF70)) {
         D_8034F0A4 = 0;
     } else {
         D_8034F0A4++;
@@ -416,7 +418,7 @@ STATIC_FUNC void fdr_802E7550(u8 arg0) {
     if (1) {
         D_8034F0AC = arg0;
     }
-    if (D_80362008 == 200) {
+    if (D_80362008 == ARRAY_COUNT(D_803619C8)) {
         D_80362008 = 0;
         return;
     }
@@ -432,7 +434,7 @@ STATIC_FUNC s32 fdr_802E75C0(u8* arg0) {
     s32 i;
 
     current = &D_803619C8[D_80362008];
-    if (D_80362008 < 0xC7) {
+    if (D_80362008 < ARRAY_COUNT(D_803619C8) - 1) {
         next = &D_803619C8[D_80362008 + 1];
     } else {
         next = D_803619C8;
@@ -453,13 +455,13 @@ STATIC_FUNC s32 fdr_802E75C0(u8* arg0) {
         return 0;
     }
 
-    for (i = D_80362008; i < 200; i++) {
+    for (i = D_80362008; i < ARRAY_COUNT(D_803619C8); i++) {
         if ((D_803619C8[i].unk0 <= D_8035AF68)) {
             break;
         }
     }
 
-    if (i == 0xC8) {
+    if (i == ARRAY_COUNT(D_803619C8)) {
         D_80362008 = 0;
     } else {
         D_80362008++;
