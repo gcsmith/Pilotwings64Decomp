@@ -395,27 +395,27 @@ s32 gameUpdateStatePilotSelect(Unk80362690* arg0) {
 
     D_80367868.unk4[i].pilot = PILOT_LARK;
     D_80367868.unk4[i].modelId = MODEL_LARK_BODY;
-    D_80367868.unk4[i].unk48 = 0x35;
+    D_80367868.unk4[i].textId = 0x35; // "LARK"
     i++;
     D_80367868.unk4[i].pilot = PILOT_KIWI;
     D_80367868.unk4[i].modelId = MODEL_KIWI_BODY;
-    D_80367868.unk4[i].unk48 = 0x14C;
+    D_80367868.unk4[i].textId = 0x14C; // "KIWI"
     i++;
     D_80367868.unk4[i].pilot = PILOT_GOOSE;
     D_80367868.unk4[i].modelId = MODEL_GOOSE_BODY;
-    D_80367868.unk4[i].unk48 = 0x9C;
+    D_80367868.unk4[i].textId = 0x9C; // "GOOSE"
     i++;
     D_80367868.unk4[i].pilot = PILOT_IBIS;
     D_80367868.unk4[i].modelId = MODEL_IBIS_BODY;
-    D_80367868.unk4[i].unk48 = 0x1A7;
+    D_80367868.unk4[i].textId = 0x1A7; // "IBIS"
     i++;
     D_80367868.unk4[i].pilot = PILOT_HAWK;
     D_80367868.unk4[i].modelId = MODEL_HAWK_BODY;
-    D_80367868.unk4[i].unk48 = 0x85;
+    D_80367868.unk4[i].textId = 0x85; // "HAWK"
     i++;
     D_80367868.unk4[i].pilot = PILOT_ROBIN;
     D_80367868.unk4[i].modelId = MODEL_ROBIN_BODY;
-    D_80367868.unk4[i].unk48 = 0x128;
+    D_80367868.unk4[i].textId = 0x128; // "ROBIN"
     i++;
 
     ptr->unk0 = i;

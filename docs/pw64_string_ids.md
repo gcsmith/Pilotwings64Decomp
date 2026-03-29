@@ -79,12 +79,14 @@ ID    | String
  0x69 | "Bonus ring cleared"
  0x6e | "Vol. >>3"
  0x7e | "You've received a Gold Badge!!!"
+ 0x85 | "HAWK"
  0x86 | "Yes"
  0x8a | "pt."
  0x8b | "File 1 .......... Perfect"
  0x8c | "Take photos of Missi the"
  0x8d | "Shutter Bug 2"
  0x8e | "File 2 .......... Perfect"
+ 0x9c | "GOOSE"
  0xa0 | "Balloon Crash"
  0xa2 | "Landed outside target"
  0xa4 | "OK"
@@ -127,6 +129,7 @@ ID    | String
 0x139 | "Check which photo ?" (HangGlider)
 0x13c | "Photo OK"
 0x148 | "5 pts deducted"
+0x14c | "KIWI"
 0x14e | "Check map"
 0x152 | "not connected correctly."
 0x157 | "Caution! Speed decreasing"
@@ -149,6 +152,7 @@ ID    | String
 0x189 | "Retry"
 0x18a | "Hit" (Gyro?)
 0x1a2 | "Target 4"
+0x1a7 | "IBIS"
 0x1a8 | "Third shot" (Canon)
 0x1aa | "Please land" (GyroCopter)
 0x1ab | "Landing OK"
