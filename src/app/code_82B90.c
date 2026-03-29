@@ -237,7 +237,7 @@ void func_802FBEFC(JumbleHopperData* arg0, f32 arg1) {
             D_80364210[D_80362690->unk9C].unk38 = -100;
         }
         arg0->unk534++;
-        splash_80341E30();
+        splashClear();
         uvMat4SetIdentity(&sp30);
         sp30.m[3][0] = arg0->unkF4.x;
         sp30.m[3][1] = arg0->unkF4.y;
