@@ -20,7 +20,7 @@
 #include "app/pads.h"
 #include "app/proxanim.h"
 #include "app/results.h"
-#include "app/shadow.h"
+#include "app/shuttle.h"
 #include "app/snap.h"
 #include "app/snd.h"
 #include "app/test_menu.h"

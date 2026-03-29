@@ -460,13 +460,13 @@ spath_80340CB8      = 0x80340CB8; // type:func
 spath_80340E7C      = 0x80340E7C; // type:func
 spathInterpolate    = 0x80340FEC; // type:func
 
-splash_80341460     = 0x80341460; // type:func
-splash_803415C8     = 0x803415C8; // type:func
-splash_8034170C     = 0x8034170C; // type:func
+splashDrawRipple    = 0x80341460; // type:func
+splashDraw          = 0x803415C8; // type:func
+splashAddRipple     = 0x8034170C; // type:func
 splashAdd           = 0x803417CC; // type:func
-splash_80341974     = 0x80341974; // type:func
-splash_80341CB0     = 0x80341CB0; // type:func
-splash_80341E30     = 0x80341E30; // type:func
+splashUpdate        = 0x80341974; // type:func
+splashInit          = 0x80341CB0; // type:func
+splashClear         = 0x80341E30; // type:func
 
 toyInit             = 0x80347BD0; // type:func
 toy_80347C2C        = 0x80347C2C; // type:func
