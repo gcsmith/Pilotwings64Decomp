@@ -92,7 +92,7 @@ void func_80336600(void) {
 
             var_s0->unk0 += D_8034F854;
             if (smoke->unk140 < var_s0->unk0) {
-                uvFxProps(var_s0->unk1C, FX_11(0), FX_END);
+                uvFxProps(var_s0->unk1C, FX_PROP_11(0), FX_PROP_END);
                 var_s0->unk1C = 0xFF;
                 continue;
             }
@@ -100,7 +100,14 @@ void func_80336600(void) {
             temp_fa0 = var_s0->unk8 * (var_s0->unk0 / smoke->unk140) * 10.0f;
             temp_fs1 = var_s0->unkC * (var_s0->unk0 / smoke->unk140) * 10.0f;
             temp_fs0 = SQ(var_s0->unk0 / smoke->unk140);
-            uvFxProps(var_s0->unk1C, FX_7(1.0 - temp_fs0), FX_3(temp_fv1, temp_fa0, temp_fs1), FX_END);
+            // clang-format off
+            uvFxProps(
+                var_s0->unk1C,
+                FX_PROP_7(1.0 - temp_fs0),
+                FX_PROP_3(temp_fv1, temp_fa0, temp_fs1),
+                FX_PROP_END
+            );
+            // clang-format on
 
             x = temp_fs0;
             y = temp_fs0;
@@ -326,7 +333,7 @@ void smokeDelete(s32 smokeIdx) {
     for (i = 0; i < ARRAY_COUNT(smoke->unk0); i++) {
         var_s0 = &smoke->unk0[i];
         if (var_s0->unk1C != 0xFF) {
-            uvFxProps(var_s0->unk1C, FX_11(0), FX_END);
+            uvFxProps(var_s0->unk1C, FX_PROP_11(0), FX_PROP_END);
             var_s0->unk1C = 0xFF;
         }
     }
@@ -337,7 +344,7 @@ void smokePuffAdd(Smoke* smoke, Smoke_Unk0* arg1) {
     f32 var_fv1;
 
     if (arg1->unk1C != 0xFF) {
-        uvFxProps(arg1->unk1C, FX_11(0), FX_END);
+        uvFxProps(arg1->unk1C, FX_PROP_11(0), FX_PROP_END);
         arg1->unk1C = 0xFF;
     }
     arg1->unk1C = func_8021EFF0(7);
@@ -358,55 +365,166 @@ void smokePuffAdd(Smoke* smoke, Smoke_Unk0* arg1) {
 
     var_fa0 = var_fv1 * 50.0f;
     var_fv1 = ((s32)(demoRandF() * 3.0 + 0.5) * 90);
-    uvFxProps(arg1->unk1C, FX_1(10000.0f), FX_19(var_fa0), FX_8(0x138), FX_15(var_fv1),
-              FX_5(smoke->unk178[0] / 255.0, smoke->unk178[1] / 255.0, smoke->unk178[2] / 255.0, 1.0f), FX_END);
+    // clang-format off
+    uvFxProps(
+        arg1->unk1C, 
+        FX_PROP_1(10000.0f), 
+        FX_PROP_19(var_fa0), 
+        FX_PROP_8(0x138), 
+        FX_PROP_15(var_fv1),
+        FX_PROP_5(smoke->unk178[0] / 255.0, smoke->unk178[1] / 255.0, smoke->unk178[2] / 255.0, 1.0f), 
+        FX_PROP_END
+    );
+    // clang-format on
 }
 
 void smokeCreateTerra(void) {
     s32 smokeIdx;
+    // clang-format off
     switch (D_80362690->terraId) {
     case 0:
         smokeIdx = smokeCreate();
-        smokeProps(smokeIdx, SMOKE_FX_5(0.0f, 1.0f, 1.0f), SMOKE_FX_6(-260.0, -120.0, 19.0), SMOKE_FX_END);
+        smokeProps(
+            smokeIdx,
+            SMOKE_PROP_5(0.0f, 1.0f, 1.0f),
+            SMOKE_PROP_6(-260.0, -120.0, 19.0),
+            SMOKE_PROP_END
+        );
         smokeIdx = smokeCreate();
-        smokeProps(smokeIdx, SMOKE_FX_5(0.0f, 1.0f, 1.0f), SMOKE_FX_6(120.0, 280.05, 47.0), SMOKE_FX_END);
+        smokeProps(
+            smokeIdx,
+            SMOKE_PROP_5(0.0f, 1.0f, 1.0f),
+            SMOKE_PROP_6(120.0, 280.05, 47.0),
+            SMOKE_PROP_END
+        );
         smokeIdx = smokeCreate();
-        smokeProps(smokeIdx, SMOKE_FX_5(0.0f, 2.0f, 1.0f), SMOKE_FX_6(-319.4, 385.4, 17.0), SMOKE_FX_END);
+        smokeProps(
+            smokeIdx,
+            SMOKE_PROP_5(0.0f, 2.0f, 1.0f),
+            SMOKE_PROP_6(-319.4, 385.4, 17.0),
+            SMOKE_PROP_END
+        );
         return;
     case 1:
         smokeIdx = smokeCreate();
-        smokeProps(smokeIdx, SMOKE_FX_5(-1.0f, 0.0f, 1.0f), SMOKE_FX_2(35.0f), SMOKE_FX_6(-1329.05, 1232.9, 7.0), SMOKE_FX_END);
+        smokeProps(
+            smokeIdx,
+            SMOKE_PROP_5(-1.0f, 0.0f, 1.0f),
+            SMOKE_PROP_2(35.0f),
+            SMOKE_PROP_6(-1329.05, 1232.9, 7.0),
+            SMOKE_PROP_END
+        );
         smokeIdx = smokeCreate();
-        smokeProps(smokeIdx, SMOKE_FX_5(-1.0f, 0.0f, 1.0f), SMOKE_FX_2(25.0f), SMOKE_FX_6(-1728.65, -254.84, 31.31), SMOKE_FX_END);
+        smokeProps(
+            smokeIdx,
+            SMOKE_PROP_5(-1.0f, 0.0f, 1.0f),
+            SMOKE_PROP_2(25.0f),
+            SMOKE_PROP_6(-1728.65, -254.84, 31.31),
+            SMOKE_PROP_END
+        );
         smokeIdx = smokeCreate();
-        smokeProps(smokeIdx, SMOKE_FX_5(-1.0f, 0.0f, 1.0f), SMOKE_FX_2(25.0f), SMOKE_FX_6(-1470.8, -391.2, 58.25), SMOKE_FX_END);
+        smokeProps(
+            smokeIdx,
+            SMOKE_PROP_5(-1.0f, 0.0f, 1.0f),
+            SMOKE_PROP_2(25.0f),
+            SMOKE_PROP_6(-1470.8, -391.2, 58.25),
+            SMOKE_PROP_END
+        );
         smokeIdx = smokeCreate();
-        smokeProps(smokeIdx, SMOKE_FX_5(0.0f, -1.0f, 1.0f), SMOKE_FX_2(25.0f), SMOKE_FX_6(171.0, 1335.5, 14.4), SMOKE_FX_END);
+        smokeProps(
+            smokeIdx,
+            SMOKE_PROP_5(0.0f, -1.0f, 1.0f),
+            SMOKE_PROP_2(25.0f),
+            SMOKE_PROP_6(171.0, 1335.5, 14.4),
+            SMOKE_PROP_END
+        );
         smokeIdx = smokeCreate();
-        smokeProps(smokeIdx, SMOKE_FX_5(0.0f, -1.0f, 1.0f), SMOKE_FX_2(25.0f), SMOKE_FX_6(78.80000000000001, 1360.5, 14.4), SMOKE_FX_END);
+        smokeProps(
+            smokeIdx,
+            SMOKE_PROP_5(0.0f, -1.0f, 1.0f),
+            SMOKE_PROP_2(25.0f),
+            SMOKE_PROP_6(78.80000000000001, 1360.5, 14.4),
+            SMOKE_PROP_END
+        );
         return;
     case 3:
         smokeIdx = smokeCreate();
-        smokeProps(smokeIdx, SMOKE_FX_5(0.0f, 0.0f, 1.0f), SMOKE_FX_2(100.0), SMOKE_FX_6(2400.0, -563.0, 86.0), SMOKE_FX_END);
+        smokeProps(
+            smokeIdx,
+            SMOKE_PROP_5(0.0f, 0.0f, 1.0f),
+            SMOKE_PROP_2(100.0),
+            SMOKE_PROP_6(2400.0, -563.0, 86.0),
+            SMOKE_PROP_END
+        );
         smokeIdx = smokeCreate();
-        smokeProps(smokeIdx, SMOKE_FX_5(-1.0f, 0.0f, 1.0f), SMOKE_FX_2(20.0), SMOKE_FX_6(-592.0, 1060.7, 94.5), SMOKE_FX_END);
+        smokeProps(
+            smokeIdx,
+            SMOKE_PROP_5(-1.0f, 0.0f, 1.0f),
+            SMOKE_PROP_2(20.0),
+            SMOKE_PROP_6(-592.0, 1060.7, 94.5),
+            SMOKE_PROP_END
+        );
         smokeIdx = smokeCreate();
-        smokeProps(smokeIdx, SMOKE_FX_5(-1.0f, 0.0f, 1.0f), SMOKE_FX_2(20.0), SMOKE_FX_6(750.39, 235.6, 106.4), SMOKE_FX_END);
+        smokeProps(
+            smokeIdx,
+            SMOKE_PROP_5(-1.0f, 0.0f, 1.0f),
+            SMOKE_PROP_2(20.0),
+            SMOKE_PROP_6(750.39, 235.6, 106.4),
+            SMOKE_PROP_END
+        );
         smokeIdx = smokeCreate();
-        smokeProps(smokeIdx, SMOKE_FX_5(-1.0f, 0.0f, 1.0f), SMOKE_FX_2(20.0), SMOKE_FX_6(151.2, -1026.22, 93.14), SMOKE_FX_END);
+        smokeProps(
+            smokeIdx,
+            SMOKE_PROP_5(-1.0f, 0.0f, 1.0f),
+            SMOKE_PROP_2(20.0),
+            SMOKE_PROP_6(151.2, -1026.22, 93.14),
+            SMOKE_PROP_END
+        );
         return;
     case 7:
         smokeIdx = smokeCreate();
-        smokeProps(smokeIdx, SMOKE_FX_5(-1.0f, 0.0f, 1.0f), SMOKE_FX_1(0, 0, 0), SMOKE_FX_6(-913.62, 200.17, 8.5), SMOKE_FX_END);
+        smokeProps(
+            smokeIdx,
+            SMOKE_PROP_5(-1.0f, 0.0f, 1.0f),
+            SMOKE_PROP_1(0, 0, 0),
+            SMOKE_PROP_6(-913.62, 200.17, 8.5),
+            SMOKE_PROP_END
+        );
         smokeIdx = smokeCreate();
-        smokeProps(smokeIdx, SMOKE_FX_5(-1.0f, 0.0f, 1.0f), SMOKE_FX_1(0, 0, 0), SMOKE_FX_6(-431.6, 1522.2, 21.2), SMOKE_FX_END);
+        smokeProps(
+            smokeIdx,
+            SMOKE_PROP_5(-1.0f, 0.0f, 1.0f),
+            SMOKE_PROP_1(0, 0, 0),
+            SMOKE_PROP_6(-431.6, 1522.2, 21.2),
+            SMOKE_PROP_END
+        );
         smokeIdx = smokeCreate();
-        smokeProps(smokeIdx, SMOKE_FX_5(-1.0f, 0.0f, 1.0f), SMOKE_FX_2(20.0), SMOKE_FX_1(0, 0, 0), SMOKE_FX_6(-319.0, -1686.9, 29.0), SMOKE_FX_END);
+        smokeProps(
+            smokeIdx,
+            SMOKE_PROP_5(-1.0f, 0.0f, 1.0f),
+            SMOKE_PROP_2(20.0),
+            SMOKE_PROP_1(0, 0, 0),
+            SMOKE_PROP_6(-319.0, -1686.9, 29.0),
+            SMOKE_PROP_END
+        );
         smokeIdx = smokeCreate();
-        smokeProps(smokeIdx, SMOKE_FX_5(-1.0f, 0.0f, 1.0f), SMOKE_FX_2(20.0), SMOKE_FX_1(0, 0, 0), SMOKE_FX_6(-166.39999999999998, -1600.0, 24.9),
-                   SMOKE_FX_END);
+        smokeProps(
+            smokeIdx,
+            SMOKE_PROP_5(-1.0f, 0.0f, 1.0f),
+            SMOKE_PROP_2(20.0),
+            SMOKE_PROP_1(0, 0, 0),
+            SMOKE_PROP_6(-166.39999999999998, -1600.0, 24.9),
+            SMOKE_PROP_END
+        );
         smokeIdx = smokeCreate();
-        smokeProps(smokeIdx, SMOKE_FX_5(-1.0f, 0.0f, 1.0f), SMOKE_FX_2(20.0), SMOKE_FX_1(0, 0, 0), SMOKE_FX_6(-393.6, -930.8, 94.7), SMOKE_FX_END);
+        smokeProps(
+            smokeIdx,
+            SMOKE_PROP_5(-1.0f, 0.0f, 1.0f),
+            SMOKE_PROP_2(20.0),
+            SMOKE_PROP_1(0, 0, 0),
+            SMOKE_PROP_6(-393.6, -930.8, 94.7),
+            SMOKE_PROP_END
+        );
         return;
     default:
         _uvDebugPrintf("smoke_create : unknown terra id %d\n", D_80362690->terraId);
@@ -414,4 +532,5 @@ void smokeCreateTerra(void) {
     case 2:
         return;
     }
+    // clang-format on
 }

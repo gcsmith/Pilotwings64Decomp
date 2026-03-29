@@ -18,7 +18,7 @@ Unk80269F50 D_80269F50[10];
 void func_80218BA0(void) {
     s32 i;
 
-    for (i = 0; i < 10; i++) {
+    for (i = 0; i < ARRAY_COUNT(D_80269F50); i++) {
         D_80269F50[i].unk0 = 0;
         D_80269F50[i].unk1 = 0;
         D_80269F50[i].unk4 = 0;
@@ -33,7 +33,7 @@ void func_80218BA0(void) {
 void func_80218CA4(void) {
     s32 i;
 
-    for (i = 0; i < 10; i++) {
+    for (i = 0; i < ARRAY_COUNT(D_80269F50); i++) {
         if (D_80269F50[i].unk0 != 0) {
             func_8021902C(i);
         }
@@ -114,7 +114,7 @@ void uvSeqProps(s32 arg0, ...) {
 s32 func_80218F88(void) {
     s32 i;
 
-    for (i = 0; i < 10; i++) {
+    for (i = 0; i < ARRAY_COUNT(D_80269F50); i++) {
         if (D_80269F50[i].unk0 == 0) {
             return i;
         }

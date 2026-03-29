@@ -16,6 +16,7 @@
 #include "oil.h"
 #include "planes.h"
 #include "shadow.h"
+#include "shuttle.h"
 #include "ski_lift.h"
 #include "task.h"
 #include "text_data.h"
@@ -99,7 +100,7 @@ void level_8030B868(void) {
             gliderToyLoadCrescent();
             break;
         case MAP_LITTLE_STATES:
-            func_80335BE4();
+            shuttleLoad();
             ferryLoad();
             func_803151AC();
             gliderToyLoadLStates();
@@ -133,7 +134,7 @@ void level_8030B964(void) {
             gliderToyDeinit();
             break;
         case MAP_LITTLE_STATES:
-            func_80335E44();
+            shuttleDeinit();
             ferryDeinit();
             func_8031531C();
             gliderToyDeinit();
