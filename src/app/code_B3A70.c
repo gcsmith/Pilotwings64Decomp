@@ -123,19 +123,19 @@ void func_8032C540(Unk80362690* arg0) {
     func_802D5884(temp_s0->unk70, 5U);
     temp_s0->unk70->unk1A0 = 2.0f;
     temp_s0->unk70->unk0 = 0x70;
-    func_802E68B0(3);
+    fdr_802E68B0(3);
     hudGetState()->renderFlags = 0;
     uvEventPost(0x10, 0);
-    func_80313E0C(func_802E6B68());
+    func_80313E0C(fdr_802E6B68());
     sp6C = -100.0f;
     sp68 = arg0->terraId;
     sp64 = 0xFFFF;
-    func_802E7278(&sp108, &sp66);
+    fdr_802E7278(&sp108, &sp66);
     func_8032D33C(&sp108, &sp108, temp_s0->unk70->unk8, 1);
     temp_s0->unk70->unk8 = 1.0f;
     while (var_fs2 == 0.0f || D_8034F850 < var_fs2) {
         var_fs0 += D_8034F854;
-        if (func_802E6B5C() == 4 && var_fs2 == 0.0f) {
+        if (fdr_802E6B5C() == 4 && var_fs2 == 0.0f) {
             var_fs2 = var_fs0 + 0.2f;
         }
         demo_80323020();

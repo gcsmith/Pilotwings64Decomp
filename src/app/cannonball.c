@@ -181,7 +181,7 @@ void cannonMovementFrame(CannonballData* arg0, u8 gameState) {
     Mtx4F sp3C;
     Mtx4F* sp2C;
 
-    if (func_802E6B5C() == 4) {
+    if (fdr_802E6B5C() == 4) {
         return;
     }
 
@@ -193,14 +193,14 @@ void cannonMovementFrame(CannonballData* arg0, u8 gameState) {
         spE4 = demoGetButtons(arg0->unk10);
     }
     sp2C = &arg0->unk14;
-    func_802E65AC(&arg0->unk14, &D_80362690->terraId, &stickX, &stickY, &spE4);
+    fdr_802E65AC(&arg0->unk14, &D_80362690->terraId, &stickX, &stickY, &spE4);
     if (gameState != GAME_STATE_RESULTS) {
         spC8[0] = arg0->zAxis;
         spC8[1] = arg0->xAxis;
         spC7 = (arg0->unkD4 * 2) | (arg0->unkC4 & 1);
-        func_802E682C(spC8, ARRAY_COUNT(spC8), spC7);
+        fdr_802E682C(spC8, ARRAY_COUNT(spC8), spC7);
     } else {
-        func_802E6870(spC8, ARRAY_COUNT(spC8), &spC7);
+        fdr_802E6870(spC8, ARRAY_COUNT(spC8), &spC7);
         arg0->zAxis = spC8[0];
         arg0->xAxis = spC8[1];
         arg0->unkD4 = spC7 >> 1;
@@ -831,8 +831,8 @@ s32 cannonLoad802D77D8(Unk80362690* arg0, CannonballData* arg1) {
     func_802D4DE8(temp_s1->unk70, 0);
     func_8032B508(temp_s1->unk74);
     func_80313E0C(0.0f);
-    func_802E66F4(1.0f);
-    func_802E68B0(1);
+    fdrSetblen(1.0f);
+    fdr_802E68B0(1);
     func_8033F748(0x10);
     func_8033F964(0);
     func_8033FCD0(temp_s1->veh);
