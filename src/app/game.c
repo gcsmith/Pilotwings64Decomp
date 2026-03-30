@@ -440,7 +440,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
     uvGfxClearScreen(0, 0, 0, 0xFF);
     uvGfxBegin();
     uvGfxEnd();
-    temp_s0->unk88 = -1;
+    temp_s0->smokeId = -1;
     temp_s0->unk7B = 0;
     if (temp_s0->veh == VEHICLE_CANNONBALL) {
         D_803676FC = (CannonballData*)temp_s0->vehicleData;
