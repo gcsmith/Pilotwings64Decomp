@@ -135,7 +135,7 @@ void bonusDeinit(void) {
     s32 i;
     for (i = 0; i < gBonusStarCount; i++) {
         if (gBonusStars[i].objId != 0xFFFF) {
-            uvDobjModel(gBonusStars[i].objId, 0xFFFF);
+            uvDobjModel(gBonusStars[i].objId, MODEL_WORLD);
             gBonusStars[i].objId = 0xFFFF;
         }
     }

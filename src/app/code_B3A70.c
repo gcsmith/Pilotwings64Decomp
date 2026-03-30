@@ -304,7 +304,7 @@ void func_8032CC44(Unk80362690* arg0) {
     if (sp20 != 0xFFFF) {
         uvDobjState(sp20, 0);
     }
-    func_803343D8(0);
+    shadow_803343D8(0);
     uvLevelInit();
     switch (arg0->map) {
     case MAP_HOLIDAY_ISLAND:
@@ -326,7 +326,7 @@ void func_8032CC44(Unk80362690* arg0) {
     func_8032D51C(0);
     uvLevelInit();
     levelLoad(arg0->map, sp2C->pilot, sp2C->veh, 1);
-    func_803343D8(1);
+    shadow_803343D8(1);
     uvDobjState(sp28, sp24);
     if (sp20 != 0xFFFF) {
         uvDobjState(sp20, sp1C);

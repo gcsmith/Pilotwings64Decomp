@@ -24,8 +24,20 @@ void func_802F4F98(GyrocopterData* arg0) {
     uvModelGet(arg0->unk660, 3);
     arg0->unk661 = func_8021EFF0(3);
     uvModelGet(arg0->unk661, 3);
-    uvFxProps(arg0->unk660, FX_5(arg0->unk578, arg0->unk57C, arg0->unk580, 1.0f), FX_3(arg0->unk594, arg0->unk594, arg0->unk594), FX_END);
-    uvFxProps(arg0->unk661, FX_5(arg0->unk584, arg0->unk588, arg0->unk58C, 1.0f), FX_3(arg0->unk5A8, arg0->unk5A8, arg0->unk5A8), FX_END);
+    // clang-format off
+    uvFxProps(
+        arg0->unk660,
+        FX_PROP_5(arg0->unk578, arg0->unk57C, arg0->unk580, 1.0f),
+        FX_PROP_3(arg0->unk594, arg0->unk594, arg0->unk594),
+        FX_PROP_END
+    );
+    uvFxProps(
+        arg0->unk661,
+        FX_PROP_5(arg0->unk584, arg0->unk588, arg0->unk58C, 1.0f),
+        FX_PROP_3(arg0->unk5A8, arg0->unk5A8, arg0->unk5A8),
+        FX_PROP_END
+    );
+    // clang-format on
     arg0->unk662 = 0;
     arg0->unk663 = 0;
     arg0->unkE4 = -1.0f;
@@ -86,7 +98,7 @@ void func_802F5358(GyrocopterData* arg0) {
     uvMat4Copy(&sp50, &arg0->unk10);
     uvMat4LocalTranslate(&sp50, arg0->unk59C.x, arg0->unk59C.y, arg0->unk59C.z);
     uvMat4RotateAxis(&sp50, arg0->unk598, 'x');
-    uvFxProps(arg0->unk660, FX_5(arg0->unk578, arg0->unk57C, arg0->unk580, (var_fs0 * 0.6f)), FX_END);
+    uvFxProps(arg0->unk660, FX_PROP_5(arg0->unk578, arg0->unk57C, arg0->unk580, (var_fs0 * 0.6f)), FX_PROP_END);
     func_8021A4D8(arg0->unk660, &sp50);
     uvModelGetPosm(arg0->modelId, arg0->unk573, &sp50);
     uvMat4RotateAxis(&sp50, arg0->unkEC, 'z');
@@ -109,7 +121,7 @@ void func_802F5358(GyrocopterData* arg0) {
     uvMat4Copy(&sp50, &arg0->unk10);
     uvMat4LocalTranslate(&sp50, arg0->unk5B0, arg0->unk5B4, arg0->unk5B8);
     uvMat4RotateAxis(&sp50, arg0->unk5AC, 'x');
-    uvFxProps(arg0->unk661, FX_5(arg0->unk584, arg0->unk588, arg0->unk58C, (var_fs0 * 0.6f)), FX_END);
+    uvFxProps(arg0->unk661, FX_PROP_5(arg0->unk584, arg0->unk588, arg0->unk58C, (var_fs0 * 0.6f)), FX_PROP_END);
     func_8021A4D8(arg0->unk661, &sp50);
     if (var_fs0 > 0.95f) {
         uvDobjProps(arg0->objId, 5, arg0->unk574, 0);
@@ -202,7 +214,7 @@ void func_802F5910(GyrocopterData* arg0) {
             arg0->unk2 |= 8;
             arg0->unk58->unk6 = arg0->unk2;
             uvDobjState(arg0->objId, arg0->unk2 | 8);
-            func_803343D8(0);
+            shadow_803343D8(0);
         } else {
             func_802F9638(temp_fa0, temp_fa1, temp_fv0, 10.0f);
         }

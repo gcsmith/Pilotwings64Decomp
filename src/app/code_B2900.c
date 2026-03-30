@@ -94,7 +94,6 @@ s32 func_8032B560(Unk80364210* arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
     s32 pad_sp70;
     s32 pad_sp6C;
     s16 sp6A;
-    // why is there padding missing here?
     f32 sp64;
     f32 sp60;
     s32 pad_sp5C;

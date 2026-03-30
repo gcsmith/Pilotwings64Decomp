@@ -1,6 +1,9 @@
 #include "common.h"
+#include "code_51E30.h"
+#include "code_9A960.h"
 #include <uv_math.h>
 #include <uv_texture.h>
+#include <uv_janim.h>
 #include "game.h"
 #include "demo.h"
 #include "falco.h"
@@ -81,12 +84,6 @@ typedef struct {
 } Falco; // size = 0x258
 
 typedef struct {
-    s32 unk0;
-    void* unk4; // maybe f32 pointer
-    s32 unk8;   // always 0, maybe a pointer to something?
-} Unk8034EFB0;
-
-typedef struct {
     Vec3F unk0;
     f32 unkC;
 } Unk8035A858;
@@ -96,33 +93,47 @@ typedef struct {
     u8 pad4[0x60 - 0x4];
 } Unk8035A920; // size = 0x60
 
-// .data
-f32 D_8034EFA0 = 0.0f;
-s32 padD_8034EFA4[3] = { 0 };
-
+// .bss
+extern s32 D_8035A5F0;
+extern Falco gFalcos[1];
+extern Unk8035A858 D_8035A858[12];
+extern s32 gFalcoCount;
+extern s32 D_8035A918;
+extern Unk8035A920 D_8035A920[16];
 extern TaskFALC* gRefFALC;
-
 extern f32 D_8035AF30;
 extern f32 D_8035AF34;
 extern f32 D_8035AF38;
 extern f32 D_8035AF3C;
+extern f32 D_8035AF40;
+extern f32 D_8035AF44;
+extern f32 D_8035AF48;
+extern f32 D_8035AF4C;
+extern f32 D_8035AF50;
+extern f32 D_8035AF54;
+extern f32 D_8035AF58;
 
-// referenced in D_8034F03C
-Unk8034EFB0 D_8034EFB0 = { 0xA, &D_8035AF30, 0 };
-Unk8034EFB0 D_8034EFBC = { 0x5, &D_8035AF34, 0 };
-Unk8034EFB0 D_8034EFC8 = { 0x6, &D_8035AF30, 0 };
-Unk8034EFB0 D_8034EFD4 = { 0x9, &D_8035AF38, 0 };
-Unk8034EFB0 D_8034EFE0 = { 0x8, &D_8035AF3C, 0 };
-Unk8034EFB0 D_8034EFEC = { 0x7, &D_8035AF3C, 0 };
-Unk8034EFB0 D_8034EFF8 = { 0x4, &D_8035AF3C, 0 };
-Unk8034EFB0 D_8034EF04 = { 0x3, &D_8035AF3C, 0 };
-
-// .bss
-extern Falco gFalcos[1];
-extern s32 gFalcoCount;
-extern Unk8035A858 D_8035A858[];
-extern s32 D_8035A918;
-extern Unk8035A920 D_8035A920[16];
+// .data
+f32 D_8034EFA0 = 0.0f;
+s32 padD_8034EFA4[3] = { 0 };
+Unk802CAC48 D_8034EFB0 = { 0, 10, &D_8035AF30, NULL };
+Unk802CAC48 D_8034EFBC = { 0, 5, &D_8035AF34, NULL };
+Unk802CAC48 D_8034EFC8 = { 0, 6, &D_8035AF30, NULL };
+Unk802CAC48 D_8034EFD4 = { 0, 9, &D_8035AF38, NULL };
+Unk802CAC48 D_8034EFE0 = { 0, 8, &D_8035AF3C, NULL };
+Unk802CAC48 D_8034EFEC = { 0, 7, &D_8035AF3C, NULL };
+Unk802CAC48 D_8034EFF8 = { 0, 4, &D_8035AF3C, NULL };
+Unk802CAC48 D_8034EF04 = { 0, 3, &D_8035AF3C, NULL };
+Unk802CAC48 D_8034F010 = { 0, 1, &D_8035AF3C, NULL };
+Unk8034E788 D_8034F01C = { 1, 0, &D_8035AF40, &D_8034EFE0, &D_8034EFEC };
+Unk8034E788 D_8034F02C = { 1, 0, &D_8035AF40, &D_8034EFF8, &D_8034EF04 };
+Unk8034E788 D_8034F03C = { 1, 0, &D_8035AF44, &D_8034EFBC, &D_8034EFB0 };
+Unk8034E788 D_8034F04C = { 1, 0, &D_8035AF48, &D_8034EFC8, &D_8034EFD4 };
+Unk8034E788 D_8034F05C = { 1, 0, &D_8035AF4C, &D_8034F01C, &D_8034F02C };
+Unk8034E788 D_8034F06C = { 1, 0, &D_8035AF50, &D_8034F05C, &D_8034F03C };
+Unk8034E788 D_8034F07C = { 1, 0, &D_8035AF54, &D_8034F06C, &D_8034F04C };
+Unk8034E788 D_8034F08C = { 1, 0, &D_8035AF58, &D_8034F07C, &D_8034F010 };
+Unk8034E788* D_8034F09C = &D_8034F08C;
 
 // forward declarations
 void falco_802E38F0(Falco*, TaskFALC*);
@@ -298,7 +309,64 @@ s32 falco_802E57C4(void) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/falco/falco_802E5818.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/falco/falco_802E587C.s")
+void falco_802E587C(Falco* arg0) {
+    Unk80371120 sp20;
+    s32 sp1C;
+    f32 var_fa0;
+
+    sp1C = arg0->unk23C;
+    D_8035AF3C = arg0->unk244;
+    D_8035AF30 = arg0->unk244;
+    D_8035AF34 = arg0->unk244;
+    D_8035AF38 = arg0->unk244;
+    if ((sp1C == 5) || (sp1C == 4)) {
+        var_fa0 = 1.0f;
+    } else {
+        var_fa0 = 0.0f;
+    }
+    D_8035AF4C = func_80313AF4(var_fa0, D_8035AF4C, 1.0f);
+    if ((sp1C == 8) || (sp1C == 9) || (sp1C == 0xA)) {
+        var_fa0 = 1.0f;
+    } else {
+        var_fa0 = 0.0f;
+    }
+    D_8035AF48 = func_80313AF4(var_fa0, D_8035AF48, 4.0f);
+    if ((sp1C == 0) || (sp1C == 4)) {
+        var_fa0 = 1.0f;
+    } else {
+        var_fa0 = 0.0f;
+    }
+    D_8035AF40 = func_80313AF4(var_fa0, D_8035AF40, 1.0f);
+    if (sp1C == 3) {
+        var_fa0 = 1.0f;
+    } else {
+        var_fa0 = 0.0f;
+    }
+    D_8035AF44 = func_80313AF4(var_fa0, D_8035AF44, 2.0f);
+    if ((sp1C == 7) || (sp1C == 3) || (sp1C == 8)) {
+        var_fa0 = 1.0f;
+    } else {
+        var_fa0 = 0.0f;
+    }
+    D_8035AF50 = func_80313AF4(var_fa0, D_8035AF50, 5.0f);
+    if ((sp1C == 2) || (sp1C == 0xA) || (sp1C == 9)) {
+        var_fa0 = 1.0f;
+    } else {
+        var_fa0 = 0.0f;
+    }
+    D_8035AF54 = func_80313AF4(var_fa0, D_8035AF54, 10.0f);
+    if (sp1C == 6) {
+        var_fa0 = 1.0f;
+    } else {
+        var_fa0 = 0.0f;
+    }
+    D_8035AF58 = func_80313AF4(var_fa0, D_8035AF58, 10.0f);
+    func_802CAAC8(D_8034F09C, &sp20);
+    func_80200638(arg0->unk0, &sp20);
+    if (arg0->unk256 != 0) {
+        func_80200638(arg0->unk4, &sp20);
+    }
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/falco/falco_802E5AFC.s")
 

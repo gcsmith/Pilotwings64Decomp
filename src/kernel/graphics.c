@@ -5,12 +5,12 @@
 #include <uv_geometry.h>
 #include <uv_graphics.h>
 #include <uv_memory.h>
+#include <uv_seq.h>
 #include <uv_sched.h>
 #include <uv_sprite.h>
 #include <macros.h>
 #include <libc/stdint.h>
 
-void func_80218CA4(void);
 void func_8021A298(void);
 
 #define TASK_OUTPUT_BUFFER_SIZE 0x2000

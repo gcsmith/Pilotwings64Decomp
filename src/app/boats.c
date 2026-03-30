@@ -297,11 +297,11 @@ void boatsDeinit(void) {
     s32 i;
     for (i = 0; i < ARRAY_COUNT(sBoats); i++) {
         if (sBoats[i].objId8 != 0xFFFF) {
-            uvDobjModel(sBoats[i].objId8, 0xFFFF);
+            uvDobjModel(sBoats[i].objId8, MODEL_WORLD);
             sBoats[i].objId8 = 0xFFFF;
         }
         if (sBoats[i].objId0 != 0xFFFF) {
-            uvDobjModel(sBoats[i].objId0, 0xFFFF);
+            uvDobjModel(sBoats[i].objId0, MODEL_WORLD);
             sBoats[i].objId0 = 0xFFFF;
             proxAnimDeleteCallback(sBoats[i].unk40);
         }
