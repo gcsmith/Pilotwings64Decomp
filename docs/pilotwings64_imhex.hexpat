@@ -352,6 +352,25 @@ struct PDAT_PPOS {
     Vec3F rot;
 } [[static]]; // size = 0x18
 
+struct PDAT_RHDR {
+    s32 test;
+    s32 unk4;
+    s32 cls;
+    s32 veh;
+    s32 unk10;
+} [[static,format("format_RHDR")]]; // size = 0x14
+
+fn format_RHDR(PDAT_RHDR v) {
+    return std::format("[ {} {} {} {} {} ]", v.test, v.unk4, v.cls, v.veh, v.unk10);
+};
+
+struct PDAT_RPKT {
+    f32 time;
+    f32 stickX;
+    f32 stickY;
+    u32 buttons;
+} [[static]]; // size = 0x10
+
 struct PDAT {
     char tag[4];
     u32 length;
@@ -360,8 +379,11 @@ struct PDAT {
         ("PAD "): u8 pad[length] [[hidden]];
         ("PHDR"): PDAT_PHDR phdr;
         ("PPOS"): PDAT_PPOS pos[while($ - Start < length)];
+        ("RHDR"): PDAT_RHDR rhdr;
+        ("RPKT"): PDAT_RPKT rpkt[while($ - Start < length)];
         (_): u8 data[length];
     }
+    padding[while (($ - Start) < length)]; // length is always to 8-bytes, not offsets
 };
 
 
