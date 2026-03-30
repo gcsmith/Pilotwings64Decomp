@@ -209,14 +209,14 @@ s32 gameUpdateStateOptions(Unk80362690* arg0) {
 
 void func_802EBD88(Unk80362690_Unk0* arg0, u8 arg1) {
     if (D_8034F164 != 0) {
-        demo_80322D60(arg0->pilot, arg0->veh);
+        demoLoad(arg0->pilot, arg0->veh);
     } else {
-        demo_80322D60(arg0->pilot, -1);
+        demoLoad(arg0->pilot, -1);
     }
     if (arg1 != 0) {
-        arg0->test = demoGet_80322B84();
-        arg0->cls = demoGet_80322B60();
-        arg0->veh = demoGet_80322B6C();
+        arg0->test = demoGetTestId();
+        arg0->cls = demoGetClassId();
+        arg0->veh = demoGetVehicleId();
         arg0->unk8 = demoGet_80322B78();
     }
     D_8036770C = 0;

@@ -341,13 +341,13 @@ demoRecGetStickY    = 0x80322828; // type:func
 demoRecGetButtons   = 0x80322880; // type:func
 demoPackInputs      = 0x80322890; // type:func
 demoGetUserFileIdx  = 0x803229EC; // type:func
-demoGet_80322B60    = 0x80322B60; // type:func
-demoGet_80322B6C    = 0x80322B6C; // type:func
+demoGetClassId      = 0x80322B60; // type:func
+demoGetVehicleId    = 0x80322B6C; // type:func
 demoGet_80322B78    = 0x80322B78; // type:func
-demoGet_80322B84    = 0x80322B84; // type:func
+demoGetTestId       = 0x80322B84; // type:func
 demoAllocate        = 0x80322B90; // type:func
 demoInit            = 0x80322BE0; // type:func
-demo_80322D60       = 0x80322D60; // type:func
+demoLoad            = 0x80322D60; // type:func
 demoSetRecMode      = 0x80322DA8; // type:func
 demoGetRecMode      = 0x80322EB0; // type:func
 demoLogInput        = 0x80322EBC; // type:func
@@ -822,6 +822,8 @@ sMissiProxIdEF            = 0x8036C0C0;
 sMissiSeqId               = 0x8036C0C4;
 sMissiFxId                = 0x8036C0C8;
 
+gDemoMode                 = 0x8034FAD0;
+
 gRingModelIdLookup        = 0x8034FAF4; // size:0xA0
 
 gMedalPointRequirements   = 0x8034FBD4;
@@ -925,6 +927,13 @@ sPlanes                   = 0x8036D2B0; // size:0x68
 sPlaneInitialized         = 0x8036D318; // size:0x8
 
 gDemoUserFileIdx          = 0x8036D330;
+
+sDemoRecording            = 0x8036DA30;
+sDemoRecStartTime         = 0x8036DA34;
+sDemoRecEndTime           = 0x8036DA38;
+sDemoPilotId              = 0x8036DA44;
+sDemoVehicleId            = 0x8036DA48;
+sDemoRecHeader            = 0x8036DA50; // size:0x14
 
 gRefRNGS                  = 0x8036DA70;
 gRingsCount               = 0x8036DA74;
