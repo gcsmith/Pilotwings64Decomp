@@ -325,7 +325,7 @@ void func_8032FEAC(SkyDivingData* arg0, s32 arg1, u8 arg2) {
     }
     hudSetCameraState(var_a0);
     if ((arg0->unk264 != 1.0f) && (arg0->unk27A == 0) && (arg0->unk10.m[3][2] < 900.0f) && (arg0->unk25C == 0)) {
-        snd_play_sfx(5);
+        sndPlaySfx(5);
         hudWarningText(0x132, 3.0f, 8.0f);
         arg0->unk25C = 1;
     }
@@ -842,7 +842,7 @@ void skydivingLand(SkyDivingData* arg0) {
     f32 temp_fa1;
 
     if (arg0->unk2C4 == 0.0f) {
-        snd_play_sfx(0x48);
+        sndPlaySfx(0x48);
         temp_v0 = taskGetLPAD(&sp34);
         if (temp_v0 != 1) {
             _uvDebugPrintf("sdive_land: tell mikep != 1 pad\n");
@@ -933,7 +933,7 @@ void func_80331AE4(SkyDivingData* arg0) {
     arg0->unk298 = 1.0f;
     arg0->unk29C = 0.1f;
     arg0->unk27A = 1;
-    snd_play_sfx(0x49);
+    sndPlaySfx(0x49);
     arg0->unk21F = 0xA;
     arg0->unk222 = 0xD;
 }
@@ -1082,7 +1082,7 @@ void func_80331FE4(SkyDivingData* arg0) {
                 arg0->unk2B4 = 12.566371f;
                 arg0->unk260 = -1.0f;
                 hudWarningText(6, 1.5f, 8.0f);
-                snd_play_sfx(0xF);
+                sndPlaySfx(0xF);
             }
         } else {
             arg0->unk260 = -1.0f;

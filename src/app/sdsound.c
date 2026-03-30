@@ -33,7 +33,7 @@ void sdSoundInit(SkyDivingData* arg0) {
     D_80371CB8.unk20 = 1.0f;
     arg0->unk244 = sndMakeDev(0x13);
     arg0->unk245 = sndMakeDev(0x13);
-    D_80371CB0.cb = sdsound_803339C4;
+    D_80371CB0.cb = sdSoundCallback;
     D_80371CB0.arg = arg0;
     arg0->unk240 = ~0x3F;
     uvEventMaxCb(D_80371CB0, 1, 13, 18, 19, 16, 12, 22, 36);
