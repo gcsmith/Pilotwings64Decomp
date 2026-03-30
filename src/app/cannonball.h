@@ -27,7 +27,8 @@ typedef struct {
     f32 zAxis;
     f32 xAxis;
     f32 unkA4;
-    u8 padA8[8];
+    f32 unkA8;
+    f32 unkAC;
     Camera* unkB0;
     u8 unkB4;
     u8 padB5[3];

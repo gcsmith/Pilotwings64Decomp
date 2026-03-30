@@ -1,6 +1,8 @@
 #ifndef CBSOUND_H
 #define CBSOUND_H
 
-void cbSoundInit(void*);
+#include "cannonball.h"
+
+void cbSoundInit(CannonballData*);
 
 #endif // CBSOUND_H

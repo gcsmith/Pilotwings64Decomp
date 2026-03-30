@@ -5,21 +5,12 @@
 #include "app/environment.h"
 #include "app/pads.h"
 #include "app/toys.h"
+#include "app/code_61A60.h"
 #include "app/code_66160.h"
 #include "app/code_9A960.h"
 #include "app/code_B2900.h"
 
-f32 D_8034EA10 = 0.0f;
-f32 D_8034EA14 = 0.0f;
-f32 D_8034EA18 = 0.0f;
-f32 D_8034EA1C = 0.0f;
-f32 D_8034EA20 = 0.0f;
-f32 D_8034EA24 = 0.0f;
-s32 padD_8034EA28 = 0;
-s32 padD_8034EA2C = 0;
-
-extern f32 D_8034F850;
-extern Unk802D3658_Unk111C D_80359AD0;
+Unk802D3658_Unk111C D_80359AD0;
 
 void func_802D9818(CannonballData*);
 s32 func_802D9900(CannonballData*);
@@ -27,7 +18,122 @@ void func_802D9AB8(CannonballData*);
 void func_802D9B40(CannonballData*);
 void func_802D9BBC(CannonballData*);
 
+#ifndef NON_MATCHING
+f32 D_8034EA10 = 0.0f;
+f32 D_8034EA14 = 0.0f;
+f32 D_8034EA18 = 0.0f;
+f32 D_8034EA1C = 0.0f;
+f32 D_8034EA20 = 0.0f;
+f32 D_8034EA24 = 0.0f;
+
 #pragma GLOBAL_ASM("asm/nonmatchings/app/code_60020/func_802D8AF0.s")
+#else
+void func_802D8AF0(CannonballData* arg0) {
+    static f32 D_8034EA10 = 0.0f;
+    static f32 D_8034EA14 = 0.0f;
+    static f32 D_8034EA18 = 0.0f;
+    static f32 D_8034EA1C = 0.0f;
+    static f32 D_8034EA20 = 0.0f;
+    static f32 D_8034EA24 = 0.0f;
+    Mtx4F spD0;
+    f32 var_fa1;
+    s32 pad[12];
+    f32 var_fv1;
+    f32 sp94;
+    f32 sp90;
+    f32 sp8C;
+    f32 sp88;
+    f32 sp84;
+    f32 sp80;
+    f32 sp7C;
+    f32 sp78;
+    Mtx4F pad2;
+    f32 sp34;
+    f32 temp_fa0;
+
+    uvModelGetPosm(arg0->modelId, arg0->unk291, &spD0);
+    uvMat4RotateAxis(&spD0, (arg0->unkBC * -0.7f) + arg0->unkCC, 'z');
+    uvMat4RotateAxis(&spD0, (arg0->unkC0 * -0.5f) + arg0->unkD0, 'x');
+    uvDobjPosm(arg0->objId, arg0->unk291, &spD0);
+    D_8034EA10 = func_80313AF4(demoRandF(), D_8034EA10, 0.3f);
+    D_8034EA14 = func_80313AF4(demoRandF(), D_8034EA14, 0.3f);
+    var_fa1 = var_fv1 = arg0->unk1CC * -0.025f;
+    if (var_fa1 < 0.5f) {
+        var_fa1 = 0.5f;
+    } else if (var_fa1 > 1.0f) {
+        var_fa1 = 1.0f;
+    }
+
+    D_8034EA18 += var_fa1 * (9.6f + D_8034EA10) * D_8034F854;
+    if (D_8034EA18 > 6.2831855f) {
+        D_8034EA18 -= 6.2831855f;
+    }
+
+    sp94 = uvSinF(D_8034EA18) * (0.25f * var_fa1);
+    sp90 = (uvCosF(D_8034EA18) * (0.25f * var_fa1)) + 0.3f;
+    D_8034EA1C += var_fa1 * (9.6f + D_8034EA14) * D_8034F854;
+    if (D_8034EA1C > 6.2831855f) {
+        D_8034EA1C -= 6.2831855f;
+    }
+
+    sp8C = uvSinF(D_8034EA1C + 3.1415927f) * (0.25f * var_fa1);
+    sp88 = (uvCosF(D_8034EA1C + 3.1415927f) * (0.25f * var_fa1)) - 0.3f;
+    D_8034EA20 += var_fa1 * (12.5f - D_8034EA14) * D_8034F854;
+    if (D_8034EA20 > 6.2831855f) {
+        D_8034EA20 -= 6.2831855f;
+    }
+
+    sp84 = uvCosF(D_8034EA20) * (0.75f * var_fa1);
+    sp80 = uvSinF(D_8034EA20) * (0.75f * var_fa1);
+    D_8034EA24 += var_fa1 * (12.5f - D_8034EA10) * D_8034F854;
+    if (D_8034EA24 > 6.2831855f) {
+        D_8034EA24 -= 6.2831855f;
+    }
+
+    sp7C = uvCosF(1.5707963f - D_8034EA24) * (0.75f * var_fa1);
+    sp78 = uvSinF(1.5707963f - D_8034EA24) * (0.75f * var_fa1);
+    sp34 = (30.0f - arg0->unk1CC) / 60.0f;
+    if (sp34 < 0.0f) {
+        sp34 = 0.0f;
+    } else if (sp34 > 1.0f) {
+        sp34 = 1.0f;
+    }
+
+    uvModelGetPosm(arg0->modelId, arg0->unk28C, &spD0);
+    temp_fa0 = 1.0f - sp34;
+
+    uvMat4RotateAxis(&spD0, (sp34 * sp94) + (temp_fa0 * -0.34382984f), 'x');
+    uvMat4RotateAxis(&spD0, (sp34 * sp90) + (temp_fa0 * 0), 'y');
+    uvDobjPosm(arg0->objId, arg0->unk28C, &spD0);
+    uvModelGetPosm(arg0->modelId, arg0->unk289, &spD0);
+    uvMat4RotateAxis(&spD0, (sp34 * sp8C) + (temp_fa0 * -0.34382984f), 'x');
+    uvMat4RotateAxis(&spD0, (sp34 * sp88) + (temp_fa0 * 0), 'y');
+    uvDobjPosm(arg0->objId, arg0->unk289, &spD0);
+    uvModelGetPosm(arg0->modelId, arg0->unk285, &spD0);
+    uvMat4RotateAxis(&spD0, (sp34 * sp84) + (temp_fa0 * -1.3409363f), 'y');
+    uvMat4RotateAxis(&spD0, (sp34 * sp80) + (temp_fa0 * 0), 'z');
+    uvDobjPosm(arg0->objId, arg0->unk285, &spD0);
+    uvModelGetPosm(arg0->modelId, arg0->unk287, &spD0);
+    uvMat4RotateAxis(&spD0, (sp34 * sp7C) + (temp_fa0 * 1.3409363f), 'y');
+    uvMat4RotateAxis(&spD0, (sp34 * sp78) + (temp_fa0 * 0), 'z');
+    uvDobjPosm(arg0->objId, arg0->unk287, &spD0);
+    uvModelGetPosm(arg0->modelId, arg0->unk28D, &spD0);
+    uvMat4RotateAxis(&spD0, (temp_fa0 * 0) + (temp_fa0 * 0.4974188f), 'x');
+    uvDobjPosm(arg0->objId, arg0->unk28D, &spD0);
+    uvModelGetPosm(arg0->modelId, arg0->unk28A, &spD0);
+    uvMat4RotateAxis(&spD0, (temp_fa0 * 0) + (temp_fa0 * 0.4974188f), 'x');
+    uvDobjPosm(arg0->objId, arg0->unk28A, &spD0);
+    uvModelGetPosm(arg0->modelId, arg0->unk286, &spD0);
+    uvMat4RotateAxis(&spD0, (temp_fa0 * 0) + (temp_fa0 * 1.0344565f), 'z');
+    uvDobjPosm(arg0->objId, arg0->unk286, &spD0);
+    uvModelGetPosm(arg0->modelId, arg0->unk288, &spD0);
+    uvMat4RotateAxis(&spD0, (temp_fa0 * 0) + (temp_fa0 * -1.0344565f), 'z');
+    uvDobjPosm(arg0->objId, arg0->unk288, &spD0);
+}
+#endif
+
+s32 padD_8034EA28 = 0;
+s32 padD_8034EA2C = 0;
 
 void func_802D9220(CannonballData* arg0) {
     f32 var_fs0;
@@ -100,7 +206,7 @@ void func_802D94EC(CannonballData* arg0) {
     arg0->unk1EC = 0.0f;
     arg0->unkBC = 0.0f;
     arg0->unkC0 = 0.0f;
-    
+
     uvMat4Copy(&arg0->unk178, &arg0->unk14);
     arg0->unk178.m[3][0] = 0.0f;
     arg0->unk178.m[3][1] = 0.0f;
@@ -113,7 +219,6 @@ void func_802D94EC(CannonballData* arg0) {
 }
 
 void func_802D95D8(CannonballData* arg0) {
-
     uvMat4Copy(&arg0->unk178, &arg0->unk14);
     arg0->unk178.m[3][0] = 0.0f;
     arg0->unk178.m[3][1] = 0.0f;
@@ -191,7 +296,7 @@ s32 func_802D9900(CannonballData* arg0) {
     s32 temp_v0;
     s32 pad[2];
 
-    sp30 = (Vec3F*) arg0->unk14.m[3];
+    sp30 = (Vec3F*)arg0->unk14.m[3];
     arg0->unk120 = 1000000.0f;
     temp_v0 = db_getgnd(&arg0->unk294, sp30, &arg0->unk2A0, &sp48, &sp5C, &sp4C);
     temp_fv0 = sp30->z - sp5C;
