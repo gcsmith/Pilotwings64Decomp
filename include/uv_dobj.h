@@ -250,7 +250,7 @@ enum Models {
     MODEL_RING_LOCKED_GREY                                  = 0x0F0,
     MODEL_RING_WITH_GOAL_TEXT                               = 0x0F1,
     MODEL_BONUS_STAR                                        = 0x0F2,
-    MODEL_BALL_TARGETZONE                                   = 0x0F3, // Possibly not - too short?
+    MODEL_GREEN_BLUE_GOAL_1                                 = 0x0F3, // Green/blue goal used in Rocket Belt (more translucent)
     MODEL_BALL_ORANGE                                       = 0x0F4,
     MODEL_BALL_GREEN                                        = 0x0F5,
     MODEL_BALL_BLUE                                         = 0x0F6,
@@ -354,11 +354,11 @@ enum Models {
     MODEL_PILOTWINGS_LOGO_SIX                               = 0x158, // 3D "6" in intro PW64 logo
     MODEL_PILOTWINGS_LOGO_FOUR                              = 0x159, // 3D "4" in intro PW64 logo
     MODEL_PILOT_LARK                                        = 0x15A, // Character Select model
-    MODEL_PILOT_GOOSE                                       = 0x15B, //Character Select model
-    MODEL_PILOT_HAWK                                        = 0x15C, //Character Select model
-    MODEL_PILOT_KIWI                                        = 0x15D, //Character Select model
-    MODEL_PILOT_IBIS                                        = 0x15E, //Character Select model
-    MODEL_PILOT_ROBIN                                       = 0x15F, //Character Select model
+    MODEL_PILOT_GOOSE                                       = 0x15B, // Character Select model
+    MODEL_PILOT_HAWK                                        = 0x15C, // Character Select model
+    MODEL_PILOT_KIWI                                        = 0x15D, // Character Select model
+    MODEL_PILOT_IBIS                                        = 0x15E, // Character Select model
+    MODEL_PILOT_ROBIN                                       = 0x15F, //     Character Select model
     MODEL_SKYBOX_INTRO_LOW_POLY_SKY_CLOUD                   = 0x160, // Low-poly Sky+Cloud Dome "skybox" for Intro / Level Select
     MODEL_SKYBOX_SUNNY                                      = 0x161,
     MODEL_SKYBOX_SUNNY_2                                    = 0x162, // Cloudy Sunny Skybox Part 2?

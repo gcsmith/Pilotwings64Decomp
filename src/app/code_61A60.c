@@ -111,17 +111,17 @@ s32 func_802DA628(u32 pilot) {
 s32 func_802DA684(u32 pilot) {
     switch (pilot) {
     case PILOT_LARK:
-        return MODEL_LARK_BODY;
+        return MODEL_PILOT_LARK;
     case PILOT_GOOSE:
-        return MODEL_GOOSE_BODY;
+        return MODEL_PILOT_GOOSE;
     case PILOT_HAWK:
-        return MODEL_HAWK_BODY;
+        return MODEL_PILOT_HAWK;
     case PILOT_KIWI:
-        return MODEL_KIWI_BODY;
+        return MODEL_PILOT_KIWI;
     case PILOT_IBIS:
-        return MODEL_IBIS_BODY;
+        return MODEL_PILOT_IBIS;
     case PILOT_ROBIN:
-        return MODEL_ROBIN_BODY;
+        return MODEL_PILOT_ROBIN;
     default:
         return 0;
     }
