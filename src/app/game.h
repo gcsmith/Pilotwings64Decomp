@@ -86,7 +86,7 @@ typedef struct {
     u8 pad7D[0x80 - 0x7D];
     f32 unk80;
     s32 unk84;
-    s16 unk88;
+    s16 smokeId;
     u8 unk8A;
     u8 unk8B;
 } Unk80362690_Unk0;

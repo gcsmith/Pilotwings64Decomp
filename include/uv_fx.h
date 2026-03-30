@@ -121,6 +121,7 @@ extern UnkFxStruct D_8028B400[120];
 #define FX_PROP_END 0
 
 void func_8021A038(UnkModelTrail* arg0);
+s32 func_8021A304(f32, f32, f32, u16);
 s32 func_8021A334(f32 arg0, f32 arg1, f32 arg2, f32 arg3, u16 arg4);
 void func_8021A4D8(s32 fxId, Mtx4F* arg1);
 void func_8021BE28(u16 fxId, Mtx4F* arg1);
