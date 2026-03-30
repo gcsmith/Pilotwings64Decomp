@@ -48,8 +48,8 @@ STATIC_FUNC void ferryUpdate(void) {
     ferryUpdatePos();
 }
 
-STATIC_FUNC s32 ferry_802E78D4(s32 arg0, s32 arg1, s32 arg2) {
-    switch (arg1) {
+STATIC_FUNC s32 ferryProxEventCb(s32 proxId, s32 eventType, s32 arg) {
+    switch (eventType) {
     case 0:
         break;
     case 2:
@@ -68,12 +68,12 @@ STATIC_FUNC s32 ferry_802E78D4(s32 arg0, s32 arg1, s32 arg2) {
     return 0;
 }
 
-STATIC_FUNC s32 ferry_802E7974(s32 arg0, f32 arg1, s32 arg2) {
+STATIC_FUNC s32 ferryProxAnimCb(s32 proxId, f32 timeout, s32 arg) {
     f32 val;
     s32 ret;
 
     ret = 0;
-    val = proxAnimGetRange(arg0);
+    val = proxAnimGetRange(proxId);
     if (val > 1200.0f) {
         sFerryActive = FALSE;
         ret = 2;
@@ -104,7 +104,7 @@ void ferryLoad(void) {
     }
 
     uvDobjModel(sFerryObjId, MODEL_BIG_CRUISE_SHIP);
-    sFerryProxId = proxAnimAddCallback(ferry_802E7974, ferry_802E78D4, pos, 1200.0f, 0.0f, 2);
+    sFerryProxId = proxAnimAddCallback(ferryProxAnimCb, ferryProxEventCb, pos, 1200.0f, 0.0f, 2);
     uvDobjState(sFerryObjId, 3);
     uvMat4SetIdentity(&sFerryTranslateX);
     uvMat4LocalTranslate(&sFerryTranslateX, 200.0f, 0.0f, 0.0f);

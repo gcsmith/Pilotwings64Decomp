@@ -885,7 +885,7 @@ void func_8033A244(s32 arg0, Unk80373060* arg1) {
                 missiStateSave();
                 break;
             case 1:
-                shuttle_80336094();
+                shuttleStateSave();
                 break;
             case 2:
                 ferryStateSave();
@@ -943,7 +943,7 @@ void func_8033A244(s32 arg0, Unk80373060* arg1) {
                 missiStateRestore();
                 break;
             case 1:
-                shuttle_803360E8();
+                shuttleStateRestore();
                 shuttle_80336064();
                 break;
             case 2:

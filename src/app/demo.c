@@ -17,29 +17,29 @@ typedef struct {
 } RHDR;
 
 typedef struct {
-    f32 unk0;
-    f32 unk4;
-    f32 unk8;
-    u32 unkC;
+    f32 time;
+    f32 stickX;
+    f32 stickY;
+    u32 buttons;
 } RPKT;
 
-typedef struct Unk8036DA30 {
-    struct Unk8036DA30* unk0;
+typedef struct DemoRecording {
+    struct DemoRecording* rec;
     DemoRecordingEntry entries[0x708];
 } DemoRecording;
 
 // .data
-s32 D_8034FAD0 = 0;
+static s32 sDemoMode = 0;
 
 // .bss
-extern DemoRecording* D_8036DA30;
-extern f32 D_8036DA34;
-extern f32 D_8036DA38;
-extern s32 D_8036DA3C;
-extern s32 D_8036DA40;
-extern s32 D_8036DA44;
-extern s32 D_8036DA48;
-extern RHDR D_8036DA50;
+static DemoRecording* sDemoRecording;
+static f32 sDemoRecStartTime;
+static f32 sDemoRecEndTime;
+static s32 D_8036DA3C;
+static s32 D_8036DA40;
+static s32 sDemoPilotId;
+static s32 sDemoVehicleId;
+static RHDR sDemoRecHeader;
 
 f32 demoRecGetStickX(DemoRecordingEntry* entry) {
     return (f32)(((f32)((entry->inputs & 0xFF000000) >> 24) / 127.0) - 1.0);
@@ -132,29 +132,29 @@ s32 demoGetUserFileIdx(s32 pilot, s32 veh) {
     }
 }
 
-s32 demoGet_80322B60(void) {
-    return D_8036DA50.cls;
+s32 demoGetClassId(void) {
+    return sDemoRecHeader.cls;
 }
 
-s32 demoGet_80322B6C(void) {
-    return D_8036DA50.veh;
+s32 demoGetVehicleId(void) {
+    return sDemoRecHeader.veh;
 }
 
 s32 demoGet_80322B78(void) {
-    return D_8036DA50.unk10;
+    return sDemoRecHeader.unk10;
 }
 
-s32 demoGet_80322B84(void) {
-    return D_8036DA50.test;
+s32 demoGetTestId(void) {
+    return sDemoRecHeader.test;
 }
 
 void demoAllocate(void) {
-    DemoRecording* temp_v0;
+    DemoRecording* rec;
 
-    if ((D_8036DA30 == NULL) || (D_8036DA30 != D_8036DA30->unk0)) {
-        temp_v0 = (DemoRecording*)_uvMemAllocAlign8(sizeof(DemoRecording));
-        D_8036DA30 = temp_v0;
-        D_8036DA30->unk0 = D_8036DA30;
+    if ((sDemoRecording == NULL) || (sDemoRecording != sDemoRecording->rec)) {
+        rec = (DemoRecording*)_uvMemAllocAlign8(sizeof(DemoRecording));
+        sDemoRecording = rec;
+        sDemoRecording->rec = sDemoRecording;
     }
 }
 
@@ -171,38 +171,38 @@ void demoInit(void) {
     idx = 0;
     done = 0;
     demoAllocate();
-    temp_s4 = uvFileReadHeader((s32)uvUserFileRead(demoGetUserFileIdx(D_8036DA44, D_8036DA48), 2));
-    uvMemSet(D_8036DA30->entries, 0, sizeof(D_8036DA30->entries));
-    uvMemSet(&D_8036DA50, 0, sizeof(D_8036DA50));
+    temp_s4 = uvFileReadHeader((s32)uvUserFileRead(demoGetUserFileIdx(sDemoPilotId, sDemoVehicleId), 2));
+    uvMemSet(sDemoRecording->entries, 0, sizeof(sDemoRecording->entries));
+    uvMemSet(&sDemoRecHeader, 0, sizeof(sDemoRecHeader));
 
     do {
         tag = uvFileReadBlock(temp_s4, &size, &data, 1);
         switch (tag) {
         case 'RPKT': // 0x52504B54
             _uvMediaCopy(&pkt, data, size);
-            D_8036DA30->entries[idx].time = pkt.unk0;
-            entry = &D_8036DA30->entries[idx];
-            demoPackInputs(entry, pkt.unk4, pkt.unk8, pkt.unkC);
+            sDemoRecording->entries[idx].time = pkt.time;
+            entry = &sDemoRecording->entries[idx];
+            demoPackInputs(entry, pkt.stickX, pkt.stickY, pkt.buttons);
             idx++;
             break;
         case 'RHDR': // 0x52484452
-            _uvMediaCopy(&D_8036DA50, data, size);
+            _uvMediaCopy(&sDemoRecHeader, data, size);
             break;
         case 0:
             if (tag && tag) { } // fakematch
             done = 1;
             break;
         }
-    } while ((!done) && (idx < ARRAY_COUNT(D_8036DA30->entries)));
+    } while ((!done) && (idx < ARRAY_COUNT(sDemoRecording->entries)));
     uvFile_80223F30(temp_s4);
 }
 
-void demo_80322D60(s32 pilot, s32 veh) {
+void demoLoad(s32 pilot, s32 veh) {
     s32 userFileIdx;
-    D_8036DA44 = pilot;
-    D_8036DA48 = veh;
+    sDemoPilotId = pilot;
+    sDemoVehicleId = veh;
     demoInit();
-    userFileIdx = demoGetUserFileIdx(D_8036DA44, D_8036DA48);
+    userFileIdx = demoGetUserFileIdx(sDemoPilotId, sDemoVehicleId);
     demoAttInit(userFileIdx);
 }
 
@@ -210,39 +210,39 @@ void demoSetRecMode(s32 mode) {
     switch (mode) {
     case 1:
         _uvDebugPrintf("Beginning input recording\n");
-        D_8036DA34 = D_8034F850;
-        D_8036DA38 = D_8034F850 + 60.0f;
-        D_8034FAD0 = mode;
+        sDemoRecStartTime = D_8034F850;
+        sDemoRecEndTime = D_8034F850 + 60.0f;
+        sDemoMode = mode;
         break;
     case 2:
         D_8036DA3C = 0;
         D_8036DA40 = 0;
-        D_8036DA34 = D_8034F850;
-        D_8036DA38 = D_8034F850 + 60.0f;
-        D_8034FAD0 = mode;
+        sDemoRecStartTime = D_8034F850;
+        sDemoRecEndTime = D_8034F850 + 60.0f;
+        sDemoMode = mode;
         break;
     case 0:
-        if (D_8034FAD0 == 1) {
+        if (sDemoMode == 1) {
             _uvDebugPrintf("End of recording\n");
         }
-        D_8034FAD0 = mode;
+        sDemoMode = mode;
         break;
     }
-    D_8034FAD0 = mode;
-    if (D_8034FAD0 != 0) {
+    sDemoMode = mode;
+    if (sDemoMode != 0) {
         uvRandSeed(0xABCD2356);
     }
 }
 
 s32 demoGetRecMode(void) {
-    return D_8034FAD0;
+    return sDemoMode;
 }
 
 void demoLogInput(void) {
-    if (D_8034FAD0 == 1) {
-        _uvDebugPrintf("%.10f(%.10f, %.10f)0x%x\n", D_8034F850 - D_8036DA34, uvControllerGetStick(0, 0), uvControllerGetStick(0, 1), uvControllerGetButton(0));
+    if (sDemoMode == 1) {
+        _uvDebugPrintf("%.10f(%.10f, %.10f)0x%x\n", D_8034F850 - sDemoRecStartTime, uvControllerGetStick(0, 0), uvControllerGetStick(0, 1), uvControllerGetButton(0));
     }
-    if (D_8036DA38 <= D_8034F850) {
+    if (sDemoRecEndTime <= D_8034F850) {
         demoSetRecMode(0);
     }
 }
@@ -252,41 +252,41 @@ s32 demoGetEntryIndex(f32 curTime) {
     s32 var_v1;
 
     var_v1 = 0;
-    temp_fv0 = curTime - D_8036DA34;
+    temp_fv0 = curTime - sDemoRecStartTime;
 
-    for (var_v1 = 0; var_v1 < ARRAY_COUNT(D_8036DA30->entries); var_v1++) {
-        if (temp_fv0 <= D_8036DA30->entries[var_v1].time) {
+    for (var_v1 = 0; var_v1 < ARRAY_COUNT(sDemoRecording->entries); var_v1++) {
+        if (temp_fv0 <= sDemoRecording->entries[var_v1].time) {
             return var_v1;
         }
     }
-    return ARRAY_COUNT(D_8036DA30->entries) - 1;
+    return ARRAY_COUNT(sDemoRecording->entries) - 1;
 }
 
 s32 demo_80323020(void) {
     s32 idx;
-    if (D_8034FAD0 == 2) {
-        if ((D_8036DA30 == NULL) || (D_8036DA30 != D_8036DA30->unk0)) {
+    if (sDemoMode == 2) {
+        if ((sDemoRecording == NULL) || (sDemoRecording != sDemoRecording->rec)) {
             demoInit();
         }
         D_8036DA3C = D_8036DA40;
         idx = demoGetEntryIndex(D_8034F850);
-        D_8036DA40 = demoRecGetButtons(&D_8036DA30->entries[idx]);
+        D_8036DA40 = demoRecGetButtons(&sDemoRecording->entries[idx]);
     }
     return uvIOUpdate();
 }
 
 f32 demoGetInputs(s32 contIdx, s32 axis) {
     s32 idx;
-    if (D_8034FAD0 == 2) {
-        if ((D_8036DA30 == NULL) || (D_8036DA30 != D_8036DA30->unk0)) {
+    if (sDemoMode == 2) {
+        if ((sDemoRecording == NULL) || (sDemoRecording != sDemoRecording->rec)) {
             demoInit();
         }
         if (axis == INPUT_AXIS_X) {
             idx = demoGetEntryIndex(D_8034F850);
-            return demoRecGetStickX(&D_8036DA30->entries[idx]);
+            return demoRecGetStickX(&sDemoRecording->entries[idx]);
         } else {
             idx = demoGetEntryIndex(D_8034F850);
-            return demoRecGetStickY(&D_8036DA30->entries[idx]);
+            return demoRecGetStickY(&sDemoRecording->entries[idx]);
         }
     } else {
         return uvControllerGetStick(contIdx, axis);
@@ -294,36 +294,36 @@ f32 demoGetInputs(s32 contIdx, s32 axis) {
 }
 
 s32 demoGetButtons(s32 contIdx) {
-    if (D_8034FAD0 == 2) {
+    if (sDemoMode == 2) {
         return D_8036DA40;
     }
     return uvControllerGetButton(contIdx);
 }
 
 s32 demoButtonCheck(s32 contIdx, s32 buttonMask) {
-    if (D_8034FAD0 == 2) {
+    if (sDemoMode == 2) {
         return buttonMask & D_8036DA40;
     }
     return uvControllerButtonCheck(contIdx, buttonMask);
 }
 
 int demoButtonPress(s32 contIdx, s32 buttonMask) {
-    if (D_8034FAD0 == 2) {
+    if (sDemoMode == 2) {
         return demoButtonCheck(contIdx, buttonMask) == 0 && (buttonMask & D_8036DA3C) != 0;
     }
     return uvControllerButtonPress(contIdx, buttonMask);
 }
 
-int demoButtonRelease(s32 idx, s32 button) {
-    if (D_8034FAD0 == 2) {
-        return demoButtonCheck(idx, button) == 0 && (button & D_8036DA3C) != 0;
+int demoButtonRelease(s32 contIdx, s32 buttonMask) {
+    if (sDemoMode == 2) {
+        return demoButtonCheck(contIdx, buttonMask) == 0 && (buttonMask & D_8036DA3C) != 0;
     }
-    return uvControllerButtonRelease(idx, button);
+    return uvControllerButtonRelease(contIdx, buttonMask);
 }
 
 f32 demoRandF(void) {
     f32 rng;
-    if (D_8034FAD0 != 0) {
+    if (sDemoMode != 0) {
         rng = uvRandF_LCG();
     } else {
         rng = uvRandF_RANLUX();

@@ -121,7 +121,7 @@ void planesGetPos(s32 planeIdx, Vec3F* vec) {
     vec->z = sPlanes[planeIdx].pos.z;
 }
 
-STATIC_FUNC s32 planes_8032040C(s32 arg0, s32 arg1, s32 arg2) {
+STATIC_FUNC s32 planesProxEventCb(s32 proxId, s32 arg1, s32 arg) {
     s32 i;
 
     switch (arg1) {
@@ -141,18 +141,18 @@ STATIC_FUNC s32 planes_8032040C(s32 arg0, s32 arg1, s32 arg2) {
     return 0;
 }
 
-STATIC_FUNC s32 planes_803204B0(s32 arg0, f32 arg1, s32 arg2) {
+STATIC_FUNC s32 planesProxAnimCb(s32 proxId, f32 timeout, s32 arg) {
     s32 idx;
-    ProxAnim* temp_v0;
+    ProxAnim* prox;
     s32 ret;
     f32 tmp;
 
     ret = 0;
-    temp_v0 = proxAnimGetHandle(arg0);
-    if (temp_v0 != NULL) {
-        idx = temp_v0->arg;
-        if (temp_v0->active != 0) {
-            tmp = proxAnimGetRange(arg0);
+    prox = proxAnimGetHandle(proxId);
+    if (prox != NULL) {
+        idx = prox->arg;
+        if (prox->active != 0) {
+            tmp = proxAnimGetRange(proxId);
             if (tmp > 4000.0f) {
                 ret = 2;
             } else {
@@ -209,7 +209,7 @@ void planesLoad(void) {
             envSnd.unk0.m[3][1] = pos.y;
             envSnd.unk0.m[3][2] = pos.z;
             envSoundLoad(&envSnd);
-            sPlanes[i].unk8 = proxAnimAddCallback(planes_803204B0, planes_8032040C, pos, 4000.0f, 0.0f, i);
+            sPlanes[i].unk8 = proxAnimAddCallback(planesProxAnimCb, planesProxEventCb, pos, 4000.0f, 0.0f, i);
             planesUpdate(i);
         }
     }

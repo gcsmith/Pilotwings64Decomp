@@ -16,11 +16,11 @@
 f32 pad_D_80350480[] = { 0.0f, 0.0f, 1.0f, 0.0f };
 s32 D_80350490 = 0;
 s32 sShuttleState = SHUTTLE_STATE_0;
-f32 D_80350498 = 0.0f;
-f32 D_8035049C = 0.0f;
+f32 sShuttleThrust = 0.0f;
+f32 sShuttleAltitude = 0.0f;
 f32 D_803504A0 = 55.0f;
-f64 D_803504A8 = 0.0;
-s32 D_803504B0 = 0;
+f64 sShuttleFlightTime = 0.0;
+s32 sShuttleObjState = 0;
 s32 D_803504B4 = 0xFFFF; // dobj id
 s32 D_803504B8 = 0xFFFF;
 s32 sShuttleRadarIdx = 0xFF;
@@ -37,11 +37,11 @@ s32 D_803504E4 = 0xFF;
 
 Mtx4F D_80371D10;
 Mtx4F D_80371D50;
-f32 D_80371D90;
-f32 D_80371D94;
-s32 D_80371D98; // stored shuttle state?
-s32 D_80371D9C;
-f64 D_80371DA0;
+f32 sShuttleAltitudeCopy;
+f32 sShuttleThrustCopy;
+s32 sShuttleStateCopy; // stored shuttle state?
+s32 sShuttleObjStateCopy;
+f64 sShuttleFlightTimeCopy;
 
 // forward declarations
 STATIC_FUNC void shuttle_80335130(void);
@@ -55,11 +55,11 @@ STATIC_FUNC void shuttle_80334CCC(void) {
     Mtx4F sp40;
 
     shuttle_80335130();
-    uvDobjState(D_803504B4, D_803504B0);
+    uvDobjState(D_803504B4, sShuttleObjState);
     if (sShuttleState == SHUTTLE_STATE_2) {
         uvMat4SetIdentity(&sp80);
         uvMat4RotateAxis(&sp80, 3.1415923f, 'z');
-        uvMat4LocalTranslate(&sp80, 0.0f, 0.0f, D_8035049C);
+        uvMat4LocalTranslate(&sp80, 0.0f, 0.0f, sShuttleAltitude);
         uvMat4Mul(&D_80371D50, &sp80, &D_80371D10);
         uvDobjPosm(D_803504B4, 0, &D_80371D50);
         if (D_803504D0 != 0xFF) {
@@ -78,8 +78,8 @@ STATIC_FUNC void shuttle_80334CCC(void) {
             smokeProps(D_803504C4, SMOKE_PROP_2(D_803504A0), SMOKE_PROP_END);
         }
     } else if (sShuttleState == SHUTTLE_STATE_1) {
-        D_8035049C = 0 /*.0f*/;
-        D_80350498 = 0 /*.0f*/;
+        sShuttleAltitude = 0 /*.0f*/;
+        sShuttleThrust = 0 /*.0f*/;
         uvMat4SetIdentity(&sp40);
         uvMat4RotateAxis(&sp40, 3.1415923f, 'z');
         uvMat4SetIdentity(&D_80371D10);
@@ -306,53 +306,53 @@ STATIC_FUNC void shuttle_80335700(void) {
 
 STATIC_FUNC void shuttle_803358D4(void) {
     if (sShuttleState == SHUTTLE_STATE_2) {
-        D_80350498 += D_8034F854 * 0.5f;
-        D_8035049C += D_80350498;
+        sShuttleThrust += D_8034F854 * 0.5f;
+        sShuttleAltitude += sShuttleThrust;
         if (D_803504A0 > 0.0f) {
             D_803504A0 -= 5.0f;
         } else {
             D_803504A0 = 0.0f;
         }
-        if (D_8035049C > 2048.0f) {
+        if (sShuttleAltitude > 2048.0f) {
             sShuttleState = SHUTTLE_STATE_3;
             // @fake? should just assign 0 instead
-            D_803504B0 *= 0;
+            sShuttleObjState *= 0;
             uvDobjState(D_803504B4, 0);
-            D_803504A8 = 0.0;
+            sShuttleFlightTime = 0.0;
         }
         shuttle_80334CCC();
     } else if (sShuttleState == SHUTTLE_STATE_1) {
-        D_803504A8 += D_8034F854;
+        sShuttleFlightTime += D_8034F854;
         D_803504A0 += 5.0f;
-        if (D_803504A8 > 7.0) {
+        if (sShuttleFlightTime > 7.0) {
             sShuttleState = SHUTTLE_STATE_2;
         }
         shuttle_80334CCC();
     } else if (sShuttleState == SHUTTLE_STATE_3) {
-        D_803504A8 += D_8034F854;
-        if ((12.0f * D_8034F854) < D_803504A8) {
+        sShuttleFlightTime += D_8034F854;
+        if ((12.0f * D_8034F854) < sShuttleFlightTime) {
             sShuttleState = SHUTTLE_STATE_4;
             shuttle_80335700();
         }
         shuttle_80335130();
-        uvDobjState(D_803504B4, D_803504B0);
+        uvDobjState(D_803504B4, sShuttleObjState);
     } else {
         shuttle_80335130();
-        uvDobjState(D_803504B4, D_803504B0);
+        uvDobjState(D_803504B4, sShuttleObjState);
     }
 }
 
-STATIC_FUNC s32 shuttleProxEventCb(s32 arg0, s32 arg1, s32 arg2) {
+STATIC_FUNC s32 shuttleProxEventCb(s32 proxId, s32 eventType, s32 arg) {
     return 0;
 }
 
-STATIC_FUNC s32 shuttleProxAnimCb(s32 arg0, f32 arg1, s32 arg2) {
+STATIC_FUNC s32 shuttleProxAnimCb(s32 proxId, f32 timeout, s32 arg) {
     s32 pad;
     s32 sp18 = 0;
 
     shuttle_80335130();
-    uvDobjState(D_803504B4, D_803504B0);
-    if (proxAnimGetRange(arg0) > 750.0f && (sShuttleState == SHUTTLE_STATE_4 || sShuttleState == SHUTTLE_STATE_1)) {
+    uvDobjState(D_803504B4, sShuttleObjState);
+    if (proxAnimGetRange(proxId) > 750.0f && (sShuttleState == SHUTTLE_STATE_4 || sShuttleState == SHUTTLE_STATE_1)) {
         D_80350490 = 0;
         sp18 = 2;
     } else {
@@ -365,11 +365,11 @@ STATIC_FUNC s32 shuttleProxAnimCb(s32 arg0, f32 arg1, s32 arg2) {
 void shuttleInit(void) {
     D_80350490 = 0;
     sShuttleState = SHUTTLE_STATE_1;
-    D_803504A8 = 0.0;
+    sShuttleFlightTime = 0.0;
     D_803504A0 = 0.0f;
-    D_8035049C = 0.0f;
-    D_80350498 = 0.0f;
-    D_803504B0 = 3;
+    sShuttleAltitude = 0.0f;
+    sShuttleThrust = 0.0f;
+    sShuttleObjState = 3;
 }
 
 void shuttleLoad(void) {
@@ -395,7 +395,7 @@ void shuttleLoad(void) {
     }
 
     uvDobjModel(D_803504B4, MODEL_SPACE_SHUTTLE);
-    uvDobjState(D_803504B4, D_803504B0);
+    uvDobjState(D_803504B4, sShuttleObjState);
     D_803504C0 = proxAnimAddCallback(shuttleProxAnimCb, shuttleProxEventCb, sp70, 750.0f, 0.0f, 1);
     shuttle_80334CCC();
     uvMat4SetIdentity(&sp88.unk0);
@@ -444,7 +444,7 @@ void shuttleDeinit(void) {
 f32 shuttle_80335EE4(void) {
     f32 var_fv1;
 
-    var_fv1 = D_8035049C;
+    var_fv1 = sShuttleAltitude;
     if (var_fv1 > 512.0f) {
         var_fv1 = 512.0f;
     }
@@ -480,11 +480,11 @@ void shuttle_80335FD8(f32 arg0) {
 
     shuttle_80335130();
     sShuttleState = SHUTTLE_STATE_1;
-    D_803504B0 = 3;
-    D_803504A8 = 0.0;
+    sShuttleObjState = 3;
+    sShuttleFlightTime = 0.0;
     shuttle_80334CCC();
     sShuttleState = SHUTTLE_STATE_2;
-    D_8035049C = 2.0f * arg0 * 255.0f;
+    sShuttleAltitude = 2.0f * arg0 * 255.0f;
     shuttle_80334CCC();
 }
 
@@ -494,18 +494,18 @@ void shuttle_80336064(void) {
     }
 }
 
-void shuttle_80336094(void) {
-    D_80371D90 = D_8035049C;
-    D_80371D98 = sShuttleState;
-    D_80371D94 = D_80350498;
-    D_80371D9C = D_803504B0;
-    D_80371DA0 = D_803504A8;
+void shuttleStateSave(void) {
+    sShuttleAltitudeCopy = sShuttleAltitude;
+    sShuttleStateCopy = sShuttleState;
+    sShuttleThrustCopy = sShuttleThrust;
+    sShuttleObjStateCopy = sShuttleObjState;
+    sShuttleFlightTimeCopy = sShuttleFlightTime;
 }
 
-void shuttle_803360E8(void) {
-    D_8035049C = D_80371D90;
-    sShuttleState = D_80371D98;
-    D_80350498 = D_80371D94;
-    D_803504B0 = D_80371D9C;
-    D_803504A8 = D_80371DA0;
+void shuttleStateRestore(void) {
+    sShuttleAltitude = sShuttleAltitudeCopy;
+    sShuttleState = sShuttleStateCopy;
+    sShuttleThrust = sShuttleThrustCopy;
+    sShuttleObjState = sShuttleObjStateCopy;
+    sShuttleFlightTime = sShuttleFlightTimeCopy;
 }

@@ -21,7 +21,7 @@ void shuttle_80335F24(Vec3F*);
 s32 shuttleGetState(void);
 void shuttle_80335FD8(f32);
 void shuttle_80336064(void);
-void shuttle_80336094(void);
-void shuttle_803360E8(void);
+void shuttleStateSave(void);
+void shuttleStateRestore(void);
 
 #endif // APP_SHUTTLE_H
