@@ -409,7 +409,7 @@ s32 func_8032CF28(Unk80362690* arg0) {
         var_s1 = 0;
     }
     if (var_s1 != 0 && (taskGet_80345CB0()[1] == 1)) {
-        func_803405E4();
+        snowDisable();
     }
     return var_s1;
 }

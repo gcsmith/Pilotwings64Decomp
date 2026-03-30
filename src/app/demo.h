@@ -24,7 +24,7 @@ s32 demoGet_80322B78(void);
 s32 demoGet_80322B84(void);
 void demoAllocate(void);
 void demoInit(void);
-void demo_80322D60(s32 arg0, s32 arg1);
+void demo_80322D60(s32 pilot, s32 veh);
 void demoSetRecMode(s32 mode);
 s32 demoGetRecMode(void);
 void demoLogInput(void);
