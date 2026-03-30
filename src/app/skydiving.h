@@ -56,9 +56,14 @@ typedef struct {
     f32 unk68;
     f32 unk6C;
     u8 unk70;
-    u8 pad71[0x1];
+    u8 unk71;
     u8 unk72;
-    u8 pad73[0x45];
+    u8 unk73[3];
+    u8 unk76[3];
+    u8 pad79[0x3];
+    Vec3F unk7C[3];
+    f32 unkA0[3];
+    u8 padAC[0xC];
     u8 unkB8;
     u8 unkB9;
     u8 padBA[0x2];
