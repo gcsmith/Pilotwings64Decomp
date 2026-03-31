@@ -289,7 +289,7 @@ void cannonMovementFrame(CannonballData* arg0, u8 gameState) {
             uvMat4Copy(&sp3C, sp2C);
             uvMat4LocalTranslate(&sp3C, 0.0f, -4.0f, -1.0f);
             temp_v0 = arg0->unkB0;
-            func_802EAC18(temp_v0->unk230, temp_v0->unk14, &sp3C);
+            func_802EAC18(&temp_v0->unk230, temp_v0->unk14, &sp3C);
         } else {
             D_8034E9F4 = 0;
             if ((arg0->unkB4 == 5) && (arg0->unkD4 != 2)) {
