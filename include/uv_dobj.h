@@ -216,7 +216,7 @@ enum Models {
     MODEL_MAP_STARTING_DIRECTION_ARROW                      = 0x0CE, // Map marker (Starting location/direction)
     MODEL_CANNON_ON_TALL_RED_PEDESTAL                       = 0x0CF,
     MODEL_CANNONB_TARGET_1                                  = 0x0D0, // Target - normal sized, way smaller than 0x106-8 - Map marker?
-    MODEL_RED_WHITE_GOAL                                    = 0x0D1, // Red Goal (Ball or Jumble Hopper (less transparent)
+    MODEL_RED_WHITE_GOAL                                    = 0x0D1, // Red Goal (Ball or Jumble Hopper (less transparent))
     MODEL_GREEN_BLUE_GOAL_0                                 = 0x0D2, // Green Goal (Ball or Jumble Hopper?)
     MODEL_MECCA_HAWK                                        = 0x0D3,
     MODEL_LANDING_PAD_NOTARGET                              = 0x0D4, // Has no target, just square outline
@@ -358,7 +358,7 @@ enum Models {
     MODEL_PILOT_HAWK                                        = 0x15C, // Character Select model
     MODEL_PILOT_KIWI                                        = 0x15D, // Character Select model
     MODEL_PILOT_IBIS                                        = 0x15E, // Character Select model
-    MODEL_PILOT_ROBIN                                       = 0x15F, //     Character Select model
+    MODEL_PILOT_ROBIN                                       = 0x15F, // Character Select model
     MODEL_SKYBOX_INTRO_LOW_POLY_SKY_CLOUD                   = 0x160, // Low-poly Sky+Cloud Dome "skybox" for Intro / Level Select
     MODEL_SKYBOX_SUNNY                                      = 0x161,
     MODEL_SKYBOX_SUNNY_2                                    = 0x162, // Cloudy Sunny Skybox Part 2?
