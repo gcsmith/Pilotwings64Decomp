@@ -2,6 +2,7 @@
 #include "code_60020.h"
 #include <uv_math.h>
 #include <uv_model.h>
+#include "app/demo.h"
 #include "app/environment.h"
 #include "app/pads.h"
 #include "app/toys.h"
@@ -18,16 +19,6 @@ void func_802D9AB8(CannonballData*);
 void func_802D9B40(CannonballData*);
 void func_802D9BBC(CannonballData*);
 
-#ifndef NON_MATCHING
-f32 D_8034EA10 = 0.0f;
-f32 D_8034EA14 = 0.0f;
-f32 D_8034EA18 = 0.0f;
-f32 D_8034EA1C = 0.0f;
-f32 D_8034EA20 = 0.0f;
-f32 D_8034EA24 = 0.0f;
-
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_60020/func_802D8AF0.s")
-#else
 void func_802D8AF0(CannonballData* arg0) {
     static f32 D_8034EA10 = 0.0f;
     static f32 D_8034EA14 = 0.0f;
@@ -47,7 +38,7 @@ void func_802D8AF0(CannonballData* arg0) {
     f32 sp80;
     f32 sp7C;
     f32 sp78;
-    Mtx4F pad2;
+    s32 pad2[16];
     f32 sp34;
     f32 temp_fa0;
 
@@ -57,17 +48,22 @@ void func_802D8AF0(CannonballData* arg0) {
     uvDobjPosm(arg0->objId, arg0->unk291, &spD0);
     D_8034EA10 = func_80313AF4(demoRandF(), D_8034EA10, 0.3f);
     D_8034EA14 = func_80313AF4(demoRandF(), D_8034EA14, 0.3f);
-    var_fa1 = var_fv1 = arg0->unk1CC * -0.025f;
+    var_fa1 = arg0->unk1C4.z * -0.025f;
     if (var_fa1 < 0.5f) {
         var_fa1 = 0.5f;
     } else if (var_fa1 > 1.0f) {
         var_fa1 = 1.0f;
     }
+    // FAKE
+    var_fv1 = arg0->unk1C4.z * -0.025f;
 
     D_8034EA18 += var_fa1 * (9.6f + D_8034EA10) * D_8034F854;
     if (D_8034EA18 > 6.2831855f) {
         D_8034EA18 -= 6.2831855f;
     }
+
+    // FAKE
+    if (var_fv1) { }
 
     sp94 = uvSinF(D_8034EA18) * (0.25f * var_fa1);
     sp90 = (uvCosF(D_8034EA18) * (0.25f * var_fa1)) + 0.3f;
@@ -92,7 +88,7 @@ void func_802D8AF0(CannonballData* arg0) {
 
     sp7C = uvCosF(1.5707963f - D_8034EA24) * (0.75f * var_fa1);
     sp78 = uvSinF(1.5707963f - D_8034EA24) * (0.75f * var_fa1);
-    sp34 = (30.0f - arg0->unk1CC) / 60.0f;
+    sp34 = (30.0f - arg0->unk1C4.z) / 60.0f;
     if (sp34 < 0.0f) {
         sp34 = 0.0f;
     } else if (sp34 > 1.0f) {
@@ -130,8 +126,8 @@ void func_802D8AF0(CannonballData* arg0) {
     uvMat4RotateAxis(&spD0, (temp_fa0 * 0) + (temp_fa0 * -1.0344565f), 'z');
     uvDobjPosm(arg0->objId, arg0->unk288, &spD0);
 }
-#endif
 
+// Potential file split?
 s32 padD_8034EA28 = 0;
 s32 padD_8034EA2C = 0;
 
