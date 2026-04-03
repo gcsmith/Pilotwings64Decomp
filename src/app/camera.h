@@ -20,12 +20,19 @@ typedef struct {
     Unk802D3658_Unk1228 unk4[5];
 } Unk802D3658_Unk1224; // size = 0x144
 
-typedef struct Unk802D3658_Unk230 {
+typedef struct Unk802D3658_Unk230_Unk0 {
     Mtx4F unk0;
     f32 unk40;
-    struct Unk802D3658_Unk230* unk44;
-    u8 unk48[4];
-} Unk802D3658_Unk230;
+    struct Unk802D3658_Unk230_Unk0* next;
+    struct Unk802D3658_Unk230_Unk0* prev;
+} Unk802D3658_Unk230_Unk0; // size = 0x4C
+
+typedef struct Unk802D3658_Unk230 {
+    Unk802D3658_Unk230_Unk0 unk0[50];
+    Unk802D3658_Unk230_Unk0* unkED8;
+    s32 unkEDC;
+    s32 unkEE0;
+} Unk802D3658_Unk230; // size = 0xEE4
 
 typedef struct {
     s32 unk0;
@@ -112,8 +119,7 @@ typedef struct {
     f32 unk228;
     u8 unk22C;
     u8 pad22D[0x230 - 0x22D];
-    Unk802D3658_Unk230 unk230[50]; // 230:1107
-    u8 pad1108[0x1114 - 0x1108];
+    Unk802D3658_Unk230 unk230;
     u8 unk1114;
     u8 pad1115[0x111C - 0x1115];
     Unk802D3658_Unk111C unk111C;

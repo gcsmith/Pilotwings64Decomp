@@ -3,6 +3,7 @@
 #include "code_9A960.h"
 #include "code_D1ED0.h"
 #include "env_sound.h"
+#include "game.h"
 #include "hud.h"
 #include "smoke.h"
 #include "shuttle.h"

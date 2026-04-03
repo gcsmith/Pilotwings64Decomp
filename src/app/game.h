@@ -48,7 +48,7 @@ typedef struct Unk80367868_Unk4 {
     u8 pilot;
     u16 modelId;
     s32 pad4[0x11];
-    u16 unk48; // text
+    s16 textId;
     u8 pad4A[0x2];
 } Unk80367868_Unk4;
 
@@ -86,7 +86,7 @@ typedef struct {
     u8 pad7D[0x80 - 0x7D];
     f32 unk80;
     s32 unk84;
-    s16 unk88;
+    s16 smokeId;
     u8 unk8A;
     u8 unk8B;
 } Unk80362690_Unk0;

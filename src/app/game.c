@@ -20,7 +20,7 @@
 #include "app/pads.h"
 #include "app/proxanim.h"
 #include "app/results.h"
-#include "app/shadow.h"
+#include "app/shuttle.h"
 #include "app/snap.h"
 #include "app/snd.h"
 #include "app/test_menu.h"
@@ -394,28 +394,28 @@ s32 gameUpdateStatePilotSelect(Unk80362690* arg0) {
     uvEventPost(9, 0);
 
     D_80367868.unk4[i].pilot = PILOT_LARK;
-    D_80367868.unk4[i].modelId = MODEL_LARK_BODY;
-    D_80367868.unk4[i].unk48 = 0x35;
+    D_80367868.unk4[i].modelId = MODEL_PILOT_LARK;
+    D_80367868.unk4[i].textId = 0x35; // "LARK"
     i++;
     D_80367868.unk4[i].pilot = PILOT_KIWI;
-    D_80367868.unk4[i].modelId = MODEL_KIWI_BODY;
-    D_80367868.unk4[i].unk48 = 0x14C;
+    D_80367868.unk4[i].modelId = MODEL_PILOT_KIWI;
+    D_80367868.unk4[i].textId = 0x14C; // "KIWI"
     i++;
     D_80367868.unk4[i].pilot = PILOT_GOOSE;
-    D_80367868.unk4[i].modelId = MODEL_GOOSE_BODY;
-    D_80367868.unk4[i].unk48 = 0x9C;
+    D_80367868.unk4[i].modelId = MODEL_PILOT_GOOSE;
+    D_80367868.unk4[i].textId = 0x9C; // "GOOSE"
     i++;
     D_80367868.unk4[i].pilot = PILOT_IBIS;
-    D_80367868.unk4[i].modelId = MODEL_IBIS_BODY;
-    D_80367868.unk4[i].unk48 = 0x1A7;
+    D_80367868.unk4[i].modelId = MODEL_PILOT_IBIS;
+    D_80367868.unk4[i].textId = 0x1A7; // "IBIS"
     i++;
     D_80367868.unk4[i].pilot = PILOT_HAWK;
-    D_80367868.unk4[i].modelId = MODEL_HAWK_BODY;
-    D_80367868.unk4[i].unk48 = 0x85;
+    D_80367868.unk4[i].modelId = MODEL_PILOT_HAWK;
+    D_80367868.unk4[i].textId = 0x85; // "HAWK"
     i++;
     D_80367868.unk4[i].pilot = PILOT_ROBIN;
-    D_80367868.unk4[i].modelId = MODEL_ROBIN_BODY;
-    D_80367868.unk4[i].unk48 = 0x128;
+    D_80367868.unk4[i].modelId = MODEL_PILOT_ROBIN;
+    D_80367868.unk4[i].textId = 0x128; // "ROBIN"
     i++;
 
     ptr->unk0 = i;
@@ -440,7 +440,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
     uvGfxClearScreen(0, 0, 0, 0xFF);
     uvGfxBegin();
     uvGfxEnd();
-    temp_s0->unk88 = -1;
+    temp_s0->smokeId = -1;
     temp_s0->unk7B = 0;
     if (temp_s0->veh == VEHICLE_CANNONBALL) {
         D_803676FC = (CannonballData*)temp_s0->vehicleData;
@@ -535,8 +535,8 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
     arg0->unkA1 = 0;
     func_8032B508(temp_s0->unk74);
     func_80313E0C(0.0f);
-    func_802E66F4(sp28);
-    func_802E68B0(1);
+    fdrSetBlen(sp28);
+    fdr_802E68B0(1);
     if (arg0->unkA2 == 0) {
         func_8033F964(0);
         func_8033FCD0(temp_s0->veh);
@@ -1266,7 +1266,7 @@ void func_802EE14C(u16 veh) {
     func_8033F964(0);
     func_8033FCD0(temp_s0->veh);
     hud_8031DAA8(2, 1.0f);
-    func_802E66F4(sp3C);
-    func_802E68B0(1);
+    fdrSetBlen(sp3C);
+    fdr_802E68B0(1);
     temp_s0->unk7B = 1;
 }

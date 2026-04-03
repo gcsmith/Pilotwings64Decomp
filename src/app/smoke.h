@@ -21,5 +21,6 @@ void smokeGetProps(s32, ...);
 void smokeDelete(s32);
 void smokeDeleteAll(void);
 void func_80336600(void);
+void smokeCreateTerra(void);
 
 #endif // APP_SMOKE_H

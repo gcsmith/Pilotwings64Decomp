@@ -554,7 +554,7 @@ void testMenuDraw(Camera* arg0, u8 classIdx, u8 vehIdx) {
                 uvGfxStatePop();
             }
         }
-        func_802DEE44((s32)((f64)sSelMenuScreenX + 0.5), (s32)((f64)sSelMenuScreenY + 0.5), 0x46, 0x18, 3, 0xC8, 0xC8, 0, 0x64, 0x64, 0);
+        func_802DEE44(sSelMenuScreenX + 0.5, sSelMenuScreenY + 0.5, 0x46, 0x18, 3, 0xC8, 0xC8, 0, 0x64, 0x64, 0);
         func_803141E4();
         uvFontSet(0);
         uvFontScale(1.0, 0.800000011920929);

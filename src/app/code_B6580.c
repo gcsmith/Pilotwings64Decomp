@@ -7,7 +7,7 @@
 #include <uv_math.h>
 #include <uv_model.h>
 
-STATIC_FUNC void func_8032F050(Unk8032F050* arg0) {
+STATIC_FUNC void func_8032F050(SkyDivingData* arg0) {
     f32 sp574;
     Unk80371120 sp3C4;
     Unk80371120 sp214;
@@ -18,8 +18,8 @@ STATIC_FUNC void func_8032F050(Unk8032F050* arg0) {
         arg0->unk29C = func_80313AF4(1.0f, arg0->unk29C, 1.0f);
         uvMat4Copy(&sp24, &arg0->unk2D0);
         uvMat4Scale(&sp24, arg0->unk29C, arg0->unk29C, arg0->unk29C);
-        uvDobjPosm(arg0->unk0, arg0->unk229, &sp24);
-        uvDobjPosm(arg0->unk0, arg0->unk228, &sp24);
+        uvDobjPosm(arg0->objId, arg0->unk229, &sp24);
+        uvDobjPosm(arg0->objId, arg0->unk228, &sp24);
     }
     if (demoButtonCheck(0, A_BUTTON) != 0) {
         uvJanimPoseLine(&sp214, arg0->unk1A6, 1.0f);
@@ -28,12 +28,12 @@ STATIC_FUNC void func_8032F050(Unk8032F050* arg0) {
         uvJanimPoseLine(&sp214, arg0->unk1A8, sp574);
     }
     sp574 = 2.5f * D_8034F854;
-    uvDobj_802180DC(arg0->unk0, &sp64);
+    uvDobj_802180DC(arg0->objId, &sp64);
     func_802006FC(&sp3C4, &sp64, &sp214, sp574);
-    func_80200638(arg0->unk0, &sp3C4);
+    func_80200638(arg0->objId, &sp3C4);
 }
 
-STATIC_FUNC void func_8032F188(Unk8032F050* arg0) {
+STATIC_FUNC void func_8032F188(SkyDivingData* arg0) {
     f32 sp8DC;
     f32 var_fa0;
     f32 sp8D4;
@@ -61,9 +61,9 @@ STATIC_FUNC void func_8032F188(Unk8032F050* arg0) {
         func_802006FC(&sp574, &sp64, &sp214, sp8DC);
     }
     sp8DC = 5.0f * D_8034F854;
-    uvDobj_802180DC(arg0->unk0, &sp3C4);
+    uvDobj_802180DC(arg0->objId, &sp3C4);
     func_802006FC(&sp724, &sp3C4, &sp574, sp8DC);
-    func_80200638(arg0->unk0, &sp724);
+    func_80200638(arg0->objId, &sp724);
     var_fa0 = 0.0f;
     if ((arg0->unkB9 != 0) && (arg0->unk70 == 1)) {
         sp8D4 = arg0->unk288;
@@ -79,10 +79,10 @@ STATIC_FUNC void func_8032F188(Unk8032F050* arg0) {
     uvModelGetPosm(arg0->unk1C0, arg0->unk226, &sp24);
     uvMat4RotateAxis(&sp24, arg0->unk1B0, 'z');
     uvMat4RotateAxis(&sp24, arg0->unk1AC, 'x');
-    uvDobjPosm(arg0->unk0, arg0->unk226, &sp24);
+    uvDobjPosm(arg0->objId, arg0->unk226, &sp24);
 }
 
-void func_8032F3DC(Unk8032F050* arg0) {
+void func_8032F3DC(SkyDivingData* arg0) {
     Mtx4F sp28;
 
     uvMat4SetIdentity(&sp28);
@@ -96,14 +96,13 @@ void func_8032F3DC(Unk8032F050* arg0) {
     }
 }
 
-void func_8032F47C(Unk8032F050* arg0) {
+void func_8032F47C(SkyDivingData* arg0) {
     f32 sp2A4;
     Mtx4F sp264;
     Mtx4F sp224;
     Mtx4F sp1E4;
     f32 var_fv1;
     Unk80371120 sp30;
-    f32 sp2C;
 
     if (((arg0->unk70 == 3) || (arg0->unk70 == 5)) && (arg0->unk27A == 0)) {
         arg0->unk2CC += D_8034F854;
@@ -112,31 +111,30 @@ void func_8032F47C(Unk8032F050* arg0) {
         sp224.m[3][1] = arg0->unk10.m[3][1];
         sp224.m[3][2] = arg0->unk10.m[3][2];
         uvMat4RotateAxis(&sp224, 3.1415927f, 'x'); // PI or DEG_TO_RAD(180)
-        uvDobjPosm(arg0->unk0, 0, &sp224);
-        sp2C = uvCosF(12.5f * D_8034F850);
-        sp2A4 = uvSinF(10.3f * D_8034F850) * (0.4f * sp2C);
+        uvDobjPosm(arg0->objId, 0, &sp224);
+        sp2A4 = (0.4f * uvCosF(12.5f * D_8034F850)) * uvSinF(10.3f * D_8034F850);
         uvModelGetPosm(arg0->unk1C0, arg0->unk221, &sp264);
         uvMat4RotateAxis(&sp264, sp2A4 + 0.2f, 'x');
-        uvDobjPosm(arg0->unk0, arg0->unk221, &sp264);
+        uvDobjPosm(arg0->objId, arg0->unk221, &sp264);
         uvModelGetPosm(arg0->unk1C0, arg0->unk21E, &sp264);
         uvMat4RotateAxis(&sp264, 0.2f - sp2A4, 'x');
-        uvDobjPosm(arg0->unk0, arg0->unk21E, &sp264);
+        uvDobjPosm(arg0->objId, arg0->unk21E, &sp264);
         sp2A4 = uvCosF(6.0f * D_8034F850) * 1.5f;
         if (sp2A4 > 0.0f) {
             sp2A4 = -sp2A4;
         }
         uvModelGetPosm(arg0->unk1C0, arg0->unk222, &sp264);
         uvMat4RotateAxis(&sp264, sp2A4, 'x');
-        uvDobjPosm(arg0->unk0, arg0->unk222, &sp264);
+        uvDobjPosm(arg0->objId, arg0->unk222, &sp264);
         uvModelGetPosm(arg0->unk1C0, arg0->unk21F, &sp264);
         uvMat4RotateAxis(&sp264, sp2A4, 'x');
-        uvDobjPosm(arg0->unk0, arg0->unk21F, &sp264);
+        uvDobjPosm(arg0->objId, arg0->unk21F, &sp264);
         uvModelGetPosm(arg0->unk1C0, arg0->unk223, &sp264);
         uvMat4RotateAxis(&sp264, -0.7f, 'x');
-        uvDobjPosm(arg0->unk0, arg0->unk223, &sp264);
+        uvDobjPosm(arg0->objId, arg0->unk223, &sp264);
         uvModelGetPosm(arg0->unk1C0, arg0->unk220, &sp264);
         uvMat4RotateAxis(&sp264, -0.7f, 'x');
-        uvDobjPosm(arg0->unk0, arg0->unk220, &sp264);
+        uvDobjPosm(arg0->objId, arg0->unk220, &sp264);
     }
 
     if (arg0->unk70 == 4) {
@@ -144,13 +142,13 @@ void func_8032F47C(Unk8032F050* arg0) {
             arg0->unk2D0.m[3][1] -= 5.0f * D_8034F854;
             arg0->unk2D0.m[3][2] -= D_8034F854;
         }
-        uvDobjPosm(arg0->unk0, arg0->unk228, &arg0->unk2D0);
-        uvDobjGetPosm(arg0->unk0, arg0->unk228, &sp1E4);
-        uvDobjProps(arg0->unk0, 5, arg0->unk229, 0);
-        uvDobjProps(arg0->unk0, 5, arg0->unk22A, 0);
-        uvDobjProps(arg0->unk0, 5, arg0->unk22B, 0);
-        uvDobjProps(arg0->unk0, 5, arg0->unk22C, 0);
-        uvDobjProps(arg0->unk0, 5, arg0->unk22D, 0);
+        uvDobjPosm(arg0->objId, arg0->unk228, &arg0->unk2D0);
+        uvDobjGetPosm(arg0->objId, arg0->unk228, &sp1E4);
+        uvDobjProps(arg0->objId, 5, arg0->unk229, 0);
+        uvDobjProps(arg0->objId, 5, arg0->unk22A, 0);
+        uvDobjProps(arg0->objId, 5, arg0->unk22B, 0);
+        uvDobjProps(arg0->objId, 5, arg0->unk22C, 0);
+        uvDobjProps(arg0->objId, 5, arg0->unk22D, 0);
         arg0->unk2C8 += 5.0f * D_8034F854;
         if (arg0->unk2C8 > 1.0f) {
             arg0->unk2C8 = -1.0f;
@@ -158,41 +156,41 @@ void func_8032F47C(Unk8032F050* arg0) {
         if (arg0->unk2C8 < -1.0f) {
             arg0->unk2C8 = 1.0f;
         }
-        var_fv1 = FABS(arg0->unk2C8);
+        var_fv1 = ABS_NOEQ(arg0->unk2C8);
         uvJanimPoseLine(&sp30, 0x55, var_fv1);
-        func_80200638(arg0->unk0, &sp30);
-        uvDobjPosm(arg0->unk0, arg0->unk228, &sp1E4);
+        func_80200638(arg0->objId, &sp30);
+        uvDobjPosm(arg0->objId, arg0->unk228, &sp1E4);
     }
 
     if ((arg0->unk70 == 5) && (arg0->unk27A != 0)) {
         uvMat4Copy(&sp224, &arg0->unk10);
         uvMat4RotateAxis(&sp224, -1.5707963f, 'x'); // -DEG_TO_RAD(90)
-        uvDobjPosm(arg0->unk0, 0, &sp224);
+        uvDobjPosm(arg0->objId, 0, &sp224);
         if (arg0->unk2D0.m[3][1] > -2.0f) {
             arg0->unk2D0.m[3][2] -= 5.0f * D_8034F854;
             arg0->unk2D0.m[3][1] = arg0->unk2D0.m[3][1] - D_8034F854;
         }
         uvJanimPoseLine(&sp30, 0x55, 1.0f);
-        func_80200638(arg0->unk0, &sp30);
+        func_80200638(arg0->objId, &sp30);
         sp2A4 = uvCosF(6.0f * D_8034F850) * 1.5f;
         if (sp2A4 > 0.0f) {
             sp2A4 = -sp2A4;
         }
         uvModelGetPosm(arg0->unk278, arg0->unk222, &sp264);
         uvMat4RotateAxis(&sp264, sp2A4, 'x');
-        uvDobjPosm(arg0->unk0, arg0->unk222, &sp264);
+        uvDobjPosm(arg0->objId, arg0->unk222, &sp264);
         sp2A4 = uvSinF(6.0f * D_8034F850) * 1.5f;
         if (sp2A4 > 0.0f) {
             sp2A4 = -sp2A4;
         }
         uvModelGetPosm(arg0->unk278, arg0->unk21F, &sp264);
         uvMat4RotateAxis(&sp264, sp2A4, 'x');
-        uvDobjPosm(arg0->unk0, arg0->unk21F, &sp264);
-        uvDobjPosm(arg0->unk0, arg0->unk228, &arg0->unk2D0);
-        uvDobjProps(arg0->unk0, 5, arg0->unk229, 0);
-        uvDobjProps(arg0->unk0, 5, arg0->unk22A, 0);
-        uvDobjProps(arg0->unk0, 5, arg0->unk22B, 0);
-        uvDobjProps(arg0->unk0, 5, arg0->unk22C, 0);
-        uvDobjProps(arg0->unk0, 5, arg0->unk22D, 0);
+        uvDobjPosm(arg0->objId, arg0->unk21F, &sp264);
+        uvDobjPosm(arg0->objId, arg0->unk228, &arg0->unk2D0);
+        uvDobjProps(arg0->objId, 5, arg0->unk229, 0);
+        uvDobjProps(arg0->objId, 5, arg0->unk22A, 0);
+        uvDobjProps(arg0->objId, 5, arg0->unk22B, 0);
+        uvDobjProps(arg0->objId, 5, arg0->unk22C, 0);
+        uvDobjProps(arg0->objId, 5, arg0->unk22D, 0);
     }
 }

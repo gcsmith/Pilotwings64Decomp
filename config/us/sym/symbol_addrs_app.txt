@@ -385,8 +385,8 @@ resultDrawTally     = 0x8032E940; // type:func
 resultDeinit        = 0x8032E698; // type:func
 resultGenTipText    = 0x8032EF10; // type:func
 
-sdsound_803338B0    = 0x803338B0; // type:func
-sdsound_803339C4    = 0x803339C4; // type:func
+sdSoundInit    = 0x803338B0; // type:func
+sdSoundCallback    = 0x803339C4; // type:func
 sdsound_80333D80    = 0x80333D80; // type:func
 sdsound_80333DDC    = 0x80333DDC; // type:func
 sdsound_80333DF0    = 0x80333DF0; // type:func
@@ -463,13 +463,13 @@ spath_80340CB8      = 0x80340CB8; // type:func
 spath_80340E7C      = 0x80340E7C; // type:func
 spathInterpolate    = 0x80340FEC; // type:func
 
-splash_80341460     = 0x80341460; // type:func
-splash_803415C8     = 0x803415C8; // type:func
-splash_8034170C     = 0x8034170C; // type:func
+splashDrawRipple    = 0x80341460; // type:func
+splashDraw          = 0x803415C8; // type:func
+splashAddRipple     = 0x8034170C; // type:func
 splashAdd           = 0x803417CC; // type:func
-splash_80341974     = 0x80341974; // type:func
-splash_80341CB0     = 0x80341CB0; // type:func
-splash_80341E30     = 0x80341E30; // type:func
+splashUpdate        = 0x80341974; // type:func
+splashInit          = 0x80341CB0; // type:func
+splashClear         = 0x80341E30; // type:func
 
 toyInit             = 0x80347BD0; // type:func
 toy_80347C2C        = 0x80347C2C; // type:func
@@ -556,6 +556,25 @@ falco_802E63BC      = 0x802E63BC; // type:func
 falco_802E64E0      = 0x802E64E0; // type:func
 
 fdrInit             = 0x802E6570; // type:func
+fdr_802E65AC        = 0x802E65AC; // type:func
+fdr_802E66DC        = 0x802E66DC; // type:func
+fdrSetBlen          = 0x802E66F4; // type:func
+fdr_802E682C        = 0x802E682C; // type:func
+fdr_802E6B5C        = 0x802E6B5C; // type:func
+fdr_802E6B68        = 0x802E6B68; // type:func
+fdr_802E6870        = 0x802E6870; // type:func
+fdrControls         = 0x802E6B74; // type:func
+fdr_802E68B0        = 0x802E68B0; // type:func
+fdrGetControls      = 0x802E6C64; // type:func
+fdr_802E6EE4        = 0x802E6EE4; // type:func
+fdr_802E6FB8        = 0x802E6FB8; // type:func
+fdr_802E7214        = 0x802E7214; // type:func
+fdr_802E7278        = 0x802E7278; // type:func
+fdr_802E73BC        = 0x802E73BC; // type:func
+fdr_802E7424        = 0x802E7424; // type:func
+fdr_802E7550        = 0x802E7550; // type:func
+fdr_802E75C0        = 0x802E75C0; // type:func
+fdrInterp           = 0x802E76EC; // type:func
 
 targetsInit         = 0x80344290; // type:func
 targetsLoad         = 0x803442F8; // type:func

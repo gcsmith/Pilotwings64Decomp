@@ -4,6 +4,8 @@
 #include <PR/ultratypes.h>
 #include <uv_vector.h>
 
+extern u8 D_80359DB4; // 0x00 = day, 0x01 = night
+
 void envInit(void);
 void env_loadtpal(s32);
 void envLoad(void);

@@ -219,11 +219,11 @@ void gyrocopterMovementFrame(GyrocopterData* arg0, u8 gameState) {
         func_802F764C(arg0);
         return;
     }
-    if (func_802E6B5C() != 4) {
+    if (fdr_802E6B5C() != 4) {
         shadow_803343D8(1);
 
         if (gameState == GAME_STATE_RESULTS) {
-            func_802E65AC(&arg0->unk10, &D_80362690->terraId, &xAxisInput, &yAxisInput, &buttons);
+            fdr_802E65AC(&arg0->unk10, &D_80362690->terraId, &xAxisInput, &yAxisInput, &buttons);
         } else {
             xAxisInput = demoGetInputs(arg0->contIdx, INPUT_AXIS_X);
             yAxisInput = demoGetInputs(arg0->contIdx, INPUT_AXIS_Y);
@@ -405,9 +405,9 @@ void gyrocopterMovementFrame(GyrocopterData* arg0, u8 gameState) {
             sp48[0] = arg0->unkDC;
             sp48[1] = arg0->unkE8;
             sp48[2] = arg0->unkF0;
-            func_802E682C(sp48, ARRAY_COUNT(sp48), 0);
+            fdr_802E682C(sp48, ARRAY_COUNT(sp48), 0);
         } else {
-            func_802E6870(sp48, ARRAY_COUNT(sp48), NULL);
+            fdr_802E6870(sp48, ARRAY_COUNT(sp48), NULL);
             arg0->unkDC = sp48[0];
             arg0->unkE8 = sp48[1];
             arg0->unkF0 = sp48[2];
@@ -518,9 +518,9 @@ void gyrocopterMovementFrame(GyrocopterData* arg0, u8 gameState) {
         func_802E06AC(&arg0->unk10);
         if (gameState != GAME_STATE_RESULTS) {
             if (arg0->unkC0 == 3) {
-                func_802E66DC();
+                fdr_802E66DC();
             }
-            func_802E65AC(&arg0->unk10, &D_80362690->terraId, &xAxisInput, &yAxisInput, &buttons);
+            fdr_802E65AC(&arg0->unk10, &D_80362690->terraId, &xAxisInput, &yAxisInput, &buttons);
         }
     }
 }

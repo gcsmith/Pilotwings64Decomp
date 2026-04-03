@@ -1,6 +1,7 @@
 #include "common.h"
 #include "game.h"
 #include "kernel/code_8170.h"
+#include "game.h"
 #include "shadow.h"
 #include <uv_math.h>
 #include <uv_model.h>
