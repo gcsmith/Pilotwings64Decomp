@@ -1,8 +1,8 @@
 #ifndef APP_SNOW_H
 #define APP_SNOW_H
 
-void snow_update(void);
-void func_803405C0(void);
-void func_803405E4(void);
+void snowUpdate(void);
+void snowEnable(void);
+void snowDisable(void);
 
 #endif // APP_SNOW_H

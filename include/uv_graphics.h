@@ -43,7 +43,7 @@ typedef enum {
     /* 4 */ GFX_COUNT_TXT_LOADS,
 } uvGfxCntType;
 
-typedef void (*uvGfxCallback_t)(void *, s32); 
+typedef s32 (*uvGfxCallback_t)(void *, s32); 
 
 typedef struct {
     s32 state;
