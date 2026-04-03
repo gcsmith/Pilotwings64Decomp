@@ -553,6 +553,25 @@ falco_802E63BC      = 0x802E63BC; // type:func
 falco_802E64E0      = 0x802E64E0; // type:func
 
 fdrInit             = 0x802E6570; // type:func
+fdr_802E65AC        = 0x802E65AC; // type:func
+fdr_802E66DC        = 0x802E66DC; // type:func
+fdrSetBlen          = 0x802E66F4; // type:func
+fdr_802E682C        = 0x802E682C; // type:func
+fdr_802E6B5C        = 0x802E6B5C; // type:func
+fdr_802E6B68        = 0x802E6B68; // type:func
+fdr_802E6870        = 0x802E6870; // type:func
+fdrControls         = 0x802E6B74; // type:func
+fdr_802E68B0        = 0x802E68B0; // type:func
+fdrGetControls      = 0x802E6C64; // type:func
+fdr_802E6EE4        = 0x802E6EE4; // type:func
+fdr_802E6FB8        = 0x802E6FB8; // type:func
+fdr_802E7214        = 0x802E7214; // type:func
+fdr_802E7278        = 0x802E7278; // type:func
+fdr_802E73BC        = 0x802E73BC; // type:func
+fdr_802E7424        = 0x802E7424; // type:func
+fdr_802E7550        = 0x802E7550; // type:func
+fdr_802E75C0        = 0x802E75C0; // type:func
+fdrInterp           = 0x802E76EC; // type:func
 
 targetsInit         = 0x80344290; // type:func
 targetsLoad         = 0x803442F8; // type:func

@@ -139,7 +139,7 @@ void func_802F56B4(GyrocopterData* arg0, u8 arg1) {
     f32 var_fa1;
     u8 sp23;
 
-    if ((func_802E6B5C() == 3) || (func_802E6B5C() == 4)) {
+    if ((fdr_802E6B5C() == 3) || (fdr_802E6B5C() == 4)) {
         arg0->usingFuel = FALSE;
         arg0->unkF0 = 0.0f;
         arg0->unkE8 = 0.0f;

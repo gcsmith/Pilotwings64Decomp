@@ -111,9 +111,9 @@ void jumbleHopperMovementFrame(JumbleHopperData* arg0, u8 gameState) {
     HUDState* hud;
     Mtx4F sp34;
 
-    if (func_802E6B5C() != 4) {
+    if (fdr_802E6B5C() != 4) {
         if (gameState == GAME_STATE_RESULTS) {
-            func_802E65AC(&arg0->unk74, &D_80362690->terraId, &xAxisInputs, &yAxisInputs, &buttons);
+            fdr_802E65AC(&arg0->unk74, &D_80362690->terraId, &xAxisInputs, &yAxisInputs, &buttons);
         } else {
             xAxisInputs = demoGetInputs(arg0->contIdx, INPUT_AXIS_X);
             yAxisInputs = demoGetInputs(arg0->contIdx, INPUT_AXIS_Y);
@@ -196,9 +196,9 @@ void jumbleHopperMovementFrame(JumbleHopperData* arg0, u8 gameState) {
         }
         if (gameState != GAME_STATE_RESULTS) {
             if (arg0->unk4C == 6) {
-                func_802E66DC();
+                fdr_802E66DC();
             }
-            func_802E65AC(&arg0->unk74, &D_80362690->terraId, &xAxisInputs, &yAxisInputs, &buttons);
+            fdr_802E65AC(&arg0->unk74, &D_80362690->terraId, &xAxisInputs, &yAxisInputs, &buttons);
         }
     }
 }
