@@ -4,18 +4,22 @@
 #include <uv_fx.h>
 #include <uv_math.h>
 #include "kernel/code_8170.h"
+#include "app/environment.h"
 #include "app/fire_effects.h"
 #include "app/game.h"
 #include "app/smoke.h"
 #include "app/snd.h"
+#include "app/snow.h"
 #include "app/splash.h"
+#include "app/task.h"
+#include "app/code_64730.h"
 #include "app/code_9B960.h"
-
-extern s16 D_8034EE30[VEHICLE_COUNT][PILOT_COUNT];
-extern u8 D_80359DB4;
 
 s16 D_8034F150 = 0;
 s16 D_8034F154[6] = { 0 };
+
+// forward declarations
+s32 func_802EB640(Unk80362690_Unk0*, u16);
 
 void func_802EB3E0(void) {
     func_802E9FD0();
@@ -26,11 +30,65 @@ void func_802EB3E0(void) {
     D_80359DB4 = 0;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_72910/func_802EB424.s")
+void func_802EB424(Mtx4F* arg0, s32 arg1) {
+    u8* temp_s0;
+    Unk80362690_Unk0* temp_s0_2;
+    s32 sp44;
+    f32 sp40;
+    s32 sp3C;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_72910/func_802EB598.s")
+    temp_s0 = taskGet_80345CB0();
+    sp3C = 0;
+    sp40 = 0.0f;
+    func_802E9FE4();
+    splash_80341974();
+    func_803147B8(arg0, arg1);
+    if (temp_s0[1] == 1) {
+        snow_update();
+    }
+    temp_s0_2 = &D_80362690->unkC[D_80362690->unk9C];
+    sp44 = func_8021A304(temp_s0_2->unk2C.m[3][0], temp_s0_2->unk2C.m[3][1], temp_s0_2->unk2C.m[3][2], 1);
+    if (temp_s0_2->smokeId != -1) {
+        smokeGetProps(temp_s0_2->smokeId, SMOKE_PROP_8(&sp3C), SMOKE_PROP_END);
+    }
+    if ((sp44 != 0xFF) && (sp3C == 0)) {
+        sp3C = func_802EB640(temp_s0_2, sp44);
+    }
+    if (sp3C != 0) {
+        if (temp_s0_2->veh == 0) {
+            sp40 = -0.5f;
+        }
+        smokeProps(temp_s0_2->smokeId, SMOKE_PROP_6(arg0->m[3][0], arg0->m[3][1], (arg0->m[3][2] + sp40)), SMOKE_PROP_END);
+    } else {
+        temp_s0_2->smokeId = -1;
+    }
+    func_80336600();
+}
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_72910/func_802EB5E4.s")
+void func_802EB598(void) {
+    u8* sp1C;
+
+    sp1C = taskGet_80345CB0();
+    fx_create();
+    smokeCreateTerra();
+    if (sp1C[1] == 1) {
+        func_803405C0();
+    }
+}
+
+void func_802EB5E4(void) {
+    u8* sp1C;
+
+    sp1C = taskGet_80345CB0();
+    func_802EA824();
+    splash_80341E30();
+    smokeDeleteAll();
+    func_80314AE0();
+
+    if (sp1C[1] == 1) {
+        func_803405E4();
+    }
+}
 
 s32 func_802EB640(Unk80362690_Unk0* arg0, u16 arg1) {
     GyrocopterData* temp_v0;
@@ -85,9 +143,9 @@ s32 func_802EB640(Unk80362690_Unk0* arg0, u16 arg1) {
         D_8034F150 = 1;
     }
 
-    if (arg0->unk88 == -1) {
-        arg0->unk88 = smokeCreate();
-        smokeProps(arg0->unk88, 1, 0, 0, 0, 2, 3.0f, 3, 2.0f, 5, 0.0f, 0.0f, 0.5f, 4, 5.0f, 7, 1, 0);
+    if (arg0->smokeId == -1) {
+        arg0->smokeId = smokeCreate();
+        smokeProps(arg0->smokeId, 1, 0, 0, 0, 2, 3.0f, 3, 2.0f, 5, 0.0f, 0.0f, 0.5f, 4, 5.0f, 7, 1, 0);
         temp_s0 = uvEmitterLookup();
         sndGetPilot(&sp90, &sp8C);
         uvEmitterFromModel(temp_s0, sp90);
