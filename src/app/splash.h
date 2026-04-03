@@ -8,5 +8,6 @@ void splash_803415C8(void);
 void splashAdd(Mtx4F*, f32);
 void splash_80341CB0(void);
 void splash_80341E30(void);
+void splash_8034170C(Mtx4F*, f32);
 
 #endif // APP_SPLASH_H
