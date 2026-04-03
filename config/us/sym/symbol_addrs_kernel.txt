@@ -104,13 +104,16 @@ _uvEnvDraw          = 0x8021872C; // type:func
 
 uvSeqModel          = 0x80218D00; // type:func
 uvSeqProps          = 0x80218DB8; // type:func
+
 uvParseTopUVFT      = 0x80219270; // type:func
 uvFontSet           = 0x802194D8; // type:func
 uvFontScale         = 0x80219550; // type:func
 uvFontColor         = 0x8021956C; // type:func
 uvFontWidth         = 0x802197EC; // type:func
+uvFontHeight        = 0x80219828; // type:func
 uvFontPrintStr      = 0x80219ACC; // type:func
 uvFontGenDlist      = 0x80219EA8; // type:func
+
 uvFxProps           = 0x8021A540; // type:func
 uvFxGetProps        = 0x8021B52C; // type:func
 uvModelGet          = 0x8021B9D0; // type:func

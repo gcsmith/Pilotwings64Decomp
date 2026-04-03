@@ -1,7 +1,8 @@
-#include "PR/os_cont.h"
 #include "common.h"
+#include <uv_controller.h>
 #include <uv_font.h>
 #include <uv_geometry.h>
+#include <uv_graphics.h>
 #include "code_9A960.h"
 #include "demo.h"
 #include "game.h"
@@ -59,10 +60,10 @@ void menuUtilCreate(s32 x, s32 y, s32 font, f32 xScale, f32 yScale, char** menuI
 }
 
 s32 menuUtilCheckInputs(void) {
-    f32 temp_fv0;
-    s32 sp18;
+    f32 stickY;
+    s32 menuItemChanged;
 
-    sp18 = 0;
+    menuItemChanged = FALSE;
     demo_80323020();
     if (demoButtonPress(D_80362690->unk9C, (sMenuButtonMode == 1) ? START_BUTTON : B_BUTTON)) {
         if (sMenuSoundFlags & MENU_SOUND_BACK) {
@@ -80,15 +81,15 @@ s32 menuUtilCheckInputs(void) {
         return sMenuCurSelect;
     }
 
-    temp_fv0 = demoGetInputs(D_80362690->unk9C, 1);
+    stickY = demoGetInputs(D_80362690->unk9C, INPUT_AXIS_Y);
     sMenuAdj = 0;
-    if (FABS(temp_fv0) < 0.75f) {
+    if (FABS(stickY) < 0.75f) {
         sMenuStickCenter = FALSE;
     } else if (!sMenuStickCenter) {
-        if (temp_fv0 > 0.75f) {
+        if (stickY > 0.75f) {
             sMenuAdj = -1;
             sMenuStickCenter = TRUE;
-        } else if (temp_fv0 < -0.75f) {
+        } else if (stickY < -0.75f) {
             sMenuAdj = 1;
             sMenuStickCenter = TRUE;
         }
@@ -107,12 +108,14 @@ s32 menuUtilCheckInputs(void) {
             func_8033F758(0, 1.0f, 1.03f, 0);
             func_8033FB14();
         }
-        sp18 = 1;
+        menuItemChanged = TRUE;
     }
-    if (sp18) {
+
+    if (menuItemChanged) {
         return -3;
+    } else {
+        return -2;
     }
-    return -2;
 }
 
 void menuUtilInit(void) {
@@ -122,30 +125,30 @@ void menuUtilInit(void) {
 void menuUtilRender(void) {
     s32 temp_a3;
     s32 var_s1;
-    s32 temp_s0;
-    s32 spF0;
+    s32 posY;
+    s32 fontHeight;
     s32 i;
     s32 halfWidth;
     Mtx4F spA8;
     Mtx4F sp68;
 
-    uvGfxSetViewport(0, 0, 320, 0, 240);
-    uvMat4SetOrtho(&spA8, 0.0f, 319.0f, 0.0f, 239.0f);
+    uvGfxSetViewport(0, 0, SCREEN_WIDTH, 0, SCREEN_HEIGHT);
+    uvMat4SetOrtho(&spA8, 0.0f, SCREEN_WIDTH - 1, 0.0f, SCREEN_HEIGHT - 1);
     uvGfxMtxProjPushF(&spA8);
     uvMat4SetIdentity(&sp68);
     uvGfxMtxViewLoad(&sp68, 1);
     uvFontSet(sMenuFont);
     uvFontScale(sMenuScaleX, sMenuScaleY);
-    spF0 = func_80219828();
+    fontHeight = uvFontHeight();
     halfWidth = (s32)(uvFontWidth("A") * 0.5f);
-    temp_s0 = ((sMenuItemCount - sMenuCurSelect) * (spF0 + 1)) + sMenuPosY + 5;
+    posY = ((sMenuItemCount - sMenuCurSelect) * (fontHeight + 1)) + sMenuPosY + 5;
     uvVtxBeginPoly();
-    uvVtx(sMenuPosX, temp_s0, 0, 0, 0, sMenuGfxR, sMenuGfxG, sMenuGfxB, 0xFF);
-    uvVtx(sMenuPosX + halfWidth, (temp_s0 + ((spF0 - (4.0f * sMenuScaleY)) / 2)), 0, 0, 0, sMenuGfxR, sMenuGfxG, sMenuGfxB, 0xFF);
-    uvVtx(sMenuPosX, (temp_s0 + (spF0 - (4.0f * sMenuScaleY))), 0, 0, 0, sMenuGfxR, sMenuGfxG, sMenuGfxB, 0xFF);
+    uvVtx(sMenuPosX, posY, 0, 0, 0, sMenuGfxR, sMenuGfxG, sMenuGfxB, 0xFF);
+    uvVtx(sMenuPosX + halfWidth, posY + ((fontHeight - (4.0f * sMenuScaleY)) / 2), 0, 0, 0, sMenuGfxR, sMenuGfxG, sMenuGfxB, 0xFF);
+    uvVtx(sMenuPosX, posY + (fontHeight - (4.0f * sMenuScaleY)), 0, 0, 0, sMenuGfxR, sMenuGfxG, sMenuGfxB, 0xFF);
     uvVtxEndPoly();
     uvGfxMtxViewPop();
-    var_s1 = ((spF0 + 1) * sMenuItemCount) + sMenuPosY;
+    var_s1 = ((fontHeight + 1) * sMenuItemCount) + sMenuPosY;
     for (i = 0; i < sMenuItemCount; i++) {
         if (i == sMenuCurSelect) {
             uvFontColor(sMenuFontSelR, sMenuFontSelG, sMenuFontSelB, 0xFF);
@@ -158,7 +161,7 @@ void menuUtilRender(void) {
         } else {
             uvFontPrintStr(temp_a3, var_s1, sMenuItems[i]);
         }
-        var_s1 -= spF0 + 1;
+        var_s1 -= fontHeight + 1;
     }
 }
 

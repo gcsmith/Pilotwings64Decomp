@@ -19,6 +19,6 @@ void func_803464A0(char* arg0, ...) {
     va_start(args, arg0);
     while ((str = va_arg(args, char*))) {
         uvFontPrintStr((SCREEN_WIDTH / 2) - (uvFontWidth(str) / 2), yScreen, str);
-        yScreen = (yScreen - func_80219828()) - 3;
+        yScreen = (yScreen - uvFontHeight()) - 3;
     }
 }
