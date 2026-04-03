@@ -2,8 +2,8 @@
 #include <uv_font.h>
 #include <uv_graphics.h>
 #include <uv_sprite.h>
-#include "code_99D40.h"
 #include "menu.h"
+#include "menu_utils.h"
 #include "text_data.h"
 
 // forward declarations
@@ -17,14 +17,14 @@ static s16 gMenuSpriteIdBase;
 static s16 gMenuSpriteHeight;
 static s16 gMenuCountVarHeight;
 
-STATIC_FUNC void menuCreate(s32 x, s32 y, s32 arg2, f32 xscale, f32 yscale, s32 itemCount) {
+STATIC_FUNC void menuCreate(s32 x, s32 y, s32 font, f32 xscale, f32 yscale, s32 itemCount) {
     s32 i;
 
     gMenuSpriteHeight = 0;
     if (itemCount > ARRAY_COUNT(gMenuItems)) {
         _uvDebugPrintf("kmenu_init : too may elements in the menu [%d]\n", itemCount);
     }
-    func_80312810(x, y, arg2, xscale, yscale, 0, itemCount);
+    menuUtilCreate(x, y, font, xscale, yscale, 0, itemCount);
 
     // clang-format off: needs to be on same line to match
     for (i = 0; i < ARRAY_COUNT(gMenuItems); i++) { gMenuItems[i] = NULL; }
@@ -35,10 +35,10 @@ STATIC_FUNC void menuCreate(s32 x, s32 y, s32 arg2, f32 xscale, f32 yscale, s32 
 
 // menuCreateVarHeight is unused, but serves as a wrapper for menuCreate
 // it computes non-zero gMenuSpriteHeight, triggering different code paths below
-void menuCreateVarHeight(s32 x, s32 y, s32 arg2, f32 xscale, f32 yscale, s32* items, s32 count) {
+void menuCreateVarHeight(s32 x, s32 y, s32 font, f32 xscale, f32 yscale, s32* items, s32 count) {
     s32 i;
 
-    menuCreate(x, y, arg2, xscale, yscale, count);
+    menuCreate(x, y, font, xscale, yscale, count);
     gMenuCountVarHeight = (s16)count;
     gMenuSpriteIdBase = 0xF;
 
@@ -48,29 +48,29 @@ void menuCreateVarHeight(s32 x, s32 y, s32 arg2, f32 xscale, f32 yscale, s32* it
     }
 }
 
-void menuCreateItems(s32 x, s32 y, s32 arg2, f32 xscale, f32 yscale, s32* items, s32 itemCount) {
+void menuCreateItems(s32 x, s32 y, s32 font, f32 xscale, f32 yscale, s32* items, s32 itemCount) {
     s32 temp_v0;
     s32 i;
 
-    menuCreate(x, y, arg2, xscale, yscale, itemCount);
+    menuCreate(x, y, font, xscale, yscale, itemCount);
 
     for (i = 0; i < itemCount; i++) {
         gMenuItems[i] = textGetDataByIdx(items[i]);
     }
 }
 
-s32 menu_8030B50C(void) {
-    return func_80312908();
+s32 menuCheckInputs(void) {
+    return menuUtilCheckInputs();
 }
 
-void menuInit(void) {
-    func_80312B5C();
+void menuRender(void) {
+    menuUtilRender();
 }
 
 void menuSetProps(void) {
     s32 i;
 
-    func_80312B50();
+    menuUtilInit();
     for (i = 0; i < gMenuCountVarHeight; i++) {
         uvSprtProps(gMenuSpriteIdBase + i, 3, 0, 0);
     }
@@ -86,7 +86,7 @@ STATIC_FUNC void menuDrawItem(s16 arg0, s16 arg1, s16 idx) {
 }
 
 s32 menu_8030B668(void) {
-    return func_80312F38();
+    return menuUtilGetCurItem();
 }
 
 void menuSetItem(s32 idx, s16* str) {
@@ -94,5 +94,5 @@ void menuSetItem(s32 idx, s16* str) {
 }
 
 void menu_8030B69C(s32 arg0) {
-    func_80312F44(arg0);
+    menuUtilSetCurItem(arg0);
 }

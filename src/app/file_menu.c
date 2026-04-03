@@ -6,13 +6,13 @@
 #include <uv_sprite.h>
 #include <uv_texture.h>
 #include "code_94E60.h"
-#include "code_99D40.h"
 #include "code_9A960.h"
 #include "code_B2900.h"
 #include "code_D2B10.h"
 #include "credits.h"
 #include "file_menu.h"
 #include "menu.h"
+#include "menu_utils.h"
 #include "save.h"
 #include "text_data.h"
 
@@ -181,9 +181,9 @@ void fileMenuSetup(s32 menu) {
         break;
     }
     sFileMenuCurMenu = menu;
-    func_80312F5C(0, 0xD2, 0xD2, 0);
-    func_80312F5C(1, 0xD2, 0xD2, 0xD2);
-    func_80312F5C(2, 0xD2, 0xD2, 0);
+    menuUtilSetColors(MENU_COLOR_SELECTED, 0xD2, 0xD2, 0);
+    menuUtilSetColors(MENU_COLOR_ITEM, 0xD2, 0xD2, 0xD2);
+    menuUtilSetColors(MENU_COLOR_GRAPHICS, 0xD2, 0xD2, 0);
 }
 
 void fileMenuSetProps(void) {
@@ -274,9 +274,9 @@ void fileMenu_802E94E0(void) {
     func_80313640(sFileMenu_8034F0FC[0].x, sFileMenu_8034F0FC[0].y, sFileMenu_8034F0FC[0].z, sFileMenu_8034F0FC[1].x, sFileMenu_8034F0FC[1].y,
                   sFileMenu_8034F0FC[1].z, &unk70->unk108);
     func_80204B34(unk70->unk22C, &unk70->unk108);
-    func_80312F5C(0, 0xD2, 0xD2, 0);
-    func_80312F5C(1, 0xD2, 0xD2, 0xD2);
-    func_80312F5C(2, 0xD2, 0xD2, 0);
+    menuUtilSetColors(MENU_COLOR_SELECTED, 0xD2, 0xD2, 0);
+    menuUtilSetColors(MENU_COLOR_ITEM, 0xD2, 0xD2, 0xD2);
+    menuUtilSetColors(MENU_COLOR_GRAPHICS, 0xD2, 0xD2, 0);
     D_8034F7C0 = 1;
 }
 
@@ -285,7 +285,7 @@ s32 fileMenuChoose(void) {
     s32 ret;
 
     ret = -1;
-    menuChoice = menu_8030B50C();
+    menuChoice = menuCheckInputs();
     switch (menuChoice) {
     case 0:
     case 1:
@@ -315,7 +315,7 @@ s32 fileMenuChoose(void) {
 s32 fileMenu_802E9890(void) {
     s32 menuChoice;
 
-    menuChoice = menu_8030B50C();
+    menuChoice = menuCheckInputs();
     switch (menuChoice) {
     case 0:
     case 1:
@@ -346,7 +346,7 @@ s32 fileMenu_802E9890(void) {
 s32 fileMenu_802E9980(void) {
     s32 menuChoice;
 
-    menuChoice = menu_8030B50C();
+    menuChoice = menuCheckInputs();
     switch (menuChoice) {
     case -1:
     case 0:
@@ -429,7 +429,7 @@ void fileMenu_802E9AE0(void) {
         }
     }
 
-    menuInit();
+    menuRender();
     uvFontSet(6);
     uvFontScale(1.0, 1.0);
 

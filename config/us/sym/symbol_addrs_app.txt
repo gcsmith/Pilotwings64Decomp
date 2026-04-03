@@ -215,6 +215,17 @@ app_entrypoint      = 0x8030FE20; // type:func
 map3d               = 0x8030FF00; // type:func
 map3d_mslot         = 0x80312684; // type:func
 
+menuUtilCreate        = 0x80312810; // type:func
+menuUtilCheckInputs   = 0x80312908; // type:func
+menuUtilInit          = 0x80312B50; // type:func
+menuUtilRender        = 0x80312B5C; // type:func
+menuUtilGetCurItem    = 0x80312F38; // type:func
+menuUtilSetCurItem    = 0x80312F44; // type:func
+menuUtilSetColors     = 0x80312F5C; // type:func
+menuUtilSetSoundFlags = 0x80312FF8; // type:func
+menuUtilSetButtonMode = 0x80313004; // type:func
+menuUtil_80313010     = 0x80313010; // type:func
+
 missiIsActive       = 0x80314B50; // type:func
 missiUpdatePos      = 0x80314B5C; // type:func
 missiUpdate         = 0x80314CE8; // type:func
@@ -499,11 +510,11 @@ levelLoadMapObjects = 0x8030BDC8; // type:func
 credits_8030CDA0    = 0x8030CDA0; // type:func
 creditsScene        = 0x8030D2F0; // type:func
 
-menuInit            = 0x8030B52C; // type:func
 menuCreate          = 0x8030B2E0; // type:func
 menuCreateVarHeight = 0x8030B38C; // type:func
 menuCreateItems     = 0x8030B48C; // type:func
-menu_8030B50C       = 0x8030B50C; // type:func
+menuCheckInputs     = 0x8030B50C; // type:func
+menuRender          = 0x8030B52C; // type:func
 menuSetProps        = 0x8030B54C; // type:func
 menu_8030B668       = 0x8030B668; // type:func
 menuSetItem         = 0x8030B688; // type:func

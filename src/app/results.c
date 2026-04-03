@@ -4,12 +4,11 @@
 #include <uv_graphics.h>
 #include <uv_math.h>
 #include <uv_string.h>
-#include "code_99D40.h"
 #include "code_9A960.h"
-#include "code_B2900.h"
 #include "code_B3A70.h"
 #include "demo.h"
 #include "menu.h"
+#include "menu_utils.h"
 #include "save.h"
 #include "snap.h"
 #include "snow.h"
@@ -230,7 +229,7 @@ void resultGenMenu(void) {
     if (resultListPhoto() && !func_8033F62C()) {
         menu_8030B69C(1);
     }
-    func_80312FF8(5);
+    menuUtilSetSoundFlags(MENU_SOUND_CHANGE | MENU_SOUND_SELECT);
 }
 
 s32 resultMenuItemLookup(s32 idx) {
@@ -367,7 +366,7 @@ void resultInit(s32 arg0) {
 }
 
 void resultDeinit(void) {
-    func_80312FF8(7);
+    menuUtilSetSoundFlags(MENU_SOUND_CHANGE | MENU_SOUND_BACK | MENU_SOUND_SELECT);
 }
 
 s32 resultMenuChoose(s32 arg0) {
@@ -383,7 +382,7 @@ s32 resultMenuChoose(s32 arg0) {
         sScreenFadeDuration = 1.5f;
     }
     if ((arg0 != 0) && (sScreenFadeDuration > 0.75f)) {
-        ret = menu_8030B50C();
+        ret = menuCheckInputs();
         item = resultMenuItemLookup(ret);
         switch (item) {
         case 2:
@@ -478,7 +477,7 @@ void resultDrawTally(s32 arg0) {
     }
     func_803141E4();
     if ((spAC >= 0.5f) && (arg0 != 0)) {
-        menuInit();
+        menuRender();
     }
     if (sTipTextMissing) {
         uvFontSet(0);
