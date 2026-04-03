@@ -445,27 +445,27 @@ STATIC_FUNC void func_802DE964(Camera* arg0, Unk80367868* arg1, s32 arg2) {
     var_fs0 = 0.0f;
     if (arg2 != 0) {
         switch (arg1->unk4[D_8034EDC0].modelId) {
-        case MODEL_LARK_BODY:
+        case MODEL_PILOT_LARK:
             D_8034EDBC = 0.8f;
             spA6 = 0x6D;
             break;
-        case MODEL_GOOSE_BODY:
+        case MODEL_PILOT_GOOSE:
             D_8034EDBC = 0.35f;
             spA6 = 0x6E;
             break;
-        case MODEL_HAWK_BODY:
+        case MODEL_PILOT_HAWK:
             D_8034EDBC = 0.2f;
             spA6 = 0x6F;
             break;
-        case MODEL_KIWI_BODY:
+        case MODEL_PILOT_KIWI:
             D_8034EDBC = 0.75f;
             spA6 = 0x70;
             break;
-        case MODEL_IBIS_BODY:
+        case MODEL_PILOT_IBIS:
             D_8034EDBC = 0.75f;
             spA6 = 0x71;
             break;
-        case MODEL_ROBIN_BODY:
+        case MODEL_PILOT_ROBIN:
             D_8034EDBC = 0.5f;
             spA6 = 0x72;
             break;

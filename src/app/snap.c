@@ -813,7 +813,7 @@ void func_8033A078(s32 arg0) {
 
     ptr = taskGet_80345CB0();
     if ((D_80362690->state != GAME_STATE_OPTIONS) && (ptr[1] == 1)) {
-        func_803405C0();
+        snowEnable();
     }
     if (D_80350590 != 0) {
         D_80350590 = 0;
@@ -1805,7 +1805,7 @@ s32 func_8033E3A8(s32 arg0) {
     ptr = taskGet_80345CB0();
     D_80350550 = 0;
     if ((D_80362690->state != GAME_STATE_OPTIONS) && (ptr[1] == 1)) {
-        func_803405E4();
+        snowDisable();
     }
     if (arg0 == 3) {
         arg0 = 1;

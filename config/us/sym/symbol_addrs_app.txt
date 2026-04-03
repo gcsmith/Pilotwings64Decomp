@@ -447,9 +447,12 @@ sndMakeDev          = 0x8033F860; // type:func
 sndEvent            = 0x8033FB44; // type:func
 sndGetPilot         = 0x8033FBCC; // type:func
 
-snow_create         = 0x8033FE40; // type:func
-snow_draw           = 0x8033FF30; // type:func
-snow_update         = 0x8033FFB4; // type:func
+snowCreate          = 0x8033FE40; // type:func
+snowDraw            = 0x8033FF30; // type:func
+snowUpdate          = 0x8033FFB4; // type:func
+snowCheckRange      = 0x803404D4; // type:func
+snowEnable          = 0x803405C0; // type:func
+snowDisable         = 0x803405E4; // type:func
 
 spathCreate         = 0x80340610; // type:func
 spathLoadFile       = 0x80340668; // type:func
@@ -460,13 +463,13 @@ spath_80340CB8      = 0x80340CB8; // type:func
 spath_80340E7C      = 0x80340E7C; // type:func
 spathInterpolate    = 0x80340FEC; // type:func
 
-splash_80341460     = 0x80341460; // type:func
-splash_803415C8     = 0x803415C8; // type:func
-splash_8034170C     = 0x8034170C; // type:func
+splashDrawRipple    = 0x80341460; // type:func
+splashDraw          = 0x803415C8; // type:func
+splashAddRipple     = 0x8034170C; // type:func
 splashAdd           = 0x803417CC; // type:func
-splash_80341974     = 0x80341974; // type:func
-splash_80341CB0     = 0x80341CB0; // type:func
-splash_80341E30     = 0x80341E30; // type:func
+splashUpdate        = 0x80341974; // type:func
+splashInit          = 0x80341CB0; // type:func
+splashClear         = 0x80341E30; // type:func
 
 toyInit             = 0x80347BD0; // type:func
 toy_80347C2C        = 0x80347C2C; // type:func

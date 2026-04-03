@@ -217,7 +217,7 @@ void resultGenMenu(void) {
     if (resultListPhoto()) {
         ptr = taskGet_80345CB0();
         if (ptr[1] == 1) {
-            func_803405E4();
+            snowDisable();
         }
         sResultMenu[0] = val; // Check Photo
         idx = 1;

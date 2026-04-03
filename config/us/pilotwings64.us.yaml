@@ -650,8 +650,8 @@ segments:
       - { type: .bss, vram: 0x803597E0, name: app/ball_target }
       - { type: .bss, vram: 0x803599D0, name: app/camera }
       - { type: .bss, vram: 0x80359A30, name: app/cannonball }
-      - { type: bss, vram: 0x80359AD0, name: app/code_60020 }
-      - { type: bss, vram: 0x80359BE0, name: app/cbsound }
+      - { type: .bss, vram: 0x80359AD0, name: app/code_60020 }
+      - { type: .bss, vram: 0x80359BE0, name: app/cbsound }
       - { type: bss, vram: 0x80359C40, name: app/code_61A60 }
       - { type: .bss, vram: 0x80359C90, name: app/code_64070 }
       - { type: .bss, vram: 0x80359CA0, name: app/code_64730 }
@@ -714,9 +714,9 @@ segments:
       - { type: .bss, vram: 0x80371E60, name: app/smoke }
       - { type: .bss, vram: 0x80373060, name: app/snap }
       - { type: bss, vram: 0x80373E20, name: app/snd }
-      - { type: bss, vram: 0x80373EF0, name: app/snow }
+      - { type: .bss, vram: 0x80373EF0, name: app/snow }
       - { type: .bss, vram: 0x80373F10, name: app/spath }
-      - { type: bss, vram: 0x80376CC0, name: app/splash }
+      - { type: .bss, vram: 0x80376CC0, name: app/splash }
       - { type: .bss, vram: 0x80377F10, name: app/text_data }
       - { type: .bss, vram: 0x80378CE0, name: app/code_C9B60 }
       - { type: .bss, vram: 0x80378CF0, name: app/targets }

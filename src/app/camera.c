@@ -46,7 +46,7 @@ void func_802D3170(u8 arg0, Camera* arg1) {
     f32 one;
     one = 1.0f;
     func_80204A8C(arg0, 3);
-    func_802EAAE0(arg1->unk230);
+    func_802EAAE0(&arg1->unk230);
     arg1->unk2 = arg1->unk1;
     arg1->unk0 = 0;
     arg1->unk24 = 10;
@@ -134,9 +134,9 @@ void func_802D3444(Camera* arg0) {
     if (arg0->unk1 != 5) {
         uvMat4Copy(&sp28, &arg0->unk80);
         uvMat4LocalTranslate(&sp28, arg0->unk5C, arg0->unk60, arg0->unk64);
-        func_802EAC18(arg0->unk230, arg0->unk14, &sp28);
+        func_802EAC18(&arg0->unk230, arg0->unk14, &sp28);
         if (arg0->unkD != 0) {
-            func_802EABAC(arg0->unk230, arg0->unk14, &sp28);
+            func_802EABAC(&arg0->unk230, arg0->unk14, &sp28);
             arg0->unkD = 0;
         }
         arg0->unk1AC = uvAtan2F(arg0->unk80.m[0][0], arg0->unk80.m[0][1]) - 1.5707963f; // almost DEG_TO_RAD(90)
@@ -312,7 +312,7 @@ STATIC_FUNC void func_802D3BE8(Camera* arg0) {
     f32 temp_ft4_2;
     f32 temp_ft5_2;
 
-    func_802EAC9C(arg0->unk230, arg0->unk14 - arg0->unk48, &arg0->unkC8);
+    func_802EAC9C(&arg0->unk230, arg0->unk14 - arg0->unk48, &arg0->unkC8);
     sp40.x = arg0->unkC8.m[2][0] * 0.3f;
     sp40.y = arg0->unkC8.m[2][1] * 0.3f;
     sp40.z = (arg0->unkC8.m[2][2] * 0.3f) + 0.7f;
@@ -754,7 +754,7 @@ void func_802D4DE8(Camera* arg0, u8 arg1) {
         arg0->unk1FC = -100.0f;
         uvMat4Copy(&sp20, &arg0->unk80);
         uvMat4LocalTranslate(&sp20, arg0->unk5C, arg0->unk60, arg0->unk64);
-        func_802EABAC(arg0->unk230, 0.0f, &sp20);
+        func_802EABAC(&arg0->unk230, 0.0f, &sp20);
         uvMat4Copy(&sp20, &arg0->unk1BC);
         arg0->unk1114 = 1;
         arg0->unkF++;
@@ -766,14 +766,14 @@ void func_802D4ECC(Camera* arg0, Mtx4F* arg1) {
     f32 x;
     f32 y;
     s32 i;
-    Unk802D3658_Unk230* arr;
+    Unk802D3658_Unk230_Unk0* arr;
 
     x = arg1->m[3][0] - arg0->unk80.m[3][0];
     y = arg1->m[3][1] - arg0->unk80.m[3][1];
     z = arg1->m[3][2] - arg0->unk80.m[3][2];
 
-    arr = arg0->unk230;
-    for (i = 0; i < ARRAY_COUNT(arg0->unk230); i++) {
+    arr = arg0->unk230.unk0;
+    for (i = 0; i < ARRAY_COUNT(arg0->unk230.unk0); i++) {
         arr[i].unk0.m[3][0] += x;
         arr[i].unk0.m[3][1] += y;
         arr[i].unk0.m[3][2] += z;

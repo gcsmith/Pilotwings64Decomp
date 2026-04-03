@@ -131,7 +131,6 @@ extern f32 D_8035AF54;
 extern f32 D_8035AF58;
 
 // forward declarations
-void falco_802E38F0(Falco*, TaskFALC*);
 void falco_802E478C(Falco*, FalcoDomain*);
 void falco_802E5F44(Unk8035A920*);
 void falco_802E43C4(Falco*);
@@ -741,7 +740,7 @@ void falco_802E4E70(Falco* falco) {
         if (falco->unk256 != 0) {
             if ((s32)(falco->unkD0 * 2.5f) != (s32)((falco->unkD0 + D_8034F854) * 2.5f)) {
                 falco->unk1AC.m[3][2] += 2.0f;
-                splash_8034170C(&falco->unk1AC, 80.0f);
+                splashAddRipple(&falco->unk1AC, 80.0f);
                 falco->unk1AC.m[3][2] -= 2.0f;
             }
         }
@@ -770,7 +769,7 @@ void falco_802E4E70(Falco* falco) {
     }
 }
 
-s32 falco_802E51E8(s32 falco, f32 arg1, f32 arg2, f32 arg3) {
+s32 falco_802E51E8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     Falco* curFalco;
     Unk8035A920* var_s0_2;
     f32 temp_fv0;
@@ -785,7 +784,7 @@ s32 falco_802E51E8(s32 falco, f32 arg1, f32 arg2, f32 arg3) {
     ret = FALSE;
     curFalco = sFalcos;
     for (i = 0; i < D_8035A5F0; i++, curFalco++) {
-        if (falco == curFalco->unk0) {
+        if (arg0 == curFalco->unk0) {
             ret = TRUE;
             if (curFalco->unk23C == 10 || curFalco->unk23C == 9) {
                 continue;
@@ -847,7 +846,7 @@ s32 falco_802E51E8(s32 falco, f32 arg1, f32 arg2, f32 arg3) {
         }
     }
     for (i = 0; i < D_8035A918; i++) {
-        if (falco == D_8035A920[i].unk0) {
+        if (arg0 == D_8035A920[i].unk0) {
             falco_802E5F90(&D_8035A920[i]);
         }
     }
@@ -1243,10 +1242,10 @@ void falco_802E63BC(Falco* falco, Mtx4F* arg1) {
     uvDobjPosm(falco->unk0, 0, arg1);
 }
 
-void falco_802E64E0(s32 falco, Mtx4F* arg1) {
+void falco_802E64E0(s32 arg0, Mtx4F* arg1) {
     Falco* sp18;
 
-    sp18 = &sFalcos[falco];
+    sp18 = &sFalcos[arg0];
     uvMat4Copy(arg1, &sp18->unk16C);
     if (sp18->unk80 != 0.0f) {
         uvMat4RotateAxis(arg1, sp18->unk80, 'x');

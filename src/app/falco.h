@@ -12,5 +12,6 @@ void falcoFrameUpdate(void);
 s32 falco_802E51E8(s32, f32, f32, f32);
 s32 falco_802E57C4(void);
 s32 falco_802E5818(void);
+void falco_802E64E0(s32, Mtx4F*);
 
 #endif // APP_FALCO_H
