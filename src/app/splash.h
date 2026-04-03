@@ -2,12 +2,11 @@
 #define APP_SPLASH_H
 
 #include <uv_matrix.h>
-#include "app/save.h"
 
-void splash_803415C8(void);
-void splashAdd(Mtx4F*, f32);
-void splash_80341974(void);
-void splash_80341CB0(void);
-void splash_80341E30(void);
+void splashDraw(void);
+void splashAdd(Mtx4F* pos, f32 size);
+void splashUpdate(void);
+void splashInit(void);
+void splashClear(void);
 
 #endif // APP_SPLASH_H

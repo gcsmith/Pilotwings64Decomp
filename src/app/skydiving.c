@@ -497,7 +497,7 @@ void skydivingMovementFrame(SkyDivingData* arg0, u8 gameState) {
         func_8032FEAC(arg0, 0, gameState);
         return;
     }
-    if (func_802E6B5C() != 4) {
+    if (fdr_802E6B5C() != 4) {
         if (gameState == GAME_STATE_RESULTS) {
             buttons = 0;
             stickY = 0.0f;
@@ -548,9 +548,9 @@ void skydivingMovementFrame(SkyDivingData* arg0, u8 gameState) {
         }
         if (gameState != GAME_STATE_RESULTS) {
             if (arg0->unk70 == 3) {
-                func_802E66DC();
+                fdr_802E66DC();
             }
-            func_802E65AC(&arg0->unk10, &D_80362690->terraId, &stickX, &stickY, &buttons);
+            fdr_802E65AC(&arg0->unk10, &D_80362690->terraId, &stickX, &stickY, &buttons);
         }
     }
 }

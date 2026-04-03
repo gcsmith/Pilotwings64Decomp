@@ -23,7 +23,7 @@ s32 func_802EB640(Unk80362690_Unk0*, u16);
 
 void func_802EB3E0(void) {
     func_802E9FD0();
-    splash_80341CB0();
+    splashInit();
     smokeInit();
     func_80314430();
     D_8034F150 = 0;
