@@ -386,8 +386,8 @@ typedef struct {
 typedef struct Unk80371120 {
     Unk8022B0A0 unk0[1];
     u8 pad10[0x180];
-    u8 unk190[1];
-    u8 pad191[0x1B];
+    u8 unk190[25];
+    u8 pad1A9[0x1AC - 0x1A9];
     s32 unk1AC;
 } Unk80371120; // size = 0x1B0
 
