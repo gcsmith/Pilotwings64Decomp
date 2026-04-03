@@ -41,7 +41,7 @@ void func_802EB424(Mtx4F* arg0, s32 arg1) {
     sp3C = 0;
     sp40 = 0.0f;
     func_802E9FE4();
-    splash_80341974();
+    splashUpdate();
     func_803147B8(arg0, arg1);
     if (temp_s0[1] == 1) {
         snow_update();
@@ -81,7 +81,7 @@ void func_802EB5E4(void) {
 
     sp1C = taskGet_80345CB0();
     func_802EA824();
-    splash_80341E30();
+    splashClear();
     smokeDeleteAll();
     func_80314AE0();
 
