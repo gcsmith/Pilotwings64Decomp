@@ -193,32 +193,32 @@ void falcoInit(void) {
     sFalcoCount = D_8035A918 = D_8035A5F0 = 0;
 }
 
-void falco_802E38F0(Falco* arg0, TaskFALC* arg1) {
-    if (arg0->unk255 == 0) {
-        arg0->unk240 = 1;
-        uvMat4SetIdentity(&arg0->unk1AC);
-        uvMat4SetIdentity(&arg0->unk16C);
-        arg0->unk16C.m[3][0] = arg1->unk0.f[0];
-        arg0->unk16C.m[3][1] = arg1->unk0.f[1];
-        arg0->unk16C.m[3][2] = arg1->unk0.f[2];
-        arg0->unk1AC.m[3][0] = arg1->unk0.f[0];
-        arg0->unk1AC.m[3][1] = arg1->unk0.f[1];
-        arg0->unk1AC.m[3][2] = 0.0f;
+void falco_802E38F0(Falco* falco, TaskFALC* arg1) {
+    if (falco->unk255 == 0) {
+        falco->unk240 = 1;
+        uvMat4SetIdentity(&falco->unk1AC);
+        uvMat4SetIdentity(&falco->unk16C);
+        falco->unk16C.m[3][0] = arg1->unk0.x;
+        falco->unk16C.m[3][1] = arg1->unk0.y;
+        falco->unk16C.m[3][2] = arg1->unk0.z;
+        falco->unk1AC.m[3][0] = arg1->unk0.x;
+        falco->unk1AC.m[3][1] = arg1->unk0.y;
+        falco->unk1AC.m[3][2] = 0.0f;
     }
-    arg0->unk4 = uvDobjAllocIdx();
-    uvDobjModel(arg0->unk4, MODEL_GIANT_TRANSPARENT_MECCA_HAWK);
-    uvDobjPosm(arg0->unk4, 0, &arg0->unk16C);
-    uvDobjState(arg0->unk4, arg0->unk256 != 0 ? 2 : 0);
-    arg0->unk8 = uvDobjAllocIdx();
-    uvDobjModel(arg0->unk8, MODEL_GIANT_RED_THING);
-    uvDobjPosm(arg0->unk8, 0, &arg0->unk1AC);
-    uvDobjState(arg0->unk8, arg0->unk256 != 0 ? 0x22 : 0);
-    arg0->unk0 = uvDobjAllocIdx();
-    uvDobjModel(arg0->unk0, MODEL_MECCA_HAWK);
-    uvDobjPosm(arg0->unk0, 0, &arg0->unk16C);
-    uvDobjState(arg0->unk0, 3);
-    if (arg0->unk254 == 0) {
-        arg0->unkC = hudAddWaypoint(arg1->unk0.f[0], arg1->unk0.f[1], arg1->unk0.f[2]);
+    falco->unk4 = uvDobjAllocIdx();
+    uvDobjModel(falco->unk4, MODEL_GIANT_TRANSPARENT_MECCA_HAWK);
+    uvDobjPosm(falco->unk4, 0, &falco->unk16C);
+    uvDobjState(falco->unk4, falco->unk256 != 0 ? 2 : 0);
+    falco->unk8 = uvDobjAllocIdx();
+    uvDobjModel(falco->unk8, MODEL_GIANT_RED_THING);
+    uvDobjPosm(falco->unk8, 0, &falco->unk1AC);
+    uvDobjState(falco->unk8, falco->unk256 != 0 ? 0x22 : 0);
+    falco->unk0 = uvDobjAllocIdx();
+    uvDobjModel(falco->unk0, MODEL_MECCA_HAWK);
+    uvDobjPosm(falco->unk0, 0, &falco->unk16C);
+    uvDobjState(falco->unk0, 3);
+    if (falco->unk254 == 0) {
+        falco->unkC = hudAddWaypoint(arg1->unk0.x, arg1->unk0.y, arg1->unk0.z);
     }
 }
 
@@ -363,7 +363,7 @@ void falcoFrameUpdate(void) {
             falco_802E4AA8(currentFalco);
             falco_802E4E70(currentFalco);
             if (currentFalco->unk244 > 1.0f) {
-                // remove fraction of unk244
+                // remove integer of unk244
                 currentFalco->unk244 -= (f32)(s32)currentFalco->unk244;
             }
             uvDobjState(currentFalco->unk0, 0);
@@ -432,7 +432,7 @@ void falcoFrameUpdate(void) {
     }
 }
 
-void falco_802E43C4(Falco* arg0) {
+void falco_802E43C4(Falco* falco) {
     Mtx4F* temp_v0_2;
     Mtx4F* temp_a1;
     Vec3F* temp_v0;
@@ -440,44 +440,44 @@ void falco_802E43C4(Falco* arg0) {
     f32* temp_v1;
 
     temp_a1 = &D_80362690->unkC[0].unk2C;
-    arg0->unk8C.f[0] = temp_a1->m[3][0] - arg0->unk16C.m[3][0];
-    arg0->unk8C.f[1] = temp_a1->m[3][1] - arg0->unk16C.m[3][1];
-    arg0->unk8C.f[2] = temp_a1->m[3][2] - arg0->unk16C.m[3][2];
-    temp_v1 = &arg0->unk98;
-    *temp_v1 = uvSqrtF(SQ(arg0->unk8C.f[0]) + SQ(arg0->unk8C.f[1]) + SQ(arg0->unk8C.f[2]));
-    temp_v0 = &arg0->unk8C;
+    falco->unk8C.f[0] = temp_a1->m[3][0] - falco->unk16C.m[3][0];
+    falco->unk8C.f[1] = temp_a1->m[3][1] - falco->unk16C.m[3][1];
+    falco->unk8C.f[2] = temp_a1->m[3][2] - falco->unk16C.m[3][2];
+    temp_v1 = &falco->unk98;
+    *temp_v1 = uvSqrtF(SQ(falco->unk8C.f[0]) + SQ(falco->unk8C.f[1]) + SQ(falco->unk8C.f[2]));
+    temp_v0 = &falco->unk8C;
     if (*temp_v1 != 0.0f) {
         temp_v0->f[0] /= *temp_v1;
         temp_v0->f[1] /= *temp_v1;
         temp_v0->f[2] /= *temp_v1;
     }
-    temp_v0_2 = &arg0->unk16C;
+    temp_v0_2 = &falco->unk16C;
     // @fake
     if (temp_v0_2) { }
-    arg0->unk9C.f[0] = temp_v0_2->m[1][0];
-    arg0->unk9C.f[1] = temp_v0_2->m[1][1];
-    var_fv0 = uvSqrtF(SQ(arg0->unk9C.f[0]) + SQ(arg0->unk9C.f[1]));
+    falco->unk9C.f[0] = temp_v0_2->m[1][0];
+    falco->unk9C.f[1] = temp_v0_2->m[1][1];
+    var_fv0 = uvSqrtF(SQ(falco->unk9C.f[0]) + SQ(falco->unk9C.f[1]));
     if (var_fv0 != 0.0f) {
-        arg0->unk9C.f[0] /= var_fv0;
-        arg0->unk9C.f[1] /= var_fv0;
+        falco->unk9C.f[0] /= var_fv0;
+        falco->unk9C.f[1] /= var_fv0;
     }
-    arg0->unkA8.f[0] = arg0->unk8C.f[0];
-    arg0->unkA8.f[1] = arg0->unk8C.f[1];
-    var_fv0 = uvSqrtF(SQ(arg0->unk8C.f[0]) + SQ(arg0->unk8C.f[1]));
+    falco->unkA8.f[0] = falco->unk8C.f[0];
+    falco->unkA8.f[1] = falco->unk8C.f[1];
+    var_fv0 = uvSqrtF(SQ(falco->unk8C.f[0]) + SQ(falco->unk8C.f[1]));
     if (var_fv0 != 0.0f) {
-        arg0->unkA8.f[0] /= var_fv0;
-        arg0->unkA8.f[1] /= var_fv0;
+        falco->unkA8.f[0] /= var_fv0;
+        falco->unkA8.f[1] /= var_fv0;
     }
-    arg0->unkB4.f[0] = temp_a1->m[1][0];
-    arg0->unkB4.f[1] = temp_a1->m[1][1];
-    var_fv0 = uvSqrtF(SQ(arg0->unkB4.f[0]) + SQ(arg0->unkB4.f[1]));
+    falco->unkB4.f[0] = temp_a1->m[1][0];
+    falco->unkB4.f[1] = temp_a1->m[1][1];
+    var_fv0 = uvSqrtF(SQ(falco->unkB4.f[0]) + SQ(falco->unkB4.f[1]));
     if (var_fv0 != 0.0f) {
-        arg0->unkB4.f[0] /= var_fv0;
-        arg0->unkB4.f[1] /= var_fv0;
+        falco->unkB4.f[0] /= var_fv0;
+        falco->unkB4.f[1] /= var_fv0;
     }
 }
 
-void falco_802E45B0(Falco* arg0) {
+void falco_802E45B0(Falco* falco) {
     static f32 D_8034EFA0 = 0.0f;
     static f32 pad_D_8034EFA4 = 0.0f;
     static f32 pad_D_8034EFA8 = 0.0f;
@@ -496,36 +496,36 @@ void falco_802E45B0(Falco* arg0) {
             D_8034EFA0 = 0.0f;
         }
     }
-    temp_v0 = &arg0->unk8C;
+    temp_v0 = &falco->unk8C;
     // @fake
     if (temp_v0) { }
     temp_fa0 = -((temp_v0->f[0] * temp_v1->m[1][0]) + (temp_v0->f[1] * temp_v1->m[1][1]) + (temp_v0->f[2] * temp_v1->m[1][2]));
-    var_fv0 = (arg0->unk9C.f[0] * arg0->unkA8.f[0]) + (arg0->unk9C.f[1] * arg0->unkA8.f[1]);
+    var_fv0 = (falco->unk9C.f[0] * falco->unkA8.f[0]) + (falco->unk9C.f[1] * falco->unkA8.f[1]);
     if (var_fv0 < 0.99f) {
-        uvVec3Cross(&sp24, &arg0->unk9C, &arg0->unkA8);
+        uvVec3Cross(&sp24, &falco->unk9C, &falco->unkA8);
         if (sp24.f[2] < 0.0f) {
             var_fv0 = -3.0f;
         } else {
             var_fv0 = 3.0f;
         }
-        uvMat4RotateAxis(&arg0->unk16C, var_fv0 * D_8034F854, 'z');
+        uvMat4RotateAxis(&falco->unk16C, var_fv0 * D_8034F854, 'z');
         return;
     }
-    if ((arg0->unk23C != 3) && (arg0->unkCC >= 0 /*.0f*/)) {
-        temp_fv0 = arg0->unk98;
-        if ((arg0->unk158 < temp_fv0) && (temp_fv0 < arg0->unk15C) && (temp_fa0 > 0.965f) && (D_8034EFA0 == 0.0f)) {
-            D_8034EFA0 = arg0->unk160;
-            arg0->unk23C = 3;
-            arg0->unk244 = 0.0f;
+    if ((falco->unk23C != 3) && (falco->unkCC >= 0 /*.0f*/)) {
+        temp_fv0 = falco->unk98;
+        if ((falco->unk158 < temp_fv0) && (temp_fv0 < falco->unk15C) && (temp_fa0 > 0.965f) && (D_8034EFA0 == 0.0f)) {
+            D_8034EFA0 = falco->unk160;
+            falco->unk23C = 3;
+            falco->unk244 = 0.0f;
         }
     }
 }
 
-void falco_802E478C(Falco* arg0, FalcoDomain* arg1) {
-    arg0->domain = arg1;
+void falco_802E478C(Falco* falco, FalcoDomain* arg1) {
+    falco->domain = arg1;
 }
 
-s32 falco_802E4794(Falco* arg0) {
+s32 falco_802E4794(Falco* falco) {
     Vec3F sp6C;
     FalcoDomain* domain;
     f32 temp_fa1;
@@ -538,36 +538,36 @@ s32 falco_802E4794(Falco* arg0) {
     Vec3F* temp_s1;
     Vec3F sp3C;
 
-    domain = arg0->domain;
-    sp6C.f[0] = domain->unk0.f[0] - arg0->unk16C.m[3][0];
-    sp6C.f[1] = domain->unk0.f[1] - arg0->unk16C.m[3][1];
+    domain = falco->domain;
+    sp6C.f[0] = domain->unk0.f[0] - falco->unk16C.m[3][0];
+    sp6C.f[1] = domain->unk0.f[1] - falco->unk16C.m[3][1];
     sp6C.f[2] = 0.0f;
     temp_fv0 = uvSqrtF(SQ(sp6C.f[0]) + SQ(sp6C.f[1]));
     if (temp_fv0 > 0.0f) {
         sp6C.f[0] /= temp_fv0;
         sp6C.f[1] /= temp_fv0;
     }
-    if (arg0->domain->unkC < temp_fv0) {
-        temp_s1 = (Vec3F*)&arg0->unk16C.m[3];
+    if (falco->domain->unkC < temp_fv0) {
+        temp_s1 = (Vec3F*)&falco->unk16C.m[3];
         for (i = 0; i < sFalcoCount; i++) {
             temp_fv0 = sFalcoDomains[i].unk0.f[0] - temp_s1->x;
             temp_fv1 = sFalcoDomains[i].unk0.f[1] - temp_s1->y;
             temp_fa1 = sFalcoDomains[i].unk0.f[2] - temp_s1->z;
             if (uvSqrtF(SQ(temp_fv0) + SQ(temp_fv1) + SQ(temp_fa1)) < sFalcoDomains[i].unkC) {
-                falco_802E478C(arg0, &sFalcoDomains[i]);
+                falco_802E478C(falco, &sFalcoDomains[i]);
                 return 1;
             }
         }
-        sp50 = (arg0->unk9C.f[0] * sp6C.f[0]) + (arg0->unk9C.f[1] * sp6C.f[1]);
+        sp50 = (falco->unk9C.f[0] * sp6C.f[0]) + (falco->unk9C.f[1] * sp6C.f[1]);
         if (sp50 < 0.99f) {
-            uvVec3Cross(&sp3C, &sp6C, &arg0->unk9C);
+            uvVec3Cross(&sp3C, &sp6C, &falco->unk9C);
             if (sp50 < 0.99f) {
                 if (sp3C.f[2] < 0.0f) {
                     var_fv0 = 3.0f;
                 } else {
                     var_fv0 = -3.0f;
                 }
-                arg0->unk88 += var_fv0 * D_8034F854;
+                falco->unk88 += var_fv0 * D_8034F854;
             }
             return 0;
         }
@@ -575,77 +575,77 @@ s32 falco_802E4794(Falco* arg0) {
     return 1;
 }
 
-void falco_802E49B0(Falco* arg0) {
+void falco_802E49B0(Falco* falco) {
     f32 var_fv0_2;
     f32 sp30;
 
-    if (arg0->unk256 != 0) {
+    if (falco->unk256 != 0) {
         sp30 = -1.0f;
     } else {
         sp30 = -24.63f;
     }
-    uvMat4SetIdentity(&arg0->unk1EC);
-    arg0->unk1EC.m[3][0] = arg0->unk16C.m[3][0];
-    arg0->unk1EC.m[3][1] = arg0->unk16C.m[3][1];
-    arg0->unk1EC.m[3][2] = arg0->unk16C.m[3][2] + sp30;
-    if (arg0->unk256 != 0) {
+    uvMat4SetIdentity(&falco->unk1EC);
+    falco->unk1EC.m[3][0] = falco->unk16C.m[3][0];
+    falco->unk1EC.m[3][1] = falco->unk16C.m[3][1];
+    falco->unk1EC.m[3][2] = falco->unk16C.m[3][2] + sp30;
+    if (falco->unk256 != 0) {
         var_fv0_2 = -1.0f;
     } else {
         var_fv0_2 = 1.0f;
     }
-    arg0->unk1EC.m[1][0] = arg0->unk230.x * var_fv0_2;
-    arg0->unk1EC.m[1][1] = arg0->unk230.y * var_fv0_2;
-    arg0->unk1EC.m[1][2] = arg0->unk230.z * var_fv0_2;
-    uvVec3Cross((Vec3F*)arg0->unk1EC.m[2], (Vec3F*)arg0->unk16C.m[0], (Vec3F*)arg0->unk1EC.m[1]);
-    uvVec3Cross((Vec3F*)arg0->unk1EC.m[0], (Vec3F*)arg0->unk1EC.m[1], (Vec3F*)arg0->unk1EC.m[2]);
-    arg0->unk23C = 9;
-    arg0->unk244 = 0.0f;
+    falco->unk1EC.m[1][0] = falco->unk230.x * var_fv0_2;
+    falco->unk1EC.m[1][1] = falco->unk230.y * var_fv0_2;
+    falco->unk1EC.m[1][2] = falco->unk230.z * var_fv0_2;
+    uvVec3Cross((Vec3F*)falco->unk1EC.m[2], (Vec3F*)falco->unk16C.m[0], (Vec3F*)falco->unk1EC.m[1]);
+    uvVec3Cross((Vec3F*)falco->unk1EC.m[0], (Vec3F*)falco->unk1EC.m[1], (Vec3F*)falco->unk1EC.m[2]);
+    falco->unk23C = 9;
+    falco->unk244 = 0.0f;
 }
 
-void falco_802E4AA8(Falco* arg0) {
+void falco_802E4AA8(Falco* falco) {
     f32 temp_fv1;
     f32 sp28;
     f32 sp24;
     f32 var_fv0;
     s32 sp1C;
 
-    switch (arg0->unk23C) {
+    switch (falco->unk23C) {
     case 4:
     case 5:
     case 6:
-        arg0->unk16C.m[3][0] += D_8034F854 * arg0->unkC8 * arg0->unk16C.m[1][0];
-        arg0->unk16C.m[3][1] += D_8034F854 * arg0->unkC8 * arg0->unk16C.m[1][1];
-        arg0->unk16C.m[3][2] = arg0->unkCC;
-        falco_802E4794(arg0);
-        if (arg0->unk23C == 5) {
+        falco->unk16C.m[3][0] += D_8034F854 * falco->unkC8 * falco->unk16C.m[1][0];
+        falco->unk16C.m[3][1] += D_8034F854 * falco->unkC8 * falco->unk16C.m[1][1];
+        falco->unk16C.m[3][2] = falco->unkCC;
+        falco_802E4794(falco);
+        if (falco->unk23C == 5) {
             var_fv0 = 50.0f;
         } else {
             var_fv0 = 30.0f;
         }
-        arg0->unk244 += (D_8034F854 * arg0->unkC8) / var_fv0;
+        falco->unk244 += (D_8034F854 * falco->unkC8) / var_fv0;
         break;
     case 0:
     case 1:
     case 7:
-        arg0->unk16C.m[3][0] += D_8034F854 * arg0->unkC8 * arg0->unk16C.m[1][0];
-        arg0->unk16C.m[3][1] += D_8034F854 * arg0->unkC8 * arg0->unk16C.m[1][1];
-        arg0->unk16C.m[3][2] -= 0.1f * D_8034F854;
-        falco_802E4794(arg0);
-        temp_fv1 = arg0->unk244;
-        if (arg0->unk23C == 1) {
+        falco->unk16C.m[3][0] += D_8034F854 * falco->unkC8 * falco->unk16C.m[1][0];
+        falco->unk16C.m[3][1] += D_8034F854 * falco->unkC8 * falco->unk16C.m[1][1];
+        falco->unk16C.m[3][2] -= 0.1f * D_8034F854;
+        falco_802E4794(falco);
+        temp_fv1 = falco->unk244;
+        if (falco->unk23C == 1) {
             var_fv0 = 50.0f;
         } else {
             var_fv0 = 30.0f;
         }
-        arg0->unk244 += ((D_8034F854 * arg0->unkC8) / var_fv0);
-        if (((arg0->unk256 == 0) && (temp_fv1 <= 0.5f) && (arg0->unk244 >= 0.5f)) || ((temp_fv1 <= 1.0f) && (arg0->unk244 >= 1.0f))) {
-            sp24 = 1.0f - ((arg0->unk98 - 300.0f) * 0.001f);
+        falco->unk244 += ((D_8034F854 * falco->unkC8) / var_fv0);
+        if (((falco->unk256 == 0) && (temp_fv1 <= 0.5f) && (falco->unk244 >= 0.5f)) || ((temp_fv1 <= 1.0f) && (falco->unk244 >= 1.0f))) {
+            sp24 = 1.0f - ((falco->unk98 - 300.0f) * 0.001f);
             if (sp24 > 0.0f) {
                 if (sp24 > 1.0f) {
                     sp24 = 1.0f;
                 }
-                sp28 = (arg0->unkA8.f[0] * arg0->unkB4.f[1]) - (arg0->unkA8.f[1] * arg0->unkB4.f[0]);
-                if (arg0->unk244 >= 1.0f) {
+                sp28 = (falco->unkA8.f[0] * falco->unkB4.f[1]) - (falco->unkA8.f[1] * falco->unkB4.f[0]);
+                if (falco->unk244 >= 1.0f) {
                     sp1C = 0x4E;
                 } else {
                     sp1C = 0x4F;
@@ -656,37 +656,37 @@ void falco_802E4AA8(Falco* arg0) {
         }
         break;
     case 2:
-        falco_802E45B0(arg0);
+        falco_802E45B0(falco);
         break;
     case 3:
-        falco_802E45B0(arg0);
-        arg0->unk244 += D_8034F854;
+        falco_802E45B0(falco);
+        falco->unk244 += D_8034F854;
         break;
     case 8:
-        arg0->unk244 += 0.2f * D_8034F854 * (arg0->unkD0 + 1.0f);
-        arg0->unk16C.m[3][0] += D_8034F854 * arg0->unkC8 * arg0->unk16C.m[1][0];
-        arg0->unk16C.m[3][1] += D_8034F854 * arg0->unkC8 * arg0->unk16C.m[1][1];
-        arg0->unk16C.m[3][2] -= 0.1f * D_8034F854;
+        falco->unk244 += 0.2f * D_8034F854 * (falco->unkD0 + 1.0f);
+        falco->unk16C.m[3][0] += D_8034F854 * falco->unkC8 * falco->unk16C.m[1][0];
+        falco->unk16C.m[3][1] += D_8034F854 * falco->unkC8 * falco->unk16C.m[1][1];
+        falco->unk16C.m[3][2] -= 0.1f * D_8034F854;
         break;
     case 9:
-        arg0->unk244 += D_8034F854;
+        falco->unk244 += D_8034F854;
         break;
     case 10:
         break;
     }
 }
 
-void falco_802E4E70(Falco* arg0) {
+void falco_802E4E70(Falco* falco) {
     f32 temp_fv0;
     Unk8035A920* temp_v0;
     s32 sp64;
     s32 v0_2;
 
-    switch (arg0->unk23C) {
+    switch (falco->unk23C) {
     case 9:
-        if (arg0->unk244 >= 1.0f) {
-            arg0->unk244 = 1.0f;
-            arg0->unk23C = 10;
+        if (falco->unk244 >= 1.0f) {
+            falco->unk244 = 1.0f;
+            falco->unk23C = 10;
             func_8033F758(0x46U, 1.0f, 1.0f, 0 /*.0f*/);
             return;
         }
@@ -694,38 +694,38 @@ void falco_802E4E70(Falco* arg0) {
     default:
         return;
     case 3:
-        if (arg0->unk244 >= 1.0f) {
-            arg0->unk23C = 2;
+        if (falco->unk244 >= 1.0f) {
+            falco->unk23C = 2;
             temp_fv0 = uvRandF_LCG();
-            arg0->unkD0 = (temp_fv0 * arg0->unk114) + arg0->unk110;
+            falco->unkD0 = (temp_fv0 * falco->unk114) + falco->unk110;
             temp_v0 = falco_802E5AFC();
             if (temp_v0 != NULL) {
-                falco_802E5BF8(temp_v0, arg0);
+                falco_802E5BF8(temp_v0, falco);
                 return;
             }
         }
         break;
     case 8:
-        v0_2 = arg0->unkD0;
-        arg0->unkD0 -= D_8034F854;
-        if (v0_2 != (s32)arg0->unkD0) {
+        v0_2 = falco->unkD0;
+        falco->unkD0 -= D_8034F854;
+        if (v0_2 != (s32)falco->unkD0) {
             sp64 = func_8021EFF0(8);
             if (sp64 != 0xFF) {
                 uvModelGet(sp64, 8);
                 // clang-format off
                 uvFxProps(
                     sp64,
-                    FX_PROP_10(arg0->unk16C.m[3][0], arg0->unk16C.m[3][1], arg0->unk16C.m[3][2]),
+                    FX_PROP_10(falco->unk16C.m[3][0], falco->unk16C.m[3][1], falco->unk16C.m[3][2]),
                     FX_PROP_5(1.0f, 1.0f, 0.0f, 1.0f),
                     FX_PROP_END
                 );
                 // clang-format on
             }
         }
-        if (arg0->unkD0 <= 0.0f) {
-            arg0->unkD0 = 0.0f;
-            if (arg0->unk244 >= 1.0f) {
-                falco_802E49B0(arg0);
+        if (falco->unkD0 <= 0.0f) {
+            falco->unkD0 = 0.0f;
+            if (falco->unk244 >= 1.0f) {
+                falco_802E49B0(falco);
                 return;
             }
         }
@@ -737,32 +737,32 @@ void falco_802E4E70(Falco* arg0) {
     case 5:
     case 6:
     case 7:
-        arg0->unkD0 -= D_8034F854;
-        if (arg0->unk256 != 0) {
-            if ((s32)(arg0->unkD0 * 2.5f) != (s32)((arg0->unkD0 + D_8034F854) * 2.5f)) {
-                arg0->unk1AC.m[3][2] += 2.0f;
-                splash_8034170C(&arg0->unk1AC, 80.0f);
-                arg0->unk1AC.m[3][2] -= 2.0f;
+        falco->unkD0 -= D_8034F854;
+        if (falco->unk256 != 0) {
+            if ((s32)(falco->unkD0 * 2.5f) != (s32)((falco->unkD0 + D_8034F854) * 2.5f)) {
+                falco->unk1AC.m[3][2] += 2.0f;
+                splash_8034170C(&falco->unk1AC, 80.0f);
+                falco->unk1AC.m[3][2] -= 2.0f;
             }
         }
-        if (arg0->unkD0 <= 0.0f) {
+        if (falco->unkD0 <= 0.0f) {
             temp_fv0 = uvRandF_LCG();
-            if (temp_fv0 < arg0->unkD4) {
-                falco_802E6344(arg0);
-            } else if ((arg0->unk23C == 2) || (temp_fv0 < arg0->unkD8)) {
-                falco_802E6380(arg0);
-            } else if ((arg0->unk256 != 0) && (temp_fv0 < arg0->unkDC)) {
-                falco_802E62E4(arg0);
+            if (temp_fv0 < falco->unkD4) {
+                falco_802E6344(falco);
+            } else if ((falco->unk23C == 2) || (temp_fv0 < falco->unkD8)) {
+                falco_802E6380(falco);
+            } else if ((falco->unk256 != 0) && (temp_fv0 < falco->unkDC)) {
+                falco_802E62E4(falco);
             } else {
-                falco_802E61E4(arg0);
+                falco_802E61E4(falco);
             }
-            switch (arg0->unk23C) {
+            switch (falco->unk23C) {
             case 0:
             case 1:
             case 4:
             case 5:
             case 6:
-                arg0->unk88 += 2.0f * (uvRandF_LCG() - 0.5f) * 3.1415927f;
+                falco->unk88 += 2.0f * (uvRandF_LCG() - 0.5f) * 3.1415927f;
                 break;
             }
         }
@@ -770,7 +770,7 @@ void falco_802E4E70(Falco* arg0) {
     }
 }
 
-s32 falco_802E51E8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
+s32 falco_802E51E8(s32 falco, f32 arg1, f32 arg2, f32 arg3) {
     Falco* curFalco;
     Unk8035A920* var_s0_2;
     f32 temp_fv0;
@@ -785,7 +785,7 @@ s32 falco_802E51E8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     ret = FALSE;
     curFalco = sFalcos;
     for (i = 0; i < D_8035A5F0; i++, curFalco++) {
-        if (arg0 == curFalco->unk0) {
+        if (falco == curFalco->unk0) {
             ret = TRUE;
             if (curFalco->unk23C == 10 || curFalco->unk23C == 9) {
                 continue;
@@ -821,9 +821,9 @@ s32 falco_802E51E8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
                     curFalco->unkC = -1;
                 }
             } else {
-                temp_s1 = textGetDataByIdx(0x158);
+                temp_s1 = textGetDataByIdx(0x158); // "Shots to go:"
                 func_8033F758(0x3BU, 1.0f, (uvRandF_LCG() * 0.2) + 0.800000011920929, 0.0f);
-                hudText_8031D8E0(0x164, 1.5f, 8.0f);
+                hudText_8031D8E0(0x164, 1.5f, 8.0f); // "Hit"
                 textFmtIntAt(temp_s1, ((1.0f - curFalco->unkC4) / curFalco->unk250) + 0.5, 1, 0xE);
                 hudWarningText(0x158, 1.5f, 8.0f);
                 curFalco->unk23C = 7;
@@ -847,14 +847,14 @@ s32 falco_802E51E8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
         }
     }
     for (i = 0; i < D_8035A918; i++) {
-        if (arg0 == D_8035A920[i].unk0) {
+        if (falco == D_8035A920[i].unk0) {
             falco_802E5F90(&D_8035A920[i]);
         }
     }
     return ret;
 }
 
-void falco_802E55A0(Falco* arg0) {
+void falco_802E55A0(Falco* falco) {
     f32 sp5C;
     s32 sp58;
     u8 sp57;
@@ -864,8 +864,8 @@ void falco_802E55A0(Falco* arg0) {
     f32 var_fv0;
     s32 temp;
 
-    if (arg0->unk256 != 0) {
-        switch (arg0->unk23C) {
+    if (falco->unk256 != 0) {
+        switch (falco->unk23C) {
         case 5:
             var_fv0 = -3.0f;
             break;
@@ -876,20 +876,20 @@ void falco_802E55A0(Falco* arg0) {
             var_fv0 = 1.0f;
             break;
         }
-        arg0->unkCC = (0.2f * var_fv0) + (0.8f * arg0->unkCC);
+        falco->unkCC = (0.2f * var_fv0) + (0.8f * falco->unkCC);
     } else {
-        arg0->unkCC = (arg0->unkCC * 0.8f) + 5.526f;
+        falco->unkCC = (falco->unkCC * 0.8f) + 5.526f;
     }
-    sp48.f[0] = arg0->unk16C.m[3][0];
-    sp48.f[1] = arg0->unk16C.m[3][1];
-    sp48.f[2] = arg0->unk16C.m[3][2];
+    sp48.f[0] = falco->unk16C.m[3][0];
+    sp48.f[1] = falco->unk16C.m[3][1];
+    sp48.f[2] = falco->unk16C.m[3][2];
     if (sp48.f[2] < 1.0f) {
         sp48.f[2] = 1.0f;
     }
-    sp3C.f[0] = sp48.f[0] + arg0->unk16C.m[1][0];
-    sp3C.f[1] = sp48.f[1] + arg0->unk16C.m[1][1];
-    sp3C.f[2] = sp48.f[2] + arg0->unk16C.m[1][2];
-    temp = sp57 = db_getgnd(&sp48, &sp3C, &arg0->unk240, &sp58, &sp5C, &arg0->unk230);
+    sp3C.f[0] = sp48.f[0] + falco->unk16C.m[1][0];
+    sp3C.f[1] = sp48.f[1] + falco->unk16C.m[1][1];
+    sp3C.f[2] = sp48.f[2] + falco->unk16C.m[1][2];
+    temp = sp57 = db_getgnd(&sp48, &sp3C, &falco->unk240, &sp58, &sp5C, &falco->unk230);
     if (sp57 != 2) {
         if (sp57 == 8) { }
         temp = sp57;
@@ -899,21 +899,21 @@ void falco_802E55A0(Falco* arg0) {
     }
 
     if (!temp) {
-        arg0->unk16C.m[3][2] = sp5C + arg0->unkCC;
+        falco->unk16C.m[3][2] = sp5C + falco->unkCC;
     } else {
         temp_v0_3 = func_802E02EC();
         if (sp57 != 4) {
-            arg0->unk16C.m[3][0] = temp_v0_3->f[0];
-            arg0->unk16C.m[3][1] = temp_v0_3->f[1];
+            falco->unk16C.m[3][0] = temp_v0_3->f[0];
+            falco->unk16C.m[3][1] = temp_v0_3->f[1];
         }
-        arg0->unk16C.m[3][2] = temp_v0_3->f[2] + arg0->unkCC;
+        falco->unk16C.m[3][2] = temp_v0_3->f[2] + falco->unkCC;
     }
-    if ((sp5C <= 0.0f) && (arg0->unk256 == 0)) {
-        falco_802E6284(arg0);
+    if ((sp5C <= 0.0f) && (falco->unk256 == 0)) {
+        falco_802E6284(falco);
         return;
     }
-    if (((sp57 == 1) || (sp5C > 0.0f)) && (arg0->unk256 != 0)) {
-        falco_802E6184(arg0);
+    if (((sp57 == 1) || (sp5C > 0.0f)) && (falco->unk256 != 0)) {
+        falco_802E6184(falco);
     }
 }
 
@@ -941,7 +941,7 @@ s32 falco_802E5818(void) {
     return ret;
 }
 
-void falco_802E587C(Falco* arg0) {
+void falco_802E587C(Falco* falco) {
     static Unk802CAC48 D_8034EFB0 = { 0, 10, &D_8035AF30, NULL };
     static Unk802CAC48 D_8034EFBC = { 0, 5, &D_8035AF34, NULL };
     static Unk802CAC48 D_8034EFC8 = { 0, 6, &D_8035AF30, NULL };
@@ -964,11 +964,11 @@ void falco_802E587C(Falco* arg0) {
     s32 sp1C;
     f32 var_fa0;
 
-    sp1C = arg0->unk23C;
-    D_8035AF3C = arg0->unk244;
-    D_8035AF30 = arg0->unk244;
-    D_8035AF34 = arg0->unk244;
-    D_8035AF38 = arg0->unk244;
+    sp1C = falco->unk23C;
+    D_8035AF3C = falco->unk244;
+    D_8035AF30 = falco->unk244;
+    D_8035AF34 = falco->unk244;
+    D_8035AF38 = falco->unk244;
     if ((sp1C == 5) || (sp1C == 4)) {
         var_fa0 = 1.0f;
     } else {
@@ -1012,9 +1012,9 @@ void falco_802E587C(Falco* arg0) {
     }
     D_8035AF58 = func_80313AF4(var_fa0, D_8035AF58, 10.0f);
     func_802CAAC8(D_8034F09C, &sp20);
-    func_80200638(arg0->unk0, &sp20);
-    if (arg0->unk256 != 0) {
-        func_80200638(arg0->unk4, &sp20);
+    func_80200638(falco->unk0, &sp20);
+    if (falco->unk256 != 0) {
+        func_80200638(falco->unk4, &sp20);
     }
 }
 
@@ -1037,216 +1037,216 @@ Unk8035A920* falco_802E5AFC(void) {
     return 0;
 }
 
-void falco_802E5BF8(Unk8035A920* arg0, Falco* arg1) {
+void falco_802E5BF8(Unk8035A920* falco, Falco* arg1) {
     f32 fv0;
 
-    arg0->unk0 = uvDobjAllocIdx();
-    if (arg0->unk0 != 0xFFFF) {
+    falco->unk0 = uvDobjAllocIdx();
+    if (falco->unk0 != 0xFFFF) {
         func_8033F758(0x3DU, 1.0f, (uvRandF_LCG() * 0.2f) + 0.4f, 0.0f);
-        arg0->unk5D = arg1->unk256;
-        if (arg0->unk5D) {
-            uvDobjModel(arg0->unk0, 0x100);
+        falco->unk5D = arg1->unk256;
+        if (falco->unk5D) {
+            uvDobjModel(falco->unk0, 0x100);
         } else {
-            uvDobjModel(arg0->unk0, 0xFF);
+            uvDobjModel(falco->unk0, 0xFF);
         }
-        uvMat4SetIdentity(&arg0->unk8);
+        uvMat4SetIdentity(&falco->unk8);
         fv0 = uvRandF_LCG();
-        arg0->unk58 = (arg1->unk14C * fv0) + arg1->unk148;
+        falco->unk58 = (arg1->unk14C * fv0) + arg1->unk148;
         fv0 = uvRandF_LCG();
-        arg0->unk54 = (arg1->unk154 * fv0) + arg1->unk150;
-        arg0->unk48.f[0] = arg1->unk8C.f[0] * arg0->unk58;
-        arg0->unk48.f[1] = arg1->unk8C.f[1] * arg0->unk58;
-        arg0->unk48.f[2] = arg1->unk8C.f[2] * arg0->unk58;
-        arg0->unk8.m[3][0] = arg1->unk16C.m[3][0] + (arg1->unk8C.f[0] * 15.0f);
-        arg0->unk8.m[3][1] = arg1->unk16C.m[3][1] + (arg1->unk8C.f[1] * 15.0f);
-        arg0->unk8.m[3][2] = arg1->unk16C.m[3][2] + (arg1->unk8C.f[2] * 15.0f);
-        arg0->radarIdx = hudAddWaypoint(arg0->unk8.m[3][0], arg0->unk8.m[3][1], arg0->unk8.m[3][2]);
-        uvDobjState(arg0->unk0, 3);
-        uvDobjPosm(arg0->unk0, 0, &arg0->unk8);
+        falco->unk54 = (arg1->unk154 * fv0) + arg1->unk150;
+        falco->unk48.f[0] = arg1->unk8C.f[0] * falco->unk58;
+        falco->unk48.f[1] = arg1->unk8C.f[1] * falco->unk58;
+        falco->unk48.f[2] = arg1->unk8C.f[2] * falco->unk58;
+        falco->unk8.m[3][0] = arg1->unk16C.m[3][0] + (arg1->unk8C.f[0] * 15.0f);
+        falco->unk8.m[3][1] = arg1->unk16C.m[3][1] + (arg1->unk8C.f[1] * 15.0f);
+        falco->unk8.m[3][2] = arg1->unk16C.m[3][2] + (arg1->unk8C.f[2] * 15.0f);
+        falco->radarIdx = hudAddWaypoint(falco->unk8.m[3][0], falco->unk8.m[3][1], falco->unk8.m[3][2]);
+        uvDobjState(falco->unk0, 3);
+        uvDobjPosm(falco->unk0, 0, &falco->unk8);
     }
 }
 
-void falco_802E5D78(Unk8035A920* arg0) {
+void falco_802E5D78(Unk8035A920* falco) {
     Vec3F sp174;
     Unk802D3658_Unk1224 sp30;
 
-    if (arg0->unk0 == 0xFFFF) {
+    if (falco->unk0 == 0xFFFF) {
         return;
     }
 
-    arg0->unk54 -= D_8034F854;
-    if (arg0->unk54 <= 0.0f) {
-        arg0->unk54 = 0.0f;
-        falco_802E5F44(arg0);
+    falco->unk54 -= D_8034F854;
+    if (falco->unk54 <= 0.0f) {
+        falco->unk54 = 0.0f;
+        falco_802E5F44(falco);
         return;
     }
 
-    sp174.f[0] = arg0->unk8.m[3][0];
-    sp174.f[1] = arg0->unk8.m[3][1];
-    sp174.f[2] = arg0->unk8.m[3][2];
-    arg0->unk8.m[3][0] += arg0->unk48.f[0] * D_8034F854;
-    arg0->unk8.m[3][1] += arg0->unk48.f[1] * D_8034F854;
-    arg0->unk8.m[3][2] += arg0->unk48.f[2] * D_8034F854;
-    func_802DB224(&sp30, 9U, 0xFFFFU, 0U, &sp174, (Vec3F*)arg0->unk8.m[3]);
+    sp174.f[0] = falco->unk8.m[3][0];
+    sp174.f[1] = falco->unk8.m[3][1];
+    sp174.f[2] = falco->unk8.m[3][2];
+    falco->unk8.m[3][0] += falco->unk48.f[0] * D_8034F854;
+    falco->unk8.m[3][1] += falco->unk48.f[1] * D_8034F854;
+    falco->unk8.m[3][2] += falco->unk48.f[2] * D_8034F854;
+    func_802DB224(&sp30, 9U, 0xFFFFU, 0U, &sp174, (Vec3F*)falco->unk8.m[3]);
     if (sp30.unk0 != 0) {
-        falco_802E5F90(arg0);
+        falco_802E5F90(falco);
         func_8033F758(0x30U, 1.0f, 1.0f, 0.0f);
         return;
     }
-    uvMat4RotateAxis(&arg0->unk8, 2.0f * (D_8034F854 * 1.3f) * 3.1415927f, 'x');
-    uvMat4RotateAxis(&arg0->unk8, 2.0f * (D_8034F854 * 0.3f) * 3.1415927f, 'z');
-    uvDobjPosm(arg0->unk0, 0, &arg0->unk8);
-    hudMoveWaypoint(arg0->radarIdx, arg0->unk8.m[3][0], arg0->unk8.m[3][1], arg0->unk8.m[3][2]);
+    uvMat4RotateAxis(&falco->unk8, 2.0f * (D_8034F854 * 1.3f) * 3.1415927f, 'x');
+    uvMat4RotateAxis(&falco->unk8, 2.0f * (D_8034F854 * 0.3f) * 3.1415927f, 'z');
+    uvDobjPosm(falco->unk0, 0, &falco->unk8);
+    hudMoveWaypoint(falco->radarIdx, falco->unk8.m[3][0], falco->unk8.m[3][1], falco->unk8.m[3][2]);
 }
 
-void falco_802E5F44(Unk8035A920* arg0) {
-    if (arg0->unk0 != 0xFFFF) {
-        uvDobjModel(arg0->unk0, 0xFFFF);
-        arg0->unk0 = 0xFFFF;
-        hud_8031A8E0(arg0->radarIdx);
+void falco_802E5F44(Unk8035A920* falco) {
+    if (falco->unk0 != 0xFFFF) {
+        uvDobjModel(falco->unk0, 0xFFFF);
+        falco->unk0 = 0xFFFF;
+        hud_8031A8E0(falco->radarIdx);
     }
 }
 
-void falco_802E5F90(Unk8035A920* arg0) {
+void falco_802E5F90(Unk8035A920* falco) {
     s32 sp44;
 
     sp44 = func_8021EFF0(8);
     if (sp44 != 0xFF) {
         uvModelGet(sp44, 8);
-        uvFxProps(sp44, FX_PROP_10(arg0->unk8.m[3][0], arg0->unk8.m[3][1], arg0->unk8.m[3][2]), FX_PROP_END);
-        if (arg0->unk5D != 0) {
+        uvFxProps(sp44, FX_PROP_10(falco->unk8.m[3][0], falco->unk8.m[3][1], falco->unk8.m[3][2]), FX_PROP_END);
+        if (falco->unk5D != 0) {
             uvFxProps(sp44, FX_PROP_5(1.0f, 1.0f, 1.0f, 1.0f), FX_PROP_END);
         } else {
             uvFxProps(sp44, FX_PROP_5(0.3f, 0.2f, 0.1f, 1.0f), FX_PROP_END);
         }
     }
-    falco_802E5F44(arg0);
+    falco_802E5F44(falco);
 }
 
-void falco_802E60A4(Falco* arg0) {
-    arg0->unk256 = 1;
-    uvDobjState(arg0->unk8, 0x22);
-    uvDobjState(arg0->unk4, 2);
+void falco_802E60A4(Falco* falco) {
+    falco->unk256 = 1;
+    uvDobjState(falco->unk8, 0x22);
+    uvDobjState(falco->unk4, 2);
 }
 
-void falco_802E60E8(Falco* arg0) {
-    arg0->unk256 = 0;
-    uvDobjState(arg0->unk8, 0);
-    uvDobjState(arg0->unk4, 0);
+void falco_802E60E8(Falco* falco) {
+    falco->unk256 = 0;
+    uvDobjState(falco->unk8, 0);
+    uvDobjState(falco->unk4, 0);
 }
 
-void falco_802E6128(Falco* arg0) {
+void falco_802E6128(Falco* falco) {
     f32 temp;
 
-    falco_802E60E8(arg0);
-    arg0->unk23C = 0;
+    falco_802E60E8(falco);
+    falco->unk23C = 0;
     temp = uvRandF_LCG();
-    arg0->unkD0 = (arg0->unkE4 * temp) + arg0->unkE0;
+    falco->unkD0 = (falco->unkE4 * temp) + falco->unkE0;
     temp = uvRandF_LCG();
-    arg0->unkC8 = (arg0->unk11C * temp) + arg0->unk118;
+    falco->unkC8 = (falco->unk11C * temp) + falco->unk118;
 }
 
-void falco_802E6184(Falco* arg0) {
+void falco_802E6184(Falco* falco) {
     f32 temp;
 
-    falco_802E60E8(arg0);
-    arg0->unk23C = 1;
+    falco_802E60E8(falco);
+    falco->unk23C = 1;
     temp = uvRandF_LCG();
-    arg0->unkD0 = (arg0->unkEC * temp) + arg0->unkE8;
+    falco->unkD0 = (falco->unkEC * temp) + falco->unkE8;
     temp = uvRandF_LCG();
-    arg0->unkC8 = (arg0->unk124 * temp) + arg0->unk120;
+    falco->unkC8 = (falco->unk124 * temp) + falco->unk120;
 }
 
-void falco_802E61E4(Falco* arg0) {
+void falco_802E61E4(Falco* falco) {
     f32 temp;
 
-    arg0->unk23C = 2;
+    falco->unk23C = 2;
     temp = uvRandF_LCG();
-    arg0->unkD0 = (arg0->unk114 * temp) + arg0->unk110;
+    falco->unkD0 = (falco->unk114 * temp) + falco->unk110;
 }
 
-void falco_802E6224(Falco* arg0) {
+void falco_802E6224(Falco* falco) {
     f32 temp;
 
-    falco_802E60A4(arg0);
-    arg0->unk23C = 4;
+    falco_802E60A4(falco);
+    falco->unk23C = 4;
     temp = uvRandF_LCG();
-    arg0->unkD0 = (arg0->unkF4 * temp) + arg0->unkF0;
+    falco->unkD0 = (falco->unkF4 * temp) + falco->unkF0;
     temp = uvRandF_LCG();
-    arg0->unkC8 = (arg0->unk12C * temp) + arg0->unk128;
+    falco->unkC8 = (falco->unk12C * temp) + falco->unk128;
 }
 
-void falco_802E6284(Falco* arg0) {
+void falco_802E6284(Falco* falco) {
     f32 temp;
 
-    falco_802E60A4(arg0);
-    arg0->unk23C = 5;
+    falco_802E60A4(falco);
+    falco->unk23C = 5;
     temp = uvRandF_LCG();
-    arg0->unkD0 = (arg0->unkFC * temp) + arg0->unkF8;
+    falco->unkD0 = (falco->unkFC * temp) + falco->unkF8;
     temp = uvRandF_LCG();
-    arg0->unkC8 = (arg0->unk134 * temp) + arg0->unk130;
+    falco->unkC8 = (falco->unk134 * temp) + falco->unk130;
 }
 
-void falco_802E62E4(Falco* arg0) {
+void falco_802E62E4(Falco* falco) {
     f32 temp;
 
-    falco_802E60A4(arg0);
-    arg0->unk23C = 6;
+    falco_802E60A4(falco);
+    falco->unk23C = 6;
     temp = uvRandF_LCG();
-    arg0->unkD0 = (arg0->unk10C * temp) + arg0->unk108;
+    falco->unkD0 = (falco->unk10C * temp) + falco->unk108;
     temp = uvRandF_LCG();
-    arg0->unkC8 = (arg0->unk144 * temp) + arg0->unk140;
+    falco->unkC8 = (falco->unk144 * temp) + falco->unk140;
 }
 
-void falco_802E6344(Falco* arg0) {
-    if (arg0->unk256 != 0) {
-        falco_802E6224(arg0);
+void falco_802E6344(Falco* falco) {
+    if (falco->unk256 != 0) {
+        falco_802E6224(falco);
         return;
     }
-    falco_802E6128(arg0);
+    falco_802E6128(falco);
 }
 
-void falco_802E6380(Falco* arg0) {
-    if (arg0->unk256 != 0) {
-        falco_802E6284(arg0);
+void falco_802E6380(Falco* falco) {
+    if (falco->unk256 != 0) {
+        falco_802E6284(falco);
         return;
     }
-    falco_802E6184(arg0);
+    falco_802E6184(falco);
 }
 
-void falco_802E63BC(Falco* arg0, Mtx4F* arg1) {
+void falco_802E63BC(Falco* falco, Mtx4F* arg1) {
     f32 var_fv0;
     Mtx4F sp34;
 
-    if (arg0->unk84 != arg0->unk80) {
-        var_fv0 = arg0->unk84 - arg0->unk80;
+    if (falco->unk84 != falco->unk80) {
+        var_fv0 = falco->unk84 - falco->unk80;
         if ((3.1415927f * D_8034F854) < var_fv0) {
             var_fv0 = (3.1415927f * D_8034F854);
         }
         if (var_fv0 < (-3.1415927f * D_8034F854)) {
             var_fv0 = -3.1415927f * D_8034F854;
         }
-        arg0->unk80 += var_fv0;
+        falco->unk80 += var_fv0;
     }
-    if (arg0->unk80 != 0.0f) {
+    if (falco->unk80 != 0.0f) {
         uvMat4Copy(&sp34, arg1);
-        uvMat4RotateAxis(&sp34, arg0->unk80, 'x');
-        if (arg0->unk256 != 0) {
-            uvDobjPosm(arg0->unk4, 0, &sp34);
+        uvMat4RotateAxis(&sp34, falco->unk80, 'x');
+        if (falco->unk256 != 0) {
+            uvDobjPosm(falco->unk4, 0, &sp34);
         }
-        uvDobjPosm(arg0->unk0, 0, &sp34);
+        uvDobjPosm(falco->unk0, 0, &sp34);
         return;
     }
-    if (arg0->unk256 != 0) {
-        uvDobjPosm(arg0->unk4, 0, arg1);
+    if (falco->unk256 != 0) {
+        uvDobjPosm(falco->unk4, 0, arg1);
     }
-    uvDobjPosm(arg0->unk0, 0, arg1);
+    uvDobjPosm(falco->unk0, 0, arg1);
 }
 
-void falco_802E64E0(s32 arg0, Mtx4F* arg1) {
+void falco_802E64E0(s32 falco, Mtx4F* arg1) {
     Falco* sp18;
 
-    sp18 = &sFalcos[arg0];
+    sp18 = &sFalcos[falco];
     uvMat4Copy(arg1, &sp18->unk16C);
     if (sp18->unk80 != 0.0f) {
         uvMat4RotateAxis(arg1, sp18->unk80, 'x');
