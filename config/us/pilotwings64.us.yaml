@@ -716,7 +716,7 @@ segments:
       - { type: bss, vram: 0x80373E20, name: app/snd }
       - { type: bss, vram: 0x80373EF0, name: app/snow }
       - { type: .bss, vram: 0x80373F10, name: app/spath }
-      - { type: bss, vram: 0x80376CC0, name: app/splash }
+      - { type: .bss, vram: 0x80376CC0, name: app/splash }
       - { type: .bss, vram: 0x80377F10, name: app/text_data }
       - { type: .bss, vram: 0x80378CE0, name: app/code_C9B60 }
       - { type: .bss, vram: 0x80378CF0, name: app/targets }
