@@ -591,14 +591,14 @@ void func_8030F448(void) {
     s32 i;
 
     func_80314154();
-    uvGfxSetFlags(0x400000);
+    uvGfxSetFlags(GFX_STATE_400000);
     uvVtxBeginPoly();
     uvVtx(0, SCREEN_HEIGHT, 0, 0, 0, 0, 0, 0, 100);
     uvVtx(0, 0, 0, 0, 0, 0, 0, 0, 100);
     uvVtx(SCREEN_WIDTH, 0, 0, 0, 0, 0, 0, 0, 100);
     uvVtx(SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, 0, 0, 0, 100);
     uvVtxEndPoly();
-    uvGfxClearFlags(0x400000);
+    uvGfxClearFlags(GFX_STATE_400000);
     func_803141E4();
     if (D_8034F7B0 == 0) {
         uvSprtDraw(17);
