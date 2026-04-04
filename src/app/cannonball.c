@@ -14,7 +14,7 @@
 #include "cbsound.h"
 #include "camera.h"
 #include "code_60020.h"
-#include "code_66160.h"
+#include "code_66F70.h"
 #include "code_72010.h"
 #include "game.h"
 #include "code_7FE00.h"

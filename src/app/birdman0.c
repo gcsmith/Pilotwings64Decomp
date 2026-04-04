@@ -6,7 +6,7 @@
 #include "birdman.h"
 #include "bmsound.h"
 #include "camera.h"
-#include "code_66160.h"
+#include "code_66F70.h"
 #include "game.h"
 #include "code_7FE00.h"
 #include "code_9A960.h"

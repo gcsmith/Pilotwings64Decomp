@@ -16,7 +16,7 @@
 #include "app/snd.h"
 #include "app/targets.h"
 #include "app/toys.h"
-#include "app/code_66160.h"
+#include "app/code_66F70.h"
 #include "app/code_7C4C0.h"
 #include "app/code_7FE00.h"
 #include "app/code_9A960.h"

@@ -58,7 +58,6 @@ s32 func_802DAA34(void);
 void func_802DAB18(Camera*);
 s32 func_802DB38C(Unk802D3658_Unk1228*, Vec3F*, Vec3F*);
 s32 func_802DB6D4(Unk802D3658_Unk1228*, Vec3F*, Vec3F*);
-s32 func_802DB9B8(Unk802D3658_Unk1228*, Vec3F*, Vec3F*);
 s32 func_802DBCB0(Unk802D3658_Unk1228*, Vec3F*, Vec3F*);
 void func_802DBE10(Unk802D3658_Unk1228*, s32, s32, f32, Vec3F*, Vec3F*);
 

@@ -14,7 +14,7 @@
 #include "app/sdsound.h"
 #include "app/snd.h"
 #include "app/text_data.h"
-#include "app/code_66160.h"
+#include "app/code_66F70.h"
 #include "app/code_7FE00.h"
 #include "app/code_9A960.h"
 #include "app/code_B6580.h"

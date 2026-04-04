@@ -18,7 +18,7 @@
 #include "app/task.h"
 #include "app/camera.h"
 #include "app/code_61A60.h"
-#include "app/code_66160.h"
+#include "app/code_66F70.h"
 #include "app/jumble_hopper.h"
 #include "app/code_9A960.h"
 #include "app/code_D1ED0.h"
