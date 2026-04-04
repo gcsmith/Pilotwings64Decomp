@@ -215,6 +215,11 @@ app_entrypoint      = 0x8030FE20; // type:func
 map3d               = 0x8030FF00; // type:func
 map3d_mslot         = 0x80312684; // type:func
 
+mistInit            = 0x80314430; // type:func
+mist_803144D0       = 0x803144D0; // type:func
+mistUpdate          = 0x803147B8; // type:func
+mistDeinit          = 0x80314AE0; // type:func
+
 missiIsActive       = 0x80314B50; // type:func
 missiUpdatePos      = 0x80314B5C; // type:func
 missiUpdate         = 0x80314CE8; // type:func

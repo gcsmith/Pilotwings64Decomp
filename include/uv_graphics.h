@@ -503,6 +503,7 @@ void func_80204B08(s32 arg0, s32 arg1, s32 arg2);
 void func_80204B34(s32 arg0, Mtx4F* arg1);
 void func_80204C54(s32 arg0, Mtx4F *arg1);
 void func_80204D94(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
+s32 func_80204EC0(s32, f32, f32, f32, f32);
 u8*  func_80204F9C(s32 arg0);
 void func_80204FC4(s32 arg0);
 void func_80204FE4(s32 arg0);

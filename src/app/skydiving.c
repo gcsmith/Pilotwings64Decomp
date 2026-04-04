@@ -9,6 +9,7 @@
 #include "app/demo.h"
 #include "app/fdr.h"
 #include "app/hud.h"
+#include "app/mist.h"
 #include "app/pads.h"
 #include "app/sdsound.h"
 #include "app/snd.h"
@@ -16,7 +17,6 @@
 #include "app/code_66160.h"
 #include "app/code_7FE00.h"
 #include "app/code_9A960.h"
-#include "app/code_9B960.h"
 #include "app/code_B6580.h"
 #include "app/code_BA190.h"
 
@@ -300,7 +300,7 @@ void func_8032FEAC(SkyDivingData* arg0, s32 arg1, u8 arg2) {
     sp34.m[1][1] = 2.0f;
     sp34.m[1][2] = 2.0f;
     if ((arg0->unk26C <= D_8034F850) && (arg0->unk10.m[3][2] > 100.0f) && (arg0->unk70 == 0)) {
-        func_803144D0(&sp34, NULL);
+        mist_803144D0(&sp34, NULL);
         arg0->unk26C = (D_8034F850 + 0.25f) - (ABS_NOEQ(arg0->unk274) * 0.25f);
     }
     uvMat4SetIdentity(&sp34);
