@@ -547,9 +547,9 @@ s32 func_802DBCB0(Unk802D3658_Unk1228* arg0, Vec3F* arg1, Vec3F* arg2) {
     return 1;
 }
 
-void func_802DBE10(Unk802D3658_Unk1228* arg0, s32 arg1, s32 arg2, f32 arg3, Vec3F* arg4, Vec3F* arg5) {
-    arg0->unk4 = arg1;
-    arg0->surfaceId = arg2;
+void func_802DBE10(Unk802D3658_Unk1228* arg0, s32 collisionType, s32 surfaceId, f32 arg3, Vec3F* arg4, Vec3F* arg5) {
+    arg0->collisionType = collisionType;
+    arg0->surfaceId = surfaceId;
     arg0->unk18 = arg3;
     uvVec3Copy(&arg0->unk1C, arg5);
     uvVec3Copy(&arg0->unkC, arg4);

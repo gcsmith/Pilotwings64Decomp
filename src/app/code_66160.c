@@ -65,7 +65,7 @@ void screenDrawBox2(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, char* arg5
         sp9C = temp_v0 + sp9C + 2;
 
         spA4 = (((arg2 - temp_v0) / 2) + arg0) - arg4;
-        temp_v1 = func_80219828() + arg4 * 2;
+        temp_v1 = uvFontHeight() + arg4 * 2;
         sp98 = temp_v1 + 2;
         spA0 = (arg1 + arg3 - (sp98 / 2)) - (arg4 / 2);
         screenDrawBox(spA4 + arg4, arg1 + arg3 - arg4, (spA4 + sp9C) - arg4, ((spA0 + temp_v1) - arg4) + 2, 0, 0, 0, arg6);

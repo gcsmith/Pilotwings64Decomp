@@ -7,7 +7,7 @@
 #include "app/pads.h"
 #include "app/toys.h"
 #include "app/code_61A60.h"
-#include "app/code_66160.h"
+#include "app/code_66F70.h"
 #include "app/code_9A960.h"
 #include "app/code_B2900.h"
 

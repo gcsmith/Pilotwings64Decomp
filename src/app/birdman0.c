@@ -417,7 +417,7 @@ void bird_802CD0F8(BirdmanData* arg0) {
             x = arg0->unk10.m[3][0];
             y = arg0->unk10.m[3][1];
             z = arg0->unk10.m[3][2];
-            func_802F8AB8(x, y, z, 1.0f, &arg0->unk218.x);
+            func_802F8AB8(x, y, z, 1.0f, &arg0->unk218);
             arg0->unkD4->unk6 = arg0->unk2 = 0;
             uvDobjState(arg0->objId, arg0->unk2);
             uvMat4Copy(&arg0->unkD4->unk80, &arg0->unk10);

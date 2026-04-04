@@ -1652,7 +1652,7 @@ void func_8030877C(GyrocopterData* arg0) {
     for (i = 0; i < sp247; i++) {
         func_802DBE64(&D_80369070, &D_80369178, i, &arg0->unk110);
         temp_s3 = &D_80369178.unk4[i];
-        if ((temp_s3->unk4 == 2) && (targets_8034473C(temp_s3->surfaceId, 1) == 0.0f)) {
+        if ((temp_s3->collisionType == 2) && (targets_8034473C(temp_s3->surfaceId, 1) == 0.0f)) {
             return;
         }
         if (temp_s3->unk0 == 0) {
@@ -1669,7 +1669,7 @@ void func_8030877C(GyrocopterData* arg0) {
             func_802DB224(&spF0, 0xFF, arg0->objId, arg0->unk2, &sp2A8, &sp29C);
             if (spF0.unk0 > 0) {
                 for (j = 0; j < spF0.unk0; j++) {
-                    if (spF0.unk4[j].unk4 == 2) {
+                    if (spF0.unk4[j].collisionType == 2) {
                         var_s0++;
                     }
                 }
@@ -1689,7 +1689,7 @@ void func_8030877C(GyrocopterData* arg0) {
 
     for (i = 0; i < sp247; i++) {
         temp_s3 = &D_80369178.unk4[i];
-        if ((temp_s3->unk4 != 2) || ((temp_s3->unk4 == 2) && !ballsObjIdExists(temp_s3->surfaceId))) {
+        if ((temp_s3->collisionType != 2) || ((temp_s3->collisionType == 2) && !ballsObjIdExists(temp_s3->surfaceId))) {
             func_802DC814(&D_80369178.unk4[i], (Vec3F*)arg0->unk10.m[3]);
         }
         uvVec3Copy(&sp2E4[i], &temp_s3->unk28);
@@ -1697,11 +1697,11 @@ void func_8030877C(GyrocopterData* arg0) {
         temp_fv0 = uvVec3Dot(&arg0->unk190, &sp2C0[i]);
         if (arg0->unk564[arg0->unk544] < temp_fv0) {
             uvVec3Copy(&arg0->unk54C[arg0->unk544], &temp_s3->unkC);
-            arg0->unk545[arg0->unk544] = temp_s3->unk4;
+            arg0->unk545[arg0->unk544] = temp_s3->collisionType;
             arg0->unk564[arg0->unk544] = temp_fv0;
         }
 
-        switch (temp_s3->unk4) {
+        switch (temp_s3->collisionType) {
         case 2:
             sp240 = ballsPopped(temp_s3->surfaceId, &arg0->unk19C, &D_80369178);
             if (sp240 == 0.0f) {
@@ -1774,10 +1774,10 @@ void func_8030877C(GyrocopterData* arg0) {
                     }
                     arg0->unkC0 = 2;
                 } else if (arg0->unkC0 != 2) {
-                    arg0->unkC1 = temp_s3->unk4;
+                    arg0->unkC1 = temp_s3->collisionType;
                 }
             } else if (arg0->unkC0 != 2) {
-                arg0->unkC1 = temp_s3->unk4;
+                arg0->unkC1 = temp_s3->collisionType;
             }
         }
     }

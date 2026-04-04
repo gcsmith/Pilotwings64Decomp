@@ -588,9 +588,9 @@ void bird_802D0080(BirdmanData* arg0) {
         func_802DBE64(&D_803593F0, &D_803594F8, i, &arg0->unk180);
         uvVec3Copy(&arg0->unk110[i], &temp_s1->unkC);
         arg0->unk10C[i] = temp_s1->unk0;
-        arg0->unk108[i] = temp_s1->unk4;
+        arg0->unk108[i] = temp_s1->collisionType;
         arg0->unk140[i] = uvVec3Dot(&arg0->unk200, &temp_s1->unk34);
-        switch (temp_s1->unk4) {
+        switch (temp_s1->collisionType) {
         case 2:
             var_fs2 = var_fs1 = ballsPopped(temp_s1->surfaceId, &arg0->unk218, &D_803594F8);
             if (var_fs1 == 0.0f) {
@@ -606,7 +606,7 @@ void bird_802D0080(BirdmanData* arg0) {
             break;
         case 1:
         case 8:
-            if ((temp_s1->unk4 == 8) && (func_802DC97C(temp_s1->surfaceId) != 0)) {
+            if ((temp_s1->collisionType == 8) && (func_802DC97C(temp_s1->surfaceId) != 0)) {
                 func_8033F758(0x39, 1.0f, 1.0f, 0.0f);
             }
             if ((arg0->unk164 > 1.0f) && (arg0->unk16C < 3.0f) && (temp_s1->unk0 == 3)) {
@@ -666,7 +666,7 @@ void bird_802D0080(BirdmanData* arg0) {
                     }
                 }
             } else {
-                arg0->unk106 = temp_s1->unk4;
+                arg0->unk106 = temp_s1->collisionType;
                 arg0->unk104 = 1;
                 var_fs2 = 0.5f;
                 var_fs1 = 0.7f;
@@ -685,11 +685,11 @@ void bird_802D0080(BirdmanData* arg0) {
             }
             break;
         default:
-            _uvDebugPrintf("bmmot : unknown collision type [%d]\n", temp_s1->unk4);
+            _uvDebugPrintf("bmmot : unknown collision type [%d]\n", temp_s1->collisionType);
             break;
         }
 
-        if ((arg0->unk105 == 0) && (temp_s1->unk4 != 4)) {
+        if ((arg0->unk105 == 0) && (temp_s1->collisionType != 4)) {
             sp27C.x = -arg0->unk200.x;
             sp27C.y = -arg0->unk200.y;
             sp27C.z = -arg0->unk200.z;
@@ -697,8 +697,8 @@ void bird_802D0080(BirdmanData* arg0) {
             func_802DC074(&arg0->unk1C0, &arg0->unk200, &arg0->unk218, &temp_s1->unk34, var_fs2);
         }
         if (arg0->unk104 != 2) {
-            if ((temp_s1->unk4 != 4) && (arg0->unk105 == 0)) {
-                if ((temp_s1->unk4 == 2) && ballsObjIdExists(temp_s1->surfaceId)) {
+            if ((temp_s1->collisionType != 4) && (arg0->unk105 == 0)) {
+                if ((temp_s1->collisionType == 2) && ballsObjIdExists(temp_s1->surfaceId)) {
                     break;
                 }
                 temp_v0_3 = &D_803593F0.unk4[temp_s1->unk0];
