@@ -26,7 +26,7 @@ typedef struct {
     f32 unk38;
     f32 unk3C;
     s32 unk40;
-    s32 unk44;
+    s32 active;
 } Boat; // size = 0x48
 
 static Boat sBoats[2];
@@ -89,9 +89,9 @@ STATIC_FUNC void boatsUpdate(s32 boatId) {
     }
 }
 
-STATIC_FUNC s32 boats_802D1900(s32 arg0, s32 arg1, s32 arg2) {
+STATIC_FUNC s32 boatsProxEventCb(UNUSED s32 proxId, s32 eventType, UNUSED s32 clientData) {
     s32 i;
-    switch (arg1) {
+    switch (eventType) {
     case 0:
         break;
     case 2:
@@ -108,27 +108,27 @@ STATIC_FUNC s32 boats_802D1900(s32 arg0, s32 arg1, s32 arg2) {
     return 0;
 }
 
-STATIC_FUNC s32 boats_802D19A4(s32 arg0, f32 arg1, s32 arg2) {
+STATIC_FUNC s32 boatsProxAnimCb(s32 proxId, UNUSED f32 timeout, UNUSED s32 clientData) {
     ProxAnim* tmp;
     s32 idx;
     s32 res;
     s32 pad;
-    Boat* temp_v0;
+    Boat* boat;
 
     res = 0;
-    tmp = proxAnimGetHandle(arg0);
-    idx = tmp->arg;
-    temp_v0 = &sBoats[idx];
-    if (proxAnimGetRange(arg0) > 1500.0f) {
-        if (temp_v0->unk44 != 0) {
+    tmp = proxAnimGetHandle(proxId);
+    idx = tmp->clientData;
+    boat = &sBoats[idx];
+    if (proxAnimGetRange(proxId) > 1500.0f) {
+        if (boat->active) {
             boatsUpdate(idx);
-            temp_v0->unk44 = 0;
+            boat->active = FALSE;
         } else {
             res = 2;
         }
     } else {
-        if (temp_v0->unk44 == 0) {
-            temp_v0->unk44 = 1;
+        if (!boat->active) {
+            boat->active = TRUE;
         }
         boatsUpdate(idx);
     }
@@ -187,7 +187,7 @@ void boatsLoadCrescent(void) {
                 boat->pos.f[1] = -200.0f;
                 break;
             }
-            boat->unk40 = proxAnimAddCallback(boats_802D19A4, boats_802D1900, boat->pos, 1500.0f, 0.0f, i);
+            boat->unk40 = proxAnimAddCallback(boatsProxAnimCb, boatsProxEventCb, boat->pos, 1500.0f, 0.0f, i);
             boatsUpdate(i);
             boatsSetupEnvSound(i);
         }
@@ -246,7 +246,7 @@ void boatsLoadHoliday(void) {
                 boat->pos.y = -500.0f;
                 break;
             }
-            boat->unk40 = proxAnimAddCallback(boats_802D19A4, boats_802D1900, boat->pos, 1500.0f, 0.0f, i);
+            boat->unk40 = proxAnimAddCallback(boatsProxAnimCb, boatsProxEventCb, boat->pos, 1500.0f, 0.0f, i);
             boatsUpdate(i);
             boatsSetupEnvSound(i);
         }

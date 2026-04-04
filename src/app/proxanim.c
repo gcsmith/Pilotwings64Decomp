@@ -16,7 +16,7 @@ void proxAnimInit(void) {
         prox->eventCb = NULL;
         prox->dist = 0.0f;
         prox->timeout = 0.0f;
-        prox->arg = 0;
+        prox->clientData = 0;
     }
 }
 
@@ -54,7 +54,7 @@ s32 proxAnimAddCallback(s32 (*animCb)(s32, f32, s32), s32 (*eventCb)(s32, s32, s
     prox->eventCb = eventCb;
     prox->dist = dist;
     prox->timeout = timeout;
-    prox->arg = arg;
+    prox->clientData = arg;
     prox->pos = pos;
     return idx;
 }
@@ -71,7 +71,7 @@ void proxAnimDeleteCallback(s32 proxId) {
     }
     prox = &sProxAnimSlots[proxId];
     if (prox->eventCb != NULL) {
-        prox->eventCb(proxId, 1, prox->arg);
+        prox->eventCb(proxId, 1, prox->clientData);
     }
     prox->active = FALSE;
     prox->dist = 0.0f;
@@ -89,7 +89,7 @@ STATIC_FUNC void proxAnimDispatchEvent(s32 eventType) {
         prox = &sProxAnimSlots[i];
         if (prox->active) {
             if (prox->eventCb != NULL) {
-                prox->eventCb(i, eventType, prox->arg);
+                prox->eventCb(i, eventType, prox->clientData);
             }
         }
     }
@@ -151,7 +151,7 @@ void proxAnimUpdate(void) {
                 if (prox->eventCb == NULL) {
                     continue;
                 }
-                res = prox->eventCb(i, 0, prox->arg);
+                res = prox->eventCb(i, 0, prox->clientData);
                 if (res != -1) {
                     if (res == 2) {
                         prox->active = FALSE;
@@ -167,7 +167,7 @@ void proxAnimUpdate(void) {
                 if (prox->timeout > 0.0f) {
                     prox->timeout -= D_8034F854;
                 }
-                res = prox->animCb(i, prox->timeout, prox->arg);
+                res = prox->animCb(i, prox->timeout, prox->clientData);
                 switch (res) {
                 case 1:
                     proxAnimDeleteCallback(i);

@@ -699,7 +699,7 @@ segments:
       - { type: .bss, vram: 0x8036D320, name: app/demo_attitude }
       - { type: .bss, vram: 0x8036D340, name: app/proxanim }
       - { type: .bss, vram: 0x8036D8E0, name: app/code_A8C30 }
-      - { type: bss, vram: 0x8036DA30, name: app/demo }
+      - { type: .bss, vram: 0x8036DA30, name: app/demo }
       - { type: .bss, vram: 0x8036DA70, name: app/rings }
       - { type: bss, vram: 0x80371070, name: app/code_AC1A0 }
       - { type: bss, vram: 0x80371120, name: app/code_AE460 }
@@ -723,7 +723,7 @@ segments:
       - { type: bss, vram: 0x803798E0, name: app/task }
       - { type: .bss, vram: 0x8037AB50, name: app/thermals }
       - { type: .bss, vram: 0x8037ACE0, name: app/total_results }
-      - { type: bss, vram: 0x8037AD70, name: app/toys }
+      - { type: .bss, vram: 0x8037AD70, name: app/toys }
       - { type: .bss, vram: 0x8037DC60, name: app/test_menu }
       - { type: .bss, vram: 0x8037DCA0, name: app/user_paths }
       - { type: .bss, vram: 0x8037F380, name: app/whale }

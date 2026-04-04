@@ -11,7 +11,7 @@ typedef struct {
     u8 pad9[3];
     f32 dist;
     f32 timeout;
-    s32 arg;
+    s32 clientData;
     Vec3F pos;
 } ProxAnim; // size = 0x24
 

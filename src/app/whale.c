@@ -20,8 +20,8 @@ static s32 sWhaleActive = FALSE;
 static Vec3F sWhalePos = { 750.0f, 100.0f, 4.5f };
 
 // .bss
-static Mtx4F D_8037F380;
-static Mtx4F D_8037F3C0;
+static Mtx4F sWhaleXlatMtx0;
+static Mtx4F sWhaleXlatMtx4;
 static Mtx4F sWhalePose;
 static f32 sWhaleState; //! @bug, f32 used as discrete state
 static f32 sWhaleDepthCopy;
@@ -35,23 +35,23 @@ s32 whaleIsActive(void) {
 STATIC_FUNC void whaleUpdate(void) {
     Mtx4F spF0;
     Mtx4F pose;
-    Mtx4F sp70;
+    Mtx4F pathMtx;
     Mtx4F sp30;
     s32 v1;
     s32 v0;
     f32 scale;
 
-    uvMat4SetIdentity(&sp70);
-    uvMat4RotateAxis(&sp70, sWhalePathAngle * 0.01745329f, 'z'); // almost DEG_TO_RAD(1)
-    uvMat4Mul(&pose, &D_8037F380, &sp70);
+    uvMat4SetIdentity(&pathMtx);
+    uvMat4RotateAxis(&pathMtx, sWhalePathAngle * 0.01745329f, 'z'); // almost DEG_TO_RAD(1)
+    uvMat4Mul(&pose, &sWhaleXlatMtx0, &pathMtx);
     if (sWhaleObjId4 != 0xFFFF) {
-        uvMat4Mul(&sWhalePose, &pose, &D_8037F3C0);
+        uvMat4Mul(&sWhalePose, &pose, &sWhaleXlatMtx4);
         uvDobjPosm(sWhaleObjId4, 0, &sWhalePose);
     }
     uvMat4SetIdentity(&spF0);
     uvMat4LocalTranslate(&spF0, 0.0f, 0.0f, sWhaleDepth);
     uvMat4Mul(&sp30, &pose, &spF0);
-    uvMat4Mul(&sWhalePose, &sp30, &D_8037F3C0);
+    uvMat4Mul(&sWhalePose, &sp30, &sWhaleXlatMtx4);
     uvDobjPosm(sWhaleObjId0, 0, &sWhalePose);
 
     v0 = (sWhalePathAngle + 15.0f) / 30;
@@ -105,17 +105,17 @@ STATIC_FUNC void whaleStateMachine(void) {
     }
 }
 
-STATIC_FUNC s32 whale_8034BC68(s32 arg0, s32 arg1, s32 arg2) {
-    switch (arg1) {
+STATIC_FUNC s32 whaleProxEventCb(UNUSED s32 proxId, s32 eventType, UNUSED s32 clientData) {
+    switch (eventType) {
     case 0:
         uvDobjState(sWhaleObjId0, 3);
         if (sWhaleObjId4 != 0xFFFF) {
             uvDobjState(sWhaleObjId4, 0x22);
         }
-        uvMat4SetIdentity(&D_8037F380);
-        uvMat4LocalTranslate(&D_8037F380, 75.0f, 0.0f, 0.0f);
-        uvMat4SetIdentity(&D_8037F3C0);
-        uvMat4LocalTranslate(&D_8037F3C0, 750.0f, 100.0f, 4.5f);
+        uvMat4SetIdentity(&sWhaleXlatMtx0);
+        uvMat4LocalTranslate(&sWhaleXlatMtx0, 75.0f, 0.0f, 0.0f);
+        uvMat4SetIdentity(&sWhaleXlatMtx4);
+        uvMat4LocalTranslate(&sWhaleXlatMtx4, 750.0f, 100.0f, 4.5f);
         whaleUpdate();
         break;
     case 2:
@@ -140,12 +140,13 @@ STATIC_FUNC s32 whale_8034BC68(s32 arg0, s32 arg1, s32 arg2) {
     return 0;
 }
 
-STATIC_FUNC s32 whale_8034BDCC(s32 arg0, f32 arg1, s32 arg2) {
-    s32 pad;
-    s32 sp18;
+STATIC_FUNC s32 whaleProxAnimCb(s32 proxId, UNUSED f32 timeout, UNUSED s32 clientData) {
+    f32 dist;
+    s32 ret;
 
-    sp18 = 0;
-    if (proxAnimGetRange(arg0) > 450.0f) {
+    ret = 0;
+    dist = proxAnimGetRange(proxId);
+    if (dist > 450.0f) {
         if (sWhaleActive) {
             sWhaleState = 2.0f;
             whaleStateMachine();
@@ -153,7 +154,7 @@ STATIC_FUNC s32 whale_8034BDCC(s32 arg0, f32 arg1, s32 arg2) {
                 sWhaleActive = FALSE;
             }
         } else {
-            sp18 = 2;
+            ret = 2;
             uvDobjState(sWhaleObjId0, 0);
         }
     } else {
@@ -164,7 +165,7 @@ STATIC_FUNC s32 whale_8034BDCC(s32 arg0, f32 arg1, s32 arg2) {
         }
         whaleStateMachine();
     }
-    return sp18;
+    return ret;
 }
 
 void whaleLoad(void) {
@@ -188,7 +189,7 @@ void whaleLoad(void) {
     } else {
         uvDobjModel(sWhaleObjId0, MODEL_GREY_WHALE);
         uvDobjState(sWhaleObjId0, 0);
-        sWhaleProxId = proxAnimAddCallback(whale_8034BDCC, whale_8034BC68, pos, 450.0f, 0.0f, 4);
+        sWhaleProxId = proxAnimAddCallback(whaleProxAnimCb, whaleProxEventCb, pos, 450.0f, 0.0f, 4);
         sWhalePathAngle = 0.0f;
         taskGetClsVehTest(&class, &veh, &test);
         showHudWaypoint = (test == 0 && class == CLASS_A && veh == VEHICLE_HANG_GLIDER) || (test == 1 && class == CLASS_B && veh == VEHICLE_HANG_GLIDER) ||
