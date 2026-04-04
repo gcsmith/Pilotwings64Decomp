@@ -43,12 +43,12 @@ typedef enum {
     /* 4 */ GFX_COUNT_TXT_LOADS,
 } uvGfxCntType;
 
-typedef void (*uvGfxCallback_t)(void *, s32); 
+typedef s32 (*uvGfxCallback_t)(void *, s32); 
 
 typedef struct {
     s32 state;
-    s16 unk4;
-    s16 unk6;
+    s16 xfmCount;
+    s16 triCount;
     Gfx* dlist;
 } uvGfxState_t;
 
@@ -85,7 +85,7 @@ typedef struct {
 } Unk80225FBC_0x28;
 
 typedef struct {
-    Vtx* vtx;
+    Vtx* vtxTable;
     u16 vtxCount;
     u16 pad6;
     Unk80225FBC_0x28* unk8;
@@ -169,6 +169,7 @@ typedef struct UnkUVMD_24_Unk4 {
     f32 unk10;
     f32 unk14;
 } UnkUVMD_24_Unk4;
+
 typedef struct UnkUVMD_24 {
     u8 unk0;
     u8 unk1;
@@ -179,31 +180,31 @@ typedef struct UnkUVMD_24 {
     UnkUVMD_6* unk20;
 } UnkUVMD_24;
 
-typedef struct UnkUVMD_10 {
-    uvGfxState_t* unk0;
-    u8 unk4;
+typedef struct uvModelPart {
+    uvGfxState_t* stateTable;
+    u8 stateCount;
     u8 unk5;
     u8 unk6;
     UnkUVMD_24* unk8;
     u8 unkC;
     u8 unkD;
-} UnkUVMD_10; // size = 0x10
+} uvModelPart; // size = 0x10
 
-typedef struct UnkUVMD_8 {
-    UnkUVMD_10* unk0;
-    u8 unk4;
-    u8 unk5;
-} UnkUVMD_8; // size = 0x8
+typedef struct uvModelLOD {
+    uvModelPart* partTable;
+    u8 partCount;
+    u8 billboard;
+} uvModelLOD; // size = 0x8
 
 typedef struct ParsedUVMD {
-    Vtx* vtx;
+    Vtx* vtxTable;
     u16 vtxCount;
-    UnkUVMD_8* unk8;
-    f32* unkC;
-    u8 unk10;
+    uvModelLOD* lodTable;
+    f32* lodRadius;
+    u8 lodCount;
     u8 unk11;
-    Mtx4F* unk14;
-    u8 unk18;
+    Mtx4F* mtxTable;
+    u8 mtxCount;
     f32 unk1C;
     f32 unk20;
     f32 unk24;
@@ -384,7 +385,7 @@ extern Gfx* gGfxDisplayListHead;
 extern uvLevelData* gGfxUnkPtrs;
 extern u16 gGfxFbIndex;
 extern u32 gGfxStateStackData;
-extern u32 D_8029926C;
+extern u32 gGfxBoundTexture;
 
 void uvGfxInit(void);
 void uvGfxBegin(void);
@@ -502,6 +503,7 @@ void func_80204B08(s32 arg0, s32 arg1, s32 arg2);
 void func_80204B34(s32 arg0, Mtx4F* arg1);
 void func_80204C54(s32 arg0, Mtx4F *arg1);
 void func_80204D94(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
+s32 func_80204EC0(s32, f32, f32, f32, f32);
 u8*  func_80204F9C(s32 arg0);
 void func_80204FC4(s32 arg0);
 void func_80204FE4(s32 arg0);

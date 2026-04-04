@@ -1,38 +1,42 @@
 #include "common.h"
 #include <uv_filesystem.h>
 #include <uv_graphics.h>
-#include <uv_level.h>
 #include <uv_memory.h>
+#include <uv_texture.h>
 #include <uv_util.h>
-#include "code_58B00.h"
-#include "code_69BF0.h"
-#include "code_6ECD0.h"
-#include "code_722D0.h"
-#include "code_78620.h"
-#include "code_9C080.h"
-#include "code_9CF50.h"
-#include "code_A7460.h"
-#include "code_BD670.h"
-#include "code_D2D50.h"
-#include "code_D3810.h"
+#include "boats.h"
+#include "env_sound.h"
 #include "environment.h"
+#include "ferry.h"
+#include "fountain.h"
+#include "game.h"
+#include "glider_toys.h"
+#include "level.h"
+#include "missi.h"
+#include "oil.h"
+#include "planes.h"
 #include "shadow.h"
+#include "shuttle.h"
+#include "ski_lift.h"
+#include "task.h"
 #include "text_data.h"
 #include "toys.h"
+#include "whale.h"
+#include "whale_pod.h"
 
 s32 D_8034F400 = 0;
 s32 D_8034F404 = 0;
-LevelObjects* D_8034F408 = NULL;
+LevelObjects* gLevelCurObjects = NULL;
 s32 gLevelCurMap = 0;
-s32 D_8034F410[] = { 0, 1, 2, 3 };
+s32 gLevelUserFileLookup[] = { 0, 1, 2, 3 };
 
 // likely arrays of structs for level data
-extern s32 gLevelWOBJ;
-extern s32 gLevelLPAD;
-extern LevelTPTS gLevelTPTS;
-extern LevelTOYS gLevelTOYS;
-extern s32 gLevelAPTS;
-extern LevelBNUS gLevelBNUS;
+extern LevelWOBJ gLevelWOBJ[16];
+extern LevelLPAD gLevelLPAD[14];
+extern LevelTPTS gLevelTPTS[16];
+extern LevelTOYS gLevelTOYS[16];
+extern LevelAPTS gLevelAPTS[20];
+extern LevelBNUS gLevelBNUS[2];
 extern LevelObjects gLevelObjects;
 
 void levelLoad(u8 map, u8 pilot, u8 vehicle, s32 animateToys) {
@@ -41,26 +45,26 @@ void levelLoad(u8 map, u8 pilot, u8 vehicle, s32 animateToys) {
     gLevelCurMap = map;
     uvLevelInit();
     textLoadBlock(0x42);
-    env_loadtpal(D_80362690->unk0[0].unk8);
+    env_loadtpal(D_80362690->envId);
     uvLevelAppend(map);
     switch (map) {
     case MAP_HOLIDAY_ISLAND:
-        D_8034F408 = levelLoadMapObjects(0);
+        gLevelCurObjects = levelLoadMapObjects(0);
         break;
     case MAP_CRESCENT_ISLAND:
-        D_8034F408 = levelLoadMapObjects(1);
+        gLevelCurObjects = levelLoadMapObjects(1);
         break;
     case MAP_LITTLE_STATES:
-        D_8034F408 = levelLoadMapObjects(2);
+        gLevelCurObjects = levelLoadMapObjects(2);
         break;
     case MAP_EVER_FROST_ISLAND:
-        D_8034F408 = levelLoadMapObjects(3);
+        gLevelCurObjects = levelLoadMapObjects(3);
         break;
     }
     uvLevelAppend(0x1A);
     if (animateToys) {
         for (i = 0; i < (s32)gLevelObjects.countTOYS; i++) {
-            func_80348280(&gLevelObjects.dataTOYS[i]);
+            toyLoad(&gLevelObjects.dataTOYS[i]);
         }
         D_8034F400 = 1;
     } else {
@@ -73,7 +77,7 @@ void levelLoad(u8 map, u8 pilot, u8 vehicle, s32 animateToys) {
     uvLevelAppend(0xC);
     uvLevelAppend(0xD);
     uvLevelAppend(0x2E);
-    func_802E1444(D_80362690->unk0[0].unk8);
+    func_802E1444(D_80362690->envId);
     if (animateToys != 0) {
         level_8030B868();
     }
@@ -86,28 +90,28 @@ void level_8030B868(void) {
         }
         switch (gLevelCurMap) {
         case MAP_HOLIDAY_ISLAND:
-            func_802F1AE8();
-            func_802D1CE8();
+            gliderToyLoadHoliday();
+            boatsLoadHoliday();
             break;
         case MAP_CRESCENT_ISLAND:
-            func_8034BEDC();
-            func_802EB0D4();
-            func_802D1A74();
-            func_802F15C8();
+            whaleLoad();
+            fountainLoad();
+            boatsLoadCrescent();
+            gliderToyLoadCrescent();
             break;
         case MAP_LITTLE_STATES:
-            func_80335BE4();
-            func_802E79F0();
-            func_803151AC();
-            func_802F182C();
-            func_80320534();
+            shuttleLoad();
+            ferryLoad();
+            missiLoadLStates();
+            gliderToyLoadLStates();
+            planesLoad();
             break;
         case MAP_EVER_FROST_ISLAND:
-            func_80315D68();
-            func_80315734();
-            func_803363E0();
-            func_802F1D3C();
-            func_8034C964();
+            oilInit();
+            missiLoadEFrost();
+            skiLiftLoad();
+            gliderToyLoadEFrost();
+            whalePodLoad();
             break;
         }
     }
@@ -120,28 +124,28 @@ void level_8030B964(void) {
         }
         switch (gLevelCurMap) {
         case MAP_HOLIDAY_ISLAND:
-            func_802F1FF0();
-            func_802D206C();
+            gliderToyDeinit();
+            boatsDeinit();
             break;
         case MAP_CRESCENT_ISLAND:
-            func_8034C0BC();
-            func_802EB270();
-            func_802D206C();
-            func_802F1FF0();
+            whaleDeinit();
+            fountainDeinit();
+            boatsDeinit();
+            gliderToyDeinit();
             break;
         case MAP_LITTLE_STATES:
-            func_80335E44();
-            func_802E7C28();
-            func_8031531C();
-            func_802F1FF0();
-            func_8032079C();
+            shuttleDeinit();
+            ferryDeinit();
+            missiDeinitLStates();
+            gliderToyDeinit();
+            planesDeinit();
             break;
         case MAP_EVER_FROST_ISLAND:
-            func_80315E3C();
-            func_8031596C();
-            func_8033651C();
-            func_802F1FF0();
-            func_8034CB80();
+            oilDeinit();
+            missiDeinitEFrost();
+            skiLiftDeinit();
+            gliderToyDeinit();
+            whalePodDeinit();
             break;
         }
     }
@@ -149,7 +153,7 @@ void level_8030B964(void) {
 
 void level_8030BA60(void) {
     if (D_8034F400 != 0) {
-        func_803483AC();
+        toyDeinit();
         level_8030B964();
     }
 }
@@ -238,59 +242,59 @@ void levelComputeAppend(u8 pilot, u8 vehicle) {
 void level_8030BD20(void) {
 }
 
-u8 levelGetWOBJ(void** data) {
-    *data = D_8034F408->dataWOBJ;
-    return D_8034F408->countWOBJ;
+u8 levelGetWOBJ(LevelWOBJ** data) {
+    *data = gLevelCurObjects->dataWOBJ;
+    return gLevelCurObjects->countWOBJ;
 }
 
 u8 levelGetTPTS(LevelTPTS** data) {
-    *data = D_8034F408->dataTPTS;
-    return D_8034F408->countTPTS;
+    *data = gLevelCurObjects->dataTPTS;
+    return gLevelCurObjects->countTPTS;
 }
 
-u8 levelGetAPTS(void** data) {
-    *data = D_8034F408->dataAPTS;
-    return D_8034F408->countAPTS;
+u8 levelGetAPTS(LevelAPTS** data) {
+    *data = gLevelCurObjects->dataAPTS;
+    return gLevelCurObjects->countAPTS;
 }
 
-u8 levelGetLPAD(void** data) {
-    *data = D_8034F408->dataLPAD;
-    return D_8034F408->countLPAD;
+u8 levelGetLPAD(LevelLPAD** data) {
+    *data = gLevelCurObjects->dataLPAD;
+    return gLevelCurObjects->countLPAD;
 }
 
 u8 levelGetBNUS(LevelBNUS** data) {
-    *data = D_8034F408->dataBNUS;
-    return D_8034F408->countBNUS;
+    *data = gLevelCurObjects->dataBNUS;
+    return gLevelCurObjects->countBNUS;
 }
 
 LevelObjects* levelLoadMapObjects(u8 mapIdx) {
     s32 i;
-    s32 idx;  // spC0
-    u32 size; // spBC
+    s32 idx;
+    u32 size;
     u32 tag;
-    u8* srcPtr; // spB4
-    Unk802E27A8_Arg0 sp3C;
+    u8* srcPtr;
+    LevelESND esnd;
     LevelLEVL* ptr;
     LevelObjects* temp;
     u8 tmp8;
 
-    idx = uvFileReadHeader((s32)func_802314D0(D_8034F410[mapIdx], 2));
+    idx = uvFileReadHeader((s32)uvUserFileRead(gLevelUserFileLookup[mapIdx], MEM_ROM_OFFSET));
     temp = &gLevelObjects;
     uvMemSet((void*)temp, 0, sizeof(LevelObjects));
-    gLevelObjects.dataWOBJ = &gLevelWOBJ;
-    gLevelObjects.dataLPAD = &gLevelLPAD;
-    gLevelObjects.dataTOYS = &gLevelTOYS;
-    gLevelObjects.dataTPTS = &gLevelTPTS;
-    gLevelObjects.dataAPTS = &gLevelAPTS;
-    gLevelObjects.dataBNUS = &gLevelBNUS;
+    gLevelObjects.dataWOBJ = gLevelWOBJ;
+    gLevelObjects.dataLPAD = gLevelLPAD;
+    gLevelObjects.dataTOYS = gLevelTOYS;
+    gLevelObjects.dataTPTS = gLevelTPTS;
+    gLevelObjects.dataAPTS = gLevelAPTS;
+    gLevelObjects.dataBNUS = gLevelBNUS;
 
     while ((tag = uvFileReadBlock(idx, &size, (void**)&srcPtr, 1)) != 0) {
         switch (tag) {
         case 'ESND': // 0x45534E44
             for (i = 0; i < temp->countESND; i++) {
-                _uvMediaCopy(&sp3C, srcPtr, sizeof(sp3C));
-                srcPtr += sizeof(sp3C);
-                func_802E27A8(&sp3C);
+                _uvMediaCopy(&esnd, srcPtr, sizeof(esnd));
+                srcPtr += sizeof(esnd);
+                envSoundLoad(&esnd);
             }
             break;
         case 'WOBJ': // 0x574F424A
@@ -322,37 +326,37 @@ LevelObjects* levelLoadMapObjects(u8 mapIdx) {
             if (temp->countWOBJ >= 16) {
                 _uvAssertMsg("dst_level -> level . nwobjs < LEVEL_NWOBJS", "level.c", 642);
             }
-            if (temp->countWOBJ >= 17) {
+            if (temp->countWOBJ > ARRAY_COUNT(gLevelWOBJ)) {
                 _uvDebugPrintf("level : too many wind objects defined in level [%d]\n", temp->countWOBJ);
                 temp->countWOBJ = 0;
             }
 
             temp->countLPAD = ptr->countLPAD;
-            if (temp->countLPAD >= 15) {
+            if (temp->countLPAD > ARRAY_COUNT(gLevelLPAD)) {
                 _uvDebugPrintf("level : too many potential landing pads defined in level [%d]\n", temp->countLPAD);
                 temp->countLPAD = 0;
             }
 
             temp->countTOYS = ptr->countTOYS;
-            if (temp->countTOYS >= 17) {
+            if (temp->countTOYS > ARRAY_COUNT(gLevelTOYS)) {
                 _uvDebugPrintf("level : too many toys in level [%d]\n", temp->countTOYS);
                 temp->countTOYS = 0;
             }
 
             temp->countTPTS = ptr->countTPTS;
-            if (temp->countTPTS >= 17) {
+            if (temp->countTPTS > ARRAY_COUNT(gLevelTPTS)) {
                 _uvDebugPrintf("level : too many terra switch points in level [%d]\n", temp->countTPTS);
                 temp->countTPTS = 0;
             }
 
             temp->countAPTS = ptr->countAPTS;
-            if (temp->countAPTS >= 21) {
+            if (temp->countAPTS > ARRAY_COUNT(gLevelAPTS)) {
                 _uvDebugPrintf("level : too many audio switch points in level [%d]\n", temp->countAPTS);
                 temp->countAPTS = 0;
             }
 
             temp->countBNUS = ptr->countBNUS;
-            if (temp->countBNUS > 2) {
+            if (temp->countBNUS > ARRAY_COUNT(gLevelBNUS)) {
                 _uvDebugPrintf("level : too many bonus objects level [%d]\n", temp->countBNUS);
                 temp->countBNUS = 0;
             }

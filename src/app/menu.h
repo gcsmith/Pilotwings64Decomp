@@ -3,10 +3,10 @@
 
 #include <PR/ultratypes.h>
 
-void menuCreateVarHeight(s32 x, s32 y, s32 arg2, f32 xscale, f32 yscale, s32* items, s32 count);
-void menuCreateItems(s32 x, s32 y, s32 arg2, f32 xscale, f32 yscale, s32* items, s32 itemCount);
-s32 menu_8030B50C(void);
-void menuInit(void);
+void menuCreateVarHeight(s32 x, s32 y, s32 font, f32 xscale, f32 yscale, s32* items, s32 count);
+void menuCreateItems(s32 x, s32 y, s32 font, f32 xscale, f32 yscale, s32* items, s32 itemCount);
+s32 menuCheckInputs(void);
+void menuRender(void);
 void menuSetProps(void);
 s32 menu_8030B668(void);
 void menuSetItem(s32 idx, s16* str);

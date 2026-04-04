@@ -15,10 +15,10 @@ void uvSobjsDraw(UnkStruct_80204D94* arg0, Mtx4F* arg1, u16 arg2, u16 arg3, UnkS
     f32 temp_fs1;
     f32 temp_fs2;
     f32 temp_fv0;
-    u32 var_v0;
+    u32 lodId;
     u8 var_s1;
-    ParsedUVMD* temp_s0;
-    ParsedUVMD** temp_fp;
+    ParsedUVMD* uvmd;
+    ParsedUVMD** uvmdTable;
     f32 spB8;
     f32 spB4;
     f32 spB0;
@@ -31,19 +31,19 @@ void uvSobjsDraw(UnkStruct_80204D94* arg0, Mtx4F* arg1, u16 arg2, u16 arg3, UnkS
     spA8 = arg0->unk1D8 - arg1->m[3][2];
     func_80214840(arg6, &spB0, &spAC);
 
-    temp_fp = gGfxUnkPtrs->models;
+    uvmdTable = gGfxUnkPtrs->models;
     for (i = 0; i < arg5; i++) {
         var_s2 = &arg4[i];
 
-        if (var_s2->unk0 == 0xFFFF) {
+        if (var_s2->modelId == 0xFFFF) {
             continue;
         }
 
         if (!(var_s2->unk14 & arg2)) {
             continue;
         }
-        temp_s0 = temp_fp[var_s2->unk0];
-        if (temp_s0 == NULL) {
+        uvmd = uvmdTable[var_s2->modelId];
+        if (uvmd == NULL) {
             _uvDebugPrintf("uvSobjsDraw: model %d not in level\n");
             continue;
         }
@@ -55,51 +55,51 @@ void uvSobjsDraw(UnkStruct_80204D94* arg0, Mtx4F* arg1, u16 arg2, u16 arg3, UnkS
             spB8 = temp_fs1;
             spB4 = temp_fs2;
             func_80214840(arg6 * -1, &spB8, &spB4);
-            if (func_80206F64(arg0->unk2E0, spB8, spB4, temp_fs0, temp_s0->unk1C) == 0) {
+            if (func_80206F64(arg0->unk2E0, spB8, spB4, temp_fs0, uvmd->unk1C) == 0) {
                 continue;
             }
         }
         temp_fv0 = uvSqrtF(SQ(temp_fs1) + SQ(temp_fs2) + SQ(temp_fs0));
         if (arg0->unk200 == 1.0f) {
-            var_s1 = var_v0 = uvSobj_8022C7B8(temp_s0, temp_fv0);
+            var_s1 = lodId = uvSobjGetLODIndex(uvmd, temp_fv0);
         } else {
-            var_s1 = var_v0 = uvSobj_8022C7B8(temp_s0, arg0->unk200 * temp_fv0);
+            var_s1 = lodId = uvSobjGetLODIndex(uvmd, arg0->unk200 * temp_fv0);
         }
-        if (var_v0 == 0xFF) {
+        if (lodId == 0xFF) {
             continue;
         }
-        if (temp_s0->unk11 & 1) {
+        if (uvmd->unk11 & 1) {
             _uvSortAdd(4, temp_fv0, var_s2, arg0, arg1->m[3][0], arg1->m[3][1], temp_fs1, temp_fs2, arg1, arg7, var_s1);
-        } else if (temp_s0->unk8[var_v0].unk5 != 0) {
-            uvSobj_8022CC28(var_s2, temp_s0, var_s1, temp_fs1, temp_fs2);
+        } else if (uvmd->lodTable[lodId].billboard != 0) {
+            uvSobj_8022CC28(var_s2, uvmd, var_s1, temp_fs1, temp_fs2);
         } else {
-            uvSobj_8022C8D0(var_s2, temp_s0, var_s1, arg1);
+            uvSobj_8022C8D0(var_s2, uvmd, var_s1, arg1);
         }
     }
 }
 
-u8 uvSobj_8022C7B8(ParsedUVMD* arg0, f32 arg1) {
-    s32 temp_v1;
+u8 uvSobjGetLODIndex(ParsedUVMD* uvmd, f32 dist) {
+    s32 lodCount;
     s32 i;
-    f32* temp_v0;
+    f32* lodRadius;
 
-    temp_v0 = arg0->unkC;
-    temp_v1 = arg0->unk10;
-    if (temp_v0[temp_v1 - 1] <= arg1) {
+    lodRadius = uvmd->lodRadius;
+    lodCount = uvmd->lodCount;
+    if (lodRadius[lodCount - 1] <= dist) {
         return 0xFF;
     }
 
-    for (i = temp_v1; i > 0; i--) {
-        if (temp_v0[i - 1] < arg1) {
+    for (i = lodCount; i > 0; i--) {
+        if (lodRadius[i - 1] < dist) {
             return i;
         }
     }
     return 0;
 }
 
-void uvSobj_8022C8D0(UnkSobjDraw* arg0, ParsedUVMD* arg1, u8 arg2, Mtx4F* arg3) {
-    UnkUVMD_8* temp_s3;
-    UnkUVMD_10* temp_s2;
+void uvSobj_8022C8D0(UnkSobjDraw* arg0, ParsedUVMD* uvmd, u8 arg2, Mtx4F* arg3) {
+    uvModelLOD* currLod;
+    uvModelPart* currPart;
     s32 temp_v0;
     s32 i;
     s32 j;
@@ -108,12 +108,12 @@ void uvSobj_8022C8D0(UnkSobjDraw* arg0, ParsedUVMD* arg1, u8 arg2, Mtx4F* arg3) 
     s32 pad;
     Mtx sp90;
 
-    temp_s3 = &arg1->unk8[arg2];
+    currLod = &uvmd->lodTable[arg2];
 
-    for (i = 0; i < temp_s3->unk4; i++) {
-        temp_s2 = &temp_s3->unk0[i];
+    for (i = 0; i < currLod->partCount; i++) {
+        currPart = &currLod->partTable[i];
         uvGfx_802235A4(arg0->unk4[i], 1);
-        if (temp_s2->unkD != 0) {
+        if (currPart->unkD != 0) {
             uvMat4CopyL2F(&sp114, arg0->unk4[i]);
             sp114.m[3][0] += arg3->m[3][0];
             sp114.m[3][1] += arg3->m[3][1];
@@ -121,47 +121,47 @@ void uvSobj_8022C8D0(UnkSobjDraw* arg0, ParsedUVMD* arg1, u8 arg2, Mtx4F* arg3) 
             uvGfxLookAt(&sp114);
         }
 
-        for (j = 0; j < temp_s2->unk4; j++) {
-            uvGfxStateDraw(&temp_s2->unk0[j]);
+        for (j = 0; j < currPart->stateCount; j++) {
+            uvGfxStateDraw(&currPart->stateTable[j]);
         }
-        if (i == temp_s3->unk4 - 1) {
+        if (i == currLod->partCount - 1) {
             break;
         }
 
-        for (j = 0; j <= temp_s3->unk0[i].unk6 - temp_s3->unk0[i + 1].unk6; j++) {
+        for (j = 0; j <= currLod->partTable[i].unk6 - currLod->partTable[i + 1].unk6; j++) {
             uvGfxMtxViewPop();
         }
     }
-    temp_v0 = temp_s3->unk0[temp_s3->unk4 - 1].unk6;
+    temp_v0 = currLod->partTable[currLod->partCount - 1].unk6;
     for (i = 0; i <= temp_v0; i++) {
         uvGfxMtxViewPop();
     }
     if (D_80248DD8 != 0) {
         uvMat4CopyL2F(&spD4, arg0->unk4[0]);
 
-        uvMat4Scale(&spD4, arg1->unk20, arg1->unk20, arg1->unk20);
+        uvMat4Scale(&spD4, uvmd->unk20, uvmd->unk20, uvmd->unk20);
         uvMat4CopyF2L(&sp90, &spD4);
         uvGfx_802235A4(sp90, 1);
-        func_80215E7C(arg1);
+        func_80215E7C(uvmd);
         uvGfxMtxViewPop();
     }
 }
 
-void uvSobj_8022CC28(UnkSobjDraw* arg0, ParsedUVMD* arg1, u8 arg2, f32 arg3, f32 arg4) {
+void uvSobj_8022CC28(UnkSobjDraw* arg0, ParsedUVMD* uvmd, u8 arg2, f32 arg3, f32 arg4) {
     uvMtx* temp_s6;
     s32 temp_v1;
     s32 i;
     s32 j;
     Mtx sp88;
     f32 temp_fv0;
-    UnkUVMD_10* temp_s2;
-    UnkUVMD_10* temp_v0;
-    UnkUVMD_8* temp_s4;
+    uvModelPart* currPart;
+    uvModelPart* temp_v0; // unused
+    uvModelLOD* currLod;
     s32 pad;
     f32 sp70;
 
-    sp70 = arg1->unk20 / gGfxUnkPtrs->unk1608;
-    temp_s4 = &arg1->unk8[arg2];
+    sp70 = uvmd->unk20 / gGfxUnkPtrs->unk1608;
+    currLod = &uvmd->lodTable[arg2];
     temp_s6 = (uvMtx*)arg0->unk4;
     sp88.m[0][0] = temp_s6->m[0][0];
     sp88.m[0][2] = temp_s6->m[0][2];
@@ -183,26 +183,26 @@ void uvSobj_8022CC28(UnkSobjDraw* arg0, ParsedUVMD* arg1, u8 arg2, f32 arg3, f32
     temp_s6->u.f[1][1] = (s32)(((-arg4 / sp70) * 65536.0f) + 0.5f) & 0xFFFF;
     temp_s6->u.f[1][0] = (s32)(((-arg3 / sp70) * 65536.0f) + 0.5f) & 0xFFFF;
 
-    for (i = 0; i < temp_s4->unk4; i++) {
-        temp_s2 = &temp_s4->unk0[i];
+    for (i = 0; i < currLod->partCount; i++) {
+        currPart = &currLod->partTable[i];
 
         uvGfx_802235A4(arg0->unk4[i], 1);
 
-        for (j = 0; j < temp_s2->unk4; j++) {
-            uvGfxStateDraw(&temp_s2->unk0[j]);
+        for (j = 0; j < currPart->stateCount; j++) {
+            uvGfxStateDraw(&currPart->stateTable[j]);
         }
         // FAKE
-        if (temp_s4) { }
-        if (i == temp_s4->unk4 - 1) {
+        if (currLod) { }
+        if (i == currLod->partCount - 1) {
             break;
         }
 
-        temp_v1 = temp_s4->unk0[i].unk6 - temp_s4->unk0[i + 1].unk6;
+        temp_v1 = currLod->partTable[i].unk6 - currLod->partTable[i + 1].unk6;
         for (j = 0; j <= temp_v1; j++) {
             uvGfxMtxViewPop();
         }
     }
-    temp_v1 = temp_s4->unk0[temp_s4->unk4 - 1].unk6;
+    temp_v1 = currLod->partTable[currLod->partCount - 1].unk6;
     for (i = 0; i <= temp_v1; i++) {
         uvGfxMtxViewPop();
     }
@@ -214,16 +214,16 @@ void uvSobj_8022CC28(UnkSobjDraw* arg0, ParsedUVMD* arg1, u8 arg2, f32 arg3, f32
 
 UnkSobjDraw* uvSobjLoadTerra(u32 soid) {
     UnkSobjDraw* temp_a0;
-    ParsedUVTR* temp_v0;
+    ParsedUVTR* uvtr;
     uvUnkTileStruct* temp_v1;
 
-    temp_v0 = gGfxUnkPtrs->terras[(soid >> 0x18) & 0xFF];
-    if (temp_v0 == NULL) {
+    uvtr = gGfxUnkPtrs->terras[(soid >> 0x18) & 0xFF];
+    if (uvtr == NULL) {
         _uvDebugPrintf("Sobj: terra %d not in level\n", (soid >> 0x18) & 0xFF);
         return NULL;
     }
 
-    temp_v1 = &temp_v0->unk28[(soid >> 0xC) & 0xFFF];
+    temp_v1 = &uvtr->unk28[(soid >> 0xC) & 0xFFF];
     if (temp_v1 == NULL) {
         _uvDebugPrintf("Sobj: bad soid 0x%x, tile not found in terra\n", soid);
         return NULL;
@@ -277,25 +277,25 @@ u16 uvSobj_8022D1E4(u32 soid) {
     if (temp_v0 == NULL) {
         return 0xFFFF;
     }
-    return temp_v0->unk0;
+    return temp_v0->modelId;
 }
 
-void uvSobjModel(u32 soid, s32 mdlId) {
+void uvSobjModel(u32 soid, s32 modelId) {
     UnkSobjDraw* temp_v0;
-    ParsedUVMD* temp_v1;
+    ParsedUVMD* uvmd;
 
     temp_v0 = uvSobjLoadTerra(soid);
     if (temp_v0 == NULL) {
         return;
     }
-    temp_v1 = gGfxUnkPtrs->models[mdlId];
-    if (temp_v1 == NULL) {
-        _uvDebugPrintf("uvSobjModel: model %d not in level\n", mdlId);
+    uvmd = gGfxUnkPtrs->models[modelId];
+    if (uvmd == NULL) {
+        _uvDebugPrintf("uvSobjModel: model %d not in level\n", modelId);
         return;
     }
-    if (temp_v1->unk8->unk4 != gGfxUnkPtrs->models[temp_v0->unk0]->unk8->unk4) {
-        _uvDebugPrintf("uvSobjModel: new model %d had different  heirarchy\n", mdlId);
+    if (uvmd->lodTable->partCount != gGfxUnkPtrs->models[temp_v0->modelId]->lodTable->partCount) {
+        _uvDebugPrintf("uvSobjModel: new model %d had different  heirarchy\n", modelId);
         return;
     }
-    temp_v0->unk0 = mdlId;
+    temp_v0->modelId = modelId;
 }

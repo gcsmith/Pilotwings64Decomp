@@ -19,13 +19,12 @@ typedef struct Unk80289380 {
 
 void uvFontSet(s32);
 s32 uvFontWidth(char*);
-s32 func_80219240(s32 arg0);
 void uvFontScale(f64, f64);
 void uvFontColor(u8 r, u8 g, u8 b, u8 a);
 s32 func_802196B0(s16*);
 s32 func_80219874(s32, s32, s16*, s32, s32);
-void uvFontPrintStr(s32, s32, char*);
+void uvFontPrintStr(s32 x, s32 y, char* str);
 void uvFontGenDlist(void);
-s32 func_80219828(void);
+s32 uvFontHeight(void);
 
 #endif // UV_FONT_H

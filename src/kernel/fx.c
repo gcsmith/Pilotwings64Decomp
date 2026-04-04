@@ -5,6 +5,7 @@
 #include <uv_graphics.h>
 #include <uv_math.h>
 #include <uv_vector.h>
+#include <uv_seq.h>
 #include <libc/stdarg.h>
 #include "kernel/code_58E0.h"
 #include "kernel/code_7150.h"
@@ -147,8 +148,8 @@ s32 func_8021A2C8(s32 fxId) {
     return 1;
 }
 
-void func_8021A304(f32 arg0, f32 arg1, f32 arg2, u16 arg3) {
-    func_8021A334(arg0, arg1, arg2, 0.0f, arg3);
+s32 func_8021A304(f32 arg0, f32 arg1, f32 arg2, u16 arg3) {
+    return func_8021A334(arg0, arg1, arg2, 0.0f, arg3);
 }
 
 s32 func_8021A334(f32 arg0, f32 arg1, f32 arg2, f32 arg3, u16 arg4) {

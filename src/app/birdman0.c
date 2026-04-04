@@ -5,10 +5,10 @@
 #include <uv_model.h>
 #include "birdman.h"
 #include "bmsound.h"
-#include "code_5A6A0.h"
-#include "code_66160.h"
-#include "code_72B70.h"
-#include "code_7FED0.h"
+#include "camera.h"
+#include "code_66F70.h"
+#include "game.h"
+#include "code_7FE00.h"
 #include "code_9A960.h"
 #include "demo.h"
 #include "fdr.h"
@@ -16,17 +16,17 @@
 #include "shadow.h"
 #include "snap.h"
 #include "snd.h"
+#include "task.h"
 
-extern Unk803599D0 D_80359390;
-extern u8 D_803593E4;
+Unk803599D0 D_80359390;
+u8 D_803593E4;
 
 // forward declarations
-void bird_802CD0F8(Unk80367704*);
-void bird_802CD2E8(u8, Unk80367704*);
-void bird_802CE0A4(Unk80367704*);
+void birdLoadPilot(u8, BirdmanData*);
+void bird_802CE0A4(BirdmanData*);
 
 // called during game boot
-void bird_802CC1B0(void) {
+void birdInit(void) {
     D_80359390.unk0 = 8;
     D_80359390.unk4 = 0.0f;
     D_80359390.unk8 = 0.0f;
@@ -47,19 +47,19 @@ void bird_802CC1B0(void) {
 }
 
 // called when starting one of the birdman levels, either from bonus menu or bonus star
-void bird_802CC270(u8 arg0, u8 pilot, Unk80367704* arg2, Unk802D3658_Arg0* arg3) {
-    uvMemSet(arg2, 0, 0x424);
-    bird_802CD2E8(pilot, arg2);
-    arg2->unk0 = uvDobjAllocIdx();
+void bird_802CC270(u8 arg0, u8 pilot, BirdmanData* arg2, Camera* arg3) {
+    uvMemSet(arg2, 0, sizeof(BirdmanData));
+    birdLoadPilot(pilot, arg2);
+    arg2->objId = uvDobjAllocIdx();
     arg2->unk2 = 2;
-    uvDobjModel(arg2->unk0, arg2->unk3F4);
-    uvDobjPosm(arg2->unk0, 0, &arg2->unk10);
-    uvDobjState(arg2->unk0, arg2->unk2);
+    uvDobjModel(arg2->objId, arg2->unk3F4);
+    uvDobjPosm(arg2->objId, 0, &arg2->unk10);
+    uvDobjState(arg2->objId, arg2->unk2);
     uvMat4Copy(&arg2->unk50, &arg2->unk10);
-    func_80334454(0x13D, 0x13C);
-    func_803342F0(1.0f);
-    func_803342FC(-2.0f);
-    func_803343D8(1);
+    shadow_80334454(MODEL_BIRDMAN_SHADOW_COLUMN, MODEL_BIRDMAN_SHADOW);
+    shadow_803342F0(1.0f);
+    shadow_803342FC(-2.0f);
+    shadow_803343D8(1);
     arg2->controller = arg0;
     arg2->unk2F0 = 0;
     arg2->unk2CC = 0x1A;
@@ -77,9 +77,9 @@ void bird_802CC270(u8 arg0, u8 pilot, Unk80367704* arg2, Unk802D3658_Arg0* arg3)
 }
 
 // called when entering or exiting a birdman level
-void bird_802CC39C(Unk80367704* arg0) {
+void birdEnterLeave(BirdmanData* arg0) {
     db_getstart(&arg0->unk10, &arg0->unk200, NULL, NULL);
-    uvDobjPosm((s32)arg0->unk0, 0, &arg0->unk10);
+    uvDobjPosm(arg0->objId, 0, &arg0->unk10);
     uvMat4Copy(&arg0->unk50, &arg0->unk10);
     bird_802CECB8(arg0);
     arg0->unk104 = 0;
@@ -101,7 +101,7 @@ void bird_802CC39C(Unk80367704* arg0) {
     arg0->unkD8 = 0;
     arg0->unkDC = 1.0f;
     arg0->unkD4->unk1 = arg0->unkD8;
-    arg0->unkD4->unk4 = arg0->unk0;
+    arg0->unkD4->unk4 = arg0->objId;
     arg0->unkD4->unk6 = arg0->unk2;
     arg0->unkD4->unk0 = 1;
     arg0->unkD4->unk74 = 0.0f;
@@ -120,20 +120,20 @@ void bird_802CC39C(Unk80367704* arg0) {
 
 // called when exiting a birdman level
 void bird_802CC51C(Unk802CC51C* arg0) {
-    uvDobjModel(arg0->objId, 0xFFFF);
+    uvDobjModel(arg0->objId, MODEL_WORLD);
     arg0->unkC = 0xFFFF;
     arg0->objId = 0xFFFF;
-    func_80334C70();
+    shadow_80334C70();
 }
 
 // called every frame in a birdman stage
 // handles controller input and motion updates
-void bird_802CC55C(Unk80367704* arg0, u8 arg1) {
+void birdMovementFrame(BirdmanData* arg0, u8 gameState) {
     f32 sp7C;
     f32 sp78;
     f32 pad;
     s32 buttons;
-    HUDState* sp6C;
+    HUDState* hud;
     s32 sp68;
     f32 temp_fv0;
     f32 sp4C[6];
@@ -147,13 +147,13 @@ void bird_802CC55C(Unk80367704* arg0, u8 arg1) {
         bird_802CD0F8(arg0);
         return;
     }
-    if (func_802E6B5C() != 4) {
+    if (fdr_802E6B5C() != 4) {
         arg0->unk8 += D_8034F854;
-        if (D_80362690->unk0[D_80362690->unk9C].unkC.unk7B == 0) {
+        if (D_80362690->unkC[D_80362690->unk9C].unk7B == 0) {
             func_80339E1C(arg0);
         }
-        if (arg1 == 6) {
-            func_802E65AC(&arg0->unk10, &D_80362690->unk0[0].unk6, &sp7C, &sp78, &buttons);
+        if (gameState == GAME_STATE_RESULTS) {
+            fdr_802E65AC(&arg0->unk10, &D_80362690->terraId, &sp7C, &sp78, &buttons);
         } else {
             sp7C = demoGetInputs(arg0->controller, INPUT_AXIS_X);
             sp78 = demoGetInputs(arg0->controller, INPUT_AXIS_Y);
@@ -213,20 +213,20 @@ void bird_802CC55C(Unk80367704* arg0, u8 arg1) {
             arg0->unk2D0 = func_80313AF4(0.0f, arg0->unk2D0, 0.5f);
             arg0->unk2D4 = func_80313AF4(0.0f, arg0->unk2D4, 0.4f);
         }
-        if (arg1 != 6) {
+        if (gameState != GAME_STATE_RESULTS) {
             bird_802CEDF8(arg0);
         }
-        bird_802CE190(arg0, arg1);
-        if (arg1 != 6) {
+        bird_802CE190(arg0, gameState);
+        if (gameState != GAME_STATE_RESULTS) {
             sp4C[0] = arg0->unkD0;
             sp4C[1] = arg0->unk2D0;
             sp4C[2] = arg0->unk2D4;
             sp4C[3] = (f32)arg0->unk2C0;
             sp4C[4] = arg0->unk304;
             sp4C[5] = arg0->unk308;
-            func_802E682C(sp4C, ARRAY_COUNT(sp4C), 0);
+            fdr_802E682C(sp4C, ARRAY_COUNT(sp4C), 0);
         } else {
-            func_802E6870(sp4C, ARRAY_COUNT(sp4C), NULL);
+            fdr_802E6870(sp4C, ARRAY_COUNT(sp4C), NULL);
             arg0->unkD0 = sp4C[0];
             arg0->unk2D0 = sp4C[1];
             arg0->unk2D4 = sp4C[2];
@@ -234,7 +234,7 @@ void bird_802CC55C(Unk80367704* arg0, u8 arg1) {
             arg0->unk304 = sp4C[4];
             arg0->unk308 = sp4C[5];
         }
-        if (arg1 != 6) {
+        if (gameState != GAME_STATE_RESULTS) {
             arg0->unkD0 = -1.57f;
             if (arg0->unk224 < 25.0f) {
                 var_fa0 = (((25.0f - arg0->unk224) * 1.57f) / 25.0f) + -1.57f;
@@ -254,8 +254,8 @@ void bird_802CC55C(Unk80367704* arg0, u8 arg1) {
         uvMat4SetIdentity(&arg0->unk90);
         uvMat4RotateAxis(&arg0->unk90, arg0->unkD0, 'x');
         uvMat4Mul(&arg0->unk50, &arg0->unk90, &arg0->unk10);
-        uvDobjPosm(arg0->unk0, 0, &arg0->unk50);
-        func_803344BC(&arg0->unk10, arg0->unk16C);
+        uvDobjPosm(arg0->objId, 0, &arg0->unk50);
+        shadow_803344BC(&arg0->unk10, arg0->unk16C);
         if (arg0->unk224 > 25.0f) {
             arg0->unkD4->unk48 = 0.0125f;
             arg0->unkD4->unk5C = 0.0f;
@@ -306,28 +306,28 @@ void bird_802CC55C(Unk80367704* arg0, u8 arg1) {
             arg0->unkEC = func_80313AF4(demoGetInputs(arg0->controller, 0) * -1.5707963f, arg0->unkEC, 3.0f);
             arg0->unkF0 = func_80313AF4(demoGetInputs(arg0->controller, 1) * -1.5707963f, arg0->unkF0, 3.0f);
         }
-        if (demoButtonPress(arg0->controller, R_TRIG) && (arg1 != 6) && (arg0->unk104 != 1)) {
+        if (demoButtonPress(arg0->controller, R_TRIG) && (gameState != GAME_STATE_RESULTS) && (arg0->unk104 != 1)) {
             D_803593E4 = 0;
             if (arg0->unkD8 == 1) {
                 func_8033F758(0x6A, 1.0f, 0.5f, 0.0f);
                 arg0->unkD8 = 0;
                 arg0->unkDC = 1.0f;
-                func_80334454(0x13D, 0x13C);
+                shadow_80334454(MODEL_BIRDMAN_SHADOW_COLUMN, MODEL_BIRDMAN_SHADOW);
                 arg0->unk290 = 1;
                 bird_802CE0A4(arg0);
             } else {
                 func_8033F758(0x6A, 1.0f, 0.5f, 0.0f);
                 arg0->unkD8 = 1;
                 arg0->unkDC = 0.8f;
-                func_80334454(0x13D, 0x13C);
+                shadow_80334454(MODEL_BIRDMAN_SHADOW_COLUMN, MODEL_BIRDMAN_SHADOW);
                 arg0->unk290 = 0;
                 bird_802CE0A4(arg0);
             }
             func_802D5884(arg0->unkD4, arg0->unkD8);
             func_802D45C4(arg0->unkD4, arg0->unkDC);
         }
-        if (arg1 != 6) {
-            arg0->unkD4->unk4 = arg0->unk0;
+        if (gameState != GAME_STATE_RESULTS) {
+            arg0->unkD4->unk4 = arg0->objId;
             arg0->unkD4->unk6 = arg0->unk2;
             arg0->unkD4->unk78 = arg0->unkEC;
             arg0->unkD4->unk7C = arg0->unkF0;
@@ -337,13 +337,13 @@ void bird_802CC55C(Unk80367704* arg0, u8 arg1) {
             if (arg0->unk104 == 1) {
                 func_802D5884(arg0->unkD4, 6);
                 arg0->unk2 = 2;
-                uvDobjState(arg0->unk0, arg0->unk2);
+                uvDobjState(arg0->objId, arg0->unk2);
             } else {
                 func_802D5884(arg0->unkD4, arg0->unkD8);
             }
             func_802D45C4(arg0->unkD4, arg0->unkDC);
         }
-        if ((arg0->unkD8 == 1) && (arg0->unk104 != 1) && (arg1 != 6)) {
+        if ((arg0->unkD8 == 1) && (arg0->unk104 != 1) && (gameState != GAME_STATE_RESULTS)) {
             arg0->unk290 = 0;
         } else {
             arg0->unk290 = 1;
@@ -352,46 +352,42 @@ void bird_802CC55C(Unk80367704* arg0, u8 arg1) {
             arg0->unk290 = 1;
         }
         bird_802CE0A4(arg0);
-        if (arg1 != 6) {
-            sp6C = hudGetState();
-            uvMat4Copy(&sp6C->unk28, &arg0->unk10);
-            sp6C->renderFlags = 0x80;
-            sp6C->att.heading = arg0->unk10.m[3][2];
-            sp6C->elapsedTime = arg0->unk8;
-            sp6C->unk8C = arg0->unk218.z * 4.0f * 0.7f;
-            sp6C->altitude = arg0->unk16C * 0.7f;
-            sp6C->altSeaLevel = arg0->unk10.m[3][2] * 0.7f;
-            sp6C->speed = arg0->unk224 * 3.6f * 0.7f;
+        if (gameState != GAME_STATE_RESULTS) {
+            hud = hudGetState();
+            uvMat4Copy(&hud->unk28, &arg0->unk10);
+            hud->renderFlags = HUD_RENDER_BIRDMAN;
+            hud->att.heading = arg0->unk10.m[3][2];
+            hud->elapsedTime = arg0->unk8;
+            hud->unk8C = arg0->unk218.z * 4.0f * 0.7f;
+            hud->altitude = arg0->unk16C * 0.7f;
+            hud->altSeaLevel = arg0->unk10.m[3][2] * 0.7f;
+            hud->speed = arg0->unk224 * 3.6f * 0.7f;
         }
         if ((arg0->unk104 == 1) || (arg0->unk104 == 2)) {
-            sp6C->renderFlags = 0;
+            hud->renderFlags = 0;
         }
         func_802E06AC(&arg0->unk10);
-        if (arg1 != 6) {
+        if (gameState != GAME_STATE_RESULTS) {
             if (arg0->unk104 == 2) {
-                func_802E66DC();
+                fdr_802E66DC();
             }
-            func_802E65AC(&arg0->unk10, &D_80362690->unk0[0].unk6, &sp7C, &sp78, &buttons);
+            fdr_802E65AC(&arg0->unk10, &D_80362690->terraId, &sp7C, &sp78, &buttons);
         }
     }
 }
 
-void bird_802CD0F8(Unk80367704* arg0) {
+void bird_802CD0F8(BirdmanData* arg0) {
     f32 x;
     f32 y;
     f32 z;
     Vec3F sp60;
     Vec3F sp54;
-    Mtx4F* temp_a0;
+    Vec3F sp48;
     Vec3F* var_a1;
-    f32 sp48;
-    Mtx4F* sp2C;
     f32 sp40;
     s32 sp3C;
     s32 sp38;
     u8 sp37;
-    u8 temp_v0;
-    u8 temp6;
 
     if (arg0->unk2F0 == 0) {
         arg0->unk2F0 = 1;
@@ -402,39 +398,36 @@ void bird_802CD0F8(Unk80367704* arg0) {
         sp60.z = arg0->unk10.m[3][2];
         sp54.z = arg0->unk400.z;
         sp38 = arg0->unk40C;
-        temp_v0 = db_getgnd(&sp54, &sp60, &sp38, &sp3C, &sp40, &sp48);
-        sp37 = temp_v0;
-        if (temp_v0 != 0) {
+        sp37 = db_getgnd(&sp54, &sp60, &sp38, &sp3C, &sp40, &sp48);
+        if (sp37 != 0) {
             var_a1 = func_802E02EC();
         } else {
             var_a1 = &sp60;
             sp60.z = sp40;
         }
-        temp_a0 = &arg0->unk10;
-        sp2C = temp_a0;
-        func_802E05CC(temp_a0, var_a1, &sp48, 1);
+        func_802E05CC(&arg0->unk10, var_a1, &sp48, 1);
         if (func_802E0C30(sp37, sp3C) != 0) {
             arg0->unk15C = 1;
         }
-        uvDobjPosm(arg0->unk0, 0, sp2C);
-        uvMat4Copy(&arg0->unkD4->unk80, sp2C);
+        uvDobjPosm(arg0->objId, 0, &arg0->unk10);
+        uvMat4Copy(&arg0->unkD4->unk80, &arg0->unk10);
         if (arg0->unk15C != 0) {
-            snd_play_sfx(0x1A);
+            sndPlaySfx(0x1A);
             uvEventPost(0x12, 0);
             x = arg0->unk10.m[3][0];
             y = arg0->unk10.m[3][1];
             z = arg0->unk10.m[3][2];
             func_802F8AB8(x, y, z, 1.0f, &arg0->unk218.x);
             arg0->unkD4->unk6 = arg0->unk2 = 0;
-            uvDobjState(arg0->unk0, arg0->unk2);
-            uvMat4Copy(&arg0->unkD4->unk80, sp2C);
+            uvDobjState(arg0->objId, arg0->unk2);
+            uvMat4Copy(&arg0->unkD4->unk80, &arg0->unk10);
         } else {
             arg0->unk2 = 2;
-            uvDobjState(arg0->unk0, arg0->unk2);
+            uvDobjState(arg0->objId, arg0->unk2);
         }
         arg0->unk290 = 1;
         bird_802CE0A4(arg0);
-        func_803343D8(0);
+        shadow_803343D8(0);
     }
     func_802D5884(arg0->unkD4, 3);
     hudGetState()->renderFlags = 0;
@@ -447,13 +440,13 @@ void bird_802CD0F8(Unk80367704* arg0) {
 }
 
 // called during birdman init to setup pilot specific parameters
-void bird_802CD2E8(u8 pilot, Unk80367704* arg1) {
+void birdLoadPilot(u8 pilot, BirdmanData* arg1) {
     switch (pilot) {
     case PILOT_LARK:
         arg1->unk294.x = 0;
         arg1->unk294.y = -0.1625f;
         arg1->unk294.z = 0.2869f;
-        arg1->unk3F4 = 0x13B;
+        arg1->unk3F4 = MODEL_BIRDMAN_LARK;
         arg1->unk3F7 = 0x16;
         arg1->unk3F6 = 1;
         arg1->unk3F8 = 2;
@@ -514,7 +507,7 @@ void bird_802CD2E8(u8 pilot, Unk80367704* arg1) {
         arg1->unk294.x = 0;
         arg1->unk294.y = -0.0994f;
         arg1->unk294.z = 0.2577f;
-        arg1->unk3F4 = 0x13E;
+        arg1->unk3F4 = MODEL_BIRDMAN_GOOSE;
         arg1->unk3F7 = 0x16;
         arg1->unk3F6 = 1;
         arg1->unk3F8 = 2;
@@ -575,7 +568,7 @@ void bird_802CD2E8(u8 pilot, Unk80367704* arg1) {
         arg1->unk294.x = 0;
         arg1->unk294.y = -0.07084f;
         arg1->unk294.z = 0.57865f;
-        arg1->unk3F4 = 0x13F;
+        arg1->unk3F4 = MODEL_BIRDMAN_HAWK;
         arg1->unk3F7 = 0x16;
         arg1->unk3F6 = 1;
         arg1->unk3F8 = 2;
@@ -636,7 +629,7 @@ void bird_802CD2E8(u8 pilot, Unk80367704* arg1) {
         arg1->unk294.x = 0;
         arg1->unk294.y = 0.0015f;
         arg1->unk294.z = 0.1942f;
-        arg1->unk3F4 = 0x140;
+        arg1->unk3F4 = MODEL_BIRDMAN_KIWI;
         arg1->unk3F7 = 0x16;
         arg1->unk3F6 = 1;
         arg1->unk3F8 = 2;
@@ -697,7 +690,7 @@ void bird_802CD2E8(u8 pilot, Unk80367704* arg1) {
         arg1->unk294.x = 0;
         arg1->unk294.y = 0.0024f;
         arg1->unk294.z = 0.3577f;
-        arg1->unk3F4 = 0x141;
+        arg1->unk3F4 = MODEL_BIRDMAN_IBIS;
         arg1->unk3F7 = 0x16;
         arg1->unk3F6 = 1;
         arg1->unk3F8 = 2;
@@ -758,7 +751,7 @@ void bird_802CD2E8(u8 pilot, Unk80367704* arg1) {
         arg1->unk294.x = 0;
         arg1->unk294.y = -0.0991f;
         arg1->unk294.z = 0.4056f;
-        arg1->unk3F4 = 0x142;
+        arg1->unk3F4 = MODEL_BIRDMAN_ROBIN;
         arg1->unk3F7 = 0x16;
         arg1->unk3F6 = 1;
         arg1->unk3F8 = 2;
@@ -821,21 +814,21 @@ void bird_802CD2E8(u8 pilot, Unk80367704* arg1) {
 }
 
 // called every frame during birdman
-void bird_802CE0A4(Unk80367704* arg0) {
+void bird_802CE0A4(BirdmanData* arg0) {
     if (arg0->unk290 != 0) {
-        arg0->unk2 &= 0xFFFB;
-        uvDobjProps(arg0->unk0, 4, arg0->unk3F7, 0);
-        if (arg0->unk3F4 == 0x140) {
-            uvDobjProps(arg0->unk0, 4, 0x17, 0);
-            uvDobjProps(arg0->unk0, 4, 0x18, 0);
+        arg0->unk2 &= ~4;
+        uvDobjProps(arg0->objId, 4, arg0->unk3F7, 0);
+        if (arg0->unk3F4 == MODEL_BIRDMAN_KIWI) {
+            uvDobjProps(arg0->objId, 4, 0x17, 0);
+            uvDobjProps(arg0->objId, 4, 0x18, 0);
         }
     } else {
         arg0->unk2 |= 4;
-        uvDobjProps(arg0->unk0, 5, arg0->unk3F7, 0);
-        if (arg0->unk3F4 == 0x140) {
-            uvDobjProps(arg0->unk0, 5, 0x17, 0);
-            uvDobjProps(arg0->unk0, 5, 0x18, 0);
+        uvDobjProps(arg0->objId, 5, arg0->unk3F7, 0);
+        if (arg0->unk3F4 == MODEL_BIRDMAN_KIWI) {
+            uvDobjProps(arg0->objId, 5, 0x17, 0);
+            uvDobjProps(arg0->objId, 5, 0x18, 0);
         }
     }
-    uvDobjState(arg0->unk0, arg0->unk2);
+    uvDobjState(arg0->objId, arg0->unk2);
 }

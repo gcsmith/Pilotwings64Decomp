@@ -2,7 +2,9 @@
 #define APP_CODE_9A960_H
 
 #include <uv_matrix.h>
-#include "code_5A6A0.h"
+#include <uv_vector.h>
+#include "game.h"
+#include "task.h"
 
 typedef struct {
     Vec3F unk0;
@@ -19,13 +21,17 @@ void func_80313640(f32 tx, f32 ty, f32 tz, f32 rz, f32 rx, f32 ry, Mtx4F* mat);
 void func_803136C4(Unk803136C4_Arg0*, Mtx4F*);
 void func_803138A0(Mtx4F*, Mtx4F*, Mtx4F*, f32);
 f32 func_80313AF4(f32, f32, f32);
+f32 func_80313BAC(f32, f32, f32);
 void func_80313C94(Vec3F*, Vec3F*, f32);
 void func_80313D74(void);
 void func_80313E0C(f32);
 void func_80313E18(Vec3F*, Mtx4F*);
 f32 func_80313F08(Unk803599D0*, f32);
 void func_80313FD0(s32*, f32, Vec3F*); // a0 may be struct
+s32 func_80314114(s32, s32, s32);
 void func_80314154(void);
 void func_803141E4(void);
+void func_8031420C(f32, f32, f32, f32*, f32*, f32*);
+f32 func_8031385C(Mtx4F*, Mtx4F*);
 
 #endif // APP_CODE_9A960_H

@@ -1,55 +1,135 @@
+#include "common.h"
+#include <uv_font.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>
-#include <uv_level.h>
+#include <uv_math.h>
 #include <uv_matrix.h>
 #include <uv_util.h>
-
-#include "kernel/code_8170.h"
-#include "code_61A60.h"
 #include "code_66160.h"
-#include "code_9A960.h"
 
-extern Vec3F D_80359D70;
-extern s32 D_80359D7C;
-
-void func_802DEC30(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10, s32 arg11, s32 arg12,
-                   s32 arg13) {
+// draw quad/poly
+void func_802DEC30(s32 x0, s32 y0, s32 x1, s32 y1, s32 x2, s32 y2, s32 x3, s32 y3, s32 r0, s32 g0, s32 b0, s32 r1, s32 g1, s32 b1) {
     uvVtxBeginPoly();
-    uvVtx(arg0, arg1, 0, 0, 0, arg8, arg9, arg10, 0xFF);
-    uvVtx(arg2, arg3, 0, 0, 0, arg8, arg9, arg10, 0xFF);
-    uvVtx(arg4, arg5, 0, 0, 0, arg11, arg12, arg13, 0xFF);
-    uvVtx(arg6, arg7, 0, 0, 0, arg11, arg12, arg13, 0xFF);
+    uvVtx(x0, y0, 0, 0, 0, r0, g0, b0, 0xFF);
+    uvVtx(x1, y1, 0, 0, 0, r0, g0, b0, 0xFF);
+    uvVtx(x2, y2, 0, 0, 0, r1, g1, b1, 0xFF);
+    uvVtx(x3, y3, 0, 0, 0, r1, g1, b1, 0xFF);
     uvVtxEndPoly();
 }
 
-void screenDrawBox(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, u8 arg5, u8 arg6, u8 arg7) {
+// draw rect
+void screenDrawBox(s32 x0, s32 y0, s32 x1, s32 y1, u8 r, u8 g, u8 b, u8 a) {
     uvVtxBeginPoly();
-    uvVtx(arg0, arg1, 0, 0, 0, arg4, arg5, arg6, arg7);
-    uvVtx(arg2, arg1, 0, 0, 0, arg4, arg5, arg6, arg7);
-    uvVtx(arg2, arg3, 0, 0, 0, arg4, arg5, arg6, arg7);
-    uvVtx(arg0, arg3, 0, 0, 0, arg4, arg5, arg6, arg7);
+    uvVtx(x0, y0, 0, 0, 0, r, g, b, a);
+    uvVtx(x1, y0, 0, 0, 0, r, g, b, a);
+    uvVtx(x1, y1, 0, 0, 0, r, g, b, a);
+    uvVtx(x0, y1, 0, 0, 0, r, g, b, a);
     uvVtxEndPoly();
 }
 
-void func_802DEE44(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10) {
-    s32 temp_s0 = arg0 + arg2;
-    s32 temp_s1 = arg1 + arg3;
-    s32 temp_s2 = arg0 + arg4;
-    s32 temp_s3 = temp_s1 - arg4;
-    s32 temp_s4 = temp_s0 - arg4;
-    s32 temp_s5 = arg1 + arg4;
+// draw outlined rect?
+void func_802DEE44(s32 x, s32 y, s32 width, s32 height, s32 size, s32 r0, s32 g0, s32 b0, s32 r1, s32 g1, s32 b1) {
+    s32 x1 = x + width;
+    s32 y1 = y + height;
+    s32 xpos = x + size;
+    s32 yneg = y1 - size;
+    s32 xneg = x1 - size;
+    s32 ypos = y + size;
 
     uvGfxStatePush();
     uvGfxSetFlags(GFX_STATE_800000 | 0xFFF);
     uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000 | GFX_STATE_100000);
-    func_802DEC30(temp_s0, temp_s1, arg0, temp_s1, temp_s2, temp_s3, temp_s4, temp_s3, arg5, arg6, arg7, arg8, arg9, arg10);
-    func_802DEC30(temp_s4, temp_s3, temp_s4, temp_s5, temp_s0, arg1, temp_s0, temp_s1, arg5, arg6, arg7, arg8, arg9, arg10);
-    func_802DEC30(temp_s4, temp_s5, temp_s2, temp_s5, arg0, arg1, temp_s0, arg1, arg5, arg6, arg7, arg8, arg9, arg10);
-    func_802DEC30(arg0, temp_s1, arg0, arg1, temp_s2, temp_s5, temp_s2, temp_s3, arg5, arg6, arg7, arg8, arg9, arg10);
+    func_802DEC30(x1, y1, x, y1, xpos, yneg, xneg, yneg, r0, g0, b0, r1, g1, b1);
+    func_802DEC30(xneg, yneg, xneg, ypos, x1, y, x1, y1, r0, g0, b0, r1, g1, b1);
+    func_802DEC30(xneg, ypos, xpos, ypos, x, y, x1, y, r0, g0, b0, r1, g1, b1);
+    func_802DEC30(x, y1, x, y, xpos, ypos, xpos, yneg, r0, g0, b0, r1, g1, b1);
     uvGfxStatePop();
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_66160/screenDrawBox2.s")
+void screenDrawBox2(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, char* arg5, s32 arg6, s32 arg7) {
+    s32 spA4;
+    s32 spA0;
+    s32 sp9C;
+    s32 sp98;
+    s32 sp84;
+    s32 temp_v0;
+    s32 temp_v1;
+    s32 pad;
+
+    screenDrawBoxSetup();
+    if (arg5 != NULL) {
+        temp_v0 = uvFontWidth(arg5);
+
+        // hack operand order workaround
+        sp9C = arg4 * 2;
+        sp9C = temp_v0 + sp9C + 2;
+
+        spA4 = (((arg2 - temp_v0) / 2) + arg0) - arg4;
+        temp_v1 = uvFontHeight() + arg4 * 2;
+        sp98 = temp_v1 + 2;
+        spA0 = (arg1 + arg3 - (sp98 / 2)) - (arg4 / 2);
+        screenDrawBox(spA4 + arg4, arg1 + arg3 - arg4, (spA4 + sp9C) - arg4, ((spA0 + temp_v1) - arg4) + 2, 0, 0, 0, arg6);
+    }
+
+    screenDrawBox(arg0 + arg4, arg1 + arg4, arg0 + arg2 - arg4, arg1 + arg3 - arg4, 0, 0, 0, arg6);
+    if (arg5 != NULL) {
+        func_802DEE44(spA4 - 1, spA0 - 1, sp9C + 2, sp98 + 2, arg4 + 2, 0, 0, 0, 0, 0, 0);
+        func_802DEE44(spA4, spA0, sp9C, sp98, arg4, 0x14, 0xAA, 0xFF, 0, 0xF, 0xA0);
+        uvFontColor(0xB4, 0xB4, 0x00, 0xFF);
+        uvFontPrintStr(spA4 + arg4 + 1, spA0 + arg4, arg5);
+        func_802DEC30(spA4, arg1 + arg3 + 1, arg0 - 1, arg1 + arg3 + 1, arg0 + arg4, arg1 + arg3 - arg4 - 1, spA4, arg1 + arg3 - arg4 - 1, 0, 0, 0, 0, 0, 0);
+        func_802DEC30(arg0 + arg2 + 1, arg1 + arg3 + 1, spA4 + sp9C, arg1 + arg3 + 1, spA4 + sp9C, arg1 + arg3 - arg4 - 1, arg0 + arg2 - arg4,
+                      arg1 + arg3 - arg4 - 1, 0, 0, 0, 0, 0, 0);
+        func_802DEC30(spA4, arg1 + arg3, arg0, arg1 + arg3, arg0 + arg4, arg1 + arg3 - arg4, spA4, arg1 + arg3 - arg4, 0x14, 0xAA, 0xFF, 0, 0xF, 0xA0);
+        func_802DEC30(arg0 + arg2, arg1 + arg3, spA4 + sp9C, arg1 + arg3, spA4 + sp9C, arg1 + arg3 - arg4, arg0 + arg2 - arg4, arg1 + arg3 - arg4, 0x14, 0xAA,
+                      0xFF, 0, 0xF, 0xA0);
+    } else {
+        func_802DEC30(arg0 + arg2 + 1, arg1 + arg3 + 1, arg0 - 1, arg1 + arg3 + 1, arg0 + arg4, arg1 + arg3 - arg4 - 1, arg0 + arg2 - arg4,
+                      arg1 + arg3 - arg4 - 1, 0, 0, 0, 0, 0, 0);
+        func_802DEC30(arg0 + arg2, arg1 + arg3, arg0, arg1 + arg3, arg0 + arg4, arg1 + arg3 - arg4, arg0 + arg2 - arg4, arg1 + arg3 - arg4, 0x14, 0xAA, 0xFF, 0,
+                      0xF, 0xA0);
+    }
+
+    func_802DEC30(arg0 - 1, arg1 + arg3, arg0 - 1, arg1, arg0 + arg4 + 1, arg1 + arg4 + 1, arg0 + arg4 + 1, arg1 + arg3 - arg4 - 1, 0, 0, 0, 0, 0, 0);
+    func_802DEC30(arg0 + arg2 - arg4 - 1, arg1 + arg3 - arg4 - 1, arg0 + arg2 - arg4 - 1, arg1 + arg4 + 1, arg0 + arg2 + 1, arg1, arg0 + arg2 + 1,
+                  arg1 + arg3 + 1, 0, 0, 0, 0, 0, 0);
+    func_802DEC30(arg0 + arg2 - arg4, arg1 + arg4 + 1, arg0 + arg4 + 1, arg1 + arg4 + 1, arg0 - 1, arg1 - 1, arg0 + arg2 + 1, arg1 - 1, 0, 0, 0, 0, 0, 0);
+    func_802DEC30(arg0, arg1 + arg3, arg0, arg1, arg0 + arg4, arg1 + arg4, arg0 + arg4, arg1 + arg3 - arg4, 0x14, 0xAA, 0xFF, 0, 0xF, 0xA0);
+    func_802DEC30(arg0 + arg2 - arg4, arg1 + arg3 - arg4, arg0 + arg2 - arg4, arg1 + arg4, arg0 + arg2, arg1, arg0 + arg2, arg1 + arg3, 0x14, 0xAA, 0xFF, 0,
+                  0xF, 0xA0);
+    func_802DEC30(arg0 + arg2 - arg4, arg1 + arg4, arg0 + arg4, arg1 + arg4, arg0, arg1, arg0 + arg2, arg1, 0x14, 0xAA, 0xFF, 0, 0xF, 0xA0);
+
+    sp84 = (((arg3 / 2) + arg1) - (arg4 * 1.5f));
+    if (arg7 != 0) {
+        // hack operand order workaround
+        temp_v0 = arg4 * 6;
+        temp_v0 = sp84 + temp_v0 + 2;
+
+        sp98 = arg4 * 4;
+
+        uvVtxBeginPoly();
+        uvVtx(arg0 + arg4 + 1, sp84 - 2, 0, 0, 0, 0, 0, 0, 0xFF);
+        uvVtx(arg0 + arg4 + 1, temp_v0, 0, 0, 0, 0, 0, 0, 0xFF);
+        uvVtx(arg0 + arg4 - sp98 - 1, (arg4 * 6 / 2) + sp84, 0, 0, 0, 0, 0, 0, 0xFF);
+        uvVtxEndPoly();
+        uvVtxBeginPoly();
+        uvVtx(arg0 + arg4, sp84, 0, 0, 0, 0, 0xB4, 0, 0xFF);
+        uvVtx(arg0 + arg4, sp84 + arg4 * 6, 0, 0, 0, 0, 0xB4, 0, 0xFF);
+        uvVtx(arg0 + arg4 - sp98, (arg4 * 6 / 2) + sp84, 0, 0, 0, 0, 0xB4, 0, 0xFF);
+        uvVtxEndPoly();
+        uvVtxBeginPoly();
+        uvVtx(arg0 + arg2 - arg4 - 1, sp84 - 2, 0, 0, 0, 0, 0, 0, 0xFF);
+        uvVtx(arg0 + arg2 - arg4 + sp98 + 1, (arg4 * 6 / 2) + sp84, 0, 0, 0, 0, 0, 0, 0xFF);
+        uvVtx(arg0 + arg2 - arg4 - 1, sp84 + arg4 * 6 + 2, 0, 0, 0, 0, 0, 0, 0xFF);
+        uvVtxEndPoly();
+        uvVtxBeginPoly();
+        uvVtx(arg0 + arg2 - arg4, sp84, 0, 0, 0, 0, 0xB4, 0, 0xFF);
+        uvVtx(arg0 + arg2 - arg4 + sp98, (arg4 * 6 / 2) + sp84, 0, 0, 0, 0, 0xB4, 0, 0xFF);
+        uvVtx(arg0 + arg2 - arg4, sp84 + arg4 * 6, 0, 0, 0, 0, 0xB4, 0, 0xFF);
+        uvVtxEndPoly();
+    }
+    func_802DFA18();
+}
 
 void screenDrawBoxSetup(void) {
     Mtx4F sp60;
@@ -68,91 +148,4 @@ void screenDrawBoxSetup(void) {
 void func_802DFA18(void) {
     uvGfxMtxViewPop();
     uvGfxStatePop();
-}
-
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_66160/func_802DFA40.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_66160/func_802DFB48.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_66160/db_getgnd.s")
-
-Vec3F* func_802E02EC(void) {
-    return &D_80359D70;
-}
-
-s32 func_802E02F8(void) {
-    return D_80359D7C;
-}
-
-void db_getstart(Mtx4F* arg0, Vec3F* arg1, u8* arg2, f32* arg3) {
-    Vec3F pos;
-    Vec3F ang;
-    LevelTPAD* sp44;
-    LevelTPAD* first;
-    ParsedUVTR* sp3C;
-    s32 idx;
-    u8 temp_v1;
-
-    temp_v1 = levelDataGetTPAD(&sp44);
-    if (temp_v1 == 0) {
-        _uvDebugPrintf("db_getstart :  no starting pads in task!!!\n");
-        sp3C = uvTerraGetBox(D_80362690->unk0[0].unk6);
-        uvMat4SetIdentity(arg0);
-        arg0->m[3][0] = (sp3C->unk0.unk0 + sp3C->unk0.unkC) * 0.5f;
-        arg0->m[3][1] = (sp3C->unk0.unk4 + sp3C->unk0.unk10) * 0.5f;
-        arg0->m[3][2] = sp3C->unk0.unk14;
-        if (arg2 != NULL) {
-            *arg2 = 1;
-        }
-        if (arg3 != NULL) {
-            *arg3 = 0.0f;
-        }
-    } else {
-        if (temp_v1 > 1) {
-            _uvDebugPrintf("db_getstart : too many starting pad! picking first\n");
-        }
-        first = &sp44[0];
-        pos.x = first->pos.x;
-        pos.y = first->pos.y;
-        pos.z = first->pos.z;
-        ang.x = first->angle.x;
-        ang.y = first->angle.y;
-        ang.z = first->angle.z;
-        func_80313640(pos.x, pos.y, pos.z, ang.x * 0.0174533f, ang.y * 0.0174533f, ang.z * 0.0174533f, arg0); // almost DEG_TO_RAD(1)
-        arg1->x = first->unk1C.x;
-        arg1->y = first->unk1C.y;
-        arg1->z = first->unk1C.z;
-        if (arg2 != NULL) {
-            *arg2 = first->unk28;
-        }
-        if (arg3 != NULL) {
-            *arg3 = first->unk2C;
-        }
-    }
-}
-
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_66160/func_802E0484.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_66160/func_802E05CC.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_66160/func_802E06AC.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_66160/func_802E07D8.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_66160/func_802E08F4.s")
-
-u8 func_802E0C30(u8 arg0, s32 arg1) {
-    u8 ret;
-
-    ret = 0;
-    if ((arg0 == 4) || ((arg0 != 0) && (arg1 == -1))) {
-        ret = 1;
-    } else if (arg0 == 0) {
-        if (func_802E02F8() == 4) {
-            ret = 1;
-        } else if ((func_802E02F8() == 1) && ((arg1 == -1) || (func_802DC8E4(arg1) != 0))) {
-            ret = 1;
-        }
-    }
-    return ret;
 }

@@ -6,6 +6,12 @@
 #include <uv_sprite.h>
 #include <uv_graphics.h>
 
+typedef enum MemType {
+    MEM_ALLOCATE = 0,  // dynamically allocate memory for data
+    MEM_SCRATCH = 1,   // copy data to scratch address 0x803DA800
+    MEM_ROM_OFFSET = 2 // return ROM offset of data
+} MemType;
+
 typedef struct {
     float unk0;
     u16 uvVersion;
@@ -20,7 +26,7 @@ typedef struct {
     u16 UVAN;
     u16 UVFT;
     u16 UVBT;
-    u16 unk1C;
+    u16 userFile;
     u16 UVSX;
     u16 UVTP;
     u16 unk22;
@@ -39,7 +45,7 @@ typedef struct {
     void* UVAN[0xAA];
     void* UVFT[0x14];
     void* UVBT[0x7D];
-    void* unk1838[0x80];
+    void* userFiles[0x80];
     void* UVSX[1];
     void* UVTP[1];
 } UVBlockOffsets;
@@ -91,7 +97,8 @@ s32 _uvMemAllocAlign8(u32 size);
 s32 uvFileWrite(u8* dst, s32 offs, s32 nbytes);
 s32 uvFileRead(void* dst, s32 offs, s32 nbytes);
 
-// TODO: from code_32480.c (filesystem?)
-void* func_802314D0(s32 arg0, s32 arg1);
+// read data from user (Pilotwings) file
+// can request data be returned from dynamic allocation, scratch buffer, or ROM offset
+void* uvUserFileRead(s32 userFileIdx, MemType request);
 
 #endif // PILOTWINGS64_UV_MEMORY

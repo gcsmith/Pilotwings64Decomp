@@ -3,11 +3,11 @@
 #include <uv_font.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>
-#include <uv_level.h>
 #include <uv_math.h>
 #include <uv_matrix.h>
 #include <uv_sprite.h>
 #include <uv_string.h>
+#include <uv_texture.h>
 #include <uv_vector.h>
 #include "demo.h"
 #include "code_9A960.h"
@@ -16,6 +16,7 @@
 #include "pads.h"
 #include "snap.h"
 #include "snd.h"
+#include "task.h"
 #include "text_data.h"
 #include "thermals.h"
 
@@ -40,36 +41,15 @@ s32 D_8034F918[] = {
 };
 
 s32 D_8034F928[] = {
-    ~0x2C,
-    0x2D,
-    0x87,
-    ~0x86,
-};
-s32 D_8034F938 = 0;
-
-Unk8034F93C D_8034F93C[] = {
-    { 0xFFFF, 0xFFFF },
-    {      1, 0xFFFF },
-    {      1,      1 },
-    { 0xFFFF,      1 },
-    { 0xFFFF, 0xFFFF },
-    {      1, 0xFFFF },
-    {      1,      2 },
-    { 0xFFFF,      2 }
+    -45,
+    45,
+    135,
+    -135,
 };
 
-Unk8034F93C D_8034F95C[] = {
-    { 0xFFFF, 0 },
-    {      1, 0 },
-    {      0, 1 },
-    {      0, 0 },
-    {      0, 0 },
-};
-
-extern HUDState gHudState;
-
-extern Vec2F gRadarThermCirc[17];
-extern u8 D_8036D224;
+Vec2F gRadarThermCirc[17];
+HUDState gHudState;
+u8 D_8036D224;
 
 // forward declarations
 void hud_8031A378(void);
@@ -125,8 +105,8 @@ void hudInit(void) {
     gHudState.unkC54 = 0.0f;
     gHudState.unkC58 = -1.0f;
     gHudState.unkC68 = -100.0f;
-    gHudState.unkC6C = 0.0f;
-    gHudState.unkC70 = 0.0f;
+    gHudState.reticleX = 0.0f;
+    gHudState.reticleY = 0.0f;
     hud_8031A378();
     uvSprtProps(0, 3, 1, 1, 16, 8, 5, 0x11D, 0);
     uvSprtProps(1, 3, 1, 1, 32, 32, 5, 0x126, 0);
@@ -214,7 +194,7 @@ void hudMainRender(void) {
         if (gHudState.unkC64 < (gHudState.unk14 - gHudState.unkC68)) {
             if (gHudState.renderFlags & HUD_RENDER_HANG_GLIDER) {
                 hudDrawHangGlider(&gHudState);
-            } else if (gHudState.renderFlags & HUD_RENDER_ROCKET_PACK) {
+            } else if (gHudState.renderFlags & HUD_RENDER_ROCKET_BELT) {
                 hudDrawRocketPack(&gHudState);
             } else if (gHudState.renderFlags & HUD_RENDER_GYROCOPTER) {
                 hudDrawGyrocopter(&gHudState);
@@ -259,7 +239,309 @@ void hudDrawRocketPack(HUDState* hud) {
     hudDrawTimer(27, 222, hud->elapsedTime);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/hud/hudDrawCannonball.s")
+typedef struct UnkCannonballDraw {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+    s32 unk10;
+} UnkCannonballDraw;
+
+void hudDrawCannonball(HUDState* arg0) {
+    s32 temp_s1_2;
+    s32 spF8;
+    s32 i;
+    s32 var_v0;
+    s32 spEC;
+    s32 spE8;
+    s32 pad2[4];
+    s32 pad;
+    f32 temp_fs0;
+    f32 var_ft5;
+    f32 var_fv0;
+    s32 spC4;
+    f32 var_fv1;
+    f32 temp;
+    s32 temp_ft3;
+    s32 temp_v1;
+    s32 temp_s1;
+    s32 temp_s1_5;
+    s32 var_a2;
+    u32 var_a3;
+    s32 spA0;
+    s32 var_s0_3;
+    UnkCannonballDraw sp60[3];
+    s32 pad3;
+
+    if (arg0->speed == 0.0f) {
+        uvGfxStatePush();
+        uvGfxSetFlags(GFX_STATE_800000);
+        uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
+        uvGfx_80223A28(0x12D);
+        uvVtxBeginPoly();
+        uvVtx(27, 44, 0, 0, 0, 255, 255, 255, 255);
+        uvVtx(48, 44, 0, 0x2A0, 0, 255, 255, 255, 255);
+        uvVtx(48, 53, 0, 0x2A0, 0x120, 255, 255, 255, 255);
+        uvVtx(27, 53, 0, 0, 0x120, 255, 255, 255, 255);
+        uvVtxEndPoly();
+        uvGfxStatePop();
+        uvGfxStatePush();
+        uvGfxSetFlags(GFX_STATE_800000);
+        uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
+        uvGfx_80223A28(0x12B);
+        uvVtxBeginPoly();
+        uvVtx(29, 55, 0, 0, 0, 255, 255, 255, 255);
+        uvVtx(43, 55, 0, 0x1C0, 0, 255, 255, 255, 255);
+        uvVtx(43, 119, 0, 0x1C0, 0x7E0, 255, 255, 255, 255);
+        uvVtx(29, 119, 0, 0, 0x7E0, 255, 255, 255, 255);
+        uvVtxEndPoly();
+        uvGfxStatePop();
+        uvGfxStatePush();
+        uvGfxSetFlags(GFX_STATE_800000);
+        uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
+        uvGfx_80223A28(0x12A);
+        uvVtxBeginPoly();
+        uvVtx(29, 119, 0, 0, 0, 255, 255, 255, 255);
+        uvVtx(43, 119, 0, 0x1C0, 0, 255, 255, 255, 255);
+        uvVtx(43, 183, 0, 0x1C0, 0x800, 255, 255, 255, 255);
+        uvVtx(29, 183, 0, 0, 0x800, 255, 255, 255, 255);
+        uvVtxEndPoly();
+        uvGfxStatePop();
+        var_fv1 = arg0->power;
+        temp_s1 = var_fv1 * 123.0f;
+        uvGfxStatePush();
+        uvGfxSetFlags(GFX_STATE_800000);
+        uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
+        uvVtxBeginPoly();
+        temp_s1 += 59;
+        uvVtx(33, temp_s1, 0, 0, 0, 0, 0, 0, 255);
+        uvVtx(40, temp_s1, 0, 0, 0, 0, 0, 0, 255);
+        uvVtx(40, 181, 0, 0, 0, 0, 0, 0, 255);
+        uvVtx(33, 181, 0, 0, 0, 0, 0, 0, 255);
+        uvVtxEndPoly();
+        uvGfxStatePop();
+
+        for (i = 0; i < arg0->unk8; i++) {
+            temp_s1_2 = i * 16;
+            uvGfxStatePush();
+            uvGfxSetFlags(GFX_STATE_800000);
+            uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
+            uvGfx_80223A28(0x12C);
+            uvVtxBeginPoly();
+            uvVtx(temp_s1_2 + 28, 206, 0, 0, 0, 255, 255, 255, 255);
+            uvVtx(temp_s1_2 + 43, 206, 0, 0x1C0, 0, 255, 255, 255, 255);
+            uvVtx(temp_s1_2 + 43, 220, 0, 0x1C0, 0x1C0, 255, 255, 255, 255);
+            uvVtx(temp_s1_2 + 28, 220, 0, 0, 0x1C0, 255, 255, 255, 255);
+            uvVtxEndPoly();
+            uvGfxStatePop();
+        }
+        uvGfxStatePush();
+        uvGfxSetFlags(GFX_STATE_800000);
+        uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
+        uvVtxBeginPoly();
+        uvVtx(29, 25, 0, 0, 0, 0, 0, 0, 100);
+        uvVtx(284, 25, 0, 0, 0, 0, 0, 0, 100);
+        uvVtx(284, 41, 0, 0, 0, 0, 0, 0, 100);
+        uvVtx(29, 41, 0, 0, 0, 0, 0, 0, 100);
+        uvVtxEndPoly();
+        uvGfxStatePop();
+        var_fv0 = -arg0->unk20 * 57.29;
+        while (var_fv0 > 180.0f) {
+            var_fv0 -= 360.0f;
+        }
+
+        while (var_fv0 <= -180.0f) {
+            var_fv0 += 360.0f;
+        }
+
+        var_ft5 = var_fv0 - 79.375f;
+        if (var_ft5 <= -180.0f) {
+            var_ft5 += 360.0f;
+        }
+        // FAKE
+        if (var_fv0 == 0.0) { }
+        if (var_fv0 == 180.0f) { }
+        if (var_fv0 == 79.375f) { }
+        var_fv1 = var_ft5;
+
+        var_a2 = 0;
+        spA0 = 0;
+        var_a3 = 0;
+        while (var_a2 < 0xFE) {
+            sp60[spA0].unkC = var_a2;
+
+            if (!var_a3) {
+                temp_ft3 = var_fv1 / 45.0f;
+                if (temp_ft3 == 0) {
+                    spC4 = 0;
+                }
+                if ((temp_ft3 == 1) || (temp_ft3 == 2)) {
+                    spC4 = 1;
+                }
+                if ((temp_ft3 == -1) || (temp_ft3 == -2)) {
+                    spC4 = 3;
+                }
+                if ((temp_ft3 == -3) || (temp_ft3 == 3) || (temp_ft3 == 4)) {
+                    spC4 = 2;
+                }
+                temp_v1 = D_8034F928[spC4];
+                if ((spC4 == 2) && (var_fv1 < 0.0)) {
+                    var_v0 = ((var_fv1 + 360.0) - temp_v1) * 1.6;
+                } else {
+                    var_v0 = (var_fv1 - temp_v1) * 1.6;
+                }
+            } else {
+                var_v0 = 0;
+                spC4++;
+                if (spC4 >= 4) {
+                    spC4 = 0;
+                }
+                // FAKE
+                (f64) var_fv1;
+            }
+            var_a3 = 1;
+            var_a2 -= var_v0;
+            var_a2 += 0x90;
+            sp60[spA0].unk4 = var_v0;
+            if (var_a2 >= 0xFF) {
+                sp60[spA0].unk0 = 0xFE - sp60[spA0].unkC;
+                sp60[spA0].unk8 = 0xFE;
+            } else {
+                sp60[spA0].unk0 = 0x90;
+                sp60[spA0].unk8 = var_a2;
+            }
+            sp60[spA0].unk10 = spC4;
+            var_fv1 += var_a2 / 1.6;
+            spA0++;
+        }
+
+        for (i = 0; i < spA0; i++) {
+            if ((sp60[i].unk4 < 72) && (sp60[i].unk0 > 72)) {
+                temp_s1_2 = (sp60[i].unkC - sp60[i].unk4) + 100;
+                spF8 = temp_s1_2 + 4;
+                uvGfxStatePush();
+                uvGfxSetFlags(GFX_STATE_800000);
+                uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
+                uvVtxBeginPoly();
+                uvVtx(temp_s1_2, 27, 0, 0, 0, 0, 0, 255, 255);
+                uvVtx(spF8, 27, 0, 0, 0, 0, 0, 255, 255);
+                uvVtx(spF8, 29, 0, 0, 0, 0, 0, 255, 255);
+                uvVtx(temp_s1_2, 29, 0, 0, 0, 0, 0, 255, 255);
+                uvVtxEndPoly();
+                uvGfxStatePop();
+            }
+            temp_s1_2 = sp60[i].unkC + 30;
+            spF8 = sp60[i].unk8 + 30;
+            spEC = sp60[i].unk4 << 5;
+            spE8 = sp60[i].unk0 << 5;
+            uvGfxStatePush();
+            uvGfxSetFlags(GFX_STATE_800000);
+            uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
+            uvGfx_80223A28(0x130);
+            uvVtxBeginPoly();
+            uvVtx(temp_s1_2, 26, 0, spEC, 0, 255, 255, 255, 255);
+            uvVtx(spF8, 26, 0, spE8, 0, 255, 255, 255, 255);
+            uvVtx(spF8, 33, 0, spE8, 0xE0, 255, 255, 255, 255);
+            uvVtx(temp_s1_2, 33, 0, spEC, 0xE0, 255, 255, 255, 255);
+            uvVtxEndPoly();
+            uvGfxStatePop();
+            temp_s1_2 = sp60[i].unkC + 30;
+            spF8 = sp60[i].unk8 + 30;
+            spEC = sp60[i].unk4 << 5;
+            spE8 = sp60[i].unk0 << 5;
+            uvGfxStatePush();
+            uvGfxSetFlags(GFX_STATE_800000);
+            uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
+            uvGfx_80223A28(D_8034F918[sp60[i].unk10]);
+            uvVtxBeginPoly();
+            uvVtx(temp_s1_2, 31, 0, spEC, 0, 255, 215, 0, 255);
+            uvVtx(spF8, 31, 0, spE8, 0, 255, 215, 0, 255);
+            uvVtx(spF8, 38, 0, spE8, 0xE0, 255, 215, 0, 255);
+            uvVtx(temp_s1_2, 38, 0, spEC, 0xE0, 255, 215, 0, 255);
+            uvVtxEndPoly();
+            uvGfxStatePop();
+        }
+        uvGfxStatePush();
+        uvGfxClearFlags(GFX_STATE_800000 | GFX_STATE_400000 | GFX_STATE_200000);
+        hudDrawRect(27, 23, 258, 19, 3, 0, 0, 0, 255);
+        hudDrawRect(28, 24, 256, 17, 1, 0, 134, 73, 255);
+        uvVtxBeginPoly();
+        uvVtx(153, 26, 0, 0, 0, 255, 0, 0, 255);
+        uvVtx(158, 26, 0, 0, 0, 255, 0, 0, 255);
+        uvVtx(156, 29, 0, 0, 0, 255, 0, 0, 255);
+        uvVtxEndPoly();
+        uvGfxStatePop();
+        uvGfxStatePush();
+        uvGfxSetFlags(GFX_STATE_800000);
+        uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
+        uvVtxBeginPoly();
+        uvVtx(265, 51, 0, 0, 0, 0, 0, 0, 100);
+        uvVtx(285, 51, 0, 0, 0, 0, 0, 0, 100);
+        uvVtx(285, 138, 0, 0, 0, 0, 0, 0, 100);
+        uvVtx(265, 138, 0, 0, 0, 0, 0, 0, 100);
+        uvVtxEndPoly();
+        uvGfxStatePop();
+        var_fv0 = arg0->unk24 * 57.29578;
+        if (var_fv0 < -30.0) {
+            var_fv0 = -30.0f;
+        }
+        if (var_fv0 > 60.0) {
+            var_fv0 = 60.0f;
+        }
+        temp = var_fv0 - 30.0;
+        var_s0_3 = (s32)((temp - -60.0) * 1.6) + 7;
+        if (var_s0_3 < 0) {
+            var_s0_3 = 0;
+        }
+        temp_s1_5 = var_s0_3 + 0x56;
+        if (temp_s1_5 >= 0xF5) {
+            var_s0_3 = 0xB5;
+        }
+
+        var_s0_3 = var_s0_3 << 5;
+        temp_s1_5 = temp_s1_5 << 5;
+        uvGfxStatePush();
+        uvGfxSetFlags(GFX_STATE_800000);
+        uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
+        uvGfx_80223A28(0x12E);
+        uvVtxBeginPoly();
+        uvVtx(266, 51, 0, 0, var_s0_3, 255, 215, 0, 255);
+        uvVtx(276, 51, 0, 0x140, var_s0_3, 255, 215, 0, 255);
+        uvVtx(276, 138, 0, 0x140, temp_s1_5, 255, 215, 0, 255);
+        uvVtx(266, 138, 0, 0, temp_s1_5, 255, 215, 0, 255);
+        uvVtxEndPoly();
+        uvGfxStatePop();
+        uvGfxStatePush();
+        uvGfxSetFlags(GFX_STATE_800000);
+        uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
+        uvGfx_80223A28(0x12F);
+        uvVtxBeginPoly();
+        uvVtx(275, 51, 0, 0, var_s0_3, 255, 255, 255, 255);
+        uvVtx(282, 51, 0, 0xE0, var_s0_3, 255, 255, 255, 255);
+        uvVtx(282, 138, 0, 0xE0, temp_s1_5, 255, 255, 255, 255);
+        uvVtx(275, 138, 0, 0, temp_s1_5, 255, 255, 255, 255);
+        uvVtxEndPoly();
+        uvGfxStatePop();
+        uvGfxStatePush();
+        uvGfxClearFlags(GFX_STATE_800000 | GFX_STATE_400000 | GFX_STATE_200000);
+        hudDrawRect(262, 48, 26, 93, 3, 0, 0, 0, 255);
+        hudDrawRect(263, 49, 24, 91, 1, 0, 169, 218, 255);
+        uvVtxBeginPoly();
+        uvVtx(285, 93, 0, 0, 0, 255, 0, 0, 255);
+        uvVtx(285, 98, 0, 0, 0, 255, 0, 0, 255);
+        uvVtx(282, 96, 0, 0, 0, 255, 0, 0, 255);
+        uvVtxEndPoly();
+        uvGfxStatePop();
+        hudDrawRadar(215, 222, arg0->att.x, arg0->att.y, arg0->att.heading, arg0->unk20, &arg0->radar);
+        if (arg0->renderFlags & HUD_RENDER_RETICLE) {
+            hudDrawAimReticle(arg0->reticleX, arg0->reticleY, arg0->unkC74);
+        }
+    } else {
+        hudSeaLevel(235, 37, arg0->altSeaLevel);
+        hudDrawAltimeter(250, 129, arg0->altitude);
+        hudDrawSpeed(27, 37, arg0->speed, 0);
+    }
+}
 
 void hudDrawSkyDiving(HUDState* hud) {
     // for sky diving, unk4 means alpha channel for the clouds that appear during
@@ -291,13 +573,13 @@ void hudDrawJumbleHopper(HUDState* hud) {
 }
 
 void hudDrawBirdman(HUDState* hud) {
-    if (D_80362690->unk0[D_80362690->unk9C].unkC.unk7B == 0) {
+    if (D_80362690->unkC[D_80362690->unk9C].unk7B == 0) {
         hudDrawPhotoCount();
     }
     hudSeaLevel(235, 37, (s32)hud->altSeaLevel);
     hudDrawAltimeter(250, 129, (s32)hud->altitude);
     hudDrawSpeed(27, 37, (s32)hud->speed, 0);
-    if (D_80362690->unk0[D_80362690->unk9C].unkC.unk7B == 0) {
+    if (D_80362690->unkC[D_80362690->unk9C].unk7B == 0) {
         hudDrawCamera(hud);
     }
 }
@@ -309,7 +591,7 @@ void hudDrawCamera(HUDState* hud) {
         uvSprtProps(9, 2, 0x5F, 0xAF, 7, 0xFF, 0, 0, 0x78, 0);
         uvSprtDraw(9);
         if (D_8034F914 == 0) {
-            snd_play_sfx(0x43);
+            sndPlaySfx(0x43);
             D_8034F914 = 1;
         }
     } else if (hud->cameraState & HUD_CAM_RENDER_SHUTTER) {
@@ -338,7 +620,7 @@ void hudDrawGyrocopter(HUDState* hud) {
     hudDrawThrottle(27, 82, hud->power);
     hudDrawTimer(27, 222, hud->elapsedTime);
     if (hud->renderFlags & HUD_RENDER_RETICLE) {
-        hudDrawAimReticle((s32)hud->unkC6C, (s32)hud->unkC70, 0);
+        hudDrawAimReticle((s32)hud->reticleX, (s32)hud->reticleY, 0);
     }
 }
 
@@ -375,18 +657,18 @@ void hud_8031A378(void) {
     f32 sp70;
     f32 sp6C;
     s32 i;
-    LevelHOPD* hopd;
-    LevelBTGT* btgt;
+    TaskHOPD* hopd;
+    TaskBTGT* btgt;
 
     idx = 0;
-    for (i = 0; i < levelDataGetHOPD(&hopd); i++) {
+    for (i = 0; i < taskGetHOPD(&hopd); i++) {
         radar->goals[idx].x = hopd[i].pos.x;
         radar->goals[idx].y = hopd[i].pos.y;
         radar->goals[idx].unkC = 0;
         idx++;
     }
 
-    for (i = 0; i < levelDataGetBTGT(&btgt); i++) {
+    for (i = 0; i < taskGetBTGT(&btgt); i++) {
         radar->goals[idx].x = btgt[i].pos.x;
         radar->goals[idx].y = btgt[i].pos.y;
         radar->goals[idx].unkC = 0;
@@ -394,19 +676,19 @@ void hud_8031A378(void) {
     }
 
     for (i = 0; i < gLandingPadCount; i++) {
-        if (gLandingPads[i].unk14 == 0) {
+        if (gLandingPads[i].isUsed == 0) {
             continue;
         }
-        radar->goals[idx].x = gLandingPads[i].x;
-        radar->goals[idx].y = gLandingPads[i].y;
+        radar->goals[idx].x = gLandingPads[i].pos.x;
+        radar->goals[idx].y = gLandingPads[i].pos.y;
         radar->goals[idx].unkC = 0;
         idx++;
     }
 
     for (i = 0; i < gLandingStripCount; i++) {
-        radar->goals[idx].x = gLandingStrips[i].x;
-        radar->goals[idx].y = gLandingStrips[i].y;
-        func_80313430(gLandingStrips[i].unkC - gLandingStrips[i].unk0, gLandingStrips[i].unk10 - gLandingStrips[i].unk4, 0.0f, &sp74, &sp70, &sp6C);
+        radar->goals[idx].x = gLandingStrips[i].midpoint.x;
+        radar->goals[idx].y = gLandingStrips[i].midpoint.y;
+        func_80313430(gLandingStrips[i].pos1.x - gLandingStrips[i].pos0.x, gLandingStrips[i].pos1.y - gLandingStrips[i].pos0.y, 0.0f, &sp74, &sp70, &sp6C);
         radar->goals[idx].unk8 = sp70;
         radar->goals[idx].unkC = 1;
         idx++;
@@ -442,7 +724,7 @@ void hud_8031A66C(s32 idx, s32 arg1) {
     }
 }
 
-s32 hud_8031A6C8(f32 arg0, f32 arg1, f32 arg2) {
+s32 hudAddWaypoint(f32 x, f32 y, f32 z) {
     HUDRadar* radar = &gHudState.radar;
     s32 idx;
     s32 i;
@@ -460,11 +742,11 @@ s32 hud_8031A6C8(f32 arg0, f32 arg1, f32 arg2) {
         return 0xFF;
     }
 
-    radar->waypoints[idx].unk0 = arg0;
-    radar->waypoints[idx].unk4 = arg1;
+    radar->waypoints[idx].x = x;
+    radar->waypoints[idx].y = y;
+    radar->waypoints[idx].z = z;
     radar->waypoints[idx].unk14 = 0;
     radar->waypoints[idx].unk18 = 0xFF;
-    radar->waypoints[idx].unk8 = arg2;
     radar->waypoints[idx].unk1C = D_8036D224 - 1;
     if (radar->unk4 < idx) {
         radar->unk4 = idx;
@@ -472,7 +754,7 @@ s32 hud_8031A6C8(f32 arg0, f32 arg1, f32 arg2) {
     return idx;
 }
 
-void hud_8031A794(s32 idx, f32 arg1, f32 arg2, f32 arg3) {
+void hudMoveWaypoint(s32 idx, f32 x, f32 y, f32 z) {
     HUDRadar* radar = &gHudState.radar;
 
     if ((idx >= ARRAY_COUNT(gHudState.radar.waypoints)) || (idx < 0)) {
@@ -481,9 +763,9 @@ void hud_8031A794(s32 idx, f32 arg1, f32 arg2, f32 arg3) {
     }
 
     if (radar->waypoints[idx].unk1C != 0xFE) {
-        radar->waypoints[idx].unk0 = arg1;
-        radar->waypoints[idx].unk4 = arg2;
-        radar->waypoints[idx].unk8 = arg3;
+        radar->waypoints[idx].x = x;
+        radar->waypoints[idx].y = y;
+        radar->waypoints[idx].z = z;
     }
 }
 
@@ -748,14 +1030,14 @@ void hudDrawRadar(s32 x, s32 y, f32 xOff, f32 yOff, f32 heading, f32 pitch, HUDR
             temp_fs0 *= 0.0375f;
             sp74 *= 0.0375f;
             sp70 *= 0.0375f;
-            hudRadarThermal(temp_fs0, sp74, sp70, 0xFF, 0x64, 0, 0x96, sp58);
+            hudRadarThermal(temp_fs0, sp74, sp70, 0xFF, 100, 0, 0x96, sp58);
         }
     }
     uvGfxStatePop();
 
     for (i = 0; i <= radar->unk4; i++) {
-        temp_fa0 = radar->waypoints[i].unk0 - xOff;
-        var_fa1 = radar->waypoints[i].unk4 - yOff;
+        temp_fa0 = radar->waypoints[i].x - xOff;
+        var_fa1 = radar->waypoints[i].y - yOff;
         if ((temp_fa0 == 0.0f) && (var_fa1 == 0.0f)) {
             sp94 = 0.0f;
             sp98 = 0.001f;
@@ -794,7 +1076,7 @@ void hudDrawRadar(s32 x, s32 y, f32 xOff, f32 yOff, f32 heading, f32 pitch, HUDR
             break;
         }
 
-        temp_fv0_3 = radar->waypoints[idx].unk8 - heading;
+        temp_fv0_3 = radar->waypoints[idx].z - heading;
         if (radar->waypoints[idx].unk14 > 0) {
             radar->waypoints[idx].unk18 -= 50;
             if (radar->waypoints[idx].unk18 < 0) {
@@ -1149,10 +1431,6 @@ void hudSeaLevel(s32 x, s32 y, s32 alt) {
     uvFontPrintStr(x + 52, y - 16, "m");
 }
 
-#ifndef NON_MATCHING
-#pragma GLOBAL_ASM("asm/nonmatchings/app/hud/hudDrawTimer.s")
-#else
-// rom size changes when this gets compiled in, probably related to static var and .bss
 void hudDrawTimer(s32 x, s32 y, f32 timeSecF) {
     static s32 D_8034F938 = 0;
     s32 timeMs;
@@ -1198,7 +1476,6 @@ void hudDrawTimer(s32 x, s32 y, f32 timeSecF) {
     uvSprintf(timeStr, "%02d'%02d\"%02d", timeSec / 60, dispSec, dispHundth);
     uvFontPrintStr(x, y, timeStr);
 }
-#endif
 
 void hudDrawAimReticle(s32 x, s32 y, s32 flag) {
     s16 centerX;
@@ -1446,6 +1723,25 @@ void hudRadarThermal(f32 xOff, f32 yOff, f32 scale, u8 r, u8 g, u8 b, u8 a, f32 
 void hudSetCameraState(s32 state) {
     gHudState.cameraState = state;
 }
+
+Unk8034F93C D_8034F93C[] = {
+    { -1, -1 },
+    {  1, -1 },
+    {  1,  1 },
+    { -1,  1 },
+    { -1, -1 },
+    {  1, -1 },
+    {  1,  2 },
+    { -1,  2 }
+};
+
+Unk8034F93C D_8034F95C[] = {
+    { -1, 0 },
+    {  1, 0 },
+    {  0, 1 },
+    {  0, 0 },
+    {  0, 0 },
+};
 
 void hudRadarWaypoint(f32 dist, f32 bearing, s32 type, s32 below, f32 heading, u8 alpha) {
     Mtx4F sp70;

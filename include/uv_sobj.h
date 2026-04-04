@@ -6,7 +6,7 @@
 #include <uv_matrix.h>
 
 typedef struct UnkSobjDraw {
-    u16 unk0;
+    u16 modelId;
     Mtx* unk4;
     f32 unk8;
     f32 unkC;
@@ -16,7 +16,7 @@ typedef struct UnkSobjDraw {
 } UnkSobjDraw;
 
 void uvSobjsDraw(UnkStruct_80204D94*, Mtx4F*, u16, u16, UnkSobjDraw*, u16, u8, s32);
-u8 uvSobj_8022C7B8(ParsedUVMD*, f32);
+u8 uvSobjGetLODIndex(ParsedUVMD* uvmd, f32 dist);
 void uvSobj_8022C8D0(UnkSobjDraw*, ParsedUVMD*, u8, Mtx4F*);
 void uvSobj_8022CC28(UnkSobjDraw*, ParsedUVMD*, u8, f32, f32);
 UnkSobjDraw* uvSobjLoadTerra(u32 soid);

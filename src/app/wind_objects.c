@@ -1,12 +1,12 @@
 #include "common.h"
 #include <uv_dobj.h>
-#include <uv_level.h>
 #include <uv_math.h>
 #include <uv_matrix.h>
 #include <uv_model.h>
 #include <uv_util.h>
 #include "code_9A960.h"
 #include "environment.h"
+#include "level.h"
 
 #define WIND_OBJECT_COUNT 0x10
 #define INITIAL_OBJECT_ID 0xFFFF
@@ -22,19 +22,13 @@ typedef struct {
     f32 unkC8;
 } WindObject;
 
-// size: 0x10
-typedef struct {
-    Vec3F pos;
-    u8 unkC; // id or type? value between 0 and 2
-} WindObjectData;
-
 // .bss
-extern WindObjectData* sWindObjectsData;
+extern LevelWOBJ* sWindObjectsData;
 extern u8 sWindObjectsInLevel;
 extern WindObject sWindObjects[WIND_OBJECT_COUNT];
 
-// windObjectsInit initializes / resets the model ID for all wind objects
-void windObjectsInit(void) {
+// windObjInit initializes / resets the model ID for all wind objects
+void windObjInit(void) {
     s32 i;
 
     // clang-format off: needs to be on one line to match
@@ -42,13 +36,13 @@ void windObjectsInit(void) {
     // clang-format on
 }
 
-// func_8034E0B4 loads models for wind objects in level?
-void func_8034E0B4(void) {
-    WindObjectData* windObjectData;
+// windObjectsLoad loads models for wind objects in level
+void windObjLoad(void) {
+    LevelWOBJ* windObjectData;
     WindObject* windObject;
     s32 i;
 
-    sWindObjectsInLevel = levelGetWOBJ((void**)&sWindObjectsData);
+    sWindObjectsInLevel = levelGetWOBJ(&sWindObjectsData);
     if (sWindObjectsInLevel > WIND_OBJECT_COUNT) {
         _uvDebugPrintf("wobjs : too many wind objects defined in level [%d]\n", sWindObjectsInLevel);
         sWindObjectsInLevel = 0;
@@ -59,22 +53,22 @@ void func_8034E0B4(void) {
         windObject = &sWindObjects[i];
         windObjectData = &sWindObjectsData[i];
         windObject->objId = uvDobjAllocIdx();
-        switch (windObjectData->unkC) {
-        case 0:
-            uvDobjModel(windObject->objId, MODEL_40);
-            uvModelGetPosm(0x40, 1, &windObject->unk44);
-            uvModelGetPosm(0x40, 2, &windObject->unk84);
+        switch (windObjectData->type) {
+        case WIND_OBJ_WINDSOCK_JOINTED:
+            uvDobjModel(windObject->objId, MODEL_WIND_SOCK_YELLOW_BLUE);
+            uvModelGetPosm(MODEL_WIND_SOCK_YELLOW_BLUE, 1, &windObject->unk44);
+            uvModelGetPosm(MODEL_WIND_SOCK_YELLOW_BLUE, 2, &windObject->unk84);
             windObject->unkC8 = 0.0f;
             windObject->unkC4 = 0.0f;
             break;
-        case 1:
+        case WIND_OBJ_TURBINE:
             uvDobjModel(windObject->objId, MODEL_WIND_TURBINE);
-            uvModelGetPosm(0x53, 1, &windObject->unk44);
-            uvModelGetPosm(0x53, 2, &windObject->unk84);
+            uvModelGetPosm(MODEL_WIND_TURBINE, 1, &windObject->unk44);
+            uvModelGetPosm(MODEL_WIND_TURBINE, 2, &windObject->unk84);
             windObject->unkC4 = 0.0f;
             break;
-        case 2:
-            uvDobjModel(windObject->objId, MODEL_40);
+        case WIND_OBJ_WINDSOCK_SIMPLE:
+            uvDobjModel(windObject->objId, MODEL_WIND_SOCK_YELLOW_BLUE);
             break;
         }
         uvMat4SetIdentity(&windObject->unk4);
@@ -85,7 +79,7 @@ void func_8034E0B4(void) {
     }
 }
 
-void func_8034E274(void) {
+void windObjFrameUpdate(void) {
     WindObject* windObject;
     f32 temp_fa0;
     Vec3F spEC;
@@ -120,7 +114,7 @@ void func_8034E274(void) {
         } else if (var_fs0 > 1.0f) {
             var_fs0 = 1.0f;
         }
-        switch (sWindObjectsData[i].unkC) { /* irregular */
+        switch (sWindObjectsData[i].type) { /* irregular */
         case 2:
             break;
         case 0:
@@ -165,7 +159,7 @@ void func_8034E274(void) {
     }
 }
 
-void func_8034E628(void) {
+void windObjDeinit(void) {
     WindObject* windObject;
     s32 i;
 
@@ -178,14 +172,14 @@ void func_8034E628(void) {
     }
 }
 
-s32 func_8034E6AC(s32 objId) {
+s32 windObjIsLoadedId(s32 objId) {
     s32 i;
 
     for (i = 0; i < sWindObjectsInLevel; i++) {
         if (sWindObjects[i].objId != INITIAL_OBJECT_ID && objId == sWindObjects[i].objId) {
-            return 1;
+            return TRUE;
         }
     }
 
-    return 0;
+    return FALSE;
 }

@@ -4,14 +4,11 @@
 #include <uv_vector.h>
 #include "birdman.h"
 #include "code_61A60.h"
-#include "code_66160.h"
+#include "code_66F70.h"
 #include "code_9A960.h"
+#include "balls.h"
 #include "environment.h"
-
-typedef struct {
-    s32 unk0;
-    s32 unk4;
-} Unk803593F0;
+#include "snd.h"
 
 typedef struct {
     Vec2F unk0[23];
@@ -55,65 +52,55 @@ Unk8034E934 D_8034E934 = {
 // used in bird_802CEBA0
 Vec3F D_8034E9D4 = { 0.0f, 0.0f, 0.0f };
 
-extern Unk803593F0 D_803593F0;
-extern Vec3F D_80359410;
-extern Vec3F D_8035941C;
-extern s32 D_80359428;
-extern Vec3F D_80359444;
-extern Vec3F D_80359450;
-extern s32 D_8035945C;
-extern Vec3F D_80359478;
-extern Vec3F D_80359484;
-extern s32 D_80359490;
-extern Vec3F D_803594AC;
-extern Vec3F D_803594B8;
-extern u16 D_8035963C;
+Unk802D3658_Unk111C D_803593F0;
+Unk802D3658_Unk1224 D_803594F8;
+u16 D_8035963C;
 
 // forward declarations
-void bird_802CF24C(Unk80367704*);
-void bird_802CF5B4(Unk80367704*);
-void bird_802CF640(Unk80367704*);
-s32 bird_802CF76C(Unk80367704*);
-void bird_802CF8A4(Unk80367704*);
-void bird_802CFAC8(Unk80367704*);
-void bird_802CFEA8(Unk80367704*);
-void bird_802CFF74(Unk80367704*);
-void bird_802D0080(Unk80367704*);
-void bird_802D0ABC(Unk80367704*);
+void bird_802CF24C(BirdmanData*);
+void bird_802CF5B4(BirdmanData*);
+void bird_802CF640(BirdmanData*);
+s32 bird_802CF76C(BirdmanData*);
+void bird_802CF8A4(BirdmanData*);
+void bird_802CFAC8(BirdmanData*);
+void bird_802CFEA8(BirdmanData*);
+void bird_802CFF74(BirdmanData*);
+void bird_802D0080(BirdmanData*);
+void bird_802D0ABC(BirdmanData*);
 f32 bird_802D08F8(Unk8034E824*, f32, f32);
 f32 bird_802D0A28(Unk8034E934*, f32);
 
-void bird_802CEBA0(Unk80367704* arg0) {
+void bird_802CEBA0(BirdmanData* arg0) {
     Vec3F sp2C;
     s32 pad;
 
     sp2C = D_8034E9D4;
     D_803593F0.unk0 = 4;
-    D_803593F0.unk4 = 1;
-    uvVec3Copy(&D_8035941C, &arg0->unk32C);
-    uvVec3Copy(&D_80359410, &arg0->unk320);
-    D_80359428 = 1;
-    uvVec3Copy(&D_80359450, &arg0->unk338);
-    uvVec3Copy(&D_80359444, &arg0->unk320);
-    D_8035945C = 1;
-    uvVec3Copy(&D_80359484, &sp2C);
-    uvVec3Copy(&D_80359478, &arg0->unk320);
-    D_80359490 = 1;
-    uvVec3Copy(&D_803594B8, &sp2C);
-    uvVec3Copy(&D_803594AC, &arg0->unk344);
+    D_803593F0.unk4[0].unk0 = 1;
+    uvVec3Copy(&D_803593F0.unk4[0].unk28, &arg0->unk32C);
+    uvVec3Copy(&D_803593F0.unk4[0].unk1C, &arg0->unk320);
+    D_803593F0.unk4[1].unk0 = 1;
+    uvVec3Copy(&D_803593F0.unk4[1].unk28, &arg0->unk338);
+    uvVec3Copy(&D_803593F0.unk4[1].unk1C, &arg0->unk320);
+    D_803593F0.unk4[2].unk0 = 1;
+    uvVec3Copy(&D_803593F0.unk4[2].unk28, &sp2C);
+    uvVec3Copy(&D_803593F0.unk4[2].unk1C, &arg0->unk320);
+    D_803593F0.unk4[3].unk0 = 1;
+    uvVec3Copy(&D_803593F0.unk4[3].unk28, &sp2C);
+    uvVec3Copy(&D_803593F0.unk4[3].unk1C, &arg0->unk344);
     bird_802CECB8(arg0);
     D_8035963C = 0xF7F8;
 }
 
-void bird_802CECB8(Unk80367704* arg0) {
+void bird_802CECB8(BirdmanData* arg0) {
     s32 pad;
 
     arg0->unk170 = 0;
-    arg0->unk17C = 1.0f;
+    arg0->unk174.z = 1.0f;
     arg0->unk168 = 0.0f;
     arg0->unk16C = 0.0f;
-    arg0->unk178 = 0.0f;
-    arg0->unk174 = 0.0f;
+    arg0->unk174.y = 0.0f;
+    arg0->unk174.x = 0.0f;
     arg0->unk228.z = 0.0f;
     arg0->unk228.y = 0.0f;
     arg0->unk228.x = 0.0f;
@@ -159,7 +146,7 @@ void bird_802CECB8(Unk80367704* arg0) {
     arg0->unk400.z = arg0->unk10.m[3][2];
 }
 
-void bird_802CEDF8(Unk80367704* arg0) {
+void bird_802CEDF8(BirdmanData* arg0) {
     Vec3F sp44;
     s32 pad;
 
@@ -222,9 +209,9 @@ void bird_802CEDF8(Unk80367704* arg0) {
         sp44.y = arg0->unk10.m[2][1];
         sp44.z = arg0->unk10.m[2][2];
     } else {
-        sp44.x = arg0->unk174;
-        sp44.y = arg0->unk178;
-        sp44.z = arg0->unk17C;
+        sp44.x = arg0->unk174.x;
+        sp44.y = arg0->unk174.y;
+        sp44.z = arg0->unk174.z;
     }
     func_80313C94(&sp44, &arg0->unk25C, 2.0f);
     uvMat4LocalToWorld(&arg0->unk1C0, &arg0->unk234, &arg0->unk228);
@@ -255,9 +242,67 @@ void bird_802CEDF8(Unk80367704* arg0) {
     arg0->unk240 = uvVec3Len(&arg0->unk234);
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/birdman2/bird_802CF24C.s")
+void bird_802CF24C(BirdmanData* arg0) {
+    f32 var_fa1;
+    f32 var_fa0;
+    f32 var_fv0;
+    f32 temp_fv0;
+    f32 var_fv1;
 
-void bird_802CF5B4(Unk80367704* arg0) {
+    var_fv1 = uvSqrtF(SQ(arg0->unk10.m[1][0]) + SQ(arg0->unk10.m[1][1])) * 0.8f;
+    if (arg0->unk274.y > 0.0f) {
+        var_fa1 = arg0->unk274.y * 0.2f * var_fv1;
+    } else {
+        var_fa1 = arg0->unkE8 * var_fv1;
+    }
+
+    arg0->unk250.x += -arg0->unk2B0 * 6.4f * var_fa1;
+    temp_fv0 = uvSqrtF(SQ(arg0->unk10.m[0][0]) + SQ(arg0->unk10.m[0][1]));
+    var_fa1 = arg0->unkE4 * (temp_fv0 * 0.9f);
+
+    if (ABS_NOEQ(arg0->unk200.y) < 20.0f) {
+        var_fa1 *= ABS_NOEQ(arg0->unk200.y) / 20.0f;
+    }
+
+    if (arg0->unk224 > 35.0f) {
+        var_fv0 = 20.0f / (arg0->unk224 - 15.0f);
+        if (var_fv0 < 0.25f) {
+            var_fv0 = 0.25f;
+        } else if (var_fv0 > 1.0f) {
+            var_fv0 = 1.0f;
+        }
+        var_fa1 *= var_fv0;
+    }
+    arg0->unk250.y += uvSinF(-arg0->unkD0) * arg0->unk2B4 * 5.6f * var_fa1;
+    arg0->unk250.z -= uvCosF(-arg0->unkD0) * arg0->unk2B4 * 5.6f * arg0->unkE4;
+    arg0->unk244 = func_80313AF4(0.0f, arg0->unk244, 3.0f);
+    arg0->unk248 = func_80313AF4(0.0f, arg0->unk248, 3.0f);
+    arg0->unk24C = func_80313AF4(0.0f, arg0->unk24C, 3.0f);
+
+    var_fv1 = uvSqrtF(SQ(arg0->unk268.y) + SQ(arg0->unk268.z + (arg0->unk2A4 * 9.8f)));
+    if (arg0->unk268.y < 0.0f) {
+        var_fv1 = -var_fv1;
+        var_fv1 *= 0.34f;
+    } else {
+        var_fv1 *= 0.34f;
+    }
+
+    var_fa0 = uvSqrtF(SQ(arg0->unk268.x) + SQ(arg0->unk268.z + (arg0->unk2A4 * 9.8f))) * 0.29f;
+
+    if (arg0->unk268.x > 0.0f) {
+        var_fa0 = -var_fa0;
+    }
+
+    arg0->unk250.x += var_fv1;
+    arg0->unk250.y += var_fa0;
+    var_fa1 = SQ(arg0->unk200.x);
+    if (arg0->unk200.x < 0.0f) {
+        var_fa1 = -var_fa1;
+    }
+    arg0->unk24C -= 0.005f * var_fa1;
+}
+
+void bird_802CF5B4(BirdmanData* arg0) {
     arg0->unk228.x = arg0->unk200.x * -0.2f;
     arg0->unk228.y = arg0->unk200.y * -0.2f;
     arg0->unk228.z = arg0->unk200.z * -0.2f;
@@ -266,7 +311,7 @@ void bird_802CF5B4(Unk80367704* arg0) {
     arg0->unk24C = func_80313AF4(0.0f, arg0->unk24C, 3.0f);
 }
 
-void bird_802CF640(Unk80367704* arg0) {
+void bird_802CF640(BirdmanData* arg0) {
     Vec3F sp3C;
     Vec3F sp30;
 
@@ -289,7 +334,7 @@ void bird_802CF640(Unk80367704* arg0) {
     arg0->unk105 = 0;
 }
 
-s32 bird_802CF76C(Unk80367704* arg0) {
+s32 bird_802CF76C(BirdmanData* arg0) {
     s32 pad;
     u8 temp_v0_2;
     f32* temp_s1; // TODO: double-check unk10 types
@@ -327,9 +372,55 @@ s32 bird_802CF76C(Unk80367704* arg0) {
     return 1;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/birdman2/bird_802CF8A4.s")
+void bird_802CF8A4(BirdmanData* arg0) {
+    Vec3F sp3C;
+    Vec3F sp30;
+    f32 var_fv1;
+    f32 var_fa1;
 
-void bird_802CFAC8(Unk80367704* arg0) {
+    if (arg0->unk224 < 1.0f) {
+        return;
+    }
+    sp3C.x = arg0->unk10.m[2][0];
+    sp3C.y = arg0->unk10.m[2][1];
+    sp3C.z = arg0->unk10.m[2][2];
+    sp30.x = arg0->unk200.x / arg0->unk224;
+    sp30.y = arg0->unk200.y / arg0->unk224;
+    sp30.z = arg0->unk200.z / arg0->unk224;
+    var_fv1 = ABS_NOEQ(uvVec3Dot(&sp3C, &sp30));
+    if (var_fv1 < 0.1f) {
+        var_fv1 = 0.1f;
+    }
+
+    var_fv1 *= bird_802D0A28(&D_8034E934, arg0->unk224);
+    var_fv1 *= arg0->unk2AC;
+    var_fa1 = -var_fv1 * 0.003f;
+    var_fv1 = 1.0f;
+
+    // FAKE
+    sp3C.x = (0, var_fa1) * arg0->unk200.x * arg0->unk200.x;
+    if (arg0->unk200.x < 0.0f) {
+        sp3C.x = -sp3C.x;
+    }
+    sp3C.y = (0, var_fa1) * arg0->unk200.y * arg0->unk200.y;
+    if (arg0->unk200.y < 0.0f) {
+        sp3C.y = -sp3C.y;
+    }
+
+    if (arg0->unk224 < 10.0f) {
+        var_fv1 *= 0;
+        var_fa1 = -var_fv1 * 0.0030f;
+    }
+    sp3C.z = (0, var_fa1) * arg0->unk200.z * arg0->unk200.z;
+    if (arg0->unk200.z < 0.0f) {
+        sp3C.z *= -1.0f;
+    }
+    arg0->unk228.x += sp3C.x;
+    arg0->unk228.y += sp3C.y;
+    arg0->unk228.z += sp3C.z;
+}
+
+void bird_802CFAC8(BirdmanData* arg0) {
     f32 var_ft5;
     f32 temp_fa0;
     f32 var_ft4;
@@ -412,7 +503,7 @@ void bird_802CFAC8(Unk80367704* arg0) {
     arg0->unk228.y += var_ft4;
 }
 
-void bird_802CFEA8(Unk80367704* arg0) {
+void bird_802CFEA8(BirdmanData* arg0) {
     Vec3F sp2C;
     Vec3F sp20;
 
@@ -435,7 +526,7 @@ void bird_802CFEA8(Unk80367704* arg0) {
     }
 }
 
-void bird_802CFF74(Unk80367704* arg0) {
+void bird_802CFF74(BirdmanData* arg0) {
     Vec3F sp24;
     f32 temp_fv0;
 
@@ -459,7 +550,185 @@ void bird_802CFF74(Unk80367704* arg0) {
     }
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/birdman2/bird_802D0080.s")
+void bird_802D0080(BirdmanData* arg0) {
+    Vec3F sp27C;
+    f32 var_fs2;
+    f32 var_fs1;
+    s32 temp_v1;
+    Unk802D3658_Unk1120* temp_v0_3;
+    u8 sp26B;
+    u8 i;
+    Unk802D3658_Unk1228* temp_s1;
+    f32 var_fv1;
+    f32 var_fa0;
+    s32 sp258;
+    Vec3F sp24C;
+    Vec3F sp240;
+    Vec3F sp234;
+    Vec3F sp228;
+    Mtx4F sp1E8;
+    Unk802D3658_Unk1224 spA4;
+    f32 temp_fv0;
+    f32 temp_fv1;
+    f32 temp_fa0;
+
+    for (i = 0; i < 4; i++) {
+        arg0->unk140[i] = 0.0f;
+        arg0->unk108[i] = 0;
+    }
+    arg0->unk106 = 0;
+    arg0->unk15C = 0;
+    sp258 = 0;
+    sp26B = func_802DB050(&D_803593F0, &D_803594F8, arg0->objId, arg0->unk2, &arg0->unk10);
+    arg0->unk107 = sp26B;
+
+    for (i = 0; i < sp26B; i++) {
+        temp_s1 = &D_803594F8.unk4[i];
+        func_802DC814(temp_s1, (Vec3F*)arg0->unk10.m[3]);
+        func_802DBE64(&D_803593F0, &D_803594F8, i, &arg0->unk180);
+        uvVec3Copy(&arg0->unk110[i], &temp_s1->unkC);
+        arg0->unk10C[i] = temp_s1->unk0;
+        arg0->unk108[i] = temp_s1->unk4;
+        arg0->unk140[i] = uvVec3Dot(&arg0->unk200, &temp_s1->unk34);
+        switch (temp_s1->unk4) {
+        case 2:
+            var_fs2 = var_fs1 = ballsPopped(temp_s1->surfaceId, &arg0->unk218, &D_803594F8);
+            if (var_fs1 == 0.0f) {
+                return;
+            }
+            break;
+        case 4:
+            if (arg0->unk104 != 1) {
+                arg0->unk104 = 0;
+            }
+            arg0->unk15C = 1;
+            arg0->unk106 = 0;
+            break;
+        case 1:
+        case 8:
+            if ((temp_s1->unk4 == 8) && (func_802DC97C(temp_s1->surfaceId) != 0)) {
+                func_8033F758(0x39, 1.0f, 1.0f, 0.0f);
+            }
+            if ((arg0->unk164 > 1.0f) && (arg0->unk16C < 3.0f) && (temp_s1->unk0 == 3)) {
+                return;
+            }
+            if ((arg0->unk105 != 0) && (arg0->unk104 != 1)) {
+                uvVec3Copy(&sp24C, &arg0->unk200);
+                func_802DC074(&arg0->unk1C0, &arg0->unk200, &arg0->unk218, &temp_s1->unk34, 0.5f);
+                temp_fv0 = ABS_NOEQ(sp24C.x - arg0->unk200.x);
+                if (temp_fv0 < 0.1f) {
+                    temp_fv1 = ABS_NOEQ(sp24C.y - arg0->unk200.y);
+                    if (temp_fv1 < 0.1f) {
+                        temp_fa0 = ABS_NOEQ(sp24C.y - arg0->unk200.z);
+                        if (temp_fa0 < 0.1f) {
+                            arg0->unk200.x += temp_s1->unk34.x;
+                            arg0->unk200.y += temp_s1->unk34.y;
+                            arg0->unk200.z += temp_s1->unk34.z;
+                            uvMat4LocalToWorld(&arg0->unk1C0, &arg0->unk218, &arg0->unk200);
+                            return;
+                        }
+                    }
+                }
+                arg0->unk10.m[3][0] += 0.01f * arg0->unk174.x;
+                arg0->unk10.m[3][1] += 0.01f * arg0->unk174.y;
+                arg0->unk10.m[3][2] += 0.01f * arg0->unk174.z;
+                return;
+            }
+
+            var_fv1 = ABS_NOEQ(arg0->unk218.z * 2.52f);
+            var_fa0 = ABS_NOEQ(arg0->unk218.y * 2.52f);
+            if ((temp_s1->unk0 == 3) && (arg0->unk104 == 0) && (var_fv1 < 50.0f)) {
+                arg0->unk106 = 0;
+                var_fs2 = 0.0f;
+                var_fs1 = 0.0f;
+                temp_v1 = arg0->unk104;
+                if (temp_v1 == 0) {
+                    if ((var_fa0 > 50.0f) && (D_8034F850 > 2.0f)) {
+                        arg0->unk104 = 1;
+                    } else if (arg0->unk105 == 0) {
+                        arg0->unk2D0 = 0.0f;
+                        arg0->unk105 = 1;
+                        arg0->unk10.m[3][0] += 0.025f * arg0->unk174.x;
+                        arg0->unk10.m[3][1] += 0.025f * arg0->unk174.y;
+                        arg0->unk10.m[3][2] = (arg0->unk168 - arg0->unk344.z) + (0.025f * arg0->unk174.z);
+                        arg0->unk218.x = 0.0f;
+                        arg0->unk218.y = 0.0f;
+                        arg0->unk218.z = 0.0f;
+                        arg0->unk200.x = 0.0f;
+                        arg0->unk200.y = 0.0f;
+                        arg0->unk200.z = 0.0f;
+                        arg0->unk234.x = 0.0f;
+                        arg0->unk234.y = 0.0f;
+                        arg0->unk234.z = 0.0f;
+                        arg0->unk228.x = 0.0f;
+                        arg0->unk228.y = 0.0f;
+                        arg0->unk228.z = 0.0f;
+                    }
+                }
+            } else {
+                arg0->unk106 = temp_s1->unk4;
+                arg0->unk104 = 1;
+                var_fs2 = 0.5f;
+                var_fs1 = 0.7f;
+                if (arg0->unkE0 != 0) {
+                    arg0->unk4 = 0xF7FB;
+                } else {
+                    arg0->unk4 = D_8035963C;
+                }
+                if (arg0->unk224 < 2.0f) {
+                    var_fs2 *= arg0->unk224 / 2.0f;
+                    var_fs1 *= arg0->unk224 / 2.0f;
+                }
+                if (arg0->unk106 == 4) {
+                    arg0->unk15C = 1;
+                }
+            }
+            break;
+        default:
+            _uvDebugPrintf("bmmot : unknown collision type [%d]\n", temp_s1->unk4);
+            break;
+        }
+
+        if ((arg0->unk105 == 0) && (temp_s1->unk4 != 4)) {
+            sp27C.x = -arg0->unk200.x;
+            sp27C.y = -arg0->unk200.y;
+            sp27C.z = -arg0->unk200.z;
+            func_802DC1DC(&arg0->unk250, &temp_s1->unk28, &sp27C, 20.0f * var_fs1, 5.6f * var_fs1, 9.2f * var_fs1);
+            func_802DC074(&arg0->unk1C0, &arg0->unk200, &arg0->unk218, &temp_s1->unk34, var_fs2);
+        }
+        if (arg0->unk104 != 2) {
+            if ((temp_s1->unk4 != 4) && (arg0->unk105 == 0)) {
+                if ((temp_s1->unk4 == 2) && ballsObjIdExists(temp_s1->surfaceId)) {
+                    break;
+                }
+                temp_v0_3 = &D_803593F0.unk4[temp_s1->unk0];
+                func_802DCA5C(&temp_v0_3->unk28, &temp_v0_3->unk1C, &temp_s1->unk28, &temp_s1->unk34, &sp240);
+                sp234.x = arg0->unk10.m[3][0];
+                sp234.y = arg0->unk10.m[3][1];
+                sp234.z = arg0->unk10.m[3][2];
+                uvMat4Copy(&sp1E8, &arg0->unk10);
+                uvMat4LocalTranslate(&sp1E8, sp240.x, sp240.y, sp240.z);
+                sp228.x = sp1E8.m[3][0];
+                sp228.y = sp1E8.m[3][1];
+                sp228.z = sp1E8.m[3][2];
+                func_802DB224(&spA4, 0xFF, arg0->objId, arg0->unk2, &sp234, &sp228);
+                if (spA4.unk0 > 0) {
+                    sp258++;
+                } else {
+                    uvMat4LocalTranslate(&arg0->unk10, sp240.x, sp240.y, sp240.z);
+                    arg0->unk400.x = arg0->unk10.m[3][0];
+                    arg0->unk400.y = arg0->unk10.m[3][1];
+                    arg0->unk400.z = arg0->unk10.m[3][2];
+                }
+            }
+        }
+    }
+
+    if (sp26B && (sp258 == sp26B)) {
+        arg0->unk104 = 2;
+        _uvDebugPrintf("birdman: you got stuck - forcing an instant crash\n");
+    }
+}
 
 f32 bird_802D08F8(Unk8034E824* arg0, f32 arg1, f32 arg2) {
     s32 i;
@@ -530,25 +799,25 @@ f32 bird_802D0A28(Unk8034E934* arg0, f32 arg1) {
     return (a * y0) + (b * y1);
 }
 
-void bird_802D0ABC(Unk80367704* arg0) {
+void bird_802D0ABC(BirdmanData* arg0) {
     Mtx4F* temp_s2;
     Mtx4F sp44;
     Vec3F sp38;
 
     func_80313FD0(&arg0->unk350, arg0->unk2BC, &sp38);
     temp_s2 = &arg0->unk90;
-    uvMat4LocalToWorld(temp_s2, &D_8035941C, &sp38);
+    uvMat4LocalToWorld(temp_s2, &D_803593F0.unk4[0].unk28, &sp38);
     uvVec3Copy(&sp38, &arg0->unk320);
-    uvMat4LocalToWorld(temp_s2, &D_80359410, &sp38);
+    uvMat4LocalToWorld(temp_s2, &D_803593F0.unk4[0].unk1C, &sp38);
     func_80313FD0(&arg0->unk350, arg0->unk2BC, &sp38);
     sp38.x = -sp38.x;
-    uvMat4LocalToWorld(temp_s2, &D_80359450, &sp38);
+    uvMat4LocalToWorld(temp_s2, &D_803593F0.unk4[1].unk28, &sp38);
     uvVec3Copy(&sp38, &arg0->unk320);
-    uvMat4LocalToWorld(temp_s2, &D_80359444, &sp38);
+    uvMat4LocalToWorld(temp_s2, &D_803593F0.unk4[1].unk1C, &sp38);
     uvMat4Copy(&sp44, temp_s2);
     uvMat4RotateAxis(&sp44, arg0->unk304, 'x');
     uvMat4RotateAxis(&sp44, arg0->unk308, 'y');
-    uvMat4LocalToWorld(&sp44, &D_803594AC, &arg0->unk344);
+    uvMat4LocalToWorld(&sp44, &D_803593F0.unk4[3].unk1C, &arg0->unk344);
     uvVec3Copy(&sp38, &arg0->unk320);
-    uvMat4LocalToWorld(temp_s2, &D_80359478, &sp38);
+    uvMat4LocalToWorld(temp_s2, &D_803593F0.unk4[2].unk1C, &sp38);
 }

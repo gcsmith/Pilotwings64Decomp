@@ -1,8 +1,8 @@
 #include "common.h"
 #include <uv_event.h>
 #include "bmsound.h"
-#include "code_5A6A0.h"
-#include "code_72B70.h"
+#include "camera.h"
+#include "game.h"
 #include "code_9A960.h"
 #include "demo.h"
 #include "snd.h"
@@ -12,13 +12,13 @@ Unk803599D0 D_80359648;
 
 // forward declarations
 void bmSoundCallback(s32 eventType, void*, s32 eventData);
-void bmSound_802D112C(Unk80367704*);
-void bmSound_802D12C4(Unk80367704*);
-void bmSound_802D1320(Unk80367704*);
-void bmSound_802D1334(Unk80367704*);
-void bmSound_802D1534(Unk80367704*);
+void bmSound_802D112C(BirdmanData*);
+void bmSound_802D12C4(BirdmanData*);
+void bmSound_802D1320(BirdmanData*);
+void bmSound_802D1334(BirdmanData*);
+void bmSound_802D1534(BirdmanData*);
 
-void bmSoundInit(Unk80367704* arg0) {
+void bmSoundInit(BirdmanData* arg0) {
     arg0->unk41C = 0.0f;
     D_80359648.unk0 = 4;
     D_80359648.unk4 = 0;
@@ -29,11 +29,11 @@ void bmSoundInit(Unk80367704* arg0) {
     D_80359648.unk18 = 0.8f;
     D_80359648.unk1C = 10.0f;
     D_80359648.unk20 = 1.0f;
-    arg0->unk414 = snd_makedev(0x13);
-    arg0->unk415 = snd_makedev(0x13);
+    arg0->unk414 = sndMakeDev(0x13);
+    arg0->unk415 = sndMakeDev(0x13);
     gBmSoundCbInfo.cb = bmSoundCallback;
     gBmSoundCbInfo.arg = arg0;
-    arg0->unk410 = 0xFFFFFFC0;
+    arg0->unk410 = ~0x3F;
     uvEventMaxCb(gBmSoundCbInfo, 1, 0xD, 0x12, 0x13, 0x16, 0xC, 0x10, 0x24);
 }
 
@@ -42,10 +42,10 @@ void bmSoundCallback(s32 eventType, void* arg1, s32 eventData) {
     f32 temp_fv0;
     f32 var_fa1;
     f32 temp_ft3;
-    Unk80367704* a1;
+    BirdmanData* a1;
     f32 sp28;
 
-    a1 = (Unk80367704*)arg1;
+    a1 = (BirdmanData*)arg1;
 
     if (eventData != 0) {
         _uvDebugPrintf("bmsound Callback got non-zero eventData\n");
@@ -123,16 +123,16 @@ void bmSoundCallback(s32 eventType, void* arg1, s32 eventData) {
     }
 }
 
-void bmSound_802D112C(Unk80367704* arg0) {
-    Unk80362690_Unk0_UnkC* sp34;
+void bmSound_802D112C(BirdmanData* arg0) {
+    Unk80362690_Unk0* sp34;
     s32 sp30;
     f32 sp2C;
 
-    sp34 = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    sp34 = &D_80362690->unkC[D_80362690->unk9C];
     if (arg0->unk104 == 2) {
         if (!(arg0->unk410 & 0x02)) {
             arg0->unk410 |= 0x02;
-            snd_play_sfx(0x36);
+            sndPlaySfx(0x36);
             if (!(arg0->unk410 & 0x10)) {
                 func_8033F748(0x1B);
                 func_8033F964(0);
@@ -144,7 +144,7 @@ void bmSound_802D112C(Unk80367704* arg0) {
         if (arg0->unk104 == 1) {
             if (!(arg0->unk410 & 0x10)) {
                 arg0->unk410 |= 0x10;
-                snd_getpilot(&sp30, &sp2C);
+                sndGetPilot(&sp30, &sp2C);
                 func_8033F758(sp30, 1.0f, sp2C, 0.0f);
                 func_8033F748(0x1B);
                 func_8033F964(0);
@@ -166,22 +166,22 @@ void bmSound_802D112C(Unk80367704* arg0) {
             return;
         }
         if (!(arg0->unk410 & 0x10)) {
-            arg0->unk410 = 0xFFFFFFC0;
+            arg0->unk410 = ~0x3F;
         }
     }
 }
 
-void bmSound_802D12C4(Unk80367704* arg0) {
+void bmSound_802D12C4(BirdmanData* arg0) {
     arg0->unk410 |= 1;
     func_8033F904(arg0->unk414, 1.0f, 0.0f, 0.0f);
     func_8033F904(arg0->unk415, 1.0f, 0.0f, 0.0f);
 }
 
-void bmSound_802D1320(Unk80367704* arg0) {
-    arg0->unk410 &= 0xFFFFFFFE;
+void bmSound_802D1320(BirdmanData* arg0) {
+    arg0->unk410 &= ~1;
 }
 
-void bmSound_802D1334(Unk80367704* arg0) {
+void bmSound_802D1334(BirdmanData* arg0) {
     f32 temp_fv1;
     s32 i;
 
@@ -194,7 +194,7 @@ void bmSound_802D1334(Unk80367704* arg0) {
                 if ((arg0->unk15C != 0) && (arg0->unk104 == 2)) {
                     if (!(arg0->unk410 & 0x04)) {
                         arg0->unk410 |= 0x04;
-                        snd_play_sfx(0x1A);
+                        sndPlaySfx(0x1A);
                     }
                 }
                 break;
@@ -218,7 +218,7 @@ void bmSound_802D1334(Unk80367704* arg0) {
     }
 }
 
-void bmSound_802D1534(Unk80367704* arg0) {
+void bmSound_802D1534(BirdmanData* arg0) {
     arg0->unk414 = func_8033F8CC(arg0->unk414);
     arg0->unk415 = func_8033F8CC(arg0->unk415);
     uvEventRemoveCb(gBmSoundCbInfo, 1, 0xD, 0x12, 0x13, 0x16, 0xC, 0x10, 0x24);

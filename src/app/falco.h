@@ -5,10 +5,12 @@
 
 extern s32 D_8035A5F0;
 
-void func_802E37B0(void);
-void func_802E3A5C(void);
-void func_802E3E6C(void);
-void func_802E3F7C(void);
-s32 func_802E57C4(void);
+void falcoInit(void);
+void falcoLoad(void);
+void falcoDeinit(void);
+void falcoFrameUpdate(void);
+s32 falco_802E51E8(s32, f32, f32, f32);
+s32 falco_802E57C4(void);
+s16 falco_802E5818(void);
 
 #endif // APP_FALCO_H

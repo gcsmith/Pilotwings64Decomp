@@ -2,19 +2,19 @@
 #include <uv_font.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>
-#include <uv_level.h>
 #include <uv_math.h>
 #include <uv_string.h>
-#include "code_99D40.h"
 #include "code_9A960.h"
 #include "code_B3A70.h"
 #include "demo.h"
 #include "menu.h"
+#include "menu_utils.h"
 #include "save.h"
 #include "snap.h"
 #include "snow.h"
 #include "snd.h"
 #include "results.h"
+#include "task.h"
 #include "test_menu.h"
 #include "text_data.h"
 #include "total_results.h"
@@ -159,17 +159,15 @@ static s32 sReplayTipSet = FALSE;
 static s32 sVehTipIsInit = FALSE;
 
 // forward declarations
-void resultInit(s32);
-void resultDeinit(void);
 s32 resultMenuChoose(s32);
 void resultDrawTally(s32);
 void resultGenTipText(s32);
 
 s32 resultHandler(s32 arg0) {
-    Unk80362690_Unk0_UnkC* unkC;
+    Unk80362690_Unk0* unkC;
     s32 var_v1;
 
-    unkC = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    unkC = &D_80362690->unkC[D_80362690->unk9C];
 
     resultInit(arg0);
     while ((var_v1 = resultMenuChoose(arg0)) == 0) {
@@ -180,31 +178,29 @@ s32 resultHandler(s32 arg0) {
     }
     resultDeinit();
 
-    // FIXME: Unk80362690_Unk0_UnkC is wrong, indexing 15 in 4-byte buffer to match
-    // was: temp_sw->pad8B
-    if ((unkC->veh == VEHICLE_CANNONBALL) && (unkC->pad7C[0xF] != 0)) {
-        unkC->pad7C[0xF] = 0;
+    if ((unkC->veh == VEHICLE_CANNONBALL) && (unkC->unk8B != 0)) {
+        unkC->unk8B = 0;
     }
     return var_v1;
 }
 
 u8 resultListPhoto(void) {
-    Unk80362690_Unk0_UnkC* unkC;
+    Unk80362690_Unk0* unkC;
 
-    unkC = &D_80362690->unk0[D_80362690->unk9C].unkC;
-    if (D_80362690->unk0[D_80362690->unk9C].unkC.unk7B != 0) {
+    unkC = &D_80362690->unkC[D_80362690->unk9C];
+    if (D_80362690->unkC[D_80362690->unk9C].unk7B != 0) {
         return 0;
     }
     return (unkC->veh == VEHICLE_HANG_GLIDER || unkC->veh == VEHICLE_BIRDMAN);
 }
 
 u8 resultListReplay(void) {
-    Unk80362690_Unk0_UnkC* unkC;
+    Unk80362690_Unk0* unkC;
     s32 ret;
 
-    unkC = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    unkC = &D_80362690->unkC[D_80362690->unk9C];
     ret = (unkC->veh == VEHICLE_HANG_GLIDER || unkC->veh == VEHICLE_ROCKET_BELT || unkC->veh == VEHICLE_GYROCOPTER || unkC->veh == VEHICLE_BIRDMAN);
-    if (levelDataGetFALC(NULL) != 0) {
+    if (taskGetFALC(NULL) != 0) {
         ret = 0;
     }
     return ret;
@@ -218,9 +214,9 @@ void resultGenMenu(void) {
 
     idx = 0;
     if (resultListPhoto()) {
-        ptr = levelGet_80345CB0();
+        ptr = taskGet_80345CB0();
         if (ptr[1] == 1) {
-            func_803405E4();
+            snowDisable();
         }
         sResultMenu[0] = val; // Check Photo
         idx = 1;
@@ -233,7 +229,7 @@ void resultGenMenu(void) {
     if (resultListPhoto() && !func_8033F62C()) {
         menu_8030B69C(1);
     }
-    func_80312FF8(5);
+    menuUtilSetSoundFlags(MENU_SOUND_CHANGE | MENU_SOUND_SELECT);
 }
 
 s32 resultMenuItemLookup(s32 idx) {
@@ -254,16 +250,16 @@ s32 resultMenuItemLookup(s32 idx) {
 
 void resultInit(s32 arg0) {
     s32 val;
-    Unk80362690_Unk0_UnkC* unkC;
+    Unk80362690_Unk0* unkC;
     s32 i;
     const char* var_s0;
     s32 pts;
     s32 ptsTotal;
-    TestResult* res;
+    Unk80364210_Unk0_Unk0* res;
     s32 ptType;
     s32 strIdx;
 
-    unkC = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    unkC = &D_80362690->unkC[D_80362690->unk9C];
     ptsTotal = 0;
     if (unkC->veh == VEHICLE_BIRDMAN) {
         if (arg0 != 0) {
@@ -288,56 +284,55 @@ void resultInit(s32 arg0) {
         resultGenMenu();
         for (i = 0; i < ARRAY_COUNT(sPtsTallyStr); i++) {
             ptType = sResultPtTypes[unkC->veh][unkC->cls][unkC->test][i];
-            // unkC->unk4 is class, p40->unk6 * unkC->unk2 is test * vehicle?
-            res = &D_80364210[D_80362690->unk9C].unk0[unkC->cls].unk0[unkC->test][unkC->veh + 1].result;
+            res = &D_80364210[D_80362690->unk9C].unk40[unkC->cls].unk0[unkC->test][unkC->veh];
             sPtsTallyStr[i][0] = sPtsTallyStr[i][1] = sPtsTallyStr[i][2] = -3;
             sPtsTallyStr[i][3] = 0xFFE;
             sPtsTallyStr[i][4] = -1;
             switch (ptType) {
             case 1:
-                pts = res->scores[2];
+                pts = res->unk6;
                 break;
             case 2:
-                pts = res->scores[1];
+                pts = res->unk4;
                 break;
             case 3:
-                pts = res->scores[5];
+                pts = res->unkC;
                 break;
             case 4:
-                pts = res->scores[6];
+                pts = res->unkE;
                 break;
             case 5:
-                pts = res->scores[10];
+                pts = res->unk16;
                 break;
             case 6:
-                pts = res->scores[4];
+                pts = res->unkA;
                 break;
             case 7:
-                pts = res->scores[9];
+                pts = res->unk14;
                 break;
             case 8:
-                pts = res->scores[15];
+                pts = res->unk20;
                 break;
             case 9:
-                pts = res->scores[14];
+                pts = res->unk1E;
                 break;
             case 11:
-                pts = res->scores[13];
+                pts = res->unk1C;
                 break;
             case 12:
-                pts = D_80364210[D_80362690->unk9C].unk0[unkC->cls].unk0[0][unkC->veh + 1].result.scores[1];
+                pts = D_80364210[D_80362690->unk9C].unk40[unkC->cls].unk0[0][unkC->veh].unk4;
                 break;
             case 13:
-                pts = D_80364210[D_80362690->unk9C].unk0[unkC->cls].unk0[1][unkC->veh + 1].result.scores[1];
+                pts = D_80364210[D_80362690->unk9C].unk40[unkC->cls].unk0[1][unkC->veh].unk4;
                 break;
             case 14:
-                pts = D_80364210[D_80362690->unk9C].unk0[unkC->cls].unk0[2][unkC->veh + 1].result.scores[1];
+                pts = D_80364210[D_80362690->unk9C].unk40[unkC->cls].unk0[2][unkC->veh].unk4;
                 break;
             case 15:
-                pts = D_80364210[D_80362690->unk9C].unk0[unkC->cls].unk0[3][unkC->veh + 1].result.scores[1];
+                pts = D_80364210[D_80362690->unk9C].unk40[unkC->cls].unk0[3][unkC->veh].unk4;
                 break;
             case 16:
-                pts = res->scores[12];
+                pts = res->unk1A;
                 break;
             default:
                 continue;
@@ -353,12 +348,12 @@ void resultInit(s32 arg0) {
             }
         }
 
-        if (D_80364210[D_80362690->unk9C].unk0[0].unk0[0][1].unk8 != 0) {
-            textFmtInt(sPtsDeductedStr, -D_80364210[D_80362690->unk9C].unk0[0].unk0[0][1].unk8, 3);
-            ptsTotal += D_80364210[D_80362690->unk9C].unk0[0].unk0[0][1].unk8; // unk38
+        if (D_80364210[D_80362690->unk9C].unk38 != 0) {
+            textFmtInt(sPtsDeductedStr, -D_80364210[D_80362690->unk9C].unk38, 3);
+            ptsTotal += D_80364210[D_80362690->unk9C].unk38;
         } else {
-            textFmtInt(sPtsDeductedStr, -res->scores[11], 3);
-            ptsTotal += res->scores[11];
+            textFmtInt(sPtsDeductedStr, -res->unk18, 3);
+            ptsTotal += res->unk18;
         }
         if (ptsTotal < 0) {
             ptsTotal = 0;
@@ -371,15 +366,15 @@ void resultInit(s32 arg0) {
 }
 
 void resultDeinit(void) {
-    func_80312FF8(7);
+    menuUtilSetSoundFlags(MENU_SOUND_CHANGE | MENU_SOUND_BACK | MENU_SOUND_SELECT);
 }
 
 s32 resultMenuChoose(s32 arg0) {
-    Unk80362690_Unk0_UnkC* unkC;
+    Unk80362690_Unk0* unkC;
     s32 ret;
     s32 item;
 
-    unkC = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    unkC = &D_80362690->unkC[D_80362690->unk9C];
     ret = 0;
     func_80313D74();
     sScreenFadeDuration += D_8034F854;
@@ -387,19 +382,18 @@ s32 resultMenuChoose(s32 arg0) {
         sScreenFadeDuration = 1.5f;
     }
     if ((arg0 != 0) && (sScreenFadeDuration > 0.75f)) {
-        ret = menu_8030B50C();
+        ret = menuCheckInputs();
         item = resultMenuItemLookup(ret);
         switch (item) {
         case 2:
-            if (D_80362690->unk0[D_80362690->unk9C].unkC.unk7B != 0) {
-                return 0xB;
+            if (D_80362690->unkC[D_80362690->unk9C].unk7B != 0) {
+                return GAME_STATE_VEHICLE_CLASS_SELECT;
             }
             menuSetProps();
-            // FIXME: unkC->pad8B
-            if (((unkC->veh != VEHICLE_CANNONBALL) || (unkC->pad7C[0xF] != 0)) && (unkC->veh != VEHICLE_BIRDMAN)) {
+            if (((unkC->veh != VEHICLE_CANNONBALL) || (unkC->unk8B != 0)) && (unkC->veh != VEHICLE_BIRDMAN)) {
                 ret = totResultHandler();
             } else {
-                ret = 2;
+                ret = GAME_STATE_TEST_DETAILS;
             }
             sScreenFadeDuration = 1.5f;
             break;
@@ -411,20 +405,19 @@ s32 resultMenuChoose(s32 arg0) {
             break;
         case 0:
             if (func_8033E3A8(2) != 0) {
-                // FIXME: unkC->pad8A
-                saveFileWrite((s32)unkC->pad7C[0xE]);
+                saveFileWrite(unkC->unk8A);
             }
             ret = 0;
             sScreenFadeDuration = 1.5f;
             break;
         case 3:
-            return 4;
+            return GAME_STATE_TEST_SETUP;
         case 4:
-            return 2;
+            return GAME_STATE_TEST_DETAILS;
         case 5:
-            return 0xB;
+            return GAME_STATE_VEHICLE_CLASS_SELECT;
         case 6:
-            return 2;
+            return GAME_STATE_TEST_DETAILS;
         case -3:
         case -2:
         case -1:
@@ -436,11 +429,11 @@ s32 resultMenuChoose(s32 arg0) {
             sScreenFadeDuration = 1.5f;
             demo_80323020();
             if (demoButtonPress(D_80362690->unk9C, A_BUTTON | B_BUTTON | START_BUTTON) != 0) {
-                ret = 1;
+                ret = GAME_STATE_1;
                 if (demoButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON) != 0) {
-                    snd_play_sfx(0x73);
+                    sndPlaySfx(0x73);
                 } else if (demoButtonPress(D_80362690->unk9C, CONT_B) != 0) {
-                    snd_play_sfx(1);
+                    sndPlaySfx(1);
                 }
             }
         }
@@ -449,7 +442,7 @@ s32 resultMenuChoose(s32 arg0) {
 }
 
 void resultDrawTally(s32 arg0) {
-    Unk80362690_Unk0_UnkC* unkC;
+    Unk80362690_Unk0* unkC;
     s32 alpha;
     s32 x;
     s32 y;
@@ -461,7 +454,7 @@ void resultDrawTally(s32 arg0) {
     char sp48[100];
 
     var_s2 = 0;
-    unkC = &D_80362690->unk0[D_80362690->unk9C].unkC;
+    unkC = &D_80362690->unkC[D_80362690->unk9C];
     func_80314154();
     uvGfxSetFlags(GFX_STATE_400000);
     spAC = (f32)(1.0 - (f64)((1.5f - sScreenFadeDuration) / 1.5f));
@@ -484,7 +477,7 @@ void resultDrawTally(s32 arg0) {
     }
     func_803141E4();
     if ((spAC >= 0.5f) && (arg0 != 0)) {
-        menuInit();
+        menuRender();
     }
     if (sTipTextMissing) {
         uvFontSet(0);

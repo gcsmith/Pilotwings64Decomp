@@ -2,46 +2,49 @@
 #include <uv_audio.h>
 #include <uv_dobj.h>
 #include <uv_event.h>
-#include <uv_level.h>
 #include <uv_math.h>
 #include <uv_memory.h>
 #include <uv_model.h>
+#include <uv_texture.h>
 #include "balls.h"
 #include "code_61A60.h"
-#include "code_66160.h"
-#include "code_7FED0.h"
+#include "code_66F70.h"
+#include "code_7FE00.h"
 #include "code_9A960.h"
 #include "hud.h"
+#include "task.h"
 
 // .data
 // list of model ids
-s32 D_8034E810[] = { 0xF4, 0xF5, 0xF6 };
+s32 gBallModelIdLookup[] = { MODEL_BALL_ORANGE, MODEL_BALL_GREEN, MODEL_BALL_BLUE };
 
 // .bss
-extern f32 D_80359388; // always set to 5.3241148?
-extern LevelBALS* sRefBALS;
+u8 gBallCount;
+u8 gBallSplitCount;
+Ball gBalls[20];
+f32 D_80359388; // always set to 5.3241148?
+TaskBALS* sRefBALS;
 
 // forward declarations
-void ballsMotionUpdate(ParsedBALS*);
-void ballsFrameUpdateOne(ParsedBALS*);
-s32 balls_802CB6D4(ParsedBALS*);
-s32 balls_802CC0D4(u8 objId);
+void ballsMotionUpdate(Ball*);
+void ballsFrameUpdateOne(Ball*);
+s32 balls_802CB6D4(Ball*);
 
 // called during startup, during test load menu, and while init any level
 void ballsInit(void) {
-    ParsedBALS* pb;
+    Ball* ball;
     s32 i;
 
-    for (pb = gBalls, i = 0; i < ARRAY_COUNT(gBalls); i++, pb++) {
-        pb->idx = i;
-        pb->objId = 0xFFFF;
-        pb->unk95 = 0;
-        pb->unk94 = 0;
-        pb->unk64 = 0.0f;
-        pb->unk97 = 0;
-        pb->unk80 = 0.0f;
-        pb->unk1A8 = 0xFF;
-        pb->unk5C = 1e7f;
+    for (ball = gBalls, i = 0; i < ARRAY_COUNT(gBalls); i++, ball++) {
+        ball->idx = i;
+        ball->objId = 0xFFFF;
+        ball->initialized = 0;
+        ball->hasPopped = FALSE;
+        ball->unk64 = 0.0f;
+        ball->unk97 = 0;
+        ball->time80 = 0.0f;
+        ball->radarIdx = 0xFF;
+        ball->unk5C = 1e7f;
     }
     gBallCount = 0;
     sRefBALS = NULL;
@@ -50,51 +53,51 @@ void ballsInit(void) {
 
 // called during init of test that has a ball (e.g. RP Balloon tests)
 // called for once for each ball (Balloon Rush 1x, Balloon Bonanza 2x)
-void ballsInitBall(ParsedBALS* pb) {
+void ballsInitBall(Ball* ball) {
     f32 temp_fv1;
     f32 temp_fa0;
-    pb->unk5C = 1e7f;
-    pb->unkA0.unk0 = 3;
+    ball->unk5C = 1e7f;
+    ball->unkA0.unk0 = 3;
     temp_fv1 = D_80359388;
     temp_fa0 = -D_80359388;
-    pb->unkA0.unk4[0].unk0 = 1;
-    pb->unkA0.unk4[0].unk28.x = temp_fa0;
-    pb->unkA0.unk4[1].unk0 = 1;
-    pb->unkA0.unk4[1].unk28.y = temp_fa0;
-    pb->unkA0.unk4[2].unk0 = 1;
-    pb->unkA0.unk4[2].unk28.z = temp_fa0;
-    pb->unkA0.unk4[0].unk1C.x = temp_fv1;
-    pb->unkA0.unk4[1].unk1C.y = temp_fv1;
-    pb->unkA0.unk4[2].unk1C.z = temp_fv1;
-    pb->unkA0.unk4[0].unk28.y = 0.0f;
-    pb->unkA0.unk4[0].unk28.z = 0.0f;
-    pb->unkA0.unk4[0].unk1C.y = 0.0f;
-    pb->unkA0.unk4[0].unk1C.z = 0.0f;
-    pb->unkA0.unk4[1].unk28.x = 0.0f;
-    pb->unkA0.unk4[1].unk28.z = 0.0f;
-    pb->unkA0.unk4[1].unk1C.x = 0.0f;
-    pb->unkA0.unk4[1].unk1C.z = 0.0f;
-    pb->unkA0.unk4[2].unk28.x = 0.0f;
-    pb->unkA0.unk4[2].unk28.y = 0.0f;
-    pb->unkA0.unk4[2].unk1C.x = 0.0f;
-    pb->unkA0.unk4[2].unk1C.y = 0.0f;
-    pb->objId = uvDobjAllocIdx();
-    if (pb->unk96 != 0) {
-        pb->unk8A = 3;
+    ball->unkA0.unk4[0].unk0 = 1;
+    ball->unkA0.unk4[0].unk28.x = temp_fa0;
+    ball->unkA0.unk4[1].unk0 = 1;
+    ball->unkA0.unk4[1].unk28.y = temp_fa0;
+    ball->unkA0.unk4[2].unk0 = 1;
+    ball->unkA0.unk4[2].unk28.z = temp_fa0;
+    ball->unkA0.unk4[0].unk1C.x = temp_fv1;
+    ball->unkA0.unk4[1].unk1C.y = temp_fv1;
+    ball->unkA0.unk4[2].unk1C.z = temp_fv1;
+    ball->unkA0.unk4[0].unk28.y = 0.0f;
+    ball->unkA0.unk4[0].unk28.z = 0.0f;
+    ball->unkA0.unk4[0].unk1C.y = 0.0f;
+    ball->unkA0.unk4[0].unk1C.z = 0.0f;
+    ball->unkA0.unk4[1].unk28.x = 0.0f;
+    ball->unkA0.unk4[1].unk28.z = 0.0f;
+    ball->unkA0.unk4[1].unk1C.x = 0.0f;
+    ball->unkA0.unk4[1].unk1C.z = 0.0f;
+    ball->unkA0.unk4[2].unk28.x = 0.0f;
+    ball->unkA0.unk4[2].unk28.y = 0.0f;
+    ball->unkA0.unk4[2].unk1C.x = 0.0f;
+    ball->unkA0.unk4[2].unk1C.y = 0.0f;
+    ball->objId = uvDobjAllocIdx();
+    if (ball->active) {
+        ball->unk8A = 3;
     } else {
-        pb->unk8A = 0;
+        ball->unk8A = 0;
     }
-    uvDobjState(pb->objId, pb->unk8A);
-    if (pb->unk78 >= 3u) {
-        _uvDebugPrintf("balls: bad vrep %d for ball\n", pb->unk78);
-        pb->unk78 = 0;
+    uvDobjState(ball->objId, ball->unk8A);
+    if (ball->type >= (u32)ARRAY_COUNT(gBallModelIdLookup)) {
+        _uvDebugPrintf("balls: bad vrep %d for ball\n", ball->type);
+        ball->type = 0;
     }
-    uvDobjModel(pb->objId, D_8034E810[pb->unk78]);
-    uvDobjProps(pb->objId, 3, (f64)pb->unk7C, 0);
-    if (pb->unk95 == 0) {
-        uvMat4Scale(&pb->unk4, pb->unk7C, pb->unk7C, pb->unk7C);
+    uvDobjModel(ball->objId, gBallModelIdLookup[ball->type]);
+    uvDobjProps(ball->objId, 3, (f64)ball->scale, 0);
+    if (ball->initialized == 0) {
+        uvMat4Scale(&ball->pose, ball->scale, ball->scale, ball->scale);
     }
-    uvDobjPosm(pb->objId, 0, &pb->unk4);
+    uvDobjPosm(ball->objId, 0, &ball->pose);
 }
 
 // called once during test init if balls loaded
@@ -102,21 +105,21 @@ void balls_802CAF50(void) {
     s32 i;
 
     for (i = 0; i < (gBallCount + gBallSplitCount); i++) {
-        if (D_80362690->unk0[D_80362690->unk9C].unkC.unk8 == gBalls[i].unk60) {
-            gBalls[i].unk96 = 1;
+        if (D_80362690->unkC[D_80362690->unk9C].unk8 == gBalls[i].unk60) {
+            gBalls[i].active = TRUE;
             if (gBalls[i].objId != 0xFFFF) {
                 uvDobjSetState(gBalls[i].objId, 3);
             }
-            if (gBalls[i].unk1A8 != 0xFF) {
-                hud_8031A874(gBalls[i].unk1A8);
+            if (gBalls[i].radarIdx != 0xFF) {
+                hud_8031A874(gBalls[i].radarIdx);
             }
         } else {
-            gBalls[i].unk96 = 0;
+            gBalls[i].active = FALSE;
             if (gBalls[i].objId != 0xFFFF) {
                 uvDobjClearState(gBalls[i].objId, 3);
             }
-            if (gBalls[i].unk1A8 != 0xFF) {
-                hud_8031A810(gBalls[i].unk1A8);
+            if (gBalls[i].radarIdx != 0xFF) {
+                hud_8031A810(gBalls[i].radarIdx);
             }
         }
     }
@@ -126,11 +129,11 @@ void balls_802CAF50(void) {
 // even called again after pause + check-map + continue
 void ballsLoad(void) {
     s32 i;
-    ParsedBALS* pb;
-    LevelBALS* ball;
+    Ball* ball;
+    TaskBALS* bals;
 
     if (D_80362690->unkA0) {
-        gBallCount = levelDataGetBALS(&sRefBALS);
+        gBallCount = taskGetBALS(&sRefBALS);
         if (gBallCount >= 0x15) {
             _uvDebugPrintf("balls : too many balls defined in level [%d]\n", gBallCount);
             gBallCount = 0;
@@ -138,44 +141,44 @@ void ballsLoad(void) {
             uvLevelAppend(0x11);
             uvModelGetProps(0xF4, 1, &D_80359388, 0);
             for (i = 0; i < (gBallCount + gBallSplitCount); i++) {
-                ball = &sRefBALS[i];
-                pb = &gBalls[i];
-                if (pb->unk94 != 0) {
+                bals = &sRefBALS[i];
+                ball = &gBalls[i];
+                if (ball->hasPopped) {
                     continue;
                 }
 
-                if (pb->unk95 == 0) {
-                    pb->unk94 = 0;
-                    pb->unk44.z = 0.0f;
-                    pb->unk44.y = 0.0f;
-                    pb->unk44.x = 0.0f;
-                    pb->unk50.z = 0.0f;
-                    pb->unk50.y = 0.0f;
-                    pb->unk50.x = 0.0f;
-                    pb->unk60 = (u8)ball->unk18;
-                    pb->unk96 = 1;
-                    if (ball->unk21 != 0) {
-                        pb->unk79 = 5;
+                if (ball->initialized == 0) {
+                    ball->hasPopped = FALSE;
+                    ball->velocity.z = 0.0f;
+                    ball->velocity.y = 0.0f;
+                    ball->velocity.x = 0.0f;
+                    ball->acceleration.z = 0.0f;
+                    ball->acceleration.y = 0.0f;
+                    ball->acceleration.x = 0.0f;
+                    ball->unk60 = bals->unk18;
+                    ball->active = TRUE;
+                    if (bals->willSplit) {
+                        ball->childBallCount = 5;
                     } else {
-                        pb->unk79 = 0;
+                        ball->childBallCount = 0;
                     }
-                    pb->unk84 = ball->unk1C;
-                    pb->unk70 = ball->unk24;
-                    pb->unk6C = ball->unk28;
-                    pb->unk68 = ball->unk2C;
-                    pb->unk8C = ball->unk34;
-                    pb->unk90 = ball->unk38;
-                    pb->unk7C = ball->scale;
-                    pb->unk78 = ball->type;
-                    pb->unk98 = ball->unk3C;
-                    pb->unk9C = ball->unk40;
-                    uvMat4SetIdentity(&pb->unk4);
-                    pb->unk4.m[3][0] = ball->pos.x;
-                    pb->unk4.m[3][1] = ball->pos.y;
-                    pb->unk4.m[3][2] = ball->pos.z;
+                    ball->unk84 = bals->unk1C;
+                    ball->unk70 = bals->unk24;
+                    ball->unk6C = bals->unk28;
+                    ball->unk68 = bals->unk2C;
+                    ball->points = bals->points;
+                    ball->unk90 = bals->unk38;
+                    ball->scale = bals->scale;
+                    ball->type = bals->type;
+                    ball->dragCoef = bals->dragCoef;
+                    ball->gravity = bals->gravity;
+                    uvMat4SetIdentity(&ball->pose);
+                    ball->pose.m[3][0] = bals->pos.x;
+                    ball->pose.m[3][1] = bals->pos.y;
+                    ball->pose.m[3][2] = bals->pos.z;
                     ballsInitBall(&gBalls[i]);
-                    pb->unk95 = 1;
-                    pb->unk1A8 = hud_8031A6C8(ball->pos.x, ball->pos.y, ball->pos.z);
+                    ball->initialized = 1;
+                    ball->radarIdx = hudAddWaypoint(bals->pos.x, bals->pos.y, bals->pos.z);
                 } else {
                     ballsInitBall(&gBalls[i]);
                 }
@@ -188,22 +191,22 @@ void ballsLoad(void) {
 // called for each ball with motion
 // not called prior to splitting, called 5x per frame after split
 // ball pushing test called 1x per frame
-void ballsMotionUpdate(ParsedBALS* pb) {
-    f32 dx;
-    f32 dy;
+void ballsMotionUpdate(Ball* ball) {
+    f32 dvx;
+    f32 dvy;
 
-    dx = -pb->unk98 * pb->unk44.x * pb->unk44.x;
-    if (pb->unk44.x < 0.0f) {
-        dx = -dx;
+    dvx = -ball->dragCoef * ball->velocity.x * ball->velocity.x;
+    if (ball->velocity.x < 0.0f) {
+        dvx = -dvx;
     }
 
-    dy = -pb->unk98 * pb->unk44.y * pb->unk44.y;
-    if (pb->unk44.y < 0.0f) {
-        dy = -dy;
+    dvy = -ball->dragCoef * ball->velocity.y * ball->velocity.y;
+    if (ball->velocity.y < 0.0f) {
+        dvy = -dvy;
     }
 
-    pb->unk50.x += dx;
-    pb->unk50.y += dy;
+    ball->acceleration.x += dvx;
+    ball->acceleration.y += dvy;
 }
 
 // called from task.c at level exit
@@ -213,7 +216,7 @@ void ballsDeinit(void) {
 
     for (i = 0; i < gBallCount + gBallSplitCount; i++) {
         if (gBalls[i].objId != 0xFFFF) {
-            uvDobjModel(gBalls[i].objId, 0xFFFF);
+            uvDobjModel(gBalls[i].objId, MODEL_WORLD);
             gBalls[i].objId = 0xFFFF;
         }
     }
@@ -222,23 +225,23 @@ void ballsDeinit(void) {
 // called every frame regardless of vehicle
 // iterates through balls loaded and updates
 void ballsFrameUpdate(void) {
-    ParsedBALS* ptr;
+    Ball* ball;
     s32 i;
 
     if (D_80362690->unkA0) {
         for (i = 0; i < gBallCount + gBallSplitCount; i++) {
-            ptr = &gBalls[i];
-            if (ptr->objId == 0xFFFF) {
+            ball = &gBalls[i];
+            if (ball->objId == 0xFFFF) {
                 continue;
             }
-            if (ptr->unk96 == 0) {
+            if (!ball->active) {
                 continue;
             }
-            if (ptr->unk80 > 0.0f) {
-                ptr->unk80 -= D_8034F854;
+            if (ball->time80 > 0.0f) {
+                ball->time80 -= D_8034F854;
             }
-            if ((ptr->unk6C > 0.0f) && (ptr->unk94 == 0)) {
-                ballsFrameUpdateOne(ptr);
+            if ((ball->unk6C > 0.0f) && !ball->hasPopped) {
+                ballsFrameUpdateOne(ball);
             }
         }
     }
@@ -246,46 +249,46 @@ void ballsFrameUpdate(void) {
 
 // updates ball motion
 // not called for balls that are motionless
-void ballsFrameUpdateOne(ParsedBALS* pb) {
+void ballsFrameUpdateOne(Ball* ball) {
     f32 ts;
     f32 temp_fv0_2;
     f32 grav;
 
-    pb->unk50.x = 0.0f;
-    pb->unk50.y = 0.0f;
-    pb->unk50.z = 0.0f;
+    ball->acceleration.x = 0.0f;
+    ball->acceleration.y = 0.0f;
+    ball->acceleration.z = 0.0f;
 
     ts = D_8034F854;
 
-    ballsMotionUpdate(pb);
-    if (balls_802CB6D4(pb) == 0) {
-        if (pb->unk9C == 0.0f) {
+    ballsMotionUpdate(ball);
+    if (balls_802CB6D4(ball) == 0) {
+        if (ball->gravity == 0.0f) {
             grav = 9.8f;
         } else {
-            grav = pb->unk9C;
+            grav = ball->gravity;
         }
-        pb->unk50.z -= grav;
+        ball->acceleration.z -= grav;
     }
 
-    temp_fv0_2 = pb->unk44.z;
-    pb->unk44.x += pb->unk50.x * ts;
-    pb->unk44.y += pb->unk50.y * ts;
-    pb->unk44.z += pb->unk50.z * ts;
-    pb->unk4.m[3][0] += pb->unk44.x * ts;
-    pb->unk4.m[3][1] += pb->unk44.y * ts;
-    pb->unk4.m[3][2] += pb->unk44.z * ts;
-    if ((pb->unk44.z < 0.0f) && ((pb->unk44.z * temp_fv0_2) < 0.0f)) {
-        pb->unk5C = pb->unk4.m[3][2];
+    temp_fv0_2 = ball->velocity.z;
+    ball->velocity.x += ball->acceleration.x * ts;
+    ball->velocity.y += ball->acceleration.y * ts;
+    ball->velocity.z += ball->acceleration.z * ts;
+    ball->pose.m[3][0] += ball->velocity.x * ts;
+    ball->pose.m[3][1] += ball->velocity.y * ts;
+    ball->pose.m[3][2] += ball->velocity.z * ts;
+    if ((ball->velocity.z < 0.0f) && ((ball->velocity.z * temp_fv0_2) < 0.0f)) {
+        ball->unk5C = ball->pose.m[3][2];
     }
 
-    func_802E07D8(&pb->unk4);
-    uvDobjPosm(pb->objId, 0, &pb->unk4);
-    if (pb->unk1A8 != 0xFF) {
-        hud_8031A794(pb->unk1A8, pb->unk4.m[3][0], pb->unk4.m[3][1], pb->unk4.m[3][2]);
+    func_802E07D8(&ball->pose);
+    uvDobjPosm(ball->objId, 0, &ball->pose);
+    if (ball->radarIdx != 0xFF) {
+        hudMoveWaypoint(ball->radarIdx, ball->pose.m[3][0], ball->pose.m[3][1], ball->pose.m[3][2]);
     }
 }
 
-s32 balls_802CB6D4(ParsedBALS* pb) {
+s32 balls_802CB6D4(Ball* ball) {
     f32 temp_fv0;
     Vec3F sp1B8;
     Vec3F sp1AC;
@@ -298,52 +301,52 @@ s32 balls_802CB6D4(ParsedBALS* pb) {
     u8 obj_id;
     u8 idx;
 
-    if (func_802DB050(&pb->unkA0, &sp5C, pb->objId, pb->unk8A, &pb->unk4) <= 0) {
+    if (func_802DB050(&ball->unkA0, &sp5C, ball->objId, ball->unk8A, &ball->pose) <= 0) {
         return 0;
     }
-    idx = func_802DBF10(&pb->unkA0, &sp5C, &sp1B8, &sp1AC);
+    idx = func_802DBF10(&ball->unkA0, &sp5C, &sp1B8, &sp1AC);
     if ((sp5C.unk4[idx].unk4 != 1) && (sp5C.unk4[idx].unk4 != 4)) {
-        var_fv1 = pb->unk6C;
+        var_fv1 = ball->unk6C;
     } else {
-        if (pb->unk5C - sp1B8.z < (10.0f + D_80359388 * pb->unk7C)) {
+        if (ball->unk5C - sp1B8.z < (10.0f + D_80359388 * ball->scale)) {
             var_fv1 = 1.25f;
-        } else if (pb->unk5C - sp1B8.z < (11.0f + D_80359388 * pb->unk7C)) {
+        } else if (ball->unk5C - sp1B8.z < (11.0f + D_80359388 * ball->scale)) {
             var_fv1 = 1.0f;
         } else {
-            var_fv1 = pb->unk6C;
+            var_fv1 = ball->unk6C;
         }
     }
-    var_fa0 = uvVec3Dot(&pb->unk44, &sp1AC);
+    var_fa0 = uvVec3Dot(&ball->velocity, &sp1AC);
     if (uvAbs((s32)var_fa0) < 5.0f) {
         var_fa0 = -5.0f;
     }
     if (var_fa0 < 0.0f) {
-        pb->unk44.x -= (2.0f * var_fa0) * sp1AC.x;
-        pb->unk44.y -= (2.0f * var_fa0) * sp1AC.y;
-        pb->unk44.z -= (2.0f * var_fa0) * sp1AC.z;
-        pb->unk50.x = 0.0f;
-        pb->unk50.y = 0.0f;
-        pb->unk50.z = 0.0f;
-        pb->unk44.x *= var_fv1;
-        pb->unk44.y *= var_fv1;
-        pb->unk44.z *= var_fv1;
+        ball->velocity.x -= (2.0f * var_fa0) * sp1AC.x;
+        ball->velocity.y -= (2.0f * var_fa0) * sp1AC.y;
+        ball->velocity.z -= (2.0f * var_fa0) * sp1AC.z;
+        ball->acceleration.x = 0.0f;
+        ball->acceleration.y = 0.0f;
+        ball->acceleration.z = 0.0f;
+        ball->velocity.x *= var_fv1;
+        ball->velocity.y *= var_fv1;
+        ball->velocity.z *= var_fv1;
     }
-    if (uvVec3Len(&pb->unk44) > 1.0f) {
-        if (((uvVec3Len(&pb->unk44) / var_fa0) < 0.5f) && ((pb->unk64 + 0.25f) < D_8034F850)) {
-            pb->unk64 = D_8034F850;
+    if (uvVec3Len(&ball->velocity) > 1.0f) {
+        if (((uvVec3Len(&ball->velocity) / var_fa0) < 0.5f) && ((ball->unk64 + 0.25f) < D_8034F850)) {
+            ball->unk64 = D_8034F850;
             obj_id = uvEmitterLookup();
             uvEmitterFromModel(obj_id, 0x37);
             uvEmitterProp(obj_id, 1, 0.0f, 2, 500.0f, 5, 0x38, 0);
-            uvEmitterSetMatrix(obj_id, &pb->unk4);
+            uvEmitterSetMatrix(obj_id, &ball->pose);
             uvEmitterTrigger(obj_id);
         }
     }
     return 1;
 }
 
-void balls_802CB9B4(ParsedBALS* pb) {
-    LevelBALS* ball;
-    ParsedBALS* alloc;
+void balls_802CB9B4(Ball* ball) {
+    TaskBALS* bals;
+    Ball* splitBall;
     f32 temp_fs0;
     s32 i;
     s32 pad;
@@ -351,81 +354,81 @@ void balls_802CB9B4(ParsedBALS* pb) {
     f32 sp8C;
     f32 sp88;
 
-    for (i = 0; i < pb->unk79; i++) {
+    for (i = 0; i < ball->childBallCount; i++) {
         if ((gBallCount + gBallSplitCount) < ARRAY_COUNT(gBalls)) {
-            alloc = &gBalls[gBallSplitCount + gBallCount];
+            splitBall = &gBalls[gBallSplitCount + gBallCount];
             gBallSplitCount++;
-            *alloc = *pb;
-            ball = &sRefBALS[pb->idx];
-            alloc->unk70 = ball->unk48;
-            alloc->unk6C = ball->unk4C;
-            alloc->unk68 = ball->unk50;
-            alloc->unk8C = ball->unk54;
-            alloc->unk90 = ball->unk58;
-            alloc->unk7C = ball->unk5C;
-            alloc->unk78 = ball->pad44[0];
-            alloc->unk98 = ball->unk60;
-            alloc->unk9C = ball->unk64;
-            alloc->unk79 = 0;
+            *splitBall = *ball;
+            bals = &sRefBALS[ball->idx];
+            splitBall->unk70 = bals->unk48;
+            splitBall->unk6C = bals->unk4C;
+            splitBall->unk68 = bals->unk50;
+            splitBall->points = bals->unk54;
+            splitBall->unk90 = bals->unk58;
+            splitBall->scale = bals->unk5C;
+            splitBall->type = bals->unk44;
+            splitBall->dragCoef = bals->unk60;
+            splitBall->gravity = bals->splitBallGravity;
+            splitBall->childBallCount = 0;
 
-            temp_fs0 = i * (6.2831855f / pb->unk79); // 2*pi or DEG_TO_RAD(360)
-            func_803134D0(pb->unk7C * D_80359388, temp_fs0, 0.0f, &sp90, &sp8C, &sp88);
-            uvMat4LocalTranslate(&alloc->unk4, sp90, sp8C, sp88);
-            func_803134D0(alloc->unk84, temp_fs0, 0.0f, &sp90, &sp8C, &sp88);
-            alloc->unk44.x = sp90;
-            alloc->unk44.y = sp8C;
-            alloc->unk44.z = 0.0f;
-            alloc->unk1A8 = hud_8031A6C8(sp90, sp8C, sp88);
-            if (alloc->unk6C == 0) {
-                alloc->unk6C = 1.0f;
+            temp_fs0 = i * (6.2831855f / ball->childBallCount); // 2*pi or DEG_TO_RAD(360)
+            func_803134D0(ball->scale * D_80359388, temp_fs0, 0.0f, &sp90, &sp8C, &sp88);
+            uvMat4LocalTranslate(&splitBall->pose, sp90, sp8C, sp88);
+            func_803134D0(splitBall->unk84, temp_fs0, 0.0f, &sp90, &sp8C, &sp88);
+            splitBall->velocity.x = sp90;
+            splitBall->velocity.y = sp8C;
+            splitBall->velocity.z = 0.0f;
+            splitBall->radarIdx = hudAddWaypoint(sp90, sp8C, sp88);
+            if (splitBall->unk6C == 0) {
+                splitBall->unk6C = 1.0f;
             }
-            alloc->unk80 = 0.5f;
-            alloc->unk97 = 1;
-            alloc->unk95 = 0;
-            ballsInitBall(alloc);
-            alloc->unk95 = 1;
+            splitBall->time80 = 0.5f;
+            splitBall->unk97 = 1;
+            splitBall->initialized = 0;
+            ballsInitBall(splitBall);
+            splitBall->initialized = 1;
         }
     }
 }
 
-s32 ballsCollision(ParsedBALS* pb, Unk802D3658_Unk1228* arg1, Vec3F* arg2) {
+s32 ballsCollision(Ball* ball, Unk802D3658_Unk1228* arg1, Vec3F* arg2) {
     f32 temp_fv0_2;
     Vec3F sp48;
     u8 sp47;
 
-    if (pb->unk96 == 0) {
+    if (!ball->active) {
         return 0;
     }
-    sp48.x = pb->unk44.x - arg2->x;
-    sp48.y = pb->unk44.y - arg2->y;
-    sp48.z = pb->unk44.z - arg2->z;
-    pb->unk74 = uvVec3Len(&sp48);
-    if (pb->unk70 < pb->unk74) {
-        func_802F996C(pb->unk4.m[3][0], pb->unk4.m[3][1], pb->unk4.m[3][2], (2.0f * D_80359388 * pb->unk7C));
-        uvDobjModel(pb->objId, 0xFFFF);
-        pb->objId = 0xFFFF;
-        if (pb->unk1A8 != 0xFF) {
-            hud_8031A8E0(pb->unk1A8);
-            pb->unk1A8 = 0xFF;
+    sp48.x = ball->velocity.x - arg2->x;
+    sp48.y = ball->velocity.y - arg2->y;
+    sp48.z = ball->velocity.z - arg2->z;
+    ball->dist = uvVec3Len(&sp48);
+    if (ball->unk70 < ball->dist) {
+        func_802F996C(ball->pose.m[3][0], ball->pose.m[3][1], ball->pose.m[3][2], (2.0f * D_80359388 * ball->scale));
+        uvDobjModel(ball->objId, MODEL_WORLD);
+        ball->objId = 0xFFFF;
+        if (ball->radarIdx != 0xFF) {
+            hud_8031A8E0(ball->radarIdx);
+            ball->radarIdx = 0xFF;
         }
-        if (pb->unk79 != 0) {
-            hudText_8031D8E0(0x16C, 1.5f, 8.0f);
-            balls_802CB9B4(pb);
+        if (ball->childBallCount != 0) {
+            hudText_8031D8E0(0x16C, 1.5f, 8.0f); // "Balloon has split"
+            balls_802CB9B4(ball);
         } else {
-            hudText_8031D8E0(8, 1.5f, 8.0f);
+            hudText_8031D8E0(0x08, 1.5f, 8.0f); // "Balloon cleared"
         }
-        pb->unk94 = 1;
+        ball->hasPopped = TRUE;
         sp47 = uvEmitterLookup();
         uvEmitterFromModel(sp47, 0x38);
         uvEmitterProp(sp47, 1, 0.0f, 2, 500.0f, 5, 0x38, 0);
-        uvEmitterSetMatrix(sp47, &pb->unk4);
+        uvEmitterSetMatrix(sp47, &ball->pose);
         uvEmitterTrigger(sp47);
         return 1;
     } else {
-        temp_fv0_2 = (pb->unk74 / (1.0f + pb->unk68));
-        pb->unk44.x -= temp_fv0_2 * arg1->unk1C.x;
-        pb->unk44.y -= temp_fv0_2 * arg1->unk1C.y;
-        pb->unk44.z -= temp_fv0_2 * arg1->unk1C.z;
+        temp_fv0_2 = (ball->dist / (1.0f + ball->unk68));
+        ball->velocity.x -= temp_fv0_2 * arg1->unk1C.x;
+        ball->velocity.y -= temp_fv0_2 * arg1->unk1C.y;
+        ball->velocity.z -= temp_fv0_2 * arg1->unk1C.z;
         return 0;
     }
 }
@@ -445,7 +448,7 @@ f32 ballsPopped(u8 objId, Vec3F* arg1, Unk802D3658_Unk1224* arg2) {
         unk4 = &arg2->unk4[i];
         if ((unk4->unk4 == 2) && (var_s2 == 0)) {
             for (j = 0; j < gBallCount + gBallSplitCount; j++) {
-                if ((unk4->unk8 == gBalls[j].objId) && (gBalls[j].unk80 <= 0.0f)) {
+                if ((unk4->surfaceId == gBalls[j].objId) && (gBalls[j].time80 <= 0.0f)) {
                     if (ballsCollision(&gBalls[j], unk4, arg1) != 0) {
                         return 0.0f;
                     }
@@ -456,10 +459,10 @@ f32 ballsPopped(u8 objId, Vec3F* arg1, Unk802D3658_Unk1224* arg2) {
         }
     }
 
-    if (balls_802CC0D4(objId) == 0) {
+    if (ballsObjIdExists(objId) == 0) {
         return 1.0f;
     }
-    if ((gBalls[j].unk70 < gBalls[j].unk74) || (gBalls[j].unk80 > 0.0f)) {
+    if ((gBalls[j].unk70 < gBalls[j].dist) || (gBalls[j].time80 > 0.0f)) {
         return 0.0f;
     }
 
@@ -467,20 +470,20 @@ f32 ballsPopped(u8 objId, Vec3F* arg1, Unk802D3658_Unk1224* arg2) {
     return temp_fv1 / (1.0f + temp_fv1);
 }
 
-s32 ballsGet_802CC064(void) {
+s32 ballsGetPoints(void) {
     s32 count;
     s32 i;
 
     count = 0;
     for (i = 0; i < gBallCount + gBallSplitCount; i++) {
-        if (gBalls[i].unk94 != 0) {
-            count += gBalls[i].unk8C;
+        if (gBalls[i].hasPopped) {
+            count += gBalls[i].points;
         }
     }
     return count;
 }
 
-s32 balls_802CC0D4(u8 objId) {
+s32 ballsObjIdExists(u8 objId) {
     s32 i;
 
     for (i = 0; i < gBallCount + gBallSplitCount; i++) {
@@ -498,13 +501,13 @@ u8 ballsGetCount(void) {
     return gBallCount + gBallSplitCount;
 }
 
-u8 ballsGet_802CC15C(void) {
+u8 ballsGetAllPopped(void) {
     s32 i;
     s32 ret;
 
     ret = TRUE;
     for (i = 0; i < gBallCount + gBallSplitCount; i++) {
-        if (gBalls[i].unk94 == 0) {
+        if (!gBalls[i].hasPopped) {
             ret = FALSE;
             break;
         }

@@ -1,10 +1,12 @@
 #include "common.h"
 #include <uv_dobj.h>
-#include <uv_level.h>
 #include <uv_math.h>
-#include "code_69BF0.h"
+#include <uv_texture.h>
 #include "code_9A960.h"
+#include "env_sound.h"
 #include "hud.h"
+#include "level.h"
+#include "task.h"
 #include "thermals.h"
 
 #define THERM_ENABLE_DURATION (4 * 60) // 4 minutes in sec
@@ -13,13 +15,18 @@
 
 s32 gThermShouldDisable = 0; // true when test disables thermals after THERM_ENABLE_DURATION
 
-static LevelTHER* gLevelTHER;
+// unused / leftover .data
+f32 pad_D_80350800[] = { 0.0f, 0.0f, 0.0f,  0.0f,  0.0f, 0.0f, 0.0f, 1.0f,  5.0f,  0.05f, 0.0f, 0.0f,  0.975f, 5.5f,  0.06f, 0.04f, 0.03f, 0.88f, 6.0f,  0.0f,
+                         0.0f, 0.0f, 0.0f,  17.0f, 0.0f, 0.0f, 0.0f, 0.0f,  18.0f, 0.0f,  0.0f, 0.01f, 0.15f,  18.5f, 0.0f,  0.01f, 0.03f, 0.25f, 19.0f, 0.0f,
+                         0.0f, 0.0f, 0.65f, 19.5f, 0.0f, 0.0f, 0.0f, 0.96f, 20.0f, 0.0f,  0.0f, 0.0f,  0.99f,  24.0f, 0.0f,  0.0f,  0.0f,  1.0f,  0.0f };
+
+static TaskTHER* gTaskTHER;
 u8 gThermalCount;
 Thermal gThermals[16];
 s8 gThermReady;
 
 // forward declarations
-static void therm_80346E04(LevelTHER* therm, f32 x, f32 y, f32 z, f32 dist, Vec3F* dst);
+STATIC_FUNC void therm_80346E04(TaskTHER* therm, f32 x, f32 y, f32 z, f32 dist, Vec3F* dst);
 
 void thermInit(void) {
     s32 i;
@@ -29,18 +36,18 @@ void thermInit(void) {
     gThermReady = 1;
 }
 
-void therm_8034662C(void) {
+void thermLoad(void) {
     Thermal* therm;
     s32 pad;
-    Unk80362690_Unk0_UnkC* temp_v1_2;
-    LevelTHER* levlTher;
-    Unk802E27A8_Arg0 sp90;
+    Unk80362690_Unk0* temp_v1_2;
+    TaskTHER* taskTherm;
+    LevelESND esnd;
     f32 maxDim;
     f32 ratio;
     s32 i;
 
-    if (D_80362690->unk0[D_80362690->unk9C].unkC.unk7B == 0) {
-        gThermalCount = levelDataGetTHER(&gLevelTHER);
+    if (D_80362690->unkC[D_80362690->unk9C].unk7B == 0) {
+        gThermalCount = taskGetTHER(&gTaskTHER);
         if (gThermalCount > ARRAY_COUNT(gThermals)) {
             _uvDebugPrintf("thermals : too many thermals defined in level [%d]\n", gThermalCount);
             gThermalCount = 0;
@@ -51,43 +58,43 @@ void therm_8034662C(void) {
             uvLevelAppend(0x16);
 
             for (i = 0; i < gThermalCount; i++) {
-                levlTher = &gLevelTHER[i];
+                taskTherm = &gTaskTHER[i];
                 therm = &gThermals[i];
                 therm->unk0 = uvDobjAllocIdx();
                 uvDobjModel(therm->unk0, MODEL_HG_THERMAL_CYLINDER);
                 uvDobjState(therm->unk0, 2);
-                uvVec3Copy(&gThermals[i].pos, &levlTher->pos);
-                if (levlTher->height < levlTher->scale) {
-                    maxDim = levlTher->scale;
+                uvVec3Copy(&gThermals[i].pos, &taskTherm->pos);
+                if (taskTherm->height < taskTherm->scale) {
+                    maxDim = taskTherm->scale;
                 } else {
-                    maxDim = levlTher->height;
+                    maxDim = taskTherm->height;
                 }
                 uvDobjProps(therm->unk0, 3, maxDim, 0);
-                therm->scale = levlTher->scale;
+                therm->scale = taskTherm->scale;
                 ratio = (f32)i / gThermalCount;
                 therm->height = 3.1415927f * ratio;
-                uvMat4SetIdentity(&sp90.unk0);
-                sp90.unk0.m[3][0] = 0.0f;
-                sp90.unk0.m[3][1] = 0.0f;
-                sp90.unk0.m[3][2] = 0.0f;
-                sp90.unk58 = 2;
-                sp90.unk5C = 1.0f;
-                sp90.unk64 = 0;
-                sp90.unk68 = maxDim;
-                sp90.unk6C = maxDim;
-                sp90.unk70 = (s8)levlTher->unk14;
-                sp90.unk60 = (levlTher->unk20 * 0.9f) + 0.9f;
-                sp90.unk74 = 10;
-                sp90.unk40.x = levlTher->pos.x;
-                sp90.unk40.y = levlTher->pos.y;
-                sp90.unk40.z = (f32)(levlTher->pos.z + (levlTher->height * 0.5));
-                sp90.unk4C.x = levlTher->pos.x;
-                sp90.unk4C.y = levlTher->pos.y;
-                sp90.unk4C.z = (f32)(levlTher->pos.z - (levlTher->height * 0.5));
-                func_802E27A8(&sp90);
+                uvMat4SetIdentity(&esnd.unk0);
+                esnd.unk0.m[3][0] = 0.0f;
+                esnd.unk0.m[3][1] = 0.0f;
+                esnd.unk0.m[3][2] = 0.0f;
+                esnd.sndId = 2;
+                esnd.unk5C = 1.0f;
+                esnd.unk64 = 0;
+                esnd.unk68 = maxDim;
+                esnd.unk6C = maxDim;
+                esnd.unk70 = (s8)taskTherm->unk14;
+                esnd.unk60 = (taskTherm->unk20 * 0.9f) + 0.9f;
+                esnd.unk74 = 10;
+                esnd.unk40.x = taskTherm->pos.x;
+                esnd.unk40.y = taskTherm->pos.y;
+                esnd.unk40.z = (f32)(taskTherm->pos.z + (taskTherm->height * 0.5));
+                esnd.unk4C.x = taskTherm->pos.x;
+                esnd.unk4C.y = taskTherm->pos.y;
+                esnd.unk4C.z = (f32)(taskTherm->pos.z - (taskTherm->height * 0.5));
+                envSoundLoad(&esnd);
             }
             gThermShouldDisable = 0;
-            temp_v1_2 = &D_80362690->unk0[D_80362690->unk9C].unkC;
+            temp_v1_2 = &D_80362690->unkC[D_80362690->unk9C];
             if ((temp_v1_2->veh == VEHICLE_HANG_GLIDER) && (temp_v1_2->cls == 3) && (temp_v1_2->test == 0)) {
                 gThermShouldDisable = 1;
             }
@@ -98,14 +105,14 @@ void therm_8034662C(void) {
 void therm_8034695C(void) {
     f32 var_fs0;
     Thermal* therm;
-    LevelTHER* levlTher;
+    TaskTHER* taskTherm;
     Mtx4F sp74;
     s32 i;
 
     var_fs0 = 1.0f;
     // after 4 min, 10 sec, disable thermals, if the test calls for it
     if ((D_8034F850 >= THERM_DISABLE_TIME) && (gThermalCount != 0) && gThermShouldDisable) {
-        therm_80346B84();
+        thermDeinit();
         gThermalCount = 0;
         gThermReady = 0;
         hudWarningText(0xF, 1.5f, 8.0f);
@@ -113,16 +120,16 @@ void therm_8034695C(void) {
 
     for (i = 0; i < gThermalCount; i++) {
         therm = &gThermals[i];
-        levlTher = &gLevelTHER[i];
+        taskTherm = &gTaskTHER[i];
         // for the first 10 seconds after 4 minutes, reduce the scale of thermal, if test calls for it
         if ((D_8034F850 >= THERM_ENABLE_DURATION) && (gThermalCount != 0) && gThermShouldDisable) {
             var_fs0 = (f32)(1.0 - (f64)((D_8034F850 - THERM_ENABLE_DURATION) / THERM_WEAKEN_DURATION));
         }
-        therm->height += levlTher->unk20 * D_8034F854;
+        therm->height += taskTherm->unk20 * D_8034F854;
         uvMat4SetIdentity(&sp74);
-        sp74.m[0][0] = levlTher->scale * var_fs0;
-        sp74.m[1][1] = levlTher->scale * var_fs0;
-        sp74.m[2][2] = levlTher->height;
+        sp74.m[0][0] = taskTherm->scale * var_fs0;
+        sp74.m[1][1] = taskTherm->scale * var_fs0;
+        sp74.m[2][2] = taskTherm->height;
         uvMat4RotateAxis(&sp74, therm->height, 'z');
         sp74.m[3][0] = therm->pos.x;
         sp74.m[3][1] = therm->pos.y;
@@ -133,7 +140,7 @@ void therm_8034695C(void) {
     }
 }
 
-void therm_80346B84(void) {
+void thermDeinit(void) {
     s32 i;
 
     for (i = 0; i < gThermalCount; i++) {
@@ -149,7 +156,7 @@ void therm_80346C08(f32 x, f32 y, f32 z, Vec3F* dst) {
     f32 dx;
     f32 dy;
     f32 dist;
-    LevelTHER* levlTher;
+    TaskTHER* taskTherm;
     Thermal* therm;
     Vec3F vec;
     s32 i;
@@ -160,7 +167,7 @@ void therm_80346C08(f32 x, f32 y, f32 z, Vec3F* dst) {
 
     for (i = 0; i < gThermalCount; i++) {
         therm = &gThermals[i];
-        levlTher = &gLevelTHER[i];
+        taskTherm = &gTaskTHER[i];
         if (therm->unk0 == 0xFFFF) {
             continue;
         }
@@ -170,17 +177,17 @@ void therm_80346C08(f32 x, f32 y, f32 z, Vec3F* dst) {
         dz = z - therm->pos.z;
         dist = uvLength2D(dx, dy);
 
-        if (levlTher->scale < dist) {
+        if (taskTherm->scale < dist) {
             continue;
         }
-        if (levlTher->height < dz) {
+        if (taskTherm->height < dz) {
             continue;
         }
         if (dz < 0.0f) {
             continue;
         }
 
-        therm_80346E04(levlTher, dx, dy, dz, dist, &vec);
+        therm_80346E04(taskTherm, dx, dy, dz, dist, &vec);
         dst->x += vec.x;
         dst->y += vec.y;
         dst->z += vec.z;
@@ -189,7 +196,7 @@ void therm_80346C08(f32 x, f32 y, f32 z, Vec3F* dst) {
     }
 }
 
-void therm_80346E04(LevelTHER* therm, f32 x, f32 y, f32 z, f32 dist, Vec3F* dst) {
+void therm_80346E04(TaskTHER* therm, f32 x, f32 y, f32 z, f32 dist, Vec3F* dst) {
     f32 temp_fv0;
     f32 var_fa0;
     f32 var_fv1;

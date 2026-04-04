@@ -1,5 +1,0 @@
-#ifndef APP_ROCKET_PACK_H
-#define APP_ROCKET_PACK_H
-
-
-#endif // APP_ROCKET_PACK_H

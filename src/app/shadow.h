@@ -4,14 +4,12 @@
 #include <PR/ultratypes.h>
 #include <uv_matrix.h>
 
-void func_803342F0(f32);
-void func_803342FC(f32);
-void func_803343D8(s32);
-void func_80334454(u16, u16);
-void func_803344BC(Mtx4F*, f32);
-void func_80334C70(void);
-void func_80335B94(void);
-void func_80335BE4(void);
-void func_80335E44(void);
+void shadow_803342F0(f32);
+void shadow_803342FC(f32);
+void shadow_803343D8(s32);
+void shadow_80334454(u16, u16);
+void shadow_803344BC(Mtx4F*, f32);
+void shadow_80334578(Mtx4F*, f32);
+void shadow_80334C70(void);
 
 #endif // APP_SHADOW_H

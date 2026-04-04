@@ -18,6 +18,7 @@ s32 func_8021215C(f32, f32, f32, f32, f32, f32, s32**, f32**, Vec3F**);
 s32 func_80212480(f32, f32, Vtx*, u16, u16, u16, f32);
 s32 func_80212FF4(ParsedUVTR*, f32, f32, f32, f32*, f32*, f32*, u16*, u16*, u8);
 s32 _uvSurfGetNorm(Vtx*, s32, s32, s32, Vec3F*);
+s32 uvSobjGetPt(s32 terraId, f32 arg1, f32 arg2, f32 arg3);
 void func_80214840(s16, f32*, f32*);
 void func_80215E7C(ParsedUVMD*);
 u8 func_80213364(f32, f32, f32, f32, f32, f32, f32);
@@ -37,5 +38,6 @@ void func_802141CC(f32*, f32*, f32*, f32*, f32, f32, f32, f32);
 s32 func_80213C24(f32, f32, f32, f32, f32, f32, UnkSobjDraw*);
 s32 func_802129B0(f32, f32, f32, f32, f32, f32, Vtx*, u16, u16, u16, f32, f32*);
 void func_80214450(f32*, f32*, f32*, f32*, f32*, f32*, f32, f32, f32, f32);
+void uvDbColorModel(s32 modelId, f32, f32, f32, f32);
 
 #endif // CODE_8170_H

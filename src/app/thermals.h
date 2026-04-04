@@ -17,9 +17,9 @@ extern Thermal gThermals[16]; // parsed thermal data, also parts copied to HUD
 extern s8 gThermReady;
 
 void thermInit(void);
-void therm_8034662C(void);
+void thermLoad(void);
 void therm_8034695C(void);
-void therm_80346B84(void);
+void thermDeinit(void);
 void therm_80346C08(f32 x, f32 y, f32 z, Vec3F* dst);
 
 #endif // APP_THERMALS_H

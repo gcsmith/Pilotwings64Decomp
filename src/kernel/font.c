@@ -164,7 +164,7 @@ s32 uvFontWidth(char* arg0) {
     return func_802196EC(gGfxUnkPtrs->fonts[D_80248E84], arg0);
 }
 
-s32 func_80219828(void) {
+s32 uvFontHeight(void) {
     ParsedUVFT* temp_v1 = gGfxUnkPtrs->fonts[D_80248E84];
     return temp_v1->bitmap[1].actualHeight * sFontScaleY;
 }
@@ -247,9 +247,9 @@ s32 func_80219874(s32 arg0, s32 arg1, s16* arg2, s32 arg3, s32 arg4) {
     return ret;
 }
 
-void uvFontPrintStr(s32 x, s32 y, char* arg2) {
-    char* temp_v0_3;
-    s32 var_s7;
+void uvFontPrintStr(s32 x, s32 y, char* str) {
+    char* chrPos;
+    s32 strLen;
     ParsedUVFT* temp_s3;
     s32 i;
 
@@ -265,22 +265,22 @@ void uvFontPrintStr(s32 x, s32 y, char* arg2) {
     D_80289380[D_80248E8C].a = sFontColorA;
     D_80289380[D_80248E8C].scaleX = sFontScaleX;
     D_80289380[D_80248E8C].scaleY = sFontScaleY;
-    var_s7 = uvStrlen(arg2);
-    if (var_s7 > 44) {
-        arg2[44] = '\0';
-        var_s7 = 44;
+    strLen = uvStrlen(str);
+    if (strLen > 44) {
+        str[44] = '\0';
+        strLen = 44;
     }
 
-    for (i = 0; i < var_s7; i++) {
-        temp_v0_3 = uvStrchr(temp_s3->str, arg2[i]);
-        if (temp_v0_3 != 0) {
-            D_80289380[D_80248E8C].unk14[i] = temp_v0_3 - temp_s3->str;
+    for (i = 0; i < strLen; i++) {
+        chrPos = uvStrchr(temp_s3->str, str[i]);
+        if (chrPos != NULL) {
+            D_80289380[D_80248E8C].unk14[i] = chrPos - temp_s3->str;
         } else {
             D_80289380[D_80248E8C].unk14[i] = -2;
         }
     }
 
-    D_80289380[D_80248E8C].unk14[var_s7] = -1;
+    D_80289380[D_80248E8C].unk14[strLen] = -1;
     D_80289380[D_80248E8C].unk6C = gGfxUnkPtrs->fonts[D_80248E84];
     D_80248E8C++;
 }
@@ -321,7 +321,7 @@ void func_80219DA4(Unk80289380* arg0) {
         gSPDisplayList(gGfxDisplayListHead++, dlist);
     }
     gGfxStateStackData = (gGfxStateStackData & ~0xFFF) | 0xFFE;
-    D_8029926C = 0xFFE;
+    gGfxBoundTexture = 0xFFE;
 }
 
 void uvFontGenDlist(void) {

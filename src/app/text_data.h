@@ -3,8 +3,8 @@
 
 #include <PR/ultratypes.h>
 
-// load TEXT and DATA blocks for id
-void textLoadBlock(s32 id);
+// load TEXT and DATA blocks for user file index
+void textLoadBlock(s32 userFileIdx);
 
 // searches for needle in NAME list
 // returns correlated string from DATA list, or NULL if not found

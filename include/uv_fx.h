@@ -2,6 +2,7 @@
 #define UV_FX_H
 
 #include <PR/ultratypes.h>
+#include <uv_graphics.h>
 #include <uv_matrix.h>
 #include <uv_vector.h>
 
@@ -98,12 +99,36 @@ extern UnkModelDebrisStructure D_8028A0A0[4];
 extern UnkModelTrail D_8028AC40[4];
 extern UnkFxStruct D_8028B400[120];
 
+#define FX_PROP_1(x) 1, (x)
+#define FX_PROP_2(x) 2, (x)
+#define FX_PROP_3(x, y, z) 3, (x), (y), (z)
+#define FX_PROP_4(x, y, z) 4, (x), (y), (z)
+#define FX_PROP_5(x, y, z, w) 5, (x), (y), (z), (w)
+#define FX_PROP_6(x, y, z, w) 6, (x), (y), (z), (w)
+#define FX_PROP_7(x) 7, (x)
+#define FX_PROP_8(x) 8, (x)
+#define FX_PROP_9(x) 9, (x)
+#define FX_PROP_10(x, y, z) 10, (x), (y), (z)
+#define FX_PROP_11(x) 11, (x)
+#define FX_PROP_12(x, y, z) 12, (x), (y), (z)
+#define FX_PROP_13(x) 13, (x)
+#define FX_PROP_14(x) 14, (x)
+#define FX_PROP_15(x) 15, (x)
+#define FX_PROP_16(x) 16, (x)
+#define FX_PROP_17(x) 17, (x)
+#define FX_PROP_18(x) 18, (x)
+#define FX_PROP_19(x) 19, (x)
+#define FX_PROP_END 0
+
 void func_8021A038(UnkModelTrail* arg0);
+s32 func_8021A304(f32, f32, f32, u16);
 s32 func_8021A334(f32 arg0, f32 arg1, f32 arg2, f32 arg3, u16 arg4);
+void func_8021A4D8(s32 fxId, Mtx4F* arg1);
 void func_8021BE28(u16 fxId, Mtx4F* arg1);
 void func_8021EA38(UnkStruct_80204D94* arg0);
 void _uvFxDraw(u16 fxId, UnkStruct_80204D94* arg1);
 s32 func_8021EFF0(s32 type);
 void uvFxProps(s32 fxId, ...);
+void uvFxGetProps(s32 fxId, ...);
 
 #endif // UV_FX_H

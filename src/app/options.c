@@ -2,14 +2,15 @@
 #include <uv_font.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>
-#include <uv_level.h>
+#include <uv_memory.h>
 #include <uv_sprite.h>
+#include <uv_texture.h>
 #include "kernel/code_1050.h"
-#include "code_99D40.h"
 #include "code_B3A70.h"
 #include "credits.h"
 #include "demo.h"
 #include "menu.h"
+#include "menu_utils.h"
 #include "options.h"
 #include "save.h"
 #include "snap.h"
@@ -67,18 +68,18 @@ s32 optionsTopRender(void) {
 }
 
 void optionsInit(void) {
-    D_80362690->unk0[D_80362690->unk9C + 1].debugFlag = 0;
-    saveFileLoad(D_80362690->unk0[D_80362690->unk9C + 1].debugFlag);
+    D_80362690->unkC[D_80362690->unk9C].unk8A = 0;
+    saveFileLoad(D_80362690->unkC[D_80362690->unk9C].unk8A);
     sGameComplete = func_8030CC48();
 
-    D_80362690->unk0[D_80362690->unk9C + 1].debugFlag = 1;
-    saveFileLoad(D_80362690->unk0[D_80362690->unk9C + 1].debugFlag);
+    D_80362690->unkC[D_80362690->unk9C].unk8A = 1;
+    saveFileLoad(D_80362690->unkC[D_80362690->unk9C].unk8A);
 
     if (sGameComplete < func_8030CC48()) {
         sGameComplete = func_8030CC48();
     } else {
-        D_80362690->unk0[D_80362690->unk9C + 1].debugFlag = 0;
-        saveFileLoad(D_80362690->unk0[D_80362690->unk9C + 1].debugFlag);
+        D_80362690->unkC[D_80362690->unk9C].unk8A = 0;
+        saveFileLoad(D_80362690->unkC[D_80362690->unk9C].unk8A);
     }
     if (sOptionsPanel == 3) {
         options_80316B80();
@@ -102,7 +103,7 @@ void optionsInitMain(void) {
     s32 menuY;
     s32 count;
 
-    saveFileLoad(D_80362690->unk0[D_80362690->unk9C + 1].debugFlag);
+    saveFileLoad(D_80362690->unkC[D_80362690->unk9C].unk8A);
     if (sGameComplete != 0) {
         sOptionMenuItems[0] = 0xC2;  // "Check album"
         sOptionMenuItems[1] = 0xBE;  // "Sound"
@@ -117,9 +118,9 @@ void optionsInitMain(void) {
         count = 3;
         menuY = 100;
     }
-    menuCreateItems(0x50, menuY, 6, 1.0f, 1.0f, sOptionMenuItems, count);
-    func_80312F5C(1, 0xFF, 0xFF, 0xFF);
-    func_80312F5C(0, 0xFF, 0xFF, 0x00);
+    menuCreateItems(80, menuY, 6, 1.0f, 1.0f, sOptionMenuItems, count);
+    menuUtilSetColors(MENU_COLOR_ITEM, 0xFF, 0xFF, 0xFF);
+    menuUtilSetColors(MENU_COLOR_SELECTED, 0xFF, 0xFF, 0x00);
 }
 
 void optionsInitAlbum(void) {
@@ -127,8 +128,8 @@ void optionsInitAlbum(void) {
     sOptionMenuItems[1] = 0x51;  // "File 2"
     sOptionMenuItems[2] = 0x11C; // "Return"
     menuCreateItems(80, 100, 6, 1.0f, 1.0f, sOptionMenuItems, 3);
-    func_80312F5C(1, 0xFF, 0xFF, 0xFF);
-    func_80312F5C(0, 0xFF, 0xFF, 0x00);
+    menuUtilSetColors(MENU_COLOR_ITEM, 0xFF, 0xFF, 0xFF);
+    menuUtilSetColors(MENU_COLOR_SELECTED, 0xFF, 0xFF, 0x00);
     D_8034F8F4 = 0;
 }
 
@@ -139,13 +140,13 @@ void optionsInitSound(void) {
     sOptionMenuItems[3] = 0x64;  // "Vol. 1" (Sound Effects)
     sOptionMenuItems[4] = 0x11C; // "Return"
     menuCreateItems(40, 70, 6, 1.0f, 1.0f, sOptionMenuItems, 5);
-    func_80312F5C(1, 0xFF, 0xFF, 0xFF);
-    func_80312F5C(0, 0xFF, 0xFF, 0);
+    menuUtilSetColors(MENU_COLOR_ITEM, 0xFF, 0xFF, 0xFF);
+    menuUtilSetColors(MENU_COLOR_SELECTED, 0xFF, 0xFF, 0);
     optionsSetSetting(0, sStereoMono);
     optionsSetTrack(1, sSoundTrack);
     optionsSetSetting(2, sVolumeMusic);
     optionsSetSetting(3, sVolumeSfx);
-    func_80312FF8(6);
+    menuUtilSetSoundFlags(MENU_SOUND_CHANGE | MENU_SOUND_BACK);
 }
 
 void optionsDeinit(void) {
@@ -170,7 +171,7 @@ s32 optionsHandlerMain(void) {
     s32 temp_v0;
     u32 temp_t7;
 
-    temp_v0 = menu_8030B50C();
+    temp_v0 = menuCheckInputs();
     temp_t7 = temp_v0 + 1;
     if (sGameComplete) {
         switch (temp_t7) {
@@ -224,7 +225,7 @@ s32 optionsHandlerMain(void) {
 s32 optionsHandlerAlbum(void) {
     s32 temp_v0;
 
-    temp_v0 = menu_8030B50C();
+    temp_v0 = menuCheckInputs();
     switch (temp_v0) {
     case 0:
         sSaveFileIdx = 0;
@@ -264,7 +265,7 @@ s32 optionsHandlerSound(void) {
     s32 optInc;
     f32 stickX;
 
-    sp24 = menu_8030B50C();
+    sp24 = menuCheckInputs();
     menuItem = menu_8030B668();
     if (sp24 == -1) {
         if (menuItem != 1) {
@@ -302,7 +303,7 @@ s32 optionsHandlerSound(void) {
             func_80200180(0, 8, 1, 0);
         }
         if (optInc != 0) {
-            snd_play_sfx(0x54);
+            sndPlaySfx(0x54);
         }
         optionsSetSetting(0, sStereoMono);
         return -1;
@@ -315,7 +316,7 @@ s32 optionsHandlerSound(void) {
             func_8033FCD0(0xFF);
         }
         if (optInc != 0) {
-            snd_play_sfx(0x54);
+            sndPlaySfx(0x54);
         }
         optionsSetTrack(1, sSoundTrack);
         return -1;
@@ -333,7 +334,7 @@ s32 optionsHandlerSound(void) {
     case 3:
         sVolumeSfx += optInc;
         if (optInc != 0) {
-            snd_play_sfx(0x6E);
+            sndPlaySfx(0x6E);
         }
         if (sVolumeSfx < 0) {
             sVolumeSfx = 0;
@@ -346,7 +347,7 @@ s32 optionsHandlerSound(void) {
         return -1;
     case 4:
         if (sp24 == menuItem) {
-            snd_play_sfx(0x6E);
+            sndPlaySfx(0x6E);
             func_8032D51C(0);
             return 0;
         }
@@ -371,17 +372,17 @@ void optionsDrawPanel(void) {
 }
 
 void optionsPanel0(void) {
-    menuInit();
+    menuRender();
     uvFontGenDlist();
 }
 
 void optionsPanel1(void) {
-    menuInit();
+    menuRender();
     uvFontGenDlist();
 }
 
 void optionsPanel2(void) {
-    menuInit();
+    menuRender();
     uvFontGenDlist();
 }
 

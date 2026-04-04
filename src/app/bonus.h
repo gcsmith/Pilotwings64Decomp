@@ -1,7 +1,6 @@
 #ifndef APP_BONUS_H
 #define APP_BONUS_H
 
-#include <uv_level.h>
 #include <uv_matrix.h>
 
 void bonusInit(void);

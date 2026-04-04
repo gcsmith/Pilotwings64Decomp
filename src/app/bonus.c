@@ -1,13 +1,15 @@
 #include "common.h"
 #include <uv_dobj.h>
-#include <uv_level.h>
 #include <uv_math.h>
 #include <uv_model.h>
+#include <uv_texture.h>
 #include <uv_util.h>
 #include "bonus.h"
-#include "code_72B70.h"
+#include "game.h"
 #include "code_9A960.h"
+#include "level.h"
 #include "snd.h"
+#include "task.h"
 
 typedef struct {
     u16 objId;
@@ -37,7 +39,7 @@ void bonusUpdateState(void) {
 
     for (i = 0; i < gBonusStarCount; i++) {
         star = &gBonusStars[i];
-        if (D_80362690->unk0[D_80362690->unk9C].unkC.unk8 == gRefBNUS[i].unk18) {
+        if (D_80362690->unkC[D_80362690->unk9C].unk8 == gRefBNUS[i].unk18) {
             star->unk4C = 1;
             if (star->objId != 0xFFFF) {
                 uvDobjSetState(star->objId, 0x2);
@@ -102,8 +104,7 @@ void bonusFrameUpdate(Mtx4F* arg0) {
         }
     }
 
-    // if not already in birdman
-    if ((D_80362690->unk0[0].unk0 != VEHICLE_BIRDMAN) && (D_80362690->unk0[D_80362690->unk9C].unkC.unkA == 1)) {
+    if ((D_80362690->state != GAME_STATE_RESULTS) && (D_80362690->unkC[D_80362690->unk9C].unkA == 1)) {
         px = arg0->m[3][0];
         py = arg0->m[3][1];
         pz = arg0->m[3][2];
@@ -119,7 +120,7 @@ void bonusFrameUpdate(Mtx4F* arg0) {
                 dz = star->unk4.m[3][2] - pz;
                 if (uvLength3D(dx, dy, dz) < star->unk44) {
                     // play *gong* sound
-                    snd_play_sfx(0x11);
+                    sndPlaySfx(0x11);
                     // change to birdman
                     star->loadVeh = VEHICLE_BIRDMAN;
                     star->unk48 = 1;
@@ -134,7 +135,7 @@ void bonusDeinit(void) {
     s32 i;
     for (i = 0; i < gBonusStarCount; i++) {
         if (gBonusStars[i].objId != 0xFFFF) {
-            uvDobjModel(gBonusStars[i].objId, 0xFFFF);
+            uvDobjModel(gBonusStars[i].objId, MODEL_WORLD);
             gBonusStars[i].objId = 0xFFFF;
         }
     }

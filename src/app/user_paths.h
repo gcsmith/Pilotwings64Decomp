@@ -3,10 +3,11 @@
 
 #include <PR/ultratypes.h>
 #include <uv_vector.h>
+#include "code_9A960.h"
 #include "code_A6000.h"
 
 void userPathInit(void);
-Unk8037DCA0* userPath_8034A4F8(s32 arg0);
+Unk8037DCA0* userPath_8034A4F8(s32 userFileIdx);
 void userPathFree(s32 path);
 void userPath_8034A8B0(Unk8037DCA0* arg0, u8 arg1, f32 arg2);
 // arg0 is the actual struct and not a pointer to it

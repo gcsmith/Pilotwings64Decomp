@@ -4,12 +4,17 @@
 #include <PR/ultratypes.h>
 #include <uv_vector.h>
 
+extern u8 D_80359DB4; // 0x00 = day, 0x01 = night
+
+void envInit(void);
 void env_loadtpal(s32);
-void func_802E1278(void);
+void envLoad(void);
+void func_802E0CF0(void);
 u16 func_802E12B4(void);
 void func_802E1444(u16);
+void func_802E14E8(Vec3F*, f32, f32, f32, f32);
 void func_802E15F0(void);
-f32 func_802E1754(f32, f32, f32, Vec3F*);
+void func_802E1754(f32, f32, f32, Vec3F*);
 void func_802E2060(void);
 
 #endif // APP_ENVIRONMENT_H
