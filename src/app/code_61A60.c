@@ -216,9 +216,9 @@ s32 func_802DAA34(void) {
     if (uvControllerButtonPress(D_80362690->unk9C, A_BUTTON | B_BUTTON | START_BUTTON)) {
         func_80344258(0);
         if (uvControllerButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON)) {
-            sndPlaySfx(0x6E);
+            sndPlaySfx(SFX_UI_CONFIRM);
         } else if (uvControllerButtonPress(D_80362690->unk9C, B_BUTTON)) {
-            sndPlaySfx(0x01);
+            sndPlaySfx(SFX_UI_CANCEL);
         }
         return GAME_STATE_TITLE;
     }
