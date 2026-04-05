@@ -23,4 +23,8 @@ void func_8033FCD0(u16);
 void func_8033FA88(f32);
 void func_8033FD94(u16, f32, f32);
 
+enum Sfx {
+    /* 0x01 */ SFX_UNK_01,
+};
+
 #endif // APP_SND_H
