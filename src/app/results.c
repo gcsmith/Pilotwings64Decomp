@@ -433,7 +433,7 @@ s32 resultMenuChoose(s32 arg0) {
                 if (demoButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON) != 0) {
                     sndPlaySfx(0x73);
                 } else if (demoButtonPress(D_80362690->unk9C, CONT_B) != 0) {
-                    sndPlaySfx(1);
+                    sndPlaySfx(SFX_UI_CANCEL);
                 }
             }
         }
