@@ -80,7 +80,7 @@ void func_8031EF90(s32 arg0) {
         uvEmitterSetUnk74(D_8036D260->unk4, 0.5f);
         uvEmitterProp(D_8036D260->unk0, 1, 0.0f, 2, 250.0f, 5, 0, 0);
         uvEmitterProp(D_8036D260->unk4, 1, 0.0f, 2, 250.0f, 5, 0, 0);
-        for (i = 0; i < 6; i++) {
+        for (i = 0; i < ARRAY_COUNT(D_8036D230); i++) {
             temp_v0_2 = D_8036D230[i] = (Unk8036D230*)_uvMemAllocAlign8(sizeof(Unk8036D230));
             temp_v0_2->unk0 = func_8021EFF0(3);
             uvModelGet(temp_v0_2->unk0, 3);
@@ -209,18 +209,18 @@ void func_8031EF90(s32 arg0) {
                 break;
             }
             // clang-format off
-                uvFxProps(
-                    temp_v0_2->unk0,
-                    FX_PROP_5(temp_v0_2->unk4, temp_v0_2->unk8, temp_v0_2->unkC, 0.6f),
-                    FX_PROP_3(temp_v0_2->unk38, temp_v0_2->unk38, temp_v0_2->unk38),
-                    FX_PROP_END
-                );
-                uvFxProps(
-                    temp_v0_2->unk1,
-                    FX_PROP_5(temp_v0_2->unk10, temp_v0_2->unk14, temp_v0_2->unk18, 0.6f),
-                    FX_PROP_3(temp_v0_2->unk40, temp_v0_2->unk40, temp_v0_2->unk40),
-                    FX_PROP_END
-                );
+            uvFxProps(
+                temp_v0_2->unk0,
+                FX_PROP_5(temp_v0_2->unk4, temp_v0_2->unk8, temp_v0_2->unkC, 0.6f),
+                FX_PROP_3(temp_v0_2->unk38, temp_v0_2->unk38, temp_v0_2->unk38),
+                FX_PROP_END
+            );
+            uvFxProps(
+                temp_v0_2->unk1,
+                FX_PROP_5(temp_v0_2->unk10, temp_v0_2->unk14, temp_v0_2->unk18, 0.6f),
+                FX_PROP_3(temp_v0_2->unk40, temp_v0_2->unk40, temp_v0_2->unk40),
+                FX_PROP_END
+            );
             // clang-format on
         }
         uvEmitterTrigger(D_8036D260->unk0);
@@ -234,7 +234,7 @@ void func_8031EF90(s32 arg0) {
         uvEmitterSetUnk70(D_8036D260->unk0, 1.0f);
         uvEmitterSetUnk74(D_8036D260->unk0, 1.0f);
         uvEmitterProp(D_8036D260->unk0, 1, 0.0f, 2, 250.0f, 5, 0, 0);
-        for (i = 0; i < 6; i++) {
+        for (i = 0; i < ARRAY_COUNT(D_8036D248); i++) {
             temp_v0_5 = D_8036D248[i] = (Unk8036D248*)_uvMemAllocAlign8(sizeof(Unk8036D248));
             temp_v0_5->unk0 = func_8021EFF0(2);
             uvModelGet(temp_v0_5->unk0, 2);
@@ -444,7 +444,7 @@ void func_8031FE18(s32 arg0) {
     func_8033F8CC(D_8036D260->unk4);
     switch (arg0) {
     case 2:
-        for (i = 0; i < 6; i++) {
+        for (i = 0; i < ARRAY_COUNT(D_8036D230); i++) {
             temp_s0 = D_8036D230[i];
             if (temp_s0 != NULL) {
                 uvModelGet(temp_s0->unk0, 0xFF);
@@ -455,7 +455,7 @@ void func_8031FE18(s32 arg0) {
         }
         break;
     case 1:
-        for (i = 0; i < 6; i++) {
+        for (i = 0; i < ARRAY_COUNT(D_8036D248); i++) {
             temp_s0_2 = D_8036D248[i];
             if (temp_s0_2 != NULL) {
                 uvModelGet(temp_s0_2->unk0, 0xFF);
