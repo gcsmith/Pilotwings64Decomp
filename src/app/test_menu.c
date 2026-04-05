@@ -431,7 +431,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
                     sTestMenuState = 2;
                     break;
                 case 2:
-                    sndPlaySfx(0x6E);
+                    sndPlaySfx(SFX_UI_CONFIRM);
                     func_8033FB14();
                     testMenu_8034A428();
                     func_8033E3A8(3);

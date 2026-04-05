@@ -67,7 +67,7 @@ s32 menuUtilCheckInputs(void) {
     demo_80323020();
     if (demoButtonPress(D_80362690->unk9C, (sMenuButtonMode == 1) ? START_BUTTON : B_BUTTON)) {
         if (sMenuSoundFlags & MENU_SOUND_BACK) {
-            sndPlaySfx(0x01);
+            sndPlaySfx(SFX_UI_CANCEL);
             func_8033FB14();
         }
         return -1;
@@ -75,7 +75,7 @@ s32 menuUtilCheckInputs(void) {
 
     if (demoButtonPress(D_80362690->unk9C, (sMenuButtonMode == 1) ? A_BUTTON : START_BUTTON | A_BUTTON)) {
         if (sMenuSoundFlags & MENU_SOUND_SELECT) {
-            sndPlaySfx(0x6E);
+            sndPlaySfx(SFX_UI_CONFIRM);
             func_8033FB14();
         }
         return sMenuCurSelect;
