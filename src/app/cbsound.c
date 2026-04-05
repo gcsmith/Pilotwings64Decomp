@@ -144,9 +144,9 @@ void func_802DA23C(CannonballData* arg0) {
     sp24 = &D_80362690->unkC[D_80362690->unk9C];
     if ((arg0->unkD4 == 2) && (arg0->unkD5 != 2)) {
         if (!(arg0->unk2AC & 2)) {
-            sndPlaySfx(0x36);
+            sndPlaySfx(SFX_UNK_054);
             if ((arg0->unk11C != 0) && !(arg0->unk2AC & 2)) {
-                sndPlaySfx(0x1A);
+                sndPlaySfx(SFX_UNK_026);
             }
             arg0->unk2AC |= 2;
             func_8033F748(0x12);

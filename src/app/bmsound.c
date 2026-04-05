@@ -132,7 +132,7 @@ void bmSound_802D112C(BirdmanData* arg0) {
     if (arg0->unk104 == 2) {
         if (!(arg0->unk410 & 0x02)) {
             arg0->unk410 |= 0x02;
-            sndPlaySfx(0x36);
+            sndPlaySfx(SFX_UNK_054);
             if (!(arg0->unk410 & 0x10)) {
                 func_8033F748(0x1B);
                 func_8033F964(0);
@@ -194,7 +194,7 @@ void bmSound_802D1334(BirdmanData* arg0) {
                 if ((arg0->unk15C != 0) && (arg0->unk104 == 2)) {
                     if (!(arg0->unk410 & 0x04)) {
                         arg0->unk410 |= 0x04;
-                        sndPlaySfx(0x1A);
+                        sndPlaySfx(SFX_UNK_026);
                     }
                 }
                 break;
