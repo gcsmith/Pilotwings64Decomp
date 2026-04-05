@@ -156,7 +156,7 @@ s32 func_8030C61C(void) {
         func_8033FB14();
     } else if (demoButtonPress(D_80362690->unk9C, B_BUTTON) != 0) {
         ret = GAME_STATE_PILOT_SELECT;
-        sndPlaySfx(1);
+        sndPlaySfx(SFX_UI_CANCEL);
     }
     return ret;
 }

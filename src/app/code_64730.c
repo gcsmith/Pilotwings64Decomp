@@ -389,7 +389,7 @@ STATIC_FUNC s32 func_802DD8E8(Camera* arg0, Unk80367868* arg1, s32 arg2) {
     }
     if (arg2 != 0) {
         if (demoButtonPress(D_80362690->unk9C, B_BUTTON) != 0) {
-            sndPlaySfx(1U);
+            sndPlaySfx(SFX_UI_CANCEL);
             return 8;
         }
         if (demoButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON) != 0) {

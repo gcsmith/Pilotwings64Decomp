@@ -25,7 +25,7 @@ void func_8033FD94(u16, f32, f32);
 
 enum Sfx {
     /* 0x00 */ SFX_UNK_000,
-    /* 0x01 */ SFX_UNK_001,
+    /* 0x01 */ SFX_UI_CANCEL,
     /* 0x02 */ SFX_UNK_002,
     /* 0x03 */ SFX_UNK_003,
     /* 0x04 */ SFX_UNK_004,
