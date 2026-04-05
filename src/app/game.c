@@ -750,7 +750,7 @@ s32 gameUpdateStateTestUpdate(Unk80362690* arg0) {
     demoLogInput();
     uvEventPost(0xE, 0);
     if (arg0->unkA4 && ((demoGetRecMode() == 0) || ((sp50 = uvControllerButtonPress(arg0->unk9C, A_BUTTON | B_BUTTON | START_BUTTON)) != 0))) {
-        sndPlaySfx(1);
+        sndPlaySfx(SFX_UI_CANCEL);
         func_802EBBC8(arg0);
         func_8032D51C(0);
         if (D_8034F164 != 0) {

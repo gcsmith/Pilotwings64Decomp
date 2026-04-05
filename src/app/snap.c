@@ -1514,7 +1514,7 @@ s32 func_8033D3EC(s32 arg0, s32 arg1, Unk80373060* arg2, s32* arg3, s32* arg4) {
             uvGfxEnd();
             if ((demoButtonPress(0, B_BUTTON) != 0) || ((arg1 == 0) && (demoButtonPress(0, START_BUTTON) != 0))) {
                 spBC = TRUE;
-                sndPlaySfx(1);
+                sndPlaySfx(SFX_UI_CANCEL);
                 break;
             }
             if ((arg1 != 0) && (demoButtonPress(0, A_BUTTON | START_BUTTON) != 0)) {
@@ -1523,7 +1523,7 @@ s32 func_8033D3EC(s32 arg0, s32 arg1, Unk80373060* arg2, s32* arg3, s32* arg4) {
                     sndPlaySfx(0x6E);
                     break;
                 }
-                sndPlaySfx(1);
+                sndPlaySfx(SFX_UI_CANCEL);
             }
 
             if (arg1 != 0) {
@@ -1680,7 +1680,7 @@ s32 func_8033DDD8(s32 arg0, Unk80373060* arg1, s32* arg2) {
         uvGfxBegin();
         uvGfxEnd();
         if (demoButtonPress(0, B_BUTTON) != 0) {
-            sndPlaySfx(1);
+            sndPlaySfx(SFX_UI_CANCEL);
             sp2C = 1;
             break;
         } else if (demoButtonPress(0, L_CBUTTONS) != 0) {
@@ -1742,7 +1742,7 @@ void func_8033DFD0(s32 arg0, Unk80373060* arg1, s32 arg2) {
         uvGfxBegin();
         uvGfxEnd();
         if (demoButtonPress(0, B_BUTTON) != 0) {
-            sndPlaySfx(1);
+            sndPlaySfx(SFX_UI_CANCEL);
             break;
         }
         if (demoButtonPress(0, A_BUTTON | START_BUTTON) != 0) {
