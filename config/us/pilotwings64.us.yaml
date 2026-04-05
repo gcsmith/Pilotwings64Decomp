@@ -714,7 +714,7 @@ segments:
       - { type: .bss, vram: 0x80371DB0, name: app/ski_lift }
       - { type: .bss, vram: 0x80371E60, name: app/smoke }
       - { type: .bss, vram: 0x80373060, name: app/snap }
-      - { type: bss, vram: 0x80373E20, name: app/snd }
+      - { type: .bss, vram: 0x80373E20, name: app/snd }
       - { type: .bss, vram: 0x80373EF0, name: app/snow }
       - { type: .bss, vram: 0x80373F10, name: app/spath }
       - { type: .bss, vram: 0x80376CC0, name: app/splash }
