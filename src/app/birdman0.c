@@ -412,7 +412,7 @@ void bird_802CD0F8(BirdmanData* arg0) {
         uvDobjPosm(arg0->objId, 0, &arg0->unk10);
         uvMat4Copy(&arg0->unkD4->unk80, &arg0->unk10);
         if (arg0->unk15C != 0) {
-            sndPlaySfx(0x1A);
+            sndPlaySfx(SFX_UNK_026);
             uvEventPost(0x12, 0);
             x = arg0->unk10.m[3][0];
             y = arg0->unk10.m[3][1];

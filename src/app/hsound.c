@@ -286,7 +286,7 @@ void func_8030AEB0(GyrocopterData* arg0) {
             if ((arg0->unkD0 != 0) && (arg0->unkC0 == 3)) {
                 if (!(arg0->unk678 & 4)) {
                     arg0->unk678 |= 4;
-                    sndPlaySfx(0x1A);
+                    sndPlaySfx(SFX_UNK_026);
                 }
             }
             break;

@@ -120,7 +120,7 @@ void bonusFrameUpdate(Mtx4F* arg0) {
                 dz = star->unk4.m[3][2] - pz;
                 if (uvLength3D(dx, dy, dz) < star->unk44) {
                     // play *gong* sound
-                    sndPlaySfx(0x11);
+                    sndPlaySfx(SFX_UNK_017);
                     // change to birdman
                     star->loadVeh = VEHICLE_BIRDMAN;
                     star->unk48 = 1;
