@@ -14,16 +14,16 @@ s32 D_80362624; // count for D_80362500
 
 // forward declarations
 void fireFxCreate(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4);
-void fireFx_802EA824(void);
+void fireFxDeinit(void);
 
-void fireFx_802E9FD0(void) {
+void fireFxInit(void) {
     D_80362620 = 0;
     D_80362624 = 0;
 }
 
-void fireFx_802E9FE4(void) {
+void fireFxUpdate(void) {
     if (D_8034F120 != D_80362690->terraId) {
-        fireFx_802EA824();
+        fireFxDeinit();
         fireFxCreateAll();
         D_8034F120 = D_80362690->terraId;
     }
@@ -100,7 +100,7 @@ void fireFxCreateAll(void) {
     }
 }
 
-void fireFx_802EA824(void) {
+void fireFxDeinit(void) {
     s32 i;
 
     for (i = 0; i < D_80362620; i++) {

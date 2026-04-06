@@ -211,9 +211,9 @@ hoverPadGetPoints    = 0x8030A0DC; // type:func
 
 fireFxCreateAll       = 0x802EA03C; // type:func
 fireFxCreate          = 0x802EA8E0; // type:func
-fireFx_802E9FD0       = 0x802E9FD0; // type:func
-fireFx_802E9FE4       = 0x802E9FE4; // type:func
-fireFx_802EA824       = 0x802EA824; // type:func
+fireFxInit            = 0x802E9FD0; // type:func
+fireFxUpdate          = 0x802E9FE4; // type:func
+fireFxDeinit          = 0x802EA824; // type:func
 
 hsound_callback       = 0x8030A390; // type:func
 app_entrypoint        = 0x8030FE20; // type:func

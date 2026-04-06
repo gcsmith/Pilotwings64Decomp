@@ -22,7 +22,7 @@ s16 D_8034F154[6] = { 0 };
 s32 func_802EB640(Unk80362690_Unk0*, u16);
 
 void func_802EB3E0(void) {
-    fireFx_802E9FD0();
+    fireFxInit();
     splashInit();
     smokeInit();
     mistInit();
@@ -40,7 +40,7 @@ void func_802EB424(Mtx4F* arg0, f32 arg1) {
     temp_s0 = taskGet_80345CB0();
     sp3C = 0;
     sp40 = 0.0f;
-    fireFx_802E9FE4();
+    fireFxUpdate();
     splashUpdate();
     mistUpdate(arg0, arg1);
     if (temp_s0[1] == 1) {
@@ -80,7 +80,7 @@ void func_802EB5E4(void) {
     u8* sp1C;
 
     sp1C = taskGet_80345CB0();
-    fireFx_802EA824();
+    fireFxDeinit();
     splashClear();
     smokeDeleteAll();
     mistDeinit();
