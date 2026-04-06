@@ -392,25 +392,25 @@ void envLoadTerrainPal(s32 envId) {
     switch (envId) {
     case 6:
         uvMemLoadPal(0);
-        return;
+        break;
     case 11:
         uvMemLoadPal(1);
-        return;
+        break;
     case 17:
         uvMemLoadPal(2);
-        return;
+        break;
     case 18:
         uvMemLoadPal(5);
-        return;
+        break;
     case 19:
         uvMemLoadPal(5);
-        return;
+        break;
     case 20:
         uvMemLoadPal(4);
-        return;
+        break;
     case 21:
         uvMemLoadPal(3);
-        return;
+        break;
     case 2:
     case 3:
     case 4:
@@ -428,7 +428,7 @@ void envLoadTerrainPal(s32 envId) {
         break;
     default:
         _uvDebugPrintf("env_loadtpal : unknown environment %d\n", envId);
-        return;
+        break;
     }
 }
 
@@ -436,70 +436,70 @@ void env_802E1A80(s32 envId) {
     switch (envId) {
     case 22:
         uvLevelAppend(0x86);
-        return;
+        break;
     case 2:
         uvLevelAppend(0x72);
-        return;
+        break;
     case 3:
         uvLevelAppend(0x73);
-        return;
+        break;
     case 4:
         uvLevelAppend(0x74);
-        return;
+        break;
     case 5:
         uvLevelAppend(0x75);
-        return;
+        break;
     case 6:
         uvLevelAppend(0x76);
-        return;
+        break;
     case 7:
         uvLevelAppend(0x77);
-        return;
+        break;
     case 8:
         uvLevelAppend(0x78);
-        return;
+        break;
     case 9:
         uvLevelAppend(0x79);
-        return;
+        break;
     case 10:
         uvLevelAppend(0x7A);
-        return;
+        break;
     case 11:
         uvLevelAppend(0x7B);
-        return;
+        break;
     case 12:
         uvLevelAppend(0x7C);
-        return;
+        break;
     case 13:
         uvLevelAppend(0x7D);
-        return;
+        break;
     case 14:
         uvLevelAppend(0x7E);
-        return;
+        break;
     case 15:
         uvLevelAppend(0x7F);
-        return;
+        break;
     case 16:
         uvLevelAppend(0x80);
-        return;
+        break;
     case 17:
         uvLevelAppend(0x81);
-        return;
+        break;
     case 18:
         uvLevelAppend(0x82);
-        return;
+        break;
     case 19:
         uvLevelAppend(0x83);
-        return;
+        break;
     case 20:
         uvLevelAppend(0x84);
-        return;
+        break;
     case 21:
         uvLevelAppend(0x85);
-        return;
+        break;
     default:
         _uvDebugPrintf("error : unknown environment %d\n", envId);
-        return;
+        break;
     }
 }
 
@@ -508,63 +508,63 @@ void env_802E1C1C(s32 envId) {
     case 4:
         func_8020F99C(1, 1.0f, 0.0f, 0.0f);
         func_8020F5A4(1, 0.0f, 0.5f, 0.2f);
-        return;
+        break;
     case 5:
         func_8020F99C(0, 0.75f, 0.4f, 0.2f);
         func_8020F5A4(0, 0.3f, 0.3f, 0.3f);
         func_8020F99C(1, 1.0f, 0.0f, 0.0f);
         func_8020F5A4(1, 0.0f, 0.5f, 0.2f);
-        return;
+        break;
     case 6:
         func_8020F99C(0, 0.7f, 0.7f, 1.0f);
         func_8020F630(0);
         func_8020F99C(1, 1.0f, 0.0f, 0.0f);
         func_8020F5A4(1, 0.0f, 0.5f, 0.0f);
-        return;
+        break;
     case 9:
         func_8020F99C(1, 1.0f, 0.0f, 0.0f);
         func_8020F5A4(1, 0.0f, 0.5f, 0.2f);
-        return;
+        break;
     case 10:
         func_8020F99C(1, 1.0f, 0.0f, 0.0f);
         func_8020F5A4(1, 0.0f, 0.5f, 0.2f);
-        return;
+        break;
     case 11:
         func_8020F99C(0, 0.7f, 0.7f, 1.0f);
         func_8020F630(0);
         func_8020F99C(1, 1.0f, 0.0f, 0.0f);
         func_8020F5A4(1, 0.0f, 0.5f, 0.15f);
-        return;
+        break;
     case 14:
         func_8020F99C(1, 1.0f, 0.0f, 0.0f);
         func_8020F5A4(1, 0.0f, 0.5f, 0.2f);
-        return;
+        break;
     case 15:
         func_8020F99C(1, 1.0f, 0.0f, 0.0f);
         func_8020F5A4(1, 0.0f, 0.5f, 0.2f);
-        return;
+        break;
     case 16:
         func_8020F99C(0, 0.75f, 0.4f, 0.2f);
         func_8020F5A4(0, 0.3f, 0.3f, 0.3f);
         func_8020F99C(1, 1.0f, 0.0f, 0.0f);
         func_8020F5A4(1, 0.0f, 0.5f, 0.2f);
-        return;
+        break;
     case 17:
         func_8020F99C(0, 0.7f, 0.7f, 1.0f);
         func_8020F630(0);
         func_8020F99C(1, 1.0f, 0.0f, 0.0f);
         func_8020F5A4(1, 0.0f, 0.5f, 0.2f);
-        return;
+        break;
     case 20:
         func_8020F99C(1, 1.0f, 0.0f, 0.0f);
         func_8020F5A4(1, 0.0f, 0.5f, 0.2f);
-        return;
+        break;
     case 21:
         func_8020F99C(0, 0.4f, 0.4f, 1.0f);
         func_8020F630(0);
         func_8020F99C(1, 1.0f, 0.0f, 0.0f);
         func_8020F5A4(1, 0.0f, 0.8f, 0.2f);
-        return;
+        break;
     case 2:
     case 3:
     case 7:
@@ -574,10 +574,10 @@ void env_802E1C1C(s32 envId) {
     case 18:
     case 19:
     case 22:
-        return;
+        break;
     default:
         _uvDebugPrintf("error : unknown environment %d\n", envId);
-        return;
+        break;
     }
 }
 
