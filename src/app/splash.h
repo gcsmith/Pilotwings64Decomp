@@ -8,5 +8,6 @@ void splashAdd(Mtx4F* pos, f32 size);
 void splashUpdate(void);
 void splashInit(void);
 void splashClear(void);
+void splashAddRipple(Mtx4F* mtx, f32 initSize);
 
 #endif // APP_SPLASH_H

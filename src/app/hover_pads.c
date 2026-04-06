@@ -4,6 +4,7 @@
 #include <uv_texture.h>
 #include <uv_util.h>
 #include "code_9A960.h"
+#include "game.h"
 #include "hover_pads.h"
 #include "hud.h"
 #include "snd.h"

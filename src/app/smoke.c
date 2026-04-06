@@ -1,6 +1,7 @@
 #include "common.h"
 #include "code_9A960.h"
 #include "demo.h"
+#include "game.h"
 #include "smoke.h"
 #include <uv_fx.h>
 #include <uv_matrix.h>

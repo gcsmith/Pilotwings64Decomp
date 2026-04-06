@@ -878,9 +878,10 @@ gRefBNUS                  = 0x80359730;
 gBonusStarCount           = 0x80359734;
 gBonusStars               = 0x80359738; // size:0xA0
 
-gFalcos                   = 0x8035A5F8; // size:0x258
-gFalcoCount               = 0x8035A850;
-gRefFALC                  = 0x8035AF20;
+sFalcos                   = 0x8035A5F8; // size:0x258
+sFalcoCount               = 0x8035A850;
+sRefFALC                  = 0x8035AF20;
+sFalcoDomains             = 0x8035A858;
 
 sSaveFiles                = 0x803620E0; // size:0x200
 sSaveFilesMirror          = 0x803622E0; // size:0x200
