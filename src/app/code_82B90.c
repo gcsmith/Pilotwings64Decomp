@@ -11,7 +11,6 @@
 #include "app/demo.h"
 #include "app/environment.h"
 #include "app/hud.h"
-#include "app/save.h"
 #include "app/shadow.h"
 #include "app/snd.h"
 #include "app/splash.h"
@@ -232,7 +231,8 @@ void func_802FBEFC(JumbleHopperData* arg0, f32 arg1) {
         sndPlaySfx(0x69);
         arg0->unk4F = 1;
 
-        D_80364210[D_80362690->unk9C].unk38 = D_80364210[D_80362690->unk9C].unk38 - sp2C[11].unk30;
+        // TODO: fix array and/or struct
+        D_80364210[D_80362690->unk9C].unk38 = D_80364210[D_80362690->unk9C].unk38 - sp2C[11].unk4[5].y;
         if (D_80364210[D_80362690->unk9C].unk38 < -100) {
             D_80364210[D_80362690->unk9C].unk38 = -100;
         }

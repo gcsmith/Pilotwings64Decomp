@@ -4,6 +4,7 @@
 #include <uv_texture.h>
 #include "code_9A960.h"
 #include "env_sound.h"
+#include "game.h"
 #include "hud.h"
 #include "level.h"
 #include "task.h"

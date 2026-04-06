@@ -113,18 +113,18 @@ void func_802D3170(u8 arg0, Camera* arg1) {
     func_802D46A4(arg1, arg1->unk24, arg1->unk26, arg1->unk28, arg1->unk2A);
     func_802D45C4(arg1, 1);
     D_803599D0.unk0 = 6;
-    D_803599D0.unk4 = 0.0f;
-    D_803599D0.unk8 = 0.0f;
-    D_803599D0.unkC = 5.0f;
-    D_803599D0.unk10 = 5.0f;
-    D_803599D0.unk14 = 10.0f;
-    D_803599D0.unk18 = 9.0f;
-    D_803599D0.unk1C = 15.0f;
-    D_803599D0.unk20 = 12.0f;
-    D_803599D0.unk24 = 20.0f;
-    D_803599D0.unk28 = 13.5f;
-    D_803599D0.unk2C = 25.0f;
-    D_803599D0.unk30 = 14.5f;
+    D_803599D0.unk4[0].x = 0.0f;
+    D_803599D0.unk4[0].y = 0.0f;
+    D_803599D0.unk4[1].x = 5.0f;
+    D_803599D0.unk4[1].y = 5.0f;
+    D_803599D0.unk4[2].x = 10.0f;
+    D_803599D0.unk4[2].y = 9.0f;
+    D_803599D0.unk4[3].x = 15.0f;
+    D_803599D0.unk4[3].y = 12.0f;
+    D_803599D0.unk4[4].x = 20.0f;
+    D_803599D0.unk4[4].y = 13.5f;
+    D_803599D0.unk4[5].x = 25.0f;
+    D_803599D0.unk4[5].y = 14.5f;
 }
 
 void func_802D3444(Camera* arg0) {

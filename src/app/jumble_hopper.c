@@ -19,22 +19,14 @@ void jumbleHopperLoadPilot(u8 arg0, JumbleHopperData* arg1);
 
 void jumbleHopperInit(void) {
     D_80368B20.unk0 = 8;
-    D_80368B20.unk4 = 0.0f;
-    D_80368B20.unk8 = 0.0f;
-    D_80368B20.unkC = 0.2f;
-    D_80368B20.unk10 = 0.04f;
-    D_80368B20.unk14 = 0.4f;
-    D_80368B20.unk18 = 0.16f;
-    D_80368B20.unk1C = 0.6f;
-    D_80368B20.unk20 = 0.36f;
-    D_80368B20.unk24 = 0.7f;
-    D_80368B20.unk28 = 0.49f;
-    D_80368B20.unk2C = 0.8f;
-    D_80368B20.unk30 = 0.64f;
-    D_80368B20.unk34 = 0.9f;
-    D_80368B20.unk38 = 0.81f;
-    D_80368B20.unk40 = 1.0f;
-    D_80368B20.unk3C = 1.0f;
+    D_80368B20.unk4[0].x = 0.0f, D_80368B20.unk4[0].y = 0.0f;
+    D_80368B20.unk4[1].x = 0.2f, D_80368B20.unk4[1].y = 0.04f;
+    D_80368B20.unk4[2].x = 0.4f, D_80368B20.unk4[2].y = 0.16f;
+    D_80368B20.unk4[3].x = 0.6f, D_80368B20.unk4[3].y = 0.36f;
+    D_80368B20.unk4[4].x = 0.7f, D_80368B20.unk4[4].y = 0.49f;
+    D_80368B20.unk4[5].x = 0.8f, D_80368B20.unk4[5].y = 0.64f;
+    D_80368B20.unk4[6].x = 0.9f, D_80368B20.unk4[6].y = 0.81f;
+    D_80368B20.unk4[7].x = 1.0f, D_80368B20.unk4[7].y = 1.0f;
 }
 
 void func_802FA020(u8 contIdx, u8 pilot, JumbleHopperData* arg2, Camera* arg3) {

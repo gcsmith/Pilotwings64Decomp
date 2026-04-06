@@ -144,11 +144,11 @@ void userPath_8034A8B0(Unk8037DCA0* arg0, u8 arg1, f32 arg2) {
 }
 
 void userPath_8034A950(Unk8037F098 arg0, Unk803136C4_Arg0* arg183) {
-    arg183->unk0.f[0] = arg0.unk190[0].f[0];
-    arg183->unk0.f[1] = arg0.unk190[0].f[1];
-    arg183->unk0.f[2] = arg0.unk190[0].f[2];
-    arg183->unkC.f[0] = arg0.unk0[0].f[0];
-    arg183->unkC.f[1] = arg0.unk0[0].f[1];
-    arg183->unkC.f[2] = arg0.unk0[0].f[2];
-    arg183->unkC.f[3] = arg0.unk0[0].f[3];
+    arg183->pos.f[0] = arg0.unk190[0].f[0];
+    arg183->pos.f[1] = arg0.unk190[0].f[1];
+    arg183->pos.f[2] = arg0.unk190[0].f[2];
+    arg183->quat.f[0] = arg0.unk0[0].f[0];
+    arg183->quat.f[1] = arg0.unk0[0].f[1];
+    arg183->quat.f[2] = arg0.unk0[0].f[2];
+    arg183->quat.f[3] = arg0.unk0[0].f[3];
 }
