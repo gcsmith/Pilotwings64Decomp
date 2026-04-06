@@ -198,7 +198,7 @@ void func_802DCBA0(void) {
 s32 func_802DCCF0(void) {
     demo_80323020();
     if (demoButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON) != 0) {
-        func_8033F758(0x75U, 1.0f, 0.8f, 0.0f);
+        sndPlaySfxVolPitchPan(0x75U, 1.0f, 0.8f, 0.0f);
         func_8033FB14();
         return 1;
     }

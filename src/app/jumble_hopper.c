@@ -146,11 +146,11 @@ void jumbleHopperMovementFrame(JumbleHopperData* arg0, u8 gameState) {
         arg0->unk40 = func_80313AF4(var_fa0, arg0->unk40, 2.0f);
         if (demoButtonPress(arg0->contIdx, R_TRIG) != 0) {
             if ((arg0->unk44 == 9) && (arg0->unk18->unk137C == 0)) {
-                func_8033F758(0x6A, 1.0f, 0.5f, 0.0f);
+                sndPlaySfxVolPitchPan(0x6A, 1.0f, 0.5f, 0.0f);
                 arg0->unk44 = 9;
                 arg0->unk18->unk137C = 1;
             } else {
-                func_8033F758(0x6A, 1.0f, 0.5f, 0.0f);
+                sndPlaySfxVolPitchPan(0x6A, 1.0f, 0.5f, 0.0f);
                 arg0->unk44 = 9;
                 arg0->unk18->unk137C = 0;
             }
