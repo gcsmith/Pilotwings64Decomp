@@ -499,7 +499,7 @@ void cannonPilotLand(CannonballData* arg0) {
         arg0->unk293 = 1;
         if (arg0->unk11C != 0) {
             z = arg0->unk14.m[3][2]; // forces going through f0, instead of a2 direct
-            func_802F8AB8(arg0->unk14.m[3][0], arg0->unk14.m[3][1], z, 1.0f, &arg0->unk1C4.x);
+            func_802F8AB8(arg0->unk14.m[3][0], arg0->unk14.m[3][1], z, 1.0f, &arg0->unk1C4);
             arg0->unkB0->unk6 = 0;
             arg0->unk2 = arg0->unkB0->unk6;
             uvDobjState(arg0->objId, arg0->unk2);

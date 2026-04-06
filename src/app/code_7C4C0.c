@@ -210,7 +210,7 @@ void func_802F5910(GyrocopterData* arg0) {
         if (arg0->unkD0 != 0) {
             sndPlaySfx(SFX_UNK_026);
             uvEventPost(0x12, 0);
-            func_802F8AB8(temp_fa0, temp_fa1, temp_fv0, 6.0f, &arg0->unk19C.x);
+            func_802F8AB8(temp_fa0, temp_fa1, temp_fv0, 6.0f, &arg0->unk19C);
             arg0->unk2 |= 8;
             arg0->unk58->unk6 = arg0->unk2;
             uvDobjState(arg0->objId, arg0->unk2 | 8);

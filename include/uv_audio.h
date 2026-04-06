@@ -141,4 +141,6 @@ void uvaSeqSetTempo(f32 tempo);
 void uvaSeqSetVol(f32 vol);
 void uvaSeqStop(void);
 
+void func_80204518(s32 arg0);
+
 #endif // PILOTWINGS64_UV_AUDIO

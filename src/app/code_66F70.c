@@ -144,7 +144,7 @@ u8 db_getgnd(Vec3F* arg0, Vec3F* arg1, s32* arg2, s32* arg3, f32* arg4, Vec3F* a
             var_v0 = func_802DB6D4(&spD8, arg0, arg1);
         }
         if (var_v0 != 0) {
-            s0 = spD8.unk4;
+            s0 = spD8.collisionType;
             *arg3 = spD8.surfaceId;
             *arg4 = spD8.unkC.z;
             uvVec3Copy(arg5, &spD8.unk1C);
@@ -202,7 +202,7 @@ u8 db_getgnd(Vec3F* arg0, Vec3F* arg1, s32* arg2, s32* arg3, f32* arg4, Vec3F* a
     }
     if (spD4 != NULL) {
         *arg3 = spD4->surfaceId;
-        D_80359D7C = spD4->unk4;
+        D_80359D7C = spD4->collisionType;
         if (*arg2 == 1) {
             *arg4 = arg1->z - (50.0f * spD4->unk18);
         } else {

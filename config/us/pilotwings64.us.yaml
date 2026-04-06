@@ -674,7 +674,7 @@ segments:
       - { type: bss, vram: 0x80368310, name: app/gsound }
       - { type: .bss, vram: 0x80368370, name: app/code_7C4C0 }
       - { type: .bss, vram: 0x80368880, name: app/code_7CF30 }
-      - { type: bss, vram: 0x803688E0, name: app/code_7FE00 }
+      - { type: .bss, vram: 0x803688E0, name: app/code_7FE00 }
       - { type: .bss, vram: 0x80368B20, name: app/jumble_hopper }
       - { type: .bss, vram: 0x80368B80, name: app/code_82520 }
       - { type: .bss, vram: 0x80368C00, name: app/code_82B90 }
@@ -685,7 +685,7 @@ segments:
       - { type: bss, vram: 0x80369F30, name: app/level }
       - { type: .bss, vram: 0x8036A8A0, name: app/code_936F0 }
       - { type: bss, vram: 0x8036A8B0, name: app/credits }
-      - { type: bss, vram: 0x8036A8C0, name: app/code_94E60 }
+      - { type: .bss, vram: 0x8036A8C0, name: app/code_94E60 }
       - { type: bss, vram: 0x8036A8E0, name: app/map3d }
       - { type: bss, vram: 0x8036AA60, name: app/mem }
       - { type: .bss, vram: 0x8036BDF0, name: app/menu_utils }
@@ -695,7 +695,7 @@ segments:
       - { type: .bss, vram: 0x8036C120, name: app/options }
       - { type: .bss, vram: 0x8036C150, name: app/pads }
       - { type: .bss, vram: 0x8036C520, name: app/hud }
-      - { type: bss, vram: 0x8036D230, name: app/code_A64C0 }
+      - { type: .bss, vram: 0x8036D230, name: app/code_A64C0 }
       - { type: .bss, vram: 0x8036D2B0, name: app/planes }
       - { type: .bss, vram: 0x8036D320, name: app/demo_attitude }
       - { type: .bss, vram: 0x8036D340, name: app/proxanim }
@@ -714,7 +714,7 @@ segments:
       - { type: .bss, vram: 0x80371DB0, name: app/ski_lift }
       - { type: .bss, vram: 0x80371E60, name: app/smoke }
       - { type: .bss, vram: 0x80373060, name: app/snap }
-      - { type: bss, vram: 0x80373E20, name: app/snd }
+      - { type: .bss, vram: 0x80373E20, name: app/snd }
       - { type: .bss, vram: 0x80373EF0, name: app/snow }
       - { type: .bss, vram: 0x80373F10, name: app/spath }
       - { type: .bss, vram: 0x80376CC0, name: app/splash }

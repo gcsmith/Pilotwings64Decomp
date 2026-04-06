@@ -363,7 +363,7 @@ s32 func_802FC3B4(JumbleHopperData* arg0, s32 arg1, Vec3F* arg2, Vec3F* arg3) {
             arg3->z *= -1.0f;
         }
 
-        switch (var_s1->unk4) {
+        switch (var_s1->collisionType) {
         case 1:
             return 1;
         case 8:

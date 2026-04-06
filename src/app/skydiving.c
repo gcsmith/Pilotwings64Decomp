@@ -819,7 +819,7 @@ void func_803316B0(SkyDivingData* arg0) {
                 x = arg0->unk10.m[3][0];
                 y = arg0->unk10.m[3][1];
                 z = arg0->unk10.m[3][2];
-                func_802F8AB8(x, y, z, var_fv1, &arg0->unk160.x);
+                func_802F8AB8(x, y, z, var_fv1, &arg0->unk160);
             }
             arg0->unk2 = 0;
             arg0->unk50->unk6 = 0;

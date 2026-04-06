@@ -15,5 +15,6 @@ u8 func_802E07D8(Mtx4F*);
 s32 func_802E08F4(f32, f32, f32);
 u8 func_802E0C30(u8, s32);
 void func_802E0484(Mtx4F*, Mtx4F*, f32);
+f32 func_802DFA40(f32, f32);
 
 #endif // APP_CODE_66F70_H
