@@ -327,7 +327,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
         }
 
         if ((menuPrevX != sMenuCurX) || (menuPrevY != sMenuCurY)) {
-            func_8033F758(0, 1.0f, 1.03f, 0.0f);
+            func_8033F758(SFX_UI_MOVE_CHIME, 1.0f, 1.03f, 0.0f);
         }
         sSelMenuScreenX = (sMenuCurX * 78) + 47;
         sSelMenuScreenY = (sMenuCurY * 25) + 26;
