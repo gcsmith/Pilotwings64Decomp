@@ -1565,7 +1565,7 @@ s32 func_8033D3EC(s32 arg0, s32 arg1, Unk80373060* arg2, s32* arg3, s32* arg4) {
                     }
 
                     if (i != *arg4) {
-                        func_8033F758(0, 1.0f, 1.03f, 0);
+                        func_8033F758(SFX_UI_MOVE_CHIME, 1.0f, 1.03f, 0);
                         func_8033CBD0(*arg4, 1);
                         func_8033CBD0(*arg4, 1);
                         *arg4 = i;
@@ -1732,7 +1732,7 @@ void func_8033DFD0(s32 arg0, Unk80373060* arg1, s32 arg2) {
             temp_fv0 = demoGetInputs(0, 0);
             if (var_s1 == 0 && FABS2(temp_fv0) >= 0.3) {
                 var_s1 = 1;
-                func_8033F758(0, 1.0f, 1.03f, 0);
+                func_8033F758(SFX_UI_MOVE_CHIME, 1.0f, 1.03f, 0);
                 var_s2 = !var_s2;
                 func_8033BF00(arg0, !var_s2, 1);
                 func_8033BF00(arg0, !var_s2, 1);
