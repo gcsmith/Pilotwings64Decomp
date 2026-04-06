@@ -253,9 +253,9 @@ u8 testMenuHandler(Unk80367710* arg0) {
         if (demoButtonPress(D_80362690->unk9C, A_BUTTON | B_BUTTON | START_BUTTON) != 0) {
             sTestMenuState = 0;
             if (demoButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON) != 0) {
-                sndPlaySfx(0x71);
+                sndPlaySfx(SFX_UI_VIEW_MAP);
             } else if (demoButtonPress(D_80362690->unk9C, B_BUTTON) != 0) {
-                sndPlaySfx(1);
+                sndPlaySfx(SFX_UI_CANCEL);
             }
             return 6;
         }
@@ -327,7 +327,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
         }
 
         if ((menuPrevX != sMenuCurX) || (menuPrevY != sMenuCurY)) {
-            func_8033F758(0, 1.0f, 1.03f, 0.0f);
+            func_8033F758(SFX_UI_MOVE_CHIME, 1.0f, 1.03f, 0.0f);
         }
         sSelMenuScreenX = (sMenuCurX * 78) + 47;
         sSelMenuScreenY = (sMenuCurY * 25) + 26;
@@ -402,14 +402,14 @@ u8 testMenuHandler(Unk80367710* arg0) {
             } else {
                 switch (sp64) {
                 case 3:
-                    sndPlaySfx(0xF);
+                    sndPlaySfx(SFX_UI_TEST_START);
                     return gCurTestIdx;
                 case 0:
-                    sndPlaySfx(0x73);
+                    sndPlaySfx(SFX_UI_SCORING);
                     resultHandler(0);
                     break;
                 case 4:
-                    sndPlaySfx(0x71);
+                    sndPlaySfx(SFX_UI_VIEW_MAP);
                     db_getstart(&sp6C->unk2C, &sp48, NULL, NULL);
                     testMenu_8034A428();
                     hud_8031A2CC();
@@ -431,7 +431,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
                     sTestMenuState = 2;
                     break;
                 case 2:
-                    sndPlaySfx(0x6E);
+                    sndPlaySfx(SFX_UI_CONFIRM);
                     func_8033FB14();
                     testMenu_8034A428();
                     func_8033E3A8(3);
@@ -449,7 +449,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
             }
         } else {
             if (demoButtonPress(D_80362690->unk9C, B_BUTTON) != 0) {
-                sndPlaySfx(1);
+                sndPlaySfx(SFX_UI_CANCEL);
                 if (sTestMenuState == 2) {
                     // these u8 values are needed to load integer literals at runtime
                     u16 col2ScreenX = (2 * 78) + 47;

@@ -216,9 +216,9 @@ s32 func_802DAA34(void) {
     if (uvControllerButtonPress(D_80362690->unk9C, A_BUTTON | B_BUTTON | START_BUTTON)) {
         func_80344258(0);
         if (uvControllerButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON)) {
-            sndPlaySfx(0x6E);
+            sndPlaySfx(SFX_UI_CONFIRM);
         } else if (uvControllerButtonPress(D_80362690->unk9C, B_BUTTON)) {
-            sndPlaySfx(0x01);
+            sndPlaySfx(SFX_UI_CANCEL);
         }
         return GAME_STATE_TITLE;
     }
@@ -240,7 +240,7 @@ void func_802DAB18(Camera* arg0) {
     switch (pilot) {
     case PILOT_LARK:
         if ((D_80359C88 > 0.45f) && (var_fs0 < 0.54f) && ((D_8034EA48 & 1) == 0)) {
-            sndPlaySfx(0x61);
+            sndPlaySfx(SFX_PILOT_LARK_SELECT);
             D_8034EA48 |= 1;
         }
         var_fs0 *= 2.55;

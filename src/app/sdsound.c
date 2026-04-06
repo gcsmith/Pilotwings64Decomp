@@ -132,9 +132,9 @@ STATIC_FUNC void sdsound_80333DF0(SkyDivingData* arg0) {
         }
 
         arg0->unk240 |= 2;
-        sndPlaySfx(0x36);
+        sndPlaySfx(SFX_UNK_054);
         if (sp24->unk7A != 0) {
-            sndPlaySfx(0x1A);
+            sndPlaySfx(SFX_UNK_026);
         }
         func_8033F748(0x16);
         func_8033F964(0);
@@ -187,7 +187,7 @@ STATIC_FUNC void sdsound_80333F68(SkyDivingData* arg0) {
             }
 
             arg0->unk240 |= 4;
-            sndPlaySfx(0x1A);
+            sndPlaySfx(SFX_UNK_026);
             func_8033F748(0x16);
             func_8033F964(0);
             func_8033FCD0(sp44->veh);

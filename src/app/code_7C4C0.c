@@ -208,7 +208,7 @@ void func_802F5910(GyrocopterData* arg0) {
     if (arg0->unk662 == 0) {
         arg0->unk662 = 1;
         if (arg0->unkD0 != 0) {
-            sndPlaySfx(0x1A);
+            sndPlaySfx(SFX_UNK_026);
             uvEventPost(0x12, 0);
             func_802F8AB8(temp_fa0, temp_fa1, temp_fv0, 6.0f, &arg0->unk19C);
             arg0->unk2 |= 8;
