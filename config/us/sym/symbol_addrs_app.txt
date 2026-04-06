@@ -209,12 +209,16 @@ hoverPadDeinit       = 0x80309FFC; // type:func
 hoverPadGetCount     = 0x8030A080; // type:func
 hoverPadGetPoints    = 0x8030A0DC; // type:func
 
-fx_create           = 0x802EA03C; // type:func
-fx_create_fire      = 0x802EA8E0; // type:func
-hsound_callback     = 0x8030A390; // type:func
-app_entrypoint      = 0x8030FE20; // type:func
-map3d               = 0x8030FF00; // type:func
-map3d_mslot         = 0x80312684; // type:func
+fireFxCreateAll       = 0x802EA03C; // type:func
+fireFxCreate          = 0x802EA8E0; // type:func
+fireFx_802E9FD0       = 0x802E9FD0; // type:func
+fireFx_802E9FE4       = 0x802E9FE4; // type:func
+fireFx_802EA824       = 0x802EA824; // type:func
+
+hsound_callback       = 0x8030A390; // type:func
+app_entrypoint        = 0x8030FE20; // type:func
+map3d                 = 0x8030FF00; // type:func
+map3d_mslot           = 0x80312684; // type:func
 
 menuUtilCreate        = 0x80312810; // type:func
 menuUtilCheckInputs   = 0x80312908; // type:func
