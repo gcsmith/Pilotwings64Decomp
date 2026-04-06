@@ -107,6 +107,7 @@ ferrySetInterval    = 0x802E7D18; // type:func
 ferryStateSave      = 0x802E7D58; // type:func
 ferryStateRestore   = 0x802E7D6C; // type:func
 
+saveFilePack        = 0x802E7D80; // type:func
 saveBitScramble     = 0x802E7FA0; // type:func
 saveFatalError      = 0x802E81BC; // type:func
 saveFileInit        = 0x802E8294; // type:func
@@ -880,6 +881,9 @@ gBonusStars               = 0x80359738; // size:0xA0
 gFalcos                   = 0x8035A5F8; // size:0x258
 gFalcoCount               = 0x8035A850;
 gRefFALC                  = 0x8035AF20;
+
+sSaveFiles                = 0x803620E0; // size:0x200
+sSaveFilesMirror          = 0x803622E0; // size:0x200
 
 sFileMenu_803624E0        = 0x803624E0; // size:0x3
 sFileMenu_803624E3        = 0x803624E3;
