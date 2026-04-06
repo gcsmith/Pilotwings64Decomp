@@ -9,7 +9,7 @@ extern u16 D_803505B0;
 void sndInit(void);
 void func_8033F6F8(Mtx4F*, Mtx4F*);
 void func_8033F748(u16);
-void func_8033F758(u8, f32, f32, f32);
+void sndPlaySfxVolPitchPan(u8, f32, f32, f32);
 void sndPlaySfx(u8);
 u8 sndMakeDev(s32);
 u8 func_8033F8CC(u8);
@@ -39,7 +39,7 @@ enum Sfx {
     /* 0x0C */ SFX_UNK_012,
     /* 0x0D */ SFX_UNK_013,
     /* 0x0E */ SFX_UNK_014,
-    /* 0x0F */ SFX_UI_TEST_START,
+    /* 0x0F */ SFX_UI_TEST_START, // also used for rings
     /* 0x10 */ SFX_UNK_016,
     /* 0x11 */ SFX_UNK_017,
     /* 0x12 */ SFX_UNK_018,
@@ -122,11 +122,11 @@ enum Sfx {
     /* 0x5F */ SFX_UNK_095,
     /* 0x60 */ SFX_UNK_096,
     /* 0x61 */ SFX_PILOT_LARK_SELECT,
-    /* 0x62 */ SFX_UNK_098,
-    /* 0x63 */ SFX_UNK_099,
-    /* 0x64 */ SFX_UNK_100,
-    /* 0x65 */ SFX_UNK_101,
-    /* 0x66 */ SFX_UNK_102,
+    /* 0x62 */ SFX_PILOT_KIWI_SELECT,
+    /* 0x63 */ SFX_PILOT_GOOSE_SELECT,
+    /* 0x64 */ SFX_PILOT_IBIS_SELECT,
+    /* 0x65 */ SFX_PILOT_HAWK_SELECT,
+    /* 0x66 */ SFX_PILOT_ROBIN_SELECT,
     /* 0x67 */ SFX_UNK_103,
     /* 0x68 */ SFX_UNK_104,
     /* 0x69 */ SFX_UNK_105,
