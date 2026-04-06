@@ -41,8 +41,7 @@ typedef struct {
     u8 padFC[0x190 - 0xFC];
     f32 unk190;
     u8 pad194[0x1A4-0x194];
-    f32 unk1A4;
-    u8 pad1A8[0x1B0-0x1A8];
+    Vec3F unk1A4;
     f32 unk1B0;
     u8 pad1B4[0x20C - 0x1B4];
     f32 unk20C;
