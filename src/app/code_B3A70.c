@@ -231,7 +231,7 @@ void func_8032C540(Unk80362690* arg0) {
         }
         uvGfxEnd();
         func_80313D74();
-        func_802E15F0();
+        env_802E15F0();
         windObjFrameUpdate();
         var_fs3 += D_8034F854;
     }

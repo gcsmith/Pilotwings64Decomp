@@ -40,7 +40,7 @@ typedef enum {
     /* 1 */ GFX_COUNT_TRIS,
     /* 2 */ GFX_COUNT_MTX_LOADS,
     /* 3 */ GFX_COUNT_MTX_LOAD_MULTS,
-    /* 4 */ GFX_COUNT_TXT_LOADS,
+    /* 4 */ GFX_COUNT_TXT_LOADS
 } uvGfxCntType;
 
 typedef s32 (*uvGfxCallback_t)(void *, s32); 
@@ -152,7 +152,7 @@ typedef struct ParsedUVEN {
     u8 unk2E;
     struct UnkGfxEnv_Unk30* unk30;
     u8 count;
-    void (*unk38)(void);
+    s32 (*unk38)(void);
 } ParsedUVEN; // size = 0x3C
 
 typedef struct UnkUVMD_6 {

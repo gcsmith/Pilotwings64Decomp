@@ -182,9 +182,20 @@ ballTgtDeinit       = 0x802D3030; // type:func
 db_getgnd           = 0x802DFE70; // type:func
 db_getstart         = 0x802E0304; // type:func
 
+env_802E0CF0        = 0x802E0CF0; // type:func
 envInit             = 0x802E1238; // type:func
 envLoad             = 0x802E1278; // type:func
-env_loadtpal        = 0x802E1990; // type:func
+envGetCurrentId     = 0x802E12B4; // type:func
+env_802E1444        = 0x802E1444; // type:func
+env_802E14E8        = 0x802E14E8; // type:func
+env_802E15F0        = 0x802E15F0; // type:func
+env_802E1754        = 0x802E1754; // type:func
+envLoadTerrainPal   = 0x802E1990; // type:func
+env_802E1A80        = 0x802E1A80; // type:func
+env_802E1C1C        = 0x802E1C1C; // type:func
+env_802E23E0        = 0x802E23E0; // type:func
+env_802E2504        = 0x802E2504; // type:func
+env_802E2060        = 0x802E2060; // type:func
 
 envSoundInit        = 0x802E26C0; // type:func
 envSoundLoad        = 0x802E27A8; // type:func

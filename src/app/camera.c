@@ -994,7 +994,7 @@ STATIC_FUNC void func_802D58EC(Camera* arg0, Mtx4F* arg1) {
     Vec3F sp30;
     f32 var_fa0;
 
-    func_802E1754(arg1->m[3][0], arg1->m[3][1], arg1->m[3][2], &sp3C);
+    env_802E1754(arg1->m[3][0], arg1->m[3][1], arg1->m[3][2], &sp3C);
     uvMat4Copy(&sp88, arg1);
     sp88.m[3][0] = sp88.m[3][1] = sp88.m[3][2] = 0.0f;
 

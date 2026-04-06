@@ -509,7 +509,7 @@ void bird_802CFEA8(BirdmanData* arg0) {
 
     if (arg0->unk105 == 0) {
         if (arg0->unk104 != 1) {
-            func_802E1754(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2], &sp20);
+            env_802E1754(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2], &sp20);
             sp20.z *= arg0->unk2A8;
             uvMat4LocalToWorld(&arg0->unk180, &sp2C, &sp20);
         } else {

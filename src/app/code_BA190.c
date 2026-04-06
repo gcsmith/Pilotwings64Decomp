@@ -202,7 +202,7 @@ void func_80333384(SkyDivingData* arg0) {
         }
         var_fs0 = -10.0f;
     }
-    func_802E1754(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2], &sp3C);
+    env_802E1754(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2], &sp3C);
 
     var_fs1 += sp3C.x;
     var_fs1 *= arg0->unk2B0;

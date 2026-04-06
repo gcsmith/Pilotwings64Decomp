@@ -1563,7 +1563,7 @@ void func_80308478(GyrocopterData* arg0) {
     f32 temp_fv0;
 
     if (arg0->unkC0 == 0) {
-        func_802E1754(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2], &sp38);
+        env_802E1754(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2], &sp38);
         uvMat4LocalToWorld(&arg0->unk110, &sp44, &sp38);
         if ((uvVec3Len(&sp38) == 0.0f) && (arg0->unkB4 == 0.5) && (ABS_NOEQ(arg0->unk1FC) < 0.001f) && (ABS_NOEQ(arg0->unk200) < 0.001f) &&
             (ABS_NOEQ(arg0->unk1F0) < 0.001f) && (ABS_NOEQ(arg0->unk1F4) < 0.001f) && (arg0->unkA0 == 0.0f) && (arg0->unk9C == 0.0f) && (arg0->fuel > 0.0f)) {

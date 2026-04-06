@@ -516,7 +516,7 @@ void func_802FCC0C(JumbleHopperData* arg0) {
     arg0->unk30.y = arg0->unkF4.y - arg0->unk18->unk108.m[3][1];
     arg0->unk30.z = arg0->unkF4.z - arg0->unk18->unk108.m[3][2];
     arg0->unk1C = func_8034B2B0(&arg0->unk30);
-    arg0->unk24 = func_8034A9A0(arg0->unk30.y, arg0->unk30.x) * 57.29578f;
+    arg0->unk24 = func_8034A9A0(arg0->unk30.y, arg0->unk30.x) * RADIAN_TO_ANGLE_FACTOR;
 
     while ((arg0->unk24 + 270.0f) > 180.0f) {
         arg0->unk24 -= 360.0f;
@@ -1759,7 +1759,7 @@ void func_80300E78(JumbleHopperData* arg0) {
     arg0->unk14C.x = arg0->unk184.x * var_fv0;
     arg0->unk14C.y = arg0->unk184.y * var_fv0;
     arg0->unk14C.z = (arg0->unk184.z * var_fv0) - (9.8 * arg0->unk190);
-    func_802E1754(arg0->unkF4.x, arg0->unkF4.y, arg0->unkF4.z, &sp1C);
+    env_802E1754(arg0->unkF4.x, arg0->unkF4.y, arg0->unkF4.z, &sp1C);
     arg0->unk14C.x += sp1C.x * 0.25f;
     arg0->unk14C.y += sp1C.y * 0.25f;
     arg0->unk14C.z += sp1C.z * 0.25f;
@@ -2077,7 +2077,7 @@ void func_80301F70(JumbleHopperData* arg0) {
         arg0->unk30.y = arg0->unkF4.y - arg0->unk18->unk108.m[3][1];
         arg0->unk30.z = arg0->unkF4.z - arg0->unk18->unk108.m[3][2];
         arg0->unk1C = func_8034B2B0(&arg0->unk30);
-        arg0->unk24 = func_8034A9A0(arg0->unk30.y, arg0->unk30.x) * 57.29578f;
+        arg0->unk24 = func_8034A9A0(arg0->unk30.y, arg0->unk30.x) * RADIAN_TO_ANGLE_FACTOR;
         while ((arg0->unk24 + 270.0f) > 180.0f) {
             arg0->unk24 -= 360.0f;
         }

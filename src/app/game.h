@@ -28,7 +28,7 @@ typedef enum GameState {
     /* 13 */ GAME_STATE_RESULTS_CB,
     /* 14 */ GAME_STATE_CONGRATULATIONS,
     /* 15 */ GAME_STATE_CREDITS,
-    /* 16 */ GAME_STATE_COUNT,
+    /* 16 */ GAME_STATE_COUNT
 } GameState;
 
 extern Unk80364210 D_80364210[];

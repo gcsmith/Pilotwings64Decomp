@@ -732,7 +732,7 @@ s32 cannonLoad802D77D8(Unk80362690* arg0, CannonballData* arg1) {
     taskLoad();
     windObjLoad();
     uvChanTerra(temp_s1->unk70->unk22C, arg0->terraId);
-    uvEnvFunc(arg0->envId, 0, func_802E0CF0);
+    uvEnvFunc(arg0->envId, 0, env_802E0CF0);
     func_8034B5E0(temp_s1->unk70->unk22C, temp_s1->unk70);
     for (i = 0; i < 4; i++) {
         temp_s1->unk74->unk40[temp_s1->cls].unk0[i][temp_s1->veh].unk4 = 0x7F;
@@ -775,7 +775,7 @@ s32 cannonFrame802D7B7C(Unk80362690* arg0) {
     temp_s0 = &arg0->unkC[arg0->unk9C];
     sp50 = 5;
     uvEventPost(0xE, 0);
-    func_802E15F0();
+    env_802E15F0();
     proxAnimUpdate();
     func_80313D74();
     temp_s1 = (CannonballData*)temp_s0->vehicleData;
@@ -949,7 +949,7 @@ s32 cannonEndShot(CannonballData* arg0) {
         taskLoad();
         windObjLoad();
         uvChanTerra(temp_s1->unk70->unk22C, D_80362690->terraId);
-        uvEnvFunc(D_80362690->envId, 0, func_802E0CF0);
+        uvEnvFunc(D_80362690->envId, 0, env_802E0CF0);
         cannonLoadLevel(D_80362690->unk9C, temp_s1->pilot, arg0, temp_s1->unk70);
         cannonLevelEnterLeave(arg0);
         arg0->unkE = sp2A;

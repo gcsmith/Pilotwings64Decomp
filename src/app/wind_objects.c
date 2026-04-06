@@ -93,7 +93,7 @@ void windObjFrameUpdate(void) {
 
     for (i = 0; i < sWindObjectsInLevel; i++) {
         windObject = &sWindObjects[i];
-        func_802E1754(windObject->unk4.m[3][0], windObject->unk4.m[3][1], windObject->unk4.m[3][2], &spEC);
+        env_802E1754(windObject->unk4.m[3][0], windObject->unk4.m[3][1], windObject->unk4.m[3][2], &spEC);
         spE0.f[0] = spEC.f[0];
         spE0.f[1] = spEC.f[1];
         spE0.f[2] = 0.0f;

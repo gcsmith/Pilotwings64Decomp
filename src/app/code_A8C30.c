@@ -94,7 +94,7 @@ void func_80321760(void) {
     taskInitTest(sp3D4->cls, sp3D4->veh, sp3D4->test, &D_80362690->map, &D_80362690->terraId, &D_80362690->envId);
     uvLevelInit();
     textLoadBlock(0x42);
-    env_loadtpal(D_80362690->envId);
+    envLoadTerrainPal(D_80362690->envId);
     switch (D_80362690->map) {
     case MAP_LITTLE_STATES:
         switch (sp3D4->veh) {
@@ -122,7 +122,7 @@ void func_80321760(void) {
         uvLevelAppend(D_80362690->map);
         break;
     }
-    func_802E1444(D_80362690->envId);
+    env_802E1444(D_80362690->envId);
     uvChanTerra(sp3D4->unk70->unk22C, D_80362690->terraId);
     func_80204A8C(sp3D4->unk70->unk22C, 3);
     uvEnvProps(D_80362690->envId, 3, 0.0f, 0);

@@ -322,6 +322,14 @@ typedef struct {
 } Unk80345C80;
 
 typedef struct {
+    Vec3F unk0;
+    f32 unkC;
+    f32 unk10;
+    f32 unk14;
+    f32 unk18;
+} TaskObjects_Unk10;
+
+typedef struct {
     struct {
         u8 classNum;
         u8 vehNum;
@@ -331,8 +339,7 @@ typedef struct {
         u8 unk5[0x3];
         u8 unk8[4];
         u8 unkC[4];
-        s32 unk10;
-        u8 unk14[0x18];
+        TaskObjects_Unk10 unk10;
         s32 unk2C;
         u8 unk30[0x14];
         f32 unk44;
@@ -389,7 +396,7 @@ s32 task_803456D8(Mtx4F*);
 void taskUpdateState(void);
 s32 taskGetTHER(TaskTHER** data);
 s32 taskGetLWIN(TaskLWIN** data);
-s32* taskGet_80345AEC(void);
+TaskObjects_Unk10* taskGet_80345AEC(void);
 s32 taskGetTPAD(TaskTPAD** data);
 s32 taskGetCNTG(TaskCNTG** data);
 s32 taskGetOBSV(TaskOBSV** data);

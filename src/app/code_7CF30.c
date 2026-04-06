@@ -645,7 +645,7 @@ void func_802F7224(GyrocopterData* arg0) {
     s32 var_s2;
     s32 i;
 
-    func_802E1754(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2], &spD4);
+    env_802E1754(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2], &spD4);
 
     for (i = 0; i < ARRAY_COUNT(arg0->unk690); i++) {
         var_s0 = &arg0->unk690[i];
