@@ -9,7 +9,7 @@ extern u16 D_803505B0;
 void sndInit(void);
 void func_8033F6F8(Mtx4F*, Mtx4F*);
 void func_8033F748(u16);
-void func_8033F758(u8, f32, f32, f32);
+void sndPlaySfxVolPitchPan(u8, f32, f32, f32);
 void sndPlaySfx(u8);
 u8 sndMakeDev(s32);
 u8 func_8033F8CC(u8);
@@ -39,7 +39,7 @@ enum Sfx {
     /* 0x0C */ SFX_UNK_012,
     /* 0x0D */ SFX_UNK_013,
     /* 0x0E */ SFX_UNK_014,
-    /* 0x0F */ SFX_UI_TEST_START,
+    /* 0x0F */ SFX_UI_TEST_START, // also used for rings
     /* 0x10 */ SFX_UNK_016,
     /* 0x11 */ SFX_UNK_017,
     /* 0x12 */ SFX_UNK_018,

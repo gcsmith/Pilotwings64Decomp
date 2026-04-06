@@ -301,14 +301,14 @@ void birdMovementFrame(BirdmanData* arg0, u8 gameState) {
         if (demoButtonPress(arg0->controller, R_TRIG) && (gameState != GAME_STATE_RESULTS) && (arg0->unk104 != 1)) {
             D_803593E4 = 0;
             if (arg0->unkD8 == 1) {
-                func_8033F758(0x6A, 1.0f, 0.5f, 0.0f);
+                sndPlaySfxVolPitchPan(0x6A, 1.0f, 0.5f, 0.0f);
                 arg0->unkD8 = 0;
                 arg0->unkDC = 1.0f;
                 shadow_80334454(MODEL_BIRDMAN_SHADOW_COLUMN, MODEL_BIRDMAN_SHADOW);
                 arg0->unk290 = 1;
                 bird_802CE0A4(arg0);
             } else {
-                func_8033F758(0x6A, 1.0f, 0.5f, 0.0f);
+                sndPlaySfxVolPitchPan(0x6A, 1.0f, 0.5f, 0.0f);
                 arg0->unkD8 = 1;
                 arg0->unkDC = 0.8f;
                 shadow_80334454(MODEL_BIRDMAN_SHADOW_COLUMN, MODEL_BIRDMAN_SHADOW);

@@ -414,11 +414,11 @@ void gyrocopterMovementFrame(GyrocopterData* arg0, u8 gameState) {
         }
         if ((demoButtonPress(arg0->contIdx, R_TRIG) != 0) && (gameState != GAME_STATE_RESULTS)) {
             if (arg0->unk5C == 1) {
-                func_8033F758(0x6A, 1.0f, 0.5f, 0.0f);
+                sndPlaySfxVolPitchPan(0x6A, 1.0f, 0.5f, 0.0f);
                 arg0->unk5C = 0;
                 arg0->unk68 = 0.8f;
             } else {
-                func_8033F758(0x6A, 1.0f, 0.5f, 0.0f);
+                sndPlaySfxVolPitchPan(0x6A, 1.0f, 0.5f, 0.0f);
                 arg0->unk5C = 1;
                 arg0->unk68 = 0.8f;
             }
@@ -532,7 +532,7 @@ void func_802F6DC8(GyrocopterData* arg0, u8 arg1) {
     arg0->unk5E = arg1;
     if (arg1 != 0) {
         if (D_8034F384 == 0) {
-            func_8033F758(0x59, 0.7f, 1.0f, 0.0f);
+            sndPlaySfxVolPitchPan(0x59, 0.7f, 1.0f, 0.0f);
             D_8034F384 = 1;
         }
         arg0->reticleX = 0.0f;

@@ -105,7 +105,7 @@ s32 menuUtilCheckInputs(void) {
     if (sMenuCurSelect != sMenuPrevSelect) {
         sMenuPrevSelect = sMenuCurSelect;
         if (sMenuSoundFlags & MENU_SOUND_CHANGE) {
-            func_8033F758(SFX_UI_MOVE_CHIME, 1.0f, 1.03f, 0);
+            sndPlaySfxVolPitchPan(SFX_UI_MOVE_CHIME, 1.0f, 1.03f, 0);
             func_8033FB14();
         }
         menuItemChanged = TRUE;

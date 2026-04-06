@@ -197,12 +197,12 @@ STATIC_FUNC void sdsound_80333F68(SkyDivingData* arg0) {
             if (arg0->unk71 != 0) {
                 // @fake
                 if (1) { }
-                func_8033F758(0x17, temp_fs0, 1.0f, 0.0f);
+                sndPlaySfxVolPitchPan(0x17, temp_fs0, 1.0f, 0.0f);
             }
             break;
         case 2:
             if (arg0->unk71 != 0) {
-                func_8033F758(0x16, temp_fs0, 1.0f, 0.0f);
+                sndPlaySfxVolPitchPan(0x16, temp_fs0, 1.0f, 0.0f);
             }
             break;
         case 8:
@@ -214,17 +214,17 @@ STATIC_FUNC void sdsound_80333F68(SkyDivingData* arg0) {
             temp_v0_4 = uvSobj_8022D1E4(temp_v0_4);
             if (temp_v0_4 == 0x18 || temp_v0_4 == 0x5C || temp_v0_4 == 0x5D || temp_v0_4 == 0x5E || temp_v0_4 == 0x5F || temp_v0_4 == 0x60 ||
                 temp_v0_4 == 0x22 || temp_v0_4 == 0x23 || temp_v0_4 == 0x24) {
-                func_8033F758(0x39, temp_fs0, 1.0f, 0.0f);
+                sndPlaySfxVolPitchPan(0x39, temp_fs0, 1.0f, 0.0f);
             } else if (arg0->unk71 != 0) {
-                func_8033F758(0x18, temp_fs0, 1.0f, 0.0f);
+                sndPlaySfxVolPitchPan(0x18, temp_fs0, 1.0f, 0.0f);
             }
             break;
         }
 
         if (arg0->unk76[i] == 0) {
-            func_8033F758(0xC, temp_fs0, 1.0f, 0.0f);
+            sndPlaySfxVolPitchPan(0xC, temp_fs0, 1.0f, 0.0f);
         } else {
-            func_8033F758(0x35, temp_fs0, 1.0f, 0.0f);
+            sndPlaySfxVolPitchPan(0x35, temp_fs0, 1.0f, 0.0f);
         }
     }
 }

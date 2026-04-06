@@ -327,7 +327,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
         }
 
         if ((menuPrevX != sMenuCurX) || (menuPrevY != sMenuCurY)) {
-            func_8033F758(SFX_UI_MOVE_CHIME, 1.0f, 1.03f, 0.0f);
+            sndPlaySfxVolPitchPan(SFX_UI_MOVE_CHIME, 1.0f, 1.03f, 0.0f);
         }
         sSelMenuScreenX = (sMenuCurX * 78) + 47;
         sSelMenuScreenY = (sMenuCurY * 25) + 26;
@@ -366,7 +366,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
                     }
                 }
                 if (gCurTestIdx != var_a2) {
-                    func_8033F758(0x6A, 1.0f, 0.5f, 0.0f);
+                    sndPlaySfxVolPitchPan(0x6A, 1.0f, 0.5f, 0.0f);
                     func_803122B4(D_80362690, 0);
                     if (sp6C->veh != VEHICLE_BIRDMAN && IS_BONUS_VEHICLE(sp6C->veh)) {
                         sp6C->cls = gCurTestIdx;
@@ -386,16 +386,16 @@ u8 testMenuHandler(Unk80367710* arg0) {
                 if ((sp6C->cls == CLASS_BEGINNER) && (IS_MAIN_VEHICLE(sp6C->veh))) {
                     switch (sp64) {
                     case 0:
-                        func_8033F758(0x72, 1.0f, 1.22f, 0.0f);
+                        sndPlaySfxVolPitchPan(0x72, 1.0f, 1.22f, 0.0f);
                         return 0xFE;
                     case 1:
-                        func_8033F758(0x72, 1.0f, 1.22f, 0.0f);
+                        sndPlaySfxVolPitchPan(0x72, 1.0f, 1.22f, 0.0f);
                         sTestMenuState = 0;
                         break;
                     }
                 } else {
                     if (sp64 == 0) {
-                        func_8033F758(0x72, 1.0f, 1.22f, 0.0f);
+                        sndPlaySfxVolPitchPan(0x72, 1.0f, 1.22f, 0.0f);
                         sTestMenuState = 0;
                     }
                 }
@@ -427,7 +427,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
                     testMenuInit(arg0, 2);
                     break;
                 case 5:
-                    func_8033F758(0x72, 1.0f, 1.22f, 0.0f);
+                    sndPlaySfxVolPitchPan(0x72, 1.0f, 1.22f, 0.0f);
                     sTestMenuState = 2;
                     break;
                 case 2:
@@ -438,7 +438,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
                     testMenuInit(arg0, 1);
                     break;
                 case 1:
-                    func_8033F758(0x75, 1.0f, 0.8f, 0.0f);
+                    sndPlaySfxVolPitchPan(0x75, 1.0f, 0.8f, 0.0f);
                     testMenu_8034A428();
                     func_802DCB40();
                     testMenuInit(arg0, 2);

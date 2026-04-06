@@ -112,7 +112,7 @@ void bmSoundCallback(s32 eventType, void* arg1, s32 eventData) {
             if ((a1->unk420 < 0.4f) && (a1->unk2BC >= 0.4f) && (a1->unk2CC != 0x1B)) {
                 temp_fv0 = (a1->unk2D0 / 3.8f) + 0.4f;
                 sp28 = (temp_fv0 > 1.0f) ? 1.0f : temp_fv0;
-                func_8033F758(0x4D, sp28, 1.0f, 0.0f);
+                sndPlaySfxVolPitchPan(0x4D, sp28, 1.0f, 0.0f);
             }
             a1->unk420 = a1->unk2BC;
         }
@@ -145,7 +145,7 @@ void bmSound_802D112C(BirdmanData* arg0) {
             if (!(arg0->unk410 & 0x10)) {
                 arg0->unk410 |= 0x10;
                 sndGetPilot(&sp30, &sp2C);
-                func_8033F758(sp30, 1.0f, sp2C, 0.0f);
+                sndPlaySfxVolPitchPan(sp30, 1.0f, sp2C, 0.0f);
                 func_8033F748(0x1B);
                 func_8033F964(0);
                 func_8033FCD0(sp34->veh);
@@ -200,17 +200,17 @@ void bmSound_802D1334(BirdmanData* arg0) {
                 break;
             case 1:
                 if (arg0->unk106 != 0) {
-                    func_8033F758(0x17, temp_fv1, 1, 0);
+                    sndPlaySfxVolPitchPan(0x17, temp_fv1, 1, 0);
                 }
                 break;
             case 2:
                 if (arg0->unk106 != 0) {
-                    func_8033F758(0x16, temp_fv1, 1, 0);
+                    sndPlaySfxVolPitchPan(0x16, temp_fv1, 1, 0);
                 }
                 break;
             case 8:
                 if (arg0->unk106 != 0) {
-                    func_8033F758(0x18, temp_fv1, 1, 0);
+                    sndPlaySfxVolPitchPan(0x18, temp_fv1, 1, 0);
                 }
                 break;
             }

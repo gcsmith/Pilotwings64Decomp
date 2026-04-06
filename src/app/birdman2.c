@@ -607,7 +607,7 @@ void bird_802D0080(BirdmanData* arg0) {
         case 1:
         case 8:
             if ((temp_s1->collisionType == 8) && (func_802DC97C(temp_s1->surfaceId) != 0)) {
-                func_8033F758(0x39, 1.0f, 1.0f, 0.0f);
+                sndPlaySfxVolPitchPan(0x39, 1.0f, 1.0f, 0.0f);
             }
             if ((arg0->unk164 > 1.0f) && (arg0->unk16C < 3.0f) && (temp_s1->unk0 == 3)) {
                 return;
