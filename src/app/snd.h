@@ -24,7 +24,7 @@ void func_8033FA88(f32);
 void func_8033FD94(u16, f32, f32);
 
 enum Sfx {
-    /* 0x00 */ SFX_UI_MOVE_CHIME,
+    /* 0x00 */ SFX_UI_MOVE_CHIME, // main menu chime
     /* 0x01 */ SFX_UI_CANCEL,
     /* 0x02 */ SFX_UNK_002,
     /* 0x03 */ SFX_UNK_003,
@@ -140,7 +140,7 @@ enum Sfx {
     /* 0x71 */ SFX_UI_VIEW_MAP,
     /* 0x72 */ SFX_UNK_114,
     /* 0x73 */ SFX_UI_SCORING,
-    /* 0x74 */ SFX_UI_MOVE,
+    /* 0x74 */ SFX_UI_SELECT_MOVE, // 808 cowbell
     /* 0x75 */ SFX_UNK_117,
     /* 0x76 */ SFX_UNK_118,
     /* 0x77 */ SFX_UNK_119,
