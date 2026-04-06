@@ -3,11 +3,10 @@
 #include <uv_geometry.h>
 #include <uv_graphics.h>
 #include "cannonball.h"
-#include "code_99D40.h"
 #include "code_9A960.h"
 #include "code_B2900.h"
 #include "menu.h"
-#include "save.h"
+#include "menu_utils.h"
 #include "task.h"
 #include "text_data.h"
 #include "total_results.h"
@@ -218,11 +217,11 @@ s32 totResultMenuChoose(void) {
 
     sp1C = &D_80362690->unkC[D_80362690->unk9C];
     if (totResult_80347150(menu_8030B668()) == 3) {
-        func_80312FF8(4);
+        menuUtilSetSoundFlags(MENU_SOUND_CHANGE);
     } else {
-        func_80312FF8(5);
+        menuUtilSetSoundFlags(MENU_SOUND_CHANGE | MENU_SOUND_SELECT);
     }
-    temp_v0 = totResult_80347150(menu_8030B50C());
+    temp_v0 = totResult_80347150(menuCheckInputs());
     switch (temp_v0) {
     case 3:
         return GAME_STATE_TEST_SETUP;
@@ -319,7 +318,7 @@ void totResultDrawTally(void) {
     if (D_8037AD42 != 4) {
         func_80219874(128, 68, D_8037AD38, 3, 0xFFE);
     }
-    menuInit();
+    menuRender();
     uvFontGenDlist();
 }
 #if defined(__GNUC__) || defined(__clang__)

@@ -11,14 +11,13 @@
 #include "app/demo.h"
 #include "app/environment.h"
 #include "app/hud.h"
-#include "app/save.h"
 #include "app/shadow.h"
 #include "app/snd.h"
 #include "app/splash.h"
 #include "app/task.h"
 #include "app/camera.h"
 #include "app/code_61A60.h"
-#include "app/code_66160.h"
+#include "app/code_66F70.h"
 #include "app/jumble_hopper.h"
 #include "app/code_9A960.h"
 #include "app/code_D1ED0.h"
@@ -232,7 +231,8 @@ void func_802FBEFC(JumbleHopperData* arg0, f32 arg1) {
         sndPlaySfx(0x69);
         arg0->unk4F = 1;
 
-        D_80364210[D_80362690->unk9C].unk38 = D_80364210[D_80362690->unk9C].unk38 - sp2C[11].unk30;
+        // TODO: fix array and/or struct
+        D_80364210[D_80362690->unk9C].unk38 = D_80364210[D_80362690->unk9C].unk38 - sp2C[11].unk4[5].y;
         if (D_80364210[D_80362690->unk9C].unk38 < -100) {
             D_80364210[D_80362690->unk9C].unk38 = -100;
         }
@@ -363,7 +363,7 @@ s32 func_802FC3B4(JumbleHopperData* arg0, s32 arg1, Vec3F* arg2, Vec3F* arg3) {
             arg3->z *= -1.0f;
         }
 
-        switch (var_s1->unk4) {
+        switch (var_s1->collisionType) {
         case 1:
             return 1;
         case 8:

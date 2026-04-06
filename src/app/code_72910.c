@@ -7,13 +7,13 @@
 #include "app/environment.h"
 #include "app/fire_effects.h"
 #include "app/game.h"
+#include "app/mist.h"
 #include "app/smoke.h"
 #include "app/snd.h"
 #include "app/snow.h"
 #include "app/splash.h"
 #include "app/task.h"
 #include "app/code_64730.h"
-#include "app/code_9B960.h"
 
 s16 D_8034F150 = 0;
 s16 D_8034F154[6] = { 0 };
@@ -25,12 +25,12 @@ void func_802EB3E0(void) {
     func_802E9FD0();
     splashInit();
     smokeInit();
-    func_80314430();
+    mistInit();
     D_8034F150 = 0;
     D_80359DB4 = 0;
 }
 
-void func_802EB424(Mtx4F* arg0, s32 arg1) {
+void func_802EB424(Mtx4F* arg0, f32 arg1) {
     u8* temp_s0;
     Unk80362690_Unk0* temp_s0_2;
     s32 sp44;
@@ -42,7 +42,7 @@ void func_802EB424(Mtx4F* arg0, s32 arg1) {
     sp40 = 0.0f;
     func_802E9FE4();
     splashUpdate();
-    func_803147B8(arg0, arg1);
+    mistUpdate(arg0, arg1);
     if (temp_s0[1] == 1) {
         snowUpdate();
     }
@@ -83,7 +83,7 @@ void func_802EB5E4(void) {
     func_802EA824();
     splashClear();
     smokeDeleteAll();
-    func_80314AE0();
+    mistDeinit();
 
     if (sp1C[1] == 1) {
         snowDisable();

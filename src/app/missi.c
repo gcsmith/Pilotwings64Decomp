@@ -103,7 +103,7 @@ STATIC_FUNC void missiUpdate(void) {
     }
 }
 
-STATIC_FUNC s32 missiEventCbLStates(s32 proxId, s32 eventType, s32 arg) {
+STATIC_FUNC s32 missiEventCbLStates(UNUSED s32 proxId, s32 eventType, UNUSED s32 clientData) {
     Mtx4F rotMtx;
     Mtx4F xlatMtx;
 
@@ -135,7 +135,7 @@ STATIC_FUNC s32 missiEventCbLStates(s32 proxId, s32 eventType, s32 arg) {
     return 0;
 }
 
-STATIC_FUNC s32 missiAnimCbLStates(s32 proxId, f32 timeout, s32 arg) {
+STATIC_FUNC s32 missiAnimCbLStates(s32 proxId, UNUSED f32 timeout, UNUSED s32 clientData) {
     f32 range;
     s32 ret;
 
@@ -264,7 +264,7 @@ s32 missiInProximity(void) {
     return sMissiProximity;
 }
 
-STATIC_FUNC s32 missiEventCbEFrost(s32 proxId, s32 eventType, s32 arg) {
+STATIC_FUNC s32 missiEventCbEFrost(UNUSED s32 proxId, s32 eventType, UNUSED s32 clientData) {
     switch (eventType) {
     case 0:
         break;
@@ -272,19 +272,19 @@ STATIC_FUNC s32 missiEventCbEFrost(s32 proxId, s32 eventType, s32 arg) {
         if (sMissiRadarIdEF != 0xFF) {
             hud_8031A874(sMissiRadarIdEF);
         }
-        uvFxProps(sMissiFxId, 3, 0.0f, 0.0f, 0.0f, 0);
+        uvFxProps(sMissiFxId, FX_PROP_3(0.0f, 0.0f, 0.0f), FX_PROP_END);
         break;
     case 3:
         if (sMissiRadarIdEF != 0xFF) {
             hud_8031A874(sMissiRadarIdEF);
         }
-        uvFxProps(sMissiFxId, 3, 25.0f, 1.0f, 35.0f, 0);
+        uvFxProps(sMissiFxId, FX_PROP_3(25.0f, 1.0f, 35.0f), FX_PROP_END);
         break;
     }
     return 0;
 }
 
-STATIC_FUNC s32 missiAnimCbEFrost(s32 proxId, f32 timeout, s32 arg) {
+STATIC_FUNC s32 missiAnimCbEFrost(s32 proxId, UNUSED f32 timeout, UNUSED s32 clientData) {
     f32 range;
     s32 ret;
 
@@ -293,10 +293,10 @@ STATIC_FUNC s32 missiAnimCbEFrost(s32 proxId, f32 timeout, s32 arg) {
     if (range > 500.0f) {
         sMissiProximity = FALSE;
         ret = 2;
-        uvFxProps(sMissiFxId, 3, 0.0f, 0.0f, 0.0f, 0);
+        uvFxProps(sMissiFxId, FX_PROP_3(0.0f, 0.0f, 0.0f), FX_PROP_END);
     } else {
         sMissiProximity = TRUE;
-        uvFxProps(sMissiFxId, 3, 25.0f, 1.0f, 35.0f, 0);
+        uvFxProps(sMissiFxId, FX_PROP_3(25.0f, 1.0f, 35.0f), FX_PROP_END);
     }
     return ret;
 }
@@ -314,7 +314,16 @@ void missiLoadEFrost(void) {
     uvSeqProps(sMissiSeqId, 4, 20.0f, 0);
     sMissiFxId = func_8021EFF0(6);
     uvModelGet(sMissiFxId, 6);
-    uvFxProps(sMissiFxId, 0xA, -368.0f, 648.0f, 106.0f, 0xD, sMissiSeqId, 1, 1e+20, 0x10, 1, 3, 0.0f, 0.0f, 0.0f, 0);
+    // clang-format off
+    uvFxProps(sMissiFxId,
+        FX_PROP_10(-368.0f, 648.0f, 106.0f),
+        FX_PROP_13(sMissiSeqId),
+        FX_PROP_1(1e20),
+        FX_PROP_16(1),
+        FX_PROP_3(0.0f, 0.0f, 0.0f),
+        FX_PROP_END
+    );
+    // clang-format on
     sMissiProxIdEF = proxAnimAddCallback(missiAnimCbEFrost, missiEventCbEFrost, pos, 500.0f, 0.0f, 6);
     taskGetClsVehTest(&cls, &veh, &test);
     showHudWaypoint = (test == 0 && cls == CLASS_A && veh == VEHICLE_HANG_GLIDER) || (test == 1 && cls == CLASS_B && veh == VEHICLE_HANG_GLIDER) ||
@@ -333,7 +342,7 @@ void missiDeinitEFrost(void) {
     sMissiRadarIdEF = 0xFF;
     uvSeqProps(sMissiSeqId, 1, 0, 0);
     uvModelGet(sMissiFxId, 0xFF);
-    uvFxProps(sMissiFxId, 0xB, 0, 0);
+    uvFxProps(sMissiFxId, FX_PROP_11(0), FX_PROP_END);
     proxAnimDeleteCallback(sMissiProxIdEF);
 }
 

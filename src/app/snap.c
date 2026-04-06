@@ -23,44 +23,12 @@
 #include "missi.h"
 #include "planes.h"
 #include "proxanim.h"
-#include "shadow.h"
 #include "shuttle.h"
 #include "snd.h"
 #include "snow.h"
 #include "text_data.h"
 #include "whale.h"
 #include "whale_pod.h"
-
-typedef struct Unk8033F050 {
-    s16 unk0;
-    s16 unk2;
-    s16 unk4;
-    u8 unk6;
-    u8 unk7;
-    u8 unk8;
-    u32 unk9_0 : 2;
-    u32 unk9_2 : 2;
-    u32 unk9_4 : 4;
-    u32 unk9_8 : 4;
-    u32 unk9_12 : 4;
-    u32 unk9_16 : 4;
-    u32 unk9_20 : 4;
-    u8 unkC;
-    u8 unkD;
-    u8 unkE;
-    u8 unkF;
-    u8 unk10;
-    u8 unk11;
-    u32 unk12_0 : 4;
-    u32 unk12_4 : 3;
-    u32 unk12_7 : 3;
-    u32 unk12_10 : 3;
-    u32 unk12_13 : 3;
-    u32 unk12_16 : 3;
-    u32 unk12_19 : 3;
-    u32 unk12_22 : 3;
-    u32 unk12_25 : 3;
-} Unk8033F050; // size = 0x18
 
 typedef struct Unk80373060 {
     Vec3F unk0;
@@ -885,7 +853,7 @@ void func_8033A244(s32 arg0, Unk80373060* arg1) {
                 missiStateSave();
                 break;
             case 1:
-                shuttle_80336094();
+                shuttleStateSave();
                 break;
             case 2:
                 ferryStateSave();
@@ -943,7 +911,7 @@ void func_8033A244(s32 arg0, Unk80373060* arg1) {
                 missiStateRestore();
                 break;
             case 1:
-                shuttle_803360E8();
+                shuttleStateRestore();
                 shuttle_80336064();
                 break;
             case 2:
@@ -1991,7 +1959,7 @@ void func_8033E860(Unk8033F050** arg0) {
     }
 }
 
-void func_8033F050(s32 arg0) {
+void func_8033F050(void* arg0) {
     Unk8033F050* var_s1;
     Unk8033F050 sp84;
     Camera* temp_s4;

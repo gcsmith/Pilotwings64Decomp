@@ -110,13 +110,13 @@ void func_8031EE48(s32 arg0, Unk8037F098* arg1, f32 arg2, f32 arg3, f32 arg4) {
 
     count = arg1->unk2D8;
     for (i = 0, vec = arg1->unk190, s1 = arg1->unk0; i < count; i++, s1++, vec++) {
-        sp54.unk0.x = vec->x;
-        sp54.unk0.y = vec->y;
-        sp54.unk0.z = vec->z;
-        sp54.unkC.x = s1->x;
-        sp54.unkC.y = s1->y;
-        sp54.unkC.z = s1->z;
-        sp54.unkC.w = s1->w;
+        sp54.pos.x = vec->x;
+        sp54.pos.y = vec->y;
+        sp54.pos.z = vec->z;
+        sp54.quat.x = s1->x;
+        sp54.quat.y = s1->y;
+        sp54.quat.z = s1->z;
+        sp54.quat.w = s1->w;
         func_803136C4(&sp54, &sp80);
         uvMat4Scale(&sp80, arg2, arg3, arg4);
         uvDobjPosm(arg0, arg1->unk2BC[i], &sp80);

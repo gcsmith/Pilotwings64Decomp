@@ -6,11 +6,11 @@
 #include <uv_sprite.h>
 #include <uv_texture.h>
 #include "kernel/code_1050.h"
-#include "code_99D40.h"
 #include "code_B3A70.h"
 #include "credits.h"
 #include "demo.h"
 #include "menu.h"
+#include "menu_utils.h"
 #include "options.h"
 #include "save.h"
 #include "snap.h"
@@ -119,8 +119,8 @@ void optionsInitMain(void) {
         menuY = 100;
     }
     menuCreateItems(80, menuY, 6, 1.0f, 1.0f, sOptionMenuItems, count);
-    func_80312F5C(1, 0xFF, 0xFF, 0xFF);
-    func_80312F5C(0, 0xFF, 0xFF, 0x00);
+    menuUtilSetColors(MENU_COLOR_ITEM, 0xFF, 0xFF, 0xFF);
+    menuUtilSetColors(MENU_COLOR_SELECTED, 0xFF, 0xFF, 0x00);
 }
 
 void optionsInitAlbum(void) {
@@ -128,8 +128,8 @@ void optionsInitAlbum(void) {
     sOptionMenuItems[1] = 0x51;  // "File 2"
     sOptionMenuItems[2] = 0x11C; // "Return"
     menuCreateItems(80, 100, 6, 1.0f, 1.0f, sOptionMenuItems, 3);
-    func_80312F5C(1, 0xFF, 0xFF, 0xFF);
-    func_80312F5C(0, 0xFF, 0xFF, 0x00);
+    menuUtilSetColors(MENU_COLOR_ITEM, 0xFF, 0xFF, 0xFF);
+    menuUtilSetColors(MENU_COLOR_SELECTED, 0xFF, 0xFF, 0x00);
     D_8034F8F4 = 0;
 }
 
@@ -140,13 +140,13 @@ void optionsInitSound(void) {
     sOptionMenuItems[3] = 0x64;  // "Vol. 1" (Sound Effects)
     sOptionMenuItems[4] = 0x11C; // "Return"
     menuCreateItems(40, 70, 6, 1.0f, 1.0f, sOptionMenuItems, 5);
-    func_80312F5C(1, 0xFF, 0xFF, 0xFF);
-    func_80312F5C(0, 0xFF, 0xFF, 0);
+    menuUtilSetColors(MENU_COLOR_ITEM, 0xFF, 0xFF, 0xFF);
+    menuUtilSetColors(MENU_COLOR_SELECTED, 0xFF, 0xFF, 0);
     optionsSetSetting(0, sStereoMono);
     optionsSetTrack(1, sSoundTrack);
     optionsSetSetting(2, sVolumeMusic);
     optionsSetSetting(3, sVolumeSfx);
-    func_80312FF8(6);
+    menuUtilSetSoundFlags(MENU_SOUND_CHANGE | MENU_SOUND_BACK);
 }
 
 void optionsDeinit(void) {
@@ -171,7 +171,7 @@ s32 optionsHandlerMain(void) {
     s32 temp_v0;
     u32 temp_t7;
 
-    temp_v0 = menu_8030B50C();
+    temp_v0 = menuCheckInputs();
     temp_t7 = temp_v0 + 1;
     if (sGameComplete) {
         switch (temp_t7) {
@@ -225,7 +225,7 @@ s32 optionsHandlerMain(void) {
 s32 optionsHandlerAlbum(void) {
     s32 temp_v0;
 
-    temp_v0 = menu_8030B50C();
+    temp_v0 = menuCheckInputs();
     switch (temp_v0) {
     case 0:
         sSaveFileIdx = 0;
@@ -265,7 +265,7 @@ s32 optionsHandlerSound(void) {
     s32 optInc;
     f32 stickX;
 
-    sp24 = menu_8030B50C();
+    sp24 = menuCheckInputs();
     menuItem = menu_8030B668();
     if (sp24 == -1) {
         if (menuItem != 1) {
@@ -372,17 +372,17 @@ void optionsDrawPanel(void) {
 }
 
 void optionsPanel0(void) {
-    menuInit();
+    menuRender();
     uvFontGenDlist();
 }
 
 void optionsPanel1(void) {
-    menuInit();
+    menuRender();
     uvFontGenDlist();
 }
 
 void optionsPanel2(void) {
-    menuInit();
+    menuRender();
     uvFontGenDlist();
 }
 

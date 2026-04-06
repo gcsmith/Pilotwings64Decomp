@@ -41,7 +41,7 @@ void app_firstfunc(s32 arg0) {
     D_8034E7B8.animationIndex = D_8034E770[arg0];
 }
 
-void func_802CAA00(u32 arg0, s32 arg1) {
+void func_802CAA00(u32 arg0, f32* arg1) {
     switch (arg0) {
     case 0:
         D_8034E7E4.unk4 = arg1;

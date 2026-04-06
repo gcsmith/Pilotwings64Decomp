@@ -391,6 +391,7 @@ segments:
       - [0x64070, c, app/code_64070]
       - [0x64730, c, app/code_64730]
       - [0x66160, c, app/code_66160]
+      - [0x66F70, c, app/code_66F70]
       - [0x68220, c, app/environment]
       - [0x69BF0, c, app/env_sound]
       - [0x6ACE0, c, app/falco]
@@ -424,9 +425,9 @@ segments:
       - [0x94E60, c, app/code_94E60]
       - [0x97350, c, app/map3d]
       - [0x99C70, c, app/mem]
-      - [0x99D40, c, app/code_99D40]
+      - [0x99D40, c, app/menu_utils]
       - [0x9A960, c, app/code_9A960]
-      - [0x9B960, c, app/code_9B960]
+      - [0x9B960, c, app/mist]
       - [0x9C080, c, app/missi]
       - [0x9CF50, c, app/oil]
       - [0x9D3C0, c, app/options]
@@ -559,7 +560,7 @@ segments:
       - [0xD8B00, .rodata, app/code_61A60]
       - [0xD8B90, .rodata, app/code_64070]
       - [0xD8BF0, .rodata, app/code_64730]
-      - [0xD8CE0, .rodata, app/code_66160]
+      - [0xD8CE0, .rodata, app/code_66F70]
       - [0xD8DD0, .rodata, app/environment]
       - [0xD9080, .rodata, app/env_sound]
       - [0xD91E0, .rodata, app/falco]
@@ -591,9 +592,9 @@ segments:
       - [0xDB750, .rodata, app/code_94E60]
       - [0xDB770, .rodata, app/map3d]
       - [0xDB9B0, .rodata, app/mem]
-      - [0xDB9F0, .rodata, app/code_99D40]
+      - [0xDB9F0, .rodata, app/menu_utils]
       - [0xDBA00, .rodata, app/code_9A960]
-      - [0xDBA30, .rodata, app/code_9B960]
+      - [0xDBA30, .rodata, app/mist]
       - [0xDBA60, .rodata, app/missi]
       - [0xDBA90, .rodata, app/options]
       - [0xDBB00, .rodata, app/pads]
@@ -655,7 +656,7 @@ segments:
       - { type: bss, vram: 0x80359C40, name: app/code_61A60 }
       - { type: .bss, vram: 0x80359C90, name: app/code_64070 }
       - { type: .bss, vram: 0x80359CA0, name: app/code_64730 }
-      - { type: bss, vram: 0x80359D70, name: app/code_66160 }
+      - { type: .bss, vram: 0x80359D70, name: app/code_66F70 }
       - { type: bss, vram: 0x80359D80, name: app/environment }
       - { type: .bss, vram: 0x80359DC0, name: app/env_sound }
       - { type: bss, vram: 0x8035A5F0, name: app/falco }
@@ -666,14 +667,14 @@ segments:
       - { type: bss, vram: 0x80362500, name: app/fire_effects }
       - { type: .bss, vram: 0x80362630, name: app/fountain }
       - { type: .bss, vram: 0x80362690, name: app/game }
-      - { type: bss, vram: 0x80367A40, name: app/code_75A60 }
+      - { type: .bss, vram: 0x80367A40, name: app/code_75A60 }
       - { type: bss, vram: 0x80367F60, name: app/code_76670 }
       - { type: .bss, vram: 0x80368010, name: app/glider_toys }
       - { type: bss, vram: 0x803680A0, name: app/hang_glider }
       - { type: bss, vram: 0x80368310, name: app/gsound }
       - { type: .bss, vram: 0x80368370, name: app/code_7C4C0 }
       - { type: .bss, vram: 0x80368880, name: app/code_7CF30 }
-      - { type: bss, vram: 0x803688E0, name: app/code_7FE00 }
+      - { type: .bss, vram: 0x803688E0, name: app/code_7FE00 }
       - { type: .bss, vram: 0x80368B20, name: app/jumble_hopper }
       - { type: .bss, vram: 0x80368B80, name: app/code_82520 }
       - { type: .bss, vram: 0x80368C00, name: app/code_82B90 }
@@ -684,22 +685,22 @@ segments:
       - { type: bss, vram: 0x80369F30, name: app/level }
       - { type: .bss, vram: 0x8036A8A0, name: app/code_936F0 }
       - { type: bss, vram: 0x8036A8B0, name: app/credits }
-      - { type: bss, vram: 0x8036A8C0, name: app/code_94E60 }
+      - { type: .bss, vram: 0x8036A8C0, name: app/code_94E60 }
       - { type: bss, vram: 0x8036A8E0, name: app/map3d }
       - { type: bss, vram: 0x8036AA60, name: app/mem }
-      - { type: bss, vram: 0x8036BDF0, name: app/code_99D40 }
-      - { type: bss, vram: 0x8036BE30, name: app/code_9B960 }
+      - { type: .bss, vram: 0x8036BDF0, name: app/menu_utils }
+      - { type: .bss, vram: 0x8036BE30, name: app/mist }
       - { type: .bss, vram: 0x8036BFF0, name: app/missi }
       - { type: .bss, vram: 0x8036C0D0, name: app/oil }
       - { type: .bss, vram: 0x8036C120, name: app/options }
       - { type: .bss, vram: 0x8036C150, name: app/pads }
       - { type: .bss, vram: 0x8036C520, name: app/hud }
-      - { type: bss, vram: 0x8036D230, name: app/code_A64C0 }
+      - { type: .bss, vram: 0x8036D230, name: app/code_A64C0 }
       - { type: .bss, vram: 0x8036D2B0, name: app/planes }
       - { type: .bss, vram: 0x8036D320, name: app/demo_attitude }
       - { type: .bss, vram: 0x8036D340, name: app/proxanim }
       - { type: .bss, vram: 0x8036D8E0, name: app/code_A8C30 }
-      - { type: bss, vram: 0x8036DA30, name: app/demo }
+      - { type: .bss, vram: 0x8036DA30, name: app/demo }
       - { type: .bss, vram: 0x8036DA70, name: app/rings }
       - { type: bss, vram: 0x80371070, name: app/code_AC1A0 }
       - { type: bss, vram: 0x80371120, name: app/code_AE460 }
@@ -713,7 +714,7 @@ segments:
       - { type: .bss, vram: 0x80371DB0, name: app/ski_lift }
       - { type: .bss, vram: 0x80371E60, name: app/smoke }
       - { type: .bss, vram: 0x80373060, name: app/snap }
-      - { type: bss, vram: 0x80373E20, name: app/snd }
+      - { type: .bss, vram: 0x80373E20, name: app/snd }
       - { type: .bss, vram: 0x80373EF0, name: app/snow }
       - { type: .bss, vram: 0x80373F10, name: app/spath }
       - { type: .bss, vram: 0x80376CC0, name: app/splash }
@@ -723,7 +724,7 @@ segments:
       - { type: bss, vram: 0x803798E0, name: app/task }
       - { type: .bss, vram: 0x8037AB50, name: app/thermals }
       - { type: .bss, vram: 0x8037ACE0, name: app/total_results }
-      - { type: bss, vram: 0x8037AD70, name: app/toys }
+      - { type: .bss, vram: 0x8037AD70, name: app/toys }
       - { type: .bss, vram: 0x8037DC60, name: app/test_menu }
       - { type: .bss, vram: 0x8037DCA0, name: app/user_paths }
       - { type: .bss, vram: 0x8037F380, name: app/whale }

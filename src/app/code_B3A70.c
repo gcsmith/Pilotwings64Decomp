@@ -8,9 +8,8 @@
 #include <uv_vector.h>
 #include "birdman.h"
 #include "cannonball.h"
-#include "code_66160.h"
+#include "code_66F70.h"
 #include "jumble_hopper.h"
-#include "code_99D40.h"
 #include "code_9A960.h"
 #include "code_B3A70.h"
 #include "code_D1ED0.h"
@@ -23,6 +22,7 @@
 #include "hud.h"
 #include "map3d.h"
 #include "menu.h"
+#include "menu_utils.h"
 #include "proxanim.h"
 #include "rocket_belt.h"
 #include "shadow.h"
@@ -370,10 +370,10 @@ s32 func_8032CF28(Unk80362690* arg0) {
     } else {
         menuCreateItems(99, 72, 6, 1.0f, 1.0f, sOtherItems, 3);
     }
-    func_80313004(1);
+    menuUtilSetButtonMode(1);
     do {
         uvGfxSetUnkStateF(0.000001f);
-        var_s1 = menu_8030B50C();
+        var_s1 = menuCheckInputs();
         while (var_s1 != -2 && demoButtonCheck(arg0->unk9C, A_BUTTON) != 0) {
             demo_80323020();
         }
@@ -387,12 +387,12 @@ s32 func_8032CF28(Unk80362690* arg0) {
         uvVtx(90, var_s0 + 82, 0, 0, 0, 0, 0, 0, 0x7F);
         uvVtxEndPoly();
         func_803141E4();
-        menuInit();
+        menuRender();
         uvFontGenDlist();
         uvGfxEnd();
     } while (var_s1 == -2 || var_s1 == -3);
     uvGfxSetUnkStateF(0.0f);
-    func_80313004(0);
+    menuUtilSetButtonMode(0);
     if (sp40 == 0 && var_s1 == 2) {
         var_s1 = 3;
     }

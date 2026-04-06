@@ -3,6 +3,7 @@
 
 #include "camera.h"
 #include "game.h"
+#include "code_9A960.h"
 
 typedef struct {
     u16 objId;
@@ -108,35 +109,7 @@ typedef struct {
     Vec3F unk32C;
     Vec3F unk338;
     Vec3F unk344;
-    s32 unk350;
-    f32 unk354;
-    f32 unk358;
-    f32 unk35C;
-    f32 unk360;
-    f32 unk364;
-    f32 unk368;
-    f32 unk36C;
-    f32 unk370;
-    f32 unk374;
-    f32 unk378;
-    f32 unk37C;
-    f32 unk380;
-    f32 unk384;
-    f32 unk388;
-    f32 unk38C;
-    f32 unk390;
-    f32 unk394;
-    f32 unk398;
-    f32 unk39C;
-    f32 unk3A0;
-    f32 unk3A4;
-    f32 unk3A8;
-    f32 unk3AC;
-    f32 unk3B0;
-    f32 unk3B4;
-    f32 unk3B8;
-    f32 unk3BC;
-    f32 unk3C0;
+    Unk80313FD0 unk350;
     u8 pad3C4[0x3F4 - 0x3C4];
     u16 unk3F4;
     u8 unk3F6;

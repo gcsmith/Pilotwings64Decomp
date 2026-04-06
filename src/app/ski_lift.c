@@ -31,10 +31,10 @@ STATIC_FUNC void skiLiftUpdate(void) {
     }
 }
 
-STATIC_FUNC s32 skiLift_80336248(s32 arg0, s32 arg1, s32 arg2) {
+STATIC_FUNC s32 skiLiftProxEventCb(UNUSED s32 proxId, s32 eventType, UNUSED s32 clientData) {
     s32 i;
 
-    switch (arg1) {
+    switch (eventType) {
     case 0:
         break;
     case 2:
@@ -52,17 +52,17 @@ STATIC_FUNC s32 skiLift_80336248(s32 arg0, s32 arg1, s32 arg2) {
     return 0;
 }
 
-STATIC_FUNC s32 skiLift_803362EC(s32 arg0, f32 arg1, s32 arg2) {
+STATIC_FUNC s32 skiLiftProxAnimCb(s32 proxId, UNUSED f32 timeout, UNUSED s32 clientData) {
     s32 i;
-    s32 sp20;
+    s32 ret;
 
-    sp20 = 0;
-    if (proxAnimGetRange(arg0) > 1500.0f) {
+    ret = 0;
+    if (proxAnimGetRange(proxId) > 1500.0f) {
         if (sSkiLiftActive) {
             skiLiftUpdate();
             sSkiLiftActive = FALSE;
         } else {
-            sp20 = 2;
+            ret = 2;
             for (i = 0; i < ARRAY_COUNT(sSkiLift); i++) {
                 uvDobjState(sSkiLift[i].objId, 0);
             }
@@ -76,16 +76,16 @@ STATIC_FUNC s32 skiLift_803362EC(s32 arg0, f32 arg1, s32 arg2) {
         }
         skiLiftUpdate();
     }
-    return sp20;
+    return ret;
 }
 
 void skiLiftLoad(void) {
-    LiftChair* var_s0;
-    Vec3F sp50 = { -207.927f, -897.804f, 112.643f };
+    LiftChair* chair;
+    Vec3F pos = { -207.927f, -897.804f, 112.643f };
     s32 i;
 
     sSkiLiftSpathId = spathLoadFile(4);
-    sSkiLiftProxId = proxAnimAddCallback(skiLift_803362EC, skiLift_80336248, sp50, 1500.0f, 0.0f, 0);
+    sSkiLiftProxId = proxAnimAddCallback(skiLiftProxAnimCb, skiLiftProxEventCb, pos, 1500.0f, 0.0f, 0);
     for (i = 0; i < ARRAY_COUNT(sSkiLift); i++) {
         sSkiLift[i].objId = uvDobjAllocIdx();
         if (sSkiLift[i].objId != 0xFFFF) {

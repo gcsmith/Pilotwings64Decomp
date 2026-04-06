@@ -51,8 +51,8 @@ STATIC_FUNC void fountainUpdate(void) {
     fountainUpdatePose();
 }
 
-STATIC_FUNC s32 fountain_802EAF14(s32 arg0, s32 arg1, s32 arg2) {
-    switch (arg1) {
+STATIC_FUNC s32 fountainProxEventCb(UNUSED s32 proxId, s32 eventType, UNUSED s32 clientData) {
+    switch (eventType) {
     case 0:
         if (sFountainObjId != 0xFFFF) {
             uvDobjState(sFountainObjId, 2);
@@ -74,12 +74,12 @@ STATIC_FUNC s32 fountain_802EAF14(s32 arg0, s32 arg1, s32 arg2) {
     return 0;
 }
 
-STATIC_FUNC s32 fountain_802EAFD8(s32 arg0, f32 arg1, s32 arg2) {
+STATIC_FUNC s32 fountainProxAnimCb(s32 proxId, UNUSED f32 timeout, UNUSED s32 clientData) {
     f32 val;
     s32 sp18;
 
     sp18 = 0;
-    val = proxAnimGetRange(arg0);
+    val = proxAnimGetRange(proxId);
     if (val > 350.0f) {
         if (sFountainActive) {
             sFountainState = 1;
@@ -119,7 +119,7 @@ void fountainLoad(void) {
     if (sFountainObjId != 0xFFFF) {
         uvDobjModel(sFountainObjId, MODEL_DOUBLE_WATER_FOUNTAIN);
         uvDobjState(sFountainObjId, 0);
-        sFountainProxId = proxAnimAddCallback(fountain_802EAFD8, fountain_802EAF14, pos, 350.0f, 0.0f, 5);
+        sFountainProxId = proxAnimAddCallback(fountainProxAnimCb, fountainProxEventCb, pos, 350.0f, 0.0f, 5);
         taskGetClsVehTest(&cls, &veh, &test);
         showHudWaypoint = (test == 0 && cls == CLASS_A && veh == VEHICLE_HANG_GLIDER) || (test == 1 && cls == CLASS_B && veh == VEHICLE_HANG_GLIDER) ||
                           (test == 2 && cls == CLASS_PILOT && veh == VEHICLE_HANG_GLIDER);

@@ -20,7 +20,7 @@ typedef struct Unk8034E788 {
 } Unk8034E788;
 
 void app_firstfunc(s32);
-void func_802CAA00(u32, s32);
+void func_802CAA00(u32, f32*);
 void func_802CAAC8(Unk8034E788*, Unk80371120*);
 void func_802CAA90(s32 arg0);
 void func_802CAAC8(Unk8034E788 *arg0, Unk80371120* arg1);

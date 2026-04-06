@@ -8,6 +8,7 @@
 #include "demo_attitude.h"
 #include "environment.h"
 #include "fire_effects.h"
+#include "game.h"
 
 typedef struct {
     Vec3F pos;

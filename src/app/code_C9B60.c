@@ -1,6 +1,5 @@
 #include "common.h"
 #include "code_66160.h"
-#include "code_99D40.h"
 #include "code_9A960.h"
 #include "code_A6000.h"
 #include "code_A64C0.h"
@@ -8,6 +7,7 @@
 #include "code_D2B10.h"
 #include "demo.h"
 #include "menu.h"
+#include "menu_utils.h"
 #include "snd.h"
 #include "spath.h"
 #include "user_paths.h"
@@ -159,9 +159,9 @@ STATIC_FUNC void func_803427FC(void) {
     uvDobjPosm(D_80378CE0->unk10, 0, &D_80378CE0->unkEC);
     uvDobjState(D_80378CE0->unk10, 2);
     menuCreateItems(102, 60, 6, 1.0f, 1.0f, D_80350698, 2);
-    func_80312F5C(0, 0xFF, 0xFF, 0);
-    func_80312F5C(1, 0xFF, 0xFF, 0xFF);
-    func_80312F5C(2, 0xFF, 0xFF, 0);
+    menuUtilSetColors(MENU_COLOR_SELECTED, 0xFF, 0xFF, 0);
+    menuUtilSetColors(MENU_COLOR_ITEM, 0xFF, 0xFF, 0xFF);
+    menuUtilSetColors(MENU_COLOR_GRAPHICS, 0xFF, 0xFF, 0);
     D_80378CE0->unk265 = D_80350690;
     D_80378CE0->unk266 = D_80350690;
     uvaSeqSetTempo(110.0f);
@@ -371,8 +371,8 @@ STATIC_FUNC s32 func_80343550(void) {
         func_8034411C();
     }
     if (D_80378CE0->unk22C >= 16.65f && D_80378CE0->unk28 != 8) {
-        func_80312FF8(5);
-        temp_v0 = menu_8030B50C();
+        menuUtilSetSoundFlags(MENU_SOUND_CHANGE | MENU_SOUND_SELECT);
+        temp_v0 = menuCheckInputs();
         if (temp_v0 == -3) {
             D_80378CE0->unk22C = 16.65f;
             D_80378CE4 = 0.0f;
@@ -421,7 +421,7 @@ STATIC_FUNC void introSceneRunner(void) {
     screenDrawBox(97, 76, 202, 118, 0, 0, 0, sp30);
     func_802DFA18();
     if (D_80378CE0->unk22C >= 16.65f) {
-        menuInit();
+        menuRender();
     }
 
     uvFontGenDlist();

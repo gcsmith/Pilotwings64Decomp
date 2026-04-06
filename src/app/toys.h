@@ -6,7 +6,7 @@
 
 void toyInit(void);
 void toyLoad(LevelTOYS*);
-void toy_803483AC(void);
+void toyDeinit(void);
 void toy_80348418(s32, f32, f32, f32, s32);
 
 #endif // APP_TOYS_H

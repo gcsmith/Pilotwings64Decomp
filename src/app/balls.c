@@ -8,7 +8,7 @@
 #include <uv_texture.h>
 #include "balls.h"
 #include "code_61A60.h"
-#include "code_66160.h"
+#include "code_66F70.h"
 #include "code_7FE00.h"
 #include "code_9A960.h"
 #include "hud.h"
@@ -305,7 +305,7 @@ s32 balls_802CB6D4(Ball* ball) {
         return 0;
     }
     idx = func_802DBF10(&ball->unkA0, &sp5C, &sp1B8, &sp1AC);
-    if ((sp5C.unk4[idx].unk4 != 1) && (sp5C.unk4[idx].unk4 != 4)) {
+    if ((sp5C.unk4[idx].collisionType != 1) && (sp5C.unk4[idx].collisionType != 4)) {
         var_fv1 = ball->unk6C;
     } else {
         if (ball->unk5C - sp1B8.z < (10.0f + D_80359388 * ball->scale)) {
@@ -446,7 +446,7 @@ f32 ballsPopped(u8 objId, Vec3F* arg1, Unk802D3658_Unk1224* arg2) {
 
     for (i = 0; i < count; i++) {
         unk4 = &arg2->unk4[i];
-        if ((unk4->unk4 == 2) && (var_s2 == 0)) {
+        if ((unk4->collisionType == 2) && (var_s2 == 0)) {
             for (j = 0; j < gBallCount + gBallSplitCount; j++) {
                 if ((unk4->surfaceId == gBalls[j].objId) && (gBalls[j].time80 <= 0.0f)) {
                     if (ballsCollision(&gBalls[j], unk4, arg1) != 0) {

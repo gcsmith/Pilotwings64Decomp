@@ -153,7 +153,7 @@ void level_8030B964(void) {
 
 void level_8030BA60(void) {
     if (D_8034F400 != 0) {
-        toy_803483AC();
+        toyDeinit();
         level_8030B964();
     }
 }
