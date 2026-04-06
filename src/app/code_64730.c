@@ -98,7 +98,7 @@ s32 func_802DD200(Camera* camera, Unk80367868* arg1) {
     selectedPilot = arg1->unk4[D_8034EDC0].pilot;
     switch (selectedPilot) {
     case PILOT_LARK:
-        sndPlaySfx(0x61);
+        sndPlaySfx(SFX_PILOT_LARK_SELECT);
         selectedPilot = arg1->unk4[D_8034EDC0].pilot;
         break;
     case PILOT_GOOSE:

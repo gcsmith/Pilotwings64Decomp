@@ -121,7 +121,7 @@ enum Sfx {
     /* 0x5E */ SFX_UNK_094,
     /* 0x5F */ SFX_UNK_095,
     /* 0x60 */ SFX_UNK_096,
-    /* 0x61 */ SFX_UNK_097,
+    /* 0x61 */ SFX_PILOT_LARK_SELECT,
     /* 0x62 */ SFX_UNK_098,
     /* 0x63 */ SFX_UNK_099,
     /* 0x64 */ SFX_UNK_100,

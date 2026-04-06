@@ -240,7 +240,7 @@ void func_802DAB18(Camera* arg0) {
     switch (pilot) {
     case PILOT_LARK:
         if ((D_80359C88 > 0.45f) && (var_fs0 < 0.54f) && ((D_8034EA48 & 1) == 0)) {
-            sndPlaySfx(0x61);
+            sndPlaySfx(SFX_PILOT_LARK_SELECT);
             D_8034EA48 |= 1;
         }
         var_fs0 *= 2.55;
