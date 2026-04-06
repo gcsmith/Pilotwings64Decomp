@@ -1078,7 +1078,7 @@ void func_80331FE4(SkyDivingData* arg0) {
                 arg0->unk2B4 = 12.566371f;
                 arg0->unk260 = -1.0f;
                 hudWarningText(6, 1.5f, 8.0f);
-                sndPlaySfx(0xF);
+                sndPlaySfx(SFX_UI_TEST_START);
             }
         } else {
             arg0->unk260 = -1.0f;
