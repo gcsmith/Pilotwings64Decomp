@@ -664,7 +664,7 @@ segments:
       - { type: .bss, vram: 0x80362010, name: app/ferry }
       - { type: .bss, vram: 0x803620E0, name: app/save }
       - { type: .bss, vram: 0x803624E0, name: app/file_menu }
-      - { type: bss, vram: 0x80362500, name: app/fire_effects }
+      - { type: .bss, vram: 0x80362500, name: app/fire_effects }
       - { type: .bss, vram: 0x80362630, name: app/fountain }
       - { type: .bss, vram: 0x80362690, name: app/game }
       - { type: .bss, vram: 0x80367A40, name: app/code_75A60 }
