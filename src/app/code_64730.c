@@ -241,7 +241,7 @@ STATIC_FUNC s32 func_802DD8E8(Camera* arg0, Unk80367868* arg1, s32 arg2) {
         if (D_8034EDC4 != 0) {
             D_8034EDC4 = 0;
         } else {
-            sndPlaySfx(SFX_UI_MOVE);
+            sndPlaySfx(SFX_UI_SELECT_MOVE);
         }
         D_8034EDC0 = (*D_8034EDA4 * 2) + D_8034EDA0;
         sp100 = &arg1->unk4[D_8034EDC0];
