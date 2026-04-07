@@ -278,7 +278,7 @@ segments:
       - [0x4C760, data, libultra/io/vimgr]
       - [0x4C780, data]
       - [0x4D040, .data, libultra/os/initialize]
-      - [0x4D050, data]
+      - [0x4D050, .data, libultra/io/pimgr]
       - [0x4D070, data]
       - [0x4D080, .data, libultra/os/thread]
       - [0x4D0A0, data]
@@ -373,7 +373,7 @@ segments:
       - { type: bss, vram: 0x802C8090, name: libultra/io/vimgr }
       - { type: .bss, vram: 0x802C92A0, name: libultra/os/seteventmesg }
       - { type: .bss, vram: 0x802C9320, name: libultra/os/initialize }
-      - { type: bss, vram: 0x802C9330, name: libultra/io/pimgr }
+      - { type: .bss, vram: 0x802C9330, name: libultra/io/pimgr }
       - { type: bss, vram: 0x802CA500, name: libultra/io/controller }
       - { type: .bss, vram: 0x802CA590, name: libultra/io/piacs }
       - { type: .bss, vram: 0x802CA5B0, name: libultra/os/timerintr }
