@@ -301,8 +301,7 @@ s32 func_802FC184(JumbleHopperData* arg0, f32* arg1, Vec3F* arg2) {
         soid = uvSobjGetPt(D_80362690->terraId, sp38->x, sp38->y, sp38->z);
         if (soid != -1) {
             modelId = uvSobj_8022D1E4(soid);
-            if ((modelId == 0x18) || (modelId == 0x5C) || (modelId == 0x5D) || (modelId == 0x5E) || (modelId == 0x5F) || (modelId == 0x60) ||
-                (modelId == 0x22) || (modelId == 0x23) || (modelId == 0x24) || (modelId == 0x97) || (modelId == 0xAB)) {
+            if (MODEL_IS_TREE(modelId) || (modelId == MODEL_ROW_OF_5X_TREES) || (modelId == MODEL_TREE_SNOW_BILLBOARD)) {
                 sp3C = 3;
             } else {
                 sp3C = 4;

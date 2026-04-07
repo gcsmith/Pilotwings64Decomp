@@ -24,7 +24,7 @@ void func_80332C60(SkyDivingData* arg0) {
     uvVec3Copy(&D_80371B50.unk4[2].unk28, &arg0->unk1E8);
     uvVec3Copy(&D_80371B50.unk4[2].unk1C, &arg0->unk1DC);
     func_80332D94(arg0);
-    D_80371C58.unk0 = 5;
+    D_80371C58.count = 5;
     D_80371C58.unk4[0].x = 0.0f;
     D_80371C58.unk4[0].y = -10.0f;
     D_80371C58.unk4[1].x = 1.0f;

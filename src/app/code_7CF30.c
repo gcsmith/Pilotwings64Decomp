@@ -9,7 +9,7 @@
 #include "app/environment.h"
 #include "app/falco.h"
 #include "app/fdr.h"
-#include "app/hsound.h"
+#include "app/gyrocopter.h"
 #include "app/hud.h"
 #include "app/shadow.h"
 #include "app/smoke.h"
@@ -37,21 +37,14 @@ void gyrocopterLoadPilot(u8 pilot, GyrocopterData* arg1);
 void gyrocopterInit(void) {
     func_802F4F90();
     D_8034F384 = 0;
-    D_80368880.unk0 = 8;
-    D_80368880.unk4[0].x = 0.0f;
-    D_80368880.unk4[0].y = 0.0f;
-    D_80368880.unk4[1].x = 0.2f;
-    D_80368880.unk4[1].y = 0.04f;
-    D_80368880.unk4[2].x = 0.4f;
-    D_80368880.unk4[2].y = 0.16f;
-    D_80368880.unk4[3].x = 0.6f;
-    D_80368880.unk4[3].y = 0.36f;
-    D_80368880.unk4[4].x = 0.7f;
-    D_80368880.unk4[4].y = 0.49f;
-    D_80368880.unk4[5].x = 0.8f;
-    D_80368880.unk4[5].y = 0.64f;
-    D_80368880.unk4[6].x = 0.9f;
-    D_80368880.unk4[6].y = 0.81f;
+    D_80368880.count = 8;
+    D_80368880.unk4[0].x = 0.0f, D_80368880.unk4[0].y = 0.0f;
+    D_80368880.unk4[1].x = 0.2f, D_80368880.unk4[1].y = 0.04f;
+    D_80368880.unk4[2].x = 0.4f, D_80368880.unk4[2].y = 0.16f;
+    D_80368880.unk4[3].x = 0.6f, D_80368880.unk4[3].y = 0.36f;
+    D_80368880.unk4[4].x = 0.7f, D_80368880.unk4[4].y = 0.49f;
+    D_80368880.unk4[5].x = 0.8f, D_80368880.unk4[5].y = 0.64f;
+    D_80368880.unk4[6].x = 0.9f, D_80368880.unk4[6].y = 0.81f;
     D_80368880.unk4[7].x = 1.0f, D_80368880.unk4[7].y = 1.0f;
 }
 

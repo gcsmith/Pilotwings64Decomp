@@ -740,6 +740,14 @@ optionsSetSetting   = 0x80316BEC; // type:func
 optionsSetTrack     = 0x80316D34; // type:func
 optionsItemWrap     = 0x80316D88; // type:func
 
+hgSoundInit         = 0x802F4470; // type:func
+hgSoundEventHandler = 0x802F4594; // type:func
+hgSoundEvent12_18   = 0x802F4A58; // type:func
+hgSoundEvent19      = 0x802F4AD8; // type:func
+hgSoundEvent22      = 0x802F4AEC; // type:func
+hgSoundEvent22Sub   = 0x802F4C40; // type:func
+hgSoundEvent13      = 0x802F4EE8; // type:func
+
 gyrocopterEnterLeave = 0x802F5BF0; // type:func
 
 gyrocopterMovementFrame = 0x802F604C; // type:func
@@ -909,6 +917,9 @@ sFileColorG1              = 0x803624EC;
 sFileColorG2              = 0x803624F0;
 sFileColorB1              = 0x803624F4;
 sFileColorB2              = 0x803624F8;
+
+hgSoundEventCbInfo        = 0x80368310; // size:0x8
+hgSound_80368318          = 0x80368318; // size:0x54
 
 D_80368B20                = 0x80368B20; // size:0x54
 

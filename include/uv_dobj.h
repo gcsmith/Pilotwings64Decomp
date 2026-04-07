@@ -374,6 +374,16 @@ enum Models {
     MODEL_WORLD                                             = 0xFFFF // used to indicate a model that's not bound to a level? (Possibly used to make a model dissappear without freeing it?)
 };
 
+#define MODEL_IS_TREE(id) (((id) == MODEL_PALM_TREE) || \
+                           ((id) == MODEL_TREE_LS_1) || \
+                           ((id) == MODEL_TREE_LS_2) || \
+                           ((id) == MODEL_TREE_LS_3) || \
+                           ((id) == MODEL_TREE_LS_4) || \
+                           ((id) == MODEL_TREE_LS_5) || \
+                           ((id) == MODEL_TREE) || \
+                           ((id) == MODEL_TREE_SMALL) || \
+                           ((id) == MODEL_TREE_TALL))
+
 typedef struct {
     u16 modelId;
     u16 unk2[1]; // unknown size, might take up everything till unk34

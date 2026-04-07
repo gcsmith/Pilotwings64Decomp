@@ -24,7 +24,7 @@ void cbSoundInit(CannonballData* arg0) {
     arg0->unk2A8 = 1.0f;
     arg0->unk2B8 = 0.0f;
     arg0->unk2A4 = 75.0f;
-    D_80359BE8.unk0 = 4;
+    D_80359BE8.count = 4;
     D_80359BE8.unk4[0].x = 0.f;
     D_80359BE8.unk4[0].y = 0.0f;
     D_80359BE8.unk4[1].x = 0.01f;

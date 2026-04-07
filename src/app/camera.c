@@ -112,7 +112,7 @@ void func_802D3170(u8 arg0, Camera* arg1) {
     uvMat4SetIdentity(&arg1->unk80);
     func_802D46A4(arg1, arg1->unk24, arg1->unk26, arg1->unk28, arg1->unk2A);
     func_802D45C4(arg1, 1);
-    D_803599D0.unk0 = 6;
+    D_803599D0.count = 6;
     D_803599D0.unk4[0].x = 0.0f;
     D_803599D0.unk4[0].y = 0.0f;
     D_803599D0.unk4[1].x = 5.0f;

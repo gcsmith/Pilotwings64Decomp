@@ -29,7 +29,7 @@ void func_8030A140(GyrocopterData* arg0) {
     arg0->unk684 = 0.0f;
     arg0->unk688 = 0.0f;
 
-    D_80369E58.unk0 = 4;
+    D_80369E58.count = 4;
     D_80369E58.unk4[0].x = 0.f;
     D_80369E58.unk4[0].y = 0.0f;
     D_80369E58.unk4[1].x = 0.01f;
@@ -39,7 +39,7 @@ void func_8030A140(GyrocopterData* arg0) {
     D_80369E58.unk4[3].x = 10.0f;
     D_80369E58.unk4[3].y = 1.0f;
 
-    D_80369EB0.unk0 = 3; //! @bug unk4[0] is skipped?
+    D_80369EB0.count = 3; //! @bug: indexes should be [0-2]
     D_80369EB0.unk4[1].x = 10.f;
     D_80369EB0.unk4[1].y = 0.5f;
     D_80369EB0.unk4[2].x = 100.0f;
@@ -307,8 +307,7 @@ void func_8030AEB0(GyrocopterData* arg0) {
             soid = uvSobjGetPt(D_80362690->terraId, arg0->unk54C[i].x, arg0->unk54C[i].y, arg0->unk54C[i].z);
             if (soid != -1) {
                 modelId = uvSobj_8022D1E4(soid);
-                if ((modelId == 0x18) || (modelId == 0x5C) || (modelId == 0x5D) || (modelId == 0x5E) || (modelId == 0x5F) || (modelId == 0x60) ||
-                    (modelId == 0x22) || (modelId == 0x23) || (modelId == 0x24)) {
+                if (MODEL_IS_TREE(modelId)) {
                     func_8033F758(0x39, temp_fs0, 1.0f, 0.0f);
                 } else if (arg0->unkC1 != 0) {
                     func_8033F758(0x18, temp_fs0, 1.0f, 0.0f);

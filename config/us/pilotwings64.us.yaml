@@ -408,7 +408,7 @@ segments:
       - [0x76670, c, app/code_76670]
       - [0x78620, c, app/glider_toys]
       - [0x796C0, c, app/hang_glider]
-      - [0x7B9A0, c, app/gsound]
+      - [0x7B9A0, c, app/hang_glider_sound]
       - [0x7C4C0, c, app/code_7C4C0]
       - [0x7CF30, c, app/code_7CF30]
       - [0x7FE00, c, app/code_7FE00]
@@ -417,7 +417,7 @@ segments:
       - [0x82B90, c, app/code_82B90]
       - [0x8A760, c, app/gyrocopter]
       - [0x90D10, c, app/hover_pads]
-      - [0x91670, c, app/hsound]
+      - [0x91670, c, app/gyrocopter_sound]
       - [0x92810, c, app/menu]
       - [0x92BF0, c, app/level]
       - [0x936F0, c, app/code_936F0]
@@ -576,7 +576,7 @@ segments:
       - [0xD9A10, .rodata, app/code_76670]
       - [0xD9CF0, .rodata, app/glider_toys]
       - [0xD9DF0, .rodata, app/hang_glider]
-      - [0xD9F20, .rodata, app/gsound]
+      - [0xD9F20, .rodata, app/hang_glider_sound]
       - [0xDA000, .rodata, app/code_7C4C0]
       - [0xDA020, .rodata, app/code_7CF30]
       - [0xDA4F0, .rodata, app/code_7FE00]
@@ -585,7 +585,7 @@ segments:
       - [0xDA7F0, .rodata, app/code_82B90]
       - [0xDABB0, .rodata, app/gyrocopter]
       - [0xDADB0, .rodata, app/hover_pads]
-      - [0xDAE00, .rodata, app/hsound]
+      - [0xDAE00, .rodata, app/gyrocopter_sound]
       - [0xDAF00, .rodata, app/menu]
       - [0xDAF30, .rodata, app/level]
       - [0xDB1D0, .rodata, app/credits]
@@ -671,7 +671,7 @@ segments:
       - { type: bss, vram: 0x80367F60, name: app/code_76670 }
       - { type: .bss, vram: 0x80368010, name: app/glider_toys }
       - { type: bss, vram: 0x803680A0, name: app/hang_glider }
-      - { type: bss, vram: 0x80368310, name: app/gsound }
+      - { type: .bss, vram: 0x80368310, name: app/hang_glider_sound }
       - { type: .bss, vram: 0x80368370, name: app/code_7C4C0 }
       - { type: .bss, vram: 0x80368880, name: app/code_7CF30 }
       - { type: .bss, vram: 0x803688E0, name: app/code_7FE00 }
@@ -680,7 +680,7 @@ segments:
       - { type: .bss, vram: 0x80368C00, name: app/code_82B90 }
       - { type: .bss, vram: 0x80369070, name: app/gyrocopter }
       - { type: .bss, vram: 0x80369580, name: app/hover_pads }
-      - { type: .bss, vram: 0x80369E50, name: app/hsound }
+      - { type: .bss, vram: 0x80369E50, name: app/gyrocopter_sound }
       - { type: .bss, vram: 0x80369F10, name: app/menu }
       - { type: bss, vram: 0x80369F30, name: app/level }
       - { type: .bss, vram: 0x8036A8A0, name: app/code_936F0 }

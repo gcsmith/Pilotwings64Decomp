@@ -294,7 +294,7 @@ typedef struct {
 } TaskTPAD; // size = 0x30
 
 typedef struct {
-    s32 unk0;
+    s32 count;
     Vec2F unk4[8]; // how large is this?
     s32 pad44;
     s32 pad48;

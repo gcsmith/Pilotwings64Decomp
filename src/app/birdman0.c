@@ -27,7 +27,7 @@ void bird_802CE0A4(BirdmanData*);
 
 // called during game boot
 void birdInit(void) {
-    D_80359390.unk0 = 8;
+    D_80359390.count = 8;
     D_80359390.unk4[0].x = 0.0f, D_80359390.unk4[0].y = 0.0f;
     D_80359390.unk4[1].x = 0.2f, D_80359390.unk4[1].y = 0.04f;
     D_80359390.unk4[2].x = 0.4f, D_80359390.unk4[2].y = 0.16f;

@@ -793,14 +793,14 @@ s32 func_802DC930(s32 surfaceId) {
 }
 
 s32 func_802DC97C(u32 soid) {
-    u16 temp_v0;
+    u16 modelId;
 
-    temp_v0 = uvSobj_8022D1E4(soid);
-    if ((temp_v0 == 0x18) || (temp_v0 == 0x5C) || (temp_v0 == 0x5D) || (temp_v0 == 0x5E) || (temp_v0 == 0x5F) || (temp_v0 == 0x60) || (temp_v0 == 0x22) ||
-        (temp_v0 == 0x23) || (temp_v0 == 0x24) || (temp_v0 == 0x97) || (temp_v0 == 0xAB)) {
-        return 1;
+    modelId = uvSobj_8022D1E4(soid);
+    if (MODEL_IS_TREE(modelId) || (modelId == MODEL_ROW_OF_5X_TREES) || (modelId == MODEL_TREE_SNOW_BILLBOARD)) {
+        return TRUE;
+    } else {
+        return FALSE;
     }
-    return 0;
 }
 
 s32 func_802DCA00(s32 surfaceId) {

@@ -264,11 +264,11 @@ f32 func_80313F08(Unk803599D0* arg0, f32 arg1) {
         return arg0->unk4[0].f[1];
     }
 
-    if (arg0->unk4[arg0->unk0 - 1].f[0] <= arg1) {
-        return arg0->unk4[arg0->unk0 - 1].f[1];
+    if (arg0->unk4[arg0->count - 1].f[0] <= arg1) {
+        return arg0->unk4[arg0->count - 1].f[1];
     }
 
-    for (i = 1; i < arg0->unk0 - 1; i++) {
+    for (i = 1; i < arg0->count - 1; i++) {
         if (arg1 < arg0->unk4[i].f[0]) {
             break;
         }

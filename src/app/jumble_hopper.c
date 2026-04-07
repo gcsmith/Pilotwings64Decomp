@@ -15,10 +15,10 @@
 
 Unk803599D0 D_80368B20;
 
-void jumbleHopperLoadPilot(u8 arg0, JumbleHopperData* arg1);
+void jumbleHopperLoadPilot(u8 pilot, JumbleHopperData* arg1);
 
 void jumbleHopperInit(void) {
-    D_80368B20.unk0 = 8;
+    D_80368B20.count = 8;
     D_80368B20.unk4[0].x = 0.0f, D_80368B20.unk4[0].y = 0.0f;
     D_80368B20.unk4[1].x = 0.2f, D_80368B20.unk4[1].y = 0.04f;
     D_80368B20.unk4[2].x = 0.4f, D_80368B20.unk4[2].y = 0.16f;

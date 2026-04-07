@@ -20,7 +20,7 @@ void bmSound_802D1534(BirdmanData*);
 
 void bmSoundInit(BirdmanData* arg0) {
     arg0->unk41C = 0.0f;
-    D_80359648.unk0 = 4;
+    D_80359648.count = 4;
     D_80359648.unk4[0].x = 0;
     D_80359648.unk4[0].y = 0.0f;
     D_80359648.unk4[1].x = 0.01f;
