@@ -253,7 +253,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
         if (demoButtonPress(D_80362690->unk9C, A_BUTTON | B_BUTTON | START_BUTTON) != 0) {
             sTestMenuState = 0;
             if (demoButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON) != 0) {
-                sndPlaySfx(0x71);
+                sndPlaySfx(SFX_UI_VIEW_MAP);
             } else if (demoButtonPress(D_80362690->unk9C, B_BUTTON) != 0) {
                 sndPlaySfx(SFX_UI_CANCEL);
             }
@@ -405,11 +405,11 @@ u8 testMenuHandler(Unk80367710* arg0) {
                     sndPlaySfx(SFX_UI_TEST_START);
                     return gCurTestIdx;
                 case 0:
-                    sndPlaySfx(0x73);
+                    sndPlaySfx(SFX_UI_SCORING);
                     resultHandler(0);
                     break;
                 case 4:
-                    sndPlaySfx(0x71);
+                    sndPlaySfx(SFX_UI_VIEW_MAP);
                     db_getstart(&sp6C->unk2C, &sp48, NULL, NULL);
                     testMenu_8034A428();
                     hud_8031A2CC();
