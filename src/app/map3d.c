@@ -661,7 +661,7 @@ s32 map3dHandler(u8 arg0, s32 arg1) {
     if ((demoButtonPress(arg0, START_BUTTON) != 0) || (demoButtonPress(arg0, B_BUTTON) != 0)) {
         func_8033F904(sMapEmitterDev1, 1.0f, 0.0f, 0.0f);
         func_8033F904(sMapEmitterDev0, 1.0f, 0.0f, 0.0f);
-        sndPlaySfx(1);
+        sndPlaySfx(SFX_UI_CANCEL);
         return FALSE;
     } else {
         return TRUE;

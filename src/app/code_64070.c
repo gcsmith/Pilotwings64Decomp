@@ -204,7 +204,7 @@ s32 func_802DCCF0(void) {
     }
 
     if (demoButtonPress(D_80362690->unk9C, B_BUTTON) != 0) {
-        sndPlaySfx(1U);
+        sndPlaySfx(SFX_UI_CANCEL);
         func_8033FB14();
         return 1;
     }

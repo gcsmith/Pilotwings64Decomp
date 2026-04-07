@@ -582,7 +582,7 @@ bail:
         return D_8034F7A8;
     }
     if (demoButtonPress(D_80362690->unk9C, B_BUTTON) != 0) {
-        sndPlaySfx(1U);
+        sndPlaySfx(SFX_UI_CANCEL);
         return -2;
     }
     return -1;
