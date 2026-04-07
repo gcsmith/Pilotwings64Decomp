@@ -75,7 +75,7 @@ s32 menuUtilCheckInputs(void) {
 
     if (demoButtonPress(D_80362690->unk9C, (sMenuButtonMode == 1) ? A_BUTTON : START_BUTTON | A_BUTTON)) {
         if (sMenuSoundFlags & MENU_SOUND_SELECT) {
-            sndPlaySfx(0x6E);
+            sndPlaySfx(SFX_UI_CONFIRM);
             func_8033FB14();
         }
         return sMenuCurSelect;

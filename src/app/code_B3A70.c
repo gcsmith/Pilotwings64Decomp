@@ -141,7 +141,7 @@ void func_8032C540(Unk80362690* arg0) {
         demo_80323020();
         if (demoButtonPress(arg0->unk9C, A_BUTTON | START_BUTTON | B_BUTTON) != 0) {
             if (demoButtonPress(arg0->unk9C, A_BUTTON | START_BUTTON) != 0) {
-                sndPlaySfx(0x6EU);
+                sndPlaySfx(SFX_UI_CONFIRM);
             } else if (demoButtonPress(arg0->unk9C, B_BUTTON) != 0) {
                 sndPlaySfx(1U);
             }

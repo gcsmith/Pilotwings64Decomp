@@ -1488,7 +1488,7 @@ s32 func_8033D3EC(s32 arg0, s32 arg1, Unk80373060* arg2, s32* arg3, s32* arg4) {
             if ((arg1 != 0) && (demoButtonPress(0, A_BUTTON | START_BUTTON) != 0)) {
                 if ((((arg0 == 0) && (*arg4 < D_80350528)) || ((arg0 == 2) && (*arg4 < D_8035052C))) && (arg2[*arg4].unk43[0] != 0)) {
                     spC0 = TRUE;
-                    sndPlaySfx(0x6E);
+                    sndPlaySfx(SFX_UI_CONFIRM);
                     break;
                 }
                 sndPlaySfx(1);
@@ -1714,7 +1714,7 @@ void func_8033DFD0(s32 arg0, Unk80373060* arg1, s32 arg2) {
             break;
         }
         if (demoButtonPress(0, A_BUTTON | START_BUTTON) != 0) {
-            sndPlaySfx(0x6E);
+            sndPlaySfx(SFX_UI_CONFIRM);
             if (arg0 == 0) {
                 if (var_s2) {
                     D_80373060[arg2].unk43[0] = 0;

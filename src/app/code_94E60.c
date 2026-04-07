@@ -568,7 +568,7 @@ bail:
     }
     if (demoButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON) != 0) {
         sp18 = &D_80362690->unkC[D_80362690->unk9C];
-        sndPlaySfx(0x6EU);
+        sndPlaySfx(SFX_UI_CONFIRM);
         if (D_8034F7B0 == FALSE) {
             sp18->cls = D_8034F7A4;
             sp18->veh = D_8034F7A0;

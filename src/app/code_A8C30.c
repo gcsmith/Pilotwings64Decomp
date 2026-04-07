@@ -358,7 +358,7 @@ s32 func_80322464(void) {
     D_8036D8E0 += D_8034F854;
     if (demoButtonPress(D_80362690->unk9C, A_BUTTON | B_BUTTON | START_BUTTON) != 0) {
         if (demoButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON) != 0) {
-            sndPlaySfx(0x6EU);
+            sndPlaySfx(SFX_UI_CONFIRM);
         }
 
         if (D_8036DA24 == 0) {
