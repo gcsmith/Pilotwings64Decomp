@@ -56,7 +56,7 @@ void func_8033F748(u16 arg0) {
     D_803505B0 = arg0;
 }
 
-void sndPlaySfxVolPitchPan(u8 arg0, f32 arg1, f32 arg2, f32 arg3) {
+void sndPlaySfxVolPitchPan(u8 sfxId, f32 vol, f32 pitch, f32 pan) {
     u8 temp_v0;
 
     temp_v0 = uvEmitterLookup();
@@ -64,15 +64,15 @@ void sndPlaySfxVolPitchPan(u8 arg0, f32 arg1, f32 arg2, f32 arg3) {
         _uvDebugPrintf("snd : out of local fx emitter devices\n");
         return;
     }
-    uvEmitterFromModel(temp_v0, arg0);
+    uvEmitterFromModel(temp_v0, sfxId);
     uvEmitterProp(temp_v0, 5, 0x30, 0);
-    uvEmitterSetUnk70(temp_v0, arg1);
-    uvEmitterSetUnk74(temp_v0, arg2);
-    uvEmitterSetUnk78(temp_v0, arg3);
+    uvEmitterSetUnk70(temp_v0, vol);
+    uvEmitterSetUnk74(temp_v0, pitch);
+    uvEmitterSetUnk78(temp_v0, pan);
     uvEmitterTrigger(temp_v0);
 }
 
-void sndPlaySfx(u8 arg0) {
+void sndPlaySfx(u8 sfxId) {
     u8 temp_v0;
 
     temp_v0 = uvEmitterLookup();
@@ -80,7 +80,7 @@ void sndPlaySfx(u8 arg0) {
         _uvDebugPrintf("snd : out of local fx emitter devices\n");
         return;
     }
-    uvEmitterFromModel(temp_v0, arg0);
+    uvEmitterFromModel(temp_v0, sfxId);
     uvEmitterProp(temp_v0, 5, 0x30, 0);
     uvEmitterTrigger(temp_v0);
 }
