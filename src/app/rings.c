@@ -352,7 +352,7 @@ s32 rings_80323FFC(s32 ringIdx) {
     ring = &gRings[ringIdx];
     ring->consumedType = (ring->timeRemaining > 0.0f) ? 2 : 1;
     if (ring->ringSubtype != 2) {
-        func_8033F758(0xF, 1.0f, (ring->scoreType * 0.05f) + 0.95f, 0.0f);
+        sndPlaySfxVolPitchPan(0xF, 1.0f, (ring->scoreType * 0.05f) + 0.95f, 0.0f);
     }
 
     var_a0 = 0;
@@ -541,7 +541,7 @@ s32 rings_803243D8(Mtx4F* arg0) {
                 if (ring->time1AC < ring->time1B0) {
                     ret = rings_80323FFC(i);
                 } else if ((D_8034F850 == ring->time1B0) && (ring->scoreType != 2)) {
-                    func_8033F758(0x31, 1.0f, 1.0f, 0.0f);
+                    sndPlaySfxVolPitchPan(0x31, 1.0f, 1.0f, 0.0f);
                 }
                 break;
             case 1:

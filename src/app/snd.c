@@ -56,7 +56,7 @@ void func_8033F748(u16 arg0) {
     D_803505B0 = arg0;
 }
 
-void func_8033F758(u8 arg0, f32 arg1, f32 arg2, f32 arg3) {
+void sndPlaySfxVolPitchPan(u8 arg0, f32 arg1, f32 arg2, f32 arg3) {
     u8 temp_v0;
 
     temp_v0 = uvEmitterLookup();
