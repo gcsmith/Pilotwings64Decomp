@@ -273,7 +273,7 @@ segments:
       - [0x4C270, .data, kernel/rand]
       - [0x4C280, .data, kernel/debug]
       - [0x4C730, data, libultra/audio/sl]
-      - [0x4C740, data, libultra/io/aisetnextbuf]
+      - [0x4C740, .data, libultra/io/aisetnextbuf]
       - [0x4C750, .data, libultra/sp/sprite]
       - [0x4C760, data, libultra/io/vimgr]
       - [0x4C780, .data, libultra/io/vitbl]
