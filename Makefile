@@ -158,9 +158,10 @@ endif
 
 ### Optimisation Overrides
 $(BUILD_DIR)/src/libultra/io/%.o: OPT_FLAGS := -O1
+$(BUILD_DIR)/src/libultra/libc/ll.o: OPT_FLAGS := -O1 -g0
+$(BUILD_DIR)/src/libultra/libc/ll.o: MIPSISET := -mips3 -32
 $(BUILD_DIR)/src/libultra/os/%.o: OPT_FLAGS := -O1
 # $(BUILD_DIR)/src/libultra/os/audio/%.o: OPT_FLAGS := -O2
-# $(BUILD_DIR)/src/libultra/os/libc/%.o: OPT_FLAGS := -O2
 # $(BUILD_DIR)/src/libultra/gu/%.o: OPT_FLAGS := -O3
 # $(BUILD_DIR)/src/libultra/gu/lookathil.o: OPT_FLAGS := -O2
 $(BUILD_DIR)/src/kernel/debug.o: OPT_FLAGS := -O1 -g
@@ -235,6 +236,15 @@ $(BUILD_DIR)/%.o: %.c
 	$(V)$(CC_CHECK) $(CHECK_CFLAGS) -MMD -MP -MT $@ -MF $(BUILD_DIR)/$*.d $<
 	@printf "[$(GREEN) ido5.3 $(NO_COL)]  $<\n"
 	$(V)$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $<
+
+# Patch ll.o
+$(BUILD_DIR)/src/libultra/libc/ll.o: src/libultra/libc/ll.c
+	@printf "[$(YELLOW) syntax $(NO_COL)]  $<\n"
+	$(V)$(CC_CHECK) $(CHECK_CFLAGS) -MMD -MP -MT $@ -MF $*.d $<
+	@printf "[$(GREEN) ido5.3 $(NO_COL)]  $<\n"
+	$(V)$(CC) -c $(CFLAGS) $(OPT_FLAGS) $(LOOP_UNROLL) $(MIPSISET) -o $@ $<
+	@printf "[$(CYAN) patch $(NO_COL)]  $<\n"
+	$(V)$(PYTHON) $(TOOLS_DIR)/set_o32abi_bit.py $@
 
 $(BUILD_DIR)/$(LIBULTRA): $(LIBULTRA)
 	$(V)mkdir -p $$(dirname $@)
