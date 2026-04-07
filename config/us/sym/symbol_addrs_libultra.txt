@@ -280,6 +280,7 @@ viMgrMain = 0x8023B364;
 __osViDevMgr = 0x8024B7B0;
 __osViDevMgr_2 = 0x8024B7C0;
 osClockRate = 0x8024C090; // type:u64
+__osShutdown = 0x8024C098; // type:u32
 __osPiDevMgr = 0x8024C0A0;
 player_bss_003C = 0x8024C0A8;
 __osPiDevMgr_2 = 0x8024C0B0;
