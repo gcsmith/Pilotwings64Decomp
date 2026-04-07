@@ -247,33 +247,33 @@ void func_802DAB18(Camera* arg0) {
         break;
     case PILOT_GOOSE:
         if ((D_80359C88 > 0.0f) && (var_fs0 < 0.1f) && ((D_8034EA48 & 2) == 0)) {
-            sndPlaySfx(0x63);
+            sndPlaySfx(SFX_PILOT_GOOSE_SELECT);
             D_8034EA48 |= 2;
         }
         break;
     case PILOT_HAWK:
         if ((D_80359C88 > 0.0f) && (var_fs0 < 0.5f) && ((D_8034EA48 & 3) == 0)) {
-            sndPlaySfx(0x65);
+            sndPlaySfx(SFX_PILOT_HAWK_SELECT);
             D_8034EA48 |= 3;
         }
         break;
     case PILOT_KIWI:
         if ((D_80359C88 > 0.5f) && (var_fs0 < 0.8f) && ((D_8034EA48 & 4) == 0)) {
-            sndPlaySfx(0x62);
+            sndPlaySfx(SFX_PILOT_KIWI_SELECT);
             D_8034EA48 |= 4;
         }
         var_fs0 *= 1.5;
         break;
     case PILOT_IBIS:
         if ((D_80359C88 > 0.5f) && (var_fs0 < 1.0f) && ((D_8034EA48 & 5) == 0)) {
-            sndPlaySfx(0x64);
+            sndPlaySfx(SFX_PILOT_IBIS_SELECT);
             D_8034EA48 |= 5;
         }
         var_fs0 *= 1.5;
         break;
     case PILOT_ROBIN:
         if ((D_80359C88 > 0.25f) && (var_fs0 < 0.75f) && !(D_8034EA48 & 6)) {
-            sndPlaySfx(0x66);
+            sndPlaySfx(SFX_PILOT_ROBIN_SELECT);
             D_8034EA48 |= 6;
         }
         break;
