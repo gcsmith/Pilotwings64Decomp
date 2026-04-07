@@ -276,7 +276,7 @@ segments:
       - [0x4C740, data, libultra/io/aisetnextbuf]
       - [0x4C750, .data, libultra/sp/sprite]
       - [0x4C760, data, libultra/io/vimgr]
-      - [0x4C780, data]
+      - [0x4C780, .data, libultra/io/vitbl]
       - [0x4D040, .data, libultra/os/initialize]
       - [0x4D050, .data, libultra/io/pimgr]
       - [0x4D070, data]
@@ -292,6 +292,7 @@ segments:
       - [0x4D440, .data, libultra/os/syncputchars]
       - [0x4D450, data, libultra/vimodes/vimodentsclan1]
       - [0x4D4A0, data, libultra/vimodes/vimodepallan1]
+
       - [0x4D500, .rodata, kernel/code_1050]
       - [0x4D540, .rodata, kernel/janim]
       - [0x4D5E0, .rodata, kernel/emitter]
@@ -339,7 +340,6 @@ segments:
       - [0x50B70, rodata, f3dex]
       - [0x51370, rodata, fast3d]
       - [0x51B70, rodata, aspMain]
-
 
       - { type: .bss, vram: 0x80250E80, name: kernel/code_1050 }
       - { type: .bss, vram: 0x80250ED0, name: kernel/emitter }
