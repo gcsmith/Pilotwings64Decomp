@@ -311,7 +311,7 @@ void missiLoadEFrost(void) {
     pos = sMissiInitPosEF;
     sMissiSeqId = func_80218F88();
     uvSeqModel(sMissiSeqId, 0);
-    uvSeqProps(sMissiSeqId, 4, 20.0f, 0);
+    uvSeqProps(sMissiSeqId, SEQ_PROP_4(20.0f), SEQ_PROP_END);
     sMissiFxId = func_8021EFF0(6);
     uvModelGet(sMissiFxId, 6);
     // clang-format off
@@ -340,7 +340,7 @@ void missiDeinitEFrost(void) {
         hud_8031A8E0(sMissiRadarIdEF);
     }
     sMissiRadarIdEF = 0xFF;
-    uvSeqProps(sMissiSeqId, 1, 0, 0);
+    uvSeqProps(sMissiSeqId, SEQ_PROP_1(0), SEQ_PROP_END);
     uvModelGet(sMissiFxId, 0xFF);
     uvFxProps(sMissiFxId, FX_PROP_11(0), FX_PROP_END);
     proxAnimDeleteCallback(sMissiProxIdEF);
