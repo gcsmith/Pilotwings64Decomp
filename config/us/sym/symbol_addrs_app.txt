@@ -227,9 +227,16 @@ fireFxUpdate          = 0x802E9FE4; // type:func
 fireFxDeinit          = 0x802EA824; // type:func
 
 hsound_callback       = 0x8030A390; // type:func
+
 app_entrypoint        = 0x8030FE20; // type:func
-map3d                 = 0x8030FF00; // type:func
-map3d_mslot           = 0x80312684; // type:func
+map3dMain             = 0x8030FE80; // type:func
+map3dLoad             = 0x8030FF00; // type:func
+map3dHandler          = 0x80311660; // type:func
+map3dRender           = 0x80311C68; // type:func
+map3dDeinit           = 0x803122B4; // type:func
+map3d_803123C4        = 0x803123C4; // type:func
+map3d_80312514        = 0x80312514; // type:func
+map3dAddItem          = 0x80312684; // type:func
 
 menuUtilCreate        = 0x80312810; // type:func
 menuUtilCheckInputs   = 0x80312908; // type:func
@@ -846,6 +853,17 @@ sFileMenuFadeRate         = 0x8034F118;
 
 gLevelCurObjects          = 0x8034F408;
 gLevelUserFileLookup      = 0x8034F410;
+
+sMapDobjId                = 0x8034F7F0;
+sMapObjectCount           = 0x8034F7F4;
+sMapMessageCount          = 0x8034F7F8;
+sMapHudFlagsSave          = 0x8034F83C;
+
+sMapEmitterDev0           = 0x8036A8E0;
+sMapEmitterDev1           = 0x8036A8E1;
+sMapObjects               = 0x8036A8E8; // size:0x78
+sMapMessages              = 0x8036A960; // size:0xF0
+sMapGlobalScale           = 0x8036AA50;
 
 sMissiObjId               = 0x8034F860;
 sMissiRadarIdLS           = 0x8034F864;

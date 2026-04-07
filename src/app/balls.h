@@ -55,5 +55,6 @@ s32 ballsObjIdExists(u8 objId);
 u8 ballsGetAllPopped(void);
 f32 ballsPopped(u8 objId, Vec3F* arg1, Unk802D3658_Unk1224* arg2);
 s32 ballsGetPoints(void);
+u8 ballsGetCount(void);
 
 #endif // APP_BALLS_H

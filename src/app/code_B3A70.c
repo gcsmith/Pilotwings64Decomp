@@ -322,7 +322,7 @@ void func_8032CC44(Unk80362690* arg0) {
     }
     uvLevelAppend(0xB);
     uvLevelAppend(0x87);
-    func_8030FE80(arg0, 1);
+    map3dMain(arg0, 1);
     func_8032D51C(0);
     uvLevelInit();
     levelLoad(arg0->map, sp2C->pilot, sp2C->veh, 1);

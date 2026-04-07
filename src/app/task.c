@@ -571,7 +571,7 @@ Unk80345C80* taskGet_80345C80(void) {
     return &D_8035078C->comm.unk48;
 }
 
-s32* taskGet_80345C90(void) {
+TaskObjUnk2C* taskGet_80345C90(void) {
     return &D_8035078C->comm.unk2C;
 }
 

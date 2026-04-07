@@ -209,7 +209,7 @@ void testMenuInit(Unk80367710* arg0, s32 arg1) {
         }
     }
     taskInitTest(temp_v1->cls, temp_v1->veh, temp_v1->test, &D_80362690->map, &D_80362690->terraId, &D_80362690->envId);
-    map3d(D_80362690, 0);
+    map3dLoad(D_80362690, 0);
     if (arg1 == 0) {
         sTestMenuState = 0;
     }
@@ -249,7 +249,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
     sp6C = &D_80362690->unkC[D_80362690->unk9C];
     testIdxAdj = 0;
     if (sTestMenuState == 1) {
-        func_80311660(D_80362690->unk9C, 0);
+        map3dHandler(D_80362690->unk9C, 0);
         if (demoButtonPress(D_80362690->unk9C, A_BUTTON | B_BUTTON | START_BUTTON) != 0) {
             sTestMenuState = 0;
             if (demoButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON) != 0) {
@@ -367,7 +367,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
                 }
                 if (gCurTestIdx != var_a2) {
                     func_8033F758(0x6A, 1.0f, 0.5f, 0.0f);
-                    func_803122B4(D_80362690, 0);
+                    map3dDeinit(D_80362690, 0);
                     if (sp6C->veh != VEHICLE_BIRDMAN && IS_BONUS_VEHICLE(sp6C->veh)) {
                         sp6C->cls = gCurTestIdx;
                         sp6C->test = 0;
@@ -375,7 +375,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
                         sp6C->test = gCurTestIdx;
                     }
                     taskInitTest(sp6C->cls, sp6C->veh, sp6C->test, &D_80362690->map, &D_80362690->terraId, &D_80362690->envId);
-                    map3d(D_80362690, 0);
+                    map3dLoad(D_80362690, 0);
                     testMenuInitText(sp6C->test);
                 }
             }
@@ -423,7 +423,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
                     hoverPadDeinit();
                     ballsDeinit();
                     D_80362690->unkA0 = 0;
-                    func_8030FE80(D_80362690, 1);
+                    map3dMain(D_80362690, 1);
                     testMenuInit(arg0, 2);
                     break;
                 case 5:
@@ -501,7 +501,7 @@ void testMenuDraw(Camera* arg0, u8 classIdx, u8 vehIdx) {
     strIdAppend[1] = 'M';
     strIdAppend[2] = '\0';
     func_8033F6F8(&arg0->unk108, &arg0->unk108);
-    func_80311C68(D_80362690, 0);
+    map3dRender(D_80362690, 0);
     if (sTestMenuState != 1) {
         if (sTestMenuState != 2) {
             sp54 = textGetDataByName(strId);
@@ -594,5 +594,5 @@ void testMenuDraw(Camera* arg0, u8 classIdx, u8 vehIdx) {
 }
 
 void testMenu_8034A428(void) {
-    func_803122B4(D_80362690, 0);
+    map3dDeinit(D_80362690, 0);
 }

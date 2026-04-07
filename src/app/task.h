@@ -330,6 +330,11 @@ typedef struct {
 } TaskObjects_Unk10;
 
 typedef struct {
+    Vec3F unk0;
+    Vec3F unkC;
+} TaskObjUnk2C;
+
+typedef struct {
     struct {
         u8 classNum;
         u8 vehNum;
@@ -340,8 +345,7 @@ typedef struct {
         u8 unk8[4];
         u8 unkC[4];
         TaskObjects_Unk10 unk10;
-        s32 unk2C;
-        u8 unk30[0x14];
+        TaskObjUnk2C unk2C;
         f32 unk44;
         Unk80345C80 unk48;
         u8 unk40C[8];
@@ -383,6 +387,8 @@ typedef struct {
     TaskOBSV* dataOBSV;
 } TaskObjects;
 
+extern u8 D_803507A0; // flag used in map3d for rings and targets
+
 void taskInit(void);
 s32 taskIsValidIndex(s32 classIdx, s32 testIdx, s32 vehicle);
 s32 taskLoadNames(s32 classIdx, s32 testIdx, s32 vehicle, char*, char*);
@@ -410,7 +416,7 @@ s32 taskGetBTGT(TaskBTGT** data);
 s32 taskGetPHTS(TaskPHTS** data);
 s32 taskGetFALC(TaskFALC** data);
 Unk80345C80* taskGet_80345C80(void);
-s32* taskGet_80345C90(void);
+TaskObjUnk2C* taskGet_80345C90(void);
 f32 taskGet_80345CA0(void);
 u8* taskGet_80345CB0(void);
 void taskGet_80345CC0(f32*, f32*);

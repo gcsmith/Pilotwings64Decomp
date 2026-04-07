@@ -24,7 +24,7 @@ f32 pad_D_80350800[] = { 0.0f, 0.0f, 0.0f,  0.0f,  0.0f, 0.0f, 0.0f, 1.0f,  5.0f
 static TaskTHER* gTaskTHER;
 u8 gThermalCount;
 Thermal gThermals[16];
-s8 gThermReady;
+u8 gThermReady;
 
 // forward declarations
 STATIC_FUNC void therm_80346E04(TaskTHER* therm, f32 x, f32 y, f32 z, f32 dist, Vec3F* dst);

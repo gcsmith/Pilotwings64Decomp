@@ -3,10 +3,10 @@
 
 #include "game.h"
 
-void map3d(Unk80362690*, s32);
-void func_8030FE80(Unk80362690*, s32);
-s32 func_80311660(u8, s32);
-void func_80311C68(Unk80362690*, s32);
-void func_803122B4(Unk80362690*, s32);
+void map3dMain(Unk80362690*, s32);
+void map3dLoad(Unk80362690*, s32);
+s32 map3dHandler(u8, s32);
+void map3dRender(Unk80362690*, s32);
+void map3dDeinit(Unk80362690*, s32);
 
 #endif // APP_MAP3D_H
