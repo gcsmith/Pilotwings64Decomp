@@ -98,27 +98,27 @@ s32 func_802DD200(Camera* camera, Unk80367868* arg1) {
     selectedPilot = arg1->unk4[D_8034EDC0].pilot;
     switch (selectedPilot) {
     case PILOT_LARK:
-        sndPlaySfx(0x61);
+        sndPlaySfx(SFX_PILOT_LARK_SELECT);
         selectedPilot = arg1->unk4[D_8034EDC0].pilot;
         break;
     case PILOT_GOOSE:
-        sndPlaySfx(0x63);
+        sndPlaySfx(SFX_PILOT_GOOSE_SELECT);
         selectedPilot = arg1->unk4[D_8034EDC0].pilot;
         break;
     case PILOT_HAWK:
-        sndPlaySfx(0x65);
+        sndPlaySfx(SFX_PILOT_HAWK_SELECT);
         selectedPilot = arg1->unk4[D_8034EDC0].pilot;
         break;
     case PILOT_KIWI:
-        sndPlaySfx(0x62);
+        sndPlaySfx(SFX_PILOT_KIWI_SELECT);
         selectedPilot = arg1->unk4[D_8034EDC0].pilot;
         break;
     case PILOT_IBIS:
-        sndPlaySfx(0x64);
+        sndPlaySfx(SFX_PILOT_IBIS_SELECT);
         selectedPilot = arg1->unk4[D_8034EDC0].pilot;
         break;
     case PILOT_ROBIN:
-        sndPlaySfx(0x66);
+        sndPlaySfx(SFX_PILOT_ROBIN_SELECT);
         selectedPilot = arg1->unk4[D_8034EDC0].pilot;
         break;
     }
