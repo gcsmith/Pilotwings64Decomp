@@ -14,7 +14,7 @@ typedef struct {
 
 extern u8 gThermalCount; // count of gThermals
 extern Thermal gThermals[16]; // parsed thermal data, also parts copied to HUD
-extern s8 gThermReady;
+extern u8 gThermReady;
 
 void thermInit(void);
 void thermLoad(void);

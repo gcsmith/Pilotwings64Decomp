@@ -22,10 +22,10 @@ void func_8034B624(Camera* arg0) {
 
 void func_8034B688(void) {
     uvGfx_80223A28(0xFFF);
-    uvVtxRect(0, 0x12, 0x13F, 0);
-    uvVtxRect(0, 0xEF, 0x13F, 0xE8);
-    uvVtxRect(0, 0xE8, 0xA, 0x12);
-    uvVtxRect(0x136, 0xE8, 0x13F, 0x12);
+    uvVtxRect(0, 18, 319, 0);
+    uvVtxRect(0, 239, 319, 232);
+    uvVtxRect(0, 232, 10, 18);
+    uvVtxRect(310, 232, 319, 18);
 }
 
 void func_8034B6F8(void) {

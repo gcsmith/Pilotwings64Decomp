@@ -107,6 +107,7 @@ ferrySetInterval    = 0x802E7D18; // type:func
 ferryStateSave      = 0x802E7D58; // type:func
 ferryStateRestore   = 0x802E7D6C; // type:func
 
+saveFilePack        = 0x802E7D80; // type:func
 saveBitScramble     = 0x802E7FA0; // type:func
 saveFatalError      = 0x802E81BC; // type:func
 saveFileInit        = 0x802E8294; // type:func
@@ -181,9 +182,20 @@ ballTgtDeinit       = 0x802D3030; // type:func
 db_getgnd           = 0x802DFE70; // type:func
 db_getstart         = 0x802E0304; // type:func
 
+env_802E0CF0        = 0x802E0CF0; // type:func
 envInit             = 0x802E1238; // type:func
 envLoad             = 0x802E1278; // type:func
-env_loadtpal        = 0x802E1990; // type:func
+envGetCurrentId     = 0x802E12B4; // type:func
+env_802E1444        = 0x802E1444; // type:func
+env_802E14E8        = 0x802E14E8; // type:func
+env_802E15F0        = 0x802E15F0; // type:func
+env_802E1754        = 0x802E1754; // type:func
+envLoadTerrainPal   = 0x802E1990; // type:func
+env_802E1A80        = 0x802E1A80; // type:func
+env_802E1C1C        = 0x802E1C1C; // type:func
+env_802E23E0        = 0x802E23E0; // type:func
+env_802E2504        = 0x802E2504; // type:func
+env_802E2060        = 0x802E2060; // type:func
 
 envSoundInit        = 0x802E26C0; // type:func
 envSoundLoad        = 0x802E27A8; // type:func
@@ -208,12 +220,23 @@ hoverPadDeinit       = 0x80309FFC; // type:func
 hoverPadGetCount     = 0x8030A080; // type:func
 hoverPadGetPoints    = 0x8030A0DC; // type:func
 
-fx_create           = 0x802EA03C; // type:func
-fx_create_fire      = 0x802EA8E0; // type:func
-hsound_callback     = 0x8030A390; // type:func
-app_entrypoint      = 0x8030FE20; // type:func
-map3d               = 0x8030FF00; // type:func
-map3d_mslot         = 0x80312684; // type:func
+fireFxCreateAll       = 0x802EA03C; // type:func
+fireFxCreate          = 0x802EA8E0; // type:func
+fireFxInit            = 0x802E9FD0; // type:func
+fireFxUpdate          = 0x802E9FE4; // type:func
+fireFxDeinit          = 0x802EA824; // type:func
+
+hsound_callback       = 0x8030A390; // type:func
+
+app_entrypoint        = 0x8030FE20; // type:func
+map3dMain             = 0x8030FE80; // type:func
+map3dLoad             = 0x8030FF00; // type:func
+map3dHandler          = 0x80311660; // type:func
+map3dRender           = 0x80311C68; // type:func
+map3dDeinit           = 0x803122B4; // type:func
+map3d_803123C4        = 0x803123C4; // type:func
+map3d_80312514        = 0x80312514; // type:func
+map3dAddItem          = 0x80312684; // type:func
 
 menuUtilCreate        = 0x80312810; // type:func
 menuUtilCheckInputs   = 0x80312908; // type:func
@@ -314,6 +337,14 @@ hud_8031E628        = 0x8031E628; // type:func
 hudDrawRect         = 0x8031E69C; // type:func
 hudDrawPhotoCount   = 0x8031E9F8; // type:func
 hudDemoControllerEn = 0x8031EABC; // type:func
+
+rbSoundInit         = 0x8032A600; // type:func
+rbSoundEventHandler = 0x8032A760; // type:func
+rbSoundEvent12_22   = 0x8032AE6C; // type:func
+rbSoundEvent12_18   = 0x8032B038; // type:func
+rbSoundEvent19      = 0x8032B0D4; // type:func
+rbSoundSubEvent     = 0x8032B0E8; // type:func
+rbSoundEvent13      = 0x8032B2F0; // type:func
 
 skydivingInit       = 0x8032FAB0; // type:func
 skydivingLand       = 0x80331794; // type:func
@@ -724,6 +755,14 @@ optionsSetSetting   = 0x80316BEC; // type:func
 optionsSetTrack     = 0x80316D34; // type:func
 optionsItemWrap     = 0x80316D88; // type:func
 
+hgSoundInit         = 0x802F4470; // type:func
+hgSoundEventHandler = 0x802F4594; // type:func
+hgSoundEvent12_18   = 0x802F4A58; // type:func
+hgSoundEvent19      = 0x802F4AD8; // type:func
+hgSoundEvent22      = 0x802F4AEC; // type:func
+hgSoundEvent22Sub   = 0x802F4C40; // type:func
+hgSoundEvent13      = 0x802F4EE8; // type:func
+
 gyrocopterEnterLeave = 0x802F5BF0; // type:func
 
 gyrocopterMovementFrame = 0x802F604C; // type:func
@@ -815,6 +854,17 @@ sFileMenuFadeRate         = 0x8034F118;
 gLevelCurObjects          = 0x8034F408;
 gLevelUserFileLookup      = 0x8034F410;
 
+sMapDobjId                = 0x8034F7F0;
+sMapObjectCount           = 0x8034F7F4;
+sMapMessageCount          = 0x8034F7F8;
+sMapHudFlagsSave          = 0x8034F83C;
+
+sMapEmitterDev0           = 0x8036A8E0;
+sMapEmitterDev1           = 0x8036A8E1;
+sMapObjects               = 0x8036A8E8; // size:0x78
+sMapMessages              = 0x8036A960; // size:0xF0
+sMapGlobalScale           = 0x8036AA50;
+
 sMissiObjId               = 0x8034F860;
 sMissiRadarIdLS           = 0x8034F864;
 sMissiProxIdLS            = 0x8034F868;
@@ -877,9 +927,13 @@ gRefBNUS                  = 0x80359730;
 gBonusStarCount           = 0x80359734;
 gBonusStars               = 0x80359738; // size:0xA0
 
-gFalcos                   = 0x8035A5F8; // size:0x258
-gFalcoCount               = 0x8035A850;
-gRefFALC                  = 0x8035AF20;
+sFalcos                   = 0x8035A5F8; // size:0x258
+sFalcoCount               = 0x8035A850;
+sRefFALC                  = 0x8035AF20;
+sFalcoDomains             = 0x8035A858;
+
+sSaveFiles                = 0x803620E0; // size:0x200
+sSaveFilesMirror          = 0x803622E0; // size:0x200
 
 sFileMenu_803624E0        = 0x803624E0; // size:0x3
 sFileMenu_803624E3        = 0x803624E3;
@@ -889,6 +943,9 @@ sFileColorG1              = 0x803624EC;
 sFileColorG2              = 0x803624F0;
 sFileColorB1              = 0x803624F4;
 sFileColorB2              = 0x803624F8;
+
+hgSoundEventCbInfo        = 0x80368310; // size:0x8
+hgSound_80368318          = 0x80368318; // size:0x54
 
 D_80368B20                = 0x80368B20; // size:0x54
 
@@ -987,6 +1044,9 @@ sLocalWinds               = 0x8037F518; // size:0x3F0
 sWindObjectsData          = 0x8037F910;
 sWindObjectsInLevel       = 0x8037F914;
 sWindObjects              = 0x8037F918;
+
+rbSoundEventCbInfo        = 0x80371890; // size:0x8
+rbSound_80371898          = 0x80371898; // size:0x54
 
 sShuttleAltitudeCopy      = 0x80371D90;
 sShuttleThrustCopy        = 0x80371D94;

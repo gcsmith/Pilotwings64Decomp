@@ -20,15 +20,15 @@ void bmSound_802D1534(BirdmanData*);
 
 void bmSoundInit(BirdmanData* arg0) {
     arg0->unk41C = 0.0f;
-    D_80359648.unk0 = 4;
-    D_80359648.unk4 = 0;
-    D_80359648.unk8 = 0.0f;
-    D_80359648.unkC = 0.01f;
-    D_80359648.unk10 = 0.4f;
-    D_80359648.unk14 = 9.0f;
-    D_80359648.unk18 = 0.8f;
-    D_80359648.unk1C = 10.0f;
-    D_80359648.unk20 = 1.0f;
+    D_80359648.count = 4;
+    D_80359648.unk4[0].x = 0;
+    D_80359648.unk4[0].y = 0.0f;
+    D_80359648.unk4[1].x = 0.01f;
+    D_80359648.unk4[1].y = 0.4f;
+    D_80359648.unk4[2].x = 9.0f;
+    D_80359648.unk4[2].y = 0.8f;
+    D_80359648.unk4[3].x = 10.0f;
+    D_80359648.unk4[3].y = 1.0f;
     arg0->unk414 = sndMakeDev(0x13);
     arg0->unk415 = sndMakeDev(0x13);
     gBmSoundCbInfo.cb = bmSoundCallback;

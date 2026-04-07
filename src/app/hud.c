@@ -161,7 +161,7 @@ void hudMainRender(void) {
                 gHudState.att.x = gHudState.att.y = gHudState.att.heading = 0.0f;
                 gHudState.att.pitch = gHudState.unk78 = gHudState.unk7C = 0.0f;
             }
-            func_802E1754(gHudState.att.x, gHudState.att.y, gHudState.att.heading, &windVec);
+            env_802E1754(gHudState.att.x, gHudState.att.y, gHudState.att.heading, &windVec);
             if ((windVec.x == 0.0f) && (windVec.y == 0.0f)) {
                 gHudState.radar.windSpeed = gHudState.radar.windDir = 0.0f;
             } else {

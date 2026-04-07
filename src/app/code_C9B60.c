@@ -139,7 +139,7 @@ STATIC_FUNC void func_803427FC(void) {
     spathUpdate(&D_80378CE0->unkAC, D_80378CE0->unk18, 0, 1.0f);
     spathUpdate(&D_80378CE0->unkEC, D_80378CE0->unk18, 0, 1.0f);
     D_80378CE0->unk0 = uvDobjAllocIdx();
-    uvDobjModel(D_80378CE0->unk0, MODEL_LOW_POLY_INTRO_CRESCENT_ISLAND);
+    uvDobjModel(D_80378CE0->unk0, MODEL_CRESCENT_ISLAND_LOW_POLY);
     uvMat4SetIdentity(&sp58);
     uvDobjPosm(D_80378CE0->unk0, 0, &sp58);
     D_80378CE0->unk4 = uvDobjAllocIdx();

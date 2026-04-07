@@ -108,7 +108,7 @@ void snowUpdate(void) {
     sp68.z = D_80373EF8.z - sp94.m[3][2];
     D_80373EF8.z = sp94.m[3][2];
 
-    func_802E1754(sp88.x, sp88.y, sp88.z, &sp78);
+    env_802E1754(sp88.x, sp88.y, sp88.z, &sp78);
 
     sp5C.x = (sp78.x * sp58) + (sp68.x * 3.0f);
     sp5C.y = (sp78.y * sp58) + (sp68.y * 3.0f);

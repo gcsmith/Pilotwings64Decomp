@@ -373,7 +373,7 @@ void func_802D9BBC(CannonballData* arg0) {
     Vec3F sp34;
     Vec3F sp28;
 
-    func_802E1754(arg0->unk14.m[3][0], arg0->unk14.m[3][1], arg0->unk14.m[3][2], &sp28);
+    env_802E1754(arg0->unk14.m[3][0], arg0->unk14.m[3][1], arg0->unk14.m[3][2], &sp28);
     uvMat4LocalToWorld(&arg0->unk138, &sp34, &sp28);
     arg0->unk214.x = sp34.x - arg0->unk1B8.x;
     arg0->unk214.y = sp34.y - arg0->unk1B8.y;

@@ -312,7 +312,7 @@ void envSound_802E2A00(s32 eventType, void* arg1, s32 eventData) {
                         break;
                     case 17:
                         uvEmitterGetMatrix(emitter->objId, &sp22C);
-                        func_802E1754(sp22C.m[3][0], sp22C.m[3][1], sp22C.m[3][2], &sp220);
+                        env_802E1754(sp22C.m[3][0], sp22C.m[3][1], sp22C.m[3][2], &sp220);
                         temp_fs1 = (sp220.y * 0.1f) + 0.25f;
                         temp_fs0 = sp220.y;
                         if (temp_fs0 < 0.0f) {

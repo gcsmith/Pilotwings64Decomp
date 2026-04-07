@@ -119,7 +119,7 @@ void uvEnvProps2(s32 arg0, ...) {
     }
 }
 
-void uvEnvFunc(s32 envId, s32 flag, void (*arg2)(void)) {
+void uvEnvFunc(s32 envId, s32 flag, s32 (*arg2)(void)) {
     ParsedUVEN* uven;
 
     uven = gGfxUnkPtrs->environments[envId];

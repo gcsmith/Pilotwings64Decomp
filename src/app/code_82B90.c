@@ -11,7 +11,6 @@
 #include "app/demo.h"
 #include "app/environment.h"
 #include "app/hud.h"
-#include "app/save.h"
 #include "app/shadow.h"
 #include "app/snd.h"
 #include "app/splash.h"
@@ -232,7 +231,8 @@ void func_802FBEFC(JumbleHopperData* arg0, f32 arg1) {
         sndPlaySfx(0x69);
         arg0->unk4F = 1;
 
-        D_80364210[D_80362690->unk9C].unk38 = D_80364210[D_80362690->unk9C].unk38 - sp2C[11].unk30;
+        // TODO: fix array and/or struct
+        D_80364210[D_80362690->unk9C].unk38 = D_80364210[D_80362690->unk9C].unk38 - sp2C[11].unk4[5].y;
         if (D_80364210[D_80362690->unk9C].unk38 < -100) {
             D_80364210[D_80362690->unk9C].unk38 = -100;
         }
@@ -301,8 +301,7 @@ s32 func_802FC184(JumbleHopperData* arg0, f32* arg1, Vec3F* arg2) {
         soid = uvSobjGetPt(D_80362690->terraId, sp38->x, sp38->y, sp38->z);
         if (soid != -1) {
             modelId = uvSobj_8022D1E4(soid);
-            if ((modelId == 0x18) || (modelId == 0x5C) || (modelId == 0x5D) || (modelId == 0x5E) || (modelId == 0x5F) || (modelId == 0x60) ||
-                (modelId == 0x22) || (modelId == 0x23) || (modelId == 0x24) || (modelId == 0x97) || (modelId == 0xAB)) {
+            if (MODEL_IS_TREE(modelId) || (modelId == MODEL_ROW_OF_5X_TREES) || (modelId == MODEL_TREE_SNOW_BILLBOARD)) {
                 sp3C = 3;
             } else {
                 sp3C = 4;
@@ -363,7 +362,7 @@ s32 func_802FC3B4(JumbleHopperData* arg0, s32 arg1, Vec3F* arg2, Vec3F* arg3) {
             arg3->z *= -1.0f;
         }
 
-        switch (var_s1->unk4) {
+        switch (var_s1->collisionType) {
         case 1:
             return 1;
         case 8:
@@ -516,7 +515,7 @@ void func_802FCC0C(JumbleHopperData* arg0) {
     arg0->unk30.y = arg0->unkF4.y - arg0->unk18->unk108.m[3][1];
     arg0->unk30.z = arg0->unkF4.z - arg0->unk18->unk108.m[3][2];
     arg0->unk1C = func_8034B2B0(&arg0->unk30);
-    arg0->unk24 = func_8034A9A0(arg0->unk30.y, arg0->unk30.x) * 57.29578f;
+    arg0->unk24 = func_8034A9A0(arg0->unk30.y, arg0->unk30.x) * RADIAN_TO_ANGLE_FACTOR;
 
     while ((arg0->unk24 + 270.0f) > 180.0f) {
         arg0->unk24 -= 360.0f;
@@ -1759,7 +1758,7 @@ void func_80300E78(JumbleHopperData* arg0) {
     arg0->unk14C.x = arg0->unk184.x * var_fv0;
     arg0->unk14C.y = arg0->unk184.y * var_fv0;
     arg0->unk14C.z = (arg0->unk184.z * var_fv0) - (9.8 * arg0->unk190);
-    func_802E1754(arg0->unkF4.x, arg0->unkF4.y, arg0->unkF4.z, &sp1C);
+    env_802E1754(arg0->unkF4.x, arg0->unkF4.y, arg0->unkF4.z, &sp1C);
     arg0->unk14C.x += sp1C.x * 0.25f;
     arg0->unk14C.y += sp1C.y * 0.25f;
     arg0->unk14C.z += sp1C.z * 0.25f;
@@ -2077,7 +2076,7 @@ void func_80301F70(JumbleHopperData* arg0) {
         arg0->unk30.y = arg0->unkF4.y - arg0->unk18->unk108.m[3][1];
         arg0->unk30.z = arg0->unkF4.z - arg0->unk18->unk108.m[3][2];
         arg0->unk1C = func_8034B2B0(&arg0->unk30);
-        arg0->unk24 = func_8034A9A0(arg0->unk30.y, arg0->unk30.x) * 57.29578f;
+        arg0->unk24 = func_8034A9A0(arg0->unk30.y, arg0->unk30.x) * RADIAN_TO_ANGLE_FACTOR;
         while ((arg0->unk24 + 270.0f) > 180.0f) {
             arg0->unk24 -= 360.0f;
         }

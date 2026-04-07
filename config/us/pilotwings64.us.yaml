@@ -418,7 +418,7 @@ segments:
       - [0x76670, c, app/code_76670]
       - [0x78620, c, app/glider_toys]
       - [0x796C0, c, app/hang_glider]
-      - [0x7B9A0, c, app/gsound]
+      - [0x7B9A0, c, app/hang_glider_sound]
       - [0x7C4C0, c, app/code_7C4C0]
       - [0x7CF30, c, app/code_7CF30]
       - [0x7FE00, c, app/code_7FE00]
@@ -427,7 +427,7 @@ segments:
       - [0x82B90, c, app/code_82B90]
       - [0x8A760, c, app/gyrocopter]
       - [0x90D10, c, app/hover_pads]
-      - [0x91670, c, app/hsound]
+      - [0x91670, c, app/gyrocopter_sound]
       - [0x92810, c, app/menu]
       - [0x92BF0, c, app/level]
       - [0x936F0, c, app/code_936F0]
@@ -454,7 +454,7 @@ segments:
       - [0xAC1A0, c, app/code_AC1A0]
       - [0xAE460, c, app/code_AE460]
       - [0xAF950, c, app/rocket_belt]
-      - [0xB1B30, c, app/rpsound]
+      - [0xB1B30, c, app/rocket_belt_sound]
       - [0xB2900, c, app/code_B2900]
       - [0xB3A70, c, app/code_B3A70]
       - [0xB5280, c, app/results]
@@ -586,7 +586,7 @@ segments:
       - [0xD9A10, .rodata, app/code_76670]
       - [0xD9CF0, .rodata, app/glider_toys]
       - [0xD9DF0, .rodata, app/hang_glider]
-      - [0xD9F20, .rodata, app/gsound]
+      - [0xD9F20, .rodata, app/hang_glider_sound]
       - [0xDA000, .rodata, app/code_7C4C0]
       - [0xDA020, .rodata, app/code_7CF30]
       - [0xDA4F0, .rodata, app/code_7FE00]
@@ -595,7 +595,7 @@ segments:
       - [0xDA7F0, .rodata, app/code_82B90]
       - [0xDABB0, .rodata, app/gyrocopter]
       - [0xDADB0, .rodata, app/hover_pads]
-      - [0xDAE00, .rodata, app/hsound]
+      - [0xDAE00, .rodata, app/gyrocopter_sound]
       - [0xDAF00, .rodata, app/menu]
       - [0xDAF30, .rodata, app/level]
       - [0xDB1D0, .rodata, app/credits]
@@ -620,7 +620,7 @@ segments:
       - [0xDC4D0, .rodata, app/code_AC1A0]
       - [0xDC800, .rodata, app/code_AE460]
       - [0xDC8C0, .rodata, app/rocket_belt]
-      - [0xDC9F0, .rodata, app/rpsound]
+      - [0xDC9F0, .rodata, app/rocket_belt_sound]
       - [0xDCAF0, .rodata, app/code_B2900]
       - [0xDCB20, .rodata, app/code_B3A70]
       - [0xDCBE0, .rodata, app/results]
@@ -667,36 +667,36 @@ segments:
       - { type: .bss, vram: 0x80359C90, name: app/code_64070 }
       - { type: .bss, vram: 0x80359CA0, name: app/code_64730 }
       - { type: .bss, vram: 0x80359D70, name: app/code_66F70 }
-      - { type: bss, vram: 0x80359D80, name: app/environment }
+      - { type: .bss, vram: 0x80359D80, name: app/environment }
       - { type: .bss, vram: 0x80359DC0, name: app/env_sound }
       - { type: bss, vram: 0x8035A5F0, name: app/falco }
       - { type: .bss, vram: 0x8035AF60, name: app/fdr }
       - { type: .bss, vram: 0x80362010, name: app/ferry }
       - { type: .bss, vram: 0x803620E0, name: app/save }
       - { type: .bss, vram: 0x803624E0, name: app/file_menu }
-      - { type: bss, vram: 0x80362500, name: app/fire_effects }
+      - { type: .bss, vram: 0x80362500, name: app/fire_effects }
       - { type: .bss, vram: 0x80362630, name: app/fountain }
       - { type: .bss, vram: 0x80362690, name: app/game }
       - { type: .bss, vram: 0x80367A40, name: app/code_75A60 }
       - { type: bss, vram: 0x80367F60, name: app/code_76670 }
       - { type: .bss, vram: 0x80368010, name: app/glider_toys }
       - { type: bss, vram: 0x803680A0, name: app/hang_glider }
-      - { type: bss, vram: 0x80368310, name: app/gsound }
+      - { type: .bss, vram: 0x80368310, name: app/hang_glider_sound }
       - { type: .bss, vram: 0x80368370, name: app/code_7C4C0 }
       - { type: .bss, vram: 0x80368880, name: app/code_7CF30 }
-      - { type: bss, vram: 0x803688E0, name: app/code_7FE00 }
+      - { type: .bss, vram: 0x803688E0, name: app/code_7FE00 }
       - { type: .bss, vram: 0x80368B20, name: app/jumble_hopper }
       - { type: .bss, vram: 0x80368B80, name: app/code_82520 }
       - { type: .bss, vram: 0x80368C00, name: app/code_82B90 }
       - { type: .bss, vram: 0x80369070, name: app/gyrocopter }
       - { type: .bss, vram: 0x80369580, name: app/hover_pads }
-      - { type: .bss, vram: 0x80369E50, name: app/hsound }
+      - { type: .bss, vram: 0x80369E50, name: app/gyrocopter_sound }
       - { type: .bss, vram: 0x80369F10, name: app/menu }
       - { type: bss, vram: 0x80369F30, name: app/level }
       - { type: .bss, vram: 0x8036A8A0, name: app/code_936F0 }
       - { type: bss, vram: 0x8036A8B0, name: app/credits }
-      - { type: bss, vram: 0x8036A8C0, name: app/code_94E60 }
-      - { type: bss, vram: 0x8036A8E0, name: app/map3d }
+      - { type: .bss, vram: 0x8036A8C0, name: app/code_94E60 }
+      - { type: .bss, vram: 0x8036A8E0, name: app/map3d }
       - { type: bss, vram: 0x8036AA60, name: app/mem }
       - { type: .bss, vram: 0x8036BDF0, name: app/menu_utils }
       - { type: .bss, vram: 0x8036BE30, name: app/mist }
@@ -705,7 +705,7 @@ segments:
       - { type: .bss, vram: 0x8036C120, name: app/options }
       - { type: .bss, vram: 0x8036C150, name: app/pads }
       - { type: .bss, vram: 0x8036C520, name: app/hud }
-      - { type: bss, vram: 0x8036D230, name: app/code_A64C0 }
+      - { type: .bss, vram: 0x8036D230, name: app/code_A64C0 }
       - { type: .bss, vram: 0x8036D2B0, name: app/planes }
       - { type: .bss, vram: 0x8036D320, name: app/demo_attitude }
       - { type: .bss, vram: 0x8036D340, name: app/proxanim }
@@ -715,7 +715,7 @@ segments:
       - { type: bss, vram: 0x80371070, name: app/code_AC1A0 }
       - { type: bss, vram: 0x80371120, name: app/code_AE460 }
       - { type: bss, vram: 0x80371630, name: app/rocket_belt }
-      - { type: bss, vram: 0x80371890, name: app/rpsound }
+      - { type: .bss, vram: 0x80371890, name: app/rocket_belt_sound }
       - { type: .bss, vram: 0x803718F0, name: app/results }
       - { type: .bss, vram: 0x80371960, name: app/skydiving }
       - { type: .bss, vram: 0x80371B50, name: app/code_BA190 }
@@ -724,7 +724,7 @@ segments:
       - { type: .bss, vram: 0x80371DB0, name: app/ski_lift }
       - { type: .bss, vram: 0x80371E60, name: app/smoke }
       - { type: .bss, vram: 0x80373060, name: app/snap }
-      - { type: bss, vram: 0x80373E20, name: app/snd }
+      - { type: .bss, vram: 0x80373E20, name: app/snd }
       - { type: .bss, vram: 0x80373EF0, name: app/snow }
       - { type: .bss, vram: 0x80373F10, name: app/spath }
       - { type: .bss, vram: 0x80376CC0, name: app/splash }

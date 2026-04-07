@@ -6,7 +6,7 @@
 
 typedef struct {
     s32 unk0;
-    s32 unk4;
+    s32 collisionType;
     s32 surfaceId;
     Vec3F unkC;
     f32 unk18;

@@ -458,7 +458,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
     taskInitTest(temp_s0->cls, temp_s0->veh, temp_s0->test, &arg0->map, &arg0->terraId, &arg0->envId);
     levelLoad(arg0->map, temp_s0->pilot, temp_s0->veh, TRUE);
     uvChanTerra(temp_s0->unk70->unk22C, arg0->terraId);
-    uvEnvFunc(arg0->envId, 0, func_802E0CF0);
+    uvEnvFunc(arg0->envId, 0, env_802E0CF0);
     arg0->unkA0 = 1;
     taskLoad();
     windObjLoad();
@@ -766,7 +766,7 @@ s32 gameUpdateStateTestUpdate(Unk80362690* arg0) {
     }
     proxAnimUpdate();
     level_8030BD20();
-    func_802E15F0();
+    env_802E15F0();
     func_802F89A0(D_80362E88);
     windObjFrameUpdate();
 
@@ -1216,7 +1216,7 @@ void func_802EE14C(u16 veh) {
     windDeinit();
     padsInitLandingPads();
     sp30.x = sp30.y = sp30.z = 0.0f;
-    func_802E14E8(&sp30, 0.0f, 0.0f, 0.0f, 0.0f);
+    env_802E14E8(&sp30, 0.0f, 0.0f, 0.0f, 0.0f);
     switch (temp_s0->veh) {
     case VEHICLE_HANG_GLIDER:
         D_803676F0 = (HangGliderData*)temp_s0->vehicleData;

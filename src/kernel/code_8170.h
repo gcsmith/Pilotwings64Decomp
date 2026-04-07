@@ -39,5 +39,8 @@ s32 func_80213C24(f32, f32, f32, f32, f32, f32, UnkSobjDraw*);
 s32 func_802129B0(f32, f32, f32, f32, f32, f32, Vtx*, u16, u16, u16, f32, f32*);
 void func_80214450(f32*, f32*, f32*, f32*, f32*, f32*, f32, f32, f32, f32);
 void uvDbColorModel(s32 modelId, f32, f32, f32, f32);
+void func_8020F5A4(s32, f32, f32, f32);
+void func_8020F630(s32);
+void func_8020F99C(s32, f32, f32, f32);
 
 #endif // CODE_8170_H

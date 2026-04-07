@@ -24,17 +24,17 @@ void func_80332C60(SkyDivingData* arg0) {
     uvVec3Copy(&D_80371B50.unk4[2].unk28, &arg0->unk1E8);
     uvVec3Copy(&D_80371B50.unk4[2].unk1C, &arg0->unk1DC);
     func_80332D94(arg0);
-    D_80371C58.unk0 = 5;
-    D_80371C58.unk4 = 0.0f;
-    D_80371C58.unk8 = -10.0f;
-    D_80371C58.unk10 = -2.0f;
-    D_80371C58.unk18 = -2.0f;
-    D_80371C58.unkC = 1.0f;
-    D_80371C58.unk14 = 2.0f;
-    D_80371C58.unk1C = 4.0f;
-    D_80371C58.unk20 = -5.0f;
-    D_80371C58.unk24 = 8.0f;
-    D_80371C58.unk28 = -20.0f;
+    D_80371C58.count = 5;
+    D_80371C58.unk4[0].x = 0.0f;
+    D_80371C58.unk4[0].y = -10.0f;
+    D_80371C58.unk4[1].x = 1.0f;
+    D_80371C58.unk4[1].y = -2.0f;
+    D_80371C58.unk4[2].x = 2.0f;
+    D_80371C58.unk4[2].y = -2.0f;
+    D_80371C58.unk4[3].x = 4.0f;
+    D_80371C58.unk4[3].y = -5.0f;
+    D_80371C58.unk4[4].x = 8.0f;
+    D_80371C58.unk4[4].y = -20.0f;
 }
 
 void func_80332D94(SkyDivingData* arg0) {
@@ -202,7 +202,7 @@ void func_80333384(SkyDivingData* arg0) {
         }
         var_fs0 = -10.0f;
     }
-    func_802E1754(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2], &sp3C);
+    env_802E1754(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2], &sp3C);
 
     var_fs1 += sp3C.x;
     var_fs1 *= arg0->unk2B0;

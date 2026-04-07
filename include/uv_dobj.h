@@ -7,7 +7,7 @@
 #include <uv_sched.h>
 
 enum Models {
-    MODEL_HOLIDAY_ISLAND_FULL_MAP                           = 0x000, // 0xe5138
+    MODEL_HOLIDAY_ISLAND_LOW_POLY                           = 0x000, // 0xe5138
     MODEL_WHITE_SAIL_BOAT_WITH_RED_LOGO                     = 0x001,
     MODEL_BLUE_CUBOID                                       = 0x002,
     MODEL_YELLOW_SPEED_BOAT                                 = 0x003,
@@ -47,7 +47,7 @@ enum Models {
     MODEL_THEMEPARK_ENTRANCE_ARCH                           = 0x025, // Entrance arch building with N64 logo flags
     MODEL_DOUBLE_WATER_FOUNTAIN                             = 0x026,
     MODEL_BIG_WHITE_RED_PLANE                               = 0x027,
-    MODEL_LOW_POLY_INTRO_CRESCENT_ISLAND                    = 0x028, // 0xe5138 Also full poly in game? LOD?
+    MODEL_CRESCENT_ISLAND_LOW_POLY                          = 0x028, // 0xe5138 Also full poly in game? LOD?
     MODEL_RED_WHITE_BLUE_YACHT                              = 0x029, // Red/White/Blue yacht/boat
     MODEL_WHITE_YELLOW_SAILBOAT                             = 0x02A,
     MODEL_ROCK_ARCH                                         = 0x02B,
@@ -88,7 +88,7 @@ enum Models {
     MODEL_CAVE_PILLARS                                      = 0x04E, // Cave pillars
     MODEL_CAVE_PILLAR_SINGLE                                = 0x04F, // Cave pillar
     MODEL_CAVE_LIGHT_FITTING                                = 0x050, // Cave light fitting
-    MODEL_LITTLE_STATES_FULL_MAP                            = 0x051, // 0x1114fc
+    MODEL_LITTLE_STATES_LOW_POLY                            = 0x051, // 0x1114fc
     MODEL_BIG_CRUISE_SHIP                                   = 0x052,
     MODEL_WIND_TURBINE                                      = 0x053,
     MODEL_PUMP_JACK                                         = 0x054,
@@ -172,7 +172,7 @@ enum Models {
     MODEL_0A2                                               = 0x0A2,
     MODEL_0A3                                               = 0x0A3,
     MODEL_0A4                                               = 0x0A4,
-    MODEL_EVER_FROST_ISLAND_FULL_MAP                        = 0x0A5, // 0x149084
+    MODEL_EVER_FROST_ISLAND_LOW_POLY                        = 0x0A5, // 0x149084
     MODEL_OIL_SPRAY                                         = 0x0A6, // Oil fountain spray
     MODEL_SKI_LIFT_CHAIR                                    = 0x0A7,
     MODEL_ICEBERG_1                                         = 0x0A8, // Iceberg
@@ -373,6 +373,16 @@ enum Models {
 
     MODEL_WORLD                                             = 0xFFFF // used to indicate a model that's not bound to a level? (Possibly used to make a model dissappear without freeing it?)
 };
+
+#define MODEL_IS_TREE(id) (((id) == MODEL_PALM_TREE) || \
+                           ((id) == MODEL_TREE_LS_1) || \
+                           ((id) == MODEL_TREE_LS_2) || \
+                           ((id) == MODEL_TREE_LS_3) || \
+                           ((id) == MODEL_TREE_LS_4) || \
+                           ((id) == MODEL_TREE_LS_5) || \
+                           ((id) == MODEL_TREE) || \
+                           ((id) == MODEL_TREE_SMALL) || \
+                           ((id) == MODEL_TREE_TALL))
 
 typedef struct {
     u16 modelId;

@@ -22,15 +22,15 @@ STATIC_FUNC void sdsound_80333F68(SkyDivingData*);
 
 void sdSoundInit(SkyDivingData* arg0) {
     arg0->unk248 = 0.0f;
-    D_80371CB8.unk0 = 4;
-    D_80371CB8.unk4 = 0 /*.0f*/;
-    D_80371CB8.unk8 = 0.0f;
-    D_80371CB8.unkC = 0.01f;
-    D_80371CB8.unk10 = 0.4f;
-    D_80371CB8.unk14 = 9.0f;
-    D_80371CB8.unk18 = 0.8f;
-    D_80371CB8.unk1C = 10.0f;
-    D_80371CB8.unk20 = 1.0f;
+    D_80371CB8.count = 4;
+    D_80371CB8.unk4[0].x = 0 /*.0f*/;
+    D_80371CB8.unk4[0].y = 0.0f;
+    D_80371CB8.unk4[1].x = 0.01f;
+    D_80371CB8.unk4[1].y = 0.4f;
+    D_80371CB8.unk4[2].x = 9.0f;
+    D_80371CB8.unk4[2].y = 0.8f;
+    D_80371CB8.unk4[3].x = 10.0f;
+    D_80371CB8.unk4[3].y = 1.0f;
     arg0->unk244 = sndMakeDev(0x13);
     arg0->unk245 = sndMakeDev(0x13);
     D_80371CB0.cb = sdSoundCallback;
@@ -164,10 +164,11 @@ STATIC_FUNC void sdsound_80333DF0(SkyDivingData* arg0) {
 }
 
 STATIC_FUNC void sdsound_80333F68(SkyDivingData* arg0) {
-    f32 temp_fs0;
-    s32 temp_v0_4;
-    Unk80362690_Unk0* sp44;
     s32 i;
+    f32 temp_fs0;
+    Unk80362690_Unk0* sp44;
+    s32 modelId;
+    s32 objId;
 
     sp44 = &D_80362690->unkC[D_80362690->unk9C];
     if (D_8034F850 < arg0->unk248) {
@@ -206,14 +207,13 @@ STATIC_FUNC void sdsound_80333F68(SkyDivingData* arg0) {
             }
             break;
         case 8:
-            temp_v0_4 = uvSobjGetPt(D_80362690->terraId, arg0->unk7C[i].x, arg0->unk7C[i].y, arg0->unk7C[i].z);
-            if (temp_v0_4 == -1) {
+            objId = uvSobjGetPt(D_80362690->terraId, arg0->unk7C[i].x, arg0->unk7C[i].y, arg0->unk7C[i].z);
+            if (objId == -1) {
                 break;
             }
 
-            temp_v0_4 = uvSobj_8022D1E4(temp_v0_4);
-            if (temp_v0_4 == 0x18 || temp_v0_4 == 0x5C || temp_v0_4 == 0x5D || temp_v0_4 == 0x5E || temp_v0_4 == 0x5F || temp_v0_4 == 0x60 ||
-                temp_v0_4 == 0x22 || temp_v0_4 == 0x23 || temp_v0_4 == 0x24) {
+            modelId = uvSobj_8022D1E4(objId);
+            if (MODEL_IS_TREE(modelId)) {
                 func_8033F758(0x39, temp_fs0, 1.0f, 0.0f);
             } else if (arg0->unk71 != 0) {
                 func_8033F758(0x18, temp_fs0, 1.0f, 0.0f);

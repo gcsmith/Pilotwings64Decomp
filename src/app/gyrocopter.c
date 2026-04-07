@@ -69,62 +69,46 @@ void func_80303230(GyrocopterData* arg0) {
     D_80369070.unk4[1].unk28.x = arg0->unk59C.x;
     D_80369070.unk4[1].unk28.y = arg0->unk59C.y + (0.5f * arg0->unk594);
     D_80369070.unk4[1].unk28.z = arg0->unk59C.z;
-    D_803692C0.unk0 = 5;
-    D_803692C0.unk4 = 0.0f;
-    D_803692C0.unk8 = 0.f;
-    D_803692C0.unkC = 10.0f;
-    D_803692C0.unk10 = 0.15f;
-    D_803692C0.unk14 = 20.0f;
-    D_803692C0.unk18 = 0.4f;
-    D_803692C0.unk1C = 50.0f;
-    D_803692C0.unk20 = 1.2f;
-    D_803692C0.unk24 = 100.0f;
-    D_803692C0.unk28 = 1.5f;
-    D_80369370.unk0 = 2;
-    D_80369370.unk4 = 0.0f;
-    D_80369370.unk8 = -0.5f;
-    D_80369370.unkC = 5.0f;
-    D_80369370.unk10 = 1.00f;
-    D_803694D0.unk0 = 3;
-    D_803694D0.unk4 = 0.0f;
-    D_803694D0.unk8 = 0.001f;
-    D_803694D0.unkC = 0.5f;
-    D_803694D0.unk10 = 0.002f;
-    D_803694D0.unk14 = 1.f;
-    D_803694D0.unk18 = 0.005f;
-    D_80369318.unk0 = 5;
-    D_80369318.unk4 = 0.0f;
-    D_80369318.unk8 = 0.f;
-    D_80369318.unkC = 5.0f;
-    D_80369318.unk14 = 10.0f;
-    D_80369318.unk1C = 20.0f;
-    D_80369318.unk18 = 0.4f;
-    D_80369318.unk10 = 0.250f;
-    D_80369318.unk20 = 0.20f;
-    D_80369318.unk24 = 50.0f;
-    D_80369318.unk28 = 0.1f;
-    D_80369478.unk0 = 6;
-    D_80369478.unk4 = 0.f;
-    D_80369478.unk8 = 0.00f;
-    D_80369478.unkC = 0.25f;
-    D_80369478.unk10 = 0.18f;
-    D_80369478.unk14 = 0.50f;
-    D_80369478.unk18 = 0.40f;
-    D_80369478.unk1C = 1.00f;
-    D_80369478.unk20 = 1.000f;
-    D_80369478.unk24 = 2.0f;
-    D_80369478.unk28 = 2.0f;
-    D_80369478.unk2C = 10.00f, D_80369478.unk30 = 10.00f;
-    D_803693C8.unk0 = 2;
-    D_803693C8.unkC = 1.00f;
-    D_803693C8.unk8 = 1.000f;
-    D_803693C8.unk10 = 1.000f;
-    D_803693C8.unk4 = 0.f;
-    D_80369420.unk0 = 2;
-    D_80369420.unkC = 1.00f;
-    D_80369420.unk8 = 1.000f;
-    D_80369420.unk4 = 0.f;
-    D_80369420.unk10 = 0.000f;
+
+    D_803692C0.count = 5;
+    D_803692C0.unk4[0].x = 0.0f, D_803692C0.unk4[0].y = 0.f;
+    D_803692C0.unk4[1].x = 10.0f, D_803692C0.unk4[1].y = 0.15f;
+    D_803692C0.unk4[2].x = 20.0f, D_803692C0.unk4[2].y = 0.4f;
+    D_803692C0.unk4[3].x = 50.0f, D_803692C0.unk4[3].y = 1.2f;
+    D_803692C0.unk4[4].x = 100.0f, D_803692C0.unk4[4].y = 1.5f;
+
+    D_80369370.count = 2;
+    D_80369370.unk4[0].x = 0.0f, D_80369370.unk4[0].y = -0.5f;
+    D_80369370.unk4[1].x = 5.0f, D_80369370.unk4[1].y = 1.00f;
+
+    D_803694D0.count = 3;
+    D_803694D0.unk4[0].x = 0.0f, D_803694D0.unk4[0].y = 0.001f;
+    D_803694D0.unk4[1].x = 0.5f, D_803694D0.unk4[1].y = 0.002f;
+    D_803694D0.unk4[2].x = 1.f, D_803694D0.unk4[2].y = 0.005f;
+
+    D_80369318.count = 5;
+    D_80369318.unk4[0].x = 0.0f, D_80369318.unk4[0].y = 0.f;
+    D_80369318.unk4[1].x = 5.0f, D_80369318.unk4[1].y = 0.250f;
+    D_80369318.unk4[2].x = 10.0f, D_80369318.unk4[2].y = 0.4f;
+    D_80369318.unk4[3].x = 20.0f, D_80369318.unk4[3].y = 0.20f;
+    D_80369318.unk4[4].x = 50.0f, D_80369318.unk4[4].y = 0.1f;
+
+    D_80369478.count = 6;
+    D_80369478.unk4[0].x = 0.f, D_80369478.unk4[0].y = 0.00f;
+    D_80369478.unk4[1].x = 0.25f, D_80369478.unk4[1].y = 0.18f;
+    D_80369478.unk4[2].x = 0.50f, D_80369478.unk4[2].y = 0.40f;
+    D_80369478.unk4[3].x = 1.00f, D_80369478.unk4[3].y = 1.000f;
+    D_80369478.unk4[4].x = 2.0f, D_80369478.unk4[4].y = 2.0f;
+    D_80369478.unk4[5].x = 10.00f, D_80369478.unk4[5].y = 10.00f;
+
+    D_803693C8.count = 2;
+    D_803693C8.unk4[0].x = 0.f, D_803693C8.unk4[0].y = 1.000f;
+    D_803693C8.unk4[1].x = 1.00f, D_803693C8.unk4[1].y = 1.000f;
+
+    D_80369420.count = 2;
+    D_80369420.unk4[0].x = 0.f, D_80369420.unk4[0].y = 1.000f;
+    D_80369420.unk4[1].x = 1.00f, D_80369420.unk4[1].y = 0.000f;
+
     arg0->unk3B0[0].unk40 = 0.2f;
     arg0->unk3B0[1].unk40 = 0.2f;
     arg0->unk3B0[2].unk40 = 0.2f;
@@ -133,13 +117,11 @@ void func_80303230(GyrocopterData* arg0) {
     arg0->unk3B0[1].unk44 = 0.0f;
     arg0->unk3B0[2].unk44 = 0.0f;
     arg0->unk3B0[3].unk44 = 0.0f;
-    D_80369528.unk0 = 3;
-    D_80369528.unk4 = 0.f;
-    D_80369528.unk8 = 0.0f;
-    D_80369528.unkC = 2661.2188f;
-    D_80369528.unk10 = 4.2f;
-    D_80369528.unk14 = 6944.389f;
-    D_80369528.unk18 = 7.5599995f;
+
+    D_80369528.count = 3;
+    D_80369528.unk4[0].x = 0.f, D_80369528.unk4[0].y = 0.0f;
+    D_80369528.unk4[1].x = 2661.2188f, D_80369528.unk4[1].y = 4.2f;
+    D_80369528.unk4[2].x = 6944.389f, D_80369528.unk4[2].y = 7.5599995f;
 
     temp_fv1 = arg0->unk5EC[0].x - arg0->unk5EC[2].x;
     temp_fa0 = arg0->unk5EC[1].y - arg0->unk5EC[2].y;
@@ -1581,7 +1563,7 @@ void func_80308478(GyrocopterData* arg0) {
     f32 temp_fv0;
 
     if (arg0->unkC0 == 0) {
-        func_802E1754(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2], &sp38);
+        env_802E1754(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2], &sp38);
         uvMat4LocalToWorld(&arg0->unk110, &sp44, &sp38);
         if ((uvVec3Len(&sp38) == 0.0f) && (arg0->unkB4 == 0.5) && (ABS_NOEQ(arg0->unk1FC) < 0.001f) && (ABS_NOEQ(arg0->unk200) < 0.001f) &&
             (ABS_NOEQ(arg0->unk1F0) < 0.001f) && (ABS_NOEQ(arg0->unk1F4) < 0.001f) && (arg0->unkA0 == 0.0f) && (arg0->unk9C == 0.0f) && (arg0->fuel > 0.0f)) {
@@ -1652,7 +1634,7 @@ void func_8030877C(GyrocopterData* arg0) {
     for (i = 0; i < sp247; i++) {
         func_802DBE64(&D_80369070, &D_80369178, i, &arg0->unk110);
         temp_s3 = &D_80369178.unk4[i];
-        if ((temp_s3->unk4 == 2) && (targets_8034473C(temp_s3->surfaceId, 1) == 0.0f)) {
+        if ((temp_s3->collisionType == 2) && (targets_8034473C(temp_s3->surfaceId, 1) == 0.0f)) {
             return;
         }
         if (temp_s3->unk0 == 0) {
@@ -1669,7 +1651,7 @@ void func_8030877C(GyrocopterData* arg0) {
             func_802DB224(&spF0, 0xFF, arg0->objId, arg0->unk2, &sp2A8, &sp29C);
             if (spF0.unk0 > 0) {
                 for (j = 0; j < spF0.unk0; j++) {
-                    if (spF0.unk4[j].unk4 == 2) {
+                    if (spF0.unk4[j].collisionType == 2) {
                         var_s0++;
                     }
                 }
@@ -1689,7 +1671,7 @@ void func_8030877C(GyrocopterData* arg0) {
 
     for (i = 0; i < sp247; i++) {
         temp_s3 = &D_80369178.unk4[i];
-        if ((temp_s3->unk4 != 2) || ((temp_s3->unk4 == 2) && !ballsObjIdExists(temp_s3->surfaceId))) {
+        if ((temp_s3->collisionType != 2) || ((temp_s3->collisionType == 2) && !ballsObjIdExists(temp_s3->surfaceId))) {
             func_802DC814(&D_80369178.unk4[i], (Vec3F*)arg0->unk10.m[3]);
         }
         uvVec3Copy(&sp2E4[i], &temp_s3->unk28);
@@ -1697,11 +1679,11 @@ void func_8030877C(GyrocopterData* arg0) {
         temp_fv0 = uvVec3Dot(&arg0->unk190, &sp2C0[i]);
         if (arg0->unk564[arg0->unk544] < temp_fv0) {
             uvVec3Copy(&arg0->unk54C[arg0->unk544], &temp_s3->unkC);
-            arg0->unk545[arg0->unk544] = temp_s3->unk4;
+            arg0->unk545[arg0->unk544] = temp_s3->collisionType;
             arg0->unk564[arg0->unk544] = temp_fv0;
         }
 
-        switch (temp_s3->unk4) {
+        switch (temp_s3->collisionType) {
         case 2:
             sp240 = ballsPopped(temp_s3->surfaceId, &arg0->unk19C, &D_80369178);
             if (sp240 == 0.0f) {
@@ -1774,10 +1756,10 @@ void func_8030877C(GyrocopterData* arg0) {
                     }
                     arg0->unkC0 = 2;
                 } else if (arg0->unkC0 != 2) {
-                    arg0->unkC1 = temp_s3->unk4;
+                    arg0->unkC1 = temp_s3->collisionType;
                 }
             } else if (arg0->unkC0 != 2) {
-                arg0->unkC1 = temp_s3->unk4;
+                arg0->unkC1 = temp_s3->collisionType;
             }
         }
     }

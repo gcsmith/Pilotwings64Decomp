@@ -241,4 +241,8 @@ void func_80303230(GyrocopterData*);
 void func_80303714(GyrocopterData*);
 void func_8030399C(GyrocopterData*);
 
+// gyrocopter_sound
+void func_8030A140(GyrocopterData*);
+void func_8030B240(Mtx4F*);
+
 #endif // APP_GYROCOPTER_H

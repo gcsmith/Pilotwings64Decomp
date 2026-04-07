@@ -45,7 +45,7 @@ void levelLoad(u8 map, u8 pilot, u8 vehicle, s32 animateToys) {
     gLevelCurMap = map;
     uvLevelInit();
     textLoadBlock(0x42);
-    env_loadtpal(D_80362690->envId);
+    envLoadTerrainPal(D_80362690->envId);
     uvLevelAppend(map);
     switch (map) {
     case MAP_HOLIDAY_ISLAND:
@@ -77,7 +77,7 @@ void levelLoad(u8 map, u8 pilot, u8 vehicle, s32 animateToys) {
     uvLevelAppend(0xC);
     uvLevelAppend(0xD);
     uvLevelAppend(0x2E);
-    func_802E1444(D_80362690->envId);
+    env_802E1444(D_80362690->envId);
     if (animateToys != 0) {
         level_8030B868();
     }

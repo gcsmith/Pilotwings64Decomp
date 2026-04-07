@@ -231,7 +231,7 @@ void func_8032C540(Unk80362690* arg0) {
         }
         uvGfxEnd();
         func_80313D74();
-        func_802E15F0();
+        env_802E15F0();
         windObjFrameUpdate();
         var_fs3 += D_8034F854;
     }
@@ -322,7 +322,7 @@ void func_8032CC44(Unk80362690* arg0) {
     }
     uvLevelAppend(0xB);
     uvLevelAppend(0x87);
-    func_8030FE80(arg0, 1);
+    map3dMain(arg0, 1);
     func_8032D51C(0);
     uvLevelInit();
     levelLoad(arg0->map, sp2C->pilot, sp2C->veh, 1);

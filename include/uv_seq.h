@@ -12,6 +12,7 @@
 
 void func_80218BA0(void);
 void func_80218CA4(void);
+void uvaSeqNew(s32);
 void uvSeqModel(s32, s32);
 void uvSeqProps(s32, ...);
 s32 func_80218F88(void);

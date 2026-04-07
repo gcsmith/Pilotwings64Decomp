@@ -3,6 +3,7 @@
 
 #include <PR/ultratypes.h>
 #include <uv_matrix.h>
+#include <uv_vector.h>
 
 // Relationships between Class, Vehicle, Test, Target, Time-of-Day and the in-game values
 // Vehicle: main and bonus vehicles
@@ -293,23 +294,8 @@ typedef struct {
 } TaskTPAD; // size = 0x30
 
 typedef struct {
-    s32 unk0;
-    f32 unk4;
-    f32 unk8;
-    f32 unkC;
-    f32 unk10;
-    f32 unk14;
-    f32 unk18;
-    f32 unk1C;
-    f32 unk20;
-    f32 unk24;
-    f32 unk28;
-    f32 unk2C;
-    f32 unk30;
-    f32 unk34;
-    f32 unk38;
-    f32 unk3C;
-    f32 unk40;
+    s32 count;
+    Vec2F unk4[8]; // how large is this?
     s32 pad44;
     s32 pad48;
     s32 pad4C;
@@ -336,6 +322,19 @@ typedef struct {
 } Unk80345C80;
 
 typedef struct {
+    Vec3F unk0;
+    f32 unkC;
+    f32 unk10;
+    f32 unk14;
+    f32 unk18;
+} TaskObjects_Unk10;
+
+typedef struct {
+    Vec3F unk0;
+    Vec3F unkC;
+} TaskObjUnk2C;
+
+typedef struct {
     struct {
         u8 classNum;
         u8 vehNum;
@@ -345,10 +344,8 @@ typedef struct {
         u8 unk5[0x3];
         u8 unk8[4];
         u8 unkC[4];
-        s32 unk10;
-        u8 unk14[0x18];
-        s32 unk2C;
-        u8 unk30[0x14];
+        TaskObjects_Unk10 unk10;
+        TaskObjUnk2C unk2C;
         f32 unk44;
         Unk80345C80 unk48;
         u8 unk40C[8];
@@ -390,6 +387,8 @@ typedef struct {
     TaskOBSV* dataOBSV;
 } TaskObjects;
 
+extern u8 D_803507A0; // flag used in map3d for rings and targets
+
 void taskInit(void);
 s32 taskIsValidIndex(s32 classIdx, s32 testIdx, s32 vehicle);
 s32 taskLoadNames(s32 classIdx, s32 testIdx, s32 vehicle, char*, char*);
@@ -403,7 +402,7 @@ s32 task_803456D8(Mtx4F*);
 void taskUpdateState(void);
 s32 taskGetTHER(TaskTHER** data);
 s32 taskGetLWIN(TaskLWIN** data);
-s32* taskGet_80345AEC(void);
+TaskObjects_Unk10* taskGet_80345AEC(void);
 s32 taskGetTPAD(TaskTPAD** data);
 s32 taskGetCNTG(TaskCNTG** data);
 s32 taskGetOBSV(TaskOBSV** data);
@@ -417,7 +416,7 @@ s32 taskGetBTGT(TaskBTGT** data);
 s32 taskGetPHTS(TaskPHTS** data);
 s32 taskGetFALC(TaskFALC** data);
 Unk80345C80* taskGet_80345C80(void);
-s32* taskGet_80345C90(void);
+TaskObjUnk2C* taskGet_80345C90(void);
 f32 taskGet_80345CA0(void);
 u8* taskGet_80345CB0(void);
 void taskGet_80345CC0(f32*, f32*);

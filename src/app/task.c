@@ -277,7 +277,7 @@ s32 taskInitTest(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* terraId,
     D_8035079C = 1;
     D_803507A0 = 0;
     D_80362690->unkC[D_80362690->unk9C].unk8 = 0;
-    *envId = func_802E12B4();
+    *envId = envGetCurrentId();
     return 1;
 }
 
@@ -343,7 +343,7 @@ s32 taskFrameUpdate(Mtx4F* arg0, f32 arg1) {
     sp18 = 0;
     therm_8034695C();
     wind_8034D548();
-    func_802E15F0();
+    env_802E15F0();
     ballsFrameUpdate();
     falcoFrameUpdate();
     padsFrameUpdate(arg0);
@@ -501,7 +501,7 @@ s32 taskGetLWIN(TaskLWIN** data) {
     return D_8035078C->comm.countLWIN;
 }
 
-s32* taskGet_80345AEC(void) {
+TaskObjects_Unk10* taskGet_80345AEC(void) {
     return &D_8035078C->comm.unk10;
 }
 
@@ -571,7 +571,7 @@ Unk80345C80* taskGet_80345C80(void) {
     return &D_8035078C->comm.unk48;
 }
 
-s32* taskGet_80345C90(void) {
+TaskObjUnk2C* taskGet_80345C90(void) {
     return &D_8035078C->comm.unk2C;
 }
 

@@ -141,28 +141,28 @@ s32 func_8032B560(Unk80364210* arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
     if (temp_v1) { }
     temp_v1->unk4 = 0;
     sp64 = 0.0f;
-    if ((arg0->unk0 & 2) && (sp74->unk0.unk0 > 0)) {
+    if ((arg0->unk0 & 2) && (sp74->unk0.count > 0)) {
         sp64 = func_80313F08(&sp74->unk0, arg0->unk8);
         temp_v1->unk4 = sp64 + 0.001f;
     }
     temp_v1->unk2 = 0;
     sp60 = 0.0f;
     if (arg0->unk0 & 1) {
-        if (sp74->unk0.unk0 > 0) {
+        if (sp74->unk0.count > 0) {
             sp60 = func_80313F08(&sp74->unk0, arg0->landedDist);
         }
         temp_v1->unk2 = sp60 + 0.001f;
     }
     temp_v1->unk6 = 0;
-    if ((arg0->unk0 & 4) && sp74->unk150.unk0 > 0) {
+    if ((arg0->unk0 & 4) && sp74->unk150.count > 0) {
         temp_v1->unk6 = func_80313F08(&sp74->unk150, arg0->unk10) + 0.001f;
     }
     temp_v1->unk8 = 0;
-    if ((arg0->unk0 & 8) && sp74->unk54.unk0 > 0) {
+    if ((arg0->unk0 & 8) && sp74->unk54.count > 0) {
         temp_v1->unk8 = func_80313F08(&sp74->unk54, arg0->unk14) + 0.001f;
     }
     temp_v1->unkA = 0;
-    if ((arg0->unk0 & 0x10) && sp74->unkA8.unk0 > 0) {
+    if ((arg0->unk0 & 0x10) && sp74->unkA8.count > 0) {
         temp_v1->unkA = func_80313F08(&sp74->unkA8, arg0->unk18) + 0.001f;
     }
     temp_v1->unkE = 0;
@@ -178,7 +178,7 @@ s32 func_8032B560(Unk80364210* arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
         temp_v1->unk16 = ballsGetPoints();
     }
     temp_v1->unkC = 0;
-    if ((arg0->unk0 & 0x800) && sp74->unkFC.unk0 > 0) {
+    if ((arg0->unk0 & 0x800) && sp74->unkFC.count > 0) {
         temp_v1->unkC = func_80313F08(&sp74->unkFC, arg0->unk1C);
     }
     temp_v1->unk12 = 0;
