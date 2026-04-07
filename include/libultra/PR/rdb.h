@@ -80,8 +80,14 @@
 
 /* Structure for debug port */
 typedef struct {
+#if BUILD_VERSION > VERSION_D
 	unsigned type : 6;	/* 0: invalid, 1: print, 2: debug */
 	unsigned length : 2;	/* 1, 2, or 3 */
+#else
+	unsigned type : 2;	/* 0: invalid, 1: print, 2: debug */
+    unsigned padding : 4;
+	unsigned length : 2;	/* 1, 2, or 3 */
+#endif
 	char buf[3];		/* character buffer */
 } rdbPacket;
 
