@@ -444,7 +444,7 @@ segments:
       - [0xAC1A0, c, app/code_AC1A0]
       - [0xAE460, c, app/code_AE460]
       - [0xAF950, c, app/rocket_belt]
-      - [0xB1B30, c, app/rpsound]
+      - [0xB1B30, c, app/rocket_belt_sound]
       - [0xB2900, c, app/code_B2900]
       - [0xB3A70, c, app/code_B3A70]
       - [0xB5280, c, app/results]
@@ -610,7 +610,7 @@ segments:
       - [0xDC4D0, .rodata, app/code_AC1A0]
       - [0xDC800, .rodata, app/code_AE460]
       - [0xDC8C0, .rodata, app/rocket_belt]
-      - [0xDC9F0, .rodata, app/rpsound]
+      - [0xDC9F0, .rodata, app/rocket_belt_sound]
       - [0xDCAF0, .rodata, app/code_B2900]
       - [0xDCB20, .rodata, app/code_B3A70]
       - [0xDCBE0, .rodata, app/results]
@@ -705,7 +705,7 @@ segments:
       - { type: bss, vram: 0x80371070, name: app/code_AC1A0 }
       - { type: bss, vram: 0x80371120, name: app/code_AE460 }
       - { type: bss, vram: 0x80371630, name: app/rocket_belt }
-      - { type: bss, vram: 0x80371890, name: app/rpsound }
+      - { type: .bss, vram: 0x80371890, name: app/rocket_belt_sound }
       - { type: .bss, vram: 0x803718F0, name: app/results }
       - { type: .bss, vram: 0x80371960, name: app/skydiving }
       - { type: .bss, vram: 0x80371B50, name: app/code_BA190 }

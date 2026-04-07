@@ -331,6 +331,14 @@ hudDrawRect         = 0x8031E69C; // type:func
 hudDrawPhotoCount   = 0x8031E9F8; // type:func
 hudDemoControllerEn = 0x8031EABC; // type:func
 
+rbSoundInit         = 0x8032A600; // type:func
+rbSoundEventHandler = 0x8032A760; // type:func
+rbSoundEvent12_22   = 0x8032AE6C; // type:func
+rbSoundEvent12_18   = 0x8032B038; // type:func
+rbSoundEvent19      = 0x8032B0D4; // type:func
+rbSoundSubEvent     = 0x8032B0E8; // type:func
+rbSoundEvent13      = 0x8032B2F0; // type:func
+
 skydivingInit       = 0x8032FAB0; // type:func
 skydivingLand       = 0x80331794; // type:func
 skydivingGetPoints  = 0x80331A78; // type:func
@@ -1018,6 +1026,9 @@ sLocalWinds               = 0x8037F518; // size:0x3F0
 sWindObjectsData          = 0x8037F910;
 sWindObjectsInLevel       = 0x8037F914;
 sWindObjects              = 0x8037F918;
+
+rbSoundEventCbInfo        = 0x80371890; // size:0x8
+rbSound_80371898          = 0x80371898; // size:0x54
 
 sShuttleAltitudeCopy      = 0x80371D90;
 sShuttleThrustCopy        = 0x80371D94;
