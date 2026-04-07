@@ -200,7 +200,7 @@ f32 hoverPadGetFuel(s32 hoverIdx) {
     }
 }
 
-s32 hoverPadGetLandedIdx(s32 objId, UNUSED s32 arg1) {
+s32 hoverPadGetLandedIdx(s32 objId, UNUSED f32 arg1) {
     HoverPad* hover;
     Unk80362690_Unk0* unkC;
     s32 i;
