@@ -402,7 +402,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
             } else {
                 switch (sp64) {
                 case 3:
-                    sndPlaySfx(0xF);
+                    sndPlaySfx(SFX_UI_TEST_START);
                     return gCurTestIdx;
                 case 0:
                     sndPlaySfx(0x73);

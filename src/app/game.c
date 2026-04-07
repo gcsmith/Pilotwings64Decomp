@@ -301,7 +301,7 @@ s32 gameUpdateStateResultsCB(Unk80362690* arg0) {
     gameState = resultHandler(1);
     func_802ECE94(arg0);
     if (gameState == GAME_STATE_TEST_SETUP) {
-        sndPlaySfx(0xF);
+        sndPlaySfx(SFX_UI_TEST_START);
     }
     return gameState;
 }
@@ -667,7 +667,7 @@ s32 gameUpdateStateResults(Unk80362690* arg0) {
     resultDeinit();
     func_802ECE94(arg0);
     if (var_v1 == GAME_STATE_TEST_SETUP) {
-        sndPlaySfx(0xF);
+        sndPlaySfx(SFX_UI_TEST_START);
     }
     return var_v1;
 }

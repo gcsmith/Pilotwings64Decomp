@@ -352,7 +352,8 @@ s32 rings_80323FFC(s32 ringIdx) {
     ring = &gRings[ringIdx];
     ring->consumedType = (ring->timeRemaining > 0.0f) ? 2 : 1;
     if (ring->ringSubtype != 2) {
-        sndPlaySfxVolPitchPan(0xF, 1.0f, (ring->scoreType * 0.05f) + 0.95f, 0.0f);
+        // change ring sfx pitch depending on scoreType
+        sndPlaySfxVolPitchPan(SFX_UI_TEST_START, 1.0f, (ring->scoreType * 0.05f) + 0.95f, 0.0f);
     }
 
     var_a0 = 0;
