@@ -157,6 +157,12 @@ LD_FLAGS_EXTRA  =
 endif
 
 ### Optimisation Overrides
+$(BUILD_DIR)/src/libultra/audio/auxbus.o: OPT_FLAGS := -O3
+$(BUILD_DIR)/src/libultra/audio/bnkf.o: OPT_FLAGS := -O3
+$(BUILD_DIR)/src/libultra/audio/event.o: OPT_FLAGS := -O3
+$(BUILD_DIR)/src/libultra/audio/load.o: OPT_FLAGS := -O3
+$(BUILD_DIR)/src/libultra/audio/save.o: OPT_FLAGS := -O3
+$(BUILD_DIR)/src/libultra/audio/sl.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/src/libultra/audio/seqpsetbank.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/src/libultra/audio/seqpsetseq.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/src/libultra/audio/seqpsettempo.o: OPT_FLAGS := -O3
@@ -164,6 +170,9 @@ $(BUILD_DIR)/src/libultra/audio/seqpsetvol.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/src/libultra/audio/sndpsetfxmix.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/src/libultra/audio/sndpsetpan.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/src/libultra/audio/sndpsetvol.o: OPT_FLAGS := -O3
+$(BUILD_DIR)/src/libultra/audio/synallocfx.o: OPT_FLAGS := -O3
+$(BUILD_DIR)/src/libultra/audio/synallocvoice.o: OPT_FLAGS := -O3
+$(BUILD_DIR)/src/libultra/audio/synfreevoice.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/src/libultra/io/%.o: OPT_FLAGS := -O1
 $(BUILD_DIR)/src/libultra/libc/ll.o: OPT_FLAGS := -O1 -g0
 $(BUILD_DIR)/src/libultra/libc/ll.o: MIPSISET := -mips3 -32
