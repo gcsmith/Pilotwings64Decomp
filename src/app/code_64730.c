@@ -98,27 +98,27 @@ s32 func_802DD200(Camera* camera, Unk80367868* arg1) {
     selectedPilot = arg1->unk4[D_8034EDC0].pilot;
     switch (selectedPilot) {
     case PILOT_LARK:
-        sndPlaySfx(0x61);
+        sndPlaySfx(SFX_PILOT_LARK_SELECT);
         selectedPilot = arg1->unk4[D_8034EDC0].pilot;
         break;
     case PILOT_GOOSE:
-        sndPlaySfx(0x63);
+        sndPlaySfx(SFX_PILOT_GOOSE_SELECT);
         selectedPilot = arg1->unk4[D_8034EDC0].pilot;
         break;
     case PILOT_HAWK:
-        sndPlaySfx(0x65);
+        sndPlaySfx(SFX_PILOT_HAWK_SELECT);
         selectedPilot = arg1->unk4[D_8034EDC0].pilot;
         break;
     case PILOT_KIWI:
-        sndPlaySfx(0x62);
+        sndPlaySfx(SFX_PILOT_KIWI_SELECT);
         selectedPilot = arg1->unk4[D_8034EDC0].pilot;
         break;
     case PILOT_IBIS:
-        sndPlaySfx(0x64);
+        sndPlaySfx(SFX_PILOT_IBIS_SELECT);
         selectedPilot = arg1->unk4[D_8034EDC0].pilot;
         break;
     case PILOT_ROBIN:
-        sndPlaySfx(0x66);
+        sndPlaySfx(SFX_PILOT_ROBIN_SELECT);
         selectedPilot = arg1->unk4[D_8034EDC0].pilot;
         break;
     }
@@ -241,7 +241,7 @@ STATIC_FUNC s32 func_802DD8E8(Camera* arg0, Unk80367868* arg1, s32 arg2) {
         if (D_8034EDC4 != 0) {
             D_8034EDC4 = 0;
         } else {
-            sndPlaySfx(0x74U);
+            sndPlaySfx(SFX_UI_SELECT_MOVE);
         }
         D_8034EDC0 = (*D_8034EDA4 * 2) + D_8034EDA0;
         sp100 = &arg1->unk4[D_8034EDC0];
@@ -389,7 +389,7 @@ STATIC_FUNC s32 func_802DD8E8(Camera* arg0, Unk80367868* arg1, s32 arg2) {
     }
     if (arg2 != 0) {
         if (demoButtonPress(D_80362690->unk9C, B_BUTTON) != 0) {
-            sndPlaySfx(1U);
+            sndPlaySfx(SFX_UI_CANCEL);
             return 8;
         }
         if (demoButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON) != 0) {

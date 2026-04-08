@@ -489,6 +489,7 @@ snapDeinit          = 0x803383FC; // type:func
 snapGetPhotoCount   = 0x8033F618; // type:func
 
 sndInit             = 0x8033F640; // type:func
+sndPlaySfxVolPitchPan = 0x8033F758; // type:func
 sndPlaySfx          = 0x8033F7F8; // type:func
 sndMakeDev          = 0x8033F860; // type:func
 sndEvent            = 0x8033FB44; // type:func

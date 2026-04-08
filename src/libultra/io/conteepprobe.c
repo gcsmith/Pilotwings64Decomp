@@ -1,3 +1,19 @@
-#include "common.h"
+#include "PRinternal/controller.h"
+#include "PRinternal/siint.h"
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/io/conteepprobe/osEepromProbe.s")
+s32 osEepromProbe(OSMesgQueue* mq) {
+    s32 ret;
+    OSContStatus sdata;
+
+    ret = 0;
+    __osSiGetAccess();
+    ret = __osEepStatus(mq, &sdata);
+    if ((ret == 0) && (sdata.type & CONT_EEPROM)) {
+        ret = 1;
+    } else {
+        ret = 0;
+    }
+    __osSiRelAccess();
+    return ret;
+}
+

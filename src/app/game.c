@@ -301,7 +301,7 @@ s32 gameUpdateStateResultsCB(Unk80362690* arg0) {
     gameState = resultHandler(1);
     func_802ECE94(arg0);
     if (gameState == GAME_STATE_TEST_SETUP) {
-        sndPlaySfx(0xF);
+        sndPlaySfx(SFX_UI_TEST_START);
     }
     return gameState;
 }
@@ -667,7 +667,7 @@ s32 gameUpdateStateResults(Unk80362690* arg0) {
     resultDeinit();
     func_802ECE94(arg0);
     if (var_v1 == GAME_STATE_TEST_SETUP) {
-        sndPlaySfx(0xF);
+        sndPlaySfx(SFX_UI_TEST_START);
     }
     return var_v1;
 }
@@ -750,7 +750,7 @@ s32 gameUpdateStateTestUpdate(Unk80362690* arg0) {
     demoLogInput();
     uvEventPost(0xE, 0);
     if (arg0->unkA4 && ((demoGetRecMode() == 0) || ((sp50 = uvControllerButtonPress(arg0->unk9C, A_BUTTON | B_BUTTON | START_BUTTON)) != 0))) {
-        sndPlaySfx(1);
+        sndPlaySfx(SFX_UI_CANCEL);
         func_802EBBC8(arg0);
         func_8032D51C(0);
         if (D_8034F164 != 0) {

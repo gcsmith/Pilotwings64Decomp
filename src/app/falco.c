@@ -649,7 +649,7 @@ void falco_802E4AA8(Falco* falco) {
                 } else {
                     sp1C = 0x4F;
                 }
-                func_8033F758(sp1C, sp24, (uvRandF_LCG() * 0.2f) + 0.45f, sp28);
+                sndPlaySfxVolPitchPan(sp1C, sp24, (uvRandF_LCG() * 0.2f) + 0.45f, sp28);
                 break;
             }
         }
@@ -686,7 +686,7 @@ void falco_802E4E70(Falco* falco) {
         if (falco->unk244 >= 1.0f) {
             falco->unk244 = 1.0f;
             falco->unk23C = 10;
-            func_8033F758(0x46U, 1.0f, 1.0f, 0 /*.0f*/);
+            sndPlaySfxVolPitchPan(0x46U, 1.0f, 1.0f, 0 /*.0f*/);
             return;
         }
     case 10:
@@ -799,7 +799,7 @@ s32 falco_802E51E8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
                 curFalco->unk23C = 8;
                 curFalco->unkD0 = 2.1f;
                 splashAdd(&curFalco->unk1AC, 60.0f);
-                func_8033F758(0x44U, 1.0f, 1.0f, 0.0f);
+                sndPlaySfxVolPitchPan(0x44U, 1.0f, 1.0f, 0.0f);
                 hudText_8031D8E0(0x174, 1.5f, 8.0f);
                 if (curFalco->unk256 == 0) {
                     curFalco->unk16C.m[0][0] = -curFalco->unkB4.f[1];
@@ -821,7 +821,7 @@ s32 falco_802E51E8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
                 }
             } else {
                 temp_s1 = textGetDataByIdx(0x158); // "Shots to go:"
-                func_8033F758(0x3BU, 1.0f, (uvRandF_LCG() * 0.2) + 0.800000011920929, 0.0f);
+                sndPlaySfxVolPitchPan(0x3BU, 1.0f, (uvRandF_LCG() * 0.2) + 0.800000011920929, 0.0f);
                 hudText_8031D8E0(0x164, 1.5f, 8.0f); // "Hit"
                 textFmtIntAt(temp_s1, ((1.0f - curFalco->unkC4) / curFalco->unk250) + 0.5, 1, 0xE);
                 hudWarningText(0x158, 1.5f, 8.0f);
@@ -1041,7 +1041,7 @@ void falco_802E5BF8(Unk8035A920* falco, Falco* arg1) {
 
     falco->unk0 = uvDobjAllocIdx();
     if (falco->unk0 != 0xFFFF) {
-        func_8033F758(0x3DU, 1.0f, (uvRandF_LCG() * 0.2f) + 0.4f, 0.0f);
+        sndPlaySfxVolPitchPan(0x3DU, 1.0f, (uvRandF_LCG() * 0.2f) + 0.4f, 0.0f);
         falco->unk5D = arg1->unk256;
         if (falco->unk5D) {
             uvDobjModel(falco->unk0, 0x100);
@@ -1089,7 +1089,7 @@ void falco_802E5D78(Unk8035A920* falco) {
     func_802DB224(&sp30, 9U, 0xFFFFU, 0U, &sp174, (Vec3F*)falco->unk8.m[3]);
     if (sp30.unk0 != 0) {
         falco_802E5F90(falco);
-        func_8033F758(0x30U, 1.0f, 1.0f, 0.0f);
+        sndPlaySfxVolPitchPan(0x30U, 1.0f, 1.0f, 0.0f);
         return;
     }
     uvMat4RotateAxis(&falco->unk8, 2.0f * (D_8034F854 * 1.3f) * 3.1415927f, 'x');

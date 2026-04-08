@@ -366,7 +366,7 @@ void func_8032FEAC(SkyDivingData* arg0, s32 arg1, u8 arg2) {
             arg0->unk50->unk1B4 = func_80313AF4(26.5f - ((arg0->unk160.z - -7.0f) * 1.8f), arg0->unk50->unk1B4, 5.0f);
             uvMat4RotateAxis(&sp34, -arg0->unk5C, 'z');
             if (demoButtonPress(0, R_TRIG) != 0) {
-                func_8033F758(0x67, 0.3f, 0.65f, 0.0f);
+                sndPlaySfxVolPitchPan(0x67, 0.3f, 0.65f, 0.0f);
                 if (arg0->unk290 == 1.0f) {
                     arg0->unk290 = 0.5f;
                 } else {
@@ -518,7 +518,7 @@ void skydivingMovementFrame(SkyDivingData* arg0, u8 gameState) {
         func_8032F3DC(arg0);
         if ((arg0->unk70 == 1) && (arg0->unk270 != 0.0f)) {
             if (D_8037196C == 0) {
-                func_8033F758(0x5F, 0.5f, 0.25f, 0.0f);
+                sndPlaySfxVolPitchPan(0x5F, 0.5f, 0.25f, 0.0f);
                 D_8037196C = 1;
             }
         } else {
@@ -1052,19 +1052,19 @@ void func_80331FE4(SkyDivingData* arg0) {
             if ((D_8034F850 - arg0->unk260) < (0.3333f * arg0->unk258->unk40)) {
                 if (D_80371B40 == 3) {
                     D_80371B40--;
-                    func_8033F758(0x59, 0.8f, 1.0f, 0.0f);
+                    sndPlaySfxVolPitchPan(0x59, 0.8f, 1.0f, 0.0f);
                 }
                 sp2E = 9;
             } else if ((D_8034F850 - arg0->unk260) < (0.6667f * arg0->unk258->unk40)) {
                 if (D_80371B40 == 2) {
                     D_80371B40--;
-                    func_8033F758(0x59, 0.8f, 1.0f, 0.0f);
+                    sndPlaySfxVolPitchPan(0x59, 0.8f, 1.0f, 0.0f);
                 }
                 sp2E = 0x76;
             } else if ((D_8034F850 - arg0->unk260) < arg0->unk258->unk40) {
                 if (D_80371B40 == 1) {
                     D_80371B40--;
-                    func_8033F758(0x59, 0.8f, 1.0f, 0.0f);
+                    sndPlaySfxVolPitchPan(0x59, 0.8f, 1.0f, 0.0f);
                 }
                 sp2E = 0x10A;
             }
@@ -1078,7 +1078,7 @@ void func_80331FE4(SkyDivingData* arg0) {
                 arg0->unk2B4 = 12.566371f;
                 arg0->unk260 = -1.0f;
                 hudWarningText(6, 1.5f, 8.0f);
-                sndPlaySfx(0xF);
+                sndPlaySfx(SFX_UI_TEST_START);
             }
         } else {
             arg0->unk260 = -1.0f;

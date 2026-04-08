@@ -76,11 +76,11 @@ STATIC_FUNC void rbSoundEventHandler(s32 event, void* userData, s32 eventData) {
         sp48 = 0.0f;
         if ((rbData->unkEB != 0) && (hudGet_8031DA9C() == 0x17B) && (rbData->unk394 < D_8034F850)) {
             rbData->unk394 = D_8034F850 + 0.2f;
-            func_8033F758(0x6C, 0.8f, 0.707f, sp48);
+            sndPlaySfxVolPitchPan(0x6C, 0.8f, 0.707f, sp48);
         }
         if ((rbData->unkEC != 0) && (hudGet_8031DA9C() == 0x4A) && (rbData->unk398 < D_8034F850)) {
             rbData->unk398 = D_8034F850 + 0.2f;
-            func_8033F758(0x6C, 0.8f, 0.707f, sp48);
+            sndPlaySfxVolPitchPan(0x6C, 0.8f, 0.707f, sp48);
         }
 
         var_fa1 = ABS_NOEQ(rbData->unk244.y) * 0.03f;
@@ -196,7 +196,7 @@ STATIC_FUNC void rbSoundEvent12_22(RocketBeltData* rbData) {
             if ((rbData->unk384 & 0x10) == 0) {
                 rbData->unk384 |= 0x10;
                 sndGetPilot(&sp30, &sp2C);
-                func_8033F758(sp30, 1.0f, sp2C, 0.0f);
+                sndPlaySfxVolPitchPan(sp30, 1.0f, sp2C, 0.0f);
                 func_8033F748(0xB);
                 func_8033F964(0);
                 func_8033FCD0(sp34->veh);
@@ -254,24 +254,24 @@ STATIC_FUNC void rbSoundSubEvent(RocketBeltData* rbData) {
             break;
         case 2:
             if (rbData->unk91) {
-                func_8033F758(0x16, temp_fs0, 1.0f, 0.0f);
+                sndPlaySfxVolPitchPan(0x16, temp_fs0, 1.0f, 0.0f);
             }
             break;
         case 1:
             if (rbData->unk91) {
-                func_8033F758(0x17, temp_fs0, 1.0f, 0.0f);
+                sndPlaySfxVolPitchPan(0x17, temp_fs0, 1.0f, 0.0f);
             }
             break;
         case 8:
             if (rbData->unk91) {
-                func_8033F758(0x18, temp_fs0, 1.0f, 0.0f);
+                sndPlaySfxVolPitchPan(0x18, temp_fs0, 1.0f, 0.0f);
             }
             break;
         }
         if (rbData->unk97[i] == 1) {
-            func_8033F758(0xC, temp_fs0, 1.0f, 0.0f);
+            sndPlaySfxVolPitchPan(0xC, temp_fs0, 1.0f, 0.0f);
         } else {
-            func_8033F758(0x35, temp_fs0, 1.0f, 0.0f);
+            sndPlaySfxVolPitchPan(0x35, temp_fs0, 1.0f, 0.0f);
         }
     }
 }

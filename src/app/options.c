@@ -334,7 +334,7 @@ s32 optionsHandlerSound(void) {
     case 3:
         sVolumeSfx += optInc;
         if (optInc != 0) {
-            sndPlaySfx(0x6E);
+            sndPlaySfx(SFX_UI_CONFIRM);
         }
         if (sVolumeSfx < 0) {
             sVolumeSfx = 0;
@@ -347,7 +347,7 @@ s32 optionsHandlerSound(void) {
         return -1;
     case 4:
         if (sp24 == menuItem) {
-            sndPlaySfx(0x6E);
+            sndPlaySfx(SFX_UI_CONFIRM);
             func_8032D51C(0);
             return 0;
         }

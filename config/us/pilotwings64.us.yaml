@@ -269,31 +269,30 @@ segments:
       - [0x4A0F0, .data, kernel/graphics]
       - [0x4A200, .data, kernel/code_2FE40]
       - [0x4C200, .data, kernel/matrix]
-      - [0x4C210, data]
+      - [0x4C210, data] # unused?
       - [0x4C270, .data, kernel/rand]
       - [0x4C280, .data, kernel/debug]
-      - [0x4C730, data, libultra/audio/sl]
-      - [0x4C740, data, libultra/io/aisetnextbuf]
+      - [0x4C730, .data, libultra/audio/sl]
+      - [0x4C740, .data, libultra/io/aisetnextbuf]
       - [0x4C750, .data, libultra/sp/sprite]
       - [0x4C760, data, libultra/io/vimgr]
-      - [0x4C780, data]
+      - [0x4C780, .data, libultra/io/vitbl]
       - [0x4D040, .data, libultra/os/initialize]
-      - [0x4D050, data]
-      - [0x4D070, data]
+      - [0x4D050, .data, libultra/io/pimgr]
+      - [0x4D070, data, libultra/io/controller]
       - [0x4D080, .data, libultra/os/thread]
-      - [0x4D0A0, data]
-      - [0x4D0C0, data]
-      - [0x4D0F0, data]
-      - [0x4D120, data]
-      - [0x4D270, data]
-      - [0x4D2C0, data]
+      - [0x4D0A0, data, libultra/os/exceptasm]
+      - [0x4D0C0, .data, libultra/io/vi]
+      - [0x4D130, data, libultra/audio/drvrnew]
+      - [0x4D2C0, data, libultra/audio/env]
       - [0x4D400, .data, libultra/io/piacs]
       - [0x4D410, .data, libultra/os/timerintr]
       - [0x4D420, .data, libultra/io/siacs]
-      - [0x4D430, data]
+      - [0x4D430, data, libultra/debug/kdebugserver]
       - [0x4D440, .data, libultra/os/syncputchars]
       - [0x4D450, data, libultra/vimodes/vimodentsclan1]
       - [0x4D4A0, data, libultra/vimodes/vimodepallan1]
+
       - [0x4D500, .rodata, kernel/code_1050]
       - [0x4D540, .rodata, kernel/janim]
       - [0x4D5E0, .rodata, kernel/emitter]
@@ -342,7 +341,6 @@ segments:
       - [0x51370, rodata, fast3d]
       - [0x51B70, rodata, aspMain]
 
-
       - { type: .bss, vram: 0x80250E80, name: kernel/code_1050 }
       - { type: .bss, vram: 0x80250ED0, name: kernel/emitter }
       - { type: .bss, vram: 0x8025BF00, name: kernel/event }
@@ -369,13 +367,15 @@ segments:
       - { type: .bss, vram: 0x802C5FD0, name: kernel/sprite }
       - { type: .bss, vram: 0x802C8020, name: kernel/debug }
       - { type: .bss, vram: 0x802C8040, name: libultra/sp/sprite }
-      - { type: bss, vram: 0x802C8050, name: kernel_bss5 }
+      - { type: bss, vram: 0x802C8050, name: libultra/io/sptask }
+      - { type: bss, vram: 0x802C8090, name: libultra/io/vimgr }
       - { type: .bss, vram: 0x802C92A0, name: libultra/os/seteventmesg }
       - { type: .bss, vram: 0x802C9320, name: libultra/os/initialize }
-      - { type: bss, vram: 0x802C9330, name: kernel_bss6 }
+      - { type: .bss, vram: 0x802C9330, name: libultra/io/pimgr }
+      - { type: bss, vram: 0x802CA500, name: libultra/io/controller }
       - { type: .bss, vram: 0x802CA590, name: libultra/io/piacs }
       - { type: .bss, vram: 0x802CA5B0, name: libultra/os/timerintr }
-      - { type: bss, vram: 0x802CA5F0, name: libultra/io/conteepread }
+      - { type: .bss, vram: 0x802CA5F0, name: libultra/io/conteepread }
       - { type: .bss, vram: 0x802CA630, name: libultra/io/siacs }
       - { type: bss, vram: 0x802CA650, name: libultra/debug/kdebugserver }
       - { type: bss, vram: 0x802CA750, name: libultra/os/exceptasm }

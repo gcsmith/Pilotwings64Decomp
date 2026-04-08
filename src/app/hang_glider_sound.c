@@ -168,7 +168,7 @@ STATIC_FUNC void hgSoundEvent22(HangGliderData* hg) {
             if (!(hg->unk318 & 0x10)) {
                 hg->unk318 |= 0x10;
                 sndGetPilot(&sp30, &sp2C);
-                func_8033F758(sp30, 1.0f, sp2C, 0.0f);
+                sndPlaySfxVolPitchPan(sp30, 1.0f, sp2C, 0.0f);
                 func_8033F748(7);
                 func_8033F964(0);
                 func_8033FCD0(sp34->veh);
@@ -215,14 +215,14 @@ STATIC_FUNC void hgSoundEvent22Sub(HangGliderData* hg) {
             continue;
         case 1:
             if (hg->unk8D != 0) {
-                func_8033F758(0x17, temp_fs0, 1.0f, 0.0f);
+                sndPlaySfxVolPitchPan(0x17, temp_fs0, 1.0f, 0.0f);
             }
             break;
         default:
             break;
         case 2:
             if (hg->unk8D != 0) {
-                func_8033F758(0x16, temp_fs0, 1.0f, 0.0f);
+                sndPlaySfxVolPitchPan(0x16, temp_fs0, 1.0f, 0.0f);
             }
             break;
         case 8:
@@ -231,17 +231,17 @@ STATIC_FUNC void hgSoundEvent22Sub(HangGliderData* hg) {
             if (soid != -1) {
                 modelId = uvSobj_8022D1E4(soid);
                 if (MODEL_IS_TREE(modelId)) {
-                    func_8033F758(0x39, temp_fs0, 1.0f, 0.0f);
+                    sndPlaySfxVolPitchPan(0x39, temp_fs0, 1.0f, 0.0f);
                 } else if (hg->unk8D != 0) {
-                    func_8033F758(0x18, temp_fs0, 1.0f, 0.0f);
+                    sndPlaySfxVolPitchPan(0x18, temp_fs0, 1.0f, 0.0f);
                 }
             }
             break;
         }
         if (hg->unk95[i] == 3) {
-            func_8033F758(0xC, temp_fs0, 1.0f, 0.0f);
+            sndPlaySfxVolPitchPan(0xC, temp_fs0, 1.0f, 0.0f);
         } else {
-            func_8033F758(0x35, temp_fs0, 1.0f, 0.0f);
+            sndPlaySfxVolPitchPan(0x35, temp_fs0, 1.0f, 0.0f);
         }
     }
 }
