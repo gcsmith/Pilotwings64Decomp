@@ -4,7 +4,7 @@
 // Function Symbols
 // -----------------------------------------------------------------------------
 
-entrypoint          = 0x80200050; // type:func
+entrypoint          = 0x80200050; // type:func use_non_matching_label:False
 bootproc            = 0x8022E440; // type:func
 
 Thread_Audio        = 0x80203DD0; // type:func
@@ -329,7 +329,9 @@ uvVec3Add           = 0x80231900; // type:func
 uvVec3Mul           = 0x80231934; // type:func
 uvVec3Normal        = 0x80231960; // type:func
 
-mio0_decompress     = 0x80231A20; // type:func
+func_80231A10       = 0x80231A10; // type:func use_non_matching_label:False
+func_80231A1C       = 0x80231A1C; // type:func use_non_matching_label:False
+mio0_decompress     = 0x80231A20; // type:func use_non_matching_label:False
 
 uvDbg_80231AC0      = 0x80231AC0; // type:func
 uvDbg_80231C10      = 0x80231C10; // type:func
