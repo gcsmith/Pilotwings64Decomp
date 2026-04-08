@@ -513,9 +513,6 @@ void func_80329628(RocketBeltData* arg0) {
     arg0->unk204.z += arg0->unk314 * sp28.z;
 }
 
-#ifndef NON_MATCHING
-#pragma GLOBAL_ASM("asm/nonmatchings/app/rocket_belt/func_8032975C.s")
-#else
 void func_8032975C(RocketBeltData* arg0) {
     Vec3F sp2AC;
     Vec3F sp2A0;
@@ -608,8 +605,8 @@ void func_8032975C(RocketBeltData* arg0) {
             arg0->unk91 = 0;
             return;
         case 1:
-        case 2:
         case 8:
+        case 2:
             if (var_s1->collisionType == 2) {
                 sp274 = windObjIsLoadedId(var_s1->surfaceId);
                 if (sp274 == 0) {
@@ -843,7 +840,6 @@ void func_8032975C(RocketBeltData* arg0) {
         }
     }
 }
-#endif
 
 void func_8032A4A8(RocketBeltData* arg0) {
     f32 var_fs0;
