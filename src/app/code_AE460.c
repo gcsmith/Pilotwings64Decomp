@@ -55,11 +55,11 @@ void func_80327040(RocketBeltData* arg0, u8 gameState) {
     } else if (var_fv1 > 1.0f) {
         var_fv1 = 1.0f;
     }
-    uvModelGetPosm(arg0->unk2D4, arg0->unk2DE, &sp40);
+    uvModelGetPosm(arg0->modelId, arg0->unk2DE, &sp40);
     uvMat4RotateAxis(&sp40, arg0->unk360, 'x');
     uvMat4RotateAxis(&sp40, arg0->unk35C, 'z');
     uvDobjPosm(arg0->objId, arg0->unk2DE, &sp40);
-    if (arg0->unk2D4 == MODEL_RB_KIWI) {
+    if (arg0->modelId == MODEL_RB_KIWI) {
         var_ft4 = arg0->unk1DC.z / 10.0f;
         if (var_ft4 < -1.0f) {
             var_ft4 = -1.0f;
@@ -74,13 +74,13 @@ void func_80327040(RocketBeltData* arg0, u8 gameState) {
         }
         arg0->unk368 = func_80313AF4(((0.800000011920929 + (0.2 * uvRandF_RANLUX())) * var_ft4) + ((0.800000011920929 + (0.2 * uvRandF_RANLUX())) * var_fv1),
                                      arg0->unk368, 20.0f);
-        uvModelGetPosm(arg0->unk2D4, 0xE, &sp40);
+        uvModelGetPosm(arg0->modelId, 0xE, &sp40);
         uvMat4RotateAxis(&sp40, arg0->unk368, 'x');
         uvDobjPosm(arg0->objId, 0xE, &sp40);
 
         arg0->unk370 = func_80313AF4(((0.800000011920929 + (0.2 * uvRandF_RANLUX())) * var_ft4) + ((0.800000011920929 + (0.2 * uvRandF_RANLUX())) * var_fv1),
                                      arg0->unk370, 20.0f);
-        uvModelGetPosm(arg0->unk2D4, 0xD, &sp40);
+        uvModelGetPosm(arg0->modelId, 0xD, &sp40);
         uvMat4RotateAxis(&sp40, arg0->unk370, 'x');
         uvDobjPosm(arg0->objId, 0xD, &sp40);
     }
@@ -178,8 +178,8 @@ void func_80327614(RocketBeltData* arg0) {
 
         uvFxProps(arg0->unk338, 3, 0.0f, 0.0f, 0.0f, 0);
         uvFxProps(arg0->unk339, 3, 0.0f, 0.0f, 0.0f, 0);
-        uvModelGetPosm(arg0->unk2D4, arg0->unk2E0, &spD0);
-        uvModelGetPosm(arg0->unk2D4, arg0->unk2E1, &sp90);
+        uvModelGetPosm(arg0->modelId, arg0->unk2E0, &spD0);
+        uvModelGetPosm(arg0->modelId, arg0->unk2E1, &sp90);
         uvMat4Scale(&spD0, 1.0f, 1.0f, 0.0f);
         uvMat4Scale(&sp90, 1.0f, 1.0f, 0.0f);
         uvDobjPosm(arg0->objId, arg0->unk2E0, &spD0);
@@ -187,7 +187,7 @@ void func_80327614(RocketBeltData* arg0) {
         shadow_803343D8(0);
     }
     func_803277E0(arg0);
-    uvModelGetPosm(arg0->unk2D4, arg0->unk2DE, &sp50);
+    uvModelGetPosm(arg0->modelId, arg0->unk2DE, &sp50);
     uvMat4RotateAxis(&sp50, uvCosF(8.0f * D_8034F850), 'z');
     uvDobjPosm(arg0->objId, arg0->unk2DE, &sp50);
 }
@@ -197,26 +197,26 @@ void func_803277E0(RocketBeltData* arg0) {
     f32 var_fs0;
 
     var_fs0 = (0.4f * uvCosF(12.5f * D_8034F850)) * uvSinF(10.3f * D_8034F850);
-    uvModelGetPosm(arg0->unk2D4, arg0->unk2D9, &sp38);
+    uvModelGetPosm(arg0->modelId, arg0->unk2D9, &sp38);
     uvMat4RotateAxis(&sp38, var_fs0 + 0.2f, 'x');
     uvDobjPosm(arg0->objId, arg0->unk2D9, &sp38);
-    uvModelGetPosm(arg0->unk2D4, arg0->unk2D6, &sp38);
+    uvModelGetPosm(arg0->modelId, arg0->unk2D6, &sp38);
     uvMat4RotateAxis(&sp38, 0.2f - var_fs0, 'x');
     uvDobjPosm(arg0->objId, arg0->unk2D6, &sp38);
     var_fs0 = uvCosF(6.0f * D_8034F850) * 1.5f;
     if (var_fs0 > 0.0f) {
         var_fs0 = -var_fs0;
     }
-    uvModelGetPosm(arg0->unk2D4, arg0->unk2DA, &sp38);
+    uvModelGetPosm(arg0->modelId, arg0->unk2DA, &sp38);
     uvMat4RotateAxis(&sp38, var_fs0, 'x');
     uvDobjPosm(arg0->objId, arg0->unk2DA, &sp38);
-    uvModelGetPosm(arg0->unk2D4, arg0->unk2D7, &sp38);
+    uvModelGetPosm(arg0->modelId, arg0->unk2D7, &sp38);
     uvMat4RotateAxis(&sp38, var_fs0, 'x');
     uvDobjPosm(arg0->objId, arg0->unk2D7, &sp38);
-    uvModelGetPosm(arg0->unk2D4, arg0->unk2DB, &sp38);
+    uvModelGetPosm(arg0->modelId, arg0->unk2DB, &sp38);
     uvMat4RotateAxis(&sp38, -0.7f, 'x');
     uvDobjPosm(arg0->objId, arg0->unk2DB, &sp38);
-    uvModelGetPosm(arg0->unk2D4, arg0->unk2D8, &sp38);
+    uvModelGetPosm(arg0->modelId, arg0->unk2D8, &sp38);
     uvMat4RotateAxis(&sp38, -0.7f, 'x');
     uvDobjPosm(arg0->objId, arg0->unk2D8, &sp38);
 }
@@ -231,10 +231,10 @@ void func_803279F0(RocketBeltData* arg0) {
     f32 sp74;
     Vec3F* temp_v0;
 
-    uvModelGetPosm(arg0->unk2D4, arg0->unk2DC, &sp178);
-    uvModelGetPosm(arg0->unk2D4, arg0->unk2DD, &sp138);
-    uvModelGetPosm(arg0->unk2D4, arg0->unk2E0, &spF8);
-    uvModelGetPosm(arg0->unk2D4, arg0->unk2E1, &spB8);
+    uvModelGetPosm(arg0->modelId, arg0->unk2DC, &sp178);
+    uvModelGetPosm(arg0->modelId, arg0->unk2DD, &sp138);
+    uvModelGetPosm(arg0->modelId, arg0->unk2E0, &spF8);
+    uvModelGetPosm(arg0->modelId, arg0->unk2E1, &spB8);
     uvMat4RotateAxis(&sp178, arg0->unk7C, 'x');
     uvDobjPosm(arg0->objId, arg0->unk2DC, &sp178);
     uvMat4RotateAxis(&sp138, arg0->unk7C, 'x');
@@ -354,27 +354,27 @@ void func_80327F30(RocketBeltData* arg0, u8 gameState) {
             arg0->unk358 = 0.9424779f;
         }
     }
-    uvModelGetPosm(arg0->unk2D4, arg0->unk2D9, &sp28);
+    uvModelGetPosm(arg0->modelId, arg0->unk2D9, &sp28);
     uvMat4RotateAxis(&sp28, arg0->unk344 + arg0->unk358, 'x');
     uvMat4RotateAxis(&sp28, arg0->unk348, 'y');
     uvDobjPosm(arg0->objId, arg0->unk2D9, &sp28);
-    uvModelGetPosm(arg0->unk2D4, arg0->unk2D6, &sp28);
+    uvModelGetPosm(arg0->modelId, arg0->unk2D6, &sp28);
     uvMat4RotateAxis(&sp28, arg0->unk344 - arg0->unk358, 'x');
     uvMat4RotateAxis(&sp28, arg0->unk348, 'y');
     uvDobjPosm(arg0->objId, arg0->unk2D6, &sp28);
-    uvModelGetPosm(arg0->unk2D4, arg0->unk2DA, &sp28);
+    uvModelGetPosm(arg0->modelId, arg0->unk2DA, &sp28);
     uvMat4RotateAxis(&sp28, arg0->unk34C, 'x');
     uvDobjPosm(arg0->objId, arg0->unk2DA, &sp28);
-    uvModelGetPosm(arg0->unk2D4, arg0->unk2D7, &sp28);
+    uvModelGetPosm(arg0->modelId, arg0->unk2D7, &sp28);
     uvMat4RotateAxis(&sp28, arg0->unk34C, 'x');
     uvDobjPosm(arg0->objId, arg0->unk2D7, &sp28);
-    uvModelGetPosm(arg0->unk2D4, arg0->unk2DB, &sp28);
+    uvModelGetPosm(arg0->modelId, arg0->unk2DB, &sp28);
     uvMat4RotateAxis(&sp28, arg0->unk350, 'x');
     uvDobjPosm(arg0->objId, arg0->unk2DB, &sp28);
-    uvModelGetPosm(arg0->unk2D4, arg0->unk2D8, &sp28);
+    uvModelGetPosm(arg0->modelId, arg0->unk2D8, &sp28);
     uvMat4RotateAxis(&sp28, arg0->unk350, 'x');
     uvDobjPosm(arg0->objId, arg0->unk2D8, &sp28);
-    uvModelGetPosm(arg0->unk2D4, arg0->unk2DF, &sp28);
+    uvModelGetPosm(arg0->modelId, arg0->unk2DF, &sp28);
     uvMat4RotateAxis(&sp28, arg0->unk354, 'z');
     uvDobjPosm(arg0->objId, arg0->unk2DF, &sp28);
 }

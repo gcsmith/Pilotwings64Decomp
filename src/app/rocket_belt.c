@@ -530,7 +530,7 @@ void func_8032975C(RocketBeltData* arg0) {
     u8 sp27C;
     s32 sp278;
     s32 sp274;
-    s32 temp_v0_2;
+    s32 pad2;
     Unk802D3658_Unk1120* temp_v0_7;
     s32 sp268;
     f32 temp_fv1;
@@ -540,7 +540,7 @@ void func_8032975C(RocketBeltData* arg0) {
     Mtx4F sp200;
     Unk802D3658_Unk1224 spBC;
     Unk802D3658_Unk1228* var_s1;
-    s32 pad2[2];
+    s32 pad3;
 
     sp27C = sp27D = 0;
     sp278 = -1;
@@ -555,9 +555,7 @@ void func_8032975C(RocketBeltData* arg0) {
     arg0->unk64 = 0;
     sp268 = 0;
 
-    temp_v0_2 = func_802DB050(&D_80371630, &D_80371738, arg0->objId, arg0->unk2, &arg0->unk10);
-    arg0->unk92 = temp_v0_2;
-    sp27F = temp_v0_2;
+    sp27F = arg0->unk92 = func_802DB050(&D_80371630, &D_80371738, arg0->objId, arg0->unk2, &arg0->unk10);
 
     if ((arg0->unkFC + arg0->unk25C.z) > 0.5f) {
         D_80371880 = 1;

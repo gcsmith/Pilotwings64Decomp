@@ -85,7 +85,7 @@ typedef struct {
     f32 unk2B8;
     Vec3F unk2BC;
     Vec3F unk2C8;
-    u16 unk2D4;
+    u16 modelId;
     u8 unk2D6;
     u8 unk2D7;
     u8 unk2D8;

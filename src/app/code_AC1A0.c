@@ -50,7 +50,7 @@ void rocketBeltLoadLevel(u8 contIdx, u8 pilot, RocketBeltData* arg2, Camera* arg
     uvDobjState(arg2->unk6, 0x22);
     arg2->objId = uvDobjAllocIdx();
     arg2->unk2 = 2;
-    uvDobjModel(arg2->objId, arg2->unk2D4);
+    uvDobjModel(arg2->objId, arg2->modelId);
     uvDobjPosm(arg2->objId, 0, &arg2->unk10);
     uvDobjState(arg2->objId, arg2->unk2);
     arg2->contIdx = contIdx;
@@ -130,7 +130,7 @@ void rocketBeltEnterLeave(RocketBeltData* arg0) {
     arg0->unk50->unk68.z = arg0->unk2B8;
     arg0->unk50->unk74 = 0.0f;
     arg0->unk50->unk1B4 = 6.0f;
-    uvModelGetProps(arg0->unk2D4, 1, &arg0->unk50->unk8, 0);
+    uvModelGetProps(arg0->modelId, 1, &arg0->unk50->unk8, 0);
     func_802D45C4(arg0->unk50, arg0->unk60);
 }
 
@@ -495,7 +495,7 @@ void rocketBeltLoadPilot(u8 pilot, RocketBeltData* arg1) {
         arg1->unk2C8.x = -0.028f;
         arg1->unk2C8.y = 0.006f;
         arg1->unk2C8.z = -0.25f;
-        arg1->unk2D4 = MODEL_RB_LARK;
+        arg1->modelId = MODEL_RB_LARK;
         arg1->unk2DF = 1;
         arg1->unk2D6 = 2;
         arg1->unk2D7 = 3;
@@ -554,7 +554,7 @@ void rocketBeltLoadPilot(u8 pilot, RocketBeltData* arg1) {
         arg1->unk2C8.x = -0.04f;
         arg1->unk2C8.y = 0.008f;
         arg1->unk2C8.z = -0.358f;
-        arg1->unk2D4 = MODEL_RB_GOOSE;
+        arg1->modelId = MODEL_RB_GOOSE;
         arg1->unk2DF = 1;
         arg1->unk2D6 = 2;
         arg1->unk2D7 = 3;
@@ -613,7 +613,7 @@ void rocketBeltLoadPilot(u8 pilot, RocketBeltData* arg1) {
         arg1->unk2C8.x = -0.046f;
         arg1->unk2C8.y = 0.01f;
         arg1->unk2C8.z = -0.408f;
-        arg1->unk2D4 = MODEL_RB_HAWK;
+        arg1->modelId = MODEL_RB_HAWK;
         arg1->unk2DF = 1;
         arg1->unk2D6 = 2;
         arg1->unk2D7 = 3;
@@ -672,7 +672,7 @@ void rocketBeltLoadPilot(u8 pilot, RocketBeltData* arg1) {
         arg1->unk2C8.x = -0.027f;
         arg1->unk2C8.y = 0.006f;
         arg1->unk2C8.z = -0.239f;
-        arg1->unk2D4 = MODEL_RB_KIWI;
+        arg1->modelId = MODEL_RB_KIWI;
         arg1->unk2DF = 1;
         arg1->unk2D6 = 2;
         arg1->unk2D7 = 3;
@@ -731,7 +731,7 @@ void rocketBeltLoadPilot(u8 pilot, RocketBeltData* arg1) {
         arg1->unk2C8.x = -0.037f;
         arg1->unk2C8.y = 0.008f;
         arg1->unk2C8.z = -0.332f;
-        arg1->unk2D4 = MODEL_RB_IBIS;
+        arg1->modelId = MODEL_RB_IBIS;
         arg1->unk2DF = 1;
         arg1->unk2D6 = 2;
         arg1->unk2D7 = 3;
@@ -790,7 +790,7 @@ void rocketBeltLoadPilot(u8 pilot, RocketBeltData* arg1) {
         arg1->unk2C8.x = -0.041f;
         arg1->unk2C8.y = 0.022f;
         arg1->unk2C8.z = -0.31f;
-        arg1->unk2D4 = MODEL_RB_ROBIN;
+        arg1->modelId = MODEL_RB_ROBIN;
         arg1->unk2DF = 1;
         arg1->unk2D6 = 2;
         arg1->unk2D7 = 3;
@@ -836,14 +836,14 @@ void func_80326E40(RocketBeltData* arg0) {
     if (arg0->unkEF != 0) {
         arg0->unk2 &= ~4;
         uvDobjProps(arg0->objId, 4, arg0->unk2DE, 0);
-        if (arg0->unk2D4 == MODEL_RB_KIWI) {
+        if (arg0->modelId == MODEL_RB_KIWI) {
             uvDobjProps(arg0->objId, 4, 0xD, 0);
             uvDobjProps(arg0->objId, 4, 0xE, 0);
         }
     } else {
         arg0->unk2 |= 4;
         uvDobjProps(arg0->objId, 5, arg0->unk2DE, 0);
-        if (arg0->unk2D4 == MODEL_RB_KIWI) {
+        if (arg0->modelId == MODEL_RB_KIWI) {
             uvDobjProps(arg0->objId, 5, 0xD, 0);
             uvDobjProps(arg0->objId, 5, 0xE, 0);
         }
