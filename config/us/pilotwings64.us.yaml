@@ -683,7 +683,7 @@ segments:
       - { type: .bss, vram: 0x80367A40, name: app/code_75A60 }
       - { type: .bss, vram: 0x80367F60, name: app/code_76670 }
       - { type: .bss, vram: 0x80368010, name: app/glider_toys }
-      - { type: bss, vram: 0x803680A0, name: app/hang_glider }
+      - { type: .bss, vram: 0x803680A0, name: app/hang_glider }
       - { type: .bss, vram: 0x80368310, name: app/hang_glider_sound }
       - { type: .bss, vram: 0x80368370, name: app/code_7C4C0 }
       - { type: .bss, vram: 0x80368880, name: app/code_7CF30 }

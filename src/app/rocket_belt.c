@@ -530,17 +530,15 @@ void func_8032975C(RocketBeltData* arg0) {
     u8 sp27C;
     s32 sp278;
     s32 sp274;
-    s32 pad2;
+    f32 temp_fv1;
     Unk802D3658_Unk1120* temp_v0_7;
     s32 sp268;
-    f32 temp_fv1;
+    Unk802D3658_Unk1228* var_s1;
     Vec3F sp258;
     Vec3F sp24C;
     Vec3F sp240;
     Mtx4F sp200;
     Unk802D3658_Unk1224 spBC;
-    Unk802D3658_Unk1228* var_s1;
-    s32 pad3;
 
     sp27C = sp27D = 0;
     sp278 = -1;
@@ -623,7 +621,7 @@ void func_8032975C(RocketBeltData* arg0) {
             sp28C = uvVec3Len(&arg0->unk1E8);
             sp294 = -uvVec3Dot(&arg0->unk1E8, &arg0->unk108);
             sp288 = SQ(sp28C) - SQ(sp294);
-            if (SQ(sp294) < SQ(sp28C)) {
+            if (sp288 > 0.0f) {
                 sp290 = uvSqrtF(sp288);
             } else {
                 sp290 = 0.0f;
@@ -790,16 +788,11 @@ void func_8032975C(RocketBeltData* arg0) {
             uvVec3Copy(&sp2A0, &arg0->unk1DC);
             func_802DC074(&arg0->unk15C, &arg0->unk1DC, &arg0->unk1E8, &var_s1->unk34, sp29C);
 
-            if (ABS_NOEQ(sp2A0.x - arg0->unk1DC.x) < 0.1f) {
-                if (ABS_NOEQ(sp2A0.y - arg0->unk1DC.y) < 0.1f) {
-                    temp_fv1 = ABS_NOEQ(sp2A0.y - arg0->unk1DC.z);
-                    if (temp_fv1 < 0.1f) {
-                        arg0->unk1DC.x += var_s1->unk34.x;
-                        arg0->unk1DC.y += var_s1->unk34.y;
-                        arg0->unk1DC.z += var_s1->unk34.z;
-                        uvMat4LocalToWorld(&arg0->unk15C, &arg0->unk1E8, &arg0->unk1DC);
-                    }
-                }
+            if ((ABS_NOEQ(sp2A0.x - arg0->unk1DC.x) < 0.1f) && (ABS_NOEQ(sp2A0.y - arg0->unk1DC.y) < 0.1f) && (ABS_NOEQ(sp2A0.y - arg0->unk1DC.z) < 0.1f)) {
+                arg0->unk1DC.x += var_s1->unk34.x;
+                arg0->unk1DC.y += var_s1->unk34.y;
+                arg0->unk1DC.z += var_s1->unk34.z;
+                uvMat4LocalToWorld(&arg0->unk15C, &arg0->unk1E8, &arg0->unk1DC);
             }
         }
         if (arg0->unk90 != 3) {
@@ -832,10 +825,8 @@ void func_8032975C(RocketBeltData* arg0) {
         arg0->unk90 = 3;
         _uvDebugPrintf("rpmot : you got stuck - forcing an instant crash\n");
     }
-    if (!sp27F) {
-        if ((arg0->unk90 != 3) && (arg0->unk90 != 2)) {
-            arg0->unk90 = 0;
-        }
+    if ((!sp27F) && ((arg0->unk90 != 3) && (arg0->unk90 != 2))) {
+        arg0->unk90 = 0;
     }
 }
 

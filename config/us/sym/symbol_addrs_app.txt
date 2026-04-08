@@ -962,6 +962,10 @@ sFileColorG2              = 0x803624F0;
 sFileColorB1              = 0x803624F4;
 sFileColorB2              = 0x803624F8;
 
+hgClassId                 = 0x803682FC;
+hgVehicleId               = 0x803682FE;
+hgTestId                  = 0x80368300;
+
 hgSoundEventCbInfo        = 0x80368310; // size:0x8
 hgSound_80368318          = 0x80368318; // size:0x54
 
