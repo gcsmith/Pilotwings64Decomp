@@ -15,6 +15,7 @@ CPP_FLAGS = [
     "-Iinclude",
     "-Isrc",
     "-Itools/ultralib/include",
+    "-Itools/ultralib/include/PR",
     "-D_LANGUAGE_C",
     "-D__sgi",
     "-D_MIPS_SZLONG=32",
