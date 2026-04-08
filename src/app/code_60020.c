@@ -54,16 +54,19 @@ void func_802D8AF0(CannonballData* arg0) {
     } else if (var_fa1 > 1.0f) {
         var_fa1 = 1.0f;
     }
-    // FAKE
+
+    // FAKE (unused)
     var_fv1 = arg0->unk1C4.z * -0.025f;
+    if (var_fv1 < 0.5f) {
+        var_fv1 = 0.5f;
+    } else if (var_fv1 > 1.0f) {
+        var_fv1 = 1.0f;
+    }
 
     D_8034EA18 += var_fa1 * (9.6f + D_8034EA10) * D_8034F854;
     if (D_8034EA18 > 6.2831855f) {
         D_8034EA18 -= 6.2831855f;
     }
-
-    // FAKE
-    if (var_fv1) { }
 
     sp94 = uvSinF(D_8034EA18) * (0.25f * var_fa1);
     sp90 = (uvCosF(D_8034EA18) * (0.25f * var_fa1)) + 0.3f;
