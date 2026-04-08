@@ -255,10 +255,10 @@ segments:
       - [0x46470, hasm, libultra/os/getcause]
       - [0x46480, c, libultra/os/atomic]
 
-      - [0x464E0, textbin, rspboot]
-      - [0x465B0, textbin, f3dex]
-      - [0x479E0, textbin, fast3d]
-      - [0x48E10, textbin, aspMain]
+      - { start: 0x464E0, type: textbin, use_src_path: True, name: rsp/rspboot }
+      - { start: 0x465B0, type: textbin, use_src_path: True, name: rsp/f3dex }
+      - { start: 0x479E0, type: textbin, use_src_path: True, name: rsp/fast3d }
+      - { start: 0x48E10, type: textbin, use_src_path: True, name: rsp/aspMain }
 
       - [0x49C30, .data, kernel/audio]
       - [0x49D60, .data, kernel/code_7150]
@@ -337,9 +337,9 @@ segments:
       - [0x50AD0, .rodata, libultra/audio/env]
       - [0x50B30, .rodata, libultra/audio/seq]
       - [0x50B40, .rodata, libultra/audio/reverb]
-      - [0x50B70, rodata, f3dex]
-      - [0x51370, rodata, fast3d]
-      - [0x51B70, rodata, aspMain]
+      - { start: 0x50B70, type: databin, use_src_path: True, name: rsp/f3dex }
+      - { start: 0x51370, type: databin, use_src_path: True, name: rsp/fast3d }
+      - { start: 0x51B70, type: databin, use_src_path: True, name: rsp/aspMain }
 
       - { type: .bss, vram: 0x80250E80, name: kernel/code_1050 }
       - { type: .bss, vram: 0x80250ED0, name: kernel/emitter }

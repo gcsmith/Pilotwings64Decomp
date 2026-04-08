@@ -38,6 +38,15 @@ else
   $(error Unable to detect a suitable MIPS toolchain installed.)
 endif
 
+# Prefer clang as C preprocessor if installed on the system
+ifneq (,$(call find-command,clang))
+  CPP      := clang
+  CPPFLAGS := -E -P -x c -Wno-trigraphs -Wmissing-prototypes -Wstrict-prototypes -D_LANGUAGE_ASSEMBLY
+else
+  CPP      := cpp
+  CPPFLAGS := -P -Wno-trigraphs -Wmissing-prototypes -Wstrict-prototypes -D_LANGUAGE_ASSEMBLY
+endif
+
 TOOLS_DIR = tools
 
 AS       := $(CROSS)as
@@ -105,10 +114,11 @@ OPT_FLAGS      = -O2
 LOOP_UNROLL    =
 
 ASM_PROC_FLAGS = $(OPT_FLAGS)
+ASM_DEFINES    = -D_LANGUAGE_ASSEMBLY
 
 MIPSISET       = -mips2 -32
 
-INCLUDE_CFLAGS = -I. -Isrc -Iinclude -Iinclude/libultra -Iinclude/libultra/PR -Iinclude/libultra/compiler/ido
+INCLUDE_CFLAGS = -I. -Isrc -Iinclude -Iinclude/libultra -Iinclude/libultra/PR -Iinclude/libultra/compiler/ido -Ibin
 
 ASFLAGS        = -EB -mtune=vr4300 -march=vr4300 -mabi=32 -I include
 OBJCOPYFLAGS   = -O binary
@@ -266,7 +276,7 @@ $(BUILD_DIR)/$(LIBULTRA): $(LIBULTRA)
 
 $(BUILD_DIR)/%.o: %.s
 	@printf "[$(GREEN)   as   $(NO_COL)]  $<\n"
-	$(V)$(AS) $(ASFLAGS) -o $@ $<
+	$(V)$(CPP) $(CPPFLAGS) $(INCLUDE_CFLAGS) -I $(dir $*) $(ASM_DEFINES) $< | $(AS) $(ASFLAGS) $(INCLUDE_CFLAGS) -o $@ -
 
 $(BUILD_DIR)/%.o: %.bin
 	@printf "[$(PINK) linker $(NO_COL)]  $<\n"
