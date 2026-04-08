@@ -3,13 +3,13 @@
 .section .text, "ax"
 
 LEAF(aspMainTextStart)
-.incbin "rsp/aspmain.textbin.bin"
+.incbin "rsp/aspMain.textbin.bin"
 END(aspMainTextStart)
 EXPORT(aspMainTextEnd)
 
 .section .rodata, "a"
 
 SYM_START(aspMainDataStart)
-.incbin "rsp/aspmain.databin.bin"
+.incbin "rsp/aspMain.databin.bin"
 SYM_END(aspMainDataStart)
 EXPORT(aspMainDataEnd)
