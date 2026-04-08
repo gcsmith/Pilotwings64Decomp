@@ -39,7 +39,6 @@ void rocketBeltInit(void) {
 }
 
 void rocketBeltLoadLevel(u8 contIdx, u8 pilot, RocketBeltData* arg2, Camera* arg3) {
-
     uvMemSet(arg2, 0, sizeof(RocketBeltData));
     rocketBeltLoadPilot(pilot, arg2);
     shadow_80334454(MODEL_RB_SHADOW_COLUMN, MODEL_RB_SHADOW);
@@ -177,7 +176,7 @@ void rocketBeltMovementFrame(RocketBeltData* arg0, u8 gameState) {
         if ((arg0->unk8 > 0.0f) || (buttons & (A_BUTTON | B_BUTTON))) {
             arg0->unk8 += D_8034F854;
         }
-    
+
         arg0->unk70 = func_80313F08(&D_80371070, ABS_NOEQ(stickX));
         if (stickX < 0.0f) {
             arg0->unk70 = -arg0->unk70;
@@ -473,7 +472,6 @@ void func_80325E1C(RocketBeltData* arg0) {
 }
 
 void rocketBeltLoadPilot(u8 pilot, RocketBeltData* arg1) {
-
     switch (pilot) {
     case PILOT_LARK:
         arg1->unk250.x = -0.025f, arg1->unk250.y = 0.097f, arg1->unk250.z = 0.675f;

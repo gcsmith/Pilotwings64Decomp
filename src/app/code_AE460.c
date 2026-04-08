@@ -20,7 +20,6 @@ void func_803279F0(RocketBeltData*);
 void func_80327F30(RocketBeltData*, u8 gameState);
 
 void func_80326F30(RocketBeltData* arg0) {
-
     arg0->unk338 = func_8021EFF0(2);
     uvModelGet(arg0->unk338, MODEL_BLUE_CUBOID);
     arg0->unk339 = func_8021EFF0(2);
@@ -73,12 +72,14 @@ void func_80327040(RocketBeltData* arg0, u8 gameState) {
         } else if (var_fv1 > 1.0f) {
             var_fv1 = 1.0f;
         }
-        arg0->unk368 = func_80313AF4(((0.800000011920929 + (0.2 * uvRandF_RANLUX())) * var_ft4) + ((0.800000011920929 + (0.2 * uvRandF_RANLUX())) * var_fv1), arg0->unk368, 20.0f);
+        arg0->unk368 = func_80313AF4(((0.800000011920929 + (0.2 * uvRandF_RANLUX())) * var_ft4) + ((0.800000011920929 + (0.2 * uvRandF_RANLUX())) * var_fv1),
+                                     arg0->unk368, 20.0f);
         uvModelGetPosm(arg0->unk2D4, 0xE, &sp40);
         uvMat4RotateAxis(&sp40, arg0->unk368, 'x');
         uvDobjPosm(arg0->objId, 0xE, &sp40);
 
-        arg0->unk370 = func_80313AF4(((0.800000011920929 + (0.2 * uvRandF_RANLUX())) * var_ft4) + ((0.800000011920929 + (0.2 * uvRandF_RANLUX())) * var_fv1), arg0->unk370, 20.0f);
+        arg0->unk370 = func_80313AF4(((0.800000011920929 + (0.2 * uvRandF_RANLUX())) * var_ft4) + ((0.800000011920929 + (0.2 * uvRandF_RANLUX())) * var_fv1),
+                                     arg0->unk370, 20.0f);
         uvModelGetPosm(arg0->unk2D4, 0xD, &sp40);
         uvMat4RotateAxis(&sp40, arg0->unk370, 'x');
         uvDobjPosm(arg0->objId, 0xD, &sp40);
@@ -120,7 +121,7 @@ void func_803273C8(RocketBeltData* arg0, u8 arg1) {
         }
 
         var_fa1 = arg0->unk33C / 3.0f;
-        
+
         // clang-format off
         if (var_fa1 < 0.0f) { var_fa1 = 0.0f; } else if (var_fa1 > 0.99f) { var_fa1 = 0.99f; }
         // clang-format on
@@ -139,12 +140,12 @@ void func_803273C8(RocketBeltData* arg0, u8 arg1) {
             }
         }
         switch (arg0->unk33B) {
-            case 2:
-                sp23 = arg0->unk2E2;
-                break;
-            case 1:
-                sp23 = arg0->unk2E3;
-                break;
+        case 2:
+            sp23 = arg0->unk2E2;
+            break;
+        case 1:
+            sp23 = arg0->unk2E3;
+            break;
         }
 
         uvJanimPoseLine(&D_803712D0, sp23, D_8034FBA0);

@@ -138,19 +138,19 @@ void func_8032867C(RocketBeltData* arg0) {
     }
 
     switch (arg0->unk90) {
-        case 3:
-            return;
-        case 0:
-            func_80328A14(arg0);
-            break;
-        default:
-            break;
-        case 1:
-            func_80328CA0(arg0);
-            break;
-        case 2:
-            func_80328D74(arg0);
-            break;
+    case 3:
+        return;
+    case 0:
+        func_80328A14(arg0);
+        break;
+    default:
+        break;
+    case 1:
+        func_80328CA0(arg0);
+        break;
+    case 2:
+        func_80328D74(arg0);
+        break;
     }
     if (arg0->unk84 > 0.0f) {
         sp3C.x = 0.0f;
@@ -220,9 +220,9 @@ void func_80328A14(RocketBeltData* arg0) {
     } else {
         if (arg0->unk78 > 0.0f) {
             var_fa1 = uvSqrtF(SQ(arg0->unk10.m[1][0]) + SQ(arg0->unk10.m[1][1])) * arg0->unk2F0;
-            temp_fv1 =  arg0->unk78 * var_fa1 * arg0->unk74;
+            temp_fv1 = arg0->unk78 * var_fa1 * arg0->unk74;
             arg0->unk220.x += -arg0->unk2EC * temp_fv1;
-            temp_fv1 =  arg0->unk78 * var_fa1 * arg0->unk70;
+            temp_fv1 = arg0->unk78 * var_fa1 * arg0->unk70;
             arg0->unk220.y += arg0->unk2F4 * temp_fv1;
         }
         var_fa1 = uvSqrtF(SQ(arg0->unk238.y) + SQ(arg0->unk238.z + 9.8f)) * arg0->unk2FC;
@@ -247,7 +247,7 @@ void func_80328CA0(RocketBeltData* arg0) {
     f32 temp_fv0;
     f32 temp_fv1;
     f32 temp_ft4;
-    
+
     temp_fv0 = arg0->unk1DC.x * -1.2f;
     temp_fv1 = arg0->unk1DC.y * -1.2f;
     temp_ft4 = arg0->unk1DC.z * -1.2f;
@@ -308,7 +308,7 @@ void func_80328F44(RocketBeltData* arg0) {
     arg0->unkFC = 1000000.0f;
     sp5C = 0.0f;
     sp34 = arg0->unk380;
-    sp2C = (Vec3F* ) arg0->unk10.m[3];
+    sp2C = (Vec3F*)arg0->unk10.m[3];
     sp3B = db_getgnd(&arg0->unk374, sp2C, &sp34, &sp48, &sp5C, &sp4C);
 
     temp_fv0 = sp2C->z - sp5C;
@@ -552,7 +552,7 @@ void func_8032975C(RocketBeltData* arg0) {
         arg0->unk93[i] = 0;
     }
     // FAKE
-    if (1) {}
+    if (1) { }
     arg0->unkE9 = 0;
     arg0->unkE8 = 0;
     arg0->unk64 = 0;
@@ -588,7 +588,7 @@ void func_8032975C(RocketBeltData* arg0) {
     for (i = 0; i < sp27F; i++) {
         var_s1 = &D_80371738.unk4[i];
         if ((var_s1->collisionType != 2) || ((var_s1->collisionType == 2) && (ballsObjIdExists(var_s1->surfaceId) == 0))) {
-            func_802DC814(var_s1, (Vec3F* ) arg0->unk10.m[3]);
+            func_802DC814(var_s1, (Vec3F*)arg0->unk10.m[3]);
         }
         func_802DBE64(&D_80371630, &D_80371738, i, &arg0->unk11C);
         uvVec3Copy(&arg0->unk9C[i], &var_s1->unkC);
@@ -613,7 +613,7 @@ void func_8032975C(RocketBeltData* arg0) {
             if (var_s1->collisionType == 2) {
                 sp274 = windObjIsLoadedId(var_s1->surfaceId);
                 if (sp274 == 0) {
-                    sp278 = hoverPadGetLandedIdx(var_s1->surfaceId, arg0->unk1F4); 
+                    sp278 = hoverPadGetLandedIdx(var_s1->surfaceId, arg0->unk1F4);
                     if ((sp278 < 0) && (sp27C == 0) && (sp274 == 0)) {
                         sp29C = sp298 = ballsPopped(var_s1->surfaceId, &arg0->unk1E8, &D_80371738);
                         if (sp29C != 0.0f) {
@@ -642,7 +642,7 @@ void func_8032975C(RocketBeltData* arg0) {
                 if (sp27C) {
                     arg0->unk91 = 0;
                 }
-                
+
                 if ((ABS_NOEQ(sp294) > 21.8f) && (sp27C == 0)) {
                     arg0->unk90 = 2;
                     arg0->unk91 = 0;
@@ -794,7 +794,7 @@ void func_8032975C(RocketBeltData* arg0) {
             func_802DC1DC(&arg0->unk220, &var_s1->unk28, &sp2AC, arg0->unk32C * sp298, arg0->unk330 * sp298, arg0->unk334 * sp298);
             uvVec3Copy(&sp2A0, &arg0->unk1DC);
             func_802DC074(&arg0->unk15C, &arg0->unk1DC, &arg0->unk1E8, &var_s1->unk34, sp29C);
-            
+
             if (ABS_NOEQ(sp2A0.x - arg0->unk1DC.x) < 0.1f) {
                 if (ABS_NOEQ(sp2A0.y - arg0->unk1DC.y) < 0.1f) {
                     temp_fv1 = ABS_NOEQ(sp2A0.y - arg0->unk1DC.z);
@@ -852,7 +852,7 @@ void func_8032A4A8(RocketBeltData* arg0) {
     f32 sp20;
 
     sp28 = arg0->unk25C.z;
-    
+
     var_fs0 = ABS_NOEQ(arg0->unk344);
     if (var_fs0 < 0.1f) {
         sp20 = 0.0f;
