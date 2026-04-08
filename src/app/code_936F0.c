@@ -152,11 +152,11 @@ s32 func_8030C61C(void) {
     demo_80323020();
     if (demoButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON) != 0) {
         ret = GAME_STATE_TEST_DETAILS;
-        sndPlaySfx(0x6E);
+        sndPlaySfx(SFX_UI_CONFIRM);
         func_8033FB14();
     } else if (demoButtonPress(D_80362690->unk9C, B_BUTTON) != 0) {
         ret = GAME_STATE_PILOT_SELECT;
-        sndPlaySfx(1);
+        sndPlaySfx(SFX_UI_CANCEL);
     }
     return ret;
 }

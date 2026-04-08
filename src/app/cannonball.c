@@ -262,7 +262,7 @@ void cannonMovementFrame(CannonballData* arg0, u8 gameState) {
             arg0->unkB4 = 5;
             arg0->unkB8 = 1.0f;
             if (demoButtonPress(arg0->unk10, R_TRIG) != 0) {
-                func_8033F758(0x6A, 1.0f, 0.5f, 0);
+                sndPlaySfxVolPitchPan(0x6A, 1.0f, 0.5f, 0);
                 D_8034E9F4 = !D_8034E9F4;
             }
             if (!D_8034E9F4) {
@@ -292,7 +292,7 @@ void cannonMovementFrame(CannonballData* arg0, u8 gameState) {
                 }
             }
             if (demoButtonPress(arg0->unk10, R_TRIG) != 0) {
-                func_8033F758(0x6A, 1.0f, 0.5f, 0);
+                sndPlaySfxVolPitchPan(0x6A, 1.0f, 0.5f, 0);
                 if (arg0->unkB4 == 0) {
                     arg0->unkB4 = 8;
                 } else {

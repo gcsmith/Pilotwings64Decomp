@@ -102,11 +102,11 @@ void hsound_callback(s32 eventType, void* arg1, s32 eventData) {
         }
         if (gyrocopterData->hasLowFuel && (hudGet_8031DA9C() == 0x17B) && (gyrocopterData->unk684 < D_8034F850)) {
             gyrocopterData->unk684 = D_8034F850 + 0.2f;
-            func_8033F758(0x6C, 0.8f, 0.707f, 0.0f);
+            sndPlaySfxVolPitchPan(0x6C, 0.8f, 0.707f, 0.0f);
         }
         if (gyrocopterData->hasLowFuel && (hudGet_8031DA9C() == 0x4A) && (gyrocopterData->unk688 < D_8034F850)) {
             gyrocopterData->unk688 = D_8034F850 + 0.2f;
-            func_8033F758(0x6C, 0.8f, 0.707f, 0.0f);
+            sndPlaySfxVolPitchPan(0x6C, 0.8f, 0.707f, 0.0f);
         }
 
         sp90 = ABS_NOEQ(gyrocopterData->unk364.y) * 0.03f;
@@ -226,7 +226,7 @@ void func_8030ABF8(GyrocopterData* arg0) {
             if (!(arg0->unk678 & 0x10)) {
                 arg0->unk678 |= 0x10;
                 sndGetPilot(&sp30, &sp2C);
-                func_8033F758(sp30, 1.0f, sp2C, 0.0f);
+                sndPlaySfxVolPitchPan(sp30, 1.0f, sp2C, 0.0f);
                 func_8033F748(0xF);
                 func_8033F964(0);
                 func_8033FCD0(sp34->veh);
@@ -295,12 +295,12 @@ void func_8030AEB0(GyrocopterData* arg0) {
             break;
         case 1:
             if (arg0->unkC1 != 0) {
-                func_8033F758(0x17, temp_fs0, 1.0f, 0.0f);
+                sndPlaySfxVolPitchPan(0x17, temp_fs0, 1.0f, 0.0f);
             }
             break;
         case 2:
             if (arg0->unkC1 != 0) {
-                func_8033F758(0x16, temp_fs0, 1.0f, 0.0f);
+                sndPlaySfxVolPitchPan(0x16, temp_fs0, 1.0f, 0.0f);
             }
             break;
         case 8:
@@ -308,17 +308,17 @@ void func_8030AEB0(GyrocopterData* arg0) {
             if (soid != -1) {
                 modelId = uvSobj_8022D1E4(soid);
                 if (MODEL_IS_TREE(modelId)) {
-                    func_8033F758(0x39, temp_fs0, 1.0f, 0.0f);
+                    sndPlaySfxVolPitchPan(0x39, temp_fs0, 1.0f, 0.0f);
                 } else if (arg0->unkC1 != 0) {
-                    func_8033F758(0x18, temp_fs0, 1.0f, 0.0f);
+                    sndPlaySfxVolPitchPan(0x18, temp_fs0, 1.0f, 0.0f);
                 }
             }
             break;
         }
         if (arg0->unk547[i] == 1) {
-            func_8033F758(0xB, temp_fs0, 1.0f, 0.0f);
+            sndPlaySfxVolPitchPan(0xB, temp_fs0, 1.0f, 0.0f);
         } else {
-            func_8033F758(8, temp_fs0, 1.0f, 0.0f);
+            sndPlaySfxVolPitchPan(8, temp_fs0, 1.0f, 0.0f);
         }
     }
 }
