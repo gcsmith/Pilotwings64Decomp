@@ -386,16 +386,16 @@ u8 testMenuHandler(Unk80367710* arg0) {
                 if ((sp6C->cls == CLASS_BEGINNER) && (IS_MAIN_VEHICLE(sp6C->veh))) {
                     switch (sp64) {
                     case 0:
-                        sndPlaySfxVolPitchPan(0x72, 1.0f, 1.22f, 0.0f);
+                        sndPlaySfxVolPitchPan(SFX_UI_HINT, 1.0f, 1.22f, 0.0f);
                         return 0xFE;
                     case 1:
-                        sndPlaySfxVolPitchPan(0x72, 1.0f, 1.22f, 0.0f);
+                        sndPlaySfxVolPitchPan(SFX_UI_HINT, 1.0f, 1.22f, 0.0f);
                         sTestMenuState = 0;
                         break;
                     }
                 } else {
                     if (sp64 == 0) {
-                        sndPlaySfxVolPitchPan(0x72, 1.0f, 1.22f, 0.0f);
+                        sndPlaySfxVolPitchPan(SFX_UI_HINT, 1.0f, 1.22f, 0.0f);
                         sTestMenuState = 0;
                     }
                 }
@@ -427,7 +427,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
                     testMenuInit(arg0, 2);
                     break;
                 case 5:
-                    sndPlaySfxVolPitchPan(0x72, 1.0f, 1.22f, 0.0f);
+                    sndPlaySfxVolPitchPan(SFX_UI_HINT, 1.0f, 1.22f, 0.0f);
                     sTestMenuState = 2;
                     break;
                 case 2:

@@ -138,12 +138,13 @@ enum Sfx {
     /* 0x6F */ SFX_UNK_111,
     /* 0x70 */ SFX_UNK_112,
     /* 0x71 */ SFX_UI_VIEW_MAP,
-    /* 0x72 */ SFX_UNK_114,
+    /* 0x72 */ SFX_UI_HINT,
     /* 0x73 */ SFX_UI_SCORING,
     /* 0x74 */ SFX_UI_SELECT_MOVE, // 808 cowbell
     /* 0x75 */ SFX_UNK_117,
-    /* 0x76 */ SFX_UNK_118,
+    /* 0x76 */ SFX_UNK_118,        // duplicate of SFX_UI_HINT
     /* 0x77 */ SFX_UNK_119,
+    // all IDs below are possibly unused
     /* 0x78 */ SFX_UNK_120,
     /* 0x79 */ SFX_UNK_121,
     /* 0x7A */ SFX_UNK_122,
