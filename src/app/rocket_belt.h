@@ -161,8 +161,15 @@ void func_80325100(RocketBeltData*);
 void rocketBeltMovementFrame(RocketBeltData*, u8);
 void func_80325E1C(RocketBeltData*);
 
+void func_80326F30(RocketBeltData*);
 void func_80327040(RocketBeltData*, u8);
+void func_80327380(RocketBeltData*);
 void func_803273C8(RocketBeltData*, u8);
+void func_80327614(RocketBeltData*);
+
+void func_80328420(RocketBeltData*);
+void func_80328538(RocketBeltData*);
+void func_8032867C(RocketBeltData*);
 
 void rbSoundInit(RocketBeltData* rbData);
 

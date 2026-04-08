@@ -8,13 +8,13 @@
 #include "app/demo.h"
 #include "app/fdr.h"
 #include "app/shadow.h"
+#include "app/snd.h"
 #include "app/code_7FE00.h"
 
 Unk80371120 D_80371120;
 Unk80371120 D_803712D0;
 Unk80371120 D_80371480;
 
-void func_80327614(RocketBeltData*);
 void func_803277E0(RocketBeltData*);
 void func_803279F0(RocketBeltData*);
 void func_80327F30(RocketBeltData*, u8 gameState);

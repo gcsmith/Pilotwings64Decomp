@@ -1,5 +1,7 @@
 #include "common.h"
 #include "rocket_belt.h"
+#include <uv_memory.h>
+#include <uv_model.h>
 #include "app/demo.h"
 #include "app/fdr.h"
 #include "app/hud.h"

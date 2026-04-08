@@ -19,7 +19,6 @@ Unk802D3658_Unk1224 D_80371738;
 s32 D_8037187C;
 s32 D_80371880;
 
-void func_80328538(RocketBeltData*);
 void func_80328A14(RocketBeltData*);
 void func_80328CA0(RocketBeltData*);
 void func_80328D74(RocketBeltData*);
