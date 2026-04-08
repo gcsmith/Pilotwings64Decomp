@@ -77,6 +77,4 @@
 
 #endif
 
-#define BOOT_STACK_SIZE 0x2000
-
-#endif
+#endif // ASM_H
