@@ -399,7 +399,14 @@ void options_80316B80(void) {
     uvLevelInit();
     uvLevelAppend(0x70);
     uvLevelAppend(0x2E);
-    uvSprtProps(0, 3, 1, 2, 0, 240, 9, 0x43, 0);
+    // clang-format off
+    uvSprtProps(0,
+        SPRT_PROP_3(1),
+        SPRT_PROP_POS(0, 240),
+        SPRT_PROP_BLIT(BLIT_ID_43),
+        SPRT_PROP_END
+    );
+    // clang-format on
     textLoadBlock(0x42);
 }
 

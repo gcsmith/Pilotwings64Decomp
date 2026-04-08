@@ -400,7 +400,7 @@ segments:
       - [0x60020, c, app/code_60020]
       - [0x611E0, c, app/cbsound]
       - [0x61A60, c, app/code_61A60]
-      - [0x64070, c, app/code_64070]
+      - [0x64070, c, app/control_info]
       - [0x64730, c, app/code_64730]
       - [0x66160, c, app/code_66160]
       - [0x66F70, c, app/code_66F70]
@@ -497,7 +497,7 @@ segments:
       - [0xD5F20, .data, app/cannonball]
       - [0xD5F40, .data, app/code_60020]
       - [0xD5F70, .data, app/code_61A60]
-      - [0xD6030, .data, app/code_64070]
+      - [0xD6030, .data, app/control_info]
       - [0xD62D0, .data, app/code_64730]
       - [0xD6410, .data, app/environment]
       - [0xD6450, .data, app/env_sound]
@@ -570,7 +570,7 @@ segments:
       - [0xD8980, .rodata, app/code_60020]
       - [0xD8A00, .rodata, app/cbsound]
       - [0xD8B00, .rodata, app/code_61A60]
-      - [0xD8B90, .rodata, app/code_64070]
+      - [0xD8B90, .rodata, app/control_info]
       - [0xD8BF0, .rodata, app/code_64730]
       - [0xD8CE0, .rodata, app/code_66F70]
       - [0xD8DD0, .rodata, app/environment]
@@ -666,7 +666,7 @@ segments:
       - { type: .bss, vram: 0x80359AD0, name: app/code_60020 }
       - { type: .bss, vram: 0x80359BE0, name: app/cbsound }
       - { type: bss, vram: 0x80359C40, name: app/code_61A60 }
-      - { type: .bss, vram: 0x80359C90, name: app/code_64070 }
+      - { type: .bss, vram: 0x80359C90, name: app/control_info }
       - { type: .bss, vram: 0x80359CA0, name: app/code_64730 }
       - { type: .bss, vram: 0x80359D70, name: app/code_66F70 }
       - { type: .bss, vram: 0x80359D80, name: app/environment }

@@ -118,9 +118,28 @@ STATIC_FUNC void func_803427FC(void) {
 
     D_80378CE0 = (Unk80378CE0*)_uvMemAllocAlign8(sizeof(Unk80378CE0));
     uvMemSet(D_80378CE0, 0, sizeof(Unk80378CE0));
-    uvSprtProps(1, 3, 1, 2, 0x21, 0x96, 9, 9, 0xA, 0, 0xB, 1, 0);
-    uvSprtProps(3, 3, 1, 2, 0x11B, 0xD5, 9, 0xA, 0);
-    uvSprtProps(4, 3, 1, 2, 0x21, 0x1E, 9, 0x1E, 0);
+    // clang-format off
+    uvSprtProps(1,
+        SPRT_PROP_3(1),
+        SPRT_PROP_POS(33, 150),
+        SPRT_PROP_BLIT(BLIT_ID_09),
+        SPRT_PROP_FAST_COPY(0),
+        SPRT_PROP_TRANSPARENT(1),
+        SPRT_PROP_END
+    );
+    uvSprtProps(3,
+        SPRT_PROP_3(1),
+        SPRT_PROP_POS(283, 213),
+        SPRT_PROP_BLIT(BLIT_ID_0A),
+        SPRT_PROP_END
+    );
+    uvSprtProps(4,
+        SPRT_PROP_3(1),
+        SPRT_PROP_POS(33, 30),
+        SPRT_PROP_BLIT(BLIT_ID_1E),
+        SPRT_PROP_END
+    );
+    // clang-format on
     sp54 = D_80362690->unkC[D_80362690->unk9C].unk70;
     func_80204BD4(sp54->unk22C, 1, 1.0f);
     func_80204A8C(sp54->unk22C, 1);
@@ -241,10 +260,10 @@ STATIC_FUNC void func_80343294(void) {
     spathFree(D_80378CE0->unk1C);
     spathFree(D_80378CE0->unk20);
     spathFree(D_80378CE0->unk24);
-    uvSprtProps(1, 3, 0, 0);
-    uvSprtProps(2, 3, 0, 0);
-    uvSprtProps(3, 3, 0, 0);
-    uvSprtProps(4, 3, 0, 0);
+    uvSprtProps(1, SPRT_PROP_3(0), SPRT_PROP_END);
+    uvSprtProps(2, SPRT_PROP_3(0), SPRT_PROP_END);
+    uvSprtProps(3, SPRT_PROP_3(0), SPRT_PROP_END);
+    uvSprtProps(4, SPRT_PROP_3(0), SPRT_PROP_END);
     menuSetProps();
 }
 
@@ -528,10 +547,10 @@ STATIC_FUNC void func_8034411C(void) {
     } else {
         var_s0 = 0xFF;
     }
-    uvSprtProps(1, 7, 0xFF, 0xFF, 0xFF, var_s0, 0);
-    uvSprtProps(2, 7, 0xFF, 0xFF, 0xFF, var_s0, 0);
-    uvSprtProps(3, 7, 0xFF, 0xFF, 0xFF, var_s0, 0);
-    uvSprtProps(4, 7, 0xFF, 0xFF, 0xFF, var_s0, 0);
+    uvSprtProps(1, SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, var_s0), SPRT_PROP_END);
+    uvSprtProps(2, SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, var_s0), SPRT_PROP_END);
+    uvSprtProps(3, SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, var_s0), SPRT_PROP_END);
+    uvSprtProps(4, SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, var_s0), SPRT_PROP_END);
 }
 
 void func_80344258(u8 arg0) {

@@ -303,18 +303,44 @@ void func_80321760(void) {
     }
     D_8036DA20 = sp3D4->veh;
     func_8031EF90(D_8036DA20);
-    uvSprtProps(0, 3, 1, 9, sp3C6, 11, 1, 0xA, 0, 0);
+    // clang-format off
+    uvSprtProps(0,
+        SPRT_PROP_3(1),
+        SPRT_PROP_BLIT(sp3C6),
+        SPRT_PROP_TRANSPARENT(1),
+        SPRT_PROP_FAST_COPY(0),
+        SPRT_PROP_END
+    );
     temp2 = 0xA0 - (uvSprtGetWidth(0) / 2);
-    uvSprtProps(0, 2, temp2, 0xDC, 0);
-    uvSprtProps(1, 3, 1, 9, sp3C4, 11, 1, 0xA, 0, 0);
+    uvSprtProps(0, SPRT_PROP_POS(temp2, 220), SPRT_PROP_END);
+    uvSprtProps(1,
+        SPRT_PROP_3(1),
+        SPRT_PROP_BLIT(sp3C4),
+        SPRT_PROP_TRANSPARENT(1),
+        SPRT_PROP_FAST_COPY(0),
+        SPRT_PROP_END
+    );
     temp2 = 0xA0 - (uvSprtGetWidth(1) / 2);
-    uvSprtProps(1, 2, temp2, 0xBE, 0);
-    uvSprtProps(2, 3, 1, 9, sp3C8, 11, 1, 0xA, 0, 0);
+    uvSprtProps(1, SPRT_PROP_POS(temp2, 190), SPRT_PROP_END);
+    uvSprtProps(2,
+        SPRT_PROP_3(1),
+        SPRT_PROP_BLIT(sp3C8),
+        SPRT_PROP_TRANSPARENT(1),
+        SPRT_PROP_FAST_COPY(0),
+        SPRT_PROP_END
+    );
     temp2 = 0xA0 - (uvSprtGetWidth(2) / 2);
-    uvSprtProps(2, 2, temp2, 0x62, 0);
-    uvSprtProps(3, 3, 1, 9, 0x48, 11, 1, 0xA, 0, 0);
+    uvSprtProps(2, SPRT_PROP_POS(temp2, 98), SPRT_PROP_END);
+    uvSprtProps(3,
+        SPRT_PROP_3(1),
+        SPRT_PROP_BLIT(BLIT_ID_48),
+        SPRT_PROP_TRANSPARENT(1),
+        SPRT_PROP_FAST_COPY(0),
+        SPRT_PROP_END
+    );
     temp2 = 0xA0 - (uvSprtGetWidth(3) / 2);
-    uvSprtProps(3, 2, temp2, 0x32, 0);
+    uvSprtProps(3, SPRT_PROP_POS(temp2, 50), SPRT_PROP_END);
+    // clang-format on
     func_8033F748(0x1DU);
     func_8033F964(0);
 }
@@ -331,10 +357,10 @@ s32 func_8032232C(void) {
         userPathFree(i);
     }
 
-    uvSprtProps(0, 3, 0, 0);
-    uvSprtProps(1, 3, 0, 0);
-    uvSprtProps(2, 3, 0, 0);
-    uvSprtProps(3, 3, 0, 0);
+    uvSprtProps(0, SPRT_PROP_3(0), SPRT_PROP_END);
+    uvSprtProps(1, SPRT_PROP_3(0), SPRT_PROP_END);
+    uvSprtProps(2, SPRT_PROP_3(0), SPRT_PROP_END);
+    uvSprtProps(3, SPRT_PROP_3(0), SPRT_PROP_END);
     taskDeinitLevel();
     func_8031FE18(D_8036DA20);
     func_8033F964(1);

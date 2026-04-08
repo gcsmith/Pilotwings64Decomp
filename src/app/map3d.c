@@ -196,7 +196,7 @@ void map3dLoad(Unk80362690* arg0, s32 arg1) {
     if (arg1) {
         sp140 = &arg0->unkC[arg0->unk9C];
         objId = sMapObjects[sMapObjectCount] = uvDobjAllocIdx();
-        uvDobjModel(objId, 0xCE);
+        uvDobjModel(objId, MODEL_MAP_STARTING_DIRECTION_ARROW);
         uvMat4Copy(&sp148, &sp140->unk2C);
         spD4 = sp148.m[3][0] *= sMapGlobalScale;
         spD0 = sp148.m[3][1] *= sMapGlobalScale;
@@ -210,20 +210,20 @@ void map3dLoad(Unk80362690* arg0, s32 arg1) {
     }
 
     if (sp140->veh != VEHICLE_BIRDMAN) {
-        if (D_803507A0 == 0) {
+        if (!D_803507A0) {
             for (i = 0; i < rngsCount; i++) {
-                if ((arg1) && (gRings[i].consumedType != 0)) {
+                if (arg1 && (gRings[i].consumedType != 0)) {
                     continue;
                 }
                 if ((sp140->unk8 == rngsRef[i].unk18) && (rngsRef[i].ringSubtype != 2)) {
                     objId = sMapObjects[sMapObjectCount] = uvDobjAllocIdx();
                     if (arg1) {
                         if (gRings[i].isActive != 0) {
-                            uvDobjModel(objId, 0xCA);
+                            uvDobjModel(objId, MODEL_MAP_RING_TARGET_YELLOW_CUBE);
                         } else {
-                            uvDobjModel(objId, 0xCC);
+                            uvDobjModel(objId, MODEL_MAP_RING_TARGET_BLUE_CUBE);
                         }
-                        if ((gRings[i].unk1B9 != 0) && (arg1)) {
+                        if ((gRings[i].unk1B9 != 0) && arg1) {
                             map3dAddItem(0x4C, gRings[i].curPose.m[3][0] * sMapGlobalScale, gRings[i].curPose.m[3][1] * sMapGlobalScale,
                                          gRings[i].curPose.m[3][2] * sMapGlobalScale);
                         } else if (gRings[i].scoreType == 3) {
@@ -231,7 +231,7 @@ void map3dLoad(Unk80362690* arg0, s32 arg1) {
                                          gRings[i].curPose.m[3][2] * sMapGlobalScale);
                         }
                     } else {
-                        uvDobjModel(objId, 0xCA);
+                        uvDobjModel(objId, MODEL_MAP_RING_TARGET_YELLOW_CUBE);
                     }
                     uvMat4SetIdentity(&sp148);
                     if (arg1) {
@@ -256,11 +256,11 @@ void map3dLoad(Unk80362690* arg0, s32 arg1) {
             spA0 = lpadRef[i].pos.x * sMapGlobalScale;
             sp9C = lpadRef[i].pos.y * sMapGlobalScale;
             sp98 = lpadRef[i].pos.z * sMapGlobalScale;
-            if ((arg1) && (uvLength2D(spD4 - spA0, spD0 - sp9C) < 10.0f)) {
+            if (arg1 && (uvLength2D(spD4 - spA0, spD0 - sp9C) < 10.0f)) {
                 continue;
             }
             objId = sMapObjects[sMapObjectCount] = uvDobjAllocIdx();
-            uvDobjModel(objId, 0xC9);
+            uvDobjModel(objId, MODEL_MAP_TARGET_INDICATOR_ARROW);
             uvMat4SetIdentity(&sp148);
             sp148.m[3][0] = spA0;
             sp148.m[3][1] = sp9C;
@@ -280,7 +280,7 @@ void map3dLoad(Unk80362690* arg0, s32 arg1) {
 
         for (i = 0; i < lstpCount; i++) {
             objId = sMapObjects[sMapObjectCount] = uvDobjAllocIdx();
-            uvDobjModel(objId, 0xC9);
+            uvDobjModel(objId, MODEL_MAP_TARGET_INDICATOR_ARROW);
             uvMat4SetIdentity(&sp148);
             sp148.m[3][0] = (lstpRef[i].posUL.x + lstpRef[i].posLR.x) * 0.5f * sMapGlobalScale;
             sp148.m[3][1] = (lstpRef[i].posUL.y + lstpRef[i].posLR.y) * 0.5f * sMapGlobalScale;
@@ -306,7 +306,7 @@ void map3dLoad(Unk80362690* arg0, s32 arg1) {
                 continue;
             }
             objId = sMapObjects[sMapObjectCount] = uvDobjAllocIdx();
-            uvDobjModel(objId, 0xC8);
+            uvDobjModel(objId, MODEL_MAP_WIND_INDICATOR_ARROW);
             func_80313640(sp94, sp90, sp8C, tpadRef[i].angle.x * 0.0174533f, tpadRef[i].angle.y * 0.0174533f, tpadRef[i].angle.z * 0.0174533f, &sp148);
             if (arg1) {
                 uvMat4Scale(&sp148, 0.3f, 0.3f, 0.3f);
@@ -321,7 +321,7 @@ void map3dLoad(Unk80362690* arg0, s32 arg1) {
         if (gThermReady) {
             for (i = 0; i < therCount; i++) {
                 objId = sMapObjects[sMapObjectCount] = uvDobjAllocIdx();
-                uvDobjModel(objId, 0xC7);
+                uvDobjModel(objId, MODEL_MAP_THERMAL_CYLINDER);
                 uvMat4SetIdentity(&sp148);
                 sp148.m[3][0] = therRef[i].pos.x * sMapGlobalScale;
                 sp148.m[3][1] = therRef[i].pos.y * sMapGlobalScale;
@@ -344,16 +344,16 @@ void map3dLoad(Unk80362690* arg0, s32 arg1) {
             objId = sMapObjects[sMapObjectCount] = uvDobjAllocIdx();
             if (arg1) {
                 if (gHoverPads[i].active != 0) {
-                    uvDobjModel(objId, 0xCA);
+                    uvDobjModel(objId, MODEL_MAP_RING_TARGET_YELLOW_CUBE);
                 } else {
-                    uvDobjModel(objId, 0xCC);
+                    uvDobjModel(objId, MODEL_MAP_RING_TARGET_BLUE_CUBE);
                 }
                 if ((gHoverPads[i].unk6C == 1) && (arg1)) {
                     map3dAddItem(0x4C, gHoverPads[i].pose.m[3][0] * sMapGlobalScale, gHoverPads[i].pose.m[3][1] * sMapGlobalScale,
                                  gHoverPads[i].pose.m[3][2] * sMapGlobalScale);
                 }
             } else {
-                uvDobjModel(objId, 0xCA);
+                uvDobjModel(objId, MODEL_MAP_RING_TARGET_YELLOW_CUBE);
             }
             uvMat4SetIdentity(&sp148);
             sp148.m[3][0] = hpadRef[i].pos.x * sMapGlobalScale;
@@ -366,13 +366,13 @@ void map3dLoad(Unk80362690* arg0, s32 arg1) {
             }
         }
 
-        if (D_803507A0 == 0) {
+        if (!D_803507A0) {
             for (i = 0; i < targCount; i++) {
                 if ((arg1) && (sMissileTargets[i].unk46 != 0)) {
                     continue;
                 }
                 objId = sMapObjects[sMapObjectCount] = uvDobjAllocIdx();
-                uvDobjModel(objId, 0xCA);
+                uvDobjModel(objId, MODEL_MAP_RING_TARGET_YELLOW_CUBE);
                 uvMat4SetIdentity(&sp148);
                 sp148.m[3][0] = targRef[i].pos.x * sMapGlobalScale;
                 sp148.m[3][1] = targRef[i].pos.y * sMapGlobalScale;
@@ -419,7 +419,7 @@ void map3dLoad(Unk80362690* arg0, s32 arg1) {
 
         for (i = 0; i < hopdCount; i++) {
             objId = sMapObjects[sMapObjectCount] = uvDobjAllocIdx();
-            uvDobjModel(objId, 0xD1);
+            uvDobjModel(objId, MODEL_RED_WHITE_GOAL);
             uvMat4SetIdentity(&sp148);
             sp148.m[0][0] = hopdRef[i].scale;
             sp148.m[1][1] = hopdRef[i].scale;
@@ -440,7 +440,7 @@ void map3dLoad(Unk80362690* arg0, s32 arg1) {
             }
         }
 
-        falcoId = 0; // falco used count
+        falcoId = 0;
         for (i = 0; i < falcCount; i++) {
             falc = &falcRef[i];
             if (falc->unk10 == 0) {
@@ -462,13 +462,13 @@ void map3dLoad(Unk80362690* arg0, s32 arg1) {
             }
             objId = sMapObjects[sMapObjectCount] = uvDobjAllocIdx();
             sMapObjectCount++;
-            uvDobjModel(objId, 0xD3);
+            uvDobjModel(objId, MODEL_MECCA_HAWK);
             uvDobjPosm(objId, 0, &sp148);
         }
 
         for (i = 0; i < btgtCount; i++) {
             objId = sMapObjects[sMapObjectCount] = uvDobjAllocIdx();
-            uvDobjModel(objId, 0xD2);
+            uvDobjModel(objId, MODEL_GREEN_BLUE_GOAL_0);
             uvMat4SetIdentity(&sp148);
             sp148.m[0][0] = btgtRef[i].unk10;
             sp148.m[1][1] = btgtRef[i].unk10;
@@ -494,7 +494,7 @@ void map3dLoad(Unk80362690* arg0, s32 arg1) {
                 continue;
             }
             objId = sMapObjects[sMapObjectCount] = uvDobjAllocIdx();
-            uvDobjModel(objId, 0xCA);
+            uvDobjModel(objId, MODEL_MAP_RING_TARGET_YELLOW_CUBE);
             uvMat4SetIdentity(&sp148);
             sp148.m[3][0] = gBalls[i].pose.m[3][0] * sMapGlobalScale;
             sp148.m[3][1] = gBalls[i].pose.m[3][1] * sMapGlobalScale;
@@ -508,7 +508,7 @@ void map3dLoad(Unk80362690* arg0, s32 arg1) {
 
         for (i = 0; i < cntgCount; i++) {
             objId = sMapObjects[sMapObjectCount] = uvDobjAllocIdx();
-            uvDobjModel(objId, 0xD0);
+            uvDobjModel(objId, MODEL_CANNONB_TARGET_1);
             func_80313640(cntgRef[i].pos.x, cntgRef[i].pos.y, cntgRef[i].pos.z, cntgRef[i].angle.x * 0.01745329f, cntgRef[i].angle.y * 0.01745329f,
                           cntgRef[i].angle.z * 0.01745329f, &sp148);
             sp148.m[3][0] *= sMapGlobalScale;
@@ -743,7 +743,7 @@ void map3dRender(Unk80362690* arg0, s32 arg1) {
                 uvVtx(temp_fs0, temp_fs1 + 3, tempZ, 0, 0, 0x00, 0x00, 0x00, 0x80);
                 uvVtx(temp_fs0 + 5, temp_ft4 - 3, tempZ, 0, 0, 0x00, 0x00, 0x00, 0x80);
                 uvVtxEndPoly();
-                uvSprtProps(20 - i, 2, temp_ft2, temp_ft4 + offset - 1, 0);
+                uvSprtProps(20 - i, SPRT_PROP_POS(temp_ft2, temp_ft4 + offset - 1), SPRT_PROP_END);
                 uvGfxStatePush();
                 uvSprtDraw(20 - i);
                 uvGfxStatePop();
@@ -767,7 +767,7 @@ void map3dDeinit(Unk80362690* arg0, s32 arg1) {
     sMapObjectCount = 0;
     func_8033F8CC(sMapEmitterDev0);
     func_8033F8CC(sMapEmitterDev1);
-    if (arg1 != 0) {
+    if (arg1) {
         func_80204A8C(sp2C->unk22C, 3);
     }
     hudGetState()->renderFlags = sMapHudFlagsSave;
@@ -832,12 +832,18 @@ void map3d_80312514(void) {
     D_8034F814 = 0.0f;
 }
 
-void map3dAddItem(s32 arg0, f32 x, f32 y, f32 z) {
+void map3dAddItem(s32 blitId, f32 x, f32 y, f32 z) {
     if (sMapMessageCount >= ARRAY_COUNT(sMapMessages)) {
         _uvDebugPrintf("Map3d: No more message slots (%d)\n", ARRAY_COUNT(sMapMessages));
         return;
     }
-    uvSprtProps(ARRAY_COUNT(sMapMessages) - sMapMessageCount, 3, 1, 9, arg0, 0);
+    // clang-format off
+    uvSprtProps(ARRAY_COUNT(sMapMessages) - sMapMessageCount,
+        SPRT_PROP_3(1),
+        SPRT_PROP_BLIT(blitId),
+        SPRT_PROP_END
+    );
+    // clang-format on
     sMapMessages[sMapMessageCount].x = x;
     sMapMessages[sMapMessageCount].y = y;
     sMapMessages[sMapMessageCount].z = z;

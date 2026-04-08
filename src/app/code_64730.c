@@ -155,13 +155,50 @@ STATIC_FUNC void func_802DD57C(Camera* arg0) {
     uvLevelAppend(0x70);
     uvLevelAppend(D_8034EE84[sp3C->veh]);
     textLoadBlock(0x42);
-    uvSprtProps(0, 3, 1, 2, 0, 0xF0, 9, 0x43, 0);
-    uvSprtProps(1, 3, 1, 2, 0x1D, 0xCA, 9, 0x3D, 0);
-    uvSprtProps(2, 3, 1, 2, 0x52, 0xCA, 9, 0x40, 0);
-    uvSprtProps(3, 3, 1, 2, 0x1D, 0x8C, 9, 0x3E, 0);
-    uvSprtProps(4, 3, 1, 2, 0x52, 0x8C, 9, 0x41, 0);
-    uvSprtProps(5, 3, 1, 2, 0x1D, 0x4E, 9, 0x3F, 0);
-    uvSprtProps(6, 3, 1, 2, 0x52, 0x4E, 9, 0x42, 0);
+    // clang-format off
+    uvSprtProps(0,
+        SPRT_PROP_3(1),
+        SPRT_PROP_POS(0, SCREEN_HEIGHT),
+        SPRT_PROP_BLIT(BLIT_ID_43),
+        SPRT_PROP_END
+    );
+    uvSprtProps(1,
+        SPRT_PROP_3(1),
+        SPRT_PROP_POS(29, 202),
+        SPRT_PROP_BLIT(BLIT_ID_3D),
+        SPRT_PROP_END
+    );
+    uvSprtProps(2,
+        SPRT_PROP_3(1),
+        SPRT_PROP_POS(82, 202),
+        SPRT_PROP_BLIT(BLIT_ID_40),
+        SPRT_PROP_END
+    );
+    uvSprtProps(3,
+        SPRT_PROP_3(1),
+        SPRT_PROP_POS(29, 140),
+        SPRT_PROP_BLIT(BLIT_ID_3E),
+        SPRT_PROP_END
+    );
+    uvSprtProps(4,
+        SPRT_PROP_3(1),
+        SPRT_PROP_POS(82, 140),
+        SPRT_PROP_BLIT(0x41),
+        SPRT_PROP_END
+    );
+    uvSprtProps(5,
+        SPRT_PROP_3(1),
+        SPRT_PROP_POS(29, 78),
+        SPRT_PROP_BLIT(BLIT_ID_3F),
+        SPRT_PROP_END
+    );
+    uvSprtProps(6,
+        SPRT_PROP_3(1),
+        SPRT_PROP_POS(82, 78),
+        SPRT_PROP_BLIT(BLIT_ID_42),
+        SPRT_PROP_END
+    );
+    // clang-format on
     func_80204BD4(arg0->unk22C, 1, 1.0f);
     func_80204A8C(arg0->unk22C, 1);
     func_80204C94(arg0->unk22C, -0.3504673f, 0.3504673f, -0.25f, 0.25f, 0.5f, 100.0f);

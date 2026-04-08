@@ -179,6 +179,13 @@ ballTgtCount_5B     = 0x802D30B4; // type:func
 ballTgtCount_59     = 0x802D3110; // type:func
 ballTgtDeinit       = 0x802D3030; // type:func
 
+contInfoMainRender  = 0x802DCB40; // type:func
+contInfo_802DCBA0   = 0x802DCBA0; // type:func
+contInfo_802DCCF0   = 0x802DCCF0; // type:func
+contInfo_802DCD88   = 0x802DCD88; // type:func
+contInfo_802DD01C   = 0x802DD01C; // type:func
+contInfo_802DD0E4   = 0x802DD0E4; // type:func
+
 db_getgnd           = 0x802DFE70; // type:func
 db_getstart         = 0x802E0304; // type:func
 
@@ -927,6 +934,16 @@ sBoats                    = 0x803596A0; // size:0x90
 gRefBNUS                  = 0x80359730;
 gBonusStarCount           = 0x80359734;
 gBonusStars               = 0x80359738; // size:0xA0
+
+sControlInfoCount         = 0x80359C90;
+sControlInfoHangGlider    = 0x8034EB00;
+sControlInfoGyrocopter    = 0x8034EB18;
+sControlInfoRocketBelt    = 0x8034EB38;
+sControlInfoCannonball    = 0x8034EB58;
+sControlInfoSkydiving     = 0x8034EB64;
+sControlInfoJumbleHopper  = 0x8034EB94;
+sControlInfoBirdman       = 0x8034EBB8;
+sControlInfoVeh           = 0x8034EBD8;
 
 sFalcos                   = 0x8035A5F8; // size:0x258
 sFalcoCount               = 0x8035A850;

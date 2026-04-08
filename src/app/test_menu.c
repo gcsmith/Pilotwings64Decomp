@@ -9,9 +9,9 @@
 #include <uv_string.h>
 #include <uv_texture.h>
 #include "balls.h"
-#include "code_64070.h"
 #include "code_66160.h"
 #include "code_66F70.h"
+#include "control_info.h"
 #include "game.h"
 #include "code_9A960.h"
 #include "code_B2900.h"
@@ -213,16 +213,86 @@ void testMenuInit(Unk80367710* arg0, s32 arg1) {
     if (arg1 == 0) {
         sTestMenuState = 0;
     }
-    uvSprtProps(0, 3, 1, 1, 0x40, 0x12, 9, 0xF, 7, 0xFF, 0xFF, 0xFF, 0xFF, 2, 0x32, 0x2E, 0);
-    uvSprtProps(1, 3, 1, 1, 0x40, 0x12, 2, 0x32, 0x47, 7, 0xFF, 0xFF, 0xFF, 0xFF, 9, 0xE, 0);
-    uvSprtProps(2, 3, 1, 1, 0x40, 0x12, 2, 0x80, 0x2E, 7, 0xFF, 0xFF, 0xFF, 0xFF, 9, 0x11, 0);
-    uvSprtProps(3, 3, 1, 1, 0x40, 0x12, 2, 0x80, 0x47, 7, 0xFF, 0xFF, 0xFF, 0xFF, 9, 0x10, 0);
-    uvSprtProps(4, 3, 1, 1, 0x40, 0x12, 7, 0xFF, 0xFF, 0xFF, 0xFF, 2, 0xCE, 0x2E, 9, 0x13, 0);
-    uvSprtProps(5, 3, 1, 1, 0x40, 0x12, 2, 0xCE, 0x47, 7, 0xFF, 0xFF, 0xFF, 0xFF, 9, 0x12, 0);
-    uvSprtProps(6, 3, 1, 2, 0x2B, 0xD4, 7, 0xFF, 0xFF, 0xFF, 0xFF, 9, 0x15, 0);
-    uvSprtProps(7, 3, 1, 2, 0xEF, 0xD7, 7, 0xFF, 0xFF, 0xFF, 0xFF, 9, 0xD, 0);
-    uvSprtProps(8, 3, 1, 1, 0x40, 0x12, 2, 0xCE, 0x47, 7, 0xFF, 0xFF, 0xFF, 0xFF, 9, 0x14, 0);
-    uvSprtProps(9, 3, 1, 1, 0x40, 0x12, 2, 0x80, 0x47, 7, 0xFF, 0xFF, 0xFF, 0xFF, 9, 0x3C, 0);
+    // clang-format off
+    uvSprtProps(0,
+        SPRT_PROP_3(1),
+        SPRT_PROP_DIM(64, 18),
+        SPRT_PROP_BLIT(BLIT_TEST_MENU_BUTTON_SCORING),
+        SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
+        SPRT_PROP_POS(50, 46),
+        SPRT_PROP_END
+    );
+    uvSprtProps(1,
+        SPRT_PROP_3(1),
+        SPRT_PROP_DIM(64, 18),
+        SPRT_PROP_POS(50, 71),
+        SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
+        SPRT_PROP_BLIT(BLIT_TEST_MENU_BUTTON_START),
+        SPRT_PROP_END
+    );
+    uvSprtProps(2,
+        SPRT_PROP_3(1),
+        SPRT_PROP_DIM(64, 18),
+        SPRT_PROP_POS(128, 46),
+        SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
+        SPRT_PROP_BLIT(BLIT_TEST_MENU_BUTTON_CONTROL),
+        SPRT_PROP_END
+    );
+    uvSprtProps(3,
+        SPRT_PROP_3(1),
+        SPRT_PROP_DIM(64, 18),
+        SPRT_PROP_POS(128, 71),
+        SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
+        SPRT_PROP_BLIT(BLIT_TEST_MENU_BUTTON_VIEW_MAP),
+        SPRT_PROP_END
+    );
+    uvSprtProps(4,
+        SPRT_PROP_3(1),
+        SPRT_PROP_DIM(64, 18),
+        SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
+        SPRT_PROP_POS(206, 46),
+        SPRT_PROP_BLIT(BLIT_TEST_MENU_BUTTON_SAMPLE_PHOTO),
+        SPRT_PROP_END
+    );
+    uvSprtProps(5,
+        SPRT_PROP_3(1),
+        SPRT_PROP_DIM(64, 18),
+        SPRT_PROP_POS(206, 71),
+        SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
+        SPRT_PROP_BLIT(BLIT_TEST_MENU_BUTTON_HINT),
+        SPRT_PROP_END
+    );
+    uvSprtProps(6,
+        SPRT_PROP_3(1),
+        SPRT_PROP_POS(43, 212),
+        SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
+        SPRT_PROP_BLIT(BLIT_TEST_MENU_TEST_TITLE),
+        SPRT_PROP_END
+    );
+    uvSprtProps(7,
+        SPRT_PROP_3(1),
+        SPRT_PROP_POS(239, 215),
+        SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
+        SPRT_PROP_BLIT(BLIT_TEST_MENU_TOP_SCORE),
+        SPRT_PROP_END
+    );
+    uvSprtProps(8,
+        SPRT_PROP_3(1),
+        SPRT_PROP_DIM(64, 18),
+        SPRT_PROP_POS(206, 71),
+        SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
+        SPRT_PROP_BLIT(BLIT_TEST_MENU_BUTTON_RETURN),
+        SPRT_PROP_END
+    );
+    uvSprtProps(9,
+        SPRT_PROP_3(1),
+        SPRT_PROP_DIM(64, 18),
+        SPRT_PROP_POS(128, 71),
+        SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
+        SPRT_PROP_BLIT(BLIT_TEST_MENU_BUTTON_VIEW_DEMO),
+        SPRT_PROP_END
+    );
+    // clang-format on
     if (arg1 == 0) {
         sMenuCurX = 0;
         sMenuCurY = 1;
@@ -440,7 +510,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
                 case 1:
                     sndPlaySfxVolPitchPan(SFX_UI_CONTROL, 1.0f, 0.8f, 0.0f);
                     testMenu_8034A428();
-                    func_802DCB40();
+                    contInfoMainRender();
                     testMenuInit(arg0, 2);
                     break;
                 default:

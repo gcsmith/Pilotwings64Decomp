@@ -8,7 +8,7 @@
 
 // forward declarations
 STATIC_FUNC void menuCreate(s32 x, s32 y, s32 arg2, f32 xscale, f32 yscale, s32 itemCount);
-STATIC_FUNC void menuDrawItem(s16 arg0, s16 arg1, s16 idx);
+STATIC_FUNC void menuDrawItem(s16 x, s16 y, s16 idx);
 
 // arrays of pointers to 16-bit strings
 // e.g. "Option" from main menu is 0x0078 0x0093 0x0097 0x008c 0x0092 0091 0x0ffe 0xffff
@@ -43,7 +43,14 @@ void menuCreateVarHeight(s32 x, s32 y, s32 font, f32 xscale, f32 yscale, s32* it
     gMenuSpriteIdBase = 0xF;
 
     for (i = 0; i < count; i++) {
-        uvSprtProps(gMenuSpriteIdBase + i, 3, 1, 2, x, ((gMenuSpriteHeight + 6) * i) + y, 9, items[i], 0);
+        // clang-format off
+        uvSprtProps(gMenuSpriteIdBase + i,
+            SPRT_PROP_3(1),
+            SPRT_PROP_POS(x, ((gMenuSpriteHeight + 6) * i) + y),
+            SPRT_PROP_BLIT(items[i]),
+            SPRT_PROP_END
+        );
+        // clang-format on
         gMenuSpriteHeight = uvSprtGetHeight(gMenuSpriteIdBase + i);
     }
 }
@@ -72,16 +79,16 @@ void menuSetProps(void) {
 
     menuUtilInit();
     for (i = 0; i < gMenuCountVarHeight; i++) {
-        uvSprtProps(gMenuSpriteIdBase + i, 3, 0, 0);
+        uvSprtProps(gMenuSpriteIdBase + i, SPRT_PROP_3(0), SPRT_PROP_END);
     }
 }
 
-STATIC_FUNC void menuDrawItem(s16 arg0, s16 arg1, s16 idx) {
+STATIC_FUNC void menuDrawItem(s16 x, s16 y, s16 idx) {
     if (gMenuSpriteHeight != 0) {
-        uvSprtProps(gMenuSpriteIdBase + idx, 2, arg0, arg1 + gMenuSpriteHeight + 2, 0);
+        uvSprtProps(gMenuSpriteIdBase + idx, SPRT_PROP_POS(x, y + gMenuSpriteHeight + 2), SPRT_PROP_END);
         uvSprtDraw(gMenuSpriteIdBase + idx);
     } else {
-        func_80219874(arg0, arg1, gMenuItems[idx], 100, 0xFFE);
+        func_80219874(x, y, gMenuItems[idx], 100, 0xFFE);
     }
 }
 

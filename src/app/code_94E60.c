@@ -77,20 +77,35 @@ void func_8030D9C8(void) {
     Unk80364210* temp_s4;
     s32 temp_s0;
     s32 temp_v0;
-    s32 var_s0;
+    s32 texId;
     s32 classIdx;
     s32 i;
     s32 var_s6;
     s32 var_s3_2;
     s32 var_s6_2;
 
+    // clang-format off
     for (i = 0; i < 12; i++) {
-        uvSprtProps(i, 3, 1, 1, 46, 31, 2, ((i % 3) * 48) + 78, 161 - ((i / 3) * 34), 5, 332, 7, 255, 255, 255, 255, 0);
+        uvSprtProps(i,
+            SPRT_PROP_3(1),
+            SPRT_PROP_DIM(46, 31),
+            SPRT_PROP_POS(((i % 3) * 48) + 78, 161 - ((i / 3) * 34)),
+            SPRT_PROP_TEX_ID(332),
+            SPRT_PROP_COLOR(255, 255, 255, 255),
+            SPRT_PROP_END
+        );
     }
-
     for (i = 0; i < ARRAY_COUNT(D_8036A8CC); i++) {
-        uvSprtProps(i + 12, 3, 1, 1, 46, 31, 2, 236, 126 - (i * 34), 7, 255, 255, 255, 255, 5, 332, 0);
+        uvSprtProps(i + 12,
+            SPRT_PROP_3(1),
+            SPRT_PROP_DIM(46, 31),
+            SPRT_PROP_POS(236, 126 - (i * 34)),
+            SPRT_PROP_COLOR(255, 255, 255, 255),
+            SPRT_PROP_TEX_ID(332),
+            SPRT_PROP_END
+        );
     }
+    // clang-format on
 
     temp_s4 = &D_80364210[D_80362690->unk9C];
     for (var_s6 = 0; var_s6 < ARRAY_COUNT(D_8036A8CC); var_s6++) {
@@ -98,18 +113,18 @@ void func_8030D9C8(void) {
             temp_s0 = levelGetTotalPoints(temp_s4, classIdx, var_s6);
             temp_v0 = func_8032BE8C(temp_s4, classIdx, var_s6);
             if ((temp_s0 >= gMedalPointRequirements[classIdx].gold) && (temp_v0 != 0)) {
-                var_s0 = 0x14E;
+                texId = 0x14E;
             } else if ((temp_s0 >= gMedalPointRequirements[classIdx].silver) && (temp_v0 != 0)) {
-                var_s0 = 0x14F;
+                texId = 0x14F;
             } else {
                 if ((temp_s0 >= gMedalPointRequirements[classIdx].bronze) && (temp_v0 != 0)) {
-                    var_s0 = 0x150;
+                    texId = 0x150;
                 } else {
-                    var_s0 = 0x14D;
+                    texId = 0x14D;
                 }
             }
-            uvSprtProps(var_s6 + classIdx * 3, 5, var_s0, 0);
-            if (var_s0 == 0x14D) {
+            uvSprtProps(var_s6 + classIdx * 3, SPRT_PROP_TEX_ID(texId), SPRT_PROP_END);
+            if (texId == 0x14D) {
                 break;
             }
         }
@@ -126,7 +141,7 @@ void func_8030D9C8(void) {
         for (i = 0; i < ARRAY_COUNT(D_8036A8CC); i++) {
             if (D_8036A8CC[i] > 0) {
                 D_8034F7B4 = 0;
-                uvSprtProps((D_8036A8CC[i] * ARRAY_COUNT(D_8036A8CC)) + i, 5, 332, 0);
+                uvSprtProps((D_8036A8CC[i] * ARRAY_COUNT(D_8036A8CC)) + i, SPRT_PROP_TEX_ID(0x14c), SPRT_PROP_END);
                 if (D_8034F7BC != 0) {
                     D_8036A8CC[i] = D_8036A8CC[i];
                 } else {
@@ -137,8 +152,8 @@ void func_8030D9C8(void) {
     }
     for (i = 0; i < ARRAY_COUNT(D_8036A8D8); i++) {
         var_s3_2 = TRUE;
-        for (var_s0 = 0; var_s0 < 3; var_s0++) {
-            if ((levelGetTotalPoints(temp_s4, i, var_s0) < gMedalPointRequirements[i].silver) || ((func_8032BE8C(temp_s4, i, var_s0) == 0))) {
+        for (texId = 0; texId < 3; texId++) {
+            if ((levelGetTotalPoints(temp_s4, i, texId) < gMedalPointRequirements[i].silver) || ((func_8032BE8C(temp_s4, i, texId) == 0))) {
                 var_s3_2 = FALSE;
                 break;
             }
@@ -174,15 +189,38 @@ void func_8030DED0(void) {
     s32 var_s7;
     s32 pad;
 
+    // clang-format off
     for (i = 0; i < 9; i++) {
-        uvSprtProps(i, 3, 1, 1, 46, 31, 2, ((i % 3) * 48) + 0x6D, 127 - ((i / 3) * 34), 5, 332, 7, 255, 255, 255, 255, 0);
+        uvSprtProps(i,
+            SPRT_PROP_3(1),
+            SPRT_PROP_DIM(46, 31),
+            SPRT_PROP_POS(((i % 3) * 48) + 109, 127 - ((i / 3) * 34)),
+            SPRT_PROP_TEX_ID(332),
+            SPRT_PROP_COLOR(255, 255, 255, 255),
+            SPRT_PROP_END
+        );
     }
     for (i = 0; i < 4; i++) {
-        uvSprtProps(i + 9, 3, 1, 1, 0x21, 0x1A, 2, 0x6D + (i * 36), 0xC3, 7, 255, 255, 255, 255, 5, 332, 0);
+        uvSprtProps(i + 9,
+            SPRT_PROP_3(1),
+            SPRT_PROP_DIM(33, 26),
+            SPRT_PROP_POS(109 + (i * 36), 195),
+            SPRT_PROP_COLOR(255, 255, 255, 255),
+            SPRT_PROP_TEX_ID(332),
+            SPRT_PROP_END
+        );
     }
     for (i = 0; i < 3; i++) {
-        uvSprtProps(i + 13, 3, 1, 1, 46, 31, 2, 0x3D, 127 - (i * 34), 7, 255, 255, 255, 255, 5, 332, 0);
+        uvSprtProps(i + 13,
+            SPRT_PROP_3(1),
+            SPRT_PROP_DIM(46, 31),
+            SPRT_PROP_POS(61, 127 - (i * 34)),
+            SPRT_PROP_COLOR(255, 255, 255, 255),
+            SPRT_PROP_TEX_ID(332),
+            SPRT_PROP_END
+        );
     }
+    // clang-format on
     temp_s4 = &D_80364210[D_80362690->unk9C];
     for (i = CLASS_BEGINNER; i < CLASS_COUNT; i++) {
         var_s3 = TRUE;
@@ -257,11 +295,38 @@ void func_8030E3EC(void) {
     textLoadBlock(0x42); // "Failed"
     D_80362690->unkA3 = 0;
     D_8034F7BC = 0;
-    uvSprtProps(17, 3, 1, 2, 28, 198, 9, 7, 0);
-    uvSprtProps(18, 3, 1, 2, 233, 164, 9, 5, 0);
-    uvSprtProps(19, 3, 1, 2, 58, 164, 9, 8, 0);
-    uvSprtProps(20, 3, 1, 2, 58, 198, 9, 4, 0);
-    uvSprtProps(21, 3, 1, 2, 233, 198, 9, 6, 0);
+    // clang-format off
+    uvSprtProps(17,
+        SPRT_PROP_3(1),
+        SPRT_PROP_POS(28, 198),
+        SPRT_PROP_BLIT(BLIT_ID_07),
+        SPRT_PROP_END
+    );
+    uvSprtProps(18,
+        SPRT_PROP_3(1),
+        SPRT_PROP_POS(233, 164),
+        SPRT_PROP_BLIT(BLIT_ID_05),
+        SPRT_PROP_END
+    );
+    uvSprtProps(19,
+        SPRT_PROP_3(1),
+        SPRT_PROP_POS(58, 164),
+        SPRT_PROP_BLIT(BLIT_ID_08),
+        SPRT_PROP_END
+    );
+    uvSprtProps(20,
+        SPRT_PROP_3(1),
+        SPRT_PROP_POS(58, 198),
+        SPRT_PROP_BLIT(BLIT_ID_04),
+        SPRT_PROP_END
+    );
+    uvSprtProps(21,
+        SPRT_PROP_3(1),
+        SPRT_PROP_POS(233, 198),
+        SPRT_PROP_BLIT(BLIT_ID_06),
+        SPRT_PROP_END
+    );
+    // clang-format on
     if (D_8034F7C0 != 0) {
         D_8034F7A4 = 0;
         D_8034F7A0 = 0;

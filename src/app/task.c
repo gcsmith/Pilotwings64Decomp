@@ -50,7 +50,7 @@ u8 gTaskClassU8 = 0;
 u8 gTaskVehicleU8 = 0;
 u8 gTaskTestU8 = 0;
 u8 D_8035079C = 0;
-u8 D_803507A0 = 0;
+u8 D_803507A0 = FALSE;
 u8 D_803507A4 = 0;
 u8 gTaskMapLookup[] = { MAP_HOLIDAY_ISLAND, MAP_CRESCENT_ISLAND, MAP_LITTLE_STATES, MAP_EVER_FROST_ISLAND };
 u8 gTaskUserFileIdxLookup[] = {
@@ -275,7 +275,7 @@ s32 taskInitTest(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* terraId,
     planesInit();
     whalePodInit();
     D_8035079C = 1;
-    D_803507A0 = 0;
+    D_803507A0 = FALSE;
     D_80362690->unkC[D_80362690->unk9C].unk8 = 0;
     *envId = envGetCurrentId();
     return 1;
@@ -291,7 +291,7 @@ void taskLoad(void) {
     padsLoad();
     envLoad();
     func_802EB598();
-    if (D_803507A0 == 0) {
+    if (!D_803507A0) {
         ringsLoad();
         ballsLoad();
         targetsLoad();
@@ -388,7 +388,7 @@ s32 taskFrameUpdate(Mtx4F* arg0, f32 arg1) {
         break;
     }
     if ((D_80362690->unkA0 != 0) && (taskGet_80346364() == 3) && (func_8032C080(NULL) != 0)) {
-        D_803507A0 = 1;
+        D_803507A0 = TRUE;
         taskDeinit();
         D_80362690->unkA0 = 0;
     }

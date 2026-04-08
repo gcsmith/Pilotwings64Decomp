@@ -63,7 +63,7 @@ s32 fileMenuTopRender(void) {
 }
 
 void fileMenu_802E8AF0(void) {
-    s32 var_a2;
+    s32 texId;
     Unk80364210* temp_s6;
     s32 tmp;
     s32 temp_s2;
@@ -75,13 +75,28 @@ void fileMenu_802E8AF0(void) {
     u8 var_s1_3;
     s32 j;
 
+    // clang-format off
     for (i = 0; i < 12; i++) {
-        uvSprtProps(i, 3, 1, 1, 0x26, 0x16, 2, ((i % 3) * 0x28) + 0x5D, 0x7B - ((i / 3) * 0x19), 7, 0xFF, 0xFF, 0xFF, 0xFF, 5, 0x148, 0);
+        uvSprtProps(i,
+            SPRT_PROP_3(1),
+            SPRT_PROP_DIM(38, 22),
+            SPRT_PROP_POS(((i % 3) * 40) + 93, 123 - ((i / 3) * 25)),
+            SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
+            SPRT_PROP_TEX_ID(0x148),
+            SPRT_PROP_END
+        );
     }
-
     for (i = 0; i < 3; i++) {
-        uvSprtProps(i + 12, 3, 1, 1, 0x26, 0x16, 2, 0xE5, 0x62 - (0x19 * i), 7, 0xFF, 0xFF, 0xFF, 0xFF, 5, 0x148, 0);
+        uvSprtProps(i + 12,
+            SPRT_PROP_3(1),
+            SPRT_PROP_DIM(38, 22),
+            SPRT_PROP_POS(229, 98 - (25 * i)),
+            SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
+            SPRT_PROP_TEX_ID(0x148),
+            SPRT_PROP_END
+        );
     }
+    // clang-format on
 
     temp_s6 = &D_80364210[D_80362690->unk9C];
     for (j = 0; j < 3; j++) {
@@ -89,15 +104,15 @@ void fileMenu_802E8AF0(void) {
             temp_s2 = levelGetTotalPoints(temp_s6, k, j);
             temp_v0 = func_8032BE8C(temp_s6, k, j);
             if ((temp_s2 >= gMedalPointRequirements[k].gold) && (temp_v0 != 0)) {
-                var_a2 = 0x14B; // gold medal sprite
+                texId = 0x14B; // gold medal sprite
             } else if ((temp_s2 >= gMedalPointRequirements[k].silver) && (temp_v0 != 0)) {
-                var_a2 = 0x14A; // silver medal sprite
+                texId = 0x14A; // silver medal sprite
             } else if ((temp_s2 >= gMedalPointRequirements[k].bronze) && (temp_v0 != 0)) {
-                var_a2 = 0x149; // bronze medal sprite
+                texId = 0x149; // bronze medal sprite
             } else {
-                var_a2 = 0x148; // no medal sprite
+                texId = 0x148; // no medal sprite
             }
-            uvSprtProps(k * 3 + j, 5, var_a2, 0);
+            uvSprtProps(k * 3 + j, SPRT_PROP_TEX_ID(texId), SPRT_PROP_END);
         }
     }
 
@@ -105,7 +120,13 @@ void fileMenu_802E8AF0(void) {
         temp_s2 = levelGetTotalPoints(temp_s6, i + 1, 0);
         temp_s5 = levelGetTotalPoints(temp_s6, i + 1, 1);
         temp_s7 = levelGetTotalPoints(temp_s6, i + 1, 2);
-        uvSprtProps(i + 0xC, 3, 1, 5, 0x148, 0);
+        // clang-format off
+        uvSprtProps(i + 0xC,
+            SPRT_PROP_3(1),
+            SPRT_PROP_TEX_ID(0x148),
+            SPRT_PROP_END
+        );
+        // clang-format on
         if (func_8032BE8C(temp_s6, i + 1, 0) && func_8032BE8C(temp_s6, i + 1, 1) && func_8032BE8C(temp_s6, i + 1, 2) &&
             temp_s2 >= gMedalPointRequirements[i + 1].silver && temp_s5 >= gMedalPointRequirements[i + 1].silver &&
             temp_s7 >= gMedalPointRequirements[i + 1].silver) {
@@ -190,7 +211,7 @@ void fileMenuSetProps(void) {
     s32 i;
 
     for (i = 0; i < 15; i++) {
-        uvSprtProps(i, 3, 0, 0);
+        uvSprtProps(i, SPRT_PROP_3(0), SPRT_PROP_END);
     }
     menuSetProps();
 }
@@ -252,12 +273,26 @@ void fileMenu_802E94E0(void) {
     uvLevelAppend(1);
     uvLevelAppend(0x72);
     textLoadBlock(0x42);
-    uvSprtProps(0x10, 3, 1, 9, 0x49, 0);
-    uvSprtProps(0x10, 2, 0x2A, uvSprtGetHeight(0x10) + 0x17, 0);
-    uvSprtProps(0x11, 3, 1, 9, 0x4A, 0);
-    uvSprtProps(0x11, 2, 0xE2, uvSprtGetHeight(0x11) + 0x17, 0);
-    uvSprtProps(0x12, 3, 1, 9, 0x4B, 0);
-    uvSprtProps(0x12, 2, 0xE2, uvSprtGetHeight(0x12) + 0x7F, 0);
+    // clang-format off
+    uvSprtProps(0x10,
+        SPRT_PROP_3(1),
+        SPRT_PROP_BLIT(BLIT_ID_49),
+        SPRT_PROP_END
+    );
+    uvSprtProps(0x10, SPRT_PROP_POS(42, uvSprtGetHeight(0x10) + 23), SPRT_PROP_END);
+    uvSprtProps(0x11,
+        SPRT_PROP_3(1),
+        SPRT_PROP_BLIT(BLIT_ID_4A),
+        SPRT_PROP_END
+    );
+    uvSprtProps(0x11, SPRT_PROP_POS(226, uvSprtGetHeight(0x11) + 23), SPRT_PROP_END);
+    uvSprtProps(0x12,
+        SPRT_PROP_3(1),
+        SPRT_PROP_BLIT(BLIT_ID_4B),
+        SPRT_PROP_END
+    );
+    uvSprtProps(0x12, SPRT_PROP_POS(226, uvSprtGetHeight(0x12) + 127), SPRT_PROP_END);
+    // clang-format on
     fileMenu_802E8AF0();
     sFileMenuCurMenu = -1;
     fileMenuSetup(0);

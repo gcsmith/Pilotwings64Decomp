@@ -13,6 +13,7 @@
 #include "app/code_9A960.h"
 #include "app/code_B2900.h"
 #include "app/code_D2B10.h"
+#include "uv_graphics.h"
 
 s32 D_8036A8A0;
 
@@ -37,25 +38,27 @@ Vec3F D_8034F450[] = {
     { 340.0f,                 3.4f, 0.6108651757240295f }
 };
 
+// blitId, x offset
 u16 D_8034F480[][2] = {
-    { 0x21, 0xDC },
-    { 0x1F, 0xDC },
-    { 0x20, 0xDC },
-    { 0x22, 0xDC },
-    { 0x23, 0xDC },
-    { 0x24, 0xDC },
-    { 0x25, 0xDC },
-    { 0x2D, 0xDC },
+    { BLIT_ID_21, 220 },
+    { BLIT_ID_1F, 220 },
+    { BLIT_ID_20, 220 },
+    { BLIT_ID_22, 220 },
+    { BLIT_ID_23, 220 },
+    { BLIT_ID_24, 220 },
+    { BLIT_ID_25, 220 },
+    { BLIT_ID_2D, 220 },
 };
 
+// blitId, x offset
 u16 D_8034F4A0[][2] = {
-    { 0x27, 0xDC },
-    { 0x28, 0xDC },
-    { 0x26, 0xDC },
-    { 0x2A, 0xDC },
-    { 0x2B, 0xDC },
-    { 0x2C, 0xDC },
-    { 0x29, 0xDC }
+    { BLIT_ID_27, 220 },
+    { BLIT_ID_28, 220 },
+    { BLIT_ID_26, 220 },
+    { BLIT_ID_2A, 220 },
+    { BLIT_ID_2B, 220 },
+    { BLIT_ID_2C, 220 },
+    { BLIT_ID_29, 220 }
 };
 
 u16 D_8034F4BC[] = { 0xEB, 0x13B, 0x125, 0x1B5, 0x172 };
@@ -122,7 +125,16 @@ void func_8030C22C(void) {
     uvMat4UnkOp6(&temp_s1->unk108, &sp68, &spA8);
     uvDobjPosm(D_8036A8A0, 0, &sp68);
     func_80204B34(temp_s1->unk22C, &temp_s1->unk108);
-    uvSprtProps(0, 3, 1, 2, 160 - (D_8034F4A0[temp_s0->veh][1] / 2), 0xDC, 9, D_8034F4A0[temp_s0->veh][0], 0xA, 0, 0xB, 1, 0);
+    // clang-format off
+    uvSprtProps(0,
+        SPRT_PROP_3(1),
+        SPRT_PROP_POS((SCREEN_WIDTH / 2) - (D_8034F4A0[temp_s0->veh][1] / 2), 220),
+        SPRT_PROP_BLIT(D_8034F4A0[temp_s0->veh][0]),
+        SPRT_PROP_FAST_COPY(0),
+        SPRT_PROP_TRANSPARENT(1),
+        SPRT_PROP_END
+    );
+    // clang-format on
     if (IS_MAIN_VEHICLE(temp_s0->veh)) {
         var_v1 = temp_s0->cls;
     } else {
@@ -131,7 +143,16 @@ void func_8030C22C(void) {
     if (temp_s0->veh == VEHICLE_BIRDMAN) {
         var_v1 = 7;
     }
-    uvSprtProps(1, 3, 1, 2, 160 - (D_8034F480[var_v1][1] / 2), 0xBE, 9, D_8034F480[var_v1][0], 0xA, 0, 0xB, 1, 0);
+    // clang-format off
+    uvSprtProps(1,
+        SPRT_PROP_3(1),
+        SPRT_PROP_POS((SCREEN_WIDTH / 2) - (D_8034F480[var_v1][1] / 2), 190),
+        SPRT_PROP_BLIT(D_8034F480[var_v1][0]),
+        SPRT_PROP_FAST_COPY(0),
+        SPRT_PROP_TRANSPARENT(1),
+        SPRT_PROP_END
+    );
+    // clang-format on
 }
 
 void func_8030C54C(void) {
@@ -141,8 +162,20 @@ void func_8030C54C(void) {
     uvDobjModel(D_8036A8A0, 0xFFFF);
     func_80204AB0(sp2C->unk22C, 0, NULL);
     func_80204AB0(sp2C->unk22C, 1, func_8034B6F8);
-    uvSprtProps(0, 0xA, 1, 0xB, 0, 3, 0, 0);
-    uvSprtProps(1, 0xA, 1, 0xB, 0, 3, 0, 0);
+    // clang-format off
+    uvSprtProps(0,
+        SPRT_PROP_FAST_COPY(1),
+        SPRT_PROP_TRANSPARENT(0),
+        SPRT_PROP_3(0),
+        SPRT_PROP_END
+    );
+    uvSprtProps(1,
+        SPRT_PROP_FAST_COPY(1),
+        SPRT_PROP_TRANSPARENT(0),
+        SPRT_PROP_3(0),
+        SPRT_PROP_END
+    );
+    // clang-format on
 }
 
 s32 func_8030C61C(void) {

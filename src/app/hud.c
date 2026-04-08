@@ -108,28 +108,125 @@ void hudInit(void) {
     gHudState.reticleX = 0.0f;
     gHudState.reticleY = 0.0f;
     hud_8031A378();
-    uvSprtProps(0, 3, 1, 1, 16, 8, 5, 0x11D, 0);
-    uvSprtProps(1, 3, 1, 1, 32, 32, 5, 0x126, 0);
-    uvSprtProps(2, 3, 1, 1, 32, 32, 5, 0x127, 0);
-    uvSprtProps(3, 3, 1, 1, 16, 128, 5, 0x128, 0);
-    uvSprtProps(4, 3, 1, 1, 32, 8, 5, 0x11E, 0);
-    uvSprtProps(5, 3, 1, 1, 32, 8, 5, 0x121, 0);
-    uvSprtProps(6, 3, 1, 1, 64, 8, 5, 0x11F, 0);
-    uvSprtProps(7, 3, 1, 1, 32, 8, 5, 0x129, 0);
-    uvSprtProps(8, 3, 1, 1, 32, 32, 5, 0x13D, 0);
-    uvSprtProps(9, 3, 1, 1, 130, 100, 5, 0x137, 0);
-    uvSprtProps(0xA, 3, 1, 1, 32, 8, 5, 0x120, 0);
+    // clang-format off
+    uvSprtProps(0,
+        SPRT_PROP_3(1),
+        SPRT_PROP_DIM(16, 8),
+        SPRT_PROP_TEX_ID(0x11D),
+        SPRT_PROP_END
+    );
+    uvSprtProps(1,
+        SPRT_PROP_3(1),
+        SPRT_PROP_DIM(32, 32),
+        SPRT_PROP_TEX_ID(0x126),
+        SPRT_PROP_END
+    );
+    uvSprtProps(2,
+        SPRT_PROP_3(1),
+        SPRT_PROP_DIM(32, 32),
+        SPRT_PROP_TEX_ID(0x127),
+        SPRT_PROP_END
+    );
+    uvSprtProps(3,
+        SPRT_PROP_3(1),
+        SPRT_PROP_DIM(16, 128),
+        SPRT_PROP_TEX_ID(0x128),
+        SPRT_PROP_END
+    );
+    uvSprtProps(4,
+        SPRT_PROP_3(1),
+        SPRT_PROP_DIM(32, 8),
+        SPRT_PROP_TEX_ID(0x11E),
+        SPRT_PROP_END
+    );
+    uvSprtProps(5,
+        SPRT_PROP_3(1),
+        SPRT_PROP_DIM(32, 8),
+        SPRT_PROP_TEX_ID(0x121),
+        SPRT_PROP_END
+    );
+    uvSprtProps(6,
+        SPRT_PROP_3(1),
+        SPRT_PROP_DIM(64, 8),
+        SPRT_PROP_TEX_ID(0x11F),
+        SPRT_PROP_END
+    );
+    uvSprtProps(7,
+        SPRT_PROP_3(1),
+        SPRT_PROP_DIM(32, 8),
+        SPRT_PROP_TEX_ID(0x129),
+        SPRT_PROP_END
+    );
+    uvSprtProps(8,
+        SPRT_PROP_3(1),
+        SPRT_PROP_DIM(32, 32),
+        SPRT_PROP_TEX_ID(0x13D),
+        SPRT_PROP_END
+    );
+    uvSprtProps(9,
+        SPRT_PROP_3(1),
+        SPRT_PROP_DIM(130, 100),
+        SPRT_PROP_TEX_ID(0x137),
+        SPRT_PROP_END
+    );
+    uvSprtProps(0xA,
+        SPRT_PROP_3(1),
+        SPRT_PROP_DIM(32, 8),
+        SPRT_PROP_TEX_ID(0x120),
+        SPRT_PROP_END
+    );
     if (gHudState.showController) {
         uvLevelAppend(0x54);
-        uvSprtProps(0xB, 3, 1, 2, 20, 200, 9, 0xB, 0);
-        uvSprtProps(0xC, 3, 1, 2, 20, 200, 9, 0xC, 0);
-        uvSprtProps(0xE, 3, 1, 2, 20, 200, 9, 0x16, 0);
-        uvSprtProps(0xF, 3, 1, 2, 20, 200, 9, 0x17, 0);
-        uvSprtProps(0xD, 3, 1, 2, 20, 200, 9, 0x18, 0);
-        uvSprtProps(0x10, 3, 1, 2, 20, 200, 9, 0x1A, 0);
-        uvSprtProps(0x11, 3, 1, 2, 20, 200, 9, 0x19, 0);
-        uvSprtProps(0x12, 3, 1, 2, 20, 200, 9, 0x1B, 0);
+        uvSprtProps(0xB,
+            SPRT_PROP_3(1),
+            SPRT_PROP_POS(20, 200),
+            SPRT_PROP_BLIT(BLIT_ID_0B),
+            SPRT_PROP_END
+        );
+        uvSprtProps(0xC,
+            SPRT_PROP_3(1),
+            SPRT_PROP_POS(20, 200),
+            SPRT_PROP_BLIT(BLIT_ID_0C),
+            SPRT_PROP_END
+        );
+        uvSprtProps(0xE,
+            SPRT_PROP_3(1),
+            SPRT_PROP_POS(20, 200),
+            SPRT_PROP_BLIT(BLIT_ID_16),
+            SPRT_PROP_END
+        );
+        uvSprtProps(0xF,
+            SPRT_PROP_3(1),
+            SPRT_PROP_POS(20, 200),
+            SPRT_PROP_BLIT(BLIT_ID_17),
+            SPRT_PROP_END
+        );
+        uvSprtProps(0xD,
+            SPRT_PROP_3(1),
+            SPRT_PROP_POS(20, 200),
+            SPRT_PROP_BLIT(BLIT_ID_18),
+            SPRT_PROP_END
+        );
+        uvSprtProps(0x10,
+            SPRT_PROP_3(1),
+            SPRT_PROP_POS(20, 200),
+            SPRT_PROP_BLIT(BLIT_ID_1A),
+            SPRT_PROP_END
+        );
+        uvSprtProps(0x11,
+            SPRT_PROP_3(1),
+            SPRT_PROP_POS(20, 200),
+            SPRT_PROP_BLIT(BLIT_ID_19),
+            SPRT_PROP_END
+        );
+        uvSprtProps(0x12,
+            SPRT_PROP_3(1),
+            SPRT_PROP_POS(20, 200),
+            SPRT_PROP_BLIT(BLIT_ID_1B),
+            SPRT_PROP_END
+        );
     }
+    // clang-format on
 }
 
 HUDState* hudGetState(void) {
@@ -588,7 +685,13 @@ void hudDrawCamera(HUDState* hud) {
     s32 x;
 
     if (hud->cameraState & HUD_CAM_RENDER_RETICLE) {
-        uvSprtProps(9, 2, 0x5F, 0xAF, 7, 0xFF, 0, 0, 0x78, 0);
+        // clang-format off
+        uvSprtProps(9,
+            SPRT_PROP_POS(95, 175),
+            SPRT_PROP_COLOR(0xFF, 0x00, 0x00, 0x78),
+            SPRT_PROP_END
+        );
+        // clang-format on
         uvSprtDraw(9);
         if (D_8034F914 == 0) {
             sndPlaySfx(0x43);
@@ -824,8 +927,8 @@ void hudDrawThrottle(s32 x, s32 y, f32 power) {
     fakePtr = &y2;
     fakePtr = &y1;
 
-    uvSprtProps(1, 2, x, y, 0);
-    uvSprtProps(2, 2, x + 31, y, 0);
+    uvSprtProps(1, SPRT_PROP_POS(x, y), SPRT_PROP_END);
+    uvSprtProps(2, SPRT_PROP_POS(x + 31, y), SPRT_PROP_END);
     uvSprtDraw(1);
     uvSprtDraw(2);
 
@@ -1121,13 +1224,13 @@ void hudDrawRadar(s32 x, s32 y, f32 xOff, f32 yOff, f32 heading, f32 pitch, HUDR
             hudRadarWaypoint(sp98, sp94, 1, 0, 0.0f, 0xFF);
         }
     }
-    uvSprtProps(0, 2, x + 31, y - 33, 0);
+    uvSprtProps(0, SPRT_PROP_POS(x + 31, y - 33), SPRT_PROP_END);
     uvSprtDraw(0);
     uvGfxMtxViewPop();
 }
 
 void hudDemoContButton(s32 spriteId, s32 x, s32 y) {
-    uvSprtProps(spriteId, 2, x + 20, 200 - y, 0);
+    uvSprtProps(spriteId, SPRT_PROP_POS(x + 20, 200 - y), SPRT_PROP_END);
     uvSprtDraw(spriteId);
 }
 
@@ -1192,7 +1295,13 @@ void hudDrawSpeed(s32 x, s32 y, s32 speed, s32 highlightLowSpeed) {
     s32 numX;
 
     y += 8;
-    uvSprtProps(5, 2, x + 4, y - 18, 7, 0xFF, 0xFF, 0xFF, 0xFF, 0);
+    // clang-format off
+    uvSprtProps(5,
+        SPRT_PROP_POS(x + 4, y - 18),
+        SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
+        SPRT_PROP_END
+    );
+    // clang-format on
     uvSprtDraw(5);
     if ((speed < HIGHLIGHT_SPEED_BELOW) && (highlightLowSpeed)) {
         uvFontSet(7);
@@ -1287,7 +1396,13 @@ void hudDrawFuel(s32 x, s32 y, f32 fuel) {
     uvVtxEndPoly();
     uvGfxStatePop();
 
-    uvSprtProps(7, 2, x, y - 10, 7, 0xFF, 0xFF, 0xFF, 0xFF, 0);
+    // clang-format off
+    uvSprtProps(7,
+        SPRT_PROP_POS(x, y - 10),
+        SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
+        SPRT_PROP_END
+    );
+    // clang-format on
     uvSprtDraw(7);
 }
 
@@ -1325,7 +1440,7 @@ void hudDrawAltimeter(s32 x, s32 y, s32 altitude) {
         uvVtxEndPoly();
         uvGfxStatePop();
 
-        uvSprtProps(3, 2, x + 27, y, 0);
+        uvSprtProps(3, SPRT_PROP_POS(x + 27, y), SPRT_PROP_END);
         uvSprtDraw(3);
 
         uvGfxStatePush();
@@ -1414,7 +1529,13 @@ void hudSeaLevel(s32 x, s32 y, s32 alt) {
     char str[12];
 
     y += 8;
-    uvSprtProps(6, 2, x, y - 0x12, 7, 0xFF, 0xFF, 0xFF, 0xFF, 0);
+    // clang-format off
+    uvSprtProps(6,
+        SPRT_PROP_POS(x, y - 18),
+        SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
+        SPRT_PROP_END
+    );
+    // clang-format on
     uvSprtDraw(6);
     uvFontSet(8);
     if (alt < 0) {
@@ -1465,7 +1586,13 @@ void hudDrawTimer(s32 x, s32 y, f32 timeSecF) {
             dispHundth -= 100;
         }
     }
-    uvSprtProps(4, 2, x, y, 7, 0xFF, 0xFF, 0xFF, 0xFF, 0);
+    // clang-format off
+    uvSprtProps(4,
+        SPRT_PROP_POS(x, y),
+        SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
+        SPRT_PROP_END
+    );
+    // clang-format on
     uvSprtDraw(4);
     uvFontSet(8);
     x += 36;
@@ -1483,11 +1610,21 @@ void hudDrawAimReticle(s32 x, s32 y, s32 flag) {
 
     centerX = x + (SCREEN_WIDTH / 2);
     centerY = y + 125;
+    // clang-format off
     if (flag == 0) {
-        uvSprtProps(8, 2, centerX - 16, centerY + 16, 7, 0xFF, 0xFF, 0x00, 0xFF, 0);
+        uvSprtProps(8,
+            SPRT_PROP_POS(centerX - 16, centerY + 16),
+            SPRT_PROP_COLOR(0xFF, 0xFF, 0x00, 0xFF),
+            SPRT_PROP_END
+        );
     } else {
-        uvSprtProps(8, 2, centerX - 16, centerY + 16, 7, 0x00, 0x00, 0x00, 0xFF, 0);
+        uvSprtProps(8,
+            SPRT_PROP_POS(centerX - 16, centerY + 16),
+            SPRT_PROP_COLOR(0x00, 0x00, 0x00, 0xFF),
+            SPRT_PROP_END
+        );
     }
+    // clang-format on
     uvSprtDraw(8);
 }
 
@@ -1909,7 +2046,13 @@ void hudDrawPhotoCount(void) {
     uvFontScale(1.0, 1.0);
     uvSprintf(str, "%d", snapGetPhotoCount());
     uvFontPrintStr(SCREEN_WIDTH / 2, 30, str);
-    uvSprtProps(0xA, 2, 150, 28, 7, 0xFF, 0xFF, 0xFF, 0xFF, 0);
+    // clang-format off
+    uvSprtProps(0xA,
+        SPRT_PROP_POS(150, 28),
+        SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
+        SPRT_PROP_END
+    );
+    // clang-format on
     uvSprtDraw(0xA);
 }
 
