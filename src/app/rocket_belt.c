@@ -7,11 +7,17 @@
 #include "app/demo_attitude.h"
 #include "app/environment.h"
 #include "app/hover_pads.h"
+#include "app/hud.h"
+#include "app/snd.h"
+#include "app/wind_objects.h"
+#include "app/code_61A60.h"
 #include "app/code_66F70.h"
+#include "app/code_B2900.h"
 
-extern Unk802D3658_Unk111C D_80371630;
-extern s32 D_8037187C;
-extern s32 D_80371880;
+Unk802D3658_Unk111C D_80371630;
+Unk802D3658_Unk1224 D_80371738;
+s32 D_8037187C;
+s32 D_80371880;
 
 void func_80328538(RocketBeltData*);
 void func_80328A14(RocketBeltData*);
@@ -22,6 +28,8 @@ void func_80329120(RocketBeltData*);
 void func_803291A8(RocketBeltData*);
 void func_8032923C(RocketBeltData*);
 void func_80329628(RocketBeltData*);
+void func_8032975C(RocketBeltData*);
+void func_8032A4A8(RocketBeltData*);
 
 void func_80328420(RocketBeltData* arg0) {
     Vec3F sp24 = { 0.0f, 0.0f, 0.0f };
@@ -506,6 +514,362 @@ void func_80329628(RocketBeltData* arg0) {
     arg0->unk204.z += arg0->unk314 * sp28.z;
 }
 
+#ifndef NON_MATCHING
 #pragma GLOBAL_ASM("asm/nonmatchings/app/rocket_belt/func_8032975C.s")
+#else
+void func_8032975C(RocketBeltData* arg0) {
+    Vec3F sp2AC;
+    Vec3F sp2A0;
+    f32 sp29C;
+    f32 sp298;
+    f32 sp294;
+    f32 sp290;
+    f32 sp28C;
+    f32 sp288;
+    s32 i;
+    s32 pad;
+    u8 sp27F;
+    u8 sp27E;
+    u8 sp27D;
+    u8 sp27C;
+    s32 sp278;
+    s32 sp274;
+    s32 temp_v0_2;
+    Unk802D3658_Unk1120* temp_v0_7;
+    s32 sp268;
+    f32 temp_fv1;
+    Vec3F sp258;
+    Vec3F sp24C;
+    Vec3F sp240;
+    Mtx4F sp200;
+    Unk802D3658_Unk1224 spBC;
+    Unk802D3658_Unk1228* var_s1;
+    s32 pad2[2];
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/rocket_belt/func_8032A4A8.s")
+    sp27C = sp27D = 0;
+    sp278 = -1;
+    for (i = 0; i < 4; i++) {
+        arg0->unkCC[i] = 0.0f;
+        arg0->unk93[i] = 0;
+    }
+    // FAKE
+    if (1) {}
+    arg0->unkE9 = 0;
+    arg0->unkE8 = 0;
+    arg0->unk64 = 0;
+    sp268 = 0;
+
+    temp_v0_2 = func_802DB050(&D_80371630, &D_80371738, arg0->objId, arg0->unk2, &arg0->unk10);
+    arg0->unk92 = temp_v0_2;
+    sp27F = temp_v0_2;
+
+    if ((arg0->unkFC + arg0->unk25C.z) > 0.5f) {
+        D_80371880 = 1;
+    }
+    if (sp27F) {
+        D_8037187C++;
+        if (D_8037187C > 1) {
+            D_8037187C = 1;
+        }
+    } else {
+        D_8037187C--;
+        if (D_8037187C < 0) {
+            D_8037187C = 0;
+        }
+    }
+    if (D_8037187C == 0) {
+        sp27E = 0;
+    } else {
+        sp27E = 1;
+    }
+    if ((D_80371880 != 0) && (sp27F)) {
+        D_8037187C = sp27E = D_80371880 = 0;
+    }
+
+    for (i = 0; i < sp27F; i++) {
+        var_s1 = &D_80371738.unk4[i];
+        if ((var_s1->collisionType != 2) || ((var_s1->collisionType == 2) && (ballsObjIdExists(var_s1->surfaceId) == 0))) {
+            func_802DC814(var_s1, (Vec3F* ) arg0->unk10.m[3]);
+        }
+        func_802DBE64(&D_80371630, &D_80371738, i, &arg0->unk11C);
+        uvVec3Copy(&arg0->unk9C[i], &var_s1->unkC);
+        arg0->unk97[i] = var_s1->unk0;
+        arg0->unk93[i] = var_s1->collisionType;
+        arg0->unkCC[i] = uvVec3Dot(&arg0->unk1DC, &var_s1->unk34);
+        sp2AC.x = -arg0->unk1DC.x;
+        sp2AC.y = -arg0->unk1DC.y;
+        sp2AC.z = -arg0->unk1DC.z;
+
+        switch (var_s1->collisionType) {
+        case 4:
+            if ((arg0->unk90 != 3) && (arg0->unk90 != 2)) {
+                arg0->unk90 = 0;
+            }
+            arg0->unkE8 = 1;
+            arg0->unk91 = 0;
+            return;
+        case 1:
+        case 2:
+        case 8:
+            if (var_s1->collisionType == 2) {
+                sp274 = windObjIsLoadedId(var_s1->surfaceId);
+                if (sp274 == 0) {
+                    sp278 = hoverPadGetLandedIdx(var_s1->surfaceId, arg0->unk1F4); 
+                    if ((sp278 < 0) && (sp27C == 0) && (sp274 == 0)) {
+                        sp29C = sp298 = ballsPopped(var_s1->surfaceId, &arg0->unk1E8, &D_80371738);
+                        if (sp29C != 0.0f) {
+                            sp27C++;
+                            break;
+                        }
+                        return;
+                    }
+                }
+            }
+
+            sp28C = uvVec3Len(&arg0->unk1E8);
+            sp294 = -uvVec3Dot(&arg0->unk1E8, &arg0->unk108);
+            sp288 = SQ(sp28C) - SQ(sp294);
+            if (SQ(sp294) < SQ(sp28C)) {
+                sp290 = uvSqrtF(sp288);
+            } else {
+                sp290 = 0.0f;
+            }
+            if (var_s1->unk0 != 1) {
+                sp29C = 0.4f;
+                sp298 = 1.0f;
+                if (D_8037187C == 0) {
+                    arg0->unk91 = var_s1->collisionType;
+                }
+                if (sp27C) {
+                    arg0->unk91 = 0;
+                }
+                
+                if ((ABS_NOEQ(sp294) > 21.8f) && (sp27C == 0)) {
+                    arg0->unk90 = 2;
+                    arg0->unk91 = 0;
+                }
+                break;
+            }
+            arg0->unk64 = func_8032BE10()->unk3D;
+            if (ABS_NOEQ(arg0->unk214.x) > 0.11f) {
+                sp27D = 1;
+            }
+            if (sp294 > 21.8f) {
+                arg0->unk90 = 2;
+                arg0->unk91 = 0;
+                arg0->unk4 &= ~4;
+                arg0->unk114 = 1000.0f;
+                arg0->unk118 = 1000.00f;
+                sp29C = 0.4f;
+                sp298 = 1.0f;
+            } else if (sp294 > 7.93f) {
+                if (sp290 > 7.93f) {
+                    arg0->unk91 = var_s1->collisionType;
+                    arg0->unk4 &= ~4;
+                    sp29C = 0.4f;
+                    sp298 = 1.0f;
+                } else {
+                    if (sp27D != 0) {
+                        sp29C = 0.2f;
+                        sp298 = 0.5f;
+                        if (arg0->unk78 <= 0.0f) {
+                            if (sp27E == 0) {
+                                arg0->unk91 = var_s1->collisionType;
+                            }
+                            arg0->unkE9 = 1;
+                            sp29C = 0.10f;
+                        }
+                    } else if (arg0->unk64 != 0) {
+                        arg0->unk91 = 0;
+                        sp29C = 0.2f;
+                        sp298 = 0.5f;
+                        arg0->unk90 = 4;
+                        arg0->unk118 = sp290;
+                        arg0->unk114 = sp294;
+                    } else {
+                        sp29C = 0.2f;
+                        sp298 = 1.0f;
+                        arg0->unk91 = var_s1->collisionType;
+                    }
+                }
+            } else if (sp290 > 7.93f) {
+                arg0->unk4 &= ~4;
+                sp298 = 1.0f;
+                sp29C = 0.4f;
+            } else if (sp27D != 0) {
+                sp29C = 0.2f;
+                sp298 = 0.0f;
+                if (arg0->unk78 <= 0.0f) {
+                    arg0->unkE9 = 1;
+                }
+                if (!sp27E) {
+                    arg0->unk91 = var_s1->collisionType;
+                    sp29C = 0.10f;
+                }
+                if ((arg0->unkF8 <= 0.0f) && (arg0->unkE9 != 0) && (arg0->unk90 != 2)) {
+                    sp29C = 0.2f;
+                    sp298 = 0.5f;
+                    arg0->unk90 = 4;
+                    arg0->unk4 &= ~4;
+                }
+            } else if (arg0->unk64 != 0) {
+                arg0->unk91 = 0;
+                sp29C = 0.10f;
+                sp298 = 0.5f;
+                arg0->unk90 = 4;
+                arg0->unkE9 = 1;
+                arg0->unk114 = sp294;
+                arg0->unk118 = sp290;
+            } else {
+                sp29C = 0.2f;
+                sp298 = 0.0f;
+                if ((sp278 >= 0) && (arg0->unkF0 < 0)) {
+                    arg0->unkF0 = sp278;
+                    arg0->unkF8 += hoverPadGetFuel(sp278);
+                    hoverPadActivateNext(arg0->unkF0);
+                    hudText_8031D8E0(0x1AB, 1.5f, 8.0f);
+
+                    if (arg0->unkF8 < 0.0f) {
+                        arg0->unkF8 = 0.0f;
+                    } else if (arg0->unkF8 > 1.0f) {
+                        arg0->unkF8 = 1.0f;
+                    }
+                    if (arg0->unkF8 >= 0.15f) {
+                        arg0->unkEB = 0;
+                    }
+                    arg0->unkEC = 0;
+                } else if (arg0->unk78 <= 0.0f) {
+                    arg0->unkE9 = 1;
+                }
+                if (!sp27E && (arg0->unkF0 < 0)) {
+                    arg0->unk91 = var_s1->collisionType;
+                }
+                if ((arg0->unkF8 <= 0.0f) && (arg0->unkE9 != 0)) {
+                    sp29C = 0.1f;
+                    sp298 = 0.5f;
+                    arg0->unk90 = 4;
+                    arg0->unk4 &= ~4;
+                    arg0->unk4 &= ~0x800;
+                }
+            }
+            break;
+        default:
+            _uvDebugPrintf("rpmot : unknown collision type [%d]\n", var_s1->collisionType);
+            break;
+        }
+        if (var_s1->collisionType == 8) {
+            if ((func_802DC97C(var_s1->surfaceId) != 0) && (var_s1->unk1C.z > 0.9f)) {
+                sp298 = 1.0f;
+                var_s1->unk34.x = 0.5f - uvRandF_RANLUX();
+                var_s1->unk34.y = 0.5f - uvRandF_RANLUX();
+                var_s1->unk34.z = 0.5f;
+                uvVec3Normal(&var_s1->unk34, &var_s1->unk34);
+                uvMat4LocalToWorld(&arg0->unk15C, &var_s1->unk1C, &var_s1->unk34);
+                sp29C = 1.0f - (ABS_NOEQ(arg0->unk1E8.z) * 0.5f);
+                if (sp29C < 0.9f) {
+                    sp29C = 0.9f;
+                } else if (sp29C > 1.0f) {
+                    sp29C = 1.0f;
+                }
+                arg0->unkE9 = 0;
+            }
+            if (func_802DC97C(var_s1->surfaceId) != 0) {
+                func_8033F758(0x39, 1.0f, 1.0f, 0.0f);
+            }
+        }
+
+        if ((arg0->unkE9 != 0) && (arg0->unk90 != 2)) {
+            if (var_s1->unk1C.z < 0.9f) {
+                sp298 = 1.0f;
+            } else {
+                sp298 = (((1.0f - var_s1->unk1C.z) / 0.1f) * 0.100000024f) + 0.9f;
+            }
+            func_802DC784(&arg0->unk11C, &arg0->unk1DC, &arg0->unk1E8, &var_s1->unk1C, sp298);
+            if ((arg0->unk1DC.y < 0.5f) && (arg0->unk108.z > 0.96)) {
+                func_80313E18(&arg0->unk22C, &arg0->unk10);
+            }
+        } else {
+            if (arg0->unk90 == 2) {
+                sp298 = 1.0f;
+            }
+            func_802DC1DC(&arg0->unk220, &var_s1->unk28, &sp2AC, arg0->unk32C * sp298, arg0->unk330 * sp298, arg0->unk334 * sp298);
+            uvVec3Copy(&sp2A0, &arg0->unk1DC);
+            func_802DC074(&arg0->unk15C, &arg0->unk1DC, &arg0->unk1E8, &var_s1->unk34, sp29C);
+            
+            if (ABS_NOEQ(sp2A0.x - arg0->unk1DC.x) < 0.1f) {
+                if (ABS_NOEQ(sp2A0.y - arg0->unk1DC.y) < 0.1f) {
+                    temp_fv1 = ABS_NOEQ(sp2A0.y - arg0->unk1DC.z);
+                    if (temp_fv1 < 0.1f) {
+                        arg0->unk1DC.x += var_s1->unk34.x;
+                        arg0->unk1DC.y += var_s1->unk34.y;
+                        arg0->unk1DC.z += var_s1->unk34.z;
+                        uvMat4LocalToWorld(&arg0->unk15C, &arg0->unk1E8, &arg0->unk1DC);
+                    }
+                }
+            }
+        }
+        if (arg0->unk90 != 3) {
+            if ((var_s1->collisionType == 2) && (ballsObjIdExists(var_s1->surfaceId) != 0)) {
+                break;
+            }
+            temp_v0_7 = &D_80371630.unk4[var_s1->unk0];
+            func_802DCA5C(&temp_v0_7->unk28, &temp_v0_7->unk1C, &var_s1->unk28, &var_s1->unk34, &sp258);
+            sp24C.x = arg0->unk10.m[3][0];
+            sp24C.y = arg0->unk10.m[3][1];
+            sp24C.z = arg0->unk10.m[3][2];
+            uvMat4Copy(&sp200, &arg0->unk10);
+            uvMat4LocalTranslate(&sp200, sp258.x, sp258.y, sp258.z);
+            sp240.x = sp200.m[3][0];
+            sp240.y = sp200.m[3][1];
+            sp240.z = sp200.m[3][2];
+            func_802DB224(&spBC, 0xFF, arg0->objId, arg0->unk2, &sp24C, &sp240);
+            if (spBC.unk0 > 0) {
+                sp268++;
+            } else {
+                uvMat4LocalTranslate(&arg0->unk10, sp258.x, sp258.y, sp258.z);
+                arg0->unk374.x = arg0->unk10.m[3][0];
+                arg0->unk374.y = arg0->unk10.m[3][1];
+                arg0->unk374.z = arg0->unk10.m[3][2];
+            }
+        }
+    }
+
+    if (sp27F && (sp268 == sp27F)) {
+        arg0->unk90 = 3;
+        _uvDebugPrintf("rpmot : you got stuck - forcing an instant crash\n");
+    }
+    if (!sp27F) {
+        if ((arg0->unk90 != 3) && (arg0->unk90 != 2)) {
+            arg0->unk90 = 0;
+        }
+    }
+}
+#endif
+
+void func_8032A4A8(RocketBeltData* arg0) {
+    f32 var_fs0;
+    f32 sp28;
+    f32 sp24;
+    f32 sp20;
+
+    sp28 = arg0->unk25C.z;
+    
+    var_fs0 = ABS_NOEQ(arg0->unk344);
+    if (var_fs0 < 0.1f) {
+        sp20 = 0.0f;
+        sp24 = 0.0f;
+    } else {
+        sp24 = arg0->unk344;
+        var_fs0 = ABS_NOEQ(arg0->unk34C);
+        if (var_fs0 < 0.1f) {
+            sp20 = 0.0f;
+        } else {
+            sp20 = arg0->unk34C;
+        }
+    }
+    D_80371630.unk4[1].unk0 = 1;
+    var_fs0 = uvSinF(sp24);
+    D_80371630.unk4[1].unk1C.y = (arg0->unk25C.y - ((0.5f * sp28) * var_fs0)) - (uvSinF(sp20) * (0.5f * sp28));
+    var_fs0 = uvCosF(sp24);
+    D_80371630.unk4[1].unk1C.z = (uvCosF(sp20) * (0.4f * sp28)) + ((0.2f * sp28) + ((0.4f * sp28) * var_fs0));
+}

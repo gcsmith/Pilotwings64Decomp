@@ -31,7 +31,11 @@ typedef struct {
     f32 unk8C;
     u8 unk90;
     u8 unk91;
-    u8 pad92[0x4A];
+    u8 unk92;
+    u8 unk93[4];
+    u8 unk97[4];
+    Vec3F unk9C[4];
+    f32 unkCC[4];
     Vec3F unkDC;
     u8 unkE8;
     u8 unkE9;
@@ -137,9 +141,17 @@ typedef struct {
     f32 unk370;
     Vec3F unk374;
     s32 unk380;
-    u8 pad384[0x9];
+    s32 unk384;
+    u8 unk388;
+    u8 unk389;
+    u8 unk38A;
+    u8 unk38B;
+    u8 unk38C;
     u8 unk38D;
-    u8 pad38E[0xE];
+    u8 pad38E[0x2];
+    f32 unk390;
+    f32 unk394;
+    f32 unk398;
 } RocketBeltData;
 
 void rocketBeltInit(void);

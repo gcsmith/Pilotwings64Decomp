@@ -1045,6 +1045,8 @@ sWindObjectsData          = 0x8037F910;
 sWindObjectsInLevel       = 0x8037F914;
 sWindObjects              = 0x8037F918;
 
+D_80371738                = 0x80371738; // size:0x144
+
 rbSoundEventCbInfo        = 0x80371890; // size:0x8
 rbSound_80371898          = 0x80371898; // size:0x54
 

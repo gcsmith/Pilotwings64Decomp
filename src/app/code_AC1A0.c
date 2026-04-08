@@ -57,7 +57,7 @@ void rocketBeltLoadLevel(u8 contIdx, u8 pilot, RocketBeltData* arg2, Camera* arg
     arg2->unk4 = 0xFFFF;
     func_80326F30(arg2);
     func_80328420(arg2);
-    func_8032A600(arg2);
+    rbSoundInit(arg2);
 }
 
 void rocketBeltEnterLeave(RocketBeltData* arg0) {
