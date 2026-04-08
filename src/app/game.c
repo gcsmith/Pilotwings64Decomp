@@ -470,7 +470,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
     switch (temp_s0->veh) {
     case VEHICLE_HANG_GLIDER:
         D_803676F0 = (HangGliderData*)temp_s0->vehicleData;
-        func_802EF238(arg0->unk9C, temp_s0->pilot, D_803676F0, temp_s0->unk70);
+        hangGliderLoadLevel(arg0->unk9C, temp_s0->pilot, D_803676F0, temp_s0->unk70);
         hangGliderEnterLeave(D_803676F0);
         func_802EDD9C(temp_s0, &D_803676F0->unk10);
         if ((arg0->state != GAME_STATE_DEMO_PILOT) && (arg0->unkA2 == 0)) {
@@ -1220,7 +1220,7 @@ void func_802EE14C(u16 veh) {
     switch (temp_s0->veh) {
     case VEHICLE_HANG_GLIDER:
         D_803676F0 = (HangGliderData*)temp_s0->vehicleData;
-        func_802EF238(D_80362690->unk9C, temp_s0->pilot, D_803676F0, temp_s0->unk70);
+        hangGliderLoadLevel(D_80362690->unk9C, temp_s0->pilot, D_803676F0, temp_s0->unk70);
         hangGliderEnterLeave(D_803676F0);
         func_8033F748(4);
         sp3C = 0.5f;

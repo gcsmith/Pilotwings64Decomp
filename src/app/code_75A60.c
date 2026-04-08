@@ -68,11 +68,11 @@ void func_802EE640(HangGliderData* hangGlider) {
     }
     if (hangGlider->unk88 > 0.95f && hangGlider->unkF8 < 3 /*.0f*/) {
         sp74 = 1;
-        var_fa0 = (hangGlider->unk2DC * hangGlider->unk190 * D_8034F854);
+        var_fa0 = (hangGlider->unk2DC * hangGlider->unk18C.y * D_8034F854);
         if (var_fa0 < 0.2f) {
             sp74 = 0;
         }
-        if (hangGlider->unk190 < 0.5f) {
+        if (hangGlider->unk18C.y < 0.5f) {
             sp74 = 5;
         }
     }
@@ -126,7 +126,7 @@ void func_802EE640(HangGliderData* hangGlider) {
         }
         hangGlider->unk240 = func_80313AF4(var_fa0, hangGlider->unk240, 7.3f);
     }
-    var_fv1 = ABS_NOEQ(hangGlider->unk190);
+    var_fv1 = ABS_NOEQ(hangGlider->unk18C.y);
     var_fa0 = (var_fv1 * D_8034F854) / hangGlider->unk2DC;
     if (var_fa0 > 0.17f) {
         var_fa0 = 0.17f;
@@ -141,7 +141,7 @@ void func_802EE640(HangGliderData* hangGlider) {
         hangGlider->unk234 = 2.0f - hangGlider->unk230;
     }
     func_802CAA90(hangGlider->objId);
-    uvModelGetPosm(hangGlider->unk2E0, hangGlider->unk2E4, &sp34);
+    uvModelGetPosm(hangGlider->modelId, hangGlider->unk2E4, &sp34);
     uvMat4RotateAxis(&sp34, (hangGlider->unk60 * -1.0f) + hangGlider->unk68, 'z');
     uvMat4RotateAxis(&sp34, (hangGlider->unk64 * (1.0f / 5.0f)) + (1.0f / 5.0f) + hangGlider->unk6C, 'x');
     uvDobjPosm(hangGlider->objId, hangGlider->unk2E4, &sp34);
@@ -223,7 +223,7 @@ void func_802EEB00(HangGliderData* hangGlider, u8 arg1) {
         uvDobjPosm(hangGlider->objId, hangGlider->unk2E7, &sp78);
         break;
     case 1:
-        uvModelGetPosm(hangGlider->unk2E0, hangGlider->unk2E4, &spB8);
+        uvModelGetPosm(hangGlider->modelId, hangGlider->unk2E4, &spB8);
         uvMat4RotateAxis(&spB8, -0.2f, 'x');
         uvMat4RotateAxis(&spB8, uvCosF(2.0f * hangGlider->unk254), 0x7A);
         uvDobjPosm(hangGlider->objId, hangGlider->unk2E4, &spB8);
@@ -285,6 +285,6 @@ void func_802EF058(HangGliderData* hangGlider, Unk80371120* arg1, s32 partId, Mt
         uvMat4SetIdentity(arg3);
         return;
     }
-    uvModelGetPosm(hangGlider->unk2E0, partId, arg3);
+    uvModelGetPosm(hangGlider->modelId, partId, arg3);
     uvMat4SetQuaternionRotation(arg3, arg1->unk0[sp2C].unk0, arg1->unk0[sp2C].unk4, arg1->unk0[sp2C].unk8, arg1->unk0[sp2C].unkC);
 }
