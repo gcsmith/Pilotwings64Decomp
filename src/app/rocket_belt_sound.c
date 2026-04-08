@@ -117,21 +117,21 @@ STATIC_FUNC void rbSoundEventHandler(s32 event, void* userData, s32 eventData) {
         sp48 = 0.6f * var_fa1;
         func_8033F904(rbData->unk38B, sp4C, sp48, 0.5f);
 
-        var_fa1 = rbData->unk1F0 * 0.06f;
+        var_fa1 = rbData->unk1E8.z * 0.06f;
         if (var_fa1 < -1.0f) {
             var_fa1 = -1.0f;
         } else if (var_fa1 > 1.0f) {
             var_fa1 = 1.0f;
         }
         sp4C = (ABS_NOEQ(var_fa1) * 0.3f) + 1.0f;
-        var_fa1 = ABS_NOEQ(rbData->unk1F0 * 0.06f);
+        var_fa1 = ABS_NOEQ(rbData->unk1E8.z * 0.06f);
         if (var_fa1 < 0.0f) {
             var_fa1 = 0.0f;
         } else if (var_fa1 > 1.0f) {
             var_fa1 = 1.0f;
         }
         sp48 = 0.17f * var_fa1 * var_fa1;
-        if (rbData->unk1F0 < 0.0f) {
+        if (rbData->unk1E8.z < 0.0f) {
             func_8033F904(rbData->unk388, sp4C, 0.0f, 0.0f);
             func_8033F904(rbData->unk389, sp4C, sp48, 0.0f);
         } else {

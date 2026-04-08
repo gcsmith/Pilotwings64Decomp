@@ -35,7 +35,7 @@ void hoverPadFrameUpdate(Mtx4F*);
 void hoverPadLanded(s32 hoverIdx);
 f32 hoverPadGetAltitude(s32 hoverIdx);
 f32 hoverPadGetFuel(s32 hoverIdx);
-s32 hoverPadGetLandedIdx(s32 objId, s32);
+s32 hoverPadGetLandedIdx(s32 objId, f32);
 void hoverPadDeinit(void);
 u8 hoverPadGetCount(void);
 s16 hoverPadGetPoints(void);

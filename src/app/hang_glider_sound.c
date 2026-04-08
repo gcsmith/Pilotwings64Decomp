@@ -86,7 +86,6 @@ STATIC_FUNC void hgSoundEventHandler(s32 event, void* userData, s32 eventData) {
         }
 
         var_fa1 = ABS_NOEQ(hg->unk200.y) * 0.03f;
-        if (!hg && !hg) { } //! @fakematch for fa1 regalloc
         if (var_fa1 < 0.0f) {
             var_fa1 = 0.0f;
         } else if (var_fa1 > 1.0f) {
@@ -119,12 +118,14 @@ STATIC_FUNC void hgSoundEventHandler(s32 event, void* userData, s32 eventData) {
         }
         sp40 = 0.8f * var_fa1;
         func_8033F904(hg->unk323, sp44, sp40, 0.5f);
-        //! @fakematch to get sp40 on the stack but unused
-        sp40++;
-        sp40--;
-        sp44 = sp40;
-
         var_fa1 = hg->unkF0;
+        //! @fakematch to get sp40 on the stack but unused
+        if (sp40 < 0.0f) {
+            sp40 = 0.0f;
+        } else if (sp40 > 1.0f) {
+            sp40 = 1.0f;
+        }
+
         sp44 = ((1.0f - var_fa1) * 0.4f) + 0.8f;
         sp40 = var_fa1;
         func_8033F904(hg->unk321, sp44, sp40, hg->unk68 * 0.5f);

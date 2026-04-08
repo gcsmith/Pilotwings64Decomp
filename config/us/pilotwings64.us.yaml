@@ -714,9 +714,9 @@ segments:
       - { type: .bss, vram: 0x8036D8E0, name: app/code_A8C30 }
       - { type: .bss, vram: 0x8036DA30, name: app/demo }
       - { type: .bss, vram: 0x8036DA70, name: app/rings }
-      - { type: bss, vram: 0x80371070, name: app/code_AC1A0 }
-      - { type: bss, vram: 0x80371120, name: app/code_AE460 }
-      - { type: bss, vram: 0x80371630, name: app/rocket_belt }
+      - { type: .bss, vram: 0x80371070, name: app/code_AC1A0 }
+      - { type: .bss, vram: 0x80371120, name: app/code_AE460 }
+      - { type: .bss, vram: 0x80371630, name: app/rocket_belt }
       - { type: .bss, vram: 0x80371890, name: app/rocket_belt_sound }
       - { type: .bss, vram: 0x803718F0, name: app/results }
       - { type: .bss, vram: 0x80371960, name: app/skydiving }

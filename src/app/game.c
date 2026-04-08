@@ -489,7 +489,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
         break;
     case VEHICLE_ROCKET_BELT:
         D_803676F8 = (RocketBeltData*)temp_s0->vehicleData;
-        func_80324DB4(arg0->unk9C, temp_s0->pilot, D_803676F8, temp_s0->unk70);
+        rocketBeltLoadLevel(arg0->unk9C, temp_s0->pilot, D_803676F8, temp_s0->unk70);
         rocketBeltEnterLeave(D_803676F8);
         func_802EDD9C(temp_s0, &D_803676F8->unk10);
         if ((arg0->state != GAME_STATE_DEMO_PILOT) && (arg0->unkA2 == 0)) {
@@ -1233,7 +1233,7 @@ void func_802EE14C(u16 veh) {
         break;
     case VEHICLE_ROCKET_BELT:
         D_803676F8 = (RocketBeltData*)temp_s0->vehicleData;
-        func_80324DB4(D_80362690->unk9C, temp_s0->pilot, D_803676F8, temp_s0->unk70);
+        rocketBeltLoadLevel(D_80362690->unk9C, temp_s0->pilot, D_803676F8, temp_s0->unk70);
         rocketBeltEnterLeave(D_803676F8);
         func_8033F748(8);
         sp3C = 0.5f;
