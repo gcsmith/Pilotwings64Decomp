@@ -222,7 +222,7 @@ void rocketBeltMovementFrame(RocketBeltData* arg0, u8 gameState) {
             arg0->unk5C = 4;
             arg0->unk60 = 0.8f;
             if (gameState != GAME_STATE_RESULTS) {
-                func_8033F758(0x67, 0.3f, 0.65f, 0.0f);
+                sndPlaySfxVolPitchPan(0x67, 0.3f, 0.65f, 0.0f);
             }
             func_802D5884(arg0->unk50, arg0->unk5C);
             func_802D45C4(arg0->unk50, arg0->unk60);
@@ -246,14 +246,14 @@ void rocketBeltMovementFrame(RocketBeltData* arg0, u8 gameState) {
             arg0->unk88 = func_80313AF4(spB4, arg0->unk88, 3.0f);
             if (demoButtonPress(arg0->contIdx, D_CBUTTONS) != 0) {
                 if ((gameState != GAME_STATE_RESULTS) && (arg0->unk58 > -1.5707961f)) {
-                    func_8033F758(0x67, 0.3f, 1.0f, 0.0f);
+                    sndPlaySfxVolPitchPan(0x67, 0.3f, 1.0f, 0.0f);
                 }
                 arg0->unk58 -= 0.39269903f;
                 arg0->unk58 = MAX(arg0->unk58, -1.5707961f);
             }
             if (demoButtonPress(arg0->contIdx, U_CBUTTONS) != 0) {
                 if ((gameState != GAME_STATE_RESULTS) && (arg0->unk58 < 1.5707961f)) {
-                    func_8033F758(0x67, 0.3f, 1.0f, 0.0f);
+                    sndPlaySfxVolPitchPan(0x67, 0.3f, 1.0f, 0.0f);
                 }
                 arg0->unk58 += 0.39269903f;
                 arg0->unk58 = MIN(arg0->unk58, 1.5707961f);
@@ -262,14 +262,14 @@ void rocketBeltMovementFrame(RocketBeltData* arg0, u8 gameState) {
         } else {
             if (demoButtonPress(arg0->contIdx, U_CBUTTONS) != 0) {
                 if ((gameState != GAME_STATE_RESULTS) && (arg0->unk58 < 1.4835297f)) {
-                    func_8033F758(0x67, 0.3f, 1.0f, 0.0f);
+                    sndPlaySfxVolPitchPan(0x67, 0.3f, 1.0f, 0.0f);
                 }
                 arg0->unk58 += 0.39269903f;
                 arg0->unk58 = MIN(arg0->unk58, 1.5707961f);
             }
             if (demoButtonPress(arg0->contIdx, D_CBUTTONS) != 0) {
                 if ((gameState != GAME_STATE_RESULTS) && (arg0->unk58 > -1.4835297f)) {
-                    func_8033F758(0x67, 0.3f, 1.0f, 0.0f);
+                    sndPlaySfxVolPitchPan(0x67, 0.3f, 1.0f, 0.0f);
                 }
                 arg0->unk58 -= 0.39269903f;
                 arg0->unk58 = MAX(arg0->unk58, -1.5707961f);

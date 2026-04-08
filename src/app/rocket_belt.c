@@ -774,7 +774,7 @@ void func_8032975C(RocketBeltData* arg0) {
                 arg0->unkE9 = 0;
             }
             if (func_802DC97C(var_s1->surfaceId) != 0) {
-                func_8033F758(0x39, 1.0f, 1.0f, 0.0f);
+                sndPlaySfxVolPitchPan(0x39, 1.0f, 1.0f, 0.0f);
             }
         }
 
