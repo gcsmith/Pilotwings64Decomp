@@ -45,7 +45,7 @@ void hangGliderLoadLevel(u8 contIdx, u8 pilot, HangGliderData* arg2, Camera* arg
     shadow_803342F0(1.0f);
     shadow_803342FC(-2.0f);
     shadow_803343D8(1);
-    func_802F2190(arg2);
+    hangGlider_802F2190(arg2);
     func_802EE530(arg2);
     hgSoundInit(arg2);
     app_firstfunc(pilot);
@@ -104,7 +104,7 @@ void hangGliderEnterLeave(HangGliderData* arg0) {
     arg0->unk258 = 0.0f;
     arg0->unk264 = 0.0f;
     arg0->unk25C = 0.0f;
-    func_802F2370(arg0);
+    hangGlider_802F2370(arg0);
     func_802EE530(arg0);
     arg0->unk54 = 0;
     arg0->unk58 = 1.0f;
@@ -184,7 +184,7 @@ void hangGliderMovementFrame(HangGliderData* arg0, u8 gameState) {
             arg0->unk80 = 0;
         }
         if (gameState != GAME_STATE_RESULTS) {
-            func_802F24BC(arg0);
+            hangGlider_802F24BC(arg0);
         }
         //! @bug uninitialised variable
         if (sp5B == 0) {

@@ -161,6 +161,23 @@ gliderToyDeinit       = 0x802F1FF0; // type:func
 gliderToyGetObjData   = 0x802F205C; // type:func
 gliderToySetInterval  = 0x802F2110; // type:func
 
+hangGlider_802F2190   = 0x802F2190; // type:func
+hangGlider_802F2370   = 0x802F2370; // type:func
+hangGlider_802F24BC   = 0x802F24BC; // type:func
+hangGlider_802F2804   = 0x802F2804; // type:func
+hangGlider_802F2F94   = 0x802F2F94; // type:func
+hangGlider_802F3030   = 0x802F3030; // type:func
+hangGlider_802F3154   = 0x802F3154; // type:func
+hangGlider_802F32EC   = 0x802F32EC; // type:func
+hangGlider_802F3470   = 0x802F3470; // type:func
+hangGlider_802F3694   = 0x802F3694; // type:func
+hangGlider_802F391C   = 0x802F391C; // type:func
+hangGlider_802F39F8   = 0x802F39F8; // type:func
+hangGlider_802F3A80   = 0x802F3A80; // type:func
+hangGlider_802F41AC   = 0x802F41AC; // type:func
+hangGlider_802F42DC   = 0x802F42DC; // type:func
+hangGlider_802F4370   = 0x802F4370; // type:func
+
 bmSoundInit         = 0x802D0BF0; // type:func
 bmSoundCallback     = 0x802D0D04; // type:func
 bmSound_802D112C    = 0x802D112C; // type:func

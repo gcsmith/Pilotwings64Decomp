@@ -25,20 +25,20 @@ typedef struct {
     Vec2F unk0[20];
 } Unk8034F2D0;
 
-Unk802D3658_Unk111C D_803680A0;
-Unk802D3658_Unk1224 D_803681A8;
-Vec3F D_803682F0;
-u16 hgClassId;
-u16 hgVehicleId;
-u16 hgTestId;
-f32 D_80368304;
-f32 D_80368308;
-u16 D_8036830C;
+static Unk802D3658_Unk111C D_803680A0;
+static Unk802D3658_Unk1224 D_803681A8;
+static Vec3F D_803682F0;
+static u16 hgClassId;
+static u16 hgVehicleId;
+static u16 hgTestId;
+static f32 D_80368304;
+static f32 D_80368308;
+static u16 D_8036830C;
 
-f32 D_8034F1C0 = 10000.0f;
-s32 D_8034F1C4 = 0;
+static f32 D_8034F1C0 = 10000.0f;
+static s32 D_8034F1C4 = 0;
 
-Unk8034F1C8 D_8034F1C8 = {
+static Unk8034F1C8 D_8034F1C8 = {
     { { -1.570797f, 0.0f },      { -0.26179948f, 0.005f },  { -0.209439605f, 0.01f },
      { -0.1570796966f, 0.02f }, { -0.0872664973f, 0.03f }, { 0.0f, 0.1f },
      { 0.05235990136f, 0.4f },  { 0.06981319934f, 0.4f },  { 0.07679452002f, 0.5f },
@@ -59,28 +59,28 @@ Unk8034F1C8 D_8034F1C8 = {
      { 100.0f, 0.0f } }
 };
 
-Unk8034F2D0 D_8034F2D0 = {
+static Unk8034F2D0 D_8034F2D0 = {
     { { 0.0f, 0.0f },   { 0.3f, 0.6f },   { 1.7f, 0.6f },   { 3.0f, 0.6f },   { 7.0f, 0.6f },   { 13.0f, -1.3f }, { 15.0f, -2.0f },
      { 18.0f, -2.2f }, { 20.0f, -2.5f }, { 21.0f, -1.8f }, { 23.9f, -1.0f }, { 24.0f, 0.0f },  { 24.1f, 1.0f },  { 25.0f, 1.8f },
      { 33.5f, 2.5f },  { 36.0f, 0.5f },  { 51.0f, 0.5f },  { 61.0f, 0.5f },  { 61.5f, 20.0f }, { 100.0f, 50.0f } }
 };
 
 // forward declarations
-void func_802F2804(HangGliderData*);
-void func_802F2F94(HangGliderData*);
-void func_802F3030(HangGliderData*);
-void func_802F3154(HangGliderData*);
-s32 func_802F32EC(HangGliderData*);
-void func_802F3470(HangGliderData*);
-void func_802F3694(HangGliderData*);
-void func_802F391C(HangGliderData*);
-void func_802F39F8(HangGliderData*);
-void func_802F3A80(HangGliderData*);
-f32 func_802F41AC(Unk8034F1C8*, f32, f32);
-void func_802F4370(HangGliderData*);
-f32 func_802F42DC(Unk8034F2D0*, f32);
+STATIC_FUNC void hangGlider_802F2804(HangGliderData*);
+STATIC_FUNC void hangGlider_802F2F94(HangGliderData*);
+STATIC_FUNC void hangGlider_802F3030(HangGliderData*);
+STATIC_FUNC void hangGlider_802F3154(HangGliderData*);
+STATIC_FUNC s32 hangGlider_802F32EC(HangGliderData*);
+STATIC_FUNC void hangGlider_802F3470(HangGliderData*);
+STATIC_FUNC void hangGlider_802F3694(HangGliderData*);
+STATIC_FUNC void hangGlider_802F391C(HangGliderData*);
+STATIC_FUNC void hangGlider_802F39F8(HangGliderData*);
+STATIC_FUNC void hangGlider_802F3A80(HangGliderData*);
+STATIC_FUNC f32 hangGlider_802F41AC(Unk8034F1C8*, f32, f32);
+STATIC_FUNC void hangGlider_802F4370(HangGliderData*);
+STATIC_FUNC f32 hangGlider_802F42DC(Unk8034F2D0*, f32);
 
-void func_802F2190(HangGliderData* arg0) {
+void hangGlider_802F2190(HangGliderData* arg0) {
     u8 temp_v0;
 
     D_803680A0.unk0 = 4;
@@ -96,7 +96,7 @@ void func_802F2190(HangGliderData* arg0) {
     D_803680A0.unk4[3].unk0 = 1;
     uvVec3Copy(&D_803680A0.unk4[3].unk28, &arg0->unk294);
     uvVec3Copy(&D_803680A0.unk4[3].unk1C, &arg0->unk2B8);
-    func_802F2370(arg0);
+    hangGlider_802F2370(arg0);
     D_8036830C = 0xF7F8;
     taskGetClsVehTest(&hgClassId, &hgVehicleId, &hgTestId);
     if ((hgClassId == CLASS_A) && (hgTestId == 1)) {
@@ -119,7 +119,7 @@ void func_802F2190(HangGliderData* arg0) {
     }
 }
 
-void func_802F2370(HangGliderData* arg0) {
+void hangGlider_802F2370(HangGliderData* arg0) {
     arg0->unkFC = 0;
     arg0->unk8F = 0;
     arg0->unk90 = 0;
@@ -161,7 +161,7 @@ void func_802F2370(HangGliderData* arg0) {
     arg0->unk308.z = arg0->unk10.m[3][2];
 }
 
-void func_802F24BC(HangGliderData* hgData) {
+void hangGlider_802F24BC(HangGliderData* hgData) {
     Vec3F sp34;
 
     uvMat4Copy(&hgData->unk14C, &hgData->unk10);
@@ -170,27 +170,27 @@ void func_802F24BC(HangGliderData* hgData) {
     hgData->unk14C.m[3][2] = 0.0f;
     uvMat4InvertTranslationRotation(&hgData->unk10C, &hgData->unk14C);
     uvMat4LocalToWorld(&hgData->unk10C, &hgData->unk18C, &hgData->unk1A4);
-    func_802F3470(hgData);
-    func_802F39F8(hgData);
-    func_802F391C(hgData);
+    hangGlider_802F3470(hgData);
+    hangGlider_802F39F8(hgData);
+    hangGlider_802F391C(hgData);
     if ((hgData->unk8D == 0) && (hgData->unk8C != 2) && (hgData->unkE9 == 0)) {
-        func_802F3694(hgData);
+        hangGlider_802F3694(hgData);
     }
     switch (hgData->unk8C) {
     case 3:
         return;
     case 1:
-        func_802F3154(hgData);
+        hangGlider_802F3154(hgData);
     default:
         break;
     case 0:
-        func_802F2804(hgData);
+        hangGlider_802F2804(hgData);
         break;
     case 2:
-        func_802F3030(hgData);
+        hangGlider_802F3030(hgData);
         break;
     case 4:
-        func_802F2F94(hgData);
+        hangGlider_802F2F94(hgData);
         break;
     }
 
@@ -222,10 +222,10 @@ void func_802F24BC(HangGliderData* hgData) {
     hgData->unk1DC.y = 0.0f;
     hgData->unk1DC.z = 0.0f;
     if (hgData->unk8C != 4) {
-        func_802F32EC(hgData);
+        hangGlider_802F32EC(hgData);
     }
     if ((hgData->unk8C != 4) && (hgData->unk8C != 3)) {
-        func_802F3A80(hgData);
+        hangGlider_802F3A80(hgData);
     }
     hgData->unk1B0 = uvVec3Len(&hgData->unk1A4);
     hgData->unk1CC = uvVec3Len(&hgData->unk1C0);
@@ -234,7 +234,7 @@ void func_802F24BC(HangGliderData* hgData) {
     }
 }
 
-void func_802F2804(HangGliderData* hgData) {
+STATIC_FUNC void hangGlider_802F2804(HangGliderData* hgData) {
     f32 temp_fv1;
     f32 temp_fv0;
     f32 var_fa1;
@@ -357,7 +357,7 @@ void func_802F2804(HangGliderData* hgData) {
     hgData->unk1D8 -= 0.005f * var_fa1;
 }
 
-void func_802F2F94(HangGliderData* hgData) {
+STATIC_FUNC void hangGlider_802F2F94(HangGliderData* hgData) {
     hgData->unk1B4.x = hgData->unk18C.x * -0.2f;
     hgData->unk1B4.y = hgData->unk18C.y * -0.2f;
     hgData->unk1B4.z = hgData->unk18C.z * -0.2f;
@@ -367,7 +367,7 @@ void func_802F2F94(HangGliderData* hgData) {
     hgData->unk10.m[3][2] = hgData->unkF4 - hgData->unk2B8.z;
 }
 
-void func_802F3030(HangGliderData* hgData) {
+STATIC_FUNC void hangGlider_802F3030(HangGliderData* hgData) {
     Vec3F sp3C;
     Vec3F sp30;
 
@@ -389,7 +389,7 @@ void func_802F3030(HangGliderData* hgData) {
     }
 }
 
-void func_802F3154(HangGliderData* hgData) {
+STATIC_FUNC void hangGlider_802F3154(HangGliderData* hgData) {
     hgData->unk1D0 = func_80313AF4(0.0f, hgData->unk1D0, 15.0f);
     hgData->unk1D4 = func_80313AF4(0.0f, hgData->unk1D4, 15.0f);
     hgData->unk1D8 = func_80313AF4(0.0f, hgData->unk1D8, 15.0f);
@@ -420,7 +420,7 @@ void func_802F3154(HangGliderData* hgData) {
     }
 }
 
-s32 func_802F32EC(HangGliderData* hgData) {
+STATIC_FUNC s32 hangGlider_802F32EC(HangGliderData* hgData) {
     Vec3F sp44;
     s32 var_v0;
     s32 sp3C;
@@ -463,7 +463,7 @@ s32 func_802F32EC(HangGliderData* hgData) {
     return 1;
 }
 
-void func_802F3470(HangGliderData* hgData) {
+STATIC_FUNC void hangGlider_802F3470(HangGliderData* hgData) {
     Vec3F sp3C;
     Vec3F sp30;
     f32 var_fv1;
@@ -484,7 +484,7 @@ void func_802F3470(HangGliderData* hgData) {
         var_fv1 = 0.1f;
     }
 
-    var_fv1 *= func_802F42DC(&D_8034F2D0, hgData->unk1B0);
+    var_fv1 *= hangGlider_802F42DC(&D_8034F2D0, hgData->unk1B0);
     var_fv1 *= hgData->unk2F4;
     var_fa1 = -var_fv1 * 0.003f;
     var_fv1 = 1.0f;
@@ -513,7 +513,7 @@ void func_802F3470(HangGliderData* hgData) {
     hgData->unk1B4.z += sp3C.z;
 }
 
-void func_802F3694(HangGliderData* hgData) {
+STATIC_FUNC void hangGlider_802F3694(HangGliderData* hgData) {
     f32 sp34;
     f32 tmp;
     f32 tmp2;
@@ -543,7 +543,7 @@ void func_802F3694(HangGliderData* hgData) {
         sp18 = 1.0f;
     }
     tmp = uvAtan2F(sp18, sp1C);
-    tmp2 = func_802F41AC(&D_8034F1C8, tmp, sp20);
+    tmp2 = hangGlider_802F41AC(&D_8034F1C8, tmp, sp20);
     sp34 = 3.0f * tmp2 * hgData->unk200.z * hgData->unk200.z;
     if (sp34 < -10.0f) {
         sp34 = -10.0f;
@@ -571,7 +571,7 @@ void func_802F3694(HangGliderData* hgData) {
     hgData->unk1B4.z += sp34;
 }
 
-void func_802F391C(HangGliderData* hgData) {
+STATIC_FUNC void hangGlider_802F391C(HangGliderData* hgData) {
     Vec3F sp2C;
     Vec3F sp20;
 
@@ -590,7 +590,7 @@ void func_802F391C(HangGliderData* hgData) {
     hgData->unk200.z = sp2C.z - hgData->unk18C.z;
 }
 
-void func_802F39F8(HangGliderData* hgData) {
+STATIC_FUNC void hangGlider_802F39F8(HangGliderData* hgData) {
     Vec3F sp1C;
 
     sp1C.x = 0.0f;
@@ -602,7 +602,7 @@ void func_802F39F8(HangGliderData* hgData) {
     hgData->unk1B4.z += hgData->unk1F4.z;
 }
 
-void func_802F3A80(HangGliderData* hgData) {
+STATIC_FUNC void hangGlider_802F3A80(HangGliderData* hgData) {
     Vec3F sp24C;
     f32 sp248;
     f32 sp244;
@@ -621,7 +621,7 @@ void func_802F3A80(HangGliderData* hgData) {
     Mtx4F sp1C0;
     Unk802D3658_Unk1224 sp7C;
 
-    func_802F4370(hgData);
+    hangGlider_802F4370(hgData);
     for (i = 0; i < 4; i++) {
         hgData->unkCC[i] = 0.0f;
         hgData->unk91[i] = 0;
@@ -652,7 +652,7 @@ void func_802F3A80(HangGliderData* hgData) {
         case 1:
         case 8:
             sp23C = ABS_NOEQ(hgData->unk1A4.z * 2.52f);
-            sp240 = ABS_NOEQ(hgData->unk1A4.y * 2.520f); // TODO: different rodata float literal?
+            sp240 = ABS_NOEQ(hgData->unk1A4.y * 2.520f); // different rodata float literal
             if (((temp_s1->unk0 == 3) && ((hgData->unk88 > 0.75f) || (hgData->unk8C == 1)) && (sp23C < 50.0f) && (sp240 < 50.0f)) || (D_8034F850 < 2.0f)) {
                 sp228 = hgData->unk8C;
                 hgData->unk8D = 0;
@@ -689,8 +689,10 @@ void func_802F3A80(HangGliderData* hgData) {
                     hgData->unk4 = D_8036830C;
                 }
                 if (hgData->unk1B0 < 2 /*.0f*/) {
-                    sp248 = (hgData->unk1B0 * 0.5f) * (0, 0.8f); // fake
-                    sp244 = (hgData->unk1B0 * 0.5f) * (0, 0.7f);
+                    sp248 = 0.8f;
+                    sp248 *= hgData->unk1B0 * 0.5f;
+                    sp244 = 0.7f;
+                    sp244 *= hgData->unk1B0 * 0.5f;
                 }
             }
             break;
@@ -748,7 +750,7 @@ void func_802F3A80(HangGliderData* hgData) {
     }
 }
 
-f32 func_802F41AC(Unk8034F1C8* arg0, f32 arg1, f32 arg2) {
+STATIC_FUNC f32 hangGlider_802F41AC(Unk8034F1C8* arg0, f32 arg1, f32 arg2) {
     s32 i;
     f32 x0;
     f32 x1;
@@ -795,7 +797,7 @@ f32 func_802F41AC(Unk8034F1C8* arg0, f32 arg1, f32 arg2) {
     return ((temp_ft2 * unkB8_y0) + ((1.0f - temp_ft2) * unkB8_y1)) * tmp3;
 }
 
-f32 func_802F42DC(Unk8034F2D0* arg0, f32 arg1) {
+STATIC_FUNC f32 hangGlider_802F42DC(Unk8034F2D0* arg0, f32 arg1) {
     f32 x0;
     f32 x1;
     f32 y0;
@@ -821,7 +823,7 @@ f32 func_802F42DC(Unk8034F2D0* arg0, f32 arg1) {
     return tmp + (temp_ft3 * y0);
 }
 
-void func_802F4370(HangGliderData* hgData) {
+STATIC_FUNC void hangGlider_802F4370(HangGliderData* hgData) {
     f32 temp_fv1;
 
     if ((hgData->unk21C == 3) || (hgData->unk21C == 4)) {

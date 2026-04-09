@@ -145,9 +145,10 @@ void hangGliderEnterLeave(HangGliderData*);
 void hangGliderMovementFrame(HangGliderData*, u8);
 void func_802F03C4(HangGliderData*);
 void func_802F041C(HangGliderData*);
-void func_802F2190(HangGliderData*);
-void func_802F2370(HangGliderData*);
-void func_802F24BC(HangGliderData*);
+
+void hangGlider_802F2190(HangGliderData*);
+void hangGlider_802F2370(HangGliderData*);
+void hangGlider_802F24BC(HangGliderData*);
 
 void func_802EE530(HangGliderData*);
 void func_802EE640(HangGliderData*);
