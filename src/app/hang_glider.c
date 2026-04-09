@@ -266,7 +266,7 @@ STATIC_FUNC void hangGlider_802F2804(HangGliderData* hgData) {
     if ((D_8034F1C4 > 0) && (ringsGetCleared() >= D_8034F1C4)) {
         hudText_8031D8E0(0xD4, 1.5f, 8.0f);
         D_8034F1C4 = 0;
-        sndPlaySfx(0x5);
+        sndPlaySfx(SFX_UNK_005);
     }
 
     temp_fv1 = uvSqrtF(SQ(hgData->unk10.m[1][0]) + SQ(hgData->unk10.m[1][1])) * 0.8f;
@@ -436,7 +436,7 @@ STATIC_FUNC s32 hangGlider_802F32EC(HangGliderData* hgData) {
     if (D_8034F1C0 < hgData->unk10.m[3][2]) {
         hudText_8031D8E0(0xCC, 1.5f, 8.0f);
         D_8034F1C0 = 10000.0f;
-        sndPlaySfx(0x5);
+        sndPlaySfx(SFX_UNK_005);
     }
     if (temp_v1 != 0) {
         hgData->unk8D = temp_v1;

@@ -397,6 +397,7 @@ void bird_802CF8A4(BirdmanData* arg0) {
     var_fa1 = -var_fv1 * 0.003f;
     var_fv1 = 1.0f;
 
+    // FAKE
     sp3C.x = (var_fa1 * 1.0f) * arg0->unk200.x * arg0->unk200.x;
     if (arg0->unk200.x < 0.0f) {
         sp3C.x = -sp3C.x;
