@@ -4,6 +4,9 @@
 // Function Symbols
 // -----------------------------------------------------------------------------
 
+__osIntOffTable = 0x8024FA60; // type:u8 force_migration:True
+__osIntTable = 0x8024FA80; // type:jtbl force_migration:True
+
 alSndpSetSound = 0x802344A0;
 alSndpGetState = 0x802344C0;
 alSndpStop = 0x802344E0;

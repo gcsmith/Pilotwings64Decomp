@@ -16,6 +16,3 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/libultra/audio/drvrnew/alFxNew.s")
 
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/audio/drvrnew/D_8024FA60.s")
-
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/audio/drvrnew/jtbl_8024FA80.s")
