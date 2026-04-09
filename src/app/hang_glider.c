@@ -234,38 +234,34 @@ void func_802F24BC(HangGliderData* hgData) {
     }
 }
 
-#ifndef NON_MATCHING
-#pragma GLOBAL_ASM("asm/nonmatchings/app/hang_glider/func_802F2804.s")
-#else
-void func_802F2804(HangGliderData* arg0) {
-    f32 temp_fa0;
-    f32 temp_fa1;
+void func_802F2804(HangGliderData* hgData) {
     f32 temp_fv1;
-    f32 var_fa0;
-    f32 sp24;
+    f32 temp_fv0;
     f32 var_fa1;
     f32 var_fv0;
+    f32 sp24;
+    f32 var_fa0;
+    f32 var_ft0;
     f32 sp18;
-    f32 temp_fv0;
 
-    if ((arg0->unkE9 == 0) && (arg0->unk1B0 < 4.0f)) {
-        arg0->unkE9 = 1;
-    } else if ((arg0->unkE9 != 0) && (arg0->unk1B0 > 12.0f)) {
-        arg0->unkE9 = 0;
+    if ((hgData->unkE9 == 0) && (hgData->unk1B0 < 4.0f)) {
+        hgData->unkE9 = 1;
+    } else if ((hgData->unkE9 != 0) && (hgData->unk1B0 > 12.0f)) {
+        hgData->unkE9 = 0;
     }
-    if (arg0->unk1B0 < 8.0f) {
-        if (arg0->unk1B0 > 4.0f) {
-            var_fv0 = ABS_NOEQ(arg0->unk1B0);
-            temp_fv1 = 1.0f - ((var_fv0 - 4.0f) / 4/*.0f*/);
-            arg0->unkF0 = SQ(temp_fv1);
+    if (hgData->unk1B0 < 8.0f) {
+        if (hgData->unk1B0 > 4.0f) {
+            var_fv0 = ABS_NOEQ(hgData->unk1B0);
+            temp_fv1 = 1.0f - ((var_fv0 - 4.0f) / 4 /*.0f*/);
+            hgData->unkF0 = SQ(temp_fv1);
         } else {
-            arg0->unkF0 = 1.0f;
+            hgData->unkF0 = 1.0f;
         }
     } else {
-        arg0->unkF0 = 0.0f;
+        hgData->unkF0 = 0.0f;
     }
-    if (arg0->unkF8 < 0.2f) {
-        arg0->unkE9 = 0;
+    if (hgData->unkF8 < 0.2f) {
+        hgData->unkE9 = 0;
     }
     if ((D_8034F1C4 > 0) && (ringsGetCleared() >= D_8034F1C4)) {
         hudText_8031D8E0(0xD4, 1.5f, 8.0f);
@@ -273,103 +269,93 @@ void func_802F2804(HangGliderData* arg0) {
         sndPlaySfx(0x5);
     }
 
-    temp_fv0 = arg0->unk10.m[1][1];
-    temp_fv1 = arg0->unk10.m[1][0];
-    temp_fv1 = uvSqrtF(SQ(temp_fv0) + SQ(temp_fv1)) * 0.8f;
-    if (arg0->unk200.y > 0.0f) {
-        var_fa1 = (arg0->unkF0 + (0.2f * arg0->unk200.y)) * temp_fv1;
+    temp_fv1 = uvSqrtF(SQ(hgData->unk10.m[1][0]) + SQ(hgData->unk10.m[1][1])) * 0.8f;
+    if (hgData->unk200.y > 0.0f) {
+        var_fa1 = (hgData->unkF0 + (0.2f * hgData->unk200.y)) * temp_fv1;
     } else {
-        var_fa1 = (((1.0f - arg0->unkF0) * arg0->unk64) + arg0->unkF0) * temp_fv1;
+        var_fa1 = (((1.0f - hgData->unkF0) * hgData->unk64) + hgData->unkF0) * temp_fv1;
     }
-    if ((hgClassId == CLASS_A) && (hgTestId == 1)) {
-        if ((arg0->unk1B0 > 51.0f) && (arg0->unkF4 < 60.0f) && (arg0->unk64 < -0.8)) {
+    if ((hgClassId == 1) && (hgTestId == 1)) {
+        if ((hgData->unk1B0 > 51.0f) && (hgData->unkF4 < 60.0f) && (hgData->unk64 < -0.8)) {
             var_fa1 *= 2.0f;
             D_80368304 = 0.0f;
         }
-        if (arg0->unkF4 > 470.0f) {
-            if (arg0->unk64 > 0.8) {
-                var_fa1 *= 2.0f * arg0->unk64;
+        if (hgData->unkF4 > 470.0f) {
+            if (hgData->unk64 > 0.8) {
+                var_fa1 *= 2.0f * hgData->unk64;
             }
         }
     }
 
-    temp_fv0 = arg0->unk10.m[0][1];
-    temp_fv1 = arg0->unk10.m[0][0];
-    arg0->unk1DC.x += -arg0->unk2FC * 4 /*.0f*/ * (var_fa1 + D_80368304);
-    var_fa0 = uvSqrtF(SQ(temp_fv0) + SQ(temp_fv1)) * 0.5f;
-    if (arg0->unk80 != 0) {
-        var_fa0 *= 0.3f;
+    hgData->unk1DC.x += -hgData->unk2FC * 4 /*.0f*/ * (var_fa1 + D_80368304);
+    temp_fv1 = uvSqrtF(SQ(hgData->unk10.m[0][0]) + SQ(hgData->unk10.m[0][1])) * 0.5f;
+    if (hgData->unk80 != 0) {
+        temp_fv1 *= 0.3f;
     }
-    var_fa1 = arg0->unk60 * var_fa0;
-    if ((hgClassId == CLASS_A) && (hgTestId == 1) && (arg0->unk1B0 > 51.0f) && (arg0->unkF4 < 60.0f)) {
-        var_fv0 = ABS_NOEQ(arg0->unk60);
+    var_fa1 = hgData->unk60 * temp_fv1;
+    if ((hgClassId == 1) && (hgTestId == 1) && (hgData->unk1B0 > 51.0f) && (hgData->unkF4 < 60.0f)) {
+        var_fv0 = ABS_NOEQ(hgData->unk60);
         if (var_fv0 > 0.8) {
-            var_fv0 = ABS_NOEQ(arg0->unk60);
+            var_fv0 = ABS_NOEQ(hgData->unk60);
             var_fa1 *= 3.0f * var_fv0;
             D_80368308 = 1.0f;
         }
     }
-    arg0->unk1DC.y += arg0->unk300 * 5.6f * (var_fa1 * D_80368308);
-    if (arg0->unkF0 > 0.0f) {
-        sp18 = arg0->unkF0 * 5.0f;
-        arg0->unk1DC.y += sp18 * uvSinF(uvSinF(arg0->unkF0 * 0.179f * D_8034F850) * 3.1f * D_8034F850);
+    hgData->unk1DC.y += hgData->unk300 * 5.6f * (var_fa1 * D_80368308);
+    if (hgData->unkF0 > 0.0f) {
+        sp18 = hgData->unkF0 * 5.0f;
+        hgData->unk1DC.y += sp18 * uvSinF(uvSinF(hgData->unkF0 * 0.179f * D_8034F850) * 3.1f * D_8034F850);
     }
-    if (arg0->unk80 != 0) {
-        if (arg0->unk88 > 0.65f) {
-            arg0->unk1DC.x += 5.0f * (arg0->unk88 - 0.65f);
-        } else if (arg0->unk88 > 0.0f) {
-            arg0->unk1DC.x += 7.07f * arg0->unk88;
+    if (hgData->unk80 != 0) {
+        if (hgData->unk88 > 0.65f) {
+            hgData->unk1DC.x += 5.0f * (hgData->unk88 - 0.65f);
+        } else if (hgData->unk88 > 0.0f) {
+            hgData->unk1DC.x += 7.07f * hgData->unk88;
         }
     }
 
-    arg0->unk1D0 = func_80313AF4(0.0f, arg0->unk1D0, 3.0f);
-    arg0->unk1D4 = func_80313AF4(0.0f, arg0->unk1D4, 3.0f);
-    arg0->unk1D8 = func_80313AF4(0.0f, arg0->unk1D8, 3.0f);
+    hgData->unk1D0 = func_80313AF4(0.0f, hgData->unk1D0, 3.0f);
+    hgData->unk1D4 = func_80313AF4(0.0f, hgData->unk1D4, 3.0f);
+    hgData->unk1D8 = func_80313AF4(0.0f, hgData->unk1D8, 3.0f);
 
-    temp_fv1 = arg0->unk1F4.y;
-    temp_fa1 = arg0->unk1F4.z + (arg0->unk2F0 * 9.8f);
-    var_fa0 = uvSqrtF(SQ(temp_fv1) + SQ(temp_fa1));
-    if (arg0->unk1F4.y < 0.0f) {
-        // fakeish: sp24 = -var_fa0 * 0.34f;
-        var_fa0 = -var_fa0;
-        sp24 = var_fa0 * 0.34f;
+    sp24 = uvSqrtF(SQ(hgData->unk1F4.y) + SQ(hgData->unk1F4.z + (hgData->unk2F0 * 9.8f)));
+    if (hgData->unk1F4.y < 0.0f) {
+        sp24 = -sp24;
+        sp24 *= 0.34f;
     } else {
-        sp24 = var_fa0 * 0.34f;
+        sp24 *= 0.34f;
     }
-    if (arg0->unkE9 != 0) {
+    if (hgData->unkE9 != 0) {
         sp24 = 0.0f;
     }
 
-    temp_fv0 = arg0->unk1F4.x;
-    temp_fa1 = arg0->unk1F4.z + (arg0->unk2F0 * 9.8f);
-    var_fa0 = uvSqrtF(SQ(temp_fv0) + SQ(temp_fa1)) * 0.29f;
-    if ((arg0->unk1B0 > 22.0f) && (D_80368304 != 0.0f)) {
-        var_fv0 = arg0->unk1B0 / 22.0f;
+    var_fa0 = uvSqrtF(SQ(hgData->unk1F4.x) + SQ(hgData->unk1F4.z + (hgData->unk2F0 * 9.8f))) * 0.29f;
+    if ((hgData->unk1B0 > 22.0f) && (D_80368304 != 0.0f)) {
+        var_fv0 = hgData->unk1B0 / 22.0f;
         if (var_fv0 > 2.0f) {
             var_fv0 = 2.0f;
         }
         sp24 /= var_fv0;
     }
-    if ((arg0->unk1B0 > 22.0f) && (D_80368308 != 1.0f)) {
-        var_fv0 = arg0->unk1B0 / 22.0f;
+    if ((hgData->unk1B0 > 22.0f) && (D_80368308 != 1.0f)) {
+        var_fv0 = hgData->unk1B0 / 22.0f;
         if (var_fv0 > 2.0f) {
             var_fv0 = 2.0f;
         }
         var_fa0 /= var_fv0;
     }
-    if (arg0->unk1F4.x > 0.0f) {
+    if (hgData->unk1F4.x > 0.0f) {
         var_fa0 = -var_fa0;
     }
 
-    var_fa1 = SQ(arg0->unk18C.x);
-    arg0->unk1DC.x += sp24;
-    arg0->unk1DC.y += var_fa0;
-    if (arg0->unk18C.x < 0.0f) {
+    var_fa1 = SQ(hgData->unk18C.x);
+    hgData->unk1DC.x += sp24;
+    hgData->unk1DC.y += var_fa0;
+    if (hgData->unk18C.x < 0.0f) {
         var_fa1 = -var_fa1;
     }
-    arg0->unk1D8 -= 0.005f * var_fa1;
+    hgData->unk1D8 -= 0.005f * var_fa1;
 }
-#endif
 
 void func_802F2F94(HangGliderData* hgData) {
     hgData->unk1B4.x = hgData->unk18C.x * -0.2f;
