@@ -184,6 +184,7 @@ $(BUILD_DIR)/src/libultra/audio/sndpsetvol.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/src/libultra/audio/synallocfx.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/src/libultra/audio/synallocvoice.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/src/libultra/audio/synfreevoice.o: OPT_FLAGS := -O3
+$(BUILD_DIR)/src/libultra/debug/%.o: OPT_FLAGS := -O1
 $(BUILD_DIR)/src/libultra/io/%.o: OPT_FLAGS := -O1
 $(BUILD_DIR)/src/libultra/libc/ll.o: OPT_FLAGS := -O1 -g0
 $(BUILD_DIR)/src/libultra/libc/ll.o: MIPSISET := -mips3 -32

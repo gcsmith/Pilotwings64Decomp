@@ -1,9 +1,6 @@
 #include "PRinternal/piint.h"
 #include "PR/ultraerror.h"
 
-#ifndef NONMATCHING
-#pragma GLOBAL_ASM("asm/nonmatchings/libultra/io/piread/osPiReadIo.s")
-#else
 s32 osPiReadIo(u32 devAddr, u32* data) {
     register s32 ret;
 
@@ -20,4 +17,3 @@ s32 osPiReadIo(u32 devAddr, u32* data) {
 
     return ret;
 }
-#endif

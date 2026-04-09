@@ -159,6 +159,7 @@ segments:
       - [0x3B8D0, c, libultra/io/visetspecial]
       - [0x3BA90, c, libultra/libc/ll]
       - [0x3BD50, c, libultra/io/piread]
+      - [0x3BD90, hasm, libultra/io/io_nops]
       - [0x3BDD0, c, libultra/io/viswapbuf]
       - [0x3BE20, hasm, libultra/os/writebackdcacheall]
       - [0x3BE50, c, libultra/io/sptask]
@@ -288,7 +289,7 @@ segments:
       - [0x4D400, .data, libultra/io/piacs]
       - [0x4D410, .data, libultra/os/timerintr]
       - [0x4D420, .data, libultra/io/siacs]
-      - [0x4D430, data, libultra/debug/kdebugserver]
+      - [0x4D430, .data, libultra/debug/kdebugserver]
       - [0x4D440, .data, libultra/os/syncputchars]
       - [0x4D450, data, libultra/vimodes/vimodentsclan1]
       - [0x4D4A0, data, libultra/vimodes/vimodepallan1]
@@ -378,7 +379,7 @@ segments:
       - { type: .bss, vram: 0x802CA5B0, name: libultra/os/timerintr }
       - { type: .bss, vram: 0x802CA5F0, name: libultra/io/conteepread }
       - { type: .bss, vram: 0x802CA630, name: libultra/io/siacs }
-      - { type: bss, vram: 0x802CA650, name: libultra/debug/kdebugserver }
+      - { type: .bss, vram: 0x802CA650, name: libultra/debug/kdebugserver }
       - { type: bss, vram: 0x802CA750, name: libultra/os/exceptasm }
 
   - name: app
