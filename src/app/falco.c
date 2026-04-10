@@ -111,24 +111,30 @@ typedef struct {
 } Unk8035A920; // size = 0x60
 
 // .bss
-extern s32 D_8035A5F0;
-extern Falco sFalcos[1];
-extern FalcoDomain sFalcoDomains[12];
-extern s32 sFalcoCount;
-extern s32 D_8035A918;
-extern Unk8035A920 D_8035A920[16];
-extern TaskFALC* sRefFALC;
-extern f32 D_8035AF30;
-extern f32 D_8035AF34;
-extern f32 D_8035AF38;
-extern f32 D_8035AF3C;
-extern f32 D_8035AF40;
-extern f32 D_8035AF44;
-extern f32 D_8035AF48;
-extern f32 D_8035AF4C;
-extern f32 D_8035AF50;
-extern f32 D_8035AF54;
-extern f32 D_8035AF58;
+s32 D_8035A5F0;
+s32 pad_D_8035A5F4;
+Falco sFalcos[1];
+s32 sFalcoCount;
+s32 pad_D_8035A854;
+FalcoDomain sFalcoDomains[12];
+s32 D_8035A918;
+s32 pad_D_8035A91C;
+Unk8035A920 D_8035A920[16];
+TaskFALC* sRefFALC;
+s32 pad_D_8035AF24;
+s32 pad_D_8035AF28;
+s32 pad_D_8035AF2C;
+f32 D_8035AF30;
+f32 D_8035AF34;
+f32 D_8035AF38;
+f32 D_8035AF3C;
+f32 D_8035AF40;
+f32 D_8035AF44;
+f32 D_8035AF48;
+f32 D_8035AF4C;
+f32 D_8035AF50;
+f32 D_8035AF54;
+f32 D_8035AF58;
 
 // forward declarations
 void falco_802E478C(Falco*, FalcoDomain*);
@@ -160,7 +166,7 @@ void falcoInit(void) {
         uvRandSeed((s32)(demoRandF() * 32768.0f) | 1);
     }
 
-    for (i = 0; i < ARRAY_COUNT(sFalcos); i++) {
+    for (i = 0; i < 1; i++) {
         falco = &sFalcos[i];
         falco->unk0 = 0xFFFF;
         falco->unk4 = 0xFFFF;

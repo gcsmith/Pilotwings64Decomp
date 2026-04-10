@@ -46,10 +46,10 @@ s32 D_8034EA94[] = { 2, 2, 2, 2, 2, 2 };
 Unk803599D0 D_8034EAAC = { 8, 0.36f, 0.0f, 0.412f, 0.1f, 0.465f, 0.25f, 0.517f, 0.475f, 0.568f, 0.5f, 0.62f, 0.475f, 0.673f, 0.25f, 0.725f, 0.0f, 0, 0, 0, 0 };
 
 // .bss
-extern f32 D_80359C40;
-extern s32 D_80359C44;
-extern Mtx4F D_80359C48;
-extern f32 D_80359C88;
+f32 D_80359C40;
+s32 D_80359C44;
+Mtx4F D_80359C48;
+f32 D_80359C88;
 
 // forward declarations
 void func_802DA6E0(Unk80362690*, s32);

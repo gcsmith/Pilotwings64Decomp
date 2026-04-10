@@ -60,16 +60,14 @@ u8 gTaskUserFileIdxLookup[] = {
 };
 
 // level data of some sorts
-extern Unk803798E0 D_803798E0[MAX_CLASSES][MAX_TESTS][VEHICLE_COUNT];
-extern TaskObjects* D_8035078C;
-
-extern TaskObjects gTaskObjects;
+Unk803798E0 D_803798E0[MAX_CLASSES][MAX_TESTS][VEHICLE_COUNT];
+TaskObjects gTaskObjects;
 
 // begins 0x8037AA78
-extern s32 gTaskClass; // ClassId
-extern s32 gTaskTest;
-extern s32 gTaskVehicle; // VehicleId
-extern TaskTPAD gTaskTakeoffPads[4];
+s32 gTaskClass; // ClassId
+s32 gTaskTest;
+s32 gTaskVehicle; // VehicleId
+TaskTPAD gTaskTakeoffPads[4];
 
 // forward declarations
 void taskDeinit(void);

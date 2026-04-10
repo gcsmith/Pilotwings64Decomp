@@ -31,13 +31,13 @@ s32 gLevelCurMap = 0;
 s32 gLevelUserFileLookup[] = { 0, 1, 2, 3 };
 
 // likely arrays of structs for level data
-extern LevelWOBJ gLevelWOBJ[16];
-extern LevelLPAD gLevelLPAD[14];
-extern LevelTPTS gLevelTPTS[16];
-extern LevelTOYS gLevelTOYS[16];
-extern LevelAPTS gLevelAPTS[20];
-extern LevelBNUS gLevelBNUS[2];
-extern LevelObjects gLevelObjects;
+LevelWOBJ gLevelWOBJ[16];
+LevelLPAD gLevelLPAD[14];
+LevelTPTS gLevelTPTS[16];
+LevelTOYS gLevelTOYS[16];
+LevelAPTS gLevelAPTS[20];
+LevelBNUS gLevelBNUS[2];
+LevelObjects gLevelObjects;
 
 void levelLoad(u8 map, u8 pilot, u8 vehicle, s32 animateToys) {
     s32 i;

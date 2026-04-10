@@ -23,9 +23,9 @@ typedef struct {
 } WindObject;
 
 // .bss
-extern LevelWOBJ* sWindObjectsData;
-extern u8 sWindObjectsInLevel;
-extern WindObject sWindObjects[WIND_OBJECT_COUNT];
+LevelWOBJ* sWindObjectsData;
+u8 sWindObjectsInLevel;
+WindObject sWindObjects[WIND_OBJECT_COUNT];
 
 // windObjInit initializes / resets the model ID for all wind objects
 void windObjInit(void) {

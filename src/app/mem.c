@@ -4,7 +4,7 @@
 #include "mem.h"
 
 // .bss
-extern u8 gLevelObjHeap[5000];
+u8 gLevelObjHeap[5000];
 
 // .data
 u8* gLevelObjHeapPtr = gLevelObjHeap;
