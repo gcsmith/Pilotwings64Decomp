@@ -7,8 +7,8 @@
 #include "demo.h"
 #include "snd.h"
 
-EventCallbackInfo gBmSoundCbInfo;
-Unk803599D0 D_80359648;
+static EventCallbackInfo sBmSoundCbInfo;
+static Unk803599D0 D_80359648;
 
 // forward declarations
 void bmSoundCallback(s32 eventType, void*, s32 eventData);
@@ -31,10 +31,10 @@ void bmSoundInit(BirdmanData* arg0) {
     D_80359648.unk4[3].y = 1.0f;
     arg0->unk414 = sndMakeDev(0x13);
     arg0->unk415 = sndMakeDev(0x13);
-    gBmSoundCbInfo.cb = bmSoundCallback;
-    gBmSoundCbInfo.arg = arg0;
+    sBmSoundCbInfo.cb = bmSoundCallback;
+    sBmSoundCbInfo.arg = arg0;
     arg0->unk410 = ~0x3F;
-    uvEventMaxCb(gBmSoundCbInfo, 1, 0xD, 0x12, 0x13, 0x16, 0xC, 0x10, 0x24);
+    uvEventMaxCb(sBmSoundCbInfo, 1, 0xD, 0x12, 0x13, 0x16, 0xC, 0x10, 0x24);
 }
 
 void bmSoundCallback(s32 eventType, void* arg1, s32 eventData) {
@@ -221,5 +221,5 @@ void bmSound_802D1334(BirdmanData* arg0) {
 void bmSound_802D1534(BirdmanData* arg0) {
     arg0->unk414 = func_8033F8CC(arg0->unk414);
     arg0->unk415 = func_8033F8CC(arg0->unk415);
-    uvEventRemoveCb(gBmSoundCbInfo, 1, 0xD, 0x12, 0x13, 0x16, 0xC, 0x10, 0x24);
+    uvEventRemoveCb(sBmSoundCbInfo, 1, 0xD, 0x12, 0x13, 0x16, 0xC, 0x10, 0x24);
 }

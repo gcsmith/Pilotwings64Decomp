@@ -53,9 +53,9 @@ static s8 sMenuCurX = 0;
 static s8 sMenuCurY = 0;
 static s8 D_80350980 = 0xFF; // unused
 static u8 D_80350984 = 0xFF; // unused, only ever set to 0xFF
-const char* gClassShortNames[4] = { "E", "A", "B", "P" };
+static const char* sClassShortNames[4] = { "E", "A", "B", "P" };
 const char* gVehShortNames[7] = { "HG", "RP", "GC", "EX", "EX", "EX", "BD" };
-s32 gCurTestIdx = 0;
+static s32 sCurTestIdx = 0;
 static s32 D_803509B8 = 0; // unused, only ever set to 0
 
 // forward declarations
@@ -96,7 +96,7 @@ s32 testMenuMainRender(Unk80362690_Unk0* arg0, Unk80367710* arg1) {
     if ((temp_v0 == 0xFF) || (temp_v0 == 0xFE)) {
         return temp_v0;
     }
-    return arg1->unk4[gCurTestIdx].unk0;
+    return arg1->unk4[sCurTestIdx].unk0;
 }
 
 // returns true if test is one of the Shutter Bug tests
@@ -105,7 +105,7 @@ s32 testMenuShutterBug(void) {
 
     unkC = &D_80362690->unkC[D_80362690->unk9C];
     if ((unkC->veh == VEHICLE_HANG_GLIDER) &&
-        ((unkC->cls == CLASS_A && gCurTestIdx == 0) || (unkC->cls == CLASS_B && gCurTestIdx == 1) || (unkC->cls == CLASS_PILOT && gCurTestIdx == 2))) {
+        ((unkC->cls == CLASS_A && sCurTestIdx == 0) || (unkC->cls == CLASS_B && sCurTestIdx == 1) || (unkC->cls == CLASS_PILOT && sCurTestIdx == 2))) {
         return TRUE;
     }
     return FALSE;
@@ -158,11 +158,11 @@ void testMenuInitText(s32 testIdx) {
     }
 
     if (unkC->veh == VEHICLE_BIRDMAN || IS_MAIN_VEHICLE(unkC->veh)) {
-        uvSprintf(nameStr, "%s_%s_%d_N", gClassShortNames[unkC->cls], gVehShortNames[unkC->veh], testIdx + 1);
-        uvSprintf(hintStr, "%s_%s_%d_H", gClassShortNames[unkC->cls], gVehShortNames[unkC->veh], testIdx + 1);
+        uvSprintf(nameStr, "%s_%s_%d_N", sClassShortNames[unkC->cls], gVehShortNames[unkC->veh], testIdx + 1);
+        uvSprintf(hintStr, "%s_%s_%d_H", sClassShortNames[unkC->cls], gVehShortNames[unkC->veh], testIdx + 1);
     } else {
-        uvSprintf(nameStr, "%s_%s_%d_N", gClassShortNames[unkC->veh - 2], gVehShortNames[unkC->veh], testIdx + 1);
-        uvSprintf(hintStr, "%s_%s_%d_H", gClassShortNames[unkC->veh - 2], gVehShortNames[unkC->veh], testIdx + 1);
+        uvSprintf(nameStr, "%s_%s_%d_N", sClassShortNames[unkC->veh - 2], gVehShortNames[unkC->veh], testIdx + 1);
+        uvSprintf(hintStr, "%s_%s_%d_H", sClassShortNames[unkC->veh - 2], gVehShortNames[unkC->veh], testIdx + 1);
     }
     sTestNameText = textGetDataByName(nameStr);
     sTestHintText = textGetDataByName(hintStr);
@@ -190,22 +190,22 @@ void testMenuInit(Unk80367710* arg0, s32 arg1) {
     D_803509B8 = 0;
     if (arg1 == 0) {
         if (D_80362690->unkA3 == 0) {
-            gCurTestIdx = 0;
+            sCurTestIdx = 0;
             D_80362690->unkA3 = 1;
         } else {
-            gCurTestIdx++;
-            if (gCurTestIdx >= arg0->testCount) {
-                gCurTestIdx = 0;
+            sCurTestIdx++;
+            if (sCurTestIdx >= arg0->testCount) {
+                sCurTestIdx = 0;
             }
         }
         if (temp_v1->veh != VEHICLE_BIRDMAN && IS_BONUS_VEHICLE(temp_v1->veh)) {
-            gCurTestIdx = temp_v1->cls;
+            sCurTestIdx = temp_v1->cls;
         }
         if (temp_v1->veh != VEHICLE_BIRDMAN && IS_BONUS_VEHICLE(temp_v1->veh)) {
-            temp_v1->cls = gCurTestIdx;
+            temp_v1->cls = sCurTestIdx;
             temp_v1->test = 0;
         } else {
-            temp_v1->test = gCurTestIdx;
+            temp_v1->test = sCurTestIdx;
         }
     }
     taskInitTest(temp_v1->cls, temp_v1->veh, temp_v1->test, &D_80362690->map, &D_80362690->terraId, &D_80362690->envId);
@@ -302,7 +302,7 @@ void testMenuInit(Unk80367710* arg0, s32 arg1) {
         D_80350984 = 0xFF;
     }
     sDrawTestPts = FALSE;
-    testMenuInitText(gCurTestIdx);
+    testMenuInitText(sCurTestIdx);
 }
 
 u8 testMenuHandler(Unk80367710* arg0) {
@@ -413,7 +413,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
                 testIdxAdj = 0;
             }
             if (testIdxAdj != 0) {
-                var_a2 = gCurTestIdx;
+                var_a2 = sCurTestIdx;
                 sMenuCurX = sMenuMinX;
                 sMenuCurY = sMenuMaxY;
                 sSelMenuScreenX = (sMenuCurX * 78) + 47;
@@ -421,28 +421,28 @@ u8 testMenuHandler(Unk80367710* arg0) {
                 sp64 = (sMenuCurX - sMenuMinX) + ((sMenuCurY - sMenuMinY) * ((sMenuMaxX - sMenuMinX) + 1));
 
                 if (sp6C->veh != VEHICLE_BIRDMAN && IS_BONUS_VEHICLE(sp6C->veh)) {
-                    if (gCurTestIdx == arg0->testCount - 1) {
-                        gCurTestIdx = 0;
+                    if (sCurTestIdx == arg0->testCount - 1) {
+                        sCurTestIdx = 0;
                     } else {
-                        gCurTestIdx++;
+                        sCurTestIdx++;
                     }
                 } else {
-                    gCurTestIdx += testIdxAdj;
-                    if (gCurTestIdx >= arg0->testCount) {
-                        gCurTestIdx = 0;
+                    sCurTestIdx += testIdxAdj;
+                    if (sCurTestIdx >= arg0->testCount) {
+                        sCurTestIdx = 0;
                     }
-                    if ((s16)gCurTestIdx < 0) { // TODO: cast is needed, why?
-                        gCurTestIdx = arg0->testCount - 1;
+                    if ((s16)sCurTestIdx < 0) { // TODO: cast is needed, why?
+                        sCurTestIdx = arg0->testCount - 1;
                     }
                 }
-                if (gCurTestIdx != var_a2) {
+                if (sCurTestIdx != var_a2) {
                     sndPlaySfxVolPitchPan(0x6A, 1.0f, 0.5f, 0.0f);
                     map3dDeinit(D_80362690, 0);
                     if (sp6C->veh != VEHICLE_BIRDMAN && IS_BONUS_VEHICLE(sp6C->veh)) {
-                        sp6C->cls = gCurTestIdx;
+                        sp6C->cls = sCurTestIdx;
                         sp6C->test = 0;
                     } else {
-                        sp6C->test = gCurTestIdx;
+                        sp6C->test = sCurTestIdx;
                     }
                     taskInitTest(sp6C->cls, sp6C->veh, sp6C->test, &D_80362690->map, &D_80362690->terraId, &D_80362690->envId);
                     map3dLoad(D_80362690, 0);
@@ -473,7 +473,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
                 switch (sp64) {
                 case 3:
                     sndPlaySfx(SFX_UI_TEST_START);
-                    return gCurTestIdx;
+                    return sCurTestIdx;
                 case 0:
                     sndPlaySfx(SFX_UI_SCORING);
                     resultHandler(0);
@@ -559,11 +559,11 @@ void testMenuDraw(Camera* arg0, u8 classIdx, u8 vehIdx) {
     if ((sp48->veh != VEHICLE_BIRDMAN) && IS_BONUS_VEHICLE(vehIdx)) {
         taskLoadNames(classIdx, 0, vehIdx, sp8C, strId);
     } else {
-        taskLoadNames(classIdx, gCurTestIdx, vehIdx, sp8C, strId);
+        taskLoadNames(classIdx, sCurTestIdx, vehIdx, sp8C, strId);
     }
     strIdLen = uvStrlen(strId);
     if (strIdLen == 0) {
-        uvSprintf(strId, "%s_%s_%d\n", gClassShortNames[sp48->cls], gVehShortNames[sp48->veh], gCurTestIdx + 1);
+        uvSprintf(strId, "%s_%s_%d\n", sClassShortNames[sp48->cls], gVehShortNames[sp48->veh], sCurTestIdx + 1);
         strIdLen = uvStrlen(strId);
     }
     strIdAppend = &strId[strIdLen];

@@ -12,46 +12,46 @@ STATIC_FUNC void menuDrawItem(s16 x, s16 y, s16 idx);
 
 // arrays of pointers to 16-bit strings
 // e.g. "Option" from main menu is 0x0078 0x0093 0x0097 0x008c 0x0092 0091 0x0ffe 0xffff
-static s16* gMenuItems[5];
-static s16 gMenuSpriteIdBase;
-static s16 gMenuSpriteHeight;
-static s16 gMenuCountVarHeight;
+static s16* sMenuItems[5];
+static s16 sMenuSpriteIdBase;
+static s16 sMenuSpriteHeight;
+static s16 sMenuCountVarHeight;
 
 STATIC_FUNC void menuCreate(s32 x, s32 y, s32 font, f32 xscale, f32 yscale, s32 itemCount) {
     s32 i;
 
-    gMenuSpriteHeight = 0;
-    if (itemCount > ARRAY_COUNT(gMenuItems)) {
+    sMenuSpriteHeight = 0;
+    if (itemCount > ARRAY_COUNT(sMenuItems)) {
         _uvDebugPrintf("kmenu_init : too may elements in the menu [%d]\n", itemCount);
     }
     menuUtilCreate(x, y, font, xscale, yscale, 0, itemCount);
 
     // clang-format off: needs to be on same line to match
-    for (i = 0; i < ARRAY_COUNT(gMenuItems); i++) { gMenuItems[i] = NULL; }
+    for (i = 0; i < ARRAY_COUNT(sMenuItems); i++) { sMenuItems[i] = NULL; }
     // clang-format on
 
     gFcnDrawMenuItem = &menuDrawItem;
 }
 
 // menuCreateVarHeight is unused, but serves as a wrapper for menuCreate
-// it computes non-zero gMenuSpriteHeight, triggering different code paths below
+// it computes non-zero sMenuSpriteHeight, triggering different code paths below
 void menuCreateVarHeight(s32 x, s32 y, s32 font, f32 xscale, f32 yscale, s32* items, s32 count) {
     s32 i;
 
     menuCreate(x, y, font, xscale, yscale, count);
-    gMenuCountVarHeight = (s16)count;
-    gMenuSpriteIdBase = 0xF;
+    sMenuCountVarHeight = (s16)count;
+    sMenuSpriteIdBase = 0xF;
 
     for (i = 0; i < count; i++) {
         // clang-format off
-        uvSprtProps(gMenuSpriteIdBase + i,
+        uvSprtProps(sMenuSpriteIdBase + i,
             SPRT_PROP_3(1),
-            SPRT_PROP_POS(x, ((gMenuSpriteHeight + 6) * i) + y),
+            SPRT_PROP_POS(x, ((sMenuSpriteHeight + 6) * i) + y),
             SPRT_PROP_BLIT(items[i]),
             SPRT_PROP_END
         );
         // clang-format on
-        gMenuSpriteHeight = uvSprtGetHeight(gMenuSpriteIdBase + i);
+        sMenuSpriteHeight = uvSprtGetHeight(sMenuSpriteIdBase + i);
     }
 }
 
@@ -62,7 +62,7 @@ void menuCreateItems(s32 x, s32 y, s32 font, f32 xscale, f32 yscale, s32* items,
     menuCreate(x, y, font, xscale, yscale, itemCount);
 
     for (i = 0; i < itemCount; i++) {
-        gMenuItems[i] = textGetDataByIdx(items[i]);
+        sMenuItems[i] = textGetDataByIdx(items[i]);
     }
 }
 
@@ -78,17 +78,17 @@ void menuSetProps(void) {
     s32 i;
 
     menuUtilInit();
-    for (i = 0; i < gMenuCountVarHeight; i++) {
-        uvSprtProps(gMenuSpriteIdBase + i, SPRT_PROP_3(0), SPRT_PROP_END);
+    for (i = 0; i < sMenuCountVarHeight; i++) {
+        uvSprtProps(sMenuSpriteIdBase + i, SPRT_PROP_3(0), SPRT_PROP_END);
     }
 }
 
 STATIC_FUNC void menuDrawItem(s16 x, s16 y, s16 idx) {
-    if (gMenuSpriteHeight != 0) {
-        uvSprtProps(gMenuSpriteIdBase + idx, SPRT_PROP_POS(x, y + gMenuSpriteHeight + 2), SPRT_PROP_END);
-        uvSprtDraw(gMenuSpriteIdBase + idx);
+    if (sMenuSpriteHeight != 0) {
+        uvSprtProps(sMenuSpriteIdBase + idx, SPRT_PROP_POS(x, y + sMenuSpriteHeight + 2), SPRT_PROP_END);
+        uvSprtDraw(sMenuSpriteIdBase + idx);
     } else {
-        func_80219874(x, y, gMenuItems[idx], 100, 0xFFE);
+        func_80219874(x, y, sMenuItems[idx], 100, 0xFFE);
     }
 }
 
@@ -97,7 +97,7 @@ s32 menu_8030B668(void) {
 }
 
 void menuSetItem(s32 idx, s16* str) {
-    gMenuItems[idx] = str;
+    sMenuItems[idx] = str;
 }
 
 void menu_8030B69C(s32 arg0) {

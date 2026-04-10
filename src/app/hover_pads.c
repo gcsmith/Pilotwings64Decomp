@@ -14,8 +14,8 @@
 
 s32 gHoverPadModels[2] = { MODEL_RB_HOVERPAD_LARGE, MODEL_RB_HOVERPAD_STANDARD };
 
-TaskHPAD* gRefHPAD;
-u8 gHoverPadCount;
+static TaskHPAD* sRefHPAD;
+static u8 sHoverPadCount;
 HoverPad gHoverPads[20];
 
 // forward declarations
@@ -39,8 +39,8 @@ void hoverPadInit(void) {
 void hoverPad_80309868(void) {
     s32 i;
 
-    for (i = 0; i < gHoverPadCount; i++) {
-        if (D_80362690->unkC[D_80362690->unk9C].unk8 == gRefHPAD[i].unk18) {
+    for (i = 0; i < sHoverPadCount; i++) {
+        if (D_80362690->unkC[D_80362690->unk9C].unk8 == sRefHPAD[i].unk18) {
             gHoverPads[i].unk6A = TRUE;
             if (gHoverPads[i].objId != INVALID_OBJECT_ID) {
                 uvDobjSetState(gHoverPads[i].objId, 3);
@@ -85,21 +85,21 @@ void hoverPadLoad(void) {
         return;
     }
 
-    gHoverPadCount = taskGetHPAD(&gRefHPAD);
-    if (gHoverPadCount > ARRAY_COUNT(gHoverPads)) {
-        _uvDebugPrintf("hpads : too many hpads defined in level [%d]\n", gHoverPadCount);
-        gHoverPadCount = 0;
+    sHoverPadCount = taskGetHPAD(&sRefHPAD);
+    if (sHoverPadCount > ARRAY_COUNT(gHoverPads)) {
+        _uvDebugPrintf("hpads : too many hpads defined in level [%d]\n", sHoverPadCount);
+        sHoverPadCount = 0;
         return;
     }
 
-    if (gHoverPadCount == 0) {
+    if (sHoverPadCount == 0) {
         return;
     }
 
     uvLevelAppend(0x13);
-    for (i = 0; i < gHoverPadCount; i++) {
+    for (i = 0; i < sHoverPadCount; i++) {
         hover = &gHoverPads[i];
-        hpad = &gRefHPAD[i];
+        hpad = &sRefHPAD[i];
         if (hover->wasLandedOn) {
             continue;
         }
@@ -210,7 +210,7 @@ s32 hoverPadGetLandedIdx(s32 objId, UNUSED f32 arg1) {
 
     hoverIdx = -1;
     unkC = &D_80362690->unkC[D_80362690->unk9C];
-    for (i = 0; i < gHoverPadCount; i++) {
+    for (i = 0; i < sHoverPadCount; i++) {
         hover = &gHoverPads[i];
         if ((hover->objId != INVALID_OBJECT_ID) && (objId == hover->objId)) {
             dx = hover->pose.m[3][0] - unkC->unk2C.m[3][0];
@@ -230,7 +230,7 @@ s32 hoverPadGetLandedIdx(s32 objId, UNUSED f32 arg1) {
 
 void hoverPadDeinit(void) {
     s32 i;
-    for (i = 0; i < gHoverPadCount; i++) {
+    for (i = 0; i < sHoverPadCount; i++) {
         if (gHoverPads[i].objId != INVALID_OBJECT_ID) {
             uvDobjModel(gHoverPads[i].objId, 0xFFFF);
             gHoverPads[i].objId = INVALID_OBJECT_ID;
@@ -243,7 +243,7 @@ u8 hoverPadGetCount(void) {
     s32 i;
 
     ret = 0;
-    for (i = 0; i < gHoverPadCount; i++) {
+    for (i = 0; i < sHoverPadCount; i++) {
         ret += (gHoverPads[i].wasLandedOn) ? 1 : 0;
     }
     return ret;
@@ -254,7 +254,7 @@ s16 hoverPadGetPoints(void) {
     s32 i;
 
     points = 0;
-    for (i = 0; i < gHoverPadCount; i++) {
+    for (i = 0; i < sHoverPadCount; i++) {
         points += (gHoverPads[i].wasLandedOn) ? gHoverPads[i].points : 0;
     }
     return points;

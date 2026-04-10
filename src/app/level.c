@@ -24,47 +24,47 @@
 #include "whale.h"
 #include "whale_pod.h"
 
-s32 D_8034F400 = 0;
-s32 D_8034F404 = 0;
-LevelObjects* gLevelCurObjects = NULL;
-s32 gLevelCurMap = 0;
-s32 gLevelUserFileLookup[] = { 0, 1, 2, 3 };
+static s32 D_8034F400 = 0;
+static s32 D_8034F404 = 0;
+static LevelObjects* sLevelCurObjects = NULL;
+static s32 sLevelCurMap = 0;
+static s32 sLevelUserFileLookup[] = { 0, 1, 2, 3 };
 
 // likely arrays of structs for level data
-extern LevelWOBJ gLevelWOBJ[16];
-extern LevelLPAD gLevelLPAD[14];
-extern LevelTPTS gLevelTPTS[16];
-extern LevelTOYS gLevelTOYS[16];
-extern LevelAPTS gLevelAPTS[20];
-extern LevelBNUS gLevelBNUS[2];
-extern LevelObjects gLevelObjects;
+static LevelWOBJ sLevelWOBJ[16];
+static LevelLPAD sLevelLPAD[14];
+static LevelTPTS sLevelTPTS[16];
+static LevelTOYS sLevelTOYS[16];
+static LevelAPTS sLevelAPTS[20];
+static LevelBNUS sLevelBNUS[2];
+static LevelObjects sLevelObjects;
 
 void levelLoad(u8 map, u8 pilot, u8 vehicle, s32 animateToys) {
     s32 i;
 
-    gLevelCurMap = map;
+    sLevelCurMap = map;
     uvLevelInit();
     textLoadBlock(0x42);
     envLoadTerrainPal(D_80362690->envId);
     uvLevelAppend(map);
     switch (map) {
     case MAP_HOLIDAY_ISLAND:
-        gLevelCurObjects = levelLoadMapObjects(0);
+        sLevelCurObjects = levelLoadMapObjects(0);
         break;
     case MAP_CRESCENT_ISLAND:
-        gLevelCurObjects = levelLoadMapObjects(1);
+        sLevelCurObjects = levelLoadMapObjects(1);
         break;
     case MAP_LITTLE_STATES:
-        gLevelCurObjects = levelLoadMapObjects(2);
+        sLevelCurObjects = levelLoadMapObjects(2);
         break;
     case MAP_EVER_FROST_ISLAND:
-        gLevelCurObjects = levelLoadMapObjects(3);
+        sLevelCurObjects = levelLoadMapObjects(3);
         break;
     }
     uvLevelAppend(0x1A);
     if (animateToys) {
-        for (i = 0; i < (s32)gLevelObjects.countTOYS; i++) {
-            toyLoad(&gLevelObjects.dataTOYS[i]);
+        for (i = 0; i < (s32)sLevelObjects.countTOYS; i++) {
+            toyLoad(&sLevelObjects.dataTOYS[i]);
         }
         D_8034F400 = 1;
     } else {
@@ -88,7 +88,7 @@ void level_8030B868(void) {
         if (1) { // fakematch
             D_8034F404 = 1;
         }
-        switch (gLevelCurMap) {
+        switch (sLevelCurMap) {
         case MAP_HOLIDAY_ISLAND:
             gliderToyLoadHoliday();
             boatsLoadHoliday();
@@ -122,7 +122,7 @@ void level_8030B964(void) {
         if (1) { // fakematch
             D_8034F404 = 0;
         }
-        switch (gLevelCurMap) {
+        switch (sLevelCurMap) {
         case MAP_HOLIDAY_ISLAND:
             gliderToyDeinit();
             boatsDeinit();
@@ -243,28 +243,28 @@ void level_8030BD20(void) {
 }
 
 u8 levelGetWOBJ(LevelWOBJ** data) {
-    *data = gLevelCurObjects->dataWOBJ;
-    return gLevelCurObjects->countWOBJ;
+    *data = sLevelCurObjects->dataWOBJ;
+    return sLevelCurObjects->countWOBJ;
 }
 
 u8 levelGetTPTS(LevelTPTS** data) {
-    *data = gLevelCurObjects->dataTPTS;
-    return gLevelCurObjects->countTPTS;
+    *data = sLevelCurObjects->dataTPTS;
+    return sLevelCurObjects->countTPTS;
 }
 
 u8 levelGetAPTS(LevelAPTS** data) {
-    *data = gLevelCurObjects->dataAPTS;
-    return gLevelCurObjects->countAPTS;
+    *data = sLevelCurObjects->dataAPTS;
+    return sLevelCurObjects->countAPTS;
 }
 
 u8 levelGetLPAD(LevelLPAD** data) {
-    *data = gLevelCurObjects->dataLPAD;
-    return gLevelCurObjects->countLPAD;
+    *data = sLevelCurObjects->dataLPAD;
+    return sLevelCurObjects->countLPAD;
 }
 
 u8 levelGetBNUS(LevelBNUS** data) {
-    *data = gLevelCurObjects->dataBNUS;
-    return gLevelCurObjects->countBNUS;
+    *data = sLevelCurObjects->dataBNUS;
+    return sLevelCurObjects->countBNUS;
 }
 
 LevelObjects* levelLoadMapObjects(u8 mapIdx) {
@@ -278,15 +278,15 @@ LevelObjects* levelLoadMapObjects(u8 mapIdx) {
     LevelObjects* temp;
     u8 tmp8;
 
-    idx = uvFileReadHeader((s32)uvUserFileRead(gLevelUserFileLookup[mapIdx], MEM_ROM_OFFSET));
-    temp = &gLevelObjects;
+    idx = uvFileReadHeader((s32)uvUserFileRead(sLevelUserFileLookup[mapIdx], MEM_ROM_OFFSET));
+    temp = &sLevelObjects;
     uvMemSet((void*)temp, 0, sizeof(LevelObjects));
-    gLevelObjects.dataWOBJ = gLevelWOBJ;
-    gLevelObjects.dataLPAD = gLevelLPAD;
-    gLevelObjects.dataTOYS = gLevelTOYS;
-    gLevelObjects.dataTPTS = gLevelTPTS;
-    gLevelObjects.dataAPTS = gLevelAPTS;
-    gLevelObjects.dataBNUS = gLevelBNUS;
+    sLevelObjects.dataWOBJ = sLevelWOBJ;
+    sLevelObjects.dataLPAD = sLevelLPAD;
+    sLevelObjects.dataTOYS = sLevelTOYS;
+    sLevelObjects.dataTPTS = sLevelTPTS;
+    sLevelObjects.dataAPTS = sLevelAPTS;
+    sLevelObjects.dataBNUS = sLevelBNUS;
 
     while ((tag = uvFileReadBlock(idx, &size, (void**)&srcPtr, 1)) != 0) {
         switch (tag) {
@@ -326,37 +326,37 @@ LevelObjects* levelLoadMapObjects(u8 mapIdx) {
             if (temp->countWOBJ >= 16) {
                 _uvAssertMsg("dst_level -> level . nwobjs < LEVEL_NWOBJS", "level.c", 642);
             }
-            if (temp->countWOBJ > ARRAY_COUNT(gLevelWOBJ)) {
+            if (temp->countWOBJ > ARRAY_COUNT(sLevelWOBJ)) {
                 _uvDebugPrintf("level : too many wind objects defined in level [%d]\n", temp->countWOBJ);
                 temp->countWOBJ = 0;
             }
 
             temp->countLPAD = ptr->countLPAD;
-            if (temp->countLPAD > ARRAY_COUNT(gLevelLPAD)) {
+            if (temp->countLPAD > ARRAY_COUNT(sLevelLPAD)) {
                 _uvDebugPrintf("level : too many potential landing pads defined in level [%d]\n", temp->countLPAD);
                 temp->countLPAD = 0;
             }
 
             temp->countTOYS = ptr->countTOYS;
-            if (temp->countTOYS > ARRAY_COUNT(gLevelTOYS)) {
+            if (temp->countTOYS > ARRAY_COUNT(sLevelTOYS)) {
                 _uvDebugPrintf("level : too many toys in level [%d]\n", temp->countTOYS);
                 temp->countTOYS = 0;
             }
 
             temp->countTPTS = ptr->countTPTS;
-            if (temp->countTPTS > ARRAY_COUNT(gLevelTPTS)) {
+            if (temp->countTPTS > ARRAY_COUNT(sLevelTPTS)) {
                 _uvDebugPrintf("level : too many terra switch points in level [%d]\n", temp->countTPTS);
                 temp->countTPTS = 0;
             }
 
             temp->countAPTS = ptr->countAPTS;
-            if (temp->countAPTS > ARRAY_COUNT(gLevelAPTS)) {
+            if (temp->countAPTS > ARRAY_COUNT(sLevelAPTS)) {
                 _uvDebugPrintf("level : too many audio switch points in level [%d]\n", temp->countAPTS);
                 temp->countAPTS = 0;
             }
 
             temp->countBNUS = ptr->countBNUS;
-            if (temp->countBNUS > ARRAY_COUNT(gLevelBNUS)) {
+            if (temp->countBNUS > ARRAY_COUNT(sLevelBNUS)) {
                 _uvDebugPrintf("level : too many bonus objects level [%d]\n", temp->countBNUS);
                 temp->countBNUS = 0;
             }
@@ -364,5 +364,5 @@ LevelObjects* levelLoadMapObjects(u8 mapIdx) {
         }
     }
     uvFile_80223F30(idx);
-    return &gLevelObjects;
+    return &sLevelObjects;
 }

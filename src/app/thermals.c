@@ -14,14 +14,14 @@
 #define THERM_WEAKEN_DURATION (10)
 #define THERM_DISABLE_TIME (THERM_ENABLE_DURATION + THERM_WEAKEN_DURATION)
 
-s32 gThermShouldDisable = 0; // true when test disables thermals after THERM_ENABLE_DURATION
+static s32 sThermShouldDisable = 0; // true when test disables thermals after THERM_ENABLE_DURATION
 
 // unused / leftover .data
 f32 pad_D_80350800[] = { 0.0f, 0.0f, 0.0f,  0.0f,  0.0f, 0.0f, 0.0f, 1.0f,  5.0f,  0.05f, 0.0f, 0.0f,  0.975f, 5.5f,  0.06f, 0.04f, 0.03f, 0.88f, 6.0f,  0.0f,
                          0.0f, 0.0f, 0.0f,  17.0f, 0.0f, 0.0f, 0.0f, 0.0f,  18.0f, 0.0f,  0.0f, 0.01f, 0.15f,  18.5f, 0.0f,  0.01f, 0.03f, 0.25f, 19.0f, 0.0f,
                          0.0f, 0.0f, 0.65f, 19.5f, 0.0f, 0.0f, 0.0f, 0.96f, 20.0f, 0.0f,  0.0f, 0.0f,  0.99f,  24.0f, 0.0f,  0.0f,  0.0f,  1.0f,  0.0f };
 
-static TaskTHER* gTaskTHER;
+static TaskTHER* sTaskTHER;
 u8 gThermalCount;
 Thermal gThermals[16];
 u8 gThermReady;
@@ -48,7 +48,7 @@ void thermLoad(void) {
     s32 i;
 
     if (D_80362690->unkC[D_80362690->unk9C].unk7B == 0) {
-        gThermalCount = taskGetTHER(&gTaskTHER);
+        gThermalCount = taskGetTHER(&sTaskTHER);
         if (gThermalCount > ARRAY_COUNT(gThermals)) {
             _uvDebugPrintf("thermals : too many thermals defined in level [%d]\n", gThermalCount);
             gThermalCount = 0;
@@ -59,7 +59,7 @@ void thermLoad(void) {
             uvLevelAppend(0x16);
 
             for (i = 0; i < gThermalCount; i++) {
-                taskTherm = &gTaskTHER[i];
+                taskTherm = &sTaskTHER[i];
                 therm = &gThermals[i];
                 therm->unk0 = uvDobjAllocIdx();
                 uvDobjModel(therm->unk0, MODEL_HG_THERMAL_CYLINDER);
@@ -94,10 +94,10 @@ void thermLoad(void) {
                 esnd.unk4C.z = (f32)(taskTherm->pos.z - (taskTherm->height * 0.5));
                 envSoundLoad(&esnd);
             }
-            gThermShouldDisable = 0;
+            sThermShouldDisable = 0;
             temp_v1_2 = &D_80362690->unkC[D_80362690->unk9C];
             if ((temp_v1_2->veh == VEHICLE_HANG_GLIDER) && (temp_v1_2->cls == 3) && (temp_v1_2->test == 0)) {
-                gThermShouldDisable = 1;
+                sThermShouldDisable = 1;
             }
         }
     }
@@ -112,7 +112,7 @@ void therm_8034695C(void) {
 
     var_fs0 = 1.0f;
     // after 4 min, 10 sec, disable thermals, if the test calls for it
-    if ((D_8034F850 >= THERM_DISABLE_TIME) && (gThermalCount != 0) && gThermShouldDisable) {
+    if ((D_8034F850 >= THERM_DISABLE_TIME) && (gThermalCount != 0) && sThermShouldDisable) {
         thermDeinit();
         gThermalCount = 0;
         gThermReady = 0;
@@ -121,9 +121,9 @@ void therm_8034695C(void) {
 
     for (i = 0; i < gThermalCount; i++) {
         therm = &gThermals[i];
-        taskTherm = &gTaskTHER[i];
+        taskTherm = &sTaskTHER[i];
         // for the first 10 seconds after 4 minutes, reduce the scale of thermal, if test calls for it
-        if ((D_8034F850 >= THERM_ENABLE_DURATION) && (gThermalCount != 0) && gThermShouldDisable) {
+        if ((D_8034F850 >= THERM_ENABLE_DURATION) && (gThermalCount != 0) && sThermShouldDisable) {
             var_fs0 = (f32)(1.0 - (f64)((D_8034F850 - THERM_ENABLE_DURATION) / THERM_WEAKEN_DURATION));
         }
         therm->height += taskTherm->unk20 * D_8034F854;
@@ -168,7 +168,7 @@ void therm_80346C08(f32 x, f32 y, f32 z, Vec3F* dst) {
 
     for (i = 0; i < gThermalCount; i++) {
         therm = &gThermals[i];
-        taskTherm = &gTaskTHER[i];
+        taskTherm = &sTaskTHER[i];
         if (therm->unk0 == 0xFFFF) {
             continue;
         }
