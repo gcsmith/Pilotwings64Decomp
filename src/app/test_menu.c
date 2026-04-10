@@ -53,9 +53,9 @@ static s8 sMenuCurX = 0;
 static s8 sMenuCurY = 0;
 static s8 D_80350980 = 0xFF; // unused
 static u8 D_80350984 = 0xFF; // unused, only ever set to 0xFF
-const char* sClassShortNames[4] = { "E", "A", "B", "P" };
+static const char* sClassShortNames[4] = { "E", "A", "B", "P" };
 const char* gVehShortNames[7] = { "HG", "RP", "GC", "EX", "EX", "EX", "BD" };
-s32 sCurTestIdx = 0;
+static s32 sCurTestIdx = 0;
 static s32 D_803509B8 = 0; // unused, only ever set to 0
 
 // forward declarations

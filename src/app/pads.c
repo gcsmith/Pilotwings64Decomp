@@ -20,22 +20,22 @@ typedef struct {
     u8 pad14[4];
 } Unk8036C168; // size = 0x18
 
-TaskLPAD* sRefLPAD;
-TaskLSTP* sRefLSTP;
-TaskTPAD* sRefTPAD;
-TaskCNTG* sRefCNTG;
-LevelLPAD* sRefPotLPAD;
-Unk8036C168 D_8036C168[MAX_LANDING_PADS]; // written to, but unused
-u8 sPotLandPadCount;
+static TaskLPAD* sRefLPAD;
+static TaskLSTP* sRefLSTP;
+static TaskTPAD* sRefTPAD;
+static TaskCNTG* sRefCNTG;
+static LevelLPAD* sRefPotLPAD;
+static Unk8036C168 D_8036C168[MAX_LANDING_PADS]; // written to, but unused
+static u8 sPotLandPadCount;
 u8 gLandingPadCount;
 u8 gLandingStripCount;
-u8 sTakeoffPadCount;
-u8 sCannonTargetCount;
-TakeoffPad sTakeoffPads[3];
+static u8 sTakeoffPadCount;
+static u8 sCannonTargetCount;
+static TakeoffPad sTakeoffPads[3];
 LandingPad gLandingPads[MAX_LANDING_PADS];
 LandingStrip gLandingStrips[2];
-CannonTarget sCannonTargets[1];
-u16 sLandingPadObjIds[MAX_LANDING_PADS];
+static CannonTarget sCannonTargets[1];
+static u16 sLandingPadObjIds[MAX_LANDING_PADS];
 
 s8 gPadsInitialized = FALSE;
 u16 gLandingPadModels[3] = { MODEL_LANDING_PAD_1, MODEL_LANDING_PAD_2, MODEL_LANDING_PAD_3 };

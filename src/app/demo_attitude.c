@@ -28,14 +28,14 @@ typedef struct Unk8034F970 {
 } Unk8034F970;
 
 // .data
-Unk8034F970* D_8034F970 = NULL;
+static Unk8034F970* D_8034F970 = NULL;
 
 // .bss
-s32 D_8036D320;
-s32 D_8036D324;
-f32 D_8036D328;
-f32 D_8036D32C;
-s32 sDemoUserFileIdx;
+static s32 D_8036D320;
+static s32 D_8036D324;
+static f32 D_8036D328;
+static f32 D_8036D32C;
+static s32 sDemoUserFileIdx;
 
 void demoAttInit(s32 userFileIdx) {
     sDemoUserFileIdx = userFileIdx;

@@ -24,20 +24,20 @@
 #include "whale.h"
 #include "whale_pod.h"
 
-s32 D_8034F400 = 0;
-s32 D_8034F404 = 0;
-LevelObjects* sLevelCurObjects = NULL;
-s32 sLevelCurMap = 0;
-s32 sLevelUserFileLookup[] = { 0, 1, 2, 3 };
+static s32 D_8034F400 = 0;
+static s32 D_8034F404 = 0;
+static LevelObjects* sLevelCurObjects = NULL;
+static s32 sLevelCurMap = 0;
+static s32 sLevelUserFileLookup[] = { 0, 1, 2, 3 };
 
 // likely arrays of structs for level data
-LevelWOBJ sLevelWOBJ[16];
-LevelLPAD sLevelLPAD[14];
-LevelTPTS sLevelTPTS[16];
-LevelTOYS sLevelTOYS[16];
-LevelAPTS sLevelAPTS[20];
-LevelBNUS sLevelBNUS[2];
-LevelObjects sLevelObjects;
+static LevelWOBJ sLevelWOBJ[16];
+static LevelLPAD sLevelLPAD[14];
+static LevelTPTS sLevelTPTS[16];
+static LevelTOYS sLevelTOYS[16];
+static LevelAPTS sLevelAPTS[20];
+static LevelBNUS sLevelBNUS[2];
+static LevelObjects sLevelObjects;
 
 void levelLoad(u8 map, u8 pilot, u8 vehicle, s32 animateToys) {
     s32 i;

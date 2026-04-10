@@ -22,9 +22,9 @@ typedef struct {
     s32 unk4C;
 } BonusStar;
 
-LevelBNUS* sRefBNUS;
-u8 sBonusStarCount;
-BonusStar sBonusStars[2];
+static LevelBNUS* sRefBNUS;
+static u8 sBonusStarCount;
+static BonusStar sBonusStars[2];
 
 void bonusInit(void) {
     s32 i;

@@ -908,10 +908,10 @@ sControlInfoJumbleHopper  = 0x8034EB94;
 sControlInfoBirdman       = 0x8034EBB8;
 sControlInfoVeh           = 0x8034EBD8;
 
-sFalcos                   = 0x8035A5F8; // size:0x258
-sFalcoCount               = 0x8035A850;
-sFalcoDomains             = 0x8035A858;
-sRefFALC                  = 0x8035AF20;
+gFalcos                   = 0x8035A5F8; // size:0x258
+gFalcoCount               = 0x8035A850;
+gFalcoDomains             = 0x8035A858;
+gRefFALC                  = 0x8035AF20;
 
 sSaveFiles                = 0x803620E0; // size:0x200
 sSaveFilesMirror          = 0x803622E0; // size:0x200

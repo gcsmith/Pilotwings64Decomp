@@ -14,7 +14,8 @@
 #define THERM_WEAKEN_DURATION (10)
 #define THERM_DISABLE_TIME (THERM_ENABLE_DURATION + THERM_WEAKEN_DURATION)
 
-s32 sThermShouldDisable = 0; // true when test disables thermals after THERM_ENABLE_DURATION
+static s32 sThermShouldDisable = 0; // true when test disables thermals after THERM_ENABLE_DURATION
+
 
 // unused / leftover .data
 f32 pad_D_80350800[] = { 0.0f, 0.0f, 0.0f,  0.0f,  0.0f, 0.0f, 0.0f, 1.0f,  5.0f,  0.05f, 0.0f, 0.0f,  0.975f, 5.5f,  0.06f, 0.04f, 0.03f, 0.88f, 6.0f,  0.0f,

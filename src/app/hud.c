@@ -31,9 +31,9 @@ typedef struct {
     s16 unk2;
 } Unk8034F93C;
 
-f32 D_8034F910 = 0.0f;
-s32 D_8034F914 = 0;
-s32 D_8034F918[] = {
+static f32 D_8034F910 = 0.0f;
+static s32 D_8034F914 = 0;
+static s32 D_8034F918[] = {
     0x132,
     0x131,
     0x133,
@@ -47,9 +47,9 @@ s32 D_8034F928[] = {
     -135,
 };
 
-Vec2F sRadarThermCirc[17];
-HUDState sHudState;
-u8 D_8036D224;
+static Vec2F sRadarThermCirc[17];
+static HUDState sHudState;
+static u8 D_8036D224;
 
 // forward declarations
 void hud_8031A378(void);

@@ -7,8 +7,8 @@
 #include "demo.h"
 #include "snd.h"
 
-EventCallbackInfo sBmSoundCbInfo;
-Unk803599D0 D_80359648;
+static EventCallbackInfo sBmSoundCbInfo;
+static Unk803599D0 D_80359648;
 
 // forward declarations
 void bmSoundCallback(s32 eventType, void*, s32 eventData);
