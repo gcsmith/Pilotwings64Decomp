@@ -7,8 +7,8 @@
 #include "rocket_belt.h"
 #include "snd.h"
 
-static EventCallbackInfo rbSoundEventCbInfo;
-static Unk803599D0 rbSound_80371898;
+static EventCallbackInfo sRbSoundEventCbInfo;
+static Unk803599D0 sRbSound_80371898;
 
 STATIC_FUNC void rbSoundEventHandler(s32, void*, s32);
 STATIC_FUNC void rbSoundEvent12_22(RocketBeltData* rbData);
@@ -21,11 +21,11 @@ void rbSoundInit(RocketBeltData* rbData) {
     rbData->unk390 = 0.0f;
     rbData->unk394 = 0.0f;
     rbData->unk398 = 0.0f;
-    rbSound_80371898.count = 4;
-    rbSound_80371898.unk4[0].x = 00.0f, rbSound_80371898.unk4[0].y = 0.0f;
-    rbSound_80371898.unk4[1].x = 02.0f, rbSound_80371898.unk4[1].y = 0.4f;
-    rbSound_80371898.unk4[2].x = 09.0f, rbSound_80371898.unk4[2].y = 0.8f;
-    rbSound_80371898.unk4[3].x = 10.0f, rbSound_80371898.unk4[3].y = 1.0f;
+    sRbSound_80371898.count = 4;
+    sRbSound_80371898.unk4[0].x = 00.0f, sRbSound_80371898.unk4[0].y = 0.0f;
+    sRbSound_80371898.unk4[1].x = 02.0f, sRbSound_80371898.unk4[1].y = 0.4f;
+    sRbSound_80371898.unk4[2].x = 09.0f, sRbSound_80371898.unk4[2].y = 0.8f;
+    sRbSound_80371898.unk4[3].x = 10.0f, sRbSound_80371898.unk4[3].y = 1.0f;
     rbData->unk388 = sndMakeDev(0x23);
     rbData->unk389 = sndMakeDev(0x24);
     rbData->unk38A = sndMakeDev(0x13);
@@ -33,10 +33,10 @@ void rbSoundInit(RocketBeltData* rbData) {
     rbData->unk38C = sndMakeDev(0x1E);
     uvEmitterProp(rbData->unk38C, 5, 4, 0);
     uvEmitterSetPri(rbData->unk38C, 0x7FFF);
-    rbSoundEventCbInfo.cb = rbSoundEventHandler;
-    rbSoundEventCbInfo.arg = rbData;
+    sRbSoundEventCbInfo.cb = rbSoundEventHandler;
+    sRbSoundEventCbInfo.arg = rbData;
     rbData->unk384 = ~0x3F;
-    uvEventMaxCb(rbSoundEventCbInfo, 1, 13, 18, 19, 16, 12, 22, 0x24);
+    uvEventMaxCb(sRbSoundEventCbInfo, 1, 13, 18, 19, 16, 12, 22, 0x24);
 }
 
 STATIC_FUNC void rbSoundEventHandler(s32 event, void* userData, s32 eventData) {
@@ -248,7 +248,7 @@ STATIC_FUNC void rbSoundSubEvent(RocketBeltData* rbData) {
 
     for (i = 0; i < rbData->unk92; i++) {
         var_fv1 = ABS_NOEQ(rbData->unkCC[i]);
-        temp_fs0 = func_80313F08(&rbSound_80371898, var_fv1);
+        temp_fs0 = func_80313F08(&sRbSound_80371898, var_fv1);
         switch (rbData->unk93[i]) {
         case 4:
             break;
@@ -283,5 +283,5 @@ STATIC_FUNC void rbSoundEvent13(RocketBeltData* rbData) {
     rbData->unk38A = func_8033F8CC(rbData->unk38A);
     rbData->unk38B = func_8033F8CC(rbData->unk38B);
     func_80200180(0, 4, 0.0f, 0);
-    uvEventRemoveCb(rbSoundEventCbInfo, 1, 0xD, 0x12, 0x13, 0x10, 0xC, 0x16, 0x24);
+    uvEventRemoveCb(sRbSoundEventCbInfo, 1, 0xD, 0x12, 0x13, 0x10, 0xC, 0x16, 0x24);
 }

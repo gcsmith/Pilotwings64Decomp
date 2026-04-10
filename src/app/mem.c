@@ -4,22 +4,22 @@
 #include "mem.h"
 
 // .bss
-u8 gLevelObjHeap[5000];
+u8 sLevelObjHeap[5000];
 
 // .data
-u8* gLevelObjHeapPtr = gLevelObjHeap;
+u8* sLevelObjHeapPtr = sLevelObjHeap;
 
 void* mem_get(s32 size) {
     u8* ret;
 
-    ret = gLevelObjHeapPtr;
+    ret = sLevelObjHeapPtr;
     if (size == 0) {
         return NULL;
     }
     // align to 8 bytes
     size = (size + 7) & ~7;
-    gLevelObjHeapPtr += size;
-    if ((u32)(gLevelObjHeapPtr - &gLevelObjHeap[0]) < sizeof(gLevelObjHeap)) {
+    sLevelObjHeapPtr += size;
+    if ((u32)(sLevelObjHeapPtr - &sLevelObjHeap[0]) < sizeof(sLevelObjHeap)) {
         return ret;
     } else {
         _uvDebugPrintf("mem_get: out of bss in mem.c, trying to get %d bytes\n", size);
@@ -28,10 +28,10 @@ void* mem_get(s32 size) {
 }
 
 void mem_init(void) {
-    gLevelObjHeapPtr = &gLevelObjHeap[0];
-    uvMemSet(&gLevelObjHeap[0], 0, sizeof(gLevelObjHeap));
+    sLevelObjHeapPtr = &sLevelObjHeap[0];
+    uvMemSet(&sLevelObjHeap[0], 0, sizeof(sLevelObjHeap));
 }
 
 s32 mem_remaining(void) {
-    return gLevelObjHeapPtr - &gLevelObjHeap[0];
+    return sLevelObjHeapPtr - &sLevelObjHeap[0];
 }

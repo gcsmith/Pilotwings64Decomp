@@ -46,14 +46,14 @@ typedef struct {
     u8 pad9[0x3];
 } Unk803798E0;
 
-u8 gTaskClassU8 = 0;
-u8 gTaskVehicleU8 = 0;
-u8 gTaskTestU8 = 0;
+u8 sTaskClassU8 = 0;
+u8 sTaskVehicleU8 = 0;
+u8 sTaskTestU8 = 0;
 u8 D_8035079C = 0;
 u8 D_803507A0 = FALSE;
 u8 D_803507A4 = 0;
-u8 gTaskMapLookup[] = { MAP_HOLIDAY_ISLAND, MAP_CRESCENT_ISLAND, MAP_LITTLE_STATES, MAP_EVER_FROST_ISLAND };
-u8 gTaskUserFileIdxLookup[] = {
+u8 sTaskMapLookup[] = { MAP_HOLIDAY_ISLAND, MAP_CRESCENT_ISLAND, MAP_LITTLE_STATES, MAP_EVER_FROST_ISLAND };
+u8 sTaskUserFileIdxLookup[] = {
     0x27, 0x28, 0x29, 0x2A, 0x2B, 0x2C, 0x2D, 0x2E, 0x2F, 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3A, 0x3B, 0x3C, 0x3D,
     0x3E, 0x3F, 0x40, 0x41, 0x11, 0x12, 0x13, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x10, 0x14, 0x15, 0x16, 0x17,
     0x18, 0x19, 0x1A, 0x1B, 0x1C, 0x1D, 0x1E, 0x1F, 0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -61,13 +61,13 @@ u8 gTaskUserFileIdxLookup[] = {
 
 // level data of some sorts
 Unk803798E0 D_803798E0[MAX_CLASSES][MAX_TESTS][VEHICLE_COUNT];
-TaskObjects gTaskObjects;
+TaskObjects sTaskObjects;
 
 // begins 0x8037AA78
-s32 gTaskClass; // ClassId
-s32 gTaskTest;
-s32 gTaskVehicle; // VehicleId
-TaskTPAD gTaskTakeoffPads[4];
+s32 sTaskClass; // ClassId
+s32 sTaskTest;
+s32 sTaskVehicle; // VehicleId
+TaskTPAD sTaskTakeoffPads[4];
 
 // forward declarations
 void taskDeinit(void);
@@ -140,7 +140,7 @@ void taskInit(void) {
         taskInfo->taskName = obj->dataNAME;
         taskInfo->taskId = obj->dataJPTX;
         if ((vehIdx == VEHICLE_BIRDMAN) && (testIdx == 0)) {
-            _uvMediaCopy(&gTaskTakeoffPads[classIdx], obj->dataTPAD, sizeof(TaskTPAD));
+            _uvMediaCopy(&sTaskTakeoffPads[classIdx], obj->dataTPAD, sizeof(TaskTPAD));
         }
     }
 }
@@ -204,9 +204,9 @@ s32 taskGetTestCount(s32 classIdx, s32 vehicle) {
 s32 taskInitTest(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* terraId, u16* envId) {
     u8 taskIdx;
 
-    gTaskClass = classIdx;
-    gTaskVehicle = vehicle;
-    gTaskTest = testIdx;
+    sTaskClass = classIdx;
+    sTaskVehicle = vehicle;
+    sTaskTest = testIdx;
 
     if (classIdx > MAX_CLASSES) {
         return 0;
@@ -223,11 +223,11 @@ s32 taskInitTest(s32 classIdx, s32 vehicle, s32 testIdx, u16* map, u16* terraId,
         return 0;
     }
     D_8035078C = taskLoadCommObj(taskIdx);
-    gTaskClassU8 = (u8)classIdx;
-    gTaskVehicleU8 = (u8)vehicle;
-    gTaskTestU8 = (u8)testIdx;
+    sTaskClassU8 = (u8)classIdx;
+    sTaskVehicleU8 = (u8)vehicle;
+    sTaskTestU8 = (u8)testIdx;
 
-    *map = gTaskMapLookup[D_8035078C->comm.unk3];
+    *map = sTaskMapLookup[D_8035078C->comm.unk3];
     switch (*map) {
     case MAP_CRESCENT_ISLAND:
         *terraId = 1;
@@ -594,10 +594,10 @@ TaskObjects* taskLoadCommObj(u32 taskIdx) {
     void* data;
     TaskObjects* dst;
 
-    dst = &gTaskObjects;
-    sp34 = uvUserFileRead(gTaskUserFileIdxLookup[taskIdx], MEM_ROM_OFFSET);
+    dst = &sTaskObjects;
+    sp34 = uvUserFileRead(sTaskUserFileIdxLookup[taskIdx], MEM_ROM_OFFSET);
     idx = uvFileReadHeader((s32)sp34);
-    uvMemSet(&gTaskObjects, 0, sizeof(gTaskObjects));
+    uvMemSet(&sTaskObjects, 0, sizeof(sTaskObjects));
 
     while ((tag = uvFileReadBlock(idx, &size, &data, 2)) != 0) {
         switch (tag) {
@@ -681,25 +681,25 @@ TaskObjects* taskLoadCommObj(u32 taskIdx) {
         }
     }
     uvFile_80223F30(idx);
-    return &gTaskObjects;
+    return &sTaskObjects;
 }
 
 void taskBirdmanPad(u16 mapIdx) {
-    if (mapIdx >= ARRAY_COUNT(gTaskTakeoffPads)) {
+    if (mapIdx >= ARRAY_COUNT(sTaskTakeoffPads)) {
         _uvDebugPrintf("task_birdpad : level out of valid range [%d] - set to 0\n", mapIdx);
         mapIdx = 0;
     }
-    _uvMediaCopy(D_8035078C->dataTPAD, &gTaskTakeoffPads[mapIdx], sizeof(TaskTPAD));
+    _uvMediaCopy(D_8035078C->dataTPAD, &sTaskTakeoffPads[mapIdx], sizeof(TaskTPAD));
 }
 
 void taskGetClsVehTest(u16* classIdx, u16* vehIdx, u16* testIdx) {
-    *classIdx = gTaskClass;
-    *vehIdx = gTaskVehicle;
-    *testIdx = gTaskTest;
+    *classIdx = sTaskClass;
+    *vehIdx = sTaskVehicle;
+    *testIdx = sTaskTest;
 }
 
 u8 taskGet_80346364(void) {
-    return gTaskObjects.comm.unk4;
+    return sTaskObjects.comm.unk4;
 }
 
 // task_80346370 does not initialize the return value `ret`

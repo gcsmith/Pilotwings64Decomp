@@ -22,14 +22,14 @@ typedef struct {
     s32 unk4C;
 } BonusStar;
 
-LevelBNUS* gRefBNUS;
-u8 gBonusStarCount;
-BonusStar gBonusStars[2];
+LevelBNUS* sRefBNUS;
+u8 sBonusStarCount;
+BonusStar sBonusStars[2];
 
 void bonusInit(void) {
     s32 i;
-    for (i = 0; i < ARRAY_COUNT(gBonusStars); i++) {
-        gBonusStars[i].objId = 0xFFFF;
+    for (i = 0; i < ARRAY_COUNT(sBonusStars); i++) {
+        sBonusStars[i].objId = 0xFFFF;
     }
 }
 
@@ -37,9 +37,9 @@ void bonusUpdateState(void) {
     BonusStar* star;
     s32 i;
 
-    for (i = 0; i < gBonusStarCount; i++) {
-        star = &gBonusStars[i];
-        if (D_80362690->unkC[D_80362690->unk9C].unk8 == gRefBNUS[i].unk18) {
+    for (i = 0; i < sBonusStarCount; i++) {
+        star = &sBonusStars[i];
+        if (D_80362690->unkC[D_80362690->unk9C].unk8 == sRefBNUS[i].unk18) {
             star->unk4C = 1;
             if (star->objId != 0xFFFF) {
                 uvDobjSetState(star->objId, 0x2);
@@ -59,18 +59,18 @@ void bonusLoad(void) {
     LevelBNUS* temp_s0;
 
     if (D_80362690->unkA0 != 0) {
-        gBonusStarCount = levelGetBNUS(&gRefBNUS);
-        if (gBonusStarCount > ARRAY_COUNT(gBonusStars)) {
-            _uvDebugPrintf("bonus : too many bonuses defined in level [%d]\n", gBonusStarCount);
-            gBonusStarCount = 0;
+        sBonusStarCount = levelGetBNUS(&sRefBNUS);
+        if (sBonusStarCount > ARRAY_COUNT(sBonusStars)) {
+            _uvDebugPrintf("bonus : too many bonuses defined in level [%d]\n", sBonusStarCount);
+            sBonusStarCount = 0;
             return;
         }
-        if (gBonusStarCount != 0) {
+        if (sBonusStarCount != 0) {
             uvLevelAppend(0xF);
             bonusUpdateState();
-            for (i = 0; i < gBonusStarCount; i++) {
-                temp_s0 = &gRefBNUS[i];
-                var_s1 = &gBonusStars[i];
+            for (i = 0; i < sBonusStarCount; i++) {
+                temp_s0 = &sRefBNUS[i];
+                var_s1 = &sBonusStars[i];
                 var_s1->objId = uvDobjAllocIdx();
                 var_s1->unk48 = 0;
                 var_s1->loadVeh = VEHICLE_COUNT;
@@ -93,8 +93,8 @@ void bonusFrameUpdate(Mtx4F* arg0) {
     f32 dx, dy, dz;
 
     // rotate star about 'z' axis
-    for (i = 0; i < gBonusStarCount; i++) {
-        star = &gBonusStars[i];
+    for (i = 0; i < sBonusStarCount; i++) {
+        star = &sBonusStars[i];
         if (star->unk4C == 0) {
             continue;
         }
@@ -108,8 +108,8 @@ void bonusFrameUpdate(Mtx4F* arg0) {
         px = arg0->m[3][0];
         py = arg0->m[3][1];
         pz = arg0->m[3][2];
-        for (i = 0; i < gBonusStarCount; i++) {
-            star = &gBonusStars[i];
+        for (i = 0; i < sBonusStarCount; i++) {
+            star = &sBonusStars[i];
             if (star->unk4C == 0) {
                 continue;
             }
@@ -133,10 +133,10 @@ void bonusFrameUpdate(Mtx4F* arg0) {
 
 void bonusDeinit(void) {
     s32 i;
-    for (i = 0; i < gBonusStarCount; i++) {
-        if (gBonusStars[i].objId != 0xFFFF) {
-            uvDobjModel(gBonusStars[i].objId, MODEL_WORLD);
-            gBonusStars[i].objId = 0xFFFF;
+    for (i = 0; i < sBonusStarCount; i++) {
+        if (sBonusStars[i].objId != 0xFFFF) {
+            uvDobjModel(sBonusStars[i].objId, MODEL_WORLD);
+            sBonusStars[i].objId = 0xFFFF;
         }
     }
 }
