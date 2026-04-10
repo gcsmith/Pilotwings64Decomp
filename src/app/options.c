@@ -70,13 +70,13 @@ s32 optionsTopRender(void) {
 void optionsInit(void) {
     D_80362690->unkC[D_80362690->unk9C].unk8A = 0;
     saveFileLoad(D_80362690->unkC[D_80362690->unk9C].unk8A);
-    sGameComplete = func_8030CC48();
+    sGameComplete = credits_8030CC48();
 
     D_80362690->unkC[D_80362690->unk9C].unk8A = 1;
     saveFileLoad(D_80362690->unkC[D_80362690->unk9C].unk8A);
 
-    if (sGameComplete < func_8030CC48()) {
-        sGameComplete = func_8030CC48();
+    if (sGameComplete < credits_8030CC48()) {
+        sGameComplete = credits_8030CC48();
     } else {
         D_80362690->unkC[D_80362690->unk9C].unk8A = 0;
         saveFileLoad(D_80362690->unkC[D_80362690->unk9C].unk8A);
@@ -189,7 +189,7 @@ s32 optionsHandlerMain(void) {
             func_8033FB14();
             func_8033F964(1);
             func_8032D51C(0);
-            func_8030CCFC();
+            creditsMainRender();
             options_80316B80();
             optionsInitMain();
             return -1;

@@ -164,7 +164,7 @@ void fileMenu_802E8FF4(s32 arg0) {
 
     D_80362690->unkC[D_80362690->unk9C].unk8A = arg0;
     saveFileLoad(arg0);
-    D_80362690->unkA8 = func_8030CC48();
+    D_80362690->unkA8 = credits_8030CC48();
     fileMenu_802E8AF0();
 }
 

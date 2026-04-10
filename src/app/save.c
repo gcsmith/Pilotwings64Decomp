@@ -206,7 +206,7 @@ s32 saveFileLoad(s32 fileIdx) {
         data[i / 8] |= val << (i & 7);
     }
     func_8033F050(&data);
-    D_80362690->unkA8 = func_8030CC48();
+    D_80362690->unkA8 = credits_8030CC48();
     return 1;
 }
 
@@ -222,6 +222,6 @@ s32 saveFile_802E89D4(s32 fileIdx) {
     func_8032B3D0(&D_80364210[D_80362690->unk9C]);
     func_80337D50();
     sp1C = saveFileInit(fileIdx);
-    D_80362690->unkA8 = func_8030CB60(0);
+    D_80362690->unkA8 = credits_8030CB60(0);
     return sp1C;
 }

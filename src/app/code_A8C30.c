@@ -365,8 +365,8 @@ s32 func_8032232C(void) {
     func_8031FE18(D_8036DA20);
     func_8033F964(1);
 
-    if (D_80362690->unkA8 < func_8030CC48()) {
-        func_8030CCFC();
+    if (D_80362690->unkA8 < credits_8030CC48()) {
+        creditsMainRender();
         return 0;
     }
 

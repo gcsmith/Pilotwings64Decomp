@@ -572,7 +572,12 @@ levelGetLPAD        = 0x8030BD88; // type:func
 levelGetBNUS        = 0x8030BDA8; // type:func
 levelLoadMapObjects = 0x8030BDC8; // type:func
 
+credits_8030CB60    = 0x8030CB60; // type:func
+credits_8030CC48    = 0x8030CC48; // type:func
+creditsMainRender   = 0x8030CCFC; // type:func
 credits_8030CDA0    = 0x8030CDA0; // type:func
+credits_8030D1D4    = 0x8030D1D4; // type:func
+credits_8030D208    = 0x8030D208; // type:func
 creditsScene        = 0x8030D2F0; // type:func
 
 menuCreate          = 0x8030B2E0; // type:func

@@ -312,7 +312,7 @@ s32 gameUpdateStateCongratulations(Unk80362690* arg0) {
 
 s32 gameUpdateStateCredits(Unk80362690* arg0) {
     func_802EBBB8();
-    func_8030CCFC();
+    creditsMainRender();
     return GAME_STATE_TITLE;
 }
 
