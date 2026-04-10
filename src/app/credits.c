@@ -4,102 +4,110 @@
 #include "credits.h"
 #include "demo.h"
 #include "demo_attitude.h"
+#include "env_sound.h"
+#include "environment.h"
 #include "fire_effects.h"
 #include "game.h"
 #include "snd.h"
+#include "text_data.h"
+#include <uv_environment.h>
 #include <uv_event.h>
+#include <uv_font.h>
+#include <uv_memory.h>
+#include <uv_texture.h>
 #include <uv_vector.h>
 
 typedef struct {
     const char* unk0;
-    s32 unk4;
-} Unk8034F4E0;
+    s16 type;
+    s16 unk6; // updated with some sort of row count or something?
+} CreditLines;
 
-Unk8034F4E0 D_8034F4E0[] = {
-    {            "NINTENDO STAFF", 0x10000 },
-    {                  "DIRECTOR", 0x20000 },
-    {               "MAKOTO WADA", 0x30000 },
-    {               "CO DIRECTOR", 0x20000 },
-    {            "YASUYUKI OYAGI", 0x30000 },
-    {          "GRAPHIC DESIGNER", 0x20000 },
-    {          "HIROAKI TAKENAKA", 0x30000 },
-    {            "YOSHIYUKI KATO", 0x30000 },
-    {         "SOUND ARRANGEMENT", 0x20000 },
-    {           "AKITO NAKATSUKA", 0x30000 },
-    {       "PROJECT ARRANGEMENT", 0x20000 },
-    {         "SHIGEKI YAMASHIRO", 0x30000 },
-    {             "HIRO NAKAMURA", 0x30000 },
-    {              "DARREN SMITH", 0x30000 },
-    {               "JIM WORNELL", 0x30000 },
-    {            "PARADIGM STAFF", 0x10000 },
-    {           "PROJECT MANAGER", 0x20000 },
-    {              "DAVE GATCHEL", 0x30000 },
-    {    "LEAD SOFTWARE ENGINEER", 0x20000 },
-    {          "MIKE ENGELDINGER", 0x30000 },
-    { "LEAD MODELING AND EFFECTS", 0x20000 },
-    {               "WES HOFFMAN", 0x30000 },
-    {      "SOFTWARE ENGINEERING", 0x20000 },
-    {               "MIKE PANOFF", 0x30000 },
-    {           "AARON HIGHTOWER", 0x30000 },
-    {                 "JON DAVIS", 0x30000 },
-    {           "STEVE LOTSPEICH", 0x30000 },
-    {             "MIKE BIENVENU", 0x30000 },
-    {                "SAM PERERA", 0x30000 },
-    {             "STEVE FUHRMAN", 0x30000 },
-    {                "ROB ROSSOW", 0x30000 },
-    {             "CHRIS MUMFORD", 0x30000 },
-    {             "RICHARD BAKER", 0x30000 },
-    {    "MODELING AND ANIMATION", 0x20000 },
-    {             "DAVID KRUEGER", 0x30000 },
-    {                "GARY BANDY", 0x30000 },
-    {                 "GREG GUTH", 0x30000 },
-    {             "AUDIO SUPPORT", 0x20000 },
-    {             "SCOTT GARGASH", 0x30000 },
-    {                "ANU APPAJI", 0x30000 },
-    {               "JOHN PERSER", 0x30000 },
-    {         "MUSIC COMPOSITION", 0x20000 },
-    {                  "DAN HESS", 0x30000 },
-    { "PRODUCT MARKETING SUPPORT", 0x20000 },
-    { "MATTHEW SHANNON YARBROUGH", 0x30000 },
-    {            "SPECIAL THANKS", 0x20000 },
-    {           "KIMIYOSHI FUKUI", 0x30000 },
-    {                "KENJI MIKI", 0x30000 },
-    {         "MASATO HATAKEYAMA", 0x30000 },
-    {            "KENSUKE TANABE", 0x30000 },
-    {           "NARUHISA KAWANO", 0x30000 },
-    {              "EIJI ONOZUKA", 0x30000 },
-    {             "SHIGEO KIMURA", 0x30000 },
-    {               "HIRO YAMADA", 0x30000 },
-    {            "KOJI MITSUNARI", 0x30000 },
-    {              "KAZUNOBU ERI", 0x30000 },
-    {        "YOSHITAKA YASUMOTO", 0x30000 },
-    {        "TSUTOMU KOGANEZAWA", 0x30000 },
-    {          "TAKAYUKI HASHIDA", 0x30000 },
-    {              "SATOSHI KIRA", 0x30000 },
-    {                          "", 0x30000 },
-    {               "MIKE FUKUDA", 0x30000 },
-    {         "MASAHITO WATANABE", 0x30000 },
-    {          "MICHAEL KELBAUGH", 0x30000 },
-    {                          "", 0x30000 },
-    {                "RON TOUPAL", 0x30000 },
-    {                 "RON PAIGE", 0x30000 },
-    {                "DIANE ROTH", 0x30000 },
-    {           "SHARON LINDHOLM", 0x30000 },
-    {             "CHRIS JOHNSON", 0x30000 },
-    {             "JANICE PANOFF", 0x30000 },
-    {                          "", 0x30000 },
-    {          "MARIO CLUB STAFF", 0x30000 },
-    {                          "", 0x30000 },
-    {       "NOA PRODUCT TESTING", 0x30000 },
-    {                 "PRODUCERS", 0x20000 },
-    {              "GENYO TAKEDA", 0x40000 },
-    {          "SHIGERU MIYAMOTO", 0x40000 },
-    {        "EXECUTIVE PRODUCER", 0x20000 },
-    {          "HIROSHI YAMAUCHI", 0x30000 },
-    {                          "", 0x30000 },
-    {              "PRESENTED BY", 0x20000 },
-    {                  "NINTENDO", 0x50000 },
-    {                        NULL, 0x30000 },
+CreditLines D_8034F4E0[] = {
+    {            "NINTENDO STAFF", 1, 0 },
+    {                  "DIRECTOR", 2, 0 },
+    {               "MAKOTO WADA", 3, 0 },
+    {               "CO DIRECTOR", 2, 0 },
+    {            "YASUYUKI OYAGI", 3, 0 },
+    {          "GRAPHIC DESIGNER", 2, 0 },
+    {          "HIROAKI TAKENAKA", 3, 0 },
+    {            "YOSHIYUKI KATO", 3, 0 },
+    {         "SOUND ARRANGEMENT", 2, 0 },
+    {           "AKITO NAKATSUKA", 3, 0 },
+    {       "PROJECT ARRANGEMENT", 2, 0 },
+    {         "SHIGEKI YAMASHIRO", 3, 0 },
+    {             "HIRO NAKAMURA", 3, 0 },
+    {              "DARREN SMITH", 3, 0 },
+    {               "JIM WORNELL", 3, 0 },
+    {            "PARADIGM STAFF", 1, 0 },
+    {           "PROJECT MANAGER", 2, 0 },
+    {              "DAVE GATCHEL", 3, 0 },
+    {    "LEAD SOFTWARE ENGINEER", 2, 0 },
+    {          "MIKE ENGELDINGER", 3, 0 },
+    { "LEAD MODELING AND EFFECTS", 2, 0 },
+    {               "WES HOFFMAN", 3, 0 },
+    {      "SOFTWARE ENGINEERING", 2, 0 },
+    {               "MIKE PANOFF", 3, 0 },
+    {           "AARON HIGHTOWER", 3, 0 },
+    {                 "JON DAVIS", 3, 0 },
+    {           "STEVE LOTSPEICH", 3, 0 },
+    {             "MIKE BIENVENU", 3, 0 },
+    {                "SAM PERERA", 3, 0 },
+    {             "STEVE FUHRMAN", 3, 0 },
+    {                "ROB ROSSOW", 3, 0 },
+    {             "CHRIS MUMFORD", 3, 0 },
+    {             "RICHARD BAKER", 3, 0 },
+    {    "MODELING AND ANIMATION", 2, 0 },
+    {             "DAVID KRUEGER", 3, 0 },
+    {                "GARY BANDY", 3, 0 },
+    {                 "GREG GUTH", 3, 0 },
+    {             "AUDIO SUPPORT", 2, 0 },
+    {             "SCOTT GARGASH", 3, 0 },
+    {                "ANU APPAJI", 3, 0 },
+    {               "JOHN PERSER", 3, 0 },
+    {         "MUSIC COMPOSITION", 2, 0 },
+    {                  "DAN HESS", 3, 0 },
+    { "PRODUCT MARKETING SUPPORT", 2, 0 },
+    { "MATTHEW SHANNON YARBROUGH", 3, 0 },
+    {            "SPECIAL THANKS", 2, 0 },
+    {           "KIMIYOSHI FUKUI", 3, 0 },
+    {                "KENJI MIKI", 3, 0 },
+    {         "MASATO HATAKEYAMA", 3, 0 },
+    {            "KENSUKE TANABE", 3, 0 },
+    {           "NARUHISA KAWANO", 3, 0 },
+    {              "EIJI ONOZUKA", 3, 0 },
+    {             "SHIGEO KIMURA", 3, 0 },
+    {               "HIRO YAMADA", 3, 0 },
+    {            "KOJI MITSUNARI", 3, 0 },
+    {              "KAZUNOBU ERI", 3, 0 },
+    {        "YOSHITAKA YASUMOTO", 3, 0 },
+    {        "TSUTOMU KOGANEZAWA", 3, 0 },
+    {          "TAKAYUKI HASHIDA", 3, 0 },
+    {              "SATOSHI KIRA", 3, 0 },
+    {                          "", 3, 0 },
+    {               "MIKE FUKUDA", 3, 0 },
+    {         "MASAHITO WATANABE", 3, 0 },
+    {          "MICHAEL KELBAUGH", 3, 0 },
+    {                          "", 3, 0 },
+    {                "RON TOUPAL", 3, 0 },
+    {                 "RON PAIGE", 3, 0 },
+    {                "DIANE ROTH", 3, 0 },
+    {           "SHARON LINDHOLM", 3, 0 },
+    {             "CHRIS JOHNSON", 3, 0 },
+    {             "JANICE PANOFF", 3, 0 },
+    {                          "", 3, 0 },
+    {          "MARIO CLUB STAFF", 3, 0 },
+    {                          "", 3, 0 },
+    {       "NOA PRODUCT TESTING", 3, 0 },
+    {                 "PRODUCERS", 2, 0 },
+    {              "GENYO TAKEDA", 4, 0 },
+    {          "SHIGERU MIYAMOTO", 4, 0 },
+    {        "EXECUTIVE PRODUCER", 2, 0 },
+    {          "HIROSHI YAMAUCHI", 3, 0 },
+    {                          "", 3, 0 },
+    {              "PRESENTED BY", 2, 0 },
+    {                  "NINTENDO", 5, 0 },
+    {                        NULL, 3, 0 },
 };
 
 f32 D_8034F780 = -32.0f;
@@ -159,7 +167,109 @@ s32 creditsMainRender(void) {
     return 0;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/credits/credits_8030CDA0.s")
+void credits_8030CDA0(s32 timeOfDay) {
+    Unk80362690_Unk0* sp2C;
+    Camera* sp28;
+    CreditLines* credLine;
+    s32 prevType;
+    s32 var_v0;
+    s32 envId;
+    f32 ft0;
+    s32 i;
+
+    D_8034F780 = -32.0f;
+    D_8034F784 = 1;
+
+    var_v0 = 0;
+    prevType = D_8034F4E0[0].type;
+    for (i = 0; D_8034F4E0[i].unk0 != NULL; i++) {
+        credLine = &D_8034F4E0[i];
+        if (prevType != credLine->type) {
+            switch (prevType) {
+            case 1:
+                if (credLine->type != 3) {
+                    var_v0 -= 40.0f;
+                }
+                break;
+            case 2:
+                if ((credLine->type != 3) && (credLine->type != 4) && (credLine->type != 5)) {
+                    var_v0 -= 30.0f;
+                }
+                break;
+            case 3:
+            case 4:
+            case 5:
+                var_v0 -= 50.0f;
+                break;
+            }
+            prevType = credLine->type;
+        }
+
+        credLine->unk6 = var_v0;
+        switch (credLine->type) {
+        case 1:
+            var_v0 -= 30.0f;
+            break;
+        case 2:
+            if (credLine->type != 5) { // case is always true
+                var_v0 -= 30.0f;
+            }
+            break;
+        case 3:
+        case 5:
+            var_v0 -= 30.0f;
+            break;
+        case 4:
+            var_v0 -= 40.0f;
+            break;
+        }
+    }
+    ft0 = var_v0;
+    D_8034F788 = -ft0 / 210.0f;
+
+    sp28 = D_80362690->unkC[D_80362690->unk9C].unk70;
+    sp2C = &D_80362690->unkC[D_80362690->unk9C];
+    uvLevelInit();
+    D_80362690->map = MAP_LITTLE_STATES;
+    D_80362690->terraId = 3;
+    switch (timeOfDay) {
+    default:
+        D_80362690->envId = 0x10;
+        break;
+    case 1:
+        D_80362690->envId = 0x10;
+        break;
+    case 2:
+        D_80362690->envId = 0xC;
+        break;
+    case 3:
+        D_80362690->envId = 0x11;
+        break;
+    }
+    envSoundInit();
+    textLoadBlock(0x42);
+    if (D_80362690->envId == 0x11) {
+        envLoadTerrainPal(D_80362690->envId);
+    }
+    uvLevelAppend(5);
+    func_8034B5E0(sp28->unk22C, sp28);
+    envId = D_80362690->envId;
+    env_802E1444((envId != 0) ? envId : 0x10);
+    func_80204BD4(sp28->unk22C, 1, 1.0f);
+    uvChanTerra(sp2C->unk70->unk22C, D_80362690->terraId);
+    func_80204A8C(sp28->unk22C, 3);
+    uvEnvFunc(D_80362690->envId, 0, env_802E0CF0);
+    func_80204AB0(sp28->unk22C, 1, func_8034B6F8);
+    func_80313640(-1419.9f, 871.2f, 639.72f, 1.1452856f, -0.2094396f, 0.0f, &sp28->unk108);
+    fireFxInit();
+    fireFxCreateAll();
+    uvFontSet(0);
+    uvFontScale(1.0, 1.0);
+    demoAttInit(0x54);
+    func_8033F748(0x1E);
+    func_8033F964(0);
+    func_8033FCD0(sp2C->veh);
+}
 
 void credits_8030D1D4(void) {
     uvEventPost(0xD, 0);
