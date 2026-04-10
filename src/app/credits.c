@@ -316,7 +316,7 @@ void creditsScene(void) {
     var_v1 = D_80362690->unkC[D_80362690->unk9C].unk70;
 
     func_80204FC4(var_v1->unk22C);
-    sp74 = (s32) (D_8034F780 + 0.5f);
+    sp74 = (s32)(D_8034F780 + 0.5f);
     for (i = 0; D_8034F4E0[i].unk0 != NULL; i++) {
         sp70 = D_8034F4E0[i].unk6 + sp74;
         if ((sp70 >= -0x20) && (sp70 <= 0xF0)) {
