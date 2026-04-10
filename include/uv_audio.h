@@ -95,14 +95,6 @@ typedef struct AMAudioMgr {
     ALGlobals g;
 } AMAudioMgr;
 
-// This is what OSIoMesg should be!
-typedef struct uvOSIoMesg {
-    OSIoMesgHdr  hdr;       /* Message header */
-    void        *dramAddr;  /* RDRAM buffer address (DMA) */
-    u32          devAddr;   /* Device buffer address (DMA) */
-    u32          size;      /* DMA transfer size in bytes */
-} uvOSIoMesg;
-
 void uvSysInitAudio(void);
 void amCreateAudioMgr(ALSynConfig* c, OSPri priority);
 

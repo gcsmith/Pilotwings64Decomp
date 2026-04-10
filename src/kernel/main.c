@@ -25,7 +25,7 @@ u8 gAppThreadStack[0x4000];
 UNUSED s32 D_802C1C90;
 uvLevelData gLevelData;
 s32 D_802C32A4;
-uvOSIoMesg gPiDmaBlockReq;
+OSIoMesg gPiDmaBlockReq;
 OSMesg gPiDmaBuf[1];
 OSMesgQueue gPiDmaQ;
 OSMesg gSiContBuf[3];

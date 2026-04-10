@@ -276,7 +276,7 @@ segments:
       - [0x4C730, .data, libultra/audio/sl]
       - [0x4C740, .data, libultra/io/aisetnextbuf]
       - [0x4C750, .data, libultra/sp/sprite]
-      - [0x4C760, data, libultra/io/vimgr]
+      - [0x4C760, .data, libultra/io/vimgr]
       - [0x4C780, .data, libultra/io/vitbl]
       - [0x4D040, .data, libultra/os/initialize]
       - [0x4D050, .data, libultra/io/pimgr]
@@ -371,7 +371,7 @@ segments:
       - { type: .bss, vram: 0x802C8020, name: kernel/debug }
       - { type: .bss, vram: 0x802C8040, name: libultra/sp/sprite }
       - { type: .bss, vram: 0x802C8050, name: libultra/io/sptask }
-      - { type: bss, vram: 0x802C8090, name: libultra/io/vimgr }
+      - { type: .bss, vram: 0x802C8090, name: libultra/io/vimgr }
       - { type: .bss, vram: 0x802C92A0, name: libultra/os/seteventmesg }
       - { type: .bss, vram: 0x802C9320, name: libultra/os/initialize }
       - { type: .bss, vram: 0x802C9330, name: libultra/io/pimgr }
