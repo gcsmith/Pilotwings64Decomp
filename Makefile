@@ -169,15 +169,20 @@ endif
 ### Optimisation Overrides
 $(BUILD_DIR)/src/libultra/audio/auxbus.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/src/libultra/audio/bnkf.o: OPT_FLAGS := -O3
+$(BUILD_DIR)/src/libultra/audio/cseq.o: OPT_FLAGS := -O3
+$(BUILD_DIR)/src/libultra/audio/csplayer.o: OPT_FLAGS := -O3
+$(BUILD_DIR)/src/libultra/audio/drvrnew.o: OPT_FLAGS := -O3
+$(BUILD_DIR)/src/libultra/audio/env.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/src/libultra/audio/event.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/src/libultra/audio/load.o: OPT_FLAGS := -O3
+$(BUILD_DIR)/src/libultra/audio/mainbus.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/src/libultra/audio/resample.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/src/libultra/audio/save.o: OPT_FLAGS := -O3
-$(BUILD_DIR)/src/libultra/audio/sl.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/src/libultra/audio/seqpsetbank.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/src/libultra/audio/seqpsetseq.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/src/libultra/audio/seqpsettempo.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/src/libultra/audio/seqpsetvol.o: OPT_FLAGS := -O3
+$(BUILD_DIR)/src/libultra/audio/sl.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/src/libultra/audio/sndpsetfxmix.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/src/libultra/audio/sndpsetpan.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/src/libultra/audio/sndpsetvol.o: OPT_FLAGS := -O3
