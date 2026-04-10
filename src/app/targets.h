@@ -3,6 +3,7 @@
 
 #include <PR/ultratypes.h>
 #include <uv_matrix.h>
+#include "task.h"
 
 typedef struct {
     u16 objId; // alloc index?
@@ -17,6 +18,7 @@ typedef struct {
 } MissileTarget; // size = 0x4C
 
 extern MissileTarget sMissileTargets[40];
+extern TaskObjects *D_8035078C;
 
 void targetsInit(void);
 void targetsLoad(void);

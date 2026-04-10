@@ -9,8 +9,8 @@
 #include "hud.h"
 #include "snd.h"
 
-static EventCallbackInfo hgSoundEventCbInfo;
-static Unk803599D0 hgSound_80368318;
+static EventCallbackInfo sHgSoundEventCbInfo;
+static Unk803599D0 sHgSound_80368318;
 
 // forward declarations
 STATIC_FUNC void hgSoundEventHandler(s32, void*, s32);
@@ -22,18 +22,18 @@ STATIC_FUNC void hgSoundEvent13(HangGliderData*);
 
 void hgSoundInit(HangGliderData* hg) {
     hg->unk328 = hg->unk324 = 0.0f;
-    hgSound_80368318.count = 4;
-    hgSound_80368318.unk4[0].x = 0.00f, hgSound_80368318.unk4[0].y = 0.0f;
-    hgSound_80368318.unk4[1].x = 0.01f, hgSound_80368318.unk4[1].y = 0.4f;
-    hgSound_80368318.unk4[2].x = 9.00f, hgSound_80368318.unk4[2].y = 0.8f;
-    hgSound_80368318.unk4[3].x = 10.0f, hgSound_80368318.unk4[3].y = 1.0f;
+    sHgSound_80368318.count = 4;
+    sHgSound_80368318.unk4[0].x = 0.00f, sHgSound_80368318.unk4[0].y = 0.0f;
+    sHgSound_80368318.unk4[1].x = 0.01f, sHgSound_80368318.unk4[1].y = 0.4f;
+    sHgSound_80368318.unk4[2].x = 9.00f, sHgSound_80368318.unk4[2].y = 0.8f;
+    sHgSound_80368318.unk4[3].x = 10.0f, sHgSound_80368318.unk4[3].y = 1.0f;
     hg->unk322 = sndMakeDev(0x13);
     hg->unk323 = sndMakeDev(0x13);
     hg->unk321 = sndMakeDev(0x20);
-    hgSoundEventCbInfo.cb = hgSoundEventHandler;
-    hgSoundEventCbInfo.arg = hg;
+    sHgSoundEventCbInfo.cb = hgSoundEventHandler;
+    sHgSoundEventCbInfo.arg = hg;
     hg->unk318 = 0xFFFFFFC0;
-    uvEventMaxCb(hgSoundEventCbInfo, 1, 0xD, 0x12, 0x13, 0x10, 0xC, 0x16, 0x24);
+    uvEventMaxCb(sHgSoundEventCbInfo, 1, 0xD, 0x12, 0x13, 0x10, 0xC, 0x16, 0x24);
 }
 
 STATIC_FUNC void hgSoundEventHandler(s32 event, void* userData, s32 eventData) {
@@ -210,7 +210,7 @@ STATIC_FUNC void hgSoundEvent22Sub(HangGliderData* hg) {
         } else {
             var_fv1 = -temp_fv0;
         }
-        temp_fs0 = func_80313F08(&hgSound_80368318, var_fv1);
+        temp_fs0 = func_80313F08(&sHgSound_80368318, var_fv1);
         switch (hg->unk91[i]) {
         case 4:
             continue;
@@ -251,5 +251,5 @@ STATIC_FUNC void hgSoundEvent13(HangGliderData* hg) {
     hg->unk322 = func_8033F8CC(hg->unk322);
     hg->unk323 = func_8033F8CC(hg->unk323);
     hg->unk321 = func_8033F8CC(hg->unk321);
-    uvEventRemoveCb(hgSoundEventCbInfo, 1, 0xD, 0x12, 0x13, 0x10, 0xC, 0x16, 0x24);
+    uvEventRemoveCb(sHgSoundEventCbInfo, 1, 0xD, 0x12, 0x13, 0x10, 0xC, 0x16, 0x24);
 }

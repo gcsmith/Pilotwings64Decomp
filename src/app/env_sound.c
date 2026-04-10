@@ -49,17 +49,17 @@ typedef struct {
     s32 unk74;
 } Unk802E27A8_Arg0; // size = 0x78
 
-s32 D_8034EF20 = 0;
-s32 D_8034EF24 = 0;
-s32 D_8034EF28 = 0;
-s32 gEnvSoundIsInit = FALSE;
-s32 gEnvSoundModelIdLookup[28] = { 0x0D, 0x0E, 0x2A, 0x25, 0x29, 0x0D, 0x40, 0x41, 0x14, 0x47, 0x21, 0x07, 0x21, 0x21,
-                                   0x21, 0x21, 0x21, 0x21, 0x2F, 0x2F, 0x2F, 0x6B, 0x6B, 0x6B, 0x6B, 0x51, 0x6B, 0x00 };
+static s32 D_8034EF20 = 0;
+static s32 D_8034EF24 = 0;
+static s32 D_8034EF28 = 0;
+static s32 sEnvSoundIsInit = FALSE;
+static s32 sEnvSoundModelIdLookup[28] = { 0x0D, 0x0E, 0x2A, 0x25, 0x29, 0x0D, 0x40, 0x41, 0x14, 0x47, 0x21, 0x07, 0x21, 0x21,
+                                          0x21, 0x21, 0x21, 0x21, 0x2F, 0x2F, 0x2F, 0x6B, 0x6B, 0x6B, 0x6B, 0x51, 0x6B, 0x00 };
 
-EventCallbackInfo gEnvSoundEventCb;
-EnvSoundState gEnvSoundState;
-f32 gEnvSoundFutureTime; // time set +4 seconds, only set
-u8 gEnvSoundStateCount[20];
+static EventCallbackInfo sEnvSoundEventCb;
+static EnvSoundState sEnvSoundState;
+static f32 sEnvSoundFutureTime; // time set +4 seconds, only set
+static u8 sEnvSoundStateCount[20];
 
 // forward declarations
 void envSound_802E2904(EnvSoundState*);
@@ -71,26 +71,26 @@ void envSound_802E3398(EnvSoundState*);
 void envSoundInit(void) {
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(gEnvSoundStateCount); i++) {
-        gEnvSoundStateCount[i] = 0;
+    for (i = 0; i < ARRAY_COUNT(sEnvSoundStateCount); i++) {
+        sEnvSoundStateCount[i] = 0;
     }
 
-    gEnvSoundFutureTime = 0.0f;
-    gEnvSoundIsInit = TRUE;
-    envSound_802E2904(&gEnvSoundState);
-    gEnvSoundEventCb.cb = &envSound_802E2A00;
-    gEnvSoundEventCb.arg = &gEnvSoundState;
-    uvEventMaxCb(gEnvSoundEventCb, 1, 0xD, 0x12, 0x13, 0xB, 0x17, 0x18, 0x19, 0xC, 0xE, 0x24);
+    sEnvSoundFutureTime = 0.0f;
+    sEnvSoundIsInit = TRUE;
+    envSound_802E2904(&sEnvSoundState);
+    sEnvSoundEventCb.cb = &envSound_802E2A00;
+    sEnvSoundEventCb.arg = &sEnvSoundState;
+    uvEventMaxCb(sEnvSoundEventCb, 1, 0xD, 0x12, 0x13, 0xB, 0x17, 0x18, 0x19, 0xC, 0xE, 0x24);
 }
 
 void envSoundLoad(LevelESND* arg0) {
     s32 idx;
     u8 objId;
-    EnvSoundState* ptr = &gEnvSoundState;
+    EnvSoundState* ptr = &sEnvSoundState;
 
     idx = ptr->count;
 
-    if (!gEnvSoundIsInit) {
+    if (!sEnvSoundIsInit) {
         return;
     }
 
@@ -100,7 +100,7 @@ void envSoundLoad(LevelESND* arg0) {
     ptr->emitters[idx].unk6 = arg0->unk70;
     ptr->emitters[idx].objId = uvEmitterLookup();
     objId = ptr->emitters[idx].objId;
-    uvEmitterFromModel(objId, gEnvSoundModelIdLookup[arg0->sndId]);
+    uvEmitterFromModel(objId, sEnvSoundModelIdLookup[arg0->sndId]);
     uvEmitterSetMatrix(objId, &arg0->unk0);
     if (arg0->unk74 & 0x2) {
         uvEmitter_80201494(objId, arg0->unk40, arg0->unk4C);
@@ -417,10 +417,10 @@ void envSound_802E3398(EnvSoundState* arg0) {
     D_8034EF20 = 0;
     D_8034EF24 = 0;
     D_8034EF28 = 0;
-    gEnvSoundIsInit = FALSE;
-    gEnvSoundFutureTime = 0.0f;
+    sEnvSoundIsInit = FALSE;
+    sEnvSoundFutureTime = 0.0f;
     envSound_802E2904(arg0);
-    uvEventRemoveCb(gEnvSoundEventCb, 1, 0xD, 0x12, 0x13, 0xB, 0x17, 0x18, 0x19, 0xC, 0xE, 0x24);
+    uvEventRemoveCb(sEnvSoundEventCb, 1, 0xD, 0x12, 0x13, 0xB, 0x17, 0x18, 0x19, 0xC, 0xE, 0x24);
 }
 
 void envSoundFrameUpdate(Mtx4F* arg0) {
@@ -439,7 +439,7 @@ void envSoundFrameUpdate(Mtx4F* arg0) {
     Unk802D3658_Unk1224 sp70;
 
     aptCount = levelGetAPTS(&aptsRef);
-    if ((aptCount == 0) || (gEnvSoundState.flags & 1)) {
+    if ((aptCount == 0) || (sEnvSoundState.flags & 1)) {
         return;
     }
 
@@ -457,10 +457,10 @@ void envSoundFrameUpdate(Mtx4F* arg0) {
             switch (apt->unk14) {
             case 0:
                 if (temp_fv0 > 0.0f) {
-                    gEnvSoundStateCount[0] = 0;
+                    sEnvSoundStateCount[0] = 0;
                     var_ft0 = ((apt->unk1C - apt->unk18) * (apt->unk10 - temp_fs0)) / (2.0f * apt->unk10);
                 } else {
-                    gEnvSoundStateCount[0] = 1;
+                    sEnvSoundStateCount[0] = 1;
                     var_ft0 = ((apt->unk1C - apt->unk18) * (apt->unk10 + temp_fs0)) / (2.0f * apt->unk10);
                 }
                 func_80200180(0, 4, var_ft0, 0);
@@ -471,20 +471,20 @@ void envSoundFrameUpdate(Mtx4F* arg0) {
                 sp1B4.z = arg0->m[3][2];
                 sp1C0.z = apt->unk10 + sp1B4.z;
                 if (func_802DB224(&sp70, 0xB, 0xFFFF, 0, &sp1B4, &sp1C0) != 0) {
-                    gEnvSoundStateCount[1]++;
+                    sEnvSoundStateCount[1]++;
                 } else {
-                    if ((gEnvSoundStateCount[1] > 0) && (D_80362690->unkC[0].unkA != 4) && (D_80362690->unkC[0].veh != VEHICLE_JUMBLE_HOPPER)) {
-                        if (gEnvSoundFutureTime < D_8034F850) {
-                            gEnvSoundFutureTime = D_8034F850 + 4.0f;
+                    if ((sEnvSoundStateCount[1] > 0) && (D_80362690->unkC[0].unkA != 4) && (D_80362690->unkC[0].veh != VEHICLE_JUMBLE_HOPPER)) {
+                        if (sEnvSoundFutureTime < D_8034F850) {
+                            sEnvSoundFutureTime = D_8034F850 + 4.0f;
                             sndPlaySfx(0x50);
                         }
                     }
-                    gEnvSoundStateCount[1] = 0;
+                    sEnvSoundStateCount[1] = 0;
                 }
                 break;
             }
         } else if (apt->unk14 == 0) {
-            if (gEnvSoundStateCount[0] == 0) {
+            if (sEnvSoundStateCount[0] == 0) {
                 func_80200180(0, 4, apt->unk18, 0);
             } else {
                 func_80200180(0, 4, apt->unk1C, 0);

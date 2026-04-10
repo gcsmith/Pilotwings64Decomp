@@ -31,9 +31,9 @@ typedef struct {
     s16 unk2;
 } Unk8034F93C;
 
-f32 D_8034F910 = 0.0f;
-s32 D_8034F914 = 0;
-s32 D_8034F918[] = {
+static f32 D_8034F910 = 0.0f;
+static s32 D_8034F914 = 0;
+static s32 D_8034F918[] = {
     0x132,
     0x131,
     0x133,
@@ -47,9 +47,9 @@ s32 D_8034F928[] = {
     -135,
 };
 
-Vec2F gRadarThermCirc[17];
-HUDState gHudState;
-u8 D_8036D224;
+static Vec2F sRadarThermCirc[17];
+static HUDState sHudState;
+static u8 D_8036D224;
 
 // forward declarations
 void hud_8031A378(void);
@@ -85,28 +85,28 @@ void hudInit(void) {
     D_8034F914 = 0;
     D_8036D224 = 1;
     D_8034F910 = 0.0f;
-    gHudState.renderFlags = 0;
-    gHudState.unkC = 0;
-    gHudState.unk14 = 0.0f;
-    gHudState.unkB40[0] = -1;
-    gHudState.unkBCC = 1;
-    gHudState.unkBD0[0] = -1;
-    gHudState.unkC5C = 1;
-    gHudState.unkC74 = 0;
-    gHudState.unkC60 = 0;
-    gHudState.unkBB8 = 0.0f;
-    gHudState.unkBBC = 0.0f;
-    gHudState.unkBC0 = 0.0f;
-    gHudState.unkBC4 = 0.0f;
-    gHudState.unkBC8 = -1.0f;
-    gHudState.unkC48 = 0.0f;
-    gHudState.unkC4C = 0.0f;
-    gHudState.unkC50 = 0.0f;
-    gHudState.unkC54 = 0.0f;
-    gHudState.unkC58 = -1.0f;
-    gHudState.unkC68 = -100.0f;
-    gHudState.reticleX = 0.0f;
-    gHudState.reticleY = 0.0f;
+    sHudState.renderFlags = 0;
+    sHudState.unkC = 0;
+    sHudState.unk14 = 0.0f;
+    sHudState.unkB40[0] = -1;
+    sHudState.unkBCC = 1;
+    sHudState.unkBD0[0] = -1;
+    sHudState.unkC5C = 1;
+    sHudState.unkC74 = 0;
+    sHudState.unkC60 = 0;
+    sHudState.unkBB8 = 0.0f;
+    sHudState.unkBBC = 0.0f;
+    sHudState.unkBC0 = 0.0f;
+    sHudState.unkBC4 = 0.0f;
+    sHudState.unkBC8 = -1.0f;
+    sHudState.unkC48 = 0.0f;
+    sHudState.unkC4C = 0.0f;
+    sHudState.unkC50 = 0.0f;
+    sHudState.unkC54 = 0.0f;
+    sHudState.unkC58 = -1.0f;
+    sHudState.unkC68 = -100.0f;
+    sHudState.reticleX = 0.0f;
+    sHudState.reticleY = 0.0f;
     hud_8031A378();
     // clang-format off
     uvSprtProps(0,
@@ -175,7 +175,7 @@ void hudInit(void) {
         SPRT_PROP_TEX_ID(0x120),
         SPRT_PROP_END
     );
-    if (gHudState.showController) {
+    if (sHudState.showController) {
         uvLevelAppend(0x54);
         uvSprtProps(0xB,
             SPRT_PROP_3(1),
@@ -230,7 +230,7 @@ void hudInit(void) {
 }
 
 HUDState* hudGetState(void) {
-    return &gHudState;
+    return &sHudState;
 }
 
 void hudMainRender(void) {
@@ -240,42 +240,42 @@ void hudMainRender(void) {
     HUDState* hud;
     s32 pad[2];
 
-    hud = &gHudState;
+    hud = &sHudState;
     if ((hud->renderFlags & HUD_RENDER_DISABLE) == 0x0) {
-        if ((hud->unkC50 != 0.0f) && (hud->unkC54 < gHudState.unk14)) {
+        if ((hud->unkC50 != 0.0f) && (hud->unkC54 < sHudState.unk14)) {
             hud->unkC5C = !hud->unkC5C;
-            hud->unkC54 = (1.0f / hud->unkC50) + gHudState.unk14;
+            hud->unkC54 = (1.0f / hud->unkC50) + sHudState.unk14;
         }
-        if ((hud->unkBC0 != 0.0f) && (hud->unkBC4 < gHudState.unk14)) {
+        if ((hud->unkBC0 != 0.0f) && (hud->unkBC4 < sHudState.unk14)) {
             hud->unkBCC = !hud->unkBCC;
-            hud->unkBC4 = (1.0f / hud->unkBC0) + gHudState.unk14;
+            hud->unkBC4 = (1.0f / hud->unkBC0) + sHudState.unk14;
         }
-        if (gHudState.renderFlags & HUD_RENDER_ANY_VEHICLE) {
-            if (gHudState.unk28.m[0][0] != 0.0f) {
-                func_80313570(&gHudState.unk28, &gHudState.att.x, &gHudState.att.y, &gHudState.att.heading, &gHudState.att.pitch, &gHudState.unk78,
-                              &gHudState.unk7C);
+        if (sHudState.renderFlags & HUD_RENDER_ANY_VEHICLE) {
+            if (sHudState.unk28.m[0][0] != 0.0f) {
+                func_80313570(&sHudState.unk28, &sHudState.att.x, &sHudState.att.y, &sHudState.att.heading, &sHudState.att.pitch, &sHudState.unk78,
+                              &sHudState.unk7C);
             } else {
-                gHudState.att.x = gHudState.att.y = gHudState.att.heading = 0.0f;
-                gHudState.att.pitch = gHudState.unk78 = gHudState.unk7C = 0.0f;
+                sHudState.att.x = sHudState.att.y = sHudState.att.heading = 0.0f;
+                sHudState.att.pitch = sHudState.unk78 = sHudState.unk7C = 0.0f;
             }
-            env_802E1754(gHudState.att.x, gHudState.att.y, gHudState.att.heading, &windVec);
+            env_802E1754(sHudState.att.x, sHudState.att.y, sHudState.att.heading, &windVec);
             if ((windVec.x == 0.0f) && (windVec.y == 0.0f)) {
-                gHudState.radar.windSpeed = gHudState.radar.windDir = 0.0f;
+                sHudState.radar.windSpeed = sHudState.radar.windDir = 0.0f;
             } else {
-                gHudState.radar.windSpeed = uvSqrtF((windVec.x * windVec.x) + (windVec.y * windVec.y));
-                gHudState.radar.windDir = uvAtan2F(-windVec.x / gHudState.radar.windSpeed, windVec.y / gHudState.radar.windSpeed);
-                gHudState.radar.windSpeed /= 5.0f;
-                if (gHudState.radar.windSpeed < 0.0f) {
-                    gHudState.radar.windSpeed = 0.0f;
-                } else if (gHudState.radar.windSpeed > 0.88945f) {
-                    gHudState.radar.windSpeed = 0.88945f;
+                sHudState.radar.windSpeed = uvSqrtF((windVec.x * windVec.x) + (windVec.y * windVec.y));
+                sHudState.radar.windDir = uvAtan2F(-windVec.x / sHudState.radar.windSpeed, windVec.y / sHudState.radar.windSpeed);
+                sHudState.radar.windSpeed /= 5.0f;
+                if (sHudState.radar.windSpeed < 0.0f) {
+                    sHudState.radar.windSpeed = 0.0f;
+                } else if (sHudState.radar.windSpeed > 0.88945f) {
+                    sHudState.radar.windSpeed = 0.88945f;
                 }
-                gHudState.radar.windDir -= gHudState.att.pitch;
-                if (gHudState.radar.windDir > 3.1415927f) {
-                    gHudState.radar.windDir -= 6.2831855f;
+                sHudState.radar.windDir -= sHudState.att.pitch;
+                if (sHudState.radar.windDir > 3.1415927f) {
+                    sHudState.radar.windDir -= 6.2831855f;
                 }
-                if (gHudState.radar.windDir <= 3.1415927f) {
-                    gHudState.radar.windDir += 6.2831855f;
+                if (sHudState.radar.windDir <= 3.1415927f) {
+                    sHudState.radar.windDir += 6.2831855f;
                 }
             }
         }
@@ -285,33 +285,33 @@ void hudMainRender(void) {
         uvMat4SetIdentity(&sp58);
         uvGfxMtxViewLoad(&sp58, 1);
         uvGfxEnableZBuffer(0);
-        if (gHudState.unkC60 != 0) {
-            hudDrawBox(&gHudState);
+        if (sHudState.unkC60 != 0) {
+            hudDrawBox(&sHudState);
         }
-        if (gHudState.unkC64 < (gHudState.unk14 - gHudState.unkC68)) {
-            if (gHudState.renderFlags & HUD_RENDER_HANG_GLIDER) {
-                hudDrawHangGlider(&gHudState);
-            } else if (gHudState.renderFlags & HUD_RENDER_ROCKET_BELT) {
-                hudDrawRocketPack(&gHudState);
-            } else if (gHudState.renderFlags & HUD_RENDER_GYROCOPTER) {
-                hudDrawGyrocopter(&gHudState);
-            } else if (gHudState.renderFlags & HUD_RENDER_CANNONBALL) {
-                hudDrawCannonball(&gHudState);
-            } else if (gHudState.renderFlags & HUD_RENDER_SKYDIVING) {
-                hudDrawSkyDiving(&gHudState);
-            } else if (gHudState.renderFlags & HUD_RENDER_JUMBLE_HOPPER) {
-                hudDrawJumbleHopper(&gHudState);
-            } else if (gHudState.renderFlags & HUD_RENDER_BIRDMAN) {
-                hudDrawBirdman(&gHudState);
+        if (sHudState.unkC64 < (sHudState.unk14 - sHudState.unkC68)) {
+            if (sHudState.renderFlags & HUD_RENDER_HANG_GLIDER) {
+                hudDrawHangGlider(&sHudState);
+            } else if (sHudState.renderFlags & HUD_RENDER_ROCKET_BELT) {
+                hudDrawRocketPack(&sHudState);
+            } else if (sHudState.renderFlags & HUD_RENDER_GYROCOPTER) {
+                hudDrawGyrocopter(&sHudState);
+            } else if (sHudState.renderFlags & HUD_RENDER_CANNONBALL) {
+                hudDrawCannonball(&sHudState);
+            } else if (sHudState.renderFlags & HUD_RENDER_SKYDIVING) {
+                hudDrawSkyDiving(&sHudState);
+            } else if (sHudState.renderFlags & HUD_RENDER_JUMBLE_HOPPER) {
+                hudDrawJumbleHopper(&sHudState);
+            } else if (sHudState.renderFlags & HUD_RENDER_BIRDMAN) {
+                hudDrawBirdman(&sHudState);
             }
-            hudDrawLowFuel(&gHudState);
-            hudDrawStartText(&gHudState);
-            if (gHudState.showController != 0) {
+            hudDrawLowFuel(&sHudState);
+            hudDrawStartText(&sHudState);
+            if (sHudState.showController != 0) {
                 hudDemoController();
             }
         }
-        gHudState.unkC++;
-        gHudState.unk14 += D_8034F854;
+        sHudState.unkC++;
+        sHudState.unk14 += D_8034F854;
         uvFontGenDlist();
         uvGfxMtxViewPop();
     }
@@ -731,16 +731,16 @@ void hudGenThermCircle(void) {
     f32 angle;
     s32 i;
 
-    for (i = 0; i < ARRAY_COUNT(gRadarThermCirc) - 1; i++) {
+    for (i = 0; i < ARRAY_COUNT(sRadarThermCirc) - 1; i++) {
         angle = (f32)i * 0.3926991f; // DEG_TO_RAD(22.5) or (360.0/16)
-        gRadarThermCirc[i].x = uvSinF(angle);
-        gRadarThermCirc[i].y = uvCosF(angle);
+        sRadarThermCirc[i].x = uvSinF(angle);
+        sRadarThermCirc[i].y = uvCosF(angle);
     }
-    gRadarThermCirc[ARRAY_COUNT(gRadarThermCirc) - 1] = gRadarThermCirc[0];
+    sRadarThermCirc[ARRAY_COUNT(sRadarThermCirc) - 1] = sRadarThermCirc[0];
 }
 
 void hud_8031A2CC(void) {
-    HUDRadar* radar = &gHudState.radar;
+    HUDRadar* radar = &sHudState.radar;
     s32 i;
 
     radar->unk4 = 0;
@@ -754,7 +754,7 @@ void hud_8031A2CC(void) {
 }
 
 void hud_8031A378(void) {
-    HUDRadar* radar = &gHudState.radar;
+    HUDRadar* radar = &sHudState.radar;
     s32 idx;
     f32 sp74;
     f32 sp70;
@@ -809,7 +809,7 @@ void hud_8031A378(void) {
 }
 
 void hud_8031A66C(s32 idx, s32 arg1) {
-    HUDRadar* radar = &gHudState.radar;
+    HUDRadar* radar = &sHudState.radar;
     s32 temp_v0;
     s32 var_v1;
 
@@ -828,12 +828,12 @@ void hud_8031A66C(s32 idx, s32 arg1) {
 }
 
 s32 hudAddWaypoint(f32 x, f32 y, f32 z) {
-    HUDRadar* radar = &gHudState.radar;
+    HUDRadar* radar = &sHudState.radar;
     s32 idx;
     s32 i;
 
     idx = -1;
-    for (i = 0; i < ARRAY_COUNT(gHudState.radar.waypoints); i++) {
+    for (i = 0; i < ARRAY_COUNT(sHudState.radar.waypoints); i++) {
         if (radar->waypoints[i].unk1C == 0xFE) {
             idx = i;
             break;
@@ -841,7 +841,7 @@ s32 hudAddWaypoint(f32 x, f32 y, f32 z) {
     }
 
     if (idx == -1) {
-        _uvDebugPrintf("Panel: Too many radar targets requested (%d)\n", ARRAY_COUNT(gHudState.radar.waypoints));
+        _uvDebugPrintf("Panel: Too many radar targets requested (%d)\n", ARRAY_COUNT(sHudState.radar.waypoints));
         return 0xFF;
     }
 
@@ -858,9 +858,9 @@ s32 hudAddWaypoint(f32 x, f32 y, f32 z) {
 }
 
 void hudMoveWaypoint(s32 idx, f32 x, f32 y, f32 z) {
-    HUDRadar* radar = &gHudState.radar;
+    HUDRadar* radar = &sHudState.radar;
 
-    if ((idx >= ARRAY_COUNT(gHudState.radar.waypoints)) || (idx < 0)) {
+    if ((idx >= ARRAY_COUNT(sHudState.radar.waypoints)) || (idx < 0)) {
         _uvDebugPrintf("Panel: Bad index passed to movetarget %d\n", idx);
         return;
     }
@@ -873,9 +873,9 @@ void hudMoveWaypoint(s32 idx, f32 x, f32 y, f32 z) {
 }
 
 void hud_8031A810(s32 idx) {
-    HUDRadar* radar = &gHudState.radar;
+    HUDRadar* radar = &sHudState.radar;
 
-    if ((idx >= ARRAY_COUNT(gHudState.radar.waypoints)) || (idx < 0)) {
+    if ((idx >= ARRAY_COUNT(sHudState.radar.waypoints)) || (idx < 0)) {
         _uvDebugPrintf("Panel: Bad index passed to movetarget %d\n", idx);
         return;
     }
@@ -886,9 +886,9 @@ void hud_8031A810(s32 idx) {
 }
 
 void hud_8031A874(s32 idx) {
-    HUDRadar* radar = &gHudState.radar;
+    HUDRadar* radar = &sHudState.radar;
 
-    if ((idx >= ARRAY_COUNT(gHudState.radar.waypoints)) || (idx < 0)) {
+    if ((idx >= ARRAY_COUNT(sHudState.radar.waypoints)) || (idx < 0)) {
         _uvDebugPrintf("Panel: Bad index passed to movetarget %d\n", idx);
         return;
     }
@@ -899,9 +899,9 @@ void hud_8031A874(s32 idx) {
 }
 
 void hud_8031A8E0(s32 idx) {
-    HUDRadar* radar = &gHudState.radar;
+    HUDRadar* radar = &sHudState.radar;
 
-    if ((idx >= ARRAY_COUNT(gHudState.radar.waypoints)) || (idx < 0)) {
+    if ((idx >= ARRAY_COUNT(sHudState.radar.waypoints)) || (idx < 0)) {
         _uvDebugPrintf("Panel: Bad index passed to movetarget %d\n", idx);
         return;
     }
@@ -1663,7 +1663,7 @@ void hudDrawBox(HUDState* hud) {
     if (hud->unkC64 == 0.0f) {
         alphaF = 1.0f;
     } else {
-        tmp = (gHudState.unk14 - hud->unkC68) / hud->unkC64;
+        tmp = (sHudState.unk14 - hud->unkC68) / hud->unkC64;
         alphaF = tmp * tmp * tmp;
         if (alphaF < 0.0f) {
             alphaF = 0.0f;
@@ -1695,19 +1695,19 @@ void hudText_8031D8E0(s16 arg0, f32 arg1, f32 arg2) {
     const u16 END_VALUE = -1;
 
     if (arg0 == -1) {
-        gHudState.unkBD0[0] = -1;
-        gHudState.unkC5E = -1;
+        sHudState.unkBD0[0] = -1;
+        sHudState.unkC5E = -1;
         return;
     }
 
     temp_v0 = textGetDataByIdx(arg0);
-    gHudState.unkC5E = arg0;
-    if (gHudState.unkBD0[0] != -1) {
-        gHudState.unkC58 = gHudState.unk14 + 0.2f;
+    sHudState.unkC5E = arg0;
+    if (sHudState.unkBD0[0] != -1) {
+        sHudState.unkC58 = sHudState.unk14 + 0.2f;
     }
 
-    for (i = 0; i < ARRAY_COUNT(gHudState.unkBD0); i++) {
-        gHudState.unkBD0[i] = temp_v0[i];
+    for (i = 0; i < ARRAY_COUNT(sHudState.unkBD0); i++) {
+        sHudState.unkBD0[i] = temp_v0[i];
         // temp_v0 is s16, so comparing with 0xFFFF is always false.
         // this is a bug that IDO does not warn about, but modern compilers do.
         if (temp_v0[i] == END_VALUE) {
@@ -1715,10 +1715,10 @@ void hudText_8031D8E0(s16 arg0, f32 arg1, f32 arg2) {
         }
     }
 
-    gHudState.unkC5C = 1;
-    gHudState.unkC48 = arg1;
-    gHudState.unkC4C = gHudState.unk14;
-    gHudState.unkC50 = arg2;
+    sHudState.unkC5C = 1;
+    sHudState.unkC48 = arg1;
+    sHudState.unkC4C = sHudState.unk14;
+    sHudState.unkC50 = arg2;
 }
 
 void hudWarningText(s16 arg0, f32 arg1, f32 arg2) {
@@ -1728,19 +1728,19 @@ void hudWarningText(s16 arg0, f32 arg1, f32 arg2) {
     const u16 END_VALUE = -1;
 
     if (arg0 == -1) {
-        gHudState.unkB40[0] = -1;
-        gHudState.unkBCE = -1;
+        sHudState.unkB40[0] = -1;
+        sHudState.unkBCE = -1;
         return;
     }
 
     temp_v0 = textGetDataByIdx(arg0);
-    gHudState.unkBCE = arg0;
-    if (gHudState.unkB40[0] != -1) {
-        gHudState.unkBC8 = gHudState.unk14 + 0.2f;
+    sHudState.unkBCE = arg0;
+    if (sHudState.unkB40[0] != -1) {
+        sHudState.unkBC8 = sHudState.unk14 + 0.2f;
     }
 
-    for (i = 0; i < ARRAY_COUNT(gHudState.unkB40); i++) {
-        gHudState.unkB40[i] = temp_v0[i];
+    for (i = 0; i < ARRAY_COUNT(sHudState.unkB40); i++) {
+        sHudState.unkB40[i] = temp_v0[i];
         // temp_v0 is s16, so comparing with 0xFFFF is always false.
         // this is a bug that IDO does not warn about, but modern compilers do.
         if (temp_v0[i] == END_VALUE) {
@@ -1748,32 +1748,32 @@ void hudWarningText(s16 arg0, f32 arg1, f32 arg2) {
         }
     }
 
-    gHudState.unkBCC = 1;
-    gHudState.unkBB8 = arg1;
-    gHudState.unkBBC = gHudState.unk14;
-    gHudState.unkBC0 = arg2;
+    sHudState.unkBCC = 1;
+    sHudState.unkBB8 = arg1;
+    sHudState.unkBBC = sHudState.unk14;
+    sHudState.unkBC0 = arg2;
 }
 
 s16 hudGet_8031DA90(void) {
-    return gHudState.unkC5E;
+    return sHudState.unkC5E;
 }
 
 s16 hudGet_8031DA9C(void) {
-    return gHudState.unkBCE;
+    return sHudState.unkBCE;
 }
 
 void hud_8031DAA8(u8 arg0, f32 arg1) {
-    gHudState.unkC60 = arg0;
-    gHudState.unkC64 = arg1;
-    gHudState.unkC68 = (f32)gHudState.unk14;
+    sHudState.unkC60 = arg0;
+    sHudState.unkC64 = arg1;
+    sHudState.unkC68 = (f32)sHudState.unk14;
     if (arg0 == 1) {
         hudDemoControllerEn(0);
     }
 }
 
 void hudDrawLowFuel(HUDState* hud) {
-    if ((hud->unkB40[0] != -1) && !(gHudState.unk14 < hud->unkBC8)) {
-        if (hud->unkBB8 < (gHudState.unk14 - hud->unkBBC)) {
+    if ((hud->unkB40[0] != -1) && !(sHudState.unk14 < hud->unkBC8)) {
+        if (hud->unkBB8 < (sHudState.unk14 - hud->unkBBC)) {
             hud->unkBCE = -1;
             hud->unkB40[0] = -1;
             return;
@@ -1790,8 +1790,8 @@ void hudDrawLowFuel(HUDState* hud) {
 }
 
 void hudDrawStartText(HUDState* hud) {
-    if ((hud->unkBD0[0] != -1) && !(gHudState.unk14 < hud->unkC58)) {
-        if (hud->unkC48 < (gHudState.unk14 - hud->unkC4C)) {
+    if ((hud->unkBD0[0] != -1) && !(sHudState.unk14 < hud->unkC58)) {
+        if (hud->unkC48 < (sHudState.unk14 - hud->unkC4C)) {
             hud->unkC5E = -1;
             hud->unkBD0[0] = -1;
             return;
@@ -1827,7 +1827,7 @@ void hudRadarThermal(f32 xOff, f32 yOff, f32 scale, u8 r, u8 g, u8 b, u8 a, f32 
     var_s2 = 0;
     do {
         if (var_s2 != 0) {
-            temp_v0 = &gRadarThermCirc[var_s0];
+            temp_v0 = &sRadarThermCirc[var_s0];
             temp_fv0 = (temp_v0->x * scale) + xOff;
             temp_fv1 = (temp_v0->y * scale) + yOff;
             vx = (temp_fv0 * temp_fs1) - (temp_fv1 * temp_fs0);
@@ -1843,7 +1843,7 @@ void hudRadarThermal(f32 xOff, f32 yOff, f32 scale, u8 r, u8 g, u8 b, u8 a, f32 
             if (var_s1 >= 0x10) {
                 var_s1 = 0;
             }
-            temp_v0 = &gRadarThermCirc[var_s1];
+            temp_v0 = &sRadarThermCirc[var_s1];
             temp_fv0 = (temp_v0->x * scale) + xOff;
             temp_fv1 = (temp_v0->y * scale) + yOff;
             vx = (temp_fv0 * temp_fs1) - (temp_fv1 * temp_fs0);
@@ -1858,7 +1858,7 @@ void hudRadarThermal(f32 xOff, f32 yOff, f32 scale, u8 r, u8 g, u8 b, u8 a, f32 
 
 // sets union field for camera state
 void hudSetCameraState(s32 state) {
-    gHudState.cameraState = state;
+    sHudState.cameraState = state;
 }
 
 Unk8034F93C D_8034F93C[] = {
@@ -2057,5 +2057,5 @@ void hudDrawPhotoCount(void) {
 }
 
 void hudDemoControllerEn(u8 enable) {
-    gHudState.showController = enable;
+    sHudState.showController = enable;
 }

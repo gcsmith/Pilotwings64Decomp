@@ -28,17 +28,17 @@ typedef struct Unk8034F970 {
 } Unk8034F970;
 
 // .data
-Unk8034F970* D_8034F970 = NULL;
+static Unk8034F970* D_8034F970 = NULL;
 
 // .bss
-s32 D_8036D320;
-s32 D_8036D324;
-f32 D_8036D328;
-f32 D_8036D32C;
-s32 gDemoUserFileIdx;
+static s32 D_8036D320;
+static s32 D_8036D324;
+static f32 D_8036D328;
+static f32 D_8036D32C;
+static s32 sDemoUserFileIdx;
 
 void demoAttInit(s32 userFileIdx) {
-    gDemoUserFileIdx = userFileIdx;
+    sDemoUserFileIdx = userFileIdx;
     demoAttLoadPos();
 }
 
@@ -54,7 +54,7 @@ void demoAttLoadPos(void) {
     idx = 0;
     gotHdr = 0;
     D_8036D328 = -1.0f;
-    sp60 = uvFileReadHeader((s32)uvUserFileRead(gDemoUserFileIdx, MEM_ROM_OFFSET));
+    sp60 = uvFileReadHeader((s32)uvUserFileRead(sDemoUserFileIdx, MEM_ROM_OFFSET));
     D_8036D320 = 0;
     D_8036D324 = 0;
 

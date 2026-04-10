@@ -28,9 +28,9 @@ typedef struct {
 static Unk802D3658_Unk111C D_803680A0;
 static Unk802D3658_Unk1224 D_803681A8;
 static Vec3F D_803682F0;
-static u16 hgClassId;
-static u16 hgVehicleId;
-static u16 hgTestId;
+static u16 sHgClassId;
+static u16 sHgVehicleId;
+static u16 sHgTestId;
 static f32 D_80368304;
 static f32 D_80368308;
 static u16 D_8036830C;
@@ -98,8 +98,8 @@ void hangGlider_802F2190(HangGliderData* arg0) {
     uvVec3Copy(&D_803680A0.unk4[3].unk1C, &arg0->unk2B8);
     hangGlider_802F2370(arg0);
     D_8036830C = 0xF7F8;
-    taskGetClsVehTest(&hgClassId, &hgVehicleId, &hgTestId);
-    if ((hgClassId == CLASS_A) && (hgTestId == 1)) {
+    taskGetClsVehTest(&sHgClassId, &sHgVehicleId, &sHgTestId);
+    if ((sHgClassId == CLASS_A) && (sHgTestId == 1)) {
         D_80368304 = 0.28f;
         D_80368308 = 1.15f;
     } else {
@@ -275,7 +275,7 @@ STATIC_FUNC void hangGlider_802F2804(HangGliderData* hgData) {
     } else {
         var_fa1 = (((1.0f - hgData->unkF0) * hgData->unk64) + hgData->unkF0) * temp_fv1;
     }
-    if ((hgClassId == 1) && (hgTestId == 1)) {
+    if ((sHgClassId == 1) && (sHgTestId == 1)) {
         if ((hgData->unk1B0 > 51.0f) && (hgData->unkF4 < 60.0f) && (hgData->unk64 < -0.8)) {
             var_fa1 *= 2.0f;
             D_80368304 = 0.0f;
@@ -293,7 +293,7 @@ STATIC_FUNC void hangGlider_802F2804(HangGliderData* hgData) {
         temp_fv1 *= 0.3f;
     }
     var_fa1 = hgData->unk60 * temp_fv1;
-    if ((hgClassId == 1) && (hgTestId == 1) && (hgData->unk1B0 > 51.0f) && (hgData->unkF4 < 60.0f)) {
+    if ((sHgClassId == 1) && (sHgTestId == 1) && (hgData->unk1B0 > 51.0f) && (hgData->unkF4 < 60.0f)) {
         var_fv0 = ABS_NOEQ(hgData->unk60);
         if (var_fv0 > 0.8) {
             var_fv0 = ABS_NOEQ(hgData->unk60);

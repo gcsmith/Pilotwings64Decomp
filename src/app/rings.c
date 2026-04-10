@@ -16,14 +16,14 @@
 #define RING_SIZE_COUNT 5
 
 // .bss
-TaskRNGS* gRefRNGS;
-u8 gRingsCount;
+static TaskRNGS* sRefRNGS;
+static u8 sRingsCount;
 Ring gRings[30];
 u8 gRingChildIndexes[5];
 
 // .data
 f32 gRingDiameters[] = { 7.5f, 10.0f, 12.5f, 17.5f, 25.0f };
-s32 gRingModelIdLookup[2][4][5] = {
+static s32 sRingModelIdLookup[2][4][5] = {
     {
      { MODEL_RING_YELLOW_1, MODEL_RING_YELLOW_2, MODEL_RING_YELLOW_3, MODEL_RING_YELLOW_4, MODEL_RING_YELLOW_5 },
      { MODEL_RING_RED_1, MODEL_RING_RED_2, MODEL_RING_RED_3, MODEL_RING_RED_4, MODEL_RING_RED_5 },
@@ -65,8 +65,8 @@ void ringsInit(void) {
 void rings_80323364(void) {
     s32 i;
 
-    for (i = 0; i < gRingsCount; i++) {
-        if (D_80362690->unkC[D_80362690->unk9C].unk8 == gRefRNGS[i].unk18) {
+    for (i = 0; i < sRingsCount; i++) {
+        if (D_80362690->unkC[D_80362690->unk9C].unk8 == sRefRNGS[i].unk18) {
             gRings[i].unk1B6 = 1;
             if (gRings[i].objId != 0xFFFF) {
                 uvDobjSetState(gRings[i].objId, 2);
@@ -105,7 +105,7 @@ void rings_803234A4(Ring* ring) {
             ring->size = 2;
         }
         if (ring->ringSubtype < 2) {
-            modelId = gRingModelIdLookup[ring->type][ring->ringSubtype][ring->size];
+            modelId = sRingModelIdLookup[ring->type][ring->ringSubtype][ring->size];
             uvDobjModel(ring->objId, modelId);
             if (ring->type2 == 0) {
                 uvDobjProps(ring->objId, 5, 4, 0);
@@ -205,20 +205,20 @@ void ringsLoad(void) {
         return;
     }
 
-    gRingsCount = taskGetRNGS(&gRefRNGS);
-    if (gRingsCount > ARRAY_COUNT(gRings)) {
-        _uvDebugPrintf("rings : too many rings defined in level [%d]\n", gRingsCount);
-        gRingsCount = 0;
+    sRingsCount = taskGetRNGS(&sRefRNGS);
+    if (sRingsCount > ARRAY_COUNT(gRings)) {
+        _uvDebugPrintf("rings : too many rings defined in level [%d]\n", sRingsCount);
+        sRingsCount = 0;
         return;
     }
 
-    if (gRingsCount == 0) {
+    if (sRingsCount == 0) {
         return;
     }
 
     uvLevelAppend(0xE);
-    for (i = 0; i < gRingsCount; i++) {
-        rngs = &gRefRNGS[i];
+    for (i = 0; i < sRingsCount; i++) {
+        rngs = &sRefRNGS[i];
         ring = &gRings[i];
         if (ring->consumedType != 0) {
             continue;
@@ -446,7 +446,7 @@ s32 rings_803243D8(Mtx4F* arg0) {
     if (D_80362690->unkA0 == 0) {
         return 0;
     }
-    for (i = 0; i < gRingsCount; i++) {
+    for (i = 0; i < sRingsCount; i++) {
         ring = &gRings[i];
 
         if (ring->consumedType != 0 || ring->objId == 0xFFFF) {
@@ -519,7 +519,7 @@ s32 rings_803243D8(Mtx4F* arg0) {
     vx = arg0->m[3][0];
     vy = arg0->m[3][1];
     vz = arg0->m[3][2];
-    for (i = 0; i < gRingsCount; i++) {
+    for (i = 0; i < sRingsCount; i++) {
         ring = &gRings[i];
         if ((ring->consumedType != 0) || (ring->unk1B6 == 0)) {
             continue;
@@ -573,7 +573,7 @@ void ringsDeinit(void) {
     Ring* ring;
     s32 i;
 
-    for (i = 0; i < gRingsCount; i++) {
+    for (i = 0; i < sRingsCount; i++) {
         ring = &gRings[i];
         if (ring->objId != 0xFFFF) {
             uvDobjModel(ring->objId, 0xFFFF);
@@ -591,7 +591,7 @@ u8 ringsGetCleared(void) {
     s32 i;
 
     ret = 0;
-    for (i = 0; i < gRingsCount; i++) {
+    for (i = 0; i < sRingsCount; i++) {
         ret += (gRings[i].consumedType) ? 1 : 0;
     }
     return ret;
@@ -606,7 +606,7 @@ s16 ringsGetPoints(f32* arg0) {
     ret = 0;
     temp_v0 = taskGet_80345C80();
 
-    for (i = 0; i < gRingsCount; i++) {
+    for (i = 0; i < sRingsCount; i++) {
         switch (gRings[i].consumedType) {
         case 1:
             idx = gRings[i].scoreType;
