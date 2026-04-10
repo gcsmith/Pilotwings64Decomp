@@ -199,6 +199,7 @@ $(BUILD_DIR)/src/libultra/io/%.o: OPT_FLAGS := -O1
 $(BUILD_DIR)/src/libultra/libc/ll.o: OPT_FLAGS := -O1 -g0
 $(BUILD_DIR)/src/libultra/libc/ll.o: MIPSISET := -mips3 -32
 $(BUILD_DIR)/src/libultra/os/%.o: OPT_FLAGS := -O1
+$(BUILD_DIR)/src/libultra/sp/sprite.o: OPT_FLAGS := -O3
 $(BUILD_DIR)/src/kernel/debug.o: OPT_FLAGS := -O1 -g
 $(BUILD_DIR)/src/kernel/debug.o: MIPSISET := -mips1 -32
 
