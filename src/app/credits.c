@@ -2,6 +2,8 @@
 #include "code_B2900.h"
 #include "code_D2B10.h"
 #include "credits.h"
+#include "demo.h"
+#include "demo_attitude.h"
 #include "fire_effects.h"
 #include "game.h"
 #include "snd.h"
@@ -165,6 +167,24 @@ void credits_8030D1D4(void) {
     fireFxDeinit();
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/credits/credits_8030D208.s")
+s32 credits_8030D208(void) {
+    demoAtt_80320FBC();
+    demo_80323020();
+    func_80313D74();
+    if ((D_8034F784 == 0) && (demoButtonPress(D_80362690->unk9C, A_BUTTON | B_BUTTON | START_BUTTON) != 0)) {
+        if (demoButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON) != 0) {
+            sndPlaySfx(SFX_UI_CONFIRM);
+            return 1;
+        }
+        if (demoButtonPress(D_80362690->unk9C, B_BUTTON) != 0) {
+            sndPlaySfx(SFX_UI_CANCEL);
+        }
+        return 1;
+    }
+    if (D_8034F784 != 0) {
+        D_8034F780 += D_8034F788 * D_8034F854;
+    }
+    return 0;
+}
 
 #pragma GLOBAL_ASM("asm/nonmatchings/app/credits/creditsScene.s")
