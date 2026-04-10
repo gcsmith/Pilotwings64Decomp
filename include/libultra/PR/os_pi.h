@@ -111,7 +111,9 @@ typedef struct {
     void        *dramAddr;  /* RDRAM buffer address (DMA) */
     u32          devAddr;   /* Device buffer address (DMA) */
     u32          size;      /* DMA transfer size in bytes */
+#if BUILD_VERSION > VERSION_D
     OSPiHandle  *piHandle;  /* PI device handle */
+#endif
 } OSIoMesg;
 
 /*
@@ -125,7 +127,9 @@ typedef struct {
     OSMesgQueue *acsQueue;  /* Access queue */
                 /* Raw DMA routine */
     s32         (*dma)(s32, u32, void *, u32);
+#if BUILD_VERSION > VERSION_D
     s32         (*edma)(OSPiHandle *, s32, u32, void *, u32);
+#endif
 } OSDevMgr;
 
 

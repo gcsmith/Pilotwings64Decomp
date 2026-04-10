@@ -19,7 +19,7 @@ u32 audFrameCt;
 s32 minFrameSize;
 s32 frameSize;
 s32 maxFrameSize;
-uvOSIoMesg D_80260CF0[NUM_DMA_MESSAGES];
+OSIoMesg D_80260CF0[NUM_DMA_MESSAGES];
 OSMesgQueue audDMAMessageQ;
 OSMesg audDMAMessageBuf[NUM_DMA_MESSAGES];
 OSMesgQueue D_80261188;
