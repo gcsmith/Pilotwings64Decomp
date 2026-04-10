@@ -17,6 +17,8 @@
 #include <uv_texture.h>
 #include <uv_vector.h>
 
+#define DOUBLE_ONE (2.0 - 1.0)
+
 typedef struct {
     const char* unk0;
     s16 type;
@@ -113,8 +115,6 @@ CreditLines D_8034F4E0[] = {
 f32 D_8034F780 = -32.0f;
 u8 D_8034F784 = 1;
 f32 D_8034F788 = 0.0f;
-f32 D_8034F78C = -1.0f;
-f32 D_8034F790 = 0.0f;
 s32 D_8036A8B0;
 
 s32 credits_8030CB60(s32 arg0) {
@@ -297,4 +297,102 @@ s32 credits_8030D208(void) {
     return 0;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/app/credits/creditsScene.s")
+void creditsScene(void) {
+    static f32 D_8034F78C = -1.0f;
+    static f32 D_8034F790 = 0.0f;
+    Camera* var_v1;
+    s32 i;
+    s32 sp74;
+    s32 sp70;
+    s16* sp6C;
+    s16* sp68;
+    s16* sp64;
+    s32 sp60;
+    s32 var_s0;
+    f32 sp58;
+    f32 sp54;
+    f32 sp50;
+
+    var_v1 = D_80362690->unkC[D_80362690->unk9C].unk70;
+
+    func_80204FC4(var_v1->unk22C);
+    sp74 = (s32) (D_8034F780 + 0.5f);
+    for (i = 0; D_8034F4E0[i].unk0 != NULL; i++) {
+        sp70 = D_8034F4E0[i].unk6 + sp74;
+        if ((sp70 >= -0x20) && (sp70 <= 0xF0)) {
+            switch (D_8034F4E0[i].type) {
+            case 1:
+            case 5:
+                uvFontScale(1, 1);
+                uvFontColor(0x46, 0x46, 0xAA, 0xFF);
+                uvFontSet(4);
+                break;
+            case 2:
+                uvFontScale(1, 1);
+                uvFontColor(0xD2, 0xD2, 0xD2, 0xFF);
+                uvFontSet(3);
+                break;
+            case 3:
+            case 4:
+                uvFontScale(1, 1);
+                uvFontColor(0xD2, 0xD2, 0, 0xFF);
+                uvFontSet(4);
+                break;
+            }
+            uvFontPrintStr(160 - (uvFontWidth(D_8034F4E0[i].unk0) / 2), sp70, D_8034F4E0[i].unk0);
+        }
+    }
+
+    if (D_8036A8B0 != 1) {
+        sp60 = 0x14;
+    } else {
+        sp60 = 0;
+    }
+    if (D_8034F784 == 0) {
+        if (D_8034F78C == -1.0) {
+            D_8034F78C = D_8034F850;
+        }
+
+        if ((D_8034F78C + DOUBLE_ONE) < D_8034F850) {
+            var_s0 = 255;
+        } else {
+            var_s0 = ((D_8034F850 - D_8034F78C) * DOUBLE_ONE * 255.0);
+        }
+        if (D_8036A8B0 == 2) {
+            sp6C = textGetDataByIdx(0x7E);
+            sp68 = textGetDataByIdx(0x2C);
+            sp64 = textGetDataByIdx(0x10B);
+        } else if (D_8036A8B0 == 3) {
+            sp6C = textGetDataByIdx(0xBB);
+            sp68 = textGetDataByIdx(0x118);
+            sp64 = textGetDataByIdx(0x18);
+        } else {
+            sp6C = NULL;
+        }
+        if (sp6C != NULL) {
+            uvFontSet(6);
+            uvFontScale(1.0, 1.0);
+            D_8034F790 += 0.2f * uvGfxGetUnkStateF();
+            while (D_8034F790 > 1.0f) {
+                D_8034F790 -= 1.0f;
+            }
+
+            func_8031420C(D_8034F790, 1.0f, 1.0f, &sp58, &sp54, &sp50);
+            uvFontColor(sp58 * 255.0f, sp54 * 255.0f, sp50 * 255.0f, var_s0);
+            var_s0 *= 0;
+            var_s0 += 90;
+            func_80219874(168 - (func_802196B0(sp6C) / 2), var_s0, sp6C, 100, 0xFFE);
+            var_s0 -= 20;
+            func_80219874(168 - (func_802196B0(sp68) / 2), var_s0, sp68, 100, 0xFFE);
+            var_s0 -= 40;
+            func_80219874(168 - (func_802196B0(sp64) / 2), var_s0, sp64, 100, 0xFFE);
+        }
+    } else {
+        D_8034F78C = -1.0f;
+    }
+    uvFontGenDlist();
+    if (sp70 >= (sp60 + 100)) {
+        D_8034F784 = 0;
+    }
+}
+
