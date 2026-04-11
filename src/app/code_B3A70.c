@@ -492,7 +492,7 @@ void func_8032D51C(s32 fadeoutType) {
         }
         sp84 = 255.0f * var_fs0;
         func_80314154();
-        uvGfxSetFlags(GFX_STATE_400000);
+        uvGfxSetFlags(GFX_STATE_AA);
         uvVtxBeginPoly();
         uvVtx(9, 17, 0, 0, 0, sp87, sp86, sp85, sp84);
         uvVtx(311, 17, 0, 0, 0, sp87, sp86, sp85, sp84);
@@ -547,7 +547,7 @@ void func_8032D90C(void) {
         uvGfxBegin();
         uvGfxClearScreen(0, 0, 0, 0xFF);
         func_80314154();
-        uvGfxSetFlags(GFX_STATE_400000);
+        uvGfxSetFlags(GFX_STATE_AA);
         uvFontSet(6);
         uvFontScale(1.0, 1.0);
         uvFontColor(r2, g2, b2, 0xFF);

@@ -3307,8 +3307,8 @@ void func_80215E7C(ParsedUVMD* uvmd) {
     s32 spAC;
 
     uvGfxStatePush();
-    uvGfxClearFlags(GFX_STATE_1000000 | GFX_STATE_400000 | GFX_STATE_200000);
-    uvGfxSetFlags(GFX_STATE_800000 | GFX_STATE_20000 | 0xFFF);
+    uvGfxClearFlags(GFX_STATE_DECAL | GFX_STATE_AA | GFX_STATE_ZBUFFER);
+    uvGfxSetFlags(GFX_STATE_XLU | GFX_STATE_GOURAUD | GFX_STATE_TEXTURE_NONE);
     uvMat4SetIdentity(&spD8);
     uvMat4Scale(&spD8, 1.0f / uvmd->unk20, 1.0f / uvmd->unk20, 1.0f / uvmd->unk20);
     uvGfxMtxViewMul(&spD8, 1);

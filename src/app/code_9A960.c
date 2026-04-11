@@ -334,8 +334,8 @@ void func_80314154(void) {
     uvMat4SetIdentity(&sp20);
     uvGfxMtxViewLoad(&sp20, 1);
     uvGfxStatePush();
-    uvGfxSetFlags(GFX_STATE_800000);
-    uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
+    uvGfxSetFlags(GFX_STATE_XLU);
+    uvGfxClearFlags(GFX_STATE_AA | GFX_STATE_ZBUFFER);
 }
 
 void func_803141E4(void) {

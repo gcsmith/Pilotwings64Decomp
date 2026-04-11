@@ -83,7 +83,7 @@ void _uvTxtDraw(s32 textureId) {
         return;
     }
 
-    gSPDisplayList(gGfxDisplayListHead++, OS_PHYSICAL_TO_K0(uvtx->unk4));
+    gSPDisplayList(gGfxDisplayListHead++, OS_PHYSICAL_TO_K0(uvtx->dlist));
 
     if (uvtx->unk18 != NULL) {
         temp_a1 = uvtx->unk18;

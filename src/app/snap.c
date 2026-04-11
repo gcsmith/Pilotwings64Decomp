@@ -1067,8 +1067,8 @@ void func_8033ADD4(s32 arg0, Unk80373060* arg1, s32 arg2, s32 arg3) {
     if (arg0 == 0) {
         if (D_80350528) {
             uvGfxStatePush();
-            uvGfxSetFlags(GFX_STATE_800000);
-            uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
+            uvGfxSetFlags(GFX_STATE_XLU);
+            uvGfxClearFlags(GFX_STATE_AA | GFX_STATE_ZBUFFER);
             uvGfxBindTexture(0x13E);
             sp5C = 108;
             D_80373E1C = sp5C;
@@ -1097,8 +1097,8 @@ void func_8033ADD4(s32 arg0, Unk80373060* arg1, s32 arg2, s32 arg3) {
     } else if (arg0 == 2) {
         if (PHOTO_COUNT_MAX - D_80350528) {
             uvGfxStatePush();
-            uvGfxSetFlags(GFX_STATE_800000);
-            uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
+            uvGfxSetFlags(GFX_STATE_XLU);
+            uvGfxClearFlags(GFX_STATE_AA | GFX_STATE_ZBUFFER);
             uvGfxBindTexture(0x140);
             sp5C = 111;
             uvVtxBeginPoly();
@@ -1134,8 +1134,8 @@ void func_8033ADD4(s32 arg0, Unk80373060* arg1, s32 arg2, s32 arg3) {
             uvGfxStatePop();
         }
         uvGfxStatePush();
-        uvGfxSetFlags(GFX_STATE_800000);
-        uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
+        uvGfxSetFlags(GFX_STATE_XLU);
+        uvGfxClearFlags(GFX_STATE_AA | GFX_STATE_ZBUFFER);
         uvGfxBindTexture(0x145);
         uvVtxBeginPoly();
         uvVtx(200, 30, 0, 0, 0, 255, 255, 255, 255);
@@ -1182,8 +1182,8 @@ void func_8033ADD4(s32 arg0, Unk80373060* arg1, s32 arg2, s32 arg3) {
         sp3C = func_802196B0(textGetDataByIdx(arg1->unk40));
         func_80219874(160 - (sp3C / 2), 200, textGetDataByIdx(arg1->unk40), 0x16, 0xFFE);
         uvGfxStatePush();
-        uvGfxSetFlags(GFX_STATE_800000);
-        uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
+        uvGfxSetFlags(GFX_STATE_XLU);
+        uvGfxClearFlags(GFX_STATE_AA | GFX_STATE_ZBUFFER);
         uvGfxBindTexture(0x11B);
         if (arg2 > 0) {
             uvVtxBeginPoly();
@@ -1224,8 +1224,8 @@ void func_8033BF00(s32 arg0, s32 arg1, s32 arg2) {
     uvGfxMtxViewLoad(&sp48, 1);
     if (arg2 != 0) {
         uvGfxStatePush();
-        uvGfxSetFlags(GFX_STATE_800000);
-        uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
+        uvGfxSetFlags(GFX_STATE_XLU);
+        uvGfxClearFlags(GFX_STATE_AA | GFX_STATE_ZBUFFER);
         if (arg1 != 0) {
             sp44 = D_80373E18;
             sp40 = D_80373E18 + 9;
@@ -1281,8 +1281,8 @@ void func_8033BF00(s32 arg0, s32 arg1, s32 arg2) {
         uvGfxStatePop();
     } else {
         uvGfxStatePush();
-        uvGfxSetFlags(GFX_STATE_800000);
-        uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
+        uvGfxSetFlags(GFX_STATE_XLU);
+        uvGfxClearFlags(GFX_STATE_AA | GFX_STATE_ZBUFFER);
         if (arg1 != 0) {
             sp40 = D_80373E18 + 7;
             sp44 = D_80373E18;

@@ -456,7 +456,7 @@ void resultDrawTally(s32 arg0) {
     var_s2 = 0;
     unkC = &D_80362690->unkC[D_80362690->unk9C];
     func_80314154();
-    uvGfxSetFlags(GFX_STATE_400000);
+    uvGfxSetFlags(GFX_STATE_AA);
     spAC = (f32)(1.0 - (f64)((1.5f - sScreenFadeDuration) / 1.5f));
     uvVtxBeginPoly();
     alpha = (s32)(130.0f * spAC);
@@ -465,7 +465,7 @@ void resultDrawTally(s32 arg0) {
     uvVtx(SCREEN_WIDTH, 0, 0, 0, 0, 0, 0, 0, alpha);
     uvVtx(SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, 0, 0, 0, alpha);
     uvVtxEndPoly();
-    uvGfxClearFlags(GFX_STATE_400000);
+    uvGfxClearFlags(GFX_STATE_AA);
     if (!sReplayTipSet && (unkC->veh != VEHICLE_BIRDMAN)) {
         uvVtxBeginPoly();
         alpha = (s32)(255.0f * spAC);

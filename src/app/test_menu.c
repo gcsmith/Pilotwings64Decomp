@@ -607,8 +607,8 @@ void testMenuDraw(Camera* arg0, u8 classIdx, u8 vehIdx) {
 
             if ((sp48->veh == VEHICLE_BIRDMAN || IS_MAIN_VEHICLE(sp48->veh)) && (taskGetTestCount(sp48->cls, sp48->veh) >= 2)) {
                 uvGfxStatePush();
-                uvGfxSetFlags(GFX_STATE_800000);
-                uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
+                uvGfxSetFlags(GFX_STATE_XLU);
+                uvGfxClearFlags(GFX_STATE_AA | GFX_STATE_ZBUFFER);
                 uvGfxBindTexture(0x11B);
                 uvVtxBeginPoly();
                 uvVtx(31, 142, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);

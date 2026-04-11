@@ -417,7 +417,7 @@ void uvDbg_8023286C(void) {
     sp36 = 0x55;
     uvGfxStatePush();
     uvGfxSetFlags(GFX_STATE_TEXTURE_NONE);
-    uvGfxClearFlags(GFX_STATE_80000000 | GFX_STATE_800000 | GFX_STATE_400000 | GFX_STATE_200000 | GFX_STATE_100000);
+    uvGfxClearFlags(GFX_STATE_FOG | GFX_STATE_XLU | GFX_STATE_AA | GFX_STATE_ZBUFFER | GFX_STATE_CULL_BACK);
 
     uvBeginTmesh();
     uvVtx(sp36, 60, 0, 0, 0, 0, 0, 0, 255);
@@ -586,7 +586,7 @@ void uvDbg_802333AC(UNUSED u8 arg0) {
     uvDbg_8023286C();
     uvGfxStatePush();
     uvGfxSetFlags(GFX_STATE_TEXTURE_NONE);
-    uvGfxClearFlags(GFX_STATE_800000 | GFX_STATE_400000 | GFX_STATE_200000 | GFX_STATE_100000);
+    uvGfxClearFlags(GFX_STATE_XLU | GFX_STATE_AA | GFX_STATE_ZBUFFER | GFX_STATE_CULL_BACK);
     uvDbg_80232EBC();
     uvDbg_80233310();
     uvGfxStatePop();
