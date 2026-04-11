@@ -259,7 +259,7 @@ void uvGfxStateDraw(uvGfxState_t* arg0) {
         if ((var_a3 & GFX_STATE_MODE_MASK) != (gGfxStateStackData & GFX_STATE_MODE_MASK)) {
             setMode = 0;
             clearMode = 0;
-            if (var_a3 & GFX_STATE_8000000) {
+            if (var_a3 & GFX_STATE_LIGHTING) {
                 setMode = G_TEXTURE_GEN | G_LIGHTING;
             } else {
                 clearMode = G_TEXTURE_GEN | G_LIGHTING;
@@ -321,7 +321,7 @@ void uvGfxStateDraw(uvGfxState_t* arg0) {
             } else {
                 _uvTxtDraw(textureId);
                 gGfxNumTxtLoads[gGfxFbIndex]++;
-                if (var_a3 & GFX_STATE_8000000) {
+                if (var_a3 & GFX_STATE_LIGHTING) {
                     gDPSetCombineMode(gGfxDisplayListHead++, G_CC_DECALRGB, G_CC_DECALRGB2);
                     gSPTexture(gGfxDisplayListHead++, 0x7C0, 0x7C0, 0, 1, G_ON);
                 }

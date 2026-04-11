@@ -113,7 +113,7 @@ void uvSobj_8022C8D0(UnkSobjDraw* arg0, ParsedUVMD* uvmd, u8 arg2, Mtx4F* arg3) 
     for (i = 0; i < currLod->partCount; i++) {
         currPart = &currLod->partTable[i];
         uvGfx_802235A4(arg0->unk4[i], 1);
-        if (currPart->unkD != 0) {
+        if (currPart->lighting != FALSE) {
             uvMat4CopyL2F(&sp114, arg0->unk4[i]);
             sp114.m[3][0] += arg3->m[3][0];
             sp114.m[3][1] += arg3->m[3][1];

@@ -14,15 +14,15 @@
 
 #define GFX_STATE_GOURAUD       (1 << 17) // gouraud / smooth shading
 #define GFX_STATE_40000         (1 << 18) // unused
-#define GFX_STATE_CULL_FRONT    (1 << 19) // front face culling
-#define GFX_STATE_CULL_BACK     (1 << 20) // back face culling
+#define GFX_STATE_CULL_FRONT    (1 << 19) // cull front faces
+#define GFX_STATE_CULL_BACK     (1 << 20) // cull back faces
 #define GFX_STATE_ZBUFFER       (1 << 21) // depth buffering
 #define GFX_STATE_AA            (1 << 22) // anti-aliasing
 #define GFX_STATE_XLU           (1 << 23) // transparent
 #define GFX_STATE_DECAL         (1 << 24) // decal surface
 #define GFX_STATE_2000000       (1 << 25) // submit dlist with uvGfxStateDrawDL
 #define GFX_STATE_4000000       (1 << 26) // unused
-#define GFX_STATE_8000000       (1 << 27) // lighting and texturing
+#define GFX_STATE_LIGHTING      (1 << 27) // lighting and texturing
 #define GFX_STATE_10000000      (1 << 28) // special render mode?
 #define GFX_STATE_20000000      (1 << 29) // unused
 #define GFX_STATE_40000000      (1 << 30) // unused
@@ -31,7 +31,7 @@
 #define GFX_STATE_TEXTURE_MASK 0xFFF
 #define GFX_STATE_TEXTURE_NONE 0xFFF
 
-#define GFX_STATE_MODE_MASK (GFX_STATE_GOURAUD | GFX_STATE_40000 | GFX_STATE_CULL_FRONT | GFX_STATE_CULL_BACK | GFX_STATE_ZBUFFER | GFX_STATE_8000000 | GFX_STATE_FOG)
+#define GFX_STATE_MODE_MASK (GFX_STATE_GOURAUD | GFX_STATE_40000 | GFX_STATE_CULL_FRONT | GFX_STATE_CULL_BACK | GFX_STATE_ZBUFFER | GFX_STATE_LIGHTING | GFX_STATE_FOG)
 
 #define GFX_PATCH_DL(pkt, patchDL, patchArg)                                   \
 {                                                                              \
@@ -192,7 +192,7 @@ typedef struct uvModelPart {
     u8 unk6;
     UnkUVMD_24* unk8;
     u8 unkC;
-    u8 unkD;
+    u8 lighting;
 } uvModelPart; // size = 0x10
 
 typedef struct uvModelLOD {

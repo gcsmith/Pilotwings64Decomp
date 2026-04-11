@@ -464,7 +464,7 @@ ParsedUVMD* _uvParseUVMD(u8* src) {
     u8 lodCount;
     u8 sp78;
     u8 sp77;
-    u8 sp76;
+    u8 hasLighting;
     u16 vtxCount;
     u16 gfxCount;
     u16 sp70;
@@ -488,7 +488,7 @@ ParsedUVMD* _uvParseUVMD(u8* src) {
         partTable = (uvModelPart*)_uvMemAlloc(lodTable[i].partCount * sizeof(uvModelPart), 4);
 
         for (j = 0; j < lodTable[i].partCount; j++) {
-            sp76 = 0;
+            hasLighting = FALSE;
             uvConsumeBytes(&partTable[j].stateCount, &src, sizeof(partTable[j].stateCount));
             uvConsumeBytes(&partTable[j].unk5, &src, sizeof(partTable[j].unk5));
             uvConsumeBytes(&partTable[j].unk6, &src, sizeof(partTable[j].unk6));
@@ -499,8 +499,8 @@ ParsedUVMD* _uvParseUVMD(u8* src) {
                 uvConsumeBytes(&stateTable[k].xfmCount, &src, sizeof(stateTable[k].xfmCount));
                 uvConsumeBytes(&stateTable[k].triCount, &src, sizeof(stateTable[k].triCount));
                 uvConsumeBytes(&gfxCount, &src, sizeof(gfxCount));
-                if (stateTable[k].state & GFX_STATE_8000000) {
-                    sp76 = 1;
+                if (stateTable[k].state & GFX_STATE_LIGHTING) {
+                    hasLighting = TRUE;
                 }
 
                 dlist = (Gfx*)_uvMemAlloc((gfxCount + 1) * sizeof(Gfx), 8);
@@ -518,7 +518,7 @@ ParsedUVMD* _uvParseUVMD(u8* src) {
                 }
                 gSPEndDisplayList(&dlist[var_s0]);
             }
-            partTable[j].unkD = sp76;
+            partTable[j].lighting = hasLighting;
         }
         lodTable[i].partTable = partTable;
         uvConsumeBytes(&lodRadius[i], &src, sizeof(lodRadius[i]));

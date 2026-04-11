@@ -461,7 +461,7 @@ void func_80205CE4(UnkStruct_80204D94* arg0, s32 arg1, f32 arg2, f32 arg3) {
         case 1:
             uvGfxStatePush();
             uvGfxSetFlags(GFX_STATE_XLU | GFX_STATE_AA | GFX_STATE_ZBUFFER | GFX_STATE_GOURAUD | GFX_STATE_TEXTURE_NONE);
-            uvGfxClearFlags(GFX_STATE_FOG | GFX_STATE_10000000 | GFX_STATE_8000000 | GFX_STATE_DECAL | GFX_STATE_CULL_BACK | GFX_STATE_40000);
+            uvGfxClearFlags(GFX_STATE_FOG | GFX_STATE_10000000 | GFX_STATE_LIGHTING | GFX_STATE_DECAL | GFX_STATE_CULL_BACK | GFX_STATE_40000);
             _uvFxDraw((UnkFxStruct*)var_s1->unk10 - D_8028B400, arg0);
             uvGfxStatePop();
             break;

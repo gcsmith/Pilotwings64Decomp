@@ -525,7 +525,7 @@ void uvDobj_80217B4C(Unk80263780* arg0, ParsedUVMD* uvmd, u8 lodId) {
         } else {
             uvGfxMtxViewMul(&D_80265080[arg0->unk2[i]], 1);
         }
-        if (currPart->unkD != 0) {
+        if (currPart->lighting != FALSE) {
             uvGfxLookAt(&D_80265080[arg0->unk2[i]]);
         }
         if (!(arg0->unk3C & (1 << i))) {
