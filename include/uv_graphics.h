@@ -28,6 +28,9 @@
 #define GFX_STATE_40000000 (1 << 30)
 #define GFX_STATE_80000000 (1 << 31)
 
+#define GFX_STATE_TEXTURE_MASK 0xFFF
+#define GFX_STATE_TEXTURE_NONE 0xFFF
+
 #define GFX_PATCH_DL(pkt, patchDL, patchArg)                                   \
 {                                                                              \
     Gfx *_g = (Gfx *)(pkt);                                                    \
@@ -426,7 +429,7 @@ void uvGfxStatePush(void);
 void uvGfxStatePop(void);
 void uvGfxSetFlags(s32 flags);
 void uvGfxClearFlags(s32 flags);
-void uvGfx_80223A28(s32 flags);
+void uvGfxBindTexture(s32 flags);
 void uvGfx_80223A64(s32 arg0, s32 arg1);
 void uvGfxWaitForMesg(void);
 void uvGfxEnableGamma(s32 enable);

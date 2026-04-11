@@ -178,8 +178,8 @@ void uvGfxResetState(void) {
     gDPSetDepthImage(gGfxDisplayListHead++, D_80299278);
     gDPSetDepthImage(gGfxDisplayListHead++, osVirtualToPhysical(D_80299278));
 
-    gGfxStateStackData = GFX_STATE_400000 | GFX_STATE_100000 | GFX_STATE_20000 | 0xFFF;
-    gGfxBoundTexture = 0xFFF;
+    gGfxStateStackData = GFX_STATE_400000 | GFX_STATE_100000 | GFX_STATE_20000 | GFX_STATE_TEXTURE_NONE;
+    gGfxBoundTexture = GFX_STATE_TEXTURE_NONE;
     D_802491E0 = 0;
     D_802491E4 = -1;
     uvGfxSetFogFactor(gGfxFogFactor);
@@ -298,20 +298,20 @@ void uvGfxStateDraw(uvGfxState_t* arg0) {
                 gSPSetGeometryMode(gGfxDisplayListHead++, setMode);
             }
         }
-        textureId = var_a3 & 0xFFF;
+        textureId = var_a3 & GFX_STATE_TEXTURE_MASK;
 
         if (textureId == 0xFFE) {
             textureId++;
         }
 
-        if (textureId >= 0xFFF) {
-            var_t1 = 0xFFF;
+        if (textureId >= GFX_STATE_TEXTURE_NONE) {
+            var_t1 = GFX_STATE_TEXTURE_NONE;
         } else {
             uvtx = gGfxUnkPtrs->textures[textureId];
             if (uvtx == NULL) {
                 _uvDebugPrintf("uvGfxStateDraw: texture %d not in level\n", textureId);
-                var_t1 = 0xFFF;
-                textureId = 0xFFF;
+                var_t1 = GFX_STATE_TEXTURE_NONE;
+                textureId = GFX_STATE_TEXTURE_NONE;
             } else {
                 var_t1 = (uvtx->unk12 & 0xF000) | textureId;
             }
@@ -356,7 +356,7 @@ void uvGfxStateDraw(uvGfxState_t* arg0) {
             renderMode2 = G_RM_ZB_OPA_DECAL2;
             break;
         case GFX_STATE_800000 | GFX_STATE_400000 | GFX_STATE_200000:
-            if (textureId == 0xFFF) {
+            if (textureId == GFX_STATE_TEXTURE_NONE) {
                 renderMode2 = G_RM_AA_ZB_XLU_INTER2;
             } else if ((uvtx->unk12 & 0x8000) || (uvtx->unk22 == 1) || (var_a3 & 0x04000000)) {
                 renderMode2 = G_RM_AA_ZB_XLU_SURF2;
@@ -365,7 +365,7 @@ void uvGfxStateDraw(uvGfxState_t* arg0) {
             }
             break;
         case GFX_STATE_800000 | GFX_STATE_400000:
-            if (textureId == 0xFFF) {
+            if (textureId == GFX_STATE_TEXTURE_NONE) {
                 renderMode2 = G_RM_AA_XLU_SURF2;
             } else if (uvtx->unk12 & 0x8000) {
                 renderMode2 = G_RM_AA_XLU_SURF2;
@@ -374,7 +374,7 @@ void uvGfxStateDraw(uvGfxState_t* arg0) {
             }
             break;
         case GFX_STATE_800000 | GFX_STATE_200000:
-            if (textureId == 0xFFF) {
+            if (textureId == GFX_STATE_TEXTURE_NONE) {
                 renderMode2 = G_RM_ZB_XLU_SURF2;
             } else {
                 renderMode2 = G_RM_ZB_XLU_SURF2;
@@ -415,7 +415,7 @@ void uvGfxStateDraw(uvGfxState_t* arg0) {
         gGfxStateStackData = var_a3;
     }
     if ((var_a3 & GFX_STATE_80000000) && ((var_a3 & renderMask) == (GFX_STATE_800000 | GFX_STATE_400000 | GFX_STATE_200000))) {
-        if (textureId == 0xFFF) {
+        if (textureId == GFX_STATE_TEXTURE_NONE) {
             gDPSetCombineMode(gGfxDisplayListHead++, G_CC_SHADE, G_CC_PASS2);
         } else {
             gDPSetCombineMode(gGfxDisplayListHead++, G_CC_MODULATEIDECALA, G_CC_PASS2);
@@ -1004,63 +1004,63 @@ void uvGfxStatePush(void) {
 
 void uvGfxStatePop(void) {
     u32 newState;
-    uvGfxState_t state;
+    uvGfxState_t gfxState;
 
     if (gGfxStateStackIdx == 0) {
         _uvDebugPrintf("uvGfxStatePop: stack empty\n");
     } else {
         --gGfxStateStackIdx;
         newState = gGfxStateStack[gGfxStateStackIdx];
-        state.state = newState;
-        state.dlist = NULL;
-        uvGfxStateDraw(&state);
+        gfxState.state = newState;
+        gfxState.dlist = NULL;
+        uvGfxStateDraw(&gfxState);
     }
 }
 
 void uvGfxSetFlags(s32 flags) {
     u32 newState;
-    uvGfxState_t sp20;
+    uvGfxState_t gfxState;
 
     newState = flags | gGfxStateStackData;
     if (newState != gGfxStateStackData) {
-        sp20.state = newState;
-        sp20.dlist = NULL;
-        uvGfxStateDraw(&sp20);
+        gfxState.state = newState;
+        gfxState.dlist = NULL;
+        uvGfxStateDraw(&gfxState);
     }
 }
 
 void uvGfxClearFlags(s32 flags) {
     u32 newState;
-    uvGfxState_t sp20;
+    uvGfxState_t gfxState;
 
     newState = ~flags & gGfxStateStackData;
     if (newState != gGfxStateStackData) {
-        sp20.state = newState;
-        sp20.dlist = NULL;
-        uvGfxStateDraw(&sp20);
+        gfxState.state = newState;
+        gfxState.dlist = NULL;
+        uvGfxStateDraw(&gfxState);
     }
 }
 
-void uvGfx_80223A28(s32 flags) {
-    uvGfxState_t sp20;
+void uvGfxBindTexture(s32 flags) {
+    uvGfxState_t gfxState;
     s32 pad;
 
-    sp20.dlist = NULL;
-    sp20.state = (gGfxStateStackData & ~0xFFF) | flags;
-    uvGfxStateDraw(&sp20);
+    gfxState.dlist = NULL;
+    gfxState.state = (gGfxStateStackData & ~GFX_STATE_TEXTURE_MASK) | flags;
+    uvGfxStateDraw(&gfxState);
 }
 
-void uvGfx_80223A64(s32 arg0, s32 arg1) {
+void uvGfx_80223A64(s32 textureId, s32 arg1) {
     u32 var_v0;
-    u32 var_a0;
+    u32 currTextureId;
 
     var_v0 = gGfxStateStackData & GFX_STATE_1000000;
     if (arg1 != 0) {
         var_v0 ^= GFX_STATE_1000000;
     }
-    if (arg0 == 0xFFF) {
-        var_a0 = gGfxStateStackData & 0xFFF;
-        if (var_a0 == 0xFFF) {
+    if (textureId == GFX_STATE_TEXTURE_NONE) {
+        currTextureId = gGfxStateStackData & GFX_STATE_TEXTURE_MASK;
+        if (currTextureId == GFX_STATE_TEXTURE_NONE) {
             if (var_v0 == 0) {
                 return;
             }
@@ -1068,11 +1068,11 @@ void uvGfx_80223A64(s32 arg0, s32 arg1) {
         gSPTextureL(gGfxDisplayListHead++, 0, 0, 0, arg1, G_TX_RENDERTILE, G_OFF);
 
     } else if (arg1 != 0) {
-        Gfx* temp_v0 = gGfxUnkPtrs->textures[arg0]->unk4;
+        Gfx* temp_v0 = gGfxUnkPtrs->textures[textureId]->unk4;
         GFX_PATCH_DL(gGfxDisplayListHead, temp_v0, arg1);
         gGfxDisplayListHead++;
     } else if (var_v0 != 0) {
-        Gfx* temp_v0 = gGfxUnkPtrs->textures[arg0]->unk4;
+        Gfx* temp_v0 = gGfxUnkPtrs->textures[textureId]->unk4;
         GFX_PATCH_DL(gGfxDisplayListHead, temp_v0, 0);
         gGfxDisplayListHead++;
     }

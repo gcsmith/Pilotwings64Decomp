@@ -68,7 +68,7 @@ void splashDraw(void) {
     }
 
     uvGfxStatePush();
-    uvGfx_80223A28(0x13C);
+    uvGfxBindTexture(0x13C);
     uvGfxSetFlags(GFX_STATE_4000000 | GFX_STATE_800000 | GFX_STATE_400000 | GFX_STATE_200000);
     for (i = 0; i < ARRAY_COUNT(sSplashRipples); i++) {
         ripple = &sSplashRipples[i];

@@ -265,10 +265,10 @@ void uvFxProps(s32 fxId, ...) {
             var_a2->unk48 = va_arg(args, f64);
             break;
         case 8:
-            var_a2->unk50 = va_arg(args, s32);
-            if ((var_a2->unk50 != 0xFFF) && (gGfxUnkPtrs->textures[var_a2->unk50] == NULL)) {
-                _uvDebugPrintf(" uvFxProps: texture id %d not in level\n", var_a2->unk50);
-                var_a2->unk50 = 0xFFF;
+            var_a2->textureId = va_arg(args, s32);
+            if ((var_a2->textureId != GFX_STATE_TEXTURE_NONE) && (gGfxUnkPtrs->textures[var_a2->textureId] == NULL)) {
+                _uvDebugPrintf(" uvFxProps: texture id %d not in level\n", var_a2->textureId);
+                var_a2->textureId = GFX_STATE_TEXTURE_NONE;
             }
             break;
         case 15:
@@ -394,7 +394,7 @@ void uvFxGetProps(s32 fxId, ...) {
             *va_arg(args, f32*) = temp_s2->unk48;
             break;
         case 8:
-            *va_arg(args, s32*) = temp_s2->unk50;
+            *va_arg(args, s32*) = temp_s2->textureId;
             break;
         case 15:
             *va_arg(args, f32*) = temp_s2->unk4C;
@@ -468,7 +468,7 @@ s32 uvModelGet(s32 fxId, s32 modelId) {
     var_v1->unk55 = 255;
     var_v1->unkA8 = NULL;
     var_v1->unk2 = 255;
-    var_v1->unk50 = 0xFFF;
+    var_v1->textureId = GFX_STATE_TEXTURE_NONE;
     var_v1->ditherProperty = 4;
     var_v1->unk5C = 0;
     var_v1->unk60 = 0;
@@ -724,7 +724,7 @@ void func_8021C4F8(u16 arg0) {
     spC1 = temp_s0->unk54;
     uvMat4Copy(&sp80, &temp_s0->unk68);
     uvGfx_802236CC(&sp80);
-    uvGfxSetFlags(0xFFF);
+    uvGfxSetFlags(GFX_STATE_TEXTURE_NONE);
 
     if (temp_s0->unk60 != 0) {
         uvGfxSetFlags(temp_s0->unk60);
@@ -826,12 +826,12 @@ void func_8021C87C(u16 arg0) {
 
     uvGfx_802236CC(&sp70->unk68);
 
-    if ((sp70->unk50 != 0xFFF) && (gGfxUnkPtrs->textures[sp70->unk50] != NULL)) {
-        sp82 = gGfxUnkPtrs->textures[sp70->unk50]->width << 5;
-        sp80 = gGfxUnkPtrs->textures[sp70->unk50]->height << 5;
-        uvGfx_80223A28(sp70->unk50);
+    if ((sp70->textureId != GFX_STATE_TEXTURE_NONE) && (gGfxUnkPtrs->textures[sp70->textureId] != NULL)) {
+        sp82 = gGfxUnkPtrs->textures[sp70->textureId]->width << 5;
+        sp80 = gGfxUnkPtrs->textures[sp70->textureId]->height << 5;
+        uvGfxBindTexture(sp70->textureId);
     } else {
-        uvGfxSetFlags(0xFFF);
+        uvGfxSetFlags(GFX_STATE_TEXTURE_NONE);
         sp82 = sp80 = 0;
     }
 
@@ -983,7 +983,7 @@ void func_8021DAF8(u16 fxId) {
     s32 i;
 
     temp_s1 = &D_8028B400[fxId];
-    uvGfxSetFlags(0xFFF);
+    uvGfxSetFlags(GFX_STATE_TEXTURE_NONE);
     if (temp_s1->unk60 != 0) {
         uvGfxSetFlags(temp_s1->unk60);
     }
@@ -1045,15 +1045,15 @@ void func_8021DD30(u16 fxId) {
     if (temp_s0->unk2 != 0xFF) {
         var_a0 = func_80219240(temp_s0->unk2);
     } else {
-        if (temp_s0->unk50 != 0xFFF) {
-            var_a0 = temp_s0->unk50;
+        if (temp_s0->textureId != GFX_STATE_TEXTURE_NONE) {
+            var_a0 = temp_s0->textureId;
         } else {
-            var_a0 = 0xFFF;
+            var_a0 = GFX_STATE_TEXTURE_NONE;
         }
     }
-    if ((var_a0 != 0xFFF) && ((sp90 = gGfxUnkPtrs->textures[var_a0]) != NULL)) {
+    if ((var_a0 != GFX_STATE_TEXTURE_NONE) && ((sp90 = gGfxUnkPtrs->textures[var_a0]) != NULL)) {
         sp8C = sp90;
-        uvGfx_80223A28(var_a0);
+        uvGfxBindTexture(var_a0);
         if (temp_s0->unk4C == 0.0f) {
             sp78 = 0;
             sp7A = 0;
@@ -1080,7 +1080,7 @@ void func_8021DD30(u16 fxId) {
             sp86 = (-temp_v0 * sp6C) + (temp_a0 * sp70) + temp_a0;
         }
     } else {
-        uvGfxSetFlags(0xFFF);
+        uvGfxSetFlags(GFX_STATE_TEXTURE_NONE);
         sp78 = 0;
         sp7A = 0;
         sp7C = 0;
@@ -1132,7 +1132,7 @@ void func_8021E608(u16 fxId) {
     sp4C.m[2][1] *= temp_s1->unk28;
     sp4C.m[2][2] *= temp_s1->unk28;
     uvGfx_802236CC(&sp4C);
-    uvGfxSetFlags(0xFFF);
+    uvGfxSetFlags(GFX_STATE_TEXTURE_NONE);
     if (temp_s1->unk60 != 0) {
         uvGfxSetFlags(temp_s1->unk60);
     }
@@ -1164,7 +1164,7 @@ void func_8021E7E0(u16 fxId) {
     sp54.m[1][1] *= temp_s2->unk24;
     sp54.m[1][2] *= temp_s2->unk24;
     uvGfx_802236CC(&sp54);
-    uvGfxSetFlags(0xFFF);
+    uvGfxSetFlags(GFX_STATE_TEXTURE_NONE);
     if (temp_s2->unk60 != 0) {
         uvGfxSetFlags(temp_s2->unk60);
     }

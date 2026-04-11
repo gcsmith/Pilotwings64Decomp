@@ -21,7 +21,7 @@ void func_8034B624(Camera* arg0) {
 }
 
 void func_8034B688(void) {
-    uvGfx_80223A28(0xFFF);
+    uvGfxBindTexture(GFX_STATE_TEXTURE_NONE);
     uvVtxRect(0, 18, 319, 0);
     uvVtxRect(0, 239, 319, 232);
     uvVtxRect(0, 232, 10, 18);

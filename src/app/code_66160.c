@@ -37,7 +37,7 @@ void func_802DEE44(s32 x, s32 y, s32 width, s32 height, s32 size, s32 r0, s32 g0
     s32 ypos = y + size;
 
     uvGfxStatePush();
-    uvGfxSetFlags(GFX_STATE_800000 | 0xFFF);
+    uvGfxSetFlags(GFX_STATE_800000 | GFX_STATE_TEXTURE_NONE);
     uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000 | GFX_STATE_100000);
     func_802DEC30(x1, y1, x, y1, xpos, yneg, xneg, yneg, r0, g0, b0, r1, g1, b1);
     func_802DEC30(xneg, yneg, xneg, ypos, x1, y, x1, y1, r0, g0, b0, r1, g1, b1);

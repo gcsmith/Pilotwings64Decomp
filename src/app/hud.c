@@ -374,7 +374,7 @@ void hudDrawCannonball(HUDState* arg0) {
         uvGfxStatePush();
         uvGfxSetFlags(GFX_STATE_800000);
         uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
-        uvGfx_80223A28(0x12D);
+        uvGfxBindTexture(0x12D);
         uvVtxBeginPoly();
         uvVtx(27, 44, 0, 0, 0, 255, 255, 255, 255);
         uvVtx(48, 44, 0, 0x2A0, 0, 255, 255, 255, 255);
@@ -385,7 +385,7 @@ void hudDrawCannonball(HUDState* arg0) {
         uvGfxStatePush();
         uvGfxSetFlags(GFX_STATE_800000);
         uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
-        uvGfx_80223A28(0x12B);
+        uvGfxBindTexture(0x12B);
         uvVtxBeginPoly();
         uvVtx(29, 55, 0, 0, 0, 255, 255, 255, 255);
         uvVtx(43, 55, 0, 0x1C0, 0, 255, 255, 255, 255);
@@ -396,7 +396,7 @@ void hudDrawCannonball(HUDState* arg0) {
         uvGfxStatePush();
         uvGfxSetFlags(GFX_STATE_800000);
         uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
-        uvGfx_80223A28(0x12A);
+        uvGfxBindTexture(0x12A);
         uvVtxBeginPoly();
         uvVtx(29, 119, 0, 0, 0, 255, 255, 255, 255);
         uvVtx(43, 119, 0, 0x1C0, 0, 255, 255, 255, 255);
@@ -423,7 +423,7 @@ void hudDrawCannonball(HUDState* arg0) {
             uvGfxStatePush();
             uvGfxSetFlags(GFX_STATE_800000);
             uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
-            uvGfx_80223A28(0x12C);
+            uvGfxBindTexture(0x12C);
             uvVtxBeginPoly();
             uvVtx(temp_s1_2 + 28, 206, 0, 0, 0, 255, 255, 255, 255);
             uvVtx(temp_s1_2 + 43, 206, 0, 0x1C0, 0, 255, 255, 255, 255);
@@ -534,7 +534,7 @@ void hudDrawCannonball(HUDState* arg0) {
             uvGfxStatePush();
             uvGfxSetFlags(GFX_STATE_800000);
             uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
-            uvGfx_80223A28(0x130);
+            uvGfxBindTexture(0x130);
             uvVtxBeginPoly();
             uvVtx(temp_s1_2, 26, 0, spEC, 0, 255, 255, 255, 255);
             uvVtx(spF8, 26, 0, spE8, 0, 255, 255, 255, 255);
@@ -549,7 +549,7 @@ void hudDrawCannonball(HUDState* arg0) {
             uvGfxStatePush();
             uvGfxSetFlags(GFX_STATE_800000);
             uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
-            uvGfx_80223A28(D_8034F918[sp60[i].unk10]);
+            uvGfxBindTexture(D_8034F918[sp60[i].unk10]);
             uvVtxBeginPoly();
             uvVtx(temp_s1_2, 31, 0, spEC, 0, 255, 215, 0, 255);
             uvVtx(spF8, 31, 0, spE8, 0, 255, 215, 0, 255);
@@ -600,7 +600,7 @@ void hudDrawCannonball(HUDState* arg0) {
         uvGfxStatePush();
         uvGfxSetFlags(GFX_STATE_800000);
         uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
-        uvGfx_80223A28(0x12E);
+        uvGfxBindTexture(0x12E);
         uvVtxBeginPoly();
         uvVtx(266, 51, 0, 0, var_s0_3, 255, 215, 0, 255);
         uvVtx(276, 51, 0, 0x140, var_s0_3, 255, 215, 0, 255);
@@ -611,7 +611,7 @@ void hudDrawCannonball(HUDState* arg0) {
         uvGfxStatePush();
         uvGfxSetFlags(GFX_STATE_800000);
         uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
-        uvGfx_80223A28(0x12F);
+        uvGfxBindTexture(0x12F);
         uvVtxBeginPoly();
         uvVtx(275, 51, 0, 0, var_s0_3, 255, 255, 255, 255);
         uvVtx(282, 51, 0, 0xE0, var_s0_3, 255, 255, 255, 255);
@@ -645,7 +645,7 @@ void hudDrawSkyDiving(HUDState* hud) {
     // the transition from diving formations and landing. it transitions 00->FF->00
     if (hud->cloudFade != 0) {
         uvGfxStatePush();
-        uvGfxSetFlags(GFX_STATE_800000 | 0xFFF);
+        uvGfxSetFlags(GFX_STATE_800000 | GFX_STATE_TEXTURE_NONE);
         uvVtxBeginPoly();
         uvVtx(10, 18, 0, 0, 0, 0xFF, 0xFF, 0xFF, hud->cloudFade);
         uvVtx(310, 18, 0, 0, 0, 0xFF, 0xFF, 0xFF, hud->cloudFade);
@@ -706,7 +706,7 @@ void hudDrawCamera(HUDState* hud) {
         } else {
             x = hud->cameraState * (240 / CAMERA_SHUTTER_FRAMES);
         }
-        uvGfx_80223A28(0xFFF);
+        uvGfxBindTexture(GFX_STATE_TEXTURE_NONE);
         uvVtxRect(0, SCREEN_HEIGHT - 1, x, 0);
         uvVtxRect(SCREEN_WIDTH - 1 - x, SCREEN_HEIGHT - 1, SCREEN_WIDTH - 1, 0);
         hud->cameraState--;
@@ -1011,7 +1011,7 @@ void hudDrawRadar(s32 x, s32 y, f32 xOff, f32 yOff, f32 heading, f32 pitch, HUDR
     uvGfxStatePush();
     uvGfxSetFlags(GFX_STATE_800000);
     uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
-    uvGfx_80223A28(0x124);
+    uvGfxBindTexture(0x124);
     uvVtxBeginPoly();
     uvVtx(-35, -35, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
     uvVtx(0, -35, 0, 1088, 0, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -1019,7 +1019,7 @@ void hudDrawRadar(s32 x, s32 y, f32 xOff, f32 yOff, f32 heading, f32 pitch, HUDR
     uvVtx(-35, 0, 0, 0, 1088, 0xFF, 0xFF, 0xFF, 0xFF);
     uvVtxEndPoly();
 
-    uvGfx_80223A28(0x125);
+    uvGfxBindTexture(0x125);
     uvVtxBeginPoly();
     uvVtx(0, -35, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
     uvVtx(35, -35, 0, 1088, 0, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -1027,7 +1027,7 @@ void hudDrawRadar(s32 x, s32 y, f32 xOff, f32 yOff, f32 heading, f32 pitch, HUDR
     uvVtx(0, 0, 0, 0, 1088, 0xFF, 0xFF, 0xFF, 0xFF);
     uvVtxEndPoly();
 
-    uvGfx_80223A28(0x123);
+    uvGfxBindTexture(0x123);
     uvVtxBeginPoly();
     uvVtx(0, 0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
     uvVtx(35, 0, 0, 1088, 0, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -1035,7 +1035,7 @@ void hudDrawRadar(s32 x, s32 y, f32 xOff, f32 yOff, f32 heading, f32 pitch, HUDR
     uvVtx(0, 35, 0, 0, 1088, 0xFF, 0xFF, 0xFF, 0xFF);
     uvVtxEndPoly();
 
-    uvGfx_80223A28(0x122);
+    uvGfxBindTexture(0x122);
     uvVtxBeginPoly();
     uvVtx(-35, 0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
     uvVtx(0, 0, 0, 1088, 0, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -1068,7 +1068,7 @@ void hudDrawRadar(s32 x, s32 y, f32 xOff, f32 yOff, f32 heading, f32 pitch, HUDR
     uvGfxStatePush();
     uvGfxSetFlags(GFX_STATE_800000);
     uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
-    uvGfx_80223A28(0x136);
+    uvGfxBindTexture(0x136);
     uvVtxBeginPoly();
     uvVtx(temp_fs0 - 4.0f, temp_ft3, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
     uvVtx(temp_fs0 + 4.0f, temp_ft3, 0, 224, 0, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -1338,7 +1338,7 @@ void hudDrawFuel(s32 x, s32 y, f32 fuel) {
     uvGfxStatePush();
     uvGfxSetFlags(GFX_STATE_800000);
     uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
-    uvGfx_80223A28(0xFFF);
+    uvGfxBindTexture(GFX_STATE_TEXTURE_NONE);
     uvVtxBeginPoly();
     uvVtx(curX1, curY1, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0x00);
     uvVtx(curX2, curY1, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0x00);
@@ -1426,7 +1426,7 @@ void hudDrawAltimeter(s32 x, s32 y, s32 altitude) {
         uvGfxStatePush();
         uvGfxSetFlags(GFX_STATE_800000);
         uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
-        uvGfx_80223A28(0xFFF);
+        uvGfxBindTexture(GFX_STATE_TEXTURE_NONE);
         uvVtxBeginPoly();
         dx = x;
         dy = y;
@@ -1485,7 +1485,7 @@ void hudDrawAltimeter(s32 x, s32 y, s32 altitude) {
         uvGfxStatePush();
         uvGfxSetFlags(GFX_STATE_800000);
         uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
-        uvGfx_80223A28(0xFFF);
+        uvGfxBindTexture(GFX_STATE_TEXTURE_NONE);
         uvVtxBeginPoly();
         uvVtx(sp72 - 5, sp40 - 5, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0);
         curX = dx + 23;
@@ -1497,7 +1497,7 @@ void hudDrawAltimeter(s32 x, s32 y, s32 altitude) {
 
         uvGfxStatePush();
         uvGfxClearFlags(GFX_STATE_800000 | GFX_STATE_400000 | GFX_STATE_200000);
-        uvGfx_80223A28(0xFFF);
+        uvGfxBindTexture(GFX_STATE_TEXTURE_NONE);
         uvVtxBeginPoly();
         uvVtx(sp72, sp40, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
         uvVtx(curX, sp40, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -1679,7 +1679,7 @@ void hudDrawBox(HUDState* hud) {
     uvGfxStatePush();
     uvGfxSetFlags(GFX_STATE_800000 | GFX_STATE_400000);
     uvGfxClearFlags(GFX_STATE_200000);
-    uvGfx_80223A28(0xFFF);
+    uvGfxBindTexture(GFX_STATE_TEXTURE_NONE);
     uvVtxBeginPoly();
     uvVtx(10, 18, 0, 0, 0, r, g, b, a);
     uvVtx(310, 18, 0, 0, 0, r, g, b, a);

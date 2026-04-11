@@ -151,7 +151,7 @@ s32 env_802E0CF0(void) {
     }
     uvEnvProps2(D_80362690->envId, 1, &sp4B, &sp4A, &sp49, &sp48, 0);
     uvGfxStatePush();
-    uvGfxSetFlags(GFX_STATE_800000 | GFX_STATE_400000 | GFX_STATE_20000 | 0xFFF);
+    uvGfxSetFlags(GFX_STATE_800000 | GFX_STATE_400000 | GFX_STATE_20000 | GFX_STATE_TEXTURE_NONE);
     uvGfxClearFlags(GFX_STATE_1000000 | GFX_STATE_200000);
     uvGfx_802236CC(&spA8);
     uvVtxBeginPoly();

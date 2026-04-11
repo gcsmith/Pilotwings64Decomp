@@ -609,7 +609,7 @@ void testMenuDraw(Camera* arg0, u8 classIdx, u8 vehIdx) {
                 uvGfxStatePush();
                 uvGfxSetFlags(GFX_STATE_800000);
                 uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
-                uvGfx_80223A28(0x11B);
+                uvGfxBindTexture(0x11B);
                 uvVtxBeginPoly();
                 uvVtx(31, 142, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
                 uvVtx(31, 127, 0, 0, 0x1E0, 0xFF, 0xFF, 0xFF, 0xFF);
