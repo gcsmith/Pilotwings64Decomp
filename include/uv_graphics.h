@@ -430,7 +430,7 @@ void uvGfxStatePop(void);
 void uvGfxSetFlags(s32 flags);
 void uvGfxClearFlags(s32 flags);
 void uvGfxBindTexture(s32 flags);
-void uvGfx_80223A64(s32 arg0, s32 arg1);
+void uvGfx_80223A64(s32 textureId, s32 arg1);
 void uvGfxWaitForMesg(void);
 void uvGfxEnableGamma(s32 enable);
 void uvGfxSetUnkState0(s32 arg0);
