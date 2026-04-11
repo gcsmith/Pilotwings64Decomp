@@ -118,7 +118,7 @@ ASM_DEFINES    = -D_LANGUAGE_ASSEMBLY
 
 MIPSISET       = -mips2 -32
 
-INCLUDE_CFLAGS = -I. -Isrc -Iinclude -Iinclude/libultra -Iinclude/libultra/PR -Iinclude/libultra/compiler/ido -Ibin
+INCLUDE_CFLAGS = -I. -Isrc -Iinclude -Iinclude/kernel -Iinclude/libultra -Iinclude/libultra/PR -Iinclude/libultra/compiler/ido -Ibin
 
 ASFLAGS        = -EB -mtune=vr4300 -march=vr4300 -mabi=32 -I include
 OBJCOPYFLAGS   = -O binary
