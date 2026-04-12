@@ -186,6 +186,10 @@ void uvWaitForMesg(char msg_type) {
     }
 }
 
+#if defined(VERSION_JP)
+// JP does not have switch block, hardcodes viMode to OS_VI_NTSC_LAN1
+#pragma GLOBAL_ASM("asm/nonmatchings/kernel/system/uvSetVideoMode.s")
+#else
 void uvSetVideoMode(void) {
     s32 viMode;
 
@@ -206,6 +210,7 @@ void uvSetVideoMode(void) {
     _uvScCreateScheduler(&gSchedInst, gSchedStack + sizeof(gSchedStack), OS_PRIORITY_APPMAX, viMode, 1);
     _uvScAddClient(&gSchedInst, &gSchedClient, &D_802C3B50);
 }
+#endif
 
 void bootproc(void* arg0) {
     u32 devAddr; // var_s1
