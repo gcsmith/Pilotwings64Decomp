@@ -105,14 +105,21 @@ _uvEnvDraw          = 0x8021872C; // type:func
 uvSeqModel          = 0x80218D00; // type:func
 uvSeqProps          = 0x80218DB8; // type:func
 
-uvParseTopUVFT      = 0x80219270; // type:func
-uvFontSet           = 0x802194D8; // type:func
-uvFontScale         = 0x80219550; // type:func
-uvFontColor         = 0x8021956C; // type:func
-uvFontWidth         = 0x802197EC; // type:func
-uvFontHeight        = 0x80219828; // type:func
-uvFontPrintStr      = 0x80219ACC; // type:func
-uvFontGenDlist      = 0x80219EA8; // type:func
+uvParseTopUVFT       = 0x80219270; // type:func
+uvFontSet            = 0x802194D8; // type:func
+uvFontScale          = 0x80219550; // type:func
+uvFontColor          = 0x8021956C; // type:func
+uvFontStrLen         = 0x802195A0; // type:func
+uvFontStr16WidthFont = 0x802195DC; // type:func
+uvFontStr16Width     = 0x802196B0; // type:func
+uvFontStrWidth       = 0x802196EC; // type:func
+uvFontWidth          = 0x802197EC; // type:func
+uvFontHeight         = 0x80219828; // type:func
+uvFontPrintStr16     = 0x80219874; // type:func
+uvFontPrintStr       = 0x80219ACC; // type:func
+uvFontSpriteWidth    = 0x80219CC0; // type:func
+uvFontMsgGenDlist    = 0x80219DA4; // type:func
+uvFontGenDlist       = 0x80219EA8; // type:func
 
 uvFxProps           = 0x8021A540; // type:func
 uvFxGetProps        = 0x8021B52C; // type:func
@@ -456,6 +463,11 @@ sFontColorB               = 0x80248E6C;
 sFontColorA               = 0x80248E70;
 sFontScaleX               = 0x80248E7C;
 sFontScaleY               = 0x80248E80;
+sFontSprite               = 0x80248E20; // size:0x44
+sFontCurId                = 0x80248E84;
+sFontCurWidth             = 0x80248E88;
+sFontMsgCount             = 0x80248E8C;
+
 gGfxDList1                = 0x80249140;
 gGfxDList2                = 0x802491B0;
 gGfxGammaEnabled          = 0x802491EC;
@@ -508,6 +520,10 @@ D_80263780                = 0x80263780; // size:0x1900
 D_80269B80                = 0x80269B80; // size:0x12C
 
 D_80269F50                = 0x80269F50; // size:0xF0
+
+sFontBitmaps              = 0x8026A040; // size:0x2C0
+sFontDList                = 0x8026A300; // size:0x1F080
+sFontMessages             = 0x80289380; // size:0xD20
 
 osViModeTable             = 0x8024B7D0;
 osViModeNtscLan1          = 0x8024C4A0;

@@ -923,7 +923,7 @@ void func_8033A244(s32 arg0, Unk80373060* arg1) {
         uvMat4Copy(sp40, &sp44);
     } else {
         uvGfxBegin();
-        uvGfxClearScreen(80, 80, 80, 255);
+        uvGfxClearScreen(0x50, 0x50, 0x50, 0xFF);
         uvGfxEnd();
     }
 }
@@ -947,10 +947,10 @@ void func_8033A664(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 void func_8033A6B8(void) {
     func_8033A664(0, SCREEN_WIDTH, 0, SCREEN_HEIGHT);
     uvGfxBegin();
-    uvGfxClearScreen(0, 0, 0, 255);
+    uvGfxClearScreen(0x00, 0x00, 0x00, 0xFF);
     uvGfxEnd();
     uvGfxBegin();
-    uvGfxClearScreen(0, 0, 0, 255);
+    uvGfxClearScreen(0x00, 0x00, 0x00, 0xFF);
     uvGfxEnd();
 }
 
@@ -1145,10 +1145,10 @@ void func_8033ADD4(s32 arg0, Unk80373060* arg1, s32 arg2, s32 arg3) {
         uvVtxEndPoly();
         uvGfxStatePop();
         uvFontSet(6);
-        uvFontColor(255, 255, 255, 255);
+        uvFontColor(0xFF, 0xFF, 0xFF, 0xFF);
         uvFontScale(1.0, 1.0);
         textFmtInt(&sp44, PHOTO_COUNT_MAX - D_80350528, 3);
-        func_80219874(0xF5, 0x19, &sp44, 3, 0xFFE);
+        uvFontPrintStr16(0xF5, 0x19, &sp44, 3, 0xFFE);
 
         var_v1 = (((arg1->test == 0) && (arg1->cls == CLASS_A)) || ((arg1->test == 1) && (arg1->cls == CLASS_B)) ||
                   ((arg1->test == 2) && (arg1->cls == CLASS_PILOT))) &&
@@ -1158,29 +1158,29 @@ void func_8033ADD4(s32 arg0, Unk80373060* arg1, s32 arg2, s32 arg3) {
             if ((arg1->unk3C * arg1->unk38) > 0.0f) {
                 uvFontSet(6);
                 uvFontScale(1.0, 1.0);
-                uvFontColor(255, 255, 255, 255);
+                uvFontColor(0xFF, 0xFF, 0xFF, 0xFF);
                 textFmtInt(&sp44, func_8034AD14(arg1->unk3C * arg1->unk38), 3);
-                func_80219874(194, 200, &sp44, 3, 0xFFE);
-                func_80219874(230, 200, textGetDataByIdx(0xF5), 100, 0xFFE);
+                uvFontPrintStr16(194, 200, &sp44, 3, 0xFFE);
+                uvFontPrintStr16(230, 200, textGetDataByIdx(0xF5), 100, 0xFFE);
                 if (arg1->unk6C != 0) {
-                    uvFontColor(255, 240, 0, 255);
-                    func_80219874(54, 200, textGetDataByIdx(0xD), 100, 0xFFE);
+                    uvFontColor(0xFF, 0xF0, 0x00, 0xFF);
+                    uvFontPrintStr16(54, 200, textGetDataByIdx(0xD), 100, 0xFFE);
                 } else {
-                    func_80219874(54, 200, textGetDataByIdx(0xA4), 100, 0xFFE);
+                    uvFontPrintStr16(54, 200, textGetDataByIdx(0xA4), 100, 0xFFE);
                 }
             } else {
                 uvFontSet(6);
-                uvFontColor(255, 0, 0, 255);
+                uvFontColor(0xFF, 0x00, 0x00, 0xFF);
                 uvFontScale(1.0, 1.0);
-                func_80219874(54, 200, textGetDataByIdx(0x136), 100, 0xFFE);
+                uvFontPrintStr16(54, 200, textGetDataByIdx(0x136), 100, 0xFFE);
             }
         }
     } else if (arg0 == 1) {
         uvFontSet(6);
         uvFontScale(1.0, 1.0);
-        uvFontColor(255, 255, 255, 255);
-        sp3C = func_802196B0(textGetDataByIdx(arg1->unk40));
-        func_80219874(160 - (sp3C / 2), 200, textGetDataByIdx(arg1->unk40), 0x16, 0xFFE);
+        uvFontColor(0xFF, 0xFF, 0xFF, 0xFF);
+        sp3C = uvFontStr16Width(textGetDataByIdx(arg1->unk40));
+        uvFontPrintStr16(160 - (sp3C / 2), 200, textGetDataByIdx(arg1->unk40), 0x16, 0xFFE);
         uvGfxStatePush();
         uvGfxSetFlags(GFX_STATE_800000);
         uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
@@ -1416,9 +1416,9 @@ s32 func_8033D3EC(s32 arg0, s32 arg1, Unk80373060* arg2, s32* arg3, s32* arg4) {
     s32 spBC;
     f32 temp_fs0;
     f32 temp_fv0;
-    f32 spB0;
-    f32 spAC;
-    f32 spA8;
+    f32 r;
+    f32 g;
+    f32 b;
     s32 var_s6;
 
     spC0 = FALSE;
@@ -1474,11 +1474,11 @@ s32 func_8033D3EC(s32 arg0, s32 arg1, Unk80373060* arg2, s32* arg3, s32* arg4) {
                 D_803505A8 = -D_803505A8;
             }
 
-            fileMenuColorLerp(D_803505A4, 44.0f, 214.0f, 44.0f, 145.0f, 183.0f, 255.0f, &spB0, &spAC, &spA8);
+            fileMenuColorLerp(D_803505A4, 44.0f, 214.0f, 44.0f, 145.0f, 183.0f, 255.0f, &r, &g, &b);
             uvFontSet(6);
-            uvFontColor((s32)spB0, (s32)spAC, (s32)spA8, 255);
+            uvFontColor((s32)r, (s32)g, (s32)b, 0xFF);
             uvFontScale(1.0, 1.0);
-            func_80219874(70, 190, textGetDataByIdx(0x139), 100, 0xFFE);
+            uvFontPrintStr16(70, 190, textGetDataByIdx(0x139), 100, 0xFFE);
             uvFontGenDlist();
             uvGfxEnd();
             if ((demoButtonPress(0, B_BUTTON) != 0) || ((arg1 == 0) && (demoButtonPress(0, START_BUTTON) != 0))) {

@@ -725,16 +725,16 @@ void func_8030F818(void) {
     s32 var_s3;
     s32 var_s4;
     char spA4[4];
-    s16* temp_v0;
+    s16* str16;
     s32 sp9C;
     s32 sp98;
     s32 sp94;
     s32 var_v0;
     s32 var_v1;
     Unk80364210* sp88;
-    f32 sp84;
-    f32 sp80;
-    f32 sp7C;
+    f32 r;
+    f32 g;
+    f32 b;
     Camera* camera;
 
     camera = D_80362690->unkC[D_80362690->unk9C].unk70;
@@ -749,10 +749,10 @@ void func_8030F818(void) {
         D_8034F7DC = 0.0f;
         D_8034F7E0 = -D_8034F7E0;
     }
-    fileMenuColorLerp(D_8034F7DC, 44.0f, 214.0f, 44.0f, 145.0f, 183.0f, 255.0f, &sp84, &sp80, &sp7C);
-    uvFontColor(sp84, sp80, sp7C, 0xFFU);
-    temp_v0 = textGetDataByIdx(0x105); // "SELECT VEHICLE & CLASS"
-    func_80219874(0xA0 - (func_802196B0(temp_v0) / 2), 206, temp_v0, 40, 0xFFE);
+    fileMenuColorLerp(D_8034F7DC, 44.0f, 214.0f, 44.0f, 145.0f, 183.0f, 255.0f, &r, &g, &b);
+    uvFontColor(r, g, b, 0xFF);
+    str16 = textGetDataByIdx(0x105); // "SELECT VEHICLE & CLASS"
+    uvFontPrintStr16((SCREEN_WIDTH / 2) - (uvFontStr16Width(str16) / 2), 206, str16, 40, 0xFFE);
     uvFontSet(3);
     uvFontScale(1.0, 1.0);
     fontWidth = uvFontWidth("A");
@@ -798,11 +798,11 @@ void func_8030F818(void) {
                 }
                 uvFontSet(3);
                 uvFontScale(1.0, 1.0);
-                uvFontColor(0xBEU, 0xBEU, 0xBEU, 0xFFU);
+                uvFontColor(0xBE, 0xBE, 0xBE, 0xFF);
                 uvFontPrintStr(var_s0, var_s4, spA4);
                 uvFontSet(3);
                 uvFontScale(0.699999988079071, 1.0);
-                uvFontColor(0xAAU, 0xAAU, 0xAAU, 0xFFU);
+                uvFontColor(0xAA, 0xAA, 0xAA, 0xFF);
                 if (D_8034F7B0 == 0) {
                     var_v0 = (var_s3 * 48) + 0x51;
                 } else {

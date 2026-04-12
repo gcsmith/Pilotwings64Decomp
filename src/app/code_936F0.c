@@ -239,22 +239,22 @@ void func_8030C6A0(void) {
     uvSprtDraw(1);
     uvFontSet(6);
     uvFontScale(1.0, 1.0);
-    uvFontColor(250, 250, 250, 255);
-    func_80219874(((160 - (func_802196B0(sp70) / 2)) + 8.0f), 0x78, sp70, 0x28, 0xFFE);
+    uvFontColor(0xFA, 0xFA, 0xFA, 0xFF);
+    uvFontPrintStr16(((160 - (uvFontStr16Width(sp70) / 2)) + 8.0f), 120, sp70, 0x28, 0xFFE);
     if (sp74->veh != 6) {
         uvFontSet(6);
         uvFontScale(1.0, 1.0);
-        uvFontColor(200, 200, 0, 255);
-        func_80219874(((160 - (func_802196B0(sp68) / 2)) + 8.0f), 0x4B, sp68, 0x28, 0xFFE);
+        uvFontColor(0xC8, 0xC8, 0x00, 0xFF);
+        uvFontPrintStr16(((160 - (uvFontStr16Width(sp68) / 2)) + 8.0f), 75, sp68, 0x28, 0xFFE);
         uvFontSet(6);
         uvFontScale(1.0, 1.0);
-        uvFontColor(180, 180, 250, 255);
+        uvFontColor(0xB4, 0xB4, 0xFA, 255);
         if (var_v1 != 4) {
-            sp4C = 160 - ((func_802196B0(sp6C) + 0x24) / 2);
-            func_80219874(sp4C + 0x24, 0x23, sp6C, 0x28, 0xFFE);
-            func_80219874(sp4C, 0x23, sp5C, 0x28, 0xFFE);
+            sp4C = 160 - ((uvFontStr16Width(sp6C) + 0x24) / 2);
+            uvFontPrintStr16(sp4C + 36, 35, sp6C, 0x28, 0xFFE);
+            uvFontPrintStr16(sp4C, 35, sp5C, 0x28, 0xFFE);
         } else {
-            func_80219874(((160 - (func_802196B0(sp6C) / 2)) + 8.0f), 0x23, sp6C, 0x28, 0xFFE);
+            uvFontPrintStr16(((160 - (uvFontStr16Width(sp6C) / 2)) + 8.0f), 35, sp6C, 0x28, 0xFFE);
         }
     }
     uvFontGenDlist();

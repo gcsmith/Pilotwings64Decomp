@@ -63,7 +63,7 @@ STATIC_FUNC void saveFatalError(char* msg) {
     xScreen = (SCREEN_WIDTH / 2) - (uvFontWidth(msg) / 2);
     for (;;) {
         uvGfxBegin();
-        uvGfxClearScreen(0, 0, 0, 0);
+        uvGfxClearScreen(0x00, 0x00, 0x00, 0x00);
         uvFontPrintStr(xScreen, 100, msg);
         uvFontGenDlist();
         uvGfxEnd();

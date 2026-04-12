@@ -225,7 +225,7 @@ void func_8032C540(Unk80362690* arg0) {
             var_s4 = var_s4 == 0;
         }
         if (var_s4) {
-            uvFontColor(0xFF, 0xFF, 0U, 0xFF);
+            uvFontColor(0xFF, 0xFF, 0x00, 0xFF);
             uvFontPrintStr(20, 200, "REPLAY");
             uvFontGenDlist();
         }
@@ -522,19 +522,19 @@ void func_8032D90C(void) {
     f32 r;
     f32 g;
     f32 b;
-    s16* temp_s4;
-    s16* temp_s5;
-    s16* temp_s6;
-    s16* temp_s7;
+    s16* msg2;
+    s16* msg3;
+    s16* msg4;
+    s16* msg1;
     u8 r2, g2, b2;
 
     var_fs0 = 0.0f;
     uvLevelAppend(0x2E);
     textLoadBlock(0x42);
-    temp_s7 = textGetDataByIdx(0x22);  // "The controller is"
-    temp_s4 = textGetDataByIdx(0x152); // "not connected correctly."
-    temp_s5 = textGetDataByIdx(0xCD);  // "Connect to socket1"
-    temp_s6 = textGetDataByIdx(0x47);  // "and try again."
+    msg1 = textGetDataByIdx(0x22);  // "The controller is"
+    msg2 = textGetDataByIdx(0x152); // "not connected correctly."
+    msg3 = textGetDataByIdx(0xCD);  // "Connect to socket1"
+    msg4 = textGetDataByIdx(0x47);  // "and try again."
     while (1) {
         var_fs0 += 0.003f;
         if (var_fs0 > 1.0f) {
@@ -545,16 +545,16 @@ void func_8032D90C(void) {
         g2 = 255.0f * g;
         b2 = 255.0f * b;
         uvGfxBegin();
-        uvGfxClearScreen(0, 0, 0, 0xFF);
+        uvGfxClearScreen(0x00, 0x00, 0x00, 0xFF);
         func_80314154();
         uvGfxSetFlags(GFX_STATE_400000);
         uvFontSet(6);
         uvFontScale(1.0, 1.0);
         uvFontColor(r2, g2, b2, 0xFF);
-        func_80219874((SCREEN_WIDTH / 2) - ((func_802196B0(temp_s7) - 0x10) / 2), 155, temp_s7, 0x3C, 0xFFE);
-        func_80219874((SCREEN_WIDTH / 2) - ((func_802196B0(temp_s4) - 0x10) / 2), 135, temp_s4, 0x3C, 0xFFE);
-        func_80219874((SCREEN_WIDTH / 2) - ((func_802196B0(temp_s5) - 0x10) / 2), 115, temp_s5, 0x3C, 0xFFE);
-        func_80219874((SCREEN_WIDTH / 2) - ((func_802196B0(temp_s6) - 0x10) / 2), 95, temp_s6, 0x3C, 0xFFE);
+        uvFontPrintStr16((SCREEN_WIDTH / 2) - ((uvFontStr16Width(msg1) - 16) / 2), 155, msg1, 0x3C, 0xFFE);
+        uvFontPrintStr16((SCREEN_WIDTH / 2) - ((uvFontStr16Width(msg2) - 16) / 2), 135, msg2, 0x3C, 0xFFE);
+        uvFontPrintStr16((SCREEN_WIDTH / 2) - ((uvFontStr16Width(msg3) - 16) / 2), 115, msg3, 0x3C, 0xFFE);
+        uvFontPrintStr16((SCREEN_WIDTH / 2) - ((uvFontStr16Width(msg4) - 16) / 2), 95, msg4, 0x3C, 0xFFE);
         uvFontGenDlist();
         func_803141E4();
         uvGfxEnd();

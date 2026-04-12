@@ -460,17 +460,17 @@ STATIC_FUNC void func_802DE5B0(Camera* arg0, Unk80367868* arg1) {
         D_8034EED8 = -D_8034EED8;
     }
     fileMenuColorLerp(D_8034EED4, 44.0f, 214.0f, 44.0f, 145.0f, 183.0f, 255.0f, &r, &g, &b);
-    uvFontColor(r, g, b, 255);
+    uvFontColor(r, g, b, 0xFF);
     selectPilotText = textGetDataByIdx(0x170); // "SELECT PILOT"
     if (selectPilotText != NULL) {
-        temp = (0xA0 - (func_802196B0(selectPilotText) / 2));
-        func_80219874(temp, 0xCE, selectPilotText, 0x14, 0xFFE);
+        temp = ((SCREEN_WIDTH / 2) - (uvFontStr16Width(selectPilotText) / 2));
+        uvFontPrintStr16(temp, 0xCE, selectPilotText, 0x14, 0xFFE);
     }
     pilotName = textGetDataByIdx(arg1->unk4[D_8034EDC0].textId);
     uvFontSet(6);
-    uvFontColor(255, 255, 255, 255);
+    uvFontColor(0xFF, 0xFF, 0xFF, 0xFF);
     uvFontScale(1.0, 1.0);
-    func_80219874(((0x1A9 - func_802196B0(pilotName)) / 2) + 8, 0x1E, pilotName, 0x14, 0xFFE);
+    uvFontPrintStr16(((425 - uvFontStr16Width(pilotName)) / 2) + 8, 30, pilotName, 0x14, 0xFFE);
     uvFontGenDlist();
 }
 

@@ -10,6 +10,7 @@
 #include "game.h"
 #include "snd.h"
 #include "text_data.h"
+#include "uv_graphics.h"
 #include <uv_environment.h>
 #include <uv_event.h>
 #include <uv_font.h>
@@ -20,9 +21,9 @@
 #define DOUBLE_ONE (2.0 - 1.0)
 
 typedef struct {
-    const char* unk0;
+    const char* str;
     s16 type;
-    s16 unk6; // updated with some sort of row count or something?
+    s16 yOffset;
 } CreditLines;
 
 CreditLines D_8034F4E0[] = {
@@ -182,7 +183,7 @@ void credits_8030CDA0(s32 timeOfDay) {
 
     var_v0 = 0;
     prevType = D_8034F4E0[0].type;
-    for (i = 0; D_8034F4E0[i].unk0 != NULL; i++) {
+    for (i = 0; D_8034F4E0[i].str != NULL; i++) {
         credLine = &D_8034F4E0[i];
         if (prevType != credLine->type) {
             switch (prevType) {
@@ -205,7 +206,7 @@ void credits_8030CDA0(s32 timeOfDay) {
             prevType = credLine->type;
         }
 
-        credLine->unk6 = var_v0;
+        credLine->yOffset = var_v0;
         switch (credLine->type) {
         case 1:
             var_v0 -= 30.0f;
@@ -303,23 +304,23 @@ void creditsScene(void) {
     Camera* var_v1;
     s32 i;
     s32 sp74;
-    s32 sp70;
-    s16* sp6C;
-    s16* sp68;
-    s16* sp64;
+    s32 y;
+    s16* text6C;
+    s16* text68;
+    s16* text64;
     s32 sp60;
-    s32 var_s0;
-    f32 sp58;
-    f32 sp54;
-    f32 sp50;
+    s32 a;
+    f32 r;
+    f32 g;
+    f32 b;
 
     var_v1 = D_80362690->unkC[D_80362690->unk9C].unk70;
 
     func_80204FC4(var_v1->unk22C);
     sp74 = (s32)(D_8034F780 + 0.5f);
-    for (i = 0; D_8034F4E0[i].unk0 != NULL; i++) {
-        sp70 = D_8034F4E0[i].unk6 + sp74;
-        if ((sp70 >= -0x20) && (sp70 <= 0xF0)) {
+    for (i = 0; D_8034F4E0[i].str != NULL; i++) {
+        y = D_8034F4E0[i].yOffset + sp74;
+        if ((y >= -32) && (y <= SCREEN_HEIGHT)) {
             switch (D_8034F4E0[i].type) {
             case 1:
             case 5:
@@ -335,11 +336,11 @@ void creditsScene(void) {
             case 3:
             case 4:
                 uvFontScale(1, 1);
-                uvFontColor(0xD2, 0xD2, 0, 0xFF);
+                uvFontColor(0xD2, 0xD2, 0x00, 0xFF);
                 uvFontSet(4);
                 break;
             }
-            uvFontPrintStr(160 - (uvFontWidth(D_8034F4E0[i].unk0) / 2), sp70, D_8034F4E0[i].unk0);
+            uvFontPrintStr(160 - (uvFontWidth(D_8034F4E0[i].str) / 2), y, D_8034F4E0[i].str);
         }
     }
 
@@ -354,22 +355,22 @@ void creditsScene(void) {
         }
 
         if ((D_8034F78C + DOUBLE_ONE) < D_8034F850) {
-            var_s0 = 255;
+            a = 255;
         } else {
-            var_s0 = ((D_8034F850 - D_8034F78C) * DOUBLE_ONE * 255.0);
+            a = ((D_8034F850 - D_8034F78C) * DOUBLE_ONE * 255.0);
         }
         if (D_8036A8B0 == 2) {
-            sp6C = textGetDataByIdx(0x7E);
-            sp68 = textGetDataByIdx(0x2C);
-            sp64 = textGetDataByIdx(0x10B);
+            text6C = textGetDataByIdx(0x7E);
+            text68 = textGetDataByIdx(0x2C);
+            text64 = textGetDataByIdx(0x10B);
         } else if (D_8036A8B0 == 3) {
-            sp6C = textGetDataByIdx(0xBB);
-            sp68 = textGetDataByIdx(0x118);
-            sp64 = textGetDataByIdx(0x18);
+            text6C = textGetDataByIdx(0xBB);
+            text68 = textGetDataByIdx(0x118);
+            text64 = textGetDataByIdx(0x18);
         } else {
-            sp6C = NULL;
+            text6C = NULL;
         }
-        if (sp6C != NULL) {
+        if (text6C != NULL) {
             uvFontSet(6);
             uvFontScale(1.0, 1.0);
             D_8034F790 += 0.2f * uvGfxGetUnkStateF();
@@ -377,21 +378,22 @@ void creditsScene(void) {
                 D_8034F790 -= 1.0f;
             }
 
-            func_8031420C(D_8034F790, 1.0f, 1.0f, &sp58, &sp54, &sp50);
-            uvFontColor(sp58 * 255.0f, sp54 * 255.0f, sp50 * 255.0f, var_s0);
-            var_s0 *= 0;
-            var_s0 += 90;
-            func_80219874(168 - (func_802196B0(sp6C) / 2), var_s0, sp6C, 100, 0xFFE);
-            var_s0 -= 20;
-            func_80219874(168 - (func_802196B0(sp68) / 2), var_s0, sp68, 100, 0xFFE);
-            var_s0 -= 40;
-            func_80219874(168 - (func_802196B0(sp64) / 2), var_s0, sp64, 100, 0xFFE);
+            func_8031420C(D_8034F790, 1.0f, 1.0f, &r, &g, &b);
+            uvFontColor(r * 255.0f, g * 255.0f, b * 255.0f, a);
+            // possibly fake: `a` is reused for y-coordinate
+            a *= 0;
+            a += 90;
+            uvFontPrintStr16(168 - (uvFontStr16Width(text6C) / 2), a, text6C, 100, 0xFFE);
+            a -= 20;
+            uvFontPrintStr16(168 - (uvFontStr16Width(text68) / 2), a, text68, 100, 0xFFE);
+            a -= 40;
+            uvFontPrintStr16(168 - (uvFontStr16Width(text64) / 2), a, text64, 100, 0xFFE);
         }
     } else {
         D_8034F78C = -1.0f;
     }
     uvFontGenDlist();
-    if (sp70 >= (sp60 + 100)) {
+    if (y >= (sp60 + 100)) {
         D_8034F784 = 0;
     }
 }

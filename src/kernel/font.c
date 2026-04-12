@@ -1,36 +1,80 @@
 #include "common.h"
 #include <uv_filesystem.h>
+#include <uv_graphics.h>
 #include <uv_memory.h>
 #include <uv_font.h>
 #include <uv_string.h>
 
-Bitmap D_8026A040[44];
-Gfx D_8026A300[7944 * 2];
-Unk80289380 D_80289380[30];
+#define FONT_MAX_MSG_LEN 44
 
-// clang-format off
-static Sprite D_80248E20 = { 
-    0, 0, 0, 0, 1.0f, 1.0f, 0, 0, 1, 0x1234, 255, 255, 255, 255, 0, 0, NULL, 0, 1, 660, 7944, 15, 128,
-    G_IM_FMT_IA, G_IM_SIZ_4b, D_8026A040, D_8026A300, NULL, 0, 0
+// struct containing a printed string's font data
+// contains position, scale, color, string, pointer to font
+typedef struct Unk80289380 {
+    s32 x;
+    s32 y;
+    f32 scaleX;
+    f32 scaleY;
+    u8 r;
+    u8 g;
+    u8 b;
+    u8 a;
+    s16 str16[FONT_MAX_MSG_LEN];
+    ParsedUVFT* font;
+} FontMessage; // size = 0x70
+
+static Bitmap sFontBitmaps[FONT_MAX_MSG_LEN];
+static Gfx sFontDList[7944 * 2];
+static FontMessage sFontMessages[30];
+
+static Sprite sFontSprite = {
+    0,            // x
+    0,            // y
+    0,            // width
+    0,            // height
+    1.0f,         // scalex
+    1.0f,         // scaley
+    0,            // expx
+    0,            // expy
+    1,            // attr
+    0x1234,       // zdepth
+    255,          // red
+    255,          // green
+    255,          // blue
+    255,          // alpha
+    0,            // startTLUT
+    0,            // nTLUT
+    NULL,         // LUT
+    0,            // istart
+    1,            // istep
+    660,          // nbitmaps
+    7944,         // ndisplist
+    15,           // bmheight
+    128,          // bmHreal
+    G_IM_FMT_IA,  // bmfmt
+    G_IM_SIZ_4b,  // bmsiz
+    sFontBitmaps, // bitmap
+    sFontDList,   // rsp_dl
+    NULL,         // rsp_dl_next
+    0,            // frac_s
+    0             // frac_t
 };
-// clang-format on
 
 static u8 sFontColorR = 0xFF;
-static u8 sFontColorB = 0xFF;
 static u8 sFontColorG = 0xFF;
+static u8 sFontColorB = 0xFF;
 static u8 sFontColorA = 0xFF;
-static u8 D_80248E74 = 0x00;
-static u8 D_80248E78 = 0x00;
+static UNUSED s32 D_80248E74 = 0;
+static UNUSED s32 D_80248E78 = 0;
 
 static f32 sFontScaleX = 1.0f;
 static f32 sFontScaleY = 1.0f;
-static u32 D_80248E84 = 0;
-static u32 D_80248E88 = 8;
-static s32 D_80248E8C = 0;
+static u32 sFontCurId = 0;
+static u32 sFontCurWidth = 8;
+static s32 sFontMsgCount = 0;
 
 ParsedUVFT* uvParseTopUVFT(s32 arg0) {
     ParsedUVFT* ret;
-    s32 temp_v0;
+    s32 idx;
     u32 nbytes;
     s32* srcAddr;
     s32 i;
@@ -40,8 +84,8 @@ ParsedUVFT* uvParseTopUVFT(s32 arg0) {
 
     imagCount = 0;
     ret = (ParsedUVFT*)_uvMemAlloc(sizeof(ParsedUVFT), 4);
-    temp_v0 = uvFileReadHeader(gUVBlockOffsets.UVFT[arg0]);
-    while ((tag = uvFileReadBlock(temp_v0, &nbytes, (void**)&srcAddr, 1)) != NULL) {
+    idx = uvFileReadHeader(gUVBlockOffsets.UVFT[arg0]);
+    while ((tag = uvFileReadBlock(idx, &nbytes, (void**)&srcAddr, 1)) != NULL) {
         switch (tag) {
         case 'STRG':
             ret->str = _uvMemAlloc(nbytes, 4);
@@ -66,7 +110,7 @@ ParsedUVFT* uvParseTopUVFT(s32 arg0) {
         }
     }
 
-    uvFile_80223F30(temp_v0);
+    uvFile_80223F30(idx);
     // update indexes to pointers allocated above
     for (i = 0; i < bitmCount; i++) {
         ret->bitmap[i].buf = ret->imag[(u32)ret->bitmap[i].buf];
@@ -74,248 +118,255 @@ ParsedUVFT* uvParseTopUVFT(s32 arg0) {
     return ret;
 }
 
-void uvFontSet(s32 arg0) {
-    if (gGfxUnkPtrs->fonts[arg0] != NULL) {
-        D_80248E84 = arg0;
+void uvFontSet(s32 fontId) {
+    if (gGfxUnkPtrs->fonts[fontId] != NULL) {
+        sFontCurId = fontId;
     } else {
-        _uvDebugPrintf("uvFontSet ( %d ) -- font does not exist in level\n", arg0);
+        _uvDebugPrintf("uvFontSet ( %d ) -- font does not exist in level\n", fontId);
     }
-    D_80248E88 = gGfxUnkPtrs->fonts[D_80248E84]->bitmap->width;
+    sFontCurWidth = gGfxUnkPtrs->fonts[sFontCurId]->bitmap->width;
 }
 
-void uvFontScale(f64 arg0, f64 arg1) {
-    sFontScaleX = (f32)arg0;
-    sFontScaleY = (f32)arg1;
+void uvFontScale(f64 x, f64 y) {
+    sFontScaleX = x;
+    sFontScaleY = y;
 }
 
-void uvFontColor(u8 r, u8 b, u8 g, u8 a) {
+void uvFontColor(u8 r, u8 g, u8 b, u8 a) {
     sFontColorR = r;
-    sFontColorB = b;
     sFontColorG = g;
+    sFontColorB = b;
     sFontColorA = a;
 }
 
-s32 func_802195A0(s16* arg0) {
-    s32 i;
+STATIC_FUNC s32 uvFontStrLen(s16* str16) {
+    s32 len;
 
-    i = 0;
-    while (i < 44 && arg0[i] != -1) {
-        i++;
+    len = 0;
+    while (len < FONT_MAX_MSG_LEN && str16[len] != -1) {
+        len++;
     }
-    return i;
+    return len;
 }
 
-s32 func_802195DC(ParsedUVFT* arg0, s16* arg1) {
-    s32 temp_v0;
+// returns scaled width of 16-bit string for a given font
+STATIC_FUNC s32 uvFontStr16WidthFont(ParsedUVFT* font, s16* str16) {
+    s32 len;
     s32 i;
-    s32 var_v1;
+    s32 pixWidth;
     s32 j;
 
-    temp_v0 = func_802195A0(arg1);
+    len = uvFontStrLen(str16);
 
-    var_v1 = 0;
-    for (i = 0, j = 0; i < temp_v0; i++, j++) {
-        if (arg1[j] == -1) {
-            return var_v1;
+    pixWidth = 0;
+    for (i = 0, j = 0; i < len; i++, j++) {
+        if (str16[j] == -1) {
+            return pixWidth;
         }
-        if ((arg1[j] >= 0) && (arg1[j] != 0xFFF) && (arg1[j] != 0xFFE)) {
-            var_v1 += arg0->bitmap[arg1[j]].width;
+        if ((str16[j] >= 0) && (str16[j] != 0xFFF) && (str16[j] != 0xFFE)) {
+            pixWidth += font->bitmap[str16[j]].width;
         } else {
-            var_v1 += D_80248E88;
+            pixWidth += sFontCurWidth;
         }
     }
 
-    return var_v1 * sFontScaleX;
+    return pixWidth * sFontScaleX;
 }
 
-s32 func_802196B0(s16* arg0) {
-    return func_802195DC(gGfxUnkPtrs->fonts[D_80248E84], arg0);
+// returns scaled width of 16-bit string for the current font
+s32 uvFontStr16Width(s16* str16) {
+    return uvFontStr16WidthFont(gGfxUnkPtrs->fonts[sFontCurId], str16);
 }
 
-s32 func_802196EC(ParsedUVFT* arg0, char* arg1) {
-    s32 temp_v0;
-    char* temp_v0_2;
-    s32 var_s0;
+// returns scaled width of ASCII string for a given font
+STATIC_FUNC s32 uvFontStrWidth(ParsedUVFT* font, const char* str) {
+    s32 len;
+    char* ch;
+    s32 width;
     s32 i;
     s32 j;
 
-    temp_v0 = uvStrlen(arg1);
+    len = uvStrlen(str);
 
-    var_s0 = 0;
-    for (i = 0, j = 0; i < temp_v0; i++, j++) {
-        if (arg1[j] == 0) {
-            return var_s0;
+    width = 0;
+    for (i = 0, j = 0; i < len; i++, j++) {
+        if (str[j] == 0) {
+            return width;
         }
-        if (arg1[j] == '\n') {
+        if (str[j] == '\n') {
             continue;
         }
-        temp_v0_2 = uvStrchr(arg0->str, arg1[j]);
-        if (temp_v0_2 != 0) {
-            var_s0 += arg0->bitmap[temp_v0_2 - arg0->str].width;
+        ch = uvStrchr(font->str, str[j]);
+        if (ch != 0) {
+            width += font->bitmap[ch - font->str].width;
         } else {
-            var_s0 += D_80248E88;
+            width += sFontCurWidth;
         }
     }
 
-    return var_s0 * sFontScaleX;
+    return width * sFontScaleX;
 }
 
-s32 uvFontWidth(char* arg0) {
-    return func_802196EC(gGfxUnkPtrs->fonts[D_80248E84], arg0);
+// returns scaled width of ASCII string for the current font
+s32 uvFontWidth(const char* str) {
+    return uvFontStrWidth(gGfxUnkPtrs->fonts[sFontCurId], str);
 }
 
+// returns scaled height for the current font
 s32 uvFontHeight(void) {
-    ParsedUVFT* temp_v1 = gGfxUnkPtrs->fonts[D_80248E84];
-    return temp_v1->bitmap[1].actualHeight * sFontScaleY;
+    ParsedUVFT* font = gGfxUnkPtrs->fonts[sFontCurId];
+    return font->bitmap[1].actualHeight * sFontScaleY;
 }
 
-s32 func_80219874(s32 arg0, s32 arg1, s16* arg2, s32 arg3, s32 arg4) {
-    s32 var_a0;
+// adds str16 to messages using current font settings
+s32 uvFontPrintStr16(s32 x, s32 y, s16* str16, s32 strLen, s32 end) {
+    s32 i16;
     s32 i;
     s32 sp24;
     s32 ret;
     ParsedUVFT* temp_v1;
-    s32 temp_s3 = arg4;
+    s32 endCh = end;
 
-    temp_v1 = gGfxUnkPtrs->fonts[D_80248E84];
+    temp_v1 = gGfxUnkPtrs->fonts[sFontCurId];
 
-    arg1 += (s32)(temp_v1->bitmap[1].actualHeight * sFontScaleY);
-    arg1 = SCREEN_HEIGHT - arg1;
-    D_80289380[D_80248E8C].x = arg0;
-    D_80289380[D_80248E8C].y = arg1;
-    D_80289380[D_80248E8C].r = sFontColorR;
-    D_80289380[D_80248E8C].g = sFontColorB;
-    D_80289380[D_80248E8C].b = sFontColorG;
-    D_80289380[D_80248E8C].a = sFontColorA;
-    D_80289380[D_80248E8C].scaleX = sFontScaleX;
-    D_80289380[D_80248E8C].scaleY = sFontScaleY;
-    D_80289380[D_80248E8C].unk6C = gGfxUnkPtrs->fonts[D_80248E84];
-    if (arg3 > 44) {
-        arg3 = 44;
+    y += (s32)(temp_v1->bitmap[1].actualHeight * sFontScaleY);
+    y = SCREEN_HEIGHT - y;
+    sFontMessages[sFontMsgCount].x = x;
+    sFontMessages[sFontMsgCount].y = y;
+    sFontMessages[sFontMsgCount].r = sFontColorR;
+    sFontMessages[sFontMsgCount].g = sFontColorG;
+    sFontMessages[sFontMsgCount].b = sFontColorB;
+    sFontMessages[sFontMsgCount].a = sFontColorA;
+    sFontMessages[sFontMsgCount].scaleX = sFontScaleX;
+    sFontMessages[sFontMsgCount].scaleY = sFontScaleY;
+    sFontMessages[sFontMsgCount].font = gGfxUnkPtrs->fonts[sFontCurId];
+    if (strLen > FONT_MAX_MSG_LEN) {
+        strLen = FONT_MAX_MSG_LEN;
     }
-    var_a0 = 0;
+    i16 = 0;
     i = 0;
     sp24 = FALSE;
-    if (arg2[var_a0] == 0xFD) {
+    if (str16[i16] == 0xFD) {
         // FAKE
-        if (arg2[var_a0 + 1]) { }
-        D_80289380[D_80248E8C].x = arg2[var_a0 + 1];
-        var_a0 += 3;
+        if (str16[i16 + 1]) { }
+        sFontMessages[sFontMsgCount].x = str16[i16 + 1];
+        i16 += 3;
     }
 
-    while (i < arg3) {
-        if (arg2[var_a0] == temp_s3) {
-            D_80289380[D_80248E8C].unk14[i] = -1;
-            var_a0++;
+    while (i < strLen) {
+        if (str16[i16] == endCh) {
+            sFontMessages[sFontMsgCount].str16[i] = -1;
+            i16++;
             i++;
             break;
         }
 
-        if (arg2[var_a0] == 0xFD) {
-            D_80289380[D_80248E8C].unk14[i] = -1;
-            D_80248E8C++;
-            D_80289380[D_80248E8C].r = sFontColorR;
-            D_80289380[D_80248E8C].g = sFontColorB;
-            D_80289380[D_80248E8C].b = sFontColorG;
-            D_80289380[D_80248E8C].a = sFontColorA;
-            D_80289380[D_80248E8C].scaleX = sFontScaleX;
-            D_80289380[D_80248E8C].scaleY = sFontScaleY;
-            D_80289380[D_80248E8C].x = arg2[var_a0 + 1];
-            D_80289380[D_80248E8C].y = arg1;
-            D_80289380[D_80248E8C].unk6C = gGfxUnkPtrs->fonts[D_80248E84];
+        if (str16[i16] == 0xFD) {
+            sFontMessages[sFontMsgCount].str16[i] = -1;
+            sFontMsgCount++;
+            sFontMessages[sFontMsgCount].r = sFontColorR;
+            sFontMessages[sFontMsgCount].g = sFontColorG;
+            sFontMessages[sFontMsgCount].b = sFontColorB;
+            sFontMessages[sFontMsgCount].a = sFontColorA;
+            sFontMessages[sFontMsgCount].scaleX = sFontScaleX;
+            sFontMessages[sFontMsgCount].scaleY = sFontScaleY;
+            sFontMessages[sFontMsgCount].x = str16[i16 + 1];
+            sFontMessages[sFontMsgCount].y = y;
+            sFontMessages[sFontMsgCount].font = gGfxUnkPtrs->fonts[sFontCurId];
             i = 0;
-            var_a0 += 3;
+            i16 += 3;
         } else {
-            D_80289380[D_80248E8C].unk14[i] = arg2[var_a0];
-            if (arg2[var_a0] == -1) {
+            sFontMessages[sFontMsgCount].str16[i] = str16[i16];
+            if (str16[i16] == -1) {
                 sp24 = TRUE;
                 break;
             }
-            var_a0++;
+            i16++;
             i++;
         }
     }
-    if (var_a0 == arg3) {
-        D_80289380[D_80248E8C].unk14[i] = -1;
+    if (i16 == strLen) {
+        sFontMessages[sFontMsgCount].str16[i] = -1;
     }
-    D_80248E8C++;
+    sFontMsgCount++;
     if (sp24) {
         ret = -1;
     } else {
-        ret = var_a0;
+        ret = i16;
     }
     return ret;
 }
 
-void uvFontPrintStr(s32 x, s32 y, char* str) {
+void uvFontPrintStr(s32 x, s32 y, const char* str) {
     char* chrPos;
     s32 strLen;
     ParsedUVFT* temp_s3;
     s32 i;
 
-    temp_s3 = gGfxUnkPtrs->fonts[D_80248E84];
+    temp_s3 = gGfxUnkPtrs->fonts[sFontCurId];
     y += (s32)(temp_s3->bitmap[1].actualHeight * sFontScaleY);
     y = SCREEN_HEIGHT - y;
 
-    D_80289380[D_80248E8C].x = x;
-    D_80289380[D_80248E8C].y = y;
-    D_80289380[D_80248E8C].r = sFontColorR;
-    D_80289380[D_80248E8C].g = sFontColorB;
-    D_80289380[D_80248E8C].b = sFontColorG;
-    D_80289380[D_80248E8C].a = sFontColorA;
-    D_80289380[D_80248E8C].scaleX = sFontScaleX;
-    D_80289380[D_80248E8C].scaleY = sFontScaleY;
+    sFontMessages[sFontMsgCount].x = x;
+    sFontMessages[sFontMsgCount].y = y;
+    sFontMessages[sFontMsgCount].r = sFontColorR;
+    sFontMessages[sFontMsgCount].g = sFontColorG;
+    sFontMessages[sFontMsgCount].b = sFontColorB;
+    sFontMessages[sFontMsgCount].a = sFontColorA;
+    sFontMessages[sFontMsgCount].scaleX = sFontScaleX;
+    sFontMessages[sFontMsgCount].scaleY = sFontScaleY;
     strLen = uvStrlen(str);
-    if (strLen > 44) {
-        str[44] = '\0';
-        strLen = 44;
+    if (strLen > FONT_MAX_MSG_LEN) {
+        ((char*)str)[FONT_MAX_MSG_LEN] = '\0';
+        strLen = FONT_MAX_MSG_LEN;
     }
 
     for (i = 0; i < strLen; i++) {
         chrPos = uvStrchr(temp_s3->str, str[i]);
         if (chrPos != NULL) {
-            D_80289380[D_80248E8C].unk14[i] = chrPos - temp_s3->str;
+            sFontMessages[sFontMsgCount].str16[i] = chrPos - temp_s3->str;
         } else {
-            D_80289380[D_80248E8C].unk14[i] = -2;
+            sFontMessages[sFontMsgCount].str16[i] = -2;
         }
     }
 
-    D_80289380[D_80248E8C].unk14[strLen] = -1;
-    D_80289380[D_80248E8C].unk6C = gGfxUnkPtrs->fonts[D_80248E84];
-    D_80248E8C++;
+    sFontMessages[sFontMsgCount].str16[strLen] = -1;
+    sFontMessages[sFontMsgCount].font = gGfxUnkPtrs->fonts[sFontCurId];
+    sFontMsgCount++;
 }
 
-s32 func_80219CC0(Sprite* arg0, s16* arg1, ParsedUVFT* arg2) {
-    s32 var_a3;
+STATIC_FUNC s32 uvFontSpriteWidth(Sprite* sprite, s16* str16, ParsedUVFT* font) {
+    s32 width;
     s32 i;
     Bitmap* bitmap;
 
-    bitmap = arg0->bitmap;
-    for (i = 0, var_a3 = 0; arg1[i] != -1; i++) {
-        if ((arg1[i] == -2) || (arg1[i] == -3)) {
-            bitmap[i] = arg2->bitmap[0];
+    bitmap = sprite->bitmap;
+    for (i = 0, width = 0; str16[i] != -1; i++) {
+        if ((str16[i] == -2) || (str16[i] == -3)) {
+            bitmap[i] = font->bitmap[0];
             bitmap[i].buf = NULL;
-            var_a3 += arg2->bitmap[0].width;
+            width += font->bitmap[0].width;
         } else {
-            bitmap[i] = arg2->bitmap[arg1[i]];
-            var_a3 += arg2->bitmap[arg1[i]].width;
+            bitmap[i] = font->bitmap[str16[i]];
+            width += font->bitmap[str16[i]].width;
         }
     }
-    arg0->nbitmaps = i;
-    return var_a3;
+    sprite->nbitmaps = i;
+    return width;
 }
 
-void func_80219DA4(Unk80289380* arg0) {
+// generate font dlist for one string of text
+STATIC_FUNC void uvFontMsgGenDlist(FontMessage* msg) {
     Gfx* dlist;
-    Sprite* sprite = &D_80248E20;
+    Sprite* sprite = &sFontSprite;
 
-    sprite->height = arg0->unk6C->bitmap[1].actualHeight;
-    sprite->width = func_80219CC0(sprite, arg0->unk14, arg0->unk6C);
-    sprite->bmfmt = arg0->unk6C->bmfmt;
-    sprite->bmsiz = arg0->unk6C->bmsiz;
-    spMove(sprite, arg0->x, arg0->y);
-    spColor(sprite, arg0->r, arg0->g, arg0->b, arg0->a);
-    spScale(sprite, arg0->scaleX, arg0->scaleY);
+    sprite->height = msg->font->bitmap[1].actualHeight;
+    sprite->width = uvFontSpriteWidth(sprite, msg->str16, msg->font);
+    sprite->bmfmt = msg->font->bmfmt;
+    sprite->bmsiz = msg->font->bmsiz;
+    spMove(sprite, msg->x, msg->y);
+    spColor(sprite, msg->r, msg->g, msg->b, msg->a);
+    spScale(sprite, msg->scaleX, msg->scaleY);
     dlist = spDraw(sprite);
     if (dlist != NULL) {
         gSPDisplayList(gGfxDisplayListHead++, dlist);
@@ -327,10 +378,9 @@ void func_80219DA4(Unk80289380* arg0) {
 void uvFontGenDlist(void) {
     static s32 D_80248E90 = 0;
     static s32 D_80248E94 = 0;
-    Unk80289380* var_s1;
     s32 i;
 
-    if (D_80248E8C == 0) {
+    if (sFontMsgCount == 0) {
         return;
     }
 
@@ -339,13 +389,13 @@ void uvFontGenDlist(void) {
         D_80248E94 = gGfxFbIndex;
     }
     spInit(&gGfxDisplayListHead);
-    D_80248E20.rsp_dl_next = &D_80248E20.rsp_dl[(gGfxFbIndex * 7944) + D_80248E90];
+    sFontSprite.rsp_dl_next = &sFontSprite.rsp_dl[(gGfxFbIndex * 7944) + D_80248E90];
 
-    for (i = 0; i < D_80248E8C; i++) {
-        func_80219DA4(&D_80289380[i]);
+    for (i = 0; i < sFontMsgCount; i++) {
+        uvFontMsgGenDlist(&sFontMessages[i]);
     }
     spFinish(&gGfxDisplayListHead);
     gGfxDisplayListHead--;
-    D_80248E90 += D_80248E8C;
-    D_80248E8C = 0;
+    D_80248E90 += sFontMsgCount;
+    sFontMsgCount = 0;
 }

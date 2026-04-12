@@ -1070,7 +1070,7 @@ void func_80331FE4(SkyDivingData* arg0) {
             }
             if (sp2E != -1) {
                 sp28 = textGetDataByIdx(sp2E);
-                func_80219874(160 - ((func_802196B0(sp28) - 0x10) / 2), 0x7D, sp28, 0x14, 0xFFE);
+                uvFontPrintStr16(160 - ((uvFontStr16Width(sp28) - 16) / 2), 125, sp28, 0x14, 0xFFE);
             }
 
             if (arg0->unk258->unk40 <= (D_8034F850 - arg0->unk260)) {

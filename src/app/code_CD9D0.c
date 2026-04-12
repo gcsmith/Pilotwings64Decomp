@@ -3,7 +3,8 @@
 #include <uv_graphics.h>
 #include <libc/stdarg.h>
 
-void func_803464A0(char* arg0, ...) {
+// unused printf-like interface to print to screen
+void func_803464A0(char* fmt, ...) {
     s32 yScreen;
     char* str;
     va_list args;
@@ -13,10 +14,10 @@ void func_803464A0(char* arg0, ...) {
     uvFontSet(5);
     uvFontScale(1.0, 1.0);
     uvFontColor(0xFF, 0xFF, 0xFF, 0xFF); // white
-    uvFontPrintStr((SCREEN_WIDTH / 2) - (uvFontWidth(arg0) / 2), 0xC8, arg0);
+    uvFontPrintStr((SCREEN_WIDTH / 2) - (uvFontWidth(fmt) / 2), 200, fmt);
     uvFontSet(3);
     uvFontScale(1.0, 1.0);
-    va_start(args, arg0);
+    va_start(args, fmt);
     while ((str = va_arg(args, char*))) {
         uvFontPrintStr((SCREEN_WIDTH / 2) - (uvFontWidth(str) / 2), yScreen, str);
         yScreen = (yScreen - uvFontHeight()) - 3;

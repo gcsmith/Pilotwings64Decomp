@@ -291,7 +291,7 @@ void totResultDrawTally(void) {
     y = 180;
     if (sMedalName != NULL) {
         do {
-            len = func_80219874(28, y, &sMedalName[offset], 0xFF, 0xFFE);
+            len = uvFontPrintStr16(28, y, &sMedalName[offset], 0xFF, 0xFFE);
             offset += len;
             y -= 16;
         } while (sMedalName[offset] != -1);
@@ -300,23 +300,23 @@ void totResultDrawTally(void) {
     }
 
     if (sp6C->veh == VEHICLE_CANNONBALL) {
-        func_80219874(202, 116, sTotalPtsStr, 3, 0xFFE);
-        func_80219874(236, 116, sTotPtUnitStr, 4, 0xFFE);
+        uvFontPrintStr16(202, 116, sTotalPtsStr, 3, 0xFFE);
+        uvFontPrintStr16(236, 116, sTotPtUnitStr, 4, 0xFFE);
     } else {
         numTests = taskGetTestCount(sp6C->cls, sp6C->veh);
         for (i = 0; i < numTests; i++) {
             y = ((numTests * 16) + 100) - 16 * i;
-            func_80219874(202, y, sTestPtsStr[i], 3, 0xFFE);
-            func_80219874(236, y, sTestPtUnitStr[i], 4, 0xFFE);
+            uvFontPrintStr16(202, y, sTestPtsStr[i], 3, 0xFFE);
+            uvFontPrintStr16(236, y, sTestPtUnitStr[i], 4, 0xFFE);
         }
     }
 
     if ((numTests != 1) && (sp6C->veh != VEHICLE_CANNONBALL)) {
-        func_80219874(202, 100, sTotalPtsStr, 3, 0xFFE);
-        func_80219874(236, 100, sTotPtUnitStr, 4, 0xFFE);
+        uvFontPrintStr16(202, 100, sTotalPtsStr, 3, 0xFFE);
+        uvFontPrintStr16(236, 100, sTotPtUnitStr, 4, 0xFFE);
     }
     if (D_8037AD42 != 4) {
-        func_80219874(128, 68, D_8037AD38, 3, 0xFFE);
+        uvFontPrintStr16(128, 68, D_8037AD38, 3, 0xFFE);
     }
     menuRender();
     uvFontGenDlist();

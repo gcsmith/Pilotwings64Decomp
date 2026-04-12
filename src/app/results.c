@@ -496,7 +496,7 @@ void resultDrawTally(s32 arg0) {
 
         if (sReplayTipText != NULL) {
             do {
-                var_s2 += func_80219874(x, y, &sReplayTipText[var_s2], 0xFF, 0xFFE);
+                var_s2 += uvFontPrintStr16(x, y, &sReplayTipText[var_s2], 0xFF, 0xFFE);
                 y -= 16;
             } while (sReplayTipText[var_s2] != -1);
         } else {
@@ -510,19 +510,19 @@ void resultDrawTally(s32 arg0) {
         uvFontScale(1.0, 1.0);
 
         for (i = 0, y = 116; i < ARRAY_COUNT(sPtsTallyStr); i++, y += 16) {
-            func_80219874(180, y, sPtsTallyStr[i], 3, 0xFFE);
+            uvFontPrintStr16(180, y, sPtsTallyStr[i], 3, 0xFFE);
         }
 
         if ((unkC->veh == VEHICLE_CANNONBALL) || (unkC->veh == VEHICLE_HANG_GLIDER) || (unkC->veh == VEHICLE_SKY_DIVING)) {
-            func_80219874(180, 100, sTotalPointsStr, 3, 0xFFE);
-            func_80219874(216, 100, sPtsLabelStr, 4, 0xFFE);
+            uvFontPrintStr16(180, 100, sTotalPointsStr, 3, 0xFFE);
+            uvFontPrintStr16(216, 100, sPtsLabelStr, 4, 0xFFE);
         } else {
-            func_80219874(180, 84, sTotalPointsStr, 3, 0xFFE);
-            func_80219874(216, 84, sPtsLabelStr, 4, 0xFFE);
+            uvFontPrintStr16(180, 84, sTotalPointsStr, 3, 0xFFE);
+            uvFontPrintStr16(216, 84, sPtsLabelStr, 4, 0xFFE);
         }
 
         if ((unkC->veh != VEHICLE_CANNONBALL) && (unkC->veh != VEHICLE_HANG_GLIDER) && (unkC->veh != VEHICLE_SKY_DIVING)) {
-            func_80219874(180, 100, sPtsDeductedStr, 4, 0xFFE);
+            uvFontPrintStr16(180, 100, sPtsDeductedStr, 4, 0xFFE);
         }
     }
     uvFontGenDlist();
