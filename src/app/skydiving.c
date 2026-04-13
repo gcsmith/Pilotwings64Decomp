@@ -177,7 +177,7 @@ Unk8034FFD0 D_8034FFD0[] = {
      255, }
 };
 
-void skydivingLoadPilot(u8 pilot, SkyDivingData* arg1);
+void skydivingLoadPilot(u8 pilot, SkyDivingData* sdData);
 void func_803316B0(SkyDivingData*);
 void skydivingLand(SkyDivingData*);
 void func_803318D4(SkyDivingData*);
@@ -193,125 +193,125 @@ void skydivingInit(void) {
     D_80371964 = 0;
 }
 
-void func_8032FACC(u8 contIdx, u8 pilot, SkyDivingData* arg2, Camera* arg3) {
-    uvMemSet(arg2, 0, sizeof(SkyDivingData));
-    skydivingLoadPilot(pilot, arg2);
-    arg2->objId = uvDobjAllocIdx();
-    arg2->unk2 = 2;
-    uvDobjModel(arg2->objId, arg2->unk1C0);
-    uvDobjPosm(arg2->objId, 0, &arg2->unk10);
-    uvDobjState(arg2->objId, arg2->unk2);
-    arg2->contIdx = contIdx;
-    arg2->unk50 = arg3;
-    arg2->unk22F = 0;
-    arg2->unk4 = 0xFFFF;
-    arg2->unk1AC = 0.0f;
-    arg2->unk1B0 = 0.0f;
-    arg2->unk1B4 = 0.0f;
-    arg2->unk1B8 = 0.0f;
-    arg2->unk1BC = 0.0f;
-    arg2->unk5C = 0.0f;
-    arg2->unk60 = 0.0f;
-    arg2->unk64 = 0.0f;
-    arg2->unk250 = 11.0f;
-    arg2->unk254 = 1.0f;
-    func_80332C60(arg2);
-    sdSoundInit(arg2);
-    db_getstart(&arg2->unk10, &arg2->unk154, NULL, NULL);
-    arg2->unk10.m[3][2] -= 1000.0f;
-    arg2->unk2B8 = arg2->unk10.m[3][0];
-    arg2->unk2BC = arg2->unk10.m[3][1];
-    arg2->unk2C0 = arg2->unk10.m[3][2];
-    func_803329C0(arg2);
+void skydivingLoadLevel(u8 contIdx, u8 pilot, SkyDivingData* sdData, Camera* camera) {
+    uvMemSet(sdData, 0, sizeof(SkyDivingData));
+    skydivingLoadPilot(pilot, sdData);
+    sdData->objId = uvDobjAllocIdx();
+    sdData->unk2 = 2;
+    uvDobjModel(sdData->objId, sdData->unk1C0);
+    uvDobjPosm(sdData->objId, 0, &sdData->unk10);
+    uvDobjState(sdData->objId, sdData->unk2);
+    sdData->contIdx = contIdx;
+    sdData->camera = camera;
+    sdData->unk22F = 0;
+    sdData->unk4 = 0xFFFF;
+    sdData->unk1AC = 0.0f;
+    sdData->unk1B0 = 0.0f;
+    sdData->unk1B4 = 0.0f;
+    sdData->unk1B8 = 0.0f;
+    sdData->unk1BC = 0.0f;
+    sdData->unk5C = 0.0f;
+    sdData->unk60 = 0.0f;
+    sdData->unk64 = 0.0f;
+    sdData->unk250 = 11.0f;
+    sdData->unk254 = 1.0f;
+    func_80332C60(sdData);
+    sdSoundInit(sdData);
+    db_getstart(&sdData->unk10, &sdData->unk154, NULL, NULL);
+    sdData->unk10.m[3][2] -= 1000.0f;
+    sdData->unk2B8 = sdData->unk10.m[3][0];
+    sdData->unk2BC = sdData->unk10.m[3][1];
+    sdData->unk2C0 = sdData->unk10.m[3][2];
+    func_803329C0(sdData);
 }
 
-void skydivingEnterLeave(SkyDivingData* arg0) {
+void skydivingEnterLeave(SkyDivingData* sdData) {
     if (D_80362690->state == GAME_STATE_RESULTS) {
         return;
     }
-    arg0->unk310 = D_80362690->terraId;
+    sdData->unk310 = D_80362690->terraId;
     D_80362690->terraId = 9;
-    uvChanTerra(arg0->unk50->unk22C, 9);
-    uvChanEnv(arg0->unk50->unk22C, 1);
-    db_getstart(&arg0->unk10, &arg0->unk154, NULL, NULL);
-    arg0->unk10.m[3][2] -= 1000.0f;
-    uvDobjPosm(arg0->objId, 0, &arg0->unk10);
-    arg0->unk2B8 = arg0->unk10.m[3][0];
-    arg0->unk2BC = arg0->unk10.m[3][1];
-    arg0->unk2C0 = arg0->unk10.m[3][2];
-    func_80332D94(arg0);
-    arg0->unk70 = 0;
-    arg0->unk25C = 0;
-    arg0->unk68 = 0.0f;
-    arg0->unk6C = 0.0f;
-    arg0->unk26C = 0.0f;
-    arg0->unk298 = 0.0f;
-    arg0->unk284 = 0.0f;
-    arg0->unk2B4 = 0.0f;
-    arg0->unk288 = 0.0f;
-    arg0->unk2C4 = 0.0f;
-    arg0->unk268 = 1.0f;
+    uvChanTerra(sdData->camera->unk22C, 9);
+    uvChanEnv(sdData->camera->unk22C, 1);
+    db_getstart(&sdData->unk10, &sdData->unk154, NULL, NULL);
+    sdData->unk10.m[3][2] -= 1000.0f;
+    uvDobjPosm(sdData->objId, 0, &sdData->unk10);
+    sdData->unk2B8 = sdData->unk10.m[3][0];
+    sdData->unk2BC = sdData->unk10.m[3][1];
+    sdData->unk2C0 = sdData->unk10.m[3][2];
+    func_80332D94(sdData);
+    sdData->unk70 = 0;
+    sdData->unk25C = 0;
+    sdData->unk68 = 0.0f;
+    sdData->unk6C = 0.0f;
+    sdData->unk26C = 0.0f;
+    sdData->unk298 = 0.0f;
+    sdData->unk284 = 0.0f;
+    sdData->unk2B4 = 0.0f;
+    sdData->unk288 = 0.0f;
+    sdData->unk2C4 = 0.0f;
+    sdData->unk268 = 1.0f;
     D_80371960 = 0;
     D_80371964 = 0;
     D_80371968 = 0;
-    arg0->unk258 = &D_8034FFD0[D_80362690->unkC[D_80362690->unk9C].cls];
-    arg0->unk2 = 2;
-    uvDobjState(arg0->objId, arg0->unk2);
-    arg0->unk58 = 0.5f;
-    arg0->unk50->unk1 = arg0->unk54 = 5;
-    arg0->unk50->unk4 = arg0->objId;
-    arg0->unk50->unk6 = arg0->unk2;
-    arg0->unk50->unk68.x = arg0->unk20C;
-    arg0->unk50->unk68.y = arg0->unk210;
-    arg0->unk50->unk68.z = arg0->unk214;
-    arg0->unk50->unk74 = 0.0f;
-    arg0->unk50->unk1B4 = 5.0f;
-    arg0->unk50->unk1B8 = 6.0f;
-    arg0->unk50->unk228 = 0.0f;
-    arg0->unk50->unk8 = 1.0f;
-    arg0->unk27A = 0;
-    arg0->unk294 = 0.5f;
-    arg0->unk290 = 0.5f;
-    func_802D45C4(arg0->unk50, arg0->unk58);
+    sdData->unk258 = &D_8034FFD0[D_80362690->unkC[D_80362690->unk9C].cls];
+    sdData->unk2 = 2;
+    uvDobjState(sdData->objId, sdData->unk2);
+    sdData->unk58 = 0.5f;
+    sdData->camera->unk1 = sdData->unk54 = 5;
+    sdData->camera->unk4 = sdData->objId;
+    sdData->camera->unk6 = sdData->unk2;
+    sdData->camera->unk68.x = sdData->unk20C;
+    sdData->camera->unk68.y = sdData->unk210;
+    sdData->camera->unk68.z = sdData->unk214;
+    sdData->camera->unk74 = 0.0f;
+    sdData->camera->unk1B4 = 5.0f;
+    sdData->camera->unk1B8 = 6.0f;
+    sdData->camera->unk228 = 0.0f;
+    sdData->camera->unk8 = 1.0f;
+    sdData->unk27A = 0;
+    sdData->unk294 = 0.5f;
+    sdData->unk290 = 0.5f;
+    func_802D45C4(sdData->camera, sdData->unk58);
     padsDeinit();
     level_8030B964();
 }
 
-void func_8032FE4C(SkyDivingData* arg0) {
-    if (arg0->shadowObjId != 0xFFFF) {
-        uvDobjModel(arg0->shadowObjId, 0xFFFF);
+void func_8032FE4C(SkyDivingData* sdData) {
+    if (sdData->shadowObjId != 0xFFFF) {
+        uvDobjModel(sdData->shadowObjId, 0xFFFF);
     }
-    uvDobjModel(arg0->objId, 0xFFFF);
-    arg0->contIdx = 0xFFFF;
-    arg0->objId = 0xFFFF;
+    uvDobjModel(sdData->objId, 0xFFFF);
+    sdData->contIdx = 0xFFFF;
+    sdData->objId = 0xFFFF;
     func_80332950();
 }
 
-void func_8032FEAC(SkyDivingData* arg0, s32 arg1, u8 arg2) {
+void func_8032FEAC(SkyDivingData* sdData, s32 buttons, u8 gameState) {
     s32 var_a0;
     Mtx4F sp34;
     f32 var_fa0;
 
-    uvMat4Copy(&sp34, &arg0->unk10);
-    sp34.m[3][0] = arg0->unk10.m[3][0] + ((2.0f * D_8034F854) * arg0->unk160.x);
-    sp34.m[3][1] = arg0->unk10.m[3][1] + ((2.0f * D_8034F854) * arg0->unk160.y);
-    sp34.m[3][2] = arg0->unk10.m[3][2] + ((2.0f * D_8034F854) * arg0->unk160.z);
+    uvMat4Copy(&sp34, &sdData->unk10);
+    sp34.m[3][0] = sdData->unk10.m[3][0] + ((2.0f * D_8034F854) * sdData->unk160.x);
+    sp34.m[3][1] = sdData->unk10.m[3][1] + ((2.0f * D_8034F854) * sdData->unk160.y);
+    sp34.m[3][2] = sdData->unk10.m[3][2] + ((2.0f * D_8034F854) * sdData->unk160.z);
     sp34.m[1][0] = 2.0f;
     sp34.m[1][1] = 2.0f;
     sp34.m[1][2] = 2.0f;
-    if ((arg0->unk26C <= D_8034F850) && (arg0->unk10.m[3][2] > 100.0f) && (arg0->unk70 == 0)) {
+    if ((sdData->unk26C <= D_8034F850) && (sdData->unk10.m[3][2] > 100.0f) && (sdData->unk70 == 0)) {
         mist_803144D0(&sp34, NULL);
-        arg0->unk26C = (D_8034F850 + 0.25f) - (ABS_NOEQ(arg0->unk274) * 0.25f);
+        sdData->unk26C = (D_8034F850 + 0.25f) - (ABS_NOEQ(sdData->unk274) * 0.25f);
     }
     uvMat4SetIdentity(&sp34);
     var_a0 = 0;
-    if (arg0->unk264 == 1.0f) {
-        if (arg0->unk10.m[3][2] < 100.0f) {
-            var_a0 = 255 - (s32)(SQ(arg0->unk10.m[3][2] / 100.0f) * 255.0f);
+    if (sdData->unk264 == 1.0f) {
+        if (sdData->unk10.m[3][2] < 100.0f) {
+            var_a0 = 255 - (s32)(SQ(sdData->unk10.m[3][2] / 100.0f) * 255.0f);
         }
     } else {
-        if (arg0->unk10.m[3][2] > 950.0f) {
-            var_a0 = 255 - (s32)(((1000.0f - arg0->unk10.m[3][2]) * 255.0f) / 50.0f);
+        if (sdData->unk10.m[3][2] > 950.0f) {
+            var_a0 = 255 - (s32)(((1000.0f - sdData->unk10.m[3][2]) * 255.0f) / 50.0f);
         }
     }
     if (var_a0 < 0) {
@@ -320,93 +320,93 @@ void func_8032FEAC(SkyDivingData* arg0, s32 arg1, u8 arg2) {
         var_a0 = 255;
     }
     hudSetCameraState(var_a0);
-    if ((arg0->unk264 != 1.0f) && (arg0->unk27A == 0) && (arg0->unk10.m[3][2] < 900.0f) && (arg0->unk25C == 0)) {
+    if ((sdData->unk264 != 1.0f) && (sdData->unk27A == 0) && (sdData->unk10.m[3][2] < 900.0f) && (sdData->unk25C == 0)) {
         sndPlaySfx(5);
         hudWarningText(0x132, 3.0f, 8.0f);
-        arg0->unk25C = 1;
+        sdData->unk25C = 1;
     }
-    if (arg0->unk70 == 0) {
-        arg1 &= ~0xF;
+    if (sdData->unk70 == 0) {
+        buttons &= ~0xF;
     }
-    if (arg1 & 2) {
+    if (buttons & 2) {
         var_fa0 = 1.5707963f;
-    } else if (arg1 & 1) {
+    } else if (buttons & 1) {
         var_fa0 = -1.5707963f;
     } else {
         var_fa0 = 0.0f;
     }
-    arg0->unk68 = func_80313AF4(var_fa0, arg0->unk68, 2.0f);
-    if (arg1 & 4) {
+    sdData->unk68 = func_80313AF4(var_fa0, sdData->unk68, 2.0f);
+    if (buttons & 4) {
         var_fa0 = 0.7853981f;
-    } else if (arg1 & 8) {
+    } else if (buttons & 8) {
         var_fa0 = -0.7853981f;
     } else {
         var_fa0 = 0.0f;
     }
-    arg0->unk6C = func_80313AF4(var_fa0, arg0->unk6C, 2.0f);
-    if (arg2 != 6) {
-        arg0->unk54 = 4;
-        arg0->unk50->unk4 = arg0->objId;
-        arg0->unk50->unk6 = arg0->unk2;
-        arg0->unk50->unk78 = arg0->unk68;
-        arg0->unk50->unk7C = arg0->unk6C;
-        arg0->unk50->unk0 = 0;
-        sp34.m[3][0] = arg0->unk10.m[3][0];
-        sp34.m[3][1] = arg0->unk10.m[3][1];
-        sp34.m[3][2] = arg0->unk10.m[3][2];
-        if (arg0->unk70 != 0) {
-            arg0->unk50->unk0 |= 8;
+    sdData->unk6C = func_80313AF4(var_fa0, sdData->unk6C, 2.0f);
+    if (gameState != 6) {
+        sdData->unk54 = 4;
+        sdData->camera->unk4 = sdData->objId;
+        sdData->camera->unk6 = sdData->unk2;
+        sdData->camera->unk78 = sdData->unk68;
+        sdData->camera->unk7C = sdData->unk6C;
+        sdData->camera->unk0 = 0;
+        sp34.m[3][0] = sdData->unk10.m[3][0];
+        sp34.m[3][1] = sdData->unk10.m[3][1];
+        sp34.m[3][2] = sdData->unk10.m[3][2];
+        if (sdData->unk70 != 0) {
+            sdData->camera->unk0 |= 8;
         }
-        if (arg0->unk70 == 0) {
-            arg0->unk50->unk1B4 = func_80313AF4(1.5f - ((arg0->unk160.z - -7.0f) * 0.2f), arg0->unk50->unk1B4, 5.0f);
+        if (sdData->unk70 == 0) {
+            sdData->camera->unk1B4 = func_80313AF4(1.5f - ((sdData->unk160.z - -7.0f) * 0.2f), sdData->camera->unk1B4, 5.0f);
             uvMat4RotateAxis(&sp34, -1.5707963f, 'x');
-            uvMat4RotateAxis(&sp34, arg0->unk5C, 'y');
-            arg0->unk50->unk1B0 = 1.5707963f;
-        } else if (arg0->unk70 == 1) {
-            arg0->unk50->unk1B4 = func_80313AF4(26.5f - ((arg0->unk160.z - -7.0f) * 1.8f), arg0->unk50->unk1B4, 5.0f);
-            uvMat4RotateAxis(&sp34, -arg0->unk5C, 'z');
+            uvMat4RotateAxis(&sp34, sdData->unk5C, 'y');
+            sdData->camera->unk1B0 = 1.5707963f;
+        } else if (sdData->unk70 == 1) {
+            sdData->camera->unk1B4 = func_80313AF4(26.5f - ((sdData->unk160.z - -7.0f) * 1.8f), sdData->camera->unk1B4, 5.0f);
+            uvMat4RotateAxis(&sp34, -sdData->unk5C, 'z');
             if (demoButtonPress(0, R_TRIG) != 0) {
                 sndPlaySfxVolPitchPan(0x67, 0.3f, 0.65f, 0.0f);
-                if (arg0->unk290 == 1.0f) {
-                    arg0->unk290 = 0.5f;
+                if (sdData->unk290 == 1.0f) {
+                    sdData->unk290 = 0.5f;
                 } else {
-                    arg0->unk290 = 1.0f;
+                    sdData->unk290 = 1.0f;
                 }
             }
-            arg0->unk294 = func_80313AF4(arg0->unk290, arg0->unk294, 1.0f);
-            arg0->unk50->unk1B0 = uvCosF(arg0->unk298 * 6.2831855f) * (arg0->unk294 * 1.5707963f);
-            if (arg0->unk298 > 0.52f) {
-                arg0->unk298 = func_80313AF4(0.5f, arg0->unk298, 2.0f);
-                if (arg0->unk50->unk108.m[3][2] < 2.0f) {
-                    arg0->unk50->unk108.m[3][2] = 2.0f;
+            sdData->unk294 = func_80313AF4(sdData->unk290, sdData->unk294, 1.0f);
+            sdData->camera->unk1B0 = uvCosF(sdData->unk298 * 6.2831855f) * (sdData->unk294 * 1.5707963f);
+            if (sdData->unk298 > 0.52f) {
+                sdData->unk298 = func_80313AF4(0.5f, sdData->unk298, 2.0f);
+                if (sdData->camera->unk108.m[3][2] < 2.0f) {
+                    sdData->camera->unk108.m[3][2] = 2.0f;
                 }
             } else {
-                arg0->unk298 = func_80313AF4(0.0f, arg0->unk298, 0.3f);
+                sdData->unk298 = func_80313AF4(0.0f, sdData->unk298, 0.3f);
             }
             sp34.m[3][2] += 2.0f;
-        } else if (arg0->unk70 == 4) {
-            arg0->unk50->unk1B4 = func_80313AF4(6.0f, arg0->unk50->unk1B4, 1.0f);
-            if (arg0->unk50->unk1B4 <= 6.2f) {
-                arg0->unk70 = 2;
+        } else if (sdData->unk70 == 4) {
+            sdData->camera->unk1B4 = func_80313AF4(6.0f, sdData->camera->unk1B4, 1.0f);
+            if (sdData->camera->unk1B4 <= 6.2f) {
+                sdData->unk70 = 2;
             }
-        } else if (arg0->unk70 == 5) {
-            arg0->unk50->unk1B4 = func_80313AF4(6.0f, arg0->unk50->unk1B4, 1.0f);
-            if (arg0->unk50->unk1B4 <= 6.2f) {
-                arg0->unk70 = 3;
+        } else if (sdData->unk70 == 5) {
+            sdData->camera->unk1B4 = func_80313AF4(6.0f, sdData->camera->unk1B4, 1.0f);
+            if (sdData->camera->unk1B4 <= 6.2f) {
+                sdData->unk70 = 3;
             }
-            uvMat4CopyXYZ(&sp34, &arg0->unk10);
+            uvMat4CopyXYZ(&sp34, &sdData->unk10);
         }
-        if ((D_80371960 != 0) && (arg0->unk264 == 1.0f)) {
-            sp34.m[3][0] = func_80313AF4(sp34.m[3][0], arg0->unk50->unk80.m[3][0], 5.0f);
-            sp34.m[3][1] = func_80313AF4(sp34.m[3][1], arg0->unk50->unk80.m[3][1], 5.0f);
+        if ((D_80371960 != 0) && (sdData->unk264 == 1.0f)) {
+            sp34.m[3][0] = func_80313AF4(sp34.m[3][0], sdData->camera->unk80.m[3][0], 5.0f);
+            sp34.m[3][1] = func_80313AF4(sp34.m[3][1], sdData->camera->unk80.m[3][1], 5.0f);
         }
-        uvMat4Copy(&arg0->unk50->unk80, &sp34);
-        func_802D5884(arg0->unk50, arg0->unk54);
+        uvMat4Copy(&sdData->camera->unk80, &sp34);
+        func_802D5884(sdData->camera, sdData->unk54);
     }
-    arg0->unk50->unk228 = (arg0->unk50->unk108.m[3][2] - D_80371970[0].unk10.m[3][2]) - 1.5f;
+    sdData->camera->unk228 = (sdData->camera->unk108.m[3][2] - D_80371970[0].unk10.m[3][2]) - 1.5f;
 }
 
-void func_803305D4(SkyDivingData* arg0) {
+void func_803305D4(SkyDivingData* sdData) {
     s32 i;
     f32 temp_fs0;
     f32 temp_fs1;
@@ -417,27 +417,27 @@ void func_803305D4(SkyDivingData* arg0) {
     f32 sp68;
 
     sp68 = (3.1415925f * D_8034F854) / 0.6f;
-    arg0->unk2B4 -= sp68;
-    if (arg0->unk2B4 < 0.0f) {
-        sp68 += arg0->unk2B4;
+    sdData->unk2B4 -= sp68;
+    if (sdData->unk2B4 < 0.0f) {
+        sp68 += sdData->unk2B4;
     }
 
     var_fs3 = 0.0f;
     var_fs4 = 0.0f;
 
     for (i = 0; i < 3; i++) {
-        var_fs3 += arg0->unk258->unk0[i];
-        var_fs4 += arg0->unk258->unk10[i];
+        var_fs3 += sdData->unk258->unk0[i];
+        var_fs4 += sdData->unk258->unk10[i];
     }
-    var_fs3 += arg0->unk258->unkC;
-    var_fs4 += arg0->unk258->unk1C;
+    var_fs3 += sdData->unk258->unkC;
+    var_fs4 += sdData->unk258->unk1C;
     var_fs3 *= 0.25f;
     var_fs4 *= 0.25f;
-    var_fs3 += arg0->unk2B8;
-    var_fs4 += arg0->unk2BC;
+    var_fs3 += sdData->unk2B8;
+    var_fs4 += sdData->unk2BC;
 
-    arg0->unk50->unk80.m[3][0] = func_80313AF4(var_fs3, arg0->unk50->unk80.m[3][0], 3.0f);
-    arg0->unk50->unk80.m[3][1] = func_80313AF4(var_fs4, arg0->unk50->unk80.m[3][1], 3.0f);
+    sdData->camera->unk80.m[3][0] = func_80313AF4(var_fs3, sdData->camera->unk80.m[3][0], 3.0f);
+    sdData->camera->unk80.m[3][1] = func_80313AF4(var_fs4, sdData->camera->unk80.m[3][1], 3.0f);
 
     for (i = 0; i < 3; i++) {
         temp_fs0 = D_80371970[i].unk10.m[3][0] - var_fs3;
@@ -455,8 +455,8 @@ void func_803305D4(SkyDivingData* arg0) {
         uvMat4RotateAxis(&D_80371970[i].unk10, -sp68, 'y');
         uvDobjPosm(D_80371970[i].unk0, 0, &D_80371970[i].unk10);
     }
-    temp_fs0 = arg0->unk10.m[3][0] - var_fs3;
-    temp_fs1 = arg0->unk10.m[3][1] - var_fs4;
+    temp_fs0 = sdData->unk10.m[3][0] - var_fs3;
+    temp_fs1 = sdData->unk10.m[3][1] - var_fs4;
     temp_fv0 = uvSqrtF(SQ(temp_fs0) + SQ(temp_fs1));
     if (temp_fv0 != 0.0f) {
         temp_fs0 /= temp_fv0;
@@ -465,36 +465,36 @@ void func_803305D4(SkyDivingData* arg0) {
     } else {
         var_fs0 = 0.0f;
     }
-    arg0->unk10.m[3][0] = (uvCosF(var_fs0) * temp_fv0) + var_fs3;
-    arg0->unk10.m[3][1] = (uvSinF(var_fs0) * temp_fv0) + var_fs4;
-    uvMat4RotateAxis(&arg0->unk10, -sp68, 'y');
-    uvDobjPosm(arg0->objId, 0, &arg0->unk10);
-    arg0->unk2B4 -= sp68;
-    if (arg0->unk2B4 <= 0.0f) {
-        func_80331EB8(arg0);
-        arg0->unk2B4 = 0.0f;
-        arg0->unk288 = 0.0f;
+    sdData->unk10.m[3][0] = (uvCosF(var_fs0) * temp_fv0) + var_fs3;
+    sdData->unk10.m[3][1] = (uvSinF(var_fs0) * temp_fv0) + var_fs4;
+    uvMat4RotateAxis(&sdData->unk10, -sp68, 'y');
+    uvDobjPosm(sdData->objId, 0, &sdData->unk10);
+    sdData->unk2B4 -= sp68;
+    if (sdData->unk2B4 <= 0.0f) {
+        func_80331EB8(sdData);
+        sdData->unk2B4 = 0.0f;
+        sdData->unk288 = 0.0f;
     }
 }
 
-void skydivingMovementFrame(SkyDivingData* arg0, u8 gameState) {
+void skydivingMovementFrame(SkyDivingData* sdData, u8 gameState) {
     f32 stickX;
     f32 stickY;
     s32 buttons;
     Mtx4F sp34;
 
-    if (arg0->unk2B4 > 0.0f) {
-        func_803305D4(arg0);
+    if (sdData->unk2B4 > 0.0f) {
+        func_803305D4(sdData);
         return;
     }
 
-    if (arg0->unk70 == 3) {
-        func_803316B0(arg0);
+    if (sdData->unk70 == 3) {
+        func_803316B0(sdData);
         return;
     }
-    if ((arg0->unk70 == 4) || (arg0->unk70 == 5)) {
-        skydivingLand(arg0);
-        func_8032FEAC(arg0, 0, gameState);
+    if ((sdData->unk70 == 4) || (sdData->unk70 == 5)) {
+        skydivingLand(sdData);
+        func_8032FEAC(sdData, 0, gameState);
         return;
     }
     if (fdr_802E6B5C() != 4) {
@@ -503,20 +503,20 @@ void skydivingMovementFrame(SkyDivingData* arg0, u8 gameState) {
             stickY = 0.0f;
             stickX = 0.0f;
         } else {
-            stickX = demoGetInputs(arg0->contIdx, INPUT_AXIS_X);
-            stickY = demoGetInputs(arg0->contIdx, INPUT_AXIS_Y);
-            buttons = demoGetButtons(arg0->contIdx);
+            stickX = demoGetInputs(sdData->contIdx, INPUT_AXIS_X);
+            stickY = demoGetInputs(sdData->contIdx, INPUT_AXIS_Y);
+            buttons = demoGetButtons(sdData->contIdx);
         }
-        arg0->unk270 = stickX;
-        arg0->unk274 = stickY;
+        sdData->unk270 = stickX;
+        sdData->unk274 = stickY;
         if (stickY < 0.0f) {
-            arg0->unk274 *= 0.75f;
+            sdData->unk274 *= 0.75f;
         }
         if (gameState != GAME_STATE_RESULTS) {
-            func_80332E90(arg0);
+            func_80332E90(sdData);
         }
-        func_8032F3DC(arg0);
-        if ((arg0->unk70 == 1) && (arg0->unk270 != 0.0f)) {
+        func_8032F3DC(sdData);
+        if ((sdData->unk70 == 1) && (sdData->unk270 != 0.0f)) {
             if (D_8037196C == 0) {
                 sndPlaySfxVolPitchPan(0x5F, 0.5f, 0.25f, 0.0f);
                 D_8037196C = 1;
@@ -524,320 +524,320 @@ void skydivingMovementFrame(SkyDivingData* arg0, u8 gameState) {
         } else {
             D_8037196C = 0;
         }
-        if (arg0->unk70 == 0) {
-            arg0->unk64 = func_80313AF4(stickX, arg0->unk64, 1.0f);
+        if (sdData->unk70 == 0) {
+            sdData->unk64 = func_80313AF4(stickX, sdData->unk64, 1.0f);
         } else {
-            arg0->unk64 = func_80313AF4(0.0f, arg0->unk64, 1.0f);
+            sdData->unk64 = func_80313AF4(0.0f, sdData->unk64, 1.0f);
         }
 
-        uvMat4Copy(&sp34, &arg0->unk10);
-        uvMat4RotateAxis(&sp34, arg0->unk64 * 0.6f, 'z');
-        uvDobjPosm(arg0->objId, 0, &sp34);
-        func_803322CC(arg0);
+        uvMat4Copy(&sp34, &sdData->unk10);
+        uvMat4RotateAxis(&sp34, sdData->unk64 * 0.6f, 'z');
+        uvDobjPosm(sdData->objId, 0, &sp34);
+        func_803322CC(sdData);
         if (gameState != GAME_STATE_RESULTS) {
-            func_803318D4(arg0);
+            func_803318D4(sdData);
         }
-        func_8032FEAC(arg0, buttons, gameState);
-        func_80331FE4(arg0);
-        arg0->unk24C = 0;
-        padsLandedPadStrip(arg0->unk10.m[3][0], arg0->unk10.m[3][1], arg0->unk10.m[3][2], &arg0->unk24C);
-        if (arg0->unk24C != 0) {
-            arg0->unk4 |= 4;
+        func_8032FEAC(sdData, buttons, gameState);
+        func_80331FE4(sdData);
+        sdData->unk24C = 0;
+        padsLandedPadStrip(sdData->unk10.m[3][0], sdData->unk10.m[3][1], sdData->unk10.m[3][2], &sdData->unk24C);
+        if (sdData->unk24C != 0) {
+            sdData->unk4 |= 4;
         } else {
-            arg0->unk4 &= ~4;
+            sdData->unk4 &= ~4;
         }
         if (gameState != GAME_STATE_RESULTS) {
-            if (arg0->unk70 == 3) {
+            if (sdData->unk70 == 3) {
                 fdr_802E66DC();
             }
-            fdr_802E65AC(&arg0->unk10, &D_80362690->terraId, &stickX, &stickY, &buttons);
+            fdr_802E65AC(&sdData->unk10, &D_80362690->terraId, &stickX, &stickY, &buttons);
         }
     }
 }
 
-void skydivingLoadPilot(u8 pilot, SkyDivingData* arg1) {
+void skydivingLoadPilot(u8 pilot, SkyDivingData* sdData) {
     switch (pilot) {
     case PILOT_LARK:
-        arg1->unk1C4.x = -0.025f, arg1->unk1C4.y = 0.097f, arg1->unk1C4.z = 0.675f;
-        arg1->unk1D0.x = 0.0f, arg1->unk1D0.y = 0.0f, arg1->unk1D0.z = -0.745f;
-        arg1->unk1DC.x = -0.027f, arg1->unk1DC.y = 0.442f, arg1->unk1DC.z = 0.012f;
-        arg1->unk1E8.x = -0.024f, arg1->unk1E8.y = -0.27f, arg1->unk1E8.z = 0.101f;
-        arg1->unk1F4.x = -0.54f, arg1->unk1F4.y = -0.156f, arg1->unk1F4.z = 0.105f;
-        arg1->unk200.x = 0.486f, arg1->unk200.y = -0.156f, arg1->unk200.z = 0.105f;
-        arg1->unk20C = -0.025f;
-        arg1->unk210 = 0.307f;
-        arg1->unk214 = 0.478f;
-        arg1->unk218 = 0.6f;
-        arg1->unk1C0 = MODEL_SKYDIVING_LARK;
-        arg1->unk278 = MODEL_PARACHUTE_LARK;
-        arg1->unk227 = 5;
-        arg1->unk21C = 1;
-        arg1->unk21D = 3;
-        arg1->unk21E = 9;
-        arg1->unk21F = 10;
-        arg1->unk220 = 11;
-        arg1->unk221 = 6;
-        arg1->unk222 = 7;
-        arg1->unk223 = 8;
-        arg1->unk226 = 12;
-        arg1->unk228 = 18;
-        arg1->unk229 = 19;
-        arg1->unk22A = 17;
-        arg1->unk22B = 16;
-        arg1->unk22E = 15;
-        arg1->unk22C = 4;
-        arg1->unk22D = 7;
-        arg1->unk1A4 = 0x50;
-        arg1->unk1A0 = 0x52;
-        arg1->unk1A2 = 0x51;
-        arg1->unk1A6 = 0x54;
-        arg1->unk1A8 = 0x53;
-        arg1->unk2A0 = 1.5f;
-        arg1->unk2A8 = 1.0f;
-        arg1->unk2AC = 1.0f;
-        arg1->unk2B0 = 1.0f;
+        sdData->unk1C4.x = -0.025f, sdData->unk1C4.y = 0.097f, sdData->unk1C4.z = 0.675f;
+        sdData->unk1D0.x = 0.0f, sdData->unk1D0.y = 0.0f, sdData->unk1D0.z = -0.745f;
+        sdData->unk1DC.x = -0.027f, sdData->unk1DC.y = 0.442f, sdData->unk1DC.z = 0.012f;
+        sdData->unk1E8.x = -0.024f, sdData->unk1E8.y = -0.27f, sdData->unk1E8.z = 0.101f;
+        sdData->unk1F4.x = -0.54f, sdData->unk1F4.y = -0.156f, sdData->unk1F4.z = 0.105f;
+        sdData->unk200.x = 0.486f, sdData->unk200.y = -0.156f, sdData->unk200.z = 0.105f;
+        sdData->unk20C = -0.025f;
+        sdData->unk210 = 0.307f;
+        sdData->unk214 = 0.478f;
+        sdData->unk218 = 0.6f;
+        sdData->unk1C0 = MODEL_SKYDIVING_LARK;
+        sdData->unk278 = MODEL_PARACHUTE_LARK;
+        sdData->unk227 = 5;
+        sdData->unk21C = 1;
+        sdData->unk21D = 3;
+        sdData->unk21E = 9;
+        sdData->unk21F = 10;
+        sdData->unk220 = 11;
+        sdData->unk221 = 6;
+        sdData->unk222 = 7;
+        sdData->unk223 = 8;
+        sdData->unk226 = 12;
+        sdData->unk228 = 18;
+        sdData->unk229 = 19;
+        sdData->unk22A = 17;
+        sdData->unk22B = 16;
+        sdData->unk22E = 15;
+        sdData->unk22C = 4;
+        sdData->unk22D = 7;
+        sdData->unk1A4 = 0x50;
+        sdData->unk1A0 = 0x52;
+        sdData->unk1A2 = 0x51;
+        sdData->unk1A6 = 0x54;
+        sdData->unk1A8 = 0x53;
+        sdData->unk2A0 = 1.5f;
+        sdData->unk2A8 = 1.0f;
+        sdData->unk2AC = 1.0f;
+        sdData->unk2B0 = 1.0f;
         break;
     case PILOT_GOOSE:
-        arg1->unk1C4.x = -0.001f, arg1->unk1C4.y = 0.172f, arg1->unk1C4.z = 0.782f;
-        arg1->unk1D0.x = 0.0f, arg1->unk1D0.y = 0.0f, arg1->unk1D0.z = -1.336f;
-        arg1->unk1DC.x = 0.001f, arg1->unk1DC.y = 0.647f, arg1->unk1DC.z = -0.002f;
-        arg1->unk1E8.x = -0.001f, arg1->unk1E8.y = -0.341f, arg1->unk1E8.z = 0.19f;
-        arg1->unk1F4.x = -0.722f, arg1->unk1F4.y = -0.178f, arg1->unk1F4.z = 0.148f;
-        arg1->unk200.x = 0.73f, arg1->unk200.y = -0.178f, arg1->unk200.z = 0.148f;
-        arg1->unk20C = 0.0f;
-        arg1->unk210 = 0.315f;
-        arg1->unk214 = 0.603f;
-        arg1->unk218 = 0.6f;
-        arg1->unk1C0 = MODEL_SKYDIVING_GOOSE;
-        arg1->unk278 = MODEL_PARACHUTE_GOOSE;
-        arg1->unk227 = 5;
-        arg1->unk21C = 1;
-        arg1->unk21D = 3;
-        arg1->unk21E = 9;
-        arg1->unk21F = 10;
-        arg1->unk220 = 11;
-        arg1->unk221 = 6;
-        arg1->unk223 = 8;
-        arg1->unk226 = 12;
-        arg1->unk228 = 18;
-        arg1->unk222 = 7;
-        arg1->unk229 = 19;
-        arg1->unk22A = 17;
-        arg1->unk22B = 16;
-        arg1->unk22E = 15;
-        arg1->unk22C = 4;
-        arg1->unk22D = 7;
-        arg1->unk1A4 = 0x56;
-        arg1->unk1A0 = 0x58;
-        arg1->unk1A2 = 0x57;
-        arg1->unk1A6 = 0x5A;
-        arg1->unk1A8 = 0x59;
-        arg1->unk2A0 = 1.8f;
-        arg1->unk2A8 = 1.150f;
-        arg1->unk2AC = 0.850f;
-        arg1->unk2B0 = 1.1500f;
+        sdData->unk1C4.x = -0.001f, sdData->unk1C4.y = 0.172f, sdData->unk1C4.z = 0.782f;
+        sdData->unk1D0.x = 0.0f, sdData->unk1D0.y = 0.0f, sdData->unk1D0.z = -1.336f;
+        sdData->unk1DC.x = 0.001f, sdData->unk1DC.y = 0.647f, sdData->unk1DC.z = -0.002f;
+        sdData->unk1E8.x = -0.001f, sdData->unk1E8.y = -0.341f, sdData->unk1E8.z = 0.19f;
+        sdData->unk1F4.x = -0.722f, sdData->unk1F4.y = -0.178f, sdData->unk1F4.z = 0.148f;
+        sdData->unk200.x = 0.73f, sdData->unk200.y = -0.178f, sdData->unk200.z = 0.148f;
+        sdData->unk20C = 0.0f;
+        sdData->unk210 = 0.315f;
+        sdData->unk214 = 0.603f;
+        sdData->unk218 = 0.6f;
+        sdData->unk1C0 = MODEL_SKYDIVING_GOOSE;
+        sdData->unk278 = MODEL_PARACHUTE_GOOSE;
+        sdData->unk227 = 5;
+        sdData->unk21C = 1;
+        sdData->unk21D = 3;
+        sdData->unk21E = 9;
+        sdData->unk21F = 10;
+        sdData->unk220 = 11;
+        sdData->unk221 = 6;
+        sdData->unk223 = 8;
+        sdData->unk226 = 12;
+        sdData->unk228 = 18;
+        sdData->unk222 = 7;
+        sdData->unk229 = 19;
+        sdData->unk22A = 17;
+        sdData->unk22B = 16;
+        sdData->unk22E = 15;
+        sdData->unk22C = 4;
+        sdData->unk22D = 7;
+        sdData->unk1A4 = 0x56;
+        sdData->unk1A0 = 0x58;
+        sdData->unk1A2 = 0x57;
+        sdData->unk1A6 = 0x5A;
+        sdData->unk1A8 = 0x59;
+        sdData->unk2A0 = 1.8f;
+        sdData->unk2A8 = 1.150f;
+        sdData->unk2AC = 0.850f;
+        sdData->unk2B0 = 1.1500f;
         break;
     case PILOT_HAWK:
-        arg1->unk1C4.x = 0.003f, arg1->unk1C4.y = 0.187f, arg1->unk1C4.z = 0.634f;
-        arg1->unk1D0.x = 0.0f, arg1->unk1D0.y = 0.0f, arg1->unk1D0.z = -1.221f;
-        arg1->unk1DC.x = -0.01f, arg1->unk1DC.y = 0.698f, arg1->unk1DC.z = -0.013f;
-        arg1->unk1E8.x = -0.004f, arg1->unk1E8.y = -0.43f, arg1->unk1E8.z = -0.117f;
-        arg1->unk1F4.x = -0.819f, arg1->unk1F4.y = -0.245f, arg1->unk1F4.z = 0.069f;
-        arg1->unk200.x = 0.837f, arg1->unk200.y = -0.245f, arg1->unk200.z = 0.069f;
-        arg1->unk20C = 0.002f;
-        arg1->unk210 = 0.325f;
-        arg1->unk214 = 0.52f;
-        arg1->unk218 = 0.6f;
-        arg1->unk1C0 = MODEL_SKYDIVING_HAWK;
-        arg1->unk278 = MODEL_PARACHUTE_HAWK;
-        arg1->unk227 = 5;
-        arg1->unk21C = 1;
-        arg1->unk21D = 3;
-        arg1->unk21E = 9;
-        arg1->unk21F = 10;
-        arg1->unk220 = 11;
-        arg1->unk221 = 6;
-        arg1->unk222 = 7;
-        arg1->unk223 = 8;
-        arg1->unk226 = 12;
-        arg1->unk228 = 18;
-        arg1->unk229 = 19;
-        arg1->unk22A = 17;
-        arg1->unk22B = 16;
-        arg1->unk22E = 15;
-        arg1->unk22C = 4;
-        arg1->unk22D = 7;
-        arg1->unk1A4 = 0x5B;
-        arg1->unk1A0 = 0x5D;
-        arg1->unk1A2 = 0x5C;
-        arg1->unk1A6 = 0x5F;
-        arg1->unk1A8 = 0x5E;
-        arg1->unk2A0 = 1.6f;
-        arg1->unk2A8 = 0.85f;
-        arg1->unk2AC = 1.150f;
-        arg1->unk2B0 = 0.85f;
+        sdData->unk1C4.x = 0.003f, sdData->unk1C4.y = 0.187f, sdData->unk1C4.z = 0.634f;
+        sdData->unk1D0.x = 0.0f, sdData->unk1D0.y = 0.0f, sdData->unk1D0.z = -1.221f;
+        sdData->unk1DC.x = -0.01f, sdData->unk1DC.y = 0.698f, sdData->unk1DC.z = -0.013f;
+        sdData->unk1E8.x = -0.004f, sdData->unk1E8.y = -0.43f, sdData->unk1E8.z = -0.117f;
+        sdData->unk1F4.x = -0.819f, sdData->unk1F4.y = -0.245f, sdData->unk1F4.z = 0.069f;
+        sdData->unk200.x = 0.837f, sdData->unk200.y = -0.245f, sdData->unk200.z = 0.069f;
+        sdData->unk20C = 0.002f;
+        sdData->unk210 = 0.325f;
+        sdData->unk214 = 0.52f;
+        sdData->unk218 = 0.6f;
+        sdData->unk1C0 = MODEL_SKYDIVING_HAWK;
+        sdData->unk278 = MODEL_PARACHUTE_HAWK;
+        sdData->unk227 = 5;
+        sdData->unk21C = 1;
+        sdData->unk21D = 3;
+        sdData->unk21E = 9;
+        sdData->unk21F = 10;
+        sdData->unk220 = 11;
+        sdData->unk221 = 6;
+        sdData->unk222 = 7;
+        sdData->unk223 = 8;
+        sdData->unk226 = 12;
+        sdData->unk228 = 18;
+        sdData->unk229 = 19;
+        sdData->unk22A = 17;
+        sdData->unk22B = 16;
+        sdData->unk22E = 15;
+        sdData->unk22C = 4;
+        sdData->unk22D = 7;
+        sdData->unk1A4 = 0x5B;
+        sdData->unk1A0 = 0x5D;
+        sdData->unk1A2 = 0x5C;
+        sdData->unk1A6 = 0x5F;
+        sdData->unk1A8 = 0x5E;
+        sdData->unk2A0 = 1.6f;
+        sdData->unk2A8 = 0.85f;
+        sdData->unk2AC = 1.150f;
+        sdData->unk2B0 = 0.85f;
         break;
     case PILOT_KIWI:
-        arg1->unk1C4.x = 0.002f, arg1->unk1C4.y = 0.084f, arg1->unk1C4.z = 0.706f;
-        arg1->unk1D0.x = 0.0f, arg1->unk1D0.y = 0.0f, arg1->unk1D0.z = -0.828f;
-        arg1->unk1DC.x = 0.0f, arg1->unk1DC.y = 0.426f, arg1->unk1DC.z = 0.03f;
-        arg1->unk1E8.x = 0.0f, arg1->unk1E8.y = -0.261f, arg1->unk1E8.z = 0.107f;
-        arg1->unk1F4.x = -0.479f, arg1->unk1F4.y = -0.153f, arg1->unk1F4.z = 0.079f;
-        arg1->unk200.x = 0.489f, arg1->unk200.y = -0.153f, arg1->unk200.z = 0.079f;
-        arg1->unk20C = 0.002f;
-        arg1->unk210 = 0.308f;
-        arg1->unk214 = 0.473f;
-        arg1->unk218 = 0.6f;
-        arg1->unk1C0 = MODEL_SKYDIVING_KIWI;
-        arg1->unk278 = MODEL_PARACHUTE_KIWI;
-        arg1->unk227 = 5;
-        arg1->unk21C = 1;
-        arg1->unk21D = 3;
-        arg1->unk21E = 9;
-        arg1->unk21F = 10;
-        arg1->unk220 = 11;
-        arg1->unk221 = 6;
-        arg1->unk223 = 8;
-        arg1->unk226 = 12;
-        arg1->unk228 = 18;
-        arg1->unk222 = 7;
-        arg1->unk229 = 19;
-        arg1->unk22A = 17;
-        arg1->unk22B = 16;
-        arg1->unk22E = 15;
-        arg1->unk22C = 4;
-        arg1->unk22D = 7;
-        arg1->unk1A4 = 0x60;
-        arg1->unk1A0 = 0x4D;
-        arg1->unk1A2 = 0x61;
-        arg1->unk1A6 = 0x63;
-        arg1->unk1A8 = 0x62;
-        arg1->unk2A0 = 1.4f;
-        arg1->unk2A8 = 1.0f;
-        arg1->unk2AC = 1.0f;
-        arg1->unk2B0 = 1.0f;
+        sdData->unk1C4.x = 0.002f, sdData->unk1C4.y = 0.084f, sdData->unk1C4.z = 0.706f;
+        sdData->unk1D0.x = 0.0f, sdData->unk1D0.y = 0.0f, sdData->unk1D0.z = -0.828f;
+        sdData->unk1DC.x = 0.0f, sdData->unk1DC.y = 0.426f, sdData->unk1DC.z = 0.03f;
+        sdData->unk1E8.x = 0.0f, sdData->unk1E8.y = -0.261f, sdData->unk1E8.z = 0.107f;
+        sdData->unk1F4.x = -0.479f, sdData->unk1F4.y = -0.153f, sdData->unk1F4.z = 0.079f;
+        sdData->unk200.x = 0.489f, sdData->unk200.y = -0.153f, sdData->unk200.z = 0.079f;
+        sdData->unk20C = 0.002f;
+        sdData->unk210 = 0.308f;
+        sdData->unk214 = 0.473f;
+        sdData->unk218 = 0.6f;
+        sdData->unk1C0 = MODEL_SKYDIVING_KIWI;
+        sdData->unk278 = MODEL_PARACHUTE_KIWI;
+        sdData->unk227 = 5;
+        sdData->unk21C = 1;
+        sdData->unk21D = 3;
+        sdData->unk21E = 9;
+        sdData->unk21F = 10;
+        sdData->unk220 = 11;
+        sdData->unk221 = 6;
+        sdData->unk223 = 8;
+        sdData->unk226 = 12;
+        sdData->unk228 = 18;
+        sdData->unk222 = 7;
+        sdData->unk229 = 19;
+        sdData->unk22A = 17;
+        sdData->unk22B = 16;
+        sdData->unk22E = 15;
+        sdData->unk22C = 4;
+        sdData->unk22D = 7;
+        sdData->unk1A4 = 0x60;
+        sdData->unk1A0 = 0x4D;
+        sdData->unk1A2 = 0x61;
+        sdData->unk1A6 = 0x63;
+        sdData->unk1A8 = 0x62;
+        sdData->unk2A0 = 1.4f;
+        sdData->unk2A8 = 1.0f;
+        sdData->unk2AC = 1.0f;
+        sdData->unk2B0 = 1.0f;
         break;
     case PILOT_IBIS:
-        arg1->unk1C4.x = -0.002f, arg1->unk1C4.y = 0.085f, arg1->unk1C4.z = 0.799f;
-        arg1->unk1D0.x = 0.f, arg1->unk1D0.y = 0.0f, arg1->unk1D0.z = -1.36f;
-        arg1->unk1DC.x = 0.0f, arg1->unk1DC.y = 0.586f, arg1->unk1DC.z = -0.034f;
-        arg1->unk1E8.x = 0.0f, arg1->unk1E8.y = -0.314f, arg1->unk1E8.z = 0.091f;
-        arg1->unk1F4.x = -0.666f, arg1->unk1F4.y = -0.164f, arg1->unk1F4.z = 0.141f;
-        arg1->unk200.x = 0.678f, arg1->unk200.y = -0.164f, arg1->unk200.z = 0.141f;
-        arg1->unk20C = 0.0f;
-        arg1->unk210 = 0.212f;
-        arg1->unk214 = 0.599f;
-        arg1->unk218 = 0.6f;
-        arg1->unk1C0 = MODEL_SKYDIVING_IBIS;
-        arg1->unk278 = MODEL_PARACHUTE_IBIS;
-        arg1->unk227 = 5;
-        arg1->unk21C = 1;
-        arg1->unk21D = 3;
-        arg1->unk21E = 9;
-        arg1->unk21F = 10;
-        arg1->unk220 = 11;
-        arg1->unk221 = 6;
-        arg1->unk223 = 8;
-        arg1->unk226 = 12;
-        arg1->unk228 = 18;
-        arg1->unk222 = 7;
-        arg1->unk229 = 19;
-        arg1->unk22A = 17;
-        arg1->unk22B = 16;
-        arg1->unk22E = 15;
-        arg1->unk22C = 4;
-        arg1->unk22D = 7;
-        arg1->unk1A4 = 0x64;
-        arg1->unk1A0 = 0x4E;
-        arg1->unk1A2 = 0x65;
-        arg1->unk1A6 = 0x67;
-        arg1->unk1A8 = 0x66;
-        arg1->unk2A0 = 1.8f;
-        arg1->unk2A8 = 1.150f;
-        arg1->unk2AC = 0.850f;
-        arg1->unk2B0 = 1.15f;
+        sdData->unk1C4.x = -0.002f, sdData->unk1C4.y = 0.085f, sdData->unk1C4.z = 0.799f;
+        sdData->unk1D0.x = 0.f, sdData->unk1D0.y = 0.0f, sdData->unk1D0.z = -1.36f;
+        sdData->unk1DC.x = 0.0f, sdData->unk1DC.y = 0.586f, sdData->unk1DC.z = -0.034f;
+        sdData->unk1E8.x = 0.0f, sdData->unk1E8.y = -0.314f, sdData->unk1E8.z = 0.091f;
+        sdData->unk1F4.x = -0.666f, sdData->unk1F4.y = -0.164f, sdData->unk1F4.z = 0.141f;
+        sdData->unk200.x = 0.678f, sdData->unk200.y = -0.164f, sdData->unk200.z = 0.141f;
+        sdData->unk20C = 0.0f;
+        sdData->unk210 = 0.212f;
+        sdData->unk214 = 0.599f;
+        sdData->unk218 = 0.6f;
+        sdData->unk1C0 = MODEL_SKYDIVING_IBIS;
+        sdData->unk278 = MODEL_PARACHUTE_IBIS;
+        sdData->unk227 = 5;
+        sdData->unk21C = 1;
+        sdData->unk21D = 3;
+        sdData->unk21E = 9;
+        sdData->unk21F = 10;
+        sdData->unk220 = 11;
+        sdData->unk221 = 6;
+        sdData->unk223 = 8;
+        sdData->unk226 = 12;
+        sdData->unk228 = 18;
+        sdData->unk222 = 7;
+        sdData->unk229 = 19;
+        sdData->unk22A = 17;
+        sdData->unk22B = 16;
+        sdData->unk22E = 15;
+        sdData->unk22C = 4;
+        sdData->unk22D = 7;
+        sdData->unk1A4 = 0x64;
+        sdData->unk1A0 = 0x4E;
+        sdData->unk1A2 = 0x65;
+        sdData->unk1A6 = 0x67;
+        sdData->unk1A8 = 0x66;
+        sdData->unk2A0 = 1.8f;
+        sdData->unk2A8 = 1.150f;
+        sdData->unk2AC = 0.850f;
+        sdData->unk2B0 = 1.15f;
         break;
     case PILOT_ROBIN:
-        arg1->unk1C4.x = -0.001f, arg1->unk1C4.y = 0.095f, arg1->unk1C4.z = 0.844f;
-        arg1->unk1D0.x = 0.0f, arg1->unk1D0.y = 0.0f, arg1->unk1D0.z = -1.076f;
-        arg1->unk1DC.x = 0.0f, arg1->unk1DC.y = 0.563f, arg1->unk1DC.z = -0.018f;
-        arg1->unk1E8.x = 0.0f, arg1->unk1E8.y = -0.433f, arg1->unk1E8.z = 0.155f;
-        arg1->unk1F4.x = -0.737f, arg1->unk1F4.y = -0.266f, arg1->unk1F4.z = 0.112f;
-        arg1->unk200.x = 0.751f, arg1->unk200.y = -0.266f, arg1->unk200.z = 0.112f;
-        arg1->unk20C = 0.0f;
-        arg1->unk210 = 0.217f;
-        arg1->unk214 = 0.621f;
-        arg1->unk218 = 0.6f;
-        arg1->unk1C0 = MODEL_SKYDIVING_ROBIN;
-        arg1->unk278 = MODEL_PARACHUTE_ROBIN;
-        arg1->unk227 = 5;
-        arg1->unk21C = 1;
-        arg1->unk21D = 3;
-        arg1->unk21E = 9;
-        arg1->unk21F = 10;
-        arg1->unk220 = 11;
-        arg1->unk221 = 6;
-        arg1->unk222 = 7;
-        arg1->unk223 = 8;
-        arg1->unk226 = 12;
-        arg1->unk228 = 18;
-        arg1->unk229 = 19;
-        arg1->unk22A = 17;
-        arg1->unk22B = 16;
-        arg1->unk22E = 15;
-        arg1->unk22C = 4;
-        arg1->unk22D = 7;
-        arg1->unk1A4 = 0x68;
-        arg1->unk1A0 = 0x4F;
-        arg1->unk1A2 = 0x69;
-        arg1->unk1A6 = 0x6B;
-        arg1->unk1A8 = 0x6A;
-        arg1->unk2A0 = 1.6f;
-        arg1->unk2A8 = 0.85f;
-        arg1->unk2AC = 1.15f;
-        arg1->unk2B0 = 0.85f;
+        sdData->unk1C4.x = -0.001f, sdData->unk1C4.y = 0.095f, sdData->unk1C4.z = 0.844f;
+        sdData->unk1D0.x = 0.0f, sdData->unk1D0.y = 0.0f, sdData->unk1D0.z = -1.076f;
+        sdData->unk1DC.x = 0.0f, sdData->unk1DC.y = 0.563f, sdData->unk1DC.z = -0.018f;
+        sdData->unk1E8.x = 0.0f, sdData->unk1E8.y = -0.433f, sdData->unk1E8.z = 0.155f;
+        sdData->unk1F4.x = -0.737f, sdData->unk1F4.y = -0.266f, sdData->unk1F4.z = 0.112f;
+        sdData->unk200.x = 0.751f, sdData->unk200.y = -0.266f, sdData->unk200.z = 0.112f;
+        sdData->unk20C = 0.0f;
+        sdData->unk210 = 0.217f;
+        sdData->unk214 = 0.621f;
+        sdData->unk218 = 0.6f;
+        sdData->unk1C0 = MODEL_SKYDIVING_ROBIN;
+        sdData->unk278 = MODEL_PARACHUTE_ROBIN;
+        sdData->unk227 = 5;
+        sdData->unk21C = 1;
+        sdData->unk21D = 3;
+        sdData->unk21E = 9;
+        sdData->unk21F = 10;
+        sdData->unk220 = 11;
+        sdData->unk221 = 6;
+        sdData->unk222 = 7;
+        sdData->unk223 = 8;
+        sdData->unk226 = 12;
+        sdData->unk228 = 18;
+        sdData->unk229 = 19;
+        sdData->unk22A = 17;
+        sdData->unk22B = 16;
+        sdData->unk22E = 15;
+        sdData->unk22C = 4;
+        sdData->unk22D = 7;
+        sdData->unk1A4 = 0x68;
+        sdData->unk1A0 = 0x4F;
+        sdData->unk1A2 = 0x69;
+        sdData->unk1A6 = 0x6B;
+        sdData->unk1A8 = 0x6A;
+        sdData->unk2A0 = 1.6f;
+        sdData->unk2A8 = 0.85f;
+        sdData->unk2AC = 1.15f;
+        sdData->unk2B0 = 0.85f;
         break;
     }
-    uvModelGetPosm(arg1->unk278, arg1->unk228, &arg1->unk2D0);
+    uvModelGetPosm(sdData->unk278, sdData->unk228, &sdData->unk2D0);
 }
 
-void func_803316B0(SkyDivingData* arg0) {
+void func_803316B0(SkyDivingData* sdData) {
     f32 var_fv1;
     f32 x;
     f32 y;
     f32 z;
 
-    if (arg0->unk22F == 0) {
-        arg0->unk22F = 1;
-        if (arg0->unkB8 != 0) {
-            if (arg0->unk27A != 0) {
+    if (sdData->unk22F == 0) {
+        sdData->unk22F = 1;
+        if (sdData->unkB8 != 0) {
+            if (sdData->unk27A != 0) {
                 var_fv1 = 5.0f;
             } else {
                 var_fv1 = 2.0f;
             }
-            if (arg0->unk50->unk108.m[3][2] > 0.0f) {
-                x = arg0->unk10.m[3][0];
-                y = arg0->unk10.m[3][1];
-                z = arg0->unk10.m[3][2];
-                func_802F8AB8(x, y, z, var_fv1, &arg0->unk160);
+            if (sdData->camera->unk108.m[3][2] > 0.0f) {
+                x = sdData->unk10.m[3][0];
+                y = sdData->unk10.m[3][1];
+                z = sdData->unk10.m[3][2];
+                func_802F8AB8(x, y, z, var_fv1, &sdData->unk160);
             }
-            arg0->unk2 = 0;
-            arg0->unk50->unk6 = 0;
-            uvDobjState(arg0->objId, arg0->unk2);
-            uvMat4Copy(&arg0->unk50->unk80, &arg0->unk10);
+            sdData->unk2 = 0;
+            sdData->camera->unk6 = 0;
+            uvDobjState(sdData->objId, sdData->unk2);
+            uvMat4Copy(&sdData->camera->unk80, &sdData->unk10);
         }
     }
     hudGetState()->renderFlags = 0;
-    func_8032F47C(arg0);
+    func_8032F47C(sdData);
 }
 
-void skydivingLand(SkyDivingData* arg0) {
+void skydivingLand(SkyDivingData* sdData) {
     TaskLPAD* sp34;
     u8 temp_v0;
     f32 temp_ft4;
     f32 temp_fa1;
 
-    if (arg0->unk2C4 == 0.0f) {
+    if (sdData->unk2C4 == 0.0f) {
         sndPlaySfx(0x48);
         temp_v0 = taskGetLPAD(&sp34);
         if (temp_v0 != 1) {
@@ -845,26 +845,26 @@ void skydivingLand(SkyDivingData* arg0) {
         } else {
             temp_ft4 = sp34->pos.x;
             temp_fa1 = sp34->pos.y;
-            D_80371964 = uvSqrtF(SQ(arg0->unk10.m[3][0] - temp_ft4) + SQ(arg0->unk10.m[3][1] - temp_fa1));
+            D_80371964 = uvSqrtF(SQ(sdData->unk10.m[3][0] - temp_ft4) + SQ(sdData->unk10.m[3][1] - temp_fa1));
         }
-        D_80371968 = -arg0->unk160.z;
-        arg0->unk2C4 = -arg0->unk160.z;
+        D_80371968 = -sdData->unk160.z;
+        sdData->unk2C4 = -sdData->unk160.z;
     }
 
-    if ((arg0->unk70 != 5) && (arg0->unk70 != 3)) {
+    if ((sdData->unk70 != 5) && (sdData->unk70 != 3)) {
         if (D_80371964 >= 0x1A) {
             hudText_8031D8E0(0xB2, 1.5f, 8.0f);
-            arg0->unk25E = 0;
+            sdData->unk25E = 0;
         } else {
             hudText_8031D8E0(0xCB, 1.5f, 8.0f);
-            arg0->unk25E = 1;
+            sdData->unk25E = 1;
         }
     }
     hudGetState()->renderFlags = 0;
-    func_8032F47C(arg0);
+    func_8032F47C(sdData);
 }
 
-void func_803318D4(SkyDivingData* arg0) {
+void func_803318D4(SkyDivingData* sdData) {
     HUDState* temp_v0;
     f32 temp_fa0;
     f32 temp_fa1;
@@ -872,28 +872,28 @@ void func_803318D4(SkyDivingData* arg0) {
     s32 i;
 
     temp_v0 = hudGetState();
-    uvMat4Copy(&temp_v0->unk28, &arg0->unk10);
+    uvMat4Copy(&temp_v0->unk28, &sdData->unk10);
     temp_v0->renderFlags = HUD_RENDER_SKYDIVING;
-    temp_v0->unk8C = arg0->unk160.z * 4.0f * 0.7f;
-    temp_v0->speed = arg0->unk16C * 3.6f * 0.7f;
-    temp_v0->att.x = arg0->unk10.m[3][0];
-    temp_v0->att.y = arg0->unk10.m[3][1];
-    temp_v0->att.heading = arg0->unk10.m[3][2];
-    temp_v0->att.pitch = arg0->unk5C;
+    temp_v0->unk8C = sdData->unk160.z * 4.0f * 0.7f;
+    temp_v0->speed = sdData->unk16C * 3.6f * 0.7f;
+    temp_v0->att.x = sdData->unk10.m[3][0];
+    temp_v0->att.y = sdData->unk10.m[3][1];
+    temp_v0->att.heading = sdData->unk10.m[3][2];
+    temp_v0->att.pitch = sdData->unk5C;
     temp_v0->elapsedTime = D_8034F850;
-    temp_v0->altSeaLevel = arg0->unk10.m[3][2];
-    if (arg0->unk264 == 1.0f) {
+    temp_v0->altSeaLevel = sdData->unk10.m[3][2];
+    if (sdData->unk264 == 1.0f) {
         temp_v0->altitude = 101.0f;
     } else {
-        temp_v0->altitude = arg0->unk280;
+        temp_v0->altitude = sdData->unk280;
     }
-    if (arg0->unk264 == 1.0f) {
+    if (sdData->unk264 == 1.0f) {
         temp_v0->altSeaLevel += 1000.0f;
     }
-    if (arg0->unk258 != NULL) {
+    if (sdData->unk258 != NULL) {
         for (i = 0; i < 3; i++) {
-            temp_fa0 = (200.0f * (D_80371970[i].unk10.m[3][0] - arg0->unk10.m[3][0])) + arg0->unk10.m[3][0];
-            temp_fa1 = (200.0f * (D_80371970[i].unk10.m[3][1] - arg0->unk10.m[3][1])) + arg0->unk10.m[3][1];
+            temp_fa0 = (200.0f * (D_80371970[i].unk10.m[3][0] - sdData->unk10.m[3][0])) + sdData->unk10.m[3][0];
+            temp_fa1 = (200.0f * (D_80371970[i].unk10.m[3][1] - sdData->unk10.m[3][1])) + sdData->unk10.m[3][1];
             temp_ft4 = D_80371970[i].unk10.m[3][2];
 
             hudMoveWaypoint(D_80371970[i].unk70, temp_fa0, temp_fa1, temp_ft4);
@@ -903,8 +903,8 @@ void func_803318D4(SkyDivingData* arg0) {
     temp_v0->radar.unk4 = 0;
 }
 
-s32 skydivingGetPoints(s32 arg0) {
-    switch (arg0) {
+s32 skydivingGetPoints(s32 type) {
+    switch (type) {
     case 1:
         return D_80371960;
     case 2:
@@ -912,39 +912,39 @@ s32 skydivingGetPoints(s32 arg0) {
     case 3:
         return D_80371968;
     default:
-        _uvDebugPrintf("sdive_getpoints: unknown type %d\n", arg0);
+        _uvDebugPrintf("sdive_getpoints: unknown type %d\n", type);
         return 0;
     }
 }
 
-void func_80331AE4(SkyDivingData* arg0) {
-    uvDobjModel(arg0->objId, arg0->unk278);
-    uvDobjState(arg0->objId, arg0->unk2);
-    arg0->unk70 = 1;
-    arg0->unk58 = 1.57f;
-    arg0->unk160.x = 0.0f;
-    arg0->unk160.y = 0.0f;
-    arg0->unk160.z = 0.0f;
-    func_802D45C4(arg0->unk50, arg0->unk58);
-    arg0->unk298 = 1.0f;
-    arg0->unk29C = 0.1f;
-    arg0->unk27A = 1;
+void func_80331AE4(SkyDivingData* sdData) {
+    uvDobjModel(sdData->objId, sdData->unk278);
+    uvDobjState(sdData->objId, sdData->unk2);
+    sdData->unk70 = 1;
+    sdData->unk58 = 1.57f;
+    sdData->unk160.x = 0.0f;
+    sdData->unk160.y = 0.0f;
+    sdData->unk160.z = 0.0f;
+    func_802D45C4(sdData->camera, sdData->unk58);
+    sdData->unk298 = 1.0f;
+    sdData->unk29C = 0.1f;
+    sdData->unk27A = 1;
     sndPlaySfx(0x49);
-    arg0->unk21F = 0xA;
-    arg0->unk222 = 0xD;
+    sdData->unk21F = 0xA;
+    sdData->unk222 = 0xD;
 }
 
-void skydivingBelow(SkyDivingData* arg0) {
+void skydivingBelow(SkyDivingData* sdData) {
     s32 var_a1;
     s32 i;
 
-    func_802D45C4(arg0->unk50, arg0->unk58);
-    arg0->unk160.x = 0.0f;
-    arg0->unk160.y = 0.0f;
-    arg0->unk160.z = 0.0f;
-    arg0->unk10.m[3][2] = 1000.0f;
-    D_80362690->terraId = arg0->unk310;
-    uvChanTerra(arg0->unk50->unk22C, D_80362690->terraId);
+    func_802D45C4(sdData->camera, sdData->unk58);
+    sdData->unk160.x = 0.0f;
+    sdData->unk160.y = 0.0f;
+    sdData->unk160.z = 0.0f;
+    sdData->unk10.m[3][2] = 1000.0f;
+    D_80362690->terraId = sdData->unk310;
+    uvChanTerra(sdData->camera->unk22C, D_80362690->terraId);
     if (D_80362690->terraId == 3) {
         uvLevelAppend(0x7D);
         var_a1 = 0xD;
@@ -962,7 +962,7 @@ void skydivingBelow(SkyDivingData* arg0) {
         var_a1 = 0xFFFF;
     }
     if (var_a1 != 0xFFFF) {
-        uvChanEnv(arg0->unk50->unk22C, var_a1);
+        uvChanEnv(sdData->camera->unk22C, var_a1);
     }
     for (i = 0; i < 3; i++) {
         if (D_80371970[i].unk0 != 0xFFFF) {
@@ -970,12 +970,12 @@ void skydivingBelow(SkyDivingData* arg0) {
             D_80371970[i].unk0 = 0xFFFF;
         }
 
-        if (arg0->shadowObjId != 0xFFFF) {
-            uvDobjModel(arg0->shadowObjId, 0xFFFF);
+        if (sdData->shadowObjId != 0xFFFF) {
+            uvDobjModel(sdData->shadowObjId, 0xFFFF);
         }
     }
-    arg0->unk258 = 0;
-    arg0->unk264 = arg0->unk10.m[3][2] * 0.05f;
+    sdData->unk258 = 0;
+    sdData->unk264 = sdData->unk10.m[3][2] * 0.05f;
     padsLoad();
     level_8030B868();
 
@@ -986,39 +986,40 @@ void skydivingBelow(SkyDivingData* arg0) {
     }
 }
 
-s32 func_80331D58(SkyDivingData* arg0) {
+s32 func_80331D58(SkyDivingData* sdData) {
     Unk8034FFD0* temp_v0;
 
-    temp_v0 = arg0->unk258;
+    temp_v0 = sdData->unk258;
 
-    if (temp_v0->unk38 < ABS_NOEQ(-arg0->unk5C - temp_v0->unk2C)) {
+    if (temp_v0->unk38 < ABS_NOEQ(-sdData->unk5C - temp_v0->unk2C)) {
         return 0;
     }
 
-    if (temp_v0->unk3C < ABS_NOEQ(arg0->unk60 - 1.5707963f)) {
+    if (temp_v0->unk3C < ABS_NOEQ(sdData->unk60 - 1.5707963f)) {
         return 0;
     }
 
-    if (temp_v0->unk30 < uvSqrtF(SQ(arg0->unk10.m[3][0] - (temp_v0->unkC + arg0->unk2B8)) + SQ(arg0->unk10.m[3][1] - (temp_v0->unk1C + arg0->unk2BC)))) {
+    if (temp_v0->unk30 <
+        uvSqrtF(SQ(sdData->unk10.m[3][0] - (temp_v0->unkC + sdData->unk2B8)) + SQ(sdData->unk10.m[3][1] - (temp_v0->unk1C + sdData->unk2BC)))) {
         return 0;
     }
 
-    if (temp_v0->unk34 < ABS_NOEQ(arg0->unk10.m[3][2] - D_80371970[0].unk10.m[3][2])) {
+    if (temp_v0->unk34 < ABS_NOEQ(sdData->unk10.m[3][2] - D_80371970[0].unk10.m[3][2])) {
         return 0;
     }
     return 1;
 }
 
-void func_80331EB8(SkyDivingData* arg0) {
+void func_80331EB8(SkyDivingData* sdData) {
     s32 i;
 
-    if (arg0->unk258->unk48 == 0xFF) {
-        arg0->unk258 = NULL;
+    if (sdData->unk258->unk48 == 0xFF) {
+        sdData->unk258 = NULL;
         for (i = 0; i < 3; i++) {
             hud_8031A8E0(D_80371970[i].unk70);
         }
     } else {
-        arg0->unk258 = &D_8034FFD0[arg0->unk258->unk48];
+        sdData->unk258 = &D_8034FFD0[sdData->unk258->unk48];
     }
 
     for (i = 0; i < 3; i++) {
@@ -1028,40 +1029,40 @@ void func_80331EB8(SkyDivingData* arg0) {
     }
 }
 
-void func_80331FE4(SkyDivingData* arg0) {
+void func_80331FE4(SkyDivingData* sdData) {
     static s32 D_80371B40;
     s16 sp2E;
     s16* sp28;
 
     sp2E = -1;
-    if (arg0->unk258 != NULL) {
-        arg0->unk288 += D_8034F854;
-        arg0->unkB9 = func_80331D58(arg0);
-        if (arg0->unkB9) {
-            if (arg0->unk260 < 0.0f) {
+    if (sdData->unk258 != NULL) {
+        sdData->unk288 += D_8034F854;
+        sdData->unkB9 = func_80331D58(sdData);
+        if (sdData->unkB9) {
+            if (sdData->unk260 < 0.0f) {
                 D_80371B40 = 3;
-                arg0->unk260 = D_8034F850;
+                sdData->unk260 = D_8034F850;
             }
-            if ((D_8034F850 - arg0->unk260) > 0.1f) {
-                arg0->unk288 = 100.0f;
+            if ((D_8034F850 - sdData->unk260) > 0.1f) {
+                sdData->unk288 = 100.0f;
             }
             uvFontSet(6);
             uvFontScale(1.0, 1.0);
             uvFontColor(0xFF, 0xFF, 0, 0xFF);
 
-            if ((D_8034F850 - arg0->unk260) < (0.3333f * arg0->unk258->unk40)) {
+            if ((D_8034F850 - sdData->unk260) < (0.3333f * sdData->unk258->unk40)) {
                 if (D_80371B40 == 3) {
                     D_80371B40--;
                     sndPlaySfxVolPitchPan(0x59, 0.8f, 1.0f, 0.0f);
                 }
                 sp2E = 9;
-            } else if ((D_8034F850 - arg0->unk260) < (0.6667f * arg0->unk258->unk40)) {
+            } else if ((D_8034F850 - sdData->unk260) < (0.6667f * sdData->unk258->unk40)) {
                 if (D_80371B40 == 2) {
                     D_80371B40--;
                     sndPlaySfxVolPitchPan(0x59, 0.8f, 1.0f, 0.0f);
                 }
                 sp2E = 0x76;
-            } else if ((D_8034F850 - arg0->unk260) < arg0->unk258->unk40) {
+            } else if ((D_8034F850 - sdData->unk260) < sdData->unk258->unk40) {
                 if (D_80371B40 == 1) {
                     D_80371B40--;
                     sndPlaySfxVolPitchPan(0x59, 0.8f, 1.0f, 0.0f);
@@ -1073,20 +1074,20 @@ void func_80331FE4(SkyDivingData* arg0) {
                 func_80219874(160 - ((func_802196B0(sp28) - 0x10) / 2), 0x7D, sp28, 0x14, 0xFFE);
             }
 
-            if (arg0->unk258->unk40 <= (D_8034F850 - arg0->unk260)) {
-                D_80371960 += arg0->unk258->unk44;
-                arg0->unk2B4 = 12.566371f;
-                arg0->unk260 = -1.0f;
+            if (sdData->unk258->unk40 <= (D_8034F850 - sdData->unk260)) {
+                D_80371960 += sdData->unk258->unk44;
+                sdData->unk2B4 = 12.566371f;
+                sdData->unk260 = -1.0f;
                 hudWarningText(6, 1.5f, 8.0f);
                 sndPlaySfx(SFX_UI_TEST_START);
             }
         } else {
-            arg0->unk260 = -1.0f;
+            sdData->unk260 = -1.0f;
         }
     }
 }
 
-void func_803322CC(SkyDivingData* arg0) {
+void func_803322CC(SkyDivingData* sdData) {
     f32 var_fs0;
     f32 var_fs1;
     f32 var_fs3;
@@ -1095,15 +1096,15 @@ void func_803322CC(SkyDivingData* arg0) {
     Unk8034FFD0* temp_v0;
     s32 i;
 
-    temp_v0 = arg0->unk258;
+    temp_v0 = sdData->unk258;
     if (temp_v0 == NULL) {
         return;
     }
 
     for (i = 0; i < 3; i++) {
         spC8 = &D_80371970[i];
-        spC8->unk4 = func_80313AF4((arg0->unk2B8 + temp_v0->unk0[i]) - spC8->unk10.m[3][0], spC8->unk4, 1.0f);
-        spC8->unk8 = func_80313AF4((arg0->unk2BC + temp_v0->unk10[i]) - spC8->unk10.m[3][1], spC8->unk8, 1.0f);
+        spC8->unk4 = func_80313AF4((sdData->unk2B8 + temp_v0->unk0[i]) - spC8->unk10.m[3][0], spC8->unk4, 1.0f);
+        spC8->unk8 = func_80313AF4((sdData->unk2BC + temp_v0->unk10[i]) - spC8->unk10.m[3][1], spC8->unk8, 1.0f);
         spC8->unkC = func_80313AF4(-21.7f, spC8->unkC, 1.0f);
         var_fs0 = func_80313AF4(temp_v0->unk20[i], spC8->unk50, 1.0f) - spC8->unk50;
         spC8->unk50 += var_fs0;
@@ -1125,7 +1126,7 @@ void func_803322CC(SkyDivingData* arg0) {
         spC8->unk10.m[3][1] += 0.5f * spC8->unk68 * D_8034F854;
         spC8->unk10.m[3][2] += 0.5f * spC8->unk6C * D_8034F854;
         var_fs3 = 0.0f;
-        var_fs1 = (arg0->unk10.m[3][2] - spC8->unk10.m[3][2]) + 1.57f;
+        var_fs1 = (sdData->unk10.m[3][2] - spC8->unk10.m[3][2]) + 1.57f;
 
         if (var_fs1 < -0.5f) {
             var_fs1 = -0.5f;
@@ -1133,8 +1134,8 @@ void func_803322CC(SkyDivingData* arg0) {
             var_fs1 = 2.5f;
         }
         var_fs0 = 1.0f;
-        if (arg0->unkB9) {
-            var_fs0 = arg0->unk288 * var_fs0;
+        if (sdData->unkB9) {
+            var_fs0 = sdData->unk288 * var_fs0;
             if (var_fs0 < 0.0f) {
                 var_fs0 = 0.0f;
             } else if (var_fs0 > 1.0f) {
@@ -1142,7 +1143,7 @@ void func_803322CC(SkyDivingData* arg0) {
             }
             var_fs1 += var_fs0 * uvCosF((i + 6.0f) * D_8034F850);
         } else {
-            var_fs0 = spC8->unk10.m[3][2] - arg0->unk10.m[3][2];
+            var_fs0 = spC8->unk10.m[3][2] - sdData->unk10.m[3][2];
             if (var_fs0 < 0.0f) {
                 var_fs0 = 0.0f;
             } else if (var_fs0 > 5.0f) {
@@ -1158,38 +1159,38 @@ void func_803322CC(SkyDivingData* arg0) {
         uvMat4RotateAxis(&sp88, spC8->unk60, 'z');
         uvDobjPosm(spC8->unk0, spC8->unk58, &sp88);
         var_fs0 = 20.0f;
-        if ((spC8->unk10.m[3][2] - arg0->unk10.m[3][2]) > var_fs0) {
-            spC8->unk10.m[3][2] = arg0->unk10.m[3][2] + var_fs0;
-        } else if ((spC8->unk10.m[3][2] - arg0->unk10.m[3][2]) < -var_fs0) {
-            spC8->unk10.m[3][2] = arg0->unk10.m[3][2] - var_fs0;
+        if ((spC8->unk10.m[3][2] - sdData->unk10.m[3][2]) > var_fs0) {
+            spC8->unk10.m[3][2] = sdData->unk10.m[3][2] + var_fs0;
+        } else if ((spC8->unk10.m[3][2] - sdData->unk10.m[3][2]) < -var_fs0) {
+            spC8->unk10.m[3][2] = sdData->unk10.m[3][2] - var_fs0;
         }
         uvDobjPosm(spC8->unk0, 0, &spC8->unk10);
     }
 
-    if (arg0->unk284 < 0.0f) {
-        arg0->unk284 -= D_8034F854;
-        if (arg0->unk284 < -0.25f) {
-            arg0->unk284 = 0.001f;
-            uvDobjState(arg0->shadowObjId, 2);
+    if (sdData->unk284 < 0.0f) {
+        sdData->unk284 -= D_8034F854;
+        if (sdData->unk284 < -0.25f) {
+            sdData->unk284 = 0.001f;
+            uvDobjState(sdData->shadowObjId, 2);
         }
     } else {
-        arg0->unk284 += D_8034F854;
-        if (arg0->unk284 > 0.25f) {
-            arg0->unk284 = -0.001f;
-            uvDobjState(arg0->shadowObjId, 0);
+        sdData->unk284 += D_8034F854;
+        if (sdData->unk284 > 0.25f) {
+            sdData->unk284 = -0.001f;
+            uvDobjState(sdData->shadowObjId, 0);
         }
     }
 
-    if ((arg0->unk288 > 50.0f) || ((D_80371960 != 0) && (arg0->unk288 < 4.0f))) {
-        uvDobjState(arg0->shadowObjId, 0);
+    if ((sdData->unk288 > 50.0f) || ((D_80371960 != 0) && (sdData->unk288 < 4.0f))) {
+        uvDobjState(sdData->shadowObjId, 0);
     }
     uvMat4SetIdentity(&sp88);
     uvMat4Scale(&sp88, 0.7f, 0.7f, 0.7f);
-    sp88.m[3][0] = arg0->unk258->unkC + arg0->unk2B8;
-    sp88.m[3][1] = arg0->unk258->unk1C + arg0->unk2BC;
+    sp88.m[3][0] = sdData->unk258->unkC + sdData->unk2B8;
+    sp88.m[3][1] = sdData->unk258->unk1C + sdData->unk2BC;
     sp88.m[3][2] = spC8->unk10.m[3][2];
-    uvMat4RotateAxis(&sp88, arg0->unk258->unk2C, 'z');
-    uvDobjPosm(arg0->shadowObjId, 0, &sp88);
+    uvMat4RotateAxis(&sp88, sdData->unk258->unk2C, 'z');
+    uvDobjPosm(sdData->shadowObjId, 0, &sp88);
 }
 
 void func_80332950(void) {
@@ -1203,7 +1204,7 @@ void func_80332950(void) {
     }
 }
 
-void func_803329C0(SkyDivingData* arg0) {
+void func_803329C0(SkyDivingData* sdData) {
     Unk80371970* temp_fp;
     s32 i;
     Unk80371120 sp78;
@@ -1212,7 +1213,7 @@ void func_803329C0(SkyDivingData* arg0) {
         temp_fp = &D_80371970[i];
         switch (i) {
         case 0:
-            if ((arg0->unk1C0 == MODEL_SKYDIVING_LARK) || (arg0->unk1C0 == MODEL_SKYDIVING_GOOSE) || (arg0->unk1C0 == MODEL_SKYDIVING_HAWK)) {
+            if ((sdData->unk1C0 == MODEL_SKYDIVING_LARK) || (sdData->unk1C0 == MODEL_SKYDIVING_GOOSE) || (sdData->unk1C0 == MODEL_SKYDIVING_HAWK)) {
                 temp_fp->unk54 = MODEL_SKYDIVING_KIWI;
                 temp_fp->unk58 = 0xC;
                 temp_fp->unk56 = 0x4D;
@@ -1223,7 +1224,7 @@ void func_803329C0(SkyDivingData* arg0) {
             }
             break;
         case 1:
-            if ((arg0->unk1C0 == MODEL_SKYDIVING_LARK) || (arg0->unk1C0 == MODEL_SKYDIVING_GOOSE) || (arg0->unk1C0 == MODEL_SKYDIVING_HAWK)) {
+            if ((sdData->unk1C0 == MODEL_SKYDIVING_LARK) || (sdData->unk1C0 == MODEL_SKYDIVING_GOOSE) || (sdData->unk1C0 == MODEL_SKYDIVING_HAWK)) {
                 temp_fp->unk54 = MODEL_SKYDIVING_IBIS;
                 temp_fp->unk58 = 0xC;
                 temp_fp->unk56 = 0x4E;
@@ -1234,7 +1235,7 @@ void func_803329C0(SkyDivingData* arg0) {
             }
             break;
         default:
-            if ((arg0->unk1C0 == MODEL_SKYDIVING_LARK) || (arg0->unk1C0 == MODEL_SKYDIVING_GOOSE) || (arg0->unk1C0 == MODEL_SKYDIVING_HAWK)) {
+            if ((sdData->unk1C0 == MODEL_SKYDIVING_LARK) || (sdData->unk1C0 == MODEL_SKYDIVING_GOOSE) || (sdData->unk1C0 == MODEL_SKYDIVING_HAWK)) {
                 temp_fp->unk54 = MODEL_SKYDIVING_ROBIN;
                 temp_fp->unk58 = 0xC;
                 temp_fp->unk56 = 0x4F;
@@ -1260,13 +1261,13 @@ void func_803329C0(SkyDivingData* arg0) {
         temp_fp->unk4 = 0.0f;
         temp_fp->unk8 = 0.0f;
         temp_fp->unkC = -21.7f;
-        temp_fp->unk10.m[3][0] = arg0->unk2B8;
-        temp_fp->unk10.m[3][1] = arg0->unk2BC;
-        temp_fp->unk10.m[3][2] = arg0->unk2C0 - 5.0f;
+        temp_fp->unk10.m[3][0] = sdData->unk2B8;
+        temp_fp->unk10.m[3][1] = sdData->unk2BC;
+        temp_fp->unk10.m[3][2] = sdData->unk2C0 - 5.0f;
         temp_fp->unk50 = 0.0f;
         temp_fp->unk70 = hudAddWaypoint(temp_fp->unk10.m[3][0], temp_fp->unk10.m[3][1], temp_fp->unk10.m[3][2]);
     }
-    arg0->shadowObjId = uvDobjAllocIdx();
-    uvDobjModel(arg0->shadowObjId, MODEL_SKYDIVING_SHADOW);
-    uvDobjState(arg0->shadowObjId, 2);
+    sdData->shadowObjId = uvDobjAllocIdx();
+    uvDobjModel(sdData->shadowObjId, MODEL_SKYDIVING_SHADOW);
+    uvDobjState(sdData->shadowObjId, 2);
 }

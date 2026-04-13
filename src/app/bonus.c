@@ -75,7 +75,7 @@ void bonusLoad(void) {
                 var_s1->unk48 = 0;
                 var_s1->loadVeh = VEHICLE_COUNT;
                 uvDobjModel(var_s1->objId, 0xF2);
-                uvModelGetProps(0xF2, 1, &var_s1->unk44, 0);
+                uvModelGetProps(0xF2, MODEL_PROP_UNK1(&var_s1->unk44), MODEL_PROP_END);
                 uvDobjState(var_s1->objId, (var_s1->unk4C != 0) ? 2 : 0);
                 func_80313640(temp_s0->pos.x, temp_s0->pos.y, temp_s0->pos.z, temp_s0->unkC * 0.0174533f, temp_s0->unk10 * 0.0174533f,
                               temp_s0->unk14 * 0.0174533f, // DEG_TO_RAD(1)

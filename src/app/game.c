@@ -480,7 +480,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
         break;
     case VEHICLE_GYROCOPTER:
         D_803676F4 = (GyrocopterData*)temp_s0->vehicleData;
-        func_802F5AE0(arg0->unk9C, temp_s0->pilot, D_803676F4, temp_s0->unk70);
+        gyrocopterLoadLevel(arg0->unk9C, temp_s0->pilot, D_803676F4, temp_s0->unk70);
         gyrocopterEnterLeave(D_803676F4);
         func_802EDD9C(temp_s0, &D_803676F4->unk10);
         if ((arg0->state != GAME_STATE_DEMO_PILOT) && (arg0->unkA2 == 0)) {
@@ -499,7 +499,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
         break;
     case VEHICLE_SKY_DIVING:
         D_80367700 = (SkyDivingData*)temp_s0->vehicleData;
-        func_8032FACC(arg0->unk9C, temp_s0->pilot, D_80367700, temp_s0->unk70);
+        skydivingLoadLevel(arg0->unk9C, temp_s0->pilot, D_80367700, temp_s0->unk70);
         skydivingEnterLeave(D_80367700);
         func_802EDD9C(temp_s0, &D_80367700->unk10);
         if ((arg0->state != GAME_STATE_DEMO_PILOT) && (arg0->unkA2 == 0)) {
@@ -509,7 +509,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
         break;
     case VEHICLE_JUMBLE_HOPPER:
         D_80367708 = (JumbleHopperData*)temp_s0->vehicleData;
-        func_802FA020(arg0->unk9C, temp_s0->pilot, D_80367708, temp_s0->unk70);
+        jumbleHopperLoadLevel(arg0->unk9C, temp_s0->pilot, D_80367708, temp_s0->unk70);
         jumbleHopperEnterLeave(D_80367708);
         func_802EDD9C(temp_s0, &D_80367708->unk74);
         if ((arg0->state != GAME_STATE_DEMO_PILOT) && (arg0->unkA2 == 0)) {
@@ -519,7 +519,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
         break;
     case VEHICLE_BIRDMAN:
         D_80367704 = (BirdmanData*)temp_s0->vehicleData;
-        bird_802CC270(arg0->unk9C, temp_s0->pilot, D_80367704, temp_s0->unk70);
+        birdLoadLevel(arg0->unk9C, temp_s0->pilot, D_80367704, temp_s0->unk70);
         birdEnterLeave(D_80367704);
         func_802EDD9C(temp_s0, &D_80367704->unk10);
         if ((arg0->state != GAME_STATE_DEMO_PILOT) && (arg0->unkA2 == 0)) {
@@ -1227,7 +1227,7 @@ void func_802EE14C(u16 veh) {
         break;
     case VEHICLE_GYROCOPTER:
         D_803676F4 = (GyrocopterData*)temp_s0->vehicleData;
-        func_802F5AE0(D_80362690->unk9C, temp_s0->pilot, D_803676F4, temp_s0->unk70);
+        gyrocopterLoadLevel(D_80362690->unk9C, temp_s0->pilot, D_803676F4, temp_s0->unk70);
         gyrocopterEnterLeave(D_803676F4);
         func_8033F748(0xC);
         break;
@@ -1240,21 +1240,21 @@ void func_802EE14C(u16 veh) {
         break;
     case VEHICLE_SKY_DIVING:
         D_80367700 = (SkyDivingData*)temp_s0->vehicleData;
-        func_8032FACC(D_80362690->unk9C, temp_s0->pilot, D_80367700, temp_s0->unk70);
+        skydivingLoadLevel(D_80362690->unk9C, temp_s0->pilot, D_80367700, temp_s0->unk70);
         skydivingEnterLeave(D_80367700);
         func_8033F748(0x13);
         sp3C = 0.5f;
         break;
     case VEHICLE_JUMBLE_HOPPER:
         D_80367708 = (JumbleHopperData*)temp_s0->vehicleData;
-        func_802FA020(D_80362690->unk9C, temp_s0->pilot, D_80367708, temp_s0->unk70);
+        jumbleHopperLoadLevel(D_80362690->unk9C, temp_s0->pilot, D_80367708, temp_s0->unk70);
         jumbleHopperEnterLeave(D_80367708);
         func_8033F748(0x17);
         sp3C = 0.5f;
         break;
     case VEHICLE_BIRDMAN:
         D_80367704 = (BirdmanData*)temp_s0->vehicleData;
-        bird_802CC270(D_80362690->unk9C, temp_s0->pilot, D_80367704, temp_s0->unk70);
+        birdLoadLevel(D_80362690->unk9C, temp_s0->pilot, D_80367704, temp_s0->unk70);
         birdEnterLeave(D_80367704);
         func_802EDD9C(temp_s0, &D_80367704->unk10);
         func_8033F748(0x19);

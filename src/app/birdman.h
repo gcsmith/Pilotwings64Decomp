@@ -18,13 +18,13 @@ typedef struct {
     u16 unk4;
     u8 pad6[0x8-6];
     f32 unk8;
-    u16 controller;
+    u16 contIdx;
     u8 padE[2];
     Mtx4F unk10;
     Mtx4F unk50;
     Mtx4F unk90;
     f32 unkD0;
-    Camera* unkD4;
+    Camera* camera;
     u8 unkD8;
     u8 padD9[3];
     f32 unkDC;
@@ -130,16 +130,16 @@ typedef struct {
 } BirdmanData;
 
 void birdInit(void);
-void bird_802CC270(u8, u8 pilot, BirdmanData*, Camera*);
-void birdEnterLeave(BirdmanData*);
+void birdLoadLevel(u8 contIdx, u8 pilot, BirdmanData* bmData, Camera* camera);
+void birdEnterLeave(BirdmanData* bmData);
 void bird_802CC51C(Unk802CC51C*);
-void birdMovementFrame(BirdmanData*, u8);
-void bird_802CD0F8(BirdmanData*);
-void bird_802CE190(BirdmanData*, u8);
-void bird_802CEA60(BirdmanData*);
-void bird_802CEB68(BirdmanData*, s32);
-void bird_802CEBA0(BirdmanData*);
-void bird_802CECB8(BirdmanData*);
-void bird_802CEDF8(BirdmanData*);
+void birdMovementFrame(BirdmanData* bmData, u8);
+void bird_802CD0F8(BirdmanData* bmData);
+void bird_802CE190(BirdmanData* bmData, u8);
+void bird_802CEA60(BirdmanData* bmData);
+void bird_802CEB68(BirdmanData* bmData, s32);
+void bird_802CEBA0(BirdmanData* bmData);
+void bird_802CECB8(BirdmanData* bmData);
+void bird_802CEDF8(BirdmanData* bmData);
 
 #endif // APP_BIRDMAN_H

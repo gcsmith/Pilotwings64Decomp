@@ -47,7 +47,7 @@ typedef struct {
     u16 contIdx;
     u8 padE[0x2];
     Mtx4F unk10;
-    Camera* unk50;
+    Camera* camera;
     u8 unk54;
     f32 unk58;
     f32 unk5C;
@@ -178,13 +178,13 @@ typedef struct {
 } SkyDivingData;
 
 void skydivingInit(void);
-s32 skydivingGetPoints(s32);
+s32 skydivingGetPoints(s32 type);
 
-void func_8032FACC(u8 contIdx, u8 pilot, SkyDivingData* arg2, Camera* arg3);
-void skydivingEnterLeave(SkyDivingData*);
-void func_8032FE4C(SkyDivingData*);
-void skydivingMovementFrame(SkyDivingData*, u8);
-void skydivingBelow(SkyDivingData*);
-void func_80331AE4(SkyDivingData*);
+void skydivingLoadLevel(u8 contIdx, u8 pilot, SkyDivingData* sdData, Camera* camera);
+void skydivingEnterLeave(SkyDivingData* sdData);
+void func_8032FE4C(SkyDivingData* sdData);
+void skydivingMovementFrame(SkyDivingData* sdData, u8);
+void skydivingBelow(SkyDivingData* sdData);
+void func_80331AE4(SkyDivingData* sdData);
 
 #endif // APP_SKYDIVING_H

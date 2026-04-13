@@ -80,23 +80,23 @@ STATIC_FUNC f32 hangGlider_802F41AC(Unk8034F1C8*, f32, f32);
 STATIC_FUNC void hangGlider_802F4370(HangGliderData*);
 STATIC_FUNC f32 hangGlider_802F42DC(Unk8034F2D0*, f32);
 
-void hangGlider_802F2190(HangGliderData* arg0) {
+void hangGlider_802F2190(HangGliderData* hgData) {
     u8 temp_v0;
 
     D_803680A0.unk0 = 4;
     D_803680A0.unk4[0].unk0 = 1;
-    uvVec3Copy(&D_803680A0.unk4[0].unk28, &arg0->unk2A0);
-    uvVec3Copy(&D_803680A0.unk4[0].unk1C, &arg0->unk294);
+    uvVec3Copy(&D_803680A0.unk4[0].unk28, &hgData->unk2A0);
+    uvVec3Copy(&D_803680A0.unk4[0].unk1C, &hgData->unk294);
     D_803680A0.unk4[1].unk0 = 1;
-    uvVec3Copy(&D_803680A0.unk4[1].unk28, &arg0->unk2AC);
-    uvVec3Copy(&D_803680A0.unk4[1].unk1C, &arg0->unk294);
+    uvVec3Copy(&D_803680A0.unk4[1].unk28, &hgData->unk2AC);
+    uvVec3Copy(&D_803680A0.unk4[1].unk1C, &hgData->unk294);
     D_803680A0.unk4[2].unk0 = 1;
-    uvVec3Copy(&D_803680A0.unk4[2].unk28, &arg0->unk27C);
-    uvVec3Copy(&D_803680A0.unk4[2].unk1C, &arg0->unk288);
+    uvVec3Copy(&D_803680A0.unk4[2].unk28, &hgData->unk27C);
+    uvVec3Copy(&D_803680A0.unk4[2].unk1C, &hgData->unk288);
     D_803680A0.unk4[3].unk0 = 1;
-    uvVec3Copy(&D_803680A0.unk4[3].unk28, &arg0->unk294);
-    uvVec3Copy(&D_803680A0.unk4[3].unk1C, &arg0->unk2B8);
-    hangGlider_802F2370(arg0);
+    uvVec3Copy(&D_803680A0.unk4[3].unk28, &hgData->unk294);
+    uvVec3Copy(&D_803680A0.unk4[3].unk1C, &hgData->unk2B8);
+    hangGlider_802F2370(hgData);
     D_8036830C = 0xF7F8;
     taskGetClsVehTest(&sHgClassId, &sHgVehicleId, &sHgTestId);
     if ((sHgClassId == CLASS_A) && (sHgTestId == 1)) {
@@ -119,46 +119,46 @@ void hangGlider_802F2190(HangGliderData* arg0) {
     }
 }
 
-void hangGlider_802F2370(HangGliderData* arg0) {
-    arg0->unkFC = 0;
-    arg0->unk8F = 0;
-    arg0->unk90 = 0;
-    arg0->unkF4 = 0.0f;
-    arg0->unkF8 = 0.0f;
-    arg0->unk100.x = arg0->unk100.y = 0.0f;
-    arg0->unk100.z = 1.0f;
-    arg0->unk1B4.x = arg0->unk1B4.y = arg0->unk1B4.z = 0.0f;
-    arg0->unk1A4.x = arg0->unk1A4.y = arg0->unk1A4.z = 0.0f;
-    arg0->unk1C0.x = arg0->unk1C0.y = arg0->unk1C0.z = 0.0f;
-    arg0->unk1D8 = 0.0f;
-    arg0->unk1D4 = 0.0f;
-    arg0->unk1D0 = 0.0f;
-    arg0->unk1DC.x = arg0->unk1DC.y = arg0->unk1DC.z = 0.0f;
-    arg0->unk1E8.x = arg0->unk1E8.y = 0.0f;
-    arg0->unk1E8.z = 1.0f;
-    arg0->unk1F4.x = arg0->unk1F4.y = 0.0f;
-    arg0->unk1F4.z = -9.8f;
-    arg0->unk200.x = arg0->unk200.y = arg0->unk200.z = 0.0f;
-    arg0->unk1B0 = 0.0f;
-    arg0->unk1CC = 0.0f;
-    arg0->unk20C = 0.0f;
-    arg0->unkF0 = 0.0f;
-    arg0->unkEC = 0.0f;
-    arg0->unk8D = 0;
-    arg0->unkE8 = 0;
-    arg0->unkE9 = 0;
-    arg0->unk5C = 0;
-    uvMat4Copy(&arg0->unk14C, &arg0->unk10);
-    arg0->unk14C.m[3][0] = 0.0f;
-    arg0->unk14C.m[3][1] = 0.0f;
-    arg0->unk14C.m[3][2] = 0.0f;
-    uvMat4LocalToWorld(&arg0->unk14C, &arg0->unk1A4, &arg0->unk18C);
-    uvVec3Normal(&arg0->unk198, &arg0->unk18C);
-    arg0->unk1B0 = uvVec3Len(&arg0->unk1A4);
-    arg0->unk314 = 1;
-    arg0->unk308.x = arg0->unk10.m[3][0];
-    arg0->unk308.y = arg0->unk10.m[3][1];
-    arg0->unk308.z = arg0->unk10.m[3][2];
+void hangGlider_802F2370(HangGliderData* hgData) {
+    hgData->unkFC = 0;
+    hgData->unk8F = 0;
+    hgData->unk90 = 0;
+    hgData->unkF4 = 0.0f;
+    hgData->unkF8 = 0.0f;
+    hgData->unk100.x = hgData->unk100.y = 0.0f;
+    hgData->unk100.z = 1.0f;
+    hgData->unk1B4.x = hgData->unk1B4.y = hgData->unk1B4.z = 0.0f;
+    hgData->unk1A4.x = hgData->unk1A4.y = hgData->unk1A4.z = 0.0f;
+    hgData->unk1C0.x = hgData->unk1C0.y = hgData->unk1C0.z = 0.0f;
+    hgData->unk1D8 = 0.0f;
+    hgData->unk1D4 = 0.0f;
+    hgData->unk1D0 = 0.0f;
+    hgData->unk1DC.x = hgData->unk1DC.y = hgData->unk1DC.z = 0.0f;
+    hgData->unk1E8.x = hgData->unk1E8.y = 0.0f;
+    hgData->unk1E8.z = 1.0f;
+    hgData->unk1F4.x = hgData->unk1F4.y = 0.0f;
+    hgData->unk1F4.z = -9.8f;
+    hgData->unk200.x = hgData->unk200.y = hgData->unk200.z = 0.0f;
+    hgData->unk1B0 = 0.0f;
+    hgData->unk1CC = 0.0f;
+    hgData->unk20C = 0.0f;
+    hgData->unkF0 = 0.0f;
+    hgData->unkEC = 0.0f;
+    hgData->unk8D = 0;
+    hgData->unkE8 = 0;
+    hgData->unkE9 = 0;
+    hgData->unk5C = 0;
+    uvMat4Copy(&hgData->unk14C, &hgData->unk10);
+    hgData->unk14C.m[3][0] = 0.0f;
+    hgData->unk14C.m[3][1] = 0.0f;
+    hgData->unk14C.m[3][2] = 0.0f;
+    uvMat4LocalToWorld(&hgData->unk14C, &hgData->unk1A4, &hgData->unk18C);
+    uvVec3Normal(&hgData->unk198, &hgData->unk18C);
+    hgData->unk1B0 = uvVec3Len(&hgData->unk1A4);
+    hgData->unk314 = 1;
+    hgData->unk308.x = hgData->unk10.m[3][0];
+    hgData->unk308.y = hgData->unk10.m[3][1];
+    hgData->unk308.z = hgData->unk10.m[3][2];
 }
 
 void hangGlider_802F24BC(HangGliderData* hgData) {

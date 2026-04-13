@@ -14,20 +14,20 @@ Unk803599D0 D_80369E58;
 Unk803599D0 D_80369EB0;
 
 void hsound_callback(s32 eventType, void*, s32 eventData);
-void func_8030ABF8(GyrocopterData* arg0);
-void func_8030ADCC(GyrocopterData* arg0);
-void func_8030AEA0(GyrocopterData* arg0);
-void func_8030AEB0(GyrocopterData* arg0);
-void func_8030B168(GyrocopterData* arg0);
+void func_8030ABF8(GyrocopterData* gcData);
+void func_8030ADCC(GyrocopterData* gcData);
+void func_8030AEA0(GyrocopterData* gcData);
+void func_8030AEB0(GyrocopterData* gcData);
+void func_8030B168(GyrocopterData* gcData);
 
-void func_8030A140(GyrocopterData* arg0) {
+void func_8030A140(GyrocopterData* gcData) {
     s32 i;
 
-    arg0->unk679 = 0;
-    arg0->unk68C = 0.0f;
-    arg0->unk680 = 0.0f;
-    arg0->unk684 = 0.0f;
-    arg0->unk688 = 0.0f;
+    gcData->unk679 = 0;
+    gcData->unk68C = 0.0f;
+    gcData->unk680 = 0.0f;
+    gcData->unk684 = 0.0f;
+    gcData->unk688 = 0.0f;
 
     D_80369E58.count = 4;
     D_80369E58.unk4[0].x = 0.f;
@@ -47,22 +47,22 @@ void func_8030A140(GyrocopterData* arg0) {
     D_80369EB0.unk4[3].x = 400.0f;
     D_80369EB0.unk4[3].y = 1.8f;
 
-    arg0->unk67C = sndMakeDev(0x1F);
-    arg0->unk67D = sndMakeDev(0x42);
-    arg0->unk67A = sndMakeDev(0x13);
-    arg0->unk67B = sndMakeDev(0x13);
+    gcData->unk67C = sndMakeDev(0x1F);
+    gcData->unk67D = sndMakeDev(0x42);
+    gcData->unk67A = sndMakeDev(0x13);
+    gcData->unk67B = sndMakeDev(0x13);
 
     for (i = 0; i < 2; i++) {
-        arg0->unk690[i].unk50 = uvEmitterLookup();
-        if (arg0->unk690[i].unk50 != 0xFF) {
-            uvEmitterFromModel(arg0->unk690[i].unk50, 0x2F);
-            uvEmitterSetUnk70(arg0->unk690[i].unk50, 0.6f);
-            uvEmitterProp(arg0->unk690[i].unk50, 1, 0.0f, 2, 1000.0f, 5, 0x18, 0);
+        gcData->unk690[i].unk50 = uvEmitterLookup();
+        if (gcData->unk690[i].unk50 != 0xFF) {
+            uvEmitterFromModel(gcData->unk690[i].unk50, 0x2F);
+            uvEmitterSetUnk70(gcData->unk690[i].unk50, 0.6f);
+            uvEmitterProp(gcData->unk690[i].unk50, 1, 0.0f, 2, 1000.0f, 5, 0x18, 0);
         }
     }
     D_80369E50.cb = &hsound_callback;
-    D_80369E50.arg = arg0;
-    arg0->unk678 = 0xC0;
+    D_80369E50.arg = gcData;
+    gcData->unk678 = 0xC0;
     uvEventMaxCb(D_80369E50, 1, 0xD, 0x12, 0x13, 0x16, 0xC, 0x10, 0x24);
 }
 
@@ -204,118 +204,118 @@ void hsound_callback(s32 eventType, void* arg1, s32 eventData) {
     }
 }
 
-void func_8030ABF8(GyrocopterData* arg0) {
+void func_8030ABF8(GyrocopterData* gcData) {
     Unk80362690_Unk0* sp34;
     s32 sfxId;
     f32 pitch;
 
     sp34 = &D_80362690->unkC[D_80362690->unk9C];
-    if (arg0->unkC0 == 3) {
-        if (!(arg0->unk678 & 2)) {
-            arg0->unk678 |= 2;
-            func_8030ADCC(arg0);
+    if (gcData->unkC0 == 3) {
+        if (!(gcData->unk678 & 2)) {
+            gcData->unk678 |= 2;
+            func_8030ADCC(gcData);
             sndPlaySfx(0x3F);
-            if (!(arg0->unk678 & 0x10)) {
+            if (!(gcData->unk678 & 0x10)) {
                 func_8033F748(0xF);
                 func_8033F964(0);
                 func_8033FCD0(sp34->veh);
             }
         }
     } else {
-        if (arg0->unkC0 == 2) {
-            if (!(arg0->unk678 & 0x10)) {
-                arg0->unk678 |= 0x10;
+        if (gcData->unkC0 == 2) {
+            if (!(gcData->unk678 & 0x10)) {
+                gcData->unk678 |= 0x10;
                 sndGetPilotScream(&sfxId, &pitch);
                 sndPlaySfxVolPitchPan(sfxId, 1.0f, pitch, 0.0f);
                 func_8033F748(0xF);
                 func_8033F964(0);
                 func_8033FCD0(sp34->veh);
-                func_8030ADCC(arg0);
+                func_8030ADCC(gcData);
             }
         }
-        if ((arg0->unkC0 == 4) && (arg0->unk50 != -1)) {
-            if (!(arg0->unk678 & 0x20)) {
-                arg0->unk678 |= 0x20;
-                if ((arg0->unk6C != 0) && (arg0->unk4 == 0xFFFF)) {
+        if ((gcData->unkC0 == 4) && (gcData->unk50 != -1)) {
+            if (!(gcData->unk678 & 0x20)) {
+                gcData->unk678 |= 0x20;
+                if ((gcData->unk6C != 0) && (gcData->unk4 == 0xFFFF)) {
                     func_8033F748(0xD);
                 } else {
                     func_8033F748(0xE);
                 }
                 func_8033F964(0);
                 func_8033FCD0(sp34->veh);
-                func_8030ADCC(arg0);
+                func_8030ADCC(gcData);
             }
         }
-        if (arg0->unk544 != 0) {
-            func_8030AEB0(arg0);
-        } else if (!(arg0->unk678 & 0x10)) {
-            arg0->unk678 = 0xC0;
+        if (gcData->unk544 != 0) {
+            func_8030AEB0(gcData);
+        } else if (!(gcData->unk678 & 0x10)) {
+            gcData->unk678 = 0xC0;
         }
     }
 }
 
-void func_8030ADCC(GyrocopterData* arg0) {
+void func_8030ADCC(GyrocopterData* gcData) {
     s32 i;
 
-    arg0->unk678 |= 1;
-    func_8033F904(arg0->unk67C, 1.0f, 0.0f, 0.0f);
-    func_8033F904(arg0->unk67A, 1.0f, 0.0f, 0.0f);
-    func_8033F904(arg0->unk67B, 1.0f, 0.0f, 0.0f);
-    func_8033F904(arg0->unk67D, 1.0f, 0.0f, 0.0f);
+    gcData->unk678 |= 1;
+    func_8033F904(gcData->unk67C, 1.0f, 0.0f, 0.0f);
+    func_8033F904(gcData->unk67A, 1.0f, 0.0f, 0.0f);
+    func_8033F904(gcData->unk67B, 1.0f, 0.0f, 0.0f);
+    func_8033F904(gcData->unk67D, 1.0f, 0.0f, 0.0f);
 
     for (i = 0; i < 2; i++) {
-        func_8033F904(arg0->unk690[i].unk50, 1.0f, 0.0f, 0.0f);
+        func_8033F904(gcData->unk690[i].unk50, 1.0f, 0.0f, 0.0f);
     }
 }
 
-void func_8030AEA0(GyrocopterData* arg0) {
-    arg0->unk678 &= ~1;
+void func_8030AEA0(GyrocopterData* gcData) {
+    gcData->unk678 &= ~1;
 }
 
-void func_8030AEB0(GyrocopterData* arg0) {
+void func_8030AEB0(GyrocopterData* gcData) {
     s32 i;
     f32 temp_fs0;
     s32 soid;
     s32 modelId;
 
-    if (D_8034F850 < (arg0->unk68C + 0.5f)) {
+    if (D_8034F850 < (gcData->unk68C + 0.5f)) {
         return;
     }
-    arg0->unk68C = D_8034F850;
-    for (i = 0; i < arg0->unk544; i++) {
-        temp_fs0 = func_80313F08(&D_80369E58, ABS_NOEQ(arg0->unk564[i]));
-        switch (arg0->unk545[i]) {
+    gcData->unk68C = D_8034F850;
+    for (i = 0; i < gcData->unk544; i++) {
+        temp_fs0 = func_80313F08(&D_80369E58, ABS_NOEQ(gcData->unk564[i]));
+        switch (gcData->unk545[i]) {
         case 4:
-            if ((arg0->unkD0 != 0) && (arg0->unkC0 == 3)) {
-                if (!(arg0->unk678 & 4)) {
-                    arg0->unk678 |= 4;
+            if ((gcData->unkD0 != 0) && (gcData->unkC0 == 3)) {
+                if (!(gcData->unk678 & 4)) {
+                    gcData->unk678 |= 4;
                     sndPlaySfx(SFX_WATER_SPLASH);
                 }
             }
             break;
         case 1:
-            if (arg0->unkC1 != 0) {
+            if (gcData->unkC1 != 0) {
                 sndPlaySfxVolPitchPan(0x17, temp_fs0, 1.0f, 0.0f);
             }
             break;
         case 2:
-            if (arg0->unkC1 != 0) {
+            if (gcData->unkC1 != 0) {
                 sndPlaySfxVolPitchPan(0x16, temp_fs0, 1.0f, 0.0f);
             }
             break;
         case 8:
-            soid = uvSobjGetPt(D_80362690->terraId, arg0->unk54C[i].x, arg0->unk54C[i].y, arg0->unk54C[i].z);
+            soid = uvSobjGetPt(D_80362690->terraId, gcData->unk54C[i].x, gcData->unk54C[i].y, gcData->unk54C[i].z);
             if (soid != -1) {
                 modelId = uvSobj_8022D1E4(soid);
                 if (MODEL_IS_TREE(modelId)) {
                     sndPlaySfxVolPitchPan(0x39, temp_fs0, 1.0f, 0.0f);
-                } else if (arg0->unkC1 != 0) {
+                } else if (gcData->unkC1 != 0) {
                     sndPlaySfxVolPitchPan(0x18, temp_fs0, 1.0f, 0.0f);
                 }
             }
             break;
         }
-        if (arg0->unk547[i] == 1) {
+        if (gcData->unk547[i] == 1) {
             sndPlaySfxVolPitchPan(0xB, temp_fs0, 1.0f, 0.0f);
         } else {
             sndPlaySfxVolPitchPan(8, temp_fs0, 1.0f, 0.0f);
@@ -323,26 +323,26 @@ void func_8030AEB0(GyrocopterData* arg0) {
     }
 }
 
-void func_8030B168(GyrocopterData* arg0) {
+void func_8030B168(GyrocopterData* gcData) {
     s32 i;
 
-    arg0->unk67C = func_8033F8CC(arg0->unk67C);
-    arg0->unk67A = func_8033F8CC(arg0->unk67A);
-    arg0->unk67B = func_8033F8CC(arg0->unk67B);
-    arg0->unk67D = func_8033F8CC(arg0->unk67D);
+    gcData->unk67C = func_8033F8CC(gcData->unk67C);
+    gcData->unk67A = func_8033F8CC(gcData->unk67A);
+    gcData->unk67B = func_8033F8CC(gcData->unk67B);
+    gcData->unk67D = func_8033F8CC(gcData->unk67D);
 
     for (i = 0; i < 2; i++) {
-        arg0->unk690[i].unk50 = func_8033F8CC(arg0->unk690[i].unk50);
+        gcData->unk690[i].unk50 = func_8033F8CC(gcData->unk690[i].unk50);
     }
     uvEventRemoveCb(D_80369E50, 1, 0xD, 0x12, 0x13, 0x16, 0xC, 0x10, 0x24);
 }
 
-void func_8030B240(Mtx4F* arg0) {
+void func_8030B240(Mtx4F* mat) {
     u8 sp3F;
 
     sp3F = sndMakeDev(0x30);
     uvEmitterProp(sp3F, 1, 0.0f, 2, 2000.0f, 5, 0x38, 0);
     uvEmitterSetUnk70(sp3F, 1.0f);
     uvEmitterSetUnk74(sp3F, 1.0f);
-    uvEmitterSetMatrix(sp3F, arg0);
+    uvEmitterSetMatrix(sp3F, mat);
 }

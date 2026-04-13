@@ -201,13 +201,16 @@ typedef struct uvModelLOD {
     u8 billboard;
 } uvModelLOD; // size = 0x8
 
+#define UVMD_ATTR_TRANSPARENT 1
+#define UVMD_ATTR_UNKNOWN 2
+
 typedef struct ParsedUVMD {
     Vtx* vtxTable;
     u16 vtxCount;
     uvModelLOD* lodTable;
     f32* lodRadius;
     u8 lodCount;
-    u8 unk11;
+    u8 attrs;
     Mtx4F* mtxTable;
     u8 mtxCount;
     f32 unk1C;

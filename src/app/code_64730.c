@@ -68,9 +68,9 @@ f32 D_8034EEBC[] = {
 };
 
 // forward declarations
-STATIC_FUNC void func_802DD57C(Camera*);
-STATIC_FUNC s32 func_802DD8E8(Camera*, Unk80367868*, s32);
-STATIC_FUNC void func_802DE5B0(Camera*, Unk80367868*);
+STATIC_FUNC void func_802DD57C(Camera* camera);
+STATIC_FUNC s32 func_802DD8E8(Camera* camera, Unk80367868*, s32);
+STATIC_FUNC void func_802DE5B0(Camera* camera, Unk80367868*);
 STATIC_FUNC void func_802DE964(Camera*, Unk80367868*, s32);
 
 // handles the pilot selection. Returns -1 on failure? Otherwise returns selected pilot id
@@ -147,7 +147,7 @@ STATIC_FUNC void func_802DD44C(void) {
     func_8034B6F8();
 }
 
-STATIC_FUNC void func_802DD57C(Camera* arg0) {
+STATIC_FUNC void func_802DD57C(Camera* camera) {
     Unk80362690_Unk0* sp3C;
 
     sp3C = &D_80362690->unkC[D_80362690->unk9C];
@@ -199,23 +199,23 @@ STATIC_FUNC void func_802DD57C(Camera* arg0) {
         SPRT_PROP_END
     );
     // clang-format on
-    func_80204BD4(arg0->unk22C, 1, 1.0f);
-    func_80204A8C(arg0->unk22C, 1);
-    func_80204C94(arg0->unk22C, -0.3504673f, 0.3504673f, -0.25f, 0.25f, 0.5f, 100.0f);
-    uvChanEnv(arg0->unk22C, 0xFFFF);
-    func_80204AB0(arg0->unk22C, 0, func_802DD42C);
-    func_80204AB0(arg0->unk22C, 1, func_802DD44C);
+    func_80204BD4(camera->unk22C, 1, 1.0f);
+    func_80204A8C(camera->unk22C, 1);
+    func_80204C94(camera->unk22C, -0.3504673f, 0.3504673f, -0.25f, 0.25f, 0.5f, 100.0f);
+    uvChanEnv(camera->unk22C, 0xFFFF);
+    func_80204AB0(camera->unk22C, 0, func_802DD42C);
+    func_80204AB0(camera->unk22C, 1, func_802DD44C);
     D_80359CA0 = (D_8034EDA0 * 0x35) + 0x1A;
     D_80359CA4 = 0x90 - (*D_8034EDA4 * 0x3E);
     D_80359D68 = D_80359D69 = D_80359D6A = 0;
-    uvMat4SetIdentity(&arg0->unk108);
-    uvMat4LocalTranslate(&arg0->unk108, 0.0f, 0.0f, -0.5f);
-    uvMat4RotateAxis(&arg0->unk108, 0.2f, 'x');
+    uvMat4SetIdentity(&camera->unk108);
+    uvMat4LocalTranslate(&camera->unk108, 0.0f, 0.0f, -0.5f);
+    uvMat4RotateAxis(&camera->unk108, 0.2f, 'x');
     D_8034EDC4 = 0xFF;
     D_80362690->unkA3 = 0;
 }
 
-STATIC_FUNC s32 func_802DD8E8(Camera* arg0, Unk80367868* arg1, s32 arg2) {
+STATIC_FUNC s32 func_802DD8E8(Camera* camera, Unk80367868* arg1, s32 arg2) {
     f32 sp10C;
     f32 var_fv0;
     u8* temp;
@@ -437,7 +437,7 @@ STATIC_FUNC s32 func_802DD8E8(Camera* arg0, Unk80367868* arg1, s32 arg2) {
     return 7;
 }
 
-STATIC_FUNC void func_802DE5B0(Camera* arg0, Unk80367868* arg1) {
+STATIC_FUNC void func_802DE5B0(Camera* camera, Unk80367868* arg1) {
     static f32 D_8034EED4 = 0.0f;
     static f32 D_8034EED8 = 1.6f;
     s16* pilotName;
@@ -447,8 +447,8 @@ STATIC_FUNC void func_802DE5B0(Camera* arg0, Unk80367868* arg1) {
     f32 g;
     f32 b;
 
-    func_80204B34(arg0->unk22C, &arg0->unk108);
-    func_80204FC4(arg0->unk22C);
+    func_80204B34(camera->unk22C, &camera->unk108);
+    func_80204FC4(camera->unk22C);
     uvFontSet(6);
     uvFontScale(1.0, 1.0);
     D_8034EED4 += D_8034EED8 * uvGfxGetUnkStateF();
@@ -474,7 +474,7 @@ STATIC_FUNC void func_802DE5B0(Camera* arg0, Unk80367868* arg1) {
     uvFontGenDlist();
 }
 
-STATIC_FUNC void func_802DE964(Camera* arg0, Unk80367868* arg1, s32 arg2) {
+STATIC_FUNC void func_802DE964(Camera* camera, Unk80367868* arg1, s32 arg2) {
     u16 spA6;
     Mtx4F sp64;
     f32 var_fs0;
@@ -521,14 +521,14 @@ STATIC_FUNC void func_802DE964(Camera* arg0, Unk80367868* arg1, s32 arg2) {
             }
             uvDobjPosm(D_8034EDC8, 0, &sp64);
             func_80200B00(D_8034EDC8, spA6, var_fs0);
-            func_80204B34(arg0->unk22C, &arg0->unk108);
-            func_80204FC4(arg0->unk22C);
+            func_80204B34(camera->unk22C, &camera->unk108);
+            func_80204FC4(camera->unk22C);
             func_80313D74();
             uvGfxEnd();
         }
     }
-    func_80204AB0(arg0->unk22C, 0, NULL);
-    func_80204AB0(arg0->unk22C, 1, func_8034B6F8);
+    func_80204AB0(camera->unk22C, 0, NULL);
+    func_80204AB0(camera->unk22C, 1, func_8034B6F8);
     if (D_8034EDC8 != 0xFFFF) {
         uvDobjModel(D_8034EDC8, MODEL_WORLD);
         D_8034EDC8 = 0xFFFF;

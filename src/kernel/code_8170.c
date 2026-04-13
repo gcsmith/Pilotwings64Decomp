@@ -4,6 +4,7 @@
 #include <uv_graphics.h>
 #include <uv_math.h>
 #include <uv_memory.h>
+#include <uv_model.h>
 #include <uv_sobj.h>
 #include <libc/stdarg.h>
 #include "kernel/code_8170.h"
@@ -950,12 +951,12 @@ void uvModelGetProps(s32 modelId, ...) {
     while (TRUE) {
         property = va_arg(args, s32);
         switch (property) {
-        case 0:
+        case MODEL_PROPID_END:
             return;
-        case 2:
+        case MODEL_PROPID_LOD_COUNT:
             *va_arg(args, s32*) = uvmd->lodCount;
             break;
-        case 5:
+        case MODEL_PROPID_UNK5:
             if (uvmd->lodTable->partTable->stateTable->state & GFX_STATE_2000000) {
                 var_v0 = 1;
             } else {
@@ -964,10 +965,10 @@ void uvModelGetProps(s32 modelId, ...) {
 
             *va_arg(args, u8*) = var_v0;
             break;
-        case 4:
+        case MODEL_PROPID_PART_COUNT:
             *va_arg(args, s32*) = uvmd->lodTable->partCount;
             break;
-        case 3:
+        case MODEL_PROPID_UNK3:
             var_a0 = 0;
             for (i = 0; i < uvmd->lodTable->partCount; i++) {
                 var_a0 += uvmd->lodTable->partTable[i].unkC;
@@ -975,7 +976,7 @@ void uvModelGetProps(s32 modelId, ...) {
 
             *va_arg(args, s32*) = var_a0;
             break;
-        case 1:
+        case MODEL_PROPID_UNK1:
             *va_arg(args, f32*) = uvmd->unk1C;
             break;
         default:
@@ -1517,7 +1518,7 @@ s32 uvSobjGetPt(s32 terraId, f32 arg1, f32 arg2, f32 arg3) {
         }
         uvmd = gGfxUnkPtrs->models[temp_s0_2->modelId];
         if (func_80213364(sp78, sp74, sp70, temp_s0_2->unk8, temp_s0_2->unkC, temp_s0_2->unk10, uvmd->unk1C) != 0) {
-            if (uvmd->unk11 & 2) {
+            if (uvmd->attrs & UVMD_ATTR_UNKNOWN) {
                 if (func_802134F8(sp78, sp74, sp70, temp_s0_2) >= 0) {
                     return ((terraId & 0xFF) << 24) | ((sp7C & 0xFFF) << 12) | (i & 0xFFF);
                 }
@@ -1753,7 +1754,7 @@ s32 uvSobjGetSeg(s32 terraId, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
                 uvmd = gGfxUnkPtrs->models[temp_s0_2->modelId];
                 if (func_80214C64(temp_fs0_2, temp_fs2_2, spE4, temp_fs1_2, temp_fs3, spE0, temp_s0_2->unk8, temp_s0_2->unkC, temp_s0_2->unk10, uvmd->unk1C,
                                   &sp108) != 0) {
-                    if (!(uvmd->unk11 & 2)) {
+                    if (!(uvmd->attrs & UVMD_ATTR_UNKNOWN)) {
                         D_802634C8[D_802634C4] = ((terraId & 0xFF) << 24) | ((temp_t6 & 0xFFF) << 12) | (k & 0xFFF);
                         D_80263548[D_802634C4] = sp108;
                         func_80215BC4(arg1, arg2, arg3, arg4, arg5, arg6, sp108, temp_s3->unk0.m[3][0] + temp_s0_2->unk8,
@@ -1791,7 +1792,7 @@ s32 func_80212008(f32 arg0, f32 arg1, f32 arg2) {
         temp_v0 = &D_80265080[temp_s0->unk2[0]];
         uvmd = gGfxUnkPtrs->models[temp_s0->modelId];
         if (func_80213364(arg0, arg1, arg2, temp_v0->m[3][0], temp_v0->m[3][1], temp_v0->m[3][2], temp_s0->unk38) != 0) {
-            if (!(uvmd->unk11 & 2)) {
+            if (!(uvmd->attrs & UVMD_ATTR_UNKNOWN)) {
                 return i;
             }
             if (func_80213790(arg0, arg1, arg2, temp_s0) >= 0) {
@@ -1841,7 +1842,7 @@ s32 func_8021215C(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, s3
         if (func_80214C64(arg0, arg1, arg2, arg3, arg4, arg5, temp_s0->m[3][0], temp_s0->m[3][1], temp_s0->m[3][2], temp_s1->unk38, &sp98) == 0) {
             continue;
         }
-        if (!(uvmd->unk11 & 2)) {
+        if (!(uvmd->attrs & UVMD_ATTR_UNKNOWN)) {
             D_802634C8[D_802634C4] = i;
             D_80263548[D_802634C4] = sp98;
             func_80215BC4(arg0, arg1, arg2, arg3, arg4, arg5, sp98, temp_s0->m[3][0], temp_s0->m[3][1], temp_s0->m[3][2], &D_802635C8[D_802634C4]);

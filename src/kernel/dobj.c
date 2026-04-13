@@ -358,7 +358,7 @@ void _uvDobjsDraw(UnkStruct_80204D94* arg0, s32 arg1) {
             _uvDebugPrintf("_uvDobjsDraw: model %d not in level\n", var_s2->modelId);
             continue;
         }
-        uvModelGetProps(var_s2->modelId, 5, &spBF, 0);
+        uvModelGetProps(var_s2->modelId, MODEL_PROP_UNK5(&spBF), MODEL_PROP_END);
         if (spBF - arg1 != 0) {
             continue;
         }
@@ -382,15 +382,15 @@ void _uvDobjsDraw(UnkStruct_80204D94* arg0, s32 arg1) {
             }
             if (arg1 != 0) {
                 uvDobj_80217B4C(var_s2, uvmd, lodId);
-            } else if (uvmd->lodTable[lodId].billboard != 0) {
-                if (uvmd->unk11 & 1) {
+            } else if (uvmd->lodTable[lodId].billboard != FALSE) {
+                if (uvmd->attrs & UVMD_ATTR_TRANSPARENT) {
                     var_a0 = 3;
                 } else {
                     var_a0 = -3;
                 }
                 _uvSortAdd(var_a0, temp_fv0_2, var_s2, arg0, temp_fv0, temp_fs5, lodId, temp_fs1, temp_fs2);
             } else {
-                if (uvmd->unk11 & 1) {
+                if (uvmd->attrs & UVMD_ATTR_TRANSPARENT) {
                     var_a0 = 2;
                 } else {
                     var_a0 = -2;
@@ -467,7 +467,7 @@ void uvDobj_8021771C(UnkStruct_80204D94* arg0) {
             continue;
         }
 
-        if (uvmd->lodTable[lodId].billboard != 0) {
+        if (uvmd->lodTable[lodId].billboard != FALSE) {
             uvDobj_80217E24(temp_s1, uvmd, lodId, temp_fs3, temp_fs4);
         } else {
             uvDobj_80217B4C(temp_s1, uvmd, lodId);

@@ -6,18 +6,18 @@
 #include "hud.h"
 #include "splash.h"
 
-void func_8034B5E0(u8 arg0, Camera* arg1) {
-    func_802D3170(arg0, arg1);
-    func_80204AB0(arg1->unk22C, 1, func_8034B6F8);
+void func_8034B5E0(u8 arg0, Camera* camera) {
+    func_802D3170(arg0, camera);
+    func_80204AB0(camera->unk22C, 1, func_8034B6F8);
 }
 
-void func_8034B624(Camera* arg0) {
-    func_802D3444(arg0);
-    func_802D50D0(arg0);
-    func_80204B34(arg0->unk22C, &arg0->unk108);
-    func_80204BD4(arg0->unk22C, 1, arg0->unk20);
-    func_80204BD4(arg0->unk22C, 0, arg0->unk20);
-    func_80204FC4(arg0->unk22C);
+void func_8034B624(Camera* camera) {
+    func_802D3444(camera);
+    func_802D50D0(camera);
+    func_80204B34(camera->unk22C, &camera->unk108);
+    func_80204BD4(camera->unk22C, 1, camera->unk20);
+    func_80204BD4(camera->unk22C, 0, camera->unk20);
+    func_80204FC4(camera->unk22C);
 }
 
 void func_8034B688(void) {

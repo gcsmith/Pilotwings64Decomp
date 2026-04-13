@@ -4,6 +4,6 @@
 #include <PR/ultratypes.h>
 #include "skydiving.h"
 
-void sdSoundInit(SkyDivingData* arg0);
+void sdSoundInit(SkyDivingData* sdData);
 
 #endif // APP_SDSOUND_H

@@ -468,7 +468,7 @@ void func_80205CE4(UnkStruct_80204D94* arg0, s32 arg1, f32 arg2, f32 arg3) {
         case 4:
             uvmd = gGfxUnkPtrs->models[((UnkSobjDraw*)(var_s1->unk10))->modelId];
             uvGfx_802236CC(var_s1->unk18);
-            if (uvmd->lodTable[var_s1->unk1].billboard != 0) {
+            if (uvmd->lodTable[var_s1->unk1].billboard != FALSE) {
                 uvSobj_8022CC28((UnkSobjDraw*)var_s1->unk10, uvmd, var_s1->unk1, var_s1->unk8, var_s1->unkC);
             } else {
                 uvSobj_8022C8D0((UnkSobjDraw*)var_s1->unk10, uvmd, var_s1->unk1, var_s1->unk18);

@@ -3,6 +3,6 @@
 
 #include "cannonball.h"
 
-void cbSoundInit(CannonballData*);
+void cbSoundInit(CannonballData* cbData);
 
 #endif // CBSOUND_H

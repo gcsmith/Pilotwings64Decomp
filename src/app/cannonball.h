@@ -29,7 +29,7 @@ typedef struct {
     f32 unkA4;
     f32 unkA8;
     f32 unkAC;
-    Camera* unkB0;
+    Camera* camera;
     u8 unkB4;
     u8 padB5[3];
     f32 unkB8;
@@ -109,17 +109,17 @@ extern s32 D_80359AA8;
 extern s32 D_80359AAC;
 
 void cannonInit(void);
-void cannonLoadLevel(u8, u8 pilot, CannonballData*, Camera*);
-void cannonLevelEnterLeave(CannonballData*);
-void cannonEndTarget(CannonballData*);
-void cannonMovementFrame(CannonballData*, u8);
-void cannonAimingFrame(CannonballData*);
-void cannonShoot(CannonballData*);
-void cannonPilotLand(CannonballData*);
-void cannonLoadPilot(u8 pilot, CannonballData*);
-void cannon_802D8A40(u8 arg0, CannonballData* arg1);
-s32 cannonLoad802D77D8(Unk80362690* arg0, CannonballData* arg1);
+void cannonLoadLevel(u8 contIdx, u8 pilot, CannonballData* cbData, Camera* camera);
+void cannonLevelEnterLeave(CannonballData* cbData);
+void cannonEndTarget(CannonballData* cbData);
+void cannonMovementFrame(CannonballData* cbData, u8);
+void cannonAimingFrame(CannonballData* cbData);
+void cannonShoot(CannonballData* cbData);
+void cannonPilotLand(CannonballData* cbData);
+void cannonLoadPilot(u8 pilot, CannonballData* cbData);
+void cannon_802D8A40(u8 arg0, CannonballData* cbData);
+s32 cannonLoad802D77D8(Unk80362690* arg0, CannonballData* cbData);
 s32 cannonFrame802D7B7C(Unk80362690* arg0);
-s32 cannonLandedFrame(CannonballData*);
+s32 cannonLandedFrame(CannonballData* cbData);
 
 #endif // APP_CANNONBALL_H

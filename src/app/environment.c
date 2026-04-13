@@ -641,13 +641,13 @@ void env_802E2504(void) {
     Unk80362690_Unk0* temp_s0;
     s32 sp28;
     s32 sp24;
-    HangGliderData* hangGliderData;
-    GyrocopterData* gyrocopterData;
-    RocketBeltData* rocketBeltData;
-    CannonballData* cannonballData;
-    SkyDivingData* skyDivingData;
-    JumbleHopperData* jumbleHopperData;
-    BirdmanData* birdmanData;
+    HangGliderData* hgData;
+    GyrocopterData* gcData;
+    RocketBeltData* rbData;
+    CannonballData* cbData;
+    SkyDivingData* sdData;
+    JumbleHopperData* jhData;
+    BirdmanData* bmData;
 
     temp_s0 = &D_80362690->unkC[D_80362690->unk9C];
     level_8030BA60();
@@ -657,39 +657,39 @@ void env_802E2504(void) {
     cannon_802D8A40(1U, temp_s0->vehicleData);
     switch (temp_s0->veh) {
     case VEHICLE_GYROCOPTER:
-        gyrocopterData = temp_s0->vehicleData;
-        sp28 = gyrocopterData->objId;
-        sp24 = gyrocopterData->unk2;
+        gcData = temp_s0->vehicleData;
+        sp28 = gcData->objId;
+        sp24 = gcData->unk2;
         break;
     case VEHICLE_HANG_GLIDER:
-        hangGliderData = temp_s0->vehicleData;
-        sp28 = hangGliderData->objId;
-        sp24 = hangGliderData->unk2;
+        hgData = temp_s0->vehicleData;
+        sp28 = hgData->objId;
+        sp24 = hgData->unk2;
         break;
     case VEHICLE_ROCKET_BELT:
-        rocketBeltData = temp_s0->vehicleData;
-        sp28 = rocketBeltData->objId;
-        sp24 = rocketBeltData->unk2;
+        rbData = temp_s0->vehicleData;
+        sp28 = rbData->objId;
+        sp24 = rbData->unk2;
         break;
     case VEHICLE_CANNONBALL:
-        cannonballData = temp_s0->vehicleData;
-        sp28 = cannonballData->objId;
-        sp24 = cannonballData->unk2;
+        cbData = temp_s0->vehicleData;
+        sp28 = cbData->objId;
+        sp24 = cbData->unk2;
         break;
     case VEHICLE_SKY_DIVING:
-        skyDivingData = temp_s0->vehicleData;
-        sp28 = skyDivingData->objId;
-        sp24 = skyDivingData->unk2;
+        sdData = temp_s0->vehicleData;
+        sp28 = sdData->objId;
+        sp24 = sdData->unk2;
         break;
     case VEHICLE_JUMBLE_HOPPER:
-        jumbleHopperData = temp_s0->vehicleData;
-        sp28 = jumbleHopperData->objId;
-        sp24 = jumbleHopperData->unk2;
+        jhData = temp_s0->vehicleData;
+        sp28 = jhData->objId;
+        sp24 = jhData->unk2;
         break;
     case VEHICLE_BIRDMAN:
-        birdmanData = temp_s0->vehicleData;
-        sp28 = birdmanData->objId;
-        sp24 = birdmanData->unk2;
+        bmData = temp_s0->vehicleData;
+        sp28 = bmData->objId;
+        sp24 = bmData->unk2;
         break;
     }
     uvDobjState(sp28, 0);

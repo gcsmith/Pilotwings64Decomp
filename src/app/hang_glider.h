@@ -11,7 +11,7 @@ typedef struct {
     f32 unk8;
     u16 contIdx;
     Mtx4F unk10;
-    Camera* unk50;
+    Camera* camera;
     u8 unk54;
     f32 unk58;
     u8 unk5C;
@@ -139,7 +139,7 @@ typedef struct {
 
 void hangGliderInit(void);
 void func_802EEB00(HangGliderData*, u8);
-void hangGliderLoadLevel(u8 contIdx, u8 pilot, HangGliderData* arg2, Camera* arg3);
+void hangGliderLoadLevel(u8 contIdx, u8 pilot, HangGliderData* hgData, Camera* camera);
 void func_802EF328(HangGliderData*);
 void hangGliderEnterLeave(HangGliderData*);
 void hangGliderMovementFrame(HangGliderData*, u8);

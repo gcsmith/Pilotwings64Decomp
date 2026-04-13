@@ -42,13 +42,13 @@ STATIC_FUNC void func_8032D33C(Mtx4F*, Mtx4F*, f32, u8);
 
 void func_8032C540(Unk80362690* arg0) {
     f32 var_fs3;
-    HangGliderData* hangGliderData;
-    GyrocopterData* gyrocopterData;
-    RocketBeltData* rocketBeltData;
-    CannonballData* cannonballData;
-    SkyDivingData* skyDivingData;
-    JumbleHopperData* jumbleHopperData;
-    BirdmanData* birdmanData;
+    HangGliderData* hgData;
+    GyrocopterData* gcData;
+    RocketBeltData* rbData;
+    CannonballData* cbData;
+    SkyDivingData* sdData;
+    JumbleHopperData* jhData;
+    BirdmanData* bmData;
     Mtx4F sp188;
     Mtx4F sp148;
     Mtx4F sp108;
@@ -75,46 +75,46 @@ void func_8032C540(Unk80362690* arg0) {
     uvEventPost(0x12, 0);
     switch (temp_s0->veh) {
     case VEHICLE_HANG_GLIDER:
-        hangGliderData = temp_s0->vehicleData;
-        hangGliderEnterLeave(hangGliderData);
-        sp87 = hangGliderData->objId;
-        hangGliderData->unk2 &= ~8;
+        hgData = temp_s0->vehicleData;
+        hangGliderEnterLeave(hgData);
+        sp87 = hgData->objId;
+        hgData->unk2 &= ~8;
         break;
     case VEHICLE_GYROCOPTER:
-        gyrocopterData = temp_s0->vehicleData;
-        gyrocopterEnterLeave(gyrocopterData);
-        sp87 = gyrocopterData->objId;
-        gyrocopterData->unk2 &= ~8;
+        gcData = temp_s0->vehicleData;
+        gyrocopterEnterLeave(gcData);
+        sp87 = gcData->objId;
+        gcData->unk2 &= ~8;
         break;
     case VEHICLE_ROCKET_BELT:
-        rocketBeltData = temp_s0->vehicleData;
-        rocketBeltEnterLeave(rocketBeltData);
-        sp87 = rocketBeltData->objId;
-        rocketBeltData->unk2 &= ~8;
+        rbData = temp_s0->vehicleData;
+        rocketBeltEnterLeave(rbData);
+        sp87 = rbData->objId;
+        rbData->unk2 &= ~8;
         break;
     case VEHICLE_CANNONBALL:
-        cannonballData = temp_s0->vehicleData;
-        cannonLevelEnterLeave(cannonballData);
-        sp87 = cannonballData->objId;
-        cannonballData->unk2 &= ~8;
+        cbData = temp_s0->vehicleData;
+        cannonLevelEnterLeave(cbData);
+        sp87 = cbData->objId;
+        cbData->unk2 &= ~8;
         break;
     case VEHICLE_SKY_DIVING:
-        skyDivingData = temp_s0->vehicleData;
-        skydivingEnterLeave(skyDivingData);
-        sp87 = skyDivingData->objId;
-        skyDivingData->unk2 &= ~8;
+        sdData = temp_s0->vehicleData;
+        skydivingEnterLeave(sdData);
+        sp87 = sdData->objId;
+        sdData->unk2 &= ~8;
         break;
     case VEHICLE_JUMBLE_HOPPER:
-        jumbleHopperData = temp_s0->vehicleData;
-        jumbleHopperEnterLeave(jumbleHopperData);
-        sp87 = jumbleHopperData->objId;
-        jumbleHopperData->unk2 &= ~8;
+        jhData = temp_s0->vehicleData;
+        jumbleHopperEnterLeave(jhData);
+        sp87 = jhData->objId;
+        jhData->unk2 &= ~8;
         break;
     case VEHICLE_BIRDMAN:
-        birdmanData = temp_s0->vehicleData;
-        birdEnterLeave(birdmanData);
-        sp87 = birdmanData->objId;
-        birdmanData->unk2 &= ~8;
+        bmData = temp_s0->vehicleData;
+        birdEnterLeave(bmData);
+        sp87 = bmData->objId;
+        bmData->unk2 &= ~8;
         break;
     }
     uvDobjState(sp87, 2);
@@ -150,39 +150,39 @@ void func_8032C540(Unk80362690* arg0) {
 
         switch (temp_s0->veh) {
         case VEHICLE_HANG_GLIDER:
-            hangGliderData = temp_s0->vehicleData;
-            hangGliderMovementFrame(hangGliderData, arg0->state);
-            uvMat4Copy(&sp148, &hangGliderData->unk10);
+            hgData = temp_s0->vehicleData;
+            hangGliderMovementFrame(hgData, arg0->state);
+            uvMat4Copy(&sp148, &hgData->unk10);
             break;
         case VEHICLE_GYROCOPTER:
-            gyrocopterData = temp_s0->vehicleData;
-            gyrocopterMovementFrame(gyrocopterData, arg0->state);
-            uvMat4Copy(&sp148, &gyrocopterData->unk10);
+            gcData = temp_s0->vehicleData;
+            gyrocopterMovementFrame(gcData, arg0->state);
+            uvMat4Copy(&sp148, &gcData->unk10);
             break;
         case VEHICLE_ROCKET_BELT:
-            rocketBeltData = temp_s0->vehicleData;
-            rocketBeltMovementFrame(rocketBeltData, arg0->state);
-            uvMat4Copy(&sp148, &rocketBeltData->unk10);
+            rbData = temp_s0->vehicleData;
+            rocketBeltMovementFrame(rbData, arg0->state);
+            uvMat4Copy(&sp148, &rbData->unk10);
             break;
         case VEHICLE_CANNONBALL:
-            cannonballData = temp_s0->vehicleData;
-            cannonMovementFrame(cannonballData, arg0->state);
-            uvMat4Copy(&sp148, &cannonballData->unk14);
+            cbData = temp_s0->vehicleData;
+            cannonMovementFrame(cbData, arg0->state);
+            uvMat4Copy(&sp148, &cbData->unk14);
             break;
         case VEHICLE_SKY_DIVING:
-            skyDivingData = temp_s0->vehicleData;
-            skydivingMovementFrame(skyDivingData, arg0->state);
-            uvMat4Copy(&sp148, &skyDivingData->unk10);
+            sdData = temp_s0->vehicleData;
+            skydivingMovementFrame(sdData, arg0->state);
+            uvMat4Copy(&sp148, &sdData->unk10);
             break;
         case VEHICLE_JUMBLE_HOPPER:
-            jumbleHopperData = temp_s0->vehicleData;
-            jumbleHopperMovementFrame(jumbleHopperData, arg0->state);
-            uvMat4Copy(&sp148, &jumbleHopperData->unk74);
+            jhData = temp_s0->vehicleData;
+            jumbleHopperMovementFrame(jhData, arg0->state);
+            uvMat4Copy(&sp148, &jhData->unk74);
             break;
         case VEHICLE_BIRDMAN:
-            birdmanData = temp_s0->vehicleData;
-            birdMovementFrame(birdmanData, arg0->state);
-            uvMat4Copy(&sp148, &birdmanData->unk10);
+            bmData = temp_s0->vehicleData;
+            birdMovementFrame(bmData, arg0->state);
+            uvMat4Copy(&sp148, &bmData->unk10);
             break;
         }
         sp66 = arg0->terraId;
@@ -246,7 +246,7 @@ void func_8032CC44(Unk80362690* arg0) {
     s32 sp20;
     s32 sp1C;
     u8 sp1B;
-    CannonballData* temp_v0;
+    CannonballData* cbData;
 
     sp2C = &arg0->unkC[arg0->unk9C];
     sp1B = 1;
@@ -264,41 +264,41 @@ void func_8032CC44(Unk80362690* arg0) {
     sp1C = 0;
     switch (sp2C->veh) {
     case VEHICLE_GYROCOPTER:
-        temp_v0 = (CannonballData*)sp2C->vehicleData;
-        sp28 = temp_v0->objId;
-        sp24 = temp_v0->unk2;
+        cbData = (CannonballData*)sp2C->vehicleData;
+        sp28 = cbData->objId;
+        sp24 = cbData->unk2;
         break;
     case VEHICLE_HANG_GLIDER:
-        temp_v0 = (CannonballData*)sp2C->vehicleData;
-        sp28 = temp_v0->objId;
-        sp24 = temp_v0->unk2;
+        cbData = (CannonballData*)sp2C->vehicleData;
+        sp28 = cbData->objId;
+        sp24 = cbData->unk2;
         break;
     case VEHICLE_ROCKET_BELT:
-        temp_v0 = (CannonballData*)sp2C->vehicleData;
+        cbData = (CannonballData*)sp2C->vehicleData;
         sp1C = 0x22;
-        sp28 = temp_v0->objId;
-        sp24 = temp_v0->unk2;
-        sp20 = temp_v0->pad6;
+        sp28 = cbData->objId;
+        sp24 = cbData->unk2;
+        sp20 = cbData->pad6;
         break;
     case VEHICLE_CANNONBALL:
-        temp_v0 = (CannonballData*)sp2C->vehicleData;
-        sp28 = temp_v0->objId;
-        sp24 = temp_v0->unk2;
+        cbData = (CannonballData*)sp2C->vehicleData;
+        sp28 = cbData->objId;
+        sp24 = cbData->unk2;
         break;
     case VEHICLE_SKY_DIVING:
-        temp_v0 = (CannonballData*)sp2C->vehicleData;
-        sp28 = temp_v0->objId;
-        sp24 = temp_v0->unk2;
+        cbData = (CannonballData*)sp2C->vehicleData;
+        sp28 = cbData->objId;
+        sp24 = cbData->unk2;
         break;
     case VEHICLE_JUMBLE_HOPPER:
-        temp_v0 = (CannonballData*)sp2C->vehicleData;
-        sp28 = temp_v0->objId;
-        sp24 = temp_v0->unk2;
+        cbData = (CannonballData*)sp2C->vehicleData;
+        sp28 = cbData->objId;
+        sp24 = cbData->unk2;
         break;
     case VEHICLE_BIRDMAN:
-        temp_v0 = (CannonballData*)sp2C->vehicleData;
-        sp28 = temp_v0->objId;
-        sp24 = temp_v0->unk2;
+        cbData = (CannonballData*)sp2C->vehicleData;
+        sp28 = cbData->objId;
+        sp24 = cbData->unk2;
     }
     uvDobjState(sp28, 0);
     if (sp20 != 0xFFFF) {

@@ -101,7 +101,7 @@ void func_802FB22C(void) {
     }
 }
 
-s32 func_802FB308(JumbleHopperData* arg0) {
+s32 func_802FB308(JumbleHopperData* jhData) {
     s32 i;
     s32 sp38;
     f32 temp_fa1;
@@ -120,13 +120,13 @@ s32 func_802FB308(JumbleHopperData* arg0) {
             }
         }
     }
-    if ((arg0->unk50 != 0) || (arg0->unk4C == 6)) {
+    if ((jhData->unk50 != 0) || (jhData->unk4C == 6)) {
         return 0;
     }
 
     for (i = 0; i < D_8034F3A0; i++) {
         if ((D_80368B80[i].objId != 0xFFFF) && (D_80368B80[i].unk7 != 0) && (D_80368B80[i].unk6 == 0)) {
-            temp_fa1 = SQ(arg0->unkF4.x - D_80368B80[i].unk0->pos.x) + SQ(arg0->unkF4.y - D_80368B80[i].unk0->pos.y);
+            temp_fa1 = SQ(jhData->unkF4.x - D_80368B80[i].unk0->pos.x) + SQ(jhData->unkF4.y - D_80368B80[i].unk0->pos.y);
             if (SQ(D_80368B80[i].unk0->scale) > temp_fa1) {
                 hudText_8031D8E0(0x15D, 1.5f, 8.0f);
                 D_80368B80[i].unk6 = 1;

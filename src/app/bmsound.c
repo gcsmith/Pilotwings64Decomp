@@ -18,8 +18,8 @@ void bmSound_802D1320(BirdmanData*);
 void bmSound_802D1334(BirdmanData*);
 void bmSound_802D1534(BirdmanData*);
 
-void bmSoundInit(BirdmanData* arg0) {
-    arg0->unk41C = 0.0f;
+void bmSoundInit(BirdmanData* bmData) {
+    bmData->unk41C = 0.0f;
     D_80359648.count = 4;
     D_80359648.unk4[0].x = 0;
     D_80359648.unk4[0].y = 0.0f;
@@ -29,11 +29,11 @@ void bmSoundInit(BirdmanData* arg0) {
     D_80359648.unk4[2].y = 0.8f;
     D_80359648.unk4[3].x = 10.0f;
     D_80359648.unk4[3].y = 1.0f;
-    arg0->unk414 = sndMakeDev(0x13);
-    arg0->unk415 = sndMakeDev(0x13);
+    bmData->unk414 = sndMakeDev(0x13);
+    bmData->unk415 = sndMakeDev(0x13);
     sBmSoundCbInfo.cb = bmSoundCallback;
-    sBmSoundCbInfo.arg = arg0;
-    arg0->unk410 = ~0x3F;
+    sBmSoundCbInfo.arg = bmData;
+    bmData->unk410 = ~0x3F;
     uvEventMaxCb(sBmSoundCbInfo, 1, 0xD, 0x12, 0x13, 0x16, 0xC, 0x10, 0x24);
 }
 
@@ -123,93 +123,93 @@ void bmSoundCallback(s32 eventType, void* arg1, s32 eventData) {
     }
 }
 
-void bmSound_802D112C(BirdmanData* arg0) {
+void bmSound_802D112C(BirdmanData* bmData) {
     Unk80362690_Unk0* sp34;
     s32 sfxId;
     f32 pitch;
 
     sp34 = &D_80362690->unkC[D_80362690->unk9C];
-    if (arg0->unk104 == 2) {
-        if (!(arg0->unk410 & 0x02)) {
-            arg0->unk410 |= 0x02;
+    if (bmData->unk104 == 2) {
+        if (!(bmData->unk410 & 0x02)) {
+            bmData->unk410 |= 0x02;
             sndPlaySfx(0x36);
-            if (!(arg0->unk410 & 0x10)) {
+            if (!(bmData->unk410 & 0x10)) {
                 func_8033F748(0x1B);
                 func_8033F964(0);
                 func_8033FCD0(sp34->veh);
             }
-            bmSound_802D12C4(arg0);
+            bmSound_802D12C4(bmData);
         }
     } else {
-        if (arg0->unk104 == 1) {
-            if (!(arg0->unk410 & 0x10)) {
-                arg0->unk410 |= 0x10;
+        if (bmData->unk104 == 1) {
+            if (!(bmData->unk410 & 0x10)) {
+                bmData->unk410 |= 0x10;
                 sndGetPilotScream(&sfxId, &pitch);
                 sndPlaySfxVolPitchPan(sfxId, 1.0f, pitch, 0.0f);
                 func_8033F748(0x1B);
                 func_8033F964(0);
                 func_8033FCD0(sp34->veh);
-                bmSound_802D12C4(arg0);
+                bmSound_802D12C4(bmData);
             }
         }
-        if (arg0->unk104 == 3) {
-            if (!(arg0->unk410 & 0x20)) {
-                arg0->unk410 |= 0x20;
+        if (bmData->unk104 == 3) {
+            if (!(bmData->unk410 & 0x20)) {
+                bmData->unk410 |= 0x20;
                 func_8033F748(0x1A);
                 func_8033F964(0);
                 func_8033FCD0(sp34->veh);
-                bmSound_802D12C4(arg0);
+                bmSound_802D12C4(bmData);
             }
         }
-        if (arg0->unk107 != 0) {
-            bmSound_802D1334(arg0);
+        if (bmData->unk107 != 0) {
+            bmSound_802D1334(bmData);
             return;
         }
-        if (!(arg0->unk410 & 0x10)) {
-            arg0->unk410 = ~0x3F;
+        if (!(bmData->unk410 & 0x10)) {
+            bmData->unk410 = ~0x3F;
         }
     }
 }
 
-void bmSound_802D12C4(BirdmanData* arg0) {
-    arg0->unk410 |= 1;
-    func_8033F904(arg0->unk414, 1.0f, 0.0f, 0.0f);
-    func_8033F904(arg0->unk415, 1.0f, 0.0f, 0.0f);
+void bmSound_802D12C4(BirdmanData* bmData) {
+    bmData->unk410 |= 1;
+    func_8033F904(bmData->unk414, 1.0f, 0.0f, 0.0f);
+    func_8033F904(bmData->unk415, 1.0f, 0.0f, 0.0f);
 }
 
-void bmSound_802D1320(BirdmanData* arg0) {
-    arg0->unk410 &= ~1;
+void bmSound_802D1320(BirdmanData* bmData) {
+    bmData->unk410 &= ~1;
 }
 
-void bmSound_802D1334(BirdmanData* arg0) {
+void bmSound_802D1334(BirdmanData* bmData) {
     f32 temp_fv1;
     s32 i;
 
-    if (!(D_8034F850 < (arg0->unk41C + 0.5f))) {
-        arg0->unk41C = D_8034F850;
-        for (i = 0; i < arg0->unk107; i++) {
-            temp_fv1 = func_80313F08(&D_80359648, FABS(arg0->unk140[i]));
-            switch (arg0->unk108[i]) {
+    if (!(D_8034F850 < (bmData->unk41C + 0.5f))) {
+        bmData->unk41C = D_8034F850;
+        for (i = 0; i < bmData->unk107; i++) {
+            temp_fv1 = func_80313F08(&D_80359648, FABS(bmData->unk140[i]));
+            switch (bmData->unk108[i]) {
             case 4:
-                if ((arg0->unk15C != 0) && (arg0->unk104 == 2)) {
-                    if (!(arg0->unk410 & 0x04)) {
-                        arg0->unk410 |= 0x04;
+                if ((bmData->unk15C != 0) && (bmData->unk104 == 2)) {
+                    if (!(bmData->unk410 & 0x04)) {
+                        bmData->unk410 |= 0x04;
                         sndPlaySfx(SFX_WATER_SPLASH);
                     }
                 }
                 break;
             case 1:
-                if (arg0->unk106 != 0) {
+                if (bmData->unk106 != 0) {
                     sndPlaySfxVolPitchPan(0x17, temp_fv1, 1, 0);
                 }
                 break;
             case 2:
-                if (arg0->unk106 != 0) {
+                if (bmData->unk106 != 0) {
                     sndPlaySfxVolPitchPan(0x16, temp_fv1, 1, 0);
                 }
                 break;
             case 8:
-                if (arg0->unk106 != 0) {
+                if (bmData->unk106 != 0) {
                     sndPlaySfxVolPitchPan(0x18, temp_fv1, 1, 0);
                 }
                 break;
@@ -218,8 +218,8 @@ void bmSound_802D1334(BirdmanData* arg0) {
     }
 }
 
-void bmSound_802D1534(BirdmanData* arg0) {
-    arg0->unk414 = func_8033F8CC(arg0->unk414);
-    arg0->unk415 = func_8033F8CC(arg0->unk415);
+void bmSound_802D1534(BirdmanData* bmData) {
+    bmData->unk414 = func_8033F8CC(bmData->unk414);
+    bmData->unk415 = func_8033F8CC(bmData->unk415);
     uvEventRemoveCb(sBmSoundCbInfo, 1, 0xD, 0x12, 0x13, 0x16, 0xC, 0x10, 0x24);
 }

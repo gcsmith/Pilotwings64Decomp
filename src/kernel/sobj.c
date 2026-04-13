@@ -68,9 +68,9 @@ void uvSobjsDraw(UnkStruct_80204D94* arg0, Mtx4F* arg1, u16 arg2, u16 arg3, UnkS
         if (lodId == 0xFF) {
             continue;
         }
-        if (uvmd->unk11 & 1) {
+        if (uvmd->attrs & UVMD_ATTR_TRANSPARENT) {
             _uvSortAdd(4, temp_fv0, var_s2, arg0, arg1->m[3][0], arg1->m[3][1], temp_fs1, temp_fs2, arg1, arg7, var_s1);
-        } else if (uvmd->lodTable[lodId].billboard != 0) {
+        } else if (uvmd->lodTable[lodId].billboard != FALSE) {
             uvSobj_8022CC28(var_s2, uvmd, var_s1, temp_fs1, temp_fs2);
         } else {
             uvSobj_8022C8D0(var_s2, uvmd, var_s1, arg1);

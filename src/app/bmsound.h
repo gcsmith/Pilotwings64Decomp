@@ -4,6 +4,6 @@
 #include <PR/ultratypes.h>
 #include "game.h"
 
-void bmSoundInit(BirdmanData*);
+void bmSoundInit(BirdmanData* bmData);
 
 #endif // APP_BMSOUND_H

@@ -12,7 +12,7 @@ typedef struct {
     f32 unk8;
     u16 contIdx;
     Mtx4F unk10;
-    Camera* unk50;
+    Camera* camera;
     f32 unk54;
     f32 unk58;
     u8 unk5C;
@@ -155,7 +155,7 @@ typedef struct {
 } RocketBeltData;
 
 void rocketBeltInit(void);
-void rocketBeltLoadLevel(u8 contIdx, u8 pilot, RocketBeltData* arg2, Camera* arg3);
+void rocketBeltLoadLevel(u8 contIdx, u8 pilot, RocketBeltData* rbData, Camera* camera);
 void rocketBeltEnterLeave(RocketBeltData*);
 void func_80325100(RocketBeltData*);
 void rocketBeltMovementFrame(RocketBeltData*, u8);

@@ -649,7 +649,7 @@ void func_80338A14(void) {
     sndPlaySfx(0x3A);
 }
 
-void func_80339C8C(HangGliderData* arg0) {
+void func_80339C8C(HangGliderData* hgData) {
     s32 var_a2;
 
     var_a2 = demoGetButtons(0);
@@ -689,7 +689,7 @@ void func_80339C8C(HangGliderData* arg0) {
     }
 }
 
-void func_80339E1C(BirdmanData* arg0) {
+void func_80339E1C(BirdmanData* bmData) {
     s32 var_v1;
 
     var_v1 = demoGetButtons(0);

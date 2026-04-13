@@ -15,7 +15,7 @@
 
 Unk803599D0 D_80368B20;
 
-void jumbleHopperLoadPilot(u8 pilot, JumbleHopperData* arg1);
+void jumbleHopperLoadPilot(u8 pilot, JumbleHopperData* jhData);
 
 void jumbleHopperInit(void) {
     D_80368B20.count = 8;
@@ -29,73 +29,73 @@ void jumbleHopperInit(void) {
     D_80368B20.unk4[7].x = 1.0f, D_80368B20.unk4[7].y = 1.0f;
 }
 
-void func_802FA020(u8 contIdx, u8 pilot, JumbleHopperData* arg2, Camera* arg3) {
-    uvMemSet(arg2, 0, sizeof(JumbleHopperData));
-    jumbleHopperLoadPilot(pilot, arg2);
-    arg2->objId = uvDobjAllocIdx();
-    arg2->unk2 = 2;
-    uvDobjModel(arg2->objId, arg2->modelId);
-    uvDobjPosm(arg2->objId, 0, &arg2->unk74);
-    uvDobjState(arg2->objId, arg2->unk2);
+void jumbleHopperLoadLevel(u8 contIdx, u8 pilot, JumbleHopperData* jhData, Camera* camera) {
+    uvMemSet(jhData, 0, sizeof(JumbleHopperData));
+    jumbleHopperLoadPilot(pilot, jhData);
+    jhData->objId = uvDobjAllocIdx();
+    jhData->unk2 = 2;
+    uvDobjModel(jhData->objId, jhData->modelId);
+    uvDobjPosm(jhData->objId, 0, &jhData->unk74);
+    uvDobjState(jhData->objId, jhData->unk2);
     shadow_80334454(MODEL_WORLD, MODEL_JUMBLEH_SHADOW);
     shadow_803342F0(0.0f);
     shadow_803342FC(0.0f);
-    arg2->contIdx = contIdx;
-    arg2->unk18 = arg3;
-    arg2->unk65E[0] = 0;
-    arg2->unk4 = 0xFFFF;
-    arg2->unk664 = 0.0f;
-    arg2->unk66C = 0.0f;
-    arg2->unk668 = 0.0f;
-    arg2->unk3C = 0.0f;
-    arg2->unk40 = 0.0f;
-    func_802FD038(arg2);
+    jhData->contIdx = contIdx;
+    jhData->camera = camera;
+    jhData->unk65E[0] = 0;
+    jhData->unk4 = 0xFFFF;
+    jhData->unk664 = 0.0f;
+    jhData->unk66C = 0.0f;
+    jhData->unk668 = 0.0f;
+    jhData->unk3C = 0.0f;
+    jhData->unk40 = 0.0f;
+    func_802FD038(jhData);
 }
 
-void jumbleHopperEnterLeave(JumbleHopperData* arg0) {
-    func_802FD114(arg0);
-    arg0->unk4C = 0;
-    arg0->unk2 = 2;
-    arg0->unk534 = 0;
-    arg0->unk538 = 0;
-    arg0->unk3C = 0.0f;
-    arg0->unk40 = 0.0f;
-    arg0->unk8 = 0.0f;
-    arg0->unk48 = 0.7f;
-    arg0->unk44 = 9;
-    arg0->unk18->unk108.m[3][2] = 0.0f;
-    arg0->unk18->unk1380 = 0.0f;
-    arg0->unk18->unk1374 = 5.0f;
-    arg0->unk18->unk137C = 0;
-    arg0->unk18->unk1 = arg0->unk44;
-    arg0->unk18->unk4 = arg0->objId;
-    arg0->unk18->unk6 = arg0->unk2;
-    arg0->unk18->unk0 = 0x68;
-    arg0->unk18->unk1B4 = 6.0f;
-    uvModelGetProps(arg0->modelId, 1, &arg0->unk18->unk8, 0);
-    arg0->unk18->unk68.x = arg0->unk630.x;
-    arg0->unk18->unk68.y = arg0->unk630.y;
-    arg0->unk18->unk68.z = arg0->unk630.z;
-    arg0->unk18->unk74 = 0.0f;
-    arg0->unk18->unk5C = 0;
-    arg0->unk18->unk60 = -5.0f;
-    arg0->unk18->unk64 = 0;
-    arg0->unk18->unk54 = 2.0f;
-    arg0->unk18->unk58 = 6.0f;
-    arg0->unk18->unk48 = 0.1f;
-    arg0->unk18->unk4C = 1.0f;
-    arg0->unk18->unk50 = 0.0f;
-    func_802D45C4(arg0->unk18, arg0->unk48);
+void jumbleHopperEnterLeave(JumbleHopperData* jhData) {
+    func_802FD114(jhData);
+    jhData->unk4C = 0;
+    jhData->unk2 = 2;
+    jhData->unk534 = 0;
+    jhData->unk538 = 0;
+    jhData->unk3C = 0.0f;
+    jhData->unk40 = 0.0f;
+    jhData->unk8 = 0.0f;
+    jhData->unk48 = 0.7f;
+    jhData->unk44 = 9;
+    jhData->camera->unk108.m[3][2] = 0.0f;
+    jhData->camera->unk1380 = 0.0f;
+    jhData->camera->unk1374 = 5.0f;
+    jhData->camera->unk137C = 0;
+    jhData->camera->unk1 = jhData->unk44;
+    jhData->camera->unk4 = jhData->objId;
+    jhData->camera->unk6 = jhData->unk2;
+    jhData->camera->unk0 = 0x68;
+    jhData->camera->unk1B4 = 6.0f;
+    uvModelGetProps(jhData->modelId, MODEL_PROP_UNK1(&jhData->camera->unk8), MODEL_PROP_END);
+    jhData->camera->unk68.x = jhData->unk630.x;
+    jhData->camera->unk68.y = jhData->unk630.y;
+    jhData->camera->unk68.z = jhData->unk630.z;
+    jhData->camera->unk74 = 0.0f;
+    jhData->camera->unk5C = 0;
+    jhData->camera->unk60 = -5.0f;
+    jhData->camera->unk64 = 0;
+    jhData->camera->unk54 = 2.0f;
+    jhData->camera->unk58 = 6.0f;
+    jhData->camera->unk48 = 0.1f;
+    jhData->camera->unk4C = 1.0f;
+    jhData->camera->unk50 = 0.0f;
+    func_802D45C4(jhData->camera, jhData->unk48);
 }
 
-void func_802FA290(JumbleHopperData* arg0) {
-    uvDobjModel(arg0->objId, MODEL_WORLD);
-    arg0->contIdx = 0xFFFF;
-    arg0->objId = 0xFFFF;
+void func_802FA290(JumbleHopperData* jhData) {
+    uvDobjModel(jhData->objId, MODEL_WORLD);
+    jhData->contIdx = 0xFFFF;
+    jhData->objId = 0xFFFF;
     shadow_80334C70();
 }
 
-void jumbleHopperMovementFrame(JumbleHopperData* arg0, u8 gameState) {
+void jumbleHopperMovementFrame(JumbleHopperData* jhData, u8 gameState) {
     f32 xAxisInputs;
     f32 yAxisInputs;
     f32 var_fa0;
@@ -105,28 +105,28 @@ void jumbleHopperMovementFrame(JumbleHopperData* arg0, u8 gameState) {
 
     if (fdr_802E6B5C() != 4) {
         if (gameState == GAME_STATE_RESULTS) {
-            fdr_802E65AC(&arg0->unk74, &D_80362690->terraId, &xAxisInputs, &yAxisInputs, &buttons);
+            fdr_802E65AC(&jhData->unk74, &D_80362690->terraId, &xAxisInputs, &yAxisInputs, &buttons);
         } else {
-            xAxisInputs = demoGetInputs(arg0->contIdx, INPUT_AXIS_X);
-            yAxisInputs = demoGetInputs(arg0->contIdx, INPUT_AXIS_Y);
-            buttons = demoGetButtons(arg0->contIdx);
+            xAxisInputs = demoGetInputs(jhData->contIdx, INPUT_AXIS_X);
+            yAxisInputs = demoGetInputs(jhData->contIdx, INPUT_AXIS_Y);
+            buttons = demoGetButtons(jhData->contIdx);
         }
-        arg0->unk8 += D_8034F854;
-        arg0->unk10 = func_80313F08(&D_80368B20, FABS(yAxisInputs));
+        jhData->unk8 += D_8034F854;
+        jhData->unk10 = func_80313F08(&D_80368B20, FABS(yAxisInputs));
         if (yAxisInputs < 0) {
-            arg0->unk10 = -arg0->unk10;
+            jhData->unk10 = -jhData->unk10;
         }
-        arg0->unk14 = func_80313F08(&D_80368B20, FABS(xAxisInputs));
+        jhData->unk14 = func_80313F08(&D_80368B20, FABS(xAxisInputs));
         if (xAxisInputs < 0) {
-            arg0->unk14 = -arg0->unk14;
+            jhData->unk14 = -jhData->unk14;
         }
-        if ((buttons & A_BUTTON) && ((arg0->unk50 == 0) || (arg0->unk19C != 0))) {
-            arg0->unk19C = 1;
+        if ((buttons & A_BUTTON) && ((jhData->unk50 == 0) || (jhData->unk19C != 0))) {
+            jhData->unk19C = 1;
         } else {
-            arg0->unk19C = 0;
+            jhData->unk19C = 0;
         }
         if (gameState != GAME_STATE_RESULTS) {
-            func_80303028(arg0);
+            func_80303028(jhData);
         }
         if (buttons & L_CBUTTONS) {
             var_fa0 = 1.5707963f;
@@ -135,7 +135,7 @@ void jumbleHopperMovementFrame(JumbleHopperData* arg0, u8 gameState) {
         } else {
             var_fa0 = 0.0f;
         }
-        arg0->unk3C = func_80313AF4(var_fa0, arg0->unk3C, 2.0f);
+        jhData->unk3C = func_80313AF4(var_fa0, jhData->unk3C, 2.0f);
         if (buttons & D_CBUTTONS) {
             var_fa0 = 1.5707963f;
         } else if (buttons & U_CBUTTONS) {
@@ -143,227 +143,227 @@ void jumbleHopperMovementFrame(JumbleHopperData* arg0, u8 gameState) {
         } else {
             var_fa0 = 0.0f;
         }
-        arg0->unk40 = func_80313AF4(var_fa0, arg0->unk40, 2.0f);
-        if (demoButtonPress(arg0->contIdx, R_TRIG) != 0) {
-            if ((arg0->unk44 == 9) && (arg0->unk18->unk137C == 0)) {
+        jhData->unk40 = func_80313AF4(var_fa0, jhData->unk40, 2.0f);
+        if (demoButtonPress(jhData->contIdx, R_TRIG) != 0) {
+            if ((jhData->unk44 == 9) && (jhData->camera->unk137C == 0)) {
                 sndPlaySfxVolPitchPan(0x6A, 1.0f, 0.5f, 0.0f);
-                arg0->unk44 = 9;
-                arg0->unk18->unk137C = 1;
+                jhData->unk44 = 9;
+                jhData->camera->unk137C = 1;
             } else {
                 sndPlaySfxVolPitchPan(0x6A, 1.0f, 0.5f, 0.0f);
-                arg0->unk44 = 9;
-                arg0->unk18->unk137C = 0;
+                jhData->unk44 = 9;
+                jhData->camera->unk137C = 0;
             }
         }
         if (gameState != GAME_STATE_RESULTS) {
-            arg0->unk18->unk4 = arg0->objId;
-            arg0->unk18->unk6 = arg0->unk2;
-            arg0->unk18->unk7C = arg0->unk40;
-            arg0->unk18->unk78 = arg0->unk3C;
-            arg0->unk18->unk228 = arg0->unk64;
-            func_8034AD6C(arg0->unk140.x, 0.0f, 0.0f, &sp34);
-            sp34.m[3][0] = arg0->unkF4.x;
-            sp34.m[3][1] = arg0->unkF4.y;
-            sp34.m[3][2] = arg0->unkF4.z + 1.0f;
-            uvMat4Copy(&arg0->unk18->unk80, &sp34);
-            arg0->unk18->unkC0 = arg0->unk140.x;
-            arg0->unk18->unkC4 = arg0->unk15C.z;
-            if ((arg0->unk4C == 5) || (arg0->unk4C == 9) || (arg0->unk4C == 4) || (arg0->unk4C == 6) || (arg0->unk4C == 7) || (arg0->unk4C == 8)) {
-                func_802D5884(arg0->unk18, 6);
+            jhData->camera->unk4 = jhData->objId;
+            jhData->camera->unk6 = jhData->unk2;
+            jhData->camera->unk7C = jhData->unk40;
+            jhData->camera->unk78 = jhData->unk3C;
+            jhData->camera->unk228 = jhData->unk64;
+            func_8034AD6C(jhData->unk140.x, 0.0f, 0.0f, &sp34);
+            sp34.m[3][0] = jhData->unkF4.x;
+            sp34.m[3][1] = jhData->unkF4.y;
+            sp34.m[3][2] = jhData->unkF4.z + 1.0f;
+            uvMat4Copy(&jhData->camera->unk80, &sp34);
+            jhData->camera->unkC0 = jhData->unk140.x;
+            jhData->camera->unkC4 = jhData->unk15C.z;
+            if ((jhData->unk4C == 5) || (jhData->unk4C == 9) || (jhData->unk4C == 4) || (jhData->unk4C == 6) || (jhData->unk4C == 7) || (jhData->unk4C == 8)) {
+                func_802D5884(jhData->camera, 6);
             } else {
-                func_802D5884(arg0->unk18, arg0->unk44);
+                func_802D5884(jhData->camera, jhData->unk44);
             }
-            func_802D45C4(arg0->unk18, arg0->unk48);
+            func_802D45C4(jhData->camera, jhData->unk48);
         }
         if (gameState != GAME_STATE_RESULTS) {
             hud = hudGetState();
-            uvMat4Copy(&hud->unk28, &arg0->unk74);
+            uvMat4Copy(&hud->unk28, &jhData->unk74);
             hud->renderFlags = HUD_RENDER_JUMBLE_HOPPER;
-            hud->att.heading = arg0->unk74.m[3][2];
-            hud->elapsedTime = arg0->unk8;
-            hud->unk8C = arg0->unk15C.z * 4.0f * 0.7f;
-            hud->altitude = arg0->unk64 * 0.7f;
-            hud->altSeaLevel = arg0->unk74.m[3][2] * 0.7f;
-            hud->speed = arg0->unk180 * 3.6f * 0.7f;
+            hud->att.heading = jhData->unk74.m[3][2];
+            hud->elapsedTime = jhData->unk8;
+            hud->unk8C = jhData->unk15C.z * 4.0f * 0.7f;
+            hud->altitude = jhData->unk64 * 0.7f;
+            hud->altSeaLevel = jhData->unk74.m[3][2] * 0.7f;
+            hud->speed = jhData->unk180 * 3.6f * 0.7f;
         }
         if (gameState != GAME_STATE_RESULTS) {
-            if (arg0->unk4C == 6) {
+            if (jhData->unk4C == 6) {
                 fdr_802E66DC();
             }
-            fdr_802E65AC(&arg0->unk74, &D_80362690->terraId, &xAxisInputs, &yAxisInputs, &buttons);
+            fdr_802E65AC(&jhData->unk74, &D_80362690->terraId, &xAxisInputs, &yAxisInputs, &buttons);
         }
     }
 }
 
-void jumbleHopperLoadPilot(u8 pilot, JumbleHopperData* arg1) {
+void jumbleHopperLoadPilot(u8 pilot, JumbleHopperData* jhData) {
     switch (pilot) {
     case PILOT_LARK:
-        arg1->unk5E8.x = 0.0f, arg1->unk5E8.y = 0.0f, arg1->unk5E8.z = 0.7f;
-        arg1->unk5F4.x = 0.0f, arg1->unk5F4.y = 0.0f, arg1->unk5F4.z = -0.745f;
-        arg1->unk600.x = 0.0f, arg1->unk600.y = 0.45f, arg1->unk600.z = 0.0f;
-        arg1->unk60C.x = 0.0f, arg1->unk60C.y = -0.25f, arg1->unk60C.z = 0.0f;
-        arg1->unk618.x = -0.3f, arg1->unk618.y = 0.0f, arg1->unk618.z = 0.0f;
-        arg1->unk624.x = 0.3f, arg1->unk624.y = 0.0f, arg1->unk624.z = 0.0f;
-        arg1->unk630.x = -0.025f, arg1->unk630.y = 0.307f, arg1->unk630.z = 0.478f;
-        arg1->unk63C = 0.504f;
-        arg1->unk640 = 0.206f;
-        arg1->unk644 = 0.169f;
-        arg1->unk648 = 0.2f;
-        arg1->unk64C = 0.6f;
-        arg1->modelId = MODEL_JUMBLEH_LARK;
-        arg1->unk65C = 7;
-        arg1->unk65B = 1;
-        arg1->unk650 = 5;
-        arg1->unk651 = 3;
-        arg1->unk652 = 6;
-        arg1->unk653 = 4;
-        arg1->unk654 = 8;
-        arg1->unk655 = 9;
-        arg1->unk656 = 10;
-        arg1->unk657 = 11;
-        arg1->unk658 = 12;
-        arg1->unk659 = 13;
-        arg1->unk65A = 2;
+        jhData->unk5E8.x = 0.0f, jhData->unk5E8.y = 0.0f, jhData->unk5E8.z = 0.7f;
+        jhData->unk5F4.x = 0.0f, jhData->unk5F4.y = 0.0f, jhData->unk5F4.z = -0.745f;
+        jhData->unk600.x = 0.0f, jhData->unk600.y = 0.45f, jhData->unk600.z = 0.0f;
+        jhData->unk60C.x = 0.0f, jhData->unk60C.y = -0.25f, jhData->unk60C.z = 0.0f;
+        jhData->unk618.x = -0.3f, jhData->unk618.y = 0.0f, jhData->unk618.z = 0.0f;
+        jhData->unk624.x = 0.3f, jhData->unk624.y = 0.0f, jhData->unk624.z = 0.0f;
+        jhData->unk630.x = -0.025f, jhData->unk630.y = 0.307f, jhData->unk630.z = 0.478f;
+        jhData->unk63C = 0.504f;
+        jhData->unk640 = 0.206f;
+        jhData->unk644 = 0.169f;
+        jhData->unk648 = 0.2f;
+        jhData->unk64C = 0.6f;
+        jhData->modelId = MODEL_JUMBLEH_LARK;
+        jhData->unk65C = 7;
+        jhData->unk65B = 1;
+        jhData->unk650 = 5;
+        jhData->unk651 = 3;
+        jhData->unk652 = 6;
+        jhData->unk653 = 4;
+        jhData->unk654 = 8;
+        jhData->unk655 = 9;
+        jhData->unk656 = 10;
+        jhData->unk657 = 11;
+        jhData->unk658 = 12;
+        jhData->unk659 = 13;
+        jhData->unk65A = 2;
         break;
     case PILOT_GOOSE:
-        arg1->unk5E8.x = 0.0f, arg1->unk5E8.y = 0.0f, arg1->unk5E8.z = 0.8f;
-        arg1->unk5F4.x = 0.0f, arg1->unk5F4.y = 0.0f, arg1->unk5F4.z = -1.336f;
-        arg1->unk600.x = 0.0f, arg1->unk600.y = 0.6f, arg1->unk600.z = 0.0f;
-        arg1->unk60C.x = 0.0f, arg1->unk60C.y = 0.35f, arg1->unk60C.z = 0.0f;
-        arg1->unk618.x = -0.35f, arg1->unk618.y = 0.0f, arg1->unk618.z = 0.0f;
-        arg1->unk624.x = 0.35f, arg1->unk624.y = 0.0f, arg1->unk624.z = 0.0f;
-        arg1->unk630.x = 0.0f, arg1->unk630.y = 0.315f, arg1->unk630.z = 0.603f;
-        arg1->unk63C = 0.18100001f;
-        arg1->unk640 = 0.527f;
-        arg1->unk644 = 0.476f;
-        arg1->unk648 = 0.5f;
-        arg1->unk64C = 0.6f;
-        arg1->modelId = MODEL_JUMBLEH_GOOSE;
-        arg1->unk65C = 7;
-        arg1->unk65B = 1;
-        arg1->unk650 = 5;
-        arg1->unk651 = 3;
-        arg1->unk652 = 6;
-        arg1->unk653 = 4;
-        arg1->unk654 = 11;
-        arg1->unk655 = 12;
-        arg1->unk656 = 13;
-        arg1->unk657 = 8;
-        arg1->unk658 = 9;
-        arg1->unk659 = 10;
-        arg1->unk65A = 2;
+        jhData->unk5E8.x = 0.0f, jhData->unk5E8.y = 0.0f, jhData->unk5E8.z = 0.8f;
+        jhData->unk5F4.x = 0.0f, jhData->unk5F4.y = 0.0f, jhData->unk5F4.z = -1.336f;
+        jhData->unk600.x = 0.0f, jhData->unk600.y = 0.6f, jhData->unk600.z = 0.0f;
+        jhData->unk60C.x = 0.0f, jhData->unk60C.y = 0.35f, jhData->unk60C.z = 0.0f;
+        jhData->unk618.x = -0.35f, jhData->unk618.y = 0.0f, jhData->unk618.z = 0.0f;
+        jhData->unk624.x = 0.35f, jhData->unk624.y = 0.0f, jhData->unk624.z = 0.0f;
+        jhData->unk630.x = 0.0f, jhData->unk630.y = 0.315f, jhData->unk630.z = 0.603f;
+        jhData->unk63C = 0.18100001f;
+        jhData->unk640 = 0.527f;
+        jhData->unk644 = 0.476f;
+        jhData->unk648 = 0.5f;
+        jhData->unk64C = 0.6f;
+        jhData->modelId = MODEL_JUMBLEH_GOOSE;
+        jhData->unk65C = 7;
+        jhData->unk65B = 1;
+        jhData->unk650 = 5;
+        jhData->unk651 = 3;
+        jhData->unk652 = 6;
+        jhData->unk653 = 4;
+        jhData->unk654 = 11;
+        jhData->unk655 = 12;
+        jhData->unk656 = 13;
+        jhData->unk657 = 8;
+        jhData->unk658 = 9;
+        jhData->unk659 = 10;
+        jhData->unk65A = 2;
         break;
     case PILOT_HAWK:
-        arg1->unk5E8.x = 0.0f, arg1->unk5E8.y = 0.0f, arg1->unk5E8.z = 0.7f;
-        arg1->unk5F4.x = 0.0f, arg1->unk5F4.y = 0.0f, arg1->unk5F4.z = -1.0f;
-        arg1->unk600.x = 0.0f, arg1->unk600.y = 0.65f, arg1->unk600.z = 0.0f;
-        arg1->unk60C.x = 0.0f, arg1->unk60C.y = -0.3f, arg1->unk60C.z = 0.0f;
-        arg1->unk618.x = -0.5f, arg1->unk618.y = 0.0f, arg1->unk618.z = 0.0f;
-        arg1->unk624.x = 0.5f, arg1->unk624.y = 0.0f, arg1->unk624.z = 0.0f;
-        arg1->unk630.x = 0.002f, arg1->unk630.y = 0.325f, arg1->unk630.z = 0.52f;
-        arg1->unk63C = 0.186f;
-        arg1->unk640 = 0.381f;
-        arg1->unk644 = 0.378f;
-        arg1->unk648 = 0.3f;
-        arg1->unk64C = 0.6f;
-        arg1->modelId = MODEL_JUMBLEH_HAWK;
-        arg1->unk65C = 7;
-        arg1->unk65B = 1;
-        arg1->unk650 = 3;
-        arg1->unk651 = 5;
-        arg1->unk652 = 4;
-        arg1->unk653 = 6;
-        arg1->unk654 = 8;
-        arg1->unk655 = 9;
-        arg1->unk656 = 10;
-        arg1->unk657 = 11;
-        arg1->unk658 = 12;
-        arg1->unk659 = 13;
-        arg1->unk65A = 2;
+        jhData->unk5E8.x = 0.0f, jhData->unk5E8.y = 0.0f, jhData->unk5E8.z = 0.7f;
+        jhData->unk5F4.x = 0.0f, jhData->unk5F4.y = 0.0f, jhData->unk5F4.z = -1.0f;
+        jhData->unk600.x = 0.0f, jhData->unk600.y = 0.65f, jhData->unk600.z = 0.0f;
+        jhData->unk60C.x = 0.0f, jhData->unk60C.y = -0.3f, jhData->unk60C.z = 0.0f;
+        jhData->unk618.x = -0.5f, jhData->unk618.y = 0.0f, jhData->unk618.z = 0.0f;
+        jhData->unk624.x = 0.5f, jhData->unk624.y = 0.0f, jhData->unk624.z = 0.0f;
+        jhData->unk630.x = 0.002f, jhData->unk630.y = 0.325f, jhData->unk630.z = 0.52f;
+        jhData->unk63C = 0.186f;
+        jhData->unk640 = 0.381f;
+        jhData->unk644 = 0.378f;
+        jhData->unk648 = 0.3f;
+        jhData->unk64C = 0.6f;
+        jhData->modelId = MODEL_JUMBLEH_HAWK;
+        jhData->unk65C = 7;
+        jhData->unk65B = 1;
+        jhData->unk650 = 3;
+        jhData->unk651 = 5;
+        jhData->unk652 = 4;
+        jhData->unk653 = 6;
+        jhData->unk654 = 8;
+        jhData->unk655 = 9;
+        jhData->unk656 = 10;
+        jhData->unk657 = 11;
+        jhData->unk658 = 12;
+        jhData->unk659 = 13;
+        jhData->unk65A = 2;
         break;
     case PILOT_KIWI:
-        arg1->unk5E8.x = 0.0f, arg1->unk5E8.y = 0.0f, arg1->unk5E8.z = 0.7f;
-        arg1->unk5F4.x = 0.0f, arg1->unk5F4.y = 0.0f, arg1->unk5F4.z = -1.0f;
-        arg1->unk600.x = 0.0f, arg1->unk600.y = 0.45f, arg1->unk600.z = 0.0f;
-        arg1->unk60C.x = 0.0f, arg1->unk60C.y = -0.3f, arg1->unk60C.z = 0.0f;
-        arg1->unk618.x = -0.3f, arg1->unk618.y = 0.0f, arg1->unk618.z = 0.0f;
-        arg1->unk624.x = 0.3f, arg1->unk624.y = 0.0f, arg1->unk624.z = 0.0f;
-        arg1->unk630.x = 0.002f, arg1->unk630.y = 0.308f, arg1->unk630.z = 0.473f;
-        arg1->unk63C = 0.334f;
-        arg1->unk640 = 0.233f;
-        arg1->unk644 = 0.297f;
-        arg1->unk648 = .3f;
-        arg1->unk64C = 0.6f;
-        arg1->modelId = MODEL_JUMBLEH_KIWI;
-        arg1->unk65C = 9;
-        arg1->unk65B = 1;
-        arg1->unk650 = 7;
-        arg1->unk651 = 5;
-        arg1->unk652 = 8;
-        arg1->unk653 = 6;
-        arg1->unk654 = 13;
-        arg1->unk655 = 14;
-        arg1->unk656 = 15;
-        arg1->unk657 = 10;
-        arg1->unk658 = 11;
-        arg1->unk659 = 12;
-        arg1->unk65A = 2;
+        jhData->unk5E8.x = 0.0f, jhData->unk5E8.y = 0.0f, jhData->unk5E8.z = 0.7f;
+        jhData->unk5F4.x = 0.0f, jhData->unk5F4.y = 0.0f, jhData->unk5F4.z = -1.0f;
+        jhData->unk600.x = 0.0f, jhData->unk600.y = 0.45f, jhData->unk600.z = 0.0f;
+        jhData->unk60C.x = 0.0f, jhData->unk60C.y = -0.3f, jhData->unk60C.z = 0.0f;
+        jhData->unk618.x = -0.3f, jhData->unk618.y = 0.0f, jhData->unk618.z = 0.0f;
+        jhData->unk624.x = 0.3f, jhData->unk624.y = 0.0f, jhData->unk624.z = 0.0f;
+        jhData->unk630.x = 0.002f, jhData->unk630.y = 0.308f, jhData->unk630.z = 0.473f;
+        jhData->unk63C = 0.334f;
+        jhData->unk640 = 0.233f;
+        jhData->unk644 = 0.297f;
+        jhData->unk648 = .3f;
+        jhData->unk64C = 0.6f;
+        jhData->modelId = MODEL_JUMBLEH_KIWI;
+        jhData->unk65C = 9;
+        jhData->unk65B = 1;
+        jhData->unk650 = 7;
+        jhData->unk651 = 5;
+        jhData->unk652 = 8;
+        jhData->unk653 = 6;
+        jhData->unk654 = 13;
+        jhData->unk655 = 14;
+        jhData->unk656 = 15;
+        jhData->unk657 = 10;
+        jhData->unk658 = 11;
+        jhData->unk659 = 12;
+        jhData->unk65A = 2;
         break;
     case PILOT_IBIS:
-        arg1->unk5E8.x = 0.0f, arg1->unk5E8.y = 0.0f, arg1->unk5E8.z = 0.8f;
-        arg1->unk5F4.x = .0f, arg1->unk5F4.y = 0.0f, arg1->unk5F4.z = -1.0f;
-        arg1->unk600.x = 0.0f, arg1->unk600.y = 0.55f, arg1->unk600.z = 0.0f;
-        arg1->unk60C.x = 0.0f, arg1->unk60C.y = -0.45f, arg1->unk60C.z = 0.0f;
-        arg1->unk618.x = -0.35f, arg1->unk618.y = 0.0f, arg1->unk618.z = 0.0f;
-        arg1->unk624.x = 0.35f, arg1->unk624.y = 0.0f, arg1->unk624.z = 0.0f;
-        arg1->unk630.x = 0.0f, arg1->unk630.y = 0.212f, arg1->unk630.z = 0.599f;
-        arg1->unk63C = 0.71500003f;
-        arg1->unk640 = 0.526f;
-        arg1->unk644 = 0.427f;
-        arg1->unk648 = .3f;
-        arg1->unk64C = 0.6f;
-        arg1->modelId = MODEL_JUMBLEH_IBIS;
-        arg1->unk65C = 7;
-        arg1->unk65B = 1;
-        arg1->unk650 = 3;
-        arg1->unk651 = 5;
-        arg1->unk652 = 4;
-        arg1->unk653 = 6;
-        arg1->unk654 = 11;
-        arg1->unk655 = 12;
-        arg1->unk656 = 13;
-        arg1->unk657 = 8;
-        arg1->unk658 = 9;
-        arg1->unk659 = 10;
-        arg1->unk65A = 2;
+        jhData->unk5E8.x = 0.0f, jhData->unk5E8.y = 0.0f, jhData->unk5E8.z = 0.8f;
+        jhData->unk5F4.x = .0f, jhData->unk5F4.y = 0.0f, jhData->unk5F4.z = -1.0f;
+        jhData->unk600.x = 0.0f, jhData->unk600.y = 0.55f, jhData->unk600.z = 0.0f;
+        jhData->unk60C.x = 0.0f, jhData->unk60C.y = -0.45f, jhData->unk60C.z = 0.0f;
+        jhData->unk618.x = -0.35f, jhData->unk618.y = 0.0f, jhData->unk618.z = 0.0f;
+        jhData->unk624.x = 0.35f, jhData->unk624.y = 0.0f, jhData->unk624.z = 0.0f;
+        jhData->unk630.x = 0.0f, jhData->unk630.y = 0.212f, jhData->unk630.z = 0.599f;
+        jhData->unk63C = 0.71500003f;
+        jhData->unk640 = 0.526f;
+        jhData->unk644 = 0.427f;
+        jhData->unk648 = .3f;
+        jhData->unk64C = 0.6f;
+        jhData->modelId = MODEL_JUMBLEH_IBIS;
+        jhData->unk65C = 7;
+        jhData->unk65B = 1;
+        jhData->unk650 = 3;
+        jhData->unk651 = 5;
+        jhData->unk652 = 4;
+        jhData->unk653 = 6;
+        jhData->unk654 = 11;
+        jhData->unk655 = 12;
+        jhData->unk656 = 13;
+        jhData->unk657 = 8;
+        jhData->unk658 = 9;
+        jhData->unk659 = 10;
+        jhData->unk65A = 2;
         break;
     case PILOT_ROBIN:
-        arg1->unk5E8.x = 0.0f, arg1->unk5E8.y = 0.0f, arg1->unk5E8.z = 0.85f;
-        arg1->unk5F4.x = 0.0f, arg1->unk5F4.y = 0.0f, arg1->unk5F4.z = -1.0f;
-        arg1->unk600.x = 0.0f, arg1->unk600.y = 0.5f, arg1->unk600.z = 0.0f;
-        arg1->unk60C.x = 0.0f, arg1->unk60C.y = -0.45f, arg1->unk60C.z = 0.0f;
-        arg1->unk618.x = -0.35f, arg1->unk618.y = 0.0f, arg1->unk618.z = 0.0f;
-        arg1->unk624.x = 0.35f, arg1->unk624.y = 0.0f, arg1->unk624.z = 0.0f;
-        arg1->unk630.x = 0.0f, arg1->unk630.y = 0.217f, arg1->unk630.z = 0.621f;
-        arg1->unk63C = 0.502f;
-        arg1->unk640 = 0.508f;
-        arg1->unk644 = 0.28f;
-        arg1->unk648 = .3f;
-        arg1->unk64C = 0.6f;
-        arg1->modelId = MODEL_JUMBLEH_ROBIN;
-        arg1->unk65C = 7;
-        arg1->unk65B = 1;
-        arg1->unk650 = 3;
-        arg1->unk651 = 5;
-        arg1->unk652 = 4;
-        arg1->unk653 = 6;
-        arg1->unk654 = 8;
-        arg1->unk655 = 9;
-        arg1->unk656 = 10;
-        arg1->unk657 = 11;
-        arg1->unk658 = 12;
-        arg1->unk659 = 13;
-        arg1->unk65A = 2;
+        jhData->unk5E8.x = 0.0f, jhData->unk5E8.y = 0.0f, jhData->unk5E8.z = 0.85f;
+        jhData->unk5F4.x = 0.0f, jhData->unk5F4.y = 0.0f, jhData->unk5F4.z = -1.0f;
+        jhData->unk600.x = 0.0f, jhData->unk600.y = 0.5f, jhData->unk600.z = 0.0f;
+        jhData->unk60C.x = 0.0f, jhData->unk60C.y = -0.45f, jhData->unk60C.z = 0.0f;
+        jhData->unk618.x = -0.35f, jhData->unk618.y = 0.0f, jhData->unk618.z = 0.0f;
+        jhData->unk624.x = 0.35f, jhData->unk624.y = 0.0f, jhData->unk624.z = 0.0f;
+        jhData->unk630.x = 0.0f, jhData->unk630.y = 0.217f, jhData->unk630.z = 0.621f;
+        jhData->unk63C = 0.502f;
+        jhData->unk640 = 0.508f;
+        jhData->unk644 = 0.28f;
+        jhData->unk648 = .3f;
+        jhData->unk64C = 0.6f;
+        jhData->modelId = MODEL_JUMBLEH_ROBIN;
+        jhData->unk65C = 7;
+        jhData->unk65B = 1;
+        jhData->unk650 = 3;
+        jhData->unk651 = 5;
+        jhData->unk652 = 4;
+        jhData->unk653 = 6;
+        jhData->unk654 = 8;
+        jhData->unk655 = 9;
+        jhData->unk656 = 10;
+        jhData->unk657 = 11;
+        jhData->unk658 = 12;
+        jhData->unk659 = 13;
+        jhData->unk65A = 2;
         break;
     default:
         break;

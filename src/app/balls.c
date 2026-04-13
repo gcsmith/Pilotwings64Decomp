@@ -139,7 +139,7 @@ void ballsLoad(void) {
             gBallCount = 0;
         } else if (gBallCount != 0) {
             uvLevelAppend(0x11);
-            uvModelGetProps(0xF4, 1, &D_80359388, 0);
+            uvModelGetProps(0xF4, MODEL_PROP_UNK1(&D_80359388), MODEL_PROP_END);
             for (i = 0; i < (gBallCount + gBallSplitCount); i++) {
                 bals = &sRefBALS[i];
                 ball = &gBalls[i];

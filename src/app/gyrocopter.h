@@ -43,7 +43,7 @@ typedef struct GyrocopterData {
     Mtx4F unk10;
     s32 unk50;
     f32 unk54;
-    Camera* unk58;
+    Camera* camera;
     u8 unk5C;
     u8 unk5D;
     u8 unk5E;
@@ -228,21 +228,21 @@ typedef struct GyrocopterData {
     f32 unk738;
 } GyrocopterData;
 
-void func_802F56B4(GyrocopterData*, u8);
+void func_802F56B4(GyrocopterData* gcData, u8);
 
 void gyrocopterInit(void);
-void func_802F5AE0(u8 contIdx, u8 pilot, GyrocopterData* arg2, Camera* arg3);
-void gyrocopterEnterLeave(GyrocopterData*);
-void func_802F5F80(GyrocopterData*);
-void gyrocopterMovementFrame(GyrocopterData*, u8);
-void func_802F764C(GyrocopterData*);
+void gyrocopterLoadLevel(u8 contIdx, u8 pilot, GyrocopterData* gcData, Camera* camera);
+void gyrocopterEnterLeave(GyrocopterData* gcData);
+void func_802F5F80(GyrocopterData* gcData);
+void gyrocopterMovementFrame(GyrocopterData* gcData, u8);
+void func_802F764C(GyrocopterData* gcData);
 
-void func_80303230(GyrocopterData*);
-void func_80303714(GyrocopterData*);
-void func_8030399C(GyrocopterData*);
+void func_80303230(GyrocopterData* gcData);
+void func_80303714(GyrocopterData* gcData);
+void func_8030399C(GyrocopterData* gcData);
 
 // gyrocopter_sound
-void func_8030A140(GyrocopterData*);
-void func_8030B240(Mtx4F*);
+void func_8030A140(GyrocopterData* gcData);
+void func_8030B240(Mtx4F* mat);
 
 #endif // APP_GYROCOPTER_H

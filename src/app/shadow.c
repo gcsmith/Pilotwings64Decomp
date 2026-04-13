@@ -99,7 +99,7 @@ void shadow_803344BC(Mtx4F* arg0, f32 arg1) {
 
     sp1D = 0;
     if (D_80350468 == var_v0) {
-        uvModelGetProps(var_v0, 5, &sp1D, 0);
+        uvModelGetProps(var_v0, MODEL_PROP_UNK5(&sp1D), MODEL_PROP_END);
     }
 
     if (sp1D != 0) {

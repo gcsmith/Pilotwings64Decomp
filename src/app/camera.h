@@ -133,15 +133,15 @@ typedef struct {
     f32 unk1380;
 } Camera;
 
-void func_802D45C4(Camera*, f32);
-s32 func_802D472C(Camera*, Mtx4F*);
-s32 func_802D4A30(Camera*, Mtx4F*);
-void func_802D4ECC(Camera*, Mtx4F*);
-void func_802D5884(Camera*, u8);
-void func_802D4DE8(Camera*, u8);
-void func_802D3170(u8, Camera*);
-void func_802D3444(Camera*);
-void func_802D50D0(Camera*);
-void func_802D4514(Camera*);
+void func_802D45C4(Camera* camera, f32);
+s32 func_802D472C(Camera* camera, Mtx4F*);
+s32 func_802D4A30(Camera* camera, Mtx4F*);
+void func_802D4ECC(Camera* camera, Mtx4F*);
+void func_802D5884(Camera* camera, u8);
+void func_802D4DE8(Camera* camera, u8);
+void func_802D3170(u8, Camera* camera);
+void func_802D3444(Camera* camera);
+void func_802D50D0(Camera* camera);
+void func_802D4514(Camera* camera);
 
 #endif // APP_CAMERA_H

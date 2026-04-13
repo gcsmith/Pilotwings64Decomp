@@ -463,7 +463,7 @@ ParsedUVMD* _uvParseUVMD(u8* src) {
     u8 sp7A;
     u8 lodCount;
     u8 sp78;
-    u8 sp77;
+    u8 hasTransparency;
     u8 hasLighting;
     u16 vtxCount;
     u16 gfxCount;
@@ -474,7 +474,7 @@ ParsedUVMD* _uvParseUVMD(u8* src) {
     uvConsumeBytes(&lodCount, &src, sizeof(lodCount));
     uvConsumeBytes(&mtxCount, &src, sizeof(mtxCount));
     uvConsumeBytes(&sp7A, &src, sizeof(sp7A));
-    uvConsumeBytes(&sp77, &src, sizeof(sp77));
+    uvConsumeBytes(&hasTransparency, &src, sizeof(hasTransparency));
     uvConsumeBytes(&sp6E, &src, sizeof(sp6E));
     vtxTable = (Vtx*)_uvMemAlloc(vtxCount * sizeof(Vtx), 8);
     _uvMediaCopy(vtxTable, src, vtxCount * sizeof(Vtx));
@@ -574,12 +574,12 @@ ParsedUVMD* _uvParseUVMD(u8* src) {
     uvmd->mtxTable = mtxTable;
     uvmd->mtxCount = mtxCount;
 
-    uvmd->unk11 = 0;
+    uvmd->attrs = 0;
     if (sp7A != 0) {
-        uvmd->unk11 |= 2;
+        uvmd->attrs |= UVMD_ATTR_UNKNOWN;
     }
-    if (sp77 != 0) {
-        uvmd->unk11 |= 1;
+    if (hasTransparency != 0) {
+        uvmd->attrs |= UVMD_ATTR_TRANSPARENT;
     }
     for (i = 0; i < uvmd->lodTable->partCount; i++) {
         for (j = 0; j < sp7A; j++) {

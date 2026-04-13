@@ -169,10 +169,10 @@ void demoAttUpdate(f32 curTime, Mtx4F* mat) {
 }
 
 void demoAtt_80320FBC(void) {
-    Camera* unk7C;
-    unk7C = D_80362690->unkC[D_80362690->unk9C].unk70;
-    demoAttUpdate(D_8034F850, &unk7C->unk108);
-    func_80204B34(D_80362690->unkC[D_80362690->unk9C].unk70->unk22C, &unk7C->unk108);
+    Camera* camera;
+    camera = D_80362690->unkC[D_80362690->unk9C].unk70;
+    demoAttUpdate(D_8034F850, &camera->unk108);
+    func_80204B34(D_80362690->unkC[D_80362690->unk9C].unk70->unk22C, &camera->unk108);
     env_802E2060();
     fireFxUpdate();
 }
