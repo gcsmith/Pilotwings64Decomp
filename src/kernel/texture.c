@@ -464,7 +464,7 @@ ParsedUVMD* _uvParseUVMD(u8* src) {
     u8 lodCount;
     u8 sp78;
     u8 sp77;
-    u8 sp76;
+    u8 hasLighting;
     u16 vtxCount;
     u16 gfxCount;
     u16 sp70;
@@ -488,7 +488,7 @@ ParsedUVMD* _uvParseUVMD(u8* src) {
         partTable = (uvModelPart*)_uvMemAlloc(lodTable[i].partCount * sizeof(uvModelPart), 4);
 
         for (j = 0; j < lodTable[i].partCount; j++) {
-            sp76 = 0;
+            hasLighting = FALSE;
             uvConsumeBytes(&partTable[j].stateCount, &src, sizeof(partTable[j].stateCount));
             uvConsumeBytes(&partTable[j].unk5, &src, sizeof(partTable[j].unk5));
             uvConsumeBytes(&partTable[j].unk6, &src, sizeof(partTable[j].unk6));
@@ -499,8 +499,8 @@ ParsedUVMD* _uvParseUVMD(u8* src) {
                 uvConsumeBytes(&stateTable[k].xfmCount, &src, sizeof(stateTable[k].xfmCount));
                 uvConsumeBytes(&stateTable[k].triCount, &src, sizeof(stateTable[k].triCount));
                 uvConsumeBytes(&gfxCount, &src, sizeof(gfxCount));
-                if (stateTable[k].state & GFX_STATE_8000000) {
-                    sp76 = 1;
+                if (stateTable[k].state & GFX_STATE_LIGHTING) {
+                    hasLighting = TRUE;
                 }
 
                 dlist = (Gfx*)_uvMemAlloc((gfxCount + 1) * sizeof(Gfx), 8);
@@ -518,7 +518,7 @@ ParsedUVMD* _uvParseUVMD(u8* src) {
                 }
                 gSPEndDisplayList(&dlist[var_s0]);
             }
-            partTable[j].unkD = sp76;
+            partTable[j].lighting = hasLighting;
         }
         lodTable[i].partTable = partTable;
         uvConsumeBytes(&lodRadius[i], &src, sizeof(lodRadius[i]));
@@ -706,19 +706,19 @@ ParsedUVCT* _uvParseUVCT(u8* src) {
 
 ParsedUVTX* _uvExpandTexture(u8* src) {
     void* sp6C;
-    Gfx* sp68;
+    Gfx* dlist;
     ParsedUVTX* temp_v0;
     s32 i;
     s32 var_a0;
     s32 id;
     u8 temp_v0_2;
-    u16 sp54;
+    u16 gfxCount;
     u16 size;
     UnkUVTX_1C* sp4C;
     UnkUVTX_1C* sp48;
     f32 sp44;
     f32 sp40;
-    Gfx* temp_v1;
+    Gfx* gfxCmd;
     u16 temp_t2;
     u32 temp_t0;
 
@@ -727,7 +727,7 @@ ParsedUVTX* _uvExpandTexture(u8* src) {
         _uvDebugPrintf("_uvExpandTexture: txt image too big %d bytes (4096 max)\n", size);
         size = 0x1000;
     }
-    uvConsumeBytes(&sp54, &src, sizeof(sp54));
+    uvConsumeBytes(&gfxCount, &src, sizeof(gfxCount));
     uvConsumeBytes(&sp44, &src, sizeof(sp44));
     uvConsumeBytes(&sp40, &src, sizeof(sp40));
     if ((sp44 != 0.0f) || (sp40 != 0.0f)) {
@@ -757,9 +757,9 @@ ParsedUVTX* _uvExpandTexture(u8* src) {
         sp48 = NULL;
     }
     src += size;
-    sp68 = (Gfx*)_uvMemAlloc(sp54 * sizeof(Gfx), 8);
+    dlist = (Gfx*)_uvMemAlloc(gfxCount * sizeof(Gfx), 8);
 
-    uvConsumeBytes(sp68, &src, sp54 * sizeof(Gfx));
+    uvConsumeBytes(dlist, &src, gfxCount * sizeof(Gfx));
 
     temp_v0 = (ParsedUVTX*)_uvMemAlloc(sizeof(ParsedUVTX), 4);
     uvConsumeBytes(&temp_v0->width, &src, sizeof(temp_v0->width));
@@ -793,7 +793,7 @@ ParsedUVTX* _uvExpandTexture(u8* src) {
     if (sp6C == NULL) {
         _uvDebugPrintf("_uvExpandTexture: texture %d not in level. State: 0x%x\n", id, temp_t2);
     }
-    temp_v0->unk4 = sp68;
+    temp_v0->dlist = dlist;
     temp_v0->unk0 = sp6C;
     temp_v0->unk18 = sp4C;
     temp_v0->unk1C = sp48;
@@ -801,15 +801,15 @@ ParsedUVTX* _uvExpandTexture(u8* src) {
     temp_v0_2 = 0;
 
     temp_t0 = (u32)sp6C;
-    for (i = 0; i < sp54; i++) {
-        temp_v1 = &sp68[i];
+    for (i = 0; i < gfxCount; i++) {
+        gfxCmd = &dlist[i];
 
-        temp_v0_2 = temp_v1->setimg.cmd;
+        temp_v0_2 = gfxCmd->setimg.cmd;
         if (temp_v0_2 == G_SETTIMG) {
             if (var_a0 == 0) {
-                temp_v1->setimg.dram |= (u32)OS_PHYSICAL_TO_K0(temp_t0);
+                gfxCmd->setimg.dram |= (u32)OS_PHYSICAL_TO_K0(temp_t0);
             } else {
-                temp_v1->setimg.dram |= (u32)OS_PHYSICAL_TO_K0(D_802B6E30[temp_v0->unk14]);
+                gfxCmd->setimg.dram |= (u32)OS_PHYSICAL_TO_K0(D_802B6E30[temp_v0->unk14]);
             }
             var_a0++;
         }

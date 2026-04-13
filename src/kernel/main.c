@@ -247,7 +247,7 @@ void func_8022E558(void) {
 
     uvGfxStatePush();
     uvGfxSetFlags(0xFFF);
-    uvGfxClearFlags(GFX_STATE_800000 | GFX_STATE_200000 | GFX_STATE_100000);
+    uvGfxClearFlags(GFX_STATE_XLU | GFX_STATE_ZBUFFER | GFX_STATE_CULL_BACK);
     uvMat4SetOrtho(&sp74, 0.0f, SCREEN_WIDTH, 0.0f, SCREEN_HEIGHT);
     uvGfxMtxProjPushF(&sp74);
     uvMat4SetIdentity(&sp74);

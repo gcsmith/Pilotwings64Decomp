@@ -656,14 +656,14 @@ void func_8030F448(void) {
     s32 i;
 
     func_80314154();
-    uvGfxSetFlags(GFX_STATE_400000);
+    uvGfxSetFlags(GFX_STATE_AA);
     uvVtxBeginPoly();
     uvVtx(0, SCREEN_HEIGHT, 0, 0, 0, 0, 0, 0, 100);
     uvVtx(0, 0, 0, 0, 0, 0, 0, 0, 100);
     uvVtx(SCREEN_WIDTH, 0, 0, 0, 0, 0, 0, 0, 100);
     uvVtx(SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, 0, 0, 0, 100);
     uvVtxEndPoly();
-    uvGfxClearFlags(GFX_STATE_400000);
+    uvGfxClearFlags(GFX_STATE_AA);
     func_803141E4();
     if (D_8034F7B0 == 0) {
         uvSprtDraw(17);
@@ -707,7 +707,7 @@ void func_8030F448(void) {
     } else {
         func_802DEE44(D_8036A8C0 + 0.5, D_8036A8C4 + 0.5, 0x29, 0x20, 3, 0xFA, 0xFA, 0, 0xFA, 0xFA, 0);
     }
-    uvGfx_80223A28(0xFFF);
+    uvGfxBindTexture(GFX_STATE_TEXTURE_NONE);
     uvVtxRect(0, 18, 319, 0);
     uvVtxRect(0, 239, 319, 232);
     uvVtxRect(0, 232, 10, 18);

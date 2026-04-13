@@ -12,21 +12,26 @@
 #define UV_GFX_NUM_MATRICES 0x15E
 #define UV_GFX_NUM_LOOKS 0x1E
 
-#define GFX_STATE_20000 (1 << 17)
-#define GFX_STATE_40000 (1 << 18)
-#define GFX_STATE_80000 (1 << 19)
-#define GFX_STATE_100000 (1 << 20)
-#define GFX_STATE_200000 (1 << 21)
-#define GFX_STATE_400000 (1 << 22)
-#define GFX_STATE_800000 (1 << 23)
-#define GFX_STATE_1000000 (1 << 24)
-#define GFX_STATE_2000000 (1 << 25)
-#define GFX_STATE_4000000 (1 << 26)
-#define GFX_STATE_8000000 (1 << 27)
-#define GFX_STATE_10000000 (1 << 28)
-#define GFX_STATE_20000000 (1 << 29)
-#define GFX_STATE_40000000 (1 << 30)
-#define GFX_STATE_80000000 (1 << 31)
+#define GFX_STATE_GOURAUD       (1 << 17) // gouraud / smooth shading
+#define GFX_STATE_40000         (1 << 18) // unused
+#define GFX_STATE_CULL_FRONT    (1 << 19) // cull front faces
+#define GFX_STATE_CULL_BACK     (1 << 20) // cull back faces
+#define GFX_STATE_ZBUFFER       (1 << 21) // depth buffering
+#define GFX_STATE_AA            (1 << 22) // anti-aliasing
+#define GFX_STATE_XLU           (1 << 23) // transparent
+#define GFX_STATE_DECAL         (1 << 24) // decal surface
+#define GFX_STATE_2000000       (1 << 25) // submit dlist with uvGfxStateDrawDL
+#define GFX_STATE_4000000       (1 << 26) // unused
+#define GFX_STATE_LIGHTING      (1 << 27) // lighting and texturing
+#define GFX_STATE_10000000      (1 << 28) // special render mode?
+#define GFX_STATE_20000000      (1 << 29) // unused
+#define GFX_STATE_40000000      (1 << 30) // unused
+#define GFX_STATE_FOG           (1 << 31) // fog
+
+#define GFX_STATE_TEXTURE_MASK 0xFFF
+#define GFX_STATE_TEXTURE_NONE 0xFFF
+
+#define GFX_STATE_MODE_MASK (GFX_STATE_GOURAUD | GFX_STATE_40000 | GFX_STATE_CULL_FRONT | GFX_STATE_CULL_BACK | GFX_STATE_ZBUFFER | GFX_STATE_LIGHTING | GFX_STATE_FOG)
 
 #define GFX_PATCH_DL(pkt, patchDL, patchArg)                                   \
 {                                                                              \
@@ -187,7 +192,7 @@ typedef struct uvModelPart {
     u8 unk6;
     UnkUVMD_24* unk8;
     u8 unkC;
-    u8 unkD;
+    u8 lighting;
 } uvModelPart; // size = 0x10
 
 typedef struct uvModelLOD {
@@ -222,7 +227,7 @@ typedef struct UnkUVTX_1C {
 
 typedef struct ParsedUVTX {
     void* unk0;
-    Gfx* unk4;
+    Gfx* dlist;
     u16 size;
     u16 width;
     u16 height;
@@ -426,8 +431,8 @@ void uvGfxStatePush(void);
 void uvGfxStatePop(void);
 void uvGfxSetFlags(s32 flags);
 void uvGfxClearFlags(s32 flags);
-void uvGfx_80223A28(s32 flags);
-void uvGfx_80223A64(s32 arg0, s32 arg1);
+void uvGfxBindTexture(s32 flags);
+void uvGfxTextureDL(s32 textureId, s32 xparam);
 void uvGfxWaitForMesg(void);
 void uvGfxEnableGamma(s32 enable);
 void uvGfxSetUnkState0(s32 arg0);

@@ -433,14 +433,14 @@ void fileMenu_802E9AE0(void) {
     unk70 = D_80362690->unkC[D_80362690->unk9C].unk70;
     func_80204FC4(unk70->unk22C);
     func_80314154();
-    uvGfxSetFlags(GFX_STATE_400000);
+    uvGfxSetFlags(GFX_STATE_AA);
     uvVtxBeginPoly();
     uvVtx(0, SCREEN_HEIGHT, 0, 0, 0, 0x00, 0x00, 0x00, 0x64);
     uvVtx(0, 0, 0, 0, 0, 0x00, 0x00, 0x00, 0x64);
     uvVtx(SCREEN_WIDTH, 0, 0, 0, 0, 0x00, 0x00, 0x00, 0x64);
     uvVtx(SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, 0x00, 0x00, 0x00, 0x64);
     uvVtxEndPoly();
-    uvGfxClearFlags(GFX_STATE_400000);
+    uvGfxClearFlags(GFX_STATE_AA);
     func_803141E4();
     uvSprtDraw(0x10);
     uvSprtDraw(0x11);

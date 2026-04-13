@@ -75,7 +75,7 @@ typedef struct {
     f32 unk44;
     f32 unk48;
     f32 unk4C;
-    u16 unk50;
+    u16 textureId;
     u8 unk52;
     u8 unk53;
     u8 unk54;

@@ -37,8 +37,8 @@ void func_802DEE44(s32 x, s32 y, s32 width, s32 height, s32 size, s32 r0, s32 g0
     s32 ypos = y + size;
 
     uvGfxStatePush();
-    uvGfxSetFlags(GFX_STATE_800000 | 0xFFF);
-    uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000 | GFX_STATE_100000);
+    uvGfxSetFlags(GFX_STATE_XLU | GFX_STATE_TEXTURE_NONE);
+    uvGfxClearFlags(GFX_STATE_AA | GFX_STATE_ZBUFFER | GFX_STATE_CULL_BACK);
     func_802DEC30(x1, y1, x, y1, xpos, yneg, xneg, yneg, r0, g0, b0, r1, g1, b1);
     func_802DEC30(xneg, yneg, xneg, ypos, x1, y, x1, y1, r0, g0, b0, r1, g1, b1);
     func_802DEC30(xneg, ypos, xpos, ypos, x, y, x1, y, r0, g0, b0, r1, g1, b1);
@@ -136,8 +136,8 @@ void screenDrawBoxSetup(void) {
     Mtx4F sp20;
 
     uvGfxStatePush();
-    uvGfxSetFlags(GFX_STATE_800000);
-    uvGfxClearFlags(GFX_STATE_400000 | GFX_STATE_200000);
+    uvGfxSetFlags(GFX_STATE_XLU);
+    uvGfxClearFlags(GFX_STATE_AA | GFX_STATE_ZBUFFER);
     uvGfxSetViewport(0, 0, SCREEN_WIDTH, 0, SCREEN_HEIGHT);
     uvMat4SetOrtho(&sp20, 0.0f, SCREEN_WIDTH - 1, 0.0f, SCREEN_HEIGHT - 1);
     uvGfxMtxProjPushF(&sp20);

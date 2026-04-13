@@ -225,14 +225,14 @@ void func_8030C6A0(void) {
     sp68 = textGetDataByIdx(D_8034F4C8[sp58]);
     sp70 = textGetDataByIdx(D_8034F4D8[D_8034F420[sp74->veh][sp74->cls]]);
     func_80314154();
-    uvGfxSetFlags(GFX_STATE_400000);
+    uvGfxSetFlags(GFX_STATE_AA);
     uvVtxBeginPoly();
     uvVtx(0, SCREEN_HEIGHT, 0, 0, 0, 0, 0, 0, 100);
     uvVtx(0, 0, 0, 0, 0, 0, 0, 0, 100);
     uvVtx(SCREEN_WIDTH, 0, 0, 0, 0, 0, 0, 0, 100);
     uvVtx(SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, 0, 0, 0, 100);
     uvVtxEndPoly();
-    uvGfxClearFlags(GFX_STATE_400000);
+    uvGfxClearFlags(GFX_STATE_AA);
     func_803141E4();
     textFmtInt(sp5C, sp50, ARRAY_COUNT(sp5C));
     uvSprtDraw(0);
