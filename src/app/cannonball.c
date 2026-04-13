@@ -867,7 +867,7 @@ s32 cannonLandedFrame(CannonballData* arg0) {
             if (var_a2 == 0x19) {
                 hudWarningText(0x16F, 2.0f, 8.0f);
                 func_8033F964(1);
-                sndPlaySfx(0x11);
+                sndPlaySfx(SFX_GOAL_GONG);
             } else {
                 sndPlaySfx(0x36);
                 func_8033F748(0x11);

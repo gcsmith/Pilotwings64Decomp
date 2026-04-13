@@ -41,7 +41,7 @@ enum Sfx {
     /* 0x0E */ SFX_UNK_014,
     /* 0x0F */ SFX_UI_TEST_START, // also used for rings
     /* 0x10 */ SFX_UNK_016,
-    /* 0x11 */ SFX_UNK_017,
+    /* 0x11 */ SFX_GOAL_GONG,
     /* 0x12 */ SFX_UNK_018,
     /* 0x13 */ SFX_UNK_019,
     /* 0x14 */ SFX_UNK_020,
