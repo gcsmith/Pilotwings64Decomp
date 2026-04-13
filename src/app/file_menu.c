@@ -216,7 +216,7 @@ void fileMenuSetProps(void) {
     menuSetProps();
 }
 
-STATIC_FUNC s32 fileMenuPrintText(s32* arg0, s32 arg1) {
+STATIC_FUNC s32 fileMenuPrintText(s32* textIds, s32 arg1) {
     s32 curVal;
     s32 i;
     s32 maxVal;
@@ -225,7 +225,7 @@ STATIC_FUNC s32 fileMenuPrintText(s32* arg0, s32 arg1) {
     uvFontSet(6);
     uvFontScale(1.0, 1.0);
     for (i = 0; i < arg1; i++) {
-        curVal = func_802196B0(textGetDataByIdx(arg0[i])) - 16;
+        curVal = uvFontStr16Width(textGetDataByIdx(textIds[i])) - 16;
         if (curVal > maxVal) {
             maxVal = curVal;
         }
@@ -491,7 +491,7 @@ void fileMenu_802E9AE0(void) {
         titleStr = textGetDataByIdx(0x101); // Are you sure?
         break;
     }
-    func_80219874((SCREEN_WIDTH / 2) - (func_802196B0(titleStr) / 2), 206, titleStr, 0x3C, 0xFFE);
+    uvFontPrintStr16((SCREEN_WIDTH / 2) - (uvFontStr16Width(titleStr) / 2), 206, titleStr, 0x3C, 0xFFE);
     uvFontGenDlist();
     func_8034B6F8();
 }

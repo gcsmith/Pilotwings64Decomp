@@ -46,7 +46,7 @@ void func_802DEE44(s32 x, s32 y, s32 width, s32 height, s32 size, s32 r0, s32 g0
     uvGfxStatePop();
 }
 
-void screenDrawBox2(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, char* arg5, s32 arg6, s32 arg7) {
+void screenDrawBox2(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, char* str, s32 arg6, s32 arg7) {
     s32 spA4;
     s32 spA0;
     s32 sp9C;
@@ -57,8 +57,8 @@ void screenDrawBox2(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, char* arg5
     s32 pad;
 
     screenDrawBoxSetup();
-    if (arg5 != NULL) {
-        temp_v0 = uvFontWidth(arg5);
+    if (str != NULL) {
+        temp_v0 = uvFontWidth(str);
 
         // hack operand order workaround
         sp9C = arg4 * 2;
@@ -72,11 +72,11 @@ void screenDrawBox2(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, char* arg5
     }
 
     screenDrawBox(arg0 + arg4, arg1 + arg4, arg0 + arg2 - arg4, arg1 + arg3 - arg4, 0, 0, 0, arg6);
-    if (arg5 != NULL) {
+    if (str != NULL) {
         func_802DEE44(spA4 - 1, spA0 - 1, sp9C + 2, sp98 + 2, arg4 + 2, 0, 0, 0, 0, 0, 0);
         func_802DEE44(spA4, spA0, sp9C, sp98, arg4, 0x14, 0xAA, 0xFF, 0, 0xF, 0xA0);
         uvFontColor(0xB4, 0xB4, 0x00, 0xFF);
-        uvFontPrintStr(spA4 + arg4 + 1, spA0 + arg4, arg5);
+        uvFontPrintStr(spA4 + arg4 + 1, spA0 + arg4, str);
         func_802DEC30(spA4, arg1 + arg3 + 1, arg0 - 1, arg1 + arg3 + 1, arg0 + arg4, arg1 + arg3 - arg4 - 1, spA4, arg1 + arg3 - arg4 - 1, 0, 0, 0, 0, 0, 0);
         func_802DEC30(arg0 + arg2 + 1, arg1 + arg3 + 1, spA4 + sp9C, arg1 + arg3 + 1, spA4 + sp9C, arg1 + arg3 - arg4 - 1, arg0 + arg2 - arg4,
                       arg1 + arg3 - arg4 - 1, 0, 0, 0, 0, 0, 0);

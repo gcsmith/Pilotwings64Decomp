@@ -434,10 +434,10 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
 
     temp_s0 = &arg0->unkC[arg0->unk9C];
     sp28 = 1.0f;
-    uvGfxClearScreen(0, 0, 0, 0xFF);
+    uvGfxClearScreen(0x00, 0x00, 0x00, 0xFF);
     uvGfxBegin();
     uvGfxEnd();
-    uvGfxClearScreen(0, 0, 0, 0xFF);
+    uvGfxClearScreen(0x00, 0x00, 0x00, 0xFF);
     uvGfxBegin();
     uvGfxEnd();
     temp_s0->smokeId = -1;

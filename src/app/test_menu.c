@@ -635,7 +635,7 @@ void testMenuDraw(Camera* arg0, u8 classIdx, u8 vehIdx) {
             uvFontSet(6);
             uvFontColor(0xBE, 0xBE, 0xBE, 0xFF);
             uvFontScale(1.0, 1.0);
-            func_80219874(79, 196, sTestNameText, 0xFF, 0xFFE);
+            uvFontPrintStr16(79, 196, sTestNameText, 0xFF, 0xFFE);
         }
         if (sDrawTestPts && (sp48->veh != VEHICLE_BIRDMAN)) {
             uvFontSet(3);
@@ -652,7 +652,7 @@ void testMenuDraw(Camera* arg0, u8 classIdx, u8 vehIdx) {
             uvFontScale(1.0, 1.0);
             idx = 0;
             for (var_a1 = 166; var_a1 > -114; var_a1 -= 14) {
-                temp_v0_3 = func_80219874(46, var_a1, &sp54[idx], 0xFF, 0xFFE);
+                temp_v0_3 = uvFontPrintStr16(46, var_a1, &sp54[idx], 0xFF, 0xFFE);
                 if (temp_v0_3 == -1) {
                     break;
                 }

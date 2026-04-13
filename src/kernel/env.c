@@ -157,7 +157,7 @@ void _uvEnvDraw(s32 arg0, s32 arg1) {
 
     uven = gGfxUnkPtrs->environments[arg1];
     if (uven == NULL) {
-        uvGfxClearScreen(0, 0, 0, 255);
+        uvGfxClearScreen(0x00, 0x00, 0x00, 0xFF);
         return;
     }
     if (uven->unk1C != 0) {

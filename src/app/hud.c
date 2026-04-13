@@ -1785,7 +1785,7 @@ void hudDrawLowFuel(HUDState* hud) {
         } else {
             uvFontColor(0xFF, 0x00, 0x00, 0xFF); // red
         }
-        func_80219874((SCREEN_WIDTH / 2) - ((func_802196B0(&hud->unkB40[0]) - 16) / 2), 125, &hud->unkB40[0], 0x28, 0xFFE);
+        uvFontPrintStr16((SCREEN_WIDTH / 2) - ((uvFontStr16Width(&hud->unkB40[0]) - 16) / 2), 125, &hud->unkB40[0], 0x28, 0xFFE);
     }
 }
 
@@ -1803,7 +1803,7 @@ void hudDrawStartText(HUDState* hud) {
         } else {
             uvFontColor(0x00, 0x28, 0xFF, 0xFF); // blue
         }
-        func_80219874((SCREEN_WIDTH / 2) - ((func_802196B0(&hud->unkBD0[0]) - 16) / 2), 140, &hud->unkBD0[0], 0x28, 0xFFE);
+        uvFontPrintStr16((SCREEN_WIDTH / 2) - ((uvFontStr16Width(&hud->unkBD0[0]) - 16) / 2), 140, &hud->unkBD0[0], 0x28, 0xFFE);
     }
 }
 

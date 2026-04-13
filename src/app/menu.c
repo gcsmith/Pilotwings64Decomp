@@ -88,7 +88,7 @@ STATIC_FUNC void menuDrawItem(s16 x, s16 y, s16 idx) {
         uvSprtProps(sMenuSpriteIdBase + idx, SPRT_PROP_POS(x, y + sMenuSpriteHeight + 2), SPRT_PROP_END);
         uvSprtDraw(sMenuSpriteIdBase + idx);
     } else {
-        func_80219874(x, y, sMenuItems[idx], 100, 0xFFE);
+        uvFontPrintStr16(x, y, sMenuItems[idx], 100, 0xFFE);
     }
 }
 
