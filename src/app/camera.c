@@ -140,11 +140,11 @@ void func_802D3444(Camera* camera) {
             camera->unkD = 0;
         }
         camera->unk1AC = uvAtan2F(camera->unk80.m[0][0], camera->unk80.m[0][1]) - 1.5707963f; // almost DEG_TO_RAD(90)
-        if ((camera->unk1AC - camera->unk1A8) > 1.5707964f) {                               // matches DEG_TO_RAD(90)
-            camera->unk1A8 = camera->unk1A8 + 6.2831855f;                                   // matches DEG_TO_RAD(360)
+        if ((camera->unk1AC - camera->unk1A8) > 1.5707964f) {                                 // matches DEG_TO_RAD(90)
+            camera->unk1A8 = camera->unk1A8 + 6.2831855f;                                     // matches DEG_TO_RAD(360)
         }
         if ((camera->unk1AC - camera->unk1A8) < -1.5707964f) { // matches DEG_TO_RAD(-90)
-            camera->unk1A8 -= 6.2831855f;                    // matches DEG_TO_RAD(360)
+            camera->unk1A8 -= 6.2831855f;                      // matches DEG_TO_RAD(360)
         }
         if (camera->unkC != 0) {
             camera->unk1A8 = camera->unk1AC;
