@@ -330,7 +330,7 @@ void func_8032FEAC(SkyDivingData* sdData, s32 buttons, u8 gameState) {
     }
     if (buttons & L_CBUTTONS) {
         var_fa0 = 1.5707963f;
-    } else if (buttons & 1) {
+    } else if (buttons & R_CBUTTONS) {
         var_fa0 = -1.5707963f;
     } else {
         var_fa0 = 0.0f;
