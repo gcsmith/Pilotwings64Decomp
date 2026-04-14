@@ -41,7 +41,7 @@ enum Sfx {
     /* 0x0E */ SFX_UNK_014,
     /* 0x0F */ SFX_UI_TEST_START, // also used for rings
     /* 0x10 */ SFX_UNK_016,
-    /* 0x11 */ SFX_UNK_017,
+    /* 0x11 */ SFX_GOAL_GONG,
     /* 0x12 */ SFX_UNK_018,
     /* 0x13 */ SFX_UNK_019,
     /* 0x14 */ SFX_UNK_020,
@@ -85,7 +85,7 @@ enum Sfx {
     /* 0x3A */ SFX_UNK_058,
     /* 0x3B */ SFX_UNK_059,
     /* 0x3C */ SFX_UNK_060,
-    /* 0x3D */ SFX_UNK_061,
+    /* 0x3D */ SFX_QUICK_SWISH, // "64" logo fly-in and pilot head shake 
     /* 0x3E */ SFX_UNK_062,
     /* 0x3F */ SFX_UNK_063,
     /* 0x40 */ SFX_UNK_064,

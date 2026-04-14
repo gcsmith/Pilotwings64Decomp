@@ -941,7 +941,7 @@ void falco_802E5BF8(Unk8035A920* falco, Falco* arg1) {
 
     falco->unk0 = uvDobjAllocIdx();
     if (falco->unk0 != 0xFFFF) {
-        sndPlaySfxVolPitchPan(0x3DU, 1.0f, (uvRandF_LCG() * 0.2f) + 0.4f, 0.0f);
+        sndPlaySfxVolPitchPan(SFX_QUICK_SWISH, 1.0f, (uvRandF_LCG() * 0.2f) + 0.4f, 0.0f);
         falco->unk5D = arg1->unk256;
         if (falco->unk5D) {
             uvDobjModel(falco->unk0, 0x100);

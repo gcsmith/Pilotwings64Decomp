@@ -2244,20 +2244,21 @@ void func_80302BA0(JumbleHopperData* arg0) {
     if (arg0->unk1D0 > 1.0f) {
         arg0->unk1D0 = 1.0f;
     }
+    // pilot shakes head 5 times after crash
     if ((arg0->unk1D0 > 0.3478261f) && (D_8036905C[0] == 0)) {
-        sndPlaySfx(0x3D);
+        sndPlaySfx(SFX_QUICK_SWISH);
         D_8036905C[0] = 1;
     } else if ((arg0->unk1D0 > 0.39130434f) && (D_8036905C[1] == 0)) {
-        sndPlaySfx(0x3D);
+        sndPlaySfx(SFX_QUICK_SWISH);
         D_8036905C[1] = 1;
     } else if ((arg0->unk1D0 > 0.43478262f) && (D_8036905C[2] == 0)) {
-        sndPlaySfx(0x3D);
+        sndPlaySfx(SFX_QUICK_SWISH);
         D_8036905C[2] = 1;
     } else if ((arg0->unk1D0 > 0.47826087f) && (D_8036905C[3] == 0)) {
-        sndPlaySfx(0x3D);
+        sndPlaySfx(SFX_QUICK_SWISH);
         D_8036905C[3] = 1;
     } else if ((arg0->unk1D0 > 0.5217391f) && (D_8036905C[4] == 0)) {
-        sndPlaySfx(0x3D);
+        sndPlaySfx(SFX_QUICK_SWISH);
         D_8036905C[4] = 1;
     }
     if (arg0->unk1D0 > 0.708f) {

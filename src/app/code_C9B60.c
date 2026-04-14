@@ -509,13 +509,14 @@ STATIC_FUNC void func_80343E84(void) {
         uvMat4Mul(&D_80378CE0->unk6C, &D_80378CE0->unk6C, &D_80378CE0->unk1EC);
         uvDobjPosm(D_80378CE0->unk8, 0, &D_80378CE0->unk6C);
     }
+    // "64" numbers fly into title screen logo
     if (temp_fs0 >= 3.5f) {
         sp2C = ((temp_fs0 - 3.5f) * 100.0f) / 0.5f;
         spathUpdate(&D_80378CE0->unkAC, D_80378CE0->unk20, sp2C, 1.0f);
         uvMat4Mul(&D_80378CE0->unkAC, &D_80378CE0->unkAC, &D_80378CE0->unk1EC);
         uvDobjPosm(D_80378CE0->unkC, 0, &D_80378CE0->unkAC);
         if ((D_80378CE0->unk265 != 0) && (sp2C > 40.0f)) {
-            sndPlaySfx(0x3DU);
+            sndPlaySfx(SFX_QUICK_SWISH);
             D_80378CE0->unk265 = 0;
         }
     }
@@ -525,7 +526,7 @@ STATIC_FUNC void func_80343E84(void) {
         uvMat4Mul(&D_80378CE0->unkEC, &D_80378CE0->unkEC, &D_80378CE0->unk1EC);
         uvDobjPosm(D_80378CE0->unk10, 0, &D_80378CE0->unkEC);
         if ((D_80378CE0->unk266 != 0) && (sp2C > 47.0f)) {
-            sndPlaySfx(0x3DU);
+            sndPlaySfx(SFX_QUICK_SWISH);
             D_80378CE0->unk266 = 0;
         }
     }
