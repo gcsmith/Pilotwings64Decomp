@@ -13,6 +13,7 @@
 #include "app/snd.h"
 #include "app/targets.h"
 #include "app/task.h"
+#include "app/text_data.h"
 #include "app/code_61A60.h"
 #include "app/code_66F70.h"
 #include "app/code_9A960.h"
@@ -413,13 +414,13 @@ void func_8030399C(GyrocopterData* gcData) {
         if (gcData->unk6C == 0) {
             gcData->unk4 = D_8036957C;
             if (gcData->unk50 == 1) {
-                hudText_8031D8E0(0xA2, 1.5f, 8.0f);
+                hudText_8031D8E0(TEXT_LAND_OUT2, 1.5f, 8.0f);
             }
         } else if (gcData->unk50 == 1) {
             if (gcData->unk4 != D_8036957C) {
-                hudText_8031D8E0(0x12A, 1.5f, 8.0f);
+                hudText_8031D8E0(TEXT_LAND_OK2, 1.5f, 8.0f);
             } else {
-                hudText_8031D8E0(0xA2, 1.5f, 8.0f);
+                hudText_8031D8E0(TEXT_LAND_OUT2, 1.5f, 8.0f);
             }
         }
     }

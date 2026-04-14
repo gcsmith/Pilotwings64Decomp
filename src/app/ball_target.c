@@ -197,7 +197,7 @@ s32 ballTgtInGoal(void) {
                 if ((dist < target->unk50) && (dz < target->unk54)) {
                     target->unk5B = 1;
                     ret = 1;
-                    sndPlaySfx(0x11);
+                    sndPlaySfx(SFX_GOAL_GONG);
                     uvDobjModel(target->objId, MODEL_WORLD);
                     ballTgtInitDobj(target);
                     target->unk5A = j;

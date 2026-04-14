@@ -10,6 +10,7 @@
 #include "menu_utils.h"
 #include "snd.h"
 #include "spath.h"
+#include "text_data.h"
 #include "user_paths.h"
 #include <uv_graphics.h>
 #include <uv_matrix.h>
@@ -54,7 +55,7 @@ typedef struct {
 // .data
 u8 D_80350690 = 1;
 s32 D_80350694 = 1;
-s32 D_80350698[] = { 0x188, 0x4E };
+static s32 sMainMenuItems[] = { TEXT_GAMESTART, TEXT_OPTION };
 
 // .bss
 Unk80378CE0* D_80378CE0;
@@ -177,7 +178,7 @@ STATIC_FUNC void func_803427FC(void) {
     uvDobjModel(D_80378CE0->unk10, MODEL_PILOTWINGS_LOGO_FOUR);
     uvDobjPosm(D_80378CE0->unk10, 0, &D_80378CE0->unkEC);
     uvDobjState(D_80378CE0->unk10, 2);
-    menuCreateItems(102, 60, 6, 1.0f, 1.0f, D_80350698, 2);
+    menuCreateItems(102, 60, 6, 1.0f, 1.0f, sMainMenuItems, 2);
     menuUtilSetColors(MENU_COLOR_SELECTED, 0xFF, 0xFF, 0);
     menuUtilSetColors(MENU_COLOR_ITEM, 0xFF, 0xFF, 0xFF);
     menuUtilSetColors(MENU_COLOR_GRAPHICS, 0xFF, 0xFF, 0);
@@ -509,13 +510,14 @@ STATIC_FUNC void func_80343E84(void) {
         uvMat4Mul(&D_80378CE0->unk6C, &D_80378CE0->unk6C, &D_80378CE0->unk1EC);
         uvDobjPosm(D_80378CE0->unk8, 0, &D_80378CE0->unk6C);
     }
+    // "64" numbers fly into title screen logo
     if (temp_fs0 >= 3.5f) {
         sp2C = ((temp_fs0 - 3.5f) * 100.0f) / 0.5f;
         spathUpdate(&D_80378CE0->unkAC, D_80378CE0->unk20, sp2C, 1.0f);
         uvMat4Mul(&D_80378CE0->unkAC, &D_80378CE0->unkAC, &D_80378CE0->unk1EC);
         uvDobjPosm(D_80378CE0->unkC, 0, &D_80378CE0->unkAC);
         if ((D_80378CE0->unk265 != 0) && (sp2C > 40.0f)) {
-            sndPlaySfx(0x3DU);
+            sndPlaySfx(SFX_QUICK_SWISH);
             D_80378CE0->unk265 = 0;
         }
     }
@@ -525,7 +527,7 @@ STATIC_FUNC void func_80343E84(void) {
         uvMat4Mul(&D_80378CE0->unkEC, &D_80378CE0->unkEC, &D_80378CE0->unk1EC);
         uvDobjPosm(D_80378CE0->unk10, 0, &D_80378CE0->unkEC);
         if ((D_80378CE0->unk266 != 0) && (sp2C > 47.0f)) {
-            sndPlaySfx(0x3DU);
+            sndPlaySfx(SFX_QUICK_SWISH);
             D_80378CE0->unk266 = 0;
         }
     }

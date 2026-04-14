@@ -8,6 +8,7 @@
 #include "app/shadow.h"
 #include "app/snap.h"
 #include "app/snd.h"
+#include "app/text_data.h"
 #include "app/code_51E30.h"
 #include "app/code_66F70.h"
 
@@ -421,9 +422,9 @@ void hangGliderMovementFrame(HangGliderData* hgData, u8 gameState) {
                 }
                 if ((hgData->unk1B0 < 8) && (hgData->unkE9 == 0) && (hgData->unk80 == 0) && (hgData->unkF8 >= 4.0f) && (hgData->unk8C == 0) &&
                     (temp_a2->unkB40[0] == -1)) {
-                    hudWarningText(0x15C, 1.5f, 8.0f);
+                    hudWarningText(TEXT_STALL_AT, 1.5f, 8.0f);
                 } else if ((hgData->unkE9 != 0) && (hgData->unkF8 >= 4.0f) && (hgData->unk8C == 0) && (temp_a2->unkB40[0] == -1)) {
-                    hudWarningText(0x157, 1.5f, 8.0f);
+                    hudWarningText(TEXT_STALL_WA, 1.5f, 8.0f);
                 }
             }
         }

@@ -15,6 +15,7 @@
 #include "app/smoke.h"
 #include "app/snd.h"
 #include "app/targets.h"
+#include "app/text_data.h"
 #include "app/toys.h"
 #include "app/code_66F70.h"
 #include "app/code_7C4C0.h"
@@ -483,21 +484,21 @@ void gyrocopterMovementFrame(GyrocopterData* gcData, u8 gameState) {
                 hud->power = 0.0f;
             }
             if (gcData->unkC1 != 0) {
-                hudWarningText(0x148, 1.5f, 8.0f);
-                sndPlaySfx(0x69);
+                hudWarningText(TEXT_OFF_5, 1.5f, 8.0f);
+                sndPlaySfx(SFX_UNK_105);
             } else {
                 if ((gcData->fuel <= 0.0f) && !gcData->fuelEmpty) {
-                    hudWarningText(0x4A, 1.5f, 8.0f);
+                    hudWarningText(TEXT_FUEL_OUT, 1.5f, 8.0f);
                     gcData->fuelEmpty = TRUE;
                 } else if ((gcData->fuel < 0.15f) && !gcData->hasLowFuel) {
-                    hudWarningText(0x17B, 1.5f, 8.0f);
+                    hudWarningText(TEXT_FUEL_WAR, 1.5f, 8.0f);
                     gcData->hasLowFuel = TRUE;
                 } else if ((func_8032C080(NULL) != 0) && !gcData->pleaseLandShown) {
                     sndPlaySfx(5);
-                    hudText_8031D8E0(0x1AA, 1.5f, 8.0f);
+                    hudText_8031D8E0(TEXT_LAND_NOW2, 1.5f, 8.0f);
                     gcData->pleaseLandShown = TRUE;
                 } else if ((taskGet_80346468() != 0) && !gcData->unkD5) {
-                    hudText_8031D8E0(0x15D, 1.5f, 8.0f);
+                    hudText_8031D8E0(TEXT_GOAL, 1.5f, 8.0f);
                     gcData->unkD5 = TRUE;
                 }
             }

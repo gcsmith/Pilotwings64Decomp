@@ -676,7 +676,7 @@ s32 falco_802E51E8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     f32 temp_fv1;
     f64 temp_fs0;
     s32 temp_a0;
-    s32 temp_s1;
+    s16* str16;
     s32 temp_v0_2;
     s32 i;
     s32 ret;
@@ -699,8 +699,8 @@ s32 falco_802E51E8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
                 curFalco->unk23C = 8;
                 curFalco->unkD0 = 2.1f;
                 splashAdd(&curFalco->unk1AC, 60.0f);
-                sndPlaySfxVolPitchPan(0x44U, 1.0f, 1.0f, 0.0f);
-                hudText_8031D8E0(0x174, 1.5f, 8.0f);
+                sndPlaySfxVolPitchPan(SFX_UNK_068, 1.0f, 1.0f, 0.0f);
+                hudText_8031D8E0(TEXT_F_DIE, 1.5f, 8.0f);
                 if (curFalco->unk256 == 0) {
                     curFalco->unk16C.m[0][0] = -curFalco->unkB4.f[1];
                     curFalco->unk16C.m[0][1] = curFalco->unkB4.f[0];
@@ -720,11 +720,11 @@ s32 falco_802E51E8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
                     curFalco->unkC = -1;
                 }
             } else {
-                temp_s1 = textGetDataByIdx(0x158); // "Shots to go:"
-                sndPlaySfxVolPitchPan(0x3BU, 1.0f, (uvRandF_LCG() * 0.2) + 0.800000011920929, 0.0f);
-                hudText_8031D8E0(0x164, 1.5f, 8.0f); // "Hit"
-                textFmtIntAt(temp_s1, ((1.0f - curFalco->unkC4) / curFalco->unk250) + 0.5, 1, 0xE);
-                hudWarningText(0x158, 1.5f, 8.0f);
+                str16 = textGetDataByIdx(TEXT_LEFT_SHT);
+                sndPlaySfxVolPitchPan(SFX_UNK_059, 1.0f, (uvRandF_LCG() * 0.2) + 0.800000011920929, 0.0f);
+                hudText_8031D8E0(TEXT_F_HIT_M, 1.5f, 8.0f);
+                textFmtIntAt(str16, ((1.0f - curFalco->unkC4) / curFalco->unk250) + 0.5, 1, 0xE);
+                hudWarningText(TEXT_LEFT_SHT, 1.5f, 8.0f);
                 curFalco->unk23C = 7;
                 temp_fv0 = uvRandF_LCG();
                 curFalco->unkC8 = (curFalco->unk13C * temp_fv0) + curFalco->unk138;
@@ -941,7 +941,7 @@ void falco_802E5BF8(Unk8035A920* falco, Falco* arg1) {
 
     falco->unk0 = uvDobjAllocIdx();
     if (falco->unk0 != 0xFFFF) {
-        sndPlaySfxVolPitchPan(0x3DU, 1.0f, (uvRandF_LCG() * 0.2f) + 0.4f, 0.0f);
+        sndPlaySfxVolPitchPan(SFX_QUICK_SWISH, 1.0f, (uvRandF_LCG() * 0.2f) + 0.4f, 0.0f);
         falco->unk5D = arg1->unk256;
         if (falco->unk5D) {
             uvDobjModel(falco->unk0, 0x100);

@@ -47,7 +47,7 @@ typedef struct Unk80373060 {
     u8 pad37[0x1];
     f32 unk38;
     f32 unk3C;
-    s16 unk40;
+    s16 textId;
     u8 unk42;
     u8 unk43[6];
     f32 unk4C[6];
@@ -84,7 +84,7 @@ void func_80337D50(void) {
     s32 j;
 
     for (i = 0; i < PHOTO_COUNT_MAX; i++) {
-        D_80373060[i].unk40 = -1;
+        D_80373060[i].textId = -1;
         D_80373060[i].unk42 = 0;
         D_80373060[i].unk36 = 0;
         for (j = 0; j < 6; j++) {
@@ -105,7 +105,7 @@ void snapInit(void) {
     D_80350544 = 0;
 
     for (i = 0; i < PHOTO_COUNT_MAX; i++) {
-        D_80373390[i].unk40 = -1;
+        D_80373390[i].textId = -1;
         D_80373390[i].unk42 = 0;
         D_80373390[i].unk36 = 0;
         for (j = 0; j < 6; j++) {
@@ -124,7 +124,7 @@ void snapInit(void) {
     D_80373630[0].cls = CLASS_B;
     D_80373630[0].veh = VEHICLE_HANG_GLIDER;
     D_80373630[0].unk36 = 1;
-    D_80373630[0].unk40 = 0x130;
+    D_80373630[0].textId = TEXT_WHALE;
     D_80373630[0].unk42 = 1;
     D_80373630[0].unk43[0] = 4;
     D_80373630[0].unk3C = 0;
@@ -150,7 +150,7 @@ void snapInit(void) {
     D_80373630[1].unk36 = 1;
     D_80373630[1].unk3C = 0;
     D_80373630[1].unk38 = 0;
-    D_80373630[1].unk40 = 0x49;
+    D_80373630[1].textId = TEXT_FOUNTAIN;
     D_80373630[1].unk42 = 1;
     D_80373630[1].unk43[0] = 5;
     D_80373630[1].unk4C[0] = 1.0f;
@@ -172,7 +172,7 @@ void snapInit(void) {
     D_80373B70[0].unk36 = 1;
     D_80373B70[0].unk3C = 0;
     D_80373B70[0].unk38 = 0;
-    D_80373B70[0].unk40 = 0x156;
+    D_80373B70[0].textId = TEXT_FLAME;
     D_80373B70[0].unk42 = 1;
     D_80373B70[0].unk43[0] = 6;
     D_80373B70[0].unk4C[0] = 0;
@@ -193,7 +193,7 @@ void snapInit(void) {
     D_803738D0[2].unk36 = 1;
     D_803738D0[2].unk3C = 0;
     D_803738D0[2].unk38 = 0;
-    D_803738D0[2].unk40 = 0xD1;
+    D_803738D0[2].textId = TEXT_SHUTTLE;
     D_803738D0[2].unk42 = 1;
     D_803738D0[2].unk43[0] = 1;
     D_803738D0[2].unk4C[0] = 0.0f;
@@ -214,7 +214,7 @@ void snapInit(void) {
     D_803738D0[0].unk36 = 1;
     D_803738D0[0].unk3C = 0;
     D_803738D0[0].unk38 = 0;
-    D_803738D0[0].unk40 = 0x40;
+    D_803738D0[0].textId = TEXT_MISSY;
     D_803738D0[0].unk42 = 1;
     D_803738D0[0].unk43[0] = 3;
     D_803738D0[0].unk4C[0] = 0.0f;
@@ -236,7 +236,7 @@ void snapInit(void) {
     D_803738D0[1].unk36 = 1;
     D_803738D0[1].unk3C = 0;
     D_803738D0[1].unk38 = 0;
-    D_803738D0[1].unk40 = 0x75;
+    D_803738D0[1].textId = TEXT_SHIP;
     D_803738D0[1].unk42 = 1;
     D_803738D0[1].unk43[0] = 2;
     D_803738D0[1].unk4C[0] = 0.0f;
@@ -599,8 +599,7 @@ void func_80338A14(void) {
     }
 
     if ((sp78 != 0) && (spB8 != 0)) {
-        // "Photo OK"
-        hudText_8031D8E0(0x13C, 3.0f, 0.0f);
+        hudText_8031D8E0(TEXT_PHOTO, 3.0f, 0.0f);
     }
     var_fv1_2 = 0.f;
     var_a0 = -1;
@@ -1019,13 +1018,11 @@ void func_8033A72C(void) {
 void func_8033ADD4(s32 arg0, Unk80373060* arg1, s32 arg2, s32 arg3) {
     Mtx4F spA0;
     Mtx4F sp60;
-    s32 sp5C;
-    u8 pad4C[0x10];
-    s32 sp34;
-    s16 pad46;
-    s16 sp44;
+    s32 x0;
+    s32 x1;
+    s16 sp44[10];
     s32 var_v1;
-    s32 sp3C;
+    s32 strWidth;
 
     uvLevelAppend(0x1B);
     func_8033A664(0, SCREEN_WIDTH - 1, 0, SCREEN_HEIGHT - 1);
@@ -1070,10 +1067,10 @@ void func_8033ADD4(s32 arg0, Unk80373060* arg1, s32 arg2, s32 arg3) {
             uvGfxSetFlags(GFX_STATE_XLU);
             uvGfxClearFlags(GFX_STATE_AA | GFX_STATE_ZBUFFER);
             uvGfxBindTexture(0x13E);
-            sp5C = 108;
-            D_80373E1C = sp5C;
-            sp5C += 12;
-            D_80373E10 = sp5C;
+            x0 = 108;
+            D_80373E1C = x0;
+            x0 += 12;
+            D_80373E10 = x0;
             uvVtxBeginPoly();
             uvVtx(120, 30, 0, 0, 0, 255, 255, 255, 255);
             uvVtx(150, 30, 0, 0x3C0, 0, 255, 255, 255, 255);
@@ -1081,16 +1078,16 @@ void func_8033ADD4(s32 arg0, Unk80373060* arg1, s32 arg2, s32 arg3) {
             uvVtx(120, 44, 0, 0, 0x1C0, 255, 255, 255, 255);
             uvVtxEndPoly();
             uvGfxBindTexture(0x13F);
-            sp5C += 31;
-            D_80373E18 = sp5C + 3;
-            sp5C += 14;
-            D_80373E14 = sp5C;
+            x0 += 31;
+            D_80373E18 = x0 + 3;
+            x0 += 14;
+            D_80373E14 = x0;
             uvVtxBeginPoly();
-            uvVtx(sp5C, 30, 0, 0, 0, 255, 255, 255, 255);
-            sp34 = sp5C + 77;
-            uvVtx(sp34, 30, 0, 0x9A0, 0, 255, 255, 255, 255);
-            uvVtx(sp34, 44, 0, 0x9A0, 0x1C0, 255, 255, 255, 255);
-            uvVtx(sp5C, 44, 0, 0, 0x1C0, 255, 255, 255, 255);
+            uvVtx(x0, 30, 0, 0, 0, 255, 255, 255, 255);
+            x1 = x0 + 77;
+            uvVtx(x1, 30, 0, 0x9A0, 0, 255, 255, 255, 255);
+            uvVtx(x1, 44, 0, 0x9A0, 0x1C0, 255, 255, 255, 255);
+            uvVtx(x0, 44, 0, 0, 0x1C0, 255, 255, 255, 255);
             uvVtxEndPoly();
             uvGfxStatePop();
         }
@@ -1100,7 +1097,7 @@ void func_8033ADD4(s32 arg0, Unk80373060* arg1, s32 arg2, s32 arg3) {
             uvGfxSetFlags(GFX_STATE_XLU);
             uvGfxClearFlags(GFX_STATE_AA | GFX_STATE_ZBUFFER);
             uvGfxBindTexture(0x140);
-            sp5C = 111;
+            x0 = 111;
             uvVtxBeginPoly();
             uvVtx(36, 30, 0, 0, 0, 255, 255, 255, 255);
             uvVtx(111, 30, 0, 0x960, 0, 255, 255, 255, 255);
@@ -1108,28 +1105,28 @@ void func_8033ADD4(s32 arg0, Unk80373060* arg1, s32 arg2, s32 arg3) {
             uvVtx(36, 41, 0, 0, 0x160, 255, 255, 255, 255);
             uvVtxEndPoly();
             uvGfxBindTexture(0x142);
-            sp5C += 10;
-            D_80373E18 = sp5C + 5;
-            sp5C += 15;
-            D_80373E10 = sp5C;
+            x0 += 10;
+            D_80373E18 = x0 + 5;
+            x0 += 15;
+            D_80373E10 = x0;
             uvVtxBeginPoly();
-            uvVtx(sp5C, 28, 0, 0, 0, 255, 255, 255, 255);
-            sp34 = sp5C + 17;
-            uvVtx(sp34, 28, 0, 0x220, 0, 255, 255, 255, 255);
-            uvVtx(sp34, 42, 0, 0x220, 0x1C0, 255, 255, 255, 255);
-            uvVtx(sp5C, 42, 0, 0, 0x1C0, 255, 255, 255, 255);
+            uvVtx(x0, 28, 0, 0, 0, 255, 255, 255, 255);
+            x1 = x0 + 17;
+            uvVtx(x1, 28, 0, 0x220, 0, 255, 255, 255, 255);
+            uvVtx(x1, 42, 0, 0x220, 0x1C0, 255, 255, 255, 255);
+            uvVtx(x0, 42, 0, 0, 0x1C0, 255, 255, 255, 255);
             uvVtxEndPoly();
             uvGfxBindTexture(0x143);
-            sp5C += 17;
-            D_80373E1C = sp5C + 5;
-            sp5C += 15;
-            D_80373E14 = sp5C;
+            x0 += 17;
+            D_80373E1C = x0 + 5;
+            x0 += 15;
+            D_80373E14 = x0;
             uvVtxBeginPoly();
-            uvVtx(sp5C, 28, 0, 0, 0, 255, 255, 255, 255);
-            sp34 = sp5C + 13;
-            uvVtx(sp34, 28, 0, 0x1A0, 0, 255, 255, 255, 255);
-            uvVtx(sp34, 42, 0, 0x1A0, 0x1C0, 255, 255, 255, 255);
-            uvVtx(sp5C, 42, 0, 0, 0x1C0, 255, 255, 255, 255);
+            uvVtx(x0, 28, 0, 0, 0, 255, 255, 255, 255);
+            x1 = x0 + 13;
+            uvVtx(x1, 28, 0, 0x1A0, 0, 255, 255, 255, 255);
+            uvVtx(x1, 42, 0, 0x1A0, 0x1C0, 255, 255, 255, 255);
+            uvVtx(x0, 42, 0, 0, 0x1C0, 255, 255, 255, 255);
             uvVtxEndPoly();
             uvGfxStatePop();
         }
@@ -1147,8 +1144,8 @@ void func_8033ADD4(s32 arg0, Unk80373060* arg1, s32 arg2, s32 arg3) {
         uvFontSet(6);
         uvFontColor(0xFF, 0xFF, 0xFF, 0xFF);
         uvFontScale(1.0, 1.0);
-        textFmtInt(&sp44, PHOTO_COUNT_MAX - D_80350528, 3);
-        uvFontPrintStr16(0xF5, 0x19, &sp44, 3, 0xFFE);
+        textFmtInt(sp44, PHOTO_COUNT_MAX - D_80350528, 3);
+        uvFontPrintStr16(245, 25, sp44, 3, 0xFFE);
 
         var_v1 = (((arg1->test == 0) && (arg1->cls == CLASS_A)) || ((arg1->test == 1) && (arg1->cls == CLASS_B)) ||
                   ((arg1->test == 2) && (arg1->cls == CLASS_PILOT))) &&
@@ -1159,28 +1156,28 @@ void func_8033ADD4(s32 arg0, Unk80373060* arg1, s32 arg2, s32 arg3) {
                 uvFontSet(6);
                 uvFontScale(1.0, 1.0);
                 uvFontColor(0xFF, 0xFF, 0xFF, 0xFF);
-                textFmtInt(&sp44, func_8034AD14(arg1->unk3C * arg1->unk38), 3);
-                uvFontPrintStr16(194, 200, &sp44, 3, 0xFFE);
-                uvFontPrintStr16(230, 200, textGetDataByIdx(0xF5), 100, 0xFFE);
+                textFmtInt(sp44, func_8034AD14(arg1->unk3C * arg1->unk38), 3);
+                uvFontPrintStr16(194, 200, sp44, 3, 0xFFE);
+                uvFontPrintStr16(230, 200, textGetDataByIdx(TEXT_POINTS), 100, 0xFFE);
                 if (arg1->unk6C != 0) {
                     uvFontColor(0xFF, 0xF0, 0x00, 0xFF);
-                    uvFontPrintStr16(54, 200, textGetDataByIdx(0xD), 100, 0xFFE);
+                    uvFontPrintStr16(54, 200, textGetDataByIdx(TEXT_VIEW_PHOTO2), 100, 0xFFE);
                 } else {
-                    uvFontPrintStr16(54, 200, textGetDataByIdx(0xA4), 100, 0xFFE);
+                    uvFontPrintStr16(54, 200, textGetDataByIdx(TEXT_VIEW_PHOTO3), 100, 0xFFE);
                 }
             } else {
                 uvFontSet(6);
                 uvFontColor(0xFF, 0x00, 0x00, 0xFF);
                 uvFontScale(1.0, 1.0);
-                uvFontPrintStr16(54, 200, textGetDataByIdx(0x136), 100, 0xFFE);
+                uvFontPrintStr16(54, 200, textGetDataByIdx(TEXT_VIEW_PHOTO4), 100, 0xFFE);
             }
         }
     } else if (arg0 == 1) {
         uvFontSet(6);
         uvFontScale(1.0, 1.0);
         uvFontColor(0xFF, 0xFF, 0xFF, 0xFF);
-        sp3C = uvFontStr16Width(textGetDataByIdx(arg1->unk40));
-        uvFontPrintStr16(160 - (sp3C / 2), 200, textGetDataByIdx(arg1->unk40), 0x16, 0xFFE);
+        strWidth = uvFontStr16Width(textGetDataByIdx(arg1->textId));
+        uvFontPrintStr16(160 - (strWidth / 2), 200, textGetDataByIdx(arg1->textId), 0x16, 0xFFE);
         uvGfxStatePush();
         uvGfxSetFlags(GFX_STATE_XLU);
         uvGfxClearFlags(GFX_STATE_AA | GFX_STATE_ZBUFFER);
@@ -1478,7 +1475,7 @@ s32 func_8033D3EC(s32 arg0, s32 arg1, Unk80373060* arg2, s32* arg3, s32* arg4) {
             uvFontSet(6);
             uvFontColor((s32)r, (s32)g, (s32)b, 0xFF);
             uvFontScale(1.0, 1.0);
-            uvFontPrintStr16(70, 190, textGetDataByIdx(0x139), 100, 0xFFE);
+            uvFontPrintStr16(70, 190, textGetDataByIdx(TEXT_VIEW_PHOTO1), 100, 0xFFE);
             uvFontGenDlist();
             uvGfxEnd();
             if ((demoButtonPress(0, B_BUTTON) != 0) || ((arg1 == 0) && (demoButtonPress(0, START_BUTTON) != 0))) {

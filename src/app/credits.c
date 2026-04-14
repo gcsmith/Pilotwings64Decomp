@@ -360,13 +360,13 @@ void creditsScene(void) {
             a = ((D_8034F850 - D_8034F78C) * DOUBLE_ONE * 255.0);
         }
         if (D_8036A8B0 == 2) {
-            text6C = textGetDataByIdx(0x7E);
-            text68 = textGetDataByIdx(0x2C);
-            text64 = textGetDataByIdx(0x10B);
+            text6C = textGetDataByIdx(TEXT_END_MES_G);
+            text68 = textGetDataByIdx(TEXT_END_MES_G2);
+            text64 = textGetDataByIdx(TEXT_END_MES_G3);
         } else if (D_8036A8B0 == 3) {
-            text6C = textGetDataByIdx(0xBB);
-            text68 = textGetDataByIdx(0x118);
-            text64 = textGetDataByIdx(0x18);
+            text6C = textGetDataByIdx(TEXT_END_MES_P);
+            text68 = textGetDataByIdx(TEXT_END_MES_P2);
+            text64 = textGetDataByIdx(TEXT_END_MES_P3);
         } else {
             text6C = NULL;
         }

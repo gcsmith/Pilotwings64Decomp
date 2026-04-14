@@ -210,7 +210,7 @@ u8 resultListReplay(void) {
 void resultGenMenu(void) {
     s32 idx;
     u8* ptr;
-    u8 val = 0xE; // fakematch?
+    u8 val = TEXT_PHOTO_SGI; // fakematch?
 
     idx = 0;
     if (resultListPhoto()) {
@@ -218,13 +218,13 @@ void resultGenMenu(void) {
         if (ptr[1] == 1) {
             snowDisable();
         }
-        sResultMenu[0] = val; // Check Photo
+        sResultMenu[0] = val;
         idx = 1;
     }
     if (resultListReplay()) {
-        sResultMenu[idx++] = 0x60; // Replay
+        sResultMenu[idx++] = TEXT_REPLAY_SGI;
     }
-    sResultMenu[idx++] = 0x5B; // Next
+    sResultMenu[idx++] = TEXT_NEXT_SGI;
     menuCreateItems(170, 2, 6, 1.0f, 1.0f, sResultMenu, idx);
     if (resultListPhoto() && !func_8033F62C()) {
         menu_8030B69C(1);
@@ -237,11 +237,11 @@ s32 resultMenuItemLookup(s32 idx) {
         return idx;
     }
     switch (sResultMenu[idx]) {
-    case 0xE: // Check Photo
+    case TEXT_PHOTO_SGI:
         return 0;
-    case 0x60: // Replay
+    case TEXT_REPLAY_SGI:
         return 1;
-    case 0x5B: // Next
+    case TEXT_NEXT_SGI:
         return 2;
     default:
         return -1;
@@ -257,7 +257,7 @@ void resultInit(s32 arg0) {
     s32 ptsTotal;
     Unk80364210_Unk0_Unk0* res;
     s32 ptType;
-    s32 strIdx;
+    s32 textId;
 
     unkC = &D_80362690->unkC[D_80362690->unk9C];
     ptsTotal = 0;
@@ -359,8 +359,8 @@ void resultInit(s32 arg0) {
             ptsTotal = 0;
         }
         textFmtInt(sTotalPointsStr, ptsTotal, 3);
-        strIdx = (ptsTotal == 1) ? 0x8A : 0x131; // "pt." : "pts."
-        sPtsLabelStr = textGetDataByIdx(strIdx);
+        textId = (ptsTotal == 1) ? TEXT_PT : TEXT_PTS;
+        sPtsLabelStr = textGetDataByIdx(textId);
     }
     sReplayTipSet = FALSE;
 }

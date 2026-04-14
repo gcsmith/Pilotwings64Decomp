@@ -13,6 +13,7 @@
 #include "code_9A960.h"
 #include "hud.h"
 #include "task.h"
+#include "text_data.h"
 
 // .data
 // list of model ids
@@ -412,10 +413,10 @@ s32 ballsCollision(Ball* ball, Unk802D3658_Unk1228* arg1, Vec3F* arg2) {
             ball->radarIdx = 0xFF;
         }
         if (ball->childBallCount != 0) {
-            hudText_8031D8E0(0x16C, 1.5f, 8.0f); // "Balloon has split"
+            hudText_8031D8E0(TEXT_B_SPLIT, 1.5f, 8.0f);
             balls_802CB9B4(ball);
         } else {
-            hudText_8031D8E0(0x08, 1.5f, 8.0f); // "Balloon cleared"
+            hudText_8031D8E0(TEXT_B_CLR_N, 1.5f, 8.0f);
         }
         ball->hasPopped = TRUE;
         sp47 = uvEmitterLookup();
@@ -435,8 +436,8 @@ s32 ballsCollision(Ball* ball, Unk802D3658_Unk1228* arg1, Vec3F* arg2) {
 
 f32 ballsPopped(u8 objId, Vec3F* arg1, Unk802D3658_Unk1224* arg2) {
     Unk802D3658_Unk1228* unk4;
-    s32 j; // var_s0;
-    s32 i; // var_s3;
+    s32 j;
+    s32 i;
     s32 count;
     f32 temp_fv1;
     u8 var_s2;

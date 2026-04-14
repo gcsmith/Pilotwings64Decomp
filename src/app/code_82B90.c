@@ -8,17 +8,18 @@
 #include <uv_sobj.h>
 #include "kernel/code_8170.h"
 #include "app/balls.h"
+#include "app/camera.h"
 #include "app/demo.h"
 #include "app/environment.h"
 #include "app/hud.h"
+#include "app/jumble_hopper.h"
 #include "app/shadow.h"
 #include "app/snd.h"
 #include "app/splash.h"
 #include "app/task.h"
-#include "app/camera.h"
+#include "app/text_data.h"
 #include "app/code_61A60.h"
 #include "app/code_66F70.h"
-#include "app/jumble_hopper.h"
 #include "app/code_9A960.h"
 #include "app/code_D1ED0.h"
 
@@ -227,8 +228,8 @@ void func_802FBEFC(JumbleHopperData* jhData, f32 arg1) {
 
     if (jhData->unk4F == 0) {
         sp2C = &taskGet_80345C80()->unk0;
-        hudWarningText(0x4F, 1.5f, 8.0f);
-        sndPlaySfx(0x69);
+        hudWarningText(TEXT_OFF_2, 1.5f, 8.0f);
+        sndPlaySfx(SFX_UNK_105);
         jhData->unk4F = 1;
 
         // TODO: fix array and/or struct
@@ -2244,20 +2245,21 @@ void func_80302BA0(JumbleHopperData* jhData) {
     if (jhData->unk1D0 > 1.0f) {
         jhData->unk1D0 = 1.0f;
     }
+    // pilot shakes head 5 times after crash
     if ((jhData->unk1D0 > 0.3478261f) && (D_8036905C[0] == 0)) {
-        sndPlaySfx(0x3D);
+        sndPlaySfx(SFX_QUICK_SWISH);
         D_8036905C[0] = 1;
     } else if ((jhData->unk1D0 > 0.39130434f) && (D_8036905C[1] == 0)) {
-        sndPlaySfx(0x3D);
+        sndPlaySfx(SFX_QUICK_SWISH);
         D_8036905C[1] = 1;
     } else if ((jhData->unk1D0 > 0.43478262f) && (D_8036905C[2] == 0)) {
-        sndPlaySfx(0x3D);
+        sndPlaySfx(SFX_QUICK_SWISH);
         D_8036905C[2] = 1;
     } else if ((jhData->unk1D0 > 0.47826087f) && (D_8036905C[3] == 0)) {
-        sndPlaySfx(0x3D);
+        sndPlaySfx(SFX_QUICK_SWISH);
         D_8036905C[3] = 1;
     } else if ((jhData->unk1D0 > 0.5217391f) && (D_8036905C[4] == 0)) {
-        sndPlaySfx(0x3D);
+        sndPlaySfx(SFX_QUICK_SWISH);
         D_8036905C[4] = 1;
     }
     if (jhData->unk1D0 > 0.708f) {

@@ -292,7 +292,7 @@ void func_8030E3EC(void) {
     uvLevelAppend(1);
     uvLevelAppend(0x72);
     uvLevelAppend(0x4A);
-    textLoadBlock(0x42); // "Failed"
+    textLoadBlock(0x42);
     D_80362690->unkA3 = 0;
     D_8034F7BC = 0;
     // clang-format off
@@ -751,7 +751,7 @@ void func_8030F818(void) {
     }
     fileMenuColorLerp(D_8034F7DC, 44.0f, 214.0f, 44.0f, 145.0f, 183.0f, 255.0f, &r, &g, &b);
     uvFontColor(r, g, b, 0xFF);
-    str16 = textGetDataByIdx(0x105); // "SELECT VEHICLE & CLASS"
+    str16 = textGetDataByIdx(TEXT_LEVEL_SEL);
     uvFontPrintStr16((SCREEN_WIDTH / 2) - (uvFontStr16Width(str16) / 2), 206, str16, 40, 0xFFE);
     uvFontSet(3);
     uvFontScale(1.0, 1.0);

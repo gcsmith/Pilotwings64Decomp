@@ -395,27 +395,27 @@ s32 gameUpdateStatePilotSelect(Unk80362690* arg0) {
 
     D_80367868.unk4[i].pilot = PILOT_LARK;
     D_80367868.unk4[i].modelId = MODEL_PILOT_LARK;
-    D_80367868.unk4[i].textId = 0x35; // "LARK"
+    D_80367868.unk4[i].textId = TEXT_LARK;
     i++;
     D_80367868.unk4[i].pilot = PILOT_KIWI;
     D_80367868.unk4[i].modelId = MODEL_PILOT_KIWI;
-    D_80367868.unk4[i].textId = 0x14C; // "KIWI"
+    D_80367868.unk4[i].textId = TEXT_KIWI;
     i++;
     D_80367868.unk4[i].pilot = PILOT_GOOSE;
     D_80367868.unk4[i].modelId = MODEL_PILOT_GOOSE;
-    D_80367868.unk4[i].textId = 0x9C; // "GOOSE"
+    D_80367868.unk4[i].textId = TEXT_GOOSE;
     i++;
     D_80367868.unk4[i].pilot = PILOT_IBIS;
     D_80367868.unk4[i].modelId = MODEL_PILOT_IBIS;
-    D_80367868.unk4[i].textId = 0x1A7; // "IBIS"
+    D_80367868.unk4[i].textId = TEXT_IBIS;
     i++;
     D_80367868.unk4[i].pilot = PILOT_HAWK;
     D_80367868.unk4[i].modelId = MODEL_PILOT_HAWK;
-    D_80367868.unk4[i].textId = 0x85; // "HAWK"
+    D_80367868.unk4[i].textId = TEXT_HAWK;
     i++;
     D_80367868.unk4[i].pilot = PILOT_ROBIN;
     D_80367868.unk4[i].modelId = MODEL_PILOT_ROBIN;
-    D_80367868.unk4[i].textId = 0x128; // "ROBIN"
+    D_80367868.unk4[i].textId = TEXT_HOOTER;
     i++;
 
     ptr->unk0 = i;
@@ -530,7 +530,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
     hudInit();
     func_802D4DE8(temp_s0->unk70, 0);
     if (arg0->unkA2 == 0) {
-        hudText_8031D8E0(0x16A, 1.5f, 8.0f);
+        hudText_8031D8E0(TEXT_START, 1.5f, 8.0f);
     }
     arg0->unkA1 = 0;
     func_8032B508(temp_s0->unk74);
@@ -1006,7 +1006,7 @@ s32 gameUpdateStateTestUpdate(Unk80362690* arg0) {
     taskGet_80345CC0(&sp64, &sp60);
     if ((sp64 > 0.0f) && (sp64 < D_8034F850) && (arg0->unkA0 != 0)) {
         if ((sp6C->unkA != 3) && (sp6C->unkA != 4)) {
-            hudText_8031D8E0(0xD4, 1.5f, 8.0f);
+            hudText_8031D8E0(TEXT_LAND_MOW, 1.5f, 8.0f);
             sndPlaySfx(5);
             taskDeinit();
             arg0->unkA0 = 0;

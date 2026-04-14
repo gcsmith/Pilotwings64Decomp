@@ -34,9 +34,9 @@
 #include "whale.h"
 #include "wind_objects.h"
 
-s32 sShutterBugTestItems[] = { 0xDC, 0x14E, 0x12F, 0x1D };
-s32 sSkyDivingItems[] = { 0xDC, 0x1D };
-s32 sOtherItems[] = { 0xDC, 0x14E, 0x1D };
+s32 sShutterBugTestItems[] = { TEXT_CONTINUE_SGI, TEXT_CHECKMAP_SGI, TEXT_CHECK_PHOTOS_SGI, TEXT_QUIT_SGI };
+s32 sSkyDivingItems[] = { TEXT_CONTINUE_SGI, TEXT_QUIT_SGI };
+s32 sOtherItems[] = { TEXT_CONTINUE_SGI, TEXT_CHECKMAP_SGI, TEXT_QUIT_SGI };
 
 STATIC_FUNC void func_8032D33C(Mtx4F*, Mtx4F*, f32, u8);
 
@@ -531,10 +531,10 @@ void func_8032D90C(void) {
     var_fs0 = 0.0f;
     uvLevelAppend(0x2E);
     textLoadBlock(0x42);
-    msg1 = textGetDataByIdx(0x22);  // "The controller is"
-    msg2 = textGetDataByIdx(0x152); // "not connected correctly."
-    msg3 = textGetDataByIdx(0xCD);  // "Connect to socket1"
-    msg4 = textGetDataByIdx(0x47);  // "and try again."
+    msg1 = textGetDataByIdx(TEXT_NO_CNT);
+    msg2 = textGetDataByIdx(TEXT_NO_CNT2);
+    msg3 = textGetDataByIdx(TEXT_NO_CNT3);
+    msg4 = textGetDataByIdx(TEXT_NO_CNT4);
     while (1) {
         var_fs0 += 0.003f;
         if (var_fs0 > 1.0f) {

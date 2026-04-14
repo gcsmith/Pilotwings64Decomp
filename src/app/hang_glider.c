@@ -13,8 +13,9 @@
 #include "hud.h"
 #include "pads.h"
 #include "rings.h"
-#include "task.h"
 #include "snd.h"
+#include "task.h"
+#include "text_data.h"
 
 typedef struct {
     Vec2F unk0[23];
@@ -264,7 +265,7 @@ STATIC_FUNC void hangGlider_802F2804(HangGliderData* hgData) {
         hgData->unkE9 = 0;
     }
     if ((D_8034F1C4 > 0) && (ringsGetCleared() >= D_8034F1C4)) {
-        hudText_8031D8E0(0xD4, 1.5f, 8.0f);
+        hudText_8031D8E0(TEXT_LAND_MOW, 1.5f, 8.0f);
         D_8034F1C4 = 0;
         sndPlaySfx(SFX_UNK_005);
     }
@@ -409,10 +410,10 @@ STATIC_FUNC void hangGlider_802F3154(HangGliderData* hgData) {
             padsLandedPadStrip(hgData->unk10.m[3][0], hgData->unk10.m[3][1], hgData->unk10.m[3][2], &hgData->unk5C);
             if (hgData->unk5C != 0) {
                 hgData->unk4 = 0xFFFF;
-                hudText_8031D8E0(0xCB, 1.5f, 8.0f);
+                hudText_8031D8E0(TEXT_LAND_OK, 1.5f, 8.0f);
             } else {
                 hgData->unk4 = D_8036830C;
-                hudText_8031D8E0(0xB2, 1.5f, 8.0f);
+                hudText_8031D8E0(TEXT_LAND_OUT, 1.5f, 8.0f);
             }
             hgData->unk8C = 4;
             hgData->unk10.m[3][2] = hgData->unkF4 - hgData->unk2B8.z;
@@ -434,7 +435,7 @@ STATIC_FUNC s32 hangGlider_802F32EC(HangGliderData* hgData) {
     temp_v1 = db_getgnd(&hgData->unk308, &sp44, &sp3C, &hgData->unkFC, &hgData->unkF4, &hgData->unk100);
     hgData->unkF8 = sp44.z - hgData->unkF4;
     if (D_8034F1C0 < hgData->unk10.m[3][2]) {
-        hudText_8031D8E0(0xCC, 1.5f, 8.0f);
+        hudText_8031D8E0(TEXT_OVER_400, 1.5f, 8.0f);
         D_8034F1C0 = 10000.0f;
         sndPlaySfx(SFX_UNK_005);
     }

@@ -9,6 +9,7 @@
 #include "app/hover_pads.h"
 #include "app/hud.h"
 #include "app/snd.h"
+#include "app/text_data.h"
 #include "app/wind_objects.h"
 #include "app/code_61A60.h"
 #include "app/code_66F70.h"
@@ -719,7 +720,7 @@ void func_8032975C(RocketBeltData* rbData) {
                     rbData->unkF0 = sp278;
                     rbData->unkF8 += hoverPadGetFuel(sp278);
                     hoverPadActivateNext(rbData->unkF0);
-                    hudText_8031D8E0(0x1AB, 1.5f, 8.0f);
+                    hudText_8031D8E0(TEXT_P_CLR, 1.5f, 8.0f);
 
                     if (rbData->unkF8 < 0.0f) {
                         rbData->unkF8 = 0.0f;

@@ -425,19 +425,19 @@ void cannonAimingFrame(CannonballData* cbData) {
     if (D_80359A84 == 0) {
         switch (cbData->unkC) {
         case 0:
-            hudText_8031D8E0(0x111, 2.0f, 0);
+            hudText_8031D8E0(TEXT_C_TERGET_1, 2.0f, 0);
             break;
         case 1:
-            hudText_8031D8E0(0x10, 2.0f, 0);
+            hudText_8031D8E0(TEXT_C_TERGET_2, 2.0f, 0);
             break;
         case 2:
-            hudText_8031D8E0(0xD5, 2.0f, 0);
+            hudText_8031D8E0(TEXT_C_TERGET_3, 2.0f, 0);
             break;
         case 3:
-            hudText_8031D8E0(0x1A2, 2.0f, 0);
+            hudText_8031D8E0(TEXT_C_TERGET_4, 2.0f, 0);
             break;
         default:
-            hudText_8031D8E0(0x1A2, 2.0f, 0);
+            hudText_8031D8E0(TEXT_C_TERGET_4, 2.0f, 0);
             break;
         }
         D_80359A84 = 1;
@@ -758,7 +758,7 @@ s32 cannonLoad802D77D8(Unk80362690* arg0, CannonballData* cbData) {
     func_8033FCD0(temp_s1->veh);
     uvEventPost(0xB, 0);
     D_80359A84 = 0;
-    hudWarningText(0xDB, 1.5f, 8.0f);
+    hudWarningText(TEXT_CANON_1, 1.5f, 8.0f);
     return GAME_STATE_TEST_UPDATE;
 }
 
@@ -833,7 +833,7 @@ s32 cannonLandedFrame(CannonballData* cbData) {
     Unk80364210* temp_v1;
     Unk80362690_Unk0* temp_s0;
     u8 sp27;
-    s32 var_a2;
+    s32 points;
 
     temp_s0 = &D_80362690->unkC[D_80362690->unk9C];
     temp_v1 = func_8032BE10();
@@ -848,26 +848,26 @@ s32 cannonLandedFrame(CannonballData* cbData) {
             temp_v1->unk0 = cbData->unk4;
             func_8032B560(temp_s0->unk74, temp_s0->cls, temp_s0->test, temp_s0->veh);
 
-            var_a2 = temp_s0->unk74->unk40[temp_s0->cls].unk0[temp_s0->test][temp_s0->veh].unk4;
-            if ((D_80359A88[cbData->unkC] < var_a2) || var_a2 == 0x7F) {
-                D_80359A88[cbData->unkC] = var_a2;
+            points = temp_s0->unk74->unk40[temp_s0->cls].unk0[temp_s0->test][temp_s0->veh].unk4;
+            if ((D_80359A88[cbData->unkC] < points) || points == 0x7F) {
+                D_80359A88[cbData->unkC] = points;
             }
             temp_s0->unk74->unk40[temp_s0->cls].unk0[temp_s0->test][temp_s0->veh].unk4 = D_80359A88[cbData->unkC];
         } else {
             if (temp_s0->unk74->unk40[temp_s0->cls].unk0[temp_s0->test][temp_s0->veh].unk4 == 0x7F) {
                 temp_s0->unk74->unk40[temp_s0->cls].unk0[temp_s0->test][temp_s0->veh].unk4 = 0;
             }
-            var_a2 = 0;
+            points = 0;
         }
         if (!sp27) {
-            hudText_8031D8E0(0x14D, 2.0f, 8.0f);
+            hudText_8031D8E0(TEXT_C_MISS, 2.0f, 8.0f);
         } else {
-            textFmtIntAt(textGetDataByIdx(0x1AC), var_a2, 2, 0);
-            hudText_8031D8E0(0x1AC, 2.0f, 8.0f);
-            if (var_a2 == 0x19) {
-                hudWarningText(0x16F, 2.0f, 8.0f);
+            textFmtIntAt(textGetDataByIdx(TEXT_C_POINTS), points, 2, 0);
+            hudText_8031D8E0(TEXT_C_POINTS, 2.0f, 8.0f);
+            if (points == 25) {
+                hudWarningText(TEXT_C_PERFECT, 2.0f, 8.0f);
                 func_8033F964(1);
-                sndPlaySfx(0x11);
+                sndPlaySfx(SFX_GOAL_GONG);
             } else {
                 sndPlaySfx(0x36);
                 func_8033F748(0x11);
@@ -961,13 +961,13 @@ s32 cannonEndShot(CannonballData* cbData) {
     func_80313E0C(0.0f);
     switch (cbData->unkE) {
     case 0:
-        hudWarningText(0xDB, 1.5f, 8.0f);
+        hudWarningText(TEXT_CANON_1, 1.5f, 8.0f);
         break;
     case 1:
-        hudWarningText(0x52, 1.5f, 8.0f);
+        hudWarningText(TEXT_CANON_2, 1.5f, 8.0f);
         break;
     case 2:
-        hudWarningText(0x1A8, 1.5f, 8.0f);
+        hudWarningText(TEXT_CANON_3, 1.5f, 8.0f);
         break;
     }
     return 1;

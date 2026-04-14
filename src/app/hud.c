@@ -1689,19 +1689,19 @@ void hudDrawBox(HUDState* hud) {
     uvGfxStatePop();
 }
 
-void hudText_8031D8E0(s16 arg0, f32 arg1, f32 arg2) {
+void hudText_8031D8E0(s16 textId, f32 arg1, f32 arg2) {
     s16* temp_v0;
     s32 i;
     const u16 END_VALUE = -1;
 
-    if (arg0 == -1) {
+    if (textId == -1) {
         sHudState.unkBD0[0] = -1;
         sHudState.unkC5E = -1;
         return;
     }
 
-    temp_v0 = textGetDataByIdx(arg0);
-    sHudState.unkC5E = arg0;
+    temp_v0 = textGetDataByIdx(textId);
+    sHudState.unkC5E = textId;
     if (sHudState.unkBD0[0] != -1) {
         sHudState.unkC58 = sHudState.unk14 + 0.2f;
     }
@@ -1721,20 +1721,20 @@ void hudText_8031D8E0(s16 arg0, f32 arg1, f32 arg2) {
     sHudState.unkC50 = arg2;
 }
 
-void hudWarningText(s16 arg0, f32 arg1, f32 arg2) {
+void hudWarningText(s16 textId, f32 arg1, f32 arg2) {
     s16* temp_v0;
     s16* var_a0;
     s32 i;
     const u16 END_VALUE = -1;
 
-    if (arg0 == -1) {
+    if (textId == -1) {
         sHudState.unkB40[0] = -1;
         sHudState.unkBCE = -1;
         return;
     }
 
-    temp_v0 = textGetDataByIdx(arg0);
-    sHudState.unkBCE = arg0;
+    temp_v0 = textGetDataByIdx(textId);
+    sHudState.unkBCE = textId;
     if (sHudState.unkB40[0] != -1) {
         sHudState.unkBC8 = sHudState.unk14 + 0.2f;
     }

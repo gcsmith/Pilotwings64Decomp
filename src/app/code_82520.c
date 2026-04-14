@@ -5,6 +5,7 @@
 #include "app/task.h"
 #include "app/hud.h"
 #include "app/snd.h"
+#include "app/text_data.h"
 #include "app/code_9A960.h"
 
 Unk80368B80 D_80368B80[5];
@@ -128,10 +129,10 @@ s32 func_802FB308(JumbleHopperData* jhData) {
         if ((D_80368B80[i].objId != 0xFFFF) && (D_80368B80[i].unk7 != 0) && (D_80368B80[i].unk6 == 0)) {
             temp_fa1 = SQ(jhData->unkF4.x - D_80368B80[i].unk0->pos.x) + SQ(jhData->unkF4.y - D_80368B80[i].unk0->pos.y);
             if (SQ(D_80368B80[i].unk0->scale) > temp_fa1) {
-                hudText_8031D8E0(0x15D, 1.5f, 8.0f);
+                hudText_8031D8E0(TEXT_GOAL, 1.5f, 8.0f);
                 D_80368B80[i].unk6 = 1;
                 D_80368B80[i].unk10 = 0.0;
-                sndPlaySfx(0x11);
+                sndPlaySfx(SFX_GOAL_GONG);
                 func_8033F748(0x18);
                 func_8033F964(0);
                 uvDobjModel(D_80368B80[i].objId, MODEL_WORLD);

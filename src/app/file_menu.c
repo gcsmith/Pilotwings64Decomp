@@ -20,15 +20,8 @@
 STATIC_FUNC s32 fileMenuPrintText(s32*, s32);
 
 // file select menu item ids
-static s32 sFileMenuTextIds[] = {
-    0x00BD, // File 1
-    0x0051, // File 2
-    0x0054  // Erase File
-};
-static s32 sFileMenuConfirm[] = {
-    0x0126, // No
-    0x0086  // Yes
-};
+static s32 sFileMenuTextIds[] = { TEXT_FILE_1, TEXT_FILE_2, TEXT_FILE_ERASE };
+static s32 sFileMenuConfirm[] = { TEXT_NO, TEXT_YES };
 static s32 sFileMenuCurMenu = 0;
 static s32 sFileMenu_8034F0F8 = 0;
 static Vec3F sFileMenu_8034F0FC[2] = {
@@ -235,24 +228,24 @@ STATIC_FUNC s32 fileMenuPrintText(s32* textIds, s32 arg1) {
 
 s32 fileMenuSetText(void) {
     if (!saveFileHasData(0)) {
-        sFileMenuTextIds[0] = 0x17D; // File 1 ... New
+        sFileMenuTextIds[0] = TEXT_FILE_10;
     } else {
         saveFileLoad(0);
         if (func_8032C27C() != 0) {
-            sFileMenuTextIds[0] = 0x8B; // File 1 ... Perfect
+            sFileMenuTextIds[0] = TEXT_FILE_12;
         } else {
-            sFileMenuTextIds[0] = 0x116; // File 1 ... Continue
+            sFileMenuTextIds[0] = TEXT_FILE_11;
         }
     }
 
     if (!saveFileHasData(1)) {
-        sFileMenuTextIds[1] = 0x181; // File 2 ... New
+        sFileMenuTextIds[1] = TEXT_FILE_20;
     } else {
         saveFileLoad(1);
         if (func_8032C27C() != 0) {
-            sFileMenuTextIds[1] = 0x8E; // File 2 ... Perfect
+            sFileMenuTextIds[1] = TEXT_FILE_22;
         } else {
-            sFileMenuTextIds[1] = 0x117; // File 2 ... Continue
+            sFileMenuTextIds[1] = TEXT_FILE_21;
         }
     }
 
@@ -482,13 +475,13 @@ void fileMenu_802E9AE0(void) {
     uvFontColor(r, g, b, 0xFF);
     switch (sFileMenuCurMenu) {
     case 0:
-        titleStr = textGetDataByIdx(0x23); // SELECT FILE
+        titleStr = textGetDataByIdx(TEXT_FILE_SEL);
         break;
     case 1:
-        titleStr = textGetDataByIdx(0xBA); // Which file will be erased?
+        titleStr = textGetDataByIdx(TEXT_ERASE_SEL);
         break;
     case 2:
-        titleStr = textGetDataByIdx(0x101); // Are you sure?
+        titleStr = textGetDataByIdx(TEXT_ERASE_SEL2);
         break;
     }
     uvFontPrintStr16((SCREEN_WIDTH / 2) - (uvFontStr16Width(titleStr) / 2), 206, titleStr, 0x3C, 0xFFE);

@@ -36,15 +36,11 @@ static const char* sStageMedalName[][5] = {
 
 static const char* sBonusMedalName[] = { "BONUS_S3_BLONDS", "BONUS_S3_SILVER", "BONUS_S3_GOLD", "BONUS_S3_PERFECT", "BONUS_S3_GREAT" };
 
-static s32 sResultNextMenu = 0x5B; // "Next"
+static s32 sResultNextMenu[1] = { TEXT_NEXT_SGI };
 
-static s32 sResultRetryQuitMenu[3] = {
-    0x189, // Retry
-    0x166, // Another test
-    0x01D  // Quit
-};
+static s32 sResultsMenuItems[3] = { TEXT_RETRY_SGI, TEXT_ANOTHER_TASK_SGI, TEXT_QUIT_SGI };
 
-static s32 sResultRetryQuitIdx = 0;
+static s32 sResultsMenuCount = 0;
 
 static s16* sTestPtsStr[4] = { sTestPtsStr0, sTestPtsStr1, sTestPtsStr2, sTestPtsStr3 };
 
@@ -129,7 +125,7 @@ s32 totResult_80347150(s32 arg0) {
 void totResultInit(void) {
     Unk80362690_Unk0* temp_s4;
     s32 temp_v0;
-    s32 var_a0;
+    s32 textId;
     s32 var_s5;
     const char* var_a1;
     char* var_v0_2;
@@ -157,8 +153,8 @@ void totResultInit(void) {
             var_s5 += temp_v0;
             textFmtInt(sTestPtsStr[i], temp_v0, 3);
         }
-        var_a0 = (temp_v0 == 1) ? 0x8A : 0x131; // "pt." : "pts."
-        sTestPtUnitStr[i] = textGetDataByIdx(var_a0);
+        textId = (temp_v0 == 1) ? TEXT_PT : TEXT_PTS;
+        sTestPtUnitStr[i] = textGetDataByIdx(textId);
     }
 
     if (IS_MAIN_VEHICLE(temp_s4->veh)) {
@@ -168,8 +164,8 @@ void totResultInit(void) {
     }
     D_8037AD42 = levelSetPointsToNextMedal(&sp50, var_s5, var_v1);
     textFmtInt(sTotalPtsStr, var_s5, 3);
-    var_a0 = (var_s5 == 1) ? 0x8A : 0x131; // "pt." : "pts."
-    sTotPtUnitStr = textGetDataByIdx(var_a0);
+    textId = (var_s5 == 1) ? TEXT_PT : TEXT_PTS;
+    sTotPtUnitStr = textGetDataByIdx(textId);
     textFmtInt(D_8037AD38, sp50, 3);
     var_v1 = D_8037AD42;
     if ((var_v1 == 3) && (sp50 == 0)) {
@@ -193,19 +189,19 @@ void totResultCreateMenu(void) {
     Unk80362690_Unk0* temp_a0;
 
     if (totResult_80346FC0(&D_80362690->unkC[D_80362690->unk9C])) {
-        menuCreateItems(170, 2, 6, 1.0f, 1.0f, &sResultNextMenu, 1);
+        menuCreateItems(170, 2, 6, 1.0f, 1.0f, sResultNextMenu, ARRAY_COUNT(sResultNextMenu));
         return;
     }
     temp_a0 = &D_80362690->unkC[D_80362690->unk9C];
 
-    sResultRetryQuitIdx = 0;
-    sResultRetryQuitMenu[sResultRetryQuitIdx++] = 0x189; // Retry
+    sResultsMenuCount = 0;
+    sResultsMenuItems[sResultsMenuCount++] = TEXT_RETRY_SGI;
     // Only show "Another test" for non-bonus vehicles HG/RP/GC and class A/B/Pilot
     if ((IS_MAIN_VEHICLE(temp_a0->veh)) && (temp_a0->cls != CLASS_BEGINNER)) {
-        sResultRetryQuitMenu[sResultRetryQuitIdx++] = 0x166; // Another test
+        sResultsMenuItems[sResultsMenuCount++] = TEXT_ANOTHER_TASK_SGI;
     }
-    sResultRetryQuitMenu[sResultRetryQuitIdx++] = 0x1D; // Quit
-    menuCreateItems(170, 2, 6, 1.0f, 1.0f, sResultRetryQuitMenu, sResultRetryQuitIdx);
+    sResultsMenuItems[sResultsMenuCount++] = TEXT_QUIT_SGI;
+    menuCreateItems(170, 2, 6, 1.0f, 1.0f, sResultsMenuItems, sResultsMenuCount);
 }
 
 void totResultDeinit(void) {

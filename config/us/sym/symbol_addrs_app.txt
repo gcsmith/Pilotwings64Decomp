@@ -880,6 +880,8 @@ sOtherItems               = 0x8034FC28; // size:0xC
 
 sSpathCoef                = 0x80350650; // size:0x40
 
+sMainMenuItems            = 0x80350698;
+
 sTaskClassU8              = 0x80350790;
 sTaskVehicleU8            = 0x80350794;
 sTaskTestU8               = 0x80350798;

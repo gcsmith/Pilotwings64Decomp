@@ -4,6 +4,12 @@
 #include <uv_string.h>
 #include "text_data.h"
 
+#include "common.h"
+#include <uv_filesystem.h>
+#include <uv_memory.h>
+#include <uv_string.h>
+#include "text_data.h"
+
 // unsure why one fewer data than text pointers
 static char* sTextName[440];
 static s16* sTextData[439];

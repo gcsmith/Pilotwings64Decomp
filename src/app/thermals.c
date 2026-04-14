@@ -8,6 +8,7 @@
 #include "hud.h"
 #include "level.h"
 #include "task.h"
+#include "text_data.h"
 #include "thermals.h"
 
 #define THERM_ENABLE_DURATION (4 * 60) // 4 minutes in sec
@@ -116,7 +117,7 @@ void therm_8034695C(void) {
         thermDeinit();
         gThermalCount = 0;
         gThermReady = 0;
-        hudWarningText(0xF, 1.5f, 8.0f);
+        hudWarningText(TEXT_THERM_OFF, 1.5f, 8.0f);
     }
 
     for (i = 0; i < gThermalCount; i++) {

@@ -329,7 +329,7 @@ void rings_80323DCC(Ring* ring) {
             if (!childRing->untimed) {
                 _uvDebugPrintf("rings: Untimed ring index %d in ring %d's timechild list\n", timeRingIdx, i);
             } else {
-                hudWarningText(0x3D, 3.0f, 8.0f); // "Time ring start"
+                hudWarningText(TEXT_R_PASS_T, 3.0f, 8.0f);
                 rings_80323864(childRing);
             }
         }
@@ -361,14 +361,14 @@ s32 rings_80323FFC(s32 ringIdx) {
         if ((gRingChildIndexes[i] != 0xFF) && (ringIdx == gRingChildIndexes[i])) {
             if ((ring->ringSubtype != 3) && (ring->ringSubtype != 2)) {
                 if (ring->ringSubtype == 1) {
-                    hudText_8031D8E0(0x69, 3.0f, 8.0f); // "Bonus ring cleared"
+                    hudText_8031D8E0(TEXT_R_PASS_B, 3.0f, 8.0f);
                 } else {
-                    hudText_8031D8E0(0x108, 3.0f, 8.0f); // "Ring cleared"
+                    hudText_8031D8E0(TEXT_R_PASS_S, 3.0f, 8.0f);
                 }
                 if (sp54 > 1) {
-                    textStr = textGetDataByIdx(0x29);
+                    textStr = textGetDataByIdx(TEXT_LEFT_CNT);
                     textFmtIntAt(textStr, sp54 - 1, 2, 0);
-                    hudWarningText(0x29, 3.0f, 8.0f); // "to go"
+                    hudWarningText(TEXT_LEFT_CNT, 3.0f, 8.0f);
                 }
             }
             var_a0 = 1;
@@ -394,28 +394,28 @@ s32 rings_80323FFC(s32 ringIdx) {
             gRingChildIndexes[i] = 0xFF;
         }
     } else if (ring->timeRemaining > 0.0f) {
-        hudText_8031D8E0(0x17E, 3.0f, 8.0f); // "Time ring cleared"
+        hudText_8031D8E0(TEXT_R_PASS_C, 3.0f, 8.0f);
         if (sp54 > 1) {
-            textStr = textGetDataByIdx(0x29);
+            textStr = textGetDataByIdx(TEXT_LEFT_CNT);
             textFmtIntAt(textStr, sp54 - 1, 2, 0);
-            hudWarningText(0x29, 3.0f, 8.0f);
+            hudWarningText(TEXT_LEFT_CNT, 3.0f, 8.0f);
         }
     } else {
         switch (ring->ringSubtype) {
         case 0:
-            hudText_8031D8E0(0xF6, 3.0f, 8.0f); // "Ring cleared"
+            hudText_8031D8E0(TEXT_R_PASS_N, 3.0f, 8.0f);
             if (sp54 > 1) {
-                textStr = textGetDataByIdx(0x29);
+                textStr = textGetDataByIdx(TEXT_LEFT_CNT);
                 textFmtIntAt(textStr, sp54 - 1, 2, 0);
-                hudWarningText(0x29, 3.0f, 8.0f); // "to go"
+                hudWarningText(TEXT_LEFT_CNT, 3.0f, 8.0f);
             }
             break;
         case 1:
-            hudText_8031D8E0(0x69, 3.0f, 8.0f); // "Bonus ring cleared"
+            hudText_8031D8E0(TEXT_R_PASS_B, 3.0f, 8.0f);
             if (sp54 > 0) {
-                textStr = textGetDataByIdx(0x29);
+                textStr = textGetDataByIdx(TEXT_LEFT_CNT);
                 textFmtIntAt(textStr, sp54 - 1, 2, 0);
-                hudWarningText(0x29, 3.0f, 8.0f); // "to go"
+                hudWarningText(TEXT_LEFT_CNT, 3.0f, 8.0f);
             }
             break;
         }

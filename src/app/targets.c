@@ -138,7 +138,7 @@ f32 targets_8034473C(s32 arg0, s32 arg1) {
     MissileTarget* var_s0;
     s32 i;
     s32 sp4C;
-    s32 sp48;
+    s32 remaining;
 
     for (i = 0; i < sMissileTargetCount; i++) {
         var_s0 = &sMissileTargets[i];
@@ -151,16 +151,16 @@ f32 targets_8034473C(s32 arg0, s32 arg1) {
         }
 
         if (arg1 != 0) {
-            sndPlaySfx(0x38U);
-            hudText_8031D8E0(0x1AD, 1.5f, 8.0f);
+            sndPlaySfx(SFX_UNK_056);
+            hudText_8031D8E0(TEXT_B_HIT_B, 1.5f, 8.0f);
         } else {
-            hudText_8031D8E0(0x18A, 1.5f, 8.0f);
+            hudText_8031D8E0(TEXT_B_HIT_M, 1.5f, 8.0f);
         }
 
-        func_8032C080(&sp48);
-        if (sp48 >= 2) {
-            textFmtIntAt(textGetDataByIdx(0x29), sp48 - 1, 2, 0);
-            hudWarningText(0x29, 1.5f, 8.0f);
+        func_8032C080(&remaining);
+        if (remaining >= 2) {
+            textFmtIntAt(textGetDataByIdx(TEXT_LEFT_CNT), remaining - 1, 2, 0);
+            hudWarningText(TEXT_LEFT_CNT, 1.5f, 8.0f);
         }
 
         var_s0->unk46 = 1;

@@ -461,7 +461,7 @@ STATIC_FUNC void func_802DE5B0(Camera* camera, Unk80367868* arg1) {
     }
     fileMenuColorLerp(D_8034EED4, 44.0f, 214.0f, 44.0f, 145.0f, 183.0f, 255.0f, &r, &g, &b);
     uvFontColor(r, g, b, 0xFF);
-    selectPilotText = textGetDataByIdx(0x170); // "SELECT PILOT"
+    selectPilotText = textGetDataByIdx(TEXT_PILOT_SEL);
     if (selectPilotText != NULL) {
         temp = ((SCREEN_WIDTH / 2) - (uvFontStr16Width(selectPilotText) / 2));
         uvFontPrintStr16(temp, 0xCE, selectPilotText, 0x14, 0xFFE);

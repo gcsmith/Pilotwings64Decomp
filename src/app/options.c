@@ -17,8 +17,6 @@
 #include "snd.h"
 #include "text_data.h"
 
-// TODO: usage of [unk9C+1].debugFlag are likely incorrect way to get to 0x96 offset
-
 static f32 sVolume[] = { 0.0f, 0.2f, 0.4f, 0.6f, 1.0f };
 static s32 sStereoMono = 0;
 static s32 sSoundTrack = 0;
@@ -105,16 +103,16 @@ void optionsInitMain(void) {
 
     saveFileLoad(D_80362690->unkC[D_80362690->unk9C].unk8A);
     if (sGameComplete != 0) {
-        sOptionMenuItems[0] = 0xC2;  // "Check album"
-        sOptionMenuItems[1] = 0xBE;  // "Sound"
-        sOptionMenuItems[2] = 0x13;  // "Congratulations!"
-        sOptionMenuItems[3] = 0x11C; // "Return"
+        sOptionMenuItems[0] = TEXT_PHOTO_ALBUM;
+        sOptionMenuItems[1] = TEXT_SOUND_OPTIONS;
+        sOptionMenuItems[2] = TEXT_CONGURA;
+        sOptionMenuItems[3] = TEXT_QUIT;
         count = 4;
         menuY = 80;
     } else {
-        sOptionMenuItems[0] = 0xC2;  // "Check album"
-        sOptionMenuItems[1] = 0xBE;  // "Sound"
-        sOptionMenuItems[2] = 0x11C; // "Return"
+        sOptionMenuItems[0] = TEXT_PHOTO_ALBUM;
+        sOptionMenuItems[1] = TEXT_SOUND_OPTIONS;
+        sOptionMenuItems[2] = TEXT_QUIT;
         count = 3;
         menuY = 100;
     }
@@ -124,9 +122,9 @@ void optionsInitMain(void) {
 }
 
 void optionsInitAlbum(void) {
-    sOptionMenuItems[0] = 0xBD;  // "File 1"
-    sOptionMenuItems[1] = 0x51;  // "File 2"
-    sOptionMenuItems[2] = 0x11C; // "Return"
+    sOptionMenuItems[0] = TEXT_FILE_1;
+    sOptionMenuItems[1] = TEXT_FILE_2;
+    sOptionMenuItems[2] = TEXT_QUIT;
     menuCreateItems(80, 100, 6, 1.0f, 1.0f, sOptionMenuItems, 3);
     menuUtilSetColors(MENU_COLOR_ITEM, 0xFF, 0xFF, 0xFF);
     menuUtilSetColors(MENU_COLOR_SELECTED, 0xFF, 0xFF, 0x00);
@@ -134,11 +132,11 @@ void optionsInitAlbum(void) {
 }
 
 void optionsInitSound(void) {
-    sOptionMenuItems[0] = 0x4B;  // "Stereo"
-    sOptionMenuItems[1] = 0xCE;  // "Sound Track"
-    sOptionMenuItems[2] = 0x133; // "Vol. 1" (Sound Track)
-    sOptionMenuItems[3] = 0x64;  // "Vol. 1" (Sound Effects)
-    sOptionMenuItems[4] = 0x11C; // "Return"
+    sOptionMenuItems[0] = TEXT_MODE_STEREO;
+    sOptionMenuItems[1] = TEXT_STRACK;
+    sOptionMenuItems[2] = TEXT_BGM_V1;
+    sOptionMenuItems[3] = TEXT_SFX_V1;
+    sOptionMenuItems[4] = TEXT_QUIT;
     menuCreateItems(40, 70, 6, 1.0f, 1.0f, sOptionMenuItems, 5);
     menuUtilSetColors(MENU_COLOR_ITEM, 0xFF, 0xFF, 0xFF);
     menuUtilSetColors(MENU_COLOR_SELECTED, 0xFF, 0xFF, 0);
@@ -411,67 +409,67 @@ void options_80316B80(void) {
 }
 
 void optionsSetSetting(s32 menuIdx, s32 setting) {
-    s32 menuStr;
+    s32 menuTextId;
 
     switch (menuIdx) {
     case 0:
         switch (setting) {
         case 0:
-            menuStr = 0x4B; // "Stereo"
+            menuTextId = TEXT_MODE_STEREO;
             break;
         case 1:
-            menuStr = 0x100; // "Mono"
+            menuTextId = TEXT_MODE_MONO;
             break;
         }
         break;
     case 2:
         switch (setting) {
         case 0:
-            menuStr = 0x133; // "Vol 1."
+            menuTextId = TEXT_BGM_V1;
             break;
         case 1:
-            menuStr = 0xD6; // "Vol. >2"
+            menuTextId = TEXT_BGM_V2;
             break;
         case 2:
-            menuStr = 0x6E; // "Vol. >>3"
+            menuTextId = TEXT_BGM_V3;
             break;
         case 3:
-            menuStr = 0x1F; // "Vol. >>>4"
+            menuTextId = TEXT_BGM_V4;
             break;
         case 4:
-            menuStr = 0x183; // "Vol. >>>>5"
+            menuTextId = TEXT_BGM_V5;
             break;
         }
         break;
     case 3:
         switch (setting) {
         case 0:
-            menuStr = 0x64; // "Vol 1."
+            menuTextId = TEXT_SFX_V1;
             break;
         case 1:
-            menuStr = 0x1B; // "Vol. >2"
+            menuTextId = TEXT_SFX_V2;
             break;
         case 2:
-            menuStr = 0x179; // "Vol. >>3"
+            menuTextId = TEXT_SFX_V3;
             break;
         case 3:
-            menuStr = 0x12C; // "Vol. >>>4"
+            menuTextId = TEXT_SFX_V4;
             break;
         case 4:
-            menuStr = 0xD2; // "Vol. >>>>5"
+            menuTextId = TEXT_SFX_V5;
             break;
         }
         break;
     }
-    sOptionMenuItems[menuIdx] = menuStr;
-    menuSetItem(menuIdx, textGetDataByIdx(menuStr));
+    sOptionMenuItems[menuIdx] = menuTextId;
+    menuSetItem(menuIdx, textGetDataByIdx(menuTextId));
 }
 
 void optionsSetTrack(s32 menuItem, s32 trackIdx) {
     s16* trackStr;
 
     if (menuItem == 1) {
-        trackStr = textGetDataByIdx(0xCE); // "Sound Track"
+        trackStr = textGetDataByIdx(TEXT_STRACK);
         textFmtIntAt(trackStr, trackIdx + 1, 2, 13);
         menuSetItem(1, trackStr);
     }
