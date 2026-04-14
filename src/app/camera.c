@@ -40,7 +40,7 @@ STATIC_FUNC void func_802D532C(Camera* camera);
 STATIC_FUNC void func_802D559C(Camera* camera);
 STATIC_FUNC s32 func_802D4CA4(Camera* camera, Mtx4F*);
 STATIC_FUNC void func_802D58EC(Camera* camera, Mtx4F*);
-/* STATIC_FUNC */ void func_802D4274(Camera* camera);
+STATIC_FUNC void func_802D4274(Camera* camera);
 
 void func_802D3170(u8 unkIndex, Camera* camera) {
     f32 one;
@@ -451,7 +451,7 @@ STATIC_FUNC void func_802D41D8(Camera* camera) {
     func_802D45C4(camera, var_fv0);
 }
 
-void func_802D4274(Camera* camera) {
+STATIC_FUNC void func_802D4274(Camera* camera) {
     static f32 D_80359A24;
     Mtx4F sp70; // 70:AF
     f32 sp6C;
