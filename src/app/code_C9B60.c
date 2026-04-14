@@ -62,11 +62,11 @@ Unk80378CE0* D_80378CE0;
 f32 D_80378CE4;
 
 // forward decls
-STATIC_FUNC void func_803427FC(void);
-STATIC_FUNC void func_80343294(void);
-STATIC_FUNC s32 func_80343550(void);
+STATIC_FUNC void func_803427FC(void); // init function
+STATIC_FUNC void func_80343294(void); // deinit function
+STATIC_FUNC s32 func_80343550(void); // update function
 STATIC_FUNC void introSceneRunner(void);
-STATIC_FUNC void func_803433A4(void);
+STATIC_FUNC void func_803433A4(void); // more granular deinit function?
 STATIC_FUNC void func_80343B5C(void);
 STATIC_FUNC void func_80343C44(void);
 STATIC_FUNC void func_80343E84(void);
@@ -121,7 +121,7 @@ STATIC_FUNC void func_803427FC(void) {
     uvMemSet(D_80378CE0, 0, sizeof(Unk80378CE0));
     // clang-format off
     uvSprtProps(1,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_POS(33, 150),
         SPRT_PROP_BLIT(BLIT_ID_09),
         SPRT_PROP_FAST_COPY(0),
@@ -129,13 +129,13 @@ STATIC_FUNC void func_803427FC(void) {
         SPRT_PROP_END
     );
     uvSprtProps(3,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_POS(283, 213),
         SPRT_PROP_BLIT(BLIT_ID_0A),
         SPRT_PROP_END
     );
     uvSprtProps(4,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_POS(33, 30),
         SPRT_PROP_BLIT(BLIT_ID_1E),
         SPRT_PROP_END
@@ -261,11 +261,11 @@ STATIC_FUNC void func_80343294(void) {
     spathFree(D_80378CE0->unk1C);
     spathFree(D_80378CE0->unk20);
     spathFree(D_80378CE0->unk24);
-    uvSprtProps(1, SPRT_PROP_3(0), SPRT_PROP_END);
-    uvSprtProps(2, SPRT_PROP_3(0), SPRT_PROP_END);
-    uvSprtProps(3, SPRT_PROP_3(0), SPRT_PROP_END);
-    uvSprtProps(4, SPRT_PROP_3(0), SPRT_PROP_END);
-    menuSetProps();
+    uvSprtProps(1, SPRT_PROP_ENABLED(FALSE), SPRT_PROP_END);
+    uvSprtProps(2, SPRT_PROP_ENABLED(FALSE), SPRT_PROP_END);
+    uvSprtProps(3, SPRT_PROP_ENABLED(FALSE), SPRT_PROP_END);
+    uvSprtProps(4, SPRT_PROP_ENABLED(FALSE), SPRT_PROP_END);
+    menuDeinit();
 }
 
 STATIC_FUNC void func_803433A4(void) {

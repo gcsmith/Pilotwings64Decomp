@@ -840,7 +840,7 @@ void map3dAddItem(s32 blitId, f32 x, f32 y, f32 z) {
     }
     // clang-format off
     uvSprtProps(ARRAY_COUNT(sMapMessages) - sMapMessageCount,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_BLIT(blitId),
         SPRT_PROP_END
     );

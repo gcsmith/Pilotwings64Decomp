@@ -33,7 +33,7 @@ static s32 sOptionMenuItems[5]; // menu items, at least 5
 // forward declarations
 void optionsInit(void);
 void optionsDeinit(void);
-s32 optionsMenuHandler(void);
+s32 optionsMenuHandler(void); // FIXME change to Update() for consistency?
 void optionsDrawPanel(void);
 void optionsDrawBorder(void);
 void optionsInitMain(void);
@@ -148,7 +148,7 @@ void optionsInitSound(void) {
 }
 
 void optionsDeinit(void) {
-    menuSetProps();
+    menuDeinit();
 }
 
 s32 optionsMenuHandler(void) {
@@ -399,7 +399,7 @@ void options_80316B80(void) {
     uvLevelAppend(0x2E);
     // clang-format off
     uvSprtProps(0,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_POS(0, 240),
         SPRT_PROP_BLIT(BLIT_ID_43),
         SPRT_PROP_END

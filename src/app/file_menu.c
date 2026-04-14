@@ -49,9 +49,9 @@ s32 fileMenuTopRender(void) {
         uvGfxBegin();
         fileMenu_802E9AE0();
         uvGfxEnd();
-        gameState = fileMenuSubRender();
+        gameState = fileMenuSubRender(); // FIXME rename Update() for consistency?
     } while (gameState == -1);
-    fileMenuSetProps();
+    fileMenuDeinit();
     return gameState;
 }
 
@@ -71,7 +71,7 @@ void fileMenu_802E8AF0(void) {
     // clang-format off
     for (i = 0; i < 12; i++) {
         uvSprtProps(i,
-            SPRT_PROP_3(1),
+            SPRT_PROP_ENABLED(TRUE),
             SPRT_PROP_DIM(38, 22),
             SPRT_PROP_POS(((i % 3) * 40) + 93, 123 - ((i / 3) * 25)),
             SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
@@ -81,7 +81,7 @@ void fileMenu_802E8AF0(void) {
     }
     for (i = 0; i < 3; i++) {
         uvSprtProps(i + 12,
-            SPRT_PROP_3(1),
+            SPRT_PROP_ENABLED(TRUE),
             SPRT_PROP_DIM(38, 22),
             SPRT_PROP_POS(229, 98 - (25 * i)),
             SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
@@ -115,7 +115,7 @@ void fileMenu_802E8AF0(void) {
         temp_s7 = levelGetTotalPoints(temp_s6, i + 1, 2);
         // clang-format off
         uvSprtProps(i + 0xC,
-            SPRT_PROP_3(1),
+            SPRT_PROP_ENABLED(TRUE),
             SPRT_PROP_TEX_ID(0x148),
             SPRT_PROP_END
         );
@@ -163,7 +163,7 @@ void fileMenu_802E8FF4(s32 arg0) {
 
 void fileMenuSetup(s32 menu) {
     if (sFileMenuCurMenu != -1) {
-        menuSetProps();
+        menuDeinit();
     }
     switch (menu) {
     case 0:
@@ -200,13 +200,13 @@ void fileMenuSetup(s32 menu) {
     menuUtilSetColors(MENU_COLOR_GRAPHICS, 0xD2, 0xD2, 0);
 }
 
-void fileMenuSetProps(void) {
+void fileMenuDeinit(void) {
     s32 i;
 
     for (i = 0; i < 15; i++) {
-        uvSprtProps(i, SPRT_PROP_3(0), SPRT_PROP_END);
+        uvSprtProps(i, SPRT_PROP_ENABLED(FALSE), SPRT_PROP_END);
     }
-    menuSetProps();
+    menuDeinit();
 }
 
 STATIC_FUNC s32 fileMenuPrintText(s32* textIds, s32 arg1) {
@@ -268,19 +268,19 @@ void fileMenu_802E94E0(void) {
     textLoadBlock(0x42);
     // clang-format off
     uvSprtProps(0x10,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_BLIT(BLIT_ID_49),
         SPRT_PROP_END
     );
     uvSprtProps(0x10, SPRT_PROP_POS(42, uvSprtGetHeight(0x10) + 23), SPRT_PROP_END);
     uvSprtProps(0x11,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_BLIT(BLIT_ID_4A),
         SPRT_PROP_END
     );
     uvSprtProps(0x11, SPRT_PROP_POS(226, uvSprtGetHeight(0x11) + 23), SPRT_PROP_END);
     uvSprtProps(0x12,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_BLIT(BLIT_ID_4B),
         SPRT_PROP_END
     );

@@ -126,9 +126,9 @@ void uvSprtFromBitmap(uvSprite_t* sprite, ParsedUVTX* uvtx) {
     if (sprite->bitmap == 0) {
         sprite->bitmap = _uvMemAlloc(sizeof(Bitmap), 4);
     }
-    if (sprite->unk58[0] == NULL) {
-        sprite->unk58[0] = _uvMemAlloc((1 + 2) * 0xC * sizeof(Gfx), 8);
-        sprite->unk58[1] = _uvMemAlloc((1 + 2) * 0xC * sizeof(Gfx), 8);
+    if (sprite->dlist[0] == NULL) {
+        sprite->dlist[0] = _uvMemAlloc((1 + 2) * 0xC * sizeof(Gfx), 8);
+        sprite->dlist[1] = _uvMemAlloc((1 + 2) * 0xC * sizeof(Gfx), 8);
     }
     sprite->bitmap->width = uvtx->width - 1;
     sprite->bitmap->width_img = uvtx->width;
@@ -193,11 +193,11 @@ void uvSprt_80230750(uvSprite_t* sprite, ParsedUVTX* uvtx) {
     sp->frac_t = 0;
 }
 
-s32 uvSprt_80230898(void) {
+s32 uvSprtFindFree(void) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gSprtTable1); i++) {
-        if (gSprtTable1[i].unk0 == 0) {
+        if (gSprtTable1[i].enabled == FALSE) {
             return i;
         }
     }
@@ -209,18 +209,18 @@ void uvSprtInit(void) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gSprtTable1); i++) {
-        gSprtTable1[i].unk0 = 0;
-        gSprtTable1[i].unk1 = 0;
+        gSprtTable1[i].enabled = FALSE;
+        gSprtTable1[i].skipped = FALSE;
         gSprtTable1[i].width = gSprtTable1[i].height = 0;
-        gSprtTable1[i].unk6 = gSprtTable1[i].unk8 = 0;
+        gSprtTable1[i].xpos = gSprtTable1[i].ypos = 0;
         gSprtTable1[i].red = 255;
         gSprtTable1[i].green = 255;
         gSprtTable1[i].blue = 255;
         gSprtTable1[i].alpha = 255;
         gSprtTable1[i].textureId = GFX_STATE_TEXTURE_NONE;
         gSprtTable1[i].bitmap = NULL;
-        gSprtTable1[i].unk58[0] = NULL;
-        gSprtTable1[i].unk58[1] = NULL;
+        gSprtTable1[i].dlist[0] = NULL;
+        gSprtTable1[i].dlist[1] = NULL;
     }
 }
 
@@ -230,7 +230,7 @@ void uvSprtDisplayList(uvSprite_t* sprite) {
     f32 temp_fv1;
     Sprite* sp = &sprite->sprite;
 
-    sp->rsp_dl = sprite->unk58[gGfxFbIndex];
+    sp->rsp_dl = sprite->dlist[gGfxFbIndex];
     sp->rsp_dl_next = sp->rsp_dl;
 
     if (sprite->textureId != 0xFFFF) {
@@ -244,7 +244,7 @@ void uvSprtDisplayList(uvSprite_t* sprite) {
     sp->green = sprite->green;
     sp->blue = sprite->blue;
     sp->alpha = sprite->alpha;
-    spMove(sp, sprite->unk6, (s16)(SCREEN_HEIGHT - sprite->unk8));
+    spMove(sp, sprite->xpos, (s16)(SCREEN_HEIGHT - sprite->ypos));
     dlist = spDraw(sp);
     if (dlist != NULL) {
         gSPDisplayList(gGfxDisplayListHead++, dlist);
@@ -254,19 +254,16 @@ void uvSprtDisplayList(uvSprite_t* sprite) {
 }
 
 void uvSprtDrawAll(void) {
-    uvSprite_t* var_s0;
-    uvSprite_t* var_s1;
+    uvSprite_t* sprite;
+    uvSprite_t* term;
 
     spInit(&gGfxDisplayListHead);
-    // clang-format off: must preserve same line assignments
-    var_s0 = &gSprtTable1[0]; var_s1 = &gSprtTable1[ARRAY_COUNT(gSprtTable1)];
-    // clang-format on
-    do {
-        if ((var_s0->unk0 != 0) && (var_s0->unk1 != 0) && (var_s0->textureId != GFX_STATE_TEXTURE_NONE)) {
-            uvSprtDisplayList(var_s0);
+    for (sprite = &gSprtTable1[0], term = &gSprtTable1[ARRAY_COUNT(gSprtTable1)]; sprite != term; sprite++) {
+        if ((sprite->enabled != FALSE) && (sprite->skipped != FALSE) && (sprite->textureId != GFX_STATE_TEXTURE_NONE)) {
+            uvSprtDisplayList(sprite);
         }
-        var_s0++;
-    } while (var_s0 != var_s1);
+    }
+
     spFinish(&gGfxDisplayListHead);
     gGfxDisplayListHead--;
 }
@@ -294,8 +291,8 @@ void uvSprtSetBlit(uvSprite_t* sprite, s32 blitId) {
     if ((sprite->textureId == 0xFFFF) || (sprite->textureId != GFX_STATE_TEXTURE_NONE)) {
         if (sprite->width != uvbt->width || sprite->height != uvbt->height) {
             _uvDebugPrintf("uvSprtSetBlit: Warning: sprite %d size change, dl space leaked\n", gSprtTable1 - sprite);
-            sprite->unk58[0] = NULL;
-            sprite->unk58[1] = NULL;
+            sprite->dlist[0] = NULL;
+            sprite->dlist[1] = NULL;
         }
     }
     sprite->sprite.bitmap = uvbt->bitmap;
@@ -327,11 +324,11 @@ void uvSprtSetBlit(uvSprite_t* sprite, s32 blitId) {
     }
     sprite->sprite.istart = 0;
     sprite->sprite.istep = 1;
-    if (sprite->unk58[0] == NULL) {
-        sprite->unk58[0] = (Gfx*)_uvMemAlloc(((uvbt->nbitmaps + 2) * 0xC * sizeof(Gfx)), 8);
+    if (sprite->dlist[0] == NULL) {
+        sprite->dlist[0] = (Gfx*)_uvMemAlloc(((uvbt->nbitmaps + 2) * 0xC * sizeof(Gfx)), 8);
     }
-    if (sprite->unk58[1] == NULL) {
-        sprite->unk58[1] = (Gfx*)_uvMemAlloc(((uvbt->nbitmaps + 2) * 0xC * sizeof(Gfx)), 8);
+    if (sprite->dlist[1] == NULL) {
+        sprite->dlist[1] = (Gfx*)_uvMemAlloc(((uvbt->nbitmaps + 2) * 0xC * sizeof(Gfx)), 8);
     }
 
     switch (uvbt->bmfmt) {
@@ -395,9 +392,9 @@ void uvSprtProps(s32 spriteId, ...) {
     while (TRUE) {
         token = va_arg(args, s32);
         switch (token) {
-        case 0:
+        case SPRT_PROPID_END:
             return;
-        case 1:
+        case SPRT_PROPID_DIM:
             sprite->width = va_arg(args, s32);
 
             if (sprite->width <= 0) {
@@ -409,26 +406,26 @@ void uvSprtProps(s32 spriteId, ...) {
                 sprite->height = 1;
             }
             break;
-        case 2:
-            sprite->unk6 = va_arg(args, s32);
-            sprite->unk8 = va_arg(args, s32);
+        case SPRT_PROPID_POS:
+            sprite->xpos = va_arg(args, s32);
+            sprite->ypos = va_arg(args, s32);
             break;
-        case 7:
+        case SPRT_PROPID_COLOR:
             sprite->red = va_arg(args, s32);
             sprite->green = va_arg(args, s32);
             sprite->blue = va_arg(args, s32);
             sprite->alpha = va_arg(args, s32);
             break;
-        case 3:
-            sprite->unk0 = va_arg(args, s32);
+        case SPRT_PROPID_ENABLED:
+            sprite->enabled = va_arg(args, s32);
             break;
-        case 9:
+        case SPRT_PROPID_BLIT:
             uvSprtSetBlit(sprite, va_arg(args, s32));
             break;
-        case 8:
+        case SPRT_PROPID_BITMAP:
             _uvDebugPrintf("uvSprtProps: bitmaps are replaced by blits.\n");
             break;
-        case 5:
+        case SPRT_PROPID_TEX_ID:
             sprite->textureId = va_arg(args, s32);
             if (sprite->textureId != GFX_STATE_TEXTURE_NONE) {
                 uvtx = gGfxUnkPtrs->textures[sprite->textureId];
@@ -441,14 +438,14 @@ void uvSprtProps(s32 spriteId, ...) {
                 }
             }
             break;
-        case 10:
+        case SPRT_PROPID_FAST_COPY:
             if (va_arg(args, s32) == 0) {
                 sprite->sprite.attr &= ~SP_FASTCOPY;
             } else {
                 sprite->sprite.attr |= SP_FASTCOPY;
             }
             break;
-        case 11:
+        case SPRT_PROPID_TRANSPARENT:
             if (va_arg(args, s32) == 0) {
                 sprite->sprite.attr &= ~SP_TRANSPARENT;
             } else {

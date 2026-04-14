@@ -99,23 +99,35 @@ enum SpriteBlitId {
     BLIT_CONT_INFO_BRAKE_HOVER          = 0x65, // "Brake / Hover"
 };
 
-#define SPRT_PROP_DIM(w, h) 1, (w), (h)
-#define SPRT_PROP_POS(x, y) 2, (x), (y)
-#define SPRT_PROP_3(x) 3, (x)
-#define SPRT_PROP_TEX_ID(x) 5, (x)
-#define SPRT_PROP_COLOR(r, g, b, a) 7, (r), (g), (b), (a)
-#define SPRT_PROP_BLIT(x) 9, (x)
-#define SPRT_PROP_FAST_COPY(x) 10, (x)
-#define SPRT_PROP_TRANSPARENT(x) 11, (x)
-#define SPRT_PROP_END 0
+#define SPRT_PROPID_END             0
+#define SPRT_PROPID_DIM             1  // type:s32,s32
+#define SPRT_PROPID_POS             2  // type:s32,s32
+#define SPRT_PROPID_ENABLED         3  // type:s32
+#define SPRT_PROPID_TEX_ID          5  // type:s32
+#define SPRT_PROPID_COLOR           7  // type:s32,s32,s32,s32
+#define SPRT_PROPID_BITMAP          8  // type:s32
+#define SPRT_PROPID_BLIT            9  // type:s32
+#define SPRT_PROPID_FAST_COPY       10 // type:s32
+#define SPRT_PROPID_TRANSPARENT     11 // type:s32
+
+#define SPRT_PROP_END               SPRT_PROPID_END
+#define SPRT_PROP_DIM(w, h)         SPRT_PROPID_DIM, (w), (h)
+#define SPRT_PROP_POS(x, y)         SPRT_PROPID_POS, (x), (y)
+#define SPRT_PROP_ENABLED(x)        SPRT_PROPID_ENABLED, (x)
+#define SPRT_PROP_TEX_ID(x)         SPRT_PROPID_TEX_ID, (x)
+#define SPRT_PROP_COLOR(r, g, b, a) SPRT_PROPID_COLOR, (r), (g), (b), (a)
+#define SPRT_PROP_BITMAP(x)         SPRT_PROPID_BITMAP, (x)
+#define SPRT_PROP_BLIT(x)           SPRT_PROPID_BLIT, (x)
+#define SPRT_PROP_FAST_COPY(x)      SPRT_PROPID_FAST_COPY, (x)
+#define SPRT_PROP_TRANSPARENT(x)    SPRT_PROPID_TRANSPARENT, (x)
 
 typedef struct {
-/* 00 */ u8 unk0;
-/* 01 */ u8 unk1;
+/* 00 */ u8 enabled;
+/* 01 */ u8 skipped; // skips drawing in uvSprtDrawAll(), but never used?
 /* 02 */ s16 width;
 /* 04 */ s16 height;
-/* 06 */ s16 unk6;
-/* 08 */ s16 unk8;
+/* 06 */ s16 xpos;
+/* 08 */ s16 ypos;
 /* 0A */ u16 textureId;
 /* 0C */ u8 red;
 /* 0D */ u8 green;
@@ -123,7 +135,7 @@ typedef struct {
 /* 0F */ u8 alpha;
 /* 10 */ Bitmap* bitmap;
 /* 14 */ Sprite sprite;
-/* 58 */ Gfx* unk58[2];
+/* 58 */ Gfx* dlist[2];
 } uvSprite_t; // size 0x60
 
 void uvSprt_80230130(void);
@@ -131,7 +143,7 @@ void uvSprt_802301A4(void);
 void _uvTxtDraw(s32 textureId);
 void uvSprtFromBitmap(uvSprite_t* sprite, ParsedUVTX* uvtx);
 void uvSprt_80230750(uvSprite_t* sprite, ParsedUVTX* uvtx);
-s32  uvSprt_80230898(void);
+s32  uvSprtFindFree(void);
 void uvSprtInit(void);
 void uvSprtDisplayList(uvSprite_t* sprite);
 void uvSprtDrawAll(void);

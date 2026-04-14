@@ -110,67 +110,67 @@ void hudInit(void) {
     hud_8031A378();
     // clang-format off
     uvSprtProps(0,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_DIM(16, 8),
         SPRT_PROP_TEX_ID(0x11D),
         SPRT_PROP_END
     );
     uvSprtProps(1,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_DIM(32, 32),
         SPRT_PROP_TEX_ID(0x126),
         SPRT_PROP_END
     );
     uvSprtProps(2,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_DIM(32, 32),
         SPRT_PROP_TEX_ID(0x127),
         SPRT_PROP_END
     );
     uvSprtProps(3,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_DIM(16, 128),
         SPRT_PROP_TEX_ID(0x128),
         SPRT_PROP_END
     );
     uvSprtProps(4,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_DIM(32, 8),
         SPRT_PROP_TEX_ID(0x11E),
         SPRT_PROP_END
     );
     uvSprtProps(5,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_DIM(32, 8),
         SPRT_PROP_TEX_ID(0x121),
         SPRT_PROP_END
     );
     uvSprtProps(6,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_DIM(64, 8),
         SPRT_PROP_TEX_ID(0x11F),
         SPRT_PROP_END
     );
     uvSprtProps(7,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_DIM(32, 8),
         SPRT_PROP_TEX_ID(0x129),
         SPRT_PROP_END
     );
     uvSprtProps(8,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_DIM(32, 32),
         SPRT_PROP_TEX_ID(0x13D),
         SPRT_PROP_END
     );
     uvSprtProps(9,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_DIM(130, 100),
         SPRT_PROP_TEX_ID(0x137),
         SPRT_PROP_END
     );
     uvSprtProps(0xA,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_DIM(32, 8),
         SPRT_PROP_TEX_ID(0x120),
         SPRT_PROP_END
@@ -178,49 +178,49 @@ void hudInit(void) {
     if (sHudState.showController) {
         uvLevelAppend(0x54);
         uvSprtProps(0xB,
-            SPRT_PROP_3(1),
+            SPRT_PROP_ENABLED(TRUE),
             SPRT_PROP_POS(20, 200),
             SPRT_PROP_BLIT(BLIT_ID_0B),
             SPRT_PROP_END
         );
         uvSprtProps(0xC,
-            SPRT_PROP_3(1),
+            SPRT_PROP_ENABLED(TRUE),
             SPRT_PROP_POS(20, 200),
             SPRT_PROP_BLIT(BLIT_ID_0C),
             SPRT_PROP_END
         );
         uvSprtProps(0xE,
-            SPRT_PROP_3(1),
+            SPRT_PROP_ENABLED(TRUE),
             SPRT_PROP_POS(20, 200),
             SPRT_PROP_BLIT(BLIT_ID_16),
             SPRT_PROP_END
         );
         uvSprtProps(0xF,
-            SPRT_PROP_3(1),
+            SPRT_PROP_ENABLED(TRUE),
             SPRT_PROP_POS(20, 200),
             SPRT_PROP_BLIT(BLIT_ID_17),
             SPRT_PROP_END
         );
         uvSprtProps(0xD,
-            SPRT_PROP_3(1),
+            SPRT_PROP_ENABLED(TRUE),
             SPRT_PROP_POS(20, 200),
             SPRT_PROP_BLIT(BLIT_ID_18),
             SPRT_PROP_END
         );
         uvSprtProps(0x10,
-            SPRT_PROP_3(1),
+            SPRT_PROP_ENABLED(TRUE),
             SPRT_PROP_POS(20, 200),
             SPRT_PROP_BLIT(BLIT_ID_1A),
             SPRT_PROP_END
         );
         uvSprtProps(0x11,
-            SPRT_PROP_3(1),
+            SPRT_PROP_ENABLED(TRUE),
             SPRT_PROP_POS(20, 200),
             SPRT_PROP_BLIT(BLIT_ID_19),
             SPRT_PROP_END
         );
         uvSprtProps(0x12,
-            SPRT_PROP_3(1),
+            SPRT_PROP_ENABLED(TRUE),
             SPRT_PROP_POS(20, 200),
             SPRT_PROP_BLIT(BLIT_ID_1B),
             SPRT_PROP_END

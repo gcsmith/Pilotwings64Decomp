@@ -20,7 +20,7 @@ extern void (*gFcnDrawMenuItem)(s16, s16, s16);
 
 void menuUtilCreate(s32 x, s32 y, s32 font, f32 xScale, f32 yScale, char** menuItems, s32 itemCount);
 s32 menuUtilCheckInputs(void);
-void menuUtilInit(void);
+void menuUtilDeinit(void);
 void menuUtilRender(void);
 s32 menuUtilGetCurItem(void);
 void menuUtilSetCurItem(s32 selection);

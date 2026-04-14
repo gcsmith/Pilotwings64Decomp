@@ -9,4 +9,7 @@
 
 #define ROUNDF(val) (s32)(((val) >= 0.0f) ? ((val) + 0.5f) : ((val) - 0.5f))
 
+#define SWAP_XOR(v0, v1) (v0) ^= (v1); (v1) ^= (v0); (v0) ^= (v1);
+
 #endif // MATH_MACROS_H
+

@@ -45,7 +45,7 @@ void menuCreateVarHeight(s32 x, s32 y, s32 font, f32 xscale, f32 yscale, s32* it
     for (i = 0; i < count; i++) {
         // clang-format off
         uvSprtProps(sMenuSpriteIdBase + i,
-            SPRT_PROP_3(1),
+            SPRT_PROP_ENABLED(TRUE),
             SPRT_PROP_POS(x, ((sMenuSpriteHeight + 6) * i) + y),
             SPRT_PROP_BLIT(items[i]),
             SPRT_PROP_END
@@ -74,12 +74,12 @@ void menuRender(void) {
     menuUtilRender();
 }
 
-void menuSetProps(void) {
+void menuDeinit(void) {
     s32 i;
 
-    menuUtilInit();
+    menuUtilDeinit();
     for (i = 0; i < sMenuCountVarHeight; i++) {
-        uvSprtProps(sMenuSpriteIdBase + i, SPRT_PROP_3(0), SPRT_PROP_END);
+        uvSprtProps(sMenuSpriteIdBase + i, SPRT_PROP_ENABLED(FALSE), SPRT_PROP_END);
     }
 }
 

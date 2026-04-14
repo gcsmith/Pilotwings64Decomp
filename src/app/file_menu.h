@@ -7,7 +7,7 @@ s32 fileMenuTopRender(void);
 void fileMenu_802E8AF0(void);
 void fileMenu_802E8FF4(s32);
 void fileMenuSetup(s32 menu);
-void fileMenuSetProps(void);
+void fileMenuDeinit(void);
 s32 fileMenuSetText(void);
 s32 fileMenuEraseFile(void);
 void fileMenu_802E94E0(void);

@@ -389,7 +389,7 @@ s32 resultMenuChoose(s32 arg0) {
             if (D_80362690->unkC[D_80362690->unk9C].unk7B != 0) {
                 return GAME_STATE_VEHICLE_CLASS_SELECT;
             }
-            menuSetProps();
+            menuDeinit();
             if (((unkC->veh != VEHICLE_CANNONBALL) || (unkC->unk8B != 0)) && (unkC->veh != VEHICLE_BIRDMAN)) {
                 ret = totResultHandler();
             } else {
