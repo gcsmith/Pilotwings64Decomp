@@ -69,7 +69,7 @@ u16 D_8034F4D8[] = { TEXT_TRANING_ISLAND, TEXT_C_ISLANBD, TEXT_MINI_USA, TEXT_AR
 
 void func_8030C22C(void); // init function
 void func_8030C54C(void); // deinit function
-s32 func_8030C61C(void); // input / state change function
+s32 func_8030C61C(void);  // input / state change function
 void func_8030C6A0(void);
 void func_8030CB10(void);
 

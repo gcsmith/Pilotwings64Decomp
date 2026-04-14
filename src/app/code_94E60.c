@@ -44,7 +44,7 @@ Vec3F D_8034F7C4[2] = {
 // forward declarations
 void func_8030E3EC(void); // init function
 void func_8030E9AC(void); // deinit function
-s32 func_8030EA54(void); // update function
+s32 func_8030EA54(void);  // update function
 void func_8030F818(void); // draw function
 u8 func_8030E7F4(void);
 void func_8030F448(void);

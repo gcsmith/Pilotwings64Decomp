@@ -50,8 +50,8 @@ u8 D_8036DA24;
 
 // forward declarations
 void func_80321760(void); // init function
-s32 func_8032232C(void); // deinit function
-s32 func_80322464(void); // update function
+s32 func_8032232C(void);  // deinit function
+s32 func_80322464(void);  // update function
 void func_803226DC(void); // draw function
 
 s32 func_80321700(void) {

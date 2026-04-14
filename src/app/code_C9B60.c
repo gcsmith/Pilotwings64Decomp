@@ -64,7 +64,7 @@ f32 D_80378CE4;
 // forward decls
 STATIC_FUNC void func_803427FC(void); // init function
 STATIC_FUNC void func_80343294(void); // deinit function
-STATIC_FUNC s32 func_80343550(void); // update function
+STATIC_FUNC s32 func_80343550(void);  // update function
 STATIC_FUNC void introSceneRunner(void);
 STATIC_FUNC void func_803433A4(void); // more granular deinit function?
 STATIC_FUNC void func_80343B5C(void);
