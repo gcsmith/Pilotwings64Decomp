@@ -118,7 +118,7 @@ s32 menuUtilCheckInputs(void) {
     }
 }
 
-void menuUtilInit(void) {
+void menuUtilDeinit(void) {
     sMenuItems = NULL;
 }
 

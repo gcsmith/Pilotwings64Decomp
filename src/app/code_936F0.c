@@ -67,9 +67,9 @@ u16 D_8034F4C8[] = { TEXT_TRY1, TEXT_TRY2, TEXT_TRY3, TEXT_TRY3, TEXT_TRY1, TEXT
 
 u16 D_8034F4D8[] = { TEXT_TRANING_ISLAND, TEXT_C_ISLANBD, TEXT_MINI_USA, TEXT_ARCTIC };
 
-void func_8030C22C(void);
-void func_8030C54C(void);
-s32 func_8030C61C(void);
+void func_8030C22C(void); // init function
+void func_8030C54C(void); // deinit function
+s32 func_8030C61C(void);  // input / state change function
 void func_8030C6A0(void);
 void func_8030CB10(void);
 
@@ -127,7 +127,7 @@ void func_8030C22C(void) {
     func_80204B34(temp_s1->unk22C, &temp_s1->unk108);
     // clang-format off
     uvSprtProps(0,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_POS((SCREEN_WIDTH / 2) - (D_8034F4A0[temp_s0->veh][1] / 2), 220),
         SPRT_PROP_BLIT(D_8034F4A0[temp_s0->veh][0]),
         SPRT_PROP_FAST_COPY(0),
@@ -145,7 +145,7 @@ void func_8030C22C(void) {
     }
     // clang-format off
     uvSprtProps(1,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_POS((SCREEN_WIDTH / 2) - (D_8034F480[var_v1][1] / 2), 190),
         SPRT_PROP_BLIT(D_8034F480[var_v1][0]),
         SPRT_PROP_FAST_COPY(0),
@@ -166,13 +166,13 @@ void func_8030C54C(void) {
     uvSprtProps(0,
         SPRT_PROP_FAST_COPY(1),
         SPRT_PROP_TRANSPARENT(0),
-        SPRT_PROP_3(0),
+        SPRT_PROP_ENABLED(FALSE),
         SPRT_PROP_END
     );
     uvSprtProps(1,
         SPRT_PROP_FAST_COPY(1),
         SPRT_PROP_TRANSPARENT(0),
-        SPRT_PROP_3(0),
+        SPRT_PROP_ENABLED(FALSE),
         SPRT_PROP_END
     );
     // clang-format on

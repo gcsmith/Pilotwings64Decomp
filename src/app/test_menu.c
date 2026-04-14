@@ -215,7 +215,7 @@ void testMenuInit(Unk80367710* arg0, s32 arg1) {
     }
     // clang-format off
     uvSprtProps(0,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_DIM(64, 18),
         SPRT_PROP_BLIT(BLIT_TEST_MENU_BUTTON_SCORING),
         SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
@@ -223,7 +223,7 @@ void testMenuInit(Unk80367710* arg0, s32 arg1) {
         SPRT_PROP_END
     );
     uvSprtProps(1,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_DIM(64, 18),
         SPRT_PROP_POS(50, 71),
         SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
@@ -231,7 +231,7 @@ void testMenuInit(Unk80367710* arg0, s32 arg1) {
         SPRT_PROP_END
     );
     uvSprtProps(2,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_DIM(64, 18),
         SPRT_PROP_POS(128, 46),
         SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
@@ -239,7 +239,7 @@ void testMenuInit(Unk80367710* arg0, s32 arg1) {
         SPRT_PROP_END
     );
     uvSprtProps(3,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_DIM(64, 18),
         SPRT_PROP_POS(128, 71),
         SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
@@ -247,7 +247,7 @@ void testMenuInit(Unk80367710* arg0, s32 arg1) {
         SPRT_PROP_END
     );
     uvSprtProps(4,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_DIM(64, 18),
         SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
         SPRT_PROP_POS(206, 46),
@@ -255,7 +255,7 @@ void testMenuInit(Unk80367710* arg0, s32 arg1) {
         SPRT_PROP_END
     );
     uvSprtProps(5,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_DIM(64, 18),
         SPRT_PROP_POS(206, 71),
         SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
@@ -263,21 +263,21 @@ void testMenuInit(Unk80367710* arg0, s32 arg1) {
         SPRT_PROP_END
     );
     uvSprtProps(6,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_POS(43, 212),
         SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
         SPRT_PROP_BLIT(BLIT_TEST_MENU_TEST_TITLE),
         SPRT_PROP_END
     );
     uvSprtProps(7,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_POS(239, 215),
         SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
         SPRT_PROP_BLIT(BLIT_TEST_MENU_TOP_SCORE),
         SPRT_PROP_END
     );
     uvSprtProps(8,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_DIM(64, 18),
         SPRT_PROP_POS(206, 71),
         SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
@@ -285,7 +285,7 @@ void testMenuInit(Unk80367710* arg0, s32 arg1) {
         SPRT_PROP_END
     );
     uvSprtProps(9,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_DIM(64, 18),
         SPRT_PROP_POS(128, 71),
         SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),

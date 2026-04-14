@@ -161,22 +161,22 @@ static s16 D_8034ED44[] = {
 static s16* D_8034ED78[] = { D_8034EC44, D_8034ECB0, D_8034EC7C, D_8034ECE4, D_8034ED00, D_8034ED28, D_8034ED44 };
 
 // forward declarations
-void contInfo_802DCBA0(void);
-s32 contInfo_802DCCF0(void);
-void contInfo_802DD0E4(void);
-void func_802DD1CC(void);
+void contInfoInit(void);
+s32 contInfoUpdate(void);
+void contInfoDraw(void);
+void contInfoDeinit(void);
 
 void contInfoMainRender(void) {
-    contInfo_802DCBA0();
-    while (contInfo_802DCCF0() == 0) {
+    contInfoInit();
+    while (contInfoUpdate() == 0) {
         uvGfxBegin();
-        contInfo_802DD0E4();
+        contInfoDraw();
         uvGfxEnd();
     }
-    func_802DD1CC();
+    contInfoDeinit();
 }
 
-void contInfo_802DCBA0(void) {
+void contInfoInit(void) {
     Unk80362690_Unk0* temp_s7;
     s32 temp_s3;
     s32 i;
@@ -186,7 +186,7 @@ void contInfo_802DCBA0(void) {
     temp_s7 = &D_80362690->unkC[D_80362690->unk9C];
     // clang-format off
     uvSprtProps(0x1E,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_POS(0, SCREEN_HEIGHT),
         SPRT_PROP_BLIT(BLIT_N64_CONTROLLER_INFOGRAPHIC),
         SPRT_PROP_END
@@ -199,7 +199,7 @@ void contInfo_802DCBA0(void) {
         temp_s1 = &sControlInfoVeh[temp_s7->veh].labels[i];
         // clang-format off
         uvSprtProps(temp_s3,
-            SPRT_PROP_3(1),
+            SPRT_PROP_ENABLED(TRUE),
             SPRT_PROP_BLIT(temp_s1->blitId),
             SPRT_PROP_END
         );
@@ -211,7 +211,7 @@ void contInfo_802DCBA0(void) {
     }
 }
 
-s32 contInfo_802DCCF0(void) {
+s32 contInfoUpdate(void) {
     demo_80323020();
     if (demoButtonPress(D_80362690->unk9C, A_BUTTON | START_BUTTON) != 0) {
         sndPlaySfxVolPitchPan(SFX_UI_CONTROL, 1.0f, 0.8f, 0.0f);
@@ -228,79 +228,67 @@ s32 contInfo_802DCCF0(void) {
     return 0;
 }
 
-void contInfo_802DCD88(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
-    s32 pad_sp6C;
-    f32 sp68;
-    f32 temp_fa0;
-    f32 temp_fs0;
-    f32 temp_fv0;
-    f32 sp58;
-    s32 sp54;
-    s32 sp50;
-    s32 sp4C;
-    s32 sp48;
+void contInfoDrawLineSeg(s32 x0, s32 y0, s32 x1, s32 y1) {
+    f32 x_off, ux, uy, angle, length, y_off;
+    s32 x2, y2, x3, y3;
 
-    arg1 = SCREEN_HEIGHT - arg1;
-    arg3 = SCREEN_HEIGHT - arg3;
-    sp68 = arg2 - arg0;
-    temp_fs0 = arg3 - arg1;
-    if (temp_fs0 < 0.0f) {
-        arg0 ^= arg2;
-        arg1 ^= arg3;
-        arg2 ^= arg0;
-        arg3 ^= arg1;
-        arg0 ^= arg2;
-        arg1 ^= arg3;
+    y0 = SCREEN_HEIGHT - y0;
+    y1 = SCREEN_HEIGHT - y1;
+    ux = x1 - x0;
+    uy = y1 - y0;
+    if (uy < 0.0f) {
+        SWAP_XOR(x0, x1);
+        SWAP_XOR(y0, y1);
     }
-    temp_fv0 = uvSqrtF(SQ(sp68) + SQ(temp_fs0));
-    temp_fs0 /= temp_fv0;
-    sp68 /= temp_fv0;
-    temp_fa0 = uvAtan2F(temp_fs0, sp68) - 1.5707963f;
-    sp58 = uvSinF(temp_fa0);
-    temp_fv0 = uvCosF(temp_fa0);
-    arg0 -= temp_fv0 + 0.5f;
-    arg1 -= sp58 + 0.5f;
-    arg2 -= temp_fv0 + 0.5f;
-    arg3 -= sp58 + 0.5f;
-    sp54 = arg0 + temp_fv0 + 0.5f;
-    sp50 = arg1 + sp58 + 0.5f;
-    sp4C = arg2 + temp_fv0 + 0.5f;
-    sp48 = arg3 + sp58 + 0.5f;
+
+    length = uvSqrtF(SQ(ux) + SQ(uy));
+    ux /= length;
+    uy /= length;
+
+    angle = uvAtan2F(uy, ux) - PW_PI_2;
+    y_off = uvSinF(angle);
+    x_off = uvCosF(angle);
+
+    x0 -= x_off + 0.5f;
+    y0 -= y_off + 0.5f;
+    x1 -= x_off + 0.5f;
+    y1 -= y_off + 0.5f;
+
+    x2 = x0 + x_off + 0.5f;
+    y2 = y0 + y_off + 0.5f;
+    x3 = x1 + x_off + 0.5f;
+    y3 = y1 + y_off + 0.5f;
+
     uvVtxBeginPoly();
-    uvVtx(arg0, arg1, 0, 0, 0, 200, 200, 200, 255);
-    uvVtx(sp54, sp50, 0, 0, 0, 200, 200, 200, 255);
-    uvVtx(sp4C, sp48, 0, 0, 0, 200, 200, 200, 255);
-    uvVtx(arg2, arg3, 0, 0, 0, 200, 200, 200, 255);
+    uvVtx(x0, y0, 0, 0, 0, 200, 200, 200, 255);
+    uvVtx(x2, y2, 0, 0, 0, 200, 200, 200, 255);
+    uvVtx(x3, y3, 0, 0, 0, 200, 200, 200, 255);
+    uvVtx(x1, y1, 0, 0, 0, 200, 200, 200, 255);
     uvVtxEndPoly();
 }
 
-void contInfo_802DD01C(s16* arg0) {
-    s32 temp_s0;
-    s32 temp_s3;
-    s32 var_s4;
-    s32 var_s5;
-    s32 i;
+void contInfoDrawLineStrip(s16* coords) {
+    s32 x0, y0, x1, y1, count;
 
     while (1) {
-        var_s5 = *(arg0++);
-        if (var_s5 < 0) {
+        x0 = *coords++;
+        if (x0 < 0) {
             break;
         }
 
-        var_s4 = *(arg0++);
-        i = 0;
+        y0 = *coords++;
+        count = 0;
         while (1) {
-            temp_s0 = *(arg0++);
-            if (temp_s0 < 0) {
+            x1 = *coords++;
+            if (x1 < 0) {
                 break;
             }
 
-            temp_s3 = *(arg0++);
-            contInfo_802DCD88(var_s5, var_s4, temp_s0, temp_s3);
-            var_s5 = temp_s0;
-            var_s4 = temp_s3;
-            i++;
-            if (i == 21) {
+            y1 = *coords++;
+            contInfoDrawLineSeg(x0, y0, x1, y1);
+            x0 = x1;
+            y0 = y1;
+            if (++count == 21) {
                 _uvDebugPrintf("Line length > 20 segments encountered, probably missing a -1\nat the end of a segment list\n");
                 break;
             }
@@ -308,7 +296,7 @@ void contInfo_802DD01C(s16* arg0) {
     }
 }
 
-void contInfo_802DD0E4(void) {
+void contInfoDraw(void) {
     s32 i;
     Unk80362690_Unk0* sp20;
 
@@ -319,14 +307,15 @@ void contInfo_802DD0E4(void) {
     }
     func_80314154();
     uvGfxEnableCull(0, 0);
-    contInfo_802DD01C(D_8034EC10);
+    contInfoDrawLineStrip(D_8034EC10);
     if (D_8034ED78[sp20->veh] != NULL) {
-        contInfo_802DD01C(D_8034ED78[sp20->veh]);
+        contInfoDrawLineStrip(D_8034ED78[sp20->veh]);
     }
     uvGfxEnableCull(0, 1);
     func_803141E4();
 }
 
-void func_802DD1CC(void) {
-    uvSprtProps(0x1E, SPRT_PROP_3(0), SPRT_PROP_END);
+void contInfoDeinit(void) {
+    uvSprtProps(0x1E, SPRT_PROP_ENABLED(FALSE), SPRT_PROP_END);
 }
+

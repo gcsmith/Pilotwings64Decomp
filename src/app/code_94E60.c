@@ -42,10 +42,10 @@ Vec3F D_8034F7C4[2] = {
 };
 
 // forward declarations
-void func_8030E3EC(void);
-void func_8030E9AC(void);
-s32 func_8030EA54(void);
-void func_8030F818(void);
+void func_8030E3EC(void); // init function
+void func_8030E9AC(void); // deinit function
+s32 func_8030EA54(void);  // update function
+void func_8030F818(void); // draw function
 u8 func_8030E7F4(void);
 void func_8030F448(void);
 
@@ -87,7 +87,7 @@ void func_8030D9C8(void) {
     // clang-format off
     for (i = 0; i < 12; i++) {
         uvSprtProps(i,
-            SPRT_PROP_3(1),
+            SPRT_PROP_ENABLED(TRUE),
             SPRT_PROP_DIM(46, 31),
             SPRT_PROP_POS(((i % 3) * 48) + 78, 161 - ((i / 3) * 34)),
             SPRT_PROP_TEX_ID(332),
@@ -97,7 +97,7 @@ void func_8030D9C8(void) {
     }
     for (i = 0; i < ARRAY_COUNT(D_8036A8CC); i++) {
         uvSprtProps(i + 12,
-            SPRT_PROP_3(1),
+            SPRT_PROP_ENABLED(TRUE),
             SPRT_PROP_DIM(46, 31),
             SPRT_PROP_POS(236, 126 - (i * 34)),
             SPRT_PROP_COLOR(255, 255, 255, 255),
@@ -192,7 +192,7 @@ void func_8030DED0(void) {
     // clang-format off
     for (i = 0; i < 9; i++) {
         uvSprtProps(i,
-            SPRT_PROP_3(1),
+            SPRT_PROP_ENABLED(TRUE),
             SPRT_PROP_DIM(46, 31),
             SPRT_PROP_POS(((i % 3) * 48) + 109, 127 - ((i / 3) * 34)),
             SPRT_PROP_TEX_ID(332),
@@ -202,7 +202,7 @@ void func_8030DED0(void) {
     }
     for (i = 0; i < 4; i++) {
         uvSprtProps(i + 9,
-            SPRT_PROP_3(1),
+            SPRT_PROP_ENABLED(TRUE),
             SPRT_PROP_DIM(33, 26),
             SPRT_PROP_POS(109 + (i * 36), 195),
             SPRT_PROP_COLOR(255, 255, 255, 255),
@@ -212,7 +212,7 @@ void func_8030DED0(void) {
     }
     for (i = 0; i < 3; i++) {
         uvSprtProps(i + 13,
-            SPRT_PROP_3(1),
+            SPRT_PROP_ENABLED(TRUE),
             SPRT_PROP_DIM(46, 31),
             SPRT_PROP_POS(61, 127 - (i * 34)),
             SPRT_PROP_COLOR(255, 255, 255, 255),
@@ -247,7 +247,7 @@ void func_8030DED0(void) {
                         var_s0 = 0x14D;
                     }
                 }
-                uvSprtProps(sp98 * 3 + var_s1_2, 5, var_s0, 0);
+                uvSprtProps(sp98 * 3 + var_s1_2, SPRT_PROP_TEX_ID(var_s0), SPRT_PROP_END);
                 if (var_s0 == 0x14D) {
                     break;
                 }
@@ -297,31 +297,31 @@ void func_8030E3EC(void) {
     D_8034F7BC = 0;
     // clang-format off
     uvSprtProps(17,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_POS(28, 198),
         SPRT_PROP_BLIT(BLIT_ID_07),
         SPRT_PROP_END
     );
     uvSprtProps(18,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_POS(233, 164),
         SPRT_PROP_BLIT(BLIT_ID_05),
         SPRT_PROP_END
     );
     uvSprtProps(19,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_POS(58, 164),
         SPRT_PROP_BLIT(BLIT_ID_08),
         SPRT_PROP_END
     );
     uvSprtProps(20,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_POS(58, 198),
         SPRT_PROP_BLIT(BLIT_ID_04),
         SPRT_PROP_END
     );
     uvSprtProps(21,
-        SPRT_PROP_3(1),
+        SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_POS(233, 198),
         SPRT_PROP_BLIT(BLIT_ID_06),
         SPRT_PROP_END
@@ -412,7 +412,7 @@ void func_8030E9AC(void) {
     camera = D_80362690->unkC[D_80362690->unk9C].unk70;
     uvGfxMtxViewPop();
     for (i = 0; i < 15; i++) {
-        uvSprtProps(i, 3, 0, 0);
+        uvSprtProps(i, SPRT_PROP_ENABLED(FALSE), SPRT_PROP_END);
     }
     func_80204AB0(camera->unk22C, 0, NULL);
     func_80204AB0(camera->unk22C, 1, func_8034B6F8);
