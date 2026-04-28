@@ -432,8 +432,8 @@ void _uvaUpdatePlayList(u8 emitterId) {
     uvEmitterPrintf("\ninserting object %d in playlist\n", emitterId);
 
     if ((gSndEmitterTable[emitterId].attr & EMITTER_ATTR_ONESHOT) && (gSndEmitterTable[emitterId].playState == 8) &&
-        (uvEmitterPrintf("CHECKING if to delete oneshot object %d\n", emitterId), alSndpSetSound(gSndPlayer, gSndVoiceTable[gSndEmitterTable[emitterId].playVoice]),
-         (alSndpGetState(gSndPlayer) == 0))) {
+        (uvEmitterPrintf("CHECKING if to delete oneshot object %d\n", emitterId),
+         alSndpSetSound(gSndPlayer, gSndVoiceTable[gSndEmitterTable[emitterId].playVoice]), (alSndpGetState(gSndPlayer) == 0))) {
         _uvaStopVoice(gSndEmitterTable[emitterId].playVoice);
         gSndEmitterTable[emitterId].playVoice = 0x11;
         gSndEmitterTable[emitterId].playState = 0;
