@@ -9,52 +9,52 @@ static Mtx4F D_80248DE0 = {
     1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
 };
 
-void uvEnvProps(s32 arg0, ...) {
-    f32 temp_fs0;
+void uvEnvProps(s32 envId, ...) {
+    f32 fogfact;
     s32 property;
     ParsedUVEN* uven;
     va_list args;
 
-    uven = gGfxUnkPtrs->environments[arg0];
-    va_start(args, arg0);
+    uven = gGfxUnkPtrs->environments[envId];
+    va_start(args, envId);
     if (uven == NULL) {
-        _uvDebugPrintf("uvEnvProps: env %d not in level\n", arg0);
+        _uvDebugPrintf("uvEnvProps: env %d not in level\n", envId);
         return;
     }
 
     while (TRUE) {
         property = va_arg(args, s32);
         switch (property) {
-        case 0:
+        case ENV_PROPID_END:
             return;
-        case 3:
-            temp_fs0 = va_arg(args, f64);
-            if ((temp_fs0 > 1.0f) || (temp_fs0 < 0.0f)) {
-                _uvDebugPrintf("uvEnvProps: FOGFACT out of range [0,1] %f\n", temp_fs0);
+        case ENV_PROPID_FOG_FACTOR:
+            fogfact = va_arg(args, f64);
+            if ((fogfact > 1.0f) || (fogfact < 0.0f)) {
+                _uvDebugPrintf("uvEnvProps: FOGFACT out of range [0,1] %f\n", fogfact);
             } else {
-                uvGfxSetFogFactor(temp_fs0);
-                if (temp_fs0 == 0.0f) {
+                uvGfxSetFogFactor(fogfact);
+                if (fogfact == 0.0f) {
                     uven->unk1C = 0;
                 } else {
                     uven->unk1C = 1;
                 }
-                uven->unk14 = (f32)(temp_fs0 * 1000.0f);
-                uven->unk18 = 1000.0f;
+                uven->fogMin = (f32)(fogfact * 1000.0f);
+                uven->fogMax = 1000.0f;
             }
             break;
-        case 4:
-            uven->unk8 = va_arg(args, s32);
-            uven->unk9 = va_arg(args, s32);
-            uven->unkA = va_arg(args, s32);
-            uven->unkB = va_arg(args, s32);
+        case ENV_PROPID_UNUSED:
+            uven->unusedR = va_arg(args, s32);
+            uven->unusedG = va_arg(args, s32);
+            uven->unusedB = va_arg(args, s32);
+            uven->unusedA = va_arg(args, s32);
             break;
-        case 1:
+        case ENV_PROPID_FOG_COLOR:
             uven->fogR = va_arg(args, s32);
             uven->fogG = va_arg(args, s32);
             uven->fogB = va_arg(args, s32);
             uven->fogA = va_arg(args, s32);
             break;
-        case 2:
+        case ENV_PROPID_SCREEN_COLOR:
             uven->screenR = va_arg(args, s32);
             uven->screenG = va_arg(args, s32);
             uven->screenB = va_arg(args, s32);
@@ -67,45 +67,45 @@ void uvEnvProps(s32 arg0, ...) {
     }
 }
 
-void uvEnvProps2(s32 arg0, ...) {
-    f32 var_fv1;
+void uvEnvGetProps(s32 envId, ...) {
+    f32 fogfact;
     s32 property;
     ParsedUVEN* uven;
     va_list args;
 
-    uven = gGfxUnkPtrs->environments[arg0];
-    va_start(args, arg0);
+    uven = gGfxUnkPtrs->environments[envId];
+    va_start(args, envId);
     if (uven == NULL) {
-        _uvDebugPrintf("uvEnvProps: env %d not in level\n", arg0);
+        _uvDebugPrintf("uvEnvProps: env %d not in level\n", envId);
         return;
     }
 
     while (TRUE) {
         property = va_arg(args, s32);
         switch (property) {
-        case 0:
+        case ENV_PROPID_END:
             return;
-        case 3:
-            if (uven->unk18 != 0.0f) {
-                var_fv1 = uven->unk14 / uven->unk18;
+        case ENV_PROPID_FOG_FACTOR:
+            if (uven->fogMax != 0.0f) {
+                fogfact = uven->fogMin / uven->fogMax;
             } else {
-                var_fv1 = 0.0f;
+                fogfact = 0.0f;
             }
-            *va_arg(args, f32*) = var_fv1;
+            *va_arg(args, f32*) = fogfact;
             break;
-        case 4:
-            *va_arg(args, u8*) = uven->unk8;
-            *va_arg(args, u8*) = uven->unk9;
-            *va_arg(args, u8*) = uven->unkA;
-            *va_arg(args, u8*) = uven->unkB;
+        case ENV_PROPID_UNUSED:
+            *va_arg(args, u8*) = uven->unusedR;
+            *va_arg(args, u8*) = uven->unusedG;
+            *va_arg(args, u8*) = uven->unusedB;
+            *va_arg(args, u8*) = uven->unusedA;
             break;
-        case 1:
+        case ENV_PROPID_FOG_COLOR:
             *va_arg(args, u8*) = uven->fogR;
             *va_arg(args, u8*) = uven->fogG;
             *va_arg(args, u8*) = uven->fogB;
             *va_arg(args, u8*) = uven->fogA;
             break;
-        case 2:
+        case ENV_PROPID_SCREEN_COLOR:
             //! @bug All values set to the red value?
             *va_arg(args, u8*) = uven->screenR;
             *va_arg(args, u8*) = uven->screenR;
@@ -141,7 +141,7 @@ void func_80218700(void) {
 
 void _uvEnvDraw(s32 arg0, s32 arg1) {
     uvModelLOD* currLod;
-    f32 var_fs1;
+    f32 fogfact;
     s32 temp_a0_2;
     u8 temp_s1;
     uvModelPart* currPart;
@@ -161,11 +161,11 @@ void _uvEnvDraw(s32 arg0, s32 arg1) {
         return;
     }
     if (uven->unk1C != 0) {
-        var_fs1 = uven->unk14 / uven->unk18;
+        fogfact = uven->fogMin / uven->fogMax;
     } else {
-        var_fs1 = 0.0f;
+        fogfact = 0.0f;
     }
-    uvGfxSetFogFactor(var_fs1);
+    uvGfxSetFogFactor(fogfact);
 
     if (uven->unk2E != 0) {
         uvGfxClearScreen(uven->screenR, uven->screenG, uven->screenB, uven->screenA);
@@ -191,7 +191,7 @@ void _uvEnvDraw(s32 arg0, s32 arg1) {
 
         gDPSetFogColor(gGfxDisplayListHead++, uven->fogR, uven->fogG, uven->fogB, 255);
         if (temp_s1 & 4) {
-            uvGfxSetFogFactor(var_fs1);
+            uvGfxSetFogFactor(fogfact);
         } else {
             uvGfxSetFogFactor(0.0f);
         }
@@ -217,7 +217,7 @@ void _uvEnvDraw(s32 arg0, s32 arg1) {
         uvGfxMtxViewPop();
     }
 
-    uvGfxSetFogFactor(var_fs1);
+    uvGfxSetFogFactor(fogfact);
     if (uven->unk38 != NULL) {
         uven->unk38();
     }

@@ -87,14 +87,14 @@ s32 env_802E0CF0(void) {
     f32 sp54;
     f32 sp50;
     Camera* sp4C;
-    u8 sp4B;
-    u8 sp4A;
-    u8 sp49;
-    u8 sp48;
+    u8 fogR;
+    u8 fogG;
+    u8 fogB;
+    u8 fogA;
     f32 sp3C;
     f32 sp38;
 
-    uvEnvProps(D_80362690->envId, 3, 0.0f, 0);
+    uvEnvProps(D_80362690->envId, ENV_PROP_FOG_FACTOR(0.0f), ENV_PROP_END);
     uvMat4SetIdentity(&spA8);
     sp4C = D_80362690->unkC[D_80362690->unk9C].unk70;
     uvMat4Copy(&sp68, &sp4C->unk108);
@@ -116,7 +116,7 @@ s32 env_802E0CF0(void) {
     sp5C = spEC - spF8;
     var_fv0 = var_fa1 - spFC;
     if (var_fv0 < (sp4C->unk40 * 0.1)) {
-        uvEnvProps(D_80362690->envId, 3, 0.996f, 0);
+        uvEnvProps(D_80362690->envId, ENV_PROP_FOG_FACTOR(0.996f), ENV_PROP_END);
         return 0;
     }
 
@@ -149,7 +149,7 @@ s32 env_802E0CF0(void) {
     } else {
         sp50 = sp38;
     }
-    uvEnvProps2(D_80362690->envId, 1, &sp4B, &sp4A, &sp49, &sp48, 0);
+    uvEnvGetProps(D_80362690->envId, ENV_PROP_FOG_COLOR(&fogR, &fogG, &fogB, &fogA), ENV_PROP_END);
     uvGfxStatePush();
     uvGfxSetFlags(GFX_STATE_XLU | GFX_STATE_AA | GFX_STATE_GOURAUD | GFX_STATE_TEXTURE_NONE);
     uvGfxClearFlags(GFX_STATE_DECAL | GFX_STATE_ZBUFFER);
@@ -157,15 +157,15 @@ s32 env_802E0CF0(void) {
     uvVtxBeginPoly();
     sp3C = ((0, sp54) * (spE8 - spF4)) + spF4;
     sp38 = ((0, sp54) * (spEC - spF8)) + spF8;
-    uvVtx((sp3C + sp148), (sp38 + sp14C), sp50, 0, 0, sp4B, sp4A, sp49, 0xFF);
-    uvVtx((sp3C - sp148), (sp38 - sp14C), sp50, 0, 0, sp4B, sp4A, sp49, 0xFF);
+    uvVtx((sp3C + sp148), (sp38 + sp14C), sp50, 0, 0, fogR, fogG, fogB, 0xFF);
+    uvVtx((sp3C - sp148), (sp38 - sp14C), sp50, 0, 0, fogR, fogG, fogB, 0xFF);
     sp3C = 0.0f;
-    uvVtx((sp16C - sp148), (sp170 - sp14C), sp3C, 0, 0, sp4B, sp4A, sp49, 0);
-    uvVtx((sp16C + sp148), (sp170 + sp14C), sp3C, 0, 0, sp4B, sp4A, sp49, 0);
+    uvVtx((sp16C - sp148), (sp170 - sp14C), sp3C, 0, 0, fogR, fogG, fogB, 0);
+    uvVtx((sp16C + sp148), (sp170 + sp14C), sp3C, 0, 0, fogR, fogG, fogB, 0);
     uvVtxEndPoly();
     uvGfxMtxViewPop();
     uvGfxStatePop();
-    uvEnvProps(D_80362690->envId, 3, 0.996f, 0);
+    uvEnvProps(D_80362690->envId, ENV_PROP_FOG_FACTOR(0.996f), ENV_PROP_END);
     return 0;
 }
 
@@ -587,7 +587,7 @@ void env_802E2060(void) {
     f32 var_fa0;
     s32 i;
     u8* temp_v0;
-    u8 temp1, temp2, temp3;
+    u8 fogR, fogG, fogB;
 
     if ((D_80362690->envId == 5) || (D_80362690->envId == 16)) {
         camera = D_80362690->unkC[D_80362690->unk9C].unk70;
@@ -604,10 +604,10 @@ void env_802E2060(void) {
         }
         temp_v0 = D_8034EEE0[i];
         var_fa1 = (var_fa0 - D_8034EEFC[i]) / (D_8034EEFC[i + 1] - D_8034EEFC[i]);
-        temp1 = ((temp_v0[3] - temp_v0[0]) * var_fa1) + temp_v0[0];
-        temp2 = ((temp_v0[4] - temp_v0[1]) * var_fa1) + temp_v0[1];
-        temp3 = ((temp_v0[5] - temp_v0[2]) * var_fa1) + temp_v0[2];
-        uvEnvProps(D_80362690->envId, 1, temp1, temp2, temp3, 0xFF, 0);
+        fogR = ((temp_v0[3] - temp_v0[0]) * var_fa1) + temp_v0[0];
+        fogG = ((temp_v0[4] - temp_v0[1]) * var_fa1) + temp_v0[1];
+        fogB = ((temp_v0[5] - temp_v0[2]) * var_fa1) + temp_v0[2];
+        uvEnvProps(D_80362690->envId, ENV_PROP_FOG_COLOR(fogR, fogG, fogB, 0xFF), ENV_PROP_END);
     }
 }
 

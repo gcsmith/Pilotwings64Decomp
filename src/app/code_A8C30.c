@@ -125,7 +125,7 @@ void func_80321760(void) {
     env_802E1444(D_80362690->envId);
     uvChanTerra(sp3D4->unk70->unk22C, D_80362690->terraId);
     func_80204A8C(sp3D4->unk70->unk22C, 3);
-    uvEnvProps(D_80362690->envId, 3, 0.0f, 0);
+    uvEnvProps(D_80362690->envId, ENV_PROP_FOG_FACTOR(0.0f), ENV_PROP_END);
     uvLevelAppend(D_8034EE84[sp3D4->veh]);
     if (IS_BONUS_VEHICLE(sp3D4->veh)) {
         switch (sp3D4->cls) {

@@ -2,7 +2,7 @@
 #include <uv_controller.h>
 #include <uv_util.h>
 
-ControllerInfo gControllerInfo[6];
+ControllerInfo gControllerInfo[UV_MAX_CONTROLLERS];
 extern s32 gControllerPattern;
 
 void uvControllerInit(void) {
@@ -11,10 +11,9 @@ void uvControllerInit(void) {
     u32 contPattern;
     s32 mask;
 
-    // 6 controllers and 3 axes on the stick
-    for (i = 0; i < 6; i++) {
+    for (i = 0; i < UV_MAX_CONTROLLERS; i++) {
         // clang-format off: needs to be on one line to match
-        for (j = 0; j < 3; j++) { gControllerInfo[i].stickAxes[j] = 0.0f; }
+        for (j = 0; j < UV_MAX_AXES; j++) { gControllerInfo[i].stickAxes[j] = 0.0f; }
         // clang-format on
         gControllerInfo[i].button = 0;
         gControllerInfo[i].prevButton = 0;
@@ -22,14 +21,14 @@ void uvControllerInit(void) {
 
     contPattern = uvContMesgInit();
 
-    for (i = 0; i < 6; i++) {
+    for (i = 0; i < UV_MAX_CONTROLLERS; i++) {
         mask = 1 << i;
         if (contPattern & mask) {
-            gControllerInfo[i].unk18 = 1;
-            gControllerInfo[i].unk0 = 1;
+            gControllerInfo[i].enumerate = TRUE;
+            gControllerInfo[i].connected = TRUE;
             gControllerPattern = contPattern;
         } else {
-            gControllerInfo[i].unk18 = 0;
+            gControllerInfo[i].enumerate = FALSE;
         }
     }
 }
@@ -51,11 +50,11 @@ s32 uvIOUpdate(void) {
     }
 
     for (i = 0; i < ARRAY_COUNT(gControllerInfo); i++) {
-        if (gControllerInfo[i].unk18 == 0) {
+        if (gControllerInfo[i].enumerate == FALSE) {
             continue;
         }
-        if (gControllerInfo[i].unk0 == 1) {
-            if (func_80224548(i) == 0) {
+        if (gControllerInfo[i].connected == TRUE) {
+            if (uvControllerUpdate(i) == 0) {
                 return 0;
             }
             continue;
@@ -67,7 +66,7 @@ s32 uvIOUpdate(void) {
     return 1;
 }
 
-s32 func_80224548(s32 contIdx) {
+s32 uvControllerUpdate(s32 contIdx) {
     // uvReadController returns 0 (failure) or 1 (success)
     // unsure of the original intent of this comparison
     if (uvReadController(&gControllerInfo[contIdx], contIdx) < 0) {
