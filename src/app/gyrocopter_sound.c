@@ -56,8 +56,15 @@ void func_8030A140(GyrocopterData* gcData) {
         gcData->unk690[i].unk50 = uvEmitterLookup();
         if (gcData->unk690[i].unk50 != 0xFF) {
             uvEmitterFromModel(gcData->unk690[i].unk50, 0x2F);
-            uvEmitterSetUnk70(gcData->unk690[i].unk50, 0.6f);
-            uvEmitterProp(gcData->unk690[i].unk50, 1, 0.0f, 2, 1000.0f, 5, 0x18, 0);
+            uvEmitterSetVol(gcData->unk690[i].unk50, 0.6f);
+            // clang-format off
+            uvEmitterProps(gcData->unk690[i].unk50,
+                EMITTER_PROP_NEAR(0.0f),
+                EMITTER_PROP_FAR(1000.0f),
+                EMITTER_PROP_ATTR(0x18),
+                EMITTER_PROP_END
+            );
+            // clang-format on
         }
     }
     D_80369E50.cb = &hsound_callback;
@@ -185,10 +192,10 @@ void hsound_callback(s32 eventType, void* arg1, s32 eventData) {
         for (i = 0; i < 2; i++) {
             sp34 = gyrocopterData->unk690[i];
             if (sp34.unk48 == 0) {
-                uvEmitterSetUnk70(sp34.unk50, 0.0f);
+                uvEmitterSetVol(sp34.unk50, 0.0f);
                 uvEmitterRelease(sp34.unk50);
             } else if (sp34.unk48 == 1) {
-                uvEmitterSetUnk70(sp34.unk50, 1.0f);
+                uvEmitterSetVol(sp34.unk50, 1.0f);
                 uvEmitterSetMatrix(sp34.unk50, &sp34.unk0);
                 if ((sp34.unk48 == 1) && (sp34.unk4F == 0)) {
                     uvEmitterTrigger(sp34.unk50);
@@ -338,11 +345,17 @@ void func_8030B168(GyrocopterData* gcData) {
 }
 
 void func_8030B240(Mtx4F* mat) {
-    u8 sp3F;
-
-    sp3F = sndMakeDev(0x30);
-    uvEmitterProp(sp3F, 1, 0.0f, 2, 2000.0f, 5, 0x38, 0);
-    uvEmitterSetUnk70(sp3F, 1.0f);
-    uvEmitterSetUnk74(sp3F, 1.0f);
-    uvEmitterSetMatrix(sp3F, mat);
+    u8 emitterId = sndMakeDev(0x30);
+    // clang-format off
+    uvEmitterProps(emitterId,
+        EMITTER_PROP_NEAR(0.0f),
+        EMITTER_PROP_FAR(2000.0f),
+        EMITTER_PROP_ATTR(0x38),
+        EMITTER_PROP_END
+    );
+    // clang-format on
+    uvEmitterSetVol(emitterId, 1.0f);
+    uvEmitterSetPitch(emitterId, 1.0f);
+    uvEmitterSetMatrix(emitterId, mat);
 }
+

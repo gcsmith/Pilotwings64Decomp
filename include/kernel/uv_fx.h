@@ -76,10 +76,10 @@ typedef struct {
     f32 unk48;
     f32 unk4C;
     u16 textureId;
-    u8 unk52;
-    u8 unk53;
-    u8 unk54;
-    u8 unk55;
+    u8 colorR;
+    u8 colorG;
+    u8 colorB;
+    u8 colorA;
     u8 unk56;
     u8 unk57;
     u8 unk58;
@@ -132,3 +132,4 @@ void uvFxProps(s32 fxId, ...);
 void uvFxGetProps(s32 fxId, ...);
 
 #endif // UV_FX_H
+

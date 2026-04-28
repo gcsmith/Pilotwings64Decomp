@@ -162,16 +162,23 @@ void hoverPadFrameUpdate(UNUSED Mtx4F* arg0) {
 }
 
 void hoverPadLanded(s32 hoverIdx) {
-    u8 objId;
+    u8 emitterId;
     HoverPad* hover;
 
     hover = &gHoverPads[hoverIdx];
     if (hover->objId != INVALID_OBJECT_ID) {
-        objId = uvEmitterLookup();
-        uvEmitterFromModel(objId, 0x3E);
-        uvEmitterProp(objId, 1, 0.0f, 2, 500.0f, 5, 0x38, 0);
-        uvEmitterSetMatrix(objId, &hover->pose);
-        uvEmitterTrigger(objId);
+        emitterId = uvEmitterLookup();
+        uvEmitterFromModel(emitterId, 0x3E);
+        // clang-format off
+        uvEmitterProps(emitterId,
+            EMITTER_PROP_NEAR(0.0f),
+            EMITTER_PROP_FAR(500.0f),
+            EMITTER_PROP_ATTR(EMITTER_ATTR_INIT | EMITTER_ATTR_ONESHOT | EMITTER_ATTR_8),
+            EMITTER_PROP_END
+        );
+        // clang-format on
+        uvEmitterSetMatrix(emitterId, &hover->pose);
+        uvEmitterTrigger(emitterId);
         uvDobjModel(hover->objId, 0xFFFF);
         hover->objId = INVALID_OBJECT_ID;
         hover->wasLandedOn = TRUE;
@@ -259,3 +266,4 @@ s16 hoverPadGetPoints(void) {
     }
     return points;
 }
+

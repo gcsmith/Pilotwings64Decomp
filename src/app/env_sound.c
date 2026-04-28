@@ -20,7 +20,7 @@
 
 typedef struct {
     f32 unk0;
-    u8 objId;
+    u8 emitterId;
     u8 sndId;
     u8 unk6;
     u8 pad7[1];
@@ -85,7 +85,7 @@ void envSoundInit(void) {
 
 void envSoundLoad(LevelESND* arg0) {
     s32 idx;
-    u8 objId;
+    u8 emitterId;
     EnvSoundState* ptr = &sEnvSoundState;
 
     idx = ptr->count;
@@ -98,29 +98,36 @@ void envSoundLoad(LevelESND* arg0) {
     ptr->emitters[idx].unk0 = arg0->unk60;
     ptr->emitters[idx].sndId = arg0->sndId;
     ptr->emitters[idx].unk6 = arg0->unk70;
-    ptr->emitters[idx].objId = uvEmitterLookup();
-    objId = ptr->emitters[idx].objId;
-    uvEmitterFromModel(objId, sEnvSoundModelIdLookup[arg0->sndId]);
-    uvEmitterSetMatrix(objId, &arg0->unk0);
+    ptr->emitters[idx].emitterId = uvEmitterLookup();
+    emitterId = ptr->emitters[idx].emitterId;
+    uvEmitterFromModel(emitterId, sEnvSoundModelIdLookup[arg0->sndId]);
+    uvEmitterSetMatrix(emitterId, &arg0->unk0);
     if (arg0->unk74 & 0x2) {
-        uvEmitter_80201494(objId, arg0->unk40, arg0->unk4C);
+        uvEmitter_80201494(emitterId, arg0->unk40, arg0->unk4C);
     }
-    uvEmitterSetUnk70(objId, arg0->unk60);
-    uvEmitterSetUnk74(objId, arg0->unk5C);
-    uvEmitterSetPri(objId, arg0->unk64);
-    uvEmitterProp(objId, 5, arg0->unk74, 1, arg0->unk68, 2, arg0->unk6C, 0);
+    uvEmitterSetVol(emitterId, arg0->unk60);
+    uvEmitterSetPitch(emitterId, arg0->unk5C);
+    uvEmitterSetPri(emitterId, arg0->unk64);
+    // clang-format off
+    uvEmitterProps(emitterId,
+        EMITTER_PROP_ATTR(arg0->unk74),
+        EMITTER_PROP_NEAR(arg0->unk68),
+        EMITTER_PROP_FAR(arg0->unk6C),
+        EMITTER_PROP_END
+    );
+    // clang-format on
 }
 
 void envSound_802E2904(EnvSoundState* arg0) {
     s32 i;
 
     for (i = 0; i < arg0->count; i++) {
-        uvEmitterSetUnk70(arg0->emitters[i].objId, 0.0f);
-        func_8033F8CC(arg0->emitters[i].objId);
+        uvEmitterSetVol(arg0->emitters[i].emitterId, 0.0f);
+        func_8033F8CC(arg0->emitters[i].emitterId);
     }
 
     for (i = 0; i < ARRAY_COUNT(arg0->emitters); i++) {
-        arg0->emitters[i].objId = 0xFF;
+        arg0->emitters[i].emitterId = 0xFF;
         arg0->emitters[i].sndId = 0xFF;
         arg0->emitters[i].unk6 = 0xFF;
     }
@@ -227,91 +234,91 @@ void envSound_802E2A00(s32 eventType, void* arg1, s32 eventData) {
         for (i = 0; i < esState->count; i++) {
             emitter = &esState->emitters[i];
             if (D_8034EF20 != 0) {
-                uvEmitterSetUnk70(emitter->objId, uvEmitterGetUnk70(emitter->objId) * 0.95f);
+                uvEmitterSetVol(emitter->emitterId, uvEmitterGetVol(emitter->emitterId) * 0.95f);
             } else {
                 if ((sp26C == emitter->unk6) || (emitter->unk6 == 0xA)) {
                     switch (emitter->sndId) {
                     case 0:
                         temp_fs1 = ((demoRandF() - 0.5f) * 0.1f) + 0.8f;
                         temp_fs0 = ((demoRandF() - 0.5f) * 0.2f) + 0.9f;
-                        uvEmitterSetUnk74(emitter->objId, temp_fs1);
-                        uvEmitterSetUnk70(emitter->objId, temp_fs0);
+                        uvEmitterSetPitch(emitter->emitterId, temp_fs1);
+                        uvEmitterSetVol(emitter->emitterId, temp_fs0);
                         break;
                     case 1:
                         temp_fs1 = ((demoRandF() - 0.5f) * 0.1f) + 0.8f;
                         temp_fs0 = ((demoRandF() - 0.5f) * 0.1f) + 0.95f;
-                        uvEmitterSetUnk74(emitter->objId, temp_fs1);
-                        uvEmitterSetUnk70(emitter->objId, temp_fs0);
+                        uvEmitterSetPitch(emitter->emitterId, temp_fs1);
+                        uvEmitterSetVol(emitter->emitterId, temp_fs0);
                         break;
                     case 2:
                         temp_fs1 = ((demoRandF() - 0.5f) * 0.1f) + 0.8f;
-                        uvEmitterSetUnk74(emitter->objId, temp_fs1);
+                        uvEmitterSetPitch(emitter->emitterId, temp_fs1);
                         break;
                     case 3:
                         temp_fs1 = 1.0f;
                         temp_fs0 = ((demoRandF() - 0.5f) * 0.2f) + 0.9f;
-                        uvEmitterSetUnk74(emitter->objId, temp_fs1);
-                        uvEmitterSetUnk70(emitter->objId, temp_fs0);
+                        uvEmitterSetPitch(emitter->emitterId, temp_fs1);
+                        uvEmitterSetVol(emitter->emitterId, temp_fs0);
                         break;
                     case 4:
                         temp_fs1 = ((demoRandF() - 0.5f) * 0.1f) + 0.8f;
                         temp_fs0 = ((demoRandF() - 0.5f) * 0.2f) + 0.9f;
-                        uvEmitterSetUnk74(emitter->objId, temp_fs1);
-                        uvEmitterSetUnk70(emitter->objId, temp_fs0);
+                        uvEmitterSetPitch(emitter->emitterId, temp_fs1);
+                        uvEmitterSetVol(emitter->emitterId, temp_fs0);
                         break;
                     case 5:
                         temp_fs1 = ((demoRandF() - 0.5f) * 0.1f) + 1.8f;
                         temp_fs0 = ((demoRandF() - 0.5f) * 0.2f) + 0.7f;
-                        uvEmitterSetUnk74(emitter->objId, temp_fs1);
-                        uvEmitterSetUnk70(emitter->objId, temp_fs0);
+                        uvEmitterSetPitch(emitter->emitterId, temp_fs1);
+                        uvEmitterSetVol(emitter->emitterId, temp_fs0);
                         break;
                     case 9:
                         temp_fs1 = ((demoRandF() - 0.5f) * 0.1f) + 1.00f; // + 1.0f
                         temp_fs0 = ((demoRandF() - 0.5f) * 0.1f) + 0.95f;
-                        uvEmitterSetUnk74(emitter->objId, temp_fs1);
-                        uvEmitterSetUnk70(emitter->objId, temp_fs0);
+                        uvEmitterSetPitch(emitter->emitterId, temp_fs1);
+                        uvEmitterSetVol(emitter->emitterId, temp_fs0);
                         break;
                     case 11:
                         temp_fs1 = ((demoRandF() - 0.5f) * 0.1f) + 0.4f;
-                        uvEmitterSetUnk74(emitter->objId, temp_fs1);
+                        uvEmitterSetPitch(emitter->emitterId, temp_fs1);
                         break;
                     case 26:
                         ferryGetPos(&sp208);
                         sp1C8.m[3][0] = sp208.x;
                         sp1C8.m[3][1] = sp208.y;
                         sp1C8.m[3][2] = sp208.z;
-                        uvEmitterSetMatrix(emitter->objId, &sp1C8);
+                        uvEmitterSetMatrix(emitter->emitterId, &sp1C8);
                         break;
                     case 23:
                         planesGetPos(0, &sp1BC);
                         sp17C.m[3][0] = sp1BC.x;
                         sp17C.m[3][1] = sp1BC.y;
                         sp17C.m[3][2] = sp1BC.z;
-                        uvEmitterSetMatrix(emitter->objId, &sp17C);
+                        uvEmitterSetMatrix(emitter->emitterId, &sp17C);
                         break;
                     case 24:
                         planesGetPos(1, &sp170);
                         sp130.m[3][0] = sp170.x;
                         sp130.m[3][1] = sp170.y;
                         sp130.m[3][2] = sp170.z;
-                        uvEmitterSetMatrix(emitter->objId, &sp130);
+                        uvEmitterSetMatrix(emitter->emitterId, &sp130);
                         break;
                     case 21:
                         if (boatsGetPose(0, &spF0) != 0) {
-                            uvEmitterSetMatrix(emitter->objId, &spF0);
+                            uvEmitterSetMatrix(emitter->emitterId, &spF0);
                         } else {
-                            uvEmitterRelease(emitter->objId);
+                            uvEmitterRelease(emitter->emitterId);
                         }
                         break;
                     case 22:
                         if (boatsGetPose(1, &spAC) != 0) {
-                            uvEmitterSetMatrix(emitter->objId, &spAC);
+                            uvEmitterSetMatrix(emitter->emitterId, &spAC);
                         } else {
-                            uvEmitterRelease(emitter->objId);
+                            uvEmitterRelease(emitter->emitterId);
                         }
                         break;
                     case 17:
-                        uvEmitterGetMatrix(emitter->objId, &sp22C);
+                        uvEmitterGetMatrix(emitter->emitterId, &sp22C);
                         env_802E1754(sp22C.m[3][0], sp22C.m[3][1], sp22C.m[3][2], &sp220);
                         temp_fs1 = (sp220.y * 0.1f) + 0.25f;
                         temp_fs0 = sp220.y;
@@ -320,42 +327,42 @@ void envSound_802E2A00(s32 eventType, void* arg1, s32 eventData) {
                         } else if (temp_fs0 > 1.0f) {
                             temp_fs0 = 1.0f;
                         }
-                        uvEmitterSetUnk74(emitter->objId, temp_fs1);
-                        uvEmitterSetUnk70(emitter->objId, temp_fs0);
+                        uvEmitterSetPitch(emitter->emitterId, temp_fs1);
+                        uvEmitterSetVol(emitter->emitterId, temp_fs0);
                         break;
                     case 20:
                         switch (shuttleGetState()) {
                         case 0:
-                            uvEmitterSetUnk74(emitter->objId, 1.0f);
-                            uvEmitterSetUnk70(emitter->objId, 0.0f);
+                            uvEmitterSetPitch(emitter->emitterId, 1.0f);
+                            uvEmitterSetVol(emitter->emitterId, 0.0f);
                             break;
                         case 1:
-                            uvEmitterSetUnk74(emitter->objId, 0.20f); // 0.2f
-                            uvEmitterSetUnk70(emitter->objId, 1.0f);
+                            uvEmitterSetPitch(emitter->emitterId, 0.20f); // 0.2f
+                            uvEmitterSetVol(emitter->emitterId, 1.0f);
                             break;
                         case 2:
-                            uvEmitterSetUnk74(emitter->objId, 0.33f);
-                            uvEmitterSetUnk70(emitter->objId, 1.0f);
+                            uvEmitterSetPitch(emitter->emitterId, 0.33f);
+                            uvEmitterSetVol(emitter->emitterId, 1.0f);
                             shuttle_80335F24(&sp9C);
                             uvMat4SetIdentity(&sp5C);
                             sp5C.m[3][0] = sp9C.x;
                             sp5C.m[3][1] = sp9C.y;
                             sp5C.m[3][2] = sp9C.z;
-                            uvEmitterSetMatrix(emitter->objId, &sp5C);
+                            uvEmitterSetMatrix(emitter->emitterId, &sp5C);
                             break;
                         case 3:
-                            uvEmitterSetUnk74(emitter->objId, 1.0f);
-                            uvEmitterSetUnk70(emitter->objId, 0.5f);
+                            uvEmitterSetPitch(emitter->emitterId, 1.0f);
+                            uvEmitterSetVol(emitter->emitterId, 0.5f);
                             shuttle_80335F24(&sp9C);
                             uvMat4SetIdentity(&sp5C);
                             sp5C.m[3][0] = sp9C.x;
                             sp5C.m[3][1] = sp9C.y;
                             sp5C.m[3][2] = sp9C.z;
-                            uvEmitterSetMatrix(emitter->objId, &sp5C);
+                            uvEmitterSetMatrix(emitter->emitterId, &sp5C);
                             break;
                         case 4:
-                            uvEmitterSetUnk74(emitter->objId, 1.0f);
-                            uvEmitterSetUnk70(emitter->objId, 0.0f);
+                            uvEmitterSetPitch(emitter->emitterId, 1.0f);
+                            uvEmitterSetVol(emitter->emitterId, 0.0f);
                             break;
                         default:
                             _uvDebugPrintf("got unkown shuttle state\n");
@@ -391,9 +398,9 @@ void envSound_802E3250(EnvSoundState* arg0) {
     for (i = 0; i < arg0->count; i++) {
         var_s0 = &arg0->emitters[i];
         if (temp_s4 == var_s0->unk6) {
-            uvEmitterTrigger(var_s0->objId);
+            uvEmitterTrigger(var_s0->emitterId);
         } else if (var_s0->unk6 != 0xA) {
-            uvEmitterRelease(var_s0->objId);
+            uvEmitterRelease(var_s0->emitterId);
         }
     }
     arg0->unk7F8 = temp_s4;
@@ -408,8 +415,8 @@ void envSound_802E3310(EnvSoundState* arg0) {
     arg0->flags = 0xFFFFFFC0;
     for (i = 0; i < arg0->count; i++) {
         var_s0 = &arg0->emitters[i];
-        uvEmitterSetUnk70(var_s0->objId, var_s0->unk0);
-        uvEmitterTrigger(var_s0->objId);
+        uvEmitterSetVol(var_s0->emitterId, var_s0->unk0);
+        uvEmitterTrigger(var_s0->emitterId);
     }
 }
 
@@ -492,3 +499,4 @@ void envSoundFrameUpdate(Mtx4F* arg0) {
         }
     }
 }
+

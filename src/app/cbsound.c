@@ -38,9 +38,16 @@ void cbSoundInit(CannonballData* cbData) {
     cbData->unk2B4 = uvEmitterLookup();
     sndGetPilotScream(&sfxId, &pitch);
     uvEmitterFromModel(cbData->unk2B4, sfxId);
-    uvEmitterSetUnk70(cbData->unk2B4, 1.0f);
-    uvEmitterSetUnk74(cbData->unk2B4, pitch);
-    uvEmitterProp(cbData->unk2B4, 1, 0.0f, 2, 5000.0f, 5, 0x10, 0);
+    uvEmitterSetVol(cbData->unk2B4, 1.0f);
+    uvEmitterSetPitch(cbData->unk2B4, pitch);
+    // clang-format off
+    uvEmitterProps(cbData->unk2B4,
+        EMITTER_PROP_NEAR(0.0f),
+        EMITTER_PROP_FAR(5000.0f),
+        EMITTER_PROP_ATTR(EMITTER_ATTR_ONESHOT),
+        EMITTER_PROP_END
+    );
+    // clang-format on
     cbData->unk2B5 = sndMakeDev(0x4C);
     D_80359BE0.cb = func_802D9E68;
     D_80359BE0.arg = cbData;
@@ -197,3 +204,4 @@ void func_802DA474(CannonballData* cbData) {
     cbData->unk2B5 = func_8033F8CC(cbData->unk2B5);
     uvEventRemoveCb(D_80359BE0, 1, 0xD, 0x12, 0x13, 0x10, 0xC, 0x16, 0x19, 0x24);
 }
+

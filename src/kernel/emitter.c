@@ -25,150 +25,150 @@ void uvEmitterInitTable(void) {
     uvEmitterInit(&gSndEmitterTable[255]);
 }
 
-void uvEmitterInit(uvaEmitter_t* obj) {
+void uvEmitterInit(uvaEmitter_t* emitter) {
     Mtx4F temp;
 
     uvMat4SetIdentity(&temp);
-    obj->playVoice = 0x11;
-    obj->playState = 0;
-    obj->playVolume = 0x7FFF;
-    obj->playPan = 0x40;
-    obj->playMix = 0;
-    obj->playTimeout = 0;
-    obj->playPitch = 1.0f;
+    emitter->playVoice = 0x11;
+    emitter->playState = 0;
+    emitter->playVolume = 0x7FFF;
+    emitter->playPan = 0x40;
+    emitter->playMix = 0;
+    emitter->playTimeout = 0;
+    emitter->playPitch = 1.0f;
 
-    uvMat4Copy(&obj->m1, &temp);
-    obj->sound = 0xFF;
-    obj->priority = 0;
-    obj->unk98 = 0;
-    obj->state = 0;
+    uvMat4Copy(&emitter->m1, &temp);
+    emitter->sound = 0xFF;
+    emitter->priority = 0;
+    emitter->attr = 0;
+    emitter->state = 0;
 
-    obj->unk40.x = 0.0f;
-    obj->unk40.y = 0.0f;
-    obj->unk40.z = 0.0f;
+    emitter->unk40.x = 0.0f;
+    emitter->unk40.y = 0.0f;
+    emitter->unk40.z = 0.0f;
 
-    obj->unk4C.x = 0.0f;
-    obj->unk4C.y = 0.0f;
-    obj->unk4C.z = 0.0f;
+    emitter->unk4C.x = 0.0f;
+    emitter->unk4C.y = 0.0f;
+    emitter->unk4C.z = 0.0f;
 
-    obj->unk70.x = 1.0f;
-    obj->unk70.y = 1.0f;
-    obj->unk70.z = 0.0f;
-    obj->unk70.w = 0.0f;
+    emitter->vol = 1.0f;
+    emitter->pitch = 1.0f;
+    emitter->pan = 0.0f;
+    emitter->mix = 0.0f;
 
-    obj->unk80 = 0.0f;
-    obj->unk84 = 0.0f;
-    obj->near = 0.0f;
-    obj->far = 1000.0f;
+    emitter->unk80 = 0.0f;
+    emitter->unk84 = 0.0f;
+    emitter->near = 0.0f;
+    emitter->far = 1000.0f;
 }
 
 u8 uvEmitterLookup(void) {
-    u8 var_v1;
+    u8 emitterId;
 
     uvEmitterPrintf("looking for emitter\n");
-    for (var_v1 = 0; var_v1 < 0xFF; var_v1++) {
-        if (gSndEmitterTable[var_v1].sound == 0xFF) {
-            uvEmitterPrintf("Returning emitter %d\n", var_v1);
-            return var_v1;
+    for (emitterId = 0; emitterId < 0xFF; emitterId++) {
+        if (gSndEmitterTable[emitterId].sound == 0xFF) {
+            uvEmitterPrintf("Returning emitter %d\n", emitterId);
+            return emitterId;
         }
     }
     _uvDebugPrintf("no free emitters\n");
     return 0xFF;
 }
 
-void uvEmitterFromModel(u8 obj_id, u8 mdl_id) {
-    uvEmitterPrintf("assigning model %d to emitter %d\n", mdl_id, obj_id);
-    if (obj_id < 0xFF) {
-        if (gSndEmitterTable[obj_id].playState != 0x11) {
-            _uvaStopVoice(gSndEmitterTable[obj_id].playVoice);
-            gSndEmitterTable[obj_id].playState = 0;
-            gSndEmitterTable[obj_id].playVoice = 0x11U;
-            gSndEmitterTable[obj_id].playTimeout = 0;
+void uvEmitterFromModel(u8 emitterId, u8 modelId) {
+    uvEmitterPrintf("assigning model %d to emitter %d\n", modelId, emitterId);
+    if (emitterId < 0xFF) {
+        if (gSndEmitterTable[emitterId].playState != 0x11) {
+            _uvaStopVoice(gSndEmitterTable[emitterId].playVoice);
+            gSndEmitterTable[emitterId].playState = 0;
+            gSndEmitterTable[emitterId].playVoice = 0x11U;
+            gSndEmitterTable[emitterId].playTimeout = 0;
         }
-        uvEmitterInit(&gSndEmitterTable[obj_id]);
-        gSndEmitterTable[obj_id].sound = mdl_id;
+        uvEmitterInit(&gSndEmitterTable[emitterId]);
+        gSndEmitterTable[emitterId].sound = modelId;
     }
 }
 
-void uvEmitterSetMatrix(u8 obj_id, Mtx4F* src) {
-    if (obj_id < 0xFF) {
-        uvMat4Copy(&gSndEmitterTable[obj_id].m1, src);
+void uvEmitterSetMatrix(u8 emitterId, Mtx4F* src) {
+    if (emitterId < 0xFF) {
+        uvMat4Copy(&gSndEmitterTable[emitterId].m1, src);
     }
 }
 
-void uvEmitterGetMatrix(u8 obj_id, Mtx4F* dst) {
-    if (obj_id < 0xFF) {
-        uvMat4Copy(dst, &gSndEmitterTable[obj_id].m1);
+void uvEmitterGetMatrix(u8 emitterId, Mtx4F* dst) {
+    if (emitterId < 0xFF) {
+        uvMat4Copy(dst, &gSndEmitterTable[emitterId].m1);
     }
 }
 
-void uvEmitter_80201494(u8 obj_id, Vec3F arg1, Vec3F arg4) {
+void uvEmitter_80201494(u8 emitterId, Vec3F arg1, Vec3F arg4) {
     Vec3F sp44;
     f32 temp_fv0;
-    uvaEmitter_t* obj;
+    uvaEmitter_t* emitter;
 
-    if (obj_id >= 0xFF) {
+    if (emitterId >= 0xFF) {
         return;
     }
 
-    obj = &gSndEmitterTable[obj_id];
-    uvVec3Copy(&obj->unk40, &arg1);
-    uvVec3Copy(&obj->unk4C, &arg4);
-    obj->unk64.x = (obj->unk4C.x + obj->unk40.x) * 0.5f;
-    obj->unk64.y = (obj->unk4C.y + obj->unk40.y) * 0.5f;
-    obj->unk64.z = (obj->unk4C.z + obj->unk40.z) * 0.5f;
-    sp44.z = obj->unk4C.x - obj->unk40.x;
-    sp44.y = obj->unk4C.y - obj->unk40.y;
-    sp44.x = obj->unk4C.z - obj->unk40.z;
+    emitter = &gSndEmitterTable[emitterId];
+    uvVec3Copy(&emitter->unk40, &arg1);
+    uvVec3Copy(&emitter->unk4C, &arg4);
+    emitter->unk64.x = (emitter->unk4C.x + emitter->unk40.x) * 0.5f;
+    emitter->unk64.y = (emitter->unk4C.y + emitter->unk40.y) * 0.5f;
+    emitter->unk64.z = (emitter->unk4C.z + emitter->unk40.z) * 0.5f;
+    sp44.z = emitter->unk4C.x - emitter->unk40.x;
+    sp44.y = emitter->unk4C.y - emitter->unk40.y;
+    sp44.x = emitter->unk4C.z - emitter->unk40.z;
     temp_fv0 = uvSqrtF(SQ(sp44.z) + SQ(sp44.y) + SQ(sp44.x));
     if (temp_fv0 != 0.0f) {
-        obj->unk58.x = sp44.z / temp_fv0;
-        obj->unk58.y = sp44.y / temp_fv0;
-        obj->unk58.z = sp44.x / temp_fv0;
+        emitter->unk58.x = sp44.z / temp_fv0;
+        emitter->unk58.y = sp44.y / temp_fv0;
+        emitter->unk58.z = sp44.x / temp_fv0;
     }
 }
 
-void uvEmitterSetUnk70(u8 obj_id, f32 arg1) {
-    if (obj_id < 0xFF) {
-        gSndEmitterTable[obj_id].unk70.x = arg1;
+void uvEmitterSetVol(u8 emitterId, f32 vol) {
+    if (emitterId < 0xFF) {
+        gSndEmitterTable[emitterId].vol = vol;
     }
 }
 
-f32 uvEmitterGetUnk70(u8 obj_id) {
-    if (obj_id >= 0xFF) {
+f32 uvEmitterGetVol(u8 emitterId) {
+    if (emitterId >= 0xFF) {
         return 0.0f;
     }
-    return gSndEmitterTable[obj_id].unk70.x;
+    return gSndEmitterTable[emitterId].vol;
 }
 
-void uvEmitterSetUnk78(u8 obj_id, f32 arg1) {
-    if (obj_id < 0xFF) {
-        gSndEmitterTable[obj_id].unk70.z = arg1;
+void uvEmitterSetPan(u8 emitterId, f32 pan) {
+    if (emitterId < 0xFF) {
+        gSndEmitterTable[emitterId].pan = pan;
     }
 }
 
-void uvEmitterSetUnk74(u8 obj_id, f32 arg1) {
-    if (obj_id < 0xFF) {
-        gSndEmitterTable[obj_id].unk70.y = arg1;
+void uvEmitterSetPitch(u8 emitterId, f32 pitch) {
+    if (emitterId < 0xFF) {
+        gSndEmitterTable[emitterId].pitch = pitch;
     }
 }
 
-void uvEmitterSetPri(u8 obj_id, s32 pri) {
-    if (obj_id < 0xFF) {
-        gSndEmitterTable[obj_id].priority = pri;
+void uvEmitterSetPri(u8 emitterId, s32 pri) {
+    if (emitterId < 0xFF) {
+        gSndEmitterTable[emitterId].priority = pri;
     }
 }
 
-void uvEmitterProp(u8 obj_id, ...) {
-    f32 temp_fv0;
-    uvaEmitter_t* obj;
+void uvEmitterProps(u8 emitterId, ...) {
+    f32 argValue;
+    uvaEmitter_t* emitter;
     s32 propertyType;
     va_list args;
 
-    if (obj_id >= 0xFF || obj_id == 0xFF) {
+    if (emitterId >= 0xFF || emitterId == 0xFF) {
         return;
     }
-    obj = &gSndEmitterTable[obj_id];
+    emitter = &gSndEmitterTable[emitterId];
 
     // passing an object that undergoes default argument promotion to 'va_start'
     // has undefined behavior (e.g. u8, u16, f32)
@@ -176,7 +176,7 @@ void uvEmitterProp(u8 obj_id, ...) {
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wvarargs"
 #endif
-    va_start(args, obj_id);
+    va_start(args, emitterId);
 #if defined(__clang__)
 #pragma GCC diagnostic pop
 #endif
@@ -184,24 +184,24 @@ void uvEmitterProp(u8 obj_id, ...) {
     while (TRUE) {
         propertyType = va_arg(args, s32);
         switch (propertyType) {
-        case 0:
+        case EMITTER_PROPID_END:
             return;
-        case 1:
-            temp_fv0 = va_arg(args, f64);
-            obj->near = SQ(temp_fv0);
+        case EMITTER_PROPID_NEAR:
+            argValue = va_arg(args, f64);
+            emitter->near = SQ(argValue);
             break;
-        case 2:
-            temp_fv0 = va_arg(args, f64);
-            obj->far = SQ(temp_fv0);
+        case EMITTER_PROPID_FAR:
+            argValue = va_arg(args, f64);
+            emitter->far = SQ(argValue);
             break;
-        case 4:
-            obj->unk84 = va_arg(args, f64);
+        case EMITTER_PROPID_4:
+            emitter->unk84 = va_arg(args, f64);
             break;
-        case 3:
-            obj->unk80 = va_arg(args, f64);
+        case EMITTER_PROPID_3:
+            emitter->unk80 = va_arg(args, f64);
             break;
-        case 5:
-            obj->unk98 = va_arg(args, s32);
+        case EMITTER_PROPID_ATTR:
+            emitter->attr = va_arg(args, s32);
             break;
         default:
             uvEmitterPrintf("Unknown property type 0x%x\n", propertyType);
@@ -210,26 +210,26 @@ void uvEmitterProp(u8 obj_id, ...) {
     }
 }
 
-void uvEmitterTrigger(u8 obj_id) {
-    if (obj_id < 0xFF) {
-        uvEmitterPrintf("\nemitter %d triggered\n", obj_id);
-        gSndEmitterTable[obj_id].state = 0x10;
+void uvEmitterTrigger(u8 emitterId) {
+    if (emitterId < 0xFF) {
+        uvEmitterPrintf("\nemitter %d triggered\n", emitterId);
+        gSndEmitterTable[emitterId].state = 0x10;
     }
 }
 
-void uvEmitterRelease(u8 obj_id) {
-    if (obj_id < 0xFF) {
-        uvEmitterPrintf("\nreleasing trigger on %d\n", obj_id);
+void uvEmitterRelease(u8 emitterId) {
+    if (emitterId < 0xFF) {
+        uvEmitterPrintf("\nreleasing trigger on %d\n", emitterId);
 
-        if (gSndEmitterTable[obj_id].playVoice != 0x11) {
-            _uvaStopVoice(gSndEmitterTable[obj_id].playVoice);
+        if (gSndEmitterTable[emitterId].playVoice != 0x11) {
+            _uvaStopVoice(gSndEmitterTable[emitterId].playVoice);
         }
-        gSndEmitterTable[obj_id].state = 0;
-        gSndEmitterTable[obj_id].playVoice = 0x11;
-        gSndEmitterTable[obj_id].playState = 0;
-        gSndEmitterTable[obj_id].playTimeout = 0;
-        if (gSndEmitterTable[obj_id].unk98 & 0x20) {
-            uvEmitterInit(&gSndEmitterTable[obj_id]);
+        gSndEmitterTable[emitterId].state = 0;
+        gSndEmitterTable[emitterId].playVoice = 0x11;
+        gSndEmitterTable[emitterId].playState = 0;
+        gSndEmitterTable[emitterId].playTimeout = 0;
+        if (gSndEmitterTable[emitterId].attr & EMITTER_ATTR_INIT) {
+            uvEmitterInit(&gSndEmitterTable[emitterId]);
         }
     }
 }
@@ -241,7 +241,7 @@ void uvEmitterStatus(u8 arg0) {
     for (i = 0, emitterCount = 0; i < 255; i++) {
         if (gSndEmitterTable[i].sound != 0xFF) {
             if (arg0 != 0) {
-                gSndEmitterTable[i].unk98 |= 0x20;
+                gSndEmitterTable[i].attr |= EMITTER_ATTR_INIT;
                 uvEmitterRelease(i);
             }
             emitterCount++;
@@ -286,7 +286,7 @@ void uvEmitterFlush(u16 arg0) {
             if (((gSndEmitterTable[i].playVolume + gSndEmitterTable[i].priority) == 0) ||
                 ((gSndEmitterTable[i].playState == 2) && (gSndEmitterTable[i].playTimeout >= 5))) {
                 uvEmitterPrintf("Flushing object %d due to timeout or zero priority\n", i);
-                if (gSndEmitterTable[i].unk98 & 0x10) {
+                if (gSndEmitterTable[i].attr & EMITTER_ATTR_ONESHOT) {
                     uvEmitterRelease(i);
                 } else {
                     uvEmitterRelease(i);
@@ -307,9 +307,9 @@ void uvEmitterFlush(u16 arg0) {
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
 #endif
-void uvEmitter_80201D08(u8 obj_id, u16 arg1) {
+void uvEmitter_80201D08(u8 emitterId, u16 arg1) {
     s32 pan;
-    f32 spB8;
+    f32 vol;
     Vec3F spAC;
     Vec3F spA0;
     Vec3F sp94;
@@ -321,73 +321,73 @@ void uvEmitter_80201D08(u8 obj_id, u16 arg1) {
     f32 sp38;
     f32 sp34;
     f32 sp30;
-    uvaEmitter_t* obj;
-    s32 sp28;
+    uvaEmitter_t* emitter;
+    s32 attr;
 
     sp38 = D_80250E80[arg1].unk40;
     sp34 = D_80250E80[arg1].unk48;
     sp30 = D_80250E80[arg1].unk4C;
-    obj = &gSndEmitterTable[obj_id];
-    sp28 = obj->unk98;
+    emitter = &gSndEmitterTable[emitterId];
+    attr = emitter->attr;
     uvMat4Copy(&sp3C, &D_80250E80[arg1].mat);
-    if (sp28 & 8) {
+    if (attr & 8) {
         spA0.x = sp3C.m[0][0];
         spA0.y = sp3C.m[0][1];
         spA0.z = sp3C.m[0][2];
         spAC.x = sp3C.m[3][0];
         spAC.y = sp3C.m[3][1];
         spAC.z = sp3C.m[3][2];
-        if (sp28 & 2) {
-            sp94.x = spAC.x - obj->unk40.x;
-            sp94.y = spAC.y - obj->unk40.y;
-            sp94.z = spAC.z - obj->unk40.z;
-            if (uvVec3Dot(&sp94, &obj->unk58) < 0.0f) {
+        if (attr & 2) {
+            sp94.x = spAC.x - emitter->unk40.x;
+            sp94.y = spAC.y - emitter->unk40.y;
+            sp94.z = spAC.z - emitter->unk40.z;
+            if (uvVec3Dot(&sp94, &emitter->unk58) < 0.0f) {
                 sp84 = SQ(sp94.x) + SQ(sp94.y) + SQ(sp94.z);
             } else {
-                sp88.x = -obj->unk58.x;
-                sp88.y = -obj->unk58.y;
-                sp88.z = -obj->unk58.z;
-                sp94.x = spAC.x - obj->unk4C.x;
-                sp94.y = spAC.y - obj->unk4C.y;
-                sp94.z = spAC.z - obj->unk4C.z;
+                sp88.x = -emitter->unk58.x;
+                sp88.y = -emitter->unk58.y;
+                sp88.z = -emitter->unk58.z;
+                sp94.x = spAC.x - emitter->unk4C.x;
+                sp94.y = spAC.y - emitter->unk4C.y;
+                sp94.z = spAC.z - emitter->unk4C.z;
                 temp_fv0 = uvVec3Dot(&sp94, &sp88);
                 if (temp_fv0 < 0.0f) {
                     sp84 = SQ(sp94.x) + SQ(sp94.y) + SQ(sp94.z);
                 } else {
-                    sp94.x = spAC.x - ((temp_fv0 * sp88.x) + obj->unk4C.x);
-                    sp94.y = spAC.y - ((temp_fv0 * sp88.y) + obj->unk4C.y);
-                    sp94.z = spAC.z - ((temp_fv0 * sp88.z) + obj->unk4C.z);
+                    sp94.x = spAC.x - ((temp_fv0 * sp88.x) + emitter->unk4C.x);
+                    sp94.y = spAC.y - ((temp_fv0 * sp88.y) + emitter->unk4C.y);
+                    sp94.z = spAC.z - ((temp_fv0 * sp88.z) + emitter->unk4C.z);
                     sp84 = SQ(sp94.x) + SQ(sp94.y) + SQ(sp94.z);
                 }
             }
-        } else if (sp28 & 1) {
+        } else if (attr & EMITTER_ATTR_1) {
             //! @bug sp84 is uninitialised in this code path
         } else {
-            sp94.x = obj->m1.m[3][0] - sp3C.m[3][0];
-            sp94.y = obj->m1.m[3][1] - sp3C.m[3][1];
-            sp94.z = obj->m1.m[3][2] - sp3C.m[3][2];
+            sp94.x = emitter->m1.m[3][0] - sp3C.m[3][0];
+            sp94.y = emitter->m1.m[3][1] - sp3C.m[3][1];
+            sp94.z = emitter->m1.m[3][2] - sp3C.m[3][2];
             sp84 = SQ(sp94.x) + SQ(sp94.y) + SQ(sp94.z);
         }
 
-        if (obj->far < sp84) {
-            obj->playPan = 0x40;
-            obj->playVolume = 0;
-            obj->playPitch = obj->unk70.y;
+        if (emitter->far < sp84) {
+            emitter->playPan = 0x40;
+            emitter->playVolume = 0;
+            emitter->playPitch = emitter->pitch;
             return;
         }
 
-        if (sp84 <= obj->near) {
-            spB8 = obj->unk70.x;
+        if (sp84 <= emitter->near) {
+            vol = emitter->vol;
         } else {
-            spB8 = (obj->unk70.x * (obj->far - sp84)) / (obj->far - obj->near);
+            vol = (emitter->vol * (emitter->far - sp84)) / (emitter->far - emitter->near);
         }
         if ((sp30 != 1.0f) && (sp84 != 0.0f)) {
             var_fa0 = uvVec3ScalarProj(&sp94, &spA0);
 
-            if (sp84 < obj->near) {
-                var_fa0 *= sp84 / obj->near;
+            if (sp84 < emitter->near) {
+                var_fa0 *= sp84 / emitter->near;
             }
-            if (sp28 & 2) {
+            if (attr & EMITTER_ATTR_2) {
                 var_fa0 *= -1.0f;
             }
             pan = (s32)((1.0f + var_fa0) * 64.0f);
@@ -398,9 +398,9 @@ void uvEmitter_80201D08(u8 obj_id, u16 arg1) {
             pan = 0x40;
         }
     } else {
-        spB8 = obj->unk70.x;
+        vol = emitter->vol;
         if (sp30 != 1) {
-            pan = (s32)((obj->unk70.z + 1.0f) * 64.0f);
+            pan = (s32)((emitter->pan + 1.0f) * 64.0f);
             if (pan == 0x80) {
                 pan = 0x7F;
             }
@@ -408,20 +408,20 @@ void uvEmitter_80201D08(u8 obj_id, u16 arg1) {
             pan = 0x40;
         }
     }
-    if (sp28 & 4) {
-        obj->playMix = (s32)(sp34 * 127.0f);
+    if (attr & EMITTER_ATTR_4) {
+        emitter->playMix = (s32)(sp34 * 127.0f);
     } else {
-        obj->playMix = (s32)(obj->unk70.w * 127.0f);
+        emitter->playMix = (s32)(emitter->mix * 127.0f);
     }
-    obj->playPan = pan;
-    obj->playPitch = obj->unk70.y;
-    obj->playVolume = (s32)(spB8 * sp38 * 32767.0f);
+    emitter->playPan = pan;
+    emitter->playPitch = emitter->pitch;
+    emitter->playVolume = (s32)(vol * sp38 * 32767.0f);
 }
 #if defined(__GNUC__) || defined(__clang__)
 #pragma GCC diagnostic pop
 #endif
 
-void _uvaUpdatePlayList(u8 obj_id) {
+void _uvaUpdatePlayList(u8 emitterId) {
     s32 i;
     s32 j;
     s32 priority;
@@ -429,33 +429,33 @@ void _uvaUpdatePlayList(u8 obj_id) {
     s32 var_s7;
 
     var_s7 = FALSE;
-    uvEmitterPrintf("\ninserting object %d in playlist\n", obj_id);
+    uvEmitterPrintf("\ninserting object %d in playlist\n", emitterId);
 
-    if ((gSndEmitterTable[obj_id].unk98 & 0x10) && (gSndEmitterTable[obj_id].playState == 8) &&
-        (uvEmitterPrintf("CHECKING if to delete oneshot object %d\n", obj_id), alSndpSetSound(gSndPlayer, gSndVoiceTable[gSndEmitterTable[obj_id].playVoice]),
+    if ((gSndEmitterTable[emitterId].attr & EMITTER_ATTR_ONESHOT) && (gSndEmitterTable[emitterId].playState == 8) &&
+        (uvEmitterPrintf("CHECKING if to delete oneshot object %d\n", emitterId), alSndpSetSound(gSndPlayer, gSndVoiceTable[gSndEmitterTable[emitterId].playVoice]),
          (alSndpGetState(gSndPlayer) == 0))) {
-        _uvaStopVoice(gSndEmitterTable[obj_id].playVoice);
-        gSndEmitterTable[obj_id].playVoice = 0x11;
-        gSndEmitterTable[obj_id].playState = 0;
-        if (gSndEmitterTable[obj_id].unk98 & 0x20) {
-            uvEmitterPrintf("Object %d expunged due to finish\n", obj_id);
-            uvEmitterInit(&gSndEmitterTable[obj_id]);
+        _uvaStopVoice(gSndEmitterTable[emitterId].playVoice);
+        gSndEmitterTable[emitterId].playVoice = 0x11;
+        gSndEmitterTable[emitterId].playState = 0;
+        if (gSndEmitterTable[emitterId].attr & EMITTER_ATTR_INIT) {
+            uvEmitterPrintf("Object %d expunged due to finish\n", emitterId);
+            uvEmitterInit(&gSndEmitterTable[emitterId]);
         }
         return;
     }
     if (sNumPlaylistEmitters == 0) {
-        uvEmitterPrintf("object %d first in list\n", obj_id);
-        sEmitterPlaylistObjects[0] = obj_id;
+        uvEmitterPrintf("object %d first in list\n", emitterId);
+        sEmitterPlaylistObjects[0] = emitterId;
         sNumPlaylistEmitters++;
-        if (gSndEmitterTable[obj_id].playVoice != 0x11) {
-            uvEmitterPrintf("object %d (1st in list) already has a voice\n", obj_id);
-            sEmitterVoiceObjects[gSndEmitterTable[obj_id].playVoice] = obj_id;
+        if (gSndEmitterTable[emitterId].playVoice != 0x11) {
+            uvEmitterPrintf("object %d (1st in list) already has a voice\n", emitterId);
+            sEmitterVoiceObjects[gSndEmitterTable[emitterId].playVoice] = emitterId;
         }
-        uvEmitterPrintf("_uvaUpdatePlayList finished for object %d\n", obj_id);
+        uvEmitterPrintf("_uvaUpdatePlayList finished for object %d\n", emitterId);
         return;
     }
-    priority = gSndEmitterTable[obj_id].priority + gSndEmitterTable[obj_id].playVolume;
-    uvEmitterPrintf("priority = %d for object %d\n", priority, obj_id);
+    priority = gSndEmitterTable[emitterId].priority + gSndEmitterTable[emitterId].playVolume;
+    uvEmitterPrintf("priority = %d for object %d\n", priority, emitterId);
 
     for (i = 0; (i < sNumPlaylistEmitters) && !var_s7; i++) {
         uvEmitterPrintf("i = %d\n", i);
@@ -470,7 +470,7 @@ void _uvaUpdatePlayList(u8 obj_id) {
 
                 if (gSndEmitterTable[sEmitterPlaylistObjects[sNumPlaylistEmitters - 1]].playVoice != 0x11) {
                     sEmitterVoiceObjects[gSndEmitterTable[sEmitterPlaylistObjects[sNumPlaylistEmitters - 1]].playVoice] = 0xFF;
-                    uvEmitterPrintf("object %d had voice already\n", obj_id);
+                    uvEmitterPrintf("object %d had voice already\n", emitterId);
                 }
                 _uvaPlaylistRemove(sEmitterPlaylistObjects[sNumPlaylistEmitters - 1]);
             }
@@ -478,30 +478,30 @@ void _uvaUpdatePlayList(u8 obj_id) {
             for (j = sNumPlaylistEmitters; j > i; j--) {
                 sEmitterPlaylistObjects[j] = sEmitterPlaylistObjects[j - 1];
             }
-            sEmitterPlaylistObjects[i] = obj_id;
-            if (gSndEmitterTable[obj_id].playVoice != 0x11) {
-                sEmitterVoiceObjects[gSndEmitterTable[obj_id].playVoice] = obj_id;
-                uvEmitterPrintf("object %d had voice already\n", obj_id);
+            sEmitterPlaylistObjects[i] = emitterId;
+            if (gSndEmitterTable[emitterId].playVoice != 0x11) {
+                sEmitterVoiceObjects[gSndEmitterTable[emitterId].playVoice] = emitterId;
+                uvEmitterPrintf("object %d had voice already\n", emitterId);
             }
         }
     }
     if (!var_s7 && (i == VOICE_PLAYLIST_COUNT)) {
-        uvEmitterPrintf("object %d flushed\n", obj_id);
-        if (gSndEmitterTable[obj_id].playVoice != 0x11) {
-            sEmitterVoiceObjects[gSndEmitterTable[obj_id].playVoice] = 0xFF;
+        uvEmitterPrintf("object %d flushed\n", emitterId);
+        if (gSndEmitterTable[emitterId].playVoice != 0x11) {
+            sEmitterVoiceObjects[gSndEmitterTable[emitterId].playVoice] = 0xFF;
         }
-        _uvaPlaylistRemove(obj_id);
+        _uvaPlaylistRemove(emitterId);
         return;
     }
     if (!var_s7 && (i == sNumPlaylistEmitters)) {
-        uvEmitterPrintf("object %d last in list\n", obj_id);
-        sEmitterPlaylistObjects[i] = obj_id;
+        uvEmitterPrintf("object %d last in list\n", emitterId);
+        sEmitterPlaylistObjects[i] = emitterId;
         sNumPlaylistEmitters++;
-        if (gSndEmitterTable[obj_id].playVoice != 0x11) {
-            uvEmitterPrintf("object %d (last in list) already has a voice\n", obj_id);
-            sEmitterVoiceObjects[gSndEmitterTable[obj_id].playVoice] = obj_id;
+        if (gSndEmitterTable[emitterId].playVoice != 0x11) {
+            uvEmitterPrintf("object %d (last in list) already has a voice\n", emitterId);
+            sEmitterVoiceObjects[gSndEmitterTable[emitterId].playVoice] = emitterId;
         }
-        uvEmitterPrintf("_uvaUpdatePlayList finished for object %d\n", obj_id);
+        uvEmitterPrintf("_uvaUpdatePlayList finished for object %d\n", emitterId);
         return;
     }
     if (sNumPlaylistEmitters < VOICE_PLAYLIST_COUNT) {
@@ -511,22 +511,22 @@ void _uvaUpdatePlayList(u8 obj_id) {
     uvEmitterPrintf("exiting _uvaUpdatePlayList\n");
 }
 
-void _uvaPlaylistRemove(u8 obj_id) {
-    uvaEmitter_t* obj = &gSndEmitterTable[obj_id];
+void _uvaPlaylistRemove(u8 emitterId) {
+    uvaEmitter_t* emitter = &gSndEmitterTable[emitterId];
 
-    uvEmitterPrintf("\nRemoving object %d from playlist\n", obj_id);
-    if (obj->unk98 & 0x10) {
-        uvEmitterRelease(obj_id);
+    uvEmitterPrintf("\nRemoving object %d from playlist\n", emitterId);
+    if (emitter->attr & EMITTER_ATTR_ONESHOT) {
+        uvEmitterRelease(emitterId);
         return;
     }
 
-    if (obj->playVoice != 0x11) {
-        _uvaStopVoice(obj->playVoice);
-        obj->playVoice = 0x11;
-        obj->playState = 0;
-        obj->playTimeout = 0;
+    if (emitter->playVoice != 0x11) {
+        _uvaStopVoice(emitter->playVoice);
+        emitter->playVoice = 0x11;
+        emitter->playState = 0;
+        emitter->playTimeout = 0;
     }
-    uvEmitterTrigger(obj_id);
+    uvEmitterTrigger(emitterId);
 }
 
 void _uvaPlay(void) {
@@ -570,69 +570,65 @@ void _uvaPlay(void) {
     }
 }
 
-void _uvaStartVoice(u8 obj_id) {
+void _uvaStartVoice(u8 emitterId) {
     ALInstrument* instrument;
 
-    uvEmitterPrintf("\n_uvaStartVoice object %d -- voice %d\n", obj_id, gSndEmitterTable[obj_id].playVoice);
-    gSndEmitterTable[obj_id].playState = 1;
-    alSndpSetSound(gSndPlayer, gSndVoiceTable[gSndEmitterTable[obj_id].playVoice]);
+    uvEmitterPrintf("\n_uvaStartVoice object %d -- voice %d\n", emitterId, gSndEmitterTable[emitterId].playVoice);
+    gSndEmitterTable[emitterId].playState = 1;
+    alSndpSetSound(gSndPlayer, gSndVoiceTable[gSndEmitterTable[emitterId].playVoice]);
     if (alSndpGetState(gSndPlayer) != 0) {
         alSndpStop(gSndPlayer);
         return;
     }
-    alSndpDeallocate(gSndPlayer, gSndVoiceTable[gSndEmitterTable[obj_id].playVoice]);
-    instrument = gAudioSXBank->instArray[gSndEmitterTable[obj_id].sound];
-    gSndVoiceTable[gSndEmitterTable[obj_id].playVoice] = alSndpAllocate(gSndPlayer, instrument->soundArray[0]);
-    alSndpSetSound(gSndPlayer, gSndVoiceTable[gSndEmitterTable[obj_id].playVoice]);
-    if (gSndVoiceTable[gSndEmitterTable[obj_id].playVoice] >= 0) {
-        _uvaUpdateVoice(obj_id);
+    alSndpDeallocate(gSndPlayer, gSndVoiceTable[gSndEmitterTable[emitterId].playVoice]);
+    instrument = gAudioSXBank->instArray[gSndEmitterTable[emitterId].sound];
+    gSndVoiceTable[gSndEmitterTable[emitterId].playVoice] = alSndpAllocate(gSndPlayer, instrument->soundArray[0]);
+    alSndpSetSound(gSndPlayer, gSndVoiceTable[gSndEmitterTable[emitterId].playVoice]);
+    if (gSndVoiceTable[gSndEmitterTable[emitterId].playVoice] >= 0) {
+        _uvaUpdateVoice(emitterId);
         alSndpPlay(gSndPlayer);
-        gSndEmitterTable[obj_id].playState = 2;
-        gSndEmitterTable[obj_id].state = 0;
+        gSndEmitterTable[emitterId].playState = 2;
+        gSndEmitterTable[emitterId].state = 0;
     }
 }
 
-void _uvaUpdateVoice(u8 obj_id) {
-    uvaEmitter_t* obj;
+void _uvaUpdateVoice(u8 emitterId) {
+    uvaEmitter_t* emitter = &gSndEmitterTable[emitterId];
+    uvEmitterPrintf("\n  updating voice %d on object %d\n", emitter->playVoice, emitterId);
 
-    obj = &gSndEmitterTable[obj_id];
-    uvEmitterPrintf("\n  updating voice %d on object %d\n", obj->playVoice, obj_id);
-
-    alSndpSetSound(gSndPlayer, gSndVoiceTable[obj->playVoice]);
-    alSndpSetVol(gSndPlayer, obj->playVolume);
-    alSndpSetPitch(gSndPlayer, obj->playPitch);
-    alSndpSetFXMix(gSndPlayer, obj->playMix);
-    alSndpSetPan(gSndPlayer, obj->playPan);
+    alSndpSetSound(gSndPlayer, gSndVoiceTable[emitter->playVoice]);
+    alSndpSetVol(gSndPlayer, emitter->playVolume);
+    alSndpSetPitch(gSndPlayer, emitter->playPitch);
+    alSndpSetFXMix(gSndPlayer, emitter->playMix);
+    alSndpSetPan(gSndPlayer, emitter->playPan);
 }
 
-void _uvaStopVoice(u8 voice_id) {
-    if (voice_id < VOICE_PLAYLIST_COUNT) {
-        uvEmitterPrintf("stopping voice%d\n", voice_id);
-        alSndpSetSound(gSndPlayer, gSndVoiceTable[voice_id]);
+void _uvaStopVoice(u8 voiceId) {
+    if (voiceId < VOICE_PLAYLIST_COUNT) {
+        uvEmitterPrintf("stopping voice%d\n", voiceId);
+        alSndpSetSound(gSndPlayer, gSndVoiceTable[voiceId]);
         if (alSndpGetState(gSndPlayer) == 1) {
             alSndpSetVol(gSndPlayer, 0);
         }
         alSndpStop(gSndPlayer);
         return;
     }
-    uvEmitterPrintf("%d is not a valid voice\n", voice_id);
+    uvEmitterPrintf("%d is not a valid voice\n", voiceId);
 }
 
-void _uvaStatus(u8 obj_id) {
-    uvaEmitter_t* obj;
-
-    obj = &gSndEmitterTable[obj_id];
-    uvEmitterPrintf("-----object %d------\n", obj_id);
-    uvEmitterPrintf("playVoice  = %d\n", obj->playVoice);
-    uvEmitterPrintf("playState  = %d\n", obj->playState);
-    uvEmitterPrintf("playTimeout= %d\n", obj->playTimeout);
-    uvEmitterPrintf("playVolume = %d\n", obj->playVolume);
-    uvEmitterPrintf("playPitch  = %f\n", obj->playPitch);
-    uvEmitterPrintf("playPan    = %d\n", obj->playPan);
-    uvEmitterPrintf("near       = %f\n", obj->near);
-    uvEmitterPrintf("far        = %f\n", obj->far);
-    uvEmitterPrintf("sound      = %d\n", obj->sound);
-    uvEmitterPrintf("priority   = %d\n", obj->priority);
-    uvEmitterPrintf("state      = %d\n", obj->state);
+void _uvaStatus(u8 emitterId) {
+    uvaEmitter_t* emitter = &gSndEmitterTable[emitterId];
+    uvEmitterPrintf("-----object %d------\n", emitterId);
+    uvEmitterPrintf("playVoice  = %d\n", emitter->playVoice);
+    uvEmitterPrintf("playState  = %d\n", emitter->playState);
+    uvEmitterPrintf("playTimeout= %d\n", emitter->playTimeout);
+    uvEmitterPrintf("playVolume = %d\n", emitter->playVolume);
+    uvEmitterPrintf("playPitch  = %f\n", emitter->playPitch);
+    uvEmitterPrintf("playPan    = %d\n", emitter->playPan);
+    uvEmitterPrintf("near       = %f\n", emitter->near);
+    uvEmitterPrintf("far        = %f\n", emitter->far);
+    uvEmitterPrintf("sound      = %d\n", emitter->sound);
+    uvEmitterPrintf("priority   = %d\n", emitter->priority);
+    uvEmitterPrintf("state      = %d\n", emitter->state);
 }
 

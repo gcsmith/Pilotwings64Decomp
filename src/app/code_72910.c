@@ -104,7 +104,7 @@ s32 func_802EB640(Unk80362690_Unk0* arg0, u16 arg1) {
     f32 var_fv0;
     f32 spA0;
     f64 temp_fv0_2;
-    u8 temp_s0;
+    u8 emitterId;
     u16 modelId;
     s32 sfxId;
     f32 pitch;
@@ -146,15 +146,23 @@ s32 func_802EB640(Unk80362690_Unk0* arg0, u16 arg1) {
     if (arg0->smokeId == -1) {
         arg0->smokeId = smokeCreate();
         smokeProps(arg0->smokeId, 1, 0, 0, 0, 2, 3.0f, 3, 2.0f, 5, 0.0f, 0.0f, 0.5f, 4, 5.0f, 7, 1, 0);
-        temp_s0 = uvEmitterLookup();
+        emitterId = uvEmitterLookup();
         sndGetPilotScream(&sfxId, &pitch);
-        uvEmitterFromModel(temp_s0, sfxId);
-        uvEmitterSetUnk70(temp_s0, 1.0f);
-        uvEmitterSetUnk74(temp_s0, pitch);
-        uvEmitterProp(temp_s0, 1, 0.0f, 2, 5000.0f, 5, 0x30, 0);
-        uvEmitterTrigger(temp_s0);
+        uvEmitterFromModel(emitterId, sfxId);
+        uvEmitterSetVol(emitterId, 1.0f);
+        uvEmitterSetPitch(emitterId, pitch);
+        // clang-format off
+        uvEmitterProps(emitterId,
+            EMITTER_PROP_NEAR(0.0f),
+            EMITTER_PROP_FAR(5000.0f),
+            EMITTER_PROP_ATTR(EMITTER_ATTR_INIT | EMITTER_ATTR_ONESHOT),
+            EMITTER_PROP_END
+        );
+        // clang-format on
+        uvEmitterTrigger(emitterId);
         sndPlaySfx(0x5A);
         return 1;
     }
     return 0;
 }
+

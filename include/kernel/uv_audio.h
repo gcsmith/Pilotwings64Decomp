@@ -22,7 +22,10 @@ typedef struct uvaEmitter {
 /* 4C */ Vec3F unk4C;
 /* 58 */ Vec3F unk58;
 /* 64 */ Vec3F unk64;
-/* 70 */ Vec4F unk70;
+/* 70 */ f32 vol;
+/* 74 */ f32 pitch;
+/* 78 */ f32 pan;
+/* 7C */ f32 mix;
 /* 80 */ f32 unk80;
 /* 84 */ f32 unk84;
 /* 88 */ s32 priority;
@@ -32,7 +35,7 @@ typedef struct uvaEmitter {
 /* 8F */ u8 unk8F;
 /* 90 */ f32 near;
 /* 94 */ f32 far;
-/* 98 */ s32 unk98;
+/* 98 */ s32 attr;
 /* 9C */ f32 playPitch;
 /* A0 */ s32 playState;
 /* A4 */ s32 playVolume;
@@ -95,38 +98,59 @@ typedef struct AMAudioMgr {
     ALGlobals g;
 } AMAudioMgr;
 
+#define EMITTER_ATTR_1          0x01
+#define EMITTER_ATTR_2          0x02
+#define EMITTER_ATTR_4          0x04
+#define EMITTER_ATTR_8          0x08
+#define EMITTER_ATTR_ONESHOT    0x10
+#define EMITTER_ATTR_INIT       0x20
+
+#define EMITTER_PROPID_END      0
+#define EMITTER_PROPID_NEAR     1 // type:f64
+#define EMITTER_PROPID_FAR      2 // type:f64
+#define EMITTER_PROPID_3        3 // type:f64
+#define EMITTER_PROPID_4        4 // type:f64
+#define EMITTER_PROPID_ATTR     5 // type:s32
+
+#define EMITTER_PROP_END        EMITTER_PROPID_END
+#define EMITTER_PROP_NEAR(x)    EMITTER_PROPID_NEAR, (x)
+#define EMITTER_PROP_FAR(x)     EMITTER_PROPID_FAR, (x)
+#define EMITTER_PROP_3(x)       EMITTER_PROPID_3, (x)
+#define EMITTER_PROP_4(x)       EMITTER_PROPID_4, (x)
+#define EMITTER_PROP_ATTR(x)    EMITTER_PROPID_ATTR, (x)
+
 void uvSysInitAudio(void);
 void amCreateAudioMgr(ALSynConfig* c, OSPri priority);
 
 void uvEmitterPrintf(const char* fmt, ...);
 void uvEmitterInitTable(void);
-void uvEmitterInit(uvaEmitter_t*);
+void uvEmitterInit(uvaEmitter_t* emitter);
 u8   uvEmitterLookup(void);
-void uvEmitterFromModel(u8 obj_id, u8 mdl_id);
-void uvEmitterSetMatrix(u8 obj_id, Mtx4F* src);
-void uvEmitterGetMatrix(u8 obj_id, Mtx4F* dst);
-void uvEmitter_80201494(u8 obj_id, Vec3F arg1, Vec3F arg4);
-void uvEmitterSetUnk70(u8 obj_id, f32 arg1);
-f32  uvEmitterGetUnk70(u8 obj_id);
-void uvEmitterSetUnk78(u8 obj_id, f32 arg1);
-void uvEmitterSetUnk74(u8 obj_id, f32 arg1);
-void uvEmitterSetPri(u8 obj_id, s32 pri);
-void uvEmitterProp(u8 obj_id, ...);
-void uvEmitterTrigger(u8 obj_id);
-void uvEmitterRelease(u8 obj_id);
+void uvEmitterFromModel(u8 emitterId, u8 modelId);
+void uvEmitterSetMatrix(u8 emitterId, Mtx4F* src);
+void uvEmitterGetMatrix(u8 emitterId, Mtx4F* dst);
+void uvEmitter_80201494(u8 emitterId, Vec3F arg1, Vec3F arg4);
+void uvEmitterSetVol(u8 emitterId, f32 vol);
+f32  uvEmitterGetVol(u8 emitterId);
+void uvEmitterSetPan(u8 emitterId, f32 pan);
+void uvEmitterSetPitch(u8 emitterId, f32 pitch);
+void uvEmitterSetPri(u8 emitterId, s32 pri);
+void uvEmitterProps(u8 emitterId, ...);
+void uvEmitterTrigger(u8 emitterId);
+void uvEmitterRelease(u8 emitterId);
 void uvEmitterStatus(u8 arg0);
 
 void _uvaSoundBegin(void);
 void _uvaSoundEnd(void);
 void uvEmitterFlush(u16 arg0);
-void uvEmitter_80201D08(u8 obj_id, u16 arg1);
-void _uvaUpdatePlayList(u8 obj_id);
-void _uvaPlaylistRemove(u8 obj_id);
+void uvEmitter_80201D08(u8 emitterId, u16 arg1);
+void _uvaUpdatePlayList(u8 emitterId);
+void _uvaPlaylistRemove(u8 emitterId);
 void _uvaPlay(void);
-void _uvaStartVoice(u8 obj_id);
-void _uvaUpdateVoice(u8 obj_id);
-void _uvaStopVoice(u8 voice_id);
-void _uvaStatus(u8 obj_id);
+void _uvaStartVoice(u8 emitterId);
+void _uvaUpdateVoice(u8 emitterId);
+void _uvaStopVoice(u8 voiceId);
+void _uvaStatus(u8 emitterId);
 
 void uvaSeqPlay(void);
 void uvaSeqSetTempo(f32 tempo);
@@ -136,3 +160,4 @@ void uvaSeqStop(void);
 void func_80204518(s32 arg0);
 
 #endif // PILOTWINGS64_UV_AUDIO
+

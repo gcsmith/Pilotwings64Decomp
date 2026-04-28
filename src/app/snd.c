@@ -57,64 +57,56 @@ void func_8033F748(u16 arg0) {
 }
 
 void sndPlaySfxVolPitchPan(u8 sfxId, f32 vol, f32 pitch, f32 pan) {
-    u8 temp_v0;
-
-    temp_v0 = uvEmitterLookup();
-    if (temp_v0 == 0xFF) {
+    u8 emitterId = uvEmitterLookup();
+    if (emitterId == 0xFF) {
         _uvDebugPrintf("snd : out of local fx emitter devices\n");
         return;
     }
-    uvEmitterFromModel(temp_v0, sfxId);
-    uvEmitterProp(temp_v0, 5, 0x30, 0);
-    uvEmitterSetUnk70(temp_v0, vol);
-    uvEmitterSetUnk74(temp_v0, pitch);
-    uvEmitterSetUnk78(temp_v0, pan);
-    uvEmitterTrigger(temp_v0);
+    uvEmitterFromModel(emitterId, sfxId);
+    uvEmitterProps(emitterId, EMITTER_PROP_ATTR(EMITTER_ATTR_INIT | EMITTER_ATTR_ONESHOT), EMITTER_PROP_END);
+    uvEmitterSetVol(emitterId, vol);
+    uvEmitterSetPitch(emitterId, pitch);
+    uvEmitterSetPan(emitterId, pan);
+    uvEmitterTrigger(emitterId);
 }
 
 void sndPlaySfx(u8 sfxId) {
-    u8 temp_v0;
-
-    temp_v0 = uvEmitterLookup();
-    if (temp_v0 == 0xFF) {
+    u8 emitterId = uvEmitterLookup();
+    if (emitterId == 0xFF) {
         _uvDebugPrintf("snd : out of local fx emitter devices\n");
         return;
     }
-    uvEmitterFromModel(temp_v0, sfxId);
-    uvEmitterProp(temp_v0, 5, 0x30, 0);
-    uvEmitterTrigger(temp_v0);
+    uvEmitterFromModel(emitterId, sfxId);
+    uvEmitterProps(emitterId, EMITTER_PROP_ATTR(EMITTER_ATTR_INIT | EMITTER_ATTR_ONESHOT), EMITTER_PROP_END);
+    uvEmitterTrigger(emitterId);
 }
 
 u8 sndMakeDev(s32 arg0) {
-    u8 temp_v0;
-
-    temp_v0 = uvEmitterLookup();
-    if (temp_v0 == 0xFF) {
+    u8 emitterId = uvEmitterLookup();
+    if (emitterId == 0xFF) {
         _uvDebugPrintf("snd_makedev -- out of emitter devices\n");
         return 0xFF;
     }
-    uvEmitterFromModel(temp_v0, arg0);
-    uvEmitterSetUnk70(temp_v0, 0.0f);
-    uvEmitterTrigger(temp_v0);
-    return temp_v0;
+    uvEmitterFromModel(emitterId, arg0);
+    uvEmitterSetVol(emitterId, 0.0f);
+    uvEmitterTrigger(emitterId);
+    return emitterId;
 }
 
-u8 func_8033F8CC(u8 arg0) {
-    if (arg0 != 0xFF) {
-        uvEmitterFromModel(arg0, 0xFF);
+u8 func_8033F8CC(u8 emitterId) {
+    if (emitterId != 0xFF) {
+        uvEmitterFromModel(emitterId, 0xFF);
     }
 
     return 0xFF;
 }
 
-void func_8033F904(u8 arg0, f32 arg1, f32 arg2, f32 arg3) {
-    f32 temp_fv0;
-
-    temp_fv0 = uvSqrtF(arg2);
-    if (arg0 != 0xFF) {
-        uvEmitterSetUnk70(arg0, temp_fv0);
-        uvEmitterSetUnk74(arg0, arg1);
-        uvEmitterSetUnk78(arg0, arg3);
+void func_8033F904(u8 emitterId, f32 pitch, f32 vol, f32 pan) {
+    f32 vol_sq = uvSqrtF(vol);
+    if (emitterId != 0xFF) {
+        uvEmitterSetVol(emitterId, vol_sq);
+        uvEmitterSetPitch(emitterId, pitch);
+        uvEmitterSetPan(emitterId, pan);
     }
 }
 
@@ -249,3 +241,4 @@ void func_8033FD94(u16 arg0, f32 arg1, f32 arg2) {
         D_803505C4[arg0][1] = arg2;
     }
 }
+

@@ -31,7 +31,7 @@ void rbSoundInit(RocketBeltData* rbData) {
     rbData->unk38A = sndMakeDev(0x13);
     rbData->unk38B = sndMakeDev(0x13);
     rbData->unk38C = sndMakeDev(0x1E);
-    uvEmitterProp(rbData->unk38C, 5, 4, 0);
+    uvEmitterProps(rbData->unk38C, EMITTER_PROP_ATTR(EMITTER_ATTR_4), EMITTER_PROP_END);
     uvEmitterSetPri(rbData->unk38C, 0x7FFF);
     sRbSoundEventCbInfo.cb = rbSoundEventHandler;
     sRbSoundEventCbInfo.arg = rbData;
@@ -285,3 +285,4 @@ STATIC_FUNC void rbSoundEvent13(RocketBeltData* rbData) {
     func_80200180(0, 4, 0.0f, 0);
     uvEventRemoveCb(sRbSoundEventCbInfo, 1, 0xD, 0x12, 0x13, 0x10, 0xC, 0x16, 0x24);
 }
+

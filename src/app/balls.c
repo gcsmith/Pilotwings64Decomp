@@ -299,7 +299,7 @@ s32 balls_802CB6D4(Ball* ball) {
     Unk802D3658_Unk1224 sp5C;
     s32 pad;
     s32 pad2;
-    u8 obj_id;
+    u8 emitterId;
     u8 idx;
 
     if (func_802DB050(&ball->unkA0, &sp5C, ball->objId, ball->unk8A, &ball->pose) <= 0) {
@@ -335,11 +335,18 @@ s32 balls_802CB6D4(Ball* ball) {
     if (uvVec3Len(&ball->velocity) > 1.0f) {
         if (((uvVec3Len(&ball->velocity) / var_fa0) < 0.5f) && ((ball->unk64 + 0.25f) < D_8034F850)) {
             ball->unk64 = D_8034F850;
-            obj_id = uvEmitterLookup();
-            uvEmitterFromModel(obj_id, 0x37);
-            uvEmitterProp(obj_id, 1, 0.0f, 2, 500.0f, 5, 0x38, 0);
-            uvEmitterSetMatrix(obj_id, &ball->pose);
-            uvEmitterTrigger(obj_id);
+            emitterId = uvEmitterLookup();
+            uvEmitterFromModel(emitterId, 0x37);
+            // clang-format off
+            uvEmitterProps(emitterId,
+                EMITTER_PROP_NEAR(0.0f),
+                EMITTER_PROP_FAR(500.0f),
+                EMITTER_PROP_ATTR(0x38),
+                EMITTER_PROP_END
+            );
+            // clang-format on
+            uvEmitterSetMatrix(emitterId, &ball->pose);
+            uvEmitterTrigger(emitterId);
         }
     }
     return 1;
@@ -395,7 +402,7 @@ void balls_802CB9B4(Ball* ball) {
 s32 ballsCollision(Ball* ball, Unk802D3658_Unk1228* arg1, Vec3F* arg2) {
     f32 temp_fv0_2;
     Vec3F sp48;
-    u8 sp47;
+    u8 emitterId;
 
     if (!ball->active) {
         return 0;
@@ -419,11 +426,18 @@ s32 ballsCollision(Ball* ball, Unk802D3658_Unk1228* arg1, Vec3F* arg2) {
             hudText_8031D8E0(TEXT_B_CLR_N, 1.5f, 8.0f);
         }
         ball->hasPopped = TRUE;
-        sp47 = uvEmitterLookup();
-        uvEmitterFromModel(sp47, 0x38);
-        uvEmitterProp(sp47, 1, 0.0f, 2, 500.0f, 5, 0x38, 0);
-        uvEmitterSetMatrix(sp47, &ball->pose);
-        uvEmitterTrigger(sp47);
+        emitterId = uvEmitterLookup();
+        uvEmitterFromModel(emitterId, 0x38);
+        // clang-format off
+        uvEmitterProps(emitterId,
+            EMITTER_PROP_NEAR(0.0f),
+            EMITTER_PROP_FAR(500.0f),
+            EMITTER_PROP_ATTR(0x38),
+            EMITTER_PROP_END
+        );
+        // clang-format on
+        uvEmitterSetMatrix(emitterId, &ball->pose);
+        uvEmitterTrigger(emitterId);
         return 1;
     } else {
         temp_fv0_2 = (ball->dist / (1.0f + ball->unk68));

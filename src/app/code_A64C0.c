@@ -74,12 +74,24 @@ void func_8031EF90(s32 arg0) {
         D_8036D260->unk4 = uvEmitterLookup();
         uvEmitterFromModel(D_8036D260->unk0, 0x42U);
         uvEmitterFromModel(D_8036D260->unk4, 0x1FU);
-        uvEmitterSetUnk70(D_8036D260->unk0, 1.0f);
-        uvEmitterSetUnk70(D_8036D260->unk4, 1.0f);
-        uvEmitterSetUnk74(D_8036D260->unk0, 1.0f);
-        uvEmitterSetUnk74(D_8036D260->unk4, 0.5f);
-        uvEmitterProp(D_8036D260->unk0, 1, 0.0f, 2, 250.0f, 5, 0, 0);
-        uvEmitterProp(D_8036D260->unk4, 1, 0.0f, 2, 250.0f, 5, 0, 0);
+        uvEmitterSetVol(D_8036D260->unk0, 1.0f);
+        uvEmitterSetVol(D_8036D260->unk4, 1.0f);
+        uvEmitterSetPitch(D_8036D260->unk0, 1.0f);
+        uvEmitterSetPitch(D_8036D260->unk4, 0.5f);
+        // clang-format off
+        uvEmitterProps(D_8036D260->unk0,
+            EMITTER_PROP_NEAR(0.0f),
+            EMITTER_PROP_FAR(250.0f),
+            EMITTER_PROP_ATTR(0),
+            EMITTER_PROP_END
+        );
+        uvEmitterProps(D_8036D260->unk4,
+            EMITTER_PROP_NEAR(0.0f),
+            EMITTER_PROP_FAR(250.0f),
+            EMITTER_PROP_ATTR(0),
+            EMITTER_PROP_END
+        );
+        // clang-format on
         for (i = 0; i < ARRAY_COUNT(D_8036D230); i++) {
             temp_v0_2 = D_8036D230[i] = (Unk8036D230*)_uvMemAllocAlign8(sizeof(Unk8036D230));
             temp_v0_2->unk0 = func_8021EFF0(3);
@@ -231,9 +243,16 @@ void func_8031EF90(s32 arg0) {
         D_8036D260->unk0 = uvEmitterLookup();
         uvEmitterFromModel(D_8036D260->unk0, 0x1EU);
         D_8036D260->unk8 = 0.5f;
-        uvEmitterSetUnk70(D_8036D260->unk0, 1.0f);
-        uvEmitterSetUnk74(D_8036D260->unk0, 1.0f);
-        uvEmitterProp(D_8036D260->unk0, 1, 0.0f, 2, 250.0f, 5, 0, 0);
+        uvEmitterSetVol(D_8036D260->unk0, 1.0f);
+        uvEmitterSetPitch(D_8036D260->unk0, 1.0f);
+        // clang-format off
+        uvEmitterProps(D_8036D260->unk0,
+            EMITTER_PROP_NEAR(0.0f),
+            EMITTER_PROP_FAR(250.0f),
+            EMITTER_PROP_ATTR(0),
+            EMITTER_PROP_END
+        );
+        // clang-format on
         for (i = 0; i < ARRAY_COUNT(D_8036D248); i++) {
             temp_v0_5 = D_8036D248[i] = (Unk8036D248*)_uvMemAllocAlign8(sizeof(Unk8036D248));
             temp_v0_5->unk0 = func_8021EFF0(2);
@@ -400,13 +419,13 @@ void func_8031FA0C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, Mtx4F* arg4, Mtx4F* a
         }
         if (D_8036D260->unk0 != 0xFF) {
             uvEmitterSetMatrix(D_8036D260->unk0, &D_8036D268);
-            uvEmitterSetUnk70(D_8036D260->unk0, sp44);
-            uvEmitterSetUnk74(D_8036D260->unk0, D_8036D260->unk8 + sp44);
+            uvEmitterSetVol(D_8036D260->unk0, sp44);
+            uvEmitterSetPitch(D_8036D260->unk0, D_8036D260->unk8 + sp44);
         }
         if (D_8036D260->unk4 != 0xFF) {
             uvEmitterSetMatrix(D_8036D260->unk4, &D_8036D268);
-            uvEmitterSetUnk70(D_8036D260->unk4, sp44);
-            uvEmitterSetUnk74(D_8036D260->unk4, D_8036D260->unkC + sp44);
+            uvEmitterSetVol(D_8036D260->unk4, sp44);
+            uvEmitterSetPitch(D_8036D260->unk4, D_8036D260->unkC + sp44);
         }
     }
 }
@@ -423,11 +442,11 @@ void func_8031FD70(f32 arg0) {
     }
 
     if (D_8036D260->unk0 != 0xFF) {
-        uvEmitterSetUnk70(D_8036D260->unk0, arg0);
+        uvEmitterSetVol(D_8036D260->unk0, arg0);
     }
 
     if (D_8036D260->unk4 != 0xFF) {
-        uvEmitterSetUnk70(D_8036D260->unk4, arg0);
+        uvEmitterSetVol(D_8036D260->unk4, arg0);
     }
 }
 

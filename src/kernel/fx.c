@@ -239,7 +239,7 @@ void uvFxProps(s32 fxId, ...) {
                 } else {
                     temp_v0->unk1E4 = temp_ft2;
                 }
-                temp_v0->unk1D0 = (f32)(var_a2->unk55 - var_a2->unk59) / (f32)(temp_v0->unk1E4 * 9);
+                temp_v0->unk1D0 = (f32)(var_a2->colorA - var_a2->unk59) / (f32)(temp_v0->unk1E4 * 9);
             }
             break;
         case 19:
@@ -302,16 +302,16 @@ void uvFxProps(s32 fxId, ...) {
             }
             break;
         case 5:
-            var_a2->unk52 = (f32)va_arg(args, f64) * 255.0f;
-            var_a2->unk53 = (f32)va_arg(args, f64) * 255.0f;
-            var_a2->unk54 = (f32)va_arg(args, f64) * 255.0f;
-            var_a2->unk55 = (f32)va_arg(args, f64) * 255.0f;
+            var_a2->colorR = (f32)va_arg(args, f64) * 255.0f;
+            var_a2->colorG = (f32)va_arg(args, f64) * 255.0f;
+            var_a2->colorB = (f32)va_arg(args, f64) * 255.0f;
+            var_a2->colorA = (f32)va_arg(args, f64) * 255.0f;
             if (var_a2->type == 4) {
                 temp_v0 = var_a2->unkA8;
-                temp_v0->unk190.x = var_a2->unk52 - var_a2->unk56;
-                temp_v0->unk190.y = var_a2->unk53 - var_a2->unk57;
-                temp_v0->unk190.z = var_a2->unk54 - var_a2->unk58;
-                temp_v0->unk1D0 = (f32)(var_a2->unk55 - var_a2->unk59) / (f32)(temp_v0->unk1E4 * 9);
+                temp_v0->unk190.x = var_a2->colorR - var_a2->unk56;
+                temp_v0->unk190.y = var_a2->colorG - var_a2->unk57;
+                temp_v0->unk190.z = var_a2->colorB - var_a2->unk58;
+                temp_v0->unk1D0 = (f32)(var_a2->colorA - var_a2->unk59) / (f32)(temp_v0->unk1E4 * 9);
             }
             break;
         case 6:
@@ -321,10 +321,10 @@ void uvFxProps(s32 fxId, ...) {
             var_a2->unk59 = (f32)va_arg(args, f64) * 255.0f;
             if (var_a2->type == 4) {
                 temp_v0 = var_a2->unkA8;
-                temp_v0->unk190.x = var_a2->unk52 - var_a2->unk56;
-                temp_v0->unk190.y = var_a2->unk53 - var_a2->unk57;
-                temp_v0->unk190.z = var_a2->unk54 - var_a2->unk58;
-                temp_v0->unk1D0 = (f32)(var_a2->unk55 - var_a2->unk59) / (f32)(temp_v0->unk1E4 * 9);
+                temp_v0->unk190.x = var_a2->colorR - var_a2->unk56;
+                temp_v0->unk190.y = var_a2->colorG - var_a2->unk57;
+                temp_v0->unk190.z = var_a2->colorB - var_a2->unk58;
+                temp_v0->unk1D0 = (f32)(var_a2->colorA - var_a2->unk59) / (f32)(temp_v0->unk1E4 * 9);
             }
             break;
         case 10:
@@ -405,10 +405,10 @@ void uvFxGetProps(s32 fxId, ...) {
             *va_arg(args, f32*) = temp_s2->unk38;
             break;
         case 5:
-            *va_arg(args, f32*) = temp_s2->unk52 / 255.0f;
-            *va_arg(args, f32*) = temp_s2->unk53 / 255.0f;
-            *va_arg(args, f32*) = temp_s2->unk54 / 255.0f;
-            *va_arg(args, f32*) = temp_s2->unk55 / 255.0f;
+            *va_arg(args, f32*) = temp_s2->colorR / 255.0f;
+            *va_arg(args, f32*) = temp_s2->colorG / 255.0f;
+            *va_arg(args, f32*) = temp_s2->colorB / 255.0f;
+            *va_arg(args, f32*) = temp_s2->colorA / 255.0f;
             break;
         case 6:
             *va_arg(args, f32*) = temp_s2->unk56 / 255.0f;
@@ -462,10 +462,10 @@ s32 uvModelGet(s32 fxId, s32 modelId) {
 
     var_v1->unk6 = 0;
     var_v1->unk7 = 0;
-    var_v1->unk52 = 255;
-    var_v1->unk53 = 255;
-    var_v1->unk54 = 255;
-    var_v1->unk55 = 255;
+    var_v1->colorR = 255;
+    var_v1->colorG = 255;
+    var_v1->colorB = 255;
+    var_v1->colorA = 255;
     var_v1->unkA8 = NULL;
     var_v1->unk2 = 255;
     var_v1->textureId = GFX_STATE_TEXTURE_NONE;
@@ -504,10 +504,10 @@ s32 uvModelGet(s32 fxId, s32 modelId) {
     case 4:
         var_v1->unk0 = 0;
         var_v1->unk8 = 1e20f;
-        var_v1->unk52 = 255;
-        var_v1->unk53 = 255;
-        var_v1->unk54 = 255;
-        var_v1->unk55 = 255;
+        var_v1->colorR = 255;
+        var_v1->colorG = 255;
+        var_v1->colorB = 255;
+        var_v1->colorA = 255;
         var_v1->unk56 = 128;
         var_v1->unk57 = 128;
         var_v1->unk58 = 128;
@@ -538,10 +538,10 @@ s32 uvModelGet(s32 fxId, s32 modelId) {
         break;
     case 2:
         var_v1->unk0 = 3;
-        var_v1->unk52 = 255;
-        var_v1->unk53 = 255;
-        var_v1->unk54 = 0;
-        var_v1->unk55 = 255;
+        var_v1->colorR = 255;
+        var_v1->colorG = 255;
+        var_v1->colorB = 0;
+        var_v1->colorA = 255;
         var_v1->unk56 = 255;
         var_v1->unk57 = 0;
         var_v1->unk58 = 0;
@@ -556,10 +556,10 @@ s32 uvModelGet(s32 fxId, s32 modelId) {
     case 8:
         var_v1->unk0 = 0;
         var_v1->unk8 = 1e20f;
-        var_v1->unk52 = 0;
-        var_v1->unk53 = 0;
-        var_v1->unk54 = 0;
-        var_v1->unk55 = 0;
+        var_v1->colorR = 0;
+        var_v1->colorG = 0;
+        var_v1->colorB = 0;
+        var_v1->colorA = 0;
         var_v1->unk56 = 128;
         var_v1->unk57 = 128;
         var_v1->unk58 = 128;
@@ -581,10 +581,10 @@ s32 uvModelGet(s32 fxId, s32 modelId) {
         break;
     case 5:
         var_v1->unk0 = 3;
-        var_v1->unk52 = 255;
-        var_v1->unk53 = 0;
-        var_v1->unk54 = 0;
-        var_v1->unk55 = 255;
+        var_v1->colorR = 255;
+        var_v1->colorG = 0;
+        var_v1->colorB = 0;
+        var_v1->colorA = 255;
         var_v1->unk56 = 255;
         var_v1->unk57 = 255;
         var_v1->unk58 = 0;
@@ -593,10 +593,10 @@ s32 uvModelGet(s32 fxId, s32 modelId) {
         break;
     case 3:
         var_v1->unk0 = 0;
-        var_v1->unk52 = 150;
-        var_v1->unk53 = 150;
-        var_v1->unk54 = 150;
-        var_v1->unk55 = 50;
+        var_v1->colorR = 150;
+        var_v1->colorG = 150;
+        var_v1->colorB = 150;
+        var_v1->colorA = 50;
         var_v1->unk8 = 1e20f;
         break;
     default:
@@ -629,9 +629,9 @@ void func_8021BE28(u16 fxId, Mtx4F* arg1) {
     temp_fv1 = temp_v1->unk1C4.y;
     temp_v1->unk1C4.z = arg1->m[3][2] * 2;
     temp_fa0 = temp_v1->unk1C4.z;
-    temp_v1->unk1D4 = temp_v0->unk55;
+    temp_v1->unk1D4 = temp_v0->colorA;
     temp_hi = temp_v1->unk1E8 % 10;
-    temp_v1->unk168[temp_hi] = temp_v0->unk55;
+    temp_v1->unk168[temp_hi] = temp_v0->colorA;
     if (temp_v1->unk1E8 == 0) {
         if (temp_v1->unk1E6 == 0) {
             temp_v1->unk1D8.x = temp_fv0;
@@ -692,7 +692,7 @@ void func_8021BE28(u16 fxId, Mtx4F* arg1) {
         temp_v1->unk1D8.y = temp_v1->unk1C4.y;
         temp_v1->unk1D8.z = temp_v1->unk1C4.z;
 
-        temp_v1->unk168[temp_hi] = temp_v0->unk55;
+        temp_v1->unk168[temp_hi] = temp_v0->colorA;
         temp_v1->unk0[temp_hi].unk0 = temp_v1->unk0[temp_hi_2].unk0;
         temp_v1->unk0[temp_hi].unk2 = temp_v1->unk0[temp_hi_2].unk2;
         temp_v1->unk0[temp_hi].unk4 = temp_v1->unk0[temp_hi_2].unk4;
@@ -712,16 +712,14 @@ void func_8021C4F8(u16 arg0) {
     UnkModelDebrisStructure* temp_fp;
     UnkFxStruct* temp_s0;
     s32 i;
-    u8 spC3;
-    u8 spC2;
-    u8 spC1;
+    u8 r, g, b;
     Mtx4F sp80;
 
     temp_s0 = &D_8028B400[arg0];
     temp_fp = temp_s0->unkA8;
-    spC3 = temp_s0->unk52;
-    spC2 = temp_s0->unk53;
-    spC1 = temp_s0->unk54;
+    r = temp_s0->colorR;
+    g = temp_s0->colorG;
+    b = temp_s0->colorB;
     uvMat4Copy(&sp80, &temp_s0->unk68);
     uvGfx_802236CC(&sp80);
     uvGfxSetFlags(GFX_STATE_TEXTURE_NONE);
@@ -743,9 +741,9 @@ void func_8021C4F8(u16 arg0) {
             uvMat4RotateAxis(&sp80, temp_fp->unk1E0[i] * 0.37f, ARRAY_COUNT(D_8028B400));
             uvGfxMtxViewMul(&sp80, 1);
             uvVtxBeginPoly();
-            uvVtx(0, 2, 0, 0, 0, spC3, spC2, spC1, 230);
-            uvVtx(1, -1, 0, 0, 0, spC3, spC2, spC1, 230);
-            uvVtx(-2, -1, 0, 0, 0, spC3, spC2, spC1, 230);
+            uvVtx(0, 2, 0, 0, 0, r, g, b, 230);
+            uvVtx(1, -1, 0, 0, 0, r, g, b, 230);
+            uvVtx(-2, -1, 0, 0, 0, r, g, b, 230);
             uvVtxEndPoly();
             uvGfxMtxViewPop();
         }
@@ -842,9 +840,9 @@ void func_8021C87C(u16 arg0) {
     if (sp70->unk64 != 0) {
         uvGfxClearFlags(sp70->unk64);
     }
-    sp8D = sp70->unk52;
-    sp8C = sp70->unk53;
-    sp8B = sp70->unk54;
+    sp8D = sp70->colorR;
+    sp8C = sp70->colorG;
+    sp8B = sp70->colorB;
 
     uvVtxBeginPoly();
     uvVtx((s16)temp_s6->unk1C4.x, (s16)temp_s6->unk1C4.y, (s16)temp_s6->unk1C4.z, sp82 / 2, 0, sp8D, sp8C, sp8B, sp8A);
@@ -885,9 +883,9 @@ void func_8021C87C(u16 arg0) {
     }
     sp8A = temp_s6->unk1D4;
     sp6C = temp_s6->unk168[i];
-    sp8D = sp70->unk52;
-    sp8C = sp70->unk53;
-    sp8B = sp70->unk54;
+    sp8D = sp70->colorR;
+    sp8C = sp70->colorG;
+    sp8B = sp70->colorB;
     uvVtxBeginPoly();
     uvVtx((s16)temp_s6->unk1C4.x, (s16)temp_s6->unk1C4.y, (s16)temp_s6->unk1C4.z, sp82 / 2, 0, sp8D, sp8C, sp8B, sp8A);
     if (sp94 > 0) {
@@ -970,7 +968,7 @@ void func_8021D8E0(u16 fxId) {
     uvBeginGrid();
     for (i = 0; i < ARRAY_COUNT(D_80248F34); i++) {
         temp_fv0 = D_80248F34[i].unk4 * var_fs0;
-        uvVtx(D_80248F34[i].unk0, 0, D_80248F34[i].unk2, 0, 0, temp_s1->unk52, temp_s1->unk53, (s32)temp_s1->unk54, (u8)(temp_fv0));
+        uvVtx(D_80248F34[i].unk0, 0, D_80248F34[i].unk2, 0, 0, temp_s1->colorR, temp_s1->colorG, (s32)temp_s1->colorB, (u8)(temp_fv0));
     }
     uvEndGrid(8, 8, 0, 0);
     uvGfxMtxViewPop();
@@ -1009,9 +1007,9 @@ void func_8021DAF8(u16 fxId) {
     uvGfx_802236CC(&temp_s1->unk68);
     uvVtxBeginPoly();
 
-    temp_fv0 = temp_s1->unk55 * (1.0f - SQ(var_fa1)) * temp_s1->unk10;
+    temp_fv0 = temp_s1->colorA * (1.0f - SQ(var_fa1)) * temp_s1->unk10;
 
-    uvVtx(D_80248EA0[0].unk0, 0, D_80248EA0[0].unk2, 0, 0, temp_s1->unk52, temp_s1->unk53, temp_s1->unk54, (s16)(temp_fv0));
+    uvVtx(D_80248EA0[0].unk0, 0, D_80248EA0[0].unk2, 0, 0, temp_s1->colorR, temp_s1->colorG, temp_s1->colorB, (s16)(temp_fv0));
 
     for (i = 9; i > 0; i--) {
         uvVtx(D_80248EA0[i].unk0, 0, D_80248EA0[i].unk2, 0, 0, temp_s1->unk56, temp_s1->unk57, temp_s1->unk58, temp_s1->unk59);
@@ -1104,13 +1102,13 @@ void func_8021DD30(u16 fxId) {
     sp94.m[2][0] *= temp_s0->unk28;
     sp94.m[2][1] *= temp_s0->unk28;
     sp94.m[2][2] *= temp_s0->unk28;
-    sp8B = temp_s0->unk48 * temp_s0->unk55;
+    sp8B = temp_s0->unk48 * temp_s0->colorA;
     uvGfx_802236CC(&sp94);
     uvVtxBeginPoly();
-    uvVtx(-100, 0, 0, sp78, sp7A, temp_s0->unk52, temp_s0->unk53, temp_s0->unk54, sp8B);
-    uvVtx(100, 0, 0, sp7C, sp7E, temp_s0->unk52, temp_s0->unk53, temp_s0->unk54, sp8B);
-    uvVtx(100, 0, 200, sp80, sp82, temp_s0->unk52, temp_s0->unk53, temp_s0->unk54, sp8B);
-    uvVtx(-100, 0, 200, sp84, sp86, temp_s0->unk52, temp_s0->unk53, temp_s0->unk54, sp8B);
+    uvVtx(-100, 0, 0, sp78, sp7A, temp_s0->colorR, temp_s0->colorG, temp_s0->colorB, sp8B);
+    uvVtx(100, 0, 0, sp7C, sp7E, temp_s0->colorR, temp_s0->colorG, temp_s0->colorB, sp8B);
+    uvVtx(100, 0, 200, sp80, sp82, temp_s0->colorR, temp_s0->colorG, temp_s0->colorB, sp8B);
+    uvVtx(-100, 0, 200, sp84, sp86, temp_s0->colorR, temp_s0->colorG, temp_s0->colorB, sp8B);
     uvVtxEndPoly();
     uvGfxMtxViewPop();
 }
@@ -1140,7 +1138,7 @@ void func_8021E608(u16 fxId) {
         uvGfxClearFlags(temp_s1->unk64);
     }
     uvVtxBeginPoly();
-    uvVtx(D_80248F1C[0].unk0, 0, D_80248F1C[0].unk2, 0, 0, temp_s1->unk52, temp_s1->unk53, temp_s1->unk54, temp_s1->unk55);
+    uvVtx(D_80248F1C[0].unk0, 0, D_80248F1C[0].unk2, 0, 0, temp_s1->colorR, temp_s1->colorG, temp_s1->colorB, temp_s1->colorA);
     for (i = ARRAY_COUNT(D_80248F1C) - 1; i > 0; i--) {
         uvVtx(D_80248F1C[i].unk0, 0, D_80248F1C[i].unk2, 0, 0, temp_s1->unk56, temp_s1->unk57, temp_s1->unk58, temp_s1->unk59);
     }
@@ -1173,13 +1171,13 @@ void func_8021E7E0(u16 fxId) {
     }
     sp98 = temp_s2->unk1C * 20.0f;
     uvVtxBeginPoly();
-    uvVtx(D_80248ED8[0].unk0, D_80248ED8[0].unk2, 0, 0, 0, temp_s2->unk52, temp_s2->unk53, temp_s2->unk54, temp_s2->unk55);
+    uvVtx(D_80248ED8[0].unk0, D_80248ED8[0].unk2, 0, 0, 0, temp_s2->colorR, temp_s2->colorG, temp_s2->colorB, temp_s2->colorA);
     for (i = 1; i < ARRAY_COUNT(D_80248ED8); i++) {
-        temp_t0 = ((temp_s2->unk55 >> 2) << ((sp98 + i) % 4));
-        uvVtx(D_80248ED8[i].unk0, D_80248ED8[i].unk2, 0, 0, 0, temp_s2->unk52, temp_s2->unk53, temp_s2->unk54, temp_t0);
+        temp_t0 = ((temp_s2->colorA >> 2) << ((sp98 + i) % 4));
+        uvVtx(D_80248ED8[i].unk0, D_80248ED8[i].unk2, 0, 0, 0, temp_s2->colorR, temp_s2->colorG, temp_s2->colorB, temp_t0);
     }
-    temp_t0 = ((temp_s2->unk55 >> 2) << ((sp98 + 1) % 4));
-    uvVtx(D_80248ED8[1].unk0, D_80248ED8[1].unk2, 0, 0, 0, temp_s2->unk52, temp_s2->unk53, temp_s2->unk54, temp_t0);
+    temp_t0 = ((temp_s2->colorA >> 2) << ((sp98 + 1) % 4));
+    uvVtx(D_80248ED8[1].unk0, D_80248ED8[1].unk2, 0, 0, 0, temp_s2->colorR, temp_s2->colorG, temp_s2->colorB, temp_t0);
     uvVtxEndPoly();
     uvGfxMtxViewPop();
 }
@@ -1367,3 +1365,4 @@ s32 func_8021EFF0(s32 type) {
     }
     return 0xFF;
 }
+
