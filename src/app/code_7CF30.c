@@ -494,7 +494,7 @@ void gyrocopterMovementFrame(GyrocopterData* gcData, u8 gameState) {
                     hudWarningText(TEXT_FUEL_WAR, 1.5f, 8.0f);
                     gcData->hasLowFuel = TRUE;
                 } else if ((func_8032C080(NULL) != 0) && !gcData->pleaseLandShown) {
-                    sndPlaySfx(5);
+                    sndPlaySfx(SFX_UI_HUD_CHIME);
                     hudText_8031D8E0(TEXT_LAND_NOW2, 1.5f, 8.0f);
                     gcData->pleaseLandShown = TRUE;
                 } else if ((taskGet_80346468() != 0) && !gcData->unkD5) {
