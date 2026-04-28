@@ -1007,7 +1007,7 @@ s32 gameUpdateStateTestUpdate(Unk80362690* arg0) {
     if ((sp64 > 0.0f) && (sp64 < D_8034F850) && (arg0->unkA0 != 0)) {
         if ((sp6C->unkA != 3) && (sp6C->unkA != 4)) {
             hudText_8031D8E0(TEXT_LAND_MOW, 1.5f, 8.0f);
-            sndPlaySfx(5);
+            sndPlaySfx(SFX_UI_HUD_CHIME);
             taskDeinit();
             arg0->unkA0 = 0;
         }
