@@ -321,7 +321,7 @@ void func_8032FEAC(SkyDivingData* sdData, s32 buttons, u8 gameState) {
     }
     hudSetCameraState(var_a0);
     if ((sdData->unk264 != 1.0f) && (sdData->unk27A == 0) && (sdData->unk10.m[3][2] < 900.0f) && (sdData->unk25C == 0)) {
-        sndPlaySfx(5);
+        sndPlaySfx(SFX_UI_HUD_CHIME);
         hudWarningText(TEXT_S_OPEN, 3.0f, 8.0f);
         sdData->unk25C = 1;
     }
