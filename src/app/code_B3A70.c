@@ -354,7 +354,7 @@ s32 func_8032CF28(Unk80362690* arg0) {
 
     sp6C = &arg0->unkC[arg0->unk9C];
     sp68 = sp6C->unk70;
-    sndPlaySfx(4U);
+    sndPlaySfx(SFX_UI_PAUSE);
     var_s0 = 0x4C;
     hud = hudGetState();
     sp5B = hud->renderFlags;
