@@ -7,17 +7,17 @@
 #include "proxanim.h"
 #include "task.h"
 
-static s32 sFountainObjId = 0xFFFF;
-static s32 sFountainRadarId = 0xFF;
-static s32 sFountainActive = FALSE;
-static Vec3F sFountainInitPos = { -288.0f, -99.0f, 5.75f };
+STATIC_DATA s32 sFountainObjId = 0xFFFF;
+STATIC_DATA s32 sFountainRadarId = 0xFF;
+STATIC_DATA s32 sFountainActive = FALSE;
+STATIC_DATA Vec3F sFountainInitPos = { -288.0f, -99.0f, 5.75f };
 
-static Mtx4F sFountainPose;
-static s32 sFountainProxId;
-static s32 sFountainState;
-static f32 sFountainScale;
-static f32 sFountainScaleCopy;
-static s32 sFountainStateCopy;
+STATIC_DATA Mtx4F sFountainPose;
+STATIC_DATA s32 sFountainProxId;
+STATIC_DATA s32 sFountainState;
+STATIC_DATA f32 sFountainScale;
+STATIC_DATA f32 sFountainScaleCopy;
+STATIC_DATA s32 sFountainStateCopy;
 
 s32 fountainIsActive(void) {
     return sFountainActive;

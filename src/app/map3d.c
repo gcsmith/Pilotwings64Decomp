@@ -50,11 +50,11 @@ f32 D_8034F834 = 0.0f;
 f32 D_8034F838 = 0.0f;
 u8 sMapHudFlagsSave = 0;
 
-static u8 sMapEmitterDev0;
-static u8 sMapEmitterDev1;
-static u16 sMapObjects[60];
-static Vec3F sMapMessages[20];
-static f32 sMapGlobalScale;
+STATIC_DATA u8 sMapEmitterDev0;
+STATIC_DATA u8 sMapEmitterDev1;
+STATIC_DATA u16 sMapObjects[60];
+STATIC_DATA Vec3F sMapMessages[20];
+STATIC_DATA f32 sMapGlobalScale;
 
 // forward declarations
 void map3d_803123C4(f32, f32);

@@ -7,8 +7,8 @@
 #include "code_A6000.h"
 #include "user_paths.h"
 
-static Unk8037DCA0 D_8037DCA0[6];
-static Unk8037F098 D_8037F098;
+STATIC_DATA Unk8037DCA0 D_8037DCA0[6];
+STATIC_DATA Unk8037F098 D_8037F098;
 
 void userPathInit(void) {
     s32 i;

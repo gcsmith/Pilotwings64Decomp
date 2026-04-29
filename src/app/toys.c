@@ -23,8 +23,8 @@ typedef struct {
 
 enum ToyType { TOY_MERRY_GO_ROUND = 0, TOY_FERRIS_WHEEL = 1, TOY_WATER_WHEEL = 2, TOY_PUMP_JACK = 3, TOY_MOUNT_RUSHMORE = 4 };
 
-static u8 sToyCount;
-static Toy sToys[20];
+STATIC_DATA u8 sToyCount;
+STATIC_DATA Toy sToys[20];
 
 void toyInit(void) {
     s32 i;

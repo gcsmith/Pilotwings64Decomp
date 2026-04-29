@@ -20,16 +20,16 @@ typedef struct {
     ControlInfoLabel* labels;
 } ControlInfoLabelGroup;
 
-static s32 sControlInfoCount;
+STATIC_DATA s32 sControlInfoCount;
 
-static ControlInfoLabel sControlInfoHangGlider[] = {
+STATIC_DATA ControlInfoLabel sControlInfoHangGlider[] = {
     { 223, 108,   BLIT_CONT_INFO_FLARE_LANDING },
     { 220, 178,        BLIT_CONT_INFO_Z_BUTTON },
     { 221, 196,      BLIT_CONT_INFO_SNAP_PHOTO },
     {  46, 163, BLIT_CONT_INFO_CONTROL_VEHICLE },
 };
 
-static ControlInfoLabel sControlInfoGyrocopter[] = {
+STATIC_DATA ControlInfoLabel sControlInfoGyrocopter[] = {
     { 227,  98,    BLIT_CONT_INFO_INC_THROTTLE },
     { 227, 146,    BLIT_CONT_INFO_DEC_THROTTLE },
     { 193, 179,        BLIT_CONT_INFO_Z_BUTTON },
@@ -37,7 +37,7 @@ static ControlInfoLabel sControlInfoGyrocopter[] = {
     {  46, 163, BLIT_CONT_INFO_CONTROL_VEHICLE },
 };
 
-static ControlInfoLabel sControlInfoRocketBelt[] = {
+STATIC_DATA ControlInfoLabel sControlInfoRocketBelt[] = {
     { 230, 126,        BLIT_CONT_INFO_WEAK_JET },
     { 230, 104,      BLIT_CONT_INFO_STRONG_JET },
     { 216, 167,        BLIT_CONT_INFO_Z_BUTTON },
@@ -45,12 +45,12 @@ static ControlInfoLabel sControlInfoRocketBelt[] = {
     {  46, 163, BLIT_CONT_INFO_CONTROL_VEHICLE },
 };
 
-static ControlInfoLabel sControlInfoCannonball[] = {
+STATIC_DATA ControlInfoLabel sControlInfoCannonball[] = {
     { 251, 104,        BLIT_CONT_INFO_FIRE },
     {  38, 179, BLIT_CONT_INFO_ADJUST_FIRE },
 };
 
-static ControlInfoLabel sControlInfoSkydiving[] = {
+STATIC_DATA ControlInfoLabel sControlInfoSkydiving[] = {
     { 223, 106,             BLIT_CONT_INFO_FLARE },
     { 218, 161,        BLIT_CONT_INFO_OPEN_CHUTE },
     {  59, 200,     BLIT_CONT_INFO_TILT_BACKWARD },
@@ -61,7 +61,7 @@ static ControlInfoLabel sControlInfoSkydiving[] = {
     {  38, 201,        BLIT_CONT_INFO_DOWN_ARROW },
 };
 
-static ControlInfoLabel sControlInfoJumbleHopper[] = {
+STATIC_DATA ControlInfoLabel sControlInfoJumbleHopper[] = {
     { 222, 104, BLIT_CONT_INFO_CHANGE_JUMP_ALTITUDE },
     {  59, 179,    BLIT_CONT_INFO_ADJUST_LEFT_RIGHT },
     {  59, 198,   BLIT_CONT_INFO_ADJUST_JUMP_ANGLES },
@@ -70,7 +70,7 @@ static ControlInfoLabel sControlInfoJumbleHopper[] = {
     {  35, 208,           BLIT_CONT_INFO_DOWN_ARROW },
 };
 
-static ControlInfoLabel sControlInfoBirdman[] = {
+STATIC_DATA ControlInfoLabel sControlInfoBirdman[] = {
     { 228,  99,      BLIT_CONT_INFO_FLAP_WINGS },
     { 228, 131,     BLIT_CONT_INFO_BRAKE_HOVER },
     { 220, 178,        BLIT_CONT_INFO_Z_BUTTON },
@@ -78,7 +78,7 @@ static ControlInfoLabel sControlInfoBirdman[] = {
     {  46, 163, BLIT_CONT_INFO_CONTROL_VEHICLE },
 };
 
-static ControlInfoLabelGroup sControlInfoVeh[] = {
+STATIC_DATA ControlInfoLabelGroup sControlInfoVeh[] = {
     {   ARRAY_COUNT(sControlInfoHangGlider),   sControlInfoHangGlider },
     {   ARRAY_COUNT(sControlInfoRocketBelt),   sControlInfoRocketBelt },
     {   ARRAY_COUNT(sControlInfoGyrocopter),   sControlInfoGyrocopter },
@@ -89,7 +89,7 @@ static ControlInfoLabelGroup sControlInfoVeh[] = {
 };
 
 // clang-format off: disable formatter to show -1 terminator
-static s16 D_8034EC10[] = {
+STATIC_DATA s16 D_8034EC10[] = {
     0x7A, 0x35, 0x9E, 0x35, -1,
     0x9D, 0x35, 0x9D, 0x64, -1,
     0xBE, 0x24, 0xBE, 0x46, -1,
@@ -99,7 +99,7 @@ static s16 D_8034EC10[] = {
 };
 
 // hang glider
-static s16 D_8034EC44[] = {
+STATIC_DATA s16 D_8034EC44[] = {
     0xD5, 0xC3, 0xB0, 0x93, -1,
     0x9C, 0x7C, 0x4B, 0x7C, 0x4B, 0x9F, -1,
     0xDC, 0x7C, 0xB2, 0x7C, -1,
@@ -109,7 +109,7 @@ static s16 D_8034EC44[] = {
  };
 
 // gyrocopter
-static s16 D_8034EC7C[] = {
+STATIC_DATA s16 D_8034EC7C[] = {
     0xB2, 0x67, 0xB2, 0x99, 0xDF, 0x99, -1,
     0xBC, 0x6E, 0xDF, 0x6E, -1,
     0xBB, 0xCB, 0xAF, 0x98, -1,
@@ -118,7 +118,7 @@ static s16 D_8034EC7C[] = {
 };
 
 // rocket belt
-static s16 D_8034ECB0[] = {
+STATIC_DATA s16 D_8034ECB0[] = {
     0xB2, 0x67, 0xB2, 0x84, 0xE1, 0x84, -1,
     0xBC, 0x6E, 0xE1, 0x6E, -1,
     0xAF, 0x98, 0xD0, 0xBD, -1,
@@ -127,14 +127,14 @@ static s16 D_8034ECB0[] = {
 };
 
 // cannonball
-static s16 D_8034ECE4[] = {
+STATIC_DATA s16 D_8034ECE4[] = {
     0x9C, 0x7C, 0x4B, 0x7C, 0x4B, 0xAD, -1,
     0xBC, 0x6E, 0xF5, 0x6E, -1,
     -1
 };
 
 // skydiving
-static s16 D_8034ED00[] = {
+STATIC_DATA s16 D_8034ED00[] = {
     0xB2, 0x67, 0xB2, 0xA7, 0xD2, 0xA7, -1,
     0xBC, 0x6F, 0xDA, 0x6F, -1,
     0x9C, 0x7C, 0x4B, 0x7C, 0x4B, 0x99, -1,
@@ -142,14 +142,14 @@ static s16 D_8034ED00[] = {
 };
 
 // jumble hopper
-static s16 D_8034ED28[] = {
+STATIC_DATA s16 D_8034ED28[] = {
     0x4B, 0xAB, 0x4B, 0x80, 0x9B, 0x80, -1,
     0xBC, 0x6E, 0xDA, 0x6E, -1,
     -1
 };
 
 // birdman
-static s16 D_8034ED44[] = {
+STATIC_DATA s16 D_8034ED44[] = {
     0xB2, 0x67, 0xB2, 0x89, 0xDF, 0x89, -1,
     0xBC, 0x6E, 0xDF, 0x6E, -1,
     0xAF, 0x98, 0xD5, 0xC3, -1,
@@ -158,7 +158,7 @@ static s16 D_8034ED44[] = {
 };
 // clang-format on
 
-static s16* D_8034ED78[] = { D_8034EC44, D_8034ECB0, D_8034EC7C, D_8034ECE4, D_8034ED00, D_8034ED28, D_8034ED44 };
+STATIC_DATA s16* D_8034ED78[] = { D_8034EC44, D_8034ECB0, D_8034EC7C, D_8034ECE4, D_8034ED00, D_8034ED28, D_8034ED44 };
 
 // forward declarations
 void contInfoInit(void);

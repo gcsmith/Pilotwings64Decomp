@@ -29,17 +29,17 @@ typedef struct DemoRecording {
 } DemoRecording;
 
 // .data
-static s32 sDemoMode = 0;
+STATIC_DATA s32 sDemoMode = 0;
 
 // .bss
-static DemoRecording* sDemoRecording;
-static f32 sDemoRecStartTime;
-static f32 sDemoRecEndTime;
-static s32 D_8036DA3C;
-static s32 D_8036DA40;
-static s32 sDemoPilotId;
-static s32 sDemoVehicleId;
-static RHDR sDemoRecHeader;
+STATIC_DATA DemoRecording* sDemoRecording;
+STATIC_DATA f32 sDemoRecStartTime;
+STATIC_DATA f32 sDemoRecEndTime;
+STATIC_DATA s32 D_8036DA3C;
+STATIC_DATA s32 D_8036DA40;
+STATIC_DATA s32 sDemoPilotId;
+STATIC_DATA s32 sDemoVehicleId;
+STATIC_DATA RHDR sDemoRecHeader;
 
 f32 demoRecGetStickX(DemoRecordingEntry* entry) {
     return (f32)(((f32)((entry->inputs & 0xFF000000) >> 24) / 127.0) - 1.0);

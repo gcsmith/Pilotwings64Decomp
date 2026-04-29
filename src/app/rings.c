@@ -16,14 +16,14 @@
 #define RING_SIZE_COUNT 5
 
 // .bss
-static TaskRNGS* sRefRNGS;
-static u8 sRingsCount;
+STATIC_DATA TaskRNGS* sRefRNGS;
+STATIC_DATA u8 sRingsCount;
 Ring gRings[30];
 u8 gRingChildIndexes[5];
 
 // .data
 f32 gRingDiameters[] = { 7.5f, 10.0f, 12.5f, 17.5f, 25.0f };
-static s32 sRingModelIdLookup[2][4][5] = {
+STATIC_DATA s32 sRingModelIdLookup[2][4][5] = {
     {
      { MODEL_RING_YELLOW_1, MODEL_RING_YELLOW_2, MODEL_RING_YELLOW_3, MODEL_RING_YELLOW_4, MODEL_RING_YELLOW_5 },
      { MODEL_RING_RED_1, MODEL_RING_RED_2, MODEL_RING_RED_3, MODEL_RING_RED_4, MODEL_RING_RED_5 },

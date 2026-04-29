@@ -9,8 +9,8 @@
 #include "hud.h"
 #include "snd.h"
 
-static EventCallbackInfo sHgSoundEventCbInfo;
-static Unk803599D0 sHgSound_80368318;
+STATIC_DATA EventCallbackInfo sHgSoundEventCbInfo;
+STATIC_DATA Unk803599D0 sHgSound_80368318;
 
 // forward declarations
 STATIC_FUNC void hgSoundEventHandler(s32, void*, s32);

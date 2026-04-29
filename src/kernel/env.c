@@ -5,7 +5,7 @@
 
 Mtx D_80269F10;
 
-static Mtx4F D_80248DE0 = {
+STATIC_DATA Mtx4F D_80248DE0 = {
     1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
 };
 

@@ -22,11 +22,11 @@ typedef struct Unk80289380 {
     ParsedUVFT* font;
 } FontMessage; // size = 0x70
 
-static Bitmap sFontBitmaps[FONT_MAX_MSG_LEN];
-static Gfx sFontDList[7944 * 2];
-static FontMessage sFontMessages[30];
+STATIC_DATA Bitmap sFontBitmaps[FONT_MAX_MSG_LEN];
+STATIC_DATA Gfx sFontDList[7944 * 2];
+STATIC_DATA FontMessage sFontMessages[30];
 
-static Sprite sFontSprite = {
+STATIC_DATA Sprite sFontSprite = {
     0,            // x
     0,            // y
     0,            // width
@@ -59,18 +59,18 @@ static Sprite sFontSprite = {
     0             // frac_t
 };
 
-static u8 sFontColorR = 0xFF;
-static u8 sFontColorG = 0xFF;
-static u8 sFontColorB = 0xFF;
-static u8 sFontColorA = 0xFF;
-static UNUSED s32 D_80248E74 = 0;
-static UNUSED s32 D_80248E78 = 0;
+STATIC_DATA u8 sFontColorR = 0xFF;
+STATIC_DATA u8 sFontColorG = 0xFF;
+STATIC_DATA u8 sFontColorB = 0xFF;
+STATIC_DATA u8 sFontColorA = 0xFF;
+STATIC_DATA UNUSED s32 D_80248E74 = 0;
+STATIC_DATA UNUSED s32 D_80248E78 = 0;
 
-static f32 sFontScaleX = 1.0f;
-static f32 sFontScaleY = 1.0f;
-static u32 sFontCurId = 0;
-static u32 sFontCurWidth = 8;
-static s32 sFontMsgCount = 0;
+STATIC_DATA f32 sFontScaleX = 1.0f;
+STATIC_DATA f32 sFontScaleY = 1.0f;
+STATIC_DATA u32 sFontCurId = 0;
+STATIC_DATA u32 sFontCurWidth = 8;
+STATIC_DATA s32 sFontMsgCount = 0;
 
 ParsedUVFT* uvParseTopUVFT(s32 arg0) {
     ParsedUVFT* ret;

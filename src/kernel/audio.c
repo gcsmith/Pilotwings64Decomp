@@ -35,10 +35,11 @@ ALSndId* gSndVoiceTable;
 ALSeqFile* gSeqFile;
 u8* gSequenceData;
 
-static s32 nextDMA = 0;
-static s32 curAcmdList = 0;
-static s32 D_80248C88 = 0;
-static u8* gAudioHeapStart = 0x80000400;
+STATIC_DATA s32 nextDMA = 0;
+STATIC_DATA s32 curAcmdList = 0;
+STATIC_DATA s32 D_80248C88 = 0;
+STATIC_DATA u8* gAudioHeapStart = 0x80000400;
+
 ALSeqPlayer* gSeqPlayer = (ALSeqPlayer*)&gALCSPlayer;
 ALSndPlayer* gSndPlayer = &gALSndPlayer;
 

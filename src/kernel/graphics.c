@@ -44,7 +44,7 @@ OSScTask* gGfxTaskPtr;
 OSScTask gGfxTasks[2];
 u8 gGfxYieldData[OS_YIELD_DATA_SIZE];
 
-static Gfx gGfxDList1[] = {
+STATIC_DATA Gfx gGfxDList1[] = {
     gsDPPipeSync(),
     gsDPSetCycleType(G_CYC_2CYCLE),
     gsDPPipelineMode(G_PM_NPRIMITIVE),
@@ -61,20 +61,20 @@ static Gfx gGfxDList1[] = {
     gsSPEndDisplayList(),
 };
 
-static Gfx gGfxDList2[] = {
+STATIC_DATA Gfx gGfxDList2[] = {
     gsSPSetGeometryMode(G_SHADE), gsDPSetCycleType(G_CYC_2CYCLE), gsDPSetTextureLOD(G_TL_TILE), gsDPSetCombineMode(G_CC_SHADE, G_CC_PASS2),
     gsSPEndDisplayList(),
 };
 
-static f32 D_802491D8[2] = { 0, 0 };
-static s32 D_802491E0 = 0;
-static s32 D_802491E4 = 0xFFFFFFFF;
-static s32 D_802491E8 = 0;
-static s32 gGfxGammaEnabled = FALSE;
-static void* gGfxFbCurrPtr = NULL;
-static u8 gGfxZBufferEnabled = FALSE;   // [4] = { 0, 0, 0, 0 };
-static s8 gGfxCullFrontEnabled = FALSE; // [4] = { 0, 0, 0, 0 };
-static s8 gGfxCullBackEnabled = TRUE;   // [4] = { 0, 0, 0, 0 };
+STATIC_DATA f32 D_802491D8[2] = { 0, 0 };
+STATIC_DATA s32 D_802491E0 = 0;
+STATIC_DATA s32 D_802491E4 = 0xFFFFFFFF;
+STATIC_DATA s32 D_802491E8 = 0;
+STATIC_DATA s32 gGfxGammaEnabled = FALSE;
+STATIC_DATA void* gGfxFbCurrPtr = NULL;
+STATIC_DATA u8 gGfxZBufferEnabled = FALSE;   // [4] = { 0, 0, 0, 0 };
+STATIC_DATA s8 gGfxCullFrontEnabled = FALSE; // [4] = { 0, 0, 0, 0 };
+STATIC_DATA s8 gGfxCullBackEnabled = TRUE;   // [4] = { 0, 0, 0, 0 };
 
 s32 gGfxSyncNeeded = FALSE;
 s32 gGfxBeginFlag = FALSE;
@@ -87,7 +87,7 @@ f32 gGfxUnkStateF = -1;
 
 UNUSED Vp D_80249220 = { 640, 480, 511, 0, 640, 480, 511, 0 };
 
-static uvGfxCallback_t gGfxCallback = NULL;
+STATIC_DATA uvGfxCallback_t gGfxCallback = NULL;
 
 extern OSMesgQueue D_802C3B90;
 extern s32 D_8024B260;

@@ -4,10 +4,10 @@
 #include "mem.h"
 
 // .bss
-static u8 sLevelObjHeap[5000];
+STATIC_DATA u8 sLevelObjHeap[5000];
 
 // .data
-static u8* sLevelObjHeapPtr = sLevelObjHeap;
+STATIC_DATA u8* sLevelObjHeapPtr = sLevelObjHeap;
 
 void* mem_get(s32 size) {
     u8* ret;

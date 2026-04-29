@@ -12,10 +12,10 @@ STATIC_FUNC void menuDrawItem(s16 x, s16 y, s16 idx);
 
 // arrays of pointers to 16-bit strings
 // e.g. "Option" from main menu is 0x0078 0x0093 0x0097 0x008c 0x0092 0091 0x0ffe 0xffff
-static s16* sMenuItems[5];
-static s16 sMenuSpriteIdBase;
-static s16 sMenuSpriteHeight;
-static s16 sMenuCountVarHeight;
+STATIC_DATA s16* sMenuItems[5];
+STATIC_DATA s16 sMenuSpriteIdBase;
+STATIC_DATA s16 sMenuSpriteHeight;
+STATIC_DATA s16 sMenuCountVarHeight;
 
 STATIC_FUNC void menuCreate(s32 x, s32 y, s32 font, f32 xscale, f32 yscale, s32 itemCount) {
     s32 i;

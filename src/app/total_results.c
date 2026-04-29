@@ -11,38 +11,38 @@
 #include "text_data.h"
 #include "total_results.h"
 
-static s16 sTestPtsStr0[8];
-static s16 sTestPtsStr1[8];
-static s16 sTestPtsStr2[8];
-static s16 sTestPtsStr3[6];
+STATIC_DATA s16 sTestPtsStr0[8];
+STATIC_DATA s16 sTestPtsStr1[8];
+STATIC_DATA s16 sTestPtsStr2[8];
+STATIC_DATA s16 sTestPtsStr3[6];
 
-static s16* sMedalName;
-static s32 sUnused_8037AD20[2];
-static s16 sTotalPtsStr[5];
-static s16 D_8037AD32_pad;
-static s16* sTotPtUnitStr;
-static s16 D_8037AD38[5];
-static u8 D_8037AD42;
-static s32 D_8037AD44_pad;
-static s16* sTestPtUnitStr[4];
-static char sMedalNameCopy[24];
+STATIC_DATA s16* sMedalName;
+STATIC_DATA s32 sUnused_8037AD20[2];
+STATIC_DATA s16 sTotalPtsStr[5];
+STATIC_DATA s16 D_8037AD32_pad;
+STATIC_DATA s16* sTotPtUnitStr;
+STATIC_DATA s16 D_8037AD38[5];
+STATIC_DATA u8 D_8037AD42;
+STATIC_DATA s32 D_8037AD44_pad;
+STATIC_DATA s16* sTestPtUnitStr[4];
+STATIC_DATA char sMedalNameCopy[24];
 
-static const char* sStageMedalName[][5] = {
+STATIC_DATA const char* sStageMedalName[][5] = {
     { "E_S3_BLONDS", "E_S3_SILVER", "E_S3_GOLD", "E_S3_PERFECT", "E_S3_GREAT" },
     { "A_S3_BLONDS", "A_S3_SILVER", "A_S3_GOLD", "A_S3_PERFECT", "A_S3_GREAT" },
     { "B_S3_BLONDS", "B_S3_SILVER", "B_S3_GOLD", "B_S3_PERFECT", "B_S3_GREAT" },
     { "P_S3_BLONDS", "P_S3_SILVER", "P_S3_GOLD", "P_S3_PERFECT", "P_S3_GREAT" },
 };
 
-static const char* sBonusMedalName[] = { "BONUS_S3_BLONDS", "BONUS_S3_SILVER", "BONUS_S3_GOLD", "BONUS_S3_PERFECT", "BONUS_S3_GREAT" };
+STATIC_DATA const char* sBonusMedalName[] = { "BONUS_S3_BLONDS", "BONUS_S3_SILVER", "BONUS_S3_GOLD", "BONUS_S3_PERFECT", "BONUS_S3_GREAT" };
 
-static s32 sResultNextMenu[1] = { TEXT_NEXT_SGI };
+STATIC_DATA s32 sResultNextMenu[1] = { TEXT_NEXT_SGI };
 
-static s32 sResultsMenuItems[3] = { TEXT_RETRY_SGI, TEXT_ANOTHER_TASK_SGI, TEXT_QUIT_SGI };
+STATIC_DATA s32 sResultsMenuItems[3] = { TEXT_RETRY_SGI, TEXT_ANOTHER_TASK_SGI, TEXT_QUIT_SGI };
 
-static s32 sResultsMenuCount = 0;
+STATIC_DATA s32 sResultsMenuCount = 0;
 
-static s16* sTestPtsStr[4] = { sTestPtsStr0, sTestPtsStr1, sTestPtsStr2, sTestPtsStr3 };
+STATIC_DATA s16* sTestPtsStr[4] = { sTestPtsStr0, sTestPtsStr1, sTestPtsStr2, sTestPtsStr3 };
 
 // forward declarations
 void totResultInit(void);

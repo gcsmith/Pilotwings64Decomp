@@ -9,43 +9,43 @@
 #include "menu_utils.h"
 #include "snd.h"
 
-static s32 sMenuItemCount;
-static s32 sMenuFont;
-static f32 sMenuScaleX;
-static f32 sMenuScaleY;
-static s32 sMenuPosX;
-static s32 sMenuPosY;
+STATIC_DATA s32 sMenuItemCount;
+STATIC_DATA s32 sMenuFont;
+STATIC_DATA f32 sMenuScaleX;
+STATIC_DATA f32 sMenuScaleY;
+STATIC_DATA s32 sMenuPosX;
+STATIC_DATA s32 sMenuPosY;
 void (*gFcnDrawMenuItem)(s16, s16, s16);
-static char** sMenuItems;
-static s32 sMenuCurSelect;
-static s32 sMenuPrevSelect;
-static s32 sMenuAdj;
-static s32 sMenuStickCenter;
-static u8 sMenuButtonMode;
+STATIC_DATA char** sMenuUtilItems;
+STATIC_DATA s32 sMenuCurSelect;
+STATIC_DATA s32 sMenuPrevSelect;
+STATIC_DATA s32 sMenuAdj;
+STATIC_DATA s32 sMenuStickCenter;
+STATIC_DATA u8 sMenuButtonMode;
 
 // Color RGB for selected menu item
-static u8 sMenuFontSelR;
-static u8 sMenuFontSelG;
-static u8 sMenuFontSelB;
+STATIC_DATA u8 sMenuFontSelR;
+STATIC_DATA u8 sMenuFontSelG;
+STATIC_DATA u8 sMenuFontSelB;
 
 // Color RGB for non-selected menu item
-static u8 sMenuFontR;
-static u8 sMenuFontG;
-static u8 sMenuFontB;
+STATIC_DATA u8 sMenuFontR;
+STATIC_DATA u8 sMenuFontG;
+STATIC_DATA u8 sMenuFontB;
 
 // Color RGB for graphics
-static u8 sMenuGfxR;
-static u8 sMenuGfxG;
-static u8 sMenuGfxB;
+STATIC_DATA u8 sMenuGfxR;
+STATIC_DATA u8 sMenuGfxG;
+STATIC_DATA u8 sMenuGfxB;
 
-static u8 sMenuSoundFlags;
+STATIC_DATA u8 sMenuSoundFlags;
 
 void menuUtilCreate(s32 x, s32 y, s32 font, f32 xScale, f32 yScale, char** menuItems, s32 itemCount) {
     sMenuPosX = x;
     sMenuPosY = y;
     sMenuItemCount = itemCount;
     sMenuFont = font;
-    sMenuItems = menuItems;
+    sMenuUtilItems = menuItems;
     sMenuScaleX = xScale;
     sMenuScaleY = yScale;
     gFcnDrawMenuItem = NULL;
@@ -119,7 +119,7 @@ s32 menuUtilCheckInputs(void) {
 }
 
 void menuUtilDeinit(void) {
-    sMenuItems = NULL;
+    sMenuUtilItems = NULL;
 }
 
 void menuUtilRender(void) {
@@ -159,7 +159,7 @@ void menuUtilRender(void) {
         if (gFcnDrawMenuItem != NULL) {
             gFcnDrawMenuItem(temp_a3, var_s1, i);
         } else {
-            uvFontPrintStr(temp_a3, var_s1, sMenuItems[i]);
+            uvFontPrintStr(temp_a3, var_s1, sMenuUtilItems[i]);
         }
         var_s1 -= fontHeight + 1;
     }

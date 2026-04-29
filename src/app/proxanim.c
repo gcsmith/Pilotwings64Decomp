@@ -4,7 +4,7 @@
 #include "game.h"
 #include "proxanim.h"
 
-static ProxAnim sProxAnimSlots[40];
+STATIC_DATA ProxAnim sProxAnimSlots[40];
 
 void proxAnimInit(void) {
     s32 i;
@@ -33,7 +33,7 @@ STATIC_FUNC s32 proxAnimFreeSlot(void) {
     return -1;
 }
 
-static const char unused00[] = "Proxanm: Initializing\n";
+STATIC_DATA UNUSED const char sProxAnimInitMsg[] = "Proxanm: Initializing\n";
 
 s32 proxAnimAddCallback(s32 (*animCb)(s32, f32, s32), s32 (*eventCb)(s32, s32, s32), Vec3F pos, f32 dist, f32 timeout, s32 arg) {
     ProxAnim* prox;
@@ -60,7 +60,7 @@ s32 proxAnimAddCallback(s32 (*animCb)(s32, f32, s32), s32 (*eventCb)(s32, s32, s
 }
 
 // unused strings after "\n":
-static const char unused0[] = "Proxanim: Added anim %d\n";
+STATIC_DATA UNUSED const char sProxAnimAddedMsg[] = "Proxanim: Added anim %d\n";
 
 void proxAnimDeleteCallback(s32 proxId) {
     ProxAnim* prox;
@@ -78,8 +78,8 @@ void proxAnimDeleteCallback(s32 proxId) {
 }
 
 // TODO: where do these best belong?
-static const char unused1[] = "Proxanim: Deleting %d\n";
-static const char unused2[] = "Proxanim: Sending message %d to active panims\n";
+STATIC_DATA const char unused1[] = "Proxanim: Deleting %d\n";
+STATIC_DATA const char unused2[] = "Proxanim: Sending message %d to active panims\n";
 
 STATIC_FUNC void proxAnimDispatchEvent(s32 eventType) {
     ProxAnim* prox;
@@ -123,11 +123,11 @@ f32 proxAnimGetRange(s32 proxId) {
 }
 
 // TODO: where do these best belong?
-static const char unused3[] = "Proxanim: Activating animation %d\n";
-static const char unused4[] = "Proxanim: Init for anim %d requested deactivation\n";
-static const char unused5[] = "Proxanim: Calling anim proc for %d, time %f\n";
-static const char unused6[] = "Proxanim: Anim %d is done.\n";
-static const char unused7[] = "Proxanim: Anim %d is deactivating.\n";
+STATIC_DATA const char unused3[] = "Proxanim: Activating animation %d\n";
+STATIC_DATA const char unused4[] = "Proxanim: Init for anim %d requested deactivation\n";
+STATIC_DATA const char unused5[] = "Proxanim: Calling anim proc for %d, time %f\n";
+STATIC_DATA const char unused6[] = "Proxanim: Anim %d is done.\n";
+STATIC_DATA const char unused7[] = "Proxanim: Anim %d is deactivating.\n";
 
 void proxAnimDispatchInit(void) {
     proxAnimDispatchEvent(1);

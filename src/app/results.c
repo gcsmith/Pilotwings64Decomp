@@ -19,21 +19,21 @@
 #include "text_data.h"
 #include "total_results.h"
 
-static s16 sPtsTally0[8];
-static s16 sPtsTally1[8];
-static s16 sPtsTally2[8];
-static s16 sPtsTally3[6]; // TODO: why only 0xC bytes?
-static f32 sScreenFadeDuration;
-static s16* sReplayTipText;
-static u8 sTipTextMissing;
+STATIC_DATA s16 sPtsTally0[8];
+STATIC_DATA s16 sPtsTally1[8];
+STATIC_DATA s16 sPtsTally2[8];
+STATIC_DATA s16 sPtsTally3[6]; // TODO: why only 0xC bytes?
+STATIC_DATA f32 sScreenFadeDuration;
+STATIC_DATA s16* sReplayTipText;
+STATIC_DATA u8 sTipTextMissing;
 // pad 3
-static const char* sTipTextId;
-static s16* sPtsLabelStr;
-static s16 sPtsDeductedStr[8];
-static s16 sTotalPointsStr[5];
-static u8 sVehTipIdx[3];
+STATIC_DATA const char* sTipTextId;
+STATIC_DATA s16* sPtsLabelStr;
+STATIC_DATA s16 sPtsDeductedStr[8];
+STATIC_DATA s16 sTotalPointsStr[5];
+STATIC_DATA u8 sVehTipIdx[3];
 
-static const char* sResultTestNames2[6][4][3] = {
+STATIC_DATA const char* sResultTestNames2[6][4][3] = {
     {
      { "HG_E_S2", NULL, NULL },
      { "HG_A1_S2", "HG_A2_S2", NULL },
@@ -72,7 +72,7 @@ static const char* sResultTestNames2[6][4][3] = {
      },
 };
 
-static const char* sResultTestNames1[6][4][3] = {
+STATIC_DATA const char* sResultTestNames1[6][4][3] = {
     {
      { "HG_E_S1", NULL, NULL },
      { "HG_A1_S1", "HG_A2_S1", NULL },
@@ -114,7 +114,7 @@ static const char* sResultTestNames1[6][4][3] = {
 // array of results point types by vehicle:class:test:points
 // each value is a type of points to score, 0x0 means none
 // e.g. RP:beginner:1 has 0x01 (Impact) 0x02 (Accuracy) 0x03 (Time) 0x05 (Balloon)
-static u8 sResultPtTypes[6][4][3][4] = {
+STATIC_DATA u8 sResultPtTypes[6][4][3][4] = {
     //  Test 1                      Test 2                      Test 3
     { { { 0x01, 0x02, 0x04, 0x00 }, { 0x00, 0x00, 0x00, 0x00 }, { 0x00, 0x00, 0x00, 0x00 } },
      { { 0x01, 0x02, 0x0B, 0x00 }, { 0x01, 0x02, 0x04, 0x00 }, { 0x00, 0x00, 0x00, 0x00 } },
@@ -142,21 +142,21 @@ static u8 sResultPtTypes[6][4][3][4] = {
      { { 0x03, 0x00, 0x00, 0x00 }, { 0x03, 0x00, 0x00, 0x00 }, { 0x03, 0x00, 0x00, 0x00 } } }
 };
 
-static s32 sResultMenu[] = {
+STATIC_DATA s32 sResultMenu[] = {
     0x0E, // "Check photo"
     0x60, // "Replay"
     0x5B  // "Next"
 };
 
-static s16* sPtsTallyStr[] = {
+STATIC_DATA s16* sPtsTallyStr[] = {
     sPtsTally0,
     sPtsTally1,
     sPtsTally2,
     sPtsTally3,
 };
 
-static s32 sReplayTipSet = FALSE;
-static s32 sVehTipIsInit = FALSE;
+STATIC_DATA s32 sReplayTipSet = FALSE;
+STATIC_DATA s32 sVehTipIsInit = FALSE;
 
 // forward declarations
 s32 resultMenuChoose(s32);

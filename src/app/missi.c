@@ -11,24 +11,24 @@
 #include "snd.h"
 #include "task.h"
 
-static s32 sMissiObjId = 0xFFFF;
-static s32 sMissiRadarIdLS = 0xFF;
-static s32 sMissiProxIdLS = 0;
-static f32 sMissiInterval = 180.0f;
-static f32 sMissiDepth = 0.0f;
-static s32 sMissiActive = FALSE;
-static s32 sMissiStateLoaded = TRUE;
-static s32 sMissiSoundPlayed = FALSE;
-static Vec3F sMissiInitPosLS = { 1725.0f, -659.0f, 28.0f };
-static s32 padD_8034F88C = 0;
+STATIC_DATA s32 sMissiObjId = 0xFFFF;
+STATIC_DATA s32 sMissiRadarIdLS = 0xFF;
+STATIC_DATA s32 sMissiProxIdLS = 0;
+STATIC_DATA f32 sMissiInterval = 180.0f;
+STATIC_DATA f32 sMissiDepth = 0.0f;
+STATIC_DATA s32 sMissiActive = FALSE;
+STATIC_DATA s32 sMissiStateLoaded = TRUE;
+STATIC_DATA s32 sMissiSoundPlayed = FALSE;
+STATIC_DATA Vec3F sMissiInitPosLS = { 1725.0f, -659.0f, 28.0f };
+STATIC_DATA s32 padD_8034F88C = 0;
 
-static Mtx4F sMissiAdjustment;
-static Mtx4F sMissiTranslate;
-static Mtx4F sMissiPose;
-static f32 sMissiState; //! @bug this state should be s32
-static f32 sMissiDepthCopy;
-static f32 sMissiIntervalCopy;
-static s32 sMissiStateCopy;
+STATIC_DATA Mtx4F sMissiAdjustment;
+STATIC_DATA Mtx4F sMissiTranslate;
+STATIC_DATA Mtx4F sMissiPose;
+STATIC_DATA f32 sMissiState; //! @bug this state should be s32
+STATIC_DATA f32 sMissiDepthCopy;
+STATIC_DATA f32 sMissiIntervalCopy;
+STATIC_DATA s32 sMissiStateCopy;
 
 s32 missiIsActive(void) {
     return sMissiActive;

@@ -20,23 +20,23 @@
 STATIC_FUNC s32 fileMenuPrintText(s32*, s32);
 
 // file select menu item ids
-static s32 sFileMenuTextIds[] = { TEXT_FILE_1, TEXT_FILE_2, TEXT_FILE_ERASE };
-static s32 sFileMenuConfirm[] = { TEXT_NO, TEXT_YES };
-static s32 sFileMenuCurMenu = 0;
-static s32 sFileMenu_8034F0F8 = 0;
-static Vec3F sFileMenu_8034F0FC[2] = {
+STATIC_DATA s32 sFileMenuTextIds[] = { TEXT_FILE_1, TEXT_FILE_2, TEXT_FILE_ERASE };
+STATIC_DATA s32 sFileMenuConfirm[] = { TEXT_NO, TEXT_YES };
+STATIC_DATA s32 sFileMenuCurMenu = 0;
+STATIC_DATA s32 sFileMenu_8034F0F8 = 0;
+STATIC_DATA Vec3F sFileMenu_8034F0FC[2] = {
     {     -68.08f, -302.14f, 10.74f }, // position
     { -0.0174533f,     0.1f,   0.0f }  // rotation,  almost -DEG_TO_RAD(1)
 };
 
-static u8 sFileMenu_803624E0[3];
-static u8 sFileMenu_803624E3;
-static f32 sFileColorR1;
-static f32 sFileColorR2;
-static f32 sFileColorG1;
-static f32 sFileColorG2;
-static f32 sFileColorB1;
-static f32 sFileColorB2;
+STATIC_DATA u8 sFileMenu_803624E0[3];
+STATIC_DATA u8 sFileMenu_803624E3;
+STATIC_DATA f32 sFileColorR1;
+STATIC_DATA f32 sFileColorR2;
+STATIC_DATA f32 sFileColorG1;
+STATIC_DATA f32 sFileColorG2;
+STATIC_DATA f32 sFileColorB1;
+STATIC_DATA f32 sFileColorB2;
 
 s32 fileMenuTopRender(void) {
     s32 gameState;

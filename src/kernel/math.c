@@ -9,7 +9,7 @@ typedef struct {
     f32 f;
 } Float;
 
-static const double D_8024E3A0[] = {
+STATIC_DATA const double D_8024E3A0[] = {
     1.0, -0.166666595504277565, 0.00833306624608215474, -0.000198096029019379492, 2.60578063796803717e-06,
 };
 
@@ -22,10 +22,10 @@ static const double D_8024E3A0[] = {
 #define D_8024E3D0 3.14159262180328369
 #define D_8024E3D8 3.17865095470563921e-08
 #elif defined(USE_CONST_DATA)
-static const Double D_8024E3C8 = { 0.318309886183790691 };
-static const Double D_8024E3D0 = { 3.14159262180328369 };
-static const Double D_8024E3D8 = { 3.17865095470563921e-08 };
-static const Float zero = { 0.0f };
+STATIC_DATA const Double D_8024E3C8 = { 0.318309886183790691 };
+STATIC_DATA const Double D_8024E3D0 = { 3.14159262180328369 };
+STATIC_DATA const Double D_8024E3D8 = { 3.17865095470563921e-08 };
+STATIC_DATA const Float zero = { 0.0f };
 #endif
 
 f32 uvSqrtF(f32 value) {

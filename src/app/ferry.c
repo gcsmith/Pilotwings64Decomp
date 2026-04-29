@@ -8,19 +8,19 @@
 #include "level.h"
 #include "proxanim.h"
 
-static f32 sFerryInterval = 0.0f;
-static s32 sFerryObjId = 0xFFFF;
-static s32 sFerryProxId = 0xFFFFFFFF;
-static s32 sFerryRadarId = 0xFF;
-static s32 sFerryActive = FALSE;
+STATIC_DATA f32 sFerryInterval = 0.0f;
+STATIC_DATA s32 sFerryObjId = 0xFFFF;
+STATIC_DATA s32 sFerryProxId = 0xFFFFFFFF;
+STATIC_DATA s32 sFerryRadarId = 0xFF;
+STATIC_DATA s32 sFerryActive = FALSE;
 
-static Vec3F sFerryInitPos = { 1150.0f, -2150.0f, 8.8f };
+STATIC_DATA Vec3F sFerryInitPos = { 1150.0f, -2150.0f, 8.8f };
 
 // .bss
-static Mtx4F sFerryTranslate;
-static Mtx4F sFerryTranslateX;
-static Mtx4F sFerryPose;
-static f32 sFerryIntervalCopy;
+STATIC_DATA Mtx4F sFerryTranslate;
+STATIC_DATA Mtx4F sFerryTranslateX;
+STATIC_DATA Mtx4F sFerryPose;
+STATIC_DATA f32 sFerryIntervalCopy;
 
 s32 ferryIsActive(void) {
     return sFerryActive;

@@ -49,17 +49,17 @@ typedef struct {
     s32 unk74;
 } Unk802E27A8_Arg0; // size = 0x78
 
-static s32 D_8034EF20 = 0;
-static s32 D_8034EF24 = 0;
-static s32 D_8034EF28 = 0;
-static s32 sEnvSoundIsInit = FALSE;
-static s32 sEnvSoundModelIdLookup[28] = { 0x0D, 0x0E, 0x2A, 0x25, 0x29, 0x0D, 0x40, 0x41, 0x14, 0x47, 0x21, 0x07, 0x21, 0x21,
+STATIC_DATA s32 D_8034EF20 = 0;
+STATIC_DATA s32 D_8034EF24 = 0;
+STATIC_DATA s32 D_8034EF28 = 0;
+STATIC_DATA s32 sEnvSoundIsInit = FALSE;
+STATIC_DATA s32 sEnvSoundModelIdLookup[28] = { 0x0D, 0x0E, 0x2A, 0x25, 0x29, 0x0D, 0x40, 0x41, 0x14, 0x47, 0x21, 0x07, 0x21, 0x21,
                                           0x21, 0x21, 0x21, 0x21, 0x2F, 0x2F, 0x2F, 0x6B, 0x6B, 0x6B, 0x6B, 0x51, 0x6B, 0x00 };
 
-static EventCallbackInfo sEnvSoundEventCb;
-static EnvSoundState sEnvSoundState;
-static f32 sEnvSoundFutureTime; // time set +4 seconds, only set
-static u8 sEnvSoundStateCount[20];
+STATIC_DATA EventCallbackInfo sEnvSoundEventCb;
+STATIC_DATA EnvSoundState sEnvSoundState;
+STATIC_DATA f32 sEnvSoundFutureTime; // time set +4 seconds, only set
+STATIC_DATA u8 sEnvSoundStateCount[20];
 
 // forward declarations
 void envSound_802E2904(EnvSoundState*);

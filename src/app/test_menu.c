@@ -29,34 +29,34 @@
 #include "test_menu.h"
 #include "text_data.h"
 
-static f32 sSelMenuScreenX;
-static f32 sSelMenuScreenY;
-static s32 sStickDirX;
-static s32 sStickDirY;
-static s32 sStickIsHeld;
-static s32 sMenuMinY;
-static s32 sMenuMinX;
-static s32 sMenuMaxY;
-static s32 sMenuMaxX;
+STATIC_DATA f32 sSelMenuScreenX;
+STATIC_DATA f32 sSelMenuScreenY;
+STATIC_DATA s32 sStickDirX;
+STATIC_DATA s32 sStickDirY;
+STATIC_DATA s32 sStickIsHeld;
+STATIC_DATA s32 sMenuMinY;
+STATIC_DATA s32 sMenuMinX;
+STATIC_DATA s32 sMenuMaxY;
+STATIC_DATA s32 sMenuMaxX;
 u8 D_8037DC84; // global, but not used in this file
-static char sTestNumPtsStr[4];
-static u16 sWidthNumPts;
-static s16 sTestPtsX;
-static s16* sTestNameText;
-static s16* sTestHintText;
-static char sTestNumStr[3];
-static u8 sDrawTestPts;
+STATIC_DATA char sTestNumPtsStr[4];
+STATIC_DATA u16 sWidthNumPts;
+STATIC_DATA s16 sTestPtsX;
+STATIC_DATA s16* sTestNameText;
+STATIC_DATA s16* sTestHintText;
+STATIC_DATA char sTestNumStr[3];
+STATIC_DATA u8 sDrawTestPts;
 
-static s32 D_80350970 = 3; // unused
-static s32 sTestMenuState = 0;
-static s8 sMenuCurX = 0;
-static s8 sMenuCurY = 0;
-static s8 D_80350980 = 0xFF; // unused
-static u8 D_80350984 = 0xFF; // unused, only ever set to 0xFF
-static const char* sClassShortNames[4] = { "E", "A", "B", "P" };
+STATIC_DATA s32 D_80350970 = 3; // unused
+STATIC_DATA s32 sTestMenuState = 0;
+STATIC_DATA s8 sMenuCurX = 0;
+STATIC_DATA s8 sMenuCurY = 0;
+STATIC_DATA s8 D_80350980 = 0xFF; // unused
+STATIC_DATA u8 D_80350984 = 0xFF; // unused, only ever set to 0xFF
+STATIC_DATA const char* sClassShortNames[4] = { "E", "A", "B", "P" };
 const char* gVehShortNames[7] = { "HG", "RP", "GC", "EX", "EX", "EX", "BD" };
-static s32 sCurTestIdx = 0;
-static s32 D_803509B8 = 0; // unused, only ever set to 0
+STATIC_DATA s32 sCurTestIdx = 0;
+STATIC_DATA s32 D_803509B8 = 0; // unused, only ever set to 0
 
 // forward declarations
 void testMenuInitText(s32 testIdx);

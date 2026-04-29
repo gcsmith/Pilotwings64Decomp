@@ -1,9 +1,10 @@
 #include <stdlib.h>
 #include <uv_math.h>
+#include "common.h"
 
-static u32 gRandLcgState = 1;
-static s32 gRanluxState1 = 1;
-static s32 gRanluxState2 = 1;
+STATIC_DATA u32 gRandLcgState = 1;
+STATIC_DATA s32 gRanluxState1 = 1;
+STATIC_DATA s32 gRanluxState2 = 1;
 
 void uvRandSeed(s32 seed) {
     gRandLcgState = seed;

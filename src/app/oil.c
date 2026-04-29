@@ -5,14 +5,14 @@
 #include "oil.h"
 #include "proxanim.h"
 
-static s32 sOilObjId = 0xFFFF;
-static f32 sOilScale = 0.0f;
-static s32 sOilState = 0;
-static s32 sOilActive = FALSE;
-static Vec3F sOilInitPos = { -73.8f, 575.7f, 88.3f };
+STATIC_DATA s32 sOilObjId = 0xFFFF;
+STATIC_DATA f32 sOilScale = 0.0f;
+STATIC_DATA s32 sOilState = 0;
+STATIC_DATA s32 sOilActive = FALSE;
+STATIC_DATA Vec3F sOilInitPos = { -73.8f, 575.7f, 88.3f };
 
-static Mtx4F gOilPos;
-static s32 sOilProxId;
+STATIC_DATA Mtx4F gOilPos;
+STATIC_DATA s32 sOilProxId;
 
 STATIC_FUNC void oilUpdatePos(void) {
     Mtx4F scaleMtx;

@@ -27,9 +27,9 @@ typedef struct {
     u8 pad799[3];
 } SPath; // size = 0x79C
 
-static SPath sSpathData[6];
+STATIC_DATA SPath sSpathData[6];
 
-static f32 sSpathCoef[4][4] = {
+STATIC_DATA f32 sSpathCoef[4][4] = {
     {  2.0f, -2.0f,  1.0f,  1.0f },
     { -3.0f,  3.0f, -2.0f, -1.0f },
     {  0.0f,  0.0f,  1.0f,  0.0f },

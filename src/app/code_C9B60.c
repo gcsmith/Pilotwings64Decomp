@@ -55,7 +55,7 @@ typedef struct {
 // .data
 u8 D_80350690 = 1;
 s32 D_80350694 = 1;
-static s32 sMainMenuItems[] = { TEXT_GAMESTART, TEXT_OPTION };
+STATIC_DATA s32 sMainMenuItems[] = { TEXT_GAMESTART, TEXT_OPTION };
 
 // .bss
 Unk80378CE0* D_80378CE0;

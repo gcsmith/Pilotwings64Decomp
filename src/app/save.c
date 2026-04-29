@@ -19,8 +19,8 @@ typedef union {
     u8 raw[0x100];
 } PilotwingsSaveFile;
 
-static PilotwingsSaveFile sSaveFiles[2];
-static PilotwingsSaveFile sSaveFilesMirror[2];
+STATIC_DATA PilotwingsSaveFile sSaveFiles[2];
+STATIC_DATA PilotwingsSaveFile sSaveFilesMirror[2];
 
 STATIC_FUNC void saveFilePack(u8* data, s32* bits, s32* result, s32 bitCount) {
     s32 shift;

@@ -26,20 +26,20 @@ typedef struct {
     Vec2F unk0[20];
 } Unk8034F2D0;
 
-static Unk802D3658_Unk111C D_803680A0;
-static Unk802D3658_Unk1224 D_803681A8;
-static Vec3F D_803682F0;
-static u16 sHgClassId;
-static u16 sHgVehicleId;
-static u16 sHgTestId;
-static f32 D_80368304;
-static f32 D_80368308;
-static u16 D_8036830C;
+STATIC_DATA Unk802D3658_Unk111C D_803680A0;
+STATIC_DATA Unk802D3658_Unk1224 D_803681A8;
+STATIC_DATA Vec3F D_803682F0;
+STATIC_DATA u16 sHgClassId;
+STATIC_DATA u16 sHgVehicleId;
+STATIC_DATA u16 sHgTestId;
+STATIC_DATA f32 D_80368304;
+STATIC_DATA f32 D_80368308;
+STATIC_DATA u16 D_8036830C;
 
-static f32 D_8034F1C0 = 10000.0f;
-static s32 D_8034F1C4 = 0;
+STATIC_DATA f32 D_8034F1C0 = 10000.0f;
+STATIC_DATA s32 D_8034F1C4 = 0;
 
-static Unk8034F1C8 D_8034F1C8 = {
+STATIC_DATA Unk8034F1C8 D_8034F1C8 = {
     { { -1.570797f, 0.0f },      { -0.26179948f, 0.005f },  { -0.209439605f, 0.01f },
      { -0.1570796966f, 0.02f }, { -0.0872664973f, 0.03f }, { 0.0f, 0.1f },
      { 0.05235990136f, 0.4f },  { 0.06981319934f, 0.4f },  { 0.07679452002f, 0.5f },
@@ -60,7 +60,7 @@ static Unk8034F1C8 D_8034F1C8 = {
      { 100.0f, 0.0f } }
 };
 
-static Unk8034F2D0 D_8034F2D0 = {
+STATIC_DATA Unk8034F2D0 D_8034F2D0 = {
     { { 0.0f, 0.0f },   { 0.3f, 0.6f },   { 1.7f, 0.6f },   { 3.0f, 0.6f },   { 7.0f, 0.6f },   { 13.0f, -1.3f }, { 15.0f, -2.0f },
      { 18.0f, -2.2f }, { 20.0f, -2.5f }, { 21.0f, -1.8f }, { 23.9f, -1.0f }, { 24.0f, 0.0f },  { 24.1f, 1.0f },  { 25.0f, 1.8f },
      { 33.5f, 2.5f },  { 36.0f, 0.5f },  { 51.0f, 0.5f },  { 61.0f, 0.5f },  { 61.5f, 20.0f }, { 100.0f, 50.0f } }

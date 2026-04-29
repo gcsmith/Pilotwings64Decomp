@@ -14,8 +14,8 @@
 
 s32 gHoverPadModels[2] = { MODEL_RB_HOVERPAD_LARGE, MODEL_RB_HOVERPAD_STANDARD };
 
-static TaskHPAD* sRefHPAD;
-static u8 sHoverPadCount;
+STATIC_DATA TaskHPAD* sRefHPAD;
+STATIC_DATA u8 sHoverPadCount;
 HoverPad gHoverPads[20];
 
 // forward declarations

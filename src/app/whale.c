@@ -10,23 +10,23 @@
 #include "whale.h"
 
 // .data
-static s32 sWhaleObjId0 = 0xFFFF;
-static s32 sWhaleObjId4 = 0xFFFF;
-static s32 sWhaleRadarId = 0xFF;
-static s32 sWhaleProxId = 0;
-static f32 sWhalePathAngle = 0.0f;
-static f32 sWhaleDepth = 0;
-static s32 sWhaleActive = FALSE;
-static Vec3F sWhalePos = { 750.0f, 100.0f, 4.5f };
+STATIC_DATA s32 sWhaleObjId0 = 0xFFFF;
+STATIC_DATA s32 sWhaleObjId4 = 0xFFFF;
+STATIC_DATA s32 sWhaleRadarId = 0xFF;
+STATIC_DATA s32 sWhaleProxId = 0;
+STATIC_DATA f32 sWhalePathAngle = 0.0f;
+STATIC_DATA f32 sWhaleDepth = 0;
+STATIC_DATA s32 sWhaleActive = FALSE;
+STATIC_DATA Vec3F sWhalePos = { 750.0f, 100.0f, 4.5f };
 
 // .bss
-static Mtx4F sWhaleXlatMtx0;
-static Mtx4F sWhaleXlatMtx4;
-static Mtx4F sWhalePose;
-static f32 sWhaleState; //! @bug, f32 used as discrete state
-static f32 sWhaleDepthCopy;
-static f32 sWhalePathAngleCopy;
-static s32 sWhaleStateCopy;
+STATIC_DATA Mtx4F sWhaleXlatMtx0;
+STATIC_DATA Mtx4F sWhaleXlatMtx4;
+STATIC_DATA Mtx4F sWhalePose;
+STATIC_DATA f32 sWhaleState; //! @bug, f32 used as discrete state
+STATIC_DATA f32 sWhaleDepthCopy;
+STATIC_DATA f32 sWhalePathAngleCopy;
+STATIC_DATA s32 sWhaleStateCopy;
 
 s32 whaleIsActive(void) {
     return sWhaleActive;

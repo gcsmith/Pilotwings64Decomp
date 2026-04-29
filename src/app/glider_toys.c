@@ -17,7 +17,7 @@ typedef struct {
     s32 active;
 } GliderToy; // size = 0x24
 
-static GliderToy sGliderToys[4];
+STATIC_DATA GliderToy sGliderToys[4];
 
 STATIC_FUNC void gliderToyUpdate(s32 idx) {
     Mtx4F pose;

@@ -18,12 +18,12 @@ typedef struct {
 } Whale; // size = 0x24
 
 // .data
-static s32 sWhalePodProxId = 0;
-static s32 padD_803509F4 = 0;
-static Vec3F sWhalePodInitPos = { 1156.66f, 1770.82f, 0.0f };
+STATIC_DATA s32 sWhalePodProxId = 0;
+STATIC_DATA s32 padD_803509F4 = 0;
+STATIC_DATA Vec3F sWhalePodInitPos = { 1156.66f, 1770.82f, 0.0f };
 
 // .bss
-static Whale gWhalePod[5];
+STATIC_DATA Whale gWhalePod[5];
 
 STATIC_FUNC void whalePodUpdateWhale(s32 idx) {
     Mtx4F pose;

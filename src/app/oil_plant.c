@@ -8,13 +8,13 @@
 #include "proxanim.h"
 #include "task.h"
 
-static s32 sOilPlantRadarId = 0xFF;
-static s32 sOilPlantProximity = 0;
-static Vec3F sOilPlantPos = { -368.0f, 648.0f, 106.0f };
+STATIC_DATA s32 sOilPlantRadarId = 0xFF;
+STATIC_DATA s32 sOilPlantProximity = 0;
+STATIC_DATA Vec3F sOilPlantPos = { -368.0f, 648.0f, 106.0f };
 
-static s32 sOilPlantProxId;
-static s32 sOilPlantSeqId;
-static s32 sOilPlantFxId;
+STATIC_DATA s32 sOilPlantProxId;
+STATIC_DATA s32 sOilPlantSeqId;
+STATIC_DATA s32 sOilPlantFxId;
 
 void oilPlantInit(void) {
     sOilPlantProximity = FALSE;

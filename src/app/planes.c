@@ -21,8 +21,8 @@ typedef struct {
     f32 unk30;
 } Plane; // size = 0x34
 
-static Plane sPlanes[2];
-static s32 sPlaneInitialized[2];
+STATIC_DATA Plane sPlanes[2];
+STATIC_DATA s32 sPlaneInitialized[2];
 
 STATIC_FUNC void planesUpdate(s32 idx) {
     Mtx4F pose;

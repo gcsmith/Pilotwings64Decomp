@@ -25,9 +25,9 @@ typedef struct {
     u8 pad5E[0x60 - 0x5E];
 } BallTarget;
 
-static TaskBTGT* sRefBTGT;
-static u8 sBallTgtCount;
-static BallTarget sBallTgts[5];
+STATIC_DATA TaskBTGT* sRefBTGT;
+STATIC_DATA u8 sBallTgtCount;
+STATIC_DATA BallTarget sBallTgts[5];
 
 void ballTgtInit(void) {
     s32 i;

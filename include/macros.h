@@ -53,8 +53,10 @@
 
 // Force all functions to be exported for recomp builds
 #ifdef RECOMP_BUILD
+#define STATIC_DATA /* force export */
 #define STATIC_FUNC /* force export */
 #else
+#define STATIC_DATA static
 #define STATIC_FUNC static
 #endif
 

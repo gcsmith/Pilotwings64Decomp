@@ -5,7 +5,7 @@
 u64 gGfxDramStack[0x80];
 Mtx4F gMatrixStack[25];
 
-static s32 gMatrixStackIdx = 0;
+STATIC_DATA s32 gMatrixStackIdx = 0;
 
 void _uvDbMstackReset(void) {
     gMatrixStackIdx = -1;

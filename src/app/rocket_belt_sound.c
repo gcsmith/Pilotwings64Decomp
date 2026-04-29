@@ -7,8 +7,8 @@
 #include "rocket_belt.h"
 #include "snd.h"
 
-static EventCallbackInfo sRbSoundEventCbInfo;
-static Unk803599D0 sRbSound_80371898;
+STATIC_DATA EventCallbackInfo sRbSoundEventCbInfo;
+STATIC_DATA Unk803599D0 sRbSound_80371898;
 
 STATIC_FUNC void rbSoundEventHandler(s32, void*, s32);
 STATIC_FUNC void rbSoundEvent12_22(RocketBeltData* rbData);

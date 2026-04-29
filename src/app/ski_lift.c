@@ -10,10 +10,10 @@ typedef struct {
     f32 interval;
 } LiftChair;
 
-static LiftChair sSkiLift[20];
-static s32 sSkiLiftProxId;
-static s32 sSkiLiftActive;
-static s32 sSkiLiftSpathId;
+STATIC_DATA LiftChair sSkiLift[20];
+STATIC_DATA s32 sSkiLiftProxId;
+STATIC_DATA s32 sSkiLiftActive;
+STATIC_DATA s32 sSkiLiftSpathId;
 
 STATIC_FUNC void skiLiftUpdate(void) {
     s32 i;

@@ -11,10 +11,10 @@
 #include "text_data.h"
 
 // unsure why one fewer data than text pointers
-static char* sTextName[440];
-static s16* sTextData[439];
-static s32 sTextDataCount;
-static s32 sTextNameCount;
+STATIC_DATA char* sTextName[440];
+STATIC_DATA s16* sTextData[439];
+STATIC_DATA s32 sTextDataCount;
+STATIC_DATA s32 sTextNameCount;
 
 void textLoadBlock(s32 userFileIdx) {
     s32 block;

@@ -22,14 +22,14 @@ typedef struct {
     Vec3F max;
 } MinMaxVals;
 
-static s32 D_80350610 = 0xD; // unused
-static MinMaxVals sSnowBounds[] = {
+STATIC_DATA s32 D_80350610 = 0xD; // unused
+STATIC_DATA MinMaxVals sSnowBounds[] = {
     {   { 310.0f, 34.0f, 151.0f },  { 350.6f, 62.64f, 167.0f } },
     { { 240.0f, 123.0f, 121.47f }, { 344.58f, 154.2f, 159.3f } }
 };
 
-static SnowData* sSnowData;
-static Vec3F D_80373EF8;
+STATIC_DATA SnowData* sSnowData;
+STATIC_DATA Vec3F D_80373EF8;
 
 // forward declarations
 STATIC_FUNC s32 snowCheckRange(Mtx4F*);

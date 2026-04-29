@@ -32,9 +32,9 @@ typedef struct {
     f32 unkC;
 } SplashRippleParams; // size = 0x10
 
-static SplashRipple sSplashRipples[48];
-static SplashRippleParams sSplashRippleParams[10];
-static SplashEffect sSplashEffects[5];
+STATIC_DATA SplashRipple sSplashRipples[48];
+STATIC_DATA SplashRippleParams sSplashRippleParams[10];
+STATIC_DATA SplashEffect sSplashEffects[5];
 
 STATIC_FUNC void splashDrawRipple(SplashRipple* ripple) {
     s32 nSize;

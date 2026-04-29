@@ -29,7 +29,7 @@ typedef struct {
     s32 active;
 } Boat; // size = 0x48
 
-static Boat sBoats[2];
+STATIC_DATA Boat sBoats[2];
 
 // forward declarations
 STATIC_FUNC void boatsSetupEnvSound(s32);

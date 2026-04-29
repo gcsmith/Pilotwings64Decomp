@@ -20,9 +20,9 @@ typedef struct {
     f32 unk50;
 } Unk8036BE30;
 
-static Unk8036BE30 D_8036BE30[5];
-static Vec3F D_8036BFD8;
-static f32 D_8036BFE4;
+STATIC_DATA Unk8036BE30 D_8036BE30[5];
+STATIC_DATA Vec3F D_8036BFD8;
+STATIC_DATA f32 D_8036BFE4;
 
 void mistInit(void) {
     s32 i;

@@ -17,18 +17,18 @@
 #include "snd.h"
 #include "text_data.h"
 
-static f32 sVolume[] = { 0.0f, 0.2f, 0.4f, 0.6f, 1.0f };
-static s32 sStereoMono = 0;
-static s32 sSoundTrack = 0;
-static s32 sVolumeMusic = 4;
-static s32 sVolumeSfx = 4;
-static s32 D_8034F8F4 = 0; // unused, only ever set to 0
+STATIC_DATA f32 sVolume[] = { 0.0f, 0.2f, 0.4f, 0.6f, 1.0f };
+STATIC_DATA s32 sStereoMono = 0;
+STATIC_DATA s32 sSoundTrack = 0;
+STATIC_DATA s32 sVolumeMusic = 4;
+STATIC_DATA s32 sVolumeSfx = 4;
+STATIC_DATA s32 D_8034F8F4 = 0; // unused, only ever set to 0
 
-static s16 sOptionsPanel;
-static s32 sStickHeld;
-static u8 sGameComplete; // flag to determine if game is complete
-static u8 sSaveFileIdx;
-static s32 sOptionMenuItems[5]; // menu items, at least 5
+STATIC_DATA s16 sOptionsPanel;
+STATIC_DATA s32 sStickHeld;
+STATIC_DATA u8 sGameComplete; // flag to determine if game is complete
+STATIC_DATA u8 sSaveFileIdx;
+STATIC_DATA s32 sOptionMenuItems[5]; // menu items, at least 5
 
 // forward declarations
 void optionsInit(void);
