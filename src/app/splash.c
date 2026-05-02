@@ -157,8 +157,8 @@ void splashUpdate(void) {
     f32 temp_fs0;
     f32 angle;
     f32 var_fs2;
-    f64 var_fa0;
-    f64 timeStep;
+    f64 timeElapsed;
+    f64 timeDelta;
     f32 tmpRand;
     s32 i;
     s32 j;
@@ -171,15 +171,15 @@ void splashUpdate(void) {
         }
 
         for (j = 0; j < ARRAY_COUNT(sSplashRippleParams); j++) {
-            var_fa0 = (timeCurr - effect->timeInit);
-            if (sSplashRippleParams[j].unkC < var_fa0) {
+            timeElapsed = (timeCurr - effect->timeInit);
+            if (sSplashRippleParams[j].unkC < timeElapsed) {
                 continue;
             }
             if (effect->fxIds[j] == 0xFF) {
                 continue;
             }
 
-            temp_fs0 = (f32)(var_fa0 / sSplashRippleParams[j].unkC);
+            temp_fs0 = (f32)(timeElapsed / sSplashRippleParams[j].unkC);
             var_fs2 = (temp_fs0 <= 0.0) ? 0.0f : uvSqrtF(temp_fs0);
             uvFxProps(effect->fxIds[j], 7, 1.0 - SQ(temp_fs0), 0);
             uvMat4SetIdentity(&fxMtx);
@@ -191,8 +191,8 @@ void splashUpdate(void) {
         }
 
         if (timeCurr - effect->timeInit < 3.5) {
-            timeStep = timeCurr - effect->timePrev;
-            if (timeStep > 0.4) {
+            timeDelta = timeCurr - effect->timePrev;
+            if (timeDelta > 0.4) {
                 uvMat4SetIdentity(&fxMtx);
                 tmpRand = demoRandF() - 0.5f;
                 fxMtx.m[3][0] = effect->unk0.m[3][0] + (tmpRand * effect->size);
