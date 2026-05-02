@@ -52,9 +52,9 @@ void uvaSeqSetVol(f32 vol) {
 
 void uvaSeqStop(void) {
     alSeqpStop(gSeqPlayer);
-    uvClkReset(7);
+    uvClkReset(UV_CLKID_SEQ);
     while (alSeqpGetState(gSeqPlayer)) {
-        if (uvClkGetSec(7) > 2.0) {
+        if (uvClkGetSec(UV_CLKID_SEQ) > 2.0) {
             _uvDebugPrintf("uvaSeqStop timed out\n");
             return;
         }

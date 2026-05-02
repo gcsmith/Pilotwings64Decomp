@@ -224,7 +224,7 @@ void _uvScCreateScheduler(OSSched* sc, void* stack, s32 priority, u8 mode, u8 nu
     osCreateThread(&sc->thread, 4, _uvScMain, (void*)sc, stack, priority);
     osStartThread(&sc->thread);
 
-    uvClkReset(6);
+    uvClkReset(UV_CLKID_SCHED);
     func_8022C34C();
 }
 
@@ -532,7 +532,7 @@ void func_8022C34C(void) {
     if (gSchedRingIdx >= 5) {
         gSchedRingIdx = 0;
     }
-    D_802B9C30[gSchedRingIdx] = uvClkGetSec(6);
+    D_802B9C30[gSchedRingIdx] = uvClkGetSec(UV_CLKID_SCHED);
     D_802B9C18[gSchedRingIdx] = 0;
     D_802B9C00[gSchedRingIdx] = 0;
 }
@@ -551,7 +551,7 @@ void func_8022C3C0(u8 arg0, s32 arg1) {
                 var_v0 = D_802B92A0[idx].unk0;
                 var_v0 = &var_v0[D_802B9C18[idx]++];
             }
-            var_v0->unk0 = uvClkGetSec(6);
+            var_v0->unk0 = uvClkGetSec(UV_CLKID_SCHED);
             var_v0->unk8 = arg1;
             var_v0->unkC = (gSchedRspStatus << 0x18) | (gSchedRdpStatus << 0x10) | (D_802B9C6B << 1) | D_802B9C6C;
         }

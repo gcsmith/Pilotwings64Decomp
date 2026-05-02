@@ -1428,8 +1428,8 @@ s32 func_8033D3EC(s32 arg0, s32 arg1, Unk80373060* arg2, s32* arg3, s32* arg4) {
         func_8033A72C();
         func_8033A72C();
         for (i = *arg3; i < *arg3 + 6; i++) {
-            uvClkReset(4);
-            while (uvClkGetSec(4) < 0.1) { }
+            uvClkReset(UV_CLKID_APP);
+            while (uvClkGetSec(UV_CLKID_APP) < 0.1) { }
             if ((i < arg1) && (arg2[i].unk43[0] != 0)) {
                 func_8033A610(D_80350560[i % 6][0], D_80350560[i % 6][0] + 80, D_80350560[i % 6][1], D_80350560[i % 6][1] + 59);
                 func_8033A128(arg0, &arg2[i]);
@@ -1629,8 +1629,8 @@ s32 func_8033DDD8(s32 arg0, Unk80373060* arg1, s32* arg2) {
     uvGfxSetUnkStateF(0.00001f);
     func_8033ADD4(1, &arg1[sp28], sp28, arg0);
     func_8033ADD4(1, &arg1[sp28], sp28, arg0);
-    uvClkReset(4);
-    while (uvClkGetSec(4) < 0.1) { }
+    uvClkReset(UV_CLKID_APP);
+    while (uvClkGetSec(UV_CLKID_APP) < 0.1) { }
     func_8033A610(58, 257, 49, 198);
     func_8033A128(1, &arg1[sp28]);
     uvCopyFrameBuf(0);
@@ -1676,8 +1676,8 @@ void func_8033DFD0(s32 arg0, Unk80373060* arg1, s32 arg2) {
     uvGfxSetUnkStateF(0.00001f);
     func_8033ADD4(arg0, &arg1[arg2], 0, 0);
     func_8033ADD4(arg0, &arg1[arg2], 0, 0);
-    uvClkReset(4);
-    while (uvClkGetSec(4) < 0.1) { }
+    uvClkReset(UV_CLKID_APP);
+    while (uvClkGetSec(UV_CLKID_APP) < 0.1) { }
     func_8033A610(58, 257, 49, 198);
     func_8033A128(arg0, &arg1[arg2]);
     uvCopyFrameBuf(0);

@@ -206,7 +206,7 @@ void uvLevelAppend(s32 levelId) {
     ParsedUVLV sp50;
 
     uvGfxWaitForMesg();
-    uvClkReset(5);
+    uvClkReset(UV_CLKID_TXT);
     func_8022BEB8(0);
     D_802B7DD0 = D_802B7600;
     D_802B7DD4 = &sp50;

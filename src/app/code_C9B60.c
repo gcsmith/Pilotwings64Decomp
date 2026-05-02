@@ -302,8 +302,8 @@ STATIC_FUNC void func_803433A4(void) {
 }
 
 void func_803434E8(void) {
-    uvClkReset(4);
-    while (uvClkGetSec(4) < 1.0) { }
+    uvClkReset(UV_CLKID_APP);
+    while (uvClkGetSec(UV_CLKID_APP) < 1.0) { }
 }
 
 STATIC_FUNC s32 func_80343550(void) {
@@ -373,7 +373,7 @@ STATIC_FUNC s32 func_80343550(void) {
         D_80378CE0->unk230 = D_80378CE0->unk22C;
         break;
     case 8:
-        if (uvClkGetSec(4) >= 1.0) {
+        if (uvClkGetSec(UV_CLKID_APP) >= 1.0) {
             gameState = GAME_STATE_FILE_MENU;
         }
         break;
@@ -399,7 +399,7 @@ STATIC_FUNC s32 func_80343550(void) {
         }
         switch (temp_v0) {
         case 0:
-            uvClkReset(4);
+            uvClkReset(UV_CLKID_APP);
             D_80378CE0->unk28 = 8;
             break;
         case 1:

@@ -620,8 +620,8 @@ void uvGfxEnd(void) {
         gGfxCallback(fb, D_80299278);
         osWritebackDCache(fb, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(u16));
     }
-    D_802491D8[gGfxFbIndex] = (f32)uvClkGetSec(3);
-    uvClkReset(3);
+    D_802491D8[gGfxFbIndex] = (f32)uvClkGetSec(UV_CLKID_GFX);
+    uvClkReset(UV_CLKID_GFX);
     func_8022C3C0(0, 0x2A);
     var_a2 = 0;
     var_t0 = 0;
