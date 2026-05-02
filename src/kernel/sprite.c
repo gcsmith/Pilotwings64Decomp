@@ -10,6 +10,19 @@ s32 gSprtUnkIndex;
 UnkUVTX_1C* gSprtUnkTable[1000];
 uvSprite_t gSprtTable1[31];
 
+// unused F3D Gfx, likely related to sprites
+UNUSED Gfx D_8024B270[] = {
+    gsSPTexture(0xFFFF, 0xFFFF, 0, 1, G_ON),
+    gsDPSetCombineMode(G_CC_MODULATEIA, G_CC_PASS2),
+    gsDPSetCycleType(G_CYC_2CYCLE),
+    gsDPSetTexturePersp(G_TP_PERSP),
+    gsDPSetTextureLOD(G_TL_TILE),
+    gsDPSetTextureFilter(G_TF_BILERP),
+    gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 0x0000, 1, 0, G_TX_NOMIRROR | G_TX_CLAMP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_CLAMP, 6, G_TX_NOLOD),
+    gsDPSetTileSize(1, 0, 0, (64 - 1) << 2, (30 - 1) << 2),
+    gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, 5, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, 6, G_TX_NOLOD),
+};
+
 void uvSprt_80230130(void) {
     s32 i;
 
