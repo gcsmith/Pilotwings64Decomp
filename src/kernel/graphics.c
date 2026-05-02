@@ -90,7 +90,6 @@ UNUSED Vp D_80249220 = { 640, 480, 511, 0, 640, 480, 511, 0 };
 STATIC_DATA uvGfxCallback_t gGfxCallback = NULL;
 
 extern OSMesgQueue D_802C3B90;
-extern s32 D_8024B260;
 extern u64 gGfxDramStack[];
 extern u8 D_80269B80[300];
 extern s16 gGeomVertexCount;
