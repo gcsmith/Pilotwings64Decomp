@@ -373,7 +373,7 @@ void creditsScene(void) {
         if (text6C != NULL) {
             uvFontSet(6);
             uvFontScale(1.0, 1.0);
-            D_8034F790 += 0.2f * uvGfxGetUnkStateF();
+            D_8034F790 += 0.2f * uvGfxGetFrameTime();
             while (D_8034F790 > 1.0f) {
                 D_8034F790 -= 1.0f;
             }

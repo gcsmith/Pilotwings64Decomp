@@ -30,7 +30,7 @@ void uvSprt_802301A4(void) {
     s32 i;
     f32 temp_fv0;
 
-    temp_fv0 = uvGfxGetUnkStateF();
+    temp_fv0 = uvGfxGetFrameTime();
 
     for (i = 0; i < gSprtUnkIndex + 10; i++) {
         if (i < 10) {

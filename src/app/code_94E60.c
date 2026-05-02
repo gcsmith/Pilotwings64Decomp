@@ -741,7 +741,7 @@ void func_8030F818(void) {
     func_80204FC4(camera->unk22C);
     uvFontSet(6);
     uvFontScale(1.0, 1.0);
-    D_8034F7DC += D_8034F7E0 * uvGfxGetUnkStateF();
+    D_8034F7DC += D_8034F7E0 * uvGfxGetFrameTime();
     if (D_8034F7DC > 1.0f) {
         D_8034F7DC = 1.0f;
         D_8034F7E0 = -D_8034F7E0;

@@ -461,7 +461,7 @@ void fileMenu_802E9AE0(void) {
     uvFontSet(6);
     uvFontScale(1.0, 1.0);
 
-    sFileMenuFadeTime += sFileMenuFadeRate * uvGfxGetUnkStateF();
+    sFileMenuFadeTime += sFileMenuFadeRate * uvGfxGetFrameTime();
 
     if (sFileMenuFadeTime > 1.0f) {
         sFileMenuFadeTime = 1.0f;

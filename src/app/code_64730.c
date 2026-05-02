@@ -451,7 +451,7 @@ STATIC_FUNC void func_802DE5B0(Camera* camera, Unk80367868* arg1) {
     func_80204FC4(camera->unk22C);
     uvFontSet(6);
     uvFontScale(1.0, 1.0);
-    D_8034EED4 += D_8034EED8 * uvGfxGetUnkStateF();
+    D_8034EED4 += D_8034EED8 * uvGfxGetFrameTime();
     if (D_8034EED4 > 1.0f) {
         D_8034EED4 = 1.0f;
         D_8034EED8 = -D_8034EED8;

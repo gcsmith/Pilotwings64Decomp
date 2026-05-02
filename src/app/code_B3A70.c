@@ -372,7 +372,7 @@ s32 func_8032CF28(Unk80362690* arg0) {
     }
     menuUtilSetButtonMode(1);
     do {
-        uvGfxSetUnkStateF(0.000001f);
+        uvGfxSetFrameTime(0.000001f);
         var_s1 = menuCheckInputs();
         while (var_s1 != -2 && demoButtonCheck(arg0->unk9C, A_BUTTON) != 0) {
             demo_80323020();
@@ -391,7 +391,7 @@ s32 func_8032CF28(Unk80362690* arg0) {
         uvFontGenDlist();
         uvGfxEnd();
     } while (var_s1 == -2 || var_s1 == -3);
-    uvGfxSetUnkStateF(0.0f);
+    uvGfxSetFrameTime(0.0f);
     menuUtilSetButtonMode(0);
     if (sp40 == 0 && var_s1 == 2) {
         var_s1 = 3;

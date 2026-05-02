@@ -66,7 +66,7 @@ STATIC_DATA Gfx gGfxDList2[] = {
     gsSPEndDisplayList(),
 };
 
-STATIC_DATA f32 D_802491D8[2] = { 0, 0 };
+STATIC_DATA f32 gGfxFrameTime[2] = { 0, 0 };
 STATIC_DATA s32 D_802491E0 = 0;
 STATIC_DATA s32 D_802491E4 = 0xFFFFFFFF;
 STATIC_DATA s32 D_802491E8 = 0;
@@ -83,7 +83,7 @@ u16 gGfxFbIndex = 0;
 s32 gGfxElementCount = 0;
 s32 gGfxFrameCount = 0;
 s16 gGfxMstackIdx = 0xFFFF;
-f32 gGfxUnkStateF = -1;
+f32 gGfxFrameTimeFixed = -1;
 
 UNUSED Vp D_80249220 = { 640, 480, 511, 0, 640, 480, 511, 0 };
 
@@ -122,7 +122,7 @@ void uvGfxInit(void) {
     }
     uvMat4SetIdentity(&gGfxLookTransform);
     gGfxStateStackIdx = 0;
-    D_802491D8[0] = D_802491D8[1] = 0.0f;
+    gGfxFrameTime[0] = gGfxFrameTime[1] = 0.0f;
     uvGfxEnableGamma(0);
     gGfxTaskOutputBufferStart = ALIGNED_BUFFER(gGfxTaskOutputBuffer);
     gGfxTaskOutputBufferEnd = gGfxTaskOutputBufferStart + TASK_OUTPUT_BUFFER_SIZE;
@@ -620,7 +620,7 @@ void uvGfxEnd(void) {
         gGfxCallback(fb, D_80299278);
         osWritebackDCache(fb, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(u16));
     }
-    D_802491D8[gGfxFbIndex] = (f32)uvClkGetSec(UV_CLKID_GFX);
+    gGfxFrameTime[gGfxFbIndex] = (f32)uvClkGetSec(UV_CLKID_GFX);
     uvClkReset(UV_CLKID_GFX);
     func_8022C3C0(0, 0x2A);
     var_a2 = 0;
@@ -895,15 +895,15 @@ Mtx* uvGfxMstackTop(void) {
     return &gGfxMstack[gGfxFbIndex][gGfxMstackIdx];
 }
 
-void uvGfxSetUnkStateF(f32 arg0) {
-    gGfxUnkStateF = arg0;
+void uvGfxSetFrameTime(f32 sec) {
+    gGfxFrameTimeFixed = sec;
 }
 
-f32 uvGfxGetUnkStateF(void) {
-    if (gGfxUnkStateF > 0.0f) {
-        return gGfxUnkStateF;
+f32 uvGfxGetFrameTime(void) {
+    if (gGfxFrameTimeFixed > 0.0f) {
+        return gGfxFrameTimeFixed;
     }
-    return D_802491D8[gGfxFbIndex ^ 1];
+    return gGfxFrameTime[gGfxFbIndex ^ 1];
 }
 
 void uvGfxMtxViewLoad(Mtx4F* src, s32 push) {

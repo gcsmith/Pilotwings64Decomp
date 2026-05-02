@@ -129,7 +129,7 @@ void func_8021902C(s32 arg0) {
 
     temp_a0 = &D_80269F50[arg0];
     temp_a1 = &temp_a0->unk8;
-    temp_a0->unk4 -= temp_a1->unkC * uvGfxGetUnkStateF();
+    temp_a0->unk4 -= temp_a1->unkC * uvGfxGetFrameTime();
 
     if (temp_a0->unk4 > 0.0f) {
         return;

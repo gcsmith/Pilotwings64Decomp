@@ -232,7 +232,7 @@ void uvFxProps(s32 fxId, ...) {
             var_a2->unk8 = va_arg(args, f64);
             if (var_a2->type == 4) {
                 temp_v0 = var_a2->unkA8;
-                temp_fv0 = uvGfxGetUnkStateF();
+                temp_fv0 = uvGfxGetFrameTime();
                 temp_ft2 = 10.0f;
                 if (temp_fv0 > 0.0f) {
                     temp_v0->unk1E4 = (s32)(var_a2->unk8 / temp_fv0);
@@ -761,7 +761,7 @@ void func_8021C74C(u16 arg0) {
 
     temp_t2 = &D_8028B400[arg0];
     temp_a2 = temp_t2->unkA8;
-    temp_fv0 = uvGfxGetUnkStateF();
+    temp_fv0 = uvGfxGetFrameTime();
     var_t1 = TRUE;
 
     for (i = 0; i < ARRAY_COUNT(temp_a2->unk0); i++) {
@@ -922,7 +922,7 @@ void func_8021C87C(u16 arg0) {
 void func_8021D700(UnkModelTrail* arg0) {
     s32 i;
 
-    if (uvGfxGetUnkStateF() < 0.00001f) {
+    if (uvGfxGetFrameTime() < 0.00001f) {
         return;
     }
 
@@ -1202,7 +1202,7 @@ void func_8021EA38(UnkStruct_80204D94* arg0) {
             continue;
         }
         if (var_s0->unkC > 0.0f) {
-            var_s0->unkC -= uvGfxGetUnkStateF();
+            var_s0->unkC -= uvGfxGetFrameTime();
             continue;
         }
         if (var_s0->type == 4) {
@@ -1211,7 +1211,7 @@ void func_8021EA38(UnkStruct_80204D94* arg0) {
             continue;
         }
         if (var_s0->unk5 == 0) {
-            temp_fs0 = uvGfxGetUnkStateF();
+            temp_fs0 = uvGfxGetFrameTime();
             if (var_s0->type == 8) {
                 func_8021C74C(i);
             }

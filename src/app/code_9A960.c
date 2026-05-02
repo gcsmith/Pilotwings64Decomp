@@ -210,7 +210,7 @@ void func_80313C94(Vec3F* arg0, Vec3F* arg1, f32 arg2) {
 void func_80313D74(void) {
     f32 temp_fv0;
 
-    temp_fv0 = uvGfxGetUnkStateF();
+    temp_fv0 = uvGfxGetFrameTime();
     if (temp_fv0 < 0.01f) {
         D_8034F854 = 0.01f;
     } else if (temp_fv0 > 0.1f) {
