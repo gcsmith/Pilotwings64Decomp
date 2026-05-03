@@ -71,7 +71,7 @@ STATIC_FUNC void hgSoundEventHandler(s32 event, void* userData, s32 eventData) {
         }
         if ((hg->unk80 == 1) && (hg->unk31C == 0) && (hg->unk240 < 0.4f)) {
             hg->unk31C = 1;
-            sndPlaySfx(0x5C);
+            sndPlaySfx(SFX_HANG_AIR_BRAKE);
         }
         if (hg->unk80 == 0) {
             hg->unk31C = 0;
