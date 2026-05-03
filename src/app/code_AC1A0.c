@@ -405,7 +405,7 @@ void rocketBeltMovementFrame(RocketBeltData* rbData, u8 gameState) {
             if (func_802E08F4(rbData->unk10.m[3][0], rbData->unk10.m[3][1], rbData->unk10.m[3][2]) != 0) {
                 if (rbData->unk38D == 0) {
                     rbData->unk38D = 1;
-                    sndPlaySfx(0x6D);
+                    sndPlaySfx(SFX_UI_FUEL_ADDED);
                 }
                 hudWarningText(-1, 0.0f, 0.0f);
                 rbData->unkEB = 0;

@@ -133,7 +133,7 @@ enum Sfx {
     /* 0x6A */ SFX_UNK_106,
     /* 0x6B */ SFX_UNK_107,
     /* 0x6C */ SFX_UNK_108,
-    /* 0x6D */ SFX_UNK_109,
+    /* 0x6D */ SFX_UI_FUEL_ADDED,
     /* 0x6E */ SFX_UI_CONFIRM,
     /* 0x6F */ SFX_UNK_111,
     /* 0x70 */ SFX_UNK_112,
