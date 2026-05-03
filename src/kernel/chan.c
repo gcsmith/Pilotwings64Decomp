@@ -1,14 +1,14 @@
 #include <macros.h>
+#include <uv_chan.h>
 #include <uv_environment.h>
 #include <uv_fx.h>
 #include <uv_graphics.h>
 #include <uv_math.h>
 #include <uv_memory.h>
 #include <uv_sobj.h>
+#include <uv_terrain.h>
 #include <libc/stdarg.h>
-#include "kernel/code_58E0.h"
 #include "kernel/code_7150.h"
-#include "kernel/code_2FE40.h"
 
 UnkStruct_80204D94 D_80261730[2];
 u8 D_80261E70[100];

@@ -8,6 +8,7 @@
 #include <uv_seq.h>
 #include <uv_sched.h>
 #include <uv_sprite.h>
+#include <uv_system.h>
 #include <macros.h>
 #include <libc/stdint.h>
 

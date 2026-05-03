@@ -1,9 +1,9 @@
 #include "common.h"
+#include <uv_chan.h>
 #include <uv_graphics.h>
 #include <uv_math.h>
-#include "kernel/code_58E0.h"
+#include <uv_terrain.h>
 #include "kernel/code_7150.h"
-#include "kernel/code_2FE40.h"
 #include "kernel/code_30DF0.h"
 
 STATIC_DATA u16 D_80249250[][64] = {

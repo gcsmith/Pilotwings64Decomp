@@ -1,4 +1,5 @@
 #include "common.h"
+#include <uv_chan.h>
 #include <uv_font.h>
 #include <uv_fx.h>
 #include <uv_geometry.h>
@@ -7,7 +8,6 @@
 #include <uv_vector.h>
 #include <uv_seq.h>
 #include <libc/stdarg.h>
-#include "kernel/code_58E0.h"
 #include "kernel/code_7150.h"
 
 UnkModelDebrisStructure D_8028A0A0[4];

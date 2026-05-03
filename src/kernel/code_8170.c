@@ -6,9 +6,9 @@
 #include <uv_memory.h>
 #include <uv_model.h>
 #include <uv_sobj.h>
+#include <uv_terrain.h>
 #include <libc/stdarg.h>
 #include "kernel/code_8170.h"
-#include "kernel/code_2FE40.h"
 
 u32 D_802634C0;
 s32 D_802634C4;

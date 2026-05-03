@@ -84,7 +84,7 @@ segments:
       - [0x03D50, c, kernel/event]
       - [0x04850, c, kernel/audio]
       - [0x05690, c, kernel/seq]
-      - [0x058E0, c, kernel/code_58E0]
+      - [0x058E0, c, kernel/chan]
       - [0x06F80, c, kernel/clocks]
       - [0x07150, c, kernel/code_7150]
       - [0x08170, c, kernel/code_8170]
@@ -104,15 +104,15 @@ segments:
       - [0x2C050, c, kernel/sched]
       - [0x2D490, c, kernel/sobj]
       - [0x2E260, c, kernel/string]
-      - [0x2EEA0, c, kernel/main]
-      - [0x2FE40, c, kernel/code_2FE40]
+      - [0x2EEA0, c, kernel/system]
+      - [0x2FE40, c, kernel/terrain]
       - [0x30DF0, c, kernel/code_30DF0]
       - [0x30EA0, c, kernel/code_30EA0]
       - [0x310E0, c, kernel/sprite]
-      - [0x32480, c, kernel/code_32480]
+      - [0x32480, c, kernel/user_file]
       - [0x32590, c, kernel/rand]
       - [0x32760, c, kernel/vector]
-      - [0x329C0, hasm, kernel/code_329C0]
+      - [0x329C0, hasm, kernel/decompress_mio0]
       - [0x32A70, c, kernel/debug]
       - [0x35450, c, libultra/audio/sndpsetsound]
       - [0x35470, c, libultra/audio/sndpgetstate]
@@ -268,7 +268,7 @@ segments:
       - [0x49DD0, .data, kernel/font]
       - [0x49E50, .data, kernel/fx]
       - [0x4A0F0, .data, kernel/graphics]
-      - [0x4A200, .data, kernel/code_2FE40]
+      - [0x4A200, .data, kernel/terrain]
       - [0x4C200, .data, kernel/matrix]
       - [0x4C210, .data, kernel/sched]
       - [0x4C220, .data, kernel/sprite]
@@ -302,7 +302,7 @@ segments:
       - [0x4DBF0, .rodata, kernel/event]
       - [0x4DC90, .rodata, kernel/audio]
       - [0x4DCE0, .rodata, kernel/seq]
-      - [0x4DD10, .rodata, kernel/code_58E0]
+      - [0x4DD10, .rodata, kernel/chan]
       - [0x4DDC0, .rodata, kernel/clocks]
       - [0x4DDF0, .rodata, kernel/code_7150]
       - [0x4DE10, .rodata, kernel/code_8170]
@@ -321,11 +321,11 @@ segments:
       - [0x4F3B0, .rodata, kernel/memory]
       - [0x4F630, .rodata, kernel/sched]
       - [0x4FAD0, .rodata, kernel/sobj]
-      - [0x4FC50, .rodata, kernel/main]
-      - [0x500B0, .rodata, kernel/code_2FE40]
+      - [0x4FC50, .rodata, kernel/system]
+      - [0x500B0, .rodata, kernel/terrain]
       - [0x500E0, .rodata, kernel/code_30EA0]
       - [0x500F0, .rodata, kernel/sprite]
-      - [0x502D0, .rodata, kernel/code_32480]
+      - [0x502D0, .rodata, kernel/user_file]
       - [0x502F0, .rodata, kernel/rand]
       - [0x50300, .rodata, kernel/debug]
       - [0x50490, .rodata, libultra/audio/sndplayer]
@@ -351,7 +351,7 @@ segments:
       - { type: .bss, vram: 0x8025BF00, name: kernel/event }
       - { type: .bss, vram: 0x8025C5B0, name: kernel/audio }
       - { type: .bss, vram: 0x80261230, name: kernel/seq }
-      - { type: .bss, vram: 0x80261730, name: kernel/code_58E0 }
+      - { type: .bss, vram: 0x80261730, name: kernel/chan }
       - { type: .bss, vram: 0x80263470, name: kernel/clocks }
       - { type: .bss, vram: 0x802634C0, name: kernel/code_8170 }
       - { type: .bss, vram: 0x80263780, name: kernel/dobj }
@@ -367,8 +367,8 @@ segments:
       - { type: .bss, vram: 0x802B7DE0, name: kernel/matrix }
       - { type: .bss, vram: 0x802B8820, name: kernel/memory }
       - { type: .bss, vram: 0x802B8940, name: kernel/sched }
-      - { type: .bss, vram: 0x802B9C90, name: kernel/main }
-      - { type: .bss, vram: 0x802C5BC0, name: kernel/code_2FE40 }
+      - { type: .bss, vram: 0x802B9C90, name: kernel/system }
+      - { type: .bss, vram: 0x802C5BC0, name: kernel/terrain }
       - { type: .bss, vram: 0x802C5FD0, name: kernel/sprite }
       - { type: .bss, vram: 0x802C8020, name: kernel/debug }
       - { type: .bss, vram: 0x802C8040, name: libultra/sp/sprite }

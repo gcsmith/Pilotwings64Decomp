@@ -2,10 +2,10 @@
 #include <uv_font.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>
-#include <uv_main.h>
 #include <uv_math.h>
 #include <uv_matrix.h>
 #include <uv_sprite.h>
+#include <uv_system.h>
 #include <uv_util.h>
 #include <uv_vector.h>
 #include "balls.h"

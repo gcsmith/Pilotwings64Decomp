@@ -33,8 +33,6 @@ extern Unk802B92A0 D_802B92A0[];
 extern OSSched gSchedInst;
 extern s32 D_8024B260;
 
-void uvWaitForMesg(char msg_type);
-
 void _uvScDoneGfx(void);
 void _uvScDoneAud(void);
 void _uvScRunAud(void);

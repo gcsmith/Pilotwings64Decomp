@@ -9,11 +9,11 @@
 #include <uv_dobj.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>
-#include <uv_main.h>
 #include <uv_matrix.h>
 #include <uv_memory.h>
 #include <uv_sched.h>
 #include <uv_sprite.h>
+#include <uv_system.h>
 #include <uv_texture.h>
 #include <uv_seq.h>
 #include <macros.h>
@@ -67,8 +67,6 @@ void func_80219FD0(void);
 
 extern s32 gGfxSyncNeeded;
 extern s32 gNmiAsserted;
-
-s32 func_8022E2D4(s32 arg0);
 
 s32 uvFileWrite(u8* dst, s32 offs, s32 nbytes) {
     if (gEepromFound == 0) {
@@ -439,3 +437,4 @@ void _uvDMA(void* vAddr, u32 devAddr, u32 nbytes) {
 void _uvAssertMsg(const char* expr, const char* filename, int line) {
     _uvDebugPrintf("%s:%d  %s\n", filename, line, expr);
 }
+

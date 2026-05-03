@@ -94,9 +94,6 @@ void *_uvMemGetScratch(u32 size);
 void uvLevelInit(void);
 s32 _uvMemAllocAlign8(u32 size);
 
-s32 uvFileWrite(u8* dst, s32 offs, s32 nbytes);
-s32 uvFileRead(void* dst, s32 offs, s32 nbytes);
-
 // read data from user (Pilotwings) file
 // can request data be returned from dynamic allocation, scratch buffer, or ROM offset
 void* uvUserFileRead(s32 userFileIdx, MemType request);

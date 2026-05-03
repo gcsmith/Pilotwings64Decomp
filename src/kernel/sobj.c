@@ -1,9 +1,9 @@
 #include "common.h"
+#include <uv_chan.h>
 #include <uv_dobj.h>
 #include <uv_graphics.h>
 #include <uv_math.h>
 #include <uv_sobj.h>
-#include "kernel/code_58E0.h"
 #include "kernel/code_7150.h"
 #include "kernel/code_8170.h"
 
