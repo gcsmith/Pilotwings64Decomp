@@ -58,7 +58,7 @@ enum Sfx {
     /* 0x1F */ SFX_UNK_031,
     /* 0x20 */ SFX_UNK_032,
     /* 0x21 */ SFX_UNK_033,
-    /* 0x22 */ SFX_UNK_034,
+    /* 0x22 */ SFX_UI_WARNING,
     /* 0x23 */ SFX_RB_FLY_UP,   // gliding up sfx as altitude increases
     /* 0x24 */ SFX_RB_FLY_DOWN, // gliding down
     /* 0x25 */ SFX_UNK_037,

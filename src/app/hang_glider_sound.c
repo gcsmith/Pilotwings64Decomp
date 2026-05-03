@@ -82,7 +82,7 @@ STATIC_FUNC void hgSoundEventHandler(s32 event, void* userData, s32 eventData) {
             temp_v0 = hudGet_8031DA9C();
             if ((temp_v0 == 0x157) || (temp_v0 == 0x15C)) {
                 hg->unk324 = D_8034F850 + 1.0f;
-                sndPlaySfx(0x22);
+                sndPlaySfx(SFX_UI_WARNING);
             }
         }
 
