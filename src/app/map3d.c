@@ -560,7 +560,7 @@ void map3dLoad(Unk80362690* arg0, s32 arg1) {
     }
     D_8034F82C = D_8034F828;
     D_8034F834 = D_8034F830;
-    sMapEmitterDev0 = sndMakeDev(0x4C);
+    sMapEmitterDev0 = sndMakeDev(SFX_UI_MAP_MOVE);
     sMapEmitterDev1 = sndMakeDev(0x03);
 }
 

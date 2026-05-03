@@ -100,7 +100,7 @@ enum Sfx {
     /* 0x49 */ SFX_UNK_073,
     /* 0x4A */ SFX_UNK_074,
     /* 0x4B */ SFX_UNK_075,
-    /* 0x4C */ SFX_UNK_076,
+    /* 0x4C */ SFX_UI_MAP_MOVE,
     /* 0x4D */ SFX_UNK_077,
     /* 0x4E */ SFX_UNK_078,
     /* 0x4F */ SFX_UNK_079,

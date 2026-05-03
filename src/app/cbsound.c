@@ -48,7 +48,7 @@ void cbSoundInit(CannonballData* cbData) {
         EMITTER_PROP_END
     );
     // clang-format on
-    cbData->unk2B5 = sndMakeDev(0x4C);
+    cbData->unk2B5 = sndMakeDev(SFX_UI_MAP_MOVE);
     D_80359BE0.cb = func_802D9E68;
     D_80359BE0.arg = cbData;
     cbData->unk2AC = ~0x3F;
