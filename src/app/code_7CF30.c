@@ -485,7 +485,7 @@ void gyrocopterMovementFrame(GyrocopterData* gcData, u8 gameState) {
             }
             if (gcData->unkC1 != 0) {
                 hudWarningText(TEXT_OFF_5, 1.5f, 8.0f);
-                sndPlaySfx(SFX_UNK_105);
+                sndPlaySfx(SFX_UI_POINT_PENALTY);
             } else {
                 if ((gcData->fuel <= 0.0f) && !gcData->fuelEmpty) {
                     hudWarningText(TEXT_FUEL_OUT, 1.5f, 8.0f);
