@@ -370,7 +370,7 @@ void rocketBeltMovementFrame(RocketBeltData* rbData, u8 gameState) {
                     hud->speed = rbData->unk1F4 * 3.6f * 0.7f;
                 }
                 if (rbData->unk91 != 0) {
-                    sndPlaySfx(0x69);
+                    sndPlaySfx(SFX_UI_POINT_PENALTY);
                 }
                 if ((rbData->unk91 != 0) && (hud->unkB40[0] == -1)) {
                     hudWarningText(TEXT_OFF_2, 1.5f, 8.0f);

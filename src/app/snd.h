@@ -129,7 +129,7 @@ enum Sfx {
     /* 0x66 */ SFX_PILOT_ROBIN_SELECT,
     /* 0x67 */ SFX_UI_CAMERA_MOVE,
     /* 0x68 */ SFX_MISSI_ROAR,
-    /* 0x69 */ SFX_UNK_105,
+    /* 0x69 */ SFX_UI_POINT_PENALTY, // also max photo count?
     /* 0x6A */ SFX_UNK_106,
     /* 0x6B */ SFX_UNK_107,
     /* 0x6C */ SFX_UNK_108,
