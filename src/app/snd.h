@@ -89,7 +89,7 @@ enum Sfx {
     /* 0x3E */ SFX_UNK_062,
     /* 0x3F */ SFX_UNK_063,
     /* 0x40 */ SFX_UNK_064,
-    /* 0x41 */ SFX_UNK_065,
+    /* 0x41 */ SFX_ENV_CAROUSEL_MUSIC,
     /* 0x42 */ SFX_UNK_066,
     /* 0x43 */ SFX_UNK_067,
     /* 0x44 */ SFX_UNK_068,
