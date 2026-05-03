@@ -526,7 +526,7 @@ void func_802F6DC8(GyrocopterData* gcData, u8 unkFlag) {
     gcData->unk5E = unkFlag;
     if (unkFlag != 0) {
         if (D_8034F384 == 0) {
-            sndPlaySfxVolPitchPan(0x59, 0.7f, 1.0f, 0.0f);
+            sndPlaySfxVolPitchPan(SFX_UI_TARGET_APPEAR, 0.7f, 1.0f, 0.0f);
             D_8034F384 = 1;
         }
         gcData->reticleX = 0.0f;

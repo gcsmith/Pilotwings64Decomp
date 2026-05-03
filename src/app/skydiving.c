@@ -1053,19 +1053,19 @@ void func_80331FE4(SkyDivingData* sdData) {
             if ((D_8034F850 - sdData->unk260) < (0.3333f * sdData->unk258->unk40)) {
                 if (D_80371B40 == 3) {
                     D_80371B40--;
-                    sndPlaySfxVolPitchPan(0x59, 0.8f, 1.0f, 0.0f);
+                    sndPlaySfxVolPitchPan(SFX_UI_TARGET_APPEAR, 0.8f, 1.0f, 0.0f);
                 }
                 textId = TEXT_COUNT_3;
             } else if ((D_8034F850 - sdData->unk260) < (0.6667f * sdData->unk258->unk40)) {
                 if (D_80371B40 == 2) {
                     D_80371B40--;
-                    sndPlaySfxVolPitchPan(0x59, 0.8f, 1.0f, 0.0f);
+                    sndPlaySfxVolPitchPan(SFX_UI_TARGET_APPEAR, 0.8f, 1.0f, 0.0f);
                 }
                 textId = TEXT_COUNT_2;
             } else if ((D_8034F850 - sdData->unk260) < sdData->unk258->unk40) {
                 if (D_80371B40 == 1) {
                     D_80371B40--;
-                    sndPlaySfxVolPitchPan(0x59, 0.8f, 1.0f, 0.0f);
+                    sndPlaySfxVolPitchPan(SFX_UI_TARGET_APPEAR, 0.8f, 1.0f, 0.0f);
                 }
                 textId = TEXT_COUNT_1;
             }

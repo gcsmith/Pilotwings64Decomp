@@ -113,7 +113,7 @@ enum Sfx {
     /* 0x56 */ SFX_PILOT_HAWK_SCREAM,
     /* 0x57 */ SFX_PILOT_KIWI_SCREAM,
     /* 0x58 */ SFX_PILOT_ROBIN_SCREAM,
-    /* 0x59 */ SFX_UNK_089,
+    /* 0x59 */ SFX_UI_TARGET_APPEAR,
     /* 0x5A */ SFX_UNK_090,
     /* 0x5B */ SFX_UNK_091,
     /* 0x5C */ SFX_HANG_AIR_BRAKE,
