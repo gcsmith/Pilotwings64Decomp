@@ -95,7 +95,7 @@ enum Sfx {
     /* 0x44 */ SFX_UNK_068,
     /* 0x45 */ SFX_UNK_069,
     /* 0x46 */ SFX_UNK_070,
-    /* 0x47 */ SFX_UNK_071,
+    /* 0x47 */ SFX_ENV_CITY_TRAFFIC,
     /* 0x48 */ SFX_UNK_072,
     /* 0x49 */ SFX_UNK_073,
     /* 0x4A */ SFX_UNK_074,
