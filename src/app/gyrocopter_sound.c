@@ -49,8 +49,9 @@ void func_8030A140(GyrocopterData* gcData) {
 
     gcData->unk67C = sndMakeDev(0x1F);
     gcData->unk67D = sndMakeDev(0x42);
-    gcData->unk67A = sndMakeDev(0x13);
-    gcData->unk67B = sndMakeDev(0x13);
+    // stereo wind sfx
+    gcData->unk67A = sndMakeDev(SFX_MOVEMENT_WIND);
+    gcData->unk67B = sndMakeDev(SFX_MOVEMENT_WIND);
 
     for (i = 0; i < 2; i++) {
         gcData->unk690[i].unk50 = uvEmitterLookup();

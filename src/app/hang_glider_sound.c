@@ -27,8 +27,9 @@ void hgSoundInit(HangGliderData* hg) {
     sHgSound_80368318.unk4[1].x = 0.01f, sHgSound_80368318.unk4[1].y = 0.4f;
     sHgSound_80368318.unk4[2].x = 9.00f, sHgSound_80368318.unk4[2].y = 0.8f;
     sHgSound_80368318.unk4[3].x = 10.0f, sHgSound_80368318.unk4[3].y = 1.0f;
-    hg->unk322 = sndMakeDev(0x13);
-    hg->unk323 = sndMakeDev(0x13);
+    // stereo wind sfx
+    hg->unk322 = sndMakeDev(SFX_MOVEMENT_WIND);
+    hg->unk323 = sndMakeDev(SFX_MOVEMENT_WIND);
     hg->unk321 = sndMakeDev(0x20);
     sHgSoundEventCbInfo.cb = hgSoundEventHandler;
     sHgSoundEventCbInfo.arg = hg;

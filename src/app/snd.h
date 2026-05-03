@@ -43,7 +43,7 @@ enum Sfx {
     /* 0x10 */ SFX_UNK_016,
     /* 0x11 */ SFX_GOAL_GONG,
     /* 0x12 */ SFX_UNK_018,
-    /* 0x13 */ SFX_UNK_019,
+    /* 0x13 */ SFX_MOVEMENT_WIND, // used with two emitters for stereo effect
     /* 0x14 */ SFX_UNK_020,
     /* 0x15 */ SFX_UNK_021,
     /* 0x16 */ SFX_UNK_022,
@@ -54,13 +54,13 @@ enum Sfx {
     /* 0x1B */ SFX_UNK_027,
     /* 0x1C */ SFX_UNK_028,
     /* 0x1D */ SFX_PILOT_GOOSE_SCREAM,
-    /* 0x1E */ SFX_UNK_030,
+    /* 0x1E */ SFX_RB_ENGINE,
     /* 0x1F */ SFX_UNK_031,
     /* 0x20 */ SFX_UNK_032,
     /* 0x21 */ SFX_UNK_033,
     /* 0x22 */ SFX_UNK_034,
-    /* 0x23 */ SFX_UNK_035,
-    /* 0x24 */ SFX_UNK_036,
+    /* 0x23 */ SFX_RB_FLY_UP,   // gliding up sfx as altitude increases
+    /* 0x24 */ SFX_RB_FLY_DOWN, // gliding down
     /* 0x25 */ SFX_UNK_037,
     /* 0x26 */ SFX_UNK_038,
     /* 0x27 */ SFX_UNK_039,
