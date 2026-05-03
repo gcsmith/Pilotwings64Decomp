@@ -366,7 +366,7 @@ void func_8032FEAC(SkyDivingData* sdData, s32 buttons, u8 gameState) {
             sdData->camera->unk1B4 = func_80313AF4(26.5f - ((sdData->unk160.z - -7.0f) * 1.8f), sdData->camera->unk1B4, 5.0f);
             uvMat4RotateAxis(&sp34, -sdData->unk5C, 'z');
             if (demoButtonPress(0, R_TRIG) != 0) {
-                sndPlaySfxVolPitchPan(0x67, 0.3f, 0.65f, 0.0f);
+                sndPlaySfxVolPitchPan(SFX_UI_CAMERA_MOVE, 0.3f, 0.65f, 0.0f);
                 if (sdData->unk290 == 1.0f) {
                     sdData->unk290 = 0.5f;
                 } else {

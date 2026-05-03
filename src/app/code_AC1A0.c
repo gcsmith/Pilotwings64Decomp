@@ -224,7 +224,7 @@ void rocketBeltMovementFrame(RocketBeltData* rbData, u8 gameState) {
             rbData->unk5C = 4;
             rbData->unk60 = 0.8f;
             if (gameState != GAME_STATE_RESULTS) {
-                sndPlaySfxVolPitchPan(0x67, 0.3f, 0.65f, 0.0f);
+                sndPlaySfxVolPitchPan(SFX_UI_CAMERA_MOVE, 0.3f, 0.65f, 0.0f);
             }
             camera_802D5884(rbData->camera, rbData->unk5C);
             camera_802D45C4(rbData->camera, rbData->unk60);
@@ -248,14 +248,14 @@ void rocketBeltMovementFrame(RocketBeltData* rbData, u8 gameState) {
             rbData->unk88 = func_80313AF4(spB4, rbData->unk88, 3.0f);
             if (demoButtonPress(rbData->contIdx, D_CBUTTONS) != 0) {
                 if ((gameState != GAME_STATE_RESULTS) && (rbData->unk58 > -1.5707961f)) {
-                    sndPlaySfxVolPitchPan(0x67, 0.3f, 1.0f, 0.0f);
+                    sndPlaySfxVolPitchPan(SFX_UI_CAMERA_MOVE, 0.3f, 1.0f, 0.0f);
                 }
                 rbData->unk58 -= 0.39269903f;
                 rbData->unk58 = MAX(rbData->unk58, -1.5707961f);
             }
             if (demoButtonPress(rbData->contIdx, U_CBUTTONS) != 0) {
                 if ((gameState != GAME_STATE_RESULTS) && (rbData->unk58 < 1.5707961f)) {
-                    sndPlaySfxVolPitchPan(0x67, 0.3f, 1.0f, 0.0f);
+                    sndPlaySfxVolPitchPan(SFX_UI_CAMERA_MOVE, 0.3f, 1.0f, 0.0f);
                 }
                 rbData->unk58 += 0.39269903f;
                 rbData->unk58 = MIN(rbData->unk58, 1.5707961f);
@@ -264,14 +264,14 @@ void rocketBeltMovementFrame(RocketBeltData* rbData, u8 gameState) {
         } else {
             if (demoButtonPress(rbData->contIdx, U_CBUTTONS) != 0) {
                 if ((gameState != GAME_STATE_RESULTS) && (rbData->unk58 < 1.4835297f)) {
-                    sndPlaySfxVolPitchPan(0x67, 0.3f, 1.0f, 0.0f);
+                    sndPlaySfxVolPitchPan(SFX_UI_CAMERA_MOVE, 0.3f, 1.0f, 0.0f);
                 }
                 rbData->unk58 += 0.39269903f;
                 rbData->unk58 = MIN(rbData->unk58, 1.5707961f);
             }
             if (demoButtonPress(rbData->contIdx, D_CBUTTONS) != 0) {
                 if ((gameState != GAME_STATE_RESULTS) && (rbData->unk58 > -1.4835297f)) {
-                    sndPlaySfxVolPitchPan(0x67, 0.3f, 1.0f, 0.0f);
+                    sndPlaySfxVolPitchPan(SFX_UI_CAMERA_MOVE, 0.3f, 1.0f, 0.0f);
                 }
                 rbData->unk58 -= 0.39269903f;
                 rbData->unk58 = MAX(rbData->unk58, -1.5707961f);

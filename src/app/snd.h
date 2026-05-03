@@ -127,7 +127,7 @@ enum Sfx {
     /* 0x64 */ SFX_PILOT_IBIS_SELECT,
     /* 0x65 */ SFX_PILOT_HAWK_SELECT,
     /* 0x66 */ SFX_PILOT_ROBIN_SELECT,
-    /* 0x67 */ SFX_UNK_103,
+    /* 0x67 */ SFX_UI_CAMERA_MOVE,
     /* 0x68 */ SFX_MISSI_ROAR,
     /* 0x69 */ SFX_UNK_105,
     /* 0x6A */ SFX_UNK_106,
