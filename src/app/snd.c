@@ -81,13 +81,13 @@ void sndPlaySfx(u8 sfxId) {
     uvEmitterTrigger(emitterId);
 }
 
-u8 sndMakeDev(s32 arg0) {
+u8 sndMakeDev(s32 sfxId) {
     u8 emitterId = uvEmitterLookup();
     if (emitterId == 0xFF) {
         _uvDebugPrintf("snd_makedev -- out of emitter devices\n");
         return 0xFF;
     }
-    uvEmitterFromModel(emitterId, arg0);
+    uvEmitterFromModel(emitterId, sfxId);
     uvEmitterSetVol(emitterId, 0.0f);
     uvEmitterTrigger(emitterId);
     return emitterId;
