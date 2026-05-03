@@ -3,10 +3,8 @@
 #include "kernel/code_1050.h"
 #include "snd.h"
 #include <uv_audio.h>
-#include <uv_event.h>
 #include <uv_math.h>
 #include <uv_matrix.h>
-#include <uv_seq.h>
 
 Mtx4F D_80373E20;
 Mtx4F D_80373E60;

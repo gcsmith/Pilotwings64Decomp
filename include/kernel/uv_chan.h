@@ -1,6 +1,7 @@
-#ifndef CODE_58E0_H
-#define CODE_58E0_H
+#ifndef PILOTWINGS64_UV_CHAN_H
+#define PILOTWINGS64_UV_CHAN_H
 
+#include <uv_common.h>
 #include <uv_graphics.h>
 
 typedef struct UnkSortAdd {
@@ -21,4 +22,5 @@ void func_80205BFC(void);
 void func_80205CE4(UnkStruct_80204D94*, s32, f32, f32);
 void _uvSortAdd(s32, f32, void*, UnkStruct_80204D94*, f32, f32, ...);
 
-#endif // CODE_58E0_H
+#endif // PILOTWINGS64_UV_CHAN_H
+

@@ -6,7 +6,6 @@
 #include <uv_matrix.h>
 #include <uv_sprite.h>
 #include <uv_system.h>
-#include <uv_util.h>
 #include <uv_vector.h>
 #include "balls.h"
 #include "code_D1ED0.h"

@@ -3,7 +3,6 @@
 #include <uv_graphics.h>
 #include <uv_memory.h>
 #include <uv_texture.h>
-#include <uv_util.h>
 #include "boats.h"
 #include "env_sound.h"
 #include "environment.h"

@@ -1,7 +1,7 @@
-#ifndef PILOTWINGS64_UV_SYSTEM
-#define PILOTWINGS64_UV_SYSTEM
+#ifndef PILOTWINGS64_UV_SYSTEM_H
+#define PILOTWINGS64_UV_SYSTEM_H
 
-#include <PR/ultratypes.h>
+#include <uv_common.h>
 
 s32 uvFileWrite(u8* dst, s32 offs, s32 nbytes);
 s32 uvFileRead(void* dst, s32 offs, s32 nbytes);
@@ -10,5 +10,5 @@ s32 func_8022E2D4(s32);
 void uvWaitForMesg(char msg_type);
 void uvSetVideoMode(void);
 
-#endif // PILOTWINGS64_UV_SYSTEM
+#endif // PILOTWINGS64_UV_SYSTEM_H
 

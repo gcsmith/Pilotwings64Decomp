@@ -15,7 +15,6 @@
 #include <uv_sprite.h>
 #include <uv_system.h>
 #include <uv_texture.h>
-#include <uv_seq.h>
 #include <macros.h>
 #include <segment_symbols.h>
 
@@ -153,7 +152,7 @@ s32 uvSysInit(s32 arg0) {
     uvDobjInit();
     uvControllerInit();
 
-    func_80218BA0();
+    uvSeqInit();
     func_80219FD0();
     uvVtxInit();
     uvSprt_80230130();

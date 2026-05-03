@@ -1,10 +1,11 @@
 #include "common.h"
 #include "rocket_belt.h"
-#include <uv_event.h>
+#include <uv_audio.h>
 #include <uv_fx.h>
 #include <uv_janim.h>
 #include <uv_math.h>
 #include <uv_model.h>
+#include <uv_utils.h>
 #include "app/demo.h"
 #include "app/fdr.h"
 #include "app/shadow.h"

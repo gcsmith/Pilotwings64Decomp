@@ -4,6 +4,7 @@
 #include <uv_math.h>
 #include <uv_matrix.h>
 #include <uv_model.h>
+#include <uv_utils.h>
 #include <uv_vector.h>
 #include "mist.h"
 #include "code_9A960.h"

@@ -1,9 +1,11 @@
-#include <uv_common.h>
 #include <uv_filesystem.h>
 #include <uv_graphics.h>
 #include <uv_memory.h>
 #include <uv_graphics.h>
 #include <uv_sprite.h>
+#include <PR/os_exception.h>
+#include <PR/os_pi.h>
+#include <PR/os_system.h>
 
 typedef struct {
     u32 start;

@@ -1,7 +1,6 @@
 #include "common.h"
 #include <uv_fx.h>
 #include <uv_model.h>
-#include <uv_seq.h>
 #include <uv_vector.h>
 #include "hud.h"
 #include "oil_plant.h"
@@ -69,7 +68,7 @@ void oilPlantLoad(void) {
     Vec3F pos;
 
     pos = sOilPlantPos;
-    sOilPlantSeqId = func_80218F88();
+    sOilPlantSeqId = uvSeqFindFree();
     uvSeqModel(sOilPlantSeqId, 0);
     uvSeqProps(sOilPlantSeqId, SEQ_PROP_4(20.0f), SEQ_PROP_END);
     sOilPlantFxId = func_8021EFF0(6);

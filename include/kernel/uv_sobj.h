@@ -1,5 +1,5 @@
-#ifndef UV_SOBJ_H
-#define UV_SOBJ_H
+#ifndef PILOTWINGS64_UV_SOBJ_H
+#define PILOTWINGS64_UV_SOBJ_H
 
 #include <PR/ultratypes.h>
 #include <uv_graphics.h>
@@ -26,4 +26,5 @@ u16 uvSobj_8022D1E4(u32 soid);
 void uvSobjModel(u32 soid, s32);
 s32 uvSobjGetSeg(s32 terraId, f32, f32, f32, f32, f32, f32, s32**, f32**, Vec3F**);
 
-#endif // UV_SOBJ_H
+#endif // PILOTWINGS64_UV_SOBJ_H
+

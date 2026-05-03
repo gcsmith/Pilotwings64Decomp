@@ -1,5 +1,6 @@
 #include "common.h"
 #include <uv_filesystem.h>
+#include <uv_fx.h>
 #include <uv_graphics.h>
 #include <uv_memory.h>
 #include <libc/stdarg.h>
@@ -11,11 +12,9 @@ typedef struct Unk80269F50 {
     ParsedUVSQ unk8;
 } Unk80269F50;
 
-void func_8021902C(s32);
-
 Unk80269F50 D_80269F50[10];
 
-void func_80218BA0(void) {
+void uvSeqInit(void) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(D_80269F50); i++) {
@@ -30,12 +29,12 @@ void func_80218BA0(void) {
     }
 }
 
-void func_80218CA4(void) {
+void uvSeqUpdateAll(void) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(D_80269F50); i++) {
         if (D_80269F50[i].unk0 != 0) {
-            func_8021902C(i);
+            uvSeqUpdate(i);
         }
     }
 }
@@ -111,7 +110,7 @@ void uvSeqProps(s32 arg0, ...) {
     }
 }
 
-s32 func_80218F88(void) {
+s32 uvSeqFindFree(void) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(D_80269F50); i++) {
@@ -123,7 +122,7 @@ s32 func_80218F88(void) {
     return 0xFF;
 }
 
-void func_8021902C(s32 arg0) {
+void uvSeqUpdate(s32 arg0) {
     Unk80269F50* temp_a0;
     ParsedUVSQ* temp_a1;
 
@@ -180,9 +179,10 @@ void func_8021902C(s32 arg0) {
     }
 }
 
-u16 func_80219240(s32 arg0) {
+u16 uvSeqGetUnkState(s32 arg0) {
     Unk80269F50* temp_v1;
 
     temp_v1 = &D_80269F50[arg0];
     return temp_v1->unk8.unk4[temp_v1->unk1].unk0;
 }
+

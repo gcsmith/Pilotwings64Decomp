@@ -1,6 +1,5 @@
 #include <uv_audio.h>
 #include <uv_clocks.h>
-#include <uv_util.h>
 #include <uv_memory.h>
 #include <macros.h>
 

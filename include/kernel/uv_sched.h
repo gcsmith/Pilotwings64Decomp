@@ -1,10 +1,9 @@
-#ifndef PILOTWINGS64_UV_SCHED
-#define PILOTWINGS64_UV_SCHED
+#ifndef PILOTWINGS64_UV_SCHED_H
+#define PILOTWINGS64_UV_SCHED_H
 
-#include <ultra64.h>
-#include <PR/sched.h>
+#include <uv_common.h>
 #include <uv_matrix.h>
-#include <uv_util.h>
+#include <PR/sched.h>
 
 #define UV_MESG_DMA     0
 #define UV_MESG_SCHED   2
@@ -53,4 +52,5 @@ void func_8022BEB8(s32 arg0);
 void func_8022C34C(void);
 void func_8022C3C0(u8 arg0, s32 arg1);
 
-#endif // PILOTWINGS64_UV_SCHED
+#endif // PILOTWINGS64_UV_SCHED_H
+

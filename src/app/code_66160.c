@@ -4,7 +4,6 @@
 #include <uv_graphics.h>
 #include <uv_math.h>
 #include <uv_matrix.h>
-#include <uv_util.h>
 #include "code_66160.h"
 
 // draw quad/poly

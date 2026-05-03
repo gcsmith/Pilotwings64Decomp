@@ -3,9 +3,10 @@
 #include "code_61A60.h"
 #include "code_66F70.h"
 #include "code_9A960.h"
+#include <uv_janim.h>
 #include <uv_math.h>
 #include <uv_texture.h>
-#include <uv_janim.h>
+#include <uv_utils.h>
 #include "game.h"
 #include "demo.h"
 #include "falco.h"

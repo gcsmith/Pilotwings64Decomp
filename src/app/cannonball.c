@@ -4,7 +4,6 @@
 #include <uv_controller.h>
 #include <uv_dobj.h>
 #include <uv_environment.h>
-#include <uv_event.h>
 #include <uv_math.h>
 #include <uv_matrix.h>
 #include <uv_memory.h>

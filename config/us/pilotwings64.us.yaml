@@ -80,10 +80,10 @@ segments:
     subsegments:
       - [0x01050, c, kernel/code_1050]
       - [0x01300, c, kernel/janim]
-      - [0x02130, c, kernel/emitter]
-      - [0x03D50, c, kernel/event]
-      - [0x04850, c, kernel/audio]
-      - [0x05690, c, kernel/seq]
+      - [0x02130, c, kernel/audio_emitter]
+      - [0x03D50, c, kernel/audio_event]
+      - [0x04850, c, kernel/audio_manager]
+      - [0x05690, c, kernel/audio_seq]
       - [0x058E0, c, kernel/chan]
       - [0x06F80, c, kernel/clocks]
       - [0x07150, c, kernel/code_7150]
@@ -110,7 +110,7 @@ segments:
       - [0x30EA0, c, kernel/code_30EA0]
       - [0x310E0, c, kernel/sprite]
       - [0x32480, c, kernel/user_file]
-      - [0x32590, c, kernel/rand]
+      - [0x32590, c, kernel/utils]
       - [0x32760, c, kernel/vector]
       - [0x329C0, hasm, kernel/decompress_mio0]
       - [0x32A70, c, kernel/debug]
@@ -261,7 +261,7 @@ segments:
       - { start: 0x479E0, type: textbin, use_src_path: True, name: rsp/fast3d }
       - { start: 0x48E10, type: textbin, use_src_path: True, name: rsp/aspMain }
 
-      - [0x49C30, .data, kernel/audio]
+      - [0x49C30, .data, kernel/audio_manager]
       - [0x49D60, .data, kernel/code_7150]
       - [0x49D80, .data, kernel/code_8170]
       - [0x49D90, .data, kernel/env]
@@ -272,7 +272,7 @@ segments:
       - [0x4C200, .data, kernel/matrix]
       - [0x4C210, .data, kernel/sched]
       - [0x4C220, .data, kernel/sprite]
-      - [0x4C270, .data, kernel/rand]
+      - [0x4C270, .data, kernel/utils]
       - [0x4C280, .data, kernel/debug]
       - [0x4C730, .data, libultra/audio/sl]
       - [0x4C740, .data, libultra/io/aisetnextbuf]
@@ -298,10 +298,10 @@ segments:
 
       - [0x4D500, .rodata, kernel/code_1050]
       - [0x4D540, .rodata, kernel/janim]
-      - [0x4D5E0, .rodata, kernel/emitter]
-      - [0x4DBF0, .rodata, kernel/event]
-      - [0x4DC90, .rodata, kernel/audio]
-      - [0x4DCE0, .rodata, kernel/seq]
+      - [0x4D5E0, .rodata, kernel/audio_emitter]
+      - [0x4DBF0, .rodata, kernel/audio_event]
+      - [0x4DC90, .rodata, kernel/audio_manager]
+      - [0x4DCE0, .rodata, kernel/audio_seq]
       - [0x4DD10, .rodata, kernel/chan]
       - [0x4DDC0, .rodata, kernel/clocks]
       - [0x4DDF0, .rodata, kernel/code_7150]
@@ -326,7 +326,7 @@ segments:
       - [0x500E0, .rodata, kernel/code_30EA0]
       - [0x500F0, .rodata, kernel/sprite]
       - [0x502D0, .rodata, kernel/user_file]
-      - [0x502F0, .rodata, kernel/rand]
+      - [0x502F0, .rodata, kernel/utils]
       - [0x50300, .rodata, kernel/debug]
       - [0x50490, .rodata, libultra/audio/sndplayer]
       - [0x504D0, .rodata, libultra/audio/csplayer]
@@ -347,10 +347,10 @@ segments:
       - { start: 0x51B70, type: databin, use_src_path: True, name: rsp/aspMain }
 
       - { type: .bss, vram: 0x80250E80, name: kernel/code_1050 }
-      - { type: .bss, vram: 0x80250ED0, name: kernel/emitter }
-      - { type: .bss, vram: 0x8025BF00, name: kernel/event }
-      - { type: .bss, vram: 0x8025C5B0, name: kernel/audio }
-      - { type: .bss, vram: 0x80261230, name: kernel/seq }
+      - { type: .bss, vram: 0x80250ED0, name: kernel/audio_emitter }
+      - { type: .bss, vram: 0x8025BF00, name: kernel/audio_event }
+      - { type: .bss, vram: 0x8025C5B0, name: kernel/audio_manager }
+      - { type: .bss, vram: 0x80261230, name: kernel/audio_seq }
       - { type: .bss, vram: 0x80261730, name: kernel/chan }
       - { type: .bss, vram: 0x80263470, name: kernel/clocks }
       - { type: .bss, vram: 0x802634C0, name: kernel/code_8170 }

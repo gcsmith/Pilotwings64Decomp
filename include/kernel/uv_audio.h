@@ -1,10 +1,9 @@
-#ifndef PILOTWINGS64_UV_AUDIO
-#define PILOTWINGS64_UV_AUDIO
+#ifndef PILOTWINGS64_UV_AUDIO_H
+#define PILOTWINGS64_UV_AUDIO_H
 
-#include <ultra64.h>
+#include <uv_common.h>
 #include <uv_matrix.h>
 #include <uv_sched.h>
-#include <uv_util.h>
 
 #define AUDIO_BUF_SIZE 0x4B00
 #define DMA_BUF_SIZE 0x800
@@ -16,35 +15,9 @@
 #define FRAME_LAG 2
 #define MAX_MESGS 8
 
-typedef struct uvaEmitter {
-/* 00 */ Mtx4F m1;
-/* 40 */ Vec3F unk40;
-/* 4C */ Vec3F unk4C;
-/* 58 */ Vec3F unk58;
-/* 64 */ Vec3F unk64;
-/* 70 */ f32 vol;
-/* 74 */ f32 pitch;
-/* 78 */ f32 pan;
-/* 7C */ f32 mix;
-/* 80 */ f32 unk80;
-/* 84 */ f32 unk84;
-/* 88 */ s32 priority;
-/* 8C */ u8 sound;
-/* 8D */ u8 unk8D;
-/* 8E */ u8 unk8E;
-/* 8F */ u8 unk8F;
-/* 90 */ f32 near;
-/* 94 */ f32 far;
-/* 98 */ s32 attr;
-/* 9C */ f32 playPitch;
-/* A0 */ s32 playState;
-/* A4 */ s32 playVolume;
-/* A8 */ s32 state;
-/* AC */ u8 playVoice;
-/* AD */ u8 playPan;
-/* AE */ u8 playMix;
-/* AF */ u8 playTimeout;
-} uvaEmitter_t;
+// -----------------------------------------------------------------------------
+// Audio Manager API
+// -----------------------------------------------------------------------------
 
 typedef struct UnkStruct_80200144 {
     Mtx4F mat;
@@ -98,6 +71,44 @@ typedef struct AMAudioMgr {
     ALGlobals g;
 } AMAudioMgr;
 
+void uvSysInitAudio(void);
+void amCreateAudioMgr(ALSynConfig* c, OSPri priority);
+void func_80204518(s32 arg0);
+
+// -----------------------------------------------------------------------------
+// Audio Emitter API
+// -----------------------------------------------------------------------------
+
+typedef struct uvaEmitter {
+/* 00 */ Mtx4F m1;
+/* 40 */ Vec3F unk40;
+/* 4C */ Vec3F unk4C;
+/* 58 */ Vec3F unk58;
+/* 64 */ Vec3F unk64;
+/* 70 */ f32 vol;
+/* 74 */ f32 pitch;
+/* 78 */ f32 pan;
+/* 7C */ f32 mix;
+/* 80 */ f32 unk80;
+/* 84 */ f32 unk84;
+/* 88 */ s32 priority;
+/* 8C */ u8 sound;
+/* 8D */ u8 unk8D;
+/* 8E */ u8 unk8E;
+/* 8F */ u8 unk8F;
+/* 90 */ f32 near;
+/* 94 */ f32 far;
+/* 98 */ s32 attr;
+/* 9C */ f32 playPitch;
+/* A0 */ s32 playState;
+/* A4 */ s32 playVolume;
+/* A8 */ s32 state;
+/* AC */ u8 playVoice;
+/* AD */ u8 playPan;
+/* AE */ u8 playMix;
+/* AF */ u8 playTimeout;
+} uvaEmitter_t;
+
 #define EMITTER_ATTR_1          0x01
 #define EMITTER_ATTR_2          0x02
 #define EMITTER_ATTR_4          0x04
@@ -119,9 +130,6 @@ typedef struct AMAudioMgr {
 #define EMITTER_PROP_4(x)       EMITTER_PROPID_4, (x)
 #define EMITTER_PROP_ATTR(x)    EMITTER_PROPID_ATTR, (x)
 
-void uvSysInitAudio(void);
-void amCreateAudioMgr(ALSynConfig* c, OSPri priority);
-
 void uvEmitterPrintf(const char* fmt, ...);
 void uvEmitterInitTable(void);
 void uvEmitterInit(uvaEmitter_t* emitter);
@@ -139,7 +147,6 @@ void uvEmitterProps(u8 emitterId, ...);
 void uvEmitterTrigger(u8 emitterId);
 void uvEmitterRelease(u8 emitterId);
 void uvEmitterStatus(u8 arg0);
-
 void _uvaSoundBegin(void);
 void _uvaSoundEnd(void);
 void uvEmitterFlush(u16 arg0);
@@ -152,12 +159,41 @@ void _uvaUpdateVoice(u8 emitterId);
 void _uvaStopVoice(u8 voiceId);
 void _uvaStatus(u8 emitterId);
 
+// -----------------------------------------------------------------------------
+// Audio Event API
+// -----------------------------------------------------------------------------
+
+typedef void (*EventCallback_t)(s32, void*, s32);
+
+typedef struct EventCallbackInfo {
+    EventCallback_t cb;
+    void* arg;
+} EventCallbackInfo;
+
+typedef struct UserEventCallbackInfo {
+    EventCallbackInfo unk0[4];
+    s32 count;
+} UserEventCallbackInfo;
+
+typedef struct SystemEventCallbackInfo {
+    EventCallbackInfo unk0[10];
+    s32 count;
+} SystemEventCallbackInfo;
+
+void uvEventInit(void);
+void uvEventMaxCb(EventCallbackInfo arg0, ...);
+void uvEventRemoveCb(EventCallbackInfo arg0, ...);
+void uvEventPost(s32, s32);
+
+// -----------------------------------------------------------------------------
+// Audio Sequence API
+// -----------------------------------------------------------------------------
+
+void uvaSeqNew(s32);
 void uvaSeqPlay(void);
 void uvaSeqSetTempo(f32 tempo);
 void uvaSeqSetVol(f32 vol);
 void uvaSeqStop(void);
 
-void func_80204518(s32 arg0);
-
-#endif // PILOTWINGS64_UV_AUDIO
+#endif // PILOTWINGS64_UV_AUDIO_H
 

@@ -1,11 +1,10 @@
+#include <uv_audio.h>
 #include <uv_clocks.h>
 #include <uv_dobj.h>
-#include <uv_event.h>
 #include <uv_fx.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>
 #include <uv_memory.h>
-#include <uv_seq.h>
 #include <uv_sched.h>
 #include <uv_sprite.h>
 #include <uv_system.h>
@@ -139,7 +138,7 @@ void uvGfxBegin(void) {
     gDPSetColorImage(gGfxDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, osVirtualToPhysical(gGfxFbCurrPtr));
 
     uvGfxResetState();
-    func_80218CA4();
+    uvSeqUpdateAll();
     uvSprt_802301A4();
     uvVtxReset(1);
     func_8021A298();

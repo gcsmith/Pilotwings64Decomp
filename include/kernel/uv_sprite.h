@@ -1,9 +1,9 @@
-#ifndef PILOTWINGS64_UV_SPRITE
-#define PILOTWINGS64_UV_SPRITE
+#ifndef PILOTWINGS64_UV_SPRITE_H
+#define PILOTWINGS64_UV_SPRITE_H
 
-#include <PR/sp.h>
-#include <uv_util.h>
+#include <uv_common.h>
 #include <uv_graphics.h>
+#include <PR/sp.h>
 
 enum SpriteBlitId {
     BLIT_ID_04                          = 0x04,
@@ -155,5 +155,5 @@ void uvSprtProps(s32 spriteId, ...);
 void uvSprtUpdateUnk(ParsedUVTX* uvtx);
 void uvSprtResetUnk(void);
 
-#endif // PILOTWINGS64_UV_SPRITE
+#endif // PILOTWINGS64_UV_SPRITE_H
 

@@ -6,6 +6,7 @@
 #include <uv_memory.h>
 #include <uv_model.h>
 #include <uv_texture.h>
+#include <uv_utils.h>
 #include "app/demo.h"
 #include "app/fdr.h"
 #include "app/hud.h"

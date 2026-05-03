@@ -1,10 +1,11 @@
-#ifndef PILOTWINGS64_UV_GRAPHICS
-#define PILOTWINGS64_UV_GRAPHICS
+#ifndef PILOTWINGS64_UV_GRAPHICS_H
+#define PILOTWINGS64_UV_GRAPHICS_H
 
+#include <uv_common.h>
+#include <uv_matrix.h>
 #include <PR/ultratypes.h>
 #include <PR/gbi.h>
-#include <uv_util.h>
-#include <uv_matrix.h>
+#include <PR/sp.h>
 
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
@@ -532,4 +533,5 @@ void func_80204930(void);
 void func_80205724(s32, s32, Mtx4F*);
 void func_80204C94(s32, f32, f32, f32, f32, f32, f32);
 
-#endif // PILOTWINGS64_UV_GRAPHICS
+#endif // PILOTWINGS64_UV_GRAPHICS_H
+

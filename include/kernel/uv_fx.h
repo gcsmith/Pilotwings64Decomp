@@ -1,7 +1,7 @@
-#ifndef UV_FX_H
-#define UV_FX_H
+#ifndef PILOTWINGS64_UV_FX_H
+#define PILOTWINGS64_UV_FX_H
 
-#include <PR/ultratypes.h>
+#include <uv_common.h>
 #include <uv_graphics.h>
 #include <uv_matrix.h>
 #include <uv_vector.h>
@@ -131,5 +131,21 @@ s32 func_8021EFF0(s32 type);
 void uvFxProps(s32 fxId, ...);
 void uvFxGetProps(s32 fxId, ...);
 
-#endif // UV_FX_H
+// FIXME: related to UVSQ, which seems fx/gfx related, not audio related
+#define SEQ_PROP_1(x) 1, (x)
+#define SEQ_PROP_2(x) 2, (x)
+#define SEQ_PROP_3(x) 3, (x)
+#define SEQ_PROP_4(x) 4, (x)
+#define SEQ_PROP_5(x) 5, (x)
+#define SEQ_PROP_END 0
+
+void uvSeqInit(void);
+void uvSeqUpdateAll(void);
+void uvSeqModel(s32, s32);
+void uvSeqProps(s32, ...);
+s32  uvSeqFindFree(void);
+void uvSeqUpdate(s32);
+u16  uvSeqGetUnkState(s32);
+
+#endif // PILOTWINGS64_UV_FX_H
 

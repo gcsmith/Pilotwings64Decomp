@@ -1,7 +1,7 @@
-#ifndef UV_FONT_H
-#define UV_FONT_H
+#ifndef PILOTWINGS64_UV_FONT_H
+#define PILOTWINGS64_UV_FONT_H
 
-#include <PR/ultratypes.h>
+#include <uv_common.h>
 
 void uvFontSet(s32 fontId);
 void uvFontScale(f64 x, f64 y);
@@ -13,4 +13,5 @@ s32 uvFontPrintStr16(s32 x, s32 y, s16* str16, s32 strLen, s32 end);
 void uvFontPrintStr(s32 x, s32 y, const char* str);
 void uvFontGenDlist(void);
 
-#endif // UV_FONT_H
+#endif // PILOTWINGS64_UV_FONT_H
+

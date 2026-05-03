@@ -3,6 +3,7 @@
 #include <uv_math.h>
 #include <uv_model.h>
 #include <uv_sobj.h>
+#include <uv_utils.h>
 #include "kernel/code_8170.h"
 #include "code_9A960.h"
 #include "demo.h"

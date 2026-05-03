@@ -1,8 +1,8 @@
 #include "common.h"
 #include "snap.h"
+#include <uv_audio.h>
 #include <uv_clocks.h>
 #include <uv_dobj.h>
-#include <uv_event.h>
 #include <uv_font.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>

@@ -6,6 +6,7 @@
 #include <uv_matrix.h>
 #include <uv_model.h>
 #include <uv_sobj.h>
+#include <uv_utils.h>
 #include "kernel/code_8170.h"
 #include "app/balls.h"
 #include "app/camera.h"

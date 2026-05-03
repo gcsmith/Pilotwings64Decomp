@@ -4,6 +4,7 @@
 #include <uv_graphics.h>
 #include <uv_math.h>
 #include <uv_string.h>
+#include <uv_utils.h>
 #include "code_9A960.h"
 #include "code_B3A70.h"
 #include "demo.h"

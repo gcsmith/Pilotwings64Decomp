@@ -1,7 +1,7 @@
-#ifndef UV_DOBJ_H
-#define UV_DOBJ_H
+#ifndef PILOTWINGS64_UV_DOBJ_H
+#define PILOTWINGS64_UV_DOBJ_H
 
-#include <PR/ultratypes.h>
+#include <uv_common.h>
 #include <uv_graphics.h>
 #include <uv_matrix.h>
 #include <uv_sched.h>
@@ -425,4 +425,5 @@ void uvDobj_80217B4C(Unk80263780*, ParsedUVMD*, u8);
 void uvDobj_80217E24(Unk80263780*, ParsedUVMD*, u8, f32, f32);
 void uvDobj_802180DC(s32, Unk80371120*);
 
-#endif // UV_DOBJ_H
+#endif // PILOTWINGS64_UV_DOBJ_H
+

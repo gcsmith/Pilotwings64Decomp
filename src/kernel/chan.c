@@ -1,5 +1,6 @@
 #include <macros.h>
 #include <uv_chan.h>
+#include <uv_dobj.h>
 #include <uv_environment.h>
 #include <uv_fx.h>
 #include <uv_graphics.h>

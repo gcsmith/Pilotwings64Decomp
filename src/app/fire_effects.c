@@ -1,7 +1,6 @@
 #include "common.h"
 #include "fire_effects.h"
 #include "game.h"
-#include <uv_seq.h>
 #include <uv_model.h>
 #include <uv_fx.h>
 
@@ -122,7 +121,7 @@ void fireFxCreate(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
 
     if (D_80362624 == 0) {
         for (i = 0; i < ARRAY_COUNT(D_80362500); i++) {
-            D_80362500[i] = func_80218F88();
+            D_80362500[i] = uvSeqFindFree();
             uvSeqModel(D_80362500[i], 0);
             // clang-format off
             uvSeqProps(

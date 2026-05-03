@@ -1,8 +1,7 @@
-#ifndef UV_ENVIRONMENT_H
-#define UV_ENVIRONMENT_H
+#ifndef PILOTWINGS64_UV_ENVIRONMENT_H
+#define PILOTWINGS64_UV_ENVIRONMENT_H
 
-#include <PR/ultratypes.h>
-#include <uv_dobj.h>
+#include <uv_common.h>
 
 #define ENV_PROPID_END                  0
 #define ENV_PROPID_FOG_COLOR            1 // type:s32,s32,s32,s32
@@ -22,4 +21,5 @@ void uvEnvFunc(s32 envId, s32 flag, s32 (*arg2)(void));
 void func_80218700(void);
 void _uvEnvDraw(s32 arg0, s32 arg1);
 
-#endif // UV_ENVIRONMENT_H
+#endif // PILOTWINGS64_UV_ENVIRONMENT_H
+

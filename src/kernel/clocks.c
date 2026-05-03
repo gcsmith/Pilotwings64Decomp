@@ -1,4 +1,5 @@
 #include <uv_clocks.h>
+#include <PR/os_reg.h>
 
 u32 gClockTicks;
 s32 gClockWraps;

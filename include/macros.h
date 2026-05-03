@@ -17,10 +17,12 @@
 #define GLUE2(a, b) GLUE(a, b)
 
 // Avoid compiler warnings for unused variables
+#ifndef UNUSED
 #ifdef __GNUC__
 #define UNUSED __attribute__((unused))
 #else
 #define UNUSED // Ignore for IDO
+#endif
 #endif
 
 // Avoid undefined behaviour for non-returning functions

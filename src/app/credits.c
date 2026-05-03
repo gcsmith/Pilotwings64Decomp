@@ -10,10 +10,10 @@
 #include "game.h"
 #include "snd.h"
 #include "text_data.h"
-#include "uv_graphics.h"
+#include <uv_audio.h>
 #include <uv_environment.h>
-#include <uv_event.h>
 #include <uv_font.h>
+#include <uv_graphics.h>
 #include <uv_memory.h>
 #include <uv_texture.h>
 #include <uv_vector.h>

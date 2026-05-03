@@ -2,7 +2,6 @@
 #include <uv_filesystem.h>
 #include <uv_graphics.h>
 #include <uv_memory.h>
-#include <uv_util.h>
 #include <uv_vector.h>
 #include "code_9A960.h"
 #include "demo_attitude.h"

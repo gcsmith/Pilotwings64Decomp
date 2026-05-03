@@ -6,7 +6,7 @@
 #include <uv_graphics.h>
 #include <uv_math.h>
 #include <uv_vector.h>
-#include <uv_seq.h>
+#include <uv_utils.h>
 #include <libc/stdarg.h>
 #include "kernel/code_7150.h"
 
@@ -1041,7 +1041,7 @@ void func_8021DD30(u16 fxId) {
 
     temp_s0 = &D_8028B400[fxId];
     if (temp_s0->unk2 != 0xFF) {
-        var_a0 = func_80219240(temp_s0->unk2);
+        var_a0 = uvSeqGetUnkState(temp_s0->unk2);
     } else {
         if (temp_s0->textureId != GFX_STATE_TEXTURE_NONE) {
             var_a0 = temp_s0->textureId;

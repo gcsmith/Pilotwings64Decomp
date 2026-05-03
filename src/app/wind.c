@@ -1,7 +1,6 @@
 #include "common.h"
 #include <uv_dobj.h>
 #include <uv_math.h>
-#include <uv_util.h>
 #include "game.h"
 #include "env_sound.h"
 #include "level.h"

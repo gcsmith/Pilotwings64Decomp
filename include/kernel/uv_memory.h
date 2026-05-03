@@ -1,8 +1,7 @@
-#ifndef PILOTWINGS64_UV_MEMORY
-#define PILOTWINGS64_UV_MEMORY
+#ifndef PILOTWINGS64_UV_MEMORY_H
+#define PILOTWINGS64_UV_MEMORY_H
 
-#include <ultra64.h>
-#include <uv_util.h>
+#include <uv_common.h>
 #include <uv_sprite.h>
 #include <uv_graphics.h>
 
@@ -98,4 +97,5 @@ s32 _uvMemAllocAlign8(u32 size);
 // can request data be returned from dynamic allocation, scratch buffer, or ROM offset
 void* uvUserFileRead(s32 userFileIdx, MemType request);
 
-#endif // PILOTWINGS64_UV_MEMORY
+#endif // PILOTWINGS64_UV_MEMORY_H
+

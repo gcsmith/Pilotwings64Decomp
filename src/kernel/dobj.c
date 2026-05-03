@@ -5,7 +5,6 @@
 #include <uv_math.h>
 #include <uv_model.h>
 #include <uv_sched.h>
-#include <uv_util.h>
 #include <libc/stdarg.h>
 #include <uv_graphics.h>
 #include "kernel/code_7150.h"

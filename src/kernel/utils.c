@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <uv_math.h>
+#include <uv_utils.h>
 #include "common.h"
 
 STATIC_DATA u32 gRandLcgState = 1;

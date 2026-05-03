@@ -1,6 +1,5 @@
 #include "common.h"
 #include <uv_audio.h>
-#include <uv_event.h>
 #include <uv_filesystem.h>
 #include <uv_memory.h>
 #include <uv_sched.h>
@@ -59,7 +58,7 @@ void uvSysInitAudio(void) {
     _uvDebugPrintf("uvSysInit : initializing audio system ... ");
     uvEmitterInitTable();
     func_802000A0();
-    func_80202DA0();
+    uvEventInit();
     uvMemSet(gAudioHeapStart, 0, 0x413DC);
     alHeapInit(&gAudioHeap, gAudioHeapStart, 0x413DC);
     gALSynConfig.maxVVoices = 32;
@@ -193,7 +192,7 @@ STATIC_FUNC void __amMain(void* entry) {
     alClose(&__am.g);
 }
 
-u32 __amHandleFrameMsg(AudioInfo* info, AudioInfo* previousInfo) {
+STATIC_FUNC u32 __amHandleFrameMsg(AudioInfo* info, AudioInfo* previousInfo) {
     s16* audioPtr;
     Acmd* acmdPtr;
     s32 cmdLen;

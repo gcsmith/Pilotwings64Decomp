@@ -3,7 +3,6 @@
 #include <uv_math.h>
 #include <uv_model.h>
 #include <uv_texture.h>
-#include <uv_util.h>
 #include "bonus.h"
 #include "game.h"
 #include "code_9A960.h"

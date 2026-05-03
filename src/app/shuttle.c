@@ -11,7 +11,6 @@
 #include <uv_fx.h>
 #include <uv_matrix.h>
 #include <uv_model.h>
-#include <uv_seq.h>
 #include <uv_vector.h>
 
 f32 pad_D_80350480[] = { 0.0f, 0.0f, 1.0f, 0.0f };
@@ -159,7 +158,7 @@ STATIC_FUNC void shuttle_80335130(void) {
     }
 
     if (D_803504DC == 0xFF) {
-        D_803504DC = func_80218F88();
+        D_803504DC = uvSeqFindFree();
         if (D_803504DC != 0xFF) {
             uvSeqModel(D_803504DC, 0);
             uvSeqProps(D_803504DC, SEQ_PROP_4(60.0f), SEQ_PROP_END);
@@ -179,7 +178,7 @@ STATIC_FUNC void shuttle_80335130(void) {
     }
 
     if (D_803504D8 == 0xFF) {
-        D_803504D8 = func_80218F88();
+        D_803504D8 = uvSeqFindFree();
         if (D_803504D8 != 0xFF) {
             uvSeqModel(D_803504D8, 0);
             uvSeqProps(D_803504D8, SEQ_PROP_4(60.0f), SEQ_PROP_END);
