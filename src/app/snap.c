@@ -645,7 +645,7 @@ void func_80338A14(void) {
             }
         }
     }
-    sndPlaySfx(0x3A);
+    sndPlaySfx(SFX_UI_CAMERA_SNAP);
 }
 
 void func_80339C8C(HangGliderData* hgData) {
