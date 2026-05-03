@@ -72,7 +72,7 @@ enum Sfx {
     /* 0x2D */ SFX_UNK_045,
     /* 0x2E */ SFX_UNK_046,
     /* 0x2F */ SFX_GYRO_MISSILE_FIRE,
-    /* 0x30 */ SFX_UNK_048,
+    /* 0x30 */ SFX_GYRO_MISSILE_HIT,
     /* 0x31 */ SFX_UNK_049,
     /* 0x32 */ SFX_UNK_050,
     /* 0x33 */ SFX_UNK_051,

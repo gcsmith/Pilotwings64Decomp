@@ -989,7 +989,7 @@ void falco_802E5D78(Unk8035A920* falco) {
     func_802DB224(&sp30, 9U, 0xFFFFU, 0U, &sp174, (Vec3F*)falco->unk8.m[3]);
     if (sp30.unk0 != 0) {
         falco_802E5F90(falco);
-        sndPlaySfxVolPitchPan(0x30U, 1.0f, 1.0f, 0.0f);
+        sndPlaySfxVolPitchPan(SFX_GYRO_MISSILE_HIT, 1.0f, 1.0f, 0.0f);
         return;
     }
     uvMat4RotateAxis(&falco->unk8, 2.0f * (D_8034F854 * 1.3f) * 3.1415927f, 'x');

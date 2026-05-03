@@ -346,7 +346,7 @@ void func_8030B168(GyrocopterData* gcData) {
 }
 
 void func_8030B240(Mtx4F* mat) {
-    u8 emitterId = sndMakeDev(0x30);
+    u8 emitterId = sndMakeDev(SFX_GYRO_MISSILE_HIT);
     // clang-format off
     uvEmitterProps(emitterId,
         EMITTER_PROP_NEAR(0.0f),
