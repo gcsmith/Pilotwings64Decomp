@@ -31,6 +31,8 @@ s32 gNmiAsserted;
 s32 D_802B9C84;
 s32 D_802B9C88;
 
+s32 D_8024B260 = 0x2;
+
 extern OSViMode osViModeTable[];
 extern OSSched gSchedInst;
 extern s32 D_802B9C18[];
