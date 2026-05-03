@@ -56,7 +56,7 @@ void func_8030A140(GyrocopterData* gcData) {
     for (i = 0; i < 2; i++) {
         gcData->unk690[i].unk50 = uvEmitterLookup();
         if (gcData->unk690[i].unk50 != 0xFF) {
-            uvEmitterFromModel(gcData->unk690[i].unk50, 0x2F);
+            uvEmitterFromModel(gcData->unk690[i].unk50, SFX_GYRO_MISSILE_FIRE);
             uvEmitterSetVol(gcData->unk690[i].unk50, 0.6f);
             // clang-format off
             uvEmitterProps(gcData->unk690[i].unk50,
