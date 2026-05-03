@@ -1,7 +1,7 @@
 #include "common.h"
+#include <uv_anim.h>
 #include <uv_audio.h>
 #include <uv_fx.h>
-#include <uv_janim.h>
 #include <uv_model.h>
 #include "code_7C4C0.h"
 #include "app/fdr.h"

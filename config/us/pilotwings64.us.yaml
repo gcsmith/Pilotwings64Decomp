@@ -79,7 +79,7 @@ segments:
     bss_size: 0x79A80
     subsegments:
       - [0x01050, c, kernel/code_1050]
-      - [0x01300, c, kernel/janim]
+      - [0x01300, c, kernel/anim]
       - [0x02130, c, kernel/audio_emitter]
       - [0x03D50, c, kernel/audio_event]
       - [0x04850, c, kernel/audio_manager]
@@ -297,7 +297,7 @@ segments:
       - [0x4D4F0, data] # TODO: what are these 0x10 bytes?
 
       - [0x4D500, .rodata, kernel/code_1050]
-      - [0x4D540, .rodata, kernel/janim]
+      - [0x4D540, .rodata, kernel/anim]
       - [0x4D5E0, .rodata, kernel/audio_emitter]
       - [0x4DBF0, .rodata, kernel/audio_event]
       - [0x4DC90, .rodata, kernel/audio_manager]

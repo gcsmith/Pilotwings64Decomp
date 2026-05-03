@@ -1,7 +1,7 @@
 #include "common.h"
 #include "skydiving.h"
+#include <uv_anim.h>
 #include <uv_font.h>
-#include <uv_janim.h>
 #include <uv_math.h>
 #include <uv_memory.h>
 #include <uv_model.h>

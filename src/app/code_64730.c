@@ -9,13 +9,13 @@
 #include "task.h"
 #include "code_64730.h"
 #include "text_data.h"
+#include <uv_anim.h>
 #include <uv_dobj.h>
 #include <uv_font.h>
-#include <uv_janim.h>
+#include <uv_memory.h>
 #include <uv_model.h>
 #include <uv_sprite.h>
 #include <uv_texture.h>
-#include <uv_memory.h>
 
 f32 D_80359CA0;
 f32 D_80359CA4;

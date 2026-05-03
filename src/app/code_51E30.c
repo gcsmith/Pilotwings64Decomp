@@ -1,6 +1,6 @@
 #include "common.h"
 #include "code_51E30.h"
-#include <uv_janim.h>
+#include <uv_anim.h>
 
 // .bss
 f32 D_803571F0;

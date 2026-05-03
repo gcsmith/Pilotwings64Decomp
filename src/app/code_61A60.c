@@ -1,12 +1,12 @@
 #include "common.h"
+#include <uv_anim.h>
 #include <uv_audio.h>
 #include <uv_controller.h>
 #include <uv_dobj.h>
-#include <uv_sobj.h>
 #include <uv_font.h>
-#include <uv_janim.h>
-#include <uv_memory.h>
 #include <uv_math.h>
+#include <uv_memory.h>
+#include <uv_sobj.h>
 #include <uv_texture.h>
 #include <uv_vector.h>
 #include "kernel/code_8170.h"

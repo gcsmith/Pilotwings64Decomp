@@ -3,8 +3,10 @@
 #include "code_61A60.h"
 #include "code_66F70.h"
 #include "code_9A960.h"
-#include <uv_janim.h>
+#include <uv_anim.h>
+#include <uv_fx.h>
 #include <uv_math.h>
+#include <uv_model.h>
 #include <uv_texture.h>
 #include <uv_utils.h>
 #include "game.h"
@@ -15,8 +17,6 @@
 #include "splash.h"
 #include "task.h"
 #include "text_data.h"
-#include <uv_fx.h>
-#include <uv_model.h>
 
 // .bss
 f32 D_8035AF30;
