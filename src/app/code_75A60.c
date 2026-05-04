@@ -255,7 +255,7 @@ void func_802EEF0C(HangGliderData* hgData) {
             uvMat4Copy(&hgData->camera->unk80, &hgData->unk10);
             sndPlaySfx(SFX_WATER_SPLASH);
             if (!(hgData->unk318 & 0x10)) {
-                sndSetMusic(7U);
+                sndSetMusic(MUS_HANG_GLIDER_CRASH);
                 sndSetMusicState(0);
                 func_8033FCD0(sp30->veh);
             }
