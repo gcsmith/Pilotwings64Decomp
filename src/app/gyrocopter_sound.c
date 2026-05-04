@@ -223,7 +223,7 @@ void func_8030ABF8(GyrocopterData* gcData) {
             func_8030ADCC(gcData);
             sndPlaySfx(0x3F);
             if (!(gcData->unk678 & 0x10)) {
-                sndSetMusic(MUS_GYROCOPTER_CRASH);
+                sndSetMusic(BGM_GYROCOPTER_CRASH);
                 sndSetMusicState(MUS_STATE_PLAY_SEQ);
                 func_8033FCD0(sp34->veh);
             }
@@ -234,7 +234,7 @@ void func_8030ABF8(GyrocopterData* gcData) {
                 gcData->unk678 |= 0x10;
                 sndGetPilotScream(&sfxId, &pitch);
                 sndPlaySfxVolPitchPan(sfxId, 1.0f, pitch, 0.0f);
-                sndSetMusic(MUS_GYROCOPTER_CRASH);
+                sndSetMusic(BGM_GYROCOPTER_CRASH);
                 sndSetMusicState(MUS_STATE_PLAY_SEQ);
                 func_8033FCD0(sp34->veh);
                 func_8030ADCC(gcData);
@@ -244,9 +244,9 @@ void func_8030ABF8(GyrocopterData* gcData) {
             if (!(gcData->unk678 & 0x20)) {
                 gcData->unk678 |= 0x20;
                 if ((gcData->unk6C != 0) && (gcData->unk4 == 0xFFFF)) {
-                    sndSetMusic(MUS_GYROCOPTER_LAND_OK);
+                    sndSetMusic(BGM_GYROCOPTER_LAND_OK);
                 } else {
-                    sndSetMusic(MUS_GYROCOPTER_LAND_MISS);
+                    sndSetMusic(BGM_GYROCOPTER_LAND_MISS);
                 }
                 sndSetMusicState(MUS_STATE_PLAY_SEQ);
                 func_8033FCD0(sp34->veh);

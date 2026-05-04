@@ -137,7 +137,7 @@ STATIC_FUNC void sdsound_80333DF0(SkyDivingData* sdData) {
         if (sp24->unk7A != 0) {
             sndPlaySfx(SFX_WATER_SPLASH);
         }
-        sndSetMusic(MUS_SKYDIVING_CRASH);
+        sndSetMusic(BGM_SKYDIVING_CRASH);
         sndSetMusicState(MUS_STATE_PLAY_SEQ);
         func_8033FCD0(sp24->veh);
         uvEventPost(0x12, 0);
@@ -152,9 +152,9 @@ STATIC_FUNC void sdsound_80333DF0(SkyDivingData* sdData) {
     if (sdData->unk70 == 2) {
         sndPlaySfx(0x48);
         if (sdData->unk25E == 1) {
-            sndSetMusic(MUS_SKYDIVING_LAND_OK);
+            sndSetMusic(BGM_SKYDIVING_LAND_OK);
         } else {
-            sndSetMusic(MUS_SKYDIVING_LAND_MISS);
+            sndSetMusic(BGM_SKYDIVING_LAND_MISS);
         }
         sndSetMusicState(MUS_STATE_PLAY_SEQ);
         func_8033FCD0(sp24->veh);
@@ -190,7 +190,7 @@ STATIC_FUNC void sdsound_80333F68(SkyDivingData* sdData) {
 
             sdData->unk240 |= 4;
             sndPlaySfx(SFX_WATER_SPLASH);
-            sndSetMusic(MUS_SKYDIVING_CRASH);
+            sndSetMusic(BGM_SKYDIVING_CRASH);
             sndSetMusicState(MUS_STATE_PLAY_SEQ);
             func_8033FCD0(sp44->veh);
             uvEventPost(0x12, 0);

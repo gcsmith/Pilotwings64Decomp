@@ -341,7 +341,7 @@ void func_80321760(void) {
     temp2 = 0xA0 - (uvSprtGetWidth(3) / 2);
     uvSprtProps(3, SPRT_PROP_POS(temp2, 50), SPRT_PROP_END);
     // clang-format on
-    sndSetMusic(MUS_CONGRATS);
+    sndSetMusic(BGM_CONGRATS);
     sndSetMusicState(MUS_STATE_PLAY_SEQ);
 }
 

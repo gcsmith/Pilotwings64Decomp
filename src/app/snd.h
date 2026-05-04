@@ -147,37 +147,37 @@ enum Sfx {
 };
 
 enum Music {
-    /* 0x00 */ MUS_OPENING_THEME,
-    /* 0x01 */ MUS_THEME_LOOP,   // "Title Demo"
-    /* 0x02 */ MUS_SELECT_MENU,  // "Game Menu"
-    /* 0x03 */ MUS_TEST_MENU,    // "Mission Menu"
-    /* 0x04 */ MUS_HANG_GLIDER,
-    /* 0x05 */ MUS_HANG_GLIDER_LAND_OK,
-    /* 0x06 */ MUS_HANG_GLIDER_LAND_MISS,
-    /* 0x07 */ MUS_HANG_GLIDER_CRASH,
-    /* 0x08 */ MUS_ROCKET_BELT,
-    /* 0x09 */ MUS_ROCKET_BELT_LAND_OK,
-    /* 0x0A */ MUS_ROCKET_BELT_LAND_MISS,
-    /* 0x0B */ MUS_ROCKET_BELT_CRASH,
-    /* 0x0C */ MUS_GYROCOPTER,
-    /* 0x0D */ MUS_GYROCOPTER_LAND_OK,
-    /* 0x0E */ MUS_GYROCOPTER_LAND_MISS,
-    /* 0x0F */ MUS_GYROCOPTER_CRASH,
-    /* 0x10 */ MUS_CANNONBALL,
-    /* 0x11 */ MUS_CANNONBALL_HIT,
-    /* 0x12 */ MUS_CANNONBALL_MISS,
-    /* 0x13 */ MUS_SKYDIVING,
-    /* 0x14 */ MUS_SKYDIVING_LAND_OK,
-    /* 0x15 */ MUS_SKYDIVING_LAND_MISS,
-    /* 0x16 */ MUS_SKYDIVING_CRASH, // Same as 0x0B
-    /* 0x17 */ MUS_JUMBLE_HOPPER,
-    /* 0x18 */ MUS_JUMBLE_HOPPER_GOAL,
-    /* 0x19 */ MUS_BIRDMAN,
-    /* 0x1A */ MUS_BIRDMAN_LAND_OK,
-    /* 0x1B */ MUS_BIRDMAN_CRASH,
-    /* 0x1C */ MUS_RESULTS, // "Replay"
-    /* 0x1D */ MUS_CONGRATS,
-    /* 0x1E */ MUS_CREDITS  // "Bravissimo!"
+    /* 0x00 */ BGM_OPENING_THEME,
+    /* 0x01 */ BGM_THEME_LOOP,   // "Title Demo"
+    /* 0x02 */ BGM_SELECT_MENU,  // "Game Menu"
+    /* 0x03 */ BGM_TEST_MENU,    // "Mission Menu"
+    /* 0x04 */ BGM_HANG_GLIDER,
+    /* 0x05 */ BGM_HANG_GLIDER_LAND_OK,
+    /* 0x06 */ BGM_HANG_GLIDER_LAND_MISS,
+    /* 0x07 */ BGM_HANG_GLIDER_CRASH,
+    /* 0x08 */ BGM_ROCKET_BELT,
+    /* 0x09 */ BGM_ROCKET_BELT_LAND_OK,
+    /* 0x0A */ BGM_ROCKET_BELT_LAND_MISS,
+    /* 0x0B */ BGM_ROCKET_BELT_CRASH,
+    /* 0x0C */ BGM_GYROCOPTER,
+    /* 0x0D */ BGM_GYROCOPTER_LAND_OK,
+    /* 0x0E */ BGM_GYROCOPTER_LAND_MISS,
+    /* 0x0F */ BGM_GYROCOPTER_CRASH,
+    /* 0x10 */ BGM_CANNONBALL,
+    /* 0x11 */ BGM_CANNONBALL_HIT,
+    /* 0x12 */ BGM_CANNONBALL_MISS,
+    /* 0x13 */ BGM_SKYDIVING,
+    /* 0x14 */ BGM_SKYDIVING_LAND_OK,
+    /* 0x15 */ BGM_SKYDIVING_LAND_MISS,
+    /* 0x16 */ BGM_SKYDIVING_CRASH, // Same as 0x0B
+    /* 0x17 */ BGM_JUMBLE_HOPPER,
+    /* 0x18 */ BGM_JUMBLE_HOPPER_GOAL,
+    /* 0x19 */ BGM_BIRDMAN,
+    /* 0x1A */ BGM_BIRDMAN_LAND_OK,
+    /* 0x1B */ BGM_BIRDMAN_CRASH,
+    /* 0x1C */ BGM_RESULTS, // "Replay"
+    /* 0x1D */ BGM_CONGRATS,
+    /* 0x1E */ BGM_CREDITS  // "Bravissimo!"
 };
 
 enum MusicState {

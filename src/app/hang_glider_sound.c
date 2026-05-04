@@ -159,7 +159,7 @@ STATIC_FUNC void hgSoundEvent22(HangGliderData* hg) {
             hg->unk318 |= 0x2;
             sndPlaySfx(0x36);
             if (!(hg->unk318 & 0x10)) {
-                sndSetMusic(MUS_HANG_GLIDER_CRASH);
+                sndSetMusic(BGM_HANG_GLIDER_CRASH);
                 sndSetMusicState(MUS_STATE_PLAY_SEQ);
                 func_8033FCD0(sp34->veh);
             }
@@ -171,7 +171,7 @@ STATIC_FUNC void hgSoundEvent22(HangGliderData* hg) {
                 hg->unk318 |= 0x10;
                 sndGetPilotScream(&sfxId, &pitch);
                 sndPlaySfxVolPitchPan(sfxId, 1.0f, pitch, 0.0f);
-                sndSetMusic(MUS_HANG_GLIDER_CRASH);
+                sndSetMusic(BGM_HANG_GLIDER_CRASH);
                 sndSetMusicState(MUS_STATE_PLAY_SEQ);
                 func_8033FCD0(sp34->veh);
                 uvEventPost(0x12, 0);

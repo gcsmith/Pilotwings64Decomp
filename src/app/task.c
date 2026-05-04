@@ -357,7 +357,7 @@ s32 taskFrameUpdate(Mtx4F* arg0, f32 arg1) {
         sp18 = 1;
         D_80362690->unkC[0].veh = VEHICLE_ROCKET_BELT;
         if (D_80362690->unkC[0].veh != VEHICLE_HANG_GLIDER) {
-            sndSetMusic(MUS_ROCKET_BELT_LAND_OK);
+            sndSetMusic(BGM_ROCKET_BELT_LAND_OK);
             sndSetMusicState(MUS_STATE_PLAY_SEQ);
             func_8033FCD0(D_80362690->unkC[0].veh);
         }
@@ -367,7 +367,7 @@ s32 taskFrameUpdate(Mtx4F* arg0, f32 arg1) {
         sp18 = 1;
         D_80362690->unkC[0].veh = VEHICLE_ROCKET_BELT;
         if (D_80362690->unkC[0].veh != VEHICLE_HANG_GLIDER) {
-            sndSetMusic(MUS_ROCKET_BELT_LAND_OK);
+            sndSetMusic(BGM_ROCKET_BELT_LAND_OK);
             sndSetMusicState(MUS_STATE_PLAY_SEQ);
             func_8033FCD0(D_80362690->unkC[0].veh);
         }

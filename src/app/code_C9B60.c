@@ -331,7 +331,7 @@ STATIC_FUNC s32 func_80343550(void) {
                 if (gCurrentMusicId != 1) {
                     // stop current demo music and play title music loop
                     sndSetMusicState(MUS_STATE_STOP_SEQ);
-                    sndSetMusic(MUS_THEME_LOOP);
+                    sndSetMusic(BGM_THEME_LOOP);
                     sndSetMusicState(MUS_STATE_PLAY_SEQ);
                 }
                 D_80378CE0->unk265 = 0;

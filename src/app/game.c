@@ -250,7 +250,7 @@ s32 gameUpdateStateVehicleClassSelect(Unk80362690* arg0) {
     s32 gameState;
 
     if (gCurrentMusicId != MUS_SELECT_MENU) {
-        sndSetMusic(MUS_SELECT_MENU);
+        sndSetMusic(BGM_SELECT_MENU);
         sndSetMusicState(MUS_STATE_PLAY_SEQ);
         func_8033FCD0(0xFF);
     }
@@ -269,7 +269,7 @@ s32 gameUpdateStateFileMenu(Unk80362690* arg0) {
     D_8034F160 = 0x48;
     textLoadBlock(0x42);
     if (gCurrentMusicId != MUS_SELECT_MENU) {
-        sndSetMusic(MUS_SELECT_MENU);
+        sndSetMusic(BGM_SELECT_MENU);
         sndSetMusicState(MUS_STATE_PLAY_SEQ);
         func_8033FCD0(0xFF);
     }
@@ -285,7 +285,7 @@ s32 gameUpdateStateTestOverview(Unk80362690* arg0) {
     s32 gameState;
 
     if (gCurrentMusicId != MUS_TEST_MENU) {
-        sndSetMusic(MUS_TEST_MENU);
+        sndSetMusic(BGM_TEST_MENU);
         sndSetMusicState(MUS_STATE_PLAY_SEQ);
         func_8033FCD0(0xFF);
     }
@@ -336,7 +336,7 @@ s32 gameUpdateStateTestDetails(Unk80362690* arg0) {
 
     sp2C = &arg0->unkC[arg0->unk9C];
     if (gCurrentMusicId != MUS_TEST_MENU) {
-        sndSetMusic(MUS_TEST_MENU);
+        sndSetMusic(BGM_TEST_MENU);
         sndSetMusicState(MUS_STATE_PLAY_SEQ);
         func_8033FCD0(0xFF);
     }
@@ -385,7 +385,7 @@ s32 gameUpdateStatePilotSelect(Unk80362690* arg0) {
 
     sp1C = &arg0->unkC[arg0->unk9C];
     if (gCurrentMusicId != MUS_SELECT_MENU) {
-        sndSetMusic(MUS_SELECT_MENU);
+        sndSetMusic(BGM_SELECT_MENU);
         sndSetMusicState(MUS_STATE_PLAY_SEQ);
         func_8033FCD0(0xFF);
     }
@@ -474,7 +474,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
         hangGliderEnterLeave(D_803676F0);
         func_802EDD9C(temp_s0, &D_803676F0->unk10);
         if ((arg0->state != GAME_STATE_DEMO_PILOT) && (arg0->unkA2 == 0)) {
-            sndSetMusic(MUS_HANG_GLIDER);
+            sndSetMusic(BGM_HANG_GLIDER);
         }
         sp28 = 0.5f;
         break;
@@ -484,7 +484,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
         gyrocopterEnterLeave(D_803676F4);
         func_802EDD9C(temp_s0, &D_803676F4->unk10);
         if ((arg0->state != GAME_STATE_DEMO_PILOT) && (arg0->unkA2 == 0)) {
-            sndSetMusic(MUS_GYROCOPTER);
+            sndSetMusic(BGM_GYROCOPTER);
         }
         break;
     case VEHICLE_ROCKET_BELT:
@@ -493,7 +493,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
         rocketBeltEnterLeave(D_803676F8);
         func_802EDD9C(temp_s0, &D_803676F8->unk10);
         if ((arg0->state != GAME_STATE_DEMO_PILOT) && (arg0->unkA2 == 0)) {
-            sndSetMusic(MUS_ROCKET_BELT);
+            sndSetMusic(BGM_ROCKET_BELT);
         }
         sp28 = 0.5f;
         break;
@@ -503,7 +503,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
         skydivingEnterLeave(D_80367700);
         func_802EDD9C(temp_s0, &D_80367700->unk10);
         if ((arg0->state != GAME_STATE_DEMO_PILOT) && (arg0->unkA2 == 0)) {
-            sndSetMusic(MUS_SKYDIVING);
+            sndSetMusic(BGM_SKYDIVING);
         }
         sp28 = 0.5f;
         break;
@@ -513,7 +513,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
         jumbleHopperEnterLeave(D_80367708);
         func_802EDD9C(temp_s0, &D_80367708->unk74);
         if ((arg0->state != GAME_STATE_DEMO_PILOT) && (arg0->unkA2 == 0)) {
-            sndSetMusic(MUS_JUMBLE_HOPPER);
+            sndSetMusic(BGM_JUMBLE_HOPPER);
         }
         sp28 = 0.5f;
         break;
@@ -523,7 +523,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
         birdEnterLeave(D_80367704);
         func_802EDD9C(temp_s0, &D_80367704->unk10);
         if ((arg0->state != GAME_STATE_DEMO_PILOT) && (arg0->unkA2 == 0)) {
-            sndSetMusic(MUS_BIRDMAN);
+            sndSetMusic(BGM_BIRDMAN);
         }
         break;
     }
@@ -657,7 +657,7 @@ s32 gameUpdateStateResults(Unk80362690* arg0) {
         resultDrawTally(1);
         if (gCurrentMusicId != MUS_RESULTS) {
             uvEventPost(0x12, 0);
-            sndSetMusic(MUS_RESULTS);
+            sndSetMusic(BGM_RESULTS);
             sndSetMusicState(MUS_STATE_PLAY_SEQ);
             func_8033FCD0(0xFF);
         }
@@ -1224,34 +1224,34 @@ void func_802EE14C(u16 veh) {
         D_803676F0 = (HangGliderData*)temp_s0->vehicleData;
         hangGliderLoadLevel(D_80362690->unk9C, temp_s0->pilot, D_803676F0, temp_s0->unk70);
         hangGliderEnterLeave(D_803676F0);
-        sndSetMusic(MUS_HANG_GLIDER);
+        sndSetMusic(BGM_HANG_GLIDER);
         sp3C = 0.5f;
         break;
     case VEHICLE_GYROCOPTER:
         D_803676F4 = (GyrocopterData*)temp_s0->vehicleData;
         gyrocopterLoadLevel(D_80362690->unk9C, temp_s0->pilot, D_803676F4, temp_s0->unk70);
         gyrocopterEnterLeave(D_803676F4);
-        sndSetMusic(MUS_GYROCOPTER);
+        sndSetMusic(BGM_GYROCOPTER);
         break;
     case VEHICLE_ROCKET_BELT:
         D_803676F8 = (RocketBeltData*)temp_s0->vehicleData;
         rocketBeltLoadLevel(D_80362690->unk9C, temp_s0->pilot, D_803676F8, temp_s0->unk70);
         rocketBeltEnterLeave(D_803676F8);
-        sndSetMusic(MUS_ROCKET_BELT);
+        sndSetMusic(BGM_ROCKET_BELT);
         sp3C = 0.5f;
         break;
     case VEHICLE_SKY_DIVING:
         D_80367700 = (SkyDivingData*)temp_s0->vehicleData;
         skydivingLoadLevel(D_80362690->unk9C, temp_s0->pilot, D_80367700, temp_s0->unk70);
         skydivingEnterLeave(D_80367700);
-        sndSetMusic(MUS_SKYDIVING);
+        sndSetMusic(BGM_SKYDIVING);
         sp3C = 0.5f;
         break;
     case VEHICLE_JUMBLE_HOPPER:
         D_80367708 = (JumbleHopperData*)temp_s0->vehicleData;
         jumbleHopperLoadLevel(D_80362690->unk9C, temp_s0->pilot, D_80367708, temp_s0->unk70);
         jumbleHopperEnterLeave(D_80367708);
-        sndSetMusic(MUS_JUMBLE_HOPPER);
+        sndSetMusic(BGM_JUMBLE_HOPPER);
         sp3C = 0.5f;
         break;
     case VEHICLE_BIRDMAN:
@@ -1259,7 +1259,7 @@ void func_802EE14C(u16 veh) {
         birdLoadLevel(D_80362690->unk9C, temp_s0->pilot, D_80367704, temp_s0->unk70);
         birdEnterLeave(D_80367704);
         func_802EDD9C(temp_s0, &D_80367704->unk10);
-        sndSetMusic(MUS_BIRDMAN);
+        sndSetMusic(BGM_BIRDMAN);
         uvLevelAppend(0x1B);
         break;
     }
