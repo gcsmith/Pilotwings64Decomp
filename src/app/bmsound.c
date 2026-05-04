@@ -135,7 +135,7 @@ void bmSound_802D112C(BirdmanData* bmData) {
             bmData->unk410 |= 0x02;
             sndPlaySfx(0x36);
             if (!(bmData->unk410 & 0x10)) {
-                sndSetMusic(0x1B);
+                sndSetMusic(MUS_BIRDMAN_CRASH);
                 sndSetMusicState(MUS_STATE_PLAY_SEQ);
                 func_8033FCD0(sp34->veh);
             }
@@ -156,7 +156,7 @@ void bmSound_802D112C(BirdmanData* bmData) {
         if (bmData->unk104 == 3) {
             if (!(bmData->unk410 & 0x20)) {
                 bmData->unk410 |= 0x20;
-                sndSetMusic(0x1A);
+                sndSetMusic(MUS_BIRDMAN_LAND_OK);
                 sndSetMusicState(MUS_STATE_PLAY_SEQ);
                 func_8033FCD0(sp34->veh);
                 bmSound_802D12C4(bmData);

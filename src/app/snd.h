@@ -169,12 +169,12 @@ enum Music {
     /* 0x13 */ MUS_019,
     /* 0x14 */ MUS_020,
     /* 0x15 */ MUS_021,
-    /* 0x16 */ MUS_022,
+    /* 0x16 */ MUS_022,     // Same as 0x0B
     /* 0x17 */ MUS_023,
     /* 0x18 */ MUS_024,
     /* 0x19 */ MUS_BIRDMAN,
-    /* 0x1A */ MUS_026,
-    /* 0x1B */ MUS_027,
+    /* 0x1A */ MUS_BIRDMAN_LAND_OK,
+    /* 0x1B */ MUS_BIRDMAN_CRASH,
     /* 0x1C */ MUS_RESULTS, // "Replay"
     /* 0x1D */ MUS_029,
     /* 0x1E */ MUS_CREDITS  // "Bravissimo!"
