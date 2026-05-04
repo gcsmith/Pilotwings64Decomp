@@ -177,7 +177,7 @@ enum Music {
     /* 0x1B */ MUS_027,
     /* 0x1C */ MUS_RESULTS, // "Replay"
     /* 0x1D */ MUS_029,
-    /* 0x1E */ MUS_030,
+    /* 0x1E */ MUS_CREDITS, // "Bravissimo!"
     /* 0x1F */ MUS_031,
 };
 
