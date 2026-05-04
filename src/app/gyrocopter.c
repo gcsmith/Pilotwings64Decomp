@@ -1465,7 +1465,7 @@ void func_80307EA8(GyrocopterData* gcData) {
         if (func_802E08F4(gcData->unk10.m[3][0], gcData->unk10.m[3][1], gcData->unk10.m[3][2]) != 0) {
             if (gcData->unk67E == 0) {
                 gcData->unk67E = 1;
-                sndPlaySfx(0x6D);
+                sndPlaySfx(SFX_UI_FUEL_ADDED);
             }
             hudWarningText(-1, 0.0f, 0.0f);
             gcData->hasLowFuel = FALSE;

@@ -31,8 +31,9 @@ void sdSoundInit(SkyDivingData* sdData) {
     D_80371CB8.unk4[2].y = 0.8f;
     D_80371CB8.unk4[3].x = 10.0f;
     D_80371CB8.unk4[3].y = 1.0f;
-    sdData->unk244 = sndMakeDev(0x13);
-    sdData->unk245 = sndMakeDev(0x13);
+    // stereo wind sfx
+    sdData->unk244 = sndMakeDev(SFX_MOVEMENT_WIND);
+    sdData->unk245 = sndMakeDev(SFX_MOVEMENT_WIND);
     D_80371CB0.cb = sdSoundCallback;
     D_80371CB0.arg = sdData;
     sdData->unk240 = ~0x3F;

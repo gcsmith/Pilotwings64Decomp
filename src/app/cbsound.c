@@ -32,8 +32,9 @@ void cbSoundInit(CannonballData* cbData) {
     D_80359BE8.unk4[2].y = 0.8f;
     D_80359BE8.unk4[3].x = 10.0f;
     D_80359BE8.unk4[3].y = 1.0f;
-    cbData->unk2B0 = sndMakeDev(0x13);
-    cbData->unk2B1 = sndMakeDev(0x13);
+    // stereo wind sfx
+    cbData->unk2B0 = sndMakeDev(SFX_MOVEMENT_WIND);
+    cbData->unk2B1 = sndMakeDev(SFX_MOVEMENT_WIND);
     cbData->unk2B4 = uvEmitterLookup();
     sndGetPilotScream(&sfxId, &pitch);
     uvEmitterFromModel(cbData->unk2B4, sfxId);
@@ -47,7 +48,7 @@ void cbSoundInit(CannonballData* cbData) {
         EMITTER_PROP_END
     );
     // clang-format on
-    cbData->unk2B5 = sndMakeDev(0x4C);
+    cbData->unk2B5 = sndMakeDev(SFX_UI_MAP_MOVE);
     D_80359BE0.cb = func_802D9E68;
     D_80359BE0.arg = cbData;
     cbData->unk2AC = ~0x3F;

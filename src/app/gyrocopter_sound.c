@@ -48,13 +48,14 @@ void func_8030A140(GyrocopterData* gcData) {
 
     gcData->unk67C = sndMakeDev(0x1F);
     gcData->unk67D = sndMakeDev(0x42);
-    gcData->unk67A = sndMakeDev(0x13);
-    gcData->unk67B = sndMakeDev(0x13);
+    // stereo wind sfx
+    gcData->unk67A = sndMakeDev(SFX_MOVEMENT_WIND);
+    gcData->unk67B = sndMakeDev(SFX_MOVEMENT_WIND);
 
     for (i = 0; i < 2; i++) {
         gcData->unk690[i].unk50 = uvEmitterLookup();
         if (gcData->unk690[i].unk50 != 0xFF) {
-            uvEmitterFromModel(gcData->unk690[i].unk50, 0x2F);
+            uvEmitterFromModel(gcData->unk690[i].unk50, SFX_GYRO_MISSILE_FIRE);
             uvEmitterSetVol(gcData->unk690[i].unk50, 0.6f);
             // clang-format off
             uvEmitterProps(gcData->unk690[i].unk50,
@@ -344,7 +345,7 @@ void func_8030B168(GyrocopterData* gcData) {
 }
 
 void func_8030B240(Mtx4F* mat) {
-    u8 emitterId = sndMakeDev(0x30);
+    u8 emitterId = sndMakeDev(SFX_GYRO_MISSILE_HIT);
     // clang-format off
     uvEmitterProps(emitterId,
         EMITTER_PROP_NEAR(0.0f),

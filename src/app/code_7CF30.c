@@ -485,7 +485,7 @@ void gyrocopterMovementFrame(GyrocopterData* gcData, u8 gameState) {
             }
             if (gcData->unkC1 != 0) {
                 hudWarningText(TEXT_OFF_5, 1.5f, 8.0f);
-                sndPlaySfx(SFX_UNK_105);
+                sndPlaySfx(SFX_UI_POINT_PENALTY);
             } else {
                 if ((gcData->fuel <= 0.0f) && !gcData->fuelEmpty) {
                     hudWarningText(TEXT_FUEL_OUT, 1.5f, 8.0f);
@@ -526,7 +526,7 @@ void func_802F6DC8(GyrocopterData* gcData, u8 unkFlag) {
     gcData->unk5E = unkFlag;
     if (unkFlag != 0) {
         if (D_8034F384 == 0) {
-            sndPlaySfxVolPitchPan(0x59, 0.7f, 1.0f, 0.0f);
+            sndPlaySfxVolPitchPan(SFX_UI_TARGET_APPEAR, 0.7f, 1.0f, 0.0f);
             D_8034F384 = 1;
         }
         gcData->reticleX = 0.0f;

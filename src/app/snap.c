@@ -645,7 +645,7 @@ void func_80338A14(void) {
             }
         }
     }
-    sndPlaySfx(0x3A);
+    sndPlaySfx(SFX_UI_CAMERA_SNAP);
 }
 
 void func_80339C8C(HangGliderData* hgData) {
@@ -665,7 +665,7 @@ void func_80339C8C(HangGliderData* hgData) {
             if (D_8035052C >= PHOTO_COUNT_MAX) {
                 if (D_80350534 == 0) {
                     D_80350534 = 1;
-                    sndPlaySfxVolPitchPan(0x69, 0.7f, 1.0f, 0.0f);
+                    sndPlaySfxVolPitchPan(SFX_UI_POINT_PENALTY, 0.7f, 1.0f, 0.0f);
                 }
                 return;
             } else {
@@ -705,7 +705,7 @@ void func_80339E1C(BirdmanData* bmData) {
             if (D_8035052C >= PHOTO_COUNT_MAX) {
                 if (D_80350534 == 0) {
                     D_80350534 = 1;
-                    sndPlaySfxVolPitchPan(0x69, 0.7f, 1.0f, 0.0f);
+                    sndPlaySfxVolPitchPan(SFX_UI_POINT_PENALTY, 0.7f, 1.0f, 0.0f);
                 }
                 return;
             } else {
