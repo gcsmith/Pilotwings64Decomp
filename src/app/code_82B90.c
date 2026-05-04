@@ -229,7 +229,7 @@ void func_802FBEFC(JumbleHopperData* jhData, f32 arg1) {
     if (jhData->unk4F == 0) {
         sp2C = &taskGet_80345C80()->unk0;
         hudWarningText(TEXT_OFF_2, 1.5f, 8.0f);
-        sndPlaySfx(SFX_UNK_105);
+        sndPlaySfx(SFX_UI_POINT_PENALTY);
         jhData->unk4F = 1;
 
         // TODO: fix array and/or struct
