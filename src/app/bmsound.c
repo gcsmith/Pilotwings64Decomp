@@ -29,8 +29,9 @@ void bmSoundInit(BirdmanData* bmData) {
     D_80359648.unk4[2].y = 0.8f;
     D_80359648.unk4[3].x = 10.0f;
     D_80359648.unk4[3].y = 1.0f;
-    bmData->unk414 = sndMakeDev(0x13);
-    bmData->unk415 = sndMakeDev(0x13);
+    // stereo wind sfx
+    bmData->unk414 = sndMakeDev(SFX_MOVEMENT_WIND);
+    bmData->unk415 = sndMakeDev(SFX_MOVEMENT_WIND);
     sBmSoundCbInfo.cb = bmSoundCallback;
     sBmSoundCbInfo.arg = bmData;
     bmData->unk410 = ~0x3F;

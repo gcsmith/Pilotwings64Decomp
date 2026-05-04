@@ -25,11 +25,11 @@ void rbSoundInit(RocketBeltData* rbData) {
     sRbSound_80371898.unk4[1].x = 02.0f, sRbSound_80371898.unk4[1].y = 0.4f;
     sRbSound_80371898.unk4[2].x = 09.0f, sRbSound_80371898.unk4[2].y = 0.8f;
     sRbSound_80371898.unk4[3].x = 10.0f, sRbSound_80371898.unk4[3].y = 1.0f;
-    rbData->unk388 = sndMakeDev(0x23);
-    rbData->unk389 = sndMakeDev(0x24);
-    rbData->unk38A = sndMakeDev(0x13);
-    rbData->unk38B = sndMakeDev(0x13);
-    rbData->unk38C = sndMakeDev(0x1E);
+    rbData->unk388 = sndMakeDev(SFX_RB_FLY_UP);
+    rbData->unk389 = sndMakeDev(SFX_RB_FLY_DOWN);
+    rbData->unk38A = sndMakeDev(SFX_MOVEMENT_WIND); // two emitters for stereo
+    rbData->unk38B = sndMakeDev(SFX_MOVEMENT_WIND);
+    rbData->unk38C = sndMakeDev(SFX_RB_ENGINE);
     uvEmitterProps(rbData->unk38C, EMITTER_PROP_ATTR(EMITTER_ATTR_4), EMITTER_PROP_END);
     uvEmitterSetPri(rbData->unk38C, 0x7FFF);
     sRbSoundEventCbInfo.cb = rbSoundEventHandler;
