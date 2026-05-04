@@ -524,7 +524,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
         birdEnterLeave(D_80367704);
         func_802EDD9C(temp_s0, &D_80367704->unk10);
         if ((arg0->state != GAME_STATE_DEMO_PILOT) && (arg0->unkA2 == 0)) {
-            sndSetMusic(0x19);
+            sndSetMusic(MUS_BIRDMAN);
         }
         break;
     }
@@ -1261,7 +1261,7 @@ void func_802EE14C(u16 veh) {
         birdLoadLevel(D_80362690->unk9C, temp_s0->pilot, D_80367704, temp_s0->unk70);
         birdEnterLeave(D_80367704);
         func_802EDD9C(temp_s0, &D_80367704->unk10);
-        sndSetMusic(0x19);
+        sndSetMusic(MUS_BIRDMAN);
         uvLevelAppend(0x1B);
         break;
     }

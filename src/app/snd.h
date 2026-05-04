@@ -172,7 +172,7 @@ enum Music {
     /* 0x16 */ MUS_022,
     /* 0x17 */ MUS_023,
     /* 0x18 */ MUS_024,
-    /* 0x19 */ MUS_025,
+    /* 0x19 */ MUS_BIRDMAN,
     /* 0x1A */ MUS_026,
     /* 0x1B */ MUS_027,
     /* 0x1C */ MUS_RESULTS, // "Replay"
