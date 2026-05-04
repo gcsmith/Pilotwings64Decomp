@@ -170,8 +170,8 @@ enum Music {
     /* 0x14 */ MUS_SKYDIVING_LAND_OK,
     /* 0x15 */ MUS_SKYDIVING_LAND_MISS,
     /* 0x16 */ MUS_SKYDIVING_CRASH, // Same as 0x0B
-    /* 0x17 */ MUS_023,
-    /* 0x18 */ MUS_024,
+    /* 0x17 */ MUS_JUMBLE_HOPPER,
+    /* 0x18 */ MUS_JUMBLE_HOPPER_GOAL,
     /* 0x19 */ MUS_BIRDMAN,
     /* 0x1A */ MUS_BIRDMAN_LAND_OK,
     /* 0x1B */ MUS_BIRDMAN_CRASH,

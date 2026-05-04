@@ -513,7 +513,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
         jumbleHopperEnterLeave(D_80367708);
         func_802EDD9C(temp_s0, &D_80367708->unk74);
         if ((arg0->state != GAME_STATE_DEMO_PILOT) && (arg0->unkA2 == 0)) {
-            sndSetMusic(0x17);
+            sndSetMusic(MUS_JUMBLE_HOPPER);
         }
         sp28 = 0.5f;
         break;
@@ -1251,7 +1251,7 @@ void func_802EE14C(u16 veh) {
         D_80367708 = (JumbleHopperData*)temp_s0->vehicleData;
         jumbleHopperLoadLevel(D_80362690->unk9C, temp_s0->pilot, D_80367708, temp_s0->unk70);
         jumbleHopperEnterLeave(D_80367708);
-        sndSetMusic(0x17);
+        sndSetMusic(MUS_JUMBLE_HOPPER);
         sp3C = 0.5f;
         break;
     case VEHICLE_BIRDMAN:
