@@ -146,4 +146,39 @@ enum Sfx {
     /* 0x77 */ SFX_UNK_119
 };
 
+enum Music {
+    /* 0x00 */ MUS_OPENING_THEME,
+    /* 0x01 */ MUS_THEME_LOOP,   // "Title Demo"
+    /* 0x02 */ MUS_SELECT_MENU,  // "Game Menu"
+    /* 0x03 */ MUS_TEST_MENU,    // "Mission Menu"
+    /* 0x04 */ MUS_HANG_GLIDER,
+    /* 0x05 */ MUS_005,
+    /* 0x06 */ MUS_006,
+    /* 0x07 */ MUS_007,
+    /* 0x08 */ MUS_008,
+    /* 0x09 */ MUS_009,
+    /* 0x0A */ MUS_010,
+    /* 0x0B */ MUS_011,
+    /* 0x0C */ MUS_012,
+    /* 0x0D */ MUS_013,
+    /* 0x0E */ MUS_014,
+    /* 0x0F */ MUS_015,
+    /* 0x10 */ MUS_016,
+    /* 0x11 */ MUS_017,
+    /* 0x12 */ MUS_018,
+    /* 0x13 */ MUS_019,
+    /* 0x14 */ MUS_020,
+    /* 0x15 */ MUS_021,
+    /* 0x16 */ MUS_022,
+    /* 0x17 */ MUS_023,
+    /* 0x18 */ MUS_024,
+    /* 0x19 */ MUS_025,
+    /* 0x1A */ MUS_026,
+    /* 0x1B */ MUS_027,
+    /* 0x1C */ MUS_028,
+    /* 0x1D */ MUS_029,
+    /* 0x1E */ MUS_030,
+    /* 0x1F */ MUS_031,
+};
+
 #endif // APP_SND_H
