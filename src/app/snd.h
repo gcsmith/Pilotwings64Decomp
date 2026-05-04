@@ -152,8 +152,8 @@ enum Music {
     /* 0x02 */ MUS_SELECT_MENU,  // "Game Menu"
     /* 0x03 */ MUS_TEST_MENU,    // "Mission Menu"
     /* 0x04 */ MUS_HANG_GLIDER,
-    /* 0x05 */ MUS_005,
-    /* 0x06 */ MUS_006,
+    /* 0x05 */ MUS_HANG_GLIDER_LAND_OK,
+    /* 0x06 */ MUS_HANG_GLIDER_LAND_MISS,
     /* 0x07 */ MUS_HANG_GLIDER_CRASH,
     /* 0x08 */ MUS_ROCKET_BELT,
     /* 0x09 */ MUS_009,

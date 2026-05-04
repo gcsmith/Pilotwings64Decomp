@@ -171,16 +171,16 @@ void func_802EEB00(HangGliderData* hgData, u8 arg1) {
     if (hgData->unk251 == 0) {
         if (arg1 != 0) {
             hgData->unk251 = 2;
-            sndSetMusic(5);
+            sndSetMusic(MUS_HANG_GLIDER_LAND_OK);
             sndSetMusicState(MUS_STATE_PLAY_SEQ);
             func_8033FCD0(sp30->veh);
             uvEventPost(0x12, 0);
         } else {
             hgData->unk251 = 1;
             if (hgData->unk5C != 0) {
-                sndSetMusic(5);
+                sndSetMusic(MUS_HANG_GLIDER_LAND_OK);
             } else {
-                sndSetMusic(6);
+                sndSetMusic(MUS_HANG_GLIDER_LAND_MISS);
             }
             sndSetMusicState(MUS_STATE_PLAY_SEQ);
             func_8033FCD0(sp30->veh);
