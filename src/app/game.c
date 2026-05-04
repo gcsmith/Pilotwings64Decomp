@@ -994,7 +994,7 @@ s32 gameUpdateStateTestUpdate(Unk80362690* arg0) {
                 break;
             }
             // exit pause menu
-            sndSetMusicState(3);
+            sndSetMusicState(MUS_STATE_PAUSE_EXIT);
             D_8034F850 = sp5C;
             uvEventPost(0x13, 0);
             if (sp6C->veh == VEHICLE_GYROCOPTER) {
