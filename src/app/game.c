@@ -962,7 +962,7 @@ s32 gameUpdateStateTestUpdate(Unk80362690* arg0) {
             }
             uvEventPost(0x12, 0);
             sp5C = D_8034F850;
-            sndSetMusicState(2);
+            sndSetMusicState(MUS_STATE_PAUSE_MENU);
 
             switch (func_8032CF28(arg0)) {
             case 0:

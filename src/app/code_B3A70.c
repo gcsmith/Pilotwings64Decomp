@@ -236,7 +236,7 @@ void func_8032C540(Unk80362690* arg0) {
         var_fs3 += D_8034F854;
     }
     uvEventPost(0xC, 0);
-    sndSetMusicState(2);
+    sndSetMusicState(MUS_STATE_PAUSE_MENU);
 }
 
 void func_8032CC44(Unk80362690* arg0) {
