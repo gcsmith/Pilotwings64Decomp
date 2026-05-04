@@ -176,7 +176,7 @@ enum Music {
     /* 0x1A */ MUS_BIRDMAN_LAND_OK,
     /* 0x1B */ MUS_BIRDMAN_CRASH,
     /* 0x1C */ MUS_RESULTS, // "Replay"
-    /* 0x1D */ MUS_029,
+    /* 0x1D */ MUS_CONGRATS,
     /* 0x1E */ MUS_CREDITS  // "Bravissimo!"
 };
 
