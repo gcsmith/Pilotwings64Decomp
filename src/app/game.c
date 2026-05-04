@@ -494,7 +494,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
         rocketBeltEnterLeave(D_803676F8);
         func_802EDD9C(temp_s0, &D_803676F8->unk10);
         if ((arg0->state != GAME_STATE_DEMO_PILOT) && (arg0->unkA2 == 0)) {
-            sndSetMusic(8);
+            sndSetMusic(MUS_ROCKET_BELT);
         }
         sp28 = 0.5f;
         break;
@@ -1239,7 +1239,7 @@ void func_802EE14C(u16 veh) {
         D_803676F8 = (RocketBeltData*)temp_s0->vehicleData;
         rocketBeltLoadLevel(D_80362690->unk9C, temp_s0->pilot, D_803676F8, temp_s0->unk70);
         rocketBeltEnterLeave(D_803676F8);
-        sndSetMusic(8);
+        sndSetMusic(MUS_ROCKET_BELT);
         sp3C = 0.5f;
         break;
     case VEHICLE_SKY_DIVING:

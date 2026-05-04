@@ -155,7 +155,7 @@ enum Music {
     /* 0x05 */ MUS_005,
     /* 0x06 */ MUS_006,
     /* 0x07 */ MUS_HANG_GLIDER_CRASH,
-    /* 0x08 */ MUS_008,
+    /* 0x08 */ MUS_ROCKET_BELT,
     /* 0x09 */ MUS_009,
     /* 0x0A */ MUS_010,
     /* 0x0B */ MUS_011,
@@ -177,8 +177,7 @@ enum Music {
     /* 0x1B */ MUS_027,
     /* 0x1C */ MUS_RESULTS, // "Replay"
     /* 0x1D */ MUS_029,
-    /* 0x1E */ MUS_CREDITS, // "Bravissimo!"
-    /* 0x1F */ MUS_031,
+    /* 0x1E */ MUS_CREDITS  // "Bravissimo!"
 };
 
 #endif // APP_SND_H
