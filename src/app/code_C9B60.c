@@ -198,7 +198,7 @@ STATIC_FUNC void func_803427FC(void) {
         var_v0 = 1;
     }
     if (var_v0 != gCurrentMusicId) {
-        func_8033F748(var_v0);
+        sndSetMusic(var_v0);
         func_8033F964(0);
         func_8033FA88(0.75f);
         func_8033FCD0(0xFFU);
@@ -330,7 +330,7 @@ STATIC_FUNC s32 func_80343550(void) {
                 func_803433A4();
                 if (gCurrentMusicId != 1) {
                     func_8033F964(1);
-                    func_8033F748(1);
+                    sndSetMusic(1);
                     func_8033F964(0);
                 }
                 D_80378CE0->unk265 = 0;

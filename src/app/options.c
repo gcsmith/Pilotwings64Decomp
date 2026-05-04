@@ -309,7 +309,7 @@ s32 optionsHandlerSound(void) {
         sSoundTrack += optInc;
         sSoundTrack = optionsItemWrap(sSoundTrack, 0, 30);
         if (sp24 == menuItem) {
-            func_8033F748(sSoundTrack);
+            sndSetMusic(sSoundTrack);
             func_8033F964(0);
             func_8033FCD0(0xFF);
         }

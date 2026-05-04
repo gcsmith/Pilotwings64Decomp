@@ -267,7 +267,7 @@ void credits_8030CDA0(s32 timeOfDay) {
     uvFontSet(0);
     uvFontScale(1.0, 1.0);
     demoAttInit(0x54);
-    func_8033F748(0x1E);
+    sndSetMusic(0x1E);
     func_8033F964(0);
     func_8033FCD0(sp2C->veh);
 }

@@ -156,7 +156,7 @@ void func_802DA23C(CannonballData* cbData) {
                 sndPlaySfx(SFX_WATER_SPLASH);
             }
             cbData->unk2AC |= 2;
-            func_8033F748(0x12);
+            sndSetMusic(0x12);
             func_8033F964(0);
             func_8033FCD0(sp24->veh);
             func_802DA1A8(cbData);

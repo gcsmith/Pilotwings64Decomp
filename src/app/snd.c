@@ -50,8 +50,8 @@ void func_8033F6F8(Mtx4F* arg0, Mtx4F* arg1) {
     func_80200144(0, &D_80373E20);
 }
 
-void func_8033F748(u16 arg0) {
-    gCurrentMusicId = arg0;
+void sndSetMusic(u16 musicId) {
+    gCurrentMusicId = musicId;
 }
 
 void sndPlaySfxVolPitchPan(u8 sfxId, f32 vol, f32 pitch, f32 pan) {

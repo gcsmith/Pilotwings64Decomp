@@ -250,7 +250,7 @@ s32 gameUpdateStateVehicleClassSelect(Unk80362690* arg0) {
     s32 gameState;
 
     if (gCurrentMusicId != 2) {
-        func_8033F748(2);
+        sndSetMusic(2);
         func_8033F964(0);
         func_8033FCD0(0xFF);
     }
@@ -269,7 +269,7 @@ s32 gameUpdateStateFileMenu(Unk80362690* arg0) {
     D_8034F160 = 0x48;
     textLoadBlock(0x42);
     if (gCurrentMusicId != 2) {
-        func_8033F748(2);
+        sndSetMusic(2);
         func_8033F964(0);
         func_8033FCD0(0xFF);
     }
@@ -285,7 +285,7 @@ s32 gameUpdateStateTestOverview(Unk80362690* arg0) {
     s32 gameState;
 
     if (gCurrentMusicId != 3) {
-        func_8033F748(3);
+        sndSetMusic(3);
         func_8033F964(0);
         func_8033FCD0(0xFF);
     }
@@ -336,7 +336,7 @@ s32 gameUpdateStateTestDetails(Unk80362690* arg0) {
 
     sp2C = &arg0->unkC[arg0->unk9C];
     if (gCurrentMusicId != 3) {
-        func_8033F748(3);
+        sndSetMusic(3);
         func_8033F964(0);
         func_8033FCD0(0xFF);
     }
@@ -385,7 +385,7 @@ s32 gameUpdateStatePilotSelect(Unk80362690* arg0) {
 
     sp1C = &arg0->unkC[arg0->unk9C];
     if (gCurrentMusicId != 2) {
-        func_8033F748(2);
+        sndSetMusic(2);
         func_8033F964(0);
         func_8033FCD0(0xFF);
     }
@@ -474,7 +474,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
         hangGliderEnterLeave(D_803676F0);
         func_802EDD9C(temp_s0, &D_803676F0->unk10);
         if ((arg0->state != GAME_STATE_DEMO_PILOT) && (arg0->unkA2 == 0)) {
-            func_8033F748(4);
+            sndSetMusic(4);
         }
         sp28 = 0.5f;
         break;
@@ -484,7 +484,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
         gyrocopterEnterLeave(D_803676F4);
         func_802EDD9C(temp_s0, &D_803676F4->unk10);
         if ((arg0->state != GAME_STATE_DEMO_PILOT) && (arg0->unkA2 == 0)) {
-            func_8033F748(0xC);
+            sndSetMusic(0xC);
         }
         break;
     case VEHICLE_ROCKET_BELT:
@@ -493,7 +493,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
         rocketBeltEnterLeave(D_803676F8);
         func_802EDD9C(temp_s0, &D_803676F8->unk10);
         if ((arg0->state != GAME_STATE_DEMO_PILOT) && (arg0->unkA2 == 0)) {
-            func_8033F748(8);
+            sndSetMusic(8);
         }
         sp28 = 0.5f;
         break;
@@ -503,7 +503,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
         skydivingEnterLeave(D_80367700);
         func_802EDD9C(temp_s0, &D_80367700->unk10);
         if ((arg0->state != GAME_STATE_DEMO_PILOT) && (arg0->unkA2 == 0)) {
-            func_8033F748(0x13);
+            sndSetMusic(0x13);
         }
         sp28 = 0.5f;
         break;
@@ -513,7 +513,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
         jumbleHopperEnterLeave(D_80367708);
         func_802EDD9C(temp_s0, &D_80367708->unk74);
         if ((arg0->state != GAME_STATE_DEMO_PILOT) && (arg0->unkA2 == 0)) {
-            func_8033F748(0x17);
+            sndSetMusic(0x17);
         }
         sp28 = 0.5f;
         break;
@@ -523,7 +523,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
         birdEnterLeave(D_80367704);
         func_802EDD9C(temp_s0, &D_80367704->unk10);
         if ((arg0->state != GAME_STATE_DEMO_PILOT) && (arg0->unkA2 == 0)) {
-            func_8033F748(0x19);
+            sndSetMusic(0x19);
         }
         break;
     }
@@ -657,7 +657,7 @@ s32 gameUpdateStateResults(Unk80362690* arg0) {
         resultDrawTally(1);
         if (gCurrentMusicId != 0x1C) {
             uvEventPost(0x12, 0);
-            func_8033F748(0x1C);
+            sndSetMusic(0x1C);
             func_8033F964(0);
             func_8033FCD0(0xFF);
         }
@@ -1222,34 +1222,34 @@ void func_802EE14C(u16 veh) {
         D_803676F0 = (HangGliderData*)temp_s0->vehicleData;
         hangGliderLoadLevel(D_80362690->unk9C, temp_s0->pilot, D_803676F0, temp_s0->unk70);
         hangGliderEnterLeave(D_803676F0);
-        func_8033F748(4);
+        sndSetMusic(4);
         sp3C = 0.5f;
         break;
     case VEHICLE_GYROCOPTER:
         D_803676F4 = (GyrocopterData*)temp_s0->vehicleData;
         gyrocopterLoadLevel(D_80362690->unk9C, temp_s0->pilot, D_803676F4, temp_s0->unk70);
         gyrocopterEnterLeave(D_803676F4);
-        func_8033F748(0xC);
+        sndSetMusic(0xC);
         break;
     case VEHICLE_ROCKET_BELT:
         D_803676F8 = (RocketBeltData*)temp_s0->vehicleData;
         rocketBeltLoadLevel(D_80362690->unk9C, temp_s0->pilot, D_803676F8, temp_s0->unk70);
         rocketBeltEnterLeave(D_803676F8);
-        func_8033F748(8);
+        sndSetMusic(8);
         sp3C = 0.5f;
         break;
     case VEHICLE_SKY_DIVING:
         D_80367700 = (SkyDivingData*)temp_s0->vehicleData;
         skydivingLoadLevel(D_80362690->unk9C, temp_s0->pilot, D_80367700, temp_s0->unk70);
         skydivingEnterLeave(D_80367700);
-        func_8033F748(0x13);
+        sndSetMusic(0x13);
         sp3C = 0.5f;
         break;
     case VEHICLE_JUMBLE_HOPPER:
         D_80367708 = (JumbleHopperData*)temp_s0->vehicleData;
         jumbleHopperLoadLevel(D_80362690->unk9C, temp_s0->pilot, D_80367708, temp_s0->unk70);
         jumbleHopperEnterLeave(D_80367708);
-        func_8033F748(0x17);
+        sndSetMusic(0x17);
         sp3C = 0.5f;
         break;
     case VEHICLE_BIRDMAN:
@@ -1257,7 +1257,7 @@ void func_802EE14C(u16 veh) {
         birdLoadLevel(D_80362690->unk9C, temp_s0->pilot, D_80367704, temp_s0->unk70);
         birdEnterLeave(D_80367704);
         func_802EDD9C(temp_s0, &D_80367704->unk10);
-        func_8033F748(0x19);
+        sndSetMusic(0x19);
         uvLevelAppend(0x1B);
         break;
     }

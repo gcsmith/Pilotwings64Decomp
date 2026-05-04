@@ -8,7 +8,7 @@ extern u16 gCurrentMusicId;
 
 void sndInit(void);
 void func_8033F6F8(Mtx4F*, Mtx4F*);
-void func_8033F748(u16);
+void sndSetMusic(u16);
 void sndPlaySfxVolPitchPan(u8, f32, f32, f32);
 void sndPlaySfx(u8);
 u8 sndMakeDev(s32);
