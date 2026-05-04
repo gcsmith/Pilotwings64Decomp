@@ -284,8 +284,8 @@ s32 gameUpdateStateFileMenu(Unk80362690* arg0) {
 s32 gameUpdateStateTestOverview(Unk80362690* arg0) {
     s32 gameState;
 
-    if (gCurrentMusicId != 3) {
-        sndSetMusic(3);
+    if (gCurrentMusicId != MUS_TEST_MENU) {
+        sndSetMusic(MUS_TEST_MENU);
         sndSetMusicState(0);
         func_8033FCD0(0xFF);
     }
@@ -335,8 +335,8 @@ s32 gameUpdateStateTestDetails(Unk80362690* arg0) {
     Unk80367710* ptr = &D_80367710;
 
     sp2C = &arg0->unkC[arg0->unk9C];
-    if (gCurrentMusicId != 3) {
-        sndSetMusic(3);
+    if (gCurrentMusicId != MUS_TEST_MENU) {
+        sndSetMusic(MUS_TEST_MENU);
         sndSetMusicState(0);
         func_8033FCD0(0xFF);
     }
