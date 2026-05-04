@@ -18,7 +18,7 @@
 void uvEnvProps(s32 envId, ...);
 void uvEnvGetProps(s32 envId, ...);
 void uvEnvFunc(s32 envId, s32 flag, s32 (*arg2)(void));
-void func_80218700(void);
+void uvEnvResetModelView(void);
 void _uvEnvDraw(s32 arg0, s32 arg1);
 
 #endif // PILOTWINGS64_UV_ENVIRONMENT_H

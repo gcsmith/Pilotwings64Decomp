@@ -2820,8 +2820,8 @@ u16 func_80214B3C(f32 arg0, f32 arg1, uvUnkTileStruct* arg2, f32 arg3, f32 arg4)
     sp58 = arg2->unk0.m[3][1] - (0.5f * arg1);
     uvComputeLineEndP(&sp50, &sp4E, &sp52, sp64, sp60, sp5C, sp58, arg4, arg3, 1.0f / arg3, 0, 15.0f / arg0, 15.0f / arg1);
     if (sp50 >= 0) {
-        sp52 &= func_8022F62C(arg2->unk44, sp50, sp4E, 0);
-        sp52 &= func_8022F62C(arg2->unk44, sp50, sp4E, 1);
+        sp52 &= uvTerra_8022F62C(arg2->unk44, sp50, sp4E, 0);
+        sp52 &= uvTerra_8022F62C(arg2->unk44, sp50, sp4E, 1);
     }
     return sp52;
 }

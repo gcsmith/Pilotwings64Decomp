@@ -1251,7 +1251,7 @@ void func_803329C0(SkyDivingData* sdData) {
         uvDobjModel(temp_fp->unk0, temp_fp->unk54);
         uvDobjState(temp_fp->unk0, 2);
         uvJanimPoseLine(&sp78, temp_fp->unk56, 1.0f);
-        func_80200638(temp_fp->unk0, &sp78);
+        uvJanim_80200638(temp_fp->unk0, &sp78);
         temp_fp->unk5C = 0.0f;
         temp_fp->unk60 = 0.0f;
         temp_fp->unk64 = 0.0f;

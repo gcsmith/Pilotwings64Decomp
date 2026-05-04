@@ -91,7 +91,7 @@ void func_802F8AB8(f32 arg0, f32 arg1, f32 arg2, f32 arg3, Vec3F* arg4) {
 void func_802F8B0C(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     u8 sp80;
 
-    sp80 = func_8021EFF0(8);
+    sp80 = uvFx_8021EFF0(8);
     if (sp80 != 0xFF) {
         uvModelGet(sp80, 8);
         // clang-format off
@@ -169,7 +169,7 @@ void func_802F8C40(Unk8034F390* arg0) {
         spFC = spF3 * 0.0039215684f;
         spF8 = spF2 * 0.0039215684f;
         spF4 = spF1 * 0.0039215684f;
-        temp_v0 = func_8021EFF0(8);
+        temp_v0 = uvFx_8021EFF0(8);
         if (temp_v0 != 0xFF) {
             uvModelGet(temp_v0, 8);
             // clang-format off
@@ -233,7 +233,7 @@ void func_802F9150(Unk8034F390* arg0) {
     }
     func_802F9BF8(2, arg0->unkC + D_80368B10, arg0->unk10 + D_80368B14, arg0->unk14 + D_80368B18, sp94, sp90, 0.0f, 1.0f, 0.5f, 0.0f, 0.7f);
     if (arg0->unk0 == 1) {
-        sp8C = func_8021EFF0(8);
+        sp8C = uvFx_8021EFF0(8);
         if (sp8C != 0xFF) {
             sp8C = sp8C;
             uvModelGet(sp8C, 8);
@@ -278,7 +278,7 @@ void func_802F9364(Unk8034F390* arg0) {
         spB8 = 0.3f;
         break;
     }
-    spB0 = func_8021EFF0(2);
+    spB0 = uvFx_8021EFF0(2);
     if (spB0 != 0xFF) {
         uvModelGet(spB0, 2);
         // clang-format off
@@ -360,7 +360,7 @@ void func_802F9638(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
     arg2 += temp_fs5;
     arg3 *= 0.62f;
     func_802F9BF8(2, arg0, arg1, arg2, arg3, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f, 1.0f);
-    v0 = func_8021EFF0(8);
+    v0 = uvFx_8021EFF0(8);
     if (v0 != 0xFF) {
         uvModelGet(v0, 8);
         // clang-format off
@@ -404,7 +404,7 @@ void func_802F996C(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
 u8 func_802F9BF8(u8 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9, f32 arg10) {
     u8 spCF;
 
-    spCF = func_8021EFF0(arg0);
+    spCF = uvFx_8021EFF0(arg0);
     if (spCF != 0xFF) {
         uvModelGet(spCF, arg0);
         // clang-format off

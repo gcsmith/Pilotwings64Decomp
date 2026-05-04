@@ -84,7 +84,7 @@ void func_802CAA90(s32 arg0) {
     Unk80371120 sp18;
 
     func_802CAAC8(D_8034E804, &sp18);
-    func_80200638(arg0, &sp18);
+    uvJanim_80200638(arg0, &sp18);
 }
 
 void func_802CAAC8(Unk8034E788* arg0, Unk80371120* arg1) {
@@ -112,7 +112,7 @@ void func_802CAAC8(Unk8034E788* arg0, Unk80371120* arg1) {
         }
     }
     if (var_s0 != NULL && var_s1 != NULL) {
-        func_802006FC(arg1, &sp1E8, &sp38, *arg0->unk4);
+        uvJanim_802006FC(arg1, &sp1E8, &sp38, *arg0->unk4);
         return;
     }
     if (var_s0 != NULL) {

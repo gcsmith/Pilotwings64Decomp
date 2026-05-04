@@ -37,7 +37,7 @@ extern OSViMode osViModeTable[];
 extern OSSched gSchedInst;
 extern s32 D_802B9C18[];
 
-void func_8022B0A0(Unk8022B0A0* arg0, Mtx4F* arg1) {
+void uvSc_8022B0A0(Unk8022B0A0* arg0, Mtx4F* arg1) {
     f32 temp_fa1;
     f32 temp_fv0;
     f32 temp_fv1;
@@ -102,7 +102,7 @@ void _uvScDoneGfx(void) {
             if ((gSchedRspStatus == 'g') || (gSchedRdpStatus != 0)) {
                 _uvDebugPrintf("_uvScDoneGfx:  rsp [%c]    rdp [%c]\n", gSchedRspStatus, gSchedRdpStatus);
             } else {
-                func_8022C3C0(0, 0x32);
+                uvSc_8022C3C0(0, 0x32);
                 osSendMesg(scTask->msgQ, scTask->msg, 1);
                 D_802B9C68 = 1;
                 osViSwapBuffer(scTask->framebuffer);
@@ -117,7 +117,7 @@ void _uvScDoneAud(void) {
         _uvDebugPrintf("_uvScDoneAud: no audio task\n");
         return;
     }
-    func_8022C3C0(1, 0x2C);
+    uvSc_8022C3C0(1, 0x2C);
     if (gNmiAsserted == 0) {
         osSendMesg(D_802B9C58->msgQ, D_802B9C58->msg, 1);
     }
@@ -134,7 +134,7 @@ void _uvScRunAud(void) {
             return;
         }
         gSchedRspStatus = 'a';
-        func_8022C3C0(1, 0x29);
+        uvSc_8022C3C0(1, 0x29);
         osWritebackDCacheAll();
         osSpTaskLoad(&D_802B9C58->list);
         osSpTaskStartGo(&D_802B9C58->list);
@@ -157,7 +157,7 @@ void _uvScRunGfx(void) {
                     D_802B9C74 += 1;
                     gSchedRdpStatus = 'g';
                 }
-                func_8022C3C0(1, 0x2A);
+                uvSc_8022C3C0(1, 0x2A);
                 D_802B9C6C = D_802B9C6B = 0;
                 osWritebackDCacheAll();
                 osSpTaskLoad(&scTask->list);
@@ -227,7 +227,7 @@ void _uvScCreateScheduler(OSSched* sc, void* stack, s32 priority, u8 mode, u8 nu
     osStartThread(&sc->thread);
 
     uvClkReset(UV_CLKID_SCHED);
-    func_8022C34C();
+    uvSc_8022C34C();
 }
 
 void _uvScAddClient(OSSched* sc, OSScClient* client, OSMesgQueue* mq) {
@@ -305,7 +305,7 @@ void _uvScHandleRetrace(void) {
         }
         if (D_802B9C68 != 0) {
             D_802B9C68 = 0;
-            func_8022C34C();
+            uvSc_8022C34C();
             D_802B9C6E ^= 1;
         }
 
@@ -336,7 +336,7 @@ void _uvScHandleRetrace(void) {
                     return;
                 }
                 D_802B9C6B = 1;
-                func_8022C3C0(1, 0x31);
+                uvSc_8022C3C0(1, 0x31);
                 osSpTaskYield();
             } else {
                 _uvScRunAud();
@@ -369,7 +369,7 @@ void _uvScHandleRSP(void) {
     if (D_802B9C6B != 0) {
         if (osSpTaskYielded(&D_802B9C60[D_802B9C6E]->list) != 0) {
             D_802B9C6C = 1;
-            func_8022C3C0(1, 0x2D);
+            uvSc_8022C3C0(1, 0x2D);
             if (gNmiAsserted != 0) {
                 D_802B9C58 = 0;
                 D_802B9C6B = 0;
@@ -378,7 +378,7 @@ void _uvScHandleRSP(void) {
             }
 
         } else {
-            func_8022C3C0(1, 0x2B);
+            uvSc_8022C3C0(1, 0x2B);
         }
 
         D_802B9C6B = 0;
@@ -386,7 +386,7 @@ void _uvScHandleRSP(void) {
             _uvScRunAud();
         }
     } else {
-        func_8022C3C0(1, 0x2B);
+        uvSc_8022C3C0(1, 0x2B);
     }
 
     if ((gSchedRspStatus != 'g') && (gSchedRdpStatus == 0)) {
@@ -397,7 +397,7 @@ void _uvScHandleRSP(void) {
 void _uvScHandleRDP(void) {
     gSchedRdpStatus = 0;
     D_802B9C6F = 0;
-    func_8022C3C0(1, 0x30);
+    uvSc_8022C3C0(1, 0x30);
     if ((gSchedRspStatus != 'g') && (D_802B9C6C == 0)) {
         _uvScDoneGfx();
     }
@@ -408,7 +408,7 @@ void _uvScHandleNMI(void) {
     osViBlack(1);
 }
 
-void func_8022BEB8(s32 arg0) {
+void uvSc_8022BEB8(s32 arg0) {
     D_802B9C88 = arg0;
 }
 
@@ -529,7 +529,7 @@ void _uvScLogIntoRing(void) {
     D_802B9C84 = 0;
 }
 
-void func_8022C34C(void) {
+void uvSc_8022C34C(void) {
     gSchedRingIdx = gSchedRingIdx + 1;
     if (gSchedRingIdx >= 5) {
         gSchedRingIdx = 0;
@@ -539,7 +539,7 @@ void func_8022C34C(void) {
     D_802B9C00[gSchedRingIdx] = 0;
 }
 
-void func_8022C3C0(u8 arg0, s32 arg1) {
+void uvSc_8022C3C0(u8 arg0, s32 arg1) {
     Unk802B92A0_Unk0* var_v0;
     u32 idx;
 

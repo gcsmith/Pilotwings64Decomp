@@ -37,7 +37,7 @@ void sndInit(void) {
     uvMat4SetIdentity(&D_80373EA0);
     func_80200144(0, &D_80373E20);
     func_80200180(0, 2, 0.0f, 0);
-    func_80204518(0);
+    uvaManager_80204518(0);
     D_80373EE0 = 1.0f;
     D_80373EE8.cb = &sndEvent;
     D_80373EE8.arg = 0;

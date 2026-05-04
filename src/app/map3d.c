@@ -67,7 +67,7 @@ void app_entrypoint(void) {
     while (demo_80323020() != 0) {
         gameUpdate();
     }
-    func_8022E2D4(0);
+    uvSysUnknownStub(0);
 }
 
 void map3dMain(Unk80362690* arg0, s32 arg1) {
@@ -140,9 +140,9 @@ void map3dLoad(Unk80362690* arg0, s32 arg1) {
     hudText_8031D8E0(-1, 0.0f, 0.0f);
     hudWarningText(-1, 0.0f, 0.0f);
     sMapMessageCount = 0;
-    func_80204BD4(camera->unk22C, 1, 1.0f);
-    func_80204A8C(camera->unk22C, 3);
-    func_80204C94(camera->unk22C, -0.7009346f, 0.7009346f, -0.5f, 0.5f, 1.0f, 2048.0f);
+    uvChan_80204BD4(camera->unk22C, 1, 1.0f);
+    uvChan_80204A8C(camera->unk22C, 3);
+    uvChan_80204C94(camera->unk22C, -0.7009346f, 0.7009346f, -0.5f, 0.5f, 1.0f, 2048.0f);
     uvChanEnv(camera->unk22C, 0x17);
     sMapDobjId = uvDobjAllocIdx();
     switch (arg0->map) {
@@ -695,15 +695,15 @@ void map3dRender(Unk80362690* arg0, s32 arg1) {
     sp17C.m[3][1] += D_8034F830;
     sp17C.m[3][2] += D_8034F838;
     uvMat4UnkOp6(&camera->unk108, &sp1BC, &sp17C);
-    func_80204C94(camera->unk22C, -0.7009346f, 0.7009346f, -1.0f / 2.0f /*-0.5f*/, 1.0f / 2.0f /*0.5f*/, 1.0f, (D_8034F7FC * 1.2f) + 2048.0f);
-    func_80204B34(camera->unk22C, &camera->unk108);
-    func_80204FC4(camera->unk22C);
+    uvChan_80204C94(camera->unk22C, -0.7009346f, 0.7009346f, -1.0f / 2.0f /*-0.5f*/, 1.0f / 2.0f /*0.5f*/, 1.0f, (D_8034F7FC * 1.2f) + 2048.0f);
+    uvChan_80204B34(camera->unk22C, &camera->unk108);
+    uvChan_80204FC4(camera->unk22C);
     uvFontSet(3);
     uvFontColor(0x64, 0xC8, 0x96, 0xFF);
     uvFontScale(1.0, 1.0);
     if (arg1) {
-        func_80205724(camera->unk22C, 2, &sp13C);
-        func_80205724(camera->unk22C, 3, &spFC);
+        uvChan_80205724(camera->unk22C, 2, &sp13C);
+        uvChan_80205724(camera->unk22C, 3, &spFC);
         uvMat4SetIdentity(&sp17C);
         uvMat4RotateAxis(&sp17C, -1.5707961f, 0x78);
         uvMat4Mul(&sp1BC, &sp17C, &sp13C);
@@ -768,7 +768,7 @@ void map3dDeinit(Unk80362690* arg0, s32 arg1) {
     func_8033F8CC(sMapEmitterDev0);
     func_8033F8CC(sMapEmitterDev1);
     if (arg1) {
-        func_80204A8C(camera->unk22C, 3);
+        uvChan_80204A8C(camera->unk22C, 3);
     }
     hudGetState()->renderFlags = sMapHudFlagsSave;
     camera_802D45C4(camera, -1.0f);

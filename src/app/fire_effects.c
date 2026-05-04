@@ -139,7 +139,7 @@ void fireFxCreate(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
         return;
     }
 
-    D_80362520[D_80362620] = func_8021EFF0(6);
+    D_80362520[D_80362620] = uvFx_8021EFF0(6);
     uvModelGet(D_80362520[D_80362620], MODEL_THEMEPARK_CIRCUS_TENT);
 
     // clang-format off

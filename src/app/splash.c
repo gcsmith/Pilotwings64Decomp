@@ -129,7 +129,7 @@ void splashAdd(Mtx4F* pos, f32 size) {
     uvMat4Copy(&effect->unk0, pos);
     effect->size = size;
     for (i = 0; i < ARRAY_COUNT(effect->fxIds); i++) {
-        effect->fxIds[i] = func_8021EFF0(7);
+        effect->fxIds[i] = uvFx_8021EFF0(7);
         if (effect->fxIds[i] != 0xFF) {
             uvModelGet(effect->fxIds[i], 7);
             // clang-format off
@@ -187,7 +187,7 @@ void splashUpdate(void) {
             fxMtx.m[3][0] = (uvSinF(angle) * sSplashRippleParams[j].unk0.x * temp_fs0 * effect->size) + effect->unk0.m[3][0];
             fxMtx.m[3][1] = (uvCosF(angle) * sSplashRippleParams[j].unk0.y * temp_fs0 * effect->size) + effect->unk0.m[3][1];
             fxMtx.m[3][2] = (uvSinF(var_fs2 * 3.1415927f) * sSplashRippleParams[j].unk0.z * effect->size) + effect->unk0.m[3][2];
-            func_8021A4D8(effect->fxIds[j], &fxMtx);
+            uvFx_8021A4D8(effect->fxIds[j], &fxMtx);
         }
 
         if (timeCurr - effect->timeInit < 3.5) {

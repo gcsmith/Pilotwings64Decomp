@@ -47,10 +47,10 @@ void _uvScHandleRDP(void);
 void _uvScHandleNMI(void);
 void _uvScLogCpuEvent(s32 ring);
 void _uvScLogIntoRing(void);
-void func_8022B0A0(Unk8022B0A0* arg0, Mtx4F* arg1);
-void func_8022BEB8(s32 arg0);
-void func_8022C34C(void);
-void func_8022C3C0(u8 arg0, s32 arg1);
+void uvSc_8022B0A0(Unk8022B0A0* arg0, Mtx4F* arg1);
+void uvSc_8022BEB8(s32 arg0);
+void uvSc_8022C34C(void);
+void uvSc_8022C3C0(u8 arg0, s32 arg1);
 
 #endif // PILOTWINGS64_UV_SCHED_H
 

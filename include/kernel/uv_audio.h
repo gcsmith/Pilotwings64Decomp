@@ -71,9 +71,9 @@ typedef struct AMAudioMgr {
     ALGlobals g;
 } AMAudioMgr;
 
-void uvSysInitAudio(void);
+void uvaManagerInit(void);
+void uvaManager_80204518(s32 arg0);
 void amCreateAudioMgr(ALSynConfig* c, OSPri priority);
-void func_80204518(s32 arg0);
 
 // -----------------------------------------------------------------------------
 // Audio Emitter API

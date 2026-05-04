@@ -207,7 +207,7 @@ void uvLevelAppend(s32 levelId) {
 
     uvGfxWaitForMesg();
     uvClkReset(UV_CLKID_TXT);
-    func_8022BEB8(0);
+    uvSc_8022BEB8(0);
     D_802B7DD0 = D_802B7600;
     D_802B7DD4 = &sp50;
     level = gLevelData.level = uvMemLoadDS('UVLV', levelId);
@@ -364,7 +364,7 @@ void uvLevelAppend(s32 levelId) {
     if (D_802B8934 != 0) {
         _uvDebugPrintf("uvMemLoadDS: into txt img data by %d bytes\n", D_802B8934);
     }
-    func_8022BEB8(1);
+    uvSc_8022BEB8(1);
 }
 
 void uvConsumeBytes(void* dst, u8** ptr, s32 size) {

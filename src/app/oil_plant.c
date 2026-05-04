@@ -71,7 +71,7 @@ void oilPlantLoad(void) {
     sOilPlantSeqId = uvSeqFindFree();
     uvSeqModel(sOilPlantSeqId, 0);
     uvSeqProps(sOilPlantSeqId, SEQ_PROP_FRAMERATE(20.0f), SEQ_PROP_END);
-    sOilPlantFxId = func_8021EFF0(6);
+    sOilPlantFxId = uvFx_8021EFF0(6);
     uvModelGet(sOilPlantFxId, 6);
     // clang-format off
     uvFxProps(sOilPlantFxId,

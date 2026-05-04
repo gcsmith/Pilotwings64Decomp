@@ -135,7 +135,7 @@ void uvEnvFunc(s32 envId, s32 flag, s32 (*arg2)(void)) {
     uvMat4CopyF2L(&D_80269F10, &D_80248DE0);
 }
 
-void func_80218700(void) {
+void uvEnvResetModelView(void) {
     uvMat4CopyF2L(&D_80269F10, &D_80248DE0);
 }
 

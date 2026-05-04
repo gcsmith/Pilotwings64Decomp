@@ -20,9 +20,9 @@ void func_802F4F90(void) {
 }
 
 void func_802F4F98(GyrocopterData* gcData) {
-    gcData->unk660 = func_8021EFF0(3);
+    gcData->unk660 = uvFx_8021EFF0(3);
     uvModelGet(gcData->unk660, 3);
-    gcData->unk661 = func_8021EFF0(3);
+    gcData->unk661 = uvFx_8021EFF0(3);
     uvModelGet(gcData->unk661, 3);
     // clang-format off
     uvFxProps(
@@ -58,7 +58,7 @@ void func_802F50CC(GyrocopterData* gcData) {
         uvModelGetPosm(gcData->modelId, gcData->unk571, &sp28);
         uvMat4RotateAxis(&sp28, 0.3490658f * sp24, 'x');
         uvDobjPosm(gcData->objId, gcData->unk571, &sp28);
-        func_80200EC0(gcData->objId, gcData->unk590, (gcData->unkA0 + 1.0f) * 0.5f, (gcData->unk9C + 1.0f) * 0.5f);
+        uvJanim_80200EC0(gcData->objId, gcData->unk590, (gcData->unkA0 + 1.0f) * 0.5f, (gcData->unk9C + 1.0f) * 0.5f);
         uvModelGetPosm(gcData->modelId, gcData->unk572, &sp28);
         uvMat4RotateAxis(&sp28, (gcData->unk9C * -0.5f) + gcData->unkB8, 'z');
         uvMat4RotateAxis(&sp28, (gcData->unkA0 * 0.5f) + gcData->unkBC, 'x');
@@ -99,7 +99,7 @@ void func_802F5358(GyrocopterData* gcData) {
     uvMat4LocalTranslate(&sp50, gcData->unk59C.x, gcData->unk59C.y, gcData->unk59C.z);
     uvMat4RotateAxis(&sp50, gcData->unk598, 'x');
     uvFxProps(gcData->unk660, FX_PROP_5(gcData->unk578, gcData->unk57C, gcData->unk580, (var_fs0 * 0.6f)), FX_PROP_END);
-    func_8021A4D8(gcData->unk660, &sp50);
+    uvFx_8021A4D8(gcData->unk660, &sp50);
     uvModelGetPosm(gcData->modelId, gcData->unk573, &sp50);
     uvMat4RotateAxis(&sp50, gcData->unkEC, 'z');
     uvDobjPosm(gcData->objId, gcData->unk573, &sp50);
@@ -122,7 +122,7 @@ void func_802F5358(GyrocopterData* gcData) {
     uvMat4LocalTranslate(&sp50, gcData->unk5B0, gcData->unk5B4, gcData->unk5B8);
     uvMat4RotateAxis(&sp50, gcData->unk5AC, 'x');
     uvFxProps(gcData->unk661, FX_PROP_5(gcData->unk584, gcData->unk588, gcData->unk58C, (var_fs0 * 0.6f)), FX_PROP_END);
-    func_8021A4D8(gcData->unk661, &sp50);
+    uvFx_8021A4D8(gcData->unk661, &sp50);
     if (var_fs0 > 0.95f) {
         uvDobjProps(gcData->objId, 5, gcData->unk574, 0);
     } else {
@@ -189,8 +189,8 @@ void func_802F56B4(GyrocopterData* gcData, u8 arg1) {
     }
 
     uvJanimPoseLine(&D_80368520, sp23, D_8034F370);
-    func_802006FC(&D_803686D0, &D_80368370, &D_80368520, var_fa1);
-    func_80200638(gcData->objId, &D_803686D0);
+    uvJanim_802006FC(&D_803686D0, &D_80368370, &D_80368520, var_fa1);
+    uvJanim_80200638(gcData->objId, &D_803686D0);
     gcData->usingFuel = FALSE;
     gcData->unkE8 = func_80313AF4(0.0f, gcData->unkE8, 0.5f);
     gcData->unkF0 = func_80313AF4(0.0f, gcData->unkF0, 0.5f);

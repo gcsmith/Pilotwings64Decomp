@@ -29,8 +29,8 @@ STATIC_FUNC void func_8032F050(SkyDivingData* sdData) {
     }
     sp574 = 2.5f * D_8034F854;
     uvDobj_802180DC(sdData->objId, &sp64);
-    func_802006FC(&sp3C4, &sp64, &sp214, sp574);
-    func_80200638(sdData->objId, &sp3C4);
+    uvJanim_802006FC(&sp3C4, &sp64, &sp214, sp574);
+    uvJanim_80200638(sdData->objId, &sp3C4);
 }
 
 STATIC_FUNC void func_8032F188(SkyDivingData* sdData) {
@@ -58,12 +58,12 @@ STATIC_FUNC void func_8032F188(SkyDivingData* sdData) {
         }
         uvJanimPoseLine(&sp214, sdData->unk1A4, 1.0f);
         uvJanimPoseLine(&sp64, sdData->unk1A0, 1.0f);
-        func_802006FC(&sp574, &sp64, &sp214, sp8DC);
+        uvJanim_802006FC(&sp574, &sp64, &sp214, sp8DC);
     }
     sp8DC = 5.0f * D_8034F854;
     uvDobj_802180DC(sdData->objId, &sp3C4);
-    func_802006FC(&sp724, &sp3C4, &sp574, sp8DC);
-    func_80200638(sdData->objId, &sp724);
+    uvJanim_802006FC(&sp724, &sp3C4, &sp574, sp8DC);
+    uvJanim_80200638(sdData->objId, &sp724);
     var_fa0 = 0.0f;
     if ((sdData->unkB9 != 0) && (sdData->unk70 == 1)) {
         sp8D4 = sdData->unk288;
@@ -158,7 +158,7 @@ void func_8032F47C(SkyDivingData* sdData) {
         }
         var_fv1 = ABS_NOEQ(sdData->unk2C8);
         uvJanimPoseLine(&sp30, 0x55, var_fv1);
-        func_80200638(sdData->objId, &sp30);
+        uvJanim_80200638(sdData->objId, &sp30);
         uvDobjPosm(sdData->objId, sdData->unk228, &sp1E4);
     }
 
@@ -171,7 +171,7 @@ void func_8032F47C(SkyDivingData* sdData) {
             sdData->unk2D0.m[3][1] = sdData->unk2D0.m[3][1] - D_8034F854;
         }
         uvJanimPoseLine(&sp30, 0x55, 1.0f);
-        func_80200638(sdData->objId, &sp30);
+        uvJanim_80200638(sdData->objId, &sp30);
         sp2A4 = uvCosF(6.0f * D_8034F850) * 1.5f;
         if (sp2A4 > 0.0f) {
             sp2A4 = -sp2A4;

@@ -567,13 +567,13 @@ s32 func_802F6EE0(GyrocopterData* gcData) {
     // FAKE
     if (1) { }
     temp_s0->unk4D = temp_s0->unk4C;
-    temp_s0->unk4C = func_8021EFF0(4);
+    temp_s0->unk4C = uvFx_8021EFF0(4);
     if (temp_s0->unk4C != 0xFF) {
         uvModelGet(temp_s0->unk4C, 4);
     } else {
         return 0;
     }
-    temp_s0->unk4E = func_8021EFF0(2);
+    temp_s0->unk4E = uvFx_8021EFF0(2);
     if (temp_s0->unk4E != 0xFF) {
         uvModelGet(temp_s0->unk4E, 2);
     } else {
@@ -596,7 +596,7 @@ s32 func_802F6EE0(GyrocopterData* gcData) {
         FX_PROP_8(0x147),
         FX_PROP_END
     );
-    func_8021A4D8(temp_s0->unk4C, &temp_s0->unk0);
+    uvFx_8021A4D8(temp_s0->unk4C, &temp_s0->unk0);
     uvFxProps(
         temp_s0->unk4E,
         FX_PROP_1(8.0f),
@@ -668,10 +668,10 @@ void func_802F7224(GyrocopterData* gcData) {
                 var_s0->unk0.m[3][1] += 6.0f * spD4.y * temp_ft4 * D_8034F854;
                 var_s0->unk0.m[3][2] += 6.0f * spD4.z * temp_ft4 * D_8034F854;
                 if (var_s0->unk4C != 0xFF) {
-                    func_8021A4D8(var_s0->unk4C, &var_s0->unk0);
+                    uvFx_8021A4D8(var_s0->unk4C, &var_s0->unk0);
                 }
                 if (var_s0->unk4E != 0xFF) {
-                    func_8021A4D8(var_s0->unk4E, &var_s0->unk0);
+                    uvFx_8021A4D8(var_s0->unk4E, &var_s0->unk0);
                     if ((var_s0->unk44 + 0.2f) < D_8034F850) {
                         // clang-format off
                         uvFxProps(

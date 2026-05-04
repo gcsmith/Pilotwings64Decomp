@@ -136,13 +136,13 @@ void func_802DA6E0(Unk80362690* arg0, s32 pilot) {
     arg0->envId = (u16)D_8034EA94[D_8034EA40];
     levelLoad(1, pilot, 0, 1);
     uvLevelAppend(func_802DA628(pilot));
-    func_80204BD4(camera->unk22C, 1, 1.0f);
-    func_80204A8C(camera->unk22C, 3);
+    uvChan_80204BD4(camera->unk22C, 1, 1.0f);
+    uvChan_80204A8C(camera->unk22C, 3);
     uvChanTerra(camera->unk22C, arg0->terraId);
     uvLevelAppend(func_802DA628(pilot));
     uvChanEnv(camera->unk22C, arg0->envId);
     func_8034B5E0(camera->unk22C, camera);
-    func_80204A8C(camera->unk22C, 3);
+    uvChan_80204A8C(camera->unk22C, 3);
     uvMat4SetIdentity(&camera->unk108);
     uvMat4RotateAxis(&camera->unk108, D_8034EA4C.unkC, 'z');
     uvMat4RotateAxis(&camera->unk108, D_8034EA4C.unk10, 'x');
@@ -150,7 +150,7 @@ void func_802DA6E0(Unk80362690* arg0, s32 pilot) {
     camera->unk108.m[3][0] = D_8034EA4C.unk0.x;
     camera->unk108.m[3][1] = D_8034EA4C.unk0.y;
     camera->unk108.m[3][2] = D_8034EA4C.unk0.z;
-    func_80204B34(camera->unk22C, &camera->unk108);
+    uvChan_80204B34(camera->unk22C, &camera->unk108);
     D_8034EA44 = uvDobjAllocIdx();
     uvDobjModel(D_8034EA44, func_802DA684((u32)pilot));
     uvMat4SetIdentity(&D_80359C48);
@@ -284,8 +284,8 @@ void func_802DAB18(Camera* camera) {
         uvMat4LocalTranslate(&spC4, 0.0f, 0.0f, func_80313F08(&D_8034EAAC, var_fs0));
         uvDobjPosm(D_8034EA44, 0, &spC4);
     }
-    func_80200B00(D_8034EA44, D_80359C44, var_fs0);
-    func_80204B34(camera->unk22C, &camera->unk108);
+    uvJanim_80200B00(D_8034EA44, D_80359C44, var_fs0);
+    uvChan_80204B34(camera->unk22C, &camera->unk108);
     uvGfxSetViewport(0, 0, SCREEN_WIDTH, 0, SCREEN_HEIGHT);
     uvMat4SetOrtho(&sp84, 0.0f, SCREEN_WIDTH - 1.0f, 0.0f, SCREEN_HEIGHT - 1.0f);
     uvGfxMtxProjPushF(&sp84);
@@ -295,7 +295,7 @@ void func_802DAB18(Camera* camera) {
     uvFontScale(1, 1);
     uvFontColor(0xFF, 0xFF, 0xFF, 0xFF);
     uvFontPrintStr16(140, 25, textGetDataByIdx(D_8034EA7C[D_8034EA40]), 100, 0xFFE);
-    func_80204FC4(camera->unk22C);
+    uvChan_80204FC4(camera->unk22C);
     func_80313D74();
     D_80359C88 = var_fs0;
 }

@@ -16,15 +16,15 @@ typedef struct UnkSobjDraw {
 } UnkSobjDraw;
 
 void uvSobjsDraw(UnkStruct_80204D94*, Mtx4F*, u16, u16, UnkSobjDraw*, u16, u8, s32);
-u8 uvSobjGetLODIndex(ParsedUVMD* uvmd, f32 dist);
+u8   uvSobjGetLODIndex(ParsedUVMD* uvmd, f32 dist);
 void uvSobj_8022C8D0(UnkSobjDraw*, ParsedUVMD*, u8, Mtx4F*);
 void uvSobj_8022CC28(UnkSobjDraw*, ParsedUVMD*, u8, f32, f32);
 UnkSobjDraw* uvSobjLoadTerra(u32 soid);
 void uvSobjPosm(u32 soid, s32 dstIdx, Mtx4F* src);
 void uvSobj_8022D168(u32 soid, s32 srcIdx, Mtx4F* dst);
-u16 uvSobj_8022D1E4(u32 soid);
+u16  uvSobj_8022D1E4(u32 soid);
 void uvSobjModel(u32 soid, s32);
-s32 uvSobjGetSeg(s32 terraId, f32, f32, f32, f32, f32, f32, s32**, f32**, Vec3F**);
+s32  uvSobjGetSeg(s32 terraId, f32, f32, f32, f32, f32, f32, s32**, f32**, Vec3F**);
 
 #endif // PILOTWINGS64_UV_SOBJ_H
 

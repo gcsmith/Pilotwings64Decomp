@@ -88,7 +88,7 @@ void* uvJanimLoad(s32 arg0) {
     return var_s3;
 }
 
-void func_80200638(s32 arg0, Unk80371120* arg1) {
+void uvJanim_80200638(s32 arg0, Unk80371120* arg1) {
     Mtx4F sp58;
     s32 temp_s4;
     s32 i;
@@ -106,7 +106,7 @@ void func_80200638(s32 arg0, Unk80371120* arg1) {
     }
 }
 
-void func_802006FC(Unk80371120* arg0, Unk80371120* arg1, Unk80371120* arg2, f32 arg3) {
+void uvJanim_802006FC(Unk80371120* arg0, Unk80371120* arg1, Unk80371120* arg2, f32 arg3) {
     Unk8022B0A0* var_s0;
     Unk8022B0A0* var_v0;
     Unk8022B0A0* var_v1;
@@ -216,11 +216,11 @@ void func_802006FC(Unk80371120* arg0, Unk80371120* arg1, Unk80371120* arg2, f32 
     arg0->unk1AC = var_a2;
 }
 
-void func_80200B00(s32 arg0, s32 arg1, f32 arg2) {
+void uvJanim_80200B00(s32 arg0, s32 arg1, f32 arg2) {
     Unk80371120 sp18;
 
     uvJanimPoseLine(&sp18, arg1, arg2);
-    func_80200638(arg0, &sp18);
+    uvJanim_80200638(arg0, &sp18);
 }
 
 void uvJanimPoseLine(Unk80371120* arg0, s32 arg1, f32 arg2) {
@@ -328,11 +328,11 @@ void uvJanimPoseLine(Unk80371120* arg0, s32 arg1, f32 arg2) {
     }
 }
 
-void func_80200EC0(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
+void uvJanim_80200EC0(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
     Unk80371120 sp18;
 
     uvJanimPoseGrid(&sp18, arg1, arg2, arg3);
-    func_80200638(arg0, &sp18);
+    uvJanim_80200638(arg0, &sp18);
 }
 
 void uvJanimPoseGrid(Unk80371120* arg0, s32 arg1, f32 arg2, f32 arg3) {
@@ -388,5 +388,5 @@ void uvJanimPoseGrid(Unk80371120* arg0, s32 arg1, f32 arg2, f32 arg3) {
     }
     uvJanimPoseLine(&sp1F0, arg1, sp3C / (temp_a3->unk6 - 1));
     uvJanimPoseLine(&sp40, arg1, sp38 / (temp_a3->unk6 - 1));
-    func_802006FC(arg0, &sp1F0, &sp40, arg3 - (s32)arg3);
+    uvJanim_802006FC(arg0, &sp1F0, &sp40, arg3 - (s32)arg3);
 }

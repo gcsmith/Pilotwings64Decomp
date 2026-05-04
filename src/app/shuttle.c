@@ -96,26 +96,26 @@ STATIC_FUNC void shuttle_80334CCC(void) {
         uvMat4RotateAxis(&sp40, 1.5707961f, 'x');
         uvMat4RotateAxis(&sp40, 0.08726645f, 'y');
         if (D_803504D0 != 0xFF) {
-            func_8021A4D8(D_803504D0, &sp40);
+            uvFx_8021A4D8(D_803504D0, &sp40);
         }
         if (D_803504C8 >= 0) {
             smokeProps(D_803504C8, SMOKE_PROP_6(sp40.m[3][0], sp40.m[3][1], sp40.m[3][2]), SMOKE_PROP_END);
         }
         if (D_803504E4 != 0xFF) {
-            func_8021A4D8(D_803504E4, &sp40);
+            uvFx_8021A4D8(D_803504E4, &sp40);
         }
         uvMat4Copy(&sp40, &D_80371D50);
         uvMat4LocalTranslate(&sp40, 10.0f, 0.0f, -24.0f);
         uvMat4RotateAxis(&sp40, 1.5707961f, 'x');
         uvMat4RotateAxis(&sp40, 0.08726645f, 'y');
         if (D_803504D4 != 0xFF) {
-            func_8021A4D8(D_803504D4, &sp40);
+            uvFx_8021A4D8(D_803504D4, &sp40);
         }
         if (D_803504CC >= 0) {
             smokeProps(D_803504CC, SMOKE_PROP_6(sp40.m[3][0], sp40.m[3][1], sp40.m[3][2]), SMOKE_PROP_END);
         }
         if (D_803504E0 != 0xFF) {
-            func_8021A4D8(D_803504E0, &sp40);
+            uvFx_8021A4D8(D_803504E0, &sp40);
         }
     }
 }

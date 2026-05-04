@@ -378,7 +378,7 @@ s32 func_8032CF28(Unk80362690* arg0) {
             demo_80323020();
         }
         uvGfxBegin();
-        func_80204FC4(camera->unk22C);
+        uvChan_80204FC4(camera->unk22C);
         func_80314154();
         uvVtxBeginPoly();
         uvVtx(90, 82, 0, 0, 0, 0, 0, 0, 0x7F);

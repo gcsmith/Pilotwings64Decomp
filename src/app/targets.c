@@ -164,7 +164,7 @@ f32 targets_8034473C(s32 arg0, s32 arg1) {
         }
 
         var_s0->unk46 = 1;
-        sp4C = func_8021EFF0(8);
+        sp4C = uvFx_8021EFF0(8);
         if (sp4C != 0xFF) {
             uvModelGet(sp4C, 8);
             uvFxProps(sp4C, FX_PROP_10(var_s0->unk4.m[3][0], var_s0->unk4.m[3][1], var_s0->unk4.m[3][2]), FX_PROP_END);

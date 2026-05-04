@@ -96,7 +96,7 @@ void snowUpdate(void) {
 
     uvGfxSetCallback(snowDraw);
     sSnowData->endPtr = idxPtr = sSnowData->fbIdx;
-    func_80205724(0, 3, &spD4);
+    uvChan_80205724(0, 3, &spD4);
     uvMat4InvertTranslationRotation(&sp94, &spD4);
     sSnowData->unk3524 = snowCheckRange(&sp94);
     sp88.f[0] = sp94.m[3][0] + (sp94.m[1][0] * 100.f); // TODO f[] vs .x

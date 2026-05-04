@@ -53,7 +53,7 @@ STATIC_FUNC void whalePodUpdateWhale(s32 idx) {
     } else {
         scale = v1 / 30.0f;
     }
-    func_80200B00(gWhalePod[idx].objId0, 0, 1.0f - scale);
+    uvJanim_80200B00(gWhalePod[idx].objId0, 0, 1.0f - scale);
     uvModelGetPosm(0xD7, 1, &pose);
     uvMat4Scale(&pose, 2.0 * scale, 2.0 * scale, 2.0 * scale);
     uvDobjPosm(gWhalePod[idx].objId0, 1, &pose);

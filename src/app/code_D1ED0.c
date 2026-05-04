@@ -217,8 +217,8 @@ void func_8034B354(s32 arg0, Vec3F arg1, Vec3F* arg4) {
     Vec4F sp28;
     Vec3F sp1C;
 
-    func_80205724(arg0, 2, &spC8);
-    func_80205724(arg0, 3, &sp108);
+    uvChan_80205724(arg0, 2, &spC8);
+    uvChan_80205724(arg0, 3, &sp108);
     uvMat4SetIdentity(&sp88);
     uvMat4RotateAxis(&sp88, -1.570797f, 'x');
     uvMat4Mul(&sp48, &sp88, &spC8);
@@ -238,7 +238,7 @@ void func_8034B354(s32 arg0, Vec3F arg1, Vec3F* arg4) {
 s32 func_8034B464(s32 arg0) {
     s32 sp1C;
 
-    sp1C = func_8021EFF0(arg0);
+    sp1C = uvFx_8021EFF0(arg0);
     if (sp1C == 0xFF) {
         return 0xFF;
     }

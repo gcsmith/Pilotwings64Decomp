@@ -125,7 +125,7 @@ void func_80336600(void) {
                 spC0.m[3][1] = var_s0->unk10.y + (smoke->unk16C.y * y);
                 spC0.m[3][2] = (var_s0->unk10.z + (smoke->unk16C.z * z)) - (temp_fs1 * 0.5f);
             }
-            func_8021A4D8(var_s0->unk1C, &spC0);
+            uvFx_8021A4D8(var_s0->unk1C, &spC0);
             var_s3++;
         }
         if (var_s3 == 0) {
@@ -348,7 +348,7 @@ void smokePuffAdd(Smoke* smoke, Smoke_Unk0* arg1) {
         uvFxProps(arg1->unk1C, FX_PROP_11(0), FX_PROP_END);
         arg1->unk1C = 0xFF;
     }
-    arg1->unk1C = func_8021EFF0(7);
+    arg1->unk1C = uvFx_8021EFF0(7);
     if (arg1->unk1C == 0xFF) {
         _uvDebugPrintf("puff_add : out of uv effects\n");
         return;

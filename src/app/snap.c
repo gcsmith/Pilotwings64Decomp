@@ -893,11 +893,11 @@ void func_8033A244(s32 arg0, Unk80373060* arg1) {
             }
         }
         uvGfxBegin();
-        func_80204C94(0, arg1->unk18, arg1->unk1C, arg1->unk24, arg1->unk20, arg1->unk28, arg1->unk2C);
-        func_80204B34(0, &sp90);
+        uvChan_80204C94(0, arg1->unk18, arg1->unk1C, arg1->unk24, arg1->unk20, arg1->unk28, arg1->unk2C);
+        uvChan_80204B34(0, &sp90);
         uvChanTerra(0, D_80362690->terraId);
-        func_80204A8C(0, 11);
-        func_80204FC4(0);
+        uvChan_80204A8C(0, 11);
+        uvChan_80204FC4(0);
         uvGfxEnd();
         if (arg1->unk43[0] != 11 && arg1->unk43[0] != 0) {
             switch (arg1->unk43[0]) {
@@ -932,7 +932,7 @@ void func_8033A610(s32 x0, s32 x1, s32 y0, s32 y1) {
     x1 -= 5;
     y0 += 5;
     y1 -= 5;
-    func_80204D94(0, x0, x1, y0, y1);
+    uvChan_80204D94(0, x0, x1, y0, y1);
 }
 
 void func_8033A664(s32 x0, s32 x1, s32 y0, s32 y1) {
@@ -1440,7 +1440,7 @@ s32 func_8033D3EC(s32 arg0, s32 arg1, Unk80373060* arg2, s32* arg3, s32* arg4) {
                 func_8033A244(arg0, &arg2[i]);
                 func_8033A244(arg0, &arg2[i]);
             } else {
-                func_80204D94(0, D_80350560[i % 6][0], D_80350560[i % 6][0] + 80, D_80350560[i % 6][1] - 1, D_80350560[i % 6][1] + 59);
+                uvChan_80204D94(0, D_80350560[i % 6][0], D_80350560[i % 6][0] + 80, D_80350560[i % 6][1] - 1, D_80350560[i % 6][1] + 59);
                 func_8033A128(arg0, NULL);
                 sndPlaySfx(0x54);
                 func_8033FB14();
@@ -1840,12 +1840,12 @@ s32 func_8033E3A8(s32 arg0) {
         camera->clipNear = spA4;
         camera->clipFar = spA0;
         uvMat4Copy(&camera->unk108, &sp60);
-        func_80204C94(0, camera->clipX0, camera->clipX1, camera->clipY0, camera->clipY1, camera->clipNear, camera->clipFar);
-        func_80204B34(0, &sp60);
+        uvChan_80204C94(0, camera->clipX0, camera->clipX1, camera->clipY0, camera->clipY1, camera->clipNear, camera->clipFar);
+        uvChan_80204B34(0, &sp60);
     }
     uvGfxSetFrameTime(-1.0f);
-    func_80204D94(0, camera->viewX0, camera->viewX1, camera->viewY0, camera->viewY1);
-    func_80204A8C(0, 3);
+    uvChan_80204D94(0, camera->viewX0, camera->viewX1, camera->viewY0, camera->viewY1);
+    uvChan_80204A8C(0, 3);
     uvGfxSetViewport(0, 0, SCREEN_WIDTH, 0, SCREEN_HEIGHT);
     func_8033A078(arg0);
     if ((arg0 == 0) || (D_80350594 != 0)) {

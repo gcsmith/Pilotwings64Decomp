@@ -199,12 +199,12 @@ STATIC_FUNC void func_802DD57C(Camera* camera) {
         SPRT_PROP_END
     );
     // clang-format on
-    func_80204BD4(camera->unk22C, 1, 1.0f);
-    func_80204A8C(camera->unk22C, 1);
-    func_80204C94(camera->unk22C, -0.3504673f, 0.3504673f, -0.25f, 0.25f, 0.5f, 100.0f);
+    uvChan_80204BD4(camera->unk22C, 1, 1.0f);
+    uvChan_80204A8C(camera->unk22C, 1);
+    uvChan_80204C94(camera->unk22C, -0.3504673f, 0.3504673f, -0.25f, 0.25f, 0.5f, 100.0f);
     uvChanEnv(camera->unk22C, 0xFFFF);
-    func_80204AB0(camera->unk22C, 0, func_802DD42C);
-    func_80204AB0(camera->unk22C, 1, func_802DD44C);
+    uvChan_80204AB0(camera->unk22C, 0, func_802DD42C);
+    uvChan_80204AB0(camera->unk22C, 1, func_802DD44C);
     D_80359CA0 = (D_8034EDA0 * 0x35) + 0x1A;
     D_80359CA4 = 0x90 - (*D_8034EDA4 * 0x3E);
     D_80359D68 = D_80359D69 = D_80359D6A = 0;
@@ -319,40 +319,40 @@ STATIC_FUNC s32 func_802DD8E8(Camera* camera, Unk80367868* arg1, s32 arg2) {
         }
         switch (D_8034EE30[spF8->veh][sp100->pilot]) {
         case MODEL_SKYDIVING_LARK:
-            func_80200B00(D_8034EDC8, 0x56, 0.0f);
+            uvJanim_80200B00(D_8034EDC8, 0x56, 0.0f);
             break;
         case MODEL_SKYDIVING_GOOSE:
-            func_80200B00(D_8034EDC8, 0x56, 0.0f);
+            uvJanim_80200B00(D_8034EDC8, 0x56, 0.0f);
             break;
         case MODEL_SKYDIVING_HAWK:
-            func_80200B00(D_8034EDC8, 0x5B, 0.0f);
+            uvJanim_80200B00(D_8034EDC8, 0x5B, 0.0f);
             break;
         case MODEL_SKYDIVING_KIWI:
-            func_80200B00(D_8034EDC8, 0x60, 0.0f);
+            uvJanim_80200B00(D_8034EDC8, 0x60, 0.0f);
             break;
         case MODEL_SKYDIVING_IBIS:
-            func_80200B00(D_8034EDC8, 0x64, 0.0f);
+            uvJanim_80200B00(D_8034EDC8, 0x64, 0.0f);
             break;
         case MODEL_SKYDIVING_ROBIN:
-            func_80200B00(D_8034EDC8, 0x68, 0.0f);
+            uvJanim_80200B00(D_8034EDC8, 0x68, 0.0f);
             break;
         case MODEL_HG_LARK:
-            func_80200EC0(D_8034EDC8, 0xF, 0.5f, 0.5f);
+            uvJanim_80200EC0(D_8034EDC8, 0xF, 0.5f, 0.5f);
             break;
         case MODEL_HG_GOOSE:
-            func_80200EC0(D_8034EDC8, 0x16, 0.5f, 0.5f);
+            uvJanim_80200EC0(D_8034EDC8, 0x16, 0.5f, 0.5f);
             break;
         case MODEL_HG_HAWK:
-            func_80200EC0(D_8034EDC8, 0x1D, 0.5f, 0.5f);
+            uvJanim_80200EC0(D_8034EDC8, 0x1D, 0.5f, 0.5f);
             break;
         case MODEL_HG_KIWI:
-            func_80200EC0(D_8034EDC8, 0x20, 0.5f, 0.5f);
+            uvJanim_80200EC0(D_8034EDC8, 0x20, 0.5f, 0.5f);
             break;
         case MODEL_HG_IBIS:
-            func_80200EC0(D_8034EDC8, 0x27, 0.5f, 0.5f);
+            uvJanim_80200EC0(D_8034EDC8, 0x27, 0.5f, 0.5f);
             break;
         case MODEL_HG_ROBIN:
-            func_80200EC0(D_8034EDC8, 0x2E, 0.5f, 0.5f);
+            uvJanim_80200EC0(D_8034EDC8, 0x2E, 0.5f, 0.5f);
             break;
         }
         if (spF8->veh == 3) {
@@ -397,7 +397,7 @@ STATIC_FUNC s32 func_802DD8E8(Camera* camera, Unk80367868* arg1, s32 arg2) {
                 uvDobjPosm(D_8034EDCC, 1, &D_80359D28);
                 uvMat4SetIdentity(&D_80359CA8);
                 uvMat4RotateAxis(&D_80359CA8, -1.2217304f, 'x');
-                func_80200B00(D_8034EDC8, (s32)spFE, 0.0f);
+                uvJanim_80200B00(D_8034EDC8, (s32)spFE, 0.0f);
             }
         }
     }
@@ -447,8 +447,8 @@ STATIC_FUNC void func_802DE5B0(Camera* camera, Unk80367868* arg1) {
     f32 g;
     f32 b;
 
-    func_80204B34(camera->unk22C, &camera->unk108);
-    func_80204FC4(camera->unk22C);
+    uvChan_80204B34(camera->unk22C, &camera->unk108);
+    uvChan_80204FC4(camera->unk22C);
     uvFontSet(6);
     uvFontScale(1.0, 1.0);
     D_8034EED4 += D_8034EED8 * uvGfxGetFrameTime();
@@ -520,15 +520,15 @@ STATIC_FUNC void func_802DE964(Camera* camera, Unk80367868* arg1, s32 arg2) {
                 uvMat4LocalTranslate(&sp64, 0.0f, 0.0f, func_80313F08(D_8034EDDC, var_fs0));
             }
             uvDobjPosm(D_8034EDC8, 0, &sp64);
-            func_80200B00(D_8034EDC8, spA6, var_fs0);
-            func_80204B34(camera->unk22C, &camera->unk108);
-            func_80204FC4(camera->unk22C);
+            uvJanim_80200B00(D_8034EDC8, spA6, var_fs0);
+            uvChan_80204B34(camera->unk22C, &camera->unk108);
+            uvChan_80204FC4(camera->unk22C);
             func_80313D74();
             uvGfxEnd();
         }
     }
-    func_80204AB0(camera->unk22C, 0, NULL);
-    func_80204AB0(camera->unk22C, 1, func_8034B6F8);
+    uvChan_80204AB0(camera->unk22C, 0, NULL);
+    uvChan_80204AB0(camera->unk22C, 1, func_8034B6F8);
     if (D_8034EDC8 != 0xFFFF) {
         uvDobjModel(D_8034EDC8, MODEL_WORLD);
         D_8034EDC8 = 0xFFFF;

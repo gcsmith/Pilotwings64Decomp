@@ -609,7 +609,7 @@ void falco_802E4E70(Falco* falco) {
         v0_2 = falco->unkD0;
         falco->unkD0 -= D_8034F854;
         if (v0_2 != (s32)falco->unkD0) {
-            sp64 = func_8021EFF0(8);
+            sp64 = uvFx_8021EFF0(8);
             if (sp64 != 0xFF) {
                 uvModelGet(sp64, 8);
                 // clang-format off
@@ -732,7 +732,7 @@ s32 falco_802E51E8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {
                 temp_fv0 = uvRandF_LCG();
                 curFalco->unkD0 = (curFalco->unk104 * temp_fv0) + curFalco->unk100;
             }
-            temp_v0_2 = func_8021EFF0(8);
+            temp_v0_2 = uvFx_8021EFF0(8);
             if (temp_v0_2 != 0xFF) {
                 uvModelGet(temp_v0_2, 8);
                 // clang-format off
@@ -912,9 +912,9 @@ void falco_802E587C(Falco* falco) {
     }
     D_8035AF58 = func_80313AF4(var_fa0, D_8035AF58, 10.0f);
     func_802CAAC8(D_8034F09C, &sp20);
-    func_80200638(falco->unk0, &sp20);
+    uvJanim_80200638(falco->unk0, &sp20);
     if (falco->unk256 != 0) {
-        func_80200638(falco->unk4, &sp20);
+        uvJanim_80200638(falco->unk4, &sp20);
     }
 }
 
@@ -1010,7 +1010,7 @@ void falco_802E5F44(Unk8035A920* falco) {
 void falco_802E5F90(Unk8035A920* falco) {
     s32 sp44;
 
-    sp44 = func_8021EFF0(8);
+    sp44 = uvFx_8021EFF0(8);
     if (sp44 != 0xFF) {
         uvModelGet(sp44, 8);
         uvFxProps(sp44, FX_PROP_10(falco->unk8.m[3][0], falco->unk8.m[3][1], falco->unk8.m[3][2]), FX_PROP_END);

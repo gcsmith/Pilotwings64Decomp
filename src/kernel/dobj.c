@@ -640,7 +640,7 @@ void uvDobj_802180DC(s32 arg0, Unk80371120* arg1) {
     }
 
     for (i = 0; i < arg1->unk1AC; i++, var_s3++) {
-        func_8022B0A0(var_s3, &D_80265080[var_s2->unk2[i + 1]]);
+        uvSc_8022B0A0(var_s3, &D_80265080[var_s2->unk2[i + 1]]);
         arg1->unk190[i] = i + 1;
     }
 }

@@ -60,7 +60,7 @@ void mist_803144D0(Mtx4F* arg0, Vec3F* arg1) {
         return;
     }
     var_s0 = &D_8036BE30[i];
-    var_s0->fxId = func_8021EFF0(7);
+    var_s0->fxId = uvFx_8021EFF0(7);
     if (var_s0->fxId == 0xFF) {
         _uvDebugPrintf("mist : out of effects\n");
         return;
@@ -94,7 +94,7 @@ void mist_803144D0(Mtx4F* arg0, Vec3F* arg1) {
     var_s0->unk4.m[3][0] = x;
     var_s0->unk4.m[3][1] = y;
     var_s0->unk4.m[3][2] = z;
-    func_8021A4D8(var_s0->fxId, &var_s0->unk4);
+    uvFx_8021A4D8(var_s0->fxId, &var_s0->unk4);
     var_s0->unk44 = 1;
     var_s0->unk48 = D_8036BFE4;
 }
@@ -131,7 +131,7 @@ void mistUpdate(Mtx4F* arg0, f32 arg1) {
             x = var_s0->unk4.m[3][0];
             y = var_s0->unk4.m[3][1];
             z = var_s0->unk4.m[3][2];
-            if ((func_80204EC0(0, x, y, z, var_s0->unk4C) == 0) || ((D_8036BFE4 - var_s0->unk48) > 3.0f)) {
+            if ((uvChan_80204EC0(0, x, y, z, var_s0->unk4C) == 0) || ((D_8036BFE4 - var_s0->unk48) > 3.0f)) {
                 uvFxProps(var_s0->fxId, FX_PROP_11(0), FX_PROP_END);
                 var_s0->unk44 = 0;
                 var_s0->unk48 = -3.0f;

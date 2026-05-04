@@ -68,7 +68,7 @@ void mio0_decompress(void* src, u8* dst);
 
 void uvMemInitBlocks(void);
 
-void func_8022A47C(void);
+void uvMemClearRegions(void);
 
 void _uvMediaCopy(void* vAddr, void* devAddr, u32 nbytes);
 void _uvDMA(void* vAddr, u32 devAddr, u32 nbytes);

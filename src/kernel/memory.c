@@ -59,7 +59,7 @@ void uvMemInitBlocks(void) {
     uvMemScanBlocks();
 }
 
-void func_8022A47C(void) {
+void uvMemClearRegions(void) {
     u32* a;
 
     for (a = (u32*)0x800417DC; a < (u32*)0x800DA800; a++) {
@@ -350,7 +350,7 @@ void uvLevelInit(void) {
     D_802B8828 = 0;
     D_802B53C0 = NULL;
     D_802B8934 = 0;
-    func_8022A47C();
+    uvMemClearRegions();
     uvMemSet(&gLevelData, 0, sizeof(gLevelData));
     uvMemSet(D_802B6E30, 0, sizeof(D_802B6E30));
     uvSprtResetUnk();
