@@ -147,7 +147,7 @@ void bmSound_802D112C(BirdmanData* bmData) {
                 bmData->unk410 |= 0x10;
                 sndGetPilotScream(&sfxId, &pitch);
                 sndPlaySfxVolPitchPan(sfxId, 1.0f, pitch, 0.0f);
-                sndSetMusic(0x1B);
+                sndSetMusic(BGM_BIRDMAN_CRASH);
                 sndSetMusicState(MUS_STATE_PLAY_SEQ);
                 func_8033FCD0(sp34->veh);
                 bmSound_802D12C4(bmData);
@@ -156,7 +156,7 @@ void bmSound_802D112C(BirdmanData* bmData) {
         if (bmData->unk104 == 3) {
             if (!(bmData->unk410 & 0x20)) {
                 bmData->unk410 |= 0x20;
-                sndSetMusic(BGM_BIRDMAN_LAND_OK);
+                sndSetMusic(BGM_BIRDMAN_LAND_OK); // this is never played
                 sndSetMusicState(MUS_STATE_PLAY_SEQ);
                 func_8033FCD0(sp34->veh);
                 bmSound_802D12C4(bmData);
