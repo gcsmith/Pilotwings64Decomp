@@ -3,6 +3,7 @@
 #include <uv_math.h>
 #include <uv_model.h>
 #include <uv_sobj.h>
+#include <uv_utils.h>
 #include "kernel/code_8170.h"
 #include "code_9A960.h"
 #include "demo.h"
@@ -237,7 +238,7 @@ void toy_80348418(s32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4) {
 
     toy = &sToys[i];
     if (toy->toyType == TOY_MOUNT_RUSHMORE) {
-        fxId = func_8021EFF0(8);
+        fxId = uvFx_8021EFF0(8);
         if (fxId != 0xFF) {
             uvModelGet(fxId, 8);
             // clang-format off

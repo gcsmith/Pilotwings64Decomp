@@ -1,7 +1,7 @@
-#ifndef UV_STRING_H
-#define UV_STRING_H
+#ifndef PILOTWINGS64_UV_STRING_H
+#define PILOTWINGS64_UV_STRING_H
 
-#include <PR/ultratypes.h>
+#include <uv_common.h>
 
 char* uvStrchr(const char* s, const char c);
 u32 uvStrlen(const char* s);
@@ -12,4 +12,5 @@ char strDigitToChar(u16 digit);
 void uvSprintf(char* dest, const char* fmt, ...);
 int uvAtoi(const char* s);
 
-#endif // UV_STRING_H
+#endif // PILOTWINGS64_UV_STRING_H
+

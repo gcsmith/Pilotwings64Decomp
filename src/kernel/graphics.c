@@ -1,18 +1,15 @@
+#include <uv_audio.h>
 #include <uv_clocks.h>
 #include <uv_dobj.h>
-#include <uv_event.h>
 #include <uv_fx.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>
 #include <uv_memory.h>
-#include <uv_seq.h>
 #include <uv_sched.h>
 #include <uv_sprite.h>
 #include <uv_system.h>
 #include <macros.h>
 #include <libc/stdint.h>
-
-void func_8021A298(void);
 
 #define TASK_OUTPUT_BUFFER_SIZE 0x2000
 
@@ -139,10 +136,10 @@ void uvGfxBegin(void) {
     gDPSetColorImage(gGfxDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, osVirtualToPhysical(gGfxFbCurrPtr));
 
     uvGfxResetState();
-    func_80218CA4();
+    uvSeqUpdateAll();
     uvSprt_802301A4();
     uvVtxReset(1);
-    func_8021A298();
+    uvFx_8021A298();
 
     gGfxNumVtxTransforms[gGfxFbIndex] = 0;
     gGfxNumTriangles[gGfxFbIndex] = 0;
@@ -606,7 +603,7 @@ void uvGfxEnd(void) {
     task->t.ucode_data = (u64*)gspFast3DDataStart;
     task->t.output_buff = (u64*)gGfxTaskOutputBufferStart;
     task->t.output_buff_size = (u64*)gGfxTaskOutputBufferEnd;
-    func_8022C3C0(0, 0x2B);
+    uvSc_8022C3C0(0, 0x2B);
     osSendMesg(_uvScGetCmdQ(&gSchedInst), gGfxTaskPtr, 1);
     uvEventPost(1, 0);
     if (gGfxFrameCount == 0) {
@@ -622,7 +619,7 @@ void uvGfxEnd(void) {
     }
     gGfxFrameTime[gGfxFbIndex] = (f32)uvClkGetSec(UV_CLKID_GFX);
     uvClkReset(UV_CLKID_GFX);
-    func_8022C3C0(0, 0x2A);
+    uvSc_8022C3C0(0, 0x2A);
     var_a2 = 0;
     var_t0 = 0;
     var_t1 = 0;

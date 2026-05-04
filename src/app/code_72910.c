@@ -47,7 +47,7 @@ void func_802EB424(Mtx4F* arg0, f32 arg1) {
         snowUpdate();
     }
     temp_s0_2 = &D_80362690->unkC[D_80362690->unk9C];
-    sp44 = func_8021A304(temp_s0_2->unk2C.m[3][0], temp_s0_2->unk2C.m[3][1], temp_s0_2->unk2C.m[3][2], 1);
+    sp44 = uvFx_8021A304(temp_s0_2->unk2C.m[3][0], temp_s0_2->unk2C.m[3][1], temp_s0_2->unk2C.m[3][2], 1);
     if (temp_s0_2->smokeId != -1) {
         smokeGetProps(temp_s0_2->smokeId, SMOKE_PROP_8(&sp3C), SMOKE_PROP_END);
     }

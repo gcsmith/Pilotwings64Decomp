@@ -110,11 +110,11 @@ void func_8030C22C(void) {
     uvLevelAppend(0x87);
     uvLevelAppend(0x5C);
     textLoadBlock(0x42);
-    func_80204BD4(camera->unk22C, 1, 1.0f);
-    func_80204A8C(camera->unk22C, 1);
+    uvChan_80204BD4(camera->unk22C, 1, 1.0f);
+    uvChan_80204A8C(camera->unk22C, 1);
     uvChanEnv(camera->unk22C, 0x17);
-    func_80204C94(camera->unk22C, -0.7009346f, 0.7009346f, -0.5f, 0.5f, 1.0f, 4000.0f);
-    func_80204AB0(camera->unk22C, 1, func_8030C6A0);
+    uvChan_80204C94(camera->unk22C, -0.7009346f, 0.7009346f, -0.5f, 0.5f, 1.0f, 4000.0f);
+    uvChan_80204AB0(camera->unk22C, 1, func_8030C6A0);
     sp5C = D_8034F420[temp_s0->veh][temp_s0->cls];
     D_8036A8A0 = uvDobjAllocIdx();
     uvDobjModel(D_8036A8A0, D_8034F440[sp5C]);
@@ -124,7 +124,7 @@ void func_8030C22C(void) {
     uvMat4LocalTranslate(&spA8, sp54, sp50, sp4C);
     uvMat4UnkOp6(&camera->unk108, &sp68, &spA8);
     uvDobjPosm(D_8036A8A0, 0, &sp68);
-    func_80204B34(camera->unk22C, &camera->unk108);
+    uvChan_80204B34(camera->unk22C, &camera->unk108);
     // clang-format off
     uvSprtProps(0,
         SPRT_PROP_ENABLED(TRUE),
@@ -160,8 +160,8 @@ void func_8030C54C(void) {
 
     camera = D_80362690->unkC[D_80362690->unk9C].unk70;
     uvDobjModel(D_8036A8A0, 0xFFFF);
-    func_80204AB0(camera->unk22C, 0, NULL);
-    func_80204AB0(camera->unk22C, 1, func_8034B6F8);
+    uvChan_80204AB0(camera->unk22C, 0, NULL);
+    uvChan_80204AB0(camera->unk22C, 1, func_8034B6F8);
     // clang-format off
     uvSprtProps(0,
         SPRT_PROP_FAST_COPY(1),
@@ -263,6 +263,6 @@ void func_8030C6A0(void) {
 void func_8030CB10(void) {
     Camera* camera = D_80362690->unkC[D_80362690->unk9C].unk70;
 
-    func_80204FC4(camera->unk22C);
+    uvChan_80204FC4(camera->unk22C);
     func_8034B6F8();
 }

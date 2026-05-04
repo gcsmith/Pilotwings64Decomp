@@ -1,7 +1,6 @@
 #include "common.h"
 #include "fire_effects.h"
 #include "game.h"
-#include <uv_seq.h>
 #include <uv_model.h>
 #include <uv_fx.h>
 
@@ -109,7 +108,7 @@ void fireFxDeinit(void) {
 
     if (D_80362624 > 0) {
         for (i = 0; i < ARRAY_COUNT(D_80362500); i++) {
-            uvSeqProps(D_80362500[i], SEQ_PROP_1(0), SEQ_PROP_END);
+            uvSeqProps(D_80362500[i], SEQ_PROP_ACTIVE(FALSE), SEQ_PROP_END);
         }
     }
 
@@ -122,13 +121,13 @@ void fireFxCreate(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
 
     if (D_80362624 == 0) {
         for (i = 0; i < ARRAY_COUNT(D_80362500); i++) {
-            D_80362500[i] = func_80218F88();
+            D_80362500[i] = uvSeqFindFree();
             uvSeqModel(D_80362500[i], 0);
             // clang-format off
             uvSeqProps(
                 D_80362500[i],
-                SEQ_PROP_4(20.0f),
-                SEQ_PROP_3(i * 2),
+                SEQ_PROP_FRAMERATE(20.0f),
+                SEQ_PROP_CURR_FRAME(i * 2),
                 SEQ_PROP_END
             );
             // clang-format on
@@ -140,7 +139,7 @@ void fireFxCreate(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
         return;
     }
 
-    D_80362520[D_80362620] = func_8021EFF0(6);
+    D_80362520[D_80362620] = uvFx_8021EFF0(6);
     uvModelGet(D_80362520[D_80362620], MODEL_THEMEPARK_CIRCUS_TENT);
 
     // clang-format off

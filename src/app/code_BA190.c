@@ -1,6 +1,7 @@
 #include "common.h"
 #include "code_BA190.h"
 #include <uv_math.h>
+#include <uv_utils.h>
 #include "app/demo.h"
 #include "app/environment.h"
 #include "app/code_66F70.h"

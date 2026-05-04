@@ -1,6 +1,7 @@
 #include "common.h"
 #include "rocket_belt.h"
 #include <uv_math.h>
+#include <uv_utils.h>
 #include <uv_vector.h>
 #include "app/balls.h"
 #include "app/demo.h"

@@ -4,7 +4,6 @@
 #include <uv_memory.h>
 #include <uv_system.h>
 #include <uv_texture.h>
-#include <uv_util.h>
 #include "code_B2900.h"
 #include "credits.h"
 #include "save.h"

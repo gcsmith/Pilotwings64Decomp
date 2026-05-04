@@ -4,7 +4,6 @@
 #include <uv_graphics.h>
 #include <uv_matrix.h>
 #include <uv_sched.h>
-#include <uv_util.h>
 #include <uv_debug.h>
 
 s16 D_802C8020;

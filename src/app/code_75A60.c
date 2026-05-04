@@ -5,8 +5,8 @@
 #include "fdr.h"
 #include "hang_glider.h"
 #include "snd.h"
-#include <uv_event.h>
-#include <uv_janim.h>
+#include <uv_anim.h>
+#include <uv_audio.h>
 #include <uv_math.h>
 #include <uv_model.h>
 
@@ -209,7 +209,7 @@ void func_802EEB00(HangGliderData* hgData, u8 arg1) {
             D_8034F1B0 = 0.0f;
         }
         uvJanimPoseLine(&D_80367BF0, hgData->unk2ED, D_8034F1B0);
-        func_802006FC(&D_80367DA0, &D_80367A40, &D_80367BF0, sp34);
+        uvJanim_802006FC(&D_80367DA0, &D_80367A40, &D_80367BF0, sp34);
         func_802EF058(hgData, &D_80367DA0, hgData->unk2E5, &sp78);
         uvMat4SetIdentity(&sp38);
         uvMat4LocalTranslate(&sp38, sp78.m[3][0], sp78.m[3][1], sp78.m[3][2]);
@@ -228,8 +228,8 @@ void func_802EEB00(HangGliderData* hgData, u8 arg1) {
         uvMat4RotateAxis(&spB8, uvCosF(2.0f * hgData->unk254), 0x7A);
         uvDobjPosm(hgData->objId, hgData->unk2E4, &spB8);
         uvDobj_802180DC(hgData->objId, &D_80367BF0);
-        func_802006FC(&D_80367DA0, &D_80367A40, &D_80367BF0, sp34);
-        func_80200638(hgData->objId, &D_80367DA0);
+        uvJanim_802006FC(&D_80367DA0, &D_80367A40, &D_80367BF0, sp34);
+        uvJanim_80200638(hgData->objId, &D_80367DA0);
         break;
     }
 }
@@ -266,7 +266,7 @@ void func_802EEF0C(HangGliderData* hgData) {
     if (hgData->unkE8 == 0) {
         D_80367F50 += 0.25f * D_8034F854;
         uvJanimPoseLine(&sp34, hgData->unk2EE, D_80367F50);
-        func_80200638(hgData->objId, &sp34);
+        uvJanim_80200638(hgData->objId, &sp34);
     }
 }
 

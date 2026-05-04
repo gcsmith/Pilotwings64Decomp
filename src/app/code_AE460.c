@@ -1,10 +1,11 @@
 #include "common.h"
 #include "rocket_belt.h"
-#include <uv_event.h>
+#include <uv_anim.h>
+#include <uv_audio.h>
 #include <uv_fx.h>
-#include <uv_janim.h>
 #include <uv_math.h>
 #include <uv_model.h>
+#include <uv_utils.h>
 #include "app/demo.h"
 #include "app/fdr.h"
 #include "app/shadow.h"
@@ -20,9 +21,9 @@ void func_803279F0(RocketBeltData*);
 void func_80327F30(RocketBeltData*, u8 gameState);
 
 void func_80326F30(RocketBeltData* rbData) {
-    rbData->unk338 = func_8021EFF0(2);
+    rbData->unk338 = uvFx_8021EFF0(2);
     uvModelGet(rbData->unk338, MODEL_BLUE_CUBOID);
-    rbData->unk339 = func_8021EFF0(2);
+    rbData->unk339 = uvFx_8021EFF0(2);
     uvModelGet(rbData->unk339, MODEL_BLUE_CUBOID);
     uvFxProps(rbData->unk338, 3, 3.0f, 3.0f, 3.0f, 4, 1.0f, 1.0f, 1.0f, 1, 1e+20, 0);
     uvFxProps(rbData->unk339, 3, 3.0f, 3.0f, 3.0f, 4, 1.0f, 1.0f, 1.0f, 1, 1e+20, 0);
@@ -149,8 +150,8 @@ void func_803273C8(RocketBeltData* rbData, u8 arg1) {
         }
 
         uvJanimPoseLine(&D_803712D0, sp23, D_8034FBA0);
-        func_802006FC(&D_80371480, &D_80371120, &D_803712D0, var_fa1);
-        func_80200638(rbData->objId, &D_80371480);
+        uvJanim_802006FC(&D_80371480, &D_80371120, &D_803712D0, var_fa1);
+        uvJanim_80200638(rbData->objId, &D_80371480);
     }
 }
 
@@ -263,11 +264,11 @@ void func_803279F0(RocketBeltData* rbData) {
     temp_v0 = &rbData->unk2BC;
     uvMat4MulBA(&sp78, &rbData->unk10, &sp178);
     uvMat4LocalTranslate(&sp78, temp_v0->x, temp_v0->y, temp_v0->z);
-    func_8021A4D8(rbData->unk338, &sp78);
+    uvFx_8021A4D8(rbData->unk338, &sp78);
     temp_v0 = &rbData->unk2C8;
     uvMat4MulBA(&sp78, &rbData->unk10, &sp138);
     uvMat4LocalTranslate(&sp78, temp_v0->x, temp_v0->y, temp_v0->z);
-    func_8021A4D8(rbData->unk339, &sp78);
+    uvFx_8021A4D8(rbData->unk339, &sp78);
     uvDobjPosm(rbData->objId, rbData->unk2E0, &spF8);
     uvDobjPosm(rbData->objId, rbData->unk2E1, &spB8);
     if (rbData->unk80 != 0) {

@@ -258,7 +258,7 @@ void totResultDrawTally(void) {
 
     offset = 0;
     sp6C = &D_80362690->unkC[D_80362690->unk9C];
-    func_80204FC4(sp6C->unk70->unk22C);
+    uvChan_80204FC4(sp6C->unk70->unk22C);
     func_80314154();
 
     uvVtxBeginPoly();

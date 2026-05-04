@@ -1,7 +1,7 @@
 #ifndef PILOTWINGS64_UV_DEBUG_H
 #define PILOTWINGS64_UV_DEBUG_H
 
-#include <PR/ultratypes.h>
+#include <uv_common.h>
 
 f64  uvDbg_80231AC0(void);
 f64  uvDbg_80231C10(void);

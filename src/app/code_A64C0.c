@@ -94,9 +94,9 @@ void func_8031EF90(s32 arg0) {
         // clang-format on
         for (i = 0; i < ARRAY_COUNT(D_8036D230); i++) {
             temp_v0_2 = D_8036D230[i] = (Unk8036D230*)_uvMemAllocAlign8(sizeof(Unk8036D230));
-            temp_v0_2->unk0 = func_8021EFF0(3);
+            temp_v0_2->unk0 = uvFx_8021EFF0(3);
             uvModelGet(temp_v0_2->unk0, 3);
-            temp_v0_2->unk1 = func_8021EFF0(3);
+            temp_v0_2->unk1 = uvFx_8021EFF0(3);
             uvModelGet(temp_v0_2->unk1, 3);
             switch (i) {
             case 0:
@@ -255,9 +255,9 @@ void func_8031EF90(s32 arg0) {
         // clang-format on
         for (i = 0; i < ARRAY_COUNT(D_8036D248); i++) {
             temp_v0_5 = D_8036D248[i] = (Unk8036D248*)_uvMemAllocAlign8(sizeof(Unk8036D248));
-            temp_v0_5->unk0 = func_8021EFF0(2);
+            temp_v0_5->unk0 = uvFx_8021EFF0(2);
             uvModelGet(temp_v0_5->unk0, 2);
-            temp_v0_5->unk1 = func_8021EFF0(2);
+            temp_v0_5->unk1 = uvFx_8021EFF0(2);
             uvModelGet(temp_v0_5->unk1, 2);
             // clang-format off
             uvFxProps(
@@ -368,11 +368,11 @@ void func_8031FA0C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, Mtx4F* arg4, Mtx4F* a
         uvMat4Copy(&sp48, arg4);
         uvMat4LocalTranslate(&sp48, temp_s0->unk20, temp_s0->unk24, temp_s0->unk28);
         uvMat4RotateAxis(&sp48, temp_s0->unk3C, 'x');
-        func_8021A4D8(temp_s0->unk0, &sp48);
+        uvFx_8021A4D8(temp_s0->unk0, &sp48);
         uvMat4Copy(&sp48, arg4);
         uvMat4LocalTranslate(&sp48, temp_s0->unk2C, temp_s0->unk30, temp_s0->unk34);
         uvMat4RotateAxis(&sp48, temp_s0->unk44, 'x');
-        func_8021A4D8(temp_s0->unk1, &sp48);
+        uvFx_8021A4D8(temp_s0->unk1, &sp48);
         uvDobjProps(arg3, 5, temp_s0->unk1C, 0);
         break;
 
@@ -385,11 +385,11 @@ void func_8031FA0C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, Mtx4F* arg4, Mtx4F* a
         uvDobjGetPosm(arg3, sp30->unk1C, &sp48);
         uvMat4MulBA(&sp48, arg4, &sp48);
         uvMat4LocalTranslate(&sp48, sp30->unk4, sp30->unk8, sp30->unkC);
-        func_8021A4D8(sp30->unk0, &sp48);
+        uvFx_8021A4D8(sp30->unk0, &sp48);
         uvDobjGetPosm(arg3, sp30->unk1D, &sp48);
         uvMat4MulBA(&sp48, arg4, &sp48);
         uvMat4LocalTranslate(&sp48, sp30->unk10, sp30->unk14, sp30->unk18);
-        func_8021A4D8(sp30->unk1, &sp48);
+        uvFx_8021A4D8(sp30->unk1, &sp48);
         break;
     }
 

@@ -1,7 +1,6 @@
 #include "app/task.h"
 #include "common.h"
 #include <uv_audio.h>
-#include <uv_event.h>
 #include <uv_math.h>
 #include "kernel/code_1050.h"
 #include "boats.h"

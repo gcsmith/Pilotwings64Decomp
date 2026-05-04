@@ -1,6 +1,7 @@
 #include "common.h"
 #include <uv_math.h>
 #include <uv_memory.h>
+#include <uv_utils.h>
 #include "code_9A960.h"
 #include "environment.h"
 #include "game.h"
@@ -95,7 +96,7 @@ void snowUpdate(void) {
 
     uvGfxSetCallback(snowDraw);
     sSnowData->endPtr = idxPtr = sSnowData->fbIdx;
-    func_80205724(0, 3, &spD4);
+    uvChan_80205724(0, 3, &spD4);
     uvMat4InvertTranslationRotation(&sp94, &spD4);
     sSnowData->unk3524 = snowCheckRange(&sp94);
     sp88.f[0] = sp94.m[3][0] + (sp94.m[1][0] * 100.f); // TODO f[] vs .x

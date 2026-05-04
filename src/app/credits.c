@@ -10,10 +10,10 @@
 #include "game.h"
 #include "snd.h"
 #include "text_data.h"
-#include "uv_graphics.h"
+#include <uv_audio.h>
 #include <uv_environment.h>
-#include <uv_event.h>
 #include <uv_font.h>
+#include <uv_graphics.h>
 #include <uv_memory.h>
 #include <uv_texture.h>
 #include <uv_vector.h>
@@ -256,11 +256,11 @@ void credits_8030CDA0(s32 timeOfDay) {
     func_8034B5E0(camera->unk22C, camera);
     envId = D_80362690->envId;
     env_802E1444((envId != 0) ? envId : 0x10);
-    func_80204BD4(camera->unk22C, 1, 1.0f);
+    uvChan_80204BD4(camera->unk22C, 1, 1.0f);
     uvChanTerra(sp2C->unk70->unk22C, D_80362690->terraId);
-    func_80204A8C(camera->unk22C, 3);
+    uvChan_80204A8C(camera->unk22C, 3);
     uvEnvFunc(D_80362690->envId, 0, env_802E0CF0);
-    func_80204AB0(camera->unk22C, 1, func_8034B6F8);
+    uvChan_80204AB0(camera->unk22C, 1, func_8034B6F8);
     func_80313640(-1419.9f, 871.2f, 639.72f, 1.1452856f, -0.2094396f, 0.0f, &camera->unk108);
     fireFxInit();
     fireFxCreateAll();
@@ -316,7 +316,7 @@ void creditsScene(void) {
 
     camera = D_80362690->unkC[D_80362690->unk9C].unk70;
 
-    func_80204FC4(camera->unk22C);
+    uvChan_80204FC4(camera->unk22C);
     sp74 = (s32)(D_8034F780 + 0.5f);
     for (i = 0; D_8034F4E0[i].str != NULL; i++) {
         y = D_8034F4E0[i].yOffset + sp74;

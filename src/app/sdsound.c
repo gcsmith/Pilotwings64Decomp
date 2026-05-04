@@ -7,7 +7,7 @@
 #include "sdsound.h"
 #include "snd.h"
 #include "task.h"
-#include <uv_event.h>
+#include <uv_audio.h>
 
 EventCallbackInfo D_80371CB0;
 Unk803599D0 D_80371CB8;

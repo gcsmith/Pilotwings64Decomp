@@ -3,7 +3,7 @@
 #include <uv_filesystem.h>
 #include <uv_math.h>
 #include <uv_memory.h>
-#include <uv_util.h>
+#include <uv_utils.h>
 #include "code_9A960.h"
 #include "demo.h"
 #include "demo_attitude.h"

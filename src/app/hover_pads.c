@@ -2,7 +2,6 @@
 #include <uv_audio.h>
 #include <uv_dobj.h>
 #include <uv_texture.h>
-#include <uv_util.h>
 #include "code_9A960.h"
 #include "game.h"
 #include "hover_pads.h"

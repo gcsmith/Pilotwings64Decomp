@@ -1,6 +1,5 @@
 #include "common.h"
 #include <uv_audio.h>
-#include <uv_event.h>
 #include <uv_sobj.h>
 #include "kernel/code_8170.h"
 #include "app/demo.h"

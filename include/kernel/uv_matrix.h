@@ -1,9 +1,9 @@
-#ifndef PILOTWINGS64_UV_MATRIX
-#define PILOTWINGS64_UV_MATRIX
+#ifndef PILOTWINGS64_UV_MATRIX_H
+#define PILOTWINGS64_UV_MATRIX_H
 
-#include <ultra64.h>
+#include <uv_common.h>
 #include <uv_vector.h>
-#include <uv_util.h>
+#include <PR/gbi.h>
 
 typedef union {
     float m[4][4];
@@ -61,5 +61,5 @@ void uvMat4SetFrustrum(Mtx4F* dst, float left, float right, float top, float bot
 void uvMat4SetOrtho(Mtx4F* dst, float left, float right, float top, float bottom);
 void uvMat4SetQuaternionRotation(Mtx4F* dst, float arg1, float arg2, float arg3, float arg4);
 
-#endif // PILOTWINGS64_UV_MATRIX
+#endif // PILOTWINGS64_UV_MATRIX_H
 

@@ -1,6 +1,5 @@
 #include "common.h"
 #include <uv_audio.h>
-#include <uv_event.h>
 #include <uv_filesystem.h>
 #include <uv_memory.h>
 #include <uv_sched.h>
@@ -50,7 +49,7 @@ STATIC_FUNC u32 __amHandleFrameMsg(AudioInfo* info, AudioInfo* lastInfo);
 STATIC_FUNC void __amHandleDoneMsg(AudioInfo* info);
 STATIC_FUNC void __clearAudioDMA(void);
 
-void uvSysInitAudio(void) {
+void uvaManagerInit(void) {
     s32 seqFileSize;
     s32 i;
     s32 maxSeqLen;
@@ -59,7 +58,7 @@ void uvSysInitAudio(void) {
     _uvDebugPrintf("uvSysInit : initializing audio system ... ");
     uvEmitterInitTable();
     func_802000A0();
-    func_80202DA0();
+    uvEventInit();
     uvMemSet(gAudioHeapStart, 0, 0x413DC);
     alHeapInit(&gAudioHeap, gAudioHeapStart, 0x413DC);
     gALSynConfig.maxVVoices = 32;
@@ -174,7 +173,7 @@ STATIC_FUNC void __amMain(void* entry) {
     _uvScAddClient(&gSchedInst, &scClient, &__am.audioFrameMsgQ);
     while (!done) {
         osRecvMesg(&__am.audioFrameMsgQ, (OSMesg*)&msg, OS_MESG_BLOCK);
-        func_8022C3C0(0, 0x29);
+        uvSc_8022C3C0(0, 0x29);
         switch (msg->gen.type) {
         case OS_SC_PRE_NMI_MSG:
             break;
@@ -193,7 +192,7 @@ STATIC_FUNC void __amMain(void* entry) {
     alClose(&__am.g);
 }
 
-u32 __amHandleFrameMsg(AudioInfo* info, AudioInfo* previousInfo) {
+STATIC_FUNC u32 __amHandleFrameMsg(AudioInfo* info, AudioInfo* previousInfo) {
     s16* audioPtr;
     Acmd* acmdPtr;
     s32 cmdLen;
@@ -233,7 +232,7 @@ u32 __amHandleFrameMsg(AudioInfo* info, AudioInfo* previousInfo) {
     task->list.t.yield_data_size = 0;
     task->list.t.dram_stack_size = 0;
     task->list.t.dram_stack = NULL;
-    func_8022C3C0(0, 0x2C);
+    uvSc_8022C3C0(0, 0x2C);
     osSendMesg(_uvScGetCmdQ(&gSchedInst), &info->task, OS_MESG_BLOCK);
     curAcmdList ^= 1;
     return 1;
@@ -348,7 +347,7 @@ STATIC_FUNC void __clearAudioDMA(void) {
     audFrameCt++;
 }
 
-void func_80204438(s32 arg0, void** arg1, u32* arg2, void** arg3) {
+void uvaManager_80204438(s32 arg0, void** arg1, u32* arg2, void** arg3) {
     s32 temp_v0;
     u32 var_v0;
     u32 sp44;
@@ -373,7 +372,7 @@ void func_80204438(s32 arg0, void** arg1, u32* arg2, void** arg3) {
     uvFile_80223F30(temp_v0);
 }
 
-void func_80204518(s32 arg0) {
+void uvaManager_80204518(s32 arg0) {
     void* sp5C;
     void* sp58;
     u32 sp54;
@@ -382,7 +381,7 @@ void func_80204518(s32 arg0) {
     s32 i;
     s32 pad;
 
-    func_80204438(gUVBlockOffsets.UVSX[arg0], &sp5C, &sp54, &sp58);
+    uvaManager_80204438(gUVBlockOffsets.UVSX[arg0], &sp5C, &sp54, &sp58);
     bankFile = alHeapAlloc(&gAudioHeap, 1, SEGMENT_ROM_SIZE(audio_ctl));
     _uvMediaCopy(bankFile, SEGMENT_ROM_START(audio_ctl), SEGMENT_ROM_SIZE(audio_ctl));
     alBnkfNew(bankFile, SEGMENT_ROM_START(audio_tbl));

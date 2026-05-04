@@ -1,7 +1,6 @@
 #include "common.h"
 #include <uv_fx.h>
 #include <uv_model.h>
-#include <uv_seq.h>
 #include <uv_vector.h>
 #include "hud.h"
 #include "oil_plant.h"
@@ -69,10 +68,10 @@ void oilPlantLoad(void) {
     Vec3F pos;
 
     pos = sOilPlantPos;
-    sOilPlantSeqId = func_80218F88();
+    sOilPlantSeqId = uvSeqFindFree();
     uvSeqModel(sOilPlantSeqId, 0);
-    uvSeqProps(sOilPlantSeqId, SEQ_PROP_4(20.0f), SEQ_PROP_END);
-    sOilPlantFxId = func_8021EFF0(6);
+    uvSeqProps(sOilPlantSeqId, SEQ_PROP_FRAMERATE(20.0f), SEQ_PROP_END);
+    sOilPlantFxId = uvFx_8021EFF0(6);
     uvModelGet(sOilPlantFxId, 6);
     // clang-format off
     uvFxProps(sOilPlantFxId,
@@ -100,7 +99,7 @@ void oilPlantDeinit(void) {
         hud_8031A8E0(sOilPlantRadarId);
     }
     sOilPlantRadarId = 0xFF;
-    uvSeqProps(sOilPlantSeqId, SEQ_PROP_1(0), SEQ_PROP_END);
+    uvSeqProps(sOilPlantSeqId, SEQ_PROP_ACTIVE(FALSE), SEQ_PROP_END);
     uvModelGet(sOilPlantFxId, 0xFF);
     uvFxProps(sOilPlantFxId, FX_PROP_11(0), FX_PROP_END);
     proxAnimDeleteCallback(sOilPlantProxId);

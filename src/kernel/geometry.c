@@ -1,5 +1,6 @@
 #include <uv_geometry.h>
 #include <uv_graphics.h>
+#include <PR/os_convert.h>
 #include <macros.h>
 
 // TODO FIXME fix for gSPTextureRectangle, maybe due to older f3d ucode?

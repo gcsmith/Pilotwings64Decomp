@@ -3,7 +3,6 @@
 #include <uv_math.h>
 #include <uv_matrix.h>
 #include <uv_model.h>
-#include <uv_util.h>
 #include "code_9A960.h"
 #include "environment.h"
 #include "level.h"

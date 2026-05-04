@@ -8,16 +8,16 @@
 
 void func_8034B5E0(u8 arg0, Camera* camera) {
     cameraInit(arg0, camera);
-    func_80204AB0(camera->unk22C, 1, func_8034B6F8);
+    uvChan_80204AB0(camera->unk22C, 1, func_8034B6F8);
 }
 
 void func_8034B624(Camera* camera) {
     camera_802D3444(camera);
     camera_802D50D0(camera);
-    func_80204B34(camera->unk22C, &camera->unk108);
-    func_80204BD4(camera->unk22C, 1, camera->unk20);
-    func_80204BD4(camera->unk22C, 0, camera->unk20);
-    func_80204FC4(camera->unk22C);
+    uvChan_80204B34(camera->unk22C, &camera->unk108);
+    uvChan_80204BD4(camera->unk22C, 1, camera->unk20);
+    uvChan_80204BD4(camera->unk22C, 0, camera->unk20);
+    uvChan_80204FC4(camera->unk22C);
 }
 
 void drawScreenBorder(void) {

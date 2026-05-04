@@ -1,6 +1,7 @@
-#ifndef UV_MODEL_H
-#define UV_MODEL_H
+#ifndef PILOTWINGS64_UV_MODEL_H
+#define PILOTWINGS64_UV_MODEL_H
 
+#include <uv_common.h>
 #include <uv_matrix.h>
 
 #define MODEL_PROPID_END            0
@@ -21,4 +22,5 @@ s32 uvModelGet(s32 fxId, s32 modelId); // TODO should move to fx / rename to uvF
 void uvModelGetProps(s32 modelId, ...);
 void uvModelGetPosm(s32 modelId, s32 part, Mtx4F*);
 
-#endif // UV_MODEL_H
+#endif // PILOTWINGS64_UV_MODEL_H
+

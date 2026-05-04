@@ -1,8 +1,7 @@
-#ifndef PILOTWINGS64_UV_VECTOR
-#define PILOTWINGS64_UV_VECTOR
+#ifndef PILOTWINGS64_UV_VECTOR_H
+#define PILOTWINGS64_UV_VECTOR_H
 
-#include <ultra64.h>
-#include <uv_util.h>
+#include <uv_common.h>
 
 typedef struct {
     union {
@@ -35,5 +34,5 @@ void uvVec3Add(Vec3F *vd, Vec3F *va, Vec3F *vb);
 void uvVec3Mul(Vec3F *vd, Vec3F *va, f32 sb);
 s32  uvVec3Normal(Vec3F *vd, Vec3F *va);
 
-#endif // PILOTWINGS64_UV_VECTOR
+#endif // PILOTWINGS64_UV_VECTOR_H
 

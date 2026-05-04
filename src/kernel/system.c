@@ -4,9 +4,12 @@
 #include <PR/os_system.h>
 #include <PR/os_host.h>
 #include <uv_audio.h>
+#include <uv_chan.h>
 #include <uv_clocks.h>
 #include <uv_controller.h>
 #include <uv_dobj.h>
+#include <uv_environment.h>
+#include <uv_fx.h>
 #include <uv_geometry.h>
 #include <uv_graphics.h>
 #include <uv_matrix.h>
@@ -15,7 +18,6 @@
 #include <uv_sprite.h>
 #include <uv_system.h>
 #include <uv_texture.h>
-#include <uv_seq.h>
 #include <macros.h>
 #include <segment_symbols.h>
 
@@ -62,8 +64,6 @@ void app_entrypoint(s32);
 void func_8022E558(void);
 
 void func_8020F9F4(void);
-void func_80218700(void);
-void func_80219FD0(void);
 
 extern s32 gGfxSyncNeeded;
 extern s32 gNmiAsserted;
@@ -147,19 +147,19 @@ s32 uvSysInit(s32 arg0) {
     uvGfxInit();
     uvClkInit();
     uvMemInitBlockHdr();
-    func_80204930();
-    func_80218700();
+    uvChanInit();
+    uvEnvResetModelView();
     func_8020F9F4();
     uvDobjInit();
     uvControllerInit();
 
-    func_80218BA0();
-    func_80219FD0();
+    uvSeqInit();
+    uvFxInit();
     uvVtxInit();
     uvSprt_80230130();
     uvSprtInit();
     uvMemInitBlocks();
-    uvSysInitAudio();
+    uvaManagerInit();
     gEepromFound = osEepromProbe(&gSiContQ);
     if (gEepromFound == 0) {
         _uvDebugPrintf("uvSysInit : no EEPROM found -- read/writes will fail\n");
@@ -167,7 +167,7 @@ s32 uvSysInit(s32 arg0) {
     return arg0;
 }
 
-s32 func_8022E2D4(s32 arg0) {
+s32 uvSysUnknownStub(s32 arg0) {
     return arg0;
 }
 
@@ -233,7 +233,7 @@ void bootproc(void* arg0) {
         if (sp3C[1] == 0x64) {
             D_802C32A4 = 1;
         } else if (sp3C[1] == 0x7A) {
-            func_8022A47C();
+            uvMemClearRegions();
         }
     }
     osCreateThread(&gKernelThread, 1, Thread_Kernel, arg0, gKernelThreadStack + sizeof(gKernelThreadStack), 0xC);

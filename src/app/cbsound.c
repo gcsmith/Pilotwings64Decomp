@@ -1,7 +1,6 @@
 #include "common.h"
 #include "cbsound.h"
 #include <uv_audio.h>
-#include <uv_event.h>
 #include "app/demo.h"
 #include "app/snd.h"
 #include "app/code_9A960.h"

@@ -1,10 +1,11 @@
-#ifndef PILOTWINGS64_UV_GRAPHICS
-#define PILOTWINGS64_UV_GRAPHICS
+#ifndef PILOTWINGS64_UV_GRAPHICS_H
+#define PILOTWINGS64_UV_GRAPHICS_H
 
+#include <uv_common.h>
+#include <uv_matrix.h>
 #include <PR/ultratypes.h>
 #include <PR/gbi.h>
-#include <uv_util.h>
-#include <uv_matrix.h>
+#include <PR/sp.h>
 
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
@@ -260,32 +261,23 @@ typedef struct ParsedUVTX {
     f32 unk28;
 } ParsedUVTX; // size = 0x2C
 
-typedef struct ParsedUVSQ_Unk4 {
-    u16 unk0;
-    u8 unk2;
-    f32 unk4;
-} ParsedUVSQ_Unk4; // size = 0x8
+typedef struct uvSeqFrame {
+    u16 textureId;
+    u8 unused;
+    f32 frameTime;
+} uvSeqFrame; // size = 0x8
+
+#define UVSQ_MODE_REPEAT    0
+#define UVSQ_MODE_ONESHOT   1
+#define UVSQ_MODE_STROBE    2
 
 typedef struct ParsedUVSQ {
-    u8 count;
-    ParsedUVSQ_Unk4* unk4;
-    u8 unk8;
-    u8 unk9;
-    f32 unkC;
+    u8 frameCount;
+    uvSeqFrame* frameTable;
+    u8 mode;
+    u8 reverse;
+    f32 framerate;
 } ParsedUVSQ;
-
-typedef struct uvGfxUnkStructSequence_Unk4 {
-    u16 unk0;
-    f32 unk4;
-} uvGfxUnkStructSequence_Unk4; // size = 0x8
-
-typedef struct uvGfxUnkStructSequence {
-    u8 unk0;
-    uvGfxUnkStructSequence_Unk4* unk4;
-    u8 unk8;
-    u8 unk9;
-    f32 unkC;
-} uvGfxUnkStructSequence;
 
 typedef struct {
     Vec4F unk0;
@@ -514,22 +506,6 @@ typedef struct {
 
 extern UnkStruct_80204D94 D_80261730[];
 
-void uvChanTerra(s32, s32);
-void uvChanEnv(s32 arg0, s32 arg1);
-void func_80204A8C(s32 arg0, s32 arg1);
-void func_80204B08(s32 arg0, s32 arg1, s32 arg2);
-void func_80204B34(s32 arg0, Mtx4F* arg1);
-void func_80204C54(s32 arg0, Mtx4F *arg1);
-void func_80204D94(s32 vpId, s32 x0, s32 x1, s32 y0, s32 y1);
-s32 func_80204EC0(s32, f32, f32, f32, f32);
-u8*  func_80204F9C(s32 arg0);
-void func_80204FC4(s32 arg0);
-void func_80204FE4(s32 arg0);
-void func_802057F4(Mtx4F *arg0, Mtx4F *arg1);
-void func_80204AB0(s32 arg0, s32 arg1, void (*arg2)(void));
-void func_80204BD4(s32 arg0, s32 arg1, f32 arg2);
-void func_80204930(void);
-void func_80205724(s32, s32, Mtx4F*);
-void func_80204C94(s32, f32, f32, f32, f32, f32, f32);
 
-#endif // PILOTWINGS64_UV_GRAPHICS
+#endif // PILOTWINGS64_UV_GRAPHICS_H
+

@@ -292,16 +292,16 @@ void fileMenu_802E94E0(void) {
 
     menu_8030B69C(D_80362690->unkC[D_80362690->unk9C].unk8A);
     fileMenu_802E8FF4(D_80362690->unkC[D_80362690->unk9C].unk8A);
-    func_80204BD4(camera->unk22C, 1, 1.0f);
-    func_80204A8C(camera->unk22C, 3);
+    uvChan_80204BD4(camera->unk22C, 1, 1.0f);
+    uvChan_80204A8C(camera->unk22C, 3);
     uvChanTerra(camera->unk22C, 0);
-    func_80204C94(camera->unk22C, -0.4906542f, 0.4906542f, -0.35f, 0.35f, 1.0f, 2000.0f);
+    uvChan_80204C94(camera->unk22C, -0.4906542f, 0.4906542f, -0.35f, 0.35f, 1.0f, 2000.0f);
     uvChanEnv(camera->unk22C, 2);
-    func_80204AB0(camera->unk22C, 0, 0);
-    func_80204AB0(camera->unk22C, 1, 0);
+    uvChan_80204AB0(camera->unk22C, 0, 0);
+    uvChan_80204AB0(camera->unk22C, 1, 0);
     func_80313640(sFileMenu_8034F0FC[0].x, sFileMenu_8034F0FC[0].y, sFileMenu_8034F0FC[0].z, sFileMenu_8034F0FC[1].x, sFileMenu_8034F0FC[1].y,
                   sFileMenu_8034F0FC[1].z, &camera->unk108);
-    func_80204B34(camera->unk22C, &camera->unk108);
+    uvChan_80204B34(camera->unk22C, &camera->unk108);
     menuUtilSetColors(MENU_COLOR_SELECTED, 0xD2, 0xD2, 0);
     menuUtilSetColors(MENU_COLOR_ITEM, 0xD2, 0xD2, 0xD2);
     menuUtilSetColors(MENU_COLOR_GRAPHICS, 0xD2, 0xD2, 0);
@@ -431,7 +431,7 @@ void fileMenu_802E9AE0(void) {
     Camera* camera;
 
     camera = D_80362690->unkC[D_80362690->unk9C].unk70;
-    func_80204FC4(camera->unk22C);
+    uvChan_80204FC4(camera->unk22C);
     func_80314154();
     uvGfxSetFlags(GFX_STATE_AA);
     uvVtxBeginPoly();

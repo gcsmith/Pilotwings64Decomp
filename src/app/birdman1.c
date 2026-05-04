@@ -1,9 +1,10 @@
 #include "common.h"
+#include <uv_anim.h>
 #include <uv_dobj.h>
-#include <uv_janim.h>
 #include <uv_math.h>
 #include <uv_matrix.h>
 #include <uv_model.h>
+#include <uv_utils.h>
 #include "birdman.h"
 #include "code_9A960.h"
 #include "demo.h"
@@ -67,7 +68,7 @@ void bird_802CE190(BirdmanData* bmData, u8 gameState) {
             }
         }
     }
-    func_80200B00(bmData->objId, bmData->unk2B8, bmData->unk2BC);
+    uvJanim_80200B00(bmData->objId, bmData->unk2B8, bmData->unk2BC);
     uvDobjGetPosm(bmData->objId, bmData->unk2F8, &sp558);
     uvMat4RotateAxis(&sp558, bmData->unk2D4 * 0.66f, 'x');
     uvDobjPosm(bmData->objId, bmData->unk2F8, &sp558);
@@ -78,8 +79,8 @@ void bird_802CE190(BirdmanData* bmData, u8 gameState) {
     if (bmData->unk2C4 != 0.0f) {
         uvDobj_802180DC(bmData->objId, &sp3A8);
         uvJanimPoseLine(&sp1F8, bmData->unk2C0, 0.0f);
-        func_802006FC(&sp48, &sp3A8, &sp1F8, bmData->unk2C4);
-        func_80200638(bmData->objId, &sp48);
+        uvJanim_802006FC(&sp48, &sp3A8, &sp1F8, bmData->unk2C4);
+        uvJanim_80200638(bmData->objId, &sp48);
     }
     uvModelGetPosm(bmData->unk3F4, bmData->unk3F7, &sp558);
     uvMat4RotateAxis(&sp558, ((bmData->unkE8 * -0.5f) + bmData->unkF0) - (0.7f * bmData->unkD0), 'x');

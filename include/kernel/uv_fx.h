@@ -1,7 +1,7 @@
-#ifndef UV_FX_H
-#define UV_FX_H
+#ifndef PILOTWINGS64_UV_FX_H
+#define PILOTWINGS64_UV_FX_H
 
-#include <PR/ultratypes.h>
+#include <uv_common.h>
 #include <uv_graphics.h>
 #include <uv_matrix.h>
 #include <uv_vector.h>
@@ -120,16 +120,51 @@ extern UnkFxStruct D_8028B400[120];
 #define FX_PROP_19(x) 19, (x)
 #define FX_PROP_END 0
 
-void func_8021A038(UnkModelTrail* arg0);
-s32 func_8021A304(f32, f32, f32, u16);
-s32 func_8021A334(f32 arg0, f32 arg1, f32 arg2, f32 arg3, u16 arg4);
-void func_8021A4D8(s32 fxId, Mtx4F* arg1);
-void func_8021BE28(u16 fxId, Mtx4F* arg1);
-void func_8021EA38(UnkStruct_80204D94* arg0);
-void _uvFxDraw(u16 fxId, UnkStruct_80204D94* arg1);
-s32 func_8021EFF0(s32 type);
+void uvFxInit(void);
+void uvFx_8021A038(UnkModelTrail* arg0);
+void uvFx_8021A298(void);
+s32  uvFx_8021A2C8(s32 fxId);
+s32  uvFx_8021A304(f32, f32, f32, u16);
+s32  uvFx_8021A334(f32 fxId, f32 arg1, f32 arg2, f32 arg3, u16 arg4);
+void uvFx_8021A4D8(s32 fxId, Mtx4F* arg1);
 void uvFxProps(s32 fxId, ...);
 void uvFxGetProps(s32 fxId, ...);
+s32  uvModelGet(s32 fxId, s32 modelId);
+void uvFx_8021BE28(u16 fxId, Mtx4F* arg1);
+void uvFx_8021C4F8(u16 fxId);
+void uvFx_8021C74C(u16 fxId);
+void uvFx_8021C87C(u16 fxId);
+void uvFx_8021D700(UnkModelTrail* arg0);
+void uvFx_8021D8E0(u16 fxId);
+void uvFx_8021DAF8(u16 fxId);
+void uvFx_8021DD30(u16 fxId);
+void uvFx_8021E608(u16 fxId);
+void uvFx_8021E7E0(u16 fxId);
+void uvFx_8021EA38(UnkStruct_80204D94* arg0);
+void _uvFxDraw(u16 fxId, UnkStruct_80204D94* arg1);
+s32  uvFx_8021EFF0(s32 type);
 
-#endif // UV_FX_H
+#define SEQ_PROPID_END          0
+#define SEQ_PROPID_ACTIVE       1 // type:s32
+#define SEQ_PROPID_MODE         2 // type:s32
+#define SEQ_PROPID_CURR_FRAME   3 // type:s32
+#define SEQ_PROPID_FRAMERATE    4 // type:f64
+#define SEQ_PROPID_REVERSE      5 // type:s32
+
+#define SEQ_PROP_END            SEQ_PROPID_END
+#define SEQ_PROP_ACTIVE(x)      SEQ_PROPID_ACTIVE, (x)
+#define SEQ_PROP_MODE(x)        SEQ_PROPID_MODE, (x)
+#define SEQ_PROP_CURR_FRAME(x)  SEQ_PROPID_CURR_FRAME, (x)
+#define SEQ_PROP_FRAMERATE(x)   SEQ_PROPID_FRAMERATE, (x)
+#define SEQ_PROP_REVERSE(x)     SEQ_PROPID_REVERSE, (x)
+
+void uvSeqInit(void);
+void uvSeqUpdateAll(void);
+void uvSeqModel(s32 seqId, s32 index);
+void uvSeqProps(s32 seqId, ...);
+s32  uvSeqFindFree(void);
+void uvSeqUpdate(s32 seqId);
+u16  uvSeqGetTextureId(s32 seqId);
+
+#endif // PILOTWINGS64_UV_FX_H
 

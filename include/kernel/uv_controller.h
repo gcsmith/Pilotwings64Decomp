@@ -1,8 +1,7 @@
-#ifndef UV_CONTROLLER_H
-#define UV_CONTROLLER_H
+#ifndef PILOTWINGS64_UV_CONTROLLER_H
+#define PILOTWINGS64_UV_CONTROLLER_H
 
-#include <PR/os_cont.h>
-#include <PR/ultratypes.h>
+#include <uv_common.h>
 
 #define UV_MAX_CONTROLLERS 6
 #define UV_MAX_AXES 3 
@@ -31,4 +30,5 @@ s32 uvControllerGetButton(s32 idx);
 s32 uvControllerButtonPress(s32 idx, s32 button);
 s32 uvControllerButtonRelease(s32 idx, s32 button);
 
-#endif // UV_CONTROLLER_H
+#endif // PILOTWINGS64_UV_CONTROLLER_H
+

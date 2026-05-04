@@ -1,8 +1,8 @@
 #include "common.h"
+#include <uv_anim.h>
 #include <uv_clocks.h>
 #include <uv_filesystem.h>
 #include <uv_graphics.h>
-#include <uv_janim.h>
 #include <uv_memory.h>
 #include <uv_sched.h>
 #include <uv_sobj.h>
@@ -207,7 +207,7 @@ void uvLevelAppend(s32 levelId) {
 
     uvGfxWaitForMesg();
     uvClkReset(UV_CLKID_TXT);
-    func_8022BEB8(0);
+    uvSc_8022BEB8(0);
     D_802B7DD0 = D_802B7600;
     D_802B7DD4 = &sp50;
     level = gLevelData.level = uvMemLoadDS('UVLV', levelId);
@@ -364,7 +364,7 @@ void uvLevelAppend(s32 levelId) {
     if (D_802B8934 != 0) {
         _uvDebugPrintf("uvMemLoadDS: into txt img data by %d bytes\n", D_802B8934);
     }
-    func_8022BEB8(1);
+    uvSc_8022BEB8(1);
 }
 
 void uvConsumeBytes(void* dst, u8** ptr, s32 size) {
@@ -419,26 +419,26 @@ ParsedUVEN* _uvParseUVEN(u8* src) {
 
 ParsedUVSQ* _uvParseUVSQ(u8* src) {
     u16 i;
-    u8 count;
-    ParsedUVSQ_Unk4* temp_s3;
-    ParsedUVSQ* ret;
+    u8 frameCount;
+    uvSeqFrame* frameTable;
+    ParsedUVSQ* uvsq;
 
-    uvConsumeBytes(&count, &src, 1);
-    temp_s3 = (ParsedUVSQ_Unk4*)_uvMemAlloc(count * sizeof(ParsedUVSQ_Unk4), 4);
+    uvConsumeBytes(&frameCount, &src, 1);
+    frameTable = (uvSeqFrame*)_uvMemAlloc(frameCount * sizeof(uvSeqFrame), 4);
 
-    for (i = 0; i < (s32)count; i++) {
-        uvConsumeBytes(&temp_s3[i].unk0, &src, sizeof(temp_s3[i].unk0));
-        uvConsumeBytes(&temp_s3[i].unk4, &src, sizeof(temp_s3[i].unk4));
-        temp_s3[i].unk2 = 0xFF;
+    for (i = 0; i < (s32)frameCount; i++) {
+        uvConsumeBytes(&frameTable[i].textureId, &src, sizeof(frameTable[i].textureId));
+        uvConsumeBytes(&frameTable[i].frameTime, &src, sizeof(frameTable[i].frameTime));
+        frameTable[i].unused = 0xFF;
     }
 
-    ret = (ParsedUVSQ*)_uvMemAlloc(sizeof(ParsedUVSQ), 4);
-    uvConsumeBytes(&ret->unk8, &src, sizeof(ret->unk8));
-    uvConsumeBytes(&ret->unk9, &src, sizeof(ret->unk9));
-    uvConsumeBytes(&ret->unkC, &src, sizeof(ret->unkC));
-    ret->unk4 = temp_s3;
-    ret->count = count;
-    return ret;
+    uvsq = (ParsedUVSQ*)_uvMemAlloc(sizeof(ParsedUVSQ), 4);
+    uvConsumeBytes(&uvsq->mode, &src, sizeof(uvsq->mode));
+    uvConsumeBytes(&uvsq->reverse, &src, sizeof(uvsq->reverse));
+    uvConsumeBytes(&uvsq->framerate, &src, sizeof(uvsq->framerate));
+    uvsq->frameTable = frameTable;
+    uvsq->frameCount = frameCount;
+    return uvsq;
 }
 
 ParsedUVMD* _uvParseUVMD(u8* src) {
@@ -1286,15 +1286,14 @@ ParsedUVSQ* uvParseTopUVSQ(s32 palette) {
     s32 idx;
     s32 sp28;
     void* src;
-    ParsedUVSQ* ret;
+    ParsedUVSQ* uvsq = NULL;
 
-    ret = NULL;
     idx = uvFileReadHeader(gUVBlockOffsets.UVSQ[0]);
     if (uvFile_80224170(idx, &sp28, &src, 'COMM', palette, 1) != 0) {
-        ret = _uvParseUVSQ(src);
+        uvsq = _uvParseUVSQ(src);
     }
     uvFile_80223F30(idx);
-    return ret;
+    return uvsq;
 }
 
 s32 func_80227E5C(s32 arg0, s32 arg1) {

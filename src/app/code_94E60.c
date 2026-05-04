@@ -339,15 +339,15 @@ void func_8030E3EC(void) {
     } else {
         func_8030DED0();
     }
-    func_80204BD4(camera->unk22C, 1, 1.0f);
-    func_80204A8C(camera->unk22C, 3);
+    uvChan_80204BD4(camera->unk22C, 1, 1.0f);
+    uvChan_80204A8C(camera->unk22C, 3);
     uvChanTerra(camera->unk22C, 0);
-    func_80204C94(camera->unk22C, -0.4906542f, 0.4906542f, -0.35f, 0.35f, 1.0f, 2000.0f);
+    uvChan_80204C94(camera->unk22C, -0.4906542f, 0.4906542f, -0.35f, 0.35f, 1.0f, 2000.0f);
     uvChanEnv(camera->unk22C, 2);
-    func_80204AB0(camera->unk22C, 0, NULL);
-    func_80204AB0(camera->unk22C, 1, func_8030F448);
+    uvChan_80204AB0(camera->unk22C, 0, NULL);
+    uvChan_80204AB0(camera->unk22C, 1, func_8030F448);
     func_80313640(D_8034F7C4->f[0], D_8034F7C4->f[1], D_8034F7C4->f[2], D_8034F7C4[1].f[0], D_8034F7C4[1].f[1], D_8034F7C4[1].f[2], &camera->unk108);
-    func_80204B34(camera->unk22C, &camera->unk108);
+    uvChan_80204B34(camera->unk22C, &camera->unk108);
     D_8034F7AC = 255;
     if (D_8034F7B0 == 0) {
         D_8036A8C0 = (D_8034F7A0 * 48) + 75;
@@ -414,8 +414,8 @@ void func_8030E9AC(void) {
     for (i = 0; i < 15; i++) {
         uvSprtProps(i, SPRT_PROP_ENABLED(FALSE), SPRT_PROP_END);
     }
-    func_80204AB0(camera->unk22C, 0, NULL);
-    func_80204AB0(camera->unk22C, 1, func_8034B6F8);
+    uvChan_80204AB0(camera->unk22C, 0, NULL);
+    uvChan_80204AB0(camera->unk22C, 1, func_8034B6F8);
 }
 
 s32 func_8030EA54(void) {
@@ -738,7 +738,7 @@ void func_8030F818(void) {
     Camera* camera;
 
     camera = D_80362690->unkC[D_80362690->unk9C].unk70;
-    func_80204FC4(camera->unk22C);
+    uvChan_80204FC4(camera->unk22C);
     uvFontSet(6);
     uvFontScale(1.0, 1.0);
     D_8034F7DC += D_8034F7E0 * uvGfxGetFrameTime();

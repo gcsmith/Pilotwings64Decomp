@@ -45,7 +45,7 @@ STATIC_FUNC void camera_802D4274(Camera* camera);
 void cameraInit(u8 unkIndex, Camera* camera) {
     f32 one;
     one = 1.0f;
-    func_80204A8C(unkIndex, 3);
+    uvChan_80204A8C(unkIndex, 3);
     func_802EAAE0(&camera->unk230);
     camera->unk2 = camera->unk1;
     camera->unk0 = 0;
@@ -558,7 +558,7 @@ void camera_802D45C4(Camera* camera, f32 arg1) {
         y1 = camera->clipY1 * temp_fv0_2;
         near = camera->clipNear;
         far = camera->clipFar;
-        func_80204C94(camera->unk22C, x0, x1, y0, y1, near, far);
+        uvChan_80204C94(camera->unk22C, x0, x1, y0, y1, near, far);
         camera_802D4514(camera);
         D_8034E9E0 = near;
     }
@@ -570,7 +570,7 @@ STATIC_FUNC void cameraSetViewport(Camera* camera, s16 x0, s16 x1, s16 y0, s16 y
     camera->viewY0 = y0;
     camera->viewY1 = y1;
     camera->aspect = ((camera->viewX1 - camera->viewX0) / (f32)(camera->viewY1 - camera->viewY0));
-    func_80204D94(camera->unk22C, camera->viewX0, camera->viewX1, camera->viewY0, camera->viewY1);
+    uvChan_80204D94(camera->unk22C, camera->viewX0, camera->viewX1, camera->viewY0, camera->viewY1);
 }
 
 s32 camera_802D472C(Camera* camera, Mtx4F* arg1) {
@@ -791,7 +791,7 @@ void camera_802D50D0(Camera* camera) {
             y0 = camera->clipY0 * temp_fv0;
             y1 = camera->clipY1 * temp_fv0;
             far = camera->clipFar;
-            func_80204C94(camera->unk22C, x0, x1, y0, y1, 1.0f, far);
+            uvChan_80204C94(camera->unk22C, x0, x1, y0, y1, 1.0f, far);
             D_8034E9E0 = 1.0f;
             D_8034E9E4 = 0;
         }
@@ -825,7 +825,7 @@ void camera_802D50D0(Camera* camera) {
             y0 = camera->clipY0 * temp_fv0_4;
             y1 = camera->clipY1 * temp_fv0_4;
             far = camera->clipFar;
-            func_80204C94(camera->unk22C, x0, x1, y0, y1, near, far);
+            uvChan_80204C94(camera->unk22C, x0, x1, y0, y1, near, far);
             D_8034E9E0 = near;
             D_8034E9E4 = 1;
         }

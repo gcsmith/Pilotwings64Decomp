@@ -1,6 +1,5 @@
 #include "common.h"
 #include <uv_memory.h>
-#include <uv_util.h>
 #include "mem.h"
 
 // .bss

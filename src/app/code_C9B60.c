@@ -142,11 +142,11 @@ STATIC_FUNC void func_803427FC(void) {
     );
     // clang-format on
     camera = D_80362690->unkC[D_80362690->unk9C].unk70;
-    func_80204BD4(camera->unk22C, 1, 1.0f);
-    func_80204A8C(camera->unk22C, 1);
+    uvChan_80204BD4(camera->unk22C, 1, 1.0f);
+    uvChan_80204A8C(camera->unk22C, 1);
     uvChanEnv(camera->unk22C, 0x17);
-    func_80204C94(camera->unk22C, -0.7009346f, 0.7009346f, -0.5f, 0.5f, 1.0f, 4000.0f);
-    func_80204AB0(camera->unk22C, 1, func_8034B6F8);
+    uvChan_80204C94(camera->unk22C, -0.7009346f, 0.7009346f, -0.5f, 0.5f, 1.0f, 4000.0f);
+    uvChan_80204AB0(camera->unk22C, 1, func_8034B6F8);
     D_80378CE0->unk14 = spathLoadFile(0x43);
     D_80378CE0->unk18 = spathLoadFile(0x44);
     D_80378CE0->unk1C = spathLoadFile(0x45);
@@ -417,7 +417,7 @@ STATIC_FUNC void introSceneRunner(void) {
     Camera* camera = D_80362690->unkC[D_80362690->unk9C].unk70;
     s32 sp30;
 
-    func_80204FC4(camera->unk22C);
+    uvChan_80204FC4(camera->unk22C);
     if (D_80378CE0->unk28 < 7) {
         return;
     }
@@ -456,7 +456,7 @@ STATIC_FUNC void func_80343B5C(void) {
     spathUpdate(&camera->unk108, D_80378CE0->unk14, f0, 1.0f);
     uvMat4Copy(&D_80378CE0->unk1AC, &camera->unk108);
     uvMat4Mul(&camera->unk108, &camera->unk108, &D_80378CE0->unk1EC);
-    func_80204B34(camera->unk22C, &camera->unk108);
+    uvChan_80204B34(camera->unk22C, &camera->unk108);
 }
 
 STATIC_FUNC void func_80343C44(void) {

@@ -1,5 +1,5 @@
 #include "common.h"
-#include <uv_janim.h>
+#include <uv_anim.h>
 #include <uv_dobj.h>
 #include <uv_matrix.h>
 #include <uv_model.h>
@@ -61,7 +61,7 @@ STATIC_FUNC void whaleUpdate(void) {
     } else {
         scale = v1 / 30.0f;
     }
-    func_80200B00(sWhaleObjId0, 0, 1.0f - scale);
+    uvJanim_80200B00(sWhaleObjId0, 0, 1.0f - scale);
     if (sWhaleRadarId != 0xFF) {
         hudMoveWaypoint(sWhaleRadarId, sWhalePose.m[3][0], sWhalePose.m[3][1], sWhalePose.m[3][2]);
     }

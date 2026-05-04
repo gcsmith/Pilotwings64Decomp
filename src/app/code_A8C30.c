@@ -85,7 +85,7 @@ void func_80321760(void) {
     D_8036DA24 = 1;
     camera = D_80362690->unkC[D_80362690->unk9C].unk70;
     camera->clipNear = 1.0f;
-    func_80204C94(camera->unk22C, camera->clipX0, camera->clipX1, camera->clipY0, camera->clipY1, 1.0f, camera->clipFar);
+    uvChan_80204C94(camera->unk22C, camera->clipX0, camera->clipX1, camera->clipY0, camera->clipY1, 1.0f, camera->clipFar);
     camera_802D4514(camera);
     uvMat4SetIdentity(&sp31C);
     sp3D4 = &D_80362690->unkC[D_80362690->unk9C];
@@ -124,7 +124,7 @@ void func_80321760(void) {
     }
     env_802E1444(D_80362690->envId);
     uvChanTerra(sp3D4->unk70->unk22C, D_80362690->terraId);
-    func_80204A8C(sp3D4->unk70->unk22C, 3);
+    uvChan_80204A8C(sp3D4->unk70->unk22C, 3);
     uvEnvProps(D_80362690->envId, ENV_PROP_FOG_FACTOR(0.0f), ENV_PROP_END);
     uvLevelAppend(D_8034EE84[sp3D4->veh]);
     if (IS_BONUS_VEHICLE(sp3D4->veh)) {
@@ -418,8 +418,8 @@ s32 func_80322464(void) {
 
 void func_803226DC(void) {
     Camera* camera = D_80362690->unkC[D_80362690->unk9C].unk70;
-    func_80204B34(camera->unk22C, &camera->unk108);
-    func_80204FC4(camera->unk22C);
+    uvChan_80204B34(camera->unk22C, &camera->unk108);
+    uvChan_80204FC4(camera->unk22C);
     if (D_8036D8E0 > 12.0f || D_8036DA24 == 0) {
         screenDrawBoxSetup();
         uvGfxSetFlags(GFX_STATE_AA);

@@ -1,6 +1,7 @@
 #ifndef APP_CAMERA_H
 #define APP_CAMERA_H
 
+#include <uv_chan.h>
 #include <uv_matrix.h>
 #include <uv_vector.h>
 

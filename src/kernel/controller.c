@@ -1,6 +1,5 @@
 #include "common.h"
 #include <uv_controller.h>
-#include <uv_util.h>
 
 ControllerInfo gControllerInfo[UV_MAX_CONTROLLERS];
 extern s32 gControllerPattern;

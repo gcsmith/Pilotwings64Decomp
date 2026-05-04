@@ -11,7 +11,6 @@
 #include <uv_fx.h>
 #include <uv_matrix.h>
 #include <uv_model.h>
-#include <uv_seq.h>
 #include <uv_vector.h>
 
 f32 pad_D_80350480[] = { 0.0f, 0.0f, 1.0f, 0.0f };
@@ -97,26 +96,26 @@ STATIC_FUNC void shuttle_80334CCC(void) {
         uvMat4RotateAxis(&sp40, 1.5707961f, 'x');
         uvMat4RotateAxis(&sp40, 0.08726645f, 'y');
         if (D_803504D0 != 0xFF) {
-            func_8021A4D8(D_803504D0, &sp40);
+            uvFx_8021A4D8(D_803504D0, &sp40);
         }
         if (D_803504C8 >= 0) {
             smokeProps(D_803504C8, SMOKE_PROP_6(sp40.m[3][0], sp40.m[3][1], sp40.m[3][2]), SMOKE_PROP_END);
         }
         if (D_803504E4 != 0xFF) {
-            func_8021A4D8(D_803504E4, &sp40);
+            uvFx_8021A4D8(D_803504E4, &sp40);
         }
         uvMat4Copy(&sp40, &D_80371D50);
         uvMat4LocalTranslate(&sp40, 10.0f, 0.0f, -24.0f);
         uvMat4RotateAxis(&sp40, 1.5707961f, 'x');
         uvMat4RotateAxis(&sp40, 0.08726645f, 'y');
         if (D_803504D4 != 0xFF) {
-            func_8021A4D8(D_803504D4, &sp40);
+            uvFx_8021A4D8(D_803504D4, &sp40);
         }
         if (D_803504CC >= 0) {
             smokeProps(D_803504CC, SMOKE_PROP_6(sp40.m[3][0], sp40.m[3][1], sp40.m[3][2]), SMOKE_PROP_END);
         }
         if (D_803504E0 != 0xFF) {
-            func_8021A4D8(D_803504E0, &sp40);
+            uvFx_8021A4D8(D_803504E0, &sp40);
         }
     }
 }
@@ -159,10 +158,10 @@ STATIC_FUNC void shuttle_80335130(void) {
     }
 
     if (D_803504DC == 0xFF) {
-        D_803504DC = func_80218F88();
+        D_803504DC = uvSeqFindFree();
         if (D_803504DC != 0xFF) {
             uvSeqModel(D_803504DC, 0);
-            uvSeqProps(D_803504DC, SEQ_PROP_4(60.0f), SEQ_PROP_END);
+            uvSeqProps(D_803504DC, SEQ_PROP_FRAMERATE(60.0f), SEQ_PROP_END);
             D_803504E4 = func_8034B464(6);
             if (D_803504E4 != 0xFF) {
                 // clang-format off
@@ -179,10 +178,10 @@ STATIC_FUNC void shuttle_80335130(void) {
     }
 
     if (D_803504D8 == 0xFF) {
-        D_803504D8 = func_80218F88();
+        D_803504D8 = uvSeqFindFree();
         if (D_803504D8 != 0xFF) {
             uvSeqModel(D_803504D8, 0);
-            uvSeqProps(D_803504D8, SEQ_PROP_4(60.0f), SEQ_PROP_END);
+            uvSeqProps(D_803504D8, SEQ_PROP_FRAMERATE(60.0f), SEQ_PROP_END);
             D_803504E0 = func_8034B464(6);
             if (D_803504E0 != 0xFF) {
                 // clang-format off
@@ -268,12 +267,12 @@ STATIC_FUNC void shuttle_80335700(void) {
     }
 
     if (D_803504DC != 0xFF) {
-        uvSeqProps(D_803504DC, SEQ_PROP_1(0), SEQ_PROP_END);
+        uvSeqProps(D_803504DC, SEQ_PROP_ACTIVE(0), SEQ_PROP_END);
         D_803504DC = 0xFF;
     }
 
     if (D_803504D8 != 0xFF) {
-        uvSeqProps(D_803504D8, SEQ_PROP_1(0), SEQ_PROP_END);
+        uvSeqProps(D_803504D8, SEQ_PROP_ACTIVE(0), SEQ_PROP_END);
         D_803504D8 = 0xFF;
     }
 

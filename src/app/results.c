@@ -4,6 +4,7 @@
 #include <uv_graphics.h>
 #include <uv_math.h>
 #include <uv_string.h>
+#include <uv_utils.h>
 #include "code_9A960.h"
 #include "code_B3A70.h"
 #include "demo.h"
@@ -172,7 +173,7 @@ s32 resultHandler(s32 arg0) {
     resultInit(arg0);
     while ((var_v1 = resultMenuChoose(arg0)) == 0) {
         uvGfxBegin();
-        func_80204FC4((s32)unkC->unk70->unk22C);
+        uvChan_80204FC4((s32)unkC->unk70->unk22C);
         resultDrawTally(arg0);
         uvGfxEnd();
     }

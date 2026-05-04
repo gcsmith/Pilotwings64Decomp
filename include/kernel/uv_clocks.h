@@ -1,8 +1,7 @@
-#ifndef PILOTWINGS64_UV_CLOCKS
-#define PILOTWINGS64_UV_CLOCKS
+#ifndef PILOTWINGS64_UV_CLOCKS_H
+#define PILOTWINGS64_UV_CLOCKS_H
 
-#include <ultra64.h>
-#include <uv_util.h>
+#include <uv_common.h>
 
 #define UV_CLK_WRAP_SECS 93.875101696
 #define UV_CLK_TICK_FREQ 45751932.284543216
@@ -24,5 +23,5 @@ void uvClkUpdate(void);
 f64 uvClkGetSec(s32 clkId);
 void uvClkReset(s32 clkId);
 
-#endif // PILOTWINGS64_UV_CLOCKS
+#endif // PILOTWINGS64_UV_CLOCKS_H
 

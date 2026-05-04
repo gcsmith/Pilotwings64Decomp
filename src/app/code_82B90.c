@@ -1,11 +1,12 @@
 #include "common.h"
 #include "code_82B90.h"
+#include <uv_anim.h>
 #include <uv_dobj.h>
-#include <uv_janim.h>
 #include <uv_math.h>
 #include <uv_matrix.h>
 #include <uv_model.h>
 #include <uv_sobj.h>
+#include <uv_utils.h>
 #include "kernel/code_8170.h"
 #include "app/balls.h"
 #include "app/camera.h"
@@ -194,7 +195,7 @@ void func_802FBD1C(JumbleHopperData* jhData, u8 arg1, f32 arg2, char axis) {
 }
 
 void func_802FBD90(JumbleHopperData* jhData) {
-    func_80200638(jhData->objId, &jhData->unk384);
+    uvJanim_80200638(jhData->objId, &jhData->unk384);
     jhData->unk590 = 0.0f;
     jhData->unk598 = 0.0f;
     jhData->unk594 = 0.0f;
@@ -2065,8 +2066,8 @@ void func_80301F70(JumbleHopperData* jhData) {
         }
     }
     jhData->unk1D0 += D_8034F854 * 0.5 * temp_fa0;
-    func_802006FC(&sp40, &jhData->unk1D4, &jhData->unk384, jhData->unk1D0);
-    func_80200638(jhData->objId, &sp40);
+    uvJanim_802006FC(&sp40, &jhData->unk1D4, &jhData->unk384, jhData->unk1D0);
+    uvJanim_80200638(jhData->objId, &sp40);
     if ((jhData->unk1D0 > 1.0f) && (jhData->unk140.y == 90.0f) && (jhData->unk140.z == 0.0f)) {
         // clang-format off
         for (i = 0; i < ARRAY_COUNT(D_8036905C); i++) { D_8036905C[i] = 0; }
@@ -2275,7 +2276,7 @@ void func_80302BA0(JumbleHopperData* jhData) {
             jhData->unk140.y = 0.0f;
         }
     }
-    func_80200B00(jhData->objId, 0x6C, jhData->unk1D0);
+    uvJanim_80200B00(jhData->objId, 0x6C, jhData->unk1D0);
     if (((jhData->unk1D0 >= 0.0f) && (jhData->unk140.y == 0.0f) && (jhData->unk1C == jhData->camera->unk1374) && (jhData->unk2C == 0.0f) &&
          (jhData->unk65D != 0)) ||
         (sp20 != 0)) {

@@ -1,5 +1,4 @@
 #include "common.h"
-#include <uv_util.h>
 #include <uv_memory.h>
 #include <uv_filesystem.h>
 #include <uv_vector.h>

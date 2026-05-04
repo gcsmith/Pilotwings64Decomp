@@ -404,7 +404,7 @@ typedef struct Unk802C5BC0 {
 Unk802C5BC0 D_802C5BC0[64];
 s32 D_802C5FC0;
 
-void func_8022EE90(UnkStruct_80204D94* arg0, ParsedUVTR* arg1, f32 arg2) {
+void uvTerra_8022EE90(UnkStruct_80204D94* arg0, ParsedUVTR* arg1, f32 arg2) {
     s32 i;
 
     for (i = 0; i < D_802C5FC0; i++) {
@@ -417,7 +417,7 @@ void func_8022EE90(UnkStruct_80204D94* arg0, ParsedUVTR* arg1, f32 arg2) {
     }
 }
 
-void func_8022EFB4(UnkStruct_80204D94* arg0, ParsedUVTR* arg1, f32 arg2) {
+void uvTerra_8022EFB4(UnkStruct_80204D94* arg0, ParsedUVTR* arg1, f32 arg2) {
     s32 i;
 
     for (i = 0; i < D_802C5FC0; i++) {
@@ -573,8 +573,8 @@ void _uvTerraDraw(UnkStruct_80204D94* arg0, u8 arg1) {
             for (i = 0; i < arg0->unk370; i++) {
                 uvComputeLineEndP(&spCE, &spCC, &spDE, temp_fs2_2, temp_fs3, temp_fs4_2, temp_fs5, spFC[i], sp110[i], spE8[i], spE0[i], temp_fs0, temp_fs1);
                 if (spCE >= 0) {
-                    temp_s0_2 = func_8022F62C(temp_s2->unk44, spCE, spCC, 0);
-                    temp_v0_5 = func_8022F62C(temp_s2->unk44, spCE, spCC, 1);
+                    temp_s0_2 = uvTerra_8022F62C(temp_s2->unk44, spCE, spCC, 0);
+                    temp_v0_5 = uvTerra_8022F62C(temp_s2->unk44, spCE, spCC, 1);
                     var_s6 |= temp_s0_2 & temp_v0_5;
                     if (spE0[i] != 0) {
                         spDE &= temp_v0_5;
@@ -609,7 +609,7 @@ void _uvTerraDraw(UnkStruct_80204D94* arg0, u8 arg1) {
     }
 }
 
-s32 func_8022F62C(s32 arg0, s16 arg1, s16 arg2, u8 arg3) {
+s32 uvTerra_8022F62C(s32 arg0, s16 arg1, s16 arg2, u8 arg3) {
     s16 temp_v0_2;
     s32 temp_v0;
 

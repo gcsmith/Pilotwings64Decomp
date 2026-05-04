@@ -2,7 +2,6 @@
 #include <uv_dobj.h>
 #include <uv_fx.h>
 #include <uv_model.h>
-#include <uv_seq.h>
 #include <uv_vector.h>
 #include "code_9A960.h"
 #include "hud.h"

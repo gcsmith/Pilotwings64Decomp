@@ -1,6 +1,5 @@
 #include <libc/stdarg.h>
-#include <uv_event.h>
-#include <uv_util.h>
+#include <uv_audio.h>
 #include "common.h"
 
 UserEventCallbackInfo D_8025BF00[30];
@@ -11,11 +10,11 @@ EventCallbackInfo D_8025C5A0;
 EventCallbackInfo D_8025C5A8;
 
 // forward declarations
-void func_80203434(s32, void*, s32);
-void func_802035AC(s32, void*, s32);
-void func_80203724(s32, void*, s32);
+void uvEvent_80203434(s32, void*, s32);
+void uvEvent_802035AC(s32, void*, s32);
+void uvEvent_80203724(s32, void*, s32);
 
-void func_80202DA0(void) {
+void uvEventInit(void) {
     s32 i;
     s32 j;
 
@@ -35,17 +34,17 @@ void func_80202DA0(void) {
         }
     }
 
-    D_8025C598.cb = func_80203434;
+    D_8025C598.cb = uvEvent_80203434;
     D_8025C598.arg = NULL;
     D_8025BF00[0].unk0[D_8025BF00[0].count] = D_8025C598;
     D_8025BF00[0].count++;
 
-    D_8025C5A0.cb = func_802035AC;
+    D_8025C5A0.cb = uvEvent_802035AC;
     D_8025C5A0.arg = NULL;
     D_8025BF00[1].unk0[D_8025BF00[1].count] = D_8025C5A0;
     D_8025BF00[1].count++;
 
-    D_8025C5A8.cb = func_80203724;
+    D_8025C5A8.cb = uvEvent_80203724;
     D_8025C5A8.arg = NULL;
     D_8025BF00[2].unk0[D_8025BF00[2].count] = D_8025C5A8;
     D_8025BF00[2].count++;
@@ -159,7 +158,7 @@ void uvEventRemoveCb(EventCallbackInfo arg0, ...) {
     }
 }
 
-void func_80203434(s32 arg0, void* arg1, s32 arg2) {
+void uvEvent_80203434(s32 arg0, void* arg1, s32 arg2) {
     SystemEventCallbackInfo* temp_t3;
     s32 count;
     s32 i;
@@ -177,7 +176,7 @@ void func_80203434(s32 arg0, void* arg1, s32 arg2) {
     }
 }
 
-void func_802035AC(s32 arg0, void* arg1, s32 arg2) {
+void uvEvent_802035AC(s32 arg0, void* arg1, s32 arg2) {
     SystemEventCallbackInfo* temp_t3;
     s32 count;
     s32 i;
@@ -195,7 +194,7 @@ void func_802035AC(s32 arg0, void* arg1, s32 arg2) {
     }
 }
 
-void func_80203724(s32 arg0, void* arg1, s32 arg2) {
+void uvEvent_80203724(s32 arg0, void* arg1, s32 arg2) {
     SystemEventCallbackInfo* temp_t3;
     s32 count;
     s32 i;
@@ -212,3 +211,4 @@ void func_80203724(s32 arg0, void* arg1, s32 arg2) {
         sp64[i].cb(arg0, sp64[i].arg, arg2);
     }
 }
+

@@ -1,7 +1,7 @@
-#ifndef UV_DOBJ_H
-#define UV_DOBJ_H
+#ifndef PILOTWINGS64_UV_DOBJ_H
+#define PILOTWINGS64_UV_DOBJ_H
 
-#include <PR/ultratypes.h>
+#include <uv_common.h>
 #include <uv_graphics.h>
 #include <uv_matrix.h>
 #include <uv_sched.h>
@@ -415,14 +415,15 @@ void uvDobjGetPosm(s32 objId, s32, Mtx4F* dst);
 void uvDobjState(s32, s32);
 void uvDobjSetState(s32 objId, s32 flags);
 void uvDobjClearState(s32 objId, s32 flags);
-s32 uvDobjAllocIdx(void);
+s32  uvDobjAllocIdx(void);
 void uvDobjInit(void);
 void _uvDobjsDraw(UnkStruct_80204D94* arg0, s32 arg1);
 void uvDobj_8021771C(UnkStruct_80204D94*);
-u8 uvDobjGetLODIndex(ParsedUVMD* uvmd, f32 dist);
-s32 uvDobj_80217B34(s32**);
+u8   uvDobjGetLODIndex(ParsedUVMD* uvmd, f32 dist);
+s32  uvDobj_80217B34(s32**);
 void uvDobj_80217B4C(Unk80263780*, ParsedUVMD*, u8);
 void uvDobj_80217E24(Unk80263780*, ParsedUVMD*, u8, f32, f32);
 void uvDobj_802180DC(s32, Unk80371120*);
 
-#endif // UV_DOBJ_H
+#endif // PILOTWINGS64_UV_DOBJ_H
+

@@ -1,5 +1,6 @@
 #include <macros.h>
 #include <uv_chan.h>
+#include <uv_dobj.h>
 #include <uv_environment.h>
 #include <uv_fx.h>
 #include <uv_graphics.h>
@@ -30,7 +31,7 @@ u8 D_80263060[1040];
 
 extern f32 gGfxFogFactor;
 
-void func_80204930(void) {
+void uvChanInit(void) {
     s32 i;
     s32 j;
     UnkStruct_80204D94* var_s0;
@@ -63,15 +64,15 @@ void func_80204930(void) {
         var_s0->viewY0 = 0;
         var_s0->viewY1 = SCREEN_HEIGHT;
         var_s0->unk394 = 0;
-        func_80204D94(i, var_s0->viewX0, var_s0->viewX1, var_s0->viewY0, var_s0->viewY1);
+        uvChan_80204D94(i, var_s0->viewX0, var_s0->viewX1, var_s0->viewY0, var_s0->viewY1);
     }
 }
 
-void func_80204A8C(s32 arg0, s32 arg1) {
+void uvChan_80204A8C(s32 arg0, s32 arg1) {
     D_80261730[arg0].unk0 = arg1;
 }
 
-void func_80204AB0(s32 arg0, s32 arg1, void (*arg2)(void)) {
+void uvChan_80204AB0(s32 arg0, s32 arg1, void (*arg2)(void)) {
     if (arg1 != 0) {
         if (arg1 == 1) {
             D_80261730[arg0].unk39C = arg2;
@@ -81,16 +82,16 @@ void func_80204AB0(s32 arg0, s32 arg1, void (*arg2)(void)) {
     }
 }
 
-void func_80204B08(s32 arg0, s32 arg1, s32 arg2) {
+void uvChan_80204B08(s32 arg0, s32 arg1, s32 arg2) {
     D_80261730[arg0].unk6[arg1] = arg2;
 }
 
-void func_80204B34(s32 arg0, Mtx4F* arg1) {
+void uvChan_80204B34(s32 arg0, Mtx4F* arg1) {
     UnkStruct_80204D94* temp_s0;
 
     temp_s0 = &D_80261730[arg0];
     uvMat4Copy(&temp_s0->unk110, arg1);
-    func_802057F4(&temp_s0->unk190, arg1);
+    uvChan_802057F4(&temp_s0->unk190, arg1);
     uvMat4CopyF2L(&temp_s0->unk150, &temp_s0->unk190);
     temp_s0->unk1D0 = arg1->m[3][0];
     temp_s0->unk1D4 = arg1->m[3][1];
@@ -100,7 +101,7 @@ void func_80204B34(s32 arg0, Mtx4F* arg1) {
     temp_s0->unk1E4 = arg1->m[1][2];
 }
 
-void func_80204BD4(s32 arg0, s32 arg1, f32 arg2) {
+void uvChan_80204BD4(s32 arg0, s32 arg1, f32 arg2) {
     switch (arg1) {
     case 0:
         D_80261730[arg0].unk200 = 1.0f / arg2;
@@ -111,11 +112,11 @@ void func_80204BD4(s32 arg0, s32 arg1, f32 arg2) {
     }
 }
 
-void func_80204C54(s32 arg0, Mtx4F* arg1) {
+void uvChan_80204C54(s32 arg0, Mtx4F* arg1) {
     uvMat4Copy(&D_80261730[arg0].unk10, arg1);
 }
 
-void func_80204C94(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 near, f32 far) {
+void uvChan_80204C94(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 near, f32 far) {
     UnkStruct_80204D94* temp_s0;
     temp_s0 = &D_80261730[arg0];
     temp_s0->unk1E8 = arg1;
@@ -131,7 +132,7 @@ void func_80204C94(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 near, f
     func_802061A0(temp_s0);
 }
 
-void func_80204D94(s32 vpId, s32 x0, s32 x1, s32 y0, s32 y1) {
+void uvChan_80204D94(s32 vpId, s32 x0, s32 x1, s32 y0, s32 y1) {
     UnkStruct_80204D94* temp_v0;
     temp_v0 = &D_80261730[vpId];
     temp_v0->viewX0 = x0;
@@ -157,7 +158,7 @@ void uvChanTerra(s32 arg0, s32 arg1) {
     D_80261730[arg0].unk4 = arg1;
 }
 
-s32 func_80204EC0(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
+s32 uvChan_80204EC0(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     f32 x, y, z, w;
     UnkStruct_80204D94* temp_v0;
 
@@ -172,15 +173,15 @@ s32 func_80204EC0(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     return func_80206F64(temp_v0->unk2E0, x, y, z, w);
 }
 
-u8* func_80204F9C(s32 arg0) {
+u8* uvChan_80204F9C(s32 arg0) {
     return (u8*)&D_80261730[arg0].unk374;
 }
 
-void func_80204FC4(s32 arg0) {
-    func_80204FE4(arg0);
+void uvChan_80204FC4(s32 arg0) {
+    uvChan_80204FE4(arg0);
 }
 
-void func_80204FE4(s32 arg0) {
+void uvChan_80204FE4(s32 arg0) {
     UnkStruct_80204D94* temp_s0;
     ParsedUVTR* uvtr;
     s32 var_v0;
@@ -238,7 +239,7 @@ void func_80204FE4(s32 arg0) {
     } else {
         uvtr = NULL;
     }
-    func_8021EA38(temp_s0);
+    uvFx_8021EA38(temp_s0);
     _uvDobjsDraw(temp_s0, 0);
 
     if (FABS(0.996f - gGfxFogFactor) < 0.0001f) {
@@ -258,31 +259,31 @@ void func_80204FE4(s32 arg0) {
         if (spC0 < uvtr->unk24) {
             spC0 = 1e11f;
         }
-        func_80204C94(temp_s0 - D_80261730, spBC * temp_fv1, spB8 * temp_fv1, spB4 * temp_fv1, spB0 * temp_fv1, spAC * temp_fv1, spA8);
+        uvChan_80204C94(temp_s0 - D_80261730, spBC * temp_fv1, spB8 * temp_fv1, spB4 * temp_fv1, spB0 * temp_fv1, spAC * temp_fv1, spA8);
         uvGfxMtxProj(temp_s0->unk50);
-        func_8022EE90(temp_s0, uvtr, spC0);
+        uvTerra_8022EE90(temp_s0, uvtr, spC0);
         uvGfxSetFogFactor(0.0f);
         spA0 = D_80263058;
-        func_80205BFC();
-        func_80205CE4(temp_s0, 0, spC0 - uvtr->unk24, 1e12f);
-        func_80205CE4(temp_s0, 1, spC0 - uvtr->unk24, 1e12f);
+        uvChan_80205BFC();
+        uvChan_80205CE4(temp_s0, 0, spC0 - uvtr->unk24, 1e12f);
+        uvChan_80205CE4(temp_s0, 1, spC0 - uvtr->unk24, 1e12f);
         uvGfxResetState();
         uvGfx_80222A98();
-        func_80204C94(temp_s0 - D_80261730, spBC, spB8, spB4, spB0, spAC, spA8);
+        uvChan_80204C94(temp_s0 - D_80261730, spBC, spB8, spB4, spB0, spAC, spA8);
         uvGfxMtxProj(temp_s0->unk50);
-        func_8022EFB4(temp_s0, uvtr, spC0);
+        uvTerra_8022EFB4(temp_s0, uvtr, spC0);
         if (spA0 != D_80263058) {
-            func_80205BFC();
+            uvChan_80205BFC();
         }
-        func_80205CE4(temp_s0, 0, 0.0f, spC0 - uvtr->unk24);
-        func_80205CE4(temp_s0, 1, 0.0f, spC0 - uvtr->unk24);
+        uvChan_80205CE4(temp_s0, 0, 0.0f, spC0 - uvtr->unk24);
+        uvChan_80205CE4(temp_s0, 1, 0.0f, spC0 - uvtr->unk24);
     } else {
         if (uvtr != NULL) {
-            func_8022EE90(temp_s0, uvtr, 0.0f);
+            uvTerra_8022EE90(temp_s0, uvtr, 0.0f);
         }
-        func_80205BFC();
-        func_80205CE4(temp_s0, 0, -1.0f, 1e12f);
-        func_80205CE4(temp_s0, 1, -1.0f, 1e12f);
+        uvChan_80205BFC();
+        uvChan_80205CE4(temp_s0, 0, -1.0f, 1e12f);
+        uvChan_80205CE4(temp_s0, 1, -1.0f, 1e12f);
     }
     _uvDobjsDraw(temp_s0, 1);
     uvSprtDrawAll();
@@ -293,7 +294,7 @@ void func_80204FE4(s32 arg0) {
     }
 }
 
-void func_80205724(s32 arg0, s32 arg1, Mtx4F* arg2) {
+void uvChan_80205724(s32 arg0, s32 arg1, Mtx4F* arg2) {
     switch (arg1) {
     case 1:
         uvMat4Copy(arg2, &D_80261730[arg0].unk110);
@@ -307,7 +308,7 @@ void func_80205724(s32 arg0, s32 arg1, Mtx4F* arg2) {
     }
 }
 
-void func_802057F4(Mtx4F* arg0, Mtx4F* arg1) {
+void uvChan_802057F4(Mtx4F* arg0, Mtx4F* arg1) {
     uvMat4InvertTranslationRotation(arg0, arg1);
 }
 
@@ -387,7 +388,7 @@ void _uvSortAdd(s32 arg0, f32 arg1, void* arg2, UnkStruct_80204D94* arg3, f32 ar
     }
 }
 
-void func_80205BFC(void) {
+void uvChan_80205BFC(void) {
     f32 temp_fv0;
     f32 temp_fv1;
     f32 var_fv0;
@@ -414,7 +415,7 @@ void func_80205BFC(void) {
     }
 }
 
-void func_80205CE4(UnkStruct_80204D94* arg0, s32 arg1, f32 arg2, f32 arg3) {
+void uvChan_80205CE4(UnkStruct_80204D94* arg0, s32 arg1, f32 arg2, f32 arg3) {
     ParsedUVMD* uvmd;
     UnkSortAdd* var_s1;
     s32 i;
@@ -478,3 +479,4 @@ void func_80205CE4(UnkStruct_80204D94* arg0, s32 arg1, f32 arg2, f32 arg3) {
         }
     }
 }
+

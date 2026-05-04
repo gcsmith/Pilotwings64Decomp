@@ -6,7 +6,7 @@
 #include <uv_graphics.h>
 #include <uv_math.h>
 #include <uv_vector.h>
-#include <uv_seq.h>
+#include <uv_utils.h>
 #include <libc/stdarg.h>
 #include "kernel/code_7150.h"
 
@@ -83,7 +83,7 @@ STATIC_DATA Unk80248F34 D_80248F34[] = {
 
 #define FLT_MAX 340282346638528859811704183484516925440.0f
 
-void func_80219FD0(void) {
+void uvFxInit(void) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(D_8028B400); i++) {
@@ -91,11 +91,11 @@ void func_80219FD0(void) {
     }
 
     for (i = 0; i < ARRAY_COUNT(D_8028AC40); i++) {
-        func_8021A038(&D_8028AC40[i]);
+        uvFx_8021A038(&D_8028AC40[i]);
     }
 }
 
-void func_8021A038(UnkModelTrail* arg0) {
+void uvFx_8021A038(UnkModelTrail* arg0) {
     s32 i;
 
     arg0->unk1E8 = 0;
@@ -112,7 +112,7 @@ void func_8021A038(UnkModelTrail* arg0) {
     }
 }
 
-void func_8021A0CC(UnkModelDebrisStructure* arg0) {
+void uvFx_8021A0CC(UnkModelDebrisStructure* arg0) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(arg0->unk0); i++) {
@@ -133,7 +133,7 @@ void func_8021A0CC(UnkModelDebrisStructure* arg0) {
     }
 }
 
-void func_8021A298(void) {
+void uvFx_8021A298(void) {
     s32 i;
 
     // clang-format off
@@ -141,18 +141,18 @@ void func_8021A298(void) {
     // clang-format on
 }
 
-s32 func_8021A2C8(s32 fxId) {
+s32 uvFx_8021A2C8(s32 fxId) {
     if (D_8028B400[fxId].unk4 != 0) {
         return 0;
     }
     return 1;
 }
 
-s32 func_8021A304(f32 arg0, f32 arg1, f32 arg2, u16 arg3) {
-    return func_8021A334(arg0, arg1, arg2, 0.0f, arg3);
+s32 uvFx_8021A304(f32 arg0, f32 arg1, f32 arg2, u16 arg3) {
+    return uvFx_8021A334(arg0, arg1, arg2, 0.0f, arg3);
 }
 
-s32 func_8021A334(f32 arg0, f32 arg1, f32 arg2, f32 arg3, u16 arg4) {
+s32 uvFx_8021A334(f32 arg0, f32 arg1, f32 arg2, f32 arg3, u16 arg4) {
     f32 temp_fa1;
     f32 temp_ft4;
     f32 temp_ft5;
@@ -189,7 +189,7 @@ s32 func_8021A334(f32 arg0, f32 arg1, f32 arg2, f32 arg3, u16 arg4) {
     return 0xFF;
 }
 
-void func_8021A4D8(s32 fxId, Mtx4F* arg1) {
+void uvFx_8021A4D8(s32 fxId, Mtx4F* arg1) {
     UnkFxStruct* temp_v0;
 
     if (fxId == 0xFF) {
@@ -197,7 +197,7 @@ void func_8021A4D8(s32 fxId, Mtx4F* arg1) {
     }
 
     if (D_8028B400[fxId].type == 4) {
-        func_8021BE28(fxId, arg1);
+        uvFx_8021BE28(fxId, arg1);
     } else {
         uvMat4Copy(&D_8028B400[fxId].unk68, arg1);
     }
@@ -514,7 +514,7 @@ s32 uvModelGet(s32 fxId, s32 modelId) {
         var_v1->unk59 = 0;
         for (i = 0; i < ARRAY_COUNT(D_8028AC40); i++) {
             if (D_8028AC40[i].unk1EC == 0) {
-                func_8021A038(&D_8028AC40[i]);
+                uvFx_8021A038(&D_8028AC40[i]);
                 var_v1->unkA8 = &D_8028AC40[i];
                 D_8028AC40[i].unk1EC = 1;
                 break;
@@ -567,7 +567,7 @@ s32 uvModelGet(s32 fxId, s32 modelId) {
 
         for (i = 0; i < ARRAY_COUNT(D_8028A0A0); i++) {
             if (D_8028A0A0[i].unk2E4 == 0) {
-                func_8021A0CC(&D_8028A0A0[i]);
+                uvFx_8021A0CC(&D_8028A0A0[i]);
                 var_v1->unkA8 = &D_8028A0A0[i];
                 D_8028A0A0[i].unk2E4 = 1;
                 break;
@@ -610,7 +610,7 @@ s32 uvModelGet(s32 fxId, s32 modelId) {
     return 1;
 }
 
-void func_8021BE28(u16 fxId, Mtx4F* arg1) {
+void uvFx_8021BE28(u16 fxId, Mtx4F* arg1) {
     UnkModelTrail* temp_v1;
     f32 temp_fv0;
     f32 temp_fv1;
@@ -708,7 +708,7 @@ void func_8021BE28(u16 fxId, Mtx4F* arg1) {
     }
 }
 
-void func_8021C4F8(u16 arg0) {
+void uvFx_8021C4F8(u16 arg0) {
     UnkModelDebrisStructure* temp_fp;
     UnkFxStruct* temp_s0;
     s32 i;
@@ -751,7 +751,7 @@ void func_8021C4F8(u16 arg0) {
     uvGfxMtxViewPop();
 }
 
-void func_8021C74C(u16 arg0) {
+void uvFx_8021C74C(u16 arg0) {
     UnkFxStruct* temp_t2;
     UnkModelDebrisStructure* temp_a2;
     s32 i;
@@ -784,7 +784,7 @@ void func_8021C74C(u16 arg0) {
     }
 }
 
-void func_8021C87C(u16 arg0) {
+void uvFx_8021C87C(u16 arg0) {
     s16 i;
     s16 sp94;
     UnkModelTrail* temp_s6;
@@ -919,7 +919,7 @@ void func_8021C87C(u16 arg0) {
     uvGfxMtxViewPop();
 }
 
-void func_8021D700(UnkModelTrail* arg0) {
+void uvFx_8021D700(UnkModelTrail* arg0) {
     s32 i;
 
     if (uvGfxGetFrameTime() < 0.00001f) {
@@ -943,7 +943,7 @@ void func_8021D700(UnkModelTrail* arg0) {
     }
 }
 
-void func_8021D8E0(u16 fxId) {
+void uvFx_8021D8E0(u16 fxId) {
     UnkFxStruct* temp_s1;
     s32 i;
     f32 var_fs0;
@@ -974,7 +974,7 @@ void func_8021D8E0(u16 fxId) {
     uvGfxMtxViewPop();
 }
 
-void func_8021DAF8(u16 fxId) {
+void uvFx_8021DAF8(u16 fxId) {
     UnkFxStruct* temp_s1;
     f32 var_fa1;
     f32 temp_fv0;
@@ -1018,7 +1018,7 @@ void func_8021DAF8(u16 fxId) {
     uvGfxMtxViewPop();
 }
 
-void func_8021DD30(u16 fxId) {
+void uvFx_8021DD30(u16 fxId) {
     UnkFxStruct* temp_s0;
     Mtx4F sp94;
     ParsedUVTX* sp90;
@@ -1041,7 +1041,7 @@ void func_8021DD30(u16 fxId) {
 
     temp_s0 = &D_8028B400[fxId];
     if (temp_s0->unk2 != 0xFF) {
-        var_a0 = func_80219240(temp_s0->unk2);
+        var_a0 = uvSeqGetTextureId(temp_s0->unk2);
     } else {
         if (temp_s0->textureId != GFX_STATE_TEXTURE_NONE) {
             var_a0 = temp_s0->textureId;
@@ -1113,7 +1113,7 @@ void func_8021DD30(u16 fxId) {
     uvGfxMtxViewPop();
 }
 
-void func_8021E608(u16 fxId) {
+void uvFx_8021E608(u16 fxId) {
     UnkFxStruct* temp_s1;
     Mtx4F sp4C;
     s32 i;
@@ -1146,7 +1146,7 @@ void func_8021E608(u16 fxId) {
     uvGfxMtxViewPop();
 }
 
-void func_8021E7E0(u16 fxId) {
+void uvFx_8021E7E0(u16 fxId) {
     UnkFxStruct* temp_s2;
     s32 sp98;
     u8 temp_t0;
@@ -1182,7 +1182,7 @@ void func_8021E7E0(u16 fxId) {
     uvGfxMtxViewPop();
 }
 
-void func_8021EA38(UnkStruct_80204D94* arg0) {
+void uvFx_8021EA38(UnkStruct_80204D94* arg0) {
     f32 temp_fa0;
     f32 temp_fs0;
     f32 temp_fs0_2;
@@ -1206,14 +1206,14 @@ void func_8021EA38(UnkStruct_80204D94* arg0) {
             continue;
         }
         if (var_s0->type == 4) {
-            func_8021D700(var_s0->unkA8);
+            uvFx_8021D700(var_s0->unkA8);
             _uvSortAdd(1, 1.0f, var_s0, arg0, 1000000.0f, 1000000.0f);
             continue;
         }
         if (var_s0->unk5 == 0) {
             temp_fs0 = uvGfxGetFrameTime();
             if (var_s0->type == 8) {
-                func_8021C74C(i);
+                uvFx_8021C74C(i);
             }
             if (var_s0->unk7 != 0) {
                 var_s0->unk20 *= 1.0f + ((var_s0->unk3C - 1.0f) * temp_fs0);
@@ -1307,26 +1307,26 @@ void _uvFxDraw(u16 fxId, UnkStruct_80204D94* arg1) {
 
     switch (var_a2->type) {
     case 1:
-        func_8021D8E0(fxId);
+        uvFx_8021D8E0(fxId);
         break;
     case 2:
-        func_8021DAF8(fxId);
+        uvFx_8021DAF8(fxId);
         break;
     case 8:
-        func_8021C4F8(fxId);
+        uvFx_8021C4F8(fxId);
         break;
     case 5:
-        func_8021E608(fxId);
+        uvFx_8021E608(fxId);
         break;
     case 3:
-        func_8021E7E0(fxId);
+        uvFx_8021E7E0(fxId);
         break;
     case 4:
-        func_8021C87C(fxId);
+        uvFx_8021C87C(fxId);
         break;
     case 6:
     case 7:
-        func_8021DD30(fxId);
+        uvFx_8021DD30(fxId);
         break;
     default:
         _uvDebugPrintf("_uvFxDraw: effect %d Unknown type: %d \n", fxId, var_a2->type);
@@ -1334,7 +1334,7 @@ void _uvFxDraw(u16 fxId, UnkStruct_80204D94* arg1) {
     }
 }
 
-s32 func_8021EFF0(s32 type) {
+s32 uvFx_8021EFF0(s32 type) {
     u16 i;
 
     if (type == 4) {
