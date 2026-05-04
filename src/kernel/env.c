@@ -34,9 +34,9 @@ void uvEnvProps(s32 envId, ...) {
             } else {
                 uvGfxSetFogFactor(fogfact);
                 if (fogfact == 0.0f) {
-                    uven->unk1C = 0;
+                    uven->fogEnabled = FALSE;
                 } else {
-                    uven->unk1C = 1;
+                    uven->fogEnabled = TRUE;
                 }
                 uven->fogMin = (f32)(fogfact * 1000.0f);
                 uven->fogMax = 1000.0f;
@@ -119,7 +119,7 @@ void uvEnvGetProps(s32 envId, ...) {
     }
 }
 
-void uvEnvFunc(s32 envId, s32 flag, s32 (*arg2)(void)) {
+void uvEnvFunc(s32 envId, s32 flag, s32 (*callback)(void)) {
     ParsedUVEN* uven;
 
     uven = gGfxUnkPtrs->environments[envId];
@@ -128,7 +128,7 @@ void uvEnvFunc(s32 envId, s32 flag, s32 (*arg2)(void)) {
         return;
     }
     if (flag == 0) {
-        uven->unk38 = arg2;
+        uven->callback = callback;
     } else {
         _uvDebugPrintf("uvEnvFunc: unknown what flag %d\n", flag);
     }
@@ -143,7 +143,7 @@ void _uvEnvDraw(s32 arg0, s32 arg1) {
     uvModelLOD* currLod;
     f32 fogfact;
     s32 temp_a0_2;
-    u8 temp_s1;
+    u8 modelFlag;
     uvModelPart* currPart;
     ParsedUVEN* uven;
     u32 i;
@@ -160,29 +160,29 @@ void _uvEnvDraw(s32 arg0, s32 arg1) {
         uvGfxClearScreen(0x00, 0x00, 0x00, 0xFF);
         return;
     }
-    if (uven->unk1C != 0) {
+    if (uven->fogEnabled != FALSE) {
         fogfact = uven->fogMin / uven->fogMax;
     } else {
         fogfact = 0.0f;
     }
     uvGfxSetFogFactor(fogfact);
 
-    if (uven->unk2E != 0) {
+    if (uven->clearEnabled != FALSE) {
         uvGfxClearScreen(uven->screenR, uven->screenG, uven->screenB, uven->screenA);
     }
 
     var_v0 = &D_80261730[arg0];
-    for (i = 0; i < uven->count; i++) {
-        uvmd = gGfxUnkPtrs->models[uven->unk30[i].modelId];
+    for (i = 0; i < uven->modelCount; i++) {
+        uvmd = gGfxUnkPtrs->models[uven->modelTable[i].modelId];
         if (uvmd == NULL) {
-            _uvDebugPrintf("_uvEnvDraw: model %d not in level\n", uven->unk30[i].modelId);
+            _uvDebugPrintf("_uvEnvDraw: model %d not in level\n", uven->modelTable[i].modelId);
             return;
         }
-        temp_s1 = uven->unk30[i].flag;
+        modelFlag = uven->modelTable[i].flag;
         currLod = uvmd->lodTable;
         currPart = currLod->partTable;
 
-        if (temp_s1 & 8) {
+        if (modelFlag & 8) {
             D_80248DE0.m[3][0] = var_v0->unk110.m[3][0];
             D_80248DE0.m[3][1] = var_v0->unk110.m[3][1];
         } else {
@@ -190,13 +190,13 @@ void _uvEnvDraw(s32 arg0, s32 arg1) {
         }
 
         gDPSetFogColor(gGfxDisplayListHead++, uven->fogR, uven->fogG, uven->fogB, 255);
-        if (temp_s1 & 4) {
+        if (modelFlag & 4) {
             uvGfxSetFogFactor(fogfact);
         } else {
             uvGfxSetFogFactor(0.0f);
         }
 
-        if (temp_s1 & 2) {
+        if (modelFlag & 2) {
             uvGfxMtxProj(var_v0->unkD0);
             uvGfxMtxView(var_v0->unk150);
         }
@@ -204,13 +204,13 @@ void _uvEnvDraw(s32 arg0, s32 arg1) {
 
         for (j = 0; j < currPart->stateCount; j++) {
             temp_a0_2 = currPart->stateTable[j].state;
-            if (!(temp_s1 & 1)) {
+            if (!(modelFlag & 1)) {
                 currPart->stateTable[j].state &= ~0x200000;
             }
             uvGfxStateDraw(&currPart->stateTable[j]);
             currPart->stateTable[j].state = temp_a0_2;
         }
-        if (temp_s1 & 2) {
+        if (modelFlag & 2) {
             uvGfxMtxProj(var_v0->unk50);
             uvGfxMtxView(D_80269F10);
         }
@@ -218,7 +218,7 @@ void _uvEnvDraw(s32 arg0, s32 arg1) {
     }
 
     uvGfxSetFogFactor(fogfact);
-    if (uven->unk38 != NULL) {
-        uven->unk38();
+    if (uven->callback != NULL) {
+        uven->callback();
     }
 }

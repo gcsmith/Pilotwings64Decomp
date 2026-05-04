@@ -142,10 +142,10 @@ typedef struct ParsedUVTR {
     uvUnkTileStruct* unk28;
 } ParsedUVTR; // size = 0x2C
 
-typedef struct UnkGfxEnv_Unk30 {
+typedef struct uvEnvModel {
     u16 modelId;
     u8 flag;
-} UnkGfxEnv_Unk30;
+} uvEnvModel;
 
 typedef struct ParsedUVEN {
     u8 screenR;
@@ -163,12 +163,12 @@ typedef struct ParsedUVEN {
     u8 padC[0x8];
     f32 fogMin;
     f32 fogMax;
-    u8 unk1C;
+    u8 fogEnabled;
     u8 pad1D[0x11];
-    u8 unk2E;
-    struct UnkGfxEnv_Unk30* unk30;
-    u8 count;
-    s32 (*unk38)(void);
+    u8 clearEnabled;
+    struct uvEnvModel* modelTable;
+    u8 modelCount;
+    s32 (*callback)(void);
 } ParsedUVEN; // size = 0x3C
 
 typedef struct UnkUVMD_6 {

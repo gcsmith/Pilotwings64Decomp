@@ -396,25 +396,25 @@ void* _uvParseUVLT(u8* arg0) {
 }
 
 ParsedUVEN* _uvParseUVEN(u8* src) {
-    UnkGfxEnv_Unk30* temp_s3;
-    u8 count;
+    uvEnvModel* modelTable;
+    u8 modelCount;
     s32 i;
-    ParsedUVEN* ret;
+    ParsedUVEN* uven;
 
-    uvConsumeBytes(&count, &src, 1);
-    temp_s3 = (UnkGfxEnv_Unk30*)_uvMemAlloc(count * sizeof(UnkGfxEnv_Unk30), 4);
+    uvConsumeBytes(&modelCount, &src, 1);
+    modelTable = (uvEnvModel*)_uvMemAlloc(modelCount * sizeof(uvEnvModel), 4);
 
-    for (i = 0; i < (s32)count; i++) {
-        uvConsumeBytes(&temp_s3[i].modelId, &src, sizeof(temp_s3[i].modelId));
-        uvConsumeBytes(&temp_s3[i].flag, &src, sizeof(temp_s3[i].flag));
+    for (i = 0; i < (s32)modelCount; i++) {
+        uvConsumeBytes(&modelTable[i].modelId, &src, sizeof(modelTable[i].modelId));
+        uvConsumeBytes(&modelTable[i].flag, &src, sizeof(modelTable[i].flag));
     }
 
-    ret = (ParsedUVEN*)_uvMemAlloc(sizeof(ParsedUVEN), 4);
-    uvConsumeBytes(ret, &src, sizeof(ParsedUVEN));
-    ret->count = count;
-    ret->unk38 = 0;
-    ret->unk30 = (ret->count) ? temp_s3 : NULL;
-    return ret;
+    uven = (ParsedUVEN*)_uvMemAlloc(sizeof(ParsedUVEN), 4);
+    uvConsumeBytes(uven, &src, sizeof(ParsedUVEN));
+    uven->modelCount = modelCount;
+    uven->callback = 0;
+    uven->modelTable = (uven->modelCount) ? modelTable : NULL;
+    return uven;
 }
 
 ParsedUVSQ* _uvParseUVSQ(u8* src) {
@@ -1125,15 +1125,15 @@ ParsedUVEN* uvParseTopUVEN(s32 palette) {
     s32 idx;
     s32 sp28;
     void* src;
-    ParsedUVEN* ret;
+    ParsedUVEN* uven;
 
-    ret = NULL;
+    uven = NULL;
     idx = uvFileReadHeader(gUVBlockOffsets.UVEN[0]);
     if (uvFile_80224170(idx, &sp28, &src, 'COMM', palette, 1) != 0) {
-        ret = _uvParseUVEN(src);
+        uven = _uvParseUVEN(src);
     }
     uvFile_80223F30(idx);
-    return ret;
+    return uven;
 }
 
 ParsedUVLV* uvParseTopUVLV(s32 palette) {
