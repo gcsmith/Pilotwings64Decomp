@@ -475,7 +475,7 @@ s32 gameUpdateStateTestSetup(Unk80362690* arg0) {
         hangGliderEnterLeave(D_803676F0);
         func_802EDD9C(temp_s0, &D_803676F0->unk10);
         if ((arg0->state != GAME_STATE_DEMO_PILOT) && (arg0->unkA2 == 0)) {
-            sndSetMusic(4);
+            sndSetMusic(MUS_HANG_GLIDER);
         }
         sp28 = 0.5f;
         break;
@@ -1226,7 +1226,7 @@ void func_802EE14C(u16 veh) {
         D_803676F0 = (HangGliderData*)temp_s0->vehicleData;
         hangGliderLoadLevel(D_80362690->unk9C, temp_s0->pilot, D_803676F0, temp_s0->unk70);
         hangGliderEnterLeave(D_803676F0);
-        sndSetMusic(4);
+        sndSetMusic(MUS_HANG_GLIDER);
         sp3C = 0.5f;
         break;
     case VEHICLE_GYROCOPTER:
