@@ -6,15 +6,15 @@
 #include <uv_string.h>
 
 #if defined(VERSION_JP)
-  #define FONT_MAX_MSG_LEN   25
-  #define FONT_DL_COUNT    4524
+#define FONT_MAX_MSG_LEN 25
+#define FONT_DL_COUNT 4524
 #elif defined(VERSION_US)
-  #define FONT_MAX_MSG_LEN   44
-  #define FONT_DL_COUNT    7944
+#define FONT_MAX_MSG_LEN 44
+#define FONT_DL_COUNT 7944
 #else
-  #error Unknown build VERSION
+#error Unknown build VERSION
 #endif
-#define FONT_MSG_COUNT     30
+#define FONT_MSG_COUNT 30
 
 // struct containing a printed string's font data
 // contains position, scale, color, string, pointer to font
@@ -36,36 +36,36 @@ STATIC_DATA Gfx sFontDList[FONT_DL_COUNT * 2];
 STATIC_DATA FontMessage sFontMessages[FONT_MSG_COUNT];
 
 STATIC_DATA Sprite sFontSprite = {
-    0,            // x
-    0,            // y
-    0,            // width
-    0,            // height
-    1.0f,         // scalex
-    1.0f,         // scaley
-    0,            // expx
-    0,            // expy
-    1,            // attr
-    0x1234,       // zdepth
-    255,          // red
-    255,          // green
-    255,          // blue
-    255,          // alpha
-    0,            // startTLUT
-    0,            // nTLUT
-    NULL,         // LUT
-    0,            // istart
-    1,            // istep
+    0,                     // x
+    0,                     // y
+    0,                     // width
+    0,                     // height
+    1.0f,                  // scalex
+    1.0f,                  // scaley
+    0,                     // expx
+    0,                     // expy
+    1,                     // attr
+    0x1234,                // zdepth
+    255,                   // red
+    255,                   // green
+    255,                   // blue
+    255,                   // alpha
+    0,                     // startTLUT
+    0,                     // nTLUT
+    NULL,                  // LUT
+    0,                     // istart
+    1,                     // istep
     15 * FONT_MAX_MSG_LEN, // nbitmaps
-    FONT_DL_COUNT,// ndisplist
-    15,           // bmheight
-    128,          // bmHreal
-    G_IM_FMT_IA,  // bmfmt
-    G_IM_SIZ_4b,  // bmsiz
-    sFontBitmaps, // bitmap
-    sFontDList,   // rsp_dl
-    NULL,         // rsp_dl_next
-    0,            // frac_s
-    0             // frac_t
+    FONT_DL_COUNT,         // ndisplist
+    15,                    // bmheight
+    128,                   // bmHreal
+    G_IM_FMT_IA,           // bmfmt
+    G_IM_SIZ_4b,           // bmsiz
+    sFontBitmaps,          // bitmap
+    sFontDList,            // rsp_dl
+    NULL,                  // rsp_dl_next
+    0,                     // frac_s
+    0                      // frac_t
 };
 
 STATIC_DATA u8 sFontColorR = 0xFF;
@@ -310,9 +310,6 @@ s32 uvFontPrintStr16(s32 x, s32 y, s16* str16, s32 strLen, s32 end) {
 }
 #endif
 
-#if defined(VERSION_JP)
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/font/uvFontPrintStr.s")
-#else
 void uvFontPrintStr(s32 x, s32 y, const char* str) {
     char* chrPos;
     s32 strLen;
@@ -350,7 +347,6 @@ void uvFontPrintStr(s32 x, s32 y, const char* str) {
     sFontMessages[sFontMsgCount].font = gGfxUnkPtrs->fonts[sFontCurId];
     sFontMsgCount++;
 }
-#endif
 
 STATIC_FUNC s32 uvFontSpriteWidth(Sprite* sprite, s16* str16, ParsedUVFT* font) {
     s32 width;
