@@ -922,19 +922,20 @@ parse out a single `COMM` entry that is 4 bytes long.
 
 TBD
 
-### File UVSQ / sequences
+### File UVSQ / texture animation sequences
 
 | Offset | Type   | Description
 |--------|--------|-----------------
-|  0x00  | u8     | count of entries
-|  0x01  | UVSQ[] | sequence entries
-|        | u8     | TBD
-|        | f32    | TBD
+|  0x00  | u8     | frame count
+|  0x01  | UVSQ[] | frame table
+|        | u8     | mode
+|        | u8     | reverse
+|        | f32    | frame rate
 
-| Entry  | Type  | Description
+| Frame  | Type  | Description
 |--------|-------|-----------------------
-|  0x00  | u16   | TBD, range [0x45-0x54]
-|  0x02  | f32   | TBD, always 1.0
+|  0x00  | u16   | texture ID
+|  0x02  | f32   | frame time (always 1.0)
 |  0x06  |       | **Total length**
 
 

@@ -224,17 +224,17 @@ struct UVLV {
 };
 
 
-struct UVSQ_Unk4 {
-    u16 unk0;
-    f32 unk4;
+struct uvSeqFrame {
+    u16 textureId;
+    f32 frameTime;
 } [[static]]; // size = 0x6
 
 struct UVSQ {
-    u8 count;
-    UVSQ_Unk4 unk4[count];
-    u8 unk8;
-    u8 unk9;
-    f32 unkC;
+    u8 frameCount;
+    uvSeqFrame frameTable[frameCount];
+    u8 mode;
+    u8 reverse;
+    f32 framerate;
 };
 
 
@@ -412,7 +412,7 @@ struct SPTH {
         ("PAD "): u8 pad[length] [[hidden]];
         ("SCPH"): SPTH_SCP scph;
         ("SCPP"): SPTH_SCP scpp;
-        ("SCPR"): SPTH_SCP scpp;
+        ("SCPR"): SPTH_SCP scpr;
         ("SCPX"): SPTH_SCP scpx;
         ("SCPY"): SPTH_SCP scpy;
         ("SCPZ"): SPTH_SCP scpz;
