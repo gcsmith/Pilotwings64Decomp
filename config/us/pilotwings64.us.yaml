@@ -3,7 +3,7 @@ sha1: ec771aedf54ee1b214c25404fb4ec51cfd43191a
 options:
   basename: pilotwings64
   target_path: baserom.us.z64
-  elf_path: build/pilotwings64.elf
+  elf_path: build/pilotwings64.us.elf
   base_path: ../..
   platform: n64
   compiler: IDO

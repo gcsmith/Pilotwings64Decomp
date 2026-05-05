@@ -277,7 +277,7 @@ typedef struct ParsedUVSQ {
     u8 mode;
     u8 reverse;
     f32 framerate;
-} ParsedUVSQ;
+} ParsedUVSQ; // size = 0x10
 
 typedef struct {
     Vec4F unk0;
@@ -302,14 +302,20 @@ typedef struct {
     u8 unk9;
 } ParsedUVAN;
 
+
+#if defined(VERSION_JP)
+  #define UVFT_IMAG_SIZE 0x28
+#elif defined(VERSION_US)
+  #define UVFT_IMAG_SIZE 0x2C
+#endif
 typedef struct ParsedUVFT {
     char* str;
     u8 pad4[0x4];
     u8 bmfmt;
     u8 bmsiz;
     Bitmap* bitmap;
-    void* imag[0x2C];
-} ParsedUVFT; // size = 0x80
+    void* imag[UVFT_IMAG_SIZE];
+} ParsedUVFT; // size = JP:0xB0, US:0xC0
 
 typedef struct uvGfxUnkStructFont {
     char* unk0;
