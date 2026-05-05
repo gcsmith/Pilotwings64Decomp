@@ -12,7 +12,9 @@ extern OSViMode osViModePalLan1;
 extern OSViMode osViModeNtscLan1;
 
 void __osViInit(void) {
+#if !defined(VERSION_JP)
     sTvType = osTvType;
+#endif
 
     bzero(sViContexts, sizeof(sViContexts));
     __osViCurr = &sViContexts[0];
@@ -20,6 +22,15 @@ void __osViInit(void) {
     __osViNext->retraceCount = 1;
     __osViCurr->retraceCount = 1;
 
+#if defined(VERSION_JP)
+    if (sTvType != 0) {
+        __osViNext->modep = &osViModeNtscLan1;
+        osViClock = VI_NTSC_CLOCK;
+    } else {
+        __osViNext->modep = &osViModePalLan1;
+        osViClock = VI_PAL_CLOCK;
+    }
+#else
     if (sTvType == OS_TV_TYPE_NTSC) {
         __osViNext->modep = &osViModeNtscLan1;
         osViClock = VI_NTSC_CLOCK;
@@ -27,6 +38,7 @@ void __osViInit(void) {
         __osViNext->modep = &osViModePalLan1;
         osViClock = VI_MPAL_CLOCK;
     }
+#endif
 
     __osViNext->state = VI_STATE_BLACK;
     __osViNext->control = __osViNext->modep->comRegs.ctrl;

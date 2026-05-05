@@ -187,6 +187,11 @@ void uvWaitForMesg(char msg_type) {
 }
 
 void uvSetVideoMode(void) {
+#if defined(VERSION_JP)
+    osCreateMesgQueue(&D_802C3B90, D_802C3B68, ARRAY_COUNT(D_802C3B68));
+    _uvScCreateScheduler(&gSchedInst, gSchedStack + sizeof(gSchedStack), OS_PRIORITY_APPMAX, OS_VI_NTSC_LAN1, 1);
+    _uvScAddClient(&gSchedInst, &gSchedClient, &D_802C3B50);
+#else
     s32 viMode;
 
     osCreateMesgQueue(&D_802C3B90, D_802C3B68, ARRAY_COUNT(D_802C3B68));
@@ -205,6 +210,7 @@ void uvSetVideoMode(void) {
     // clang-format on
     _uvScCreateScheduler(&gSchedInst, gSchedStack + sizeof(gSchedStack), OS_PRIORITY_APPMAX, viMode, 1);
     _uvScAddClient(&gSchedInst, &gSchedClient, &D_802C3B50);
+#endif
 }
 
 void bootproc(void* arg0) {

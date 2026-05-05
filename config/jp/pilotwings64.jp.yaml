@@ -1,0 +1,412 @@
+name: Pilot Wings64 (Japanese)
+sha1: 892a5472d9a6811b881d093020de81f72baeeec9
+options:
+  basename: pilotwings64
+  target_path: baserom.jp.z64
+  elf_path: build/pilotwings64.jp.elf
+  base_path: ../..
+  platform: n64
+  compiler: IDO
+
+  asm_path: asm
+  src_path: src
+  asset_path: bin
+  build_path: build
+  create_asm_dependencies: True
+
+  ld_script_path: build/pilotwings64.jp.ld
+  ld_dependencies: True
+  ld_sections_allowlist:
+    - .shstrtab
+    - .mdebug
+    - .mdebug.abi32
+
+  find_file_boundaries: True
+  header_encoding: ASCII
+
+  o_as_suffix: True
+  use_legacy_include_asm: False
+  mips_abi_float_regs: o32
+
+  # section_order: [".text", ".data", ".rodata", ".bss"]
+  # auto_link_sections: [".data", ".rodata", ".bss"]
+
+  symbol_addrs_path:
+    - config/jp/sym/symbol_addrs.txt
+  reloc_addrs_path:
+    - config/jp/sym/reloc_addrs.txt
+
+  undefined_funcs_auto_path: build/splat_out/jp/undefined_funcs_auto.txt
+  undefined_syms_auto_path: build/splat_out/jp/undefined_syms_auto.txt
+
+  extensions_path: tools/splat_ext
+
+  # string_encoding: ASCII
+  # data_string_encoding: ASCII
+  rodata_string_guesser_level: 2
+  data_string_guesser_level: 2
+  libultra_symbols: True
+  # hardware_regs: True
+  gfx_ucode: f3d
+  migrate_rodata_to_functions: True
+
+segments:
+  - name: header
+    type: header
+    start: 0x0
+
+  - name: ipl3
+    type: bin
+    start: 0x40
+
+  - name: entry
+    type: code
+    start: 0x1000
+    vram: 0x80200050
+    subsegments:
+      - [0x1000, hasm, entrypoint]
+
+  - name: kernel
+    type: code
+    start: 0x1050
+    vram: 0x802000A0
+    follows_vram: entry
+    bss_size: 0x6BF60
+    subsegments:
+      - [0x01050, c, kernel/code_1050]
+      - [0x01300, c, kernel/anim]
+      - [0x02130, c, kernel/audio_emitter]
+      - [0x03D50, c, kernel/audio_event]
+      - [0x04850, c, kernel/audio_manager]
+      - [0x05690, c, kernel/audio_seq]
+      - [0x058E0, c, kernel/chan]
+      - [0x06F80, c, kernel/clocks]
+      - [0x07150, c, kernel/code_7150]
+      - [0x08170, c, kernel/code_8170]
+      - [0x177A0, c, kernel/dobj]
+      - [0x19170, c, kernel/env]
+      - [0x19B50, c, kernel/fx_seq]
+      - [0x1A220, c, kernel/font]
+      - [0x1AF00, c, kernel/fx]
+      - [0x20030, c, kernel/geometry]
+      - [0x21890, c, kernel/graphics]
+      - [0x24D60, c, kernel/filesystem]
+      - [0x25180, c, kernel/controller]
+      - [0x25580, c, kernel/texture]
+      - [0x28E10, c, kernel/matrix]
+      - [0x2AD80, c, kernel/math]
+      - [0x2B2A0, c, kernel/memory]
+      - [0x2BF80, c, kernel/sched]
+      - [0x2D3C0, c, kernel/sobj]
+      - [0x2E190, c, kernel/string]
+      - [0x2EDD0, c, kernel/system]
+      - [0x2FD10, c, kernel/terrain]
+      - [0x30CC0, c, kernel/code_30DF0]
+      - [0x30D70, c, kernel/code_30EA0]
+      - [0x30FB0, c, kernel/sprite]
+      - [0x32350, c, kernel/user_file]
+      - [0x32460, c, kernel/utils]
+      - [0x32630, c, kernel/vector]
+      - [0x32890, hasm, kernel/decompress_mio0]
+      - [0x32940, c, kernel/debug]
+      - [0x35320, c, libultra/audio/sndpsetsound]
+      - [0x35340, c, libultra/audio/sndpgetstate]
+      - [0x35360, c, libultra/audio/sndpstop]
+      - [0x353B0, c, libultra/audio/sndpdeallocate]
+      - [0x35400, c, libultra/audio/sndpallocate]
+      - [0x354A0, c, libultra/audio/sndpplay]
+      - [0x35510, c, libultra/audio/sndpsetvol]
+      - [0x35570, c, libultra/audio/sndpsetpitch]
+      - [0x355D0, c, libultra/audio/sndpsetfxmix]
+      - [0x35630, c, libultra/audio/sndpsetpan]
+      - [0x35690, c, libultra/audio/heapinit]
+      - [0x356D0, c, libultra/audio/sndplayer]
+      - [0x35DE0, c, libultra/audio/csplayer]
+      - [0x37010, c, libultra/os/sendmesg]
+      - [0x37160, c, libultra/audio/heapalloc]
+      - [0x371C0, c, libultra/audio/bnkf]
+      - [0x37410, c, libultra/io/aisetfreq]
+      - [0x37570, c, libultra/audio/sl]
+      - [0x37630, c, libultra/os/createmesgqueue]
+      - [0x37660, c, libultra/os/createthread]
+      - [0x377B0, c, libultra/os/startthread]
+      - [0x37900, c, libultra/os/recvmesg]
+      - [0x37A40, c, libultra/os/virtualtophysical]
+      - [0x37AC0, c, libultra/io/aisetnextbuf]
+      - [0x37B70, c, libultra/io/aigetlen]
+      - [0x37B80, c, libultra/audio/synthesizer]
+      - [0x38250, c, libultra/io/pidma]
+      - [0x38360, c, libultra/audio/seqpsetbank]
+      - [0x383A0, c, libultra/audio/seqpgetstate]
+      - [0x383B0, c, libultra/audio/cseq]
+      - [0x38E70, c, libultra/audio/seqpsetseq]
+      - [0x38EB0, c, libultra/audio/seqpplay]
+      - [0x38EE0, c, libultra/audio/seqpsettempo]
+      - [0x38F50, c, libultra/audio/seqpsetvol]
+      - [0x38F90, c, libultra/audio/seqpstop]
+      - [0x38FC0, hasm, libultra/os/getcount]
+      - [0x38FD0, c, libultra/sp/sprite]
+      - [0x3B600, c, libultra/sp/color]
+      - [0x3B630, c, libultra/sp/spscale]
+      - [0x3B6A0, hasm, libultra/gu/sqrtf]
+      - [0x3B6B0, c, libultra/io/viblack]
+      - [0x3B720, hasm, libultra/os/writebackdcache]
+      - [0x3B7A0, c, libultra/io/visetspecial]
+      - [0x3B960, c, libultra/libc/ll]
+      - [0x3BC20, c, libultra/io/piread]
+      - [0x3BC60, pad]
+      - [0x3BCA0, c, libultra/io/viswapbuf]
+      - [0x3BCF0, hasm, libultra/os/writebackdcacheall]
+      - [0x3BD20, c, libultra/io/sptask]
+      - [0x3BFE0, c, libultra/io/vigetcurrframebuf]
+      - [0x3C020, c, libultra/io/vigetnextframebuf]
+      - [0x3C060, c, libultra/io/vimgr]
+      - [0x3C3C0, c, libultra/io/visetmode]
+      - [0x3C430, c, libultra/os/seteventmesg]
+      - [0x3C4A0, c, libultra/io/visetevent]
+      - [0x3C510, c, libultra/io/sptaskyield]
+      - [0x3C530, c, libultra/io/sptaskyielded]
+      - [0x3C5B0, c, libultra/io/conteeplongwrite]
+      - [0x3C6F0, c, libultra/io/conteeplongread]
+      - [0x3C830, c, libultra/io/conteepprobe]
+      - [0x3C8A0, c, libultra/os/initialize]
+      - [0x3CAD0, c, libultra/io/pirawread]
+      - [0x3CB30, c, libultra/os/getcurrfaultthread]
+      - [0x3CB40, c, libultra/io/pimgr]
+      - [0x3CCC0, c, libultra/os/setthreadpri]
+      - [0x3CDA0, c, libultra/os/settimer]
+      - [0x3CE80, c, libultra/io/controller]
+      - [0x3D240, c, libultra/io/contreaddata]
+      - [0x3D4A0, hasm, libultra/os/invaldcache]
+      - [0x3D550, c, libultra/libc/ldiv]
+      - [0x3D6E0, c, libultra/audio/event]
+      - [0x3DA20, c, libultra/audio/synaddplayer]
+      - [0x3DA70, c, libultra/audio/synallocvoice]
+      - [0x3DCA0, c, libultra/audio/synstartvoice]
+      - [0x3DD30, c, libultra/audio/synsetpan]
+      - [0x3DDC0, c, libultra/audio/synsetvol]
+      - [0x3DE60, c, libultra/audio/synsetpitch]
+      - [0x3DEF0, c, libultra/audio/synsetfxmix]
+      - [0x3DF90, c, libultra/audio/synstopvoice]
+      - [0x3E010, c, libultra/audio/synfreevoice]
+      - [0x3E0C0, hasm, libultra/os/setintmask]
+      - [0x3E120, c, libultra/audio/seqplayer]
+      - [0x3FA60, c, libultra/audio/cents2ratio]
+      - [0x3FAB0, c, libultra/audio/synstartvoiceparam]
+      - [0x3FBA0, hasm, libultra/os/interrupt]
+      - [0x3FBE0, c, libultra/os/thread]
+      - [0x3FC20, hasm, libultra/os/exceptasm]
+      - [0x40490, c, libultra/io/vi]
+      - [0x405A0, c, libultra/audio/syndelete]
+      - [0x405B0, hasm, libultra/os/probetlb]
+      - [0x40670, c, libultra/io/ai]
+      - [0x406A0, c, libultra/audio/drvrnew]
+      - [0x40E20, c, libultra/audio/synallocfx]
+      - [0x40EC0, c, libultra/audio/mainbus]
+      - [0x41010, c, libultra/audio/load]
+      - [0x41B60, c, libultra/audio/resample]
+      - [0x41E60, c, libultra/audio/env]
+      - [0x42AC0, c, libultra/audio/auxbus]
+      - [0x42BD0, c, libultra/audio/save]
+      - [0x42C90, c, libultra/os/jammesg]
+      - [0x42DE0, c, libultra/io/pigetcmdq]
+      - [0x42E10, c, libultra/sp/clearattribute]
+      - [0x42E30, c, libultra/sp/setattribute]
+      - [0x42E40, c, libultra/io/piacs]
+      - [0x42F00, hasm, libultra/libc/bcopy]
+      - [0x43210, c, libultra/io/spsetstat]
+      - [0x43220, c, libultra/io/spsetpc]
+      - [0x43260, c, libultra/io/sprawdma]
+      - [0x432F0, c, libultra/io/sp]
+      - [0x43320, c, libultra/os/timerintr]
+      - [0x43720, c, libultra/os/getthreadpri]
+      - [0x43740, c, libultra/io/vigetcurrcontext]
+      - [0x43750, c, libultra/io/viswapcontext]
+      - [0x43AB0, c, libultra/io/spgetstat]
+      - [0x43AC0, c, libultra/io/conteepwrite]
+      - [0x43FA0, c, libultra/io/conteepread]
+      - [0x442A0, c, libultra/io/siacs]
+      - [0x44360, hasm, libultra/os/setsr]
+      - [0x44370, hasm, libultra/os/getsr]
+      - [0x44380, hasm, libultra/os/setfpccsr]
+      - [0x44390, c, libultra/io/sirawread]
+      - [0x443E0, c, libultra/io/sirawwrite]
+      - [0x44430, hasm, libultra/os/invalicache]
+      - [0x444B0, hasm, libultra/os/maptlbrdb]
+      - [0x44510, hasm, libultra/libc/bzero]
+      - [0x445B0, c, libultra/io/pirawdma]
+      - [0x44690, c, libultra/io/devmgr]
+      - [0x44810, c, libultra/os/gettime]
+      - [0x448A0, c, libultra/io/sirawdma]
+      - [0x44950, c, libultra/audio/copy]
+      - [0x449D0, c, libultra/audio/seq]
+      - [0x44FF0, c, libultra/audio/synsetpriority]
+      - [0x45000, c, libultra/debug/kdebugserver]
+      - [0x45480, c, libultra/os/syncputchars]
+      - [0x455B0, c, libultra/os/destroythread]
+      - [0x456B0, c, libultra/audio/filter]
+      - [0x456D0, c, libultra/audio/reverb]
+      - [0x462E0, hasm, libultra/os/setcompare]
+      - [0x462F0, c, libultra/io/si]
+      - [0x46320, hasm, libultra/os/getcause]
+      - [0x46330, c, libultra/os/atomic]
+
+      - { start: 0x46390, type: textbin, use_src_path: True, name: rsp/rspboot }
+      - { start: 0x46460, type: textbin, use_src_path: True, name: rsp/f3dex }
+      - { start: 0x47890, type: textbin, use_src_path: True, name: rsp/fast3d }
+      - { start: 0x48CC0, type: textbin, use_src_path: True, name: rsp/aspMain }
+
+      - [0x49AE0, .data, kernel/audio_manager]
+      - [0x49C10, .data, kernel/code_7150]
+      - [0x49C30, .data, kernel/code_8170]
+      - [0x49C40, .data, kernel/env]
+      - [0x49C80, .data, kernel/font]
+      - [0x49D00, .data, kernel/fx]
+      - [0x49FA0, .data, kernel/graphics]
+      - [0x4A0B0, .data, kernel/terrain]
+      - [0x4C0B0, .data, kernel/matrix]
+      - [0x4C0C0, .data, kernel/sched]
+      - [0x4C0D0, .data, kernel/sprite]
+      - [0x4C120, .data, kernel/utils]
+      - [0x4C130, .data, kernel/debug]
+      - [0x4C5E0, .data, libultra/audio/sl]
+      - [0x4C5F0, .data, libultra/io/aisetnextbuf]
+      - [0x4C600, .data, libultra/sp/sprite]
+      - [0x4C610, .data, libultra/io/vimgr]
+      - [0x4C630, .data, libultra/io/vitbl]
+      - [0x4CEF0, .data, libultra/os/initialize]
+      - [0x4CF00, .data, libultra/io/pimgr]
+      - [0x4CF20, .data, libultra/io/controller]
+      - [0x4CF30, .data, libultra/os/thread]
+      - [0x4CF50, data, libultra/os/exceptasm]
+      - [0x4CF70, .data, libultra/io/vi]
+      - [0x4CFE0, .data, libultra/audio/drvrnew]
+      - [0x4D170, .data, libultra/audio/env]
+      - [0x4D2B0, .data, libultra/io/piacs]
+      - [0x4D2C0, .data, libultra/os/timerintr]
+      - [0x4D2D0, .data, libultra/io/siacs]
+      - [0x4D2E0, .data, libultra/debug/kdebugserver]
+      - [0x4D2F0, .data, libultra/os/syncputchars]
+      - [0x4D300, .data, libultra/vimodes/vimodentsclan1]
+      - [0x4D350, data, libultra/vimodes/vimodepallan1] # TODO: doesn't match any PAL vimode
+      - [0x4D3A0, data] # TODO: what are these 0x10 bytes?
+
+      - [0x4D3B0, .rodata, kernel/code_1050]
+      - [0x4D3F0, .rodata, kernel/anim]
+      - [0x4D490, .rodata, kernel/audio_emitter]
+      - [0x4DAA0, .rodata, kernel/audio_event]
+      - [0x4DB40, .rodata, kernel/audio_manager]
+      - [0x4DB90, .rodata, kernel/audio_seq]
+      - [0x4DBC0, .rodata, kernel/chan]
+      - [0x4DC70, .rodata, kernel/clocks]
+      - [0x4DCA0, .rodata, kernel/code_7150]
+      - [0x4DCC0, .rodata, kernel/code_8170]
+      - [0x4E220, .rodata, kernel/dobj]
+      - [0x4E4D0, .rodata, kernel/env]
+      - [0x4E630, .rodata, kernel/fx_seq]
+      - [0x4E6E0, .rodata, kernel/font]
+      - [0x4E720, .rodata, kernel/fx]
+      - [0x4E9E0, .rodata, kernel/geometry]
+      - [0x4EA80, .rodata, kernel/graphics]
+      - [0x4EDA0, .rodata, kernel/filesystem]
+      - [0x4EDD0, .rodata, kernel/controller]
+      - [0x4EE20, .rodata, kernel/texture]
+      - [0x4F130, .rodata, kernel/matrix]
+      - [0x4F200, .rodata, kernel/math]
+      - [0x4F260, .rodata, kernel/memory]
+      - [0x4F4E0, .rodata, kernel/sched]
+      - [0x4F980, .rodata, kernel/sobj]
+      - [0x4FB00, .rodata, kernel/system]
+      - [0x4FF20, .rodata, kernel/terrain]
+      - [0x4FF50, .rodata, kernel/code_30EA0]
+      - [0x4FF60, .rodata, kernel/sprite]
+      - [0x50140, .rodata, kernel/user_file]
+      - [0x50160, .rodata, kernel/utils]
+      - [0x50170, .rodata, kernel/debug]
+      - [0x50300, .rodata, libultra/audio/sndplayer]
+      - [0x50340, .rodata, libultra/audio/csplayer]
+      - [0x50580, .rodata, libultra/audio/synthesizer]
+      - [0x50590, .rodata, libultra/audio/cseq]
+      - [0x505A0, .rodata, libultra/sp/sprite]
+      - [0x505B0, rodata, libultra/os/setintmask]
+      - [0x50630, .rodata, libultra/audio/seqplayer]
+      - [0x50870, .rodata, libultra/audio/cents2ratio]
+      - [0x50880, rodata, libultra/os/exceptasm]
+      - [0x508D0, .rodata, libultra/audio/drvrnew]
+      - [0x50900, .rodata, libultra/audio/resample]
+      - [0x50940, .rodata, libultra/audio/env]
+      - [0x509A0, .rodata, libultra/audio/seq]
+      - [0x509B0, .rodata, libultra/audio/reverb]
+      - { start: 0x509E0, type: databin, use_src_path: True, name: rsp/f3dex }
+      - { start: 0x511E0, type: databin, use_src_path: True, name: rsp/fast3d }
+      - { start: 0x519E0, type: databin, use_src_path: True, name: rsp/aspMain }
+
+      - { type: .bss, vram: 0x80250CF0, name: kernel/code_1050 }
+      - { type: .bss, vram: 0x80250D40, name: kernel/audio_emitter }
+      - { type: .bss, vram: 0x8025BD70, name: kernel/audio_event }
+      - { type: .bss, vram: 0x8025C420, name: kernel/audio_manager }
+      - { type: .bss, vram: 0x802610A0, name: kernel/audio_seq }
+      - { type: .bss, vram: 0x802615A0, name: kernel/chan }
+      - { type: .bss, vram: 0x802632E0, name: kernel/clocks }
+      - { type: .bss, vram: 0x80263330, name: kernel/code_8170 }
+      - { type: .bss, vram: 0x802635F0, name: kernel/dobj }
+      - { type: .bss, vram: 0x80269D80, name: kernel/env }
+      - { type: .bss, vram: 0x80269DC0, name: kernel/fx_seq }
+      - { type: .bss, vram: 0x80269EB0, name: kernel/font }
+      - { type: .bss, vram: 0x8027C3F0, name: kernel/fx }
+      - { type: .bss, vram: 0x802829D0, name: kernel/geometry }
+      - { type: .bss, vram: 0x80288DF0, name: kernel/graphics }
+      - { type: .bss, vram: 0x802A7650, name: kernel/filesystem }
+      - { type: .bss, vram: 0x802A7660, name: kernel/controller }
+      - { type: .bss, vram: 0x802A7710, name: kernel/texture }
+      - { type: .bss, vram: 0x802AA130, name: kernel/matrix }
+      - { type: .bss, vram: 0x802AAB70, name: kernel/memory }
+      - { type: .bss, vram: 0x802AAC90, name: kernel/sched }
+      - { type: .bss, vram: 0x802ABFE0, name: kernel/system }
+      - { type: .bss, vram: 0x802B7F10, name: kernel/terrain }
+      - { type: .bss, vram: 0x802B8320, name: kernel/sprite }
+      - { type: .bss, vram: 0x802BA370, name: kernel/debug }
+      - { type: .bss, vram: 0x802BA390, name: libultra/sp/sprite }
+      - { type: .bss, vram: 0x802BA3A0, name: libultra/io/sptask }
+      - { type: .bss, vram: 0x802BA3E0, name: libultra/io/vimgr }
+      - { type: .bss, vram: 0x802BB5F0, name: libultra/os/seteventmesg }
+      - { type: .bss, vram: 0x802BB670, name: libultra/os/initialize }
+      - { type: .bss, vram: 0x802BB680, name: libultra/io/pimgr }
+      - { type: .bss, vram: 0x802BC850, name: libultra/io/controller }
+      - { type: .bss, vram: 0x802BC8E0, name: libultra/io/piacs }
+      - { type: .bss, vram: 0x802BC900, name: libultra/os/timerintr }
+      - { type: .bss, vram: 0x802BC940, name: libultra/io/conteepread }
+      - { type: .bss, vram: 0x802BC980, name: libultra/io/siacs }
+      - { type: .bss, vram: 0x802BC9A0, name: libultra/debug/kdebugserver }
+
+  - name: app
+    type: code
+    start: 0x51CA0
+    vram: 0x802BCC50
+    bss_size: 0x293E0
+    subsegments:
+      - { start: 0x51CA0, type: textbin, use_src_path: True, name: app_text }
+      - { start: 0xD6030, type: databin, use_src_path: True, name: app_data }
+      - { type: bss, vram: 0x80349BE0 }
+
+  - name: filetable
+    type: bin
+    start: 0xDEC30
+
+  - name: filesys
+    type: bin
+    start: 0xDFAC0
+
+  - name: audio_seq
+    type: bin
+    start: 0x612BB0
+
+  - name: audio_ctl
+    type: bin
+    start: 0x6274A0
+
+  - name: audio_tbl
+    type: bin
+    start: 0x62B510
+
+  - [0x800000]

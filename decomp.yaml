@@ -14,6 +14,18 @@ versions:
     expected_dir: "expected"
     asm: "asm"
     nonmatchings: "asm/nonmatchings"
+- name: jp
+  fullname: JP
+  sha1: 892a5472d9a6811b881d093020de81f72baeeec9
+  paths:
+    target: "baserom.jp.z64"
+    build_dir: "build"
+    map: "build/pilotwings64.jp.map"
+    compiled_target: "build/pilotwings64.jp.z64"
+    elf: "build/pilotwings64.jp.elf"
+    expected_dir: "expected"
+    asm: "asm"
+    nonmatchings: "asm/nonmatchings"
 
 tools:
   decompme:
@@ -48,4 +60,3 @@ tools:
           name: libultra
           paths:
             - ultralib
-

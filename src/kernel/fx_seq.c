@@ -10,7 +10,7 @@ typedef struct uvSeqState {
     u8 currFrame;
     f32 frameTime;
     ParsedUVSQ uvsq;
-} uvSeqState;
+} uvSeqState; // size = 0x18
 
 uvSeqState gSeqStateTable[10];
 
