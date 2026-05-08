@@ -526,6 +526,19 @@ struct UPWL {
 };
 
 // --- UV user types
+struct TaskObjects_Unk10 {
+    Vec3F unk0;
+    f32 unkC;
+    f32 unk10;
+    f32 unk14;
+    f32 unk18;
+} [[static]]; // size = 0x1C
+
+struct TaskObjUnk2C {
+    Vec3F unk0;
+    Vec3F unkC;
+} [[static]]; // size = 0x18
+
 struct Unk803599D0 {
     s32 unk0;
     f32 unk4;
@@ -551,36 +564,31 @@ struct Unk803599D0 {
 } [[static]]; // size = 0x54
 
 struct Unk80345C80 {
-    Unk803599D0 unk0;
-    Unk803599D0 unk54;
-    Unk803599D0 unkA8;
-    Unk803599D0 unkFC;
-    Unk803599D0 unk150;
-    u8 pad1A4[0x3B4-0x1A4];
+    Unk803599D0 unk0[11];
+    u8 unk39C[0x3B4-0x39C];
     s32 unk3B4;
     s32 unk3B8;
     f32 unk3BC;
     f32 unk3C0;
-    f32 unk3C4;
-    f32 unk3C8;
+    f32 unk3C4; // stored to D_8034F1C4 (s32)
+    f32 unk3C8; // stored to D_8034F1C0 (f32)
 } [[static]]; // size = 0x3CC
 
 struct UPWT_COMM {
-    u8 classNum;
-    u8 vehNum;
-    u8 testNum;
-    u8 unk3;
-    u8 unk4;
-    u8 unk5[0x3];
-    u8 unk8[4];
-    u8 unkC[4];
-    s32 unk10;
-    u8 unk14[0x18];
-    s32 unk2C;
-    u8 unk30[0x14];
+    u8 classId;
+    u8 vehId;
+    u8 testId;
+    u8 mapId;
+    u8 unk4; // values [0-4]
+    padding[3];
+    u8 unk8[4]; // array of IDs [0: env or "cond"?, 1: enable snow?]
+    f32 unkC;
+    TaskObjects_Unk10 unk10;
+    TaskObjUnk2C unk2C;
     f32 unk44;
     Unk80345C80 unk48;
-    u8 unk414[8];
+    u8 unk414[4];
+    f32 unk418;
     u8 countTHER;
     u8 countLWIN;
     u8 countTPAD;
@@ -719,10 +727,10 @@ struct TaskHPAD {
     s32 unk18;
     HPADType type;
     u8 points;
-    u8 pad1E[2];
+    padding[2];
     f32 fuelAdded;
     u8 nextHpadCount [[comment("number of HPADs to activate")]];
-    u8 pad25[3];
+    padding[3];
     s32 nextHpads[5] [[comment("array of HPADs to activate")]];
     u8 active [[comment("active at start")]];
     padding[3];
@@ -763,9 +771,7 @@ struct TaskLWIN {
 
 // OBSV is not actually present in FS, but is decoded in code
 struct TaskOBSV {
-    f32 x;
-    f32 y;
-    f32 z;
+    Vec3F unk0;
     f32 unkC;
 } [[static]]; // size = 0x10
 
@@ -781,7 +787,7 @@ struct TaskRNGS {
     Vec3F pos [[comment("position vector")]];
     Vec3F rot [[comment("rotation vector (degrees)")]];
     s32 unk18;
-    padding[1];
+    u8 unk1C;
     u8 childCount;
     padding[2];
     s32 childRings[5];
@@ -819,6 +825,7 @@ struct TaskTARG {
     Vec3F rot;
     u8 targetType;
     u8 unk19;
+    padding[2];
     s32 pad1C;
 } [[static]]; // size = 0x20
 
