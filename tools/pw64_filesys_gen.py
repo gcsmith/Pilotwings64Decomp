@@ -64,8 +64,9 @@ def generate_bins(table: dict, fileDir: Path, tableFile: str, filesysFile: str, 
             if form["file"].endswith(".raw"):
                 formData = open(filePath, "rb").read()
             elif form["file"].endswith(".yaml"):
-                assert hasattr(pw64_fs, form["tag"]), f"Unknown tag '{form['tag']}"
-                generator = getattr(pw64_fs, form["tag"])
+                className = f"FORM_{form["tag"]}" if form["tag"][0].isdigit() else form["tag"]
+                assert hasattr(pw64_fs, className), f"Unknown tag '{form['tag']}"
+                generator = getattr(pw64_fs, className)
                 fileDat = yaml.safe_load(open(filePath, 'r'))
                 formData = bytes(generator.from_dict(fileDat))
                 if dumpData:

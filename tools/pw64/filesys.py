@@ -2,6 +2,79 @@
 
 import struct
 
+class FORM_3VUE:
+    """User path data stored as quaternions and translations"""
+    _commStruct = struct.Struct(">5l h 10x")
+    _3vueTags = {
+        "QUAT": struct.Struct(">4f l 4x"),
+        "XLAT": struct.Struct(">3f l"),
+    }
+
+    def __init__(self, tag=None, pad_count=0, comm=None, entries=None):
+        self.tag = tag if tag is not None else "3VUE"
+        self.pad_count = pad_count
+        self.comm = [] if comm is None else comm
+        self.entries = {} if entries is None else entries
+
+    @classmethod
+    def from_dict(cls, d: dict):
+        """Construct ADAT from dictionary"""
+        return cls(d["tag"], d["pad_count"], d["comm"], d["entries"])
+
+    @classmethod
+    def from_bytes(cls, form: bytes):
+        """Construct 3VUE from raw filesystem bytes"""
+        ftag, flen, vtag = struct.unpack(">4s L 4s", form[:0xC])
+        assert ftag == b'FORM', f"Expected 'FORM', got ${ftag}"
+        vtag = vtag.decode()
+        assert vtag == "3VUE", f"Expected '3VUE', got ${vtag}"
+        payload = form[8:]
+        idx = 4
+        pad_count = 0
+        comm = None
+        entries = {}
+        while idx < flen:
+            tag, length = struct.unpack_from(">4s L", payload, idx)
+            idx += 8
+            tag = tag.decode()
+            assert tag in ("PAD ", "COMM", "QUAT", "XLAT"), f"Unexpected tag '${tag}'"
+            if tag == "PAD ":
+                pad_count += 1
+            elif tag == "COMM":
+                comm = list(cls._commStruct.unpack_from(payload, idx))
+            elif tag in cls._3vueTags:
+                parser = cls._3vueTags[tag]
+                vIdx = idx
+                count, tbd = struct.unpack_from(">2L", payload, vIdx)
+                vIdx += 8
+                blockLen = parser.size * count
+                block = [list(e) for e in parser.iter_unpack(payload[vIdx:vIdx+blockLen])]
+                vIdx += blockLen
+                entries[tag] = block
+            idx += length
+        return cls(vtag, pad_count, comm, entries)
+
+    def as_dict(self) -> dict:
+        """Generate dictionary suitable for creating YAML representation"""
+        return {
+            "tag": self.tag,
+            "pad_count": self.pad_count,
+            "comm": self.comm,
+            "entries": self.entries
+        }
+
+    def __bytes__(self) -> bytes:
+        """Generate raw bytes suitable for regenerating filesystem data"""
+        records = struct.pack(">4s", self.tag.encode())
+        records += struct.pack(">4s L L", b'PAD ', 4, 0) * self.pad_count
+        records += b'COMM' + struct.pack(">L", self._commStruct.size) + self._commStruct.pack(*self.comm)
+        for tag, dat in self.entries.items():
+            parser = self._3vueTags[tag]
+            block = struct.pack(">LL", len(dat), 0) + b''.join([parser.pack(*e) for e in dat])
+            block += b'\0' * ((8 - (len(block) % 8)) % 8)
+            records += struct.pack(">4s L", tag.encode(), len(block)) + block
+        return b'FORM' + struct.pack(">L", len(records)) + records
+
 class ADAT:
     """
     ADAT stores string identifiers and data strings encoded in custom u16 chars.
@@ -140,7 +213,7 @@ class ADAT:
                 entries.append({"NAME": aName, "DATA": aData})
             idx += alen
         assert len(entries) == aSize, f"Mismatch length: {len(entries)} != {aSize}"
-        return ADAT("ADAT", pad_count, entries)
+        return cls("ADAT", pad_count, entries)
 
     def as_dict(self) -> dict:
         """Generate dictionary suitable for creating YAML representation"""

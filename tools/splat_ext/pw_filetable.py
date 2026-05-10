@@ -94,7 +94,8 @@ class N64SegPw_filetable(Segment):
         path.mkdir(parents=True, exist_ok=True)
         # assign file path and name which align with pw_filesys
         for form in self.fs_table["contents"]:
-            ext = "yaml" if hasattr(pw64_fs, form["tag"]) else "raw"
+            className = f"FORM_{form["tag"]}" if form["tag"][0].isdigit() else form["tag"]
+            ext = "yaml" if hasattr(pw64_fs, className) else "raw"
             form["file"] = f"FORM_{form["tag"]}_{form["offset"]:06X}.{ext}"
         # emit top-level filetable yaml
         assert self.fs_table and path, f"Unexpected {self.fs_table} {path}"
