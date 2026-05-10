@@ -300,7 +300,7 @@ $(BUILD_DIR)/%.o: %.s
 
 $(FS_BINS) &: $(FS_FILES)
 	@printf "[$(CYAN)  fsys  $(NO_COL)]  $<\n"
-	$(V)$(FILESYS_GEN)
+	$(V)$(FILESYS_GEN) --stats
 
 $(BUILD_DIR)/%.o: %.bin
 	@printf "[$(PINK) linker $(NO_COL)]  $<\n"

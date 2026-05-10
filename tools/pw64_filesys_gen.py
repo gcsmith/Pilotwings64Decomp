@@ -5,11 +5,37 @@ import hashlib
 import os
 from pathlib import Path
 import struct
+import time
 import yaml
 import pw64.filesys as pw64_fs
 
+def print_stats(fileTimes: dict):
+    for _, v in fileTimes.items():
+        p, g = 0, 0
+        for t in v["times"]:
+            p += t[1] - t[0]
+            g += t[2] - t[1]
+        v["parse"] = p
+        v["generate"] = g
+    print("+------+-------+-------+-------+-------+")
+    print("| tag  | count | yaml  |  bin  | total |")
+    print("+------+-------+-------+-------+-------+")
+    tot = 0
+    fcount = 0
+    for tag, v in sorted(fileTimes.items()):
+        count = len(v["times"])
+        fcount += count
+        p = v["parse"]
+        g = v["generate"]
+        s = p + g
+        tot += s
+        print(f"| {tag} | {count:>5d} | {p:.3f} | {g:.3f} | {s:.3f} |")
+    print("+------+-------+-------+-------+-------+")
+    print(f"|Total | {fcount:>5d} |       |       | {tot:.3f} |")
+    print("+------+-------+-------+-------+-------+")
+
 def read_table(tablePath):
-    return yaml.safe_load(open(tablePath, 'r'))
+    return yaml.safe_load(open(tablePath, "r"))
 
 # wrapper for matching compression workaround
 def mio0_compress(data: bytes, mio0Info: dict) -> bytes:
@@ -20,7 +46,7 @@ def mio0_compress(data: bytes, mio0Info: dict) -> bytes:
             buf.append(0)
         buf[offset] = (buf[offset] & ~(mask)) | (mask if val else 0)
 
-    if not mio0Info or hashlib.sha1(data).hexdigest() != mio0Info['sha1sum']:
+    if not mio0Info or hashlib.sha1(data).hexdigest() != mio0Info["sha1sum"]:
         cData = crunch64.mio0.compress(data)
     else:
         uBuf = b''
@@ -28,18 +54,18 @@ def mio0_compress(data: bytes, mio0Info: dict) -> bytes:
         flags = []
         offset = 0x0
         bitIdx = 0
-        for m in mio0Info['comp_blocks']:
-            uLen = m['file_offset'] - offset
+        for m in mio0Info["comp_blocks"]:
+            uLen = m["file_offset"] - offset
             uBuf += data[offset:offset + uLen]
             offset += uLen
             for i in range(uLen):
                 PUT_BIT(flags, bitIdx, 1)
                 bitIdx += 1
-            windowInfo = ((m['length'] - 3) << 12) | (m['offset'] - 1)
+            windowInfo = ((m["length"] - 3) << 12) | (m["offset"] - 1)
             cBuf += struct.pack(">H", windowInfo)
             PUT_BIT(flags, bitIdx, 0)
             bitIdx += 1
-            offset += m['length']
+            offset += m["length"]
         uLen = len(data) - offset
         uBuf += data[offset:offset + uLen]
         offset += uLen
@@ -54,9 +80,10 @@ def mio0_compress(data: bytes, mio0Info: dict) -> bytes:
         cData += bytes(flags) + cBuf + uBuf
     return cData
 
-def generate_bins(table: dict, fileDir: Path, tableFile: str, filesysFile: str, dumpData: bool):
+def generate_bins(table: dict, fileDir: Path, tableFile: str, filesysFile: str, dumpData: bool, printStats: bool):
+    stats = {}
     # 1. output filesystem binary and accumulate sizes
-    with open(filesysFile, 'wb') as fsBin:
+    with open(filesysFile, "wb") as fsBin:
         offset = 0
         for form in table["contents"]:
             fileName = Path(form["file"])
@@ -67,28 +94,34 @@ def generate_bins(table: dict, fileDir: Path, tableFile: str, filesysFile: str, 
                 className = f"FORM_{form["tag"]}" if form["tag"][0].isdigit() else form["tag"]
                 assert hasattr(pw64_fs, className), f"Unknown tag '{form['tag']}"
                 generator = getattr(pw64_fs, className)
-                fileDat = yaml.safe_load(open(filePath, 'r'))
+                a = time.perf_counter()
+                fileDat = yaml.safe_load(open(filePath, "r"))
+                b = time.perf_counter()
                 formData = bytes(generator.from_dict(fileDat))
+                c = time.perf_counter()
                 if dumpData:
                     dumpPath = fileDir / "dump" / fileName.with_suffix(".bin")
                     os.makedirs(dumpPath.parent, exist_ok=True)
                     with open(dumpPath, "wb") as dumpFile:
                         dumpFile.write(formData)
+                if form["tag"] not in stats:
+                    stats[form["tag"]] = {"times": [], "parse": 0, "generate": 0}
+                stats[form["tag"]]["times"].append((a, b, c))
             else:
                 formData = b''
             formLen = len(formData)
-            if formLen != form['length']:
+            if formLen != form["length"]:
                 print(f"Warning: length mismatch {form['file']} {form['length']} != {formLen}")
-            form['length'] = formLen
+            form["length"] = formLen
             offset += formLen
             fsBin.write(formData)
 
     # 2. generate filetable, compress, and output file
-    tableData = b''.join([struct.pack(">4s L", f['tag'].encode(), f['length']) for f in table["contents"]])
+    tableData = b''.join([struct.pack(">4s L", f["tag"].encode(), f["length"]) for f in table["contents"]])
     tableLen = len(tableData)
     # until matching MIO0 compression is found, use workaround instead of crunch64
     # cTableData = crunch64.mio0.compress(tableData)
-    cTableData = mio0_compress(tableData, table['mio0_matching_info'])
+    cTableData = mio0_compress(tableData, table["mio0_matching_info"])
     cTableLen = (((len(cTableData) + 8) + 3) // 4) * 4 # round up to 4-byte boundary
     uvRm = b'UVRM'
     uvRm += struct.pack(">4s L L", b'PAD ', 4, 0) * table["pad_count"]
@@ -96,19 +129,23 @@ def generate_bins(table: dict, fileDir: Path, tableFile: str, filesysFile: str, 
     uvRm += struct.pack(">4s L", "TABL".encode(), tableLen)
     uvRm += cTableData
     uvRmLen = ((len(uvRm) + 3) // 4) * 4 # round up to 4 byte boundary
-    with open(tableFile, 'wb') as tableBin:
+    with open(tableFile, "wb") as tableBin:
         tableBin.write(struct.pack(">4s L", "FORM".encode(), uvRmLen))
         tableBin.write(uvRm)
+
+    if printStats:
+        print_stats(stats)
 
 def main():
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument("--table", "-t", action="store", default='./bin/filesys/filetable.yaml')
-    parser.add_argument("--dir", "-d", action="store", default='./bin/filesys')
+    parser.add_argument("--table", "-t", action="store", default="./bin/filesys/filetable.yaml")
+    parser.add_argument("--dir", "-d", action="store", default="./bin/filesys")
     parser.add_argument("--dump", action="store_true")
+    parser.add_argument("--stats", action="store_true")
     args = parser.parse_args()
     table = read_table(args.table)
-    generate_bins(table, Path(args.dir), 'bin/filetable.bin', 'bin/filesys.bin', args.dump)
+    generate_bins(table, Path(args.dir), "bin/filetable.bin", "bin/filesys.bin", args.dump, args.stats)
 
 if __name__ == "__main__":
     main()
