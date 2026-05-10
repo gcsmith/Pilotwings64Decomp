@@ -355,8 +355,8 @@ struct ADAT {
 
 
 struct PDAT_PHDR {
-    s32 unk0;
     s32 duration;
+    s32 pposCount;
 } [[static]]; // size = 0x8
 
 struct PDAT_PPOS {
@@ -390,9 +390,9 @@ struct PDAT {
     match (tag) {
         ("PAD "): u8 pad[length] [[hidden]];
         ("PHDR"): PDAT_PHDR phdr;
-        ("PPOS"): PDAT_PPOS pos[while($ - Start < length)];
+        ("PPOS"): PDAT_PPOS pos;
         ("RHDR"): PDAT_RHDR rhdr;
-        ("RPKT"): PDAT_RPKT rpkt[while($ - Start < length)];
+        ("RPKT"): PDAT_RPKT rpkt;
         (_): u8 data[length];
     }
     padding[while (($ - Start) < length)]; // length is always to 8-bytes, not offsets

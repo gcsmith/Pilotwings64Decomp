@@ -2,8 +2,9 @@
 
 import struct
 
-class FORM_3VUE:
+class FORM_3VUE: # prefix with `FORM_` since class names cannot begin with a number
     """User path data stored as quaternions and translations"""
+
     _commStruct = struct.Struct(">5l h 10x")
     _3vueTags = {
         "QUAT": struct.Struct(">4f l 4x"),
@@ -18,7 +19,7 @@ class FORM_3VUE:
 
     @classmethod
     def from_dict(cls, d: dict):
-        """Construct ADAT from dictionary"""
+        """Construct 3VUE from dictionary"""
         return cls(d["tag"], d["pad_count"], d["comm"], d["entries"])
 
     @classmethod
@@ -74,6 +75,7 @@ class FORM_3VUE:
             block += b'\0' * ((8 - (len(block) % 8)) % 8)
             records += struct.pack(">4s L", tag.encode(), len(block)) + block
         return b'FORM' + struct.pack(">L", len(records)) + records
+
 
 class ADAT:
     """
@@ -236,6 +238,71 @@ class ADAT:
             records += struct.pack(">4s L", b'NAME', len(name)) + name
             records += struct.pack(">4s L", b'DATA', len(encData)) + encData
         return struct.pack(">4s L", b'FORM', len(records)) + records
+
+
+class PDAT:
+    """Demo recording position, angle, and button data"""
+
+    _pdatTags = {
+        "PHDR": struct.Struct(">2l"),
+        "PPOS": struct.Struct(">3f 3f"),
+        "RHDR": struct.Struct(">5l"),
+        "RPKT": struct.Struct(">f 2f L"),
+    }
+
+    def __init__(self, tag=None, pad_count=0, entries=None):
+        self.tag = tag if tag is not None else self.__class__.__name__
+        self.pad_count = pad_count
+        self.entries = [] if entries is None else entries
+
+    @classmethod
+    def from_dict(cls, d: dict):
+        """Construct PDAT from dictionary"""
+        return cls(d["tag"], d["pad_count"], d["entries"])
+
+    @classmethod
+    def from_bytes(cls, form: bytes):
+        """Construct PDAT from raw filesystem bytes"""
+        ftag, flen, ptag = struct.unpack(">4s L 4s", form[:0xC])
+        assert ftag == b'FORM', f"Expected 'FORM', got ${ftag}"
+        ptag = ptag.decode()
+        assert ptag == cls.__name__, f"Expected '{cls.__name__}', got ${ptag}"
+        payload = form[8:]
+        idx = 4
+        pad_count = 0
+        entries = []
+        while idx < flen:
+            tag, length = struct.unpack_from(">4s L", payload, idx)
+            idx += 8
+            tag = tag.decode()
+            assert tag == "PAD " or tag in cls._pdatTags, f"Unexpected tag '${tag}'"
+            if tag == "PAD ":
+                pad_count += 1
+            elif tag in cls._pdatTags:
+                parser = cls._pdatTags[tag]
+                entries.append([tag] + list(parser.unpack_from(payload, idx)))
+            idx += length
+        return cls(ptag, pad_count, entries)
+
+    def as_dict(self) -> dict:
+        """Generate dictionary suitable for creating YAML representation"""
+        return {
+            "tag": self.tag,
+            "pad_count": self.pad_count,
+            "entries": self.entries,
+        }
+
+    def __bytes__(self) -> bytes:
+        """Generate raw bytes suitable for regenerating filesystem data"""
+        records = struct.pack(">4s", self.tag.encode())
+        records += struct.pack(">4s L L", b'PAD ', 4, 0) * self.pad_count
+        for dat in self.entries:
+            tag = dat[0]
+            parser = self._pdatTags[tag]
+            block = parser.pack(*dat[1:])
+            block += b'\0' * ((8 - (len(block) % 8)) % 8)
+            records += struct.pack(">4s L", tag.encode(), len(block)) + block
+        return b'FORM' + struct.pack(">L", len(records)) + records
 
 
 class SPTH:
@@ -484,7 +551,6 @@ class UPWT:
             elif tag in cls._upwtTags:
                 expectedCount = counts[list(cls._upwtTags.keys()).index(tag)]
                 entryStruct = cls._upwtTags[tag]
-                print(f"{tag} {expectedCount} {idx:x} {length:x} {entryStruct.size:x}")
                 entries[tag] = [list(v) for v in entryStruct.iter_unpack(payload[idx:idx+expectedCount*entryStruct.size])]
             idx += length
         return cls(utag, pad_count, info, comm, entries)

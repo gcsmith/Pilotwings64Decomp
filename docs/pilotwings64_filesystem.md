@@ -72,6 +72,7 @@ User files are specific to the game's data (e.g. landing pads, balloons, rings).
 | `TABL` | func_802246a0       | Table of FORM data entries
 | `3VUE` | userPath_8034A4F8   | User path data
 | `ADAT` | textLoadBlock       | ASCII text for on-screen messages
+| `PDAT` | demoAttLoadPos      | Position and controller data for demo recordings
 | `UPWL` | levelLoadMapObjects | User Pilotwings Level (map)
 | `UPWT` | taskLoadCommObj     | User Pilotwings Task (test)
 | `UVAN` | uvJanimLoad         | Animation
@@ -241,6 +242,68 @@ The bold letters are representing by adding 0x60 to the character.
 |  0x00  | char[4] | `DATA`
 |  0x04  | u32     | length of following (bytes)
 |  0x08  | u16[]   | PW64 custom u16 encoded string
+
+
+### File PDAT / Position Data
+
+`PDAT` contains the position, angle, and controller button data used in
+the demo recordings.
+
+#### PDAT::PHDR / position header
+
+`PHDR` contains the timing information for the position recording.
+
+| Offset | Type    | Description
+|--------|---------|------------
+|  0x00  | char[4] | `PHDR`
+|  0x04  | u32     | length (bytes)
+|  0x08  | s32     | duration
+|  0x0C  | s32     | count of `PPOS`
+| *0x10* |         | **Total length**
+
+#### PDAT::PPOS / position, angle
+
+`PPOS` contains the position and rotation information.
+Each data point contains the full `PPOS` header.
+
+| Offset | Type    | Description
+|--------|---------|------------
+|  0x00  | char[4] | `PPOS`
+|  0x04  | u32     | length (bytes)
+|  0x08  | Vec3F   | position
+|  0x14  | Vec3F   | rotation
+| *0x20* |         | **Total length**
+
+#### PDAT::RHDR / recording header
+
+`RHDR` contains the meta data for the demo recording.
+This includes test, class, and vehicle IDs.
+
+| Offset | Type    | Description
+|--------|---------|------------
+|  0x00  | char[4] | `RHDR`
+|  0x04  | u32     | length (bytes)
+|  0x08  | s32     | test ID
+|  0x0C  | s32     | TBD, unused but set in range [0-5]
+|  0x10  | s32     | class ID
+|  0x14  | s32     | vehicle ID
+|  0x18  | s32     | TBD (always 0)
+| *0x1C* |         | **Total length**
+
+#### PDAT::RPKT / button recording packet
+
+`RPKT` contains the controller recording packet data. Each data point contains
+a full `RPKT` header and contains the time, analog stick, and button values.
+
+| Offset | Type    | Description
+|--------|---------|------------
+|  0x00  | char[4] | `RPKT`
+|  0x04  | u32     | length (bytes)
+|  0x08  | f32     | timestamp
+|  0x0C  | f32     | analog stick X
+|  0x10  | f32     | analog stick Y
+|  0x14  | u32     | button mask
+| *0x18* |         | **Total length**
 
 
 ### File UPWL / PW64 Level
