@@ -41,7 +41,7 @@ def generate_bins(table: dict, fileDir: Path, tableFile: str, filesysFile: str, 
             if form["file"].endswith(".raw"):
                 formData = open(filePath, "rb").read()
             elif form["file"].endswith(".json"):
-                className = f"FORM_{form["tag"]}" if form["tag"][0].isdigit() else form["tag"]
+                className = f"FORM_{form['tag']}" if form["tag"][0].isdigit() else form["tag"]
                 assert hasattr(filesys, className), f"Unknown tag '{form['tag']}"
                 generator = getattr(filesys, className)
                 a = time.perf_counter()

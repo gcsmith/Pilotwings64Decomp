@@ -64,9 +64,9 @@ class N64SegPw_filetable(Segment):
         path.mkdir(parents=True, exist_ok=True)
         # assign file path and name which align with pw_filesys
         for form in self.fs_table["contents"]:
-            className = f"FORM_{form["tag"]}" if form["tag"][0].isdigit() else form["tag"]
+            className = f"FORM_{form['tag']}" if form["tag"][0].isdigit() else form["tag"]
             ext = "json" if hasattr(filesys, className) else "raw"
-            form["file"] = f"FORM_{form["tag"]}_{form["offset"]:06X}.{ext}"
+            form["file"] = f"FORM_{form['tag']}_{form['offset']:06X}.{ext}"
         # emit top-level filetable json
         assert self.fs_table and path, f"Unexpected {self.fs_table} {path}"
         with open(path / f"{self.name}.json", "w", newline="\n") as fout:

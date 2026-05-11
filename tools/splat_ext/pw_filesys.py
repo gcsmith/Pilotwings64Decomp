@@ -33,12 +33,12 @@ class N64SegPw_filesys(Segment):
         path.mkdir(parents=True, exist_ok=True)
         # split out raw binary blobs of each FORM
         for form in self.fs_files:
-            basename = f"FORM_{form["tag"]}_{form["offset"]:06X}"
+            basename = f"FORM_{form['tag']}_{form['offset']:06X}"
             start = form["offset"]
             end = start + form["length"] + 8
             formData = rom_bytes[start:end]
             # workaround to prefix tags that begin with number like 3VUE
-            className = f"FORM_{form["tag"]}" if form["tag"][0].isdigit() else form["tag"]
+            className = f"FORM_{form['tag']}" if form['tag'][0].isdigit() else form["tag"]
             # if the class exists, parse and dump the data as json, else dump raw binary
             if hasattr(pw64_fs, className):
                 fileName = basename + ".json"
