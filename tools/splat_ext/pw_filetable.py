@@ -1,7 +1,7 @@
 import crunch64
 import hashlib
+import json
 import struct
-import yaml
 from splat.util import options
 from splat.segtypes.segment import Segment
 from splat.segtypes.linker_entry import LinkerEntry
@@ -21,7 +21,7 @@ class N64SegPw_filetable(Segment):
         mio0Info = []
         magic = mio0Data[:4]
         assert magic == b'MIO0', f"Expected 'MIO0', got {magic}"
-        dLen, cOff, uOff = struct.unpack(">LLL", mio0Data[0x4:0x10])
+        dLen, cOff, uOff = struct.unpack_from(">LLL", mio0Data, 4)
         flags = mio0Data[0x10:cOff]
         flagIdx = 0
         outSize = 0
@@ -32,7 +32,7 @@ class N64SegPw_filetable(Segment):
             if flags[flagOff] & flagBit != 0:
                 outSize += 1
             else: # compressed
-                windowInfo, = struct.unpack(">H", mio0Data[cOff:cOff+2])
+                windowInfo, = struct.unpack_from(">H", mio0Data, cOff)
                 cOff += 2
                 winOff = (windowInfo & 0x0FFF) + 1
                 winLen = (windowInfo >> 12) + 3
@@ -95,12 +95,12 @@ class N64SegPw_filetable(Segment):
         # assign file path and name which align with pw_filesys
         for form in self.fs_table["contents"]:
             className = f"FORM_{form["tag"]}" if form["tag"][0].isdigit() else form["tag"]
-            ext = "yaml" if hasattr(pw64_fs, className) else "raw"
+            ext = "json" if hasattr(pw64_fs, className) else "raw"
             form["file"] = f"FORM_{form["tag"]}_{form["offset"]:06X}.{ext}"
-        # emit top-level filetable yaml
+        # emit top-level filetable json
         assert self.fs_table and path, f"Unexpected {self.fs_table} {path}"
-        with open(path / f"{self.name}.yaml", "w", newline="\n") as fout:
-            yaml.dump(self.fs_table, fout, encoding="utf-8", sort_keys=False, default_flow_style=None)
+        with open(path / f"{self.name}.json", "w", newline="\n") as fout:
+            json.dump(self.fs_table, fout, indent=2)
 
     def get_linker_entries(self):
         return [

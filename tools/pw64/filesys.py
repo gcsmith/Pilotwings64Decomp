@@ -25,38 +25,37 @@ class FORM_3VUE: # prefix with `FORM_` since class names cannot begin with a num
     @classmethod
     def from_bytes(cls, form: bytes):
         """Construct 3VUE from raw filesystem bytes"""
-        ftag, flen, vtag = struct.unpack(">4s L 4s", form[:0xC])
+        ftag, flen, vtag = struct.unpack_from(">4s L 4s", form)
         assert ftag == b'FORM', f"Expected 'FORM', got ${ftag}"
         vtag = vtag.decode()
         assert vtag == "3VUE", f"Expected '3VUE', got ${vtag}"
-        payload = form[8:]
-        idx = 4
+        idx = 0xC
         pad_count = 0
         comm = None
         entries = {}
         while idx < flen:
-            tag, length = struct.unpack_from(">4s L", payload, idx)
+            tag, length = struct.unpack_from(">4s L", form, idx)
             idx += 8
             tag = tag.decode()
             assert tag in ("PAD ", "COMM", "QUAT", "XLAT"), f"Unexpected tag '${tag}'"
             if tag == "PAD ":
                 pad_count += 1
             elif tag == "COMM":
-                comm = list(cls._commStruct.unpack_from(payload, idx))
+                comm = list(cls._commStruct.unpack_from(form, idx))
             elif tag in cls._3vueTags:
                 parser = cls._3vueTags[tag]
                 vIdx = idx
-                count, tbd = struct.unpack_from(">2L", payload, vIdx)
+                count, tbd = struct.unpack_from(">2L", form, vIdx)
                 vIdx += 8
                 blockLen = parser.size * count
-                block = [list(e) for e in parser.iter_unpack(payload[vIdx:vIdx+blockLen])]
+                block = [list(e) for e in parser.iter_unpack(form[vIdx:vIdx+blockLen])]
                 vIdx += blockLen
                 entries[tag] = block
             idx += length
         return cls(vtag, pad_count, comm, entries)
 
     def as_dict(self) -> dict:
-        """Generate dictionary suitable for creating YAML representation"""
+        """Generate dictionary suitable for creating JSON representation"""
         return {
             "tag": self.tag,
             "pad_count": self.pad_count,
@@ -81,6 +80,7 @@ class ADAT:
     """
     ADAT stores string identifiers and data strings encoded in custom u16 chars.
     """
+
     def __init__(self, tag=None, pad_count=0, entries=None):
         self.tag = tag if tag is not None else self.__class__.__name__
         self.pad_count = pad_count
@@ -190,27 +190,26 @@ class ADAT:
         return cls(d["tag"], d["pad_count"], d["entries"])
 
     @classmethod
-    def from_bytes(cls, formBytes: bytes):
+    def from_bytes(cls, form: bytes):
         pad_count = 0
         entries = []
-        ftag, flen, tag = struct.unpack(">4s L 4s", formBytes[:0xC])
+        ftag, flen, tag = struct.unpack_from(">4s L 4s", form)
         assert ftag == b'FORM', f"Expected 'FORM', got ${ftag}"
         assert tag == b'ADAT', f"Expected 'ADAT', got ${tag}"
-        aBytes = formBytes[8:]
-        idx = 4
+        idx = 0xC
         aSize = 0
         aName = ""
         while idx < flen:
-            atag, alen = struct.unpack(">4s L", aBytes[idx:idx+8])
+            atag, alen = struct.unpack_from(">4s L", form, idx)
             idx += 8
             if atag == b'PAD ':
                 pad_count += 1
             elif atag == b'SIZE':
-                aSize, = struct.unpack(">L", aBytes[idx:idx+4])
+                aSize, = struct.unpack_from(">L", form, idx)
             elif atag == b'NAME':
-                aName = aBytes[idx:idx+alen].decode().rstrip('\x00')
+                aName = form[idx:idx+alen].decode().rstrip('\x00')
             elif atag == b'DATA':
-                aDataRaw = aBytes[idx:idx+alen]
+                aDataRaw = form[idx:idx+alen]
                 aData = cls.str_decode(aDataRaw)
                 entries.append({"NAME": aName, "DATA": aData})
             idx += alen
@@ -218,7 +217,7 @@ class ADAT:
         return cls("ADAT", pad_count, entries)
 
     def as_dict(self) -> dict:
-        """Generate dictionary suitable for creating YAML representation"""
+        """Generate dictionary suitable for creating JSON representation"""
         return {
             "tag": self.tag,
             "pad_count": self.pad_count,
@@ -263,16 +262,15 @@ class PDAT:
     @classmethod
     def from_bytes(cls, form: bytes):
         """Construct PDAT from raw filesystem bytes"""
-        ftag, flen, ptag = struct.unpack(">4s L 4s", form[:0xC])
+        ftag, flen, ptag = struct.unpack_from(">4s L 4s", form)
         assert ftag == b'FORM', f"Expected 'FORM', got ${ftag}"
         ptag = ptag.decode()
         assert ptag == cls.__name__, f"Expected '{cls.__name__}', got ${ptag}"
-        payload = form[8:]
-        idx = 4
+        idx = 0xC
         pad_count = 0
         entries = []
         while idx < flen:
-            tag, length = struct.unpack_from(">4s L", payload, idx)
+            tag, length = struct.unpack_from(">4s L", form, idx)
             idx += 8
             tag = tag.decode()
             assert tag == "PAD " or tag in cls._pdatTags, f"Unexpected tag '${tag}'"
@@ -280,12 +278,12 @@ class PDAT:
                 pad_count += 1
             elif tag in cls._pdatTags:
                 parser = cls._pdatTags[tag]
-                entries.append([tag] + list(parser.unpack_from(payload, idx)))
+                entries.append([tag] + list(parser.unpack_from(form, idx)))
             idx += length
         return cls(ptag, pad_count, entries)
 
     def as_dict(self) -> dict:
-        """Generate dictionary suitable for creating YAML representation"""
+        """Generate dictionary suitable for creating JSON representation"""
         return {
             "tag": self.tag,
             "pad_count": self.pad_count,
@@ -316,6 +314,7 @@ class SPTH:
 
     # order of tags is important
     _spathTags = ("SCPP", "SCPH", "SCPX", "SCPY", "SCPR", "SCPZ", "SCP#")
+    _timeVal = struct.Struct(">2f")
 
     def __init__(self, tag=None, pad_count=0, entries=None):
         self.tag = tag if tag is not None else self.__class__.__name__
@@ -330,16 +329,15 @@ class SPTH:
     @classmethod
     def from_bytes(cls, form: bytes):
         """Construct SPTH from raw filesystem bytes"""
-        ftag, flen, stag = struct.unpack(">4s L 4s", form[:0xC])
+        ftag, flen, stag = struct.unpack_from(">4s L 4s", form)
         assert ftag == b'FORM', f"Expected 'FORM', got ${ftag}"
         stag = stag.decode()
         assert stag == cls.__name__, f"Expected '{cls.__name__}', got ${stag}"
-        sBytes = form[8:]
-        idx = 4
+        idx = 0xC
         pad_count = 0
         entries = {}
         while idx < flen:
-            tag, length = struct.unpack(">4s L", sBytes[idx:idx+8])
+            tag, length = struct.unpack_from(">4s L", form, idx)
             idx += 8
             tag = tag.decode()
             assert tag == "PAD " or tag in cls._spathTags, f"Unexpected tag '${tag}'"
@@ -347,22 +345,16 @@ class SPTH:
                 pad_count += 1
             elif tag in cls._spathTags:
                 spIdx = idx
-                count, = struct.unpack(">L", sBytes[spIdx:spIdx+4])
+                count, = struct.unpack_from(">L", form, spIdx)
                 spIdx += 4
-                sp = [{"time": e[0], "val": e[1]} for e in struct.iter_unpack(">ff", sBytes[spIdx:spIdx+8*count])]
+                sp = [{"time": e[0], "val": e[1]} for e in cls._timeVal.iter_unpack(form[spIdx:spIdx+8*count])]
                 spIdx += 8*count
                 entries[tag] = sp
             idx += length
         return cls(stag, pad_count, entries)
 
-    # - tag: SPTH
-    # - pad_count: 1
-    # - entries:
-    #     - {time: 0.0, val: 0.0}
-    #     - {time: 2.0, val: 4.0}
-    #     - ...
     def as_dict(self) -> dict:
-        """Generate dictionary suitable for creating YAML representation"""
+        """Generate dictionary suitable for creating JSON representation"""
         return {
             "tag": self.tag,
             "pad_count": self.pad_count,
@@ -377,7 +369,7 @@ class SPTH:
             scpCount = len(self.entries[tag])
             scpLength = 8 + 8 * scpCount
             records += struct.pack(">4s L L", tag.encode(), scpLength, scpCount)
-            records += b''.join([struct.pack(">ff", e['time'], e['val']) for e in self.entries[tag]])
+            records += b''.join([self._timeVal.pack(e['time'], e['val']) for e in self.entries[tag]])
             records += b'\0' * ((8 - (len(records) % 8)) % 8)
         spth = b'FORM' + struct.pack(">L", len(records)) + records
         return spth
@@ -409,33 +401,32 @@ class UPWL:
     @classmethod
     def from_bytes(cls, form: bytes):
         """Construct UPWL from raw filesystem bytes"""
-        ftag, flen, utag = struct.unpack(">4s L 4s", form[:0xC])
+        ftag, flen, utag = struct.unpack_from(">4s L 4s", form)
         assert ftag == b'FORM', f"Expected 'FORM', got ${ftag}"
         utag = utag.decode()
         assert utag == cls.__name__, f"Expected '{cls.__name__}', got ${utag}"
-        payload = form[8:]
-        idx = 4
+        idx = 0xC
         pad_count = 0
         entries = {}
         counts = [0] * 8
         while idx < flen:
-            tag, length = struct.unpack(">4s L", payload[idx:idx+8])
+            tag, length = struct.unpack_from(">4s L", form, idx)
             idx += 8
             tag = tag.decode()
-            assert tag == "PAD " or tag == "LEVL" or tag in cls._upwlTags, f"Unexpected tag '${tag}'"
+            assert tag in ("PAD ", "LEVL") or tag in cls._upwlTags, f"Unexpected tag '${tag}'"
             if tag == "PAD ":
                 pad_count += 1
             elif tag == "LEVL":
-                counts = struct.unpack(">7Bx", payload[idx:idx+8])
+                counts = struct.unpack_from(">7Bx", form, idx)
             elif tag in cls._upwlTags:
                 expectedCount = counts[list(cls._upwlTags.keys()).index(tag)]
                 entryStruct = cls._upwlTags[tag]
-                entries[tag] = [list(v) for v in entryStruct.iter_unpack(payload[idx:idx+expectedCount*entryStruct.size])]
+                entries[tag] = [list(v) for v in entryStruct.iter_unpack(form[idx:idx+expectedCount*entryStruct.size])]
             idx += length
         return cls(utag, pad_count, entries)
 
     def as_dict(self) -> dict:
-        """Generate dictionary suitable for creating YAML representation"""
+        """Generate dictionary suitable for creating JSON representation"""
         return {
             "tag": self.tag,
             "pad_count": self.pad_count,
@@ -504,59 +495,59 @@ class UPWT:
     @classmethod
     def from_bytes(cls, form: bytes):
         """Construct UPWT from raw filesystem bytes"""
-        ftag, flen, utag = struct.unpack(">4s L 4s", form[:0xC])
+        ftag, flen, utag = struct.unpack_from(">4s L 4s", form)
         assert ftag == b'FORM', f"Expected 'FORM', got ${ftag}"
         utag = utag.decode()
         assert utag == cls.__name__, f"Expected '{cls.__name__}', got ${utag}"
-        payload = form[8:]
-        idx = 4
+        idx = 0xC
         pad_count = 0
         info = {}
         comm = {}
         entries = {}
         counts = [0] * 16
         while idx < flen:
-            tag, length = struct.unpack(">4s L", payload[idx:idx+8])
+            tag, length = struct.unpack_from(">4s L", form, idx)
             idx += 8
             tag = tag.decode()
-            assert tag == "PAD " or tag == "COMM" or tag in cls._upwtStrTags or tag in cls._upwtTags, f"Unexpected tag '${tag}'"
+            assert tag in ("PAD ", "COMM") or tag in cls._upwtStrTags or tag in cls._upwtTags, f"Unexpected tag '${tag}'"
             if tag == "PAD ":
                 pad_count += 1
             elif tag in cls._upwtStrTags:
-                info[tag] = payload[idx:idx+length].decode().rstrip('\x00')
+                info[tag] = form[idx:idx+length].decode().rstrip('\x00')
                 pass
             elif tag == "COMM":
                 cIdx = idx
-                comm["header"] = list(cls._commHeader.unpack_from(payload, cIdx))
+                comm["header"] = list(cls._commHeader.unpack_from(form, cIdx))
                 cIdx += cls._commHeader.size
-                comm["unk10"] = list(cls._commObjUnk10.unpack_from(payload, cIdx))
+                comm["unk10"] = list(cls._commObjUnk10.unpack_from(form, cIdx))
                 cIdx += cls._commObjUnk10.size
-                comm["unk2C"] = list(cls._commObjUnk2C.unpack_from(payload, cIdx))
+                comm["unk2C"] = list(cls._commObjUnk2C.unpack_from(form, cIdx))
                 cIdx += cls._commObjUnk2C.size
-                comm["unk44"], = struct.unpack_from(">f", payload, cIdx)
+                comm["unk44"], = struct.unpack_from(">f", form, cIdx)
                 cIdx += 4
                 comm["unk48"] = {}
                 unk0Size = cls._commUnk803599D0.size * 11
-                comm["unk48"]["unk0"] = [list(u) for u in cls._commUnk803599D0.iter_unpack(payload[cIdx:cIdx+unk0Size])]
+                comm["unk48"]["unk0"] = [list(u) for u in cls._commUnk803599D0.iter_unpack(form[cIdx:cIdx+unk0Size])]
                 cIdx += unk0Size
-                comm["unk48"]["footer"] = list(cls._commUnk80345C80Footer.unpack_from(payload, cIdx))
+                comm["unk48"]["footer"] = list(cls._commUnk80345C80Footer.unpack_from(form, cIdx))
                 cIdx += cls._commUnk80345C80Footer.size
-                comm["unk414"] = list(struct.unpack_from(">4B", payload, cIdx))
+                comm["unk414"] = list(struct.unpack_from(">4B", form, cIdx))
                 cIdx += 4
-                comm["unk418"], = struct.unpack_from(">f", payload, cIdx)
+                comm["unk418"], = struct.unpack_from(">f", form, cIdx)
                 cIdx += 4
-                counts = struct.unpack_from(">16B", payload, cIdx)
+                counts = struct.unpack_from(">16B", form, cIdx)
                 cIdx += 16
                 assert cIdx - idx == 0x42C
             elif tag in cls._upwtTags:
                 expectedCount = counts[list(cls._upwtTags.keys()).index(tag)]
                 entryStruct = cls._upwtTags[tag]
-                entries[tag] = [list(v) for v in entryStruct.iter_unpack(payload[idx:idx+expectedCount*entryStruct.size])]
+                end = idx + expectedCount * entryStruct.size
+                entries[tag] = [list(v) for v in entryStruct.iter_unpack(form[idx:end])]
             idx += length
         return cls(utag, pad_count, info, comm, entries)
 
     def as_dict(self) -> dict:
-        """Generate dictionary suitable for creating YAML representation"""
+        """Generate dictionary suitable for creating JSON representation"""
         return {
             "tag": self.tag,
             "pad_count": self.pad_count,
@@ -570,10 +561,10 @@ class UPWT:
         task = struct.pack(">4s", self.tag.encode())
         task += struct.pack(">4s L L", b'PAD ', 4, 0) * self.pad_count
         # JPTX/NAME/INFO
-        for t, i in self.info.items():
-            iStr = i.encode() + b'\0'
-            iStr += b'\0' * ((8 - (len(iStr) % 8)) % 8)
-            task += struct.pack(">4s L", t.encode(), len(iStr)) + iStr
+        for t, s in self.info.items():
+            paddedStr = s.encode() + b'\0'
+            paddedStr += b'\0' * ((8 - (len(paddedStr) % 8)) % 8)
+            task += struct.pack(">4s L", t.encode(), len(paddedStr)) + paddedStr
         # COMM
         comm = self._commHeader.pack(*self.comm["header"])
         comm += self._commObjUnk10.pack(*self.comm["unk10"])
@@ -612,7 +603,7 @@ class UV_COMM:
         return cls(d["tag"], d["pad_count"], d["comm"])
 
     def as_dict(self) -> dict:
-        """Generate dictionary suitable for creating YAML representation"""
+        """Generate dictionary suitable for creating JSON representation"""
         return {
             "tag": self.tag,
             "pad_count": self.pad_count,
@@ -623,19 +614,20 @@ class UV_COMM:
 class UVEN(UV_COMM):
     """Environment"""
 
+    _dataStruct = struct.Struct(">4B 4B 4B 8x 2f B 17x 2B L B 3x L")
+
     @classmethod
     def from_bytes(cls, form: bytes):
         """Construct from raw filesystem bytes"""
-        ftag, flen, utag = struct.unpack(">4s L 4s", form[:0xC])
+        ftag, flen, utag = struct.unpack_from(">4s L 4s", form)
         assert ftag == b'FORM', f"Expected 'FORM', got ${ftag}"
         utag = utag.decode()
         assert utag == cls.__name__, f"Expected '{cls.__name__}', got ${utag}"
-        payload = form[8:]
-        idx = 4
+        idx = 0xC
         pad_count = 0
         comm = []
         while idx < flen:
-            tag, length = struct.unpack(">4s L", payload[idx:idx+8])
+            tag, length = struct.unpack_from(">4s L", form, idx)
             idx += 8
             tag = tag.decode()
             assert tag in ("PAD ", "COMM"), f"Unexpected tag '${tag}'"
@@ -644,13 +636,13 @@ class UVEN(UV_COMM):
             else:
                 models = []
                 commIdx = idx
-                count, = struct.unpack(">B", payload[commIdx:commIdx+1])
+                count, = struct.unpack_from(">B", form, commIdx)
                 commIdx += 1
                 if count > 0:
-                    models = [list(m) for m in struct.iter_unpack(">HB", payload[commIdx:commIdx+3*count])]
+                    models = [list(m) for m in struct.iter_unpack(">HB", form[commIdx:commIdx+3*count])]
                 commIdx += 3*count
-                data = list(struct.unpack(">4B 4B 4B 8x 2f B 17x 2B L B 3xL", payload[commIdx:commIdx+0x3C]))
-                commIdx += 0x3C
+                data = list(cls._dataStruct.unpack_from(form, commIdx))
+                commIdx += cls._dataStruct.size
                 comm.append({"models": models, "data": data})
             idx += length
         return cls(utag, pad_count, comm)
@@ -662,7 +654,7 @@ class UVEN(UV_COMM):
         for c in self.comm:
             comm = struct.pack(">B", len(c["models"]))
             comm += b''.join([struct.pack(">HB", m[0], m[1]) for m in c["models"]])
-            comm += struct.pack(">4B 4B 4B 8x 2f B 17x 2B L B 3xL", *c["data"])
+            comm += self._dataStruct.pack(*c["data"])
             comm += b'\0' * ((8 - (len(comm) % 8)) % 8)
             records += b'COMM' + struct.pack(">L", len(comm)) + comm
         return b'FORM' + struct.pack(">L", len(records)) + records
@@ -674,19 +666,20 @@ class UVLT(UV_COMM):
     The code will read 4 bytes from COMM if it existed, but it does not.
     """
 
+    _ltStruct = struct.Struct(">4B")
+
     @classmethod
     def from_bytes(cls, form: bytes):
         """Construct from raw filesystem bytes"""
-        ftag, flen, utag = struct.unpack(">4s L 4s", form[:0xC])
+        ftag, flen, utag = struct.unpack_from(">4s L 4s", form)
         assert ftag == b'FORM', f"Expected 'FORM', got ${ftag}"
         utag = utag.decode()
         assert utag == cls.__name__, f"Expected '{cls.__name__}', got ${utag}"
-        payload = form[8:]
-        idx = 4
+        idx = 0xC
         pad_count = 0
         comm = []
         while idx < flen:
-            tag, length = struct.unpack(">4s L", payload[idx:idx+8])
+            tag, length = struct.unpack_from(">4s L", form, idx)
             idx += 8
             tag = tag.decode()
             assert tag in ("PAD ", "COMM"), f"Unexpected tag '${tag}'"
@@ -694,8 +687,8 @@ class UVLT(UV_COMM):
                 pad_count += 1
             else:
                 ltIdx = idx
-                lt = list(struct.unpack(">4B", payload[ltIdx:ltIdx+4]))
-                ltIdx += 4
+                lt = list(cls._ltStruct.unpack_from(form, ltIdx))
+                ltIdx += cls._ltStruct.size
                 comm.append(lt)
             idx += length
         return cls(utag, pad_count, comm)
@@ -705,7 +698,7 @@ class UVLT(UV_COMM):
         records = struct.pack(">4s", self.tag.encode())
         records += struct.pack(">4s L L", b'PAD ', 4, 0) * self.pad_count
         for c in self.comm:
-            comm = struct.pack(">4B", *c)
+            comm = self._ltStruct.pack(*c)
             comm += b'\0' * ((8 - (len(comm) % 8)) % 8)
             records += b'COMM' + struct.pack(">L", len(comm)) + comm
         return b'FORM' + struct.pack(">L", len(records)) + records
@@ -721,16 +714,15 @@ class UVLV(UV_COMM):
     @classmethod
     def from_bytes(cls, form: bytes):
         """Construct from raw filesystem bytes"""
-        ftag, flen, utag = struct.unpack(">4s L 4s", form[:0xC])
+        ftag, flen, utag = struct.unpack_from(">4s L 4s", form)
         assert ftag == b'FORM', f"Expected 'FORM', got ${ftag}"
         utag = utag.decode()
         assert utag == cls.__name__, f"Expected '{cls.__name__}', got ${utag}"
-        payload = form[8:]
-        idx = 4
+        idx = 0xC
         pad_count = 0
         comm = []
         while idx < flen:
-            tag, length = struct.unpack(">4s L", payload[idx:idx+8])
+            tag, length = struct.unpack_from(">4s L", form, idx)
             idx += 8
             tag = tag.decode()
             assert tag in ("PAD ", "COMM"), f"Unexpected tag '${tag}'"
@@ -740,10 +732,11 @@ class UVLV(UV_COMM):
                 lv = {}
                 lvIdx = idx
                 for field in cls._levelFields:
-                    count, = struct.unpack(">H", payload[lvIdx:lvIdx+2])
+                    count, = struct.unpack_from(">H", form, lvIdx)
                     lvIdx += 2
-                    lv[field] = [i for i, in struct.iter_unpack(">H", payload[lvIdx:lvIdx+2*count])]
-                    lvIdx += 2*count
+                    lvLen = 2 * count
+                    lv[field] = [i for i, in struct.iter_unpack(">H", form[lvIdx:lvIdx + lvLen])]
+                    lvIdx += lvLen
                 comm.append(lv)
             idx += length
         return cls(utag, pad_count, comm)
@@ -767,6 +760,10 @@ class UVSQ(UV_COMM):
     """
     `UVSQ` contains animation sequences for dynamic textures.
     """
+
+    _frameStruct = struct.Struct(">Hf")
+    _uvsqStruct = struct.Struct(">B B f")
+
     @classmethod
     def from_bytes(cls, form: bytes):
         """Construct from raw filesystem bytes"""
@@ -774,12 +771,11 @@ class UVSQ(UV_COMM):
         assert ftag == b'FORM', f"Expected 'FORM', got ${ftag}"
         utag = utag.decode()
         assert utag == cls.__name__, f"Expected '{cls.__name__}', got ${utag}"
-        payload = form[8:]
-        idx = 4
+        idx = 0xC
         pad_count = 0
         comm = []
         while idx < flen:
-            tag, length = struct.unpack(">4s L", payload[idx:idx+8])
+            tag, length = struct.unpack_from(">4s L", form, idx)
             idx += 8
             tag = tag.decode()
             assert tag in ("PAD ", "COMM"), f"Unexpected tag '${tag}'"
@@ -787,12 +783,12 @@ class UVSQ(UV_COMM):
                 pad_count += 1
             else:
                 sqIdx = idx
-                frameCount, = struct.unpack(">B", payload[sqIdx:sqIdx+1])
+                frameCount, = struct.unpack_from(">B", form, sqIdx)
                 sqIdx += 1
                 frameLen = 6 * frameCount
-                frames = [{"textureId": tid, "frameTime": ft} for tid, ft in struct.iter_unpack(">Hf", payload[sqIdx:sqIdx+frameLen])]
+                frames = [{"textureId": t, "frameTime": f} for t, f in cls._frameStruct.iter_unpack(form[sqIdx:sqIdx + frameLen])]
                 sqIdx += frameLen
-                mode, reverse, framerate = struct.unpack(">B B f", payload[sqIdx:sqIdx+6])
+                mode, reverse, framerate = cls._uvsqStruct.unpack_from(form, sqIdx)
                 sq = {
                     "frames": frames,
                     "mode": mode,
@@ -809,8 +805,8 @@ class UVSQ(UV_COMM):
         records += struct.pack(">4s L L", b'PAD ', 4, 0) * self.pad_count
         for c in self.comm:
             comm = struct.pack(">B", len(c["frames"]))
-            comm += b''.join([struct.pack(">Hf", f["textureId"], f["frameTime"]) for f in c["frames"]])
-            comm += struct.pack(">B B f", c["mode"], c["reverse"], c["framerate"])
+            comm += b''.join([self._frameStruct.pack(f["textureId"], f["frameTime"]) for f in c["frames"]])
+            comm += self._uvsqStruct.pack(c["mode"], c["reverse"], c["framerate"])
             comm += b'\0' * ((8 - (len(comm) % 8)) % 8)
             records += b'COMM' + struct.pack(">L", len(comm)) + comm
         return b'FORM' + struct.pack(">L", len(records)) + records
@@ -820,6 +816,9 @@ class UVTP(UV_COMM):
     """
     `UVTP` contains texture palette information
     """
+
+    _uvtpStruct = struct.Struct(">HH")
+
     @classmethod
     def from_bytes(cls, form: bytes):
         """Construct from raw filesystem bytes"""
@@ -827,12 +826,11 @@ class UVTP(UV_COMM):
         assert ftag == b'FORM', f"Expected 'FORM', got ${ftag}"
         utag = utag.decode()
         assert utag == cls.__name__, f"Expected '{cls.__name__}', got ${utag}"
-        payload = form[8:]
-        idx = 4
+        idx = 0xC
         pad_count = 0
         comm = []
         while idx < flen:
-            tag, length = struct.unpack(">4s L", payload[idx:idx+8])
+            tag, length = struct.unpack_from(">4s L", form, idx)
             idx += 8
             tag = tag.decode()
             assert tag in ("PAD ", "COMM"), f"Unexpected tag '${tag}'"
@@ -840,10 +838,11 @@ class UVTP(UV_COMM):
                 pad_count += 1
             else:
                 tpIdx = idx
-                count, = struct.unpack(">H", payload[tpIdx:tpIdx+2])
+                count, = struct.unpack_from(">H", form, tpIdx)
                 tpIdx += 2
-                tp = [list(e) for e in struct.iter_unpack(">HH", payload[tpIdx:tpIdx+4*count])]
-                tpIdx += 4*count
+                tpLen = count * cls._uvtpStruct.size
+                tp = [list(e) for e in cls._uvtpStruct.iter_unpack(form[tpIdx:tpIdx + tpLen])]
+                tpIdx += tpLen
                 comm.append(tp)
             idx += length
         return cls(utag, pad_count, comm)
@@ -854,7 +853,7 @@ class UVTP(UV_COMM):
         records += struct.pack(">4s L L", b'PAD ', 4, 0) * self.pad_count
         for c in self.comm:
             comm = struct.pack(">H", len(c))
-            comm += b''.join([struct.pack(">HH", *i) for i in c])
+            comm += b''.join([self._uvtpStruct.pack(*i) for i in c])
             comm += b'\0' * ((8 - (len(comm) % 8)) % 8)
             records += b'COMM' + struct.pack(">L", len(comm)) + comm
         return b'FORM' + struct.pack(">L", len(records)) + records
@@ -864,6 +863,10 @@ class UVTR(UV_COMM):
     """
     `UVTR` contains terrain data.
     """
+
+    _headerStruct = struct.Struct(">6f 2B 3f")
+    _tileStruct = struct.Struct(">16f B H")
+
     @classmethod
     def from_bytes(cls, form: bytes):
         """Construct from raw filesystem bytes"""
@@ -871,12 +874,11 @@ class UVTR(UV_COMM):
         assert ftag == b'FORM', f"Expected 'FORM', got ${ftag}"
         utag = utag.decode()
         assert utag == cls.__name__, f"Expected '{cls.__name__}', got ${utag}"
-        payload = form[8:]
-        idx = 4
+        idx = 0xC
         pad_count = 0
         comm = []
         while idx < flen:
-            tag, length = struct.unpack(">4s L", payload[idx:idx+8])
+            tag, length = struct.unpack_from(">4s L", form, idx)
             idx += 8
             tag = tag.decode()
             assert tag in ("PAD ", "COMM"), f"Unexpected tag '${tag}'"
@@ -884,17 +886,17 @@ class UVTR(UV_COMM):
                 pad_count += 1
             else:
                 trIdx = idx
-                header = list(struct.unpack(">6f 2B 3f", payload[trIdx:trIdx+0x26]))
-                trIdx += 0x26
+                header = list(cls._headerStruct.unpack_from(form, trIdx))
+                trIdx += cls._headerStruct.size
                 count = header[6] * header[7]
                 tiles = []
                 for _ in range(count):
-                    tileType, = struct.unpack(">B", payload[trIdx:trIdx+1])
+                    tileType, = struct.unpack_from(">B", form, trIdx)
                     trIdx += 1
                     tile = [tileType]
                     if tileType != 0:
-                        tile += list(struct.unpack(">16f B H", payload[trIdx:trIdx+0x43]))
-                        trIdx += 0x43
+                        tile += list(cls._tileStruct.unpack_from(form, trIdx))
+                        trIdx += cls._tileStruct.size
                     tiles.append(tile)
                 tr = {
                     "header": header,
@@ -909,11 +911,11 @@ class UVTR(UV_COMM):
         records = struct.pack(">4s", self.tag.encode())
         records += struct.pack(">4s L L", b'PAD ', 4, 0) * self.pad_count
         for c in self.comm:
-            comm = struct.pack(">6f 2B 3f", *c["header"])
+            comm = self._headerStruct.pack(*c["header"])
             for t in c["tiles"]:
                 comm += struct.pack(">B", t[0])
                 if t[0] != 0:
-                    comm += struct.pack(">16f B H", *t[1:])
+                    comm += self._tileStruct.pack(*t[1:])
             comm += b'\0' * ((8 - (len(comm) % 8)) % 8)
             records += b'COMM' + struct.pack(">L", len(comm)) + comm
         return b'FORM' + struct.pack(">L", len(records)) + records

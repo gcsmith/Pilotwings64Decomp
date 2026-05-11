@@ -2,40 +2,35 @@
 
 import crunch64
 import hashlib
+import json
 import os
 from pathlib import Path
 import struct
 import time
-import yaml
 import pw64.filesys as pw64_fs
 
 def print_stats(fileTimes: dict):
-    for _, v in fileTimes.items():
-        p, g = 0, 0
-        for t in v["times"]:
-            p += t[1] - t[0]
-            g += t[2] - t[1]
-        v["parse"] = p
-        v["generate"] = g
-    print("+------+-------+-------+-------+-------+")
-    print("| tag  | count | yaml  |  bin  | total |")
-    print("+------+-------+-------+-------+-------+")
-    tot = 0
-    fcount = 0
-    for tag, v in sorted(fileTimes.items()):
-        count = len(v["times"])
-        fcount += count
-        p = v["parse"]
-        g = v["generate"]
-        s = p + g
-        tot += s
-        print(f"| {tag} | {count:>5d} | {p:.3f} | {g:.3f} | {s:.3f} |")
-    print("+------+-------+-------+-------+-------+")
-    print(f"|Total | {fcount:>5d} |       |       | {tot:.3f} |")
-    print("+------+-------+-------+-------+-------+")
+    print("+------+-----+-------+-------+-------+")
+    print("| tag  |  #  | json  | bin   | total |")
+    print("+------+-----+-------+-------+-------+")
+    totTime = 0
+    totCount = 0
+    for tag, vals in sorted(fileTimes.items()):
+        parse, generate = 0, 0
+        for t in vals["times"]:
+            parse += t[1] - t[0]
+            generate += t[2] - t[1]
+        count = len(vals["times"])
+        totCount += count
+        sum = parse + generate
+        totTime += sum
+        print(f"| {tag} | {count:>3d} | {parse:.3f} | {generate:.3f} | {sum:.3f} |")
+    print("+------+-----+-------+-------+-------+")
+    print(f"|Total | {totCount:>3d} |       |       | {totTime:.3f} |")
+    print("+------+-----+-------+-------+-------+")
 
 def read_table(tablePath):
-    return yaml.safe_load(open(tablePath, "r"))
+    return json.load(open(tablePath, "r"))
 
 # wrapper for matching compression workaround
 def mio0_compress(data: bytes, mio0Info: dict) -> bytes:
@@ -90,12 +85,12 @@ def generate_bins(table: dict, fileDir: Path, tableFile: str, filesysFile: str, 
             filePath = fileDir / fileName
             if form["file"].endswith(".raw"):
                 formData = open(filePath, "rb").read()
-            elif form["file"].endswith(".yaml"):
+            elif form["file"].endswith(".json"):
                 className = f"FORM_{form["tag"]}" if form["tag"][0].isdigit() else form["tag"]
                 assert hasattr(pw64_fs, className), f"Unknown tag '{form['tag']}"
                 generator = getattr(pw64_fs, className)
                 a = time.perf_counter()
-                fileDat = yaml.safe_load(open(filePath, "r"))
+                fileDat = json.load(open(filePath, "r"))
                 b = time.perf_counter()
                 formData = bytes(generator.from_dict(fileDat))
                 c = time.perf_counter()
@@ -138,11 +133,14 @@ def generate_bins(table: dict, fileDir: Path, tableFile: str, filesysFile: str, 
 
 def main():
     import argparse
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--table", "-t", action="store", default="./bin/filesys/filetable.yaml")
-    parser.add_argument("--dir", "-d", action="store", default="./bin/filesys")
-    parser.add_argument("--dump", action="store_true")
-    parser.add_argument("--stats", action="store_true")
+    parser = argparse.ArgumentParser(
+        description="PW64 filesystem generator",
+        epilog="Example: python3 pw64_filesys_gen.py --dir ./filesys --dump --stats"
+    )
+    parser.add_argument("--table", "-t", action="store", default="./bin/filesys/filetable.json", help="input table file")
+    parser.add_argument("--dir", "-d", action="store", default="./bin/filesys", help="input base directory")
+    parser.add_argument("--dump", action="store_true", help="dump individual file binaries")
+    parser.add_argument("--stats", action="store_true", help="print timing stats after generating file system")
     args = parser.parse_args()
     table = read_table(args.table)
     generate_bins(table, Path(args.dir), "bin/filetable.bin", "bin/filesys.bin", args.dump, args.stats)
