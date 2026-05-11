@@ -1,17 +1,15 @@
 #!/bin/env python3
 
-import crunch64
-import hashlib
 import json
 import os
 from pathlib import Path
 import struct
 import time
-import pw64.filesys as pw64_fs
+from pw64 import filesys, mio0
 
 def print_stats(fileTimes: dict):
     print("+------+-----+-------+-------+-------+")
-    print("| tag  |  #  | json  | bin   | total |")
+    print("| tag  | #   | json  | bin   | total |")
     print("+------+-----+-------+-------+-------+")
     totTime = 0
     totCount = 0
@@ -32,49 +30,6 @@ def print_stats(fileTimes: dict):
 def read_table(tablePath):
     return json.load(open(tablePath, "r"))
 
-# wrapper for matching compression workaround
-def mio0_compress(data: bytes, mio0Info: dict) -> bytes:
-    def PUT_BIT(buf, bit, val):
-        mask = 1 << (7 - (bit % 8))
-        offset = bit // 8
-        while len(buf) < offset + 1:
-            buf.append(0)
-        buf[offset] = (buf[offset] & ~(mask)) | (mask if val else 0)
-
-    if not mio0Info or hashlib.sha1(data).hexdigest() != mio0Info["sha1sum"]:
-        cData = crunch64.mio0.compress(data)
-    else:
-        uBuf = b''
-        cBuf = b''
-        flags = []
-        offset = 0x0
-        bitIdx = 0
-        for m in mio0Info["comp_blocks"]:
-            uLen = m["file_offset"] - offset
-            uBuf += data[offset:offset + uLen]
-            offset += uLen
-            for i in range(uLen):
-                PUT_BIT(flags, bitIdx, 1)
-                bitIdx += 1
-            windowInfo = ((m["length"] - 3) << 12) | (m["offset"] - 1)
-            cBuf += struct.pack(">H", windowInfo)
-            PUT_BIT(flags, bitIdx, 0)
-            bitIdx += 1
-            offset += m["length"]
-        uLen = len(data) - offset
-        uBuf += data[offset:offset + uLen]
-        offset += uLen
-        for i in range(uLen):
-            PUT_BIT(flags, bitIdx, 1)
-            bitIdx += 1
-
-        bitLength = (bitIdx + 7) // 8
-        compOffset = (((0x10 + bitLength) + 3) // 4) * 4
-        uncompOffset = compOffset + len(cBuf)
-        cData = b'MIO0' + struct.pack(">L", len(data)) + struct.pack(">L", compOffset) + struct.pack(">L", uncompOffset)
-        cData += bytes(flags) + cBuf + uBuf
-    return cData
-
 def generate_bins(table: dict, fileDir: Path, tableFile: str, filesysFile: str, dumpData: bool, printStats: bool):
     stats = {}
     # 1. output filesystem binary and accumulate sizes
@@ -87,8 +42,8 @@ def generate_bins(table: dict, fileDir: Path, tableFile: str, filesysFile: str, 
                 formData = open(filePath, "rb").read()
             elif form["file"].endswith(".json"):
                 className = f"FORM_{form["tag"]}" if form["tag"][0].isdigit() else form["tag"]
-                assert hasattr(pw64_fs, className), f"Unknown tag '{form['tag']}"
-                generator = getattr(pw64_fs, className)
+                assert hasattr(filesys, className), f"Unknown tag '{form['tag']}"
+                generator = getattr(filesys, className)
                 a = time.perf_counter()
                 fileDat = json.load(open(filePath, "r"))
                 b = time.perf_counter()
@@ -116,7 +71,7 @@ def generate_bins(table: dict, fileDir: Path, tableFile: str, filesysFile: str, 
     tableLen = len(tableData)
     # until matching MIO0 compression is found, use workaround instead of crunch64
     # cTableData = crunch64.mio0.compress(tableData)
-    cTableData = mio0_compress(tableData, table["mio0_matching_info"])
+    cTableData = mio0.compress(tableData, table["mio0_matching_info"])
     cTableLen = (((len(cTableData) + 8) + 3) // 4) * 4 # round up to 4-byte boundary
     uvRm = b'UVRM'
     uvRm += struct.pack(">4s L L", b'PAD ', 4, 0) * table["pad_count"]

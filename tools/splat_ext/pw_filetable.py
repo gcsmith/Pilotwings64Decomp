@@ -1,11 +1,9 @@
-import crunch64
-import hashlib
 import json
 import struct
 from splat.util import options
 from splat.segtypes.segment import Segment
 from splat.segtypes.linker_entry import LinkerEntry
-from tools.pw64 import filesys as pw64_fs
+from tools.pw64 import filesys, mio0
 
 class N64SegPw_filetable(Segment):
     def __init__(self, rom_start, rom_end, type, name, vram_start, args, yaml):
@@ -15,39 +13,14 @@ class N64SegPw_filetable(Segment):
         self.align = 0x10
         self.fs_path = "filesys"
 
-    # MIO0 compression doesn't yet match Paradigm's algo
-    # collect compressed window information to be used during rebuild
-    def mio0_matching_info(self, mio0Data: bytes) -> list:
-        mio0Info = []
-        magic = mio0Data[:4]
-        assert magic == b'MIO0', f"Expected 'MIO0', got {magic}"
-        dLen, cOff, uOff = struct.unpack_from(">LLL", mio0Data, 4)
-        flags = mio0Data[0x10:cOff]
-        flagIdx = 0
-        outSize = 0
-        while outSize < dLen:
-            flagOff = flagIdx // 8
-            flagBit = 1 << (7 - (flagIdx % 8))
-            flagIdx += 1
-            if flags[flagOff] & flagBit != 0:
-                outSize += 1
-            else: # compressed
-                windowInfo, = struct.unpack_from(">H", mio0Data, cOff)
-                cOff += 2
-                winOff = (windowInfo & 0x0FFF) + 1
-                winLen = (windowInfo >> 12) + 3
-                mio0Info.append({"file_offset": outSize, "offset": winOff, "length": winLen})
-                outSize += winLen
-        return mio0Info
-
     def parse_table(self, rom_bytes: bytes, idx: int) -> dict:
         formTag, formLen = struct.unpack(">4s L", rom_bytes[idx:idx+8])
         print(f"form 0x{idx:x} 0x{formLen:x}")
-        assert formTag == b"FORM", f"Expected 'FORM', got {formTag}"
+        assert formTag == b'FORM', f"Expected 'FORM', got {formTag}"
         idx += 8
         fsDataStart = (((idx + formLen) + 15) // 16) * 16
         rtag, = struct.unpack(">4s", rom_bytes[idx:idx+4])
-        assert rtag == b"UVRM", f"Expected 'UVRM', got {rtag}"
+        assert rtag == b'UVRM', f"Expected 'UVRM', got {rtag}"
         idx += 4
         table = {
             "tag": formTag.decode(),
@@ -67,12 +40,9 @@ class N64SegPw_filetable(Segment):
                 tag, dlength = struct.unpack(">4s L", rom_bytes[cur+idx:cur+idx+8])
                 cur += 8
                 cdata = rom_bytes[cur+idx:cur+idx+length-8]
-                data = crunch64.mio0.decompress(cdata)
+                table["mio0_matching_info"] = {}
+                data = mio0.decompress(cdata, table["mio0_matching_info"])
                 assert len(data) == dlength, f"Expected {len(data)} == {dlength}"
-                table["mio0_matching_info"] = {
-                    "sha1sum": hashlib.sha1(data).hexdigest(),
-                    "comp_blocks": self.mio0_matching_info(cdata)
-                }
             if tag == b'PAD ':
                 table["pad_count"] += 1
             elif tag == b'TABL':
@@ -95,7 +65,7 @@ class N64SegPw_filetable(Segment):
         # assign file path and name which align with pw_filesys
         for form in self.fs_table["contents"]:
             className = f"FORM_{form["tag"]}" if form["tag"][0].isdigit() else form["tag"]
-            ext = "json" if hasattr(pw64_fs, className) else "raw"
+            ext = "json" if hasattr(filesys, className) else "raw"
             form["file"] = f"FORM_{form["tag"]}_{form["offset"]:06X}.{ext}"
         # emit top-level filetable json
         assert self.fs_table and path, f"Unexpected {self.fs_table} {path}"
