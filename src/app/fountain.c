@@ -54,9 +54,11 @@ STATIC_FUNC void fountainUpdate(void) {
 STATIC_FUNC s32 fountainProxEventCb(UNUSED s32 proxId, s32 eventType, UNUSED s32 clientData) {
     switch (eventType) {
     case 0:
+#if !defined(VERSION_JP)
         if (sFountainObjId != 0xFFFF) {
             uvDobjState(sFountainObjId, 2);
         }
+#endif
         break;
     case 2:
         if (sFountainRadarId != 0xFF) {
@@ -94,6 +96,9 @@ STATIC_FUNC s32 fountainProxAnimCb(s32 proxId, UNUSED f32 timeout, UNUSED s32 cl
     } else {
         if ((sFountainState == 1) || !sFountainActive) {
             sFountainActive = TRUE;
+#if defined(VERSION_JP)
+            sFountainScale = 0.0f;
+#endif
             sFountainState = 0;
             uvDobjState(sFountainObjId, 2);
         }
@@ -161,7 +166,11 @@ void fountainGetPos(Vec3F* pos) {
 
 void fountainSetInterval(f32 interval) {
     if (sFountainObjId != 0xFFFF) {
+#if defined(VERSION_JP)
+        sFountainScale = interval;
+#else
         sFountainScale = interval * 0.7f;
+#endif
         fountainUpdatePose();
     }
 }
@@ -176,7 +185,9 @@ void fountainStateRestore(void) {
     sFountainState = sFountainStateCopy;
 }
 
+#if !defined(VERSION_JP)
 void fountainInitUpdate(void) {
     fountainStateRestore();
     fountainUpdate();
 }
+#endif

@@ -24,7 +24,9 @@ STATIC_DATA s16* sTotPtUnitStr;
 STATIC_DATA s16 D_8037AD38[5];
 STATIC_DATA u8 D_8037AD42;
 STATIC_DATA s32 D_8037AD44_pad;
+#if !defined(VERSION_JP)
 STATIC_DATA s16* sTestPtUnitStr[4];
+#endif
 STATIC_DATA char sMedalNameCopy[24];
 
 STATIC_DATA const char* sStageMedalName[][5] = {
@@ -43,6 +45,8 @@ STATIC_DATA s32 sResultsMenuItems[3] = { TEXT_RETRY_SGI, TEXT_ANOTHER_TASK_SGI, 
 STATIC_DATA s32 sResultsMenuCount = 0;
 
 STATIC_DATA s16* sTestPtsStr[4] = { sTestPtsStr0, sTestPtsStr1, sTestPtsStr2, sTestPtsStr3 };
+
+STATIC_DATA s16* D_80343398 = 0; // workaround for undefined ref
 
 // forward declarations
 void totResultInit(void);
@@ -122,10 +126,16 @@ s32 totResult_80347150(s32 arg0) {
     return -1;
 }
 
+#if defined(VERSION_JP)
+// https://decomp.me/scratch/sDEmP
+#pragma GLOBAL_ASM("asm/nonmatchings/app/total_results/totResultInit.s")
+#else // VERSION_US
 void totResultInit(void) {
     Unk80362690_Unk0* temp_s4;
     s32 temp_v0;
+#if !defined(VERSION_JP)
     s32 textId;
+#endif
     s32 var_s5;
     const char* var_a1;
     char* var_v0_2;
@@ -153,8 +163,10 @@ void totResultInit(void) {
             var_s5 += temp_v0;
             textFmtInt(sTestPtsStr[i], temp_v0, 3);
         }
+#if !defined(VERSION_JP)
         textId = (temp_v0 == 1) ? TEXT_PT : TEXT_PTS;
         sTestPtUnitStr[i] = textGetDataByIdx(textId);
+#endif
     }
 
     if (IS_MAIN_VEHICLE(temp_s4->veh)) {
@@ -164,8 +176,10 @@ void totResultInit(void) {
     }
     D_8037AD42 = levelSetPointsToNextMedal(&sp50, var_s5, var_v1);
     textFmtInt(sTotalPtsStr, var_s5, 3);
+#if !defined(VERSION_JP)
     textId = (var_s5 == 1) ? TEXT_PT : TEXT_PTS;
     sTotPtUnitStr = textGetDataByIdx(textId);
+#endif
     textFmtInt(D_8037AD38, sp50, 3);
     var_v1 = D_8037AD42;
     if ((var_v1 == 3) && (sp50 == 0)) {
@@ -184,12 +198,18 @@ void totResultInit(void) {
     sMedalName = textGetDataByName(var_a1);
     totResultCreateMenu();
 }
+#endif
 
 void totResultCreateMenu(void) {
+#if defined(VERSION_JP)
+#define TOT_MENU_X 204
+#else // VERSION_US
+#define TOT_MENU_X 170
+#endif
     Unk80362690_Unk0* temp_a0;
 
     if (totResult_80346FC0(&D_80362690->unkC[D_80362690->unk9C])) {
-        menuCreateItems(170, 2, 6, 1.0f, 1.0f, sResultNextMenu, ARRAY_COUNT(sResultNextMenu));
+        menuCreateItems(TOT_MENU_X, 2, 6, 1.0f, 1.0f, sResultNextMenu, ARRAY_COUNT(sResultNextMenu));
         return;
     }
     temp_a0 = &D_80362690->unkC[D_80362690->unk9C];
@@ -201,7 +221,7 @@ void totResultCreateMenu(void) {
         sResultsMenuItems[sResultsMenuCount++] = TEXT_ANOTHER_TASK_SGI;
     }
     sResultsMenuItems[sResultsMenuCount++] = TEXT_QUIT_SGI;
-    menuCreateItems(170, 2, 6, 1.0f, 1.0f, sResultsMenuItems, sResultsMenuCount);
+    menuCreateItems(TOT_MENU_X, 2, 6, 1.0f, 1.0f, sResultsMenuItems, sResultsMenuCount);
 }
 
 void totResultDeinit(void) {
@@ -239,6 +259,10 @@ s32 totResultMenuChoose(void) {
 // Test 2     100 pts
 // ------------------
 // Total      200 pts
+#if defined(VERSION_JP)
+// https://decomp.me/scratch/QrBod
+#pragma GLOBAL_ASM("asm/nonmatchings/app/total_results/totResultDrawTally.s")
+#else // VERSION_US
 #if defined(__clang__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wsometimes-uninitialized"
@@ -271,7 +295,9 @@ void totResultDrawTally(void) {
     x1 = 34;
     x2 = 272;
     y = 120;
+#if !defined(VERSION_JP)
     uvGfxClearFlags(0x400000);
+#endif
     uvVtxBeginPoly();
     uvVtx(x1, y, 0, 0, 0, 0xD2, 0xD2, 0xD2, 0xFF);
     uvVtx(x1, y - 1, 0, 0, 0, 0xD2, 0xD2, 0xD2, 0xFF);
@@ -297,19 +323,25 @@ void totResultDrawTally(void) {
 
     if (sp6C->veh == VEHICLE_CANNONBALL) {
         uvFontPrintStr16(202, 116, sTotalPtsStr, 3, 0xFFE);
+#if !defined(VERSION_JP)
         uvFontPrintStr16(236, 116, sTotPtUnitStr, 4, 0xFFE);
+#endif
     } else {
         numTests = taskGetTestCount(sp6C->cls, sp6C->veh);
         for (i = 0; i < numTests; i++) {
             y = ((numTests * 16) + 100) - 16 * i;
             uvFontPrintStr16(202, y, sTestPtsStr[i], 3, 0xFFE);
+#if !defined(VERSION_JP)
             uvFontPrintStr16(236, y, sTestPtUnitStr[i], 4, 0xFFE);
+#endif
         }
     }
 
     if ((numTests != 1) && (sp6C->veh != VEHICLE_CANNONBALL)) {
         uvFontPrintStr16(202, 100, sTotalPtsStr, 3, 0xFFE);
+#if !defined(VERSION_JP)
         uvFontPrintStr16(236, 100, sTotPtUnitStr, 4, 0xFFE);
+#endif
     }
     if (D_8037AD42 != 4) {
         uvFontPrintStr16(128, 68, D_8037AD38, 3, 0xFFE);
@@ -320,3 +352,4 @@ void totResultDrawTally(void) {
 #if defined(__GNUC__) || defined(__clang__)
 #pragma GCC diagnostic pop
 #endif
+#endif // VERSION_JP

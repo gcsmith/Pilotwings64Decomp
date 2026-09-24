@@ -8,6 +8,7 @@
 #include "hang_glider.h"
 #include "hud.h"
 #include "snd.h"
+#include "text_data.h"
 
 STATIC_DATA EventCallbackInfo sHgSoundEventCbInfo;
 STATIC_DATA Unk803599D0 sHgSound_80368318;
@@ -80,7 +81,7 @@ STATIC_FUNC void hgSoundEventHandler(s32 event, void* userData, s32 eventData) {
 
         if (hg->unk324 < D_8034F850) {
             temp_v0 = hudGet_8031DA9C();
-            if ((temp_v0 == 0x157) || (temp_v0 == 0x15C)) {
+            if ((temp_v0 == TEXT_STALL_WA) || (temp_v0 == TEXT_STALL_AT)) {
                 hg->unk324 = D_8034F850 + 1.0f;
                 sndPlaySfx(SFX_UI_WARNING);
             }
@@ -157,9 +158,14 @@ STATIC_FUNC void hgSoundEvent22(HangGliderData* hg) {
     if (hg->unk8C == 3) {
         if (!(hg->unk318 & 0x2)) {
             hg->unk318 |= 0x2;
-            sndPlaySfx(0x36);
+            sndPlaySfx(SFX_CRASH_LANDING_REVEAL);
             if (!(hg->unk318 & 0x10)) {
+#if defined(VERSION_JP)
+                // TODO: is this enum reuse or reorder?
+                sndSetMusic(BGM_ROCKET_BELT_CRASH);
+#else // VERSION_US
                 sndSetMusic(BGM_HANG_GLIDER_CRASH);
+#endif
                 sndSetMusicState(MUS_STATE_PLAY_SEQ);
                 func_8033FCD0(sp34->veh);
             }

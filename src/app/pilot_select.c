@@ -182,7 +182,7 @@ STATIC_FUNC void func_802DD57C(Camera* camera) {
     uvSprtProps(4,
         SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_POS(82, 140),
-        SPRT_PROP_BLIT(0x41),
+        SPRT_PROP_BLIT(BLIT_ID_41),
         SPRT_PROP_END
     );
     uvSprtProps(5,
@@ -441,7 +441,7 @@ STATIC_FUNC void func_802DE5B0(Camera* camera, Unk80367868* arg1) {
     static f32 D_8034EED8 = 1.6f;
     s16* pilotName;
     s16* selectPilotText;
-    s16 temp;
+    s16 x;
     f32 r;
     f32 g;
     f32 b;
@@ -462,8 +462,12 @@ STATIC_FUNC void func_802DE5B0(Camera* camera, Unk80367868* arg1) {
     uvFontColor(r, g, b, 0xFF);
     selectPilotText = textGetDataByIdx(TEXT_PILOT_SEL);
     if (selectPilotText != NULL) {
-        temp = ((SCREEN_WIDTH / 2) - (uvFontStr16Width(selectPilotText) / 2));
-        uvFontPrintStr16(temp, 0xCE, selectPilotText, 0x14, 0xFFE);
+        x = ((SCREEN_WIDTH / 2) - (uvFontStr16Width(selectPilotText) / 2));
+#if defined(VERSION_JP)
+        uvFontPrintStr16(x, 208, selectPilotText, 0x14, 0xFFE);
+#else // VERSION_US
+        uvFontPrintStr16(x, 206, selectPilotText, 0x14, 0xFFE);
+#endif
     }
     pilotName = textGetDataByIdx(arg1->unk4[D_8034EDC0].textId);
     uvFontSet(6);

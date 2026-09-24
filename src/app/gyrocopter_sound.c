@@ -2,11 +2,12 @@
 #include <uv_audio.h>
 #include <uv_sobj.h>
 #include "kernel/code_8170.h"
-#include "app/demo.h"
-#include "app/gyrocopter.h"
-#include "app/hud.h"
-#include "app/snd.h"
-#include "app/code_9A960.h"
+#include "code_9A960.h"
+#include "demo.h"
+#include "gyrocopter.h"
+#include "hud.h"
+#include "snd.h"
+#include "text_data.h"
 
 EventCallbackInfo D_80369E50;
 Unk803599D0 D_80369E58;
@@ -107,11 +108,11 @@ void hsound_callback(s32 eventType, void* arg1, s32 eventData) {
         if (gyrocopterData->unk678 & 1) {
             break;
         }
-        if (gyrocopterData->hasLowFuel && (hudGet_8031DA9C() == 0x17B) && (gyrocopterData->unk684 < D_8034F850)) {
+        if (gyrocopterData->hasLowFuel && (hudGet_8031DA9C() == TEXT_FUEL_WAR) && (gyrocopterData->unk684 < D_8034F850)) {
             gyrocopterData->unk684 = D_8034F850 + 0.2f;
             sndPlaySfxVolPitchPan(0x6C, 0.8f, 0.707f, 0.0f);
         }
-        if (gyrocopterData->hasLowFuel && (hudGet_8031DA9C() == 0x4A) && (gyrocopterData->unk688 < D_8034F850)) {
+        if (gyrocopterData->hasLowFuel && (hudGet_8031DA9C() == TEXT_FUEL_OUT) && (gyrocopterData->unk688 < D_8034F850)) {
             gyrocopterData->unk688 = D_8034F850 + 0.2f;
             sndPlaySfxVolPitchPan(0x6C, 0.8f, 0.707f, 0.0f);
         }
@@ -243,7 +244,11 @@ void func_8030ABF8(GyrocopterData* gcData) {
         if ((gcData->unkC0 == 4) && (gcData->unk50 != -1)) {
             if (!(gcData->unk678 & 0x20)) {
                 gcData->unk678 |= 0x20;
+#if defined(VERSION_JP)
+                if (gcData->unk6C != 0) {
+#else // VERSION_US
                 if ((gcData->unk6C != 0) && (gcData->unk4 == 0xFFFF)) {
+#endif
                     sndSetMusic(BGM_GYROCOPTER_LAND_OK);
                 } else {
                     sndSetMusic(BGM_GYROCOPTER_LAND_MISS);
@@ -358,4 +363,3 @@ void func_8030B240(Mtx4F* mat) {
     uvEmitterSetPitch(emitterId, 1.0f);
     uvEmitterSetMatrix(emitterId, mat);
 }
-

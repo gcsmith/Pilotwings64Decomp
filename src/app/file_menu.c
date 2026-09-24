@@ -75,7 +75,7 @@ void fileMenu_802E8AF0(void) {
             SPRT_PROP_DIM(38, 22),
             SPRT_PROP_POS(((i % 3) * 40) + 93, 123 - ((i / 3) * 25)),
             SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
-            SPRT_PROP_TEX_ID(0x148),
+            SPRT_PROP_TEX_ID(TEXTURE_NO_MEDAL),
             SPRT_PROP_END
         );
     }
@@ -85,7 +85,7 @@ void fileMenu_802E8AF0(void) {
             SPRT_PROP_DIM(38, 22),
             SPRT_PROP_POS(229, 98 - (25 * i)),
             SPRT_PROP_COLOR(0xFF, 0xFF, 0xFF, 0xFF),
-            SPRT_PROP_TEX_ID(0x148),
+            SPRT_PROP_TEX_ID(TEXTURE_NO_MEDAL),
             SPRT_PROP_END
         );
     }
@@ -97,13 +97,13 @@ void fileMenu_802E8AF0(void) {
             temp_s2 = levelGetTotalPoints(temp_s6, k, j);
             temp_v0 = func_8032BE8C(temp_s6, k, j);
             if ((temp_s2 >= gMedalPointRequirements[k].gold) && (temp_v0 != 0)) {
-                texId = 0x14B; // gold medal sprite
+                texId = TEXTURE_GOLD_MEDAL; // gold medal sprite
             } else if ((temp_s2 >= gMedalPointRequirements[k].silver) && (temp_v0 != 0)) {
-                texId = 0x14A; // silver medal sprite
+                texId = TEXTURE_SILVER_MEDAL; // silver medal sprite
             } else if ((temp_s2 >= gMedalPointRequirements[k].bronze) && (temp_v0 != 0)) {
-                texId = 0x149; // bronze medal sprite
+                texId = TEXTURE_BRONZE_MEDAL; // bronze medal sprite
             } else {
-                texId = 0x148; // no medal sprite
+                texId = TEXTURE_NO_MEDAL; // no medal sprite
             }
             uvSprtProps(k * 3 + j, SPRT_PROP_TEX_ID(texId), SPRT_PROP_END);
         }
@@ -116,7 +116,7 @@ void fileMenu_802E8AF0(void) {
         // clang-format off
         uvSprtProps(i + 0xC,
             SPRT_PROP_ENABLED(TRUE),
-            SPRT_PROP_TEX_ID(0x148),
+            SPRT_PROP_TEX_ID(TEXTURE_NO_MEDAL),
             SPRT_PROP_END
         );
         // clang-format on
@@ -167,7 +167,11 @@ void fileMenuSetup(s32 menu) {
     }
     switch (menu) {
     case 0:
+#if defined(VERSION_JP)
+        menuCreateItems(fileMenuSetText(), 143, 6, 1.0f, 0.8f, sFileMenuTextIds, 3);
+#else // VERSION_US
         menuCreateItems(fileMenuSetText(), 135, 6, 1.0f, 1.0f, sFileMenuTextIds, 3);
+#endif
         sFileColorR1 = 44.0f;
         sFileColorG1 = 214.0f;
         sFileColorB1 = 44.0f;
@@ -176,7 +180,11 @@ void fileMenuSetup(s32 menu) {
         sFileColorB2 = 255.0f;
         break;
     case 1:
+#if defined(VERSION_JP)
+        menuCreateItems(fileMenuEraseFile(), 150, 6, 1.0f, 0.8f, sFileMenuTextIds, 2);
+#else // VERSION_US
         menuCreateItems(fileMenuEraseFile(), 142, 6, 1.0f, 1.0f, sFileMenuTextIds, 2);
+#endif
         sFileColorR1 = 255.0f;
         sFileColorG1 = 10.0f;
         sFileColorB1 = 10.0f;
@@ -185,7 +193,11 @@ void fileMenuSetup(s32 menu) {
         sFileColorB2 = 10.0f;
         break;
     case 2:
+#if defined(VERSION_JP)
+        menuCreateItems(fileMenuPrintText(sFileMenuConfirm, 2), 145, 6, 1.0f, 1.0f, sFileMenuConfirm, 2);
+#else // VERSION_US
         menuCreateItems(fileMenuPrintText(sFileMenuConfirm, 2), 140, 6, 1.0f, 1.0f, sFileMenuConfirm, 2);
+#endif
         sFileColorR1 = 255.0f;
         sFileColorG1 = 10.0f;
         sFileColorB1 = 10.0f;
@@ -484,7 +496,11 @@ void fileMenu_802E9AE0(void) {
         titleStr = textGetDataByIdx(TEXT_ERASE_SEL2);
         break;
     }
+#if defined(VERSION_JP)
+    uvFontPrintStr16((SCREEN_WIDTH / 2) - (uvFontStr16Width(titleStr) / 2), 208, titleStr, 0x14, 0xFFE);
+#else // VERSION_US
     uvFontPrintStr16((SCREEN_WIDTH / 2) - (uvFontStr16Width(titleStr) / 2), 206, titleStr, 0x3C, 0xFFE);
+#endif
     uvFontGenDlist();
     func_8034B6F8();
 }

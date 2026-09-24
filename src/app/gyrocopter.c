@@ -1489,9 +1489,11 @@ void func_80307EA8(GyrocopterData* gcData) {
 
     if (gcData->unk10.m[3][2] > 700.0f) {
         spD8 = 1.0f - ((gcData->unk10.m[3][2] - 700.0f) / 100.0f);
+#if !defined(VERSION_JP)
         if (spD8 < 0.0f) {
             spD8 = 0.0f;
         }
+#endif
     } else {
         spD8 = 1.0f;
     }

@@ -16,11 +16,11 @@ Unk80371120 D_80371120;
 Unk80371120 D_803712D0;
 Unk80371120 D_80371480;
 
-void func_803277E0(RocketBeltData*);
-void func_803279F0(RocketBeltData*);
-void func_80327F30(RocketBeltData*, u8 gameState);
+void rocketBelt_803277E0(RocketBeltData*);
+void rocketBelt_803279F0(RocketBeltData*);
+void rocketBelt_80327F30(RocketBeltData*, u8 gameState);
 
-void func_80326F30(RocketBeltData* rbData) {
+void rocketBelt_80326F30(RocketBeltData* rbData) {
     rbData->unk338 = uvFx_8021EFF0(2);
     uvModelGet(rbData->unk338, MODEL_BLUE_CUBOID);
     rbData->unk339 = uvFx_8021EFF0(2);
@@ -30,16 +30,16 @@ void func_80326F30(RocketBeltData* rbData) {
     rbData->unk33A = 0;
 }
 
-void func_80327040(RocketBeltData* rbData, u8 gameState) {
+void rocketBelt_80327040(RocketBeltData* rbData, u8 gameState) {
     Mtx4F sp40;
     f32 var_ft4;
     f32 var_fv1;
 
-    func_803279F0(rbData);
+    rocketBelt_803279F0(rbData);
     if ((rbData->unkF8 > 0.0f) && (rbData->unk90 != 4)) {
-        func_80327F30(rbData, gameState);
+        rocketBelt_80327F30(rbData, gameState);
     } else {
-        func_803277E0(rbData);
+        rocketBelt_803277E0(rbData);
     }
     rbData->unk35C = func_80313AF4((rbData->unk68 * -1.2f) + rbData->unk88, rbData->unk35C, 5.0f);
     var_ft4 = rbData->unk1DC.z / 20.0f;
@@ -87,21 +87,21 @@ void func_80327040(RocketBeltData* rbData, u8 gameState) {
     }
 }
 
-void func_80327380(RocketBeltData* rbData) {
+void rocketBelt_80327380(RocketBeltData* rbData) {
     uvModelGet(rbData->unk338, MODEL_BIG_ROCK_BOULDER);
     uvModelGet(rbData->unk339, MODEL_BIG_ROCK_BOULDER);
     rbData->unk338 = 0xFF;
     rbData->unk339 = 0xFF;
 }
 
-void func_803273C8(RocketBeltData* rbData, u8 arg1) {
+void rocketBelt_803273C8(RocketBeltData* rbData, u8 arg1) {
     static f32 D_8034FBA0 = 0.0f;
     static f32 D_8034FBA4 = 0.5f;
     f32 var_fa1;
     u8 sp23;
 
     if (rbData->unk90 == 3) {
-        func_80327614(rbData);
+        rocketBelt_80327614(rbData);
         return;
     }
     if ((fdr_802E6B5C() != 3) && (fdr_802E6B5C() != 4)) {
@@ -118,7 +118,7 @@ void func_803273C8(RocketBeltData* rbData, u8 arg1) {
             uvDobj_802180DC(rbData->objId, &D_80371120);
             rbData->unk80 = 0;
             rbData->unk78 = 0.0f;
-            func_80327040(rbData, GAME_STATE_TEST_UPDATE);
+            rocketBelt_80327040(rbData, GAME_STATE_TEST_UPDATE);
         }
 
         var_fa1 = rbData->unk33C / 3.0f;
@@ -155,7 +155,7 @@ void func_803273C8(RocketBeltData* rbData, u8 arg1) {
     }
 }
 
-void func_80327614(RocketBeltData* rbData) {
+void rocketBelt_80327614(RocketBeltData* rbData) {
     Mtx4F spD0;
     Mtx4F sp90;
     Mtx4F sp50;
@@ -187,13 +187,13 @@ void func_80327614(RocketBeltData* rbData) {
         uvDobjPosm(rbData->objId, rbData->unk2E1, &sp90);
         shadow_803343D8(0);
     }
-    func_803277E0(rbData);
+    rocketBelt_803277E0(rbData);
     uvModelGetPosm(rbData->modelId, rbData->unk2DE, &sp50);
     uvMat4RotateAxis(&sp50, uvCosF(8.0f * D_8034F850), 'z');
     uvDobjPosm(rbData->objId, rbData->unk2DE, &sp50);
 }
 
-void func_803277E0(RocketBeltData* rbData) {
+void rocketBelt_803277E0(RocketBeltData* rbData) {
     Mtx4F sp38;
     f32 var_fs0;
 
@@ -222,7 +222,7 @@ void func_803277E0(RocketBeltData* rbData) {
     uvDobjPosm(rbData->objId, rbData->unk2D8, &sp38);
 }
 
-void func_803279F0(RocketBeltData* rbData) {
+void rocketBelt_803279F0(RocketBeltData* rbData) {
     static f32 D_8034FBA8 = 0.0f;
     Mtx4F sp178;
     Mtx4F sp138;
@@ -289,7 +289,7 @@ void func_803279F0(RocketBeltData* rbData) {
     }
 }
 
-void func_80327F30(RocketBeltData* rbData, u8 gameState) {
+void rocketBelt_80327F30(RocketBeltData* rbData, u8 gameState) {
     f32 var_fa0;
     f32 sp70;
     f32 sp6C;

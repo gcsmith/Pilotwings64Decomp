@@ -777,12 +777,14 @@ void func_8033A020(s32 arg0) {
 }
 
 void func_8033A078(s32 arg0) {
+#if !defined(VERSION_JP)
     u8* ptr;
 
     ptr = taskGet_80345CB0();
     if ((D_80362690->state != GAME_STATE_OPTIONS) && (ptr[1] == 1)) {
         snowEnable();
     }
+#endif
     if (D_80350590 != 0) {
         D_80350590 = 0;
         if ((arg0 == 0) || (D_80350594 != 0)) {
@@ -905,7 +907,11 @@ void func_8033A244(s32 arg0, Unk80373060* arg1) {
                 fountainStateRestore();
                 break;
             case 4:
+#if defined(VERSION_JP)
+                missiStateRestore();
+#else // VERSION_US
                 whaleStateRestore();
+#endif
                 break;
             case 3:
                 missiStateRestore();
@@ -1015,6 +1021,11 @@ void func_8033A72C(void) {
     uvGfxEnd();
 }
 
+#if defined(VERSION_JP)
+// https://decomp.me/scratch/J88ei
+#pragma GLOBAL_ASM("asm/nonmatchings/app/snap/func_8033ADD4.s")
+void func_8033ADD4(s32 arg0, Unk80373060* arg1, s32 arg2, s32 arg3);
+#else // VERSION_US
 void func_8033ADD4(s32 arg0, Unk80373060* arg1, s32 arg2, s32 arg3) {
     Mtx4F spA0;
     Mtx4F sp60;
@@ -1204,6 +1215,29 @@ void func_8033ADD4(s32 arg0, Unk80373060* arg1, s32 arg2, s32 arg3) {
     uvGfxMtxViewPop();
     uvGfxEnd();
 }
+#endif
+
+#if defined(VERSION_JP)
+#define POLY_VTX_X_OFF_0 25.0f
+#define POLY_VTX_X_OFF_1 25.0f
+#define POLY_VTX_X_OFF_2 57.0f
+#define POLY_VTX_Y_0 30
+#define POLY_VTX_Y_1 43
+#define POLY_VTX_S_0 0x180
+#define POLY_VTX_S_1 0x320
+#define POLY_VTX_S_2 0x320
+#define POLY_VTX_S_3 0x720
+#else // VERSION_US
+#define POLY_VTX_X_OFF_0 13.0f
+#define POLY_VTX_X_OFF_1 30.0f
+#define POLY_VTX_X_OFF_2 77.0f
+#define POLY_VTX_Y_0 28
+#define POLY_VTX_Y_1 44
+#define POLY_VTX_S_0 0x1C0
+#define POLY_VTX_S_1 0x1A0
+#define POLY_VTX_S_2 0x3C0
+#define POLY_VTX_S_3 0x9A0
+#endif
 
 void func_8033BF00(s32 arg0, s32 arg1, s32 arg2) {
     Mtx4F sp88;
@@ -1241,19 +1275,19 @@ void func_8033BF00(s32 arg0, s32 arg1, s32 arg2) {
                 sp3C = D_80373E10;
                 uvGfxBindTexture(0x142);
                 uvVtxBeginPoly();
-                uvVtx(sp3C, 28, 0, 0, 0, 255, 255, 255, 255);
-                uvVtx(sp3C + 17.0f, 28, 0, 0x220, 0, 255, 255, 255, 255);
-                uvVtx(sp3C + 17.0f, 42, 0, 0x220, 0x1C0, 255, 255, 255, 255);
-                uvVtx(sp3C, 42, 0, 0, 0x1C0, 255, 255, 255, 255);
+                uvVtx(sp3C, POLY_VTX_Y_0, 0, 0, 0, 255, 255, 255, 255);
+                uvVtx(sp3C + 17.0f, POLY_VTX_Y_0, 0, 0x220, 0, 255, 255, 255, 255);
+                uvVtx(sp3C + 17.0f, 42, 0, 0x220, POLY_VTX_S_0, 255, 255, 255, 255);
+                uvVtx(sp3C, 42, 0, 0, POLY_VTX_S_0, 255, 255, 255, 255);
                 uvVtxEndPoly();
             } else {
                 sp3C = D_80373E14;
                 uvGfxBindTexture(0x143);
                 uvVtxBeginPoly();
-                uvVtx(sp3C, 28, 0, 0, 0, 255, 255, 255, 255);
-                uvVtx(sp3C + 13.0f, 28, 0, 0x1A0, 0, 255, 255, 255, 255);
-                uvVtx(sp3C + 13.0f, 42, 0, 0x1A0, 0x1C0, 255, 255, 255, 255);
-                uvVtx(sp3C, 42, 0, 0, 0x1C0, 255, 255, 255, 255);
+                uvVtx(sp3C, POLY_VTX_Y_0, 0, 0, 0, 255, 255, 255, 255);
+                uvVtx(sp3C + POLY_VTX_X_OFF_0, POLY_VTX_Y_0, 0, POLY_VTX_S_1, 0, 255, 255, 255, 255);
+                uvVtx(sp3C + POLY_VTX_X_OFF_0, 42, 0, POLY_VTX_S_1, POLY_VTX_S_0, 255, 255, 255, 255);
+                uvVtx(sp3C, 42, 0, 0, POLY_VTX_S_0, 255, 255, 255, 255);
                 uvVtxEndPoly();
             }
         } else if (arg1 != 0) {
@@ -1261,18 +1295,18 @@ void func_8033BF00(s32 arg0, s32 arg1, s32 arg2) {
             uvGfxBindTexture(0x13E);
             uvVtxBeginPoly();
             uvVtx(sp3C, 30, 0, 0, 0, 0, 255, 255, 255);
-            uvVtx(sp3C + 30.0f, 30, 0, 0x3C0, 0, 0, 255, 255, 255);
-            uvVtx(sp3C + 30.0f, 44, 0, 0x3C0, 0x1C0, 0, 255, 255, 255);
-            uvVtx(sp3C, 44, 0, 0, 0x1C0, 0, 255, 255, 255);
+            uvVtx(sp3C + POLY_VTX_X_OFF_1, 30, 0, POLY_VTX_S_2, 0, 0, 255, 255, 255);
+            uvVtx(sp3C + POLY_VTX_X_OFF_1, POLY_VTX_Y_1, 0, POLY_VTX_S_2, 0x1C0, 0, 255, 255, 255);
+            uvVtx(sp3C, POLY_VTX_Y_1, 0, 0, 0x1C0, 0, 255, 255, 255);
             uvVtxEndPoly();
         } else {
             sp3C = D_80373E14;
             uvGfxBindTexture(0x13F);
             uvVtxBeginPoly();
             uvVtx(sp3C, 30, 0, 0, 0, 0, 255, 255, 255);
-            uvVtx(sp3C + 77.0f, 30, 0, 0x9A0, 0, 0, 255, 255, 255);
-            uvVtx(sp3C + 77.0f, 44, 0, 0x9A0, 0x1C0, 0, 255, 255, 255);
-            uvVtx(sp3C, 44, 0, 0, 0x1C0, 0, 255, 255, 255);
+            uvVtx(sp3C + POLY_VTX_X_OFF_2, 30, 0, POLY_VTX_S_3, 0, 0, 255, 255, 255);
+            uvVtx(sp3C + POLY_VTX_X_OFF_2, POLY_VTX_Y_1, 0, POLY_VTX_S_3, 0x1C0, 0, 255, 255, 255);
+            uvVtx(sp3C, POLY_VTX_Y_1, 0, 0, 0x1C0, 0, 255, 255, 255);
             uvVtxEndPoly();
         }
         uvGfxStatePop();
@@ -1287,19 +1321,19 @@ void func_8033BF00(s32 arg0, s32 arg1, s32 arg2) {
                 sp3C = D_80373E10;
                 uvGfxBindTexture(0x142);
                 uvVtxBeginPoly();
-                uvVtx(sp3C, 28, 0, 0, 0, 0, 255, 255, 255);
-                uvVtx(sp3C + 17.0f, 28, 0, 0x220, 0, 0, 255, 255, 255);
-                uvVtx(sp3C + 17.0f, 42, 0, 0x220, 0x1C0, 0, 255, 255, 255);
-                uvVtx(sp3C, 42, 0, 0, 0x1C0, 0, 255, 255, 255);
+                uvVtx(sp3C, POLY_VTX_Y_0, 0, 0, 0, 0, 255, 255, 255);
+                uvVtx(sp3C + 17.0f, POLY_VTX_Y_0, 0, 0x220, 0, 0, 255, 255, 255);
+                uvVtx(sp3C + 17.0f, 42, 0, 0x220, POLY_VTX_S_0, 0, 255, 255, 255);
+                uvVtx(sp3C, 42, 0, 0, POLY_VTX_S_0, 0, 255, 255, 255);
                 uvVtxEndPoly();
             } else {
                 sp3C = D_80373E10;
                 uvGfxBindTexture(0x13E);
                 uvVtxBeginPoly();
                 uvVtx(sp3C, 30, 0, 0, 0, 255, 255, 255, 255);
-                uvVtx(sp3C + 30.0f, 30, 0, 0x3C0, 0, 255, 255, 255, 255);
-                uvVtx(sp3C + 30.0f, 44, 0, 0x3C0, 0x1C0, 255, 255, 255, 255);
-                uvVtx(sp3C, 44, 0, 0, 0x1C0, 255, 255, 255, 255);
+                uvVtx(sp3C + POLY_VTX_X_OFF_1, 30, 0, POLY_VTX_S_2, 0, 255, 255, 255, 255);
+                uvVtx(sp3C + POLY_VTX_X_OFF_1, POLY_VTX_Y_1, 0, POLY_VTX_S_2, 0x1C0, 255, 255, 255, 255);
+                uvVtx(sp3C, POLY_VTX_Y_1, 0, 0, 0x1C0, 255, 255, 255, 255);
                 uvVtxEndPoly();
             }
         } else {
@@ -1309,19 +1343,19 @@ void func_8033BF00(s32 arg0, s32 arg1, s32 arg2) {
                 sp3C = D_80373E14;
                 uvGfxBindTexture(0x143);
                 uvVtxBeginPoly();
-                uvVtx(sp3C, 28, 0, 0, 0, 0, 255, 255, 255);
-                uvVtx(sp3C + 13.0f, 28, 0, 0x1A0, 0, 0, 255, 255, 255);
-                uvVtx(sp3C + 13.0f, 42, 0, 0x1A0, 0x1C0, 0, 255, 255, 255);
-                uvVtx(sp3C, 42, 0, 0, 0x1C0, 0, 255, 255, 255);
+                uvVtx(sp3C, POLY_VTX_Y_0, 0, 0, 0, 0, 255, 255, 255);
+                uvVtx(sp3C + POLY_VTX_X_OFF_0, POLY_VTX_Y_0, 0, POLY_VTX_S_1, 0, 0, 255, 255, 255);
+                uvVtx(sp3C + POLY_VTX_X_OFF_0, 42, 0, POLY_VTX_S_1, POLY_VTX_S_0, 0, 255, 255, 255);
+                uvVtx(sp3C, 42, 0, 0, POLY_VTX_S_0, 0, 255, 255, 255);
                 uvVtxEndPoly();
             } else {
                 sp3C = D_80373E14;
                 uvGfxBindTexture(0x13F);
                 uvVtxBeginPoly();
                 uvVtx(sp3C, 30, 0, 0, 0, 255, 255, 255, 255);
-                uvVtx(sp3C + 77.0f, 30, 0, 0x9A0, 0, 255, 255, 255, 255);
-                uvVtx(sp3C + 77.0f, 44, 0, 0x9A0, 0x1C0, 255, 255, 255, 255);
-                uvVtx(sp3C, 44, 0, 0, 0x1C0, 255, 255, 255, 255);
+                uvVtx(sp3C + POLY_VTX_X_OFF_2, 30, 0, POLY_VTX_S_3, 0, 255, 255, 255, 255);
+                uvVtx(sp3C + POLY_VTX_X_OFF_2, POLY_VTX_Y_1, 0, POLY_VTX_S_3, 0x1C0, 255, 255, 255, 255);
+                uvVtx(sp3C, POLY_VTX_Y_1, 0, 0, 0x1C0, 255, 255, 255, 255);
                 uvVtxEndPoly();
             }
         }
@@ -1475,7 +1509,11 @@ s32 func_8033D3EC(s32 arg0, s32 arg1, Unk80373060* arg2, s32* arg3, s32* arg4) {
             uvFontSet(6);
             uvFontColor((s32)r, (s32)g, (s32)b, 0xFF);
             uvFontScale(1.0, 1.0);
+#if defined(VERSION_JP)
+            uvFontPrintStr16(70, 194, textGetDataByIdx(TEXT_VIEW_PHOTO1), 100, 0xFFE);
+#else // VERSION_US
             uvFontPrintStr16(70, 190, textGetDataByIdx(TEXT_VIEW_PHOTO1), 100, 0xFFE);
+#endif
             uvFontGenDlist();
             uvGfxEnd();
             if ((demoButtonPress(0, B_BUTTON) != 0) || ((arg1 == 0) && (demoButtonPress(0, START_BUTTON) != 0))) {
@@ -1748,6 +1786,10 @@ void func_8033DFD0(s32 arg0, Unk80373060* arg1, s32 arg2) {
     func_8033A6B8();
 }
 
+#if defined(VERSION_JP)
+// https://decomp.me/scratch/igj04
+#pragma GLOBAL_ASM("asm/nonmatchings/app/snap/func_8033E3A8.s")
+#else // VERSION_US
 s32 func_8033E3A8(s32 arg0) {
     s32 spC4;
     s32 var_s0;
@@ -1856,6 +1898,7 @@ s32 func_8033E3A8(s32 arg0) {
     func_8033FCD0(vehIdx);
     return D_80350550;
 }
+#endif
 
 void func_8033E784(Unk8033F050* arg0, s32 arg1, s32 arg2) {
     if (arg2 != 0) {

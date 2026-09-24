@@ -230,7 +230,7 @@ void uvGfxStateDrawDL(uvGfxState_t* arg0) {
 
 #if defined(VERSION_JP)
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/uvGfxStateDraw.s")
-#else
+#else // VERSION_US
 void uvGfxStateDraw(uvGfxState_t* arg0) {
     u32 clearMode;
     u32 setMode;
@@ -1132,4 +1132,3 @@ void uvCopyFrameBuf(s32 fb_id) {
     dst = gGfxFbPtrs[fb_id ^ 1];
     _uvMediaCopy(dst, src, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(u16));
 }
-

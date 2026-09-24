@@ -137,7 +137,11 @@ void optionsInitSound(void) {
     sOptionMenuItems[2] = TEXT_BGM_V1;
     sOptionMenuItems[3] = TEXT_SFX_V1;
     sOptionMenuItems[4] = TEXT_QUIT;
+#if defined(VERSION_JP)
+    menuCreateItems(60, 70, 6, 1.0f, 1.0f, sOptionMenuItems, 5);
+#else // VERSION_US
     menuCreateItems(40, 70, 6, 1.0f, 1.0f, sOptionMenuItems, 5);
+#endif
     menuUtilSetColors(MENU_COLOR_ITEM, 0xFF, 0xFF, 0xFF);
     menuUtilSetColors(MENU_COLOR_SELECTED, 0xFF, 0xFF, 0);
     optionsSetSetting(0, sStereoMono);
@@ -470,7 +474,11 @@ void optionsSetTrack(s32 menuItem, s32 trackIdx) {
 
     if (menuItem == 1) {
         trackStr = textGetDataByIdx(TEXT_STRACK);
+#if defined(VERSION_JP)
+        textFmtIntAt(trackStr, trackIdx + 1, 2, 4);
+#else // VERSION_US
         textFmtIntAt(trackStr, trackIdx + 1, 2, 13);
+#endif
         menuSetItem(1, trackStr);
     }
 }

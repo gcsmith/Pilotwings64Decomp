@@ -41,7 +41,9 @@ CreditLines D_8034F4E0[] = {
     {         "SHIGEKI YAMASHIRO", 3, 0 },
     {             "HIRO NAKAMURA", 3, 0 },
     {              "DARREN SMITH", 3, 0 },
+#if !defined(VERSION_JP)
     {               "JIM WORNELL", 3, 0 },
+#endif
     {            "PARADIGM STAFF", 1, 0 },
     {           "PROJECT MANAGER", 2, 0 },
     {              "DAVE GATCHEL", 3, 0 },
@@ -397,4 +399,3 @@ void creditsScene(void) {
         D_8034F784 = 0;
     }
 }
-

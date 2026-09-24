@@ -61,6 +61,12 @@ STATIC_DATA s32 sMainMenuItems[] = { TEXT_GAMESTART, TEXT_OPTION };
 Unk80378CE0* D_80378CE0;
 f32 D_80378CE4;
 
+#if defined(VERSION_JP)
+// TODO: remove when (J) matches
+#undef STATIC_FUNC
+#define STATIC_FUNC
+#endif
+
 // forward decls
 STATIC_FUNC void func_803427FC(void); // init function
 STATIC_FUNC void func_80343294(void); // deinit function
@@ -112,6 +118,10 @@ s32 func_80342630(void) {
     return var_s1;
 }
 
+#if defined(VERSION_JP)
+// https://decomp.me/scratch/qvdZR
+#pragma GLOBAL_ASM("asm/nonmatchings/app/title_screen/func_803427FC.s")
+#else // VERSION_US
 STATIC_FUNC void func_803427FC(void) {
     Mtx4F sp58;
     Camera* camera;
@@ -204,6 +214,7 @@ STATIC_FUNC void func_803427FC(void) {
         func_8033FCD0(0xFFU);
     }
 }
+#endif
 
 STATIC_FUNC void func_80342D2C(void) {
     Unk803136C4_Arg0 sp2FC;
@@ -301,11 +312,17 @@ STATIC_FUNC void func_803433A4(void) {
     }
 }
 
+#if !defined(VERSION_JP)
 void func_803434E8(void) {
     uvClkReset(UV_CLKID_APP);
     while (uvClkGetSec(UV_CLKID_APP) < 1.0) { }
 }
+#endif
 
+#if defined(VERSION_JP)
+// https://decomp.me/scratch/svW3A
+#pragma GLOBAL_ASM("asm/nonmatchings/app/title_screen/func_80343550.s")
+#else // VERSION_US
 STATIC_FUNC s32 func_80343550(void) {
     s32 temp_v0;
     s32 gameState;
@@ -413,6 +430,7 @@ STATIC_FUNC s32 func_80343550(void) {
     D_80378CE0->unk22C += D_8034F854;
     return gameState;
 }
+#endif
 
 STATIC_FUNC void introSceneRunner(void) {
     Camera* camera = D_80362690->unkC[D_80362690->unk9C].unk70;
@@ -424,6 +442,9 @@ STATIC_FUNC void introSceneRunner(void) {
     }
 
     uvSprtDraw(1);
+#if defined(VERSION_JP)
+    uvSprtDraw(2);
+#endif
     uvSprtDraw(3);
     if ((D_80378CE0->unk22C - D_80378CE0->unk230) <= 2.0f) {
         sp30 = (s32)(((D_80378CE0->unk22C - D_80378CE0->unk230) * 80.0f) + 0.5f) * (1.0f / 2.0f);
@@ -439,7 +460,11 @@ STATIC_FUNC void introSceneRunner(void) {
 
     screenDrawBoxSetup();
     screenDrawBox(30, 18, 285, 34, 0, 0, 0, sp30);
+#if defined(VERSION_JP)
+    screenDrawBox(89, 74, 222, 120, 0, 0, 0, sp30);
+#else // VERSION_US
     screenDrawBox(97, 76, 202, 118, 0, 0, 0, sp30);
+#endif
     func_802DFA18();
     if (D_80378CE0->unk22C >= 16.65f) {
         menuRender();

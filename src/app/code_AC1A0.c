@@ -57,7 +57,7 @@ void rocketBeltLoadLevel(u8 contIdx, u8 pilot, RocketBeltData* rbData, Camera* c
     rbData->contIdx = contIdx;
     rbData->camera = camera;
     rbData->unk4 = 0xFFFF;
-    func_80326F30(rbData);
+    rocketBelt_80326F30(rbData);
     func_80328420(rbData);
     rbSoundInit(rbData);
 }
@@ -141,7 +141,7 @@ void func_80325100(RocketBeltData* rbData) {
     rbData->objId = 0xFFFF;
     uvDobjModel(rbData->unk6, MODEL_WORLD);
     rbData->unk6 = 0xFFFF;
-    func_80327380(rbData);
+    rocketBelt_80327380(rbData);
     shadow_80334C70();
 }
 
@@ -328,7 +328,7 @@ void rocketBeltMovementFrame(RocketBeltData* rbData, u8 gameState) {
                 rbData->unkF8 = 0.0f;
             }
         }
-        func_80327040(rbData, gameState);
+        rocketBelt_80327040(rbData, gameState);
         uvDobjPosm(rbData->objId, 0, &rbData->unk10);
         shadow_803344BC(&rbData->unk10, rbData->unkFC);
         uvMat4SetIdentity(&sp6C);
@@ -469,7 +469,7 @@ void func_80325E1C(RocketBeltData* rbData) {
         uvMat4Copy(&rbData->camera->unk80, &rbData->unk10);
     }
     shadow_803343D8(0);
-    func_80327614(rbData);
+    rocketBelt_80327614(rbData);
 }
 
 void rocketBeltLoadPilot(u8 pilot, RocketBeltData* rbData) {

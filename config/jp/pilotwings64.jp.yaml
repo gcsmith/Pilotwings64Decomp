@@ -32,7 +32,9 @@ options:
   # auto_link_sections: [".data", ".rodata", ".bss"]
 
   symbol_addrs_path:
-    - config/jp/sym/symbol_addrs.txt
+    - config/jp/sym/symbol_addrs_app.txt
+    - config/jp/sym/symbol_addrs_kernel.txt
+    - config/jp/sym/symbol_addrs_libultra.txt
   reloc_addrs_path:
     - config/jp/sym/reloc_addrs.txt
 
@@ -385,9 +387,367 @@ segments:
     vram: 0x802BCC50
     bss_size: 0x293E0
     subsegments:
-      - { start: 0x51CA0, type: textbin, use_src_path: True, name: app_text }
-      - { start: 0xD6030, type: databin, use_src_path: True, name: app_data }
-      - { type: bss, vram: 0x80349BE0 }
+      - [0x51CA0, c, app/code_51E30]
+      - [0x520A0, c, app/balls]
+      - [0x53550, c, app/birdman0]
+      - [0x55530, c, app/birdman1]
+      - [0x55F40, c, app/birdman2]
+      - [0x57E60, c, app/bmsound]
+      - [0x58840, c, app/boats]
+      - [0x59520, c, app/bonus]
+      - [0x59AC0, c, app/ball_target]
+      - [0x5A3E0, c, app/camera]
+      - [0x5CD00, c, app/cannonball]
+      - [0x5FD60, c, app/code_60020]
+      - [0x60F20, c, app/cbsound]
+      - [0x617A0, c, app/code_61A60]
+      - [0x63DB0, c, app/control_info]
+      - [0x64DB0, c, app/pilot_select]
+      - [0x667E0, c, app/code_66160]
+      - [0x675F0, c, app/code_66F70]
+      - [0x68870, c, app/environment]
+      - [0x6A240, c, app/env_sound]
+      - [0x6B350, c, app/falco]
+      - [0x6E110, c, app/fdr]
+      - [0x6F340, c, app/ferry]
+      - [0x6F920, c, app/save]
+      - [0x70460, c, app/file_menu]
+      - [0x719C0, c, app/fire_effects]
+      - [0x724D0, c, app/code_72010]
+      - [0x72790, c, app/fountain]
+      - [0x72D80, c, app/code_72910]
+      - [0x73360, c, app/game]
+      - [0x75ED0, c, app/hang_glider0]
+      - [0x76AE0, c, app/hang_glider1]
+      - [0x78A90, c, app/glider_toys]
+      - [0x79B30, c, app/hang_glider2]
+      - [0x7BE10, c, app/hang_glider_sound]
+      - [0x7C930, c, app/code_7C4C0]
+      - [0x7D3A0, c, app/code_7CF30]
+      - [0x80270, c, app/code_7FE00]
+      - [0x81900, c, app/jumble_hopper]
+      - [0x82920, c, app/code_82520]
+      - [0x83000, c, app/code_82B90]
+      - [0x8ABD0, c, app/gyrocopter]
+      - [0x91170, c, app/hover_pads]
+      - [0x91AD0, c, app/gyrocopter_sound]
+      - [0x92C60, c, app/menu]
+      - [0x93040, c, app/level]
+      - [0x93B40, c, app/test_summary]
+      - [0x944D0, c, app/credits]
+      - [0x952A0, c, app/level_select]
+      - [0x976E0, c, app/map3d]
+      - [0x99FE0, c, app/mem]
+      - [0x9A0B0, c, app/menu_utils]
+      - [0x9AC70, c, app/code_9A960]
+      - [0x9BC70, c, app/mist]
+      - [0x9C390, c, app/missi]
+      - [0x9CD90, c, app/oil_plant]
+      - [0x9D260, c, app/oil]
+      - [0x9D6D0, c, app/options]
+      - [0x9E600, c, app/pads]
+      - [0x9F5E0, c, app/hud]
+      - [0xA6310, c, app/code_A6000]
+      - [0xA67D0, c, app/code_A64C0]
+      - [0xA7770, c, app/planes]
+      - [0xA8230, c, app/demo_attitude]
+      - [0xA8940, c, app/proxanim]
+      - [0xA8F40, c, app/code_A8C30]
+      - [0xAA010, c, app/demo]
+      - [0xAAB30, c, app/rings]
+      - [0xAC4B0, c, app/code_AC1A0] # rocket_belt0
+      - [0xAE770, c, app/code_AE460] # rocket_belt1
+      - [0xAFC60, c, app/rocket_belt]
+      - [0xB1E40, c, app/rocket_belt_sound]
+      - [0xB2BF0, c, app/code_B2900]
+      - [0xB3D60, c, app/replay_screen]
+      - [0xB5570, c, app/results]
+      - [0xB6810, c, app/code_B6580]
+      - [0xB7270, c, app/skydiving]
+      - [0xBA420, c, app/code_BA190]
+      - [0xBB060, c, app/sdsound]
+      - [0xBBAA0, c, app/shadow]
+      - [0xBC470, c, app/shuttle]
+      - [0xBD8F0, c, app/ski_lift]
+      - [0xBDD50, c, app/smoke]
+      - [0xBF500, c, app/snap]
+      - [0xC70D0, c, app/snd]
+      - [0xC78D0, c, app/snow]
+      - [0xC80A0, c, app/spath]
+      - [0xC8EF0, c, app/splash]
+      - [0xC99A0, c, app/text_data]
+      - [0xCA090, c, app/title_screen]
+      - [0xCBC60, c, app/targets]
+      - [0xCC380, c, app/task]
+      - [0xCDE70, c, app/code_CD9D0]
+      - [0xCDFC0, c, app/thermals]
+      - [0xCE990, c, app/total_results]
+      - [0xCF4E0, c, app/toys]
+      - [0xCFF00, c, app/test_menu]
+      - [0xD1D70, c, app/user_paths]
+      - [0xD22C0, c, app/code_D1ED0]
+      - [0xD2F00, c, app/code_D2B10]
+      - [0xD3140, c, app/whale]
+      - [0xD3C00, c, app/whale_pod]
+      - [0xD4680, c, app/wind]
+      - [0xD59A0, c, app/wind_objects]
+
+      - [0xD6030, .data, app/code_51E30]
+      - [0xD6130, .data, app/balls]
+      - [0xD6140, .data, app/birdman2]
+      - [0xD6300, .data, app/camera]
+      - [0xD6310, .data, app/cannonball]
+      - [0xD6330, .data, app/code_60020]
+      - [0xD6360, .data, app/code_61A60]
+      - [0xD6420, .data, app/control_info]
+      - [0xD6830, .data, app/pilot_select]
+      - [0xD6970, .data, app/environment]
+      - [0xD69B0, .data, app/env_sound]
+      - [0xD6A30, .data, app/falco]
+      - [0xD6B30, .data, app/fdr]
+      - [0xD6B50, .data, app/ferry]
+      - [0xD6B70, .data, app/file_menu]
+      - [0xD6BB0, .data, app/fire_effects]
+      - [0xD6BC0, .data, app/fountain]
+      - [0xD6BE0, .data, app/code_72910]
+      - [0xD6BF0, .data, app/game]
+      - [0xD6C40, .data, app/hang_glider0]
+      - [0xD6C50, .data, app/hang_glider2]
+      - [0xD6E00, .data, app/code_7C4C0]
+      - [0xD6E10, .data, app/code_7CF30]
+      - [0xD6E20, .data, app/code_7FE00]
+      - [0xD6E30, .data, app/code_82520]
+      - [0xD6E40, .data, app/code_82B90]
+      - [0xD6E70, .data, app/gyrocopter]
+      - [0xD6E80, .data, app/hover_pads]
+      - [0xD6E90, .data, app/level]
+      - [0xD6EB0, .data, app/test_summary]
+      - [0xD6F70, .data, app/credits]
+      - [0xD7220, .data, app/level_select]
+      - [0xD7270, .data, app/map3d]
+      - [0xD72C0, .data, app/mem]
+      - [0xD72D0, .data, app/code_9A960]
+      - [0xD72E0, .data, app/missi]
+      - [0xD7310, .data, app/oil_plant]
+      - [0xD7330, .data, app/oil]
+      - [0xD7350, .data, app/options]
+      - [0xD7380, .data, app/pads]
+      - [0xD7390, .data, app/hud]
+      - [0xD73F0, .data, app/demo_attitude]
+      - [0xD7400, .data, app/code_A8C30]
+      - [0xD7550, .data, app/demo]
+      - [0xD7560, .data, app/rings]
+      - [0xD7620, .data, app/code_AE460]
+      - [0xD7630, .data, app/rocket_belt]
+      - [0xD7650, .data, app/code_B2900]
+      - [0xD7690, .data, app/replay_screen]
+      - [0xD76C0, .data, app/results]
+      - [0xD7A50, .data, app/skydiving]
+      - [0xD7ED0, .data, app/code_BA190]
+      - [0xD7EE0, .data, app/shadow]
+      - [0xD7F00, .data, app/shuttle]
+      - [0xD7F80, .data, app/ski_lift]
+      - [0xD7F90, .data, app/snap]
+      - [0xD8030, .data, app/snd]
+      - [0xD8090, .data, app/snow]
+      - [0xD80D0, .data, app/spath]
+      - [0xD8110, .data, app/title_screen]
+      - [0xD8120, .data, app/targets]
+      - [0xD8210, .data, app/task]
+      - [0xD8270, .data, app/thermals]
+      - [0xD8360, .data, app/total_results]
+      - [0xD83F0, .data, app/test_menu]
+      - [0xD8440, .data, app/whale]
+      - [0xD8470, .data, app/whale_pod]
+      - [0xD8490, .rodata, app/code_51E30]
+      - [0xD84B0, .rodata, app/balls]
+      - [0xD8510, .rodata, app/birdman0]
+      - [0xD8890, .rodata, app/birdman1]
+      - [0xD8900, .rodata, app/birdman2]
+      - [0xD89F0, .rodata, app/bmsound]
+      - [0xD8AE0, .rodata, app/boats]
+      - [0xD8B20, .rodata, app/bonus]
+      - [0xD8B60, .rodata, app/ball_target]
+      - [0xD8BC0, .rodata, app/camera]
+      - [0xD8C80, .rodata, app/cannonball]
+      - [0xD8ED0, .rodata, app/code_60020]
+      - [0xD8F50, .rodata, app/cbsound]
+      - [0xD9050, .rodata, app/code_61A60]
+      - [0xD90E0, .rodata, app/control_info]
+      - [0xD9190, .rodata, app/pilot_select]
+      - [0xD9280, .rodata, app/code_66F70]
+      - [0xD9370, .rodata, app/environment]
+      - [0xD9620, .rodata, app/env_sound]
+      - [0xD9780, .rodata, app/falco]
+      - [0xD9900, .rodata, app/fdr]
+      - [0xD9A90, .rodata, app/ferry]
+      - [0xD9AB0, .rodata, app/save]
+      - [0xD9AF0, .rodata, app/file_menu]
+      - [0xD9B20, .rodata, app/fire_effects]
+      - [0xD9D40, .rodata, app/fountain]
+      - [0xD9D60, .rodata, app/code_72910]
+      - [0xD9D70, .rodata, app/game]
+      - [0xD9EF0, .rodata, app/hang_glider0]
+      - [0xD9F40, .rodata, app/hang_glider1]
+      - [0xDA220, .rodata, app/glider_toys]
+      - [0xDA320, .rodata, app/hang_glider2]
+      - [0xDA450, .rodata, app/hang_glider_sound]
+      - [0xDA530, .rodata, app/code_7C4C0]
+      - [0xDA550, .rodata, app/code_7CF30]
+      - [0xDAA20, .rodata, app/code_7FE00]
+      - [0xDAB70, .rodata, app/jumble_hopper]
+      - [0xDACF0, .rodata, app/code_82520]
+      - [0xDAD20, .rodata, app/code_82B90]
+      - [0xDB0E0, .rodata, app/gyrocopter]
+      - [0xDB2E0, .rodata, app/hover_pads]
+      - [0xDB330, .rodata, app/gyrocopter_sound]
+      - [0xDB430, .rodata, app/menu]
+      - [0xDB460, .rodata, app/level]
+      - [0xDB700, .rodata, app/credits]
+      - [0xDBC70, .rodata, app/level_select]
+      - [0xDBC90, .rodata, app/map3d]
+      - [0xDBED0, .rodata, app/mem]
+      - [0xDBF10, .rodata, app/menu_utils]
+      - [0xDBF20, .rodata, app/code_9A960]
+      - [0xDBF50, .rodata, app/mist]
+      - [0xDBF80, .rodata, app/missi]
+      - [0xDBFA0, .rodata, app/oil_plant]
+      - [0xDBFB0, .rodata, app/options]
+      - [0xDC020, .rodata, app/pads]
+      - [0xDC180, .rodata, app/hud]
+      - [0xDC350, .rodata, app/code_A6000]
+      - [0xDC380, .rodata, app/code_A64C0]
+      - [0xDC4F0, .rodata, app/planes]
+      - [0xDC520, .rodata, app/demo_attitude]
+      - [0xDC580, .rodata, app/proxanim]
+      - [0xDC770, .rodata, app/code_A8C30]
+      - [0xDC810, .rodata, app/demo]
+      - [0xDC8E0, .rodata, app/rings]
+      - [0xDC9F0, .rodata, app/code_AC1A0]
+      - [0xDCD20, .rodata, app/code_AE460]
+      - [0xDCDE0, .rodata, app/rocket_belt]
+      - [0xDCF10, .rodata, app/rocket_belt_sound]
+      - [0xDD010, .rodata, app/code_B2900]
+      - [0xDD040, .rodata, app/replay_screen]
+      - [0xDD100, .rodata, app/results]
+      - [0xDD760, .rodata, app/code_B6580]
+      - [0xDD780, .rodata, app/skydiving]
+      - [0xDDA70, .rodata, app/code_BA190]
+      - [0xDDAD0, .rodata, app/sdsound]
+      - [0xDDBA0, .rodata, app/shadow]
+      - [0xDDBF0, .rodata, app/shuttle]
+      - [0xDDC50, .rodata, app/ski_lift]
+      - [0xDDC60, .rodata, app/smoke]
+      - [0xDDFB0, .rodata, app/snap]
+      - [0xDE1A0, .rodata, app/snd]
+      - [0xDE2C0, .rodata, app/spath]
+      - [0xDE3C0, .rodata, app/splash]
+      - [0xDE460, .rodata, app/title_screen]
+      - [0xDE4C0, .rodata, app/targets]
+      - [0xDE530, .rodata, app/task]
+      - [0xDE720, .rodata, app/thermals]
+      - [0xDE760, .rodata, app/total_results]
+      - [0xDE8F0, .rodata, app/toys]
+      - [0xDE9B0, .rodata, app/test_menu]
+      - [0xDEA60, .rodata, app/user_paths]
+      - [0xDEAB0, .rodata, app/code_D1ED0]
+      - [0xDEAE0, .rodata, app/code_D2B10]
+      - [0xDEB00, .rodata, app/whale]
+      - [0xDEB10, .rodata, app/whale_pod]
+      - [0xDEB50, .rodata, app/wind]
+      - [0xDEBC0, .rodata, app/wind_objects]
+
+      - { type: .bss, vram: 0x80349BE0, name: app/code_51E30 }
+      - { type: .bss, vram: 0x80349C00, name: app/balls }
+      - { type: .bss, vram: 0x8034BD80, name: app/birdman0 }
+      - { type: .bss, vram: 0x8034BDE0, name: app/birdman2 }
+      - { type: .bss, vram: 0x8034C030, name: app/bmsound }
+      - { type: .bss, vram: 0x8034C090, name: app/boats }
+      - { type: .bss, vram: 0x8034C120, name: app/bonus }
+      - { type: .bss, vram: 0x8034C1D0, name: app/ball_target }
+      - { type: .bss, vram: 0x8034C3C0, name: app/camera }
+      - { type: .bss, vram: 0x8034C420, name: app/cannonball }
+      - { type: .bss, vram: 0x8034C4C0, name: app/code_60020 }
+      - { type: .bss, vram: 0x8034C5D0, name: app/cbsound }
+      - { type: .bss, vram: 0x8034C630, name: app/code_61A60 }
+      - { type: .bss, vram: 0x8034C680, name: app/control_info }
+      - { type: .bss, vram: 0x8034C690, name: app/pilot_select }
+      - { type: .bss, vram: 0x8034C760, name: app/code_66F70 }
+      - { type: .bss, vram: 0x8034C770, name: app/environment }
+      - { type: .bss, vram: 0x8034C7B0, name: app/env_sound }
+      - { type: .bss, vram: 0x8034CFE0, name: app/falco_data }
+      - { type: .bss, vram: 0x8034D920, name: app/falco }
+      - { type: .bss, vram: 0x8034D950, name: app/fdr }
+      - { type: .bss, vram: 0x80354A00, name: app/ferry }
+      - { type: .bss, vram: 0x80354AD0, name: app/save }
+      - { type: .bss, vram: 0x80354ED0, name: app/file_menu }
+      - { type: .bss, vram: 0x80354EF0, name: app/fire_effects }
+      - { type: .bss, vram: 0x80355020, name: app/fountain }
+      - { type: .bss, vram: 0x80355080, name: app/game }
+      - { type: .bss, vram: 0x8035A430, name: app/hang_glider0 }
+      - { type: .bss, vram: 0x8035A950, name: app/hang_glider1 }
+      - { type: .bss, vram: 0x8035AA00, name: app/glider_toys }
+      - { type: .bss, vram: 0x8035AA90, name: app/hang_glider2 }
+      - { type: .bss, vram: 0x8035AD00, name: app/hang_glider_sound }
+      - { type: .bss, vram: 0x8035AD60, name: app/code_7C4C0 }
+      - { type: .bss, vram: 0x8035B270, name: app/code_7CF30 }
+      - { type: .bss, vram: 0x8035B2D0, name: app/code_7FE00 }
+      - { type: .bss, vram: 0x8035B510, name: app/jumble_hopper }
+      - { type: .bss, vram: 0x8035B570, name: app/code_82520 }
+      - { type: .bss, vram: 0x8035B5F0, name: app/code_82B90 }
+      - { type: .bss, vram: 0x8035BA60, name: app/gyrocopter }
+      - { type: .bss, vram: 0x8035BF70, name: app/hover_pads }
+      - { type: .bss, vram: 0x8035C840, name: app/gyrocopter_sound }
+      - { type: .bss, vram: 0x8035C900, name: app/menu }
+      - { type: .bss, vram: 0x8035C920, name: app/level }
+      - { type: .bss, vram: 0x8035D290, name: app/test_summary }
+      - { type: .bss, vram: 0x8035D2A0, name: app/credits }
+      - { type: .bss, vram: 0x8035D2B0, name: app/level_select }
+      - { type: .bss, vram: 0x8035D2D0, name: app/map3d }
+      - { type: .bss, vram: 0x8035D450, name: app/mem }
+      - { type: .bss, vram: 0x8035E7E0, name: app/menu_utils }
+      - { type: .bss, vram: 0x8035E820, name: app/mist }
+      - { type: .bss, vram: 0x8035E9E0, name: app/missi }
+      - { type: .bss, vram: 0x8035EAC0, name: app/oil }
+      - { type: .bss, vram: 0x8035EB10, name: app/options }
+      - { type: .bss, vram: 0x8035EB40, name: app/pads }
+      - { type: .bss, vram: 0x8035EF10, name: app/hud }
+      - { type: .bss, vram: 0x8035FC20, name: app/code_A64C0 }
+      - { type: .bss, vram: 0x8035FCA0, name: app/planes }
+      - { type: .bss, vram: 0x8035FD10, name: app/demo_attitude }
+      - { type: .bss, vram: 0x8035FD30, name: app/proxanim }
+      - { type: .bss, vram: 0x803602D0, name: app/code_A8C30 }
+      - { type: .bss, vram: 0x80360420, name: app/demo }
+      - { type: .bss, vram: 0x80360460, name: app/rings }
+      - { type: .bss, vram: 0x80363A60, name: app/code_AC1A0 }
+      - { type: .bss, vram: 0x80363B10, name: app/code_AE460 }
+      - { type: .bss, vram: 0x80364020, name: app/rocket_belt }
+      - { type: .bss, vram: 0x80364280, name: app/rocket_belt_sound }
+      - { type: .bss, vram: 0x803642E0, name: app/results }
+      - { type: .bss, vram: 0x80364350, name: app/skydiving }
+      - { type: .bss, vram: 0x80364540, name: app/code_BA190 }
+      - { type: .bss, vram: 0x803646A0, name: app/sdsound }
+      - { type: .bss, vram: 0x80364700, name: app/shuttle }
+      - { type: .bss, vram: 0x803647A0, name: app/ski_lift }
+      - { type: .bss, vram: 0x80364850, name: app/smoke }
+      - { type: .bss, vram: 0x80365A50, name: app/snap }
+      - { type: .bss, vram: 0x80366810, name: app/snd }
+      - { type: .bss, vram: 0x803668E0, name: app/snow }
+      - { type: .bss, vram: 0x80366900, name: app/spath }
+      - { type: .bss, vram: 0x803696B0, name: app/splash }
+      - { type: .bss, vram: 0x8036A900, name: app/text_data }
+      - { type: .bss, vram: 0x8036B6D0, name: app/title_screen }
+      - { type: .bss, vram: 0x8036B6E0, name: app/targets }
+      - { type: .bss, vram: 0x8036C2D0, name: app/task }
+      - { type: .bss, vram: 0x8036D540, name: app/thermals }
+      - { type: .bss, vram: 0x8036D6D0, name: app/total_results }
+      - { type: .bss, vram: 0x8036D750, name: app/toys }
+      - { type: .bss, vram: 0x80370640, name: app/test_menu }
+      - { type: .bss, vram: 0x80370680, name: app/user_paths }
+      - { type: .bss, vram: 0x80371D60, name: app/whale }
+      - { type: .bss, vram: 0x80371E30, name: app/whale_pod }
+      - { type: .bss, vram: 0x80371EF0, name: app/wind }
+      - { type: .bss, vram: 0x803722F0, name: app/wind_objects }
 
   - name: filetable
     type: bin

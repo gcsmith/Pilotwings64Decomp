@@ -56,17 +56,27 @@ s32 func_802DFB48(s32 arg0, f32 arg1, f32 arg2, f32 arg3, s32* arg4, f32* arg5, 
 
     var_fs2 = 1000000.0f;
     var_fs3 = -1000000.0f;
+#if !defined(VERSION_JP)
     spAC = -1500000.0f;
+#endif
     for (i = 0; i < temp_v0; i++) {
         uvTerraGetPlane(D_80362690->terraId, spB4[i], arg1, arg2, &spAC, &sp98);
+#if defined(VERSION_JP)
+        if ((spAC <= arg3) && (var_fs3 < spAC)) {
+#else // VERSION_US
         if ((spAC <= arg3) && (var_fs3 < spAC) && (spAC != -1500000.0f)) {
+#endif
             var_fs3 = spAC;
             sp7C = spB4[i];
             sp8C = sp98.x;
             sp90 = sp98.y;
             sp94 = sp98.z;
         }
+#if defined(VERSION_JP)
+        if ((arg3 <= spAC) && (spAC < var_fs2)) {
+#else // VERSION_US
         if ((arg3 <= spAC) && (spAC < var_fs2) && (spAC != -1500000.0f)) {
+#endif
             var_fs2 = spAC;
             sp78 = spB4[i];
             sp80 = sp98.x;

@@ -30,7 +30,7 @@ void __osViInit(void) {
         __osViNext->modep = &osViModePalLan1;
         osViClock = VI_PAL_CLOCK;
     }
-#else
+#else // VERSION_US
     if (sTvType == OS_TV_TYPE_NTSC) {
         __osViNext->modep = &osViModeNtscLan1;
         osViClock = VI_NTSC_CLOCK;
@@ -49,4 +49,3 @@ void __osViInit(void) {
     IO_WRITE(VI_STATUS_REG, 0);
     __osViSwapContext();
 }
-

@@ -291,7 +291,11 @@ void func_80328D74(RocketBeltData* rbData) {
     rbData->unk214.x = func_80313AF4(0.0f, rbData->unk214.x, rbData->unk310);
     rbData->unk214.y = func_80313AF4(0.0f, rbData->unk214.y, rbData->unk310);
     rbData->unk214.z = func_80313AF4(0.0f, rbData->unk214.z, rbData->unk310);
+#if defined(VERSION_JP)
+    if ((D_8034F850 - rbData->unkF4) > 3.75f) {
+#else // VERSION_US
     if ((D_8034F850 - rbData->unkF4) >= 3.75f) {
+#endif
         rbData->unk90 = 3;
     }
 }
@@ -308,7 +312,9 @@ void func_80328F44(RocketBeltData* rbData) {
     s32 sp34;
 
     rbData->unkFC = 1000000.0f;
+#if !defined(VERSION_JP)
     sp5C = 0.0f;
+#endif
     sp34 = rbData->unk380;
     sp2C = (Vec3F*)rbData->unk10.m[3];
     sp3B = db_getgnd(&rbData->unk374, sp2C, &sp34, &sp48, &sp5C, &sp4C);
@@ -515,6 +521,10 @@ void func_80329628(RocketBeltData* rbData) {
     rbData->unk204.z += rbData->unk314 * sp28.z;
 }
 
+#if defined(VERSION_JP)
+// https://decomp.me/scratch/AsbPb
+#pragma GLOBAL_ASM("asm/nonmatchings/app/rocket_belt/func_8032975C.s")
+#else // VERSION_US
 void func_8032975C(RocketBeltData* rbData) {
     Vec3F sp2AC;
     Vec3F sp2A0;
@@ -832,6 +842,7 @@ void func_8032975C(RocketBeltData* rbData) {
         rbData->unk90 = 0;
     }
 }
+#endif
 
 void func_8032A4A8(RocketBeltData* rbData) {
     f32 var_fs0;

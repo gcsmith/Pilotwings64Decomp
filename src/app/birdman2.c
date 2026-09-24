@@ -550,6 +550,10 @@ void bird_802CFF74(BirdmanData* bmData) {
     }
 }
 
+#if defined(VERSION_JP)
+// https://decomp.me/scratch/G8dzk
+#pragma GLOBAL_ASM("asm/nonmatchings/app/birdman2/bird_802D0080.s")
+#else // VERSION_US
 void bird_802D0080(BirdmanData* bmData) {
     Vec3F sp27C;
     f32 var_fs2;
@@ -613,6 +617,7 @@ void bird_802D0080(BirdmanData* bmData) {
                 return;
             }
             if ((bmData->unk105 != 0) && (bmData->unk104 != 1)) {
+#if !defined(VERSION_JP)
                 uvVec3Copy(&sp24C, &bmData->unk200);
                 func_802DC074(&bmData->unk1C0, &bmData->unk200, &bmData->unk218, &temp_s1->unk34, 0.5f);
                 temp_fv0 = ABS_NOEQ(sp24C.x - bmData->unk200.x);
@@ -629,6 +634,7 @@ void bird_802D0080(BirdmanData* bmData) {
                         }
                     }
                 }
+#endif
                 bmData->unk10.m[3][0] += 0.01f * bmData->unk174.x;
                 bmData->unk10.m[3][1] += 0.01f * bmData->unk174.y;
                 bmData->unk10.m[3][2] += 0.01f * bmData->unk174.z;
@@ -729,6 +735,7 @@ void bird_802D0080(BirdmanData* bmData) {
         _uvDebugPrintf("birdman: you got stuck - forcing an instant crash\n");
     }
 }
+#endif
 
 f32 bird_802D08F8(Unk8034E824* unkState, f32 arg1, f32 arg2) {
     s32 i;

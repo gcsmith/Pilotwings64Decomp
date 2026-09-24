@@ -563,7 +563,7 @@ u32 osViModeTable[] = {
     0x000D0269,
     0x00000002,
 };
-#else
+#else // VERSION_US
 u32 osViModeTable[] = {
     0x00000000,
     0x0000320E,

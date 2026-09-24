@@ -52,6 +52,7 @@ STATIC_FUNC void saveBitScramble(u8* data, s32* bitOffset, s32 bits, s32 bitCoun
     }
 }
 
+#if !defined(VERSION_JP)
 // fatal error handler: attempts to render message and infinite loops
 STATIC_FUNC void saveFatalError(char* msg) {
     s32 xScreen;
@@ -79,8 +80,14 @@ s32 saveFileInit(s32 fileIdx) {
     // cast sizeof to int/u16 to match?
     return uvFileWrite(sSaveFiles[fileIdx].raw, fileIdx * (int)sizeof(PilotwingsSaveFile), sizeof(PilotwingsSaveFile)) != sizeof(PilotwingsSaveFile);
 }
+#endif
 
 void saveModuleInit(void) {
+#if defined(VERSION_JP)
+    if (uvFileRead(&sSaveFiles, 0, sizeof(sSaveFiles)) == 0) {
+        uvMemSet(&sSaveFiles, 0, sizeof(sSaveFiles));
+    }
+#else // VERSION_US
     if (uvFileRead(sSaveFiles, 0, sizeof(sSaveFiles)) != sizeof(sSaveFiles)) {
         saveFatalError("EEPROM CHECK FAILED");
     } else {
@@ -97,6 +104,7 @@ void saveModuleInit(void) {
             }
         }
     }
+#endif
     _uvMediaCopy(sSaveFilesMirror, &sSaveFiles, sizeof(sSaveFiles));
 }
 
@@ -214,6 +222,12 @@ s32 saveFileLoad(s32 fileIdx) {
 int saveFileHasData(s32 fileIdx) {
     return (sSaveFiles[fileIdx].magic[0] == 'P') && (sSaveFiles[fileIdx].magic[1] == 'W');
 }
+
+#if defined(VERSION_JP)
+// https://decomp.me/scratch/nTviI
+// similar to US version of saveFileInit above
+#pragma GLOBAL_ASM("asm/nonmatchings/app/save/saveFileInit.s")
+#endif
 
 s32 saveFile_802E89D4(s32 fileIdx) {
     s32 sp1C;

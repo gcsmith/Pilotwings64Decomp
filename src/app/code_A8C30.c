@@ -131,99 +131,99 @@ void func_80321760(void) {
         switch (sp3D4->cls) {
         case CLASS_BEGINNER:
             uvLevelAppend(0x61);
-            sp3C4 = 0x23;
+            sp3C4 = BLIT_ID_23;
             break;
         case CLASS_A:
             uvLevelAppend(0x62);
-            sp3C4 = 0x24;
+            sp3C4 = BLIT_ID_24;
             break;
         default:
         case CLASS_B:
             uvLevelAppend(0x63);
-            sp3C4 = 0x25;
+            sp3C4 = BLIT_ID_25;
             break;
         }
     } else {
         switch (sp3D4->cls) {
         case CLASS_BEGINNER:
             uvLevelAppend(0x5F);
-            sp3C4 = 0x21;
+            sp3C4 = BLIT_ID_21;
             break;
         case CLASS_A:
             uvLevelAppend(0x5D);
-            sp3C4 = 0x1F;
+            sp3C4 = BLIT_ID_1F;
             break;
         case CLASS_B:
             uvLevelAppend(0x5E);
-            sp3C4 = 0x20;
+            sp3C4 = BLIT_ID_20;
             break;
         case CLASS_PILOT:
             uvLevelAppend(0x60);
-            sp3C4 = 0x22;
+            sp3C4 = BLIT_ID_22;
             break;
         default:
             uvLevelAppend(0x5F);
-            sp3C4 = 0x21;
+            sp3C4 = BLIT_ID_21;
             break;
         }
     }
     switch (sp3D4->veh) {
     case VEHICLE_HANG_GLIDER:
         uvLevelAppend(0x65);
-        sp3C6 = 0x27;
+        sp3C6 = BLIT_ID_27;
         break;
     case VEHICLE_ROCKET_BELT:
         uvLevelAppend(0x66);
-        sp3C6 = 0x28;
+        sp3C6 = BLIT_ID_28;
         break;
     case VEHICLE_GYROCOPTER:
         uvLevelAppend(0x64);
-        sp3C6 = 0x26;
+        sp3C6 = BLIT_ID_26;
         break;
     case VEHICLE_CANNONBALL:
         uvLevelAppend(0x67);
-        sp3C6 = 0x2A;
+        sp3C6 = BLIT_ID_2A;
         break;
     case VEHICLE_SKY_DIVING:
         uvLevelAppend(0x69);
-        sp3C6 = 0x2B;
+        sp3C6 = BLIT_ID_2B;
         break;
     case VEHICLE_JUMBLE_HOPPER:
         uvLevelAppend(0x6A);
-        sp3C6 = 0x2C;
+        sp3C6 = BLIT_ID_2C;
         break;
     case VEHICLE_BIRDMAN:
         uvLevelAppend(0x68);
-        sp3C6 = 0x29;
+        sp3C6 = BLIT_ID_29;
         break;
     default:
         uvLevelAppend(0x65);
-        sp3C6 = 0x27;
+        sp3C6 = BLIT_ID_27;
         break;
     }
     temp2 = levelGetTotalPoints(&D_80364210[D_80362690->unk9C], sp3D4->cls, sp3D4->veh);
     temp2 = levelSetPointsToNextMedal(&sp3BC, temp2, IS_MAIN_VEHICLE(sp3D4->veh) ? sp3D4->cls : VEHICLE_SKY_DIVING);
     switch ((s16)temp2) {
     case 1:
-        sp3C8 = 0x44;
+        sp3C8 = BLIT_ID_44;
         uvLevelAppend(0x6B);
         break;
     case 2:
-        sp3C8 = 0x45;
+        sp3C8 = BLIT_ID_45;
         uvLevelAppend(0x6C);
         break;
     case 3:
         if (sp3BC > 0) {
-            sp3C8 = 0x46;
+            sp3C8 = BLIT_ID_46;
             uvLevelAppend(0x6D);
         } else {
             // perfect score? sp3BC is points to next medal, if it's 0 we got a perfect score
-            sp3C8 = 0x47;
+            sp3C8 = BLIT_ID_47;
             uvLevelAppend(0x6E);
         }
         break;
     default:
-        sp3C8 = 0x44;
+        sp3C8 = BLIT_ID_44;
         uvLevelAppend(0x6B);
         _uvDebugPrintf("fell through to default case\n");
         break;
@@ -330,7 +330,11 @@ void func_80321760(void) {
         SPRT_PROP_END
     );
     temp2 = 0xA0 - (uvSprtGetWidth(2) / 2);
+#if defined(VERSION_JP)
+    uvSprtProps(2, SPRT_PROP_POS(temp2, 75), SPRT_PROP_END);
+#else // VERSION_US
     uvSprtProps(2, SPRT_PROP_POS(temp2, 98), SPRT_PROP_END);
+#endif
     uvSprtProps(3,
         SPRT_PROP_ENABLED(TRUE),
         SPRT_PROP_BLIT(BLIT_ID_48),

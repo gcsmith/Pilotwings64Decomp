@@ -173,6 +173,10 @@ void testMenuInitText(s32 testIdx) {
     }
 }
 
+#if defined(VERSION_JP)
+// https://decomp.me/scratch/2H6Fi
+#pragma GLOBAL_ASM("asm/nonmatchings/app/test_menu/testMenuInit.s")
+#else // VERSION_US
 void testMenuInit(Unk80367710* arg0, s32 arg1) {
     Unk80362690_Unk0* temp_v1;
 
@@ -304,7 +308,12 @@ void testMenuInit(Unk80367710* arg0, s32 arg1) {
     sDrawTestPts = FALSE;
     testMenuInitText(sCurTestIdx);
 }
+#endif
 
+#if defined(VERSION_JP)
+// https://decomp.me/scratch/O3gns
+#pragma GLOBAL_ASM("asm/nonmatchings/app/test_menu/testMenuHandler.s")
+#else // VERSION_US
 u8 testMenuHandler(Unk80367710* arg0) {
     Unk80362690_Unk0* sp6C;
     s32 testIdxAdj;
@@ -537,6 +546,7 @@ u8 testMenuHandler(Unk80367710* arg0) {
     }
     return 6;
 }
+#endif
 
 void testMenuDraw(Camera* camera, u8 classIdx, u8 vehIdx) {
     s32 pad1;
@@ -578,10 +588,19 @@ void testMenuDraw(Camera* camera, u8 classIdx, u8 vehIdx) {
         } else {
             sp54 = sTestHintText;
         }
+#if defined(VERSION_JP)
+        screenDrawBox2(38, 80, 244, 110, 2, 0, 100, 0);
+        screenDrawBox2(38, 195, 191, 25, 2, 0, 100, 0);
+#else // VERSION_US
         screenDrawBox2(38, 80, 244, 110, 2, 0, 0xA0, 0);
         screenDrawBox2(38, 195, 191, 25, 2, 0, 0xA0, 0);
+#endif
         if (sp48->veh != VEHICLE_BIRDMAN) {
+#if defined(VERSION_JP)
+            screenDrawBox2(235, 195, 48, 25, 2, 0, 100, 0);
+#else // VERSION_US
             screenDrawBox2(235, 195, 48, 25, 2, 0, 0xA0, 0);
+#endif
         }
         func_80314154();
 
@@ -625,7 +644,11 @@ void testMenuDraw(Camera* camera, u8 classIdx, u8 vehIdx) {
                 uvGfxStatePop();
             }
         }
+#if defined(VERSION_JP)
+        func_802DEE44(sSelMenuScreenX + 0.5, sSelMenuScreenY + 0.5, 0x42, 0x18, 3, 0xC8, 0xC8, 0, 0x64, 0x64, 0);
+#else // VERSION_US
         func_802DEE44(sSelMenuScreenX + 0.5, sSelMenuScreenY + 0.5, 0x46, 0x18, 3, 0xC8, 0xC8, 0, 0x64, 0x64, 0);
+#endif
         func_803141E4();
         uvFontSet(0);
         uvFontScale(1.0, 0.800000011920929);
@@ -635,7 +658,11 @@ void testMenuDraw(Camera* camera, u8 classIdx, u8 vehIdx) {
             uvFontSet(6);
             uvFontColor(0xBE, 0xBE, 0xBE, 0xFF);
             uvFontScale(1.0, 1.0);
+#if defined(VERSION_JP)
+            uvFontPrintStr16(79, 198, sTestNameText, 10, 0xFFE);
+#else // VERSION_US
             uvFontPrintStr16(79, 196, sTestNameText, 0xFF, 0xFFE);
+#endif
         }
         if (sDrawTestPts && (sp48->veh != VEHICLE_BIRDMAN)) {
             uvFontSet(3);
@@ -651,8 +678,13 @@ void testMenuDraw(Camera* camera, u8 classIdx, u8 vehIdx) {
             uvFontColor(0xD2, 0xD2, 0xD2, 0xFF);
             uvFontScale(1.0, 1.0);
             idx = 0;
+#if defined(VERSION_JP)
+            for (var_a1 = 168; var_a1 > -232; var_a1 -= 20) {
+                temp_v0_3 = uvFontPrintStr16(46, var_a1, &sp54[idx], 0x10, 0xFFE);
+#else // VERSION_US
             for (var_a1 = 166; var_a1 > -114; var_a1 -= 14) {
                 temp_v0_3 = uvFontPrintStr16(46, var_a1, &sp54[idx], 0xFF, 0xFFE);
+#endif
                 if (temp_v0_3 == -1) {
                     break;
                 }

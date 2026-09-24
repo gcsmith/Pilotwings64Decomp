@@ -17,7 +17,7 @@
 #include <uv_texture.h>
 #include <uv_vector.h>
 
-f32 D_8036A8C0;
+f32 D_8036A8C0; // 0x8035D2B0
 f32 D_8036A8C4;
 s8 D_8036A8C8;
 s8 D_8036A8C9;
@@ -210,6 +210,7 @@ void func_8030DED0(void) {
             SPRT_PROP_END
         );
     }
+#if !defined(VERSION_JP)
     for (i = 0; i < 3; i++) {
         uvSprtProps(i + 13,
             SPRT_PROP_ENABLED(TRUE),
@@ -220,6 +221,7 @@ void func_8030DED0(void) {
             SPRT_PROP_END
         );
     }
+#endif
     // clang-format on
     temp_s4 = &D_80364210[D_80362690->unk9C];
     for (i = CLASS_BEGINNER; i < CLASS_COUNT; i++) {
@@ -652,6 +654,7 @@ bail:
     }
     return -1;
 }
+
 void func_8030F448(void) {
     s32 i;
 
@@ -694,11 +697,13 @@ void func_8030F448(void) {
                 uvSprtDraw(i + 9);
             }
         }
+#if !defined(VERSION_JP)
         for (i = 1; i < 4; i++) {
             if (D_8036A8D8[i] == FALSE) {
                 uvSprtDraw(i + 12);
             }
         }
+#endif
     }
 
     func_80314154();
@@ -752,7 +757,11 @@ void func_8030F818(void) {
     fileMenuColorLerp(D_8034F7DC, 44.0f, 214.0f, 44.0f, 145.0f, 183.0f, 255.0f, &r, &g, &b);
     uvFontColor(r, g, b, 0xFF);
     str16 = textGetDataByIdx(TEXT_LEVEL_SEL);
+#if defined(VERSION_JP)
+    uvFontPrintStr16((SCREEN_WIDTH / 2) - (uvFontStr16Width(str16) / 2), 208, str16, 20, 0xFFE);
+#else // VERSION_US
     uvFontPrintStr16((SCREEN_WIDTH / 2) - (uvFontStr16Width(str16) / 2), 206, str16, 40, 0xFFE);
+#endif
     uvFontSet(3);
     uvFontScale(1.0, 1.0);
     fontWidth = uvFontWidth("A");

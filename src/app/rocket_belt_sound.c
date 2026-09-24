@@ -5,15 +5,22 @@
 #include "hud.h"
 #include "rocket_belt.h"
 #include "snd.h"
+#include "text_data.h"
 
 STATIC_DATA EventCallbackInfo sRbSoundEventCbInfo;
 STATIC_DATA Unk803599D0 sRbSound_80371898;
 
 STATIC_FUNC void rbSoundEventHandler(s32, void*, s32);
+#if defined(VERSION_JP)
+// TODO: make STATIC_FUNC once functions are matched
+void rbSoundEvent12_22(RocketBeltData* rbData);
+void rbSoundSubEvent(RocketBeltData* rbData);
+#else // VERSION_US
 STATIC_FUNC void rbSoundEvent12_22(RocketBeltData* rbData);
+STATIC_FUNC void rbSoundSubEvent(RocketBeltData* rbData);
+#endif
 STATIC_FUNC void rbSoundEvent12_18(RocketBeltData* rbData);
 STATIC_FUNC void rbSoundEvent19(RocketBeltData* rbData);
-STATIC_FUNC void rbSoundSubEvent(RocketBeltData* rbData);
 STATIC_FUNC void rbSoundEvent13(RocketBeltData* rbData);
 
 void rbSoundInit(RocketBeltData* rbData) {
@@ -73,11 +80,11 @@ STATIC_FUNC void rbSoundEventHandler(s32 event, void* userData, s32 eventData) {
             break;
         }
         sp48 = 0.0f;
-        if ((rbData->unkEB != 0) && (hudGet_8031DA9C() == 0x17B) && (rbData->unk394 < D_8034F850)) {
+        if ((rbData->unkEB != 0) && (hudGet_8031DA9C() == TEXT_FUEL_WAR) && (rbData->unk394 < D_8034F850)) {
             rbData->unk394 = D_8034F850 + 0.2f;
             sndPlaySfxVolPitchPan(0x6C, 0.8f, 0.707f, sp48);
         }
-        if ((rbData->unkEC != 0) && (hudGet_8031DA9C() == 0x4A) && (rbData->unk398 < D_8034F850)) {
+        if ((rbData->unkEC != 0) && (hudGet_8031DA9C() == TEXT_FUEL_OUT) && (rbData->unk398 < D_8034F850)) {
             rbData->unk398 = D_8034F850 + 0.2f;
             sndPlaySfxVolPitchPan(0x6C, 0.8f, 0.707f, sp48);
         }
@@ -173,6 +180,9 @@ STATIC_FUNC void rbSoundEventHandler(s32 event, void* userData, s32 eventData) {
     }
 }
 
+#if defined(VERSION_JP)
+#pragma GLOBAL_ASM("asm/nonmatchings/app/rocket_belt_sound/rbSoundEvent12_22.s")
+#else // VERSION_US
 STATIC_FUNC void rbSoundEvent12_22(RocketBeltData* rbData) {
     Unk80362690_Unk0* sp34;
     s32 sfxId;
@@ -221,6 +231,7 @@ STATIC_FUNC void rbSoundEvent12_22(RocketBeltData* rbData) {
         }
     }
 }
+#endif
 
 STATIC_FUNC void rbSoundEvent12_18(RocketBeltData* rbData) {
     rbData->unk384 |= 1;
@@ -235,6 +246,9 @@ STATIC_FUNC void rbSoundEvent19(RocketBeltData* rbData) {
     rbData->unk384 &= ~1;
 }
 
+#if defined(VERSION_JP)
+#pragma GLOBAL_ASM("asm/nonmatchings/app/rocket_belt_sound/rbSoundSubEvent.s")
+#else // VERSION_US
 STATIC_FUNC void rbSoundSubEvent(RocketBeltData* rbData) {
     f32 temp_fs0;
     f32 var_fv1;
@@ -274,6 +288,7 @@ STATIC_FUNC void rbSoundSubEvent(RocketBeltData* rbData) {
         }
     }
 }
+#endif
 
 STATIC_FUNC void rbSoundEvent13(RocketBeltData* rbData) {
     rbData->unk388 = func_8033F8CC(rbData->unk388);
@@ -284,4 +299,3 @@ STATIC_FUNC void rbSoundEvent13(RocketBeltData* rbData) {
     func_80200180(0, 4, 0.0f, 0);
     uvEventRemoveCb(sRbSoundEventCbInfo, 1, 0xD, 0x12, 0x13, 0x10, 0xC, 0x16, 0x24);
 }
-

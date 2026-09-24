@@ -191,7 +191,7 @@ void uvSetVideoMode(void) {
     osCreateMesgQueue(&D_802C3B90, D_802C3B68, ARRAY_COUNT(D_802C3B68));
     _uvScCreateScheduler(&gSchedInst, gSchedStack + sizeof(gSchedStack), OS_PRIORITY_APPMAX, OS_VI_NTSC_LAN1, 1);
     _uvScAddClient(&gSchedInst, &gSchedClient, &D_802C3B50);
-#else
+#else // VERSION_US
     s32 viMode;
 
     osCreateMesgQueue(&D_802C3B90, D_802C3B68, ARRAY_COUNT(D_802C3B68));
@@ -443,4 +443,3 @@ void _uvDMA(void* vAddr, u32 devAddr, u32 nbytes) {
 void _uvAssertMsg(const char* expr, const char* filename, int line) {
     _uvDebugPrintf("%s:%d  %s\n", filename, line, expr);
 }
-

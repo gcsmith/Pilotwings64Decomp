@@ -1,0 +1,1507 @@
+// Visit https://github.com/ethteck/splat/wiki/Adding-Symbols for documentation about this file
+
+// -----------------------------------------------------------------------------
+// Function Symbols
+// -----------------------------------------------------------------------------
+
+app_firstfunc       = 0x802BCC50; // type:func
+func_802CAA00       = 0x802BCD50; // type:func
+func_802CAA90       = 0x802BCDE0; // type:func
+func_802CAAC8       = 0x802BCE18; // type:func
+
+ballsInit = 0x802bd050; // type:func
+ballsInitBall = 0x802BD138; // type:func
+balls_802CAF50 = 0x802BD2A0; // type:func
+ballsLoad = 0x802BD3E4; // type:func
+ballsMotionUpdate = 0x802BD64C; // type:func
+ballsDeinit = 0x802BD6AC; // type:func
+ballsFrameUpdate = 0x802BD748; // type:func
+ballsFrameUpdateOne = 0x802BD8BC; // type:func
+balls_802CB6D4 = 0x802BDA24; // type:func
+balls_802CB9B4 = 0x802BDD04; // type:func
+ballsCollision = 0x802BDFEC; // type:func
+ballsPopped = 0x802BE1E4; // type:func
+ballsGetPoints = 0x802BE3B4; // type:func
+ballsObjIdExists = 0x802BE424; // type:func
+ballsGetCount = 0x802BE48C; // type:func
+ballsGetAllPopped = 0x802BE4AC; // type:func
+
+birdInit = 0x802BE500; // type:func
+birdLoadLevel = 0x802BE5C0; // type:func
+birdEnterLeave = 0x802BE6EC; // type:func
+bird_802CC51C = 0x802BE86C; // type:func
+birdMovementFrame = 0x802BE8AC; // type:func
+bird_802CD0F8 = 0x802BF448; // type:func
+birdLoadPilot = 0x802BF638; // type:func
+bird_802CE0A4 = 0x802C03F4; // type:func
+
+bird_802CE190 = 0x802C04E0; // type:func
+bird_802CEA60 = 0x802C0DB0; // type:func
+bird_802CEB68 = 0x802C0EB8; // type:func
+
+bird_802CEBA0 = 0x802C0EF0; // type:func
+bird_802CECB8 = 0x802C1008; // type:func
+bird_802CEDF8 = 0x802C1148; // type:func
+bird_802CF24C = 0x802C159C; // type:func
+bird_802CF5B4 = 0x802C1904; // type:func
+bird_802CF640 = 0x802C1990; // type:func
+bird_802CF76C = 0x802C1ABC; // type:func
+bird_802CF8A4 = 0x802C1BF4; // type:func
+bird_802CFAC8 = 0x802C1E18; // type:func
+bird_802CFEA8 = 0x802C21F8; // type:func
+bird_802CFF74 = 0x802C22C4; // type:func
+bird_802D0080 = 0x802C23D0; // type:func
+bird_802D08F8 = 0x802C2B18; // type:func
+bird_802D0A28 = 0x802C2C48; // type:func
+bird_802D0ABC = 0x802C2CDC; // type:func
+
+bmSoundInit = 0x802C2E10; // type:func
+bmSoundCallback = 0x802C2F24; // type:func
+bmSound_802D112C = 0x802C334C; // type:func
+bmSound_802D12C4 = 0x802C34E4; // type:func
+bmSound_802D1320 = 0x802C3540; // type:func
+bmSound_802D1334 = 0x802C3554; // type:func
+bmSound_802D1534 = 0x802C3754; // type:func
+
+boatsLoadCrescent = 0x802C3C94; // type:func
+boatsLoadHoliday = 0x802C3F08; // type:func
+boatsGetPose = 0x802C4238; // type:func
+boatsDeinit = 0x802C428C; // type:func
+boatsInit = 0x802C4310; // type:func
+boatsGetObjData = 0x802C4344; // type:func
+boatsUpdateInterval = 0x802C43F8; // type:func
+
+bonusInit = 0x802C44D0; // type:func
+bonusUpdateState = 0x802C44F8; // type:func
+bonusLoad = 0x802C460C; // type:func
+bonusFrameUpdate = 0x802C47CC; // type:func
+bonusDeinit = 0x802C49EC; // type:func
+
+ballTgtInit = 0x802C4A70; // type:func
+ballTgtUpdateState = 0x802C4AF8; // type:func
+ballTgtInitDobj = 0x802C4C1C; // type:func
+ballTgtLoad = 0x802C4CEC; // type:func
+ballTgt_802D2C20 = 0x802C4E40; // type:func
+ballTgtInGoal = 0x802C5068; // type:func
+ballTgtDeinit = 0x802C5250; // type:func
+ballTgtCount_5B = 0x802C52D4; // type:func
+ballTgtCount_59 = 0x802C5330; // type:func
+
+cameraInit = 0x802C5390; // type:func
+camera_802D3444 = 0x802C5664; // type:func
+camera_802D4514 = 0x802C6734; // type:func
+camera_802D45C4 = 0x802C67E4; // type:func
+camera_802D472C = 0x802C694C; // type:func
+camera_802D4A30 = 0x802C6C50; // type:func
+camera_802D4DE8 = 0x802C7008; // type:func
+camera_802D4ECC = 0x802C70EC; // type:func
+camera_802D50D0 = 0x802C72F0; // type:func
+camera_802D5884 = 0x802C7AA4; // type:func
+
+cannonInit = 0x802C7CB0; // type:func
+cannonLoadLevel = 0x802C7D70; // type:func
+cannonLevelEnterLeave = 0x802C7E7C; // type:func
+cannonEndTarget = 0x802C80B8; // type:func
+cannonMovementFrame = 0x802C8120; // type:func
+cannonAimingFrame = 0x802C88E4; // type:func
+cannonShoot = 0x802C8D9C; // type:func
+cannonPilotLand = 0x802C8EE4; // type:func
+cannonLoadPilot = 0x802C9158; // type:func
+cannonLoad802D77D8 = 0x802C99F8; // type:func
+cannonFrame802D7B7C = 0x802C9D9C; // type:func
+cannonLandedFrame = 0x802CA2B8; // type:func
+cannonEndShot = 0x802CA6B4; // type:func
+cannonEndAllTgts = 0x802CA950; // type:func
+cannon_802D8A40 = 0x802CAC60; // type:func
+
+func_802D8AF0 = 0x802CAD10; // type:func
+func_802D9220 = 0x802CB440; // type:func
+func_802D9430 = 0x802CB650; // type:func
+func_802D94EC = 0x802CB70C; // type:func
+func_802D95D8 = 0x802CB7F8; // type:func
+func_802D9818 = 0x802CBA38; // type:func
+func_802D9900 = 0x802CBB20; // type:func
+func_802D9AB8 = 0x802CBCD8; // type:func
+func_802D9B40 = 0x802CBD60; // type:func
+func_802D9BBC = 0x802CBDDC; // type:func
+
+cbSoundInit = 0x802CBED0; // type:func
+func_802D9E68 = 0x802CC088; // type:func
+func_802DA1A8 = 0x802CC3C8; // type:func
+func_802DA228 = 0x802CC448; // type:func
+func_802DA23C = 0x802CC45C; // type:func
+func_802DA354 = 0x802CC574; // type:func
+func_802DA474 = 0x802CC694; // type:func
+
+func_802DA530 = 0x802CC750; // type:func
+func_802DA54C = 0x802CC76C; // type:func
+func_802DA574 = 0x802CC794; // type:func
+func_802DA628 = 0x802CC848; // type:func
+func_802DA684 = 0x802CC8A4; // type:func
+func_802DA6E0 = 0x802CC900; // type:func
+func_802DA9E0 = 0x802CCC00; // type:func
+func_802DAA34 = 0x802CCC54; // type:func
+func_802DAB18 = 0x802CCD38; // type:func
+func_802DB050 = 0x802CD270; // type:func
+func_802DB224 = 0x802CD444; // type:func
+func_802DB38C = 0x802CD5AC; // type:func
+func_802DB6D4 = 0x802CD8F4; // type:func
+func_802DB9B8 = 0x802CDBD8; // type:func
+func_802DBCB0 = 0x802CDED0; // type:func
+func_802DBE10 = 0x802CE030; // type:func
+func_802DBE64 = 0x802CE084; // type:func
+func_802DBF10 = 0x802CE130; // type:func
+func_802DC074 = 0x802CE294; // type:func
+func_802DC1DC = 0x802CE3FC; // type:func
+func_802DC380 = 0x802CE5A0; // type:func
+func_802DC784 = 0x802CE9A4; // type:func
+func_802DC814 = 0x802CEA34; // type:func
+func_802DC8E4 = 0x802CEB04; // type:func
+func_802DC930 = 0x802CEB50; // type:func
+func_802DC97C = 0x802CEB9C; // type:func
+func_802DCA00 = 0x802CEC20; // type:func
+func_802DCA5C = 0x802CEC7C; // type:func
+
+contInfoMainRender = 0x802CED60; // type:func
+contInfoInit = 0x802CEDC0; // type:func
+contInfoUpdate = 0x802CEF10; // type:func
+contInfo_802CEFA8 = 0x802CEFA8; // type:func
+contInfo_802CF0CC = 0x802CF0CC; // type:func
+contInfo_802CF758 = 0x802CF758; // type:func
+contInfoDrawLineSeg = 0x802CF7C4; // type:func
+contInfoDrawLineStrip = 0x802CFB28; // type:func
+contInfoDraw = 0x802CFBF0; // type:func
+contInfoDeinit = 0x802CFD28; // type:func
+
+func_802DD200 = 0x802CFD60; // type:func
+func_802DEC30 = 0x802D1790; // type:func
+screenDrawBox = 0x802D18A4; // type:func
+func_802DEE44 = 0x802D19A4; // type:func
+screenDrawBox2 = 0x802D1B9C; // type:func
+screenDrawBoxSetup = 0x802D24E8; // type:func
+func_802DFA18 = 0x802D2578; // type:func
+
+func_802DFA40 = 0x802D25A0; // type:func
+func_802DFB48 = 0x802D26A8; // type:func
+db_getgnd = 0x802D29A0; // type:func
+func_802E02EC = 0x802D2E1C; // type:func
+func_802E02F8 = 0x802D2E28; // type:func
+db_getstart = 0x802D2E34; // type:func
+func_802E0484 = 0x802D2FB4; // type:func
+func_802E05CC = 0x802D30FC; // type:func
+func_802E06AC = 0x802D31DC; // type:func
+func_802E07D8 = 0x802D3308; // type:func
+func_802E08F4 = 0x802D3424; // type:func
+func_802E0C30 = 0x802D3760; // type:func
+
+env_802E0CF0 = 0x802D3820; // type:func
+envInit = 0x802D3D68; // type:func
+envLoad = 0x802D3DA8; // type:func
+envGetCurrentId = 0x802D3DE4; // type:func
+env_802E1444 = 0x802D3F74; // type:func
+env_802E14E8 = 0x802D4018; // type:func
+env_802E15F0 = 0x802D4120; // type:func
+env_802E1754 = 0x802D4284; // type:func
+envLoadTerrainPal = 0x802D44C0; // type:func
+env_802E1A80 = 0x802D45B0; // type:func
+env_802E1C1C = 0x802D474C; // type:func
+env_802E2060 = 0x802D4B90; // type:func
+env_802E23E0 = 0x802D4F10; // type:func
+env_802E2504 = 0x802D5034; // type:func
+
+envSoundInit = 0x802D51F0; // type:func
+envSoundLoad = 0x802D52D8; // type:func
+envSound_802E2904 = 0x802D5434; // type:func
+envSound_802E2A00 = 0x802D5530; // type:func
+envSound_802E3250 = 0x802D5D70; // type:func
+envSound_802E3310 = 0x802D5E30; // type:func
+envSound_802E3398 = 0x802D5EE4; // type:func
+envSoundFrameUpdate = 0x802D5F98; // type:func
+
+falcoInit = 0x802D6300; // type:func
+falco_802E38F0 = 0x802D6440; // type:func
+falcoLoad = 0x802D65AC; // type:func
+falcoDeinit = 0x802D69BC; // type:func
+falcoFrameUpdate = 0x802D6ACC; // type:func
+falco_802E43C4 = 0x802D6F14; // type:func
+falco_802E45B0 = 0x802D7100; // type:func
+falco_802E4794 = 0x802D72E4; // type:func
+falco_802E49B0 = 0x802D7500; // type:func
+falco_802E4AA8 = 0x802D75F8; // type:func
+falco_802E4E70 = 0x802D79C0; // type:func
+falco_802E51E8 = 0x802D7D38; // type:func
+falco_802E55A0 = 0x802D80F0; // type:func
+falco_802E57C4 = 0x802D8314; // type:func
+falco_802E5818 = 0x802D8368; // type:func
+falco_802E587C = 0x802D83CC; // type:func
+falco_802E5AFC = 0x802D864C; // type:func
+falco_802E5BF8 = 0x802D8748; // type:func
+falco_802E5D78 = 0x802D88C8; // type:func
+falco_802E5F44 = 0x802D8A94; // type:func
+falco_802E5F90 = 0x802D8AE0; // type:func
+falco_802E60A4 = 0x802D8BF4; // type:func
+falco_802E60E8 = 0x802D8C38; // type:func
+falco_802E6128 = 0x802D8C78; // type:func
+falco_802E6184 = 0x802D8CD4; // type:func
+falco_802E61E4 = 0x802D8D34; // type:func
+falco_802D8D74 = 0x802D8D74; // type:func
+falco_802E6284 = 0x802D8DD4; // type:func
+falco_802E62E4 = 0x802D8E34; // type:func
+falco_802E6344 = 0x802D8E94; // type:func
+falco_802E6380 = 0x802D8ED0; // type:func
+falco_802E63BC = 0x802D8F0C; // type:func
+falco_802E64E0 = 0x802D9030; // type:func
+
+fdrInit = 0x802D90C0; // type:func
+fdr_802E65AC = 0x802D90FC; // type:func
+fdr_802E66DC = 0x802D922C; // type:func
+fdrSetBlen = 0x802D9244; // type:func
+fdr_802E682C = 0x802D937C; // type:func
+fdr_802E6870 = 0x802D93C0; // type:func
+fdr_802E68B0 = 0x802D9400; // type:func
+fdr_802E6B5C = 0x802D96AC; // type:func
+fdr_802E6B68 = 0x802D96B8; // type:func
+fdr_802E7278 = 0x802D9DC8; // type:func
+fdr_802E73BC = 0x802D9F0C; // type:func
+fdr_802E7424 = 0x802D9F74; // type:func
+fdr_802E7550 = 0x802DA0A0; // type:func
+fdr_802E75C0 = 0x802DA110; // type:func
+fdrInterp = 0x802DA23C; // type:func
+
+ferryIsActive = 0x802DA2F0; // type:func
+ferryUpdatePos = 0x802DA2FC; // type:func
+ferryInit = 0x802DA528; // type:func
+ferryLoad = 0x802DA540; // type:func
+ferryDeinit = 0x802DA778; // type:func
+ferryGetInterval = 0x802DA7F0; // type:func
+ferryGetPos = 0x802DA808; // type:func
+ferrySetInterval = 0x802DA868; // type:func
+ferryStateSave = 0x802DA8A8; // type:func
+ferryStateRestore = 0x802DA8BC; // type:func
+
+// saveFilePack = 0x802DA8D0; // type:func
+// saveBitScramble = 0x802DAAF0; // type:func
+// saveFatalError = 0x802DAD0C; // type:func
+saveModuleInit = 0x802DAD0C; // type:func
+saveFileWrite = 0x802DAD68; // type:func
+saveFileLoad = 0x802DB004; // type:func
+saveFileHasData = 0x802DB2E0; // type:func
+saveFileInit = 0x802DB318; // type:func
+saveFile_802E89D4 = 0x802DB36C; // type:func
+
+fileMenuTopRender = 0x802DB410; // type:func
+fileMenu_802E8AF0 = 0x802DB480; // type:func
+fileMenu_802E8FF4 = 0x802DB984; // type:func
+fileMenuSetup = 0x802DBA28; // type:func
+fileMenuDeinit = 0x802DBC84; // type:func
+fileMenuPrintText = 0x802DBCD8; // type:func
+fileMenuSetText = 0x802DBD84; // type:func
+fileMenuEraseFile = 0x802DBE50; // type:func
+fileMenu_802E94E0 = 0x802DBE80; // type:func
+fileMenuChoose = 0x802DC140; // type:func
+fileMenu_802E9890 = 0x802DC230; // type:func
+fileMenu_802E9980 = 0x802DC320; // type:func
+fileMenuSubRender = 0x802DC3B0; // type:func
+fileMenuColorLerp = 0x802DC424; // type:func
+fileMenu_802E9AE0 = 0x802DC480; // type:func
+
+fireFxInit = 0x802DC970; // type:func
+fireFxUpdate = 0x802DC984; // type:func
+fireFxCreateAll = 0x802DC9DC; // type:func
+fireFxDeinit = 0x802DD1C4; // type:func
+fireFxCreate = 0x802DD280; // type:func
+
+func_802EAAE0 = 0x802DD480; // type:func
+func_802EABAC = 0x802DD54C; // type:func
+func_802EAC18 = 0x802DD5B8; // type:func
+func_802EAC9C = 0x802DD63C; // type:func
+
+fountainIsActive = 0x802DD740; // type:func
+fountainUpdatePose = 0x802DD74C; // type:func
+fountainUpdate = 0x802DD7DC; // type:func
+fountainProxEventCb = 0x802DD8B4; // type:func
+fountainProxAnimCb = 0x802DD954; // type:func
+fountainInit = 0x802DDA44; // type:func
+fountainLoad = 0x802DDA5C; // type:func
+fountainDeinit = 0x802DDBF8; // type:func
+fountainGetInterval = 0x802DDC70; // type:func
+fountainGetPos = 0x802DDC88; // type:func
+fountainSetInterval = 0x802DDCB0; // type:func
+fountainStateSave = 0x802DDCE4; // type:func
+fountainStateRestore = 0x802DDD08; // type:func
+// fountainInitUpdate
+
+func_802EB3E0 = 0x802DDD30; // type:func
+func_802EB424 = 0x802DDD74; // type:func
+func_802EB598 = 0x802DDEE8; // type:func
+func_802EB5E4 = 0x802DDF34; // type:func
+func_802EB640 = 0x802DDF90; // type:func
+
+gameInit = 0x802DE310; // type:func
+func_802EBBB8 = 0x802DE508; // type:func
+func_802EBBC8 = 0x802DE518; // type:func
+gameUpdate = 0x802DE580; // type:func
+gameUpdateStateTitle = 0x802DE5E4; // type:func
+gameUpdateStateOptions = 0x802DE67C; // type:func
+func_802EBD88 = 0x802DE6D8; // type:func
+gameUpdateStateDemoPilot = 0x802DE760; // type:func
+gameUpdateStateDemoTestSetup = 0x802DE7F8; // type:func
+gameUpdateStateVehicleClassSelect = 0x802DE82C; // type:func
+gameUpdateStateFileMenu = 0x802DE888; // type:func
+gameUpdateStateTestOverview = 0x802DE944; // type:func
+gameUpdateStateResultsCB = 0x802DE9AC; // type:func
+gameUpdateStateCongratulations = 0x802DE9F8; // type:func
+gameUpdateStateCredits = 0x802DEA18; // type:func
+gameUpdateState1 = 0x802DEA44; // type:func
+gameUpdateStateTestDetails = 0x802DEA98; // type:func
+gameUpdateStatePilotSelect = 0x802DEC88; // type:func
+gameUpdateStateTestSetup = 0x802DEE5C; // type:func
+gameUpdateStateResults = 0x802DF37C; // type:func
+func_802ECE94 = 0x802DF7E4; // type:func
+gameUpdateStateTestUpdate = 0x802DF998; // type:func
+func_802EDAF0 = 0x802E0440; // type:func
+func_802EDD9C = 0x802E06EC; // type:func
+func_802EDDEC = 0x802E073C; // type:func
+func_802EE14C = 0x802E0A9C; // type:func
+
+func_802EE530 = 0x802E0E80; // type:func
+func_802EE640 = 0x802E0F90; // type:func
+func_802EEB00 = 0x802E1450; // type:func
+func_802EEF0C = 0x802E185C; // type:func
+func_802EF058 = 0x802E19A8; // type:func
+
+hangGliderInit = 0x802E1A90; // type:func
+hangGliderLoadLevel = 0x802E1B88; // type:func
+func_802EF328 = 0x802E1C78; // type:func
+hangGliderEnterLeave = 0x802E1CB8; // type:func
+hangGliderMovementFrame = 0x802E1F00; // type:func
+func_802F03C4 = 0x802E2D14; // type:func
+func_802F041C = 0x802E2D6C; // type:func
+hangGliderLoadPilot = 0x802E2FA0; // type:func
+
+gliderToyLoadCrescent = 0x802E3F18; // type:func
+gliderToyLoadLStates = 0x802E417C; // type:func
+gliderToyLoadHoliday = 0x802E4438; // type:func
+gliderToyLoadEFrost = 0x802E468C; // type:func
+gliderToyInit = 0x802E48F0; // type:func
+gliderToyDeinit = 0x802E4940; // type:func
+gliderToyGetObjData = 0x802E49AC; // type:func
+gliderToySetInterval = 0x802E4A60; // type:func
+
+hangGlider_802F2190 = 0x802E4AE0; // type:func
+hangGlider_802F2370 = 0x802E4CC0; // type:func
+hangGlider_802F24BC = 0x802E4E0C; // type:func
+
+hgSoundInit = 0x802E6DC0; // type:func
+
+func_802F4F90 = 0x802E78E0; // type:func
+func_802F4F98 = 0x802E78E8; // type:func
+func_802F50CC = 0x802E7A1C; // type:func
+func_802F5304 = 0x802E7C54; // type:func
+func_802F5358 = 0x802E7CA8; // type:func
+func_802F56B4 = 0x802E8004; // type:func
+func_802F5910 = 0x802E8260; // type:func
+
+gyrocopterInit = 0x802E8350; // type:func
+gyrocopterLoadLevel = 0x802E8430; // type:func
+gyrocopterEnterLeave = 0x802E8540; // type:func
+func_802F5F80 = 0x802E88D0; // type:func
+gyrocopterMovementFrame = 0x802E899C; // type:func
+func_802F6DC8 = 0x802E9718; // type:func
+func_802F6E74 = 0x802E97C4; // type:func
+func_802F6EE0 = 0x802E9830; // type:func
+func_802F7178 = 0x802E9AC8; // type:func
+func_802F7224 = 0x802E9B74; // type:func
+func_802F764C = 0x802E9F9C; // type:func
+gyrocopterLoadPilot = 0x802EA1A4; // type:func
+
+func_802F88D0 = 0x802EB220; // type:func
+func_802F89A0 = 0x802EB2F0; // type:func
+func_802F8AB8 = 0x802EB408; // type:func
+func_802F8B0C = 0x802EB45C; // type:func
+func_802F8BF8 = 0x802EB548; // type:func
+func_802F8C40 = 0x802EB590; // type:func
+func_802F9104 = 0x802EBA54; // type:func
+func_802F9150 = 0x802EBAA0; // type:func
+func_802F9364 = 0x802EBCB4; // type:func
+func_802F9540 = 0x802EBE90; // type:func
+func_802F9638 = 0x802EBF88; // type:func
+func_802F996C = 0x802EC2BC; // type:func
+func_802F9BF8 = 0x802EC548; // type:func
+func_802F9D28 = 0x802EC678; // type:func
+
+jumbleHopperInit = 0x802EC8B0; // type:func
+jumbleHopperLoadLevel = 0x802EC970; // type:func
+jumbleHopperEnterLeave = 0x802ECA58; // type:func
+func_802FA290 = 0x802ECBE0; // type:func
+jumbleHopperMovementFrame = 0x802ECC20; // type:func
+jumbleHopperLoadPilot = 0x802ED0F0; // type:func
+
+func_802FAF80 = 0x802ED8D0; // type:func
+func_802FAFF0 = 0x802ED940; // type:func
+func_802FB0DC = 0x802EDA2C; // type:func
+func_802FB1D8 = 0x802EDB28; // type:func
+func_802FB22C = 0x802EDB7C; // type:func
+func_802FB308 = 0x802EDC58; // type:func
+func_802FB518 = 0x802EDE68; // type:func
+func_802FB5A0 = 0x802EDEF0; // type:func
+func_802FB5FC = 0x802EDF4C; // type:func
+
+func_802FB660 = 0x802EDFB0; // type:func
+func_802FB784 = 0x802EE0D4; // type:func
+func_802FB82C = 0x802EE17C; // type:func
+func_802FB84C = 0x802EE19C; // type:func
+func_802FB8CC = 0x802EE21C; // type:func
+func_802FB988 = 0x802EE2D8; // type:func
+func_802FBA44 = 0x802EE394; // type:func
+func_802FBB58 = 0x802EE4A8; // type:func
+func_802FBC6C = 0x802EE5BC; // type:func
+func_802FBCA8 = 0x802EE5F8; // type:func
+func_802FBD1C = 0x802EE66C; // type:func
+func_802FBD90 = 0x802EE6E0; // type:func
+func_802FBEFC = 0x802EE84C; // type:func
+func_802FC018 = 0x802EE968; // type:func
+func_802FC184 = 0x802EEAD4; // type:func
+func_802FC3B4 = 0x802EED04; // type:func
+func_802FC694 = 0x802EEFE4; // type:func
+func_802FC8B0 = 0x802EF200; // type:func
+func_802FCA8C = 0x802EF3DC; // type:func
+func_802FCB3C = 0x802EF48C; // type:func
+func_802FCC0C = 0x802EF55C; // type:func
+func_802FCE38 = 0x802EF788; // type:func
+func_802FD010 = 0x802EF960; // type:func
+func_802FD038 = 0x802EF988; // type:func
+func_802FD114 = 0x802EFA64; // type:func
+func_802FD388 = 0x802EFCD8; // type:func
+func_802FD3E0 = 0x802EFD30; // type:func
+func_802FD55C = 0x802EFEAC; // type:func
+func_802FD794 = 0x802F00E4; // type:func
+func_802FD8C0 = 0x802F0210; // type:func
+func_802FDF8C = 0x802F08DC; // type:func
+func_802FE054 = 0x802F09A4; // type:func
+func_802FE1A8 = 0x802F0AF8; // type:func
+func_802FE2FC = 0x802F0C4C; // type:func
+func_802FE564 = 0x802F0EB4; // type:func
+func_802FE7A0 = 0x802F10F0; // type:func
+func_802FE9DC = 0x802F132C; // type:func
+func_802FEAD0 = 0x802F1420; // type:func
+func_802FEBC4 = 0x802F1514; // type:func
+func_802FEEC0 = 0x802F1810; // type:func
+func_802FF1BC = 0x802F1B0C; // type:func
+func_802FF5B4 = 0x802F1F04; // type:func
+func_802FF654 = 0x802F1FA4; // type:func
+func_802FFB3C = 0x802F248C; // type:func
+func_80300018 = 0x802F2968; // type:func
+func_80300448 = 0x802F2D98; // type:func
+func_8030055C = 0x802F2EAC; // type:func
+func_80300624 = 0x802F2F74; // type:func
+func_803006E8 = 0x802F3038; // type:func
+func_8030089C = 0x802F31EC; // type:func
+func_80300B04 = 0x802F3454; // type:func
+func_80300E78 = 0x802F37C8; // type:func
+func_80301090 = 0x802F39E0; // type:func
+func_803014A8 = 0x802F3DF8; // type:func
+func_80301AF8 = 0x802F4448; // type:func
+func_80301C58 = 0x802F45A8; // type:func
+func_80301D28 = 0x802F4678; // type:func
+func_80301F70 = 0x802F48C0; // type:func
+func_80302484 = 0x802F4DD4; // type:func
+func_803029CC = 0x802F531C; // type:func
+func_80302BA0 = 0x802F54F0; // type:func
+func_80303028 = 0x802F5978; // type:func
+
+func_80303230 = 0x802F5B80; // type:func
+func_80303714 = 0x802F6064; // type:func
+func_8030399C = 0x802F62EC; // type:func
+func_80304738 = 0x802F7088; // type:func
+func_80304B98 = 0x802F74E8; // type:func
+func_80305BE8 = 0x802F8538; // type:func
+func_80305DC0 = 0x802F8710; // type:func
+func_80307A9C = 0x802FA3EC; // type:func
+func_80307BAC = 0x802FA4FC; // type:func
+func_80307E2C = 0x802FA77C; // type:func
+func_80307EA8 = 0x802FA7F8; // type:func
+func_80308478 = 0x802FADB4; // type:func
+func_8030877C = 0x802FB0B8; // type:func
+func_80308F1C = 0x802FB858; // type:func
+func_80309090 = 0x802FB9CC; // type:func
+
+hoverPadInit = 0x802FC120; // type:func
+hoverPad_80309868 = 0x802FC1A8; // type:func
+hoverPadObjSetup = 0x802FC2E8; // type:func
+hoverPadLoad = 0x802FC3A4; // type:func
+hoverPadActivateNext = 0x802FC588; // type:func
+hoverPadFrameUpdate = 0x802FC6A4; // type:func
+hoverPadLanded = 0x802FC6AC; // type:func
+hoverPadGetAltitude = 0x802FC7A8; // type:func
+hoverPadGetFuel = 0x802FC7E8; // type:func
+hoverPadGetLandedIdx = 0x802FC844; // type:func
+hoverPadDeinit = 0x802FC93C; // type:func
+hoverPadGetCount = 0x802FC9C0; // type:func
+hoverPadGetPoints = 0x802FCA1C; // type:func
+
+func_8030A140 = 0x802FCA80; // type:func
+hsound_callback = 0x802FCCD0; // type:func
+func_8030ABF8 = 0x802FD538; // type:func
+func_8030ADCC = 0x802FD6FC; // type:func
+func_8030AEB0 = 0x802FD7E0; // type:func
+func_8030B168 = 0x802FDA98; // type:func
+func_8030B240 = 0x802FDB70; // type:func
+
+menuCreate = 0x802FDC10; // type:func
+menuCreateVarHeight = 0x802FDCBC; // type:func
+menuCreateItems = 0x802FDDBC; // type:func
+menuCheckInputs = 0x802FDE3C; // type:func
+menuRender = 0x802FDE5C; // type:func
+menuDeinit = 0x802FDE7C; // type:func
+menuDrawItem = 0x802FDEF4; // type:func
+menu_8030B668 = 0x802FDF98; // type:func
+menuSetItem = 0x802FDFB8; // type:func
+menu_8030B69C = 0x802FDFCC; // type:func
+
+levelLoad = 0x802FDFF0; // type:func
+level_8030B868 = 0x802FE198; // type:func
+level_8030B964 = 0x802FE294; // type:func
+level_8030BA60 = 0x802FE390; // type:func
+levelComputeAppend = 0x802FE3C8; // type:func
+level_8030BD20 = 0x802FE650; // type:func
+levelGetWOBJ = 0x802FE658; // type:func
+levelGetTPTS = 0x802FE678; // type:func
+levelGetAPTS = 0x802FE698; // type:func
+levelGetLPAD = 0x802FE6B8; // type:func
+levelGetBNUS = 0x802FE6D8; // type:func
+levelLoadMapObjects = 0x802FE6F8; // type:func
+
+func_8030C1C0 = 0x802FEAF0; // type:func
+func_8030C22C = 0x802FEB5C; // type:func
+func_8030C54C = 0x802FEE7C; // type:func
+func_8030C61C = 0x802FEF4C; // type:func
+func_8030C6A0 = 0x802FEFD0; // type:func
+func_8030CB10 = 0x802FF430; // type:func
+
+credits_8030CB60 = 0x802FF480; // type:func
+credits_8030CC48 = 0x802FF568; // type:func
+creditsMainRender = 0x802FF61C; // type:func
+credits_8030CDA0 = 0x802FF6C0; // type:func
+credits_8030D1D4 = 0x802FFAF4; // type:func
+credits_8030D208 = 0x802FFB28; // type:func
+creditsScene = 0x802FFC10; // type:func
+
+func_8030D930 = 0x80300250; // type:func
+func_8030D9C8 = 0x803002E8; // type:func
+func_8030DED0 = 0x803007F0; // type:func
+func_8030E3EC = 0x80300C80; // type:func
+func_8030E7F4 = 0x80301088; // type:func
+func_8030E860 = 0x803010F4; // type:func
+func_8030E9AC = 0x80301240; // type:func
+func_8030EA54 = 0x803012E8; // type:func
+func_8030F448 = 0x80301CDC; // type:func
+func_8030F818 = 0x80302084; // type:func
+
+app_entrypoint      = 0x80302690; // type:func
+map3dMain = 0x803026F0; // type:func
+map3dLoad = 0x80302770; // type:func
+map3dHandler = 0x80303EAC; // type:func
+map3dRender = 0x803044B4; // type:func
+map3dDeinit = 0x80304B00; // type:func
+map3d_803123C4 = 0x80304C10; // type:func
+map3d_80312514 = 0x80304D60; // type:func
+map3dAddItem = 0x80304ED0; // type:func
+
+mem_get = 0x80304F90; // type:func
+mem_init = 0x8030500C; // type:func
+mem_remaining = 0x80305040; // type:func
+
+menuUtilCreate = 0x80305060; // type:func
+menuUtilCheckInputs = 0x80305158; // type:func
+menuUtilDeinit = 0x80305394; // type:func
+menuUtilRender = 0x803053A0; // type:func
+menuUtilGetCurItem = 0x80305720; // type:func
+menuUtilSetCurItem = 0x8030572C; // type:func
+menuUtilSetColors = 0x80305744; // type:func
+menuUtilSetSoundFlags = 0x803057E0; // type:func
+menuUtilSetButtonMode = 0x803057EC; // type:func
+menuUtil_80313010 = 0x803057F8; // type:func
+
+func_80313430 = 0x80305C20; // type:func
+func_803134D0 = 0x80305CC0; // type:func
+func_80313570 = 0x80305D60; // type:func
+func_80313640 = 0x80305E30; // type:func
+func_803136C4 = 0x80305EB4; // type:func
+func_8031385C = 0x8030604C; // type:func
+func_803138A0 = 0x80306090; // type:func
+func_80313AF4 = 0x803062E4; // type:func
+func_80313BAC = 0x8030639C; // type:func
+func_80313C94 = 0x80306484; // type:func
+func_80313D74 = 0x80306564; // type:func
+func_80313E0C = 0x803065FC; // type:func
+func_80313E18 = 0x80306608; // type:func
+func_80313F08 = 0x803066F8; // type:func
+func_80313FD0 = 0x803067C0; // type:func
+func_80314114 = 0x80306904; // type:func
+func_80314154 = 0x80306944; // type:func
+func_803141E4 = 0x803069D4; // type:func
+func_8031420C = 0x803069FC; // type:func
+
+mistInit = 0x80306C20; // type:func
+mist_803144D0 = 0x80306CC0; // type:func
+mistUpdate = 0x80306FA8; // type:func
+mistDeinit = 0x803072D0; // type:func
+
+missiIsActive = 0x80307340; // type:func
+missiUpdatePos = 0x8030734C; // type:func
+missiUpdate = 0x803074D8; // type:func
+missiEventCbLStates = 0x803076D8; // type:func
+missiAnimCbLStates = 0x80307818; // type:func
+missiLoadLStates = 0x8030799C; // type:func
+missiDeinitLStates = 0x80307B0C; // type:func
+missiGetInterval = 0x80307B84; // type:func
+missiGetPos = 0x80307B9C; // type:func
+missiSetInterval = 0x80307C08; // type:func
+missiInit = 0x80307C64; // type:func
+missiStateSave = 0x80307CB0; // type:func
+missiStateRestore = 0x80307CF8; // type:func
+
+oilPlantInit = 0x80307D40; // type:func
+oilPlantInProximity = 0x80307D4C; // type:func
+oilPlantEventCb = 0x80307D58; // type:func
+oilPlantAnimCb = 0x80307E4C; // type:func
+oilPlantLoad = 0x80307F24; // type:func
+oilPlantDeinit = 0x8030815C; // type:func
+oilPlantGetPos = 0x803081E4; // type:func
+
+oilUpdatePosa = 0x80308210; // type:func
+oilUpdate = 0x803082A0; // type:func
+oilProxEventCb = 0x803083A8; // type:func
+oilProxAnimCb = 0x80308474; // type:func
+oilInit = 0x80308558; // type:func
+oilDeinit = 0x8030862C; // type:func
+
+optionsTopRender = 0x80308680; // type:func
+optionsInit = 0x803086FC; // type:func
+optionsInitMain = 0x803088A0; // type:func
+optionsInitAlbum = 0x80308998; // type:func
+optionsInitSound = 0x80308A28; // type:func
+optionsMenuHandler = 0x80308B2C; // type:func
+optionsHandlerMain = 0x80308BA8; // type:func
+optionsHandlerAlbum = 0x80308D18; // type:func
+optionsHandlerSound = 0x80308E24; // type:func
+optionsDrawPanel = 0x80309218; // type:func
+optionsPanel0 = 0x80309280; // type:func
+optionsPanel1 = 0x803092A8; // type:func
+optionsPanel2 = 0x803092D0; // type:func
+optionsDrawBorder = 0x803092F8; // type:func
+options_80316B80 = 0x80309370; // type:func
+optionsSetSetting = 0x803093DC; // type:func
+optionsSetTrack = 0x80309524; // type:func
+optionsItemWrap = 0x80309578; // type:func
+
+padsInit = 0x803095B0; // type:func
+padsLoad = 0x80309630; // type:func
+padsFrameUpdate = 0x80309E24; // type:func
+padsUnused = 0x80309F54; // type:func
+padsDeinit = 0x80309F5C; // type:func
+padsInitLandingPads = 0x8030A044; // type:func
+padsLandedPadStrip = 0x8030A168; // type:func
+padsCannonTgtDist = 0x8030A340; // type:func
+padsStripAlignment = 0x8030A41C; // type:func
+
+hudInit = 0x8030A590; // type:func
+hudGetState = 0x8030AA84; // type:func
+hudMainRender = 0x8030AA90; // type:func
+hudDrawHangGlider = 0x8030AEF0; // type:func
+hudDrawRocketPack = 0x8030AFB4; // type:func
+hudDrawCannonball = 0x8030B07C; // type:func
+hudDrawSkyDiving = 0x8030C47C; // type:func
+hudDrawJumbleHopper = 0x8030C634; // type:func
+hudDrawBirdman = 0x8030C6EC; // type:func
+hudDrawCamera = 0x8030C7DC; // type:func
+hudDrawGyrocopter = 0x8030C908; // type:func
+hudGenThermCircle = 0x8030CA14; // type:func
+hud_8031A2CC = 0x8030CABC; // type:func
+hud_8031A378 = 0x8030CB68; // type:func
+hud_8031A66C = 0x8030CE5C; // type:func
+hudAddWaypoint = 0x8030CEB8; // type:func
+hudMoveWaypoint = 0x8030CF84; // type:func
+hud_8031A810 = 0x8030D000; // type:func
+hud_8031A874 = 0x8030D064; // type:func
+hud_8031A8E0 = 0x8030D0D0; // type:func
+hudDrawThrottle = 0x8030D144; // type:func
+hudDrawRadar = 0x8030D558; // type:func
+hudDemoContButton = 0x8030E674; // type:func
+hudDemoController = 0x8030E6C0; // type:func
+hudDrawSpeed = 0x8030E8A0; // type:func
+hudDrawFuel = 0x8030E9D4; // type:func
+hudDrawAltimeter = 0x8030F0EC; // type:func
+hudSeaLevel = 0x8030F948; // type:func
+hudDrawTimer = 0x8030FA50; // type:func
+hudDrawAimReticle = 0x8030FC80; // type:func
+hudDrawBox = 0x8030FD3C; // type:func
+hudText_8031D8E0 = 0x803100CC; // type:func
+hudWarningText = 0x803101A4; // type:func
+hudGet_8031DA90 = 0x8031027C; // type:func
+hudGet_8031DA9C = 0x80310288; // type:func
+hud_8031DAA8 = 0x80310294; // type:func
+hudDrawLowFuel = 0x803102E0; // type:func
+hudDrawStartText = 0x803103EC; // type:func
+hudRadarThermal = 0x803104F8; // type:func
+hudSetCameraState = 0x80310754; // type:func
+hudRadarWaypoint = 0x80310760; // type:func
+hud_8031E628 = 0x80310E14; // type:func
+hudDrawRect = 0x80310E88; // type:func
+hudDrawPhotoCount = 0x803111E4; // type:func
+hudDemoControllerEn = 0x803112A8; // type:func
+
+uvPathPoseLine = 0x803112C0; // type:func
+func_8031EE48 = 0x80311638; // type:func
+func_8031EF60 = 0x80311750; // type:func
+func_8031EF68 = 0x80311758; // type:func
+
+func_8031EF90 = 0x80311780; // type:func
+func_8031FA0C = 0x803121FC; // type:func
+func_8031FD70 = 0x80312560; // type:func
+func_8031FE18 = 0x80312608; // type:func
+
+planesUpdate = 0x80312720; // type:func
+planesGetPos = 0x80312BC0; // type:func
+planesProxEventCb = 0x80312BFC; // type:func
+planesProxAnimCb = 0x80312CA0; // type:func
+planesLoad = 0x80312D24; // type:func
+planesDeinit = 0x80312F8C; // type:func
+planesInit = 0x80313000; // type:func
+planesGetObjData = 0x80313038; // type:func
+planesUpdateInterval = 0x803130F0; // type:func
+
+demoAttInit = 0x803131E0; // type:func
+demoAttLoadPos = 0x80313204; // type:func
+demoAttGetMtxRT = 0x803133E4; // type:func
+demoAttPrintRecord = 0x80313428; // type:func
+demoPositionLerp = 0x80313470; // type:func
+demoAngleLerp = 0x80313488; // type:func
+demoAttUpdate = 0x80313500; // type:func
+demoAtt_80320FBC = 0x803137AC; // type:func
+demoAttPrintRT = 0x80313844; // type:func
+
+proxAnimInit = 0x803138F0; // type:func
+proxAnimAddCallback = 0x80313A00; // type:func
+proxAnimDeleteCallback = 0x80313ACC; // type:func
+proxAnimDispatchEvent2 = 0x80313BD0; // type:func
+proxAnimDispatchEvent3 = 0x80313BF0; // type:func
+proxAnimGetRange = 0x80313C10; // type:func
+proxAnimDispatchInit = 0x80313CD4; // type:func
+proxAnimUpdate = 0x80313CFC; // type:func
+proxAnimGetHandle = 0x80313E94; // type:func
+
+func_80321700 = 0x80313EF0; // type:func
+func_80321760 = 0x80313F50; // type:func
+func_8032232C = 0x80314B1C; // type:func
+func_80322464 = 0x80314C54; // type:func
+func_803226DC = 0x80314ECC; // type:func
+
+demoRecGetStickX = 0x80314FC0; // type:func
+demoRecGetStickY = 0x80315018; // type:func
+demoRecGetButtons = 0x80315070; // type:func
+demoPackInputs = 0x80315080; // type:func
+demoGetUserFileIdx = 0x803151DC; // type:func
+demoGetClassId = 0x80315350; // type:func
+demoGetVehicleId = 0x8031535C; // type:func
+demoGet_80322B78 = 0x80315368; // type:func
+demoGetTestId = 0x80315374; // type:func
+demoAllocate = 0x80315380; // type:func
+demoInit = 0x803153D0; // type:func
+demoLoad = 0x80315550; // type:func
+demoSetRecMode = 0x80315598; // type:func
+demoGetRecMode = 0x803156A0; // type:func
+demoLogInput = 0x803156AC; // type:func
+demoGetEntryIndex = 0x8031576C; // type:func
+demo_80323020 = 0x80315810; // type:func
+demoGetInputs = 0x803158A0; // type:func
+demoGetButtons = 0x80315954; // type:func
+demoButtonCheck = 0x80315990; // type:func
+demoButtonPress = 0x803159D0; // type:func
+demoButtonRelease = 0x80315A30; // type:func
+demoRandF = 0x80315A90; // type:func
+
+ringsInit = 0x80315AE0; // type:func
+rings_80323364 = 0x80315B54; // type:func
+rings_803234A4 = 0x80315C94; // type:func
+rings_80323720 = 0x80315F10; // type:func
+rings_80323864 = 0x80316054; // type:func
+rings_8032390C = 0x803160FC; // type:func
+ringsLoad = 0x803161A4; // type:func
+rings_80323DCC = 0x803165BC; // type:func
+rings_80323FFC = 0x803167EC; // type:func
+rings_803243D8 = 0x80316BC8; // type:func
+ringsDeinit = 0x80317224; // type:func
+ringsGetCleared = 0x803172E4; // type:func
+ringsGetPoints = 0x80317350; // type:func
+
+rocketBeltInit = 0x80317460; // type:func
+rocketBeltLoadLevel = 0x803175A4; // type:func
+rocketBeltEnterLeave = 0x803176B4; // type:func
+func_80325100 = 0x803178F0; // type:func
+rocketBeltMovementFrame = 0x80317950; // type:func
+func_80325E1C = 0x8031860C; // type:func
+rocketBeltLoadPilot = 0x8031876C; // type:func
+func_80326E40 = 0x80319630; // type:func
+
+rocketBelt_80326F30 = 0x80319720; // type:func
+rocketBelt_80327040 = 0x80319830; // type:func
+rocketBelt_80327380 = 0x80319B70; // type:func
+rocketBelt_803273C8 = 0x80319BB8; // type:func
+rocketBelt_80327614 = 0x80319E04; // type:func
+rocketBelt_803277E0 = 0x80319FD0; // type:func
+rocketBelt_803279F0 = 0x8031A1E0; // type:func
+rocketBelt_80327F30 = 0x8031A720; // type:func
+
+func_80328420 = 0x8031AC10; // type:func
+func_80328538 = 0x8031AD28; // type:func
+func_8032867C = 0x8031AE6C; // type:func
+func_80328A14 = 0x8031B204; // type:func
+func_80328CA0 = 0x8031B490; // type:func
+func_80328D74 = 0x8031B564; // type:func
+func_80328F44 = 0x8031B734; // type:func
+func_80329120 = 0x8031B908; // type:func
+func_803291A8 = 0x8031B990; // type:func
+func_8032923C = 0x8031BA24; // type:func
+func_80329628 = 0x8031BE10; // type:func
+func_8032975C = 0x8031BF44; // type:func
+func_8032A4A8 = 0x8031CC94; // type:func
+
+rbSoundInit = 0x8031CDF0; // type:func
+rbSoundEventHandler = 0x8031CF50; // type:func
+rbSoundEvent12_22 = 0x8031D65C; // type:func
+rbSoundEvent12_18 = 0x8031D810; // type:func
+rbSoundEvent19 = 0x8031D8AC; // type:func
+rbSoundSubEvent = 0x8031D8C0; // type:func
+rbSoundEvent13 = 0x8031DAC8; // type:func
+func_8032B3D0 = 0x8031DBA0; // type:func
+func_8032B508 = 0x8031DCD8; // type:func
+func_8032B560 = 0x8031DD30; // type:func
+levelGetTotalPoints = 0x8031E4F0; // type:func
+testGetPointCount = 0x8031E5EC; // type:func
+func_8032BE10 = 0x8031E5E0; // type:func
+func_8032BE8C = 0x8031E65C; // type:func
+func_8032C080 = 0x8031E850; // type:func
+levelSetPointsToNextMedal = 0x8031E944; // type:func
+func_8032C27C = 0x8031EA4C; // type:func
+func_8032C3C4 = 0x8031EB94; // type:func
+
+func_8032C540 = 0x8031ED10; // type:func
+func_8032CC44 = 0x8031F414; // type:func
+func_8032CF28 = 0x8031F6E8; // type:func
+func_8032D51C = 0x8031FCDC; // type:func
+func_8032D90C = 0x803200CC; // type:func
+
+resultHandler = 0x80320520; // type:func
+resultListPhoto = 0x803205E4; // type:func
+resultListReplay = 0x80320644; // type:func
+resultGenMenu = 0x803206D8; // type:func
+resultMenuItemLookup = 0x803207D0; // type:func
+resultInit = 0x80320830; // type:func
+resultDeinit = 0x80320E44; // type:func
+resultMenuChoose = 0x80320E64; // type:func
+resultDrawTally = 0x803210EC; // type:func
+resultGenTipText = 0x8032167C; // type:func
+
+func_8032F050 = 0x803217C0; // type:func
+func_8032F188 = 0x803218F8; // type:func
+func_8032F3DC = 0x80321B4C; // type:func
+func_8032F47C = 0x80321BEC; // type:func
+
+skydivingInit = 0x80322220; // type:func
+skydivingLoadLevel = 0x8032223C; // type:func
+skydivingEnterLeave = 0x80322378; // type:func
+func_8032FE4C = 0x803225BC; // type:func
+func_8032FEAC = 0x8032261C; // type:func
+func_803305D4 = 0x80322D44; // type:func
+skydivingMovementFrame = 0x80323034; // type:func
+skydivingLoadPilot = 0x80323334; // type:func
+func_803316B0 = 0x80323E20; // type:func
+skydivingLand = 0x80323F04; // type:func
+func_803318D4 = 0x80324044; // type:func
+skydivingGetPoints = 0x803241E8; // type:func
+func_80331AE4 = 0x80324254; // type:func
+skydivingBelow = 0x803242F8; // type:func
+func_80331D58 = 0x803244C8; // type:func
+func_80331EB8 = 0x80324628; // type:func
+func_80331FE4 = 0x80324754; // type:func
+func_803322CC = 0x80324A3C; // type:func
+func_80332950 = 0x803250C0; // type:func
+func_803329C0 = 0x80325130; // type:func
+
+func_80332C60 = 0x803253D0; // type:func
+func_80332D94 = 0x80325504; // type:func
+func_80332E90 = 0x80325600; // type:func
+func_80332FCC = 0x8032573C; // type:func
+func_80333384 = 0x80325AF4; // type:func
+func_803335D0 = 0x80325D40; // type:func
+
+sdSoundInit = 0x80326010; // type:func
+sdSoundCallback = 0x80326124; // type:func
+sdsound_80333D80 = 0x803264E0; // type:func
+sdsound_80333DDC = 0x8032653C; // type:func
+sdsound_80333DF0 = 0x80326550; // type:func
+sdsound_80333F68 = 0x803266C8; // type:func
+sdsound_80334258 = 0x803269B8; // type:func
+
+shadow_803342F0 = 0x80326A50; // type:func
+shadow_803342FC = 0x80326A5C; // type:func
+shadowModels = 0x80326A68; // type:func
+shadow_803343D8 = 0x80326B38; // type:func
+shadow_80334454 = 0x80326BB4; // type:func
+shadow_803344BC = 0x80326C1C; // type:func
+shadow_80334578 = 0x80326CD8; // type:func
+shadow_80334C70 = 0x803273D0; // type:func
+
+shuttle_80334CC0 = 0x80327420; // type:func
+shuttle_80334CCC = 0x8032742C; // type:func
+shuttle_80335130 = 0x80327890; // type:func
+shuttle_80335700 = 0x80327E60; // type:func
+shuttle_803358D4 = 0x80328034; // type:func
+shuttleProxEventCb = 0x80328240; // type:func
+shuttleProxAnimCb = 0x80328254; // type:func
+shuttleInit = 0x803282F4; // type:func
+shuttleLoad = 0x80328344; // type:func
+shuttleDeinit = 0x803285A4; // type:func
+shuttle_80335EE4 = 0x80328644; // type:func
+shuttle_80335F24 = 0x80328684; // type:func
+shuttleGetState = 0x803286E4; // type:func
+shuttle_80335FD8 = 0x80328738; // type:func
+shuttle_80336064 = 0x803287C4; // type:func
+shuttleStateSave = 0x803287F4; // type:func
+shuttleStateRestore = 0x80328848; // type:func
+
+skiLiftUpdate = 0x803288A0; // type:func
+skiLiftProxEventCb = 0x803289A8; // type:func
+skiLiftProxAnimCb = 0x80328A4C; // type:func
+skiLiftLoad = 0x80328B40; // type:func
+skiLiftDeinit = 0x80328C7C; // type:func
+
+smokeInit = 0x80328D00; // type:func
+func_80336600 = 0x80328D60; // type:func
+smokeCreate = 0x80329094; // type:func
+smokeProps = 0x80329164; // type:func
+smokeGetProps = 0x80329620; // type:func
+smokeDeleteAll = 0x80329874; // type:func
+smokeDelete = 0x803298B4; // type:func
+smokePuffAdd = 0x8032996C; // type:func
+smokeCreateTerra = 0x80329C88; // type:func
+
+func_80337D50 = 0x8032A4B0; // type:func
+snapInit = 0x8032A518; // type:func
+snapDeinit = 0x8032AB5C; // type:func
+func_80338404 = 0x8032AB64; // type:func
+func_80338614 = 0x8032AD74; // type:func
+func_803386A4 = 0x8032AE04; // type:func
+func_80338964 = 0x8032B0C4; // type:func
+func_80338A14 = 0x8032B174; // type:func
+func_80339C8C = 0x8032C3EC; // type:func
+func_80339E1C = 0x8032C57C; // type:func
+func_80339F9C = 0x8032C6FC; // type:func
+func_8033A020 = 0x8032C780; // type:func
+func_8033A078 = 0x8032C7D8; // type:func
+func_8033A128 = 0x8032C848; // type:func
+func_8033A244 = 0x8032C964; // type:func
+func_8033A610 = 0x8032CD30; // type:func
+func_8033A664 = 0x8032CD84; // type:func
+func_8033A6B8 = 0x8032CDD8; // type:func
+func_8033A72C = 0x8032CE4C; // type:func
+func_8033ADD4 = 0x8032D4F4; // type:func
+func_8033BF00 = 0x8032E954; // type:func
+func_8033CBD0 = 0x8032F624; // type:func
+func_8033D3EC = 0x8032FE40; // type:func
+func_8033DCD0 = 0x80330724; // type:func
+func_8033DDD8 = 0x8033082C; // type:func
+func_8033DFD0 = 0x80330A24; // type:func
+func_8033E3A8 = 0x80330DFC; // type:func
+func_8033E784 = 0x803311C0; // type:func
+func_8033E810 = 0x8033124C; // type:func
+func_8033E860 = 0x8033129C; // type:func
+func_8033F050 = 0x80331A8C; // type:func
+snapGetPhotoCount = 0x80332054; // type:func
+func_8033F62C = 0x80332068; // type:func
+
+sndInit = 0x80332080; // type:func
+func_8033F6F8 = 0x80332138; // type:func
+sndSetMusic = 0x80332188; // type:func
+sndPlaySfxVolPitchPan = 0x80332198; // type:func
+sndPlaySfx = 0x80332238; // type:func
+sndMakeDev = 0x803322A0; // type:func
+func_8033F8CC = 0x8033230C; // type:func
+func_8033F904 = 0x80332344; // type:func
+sndSetMusicState = 0x803323A4; // type:func
+func_8033FA88 = 0x803324C8; // type:func
+func_8033FAD4 = 0x80332514; // type:func
+func_8033FB14 = 0x80332554; // type:func
+sndEvent = 0x80332584; // type:func
+sndGetPilotScream = 0x8033260C; // type:func
+func_8033FCD0 = 0x80332710; // type:func
+func_8033FD94 = 0x803327D4; // type:func
+
+snowCreate = 0x80332880; // type:func
+snowDraw = 0x80332970; // type:func
+snowUpdate = 0x803329F4; // type:func
+snowEnable = 0x80333000; // type:func
+snowDisable = 0x80333024; // type:func
+
+spathCreate = 0x80333050; // type:func
+spathLoadFile = 0x803330A8; // type:func
+spathFree = 0x80333240; // type:func
+spathScaleUpdate = 0x803332A8; // type:func
+spathUpdate = 0x803335B4; // type:func
+spath_80340CB8 = 0x803336F8; // type:func
+spath_80340E7C = 0x803338BC; // type:func
+spathInterpolate = 0x80333A2C; // type:func
+
+splashDrawRipple = 0x80333EA0; // type:func
+splashDraw = 0x80334008; // type:func
+splashAddRipple = 0x8033414C; // type:func
+splashAdd = 0x8033420C; // type:func
+splashUpdate = 0x803343B4; // type:func
+splashInit = 0x803346F0; // type:func
+splashClear = 0x80334870; // type:func
+
+textLoadBlock = 0x80334950; // type:func
+textGetDataByName = 0x80334B2C; // type:func
+textGetDataByIdx = 0x80334BD0; // type:func
+textFmtInt = 0x80334C04; // type:func
+textFmtIntAt = 0x80334E28; // type:func
+
+// title_screen
+func_80342630 = 0x80335040; // type:func
+func_803427FC = 0x8033520C; // type:func
+func_80342D2C = 0x80335774; // type:func
+func_80343294 = 0x80335CDC; // type:func
+func_803433A4 = 0x80335DEC; // type:func
+func_80343550 = 0x80335F30; // type:func
+introSceneRunner = 0x80336338; // type:func
+func_80343B5C = 0x803364E8; // type:func
+func_80343C44 = 0x803365D0; // type:func
+func_80343E84 = 0x80336810; // type:func
+func_8034411C = 0x80336AA8; // type:func
+func_80344258 = 0x80336BE4; // type:func
+
+targetsInit = 0x80336C10; // type:func
+targetsLoad = 0x80336C78; // type:func
+targetsFrameUpdate = 0x80336E8C; // type:func
+targetsDeinit = 0x80336FFC; // type:func
+targets_8034473C = 0x803370BC; // type:func
+targets_803448F4 = 0x80337274; // type:func
+targets_80344948 = 0x803372C8; // type:func
+
+taskInit = 0x80337330; // type:func
+taskIsValidIndex = 0x80337650; // type:func
+strToUpper = 0x803376C0; // type:func
+taskLoadNames = 0x8033778C; // type:func
+taskGetTestCount = 0x80337870; // type:func
+taskInitTest = 0x80337948; // type:func
+taskLoad = 0x80337C0C; // type:func
+taskDeinitLevel = 0x80337CEC; // type:func
+taskDeinit = 0x80337D2C; // type:func
+taskFrameUpdate = 0x80337DE4; // type:func
+task_803456D8 = 0x80338058; // type:func
+taskUpdateState = 0x803383A4; // type:func
+taskGetTHER = 0x8033842C; // type:func
+taskGetLWIN = 0x8033844C; // type:func
+taskGet_80345AEC = 0x8033846C; // type:func
+taskGetTPAD = 0x8033847C; // type:func
+taskGetCNTG = 0x8033849C; // type:func
+taskGetOBSV = 0x803384BC; // type:func
+taskGetLPAD = 0x803384DC; // type:func
+taskGetLSTP = 0x803384FC; // type:func
+taskGetRNGS = 0x8033851C; // type:func
+taskGetBALS = 0x8033853C; // type:func
+taskGetTARG = 0x8033855C; // type:func
+taskGetHPAD = 0x8033857C; // type:func
+taskGetBTGT = 0x8033859C; // type:func
+taskGetPHTS = 0x803385BC; // type:func
+taskGetFALC = 0x803385DC; // type:func
+taskGet_80345C80 = 0x80338600; // type:func
+taskGet_80345C90 = 0x80338610; // type:func
+taskGet_80345CA0 = 0x80338620; // type:func
+taskGet_80345CB0 = 0x80338630; // type:func
+taskGet_80345CC0 = 0x80338640; // type:func
+taskLoadCommObj = 0x80338664; // type:func
+taskBirdmanPad = 0x80338C54; // type:func
+taskGetClsVehTest = 0x80338CBC; // type:func
+taskGet_80346364 = 0x80338CE4; // type:func
+task_80346370 = 0x80338CF0; // type:func
+taskGet_80346468 = 0x80338DE8; // type:func
+taskGetHOPD = 0x80338DF4; // type:func
+
+func_803464A0 = 0x80338E20; // type:func
+
+thermInit = 0x80338F70; // type:func
+thermLoad = 0x80338FAC; // type:func
+therm_8034695C = 0x803392DC; // type:func
+thermDeinit = 0x80339504; // type:func
+therm_80346C08 = 0x80339588; // type:func
+therm_80346E04 = 0x80339784; // type:func
+
+totResult_80346FC0 = 0x80339940; // type:func
+totResultHandler = 0x80339A6C; // type:func
+totResult_80347150 = 0x80339AD0; // type:func
+totResultInit = 0x80339BF0; // type:func
+totResultCreateMenu = 0x80339E6C; // type:func
+totResultMenuChoose = 0x80339FBC; // type:func
+totResultDrawTally = 0x8033A0A0; // type:func
+
+toyInit = 0x8033A490; // type:func
+toy_80347C2C = 0x8033A4EC; // type:func
+toyAnimate = 0x8033A75C; // type:func
+toyProxEventCb = 0x8033AA5C; // type:func
+toyProxAnimCb = 0x8033AAD4; // type:func
+toyLoad = 0x8033AB40; // type:func
+toyDeinit = 0x8033AC6C; // type:func
+toy_80348418 = 0x8033ACD8; // type:func
+
+testMenuMainRender = 0x8033AEB0; // type:func
+testMenuShutterBug = 0x8033AFD0; // type:func
+testMenuInitText = 0x8033B064; // type:func
+testMenuInit = 0x8033B444; // type:func
+testMenuHandler = 0x8033BB30; // type:func
+testMenuDraw = 0x8033C4FC; // type:func
+testMenu_8034A428 = 0x8033CCEC; // type:func
+
+userPathInit = 0x8033CD20; // type:func
+userPath_8034A4F8 = 0x8033CDC8; // type:func
+userPathFree = 0x8033D110; // type:func
+userPath_8034A8B0 = 0x8033D180; // type:func
+userPath_8034A950 = 0x8033D220; // type:func
+
+func_8034A9A0 = 0x8033D270; // type:func
+func_8034A9E8 = 0x8033D2B8; // type:func
+func_8034AA80 = 0x8033D350; // type:func
+func_8034AACC = 0x8033D39C; // type:func
+func_8034ABB0 = 0x8033D480; // type:func
+func_8034AC34 = 0x8033D504; // type:func
+func_8034AD14 = 0x8033D5E4; // type:func
+func_8034AD6C = 0x8033D63C; // type:func
+func_8034AF48 = 0x8033D818; // type:func
+func_8034AF94 = 0x8033D864; // type:func
+func_8034B210 = 0x8033DAE0; // type:func
+func_8034B268 = 0x8033DB38; // type:func
+func_8034B2B0 = 0x8033DB80; // type:func
+func_8034B354 = 0x8033DC24; // type:func
+func_8034B464 = 0x8033DD34; // type:func
+func_8034B4DC = 0x8033DDAC; // type:func
+
+func_8034B5E0 = 0x8033DEB0; // type:func
+func_8034B624 = 0x8033DEF4; // type:func
+drawScreenBorder = 0x8033DF58; // type:func
+func_8034B6F8 = 0x8033DFC8; // type:func
+
+whaleIsActive = 0x8033E0F0; // type:func
+whaleUpdate = 0x8033E0FC; // type:func
+whaleStateMachine = 0x8033E338; // type:func
+whaleProxEventCb = 0x8033E538; // type:func
+whaleProxAnimCb = 0x8033E69C; // type:func
+whaleLoad = 0x8033E7AC; // type:func
+whaleDeinit = 0x8033E98C; // type:func
+whaleGetInterval = 0x8033EA24; // type:func
+whaleGetPos = 0x8033EA3C; // type:func
+whaleSetInterval = 0x8033EA9C; // type:func
+whaleInit = 0x8033EAF4; // type:func
+whaleStateSave = 0x8033EB2C; // type:func
+whaleStateRestore = 0x8033EB68; // type:func
+
+whalePodUpdateWhale = 0x8033EBB0; // type:func
+whalePodUpdate = 0x8033EDF0; // type:func
+whalePodProxEventCb = 0x8033EF9C; // type:func
+whalePodProxAnimCb = 0x8033F0C0; // type:func
+whalePodInit = 0x8033F118; // type:func
+whalePodLoad = 0x8033F234; // type:func
+whalePodDeinit = 0x8033F450; // type:func
+whalePodGetObjState = 0x8033F4E0; // type:func
+whalePodSetInterval = 0x8033F594; // type:func
+
+windInit = 0x8033F630; // type:func
+windLoad = 0x8033F638; // type:func
+windDeinit = 0x8033FD7C; // type:func
+wind_8034D548 = 0x8033FE18; // type:func
+wind_8034D550 = 0x8033FE20; // type:func
+
+windObjInit = 0x80340950; // type:func
+windObjLoad = 0x80340984; // type:func
+windObjFrameUpdate = 0x80340B44; // type:func
+windObjDeinit = 0x80340EF8; // type:func
+windObjIsLoadedId = 0x80340F7C; // type:func
+
+// -----------------------------------------------------------------------------
+// Data Symbols
+// -----------------------------------------------------------------------------
+
+D_802491E0          = 0x80249090;
+D_802491E4          = 0x80249094;
+D_802491E8          = 0x80249098;
+D_803805E0          = 0x80372FC0;
+
+gBallCount          = 0x80349C00;
+gBallSplitCount     = 0x80349C01;
+gBalls              = 0x80349C08; // size:0x2170
+
+sControlInfoVeh     = 0x803414EC; // size:0x38
+D_80341584          = 0x80341584; // size:0x38
+D_8034EC10          = 0x803415BC;
+D_803417C0          = 0x803417C0;
+D_8034ED78          = 0x8034174C; // size:0x1C
+
+D_8034EE84          = 0x803418C4; // size:0x8
+D_8034EE30          = 0x80341870; // size:0x54
+
+D_8034EF20          = 0x80341960;
+D_8034EF24          = 0x80341964;
+D_8034EF28          = 0x80341968;
+
+sFileMenuTextIds    = 0x80341B20;
+sFileMenuConfirm    = 0x80341B2C;
+sFileMenuCurMenu    = 0x80341B34;
+
+sFountainObjId      = 0x80341B70;
+sFountainRadarId    = 0x80341B74;
+sFountainActive     = 0x80341B78;
+
+D_8034F420          = 0x80341E60; // size:0x1C
+D_8034F43C          = 0x80341E7C; // size:0x4
+D_8034F4BC          = 0x80341EFC; // size:0xA
+D_8034F4C8          = 0x80341F08; // size:0x10
+D_8034F4D8          = 0x80341F18; // size:0x8
+
+D_8034F7A0          = 0x803421D0;
+D_8034F7A4          = 0x803421D4;
+D_8034F7B0          = 0x803421E0;
+D_8034F7B8          = 0x803421E8;
+D_8034F7BC          = 0x803421EC;
+D_8034F7C0          = 0x803421F0;
+D_8034F850          = 0x80342280;
+D_8034F854          = 0x80342284;
+
+gMedalPointRequirements = 0x80342604; // size:0x30
+
+gCurrentMusicId     = 0x80342FE0;
+
+D_803507A0          = 0x803431D0;
+
+D_803593F0          = 0x8034BDE0; // size:0x108
+D_803594F8          = 0x8034BEE8; // size:0x144
+D_8035963C          = 0x8034C02C;
+
+D_80359AA8          = 0x8034C498; // size:4
+D_80359AAC          = 0x8034C49C; // size:4
+
+sControlInfoCount   = 0x8034C680;
+
+D_80359DB4          = 0x8034C7A4;
+
+D_8035A5F0          = 0x8034CFE0;
+
+sSaveFiles          = 0x80354AD0; // size:0x200
+sSaveFilesMirror    = 0x80354CD0; // size:0x200
+
+sFileMenu_803624E0  = 0x80354ED0;
+sFileMenu_803624E3  = 0x80354ED3;
+sFileColorR1        = 0x80354ED4;
+sFileColorR2        = 0x80354ED8;
+sFileColorG1        = 0x80354EDC;
+sFileColorG2        = 0x80354EE0;
+sFileColorB1        = 0x80354EE4;
+sFileColorB2        = 0x80354EE8;
+
+sFountainPose       = 0x80355020;
+sFountainProxId     = 0x80355060;
+sFountainState      = 0x80355064;
+sFountainScale      = 0x80355068;
+sFountainScaleCopy  = 0x8035506C;
+sFountainStateCopy  = 0x80355070;
+
+D_80362690          = 0x80355080;
+
+D_80364210          = 0x80356C00; // size:0x34E0
+
+D_803692C0          = 0x8035BCB0; // size:0x54
+D_803694D0          = 0x8035BEC0; // size:0x54
+D_8036957E          = 0x8035BF6E;
+
+gHoverPads          = 0x8035BF78; // size:0x8C
+
+gFcnDrawMenuItem    = 0x8035E7F8;
+
+gRings              = 0x80360468; // size:0x35E8
+
+sMissileTargets     = 0x8036B6E8; // size:0xBE0
+
+gThermReady         = 0x8036D6C8;
+
+sMapDobjId          = 0x80342220;
+sMapObjectCount     = 0x80342224;
+sMapMessageCount    = 0x80342228;
+D_8034F7FC          = 0x8034222C;
+D_8034F800          = 0x80342230;
+D_8034F804          = 0x80342234;
+D_8034F808          = 0x80342238;
+D_8034F80C          = 0x8034223C;
+D_8034F810          = 0x80342240;
+D_8034F814          = 0x80342244;
+D_8034F818          = 0x80342248;
+D_8034F81C          = 0x8034224C;
+D_8034F820          = 0x80342250;
+D_8034F824          = 0x80342254;
+D_8034F828          = 0x80342258;
+D_8034F82C          = 0x8034225C;
+D_8034F830          = 0x80342260;
+D_8034F834          = 0x80342264;
+D_8034F838          = 0x80342268;
+sMapHudFlagsSave    = 0x8034226C;
+
+D_8036A8C0          = 0x8035D2B0;
+D_8036A8C4          = 0x8035D2B4;
+D_8036A8C8          = 0x8035D2B8;
+D_8036A8C9          = 0x8035D2B9;
+D_8036A8CA          = 0x8035D2BA;
+D_8036A8CC          = 0x8035D2BC; // size:3
+D_8036A8D0          = 0x8035D2C0; // size:4
+D_8036A8D4          = 0x8035D2C4; // size:4
+D_8036A8D8          = 0x8035D2C8; // size:4
+
+sMapEmitterDev0     = 0x8035D2D0;
+sMapEmitterDev1     = 0x8035D2D1;
+sMapObjects         = 0x8035D2D8;
+sMapMessages        = 0x8035D350;
+sMapGlobalScale     = 0x8035D440;
+
+sMenuItemCount      = 0x8035E7E0;
+sMenuFont           = 0x8035E7E4;
+sMenuScaleX         = 0x8035E7E8;
+sMenuScaleY         = 0x8035E7EC;
+sMenuPosX           = 0x8035E7F0;
+sMenuPosY           = 0x8035E7F4;
+sMenuUtilItems      = 0x8035E7FC;
+sMenuCurSelect      = 0x8035E800;
+sMenuPrevSelect     = 0x8035E804;
+sMenuAdj            = 0x8035E808;
+sMenuStickCenter    = 0x8035E80C;
+sMenuButtonMode     = 0x8035E810;
+sMenuFontSelR       = 0x8035E811;
+sMenuFontSelG       = 0x8035E812;
+sMenuFontSelB       = 0x8035E813;
+sMenuFontR          = 0x8035E814;
+sMenuFontG          = 0x8035E815;
+sMenuFontB          = 0x8035E816;
+sMenuGfxR           = 0x8035E817;
+sMenuGfxG           = 0x8035E818;
+sMenuGfxB           = 0x8035E819;
+sMenuSoundFlags     = 0x8035E81A;
+
+gLandingPadCount    = 0x8035ECA9;
+gLandingStripCount  = 0x8035ECAA;
+gLandingPads        = 0x8035ECD8; // size:0x150
+gLandingStrips      = 0x8035EE28; // size:0x78
+
+D_8034F910          = 0x80342340;
+D_8034F914          = 0x80342344;
+
+sPtsTallyStr        = 0x803429DC;
+sReplayTipSet       = 0x803429EC;
+sVehTipIsInit       = 0x803429F0;
+
+D_80350510          = 0x80342F40; // size:0x18
+D_80350528          = 0x80342F58;
+D_8035052C          = 0x80342F5C;
+D_80350534          = 0x80342F64;
+D_80350538          = 0x80342F68;
+D_8035053C          = 0x80342F6C;
+D_80350540          = 0x80342F70;
+D_80350544          = 0x80342F74;
+D_80350548          = 0x80342F78;
+D_8035054C          = 0x80342F7C;
+D_80350550          = 0x80342F80;
+D_80350594          = 0x80342FC4;
+
+D_80350690          = 0x803430C0;
+D_80350694          = 0x803430C4;
+sMainMenuItems      = 0x803430C8;
+
+D_8035078C          = 0x803431BC;
+
+sStageMedalName     = 0x80343310; // size:0x50
+sBonusMedalName     = 0x80343360; // size:0x14
+sTestPtsStr         = 0x80343388; // size:0x10
+D_80343398          = 0x80343398;
+
+D_80350970          = 0x803433A0;
+sTestMenuState      = 0x803433A4;
+sMenuCurX           = 0x803433A8;
+sMenuCurY           = 0x803433AC;
+D_80350980          = 0x803433B0;
+D_80350984          = 0x803433B4;
+sClassShortNames    = 0x803433B8; // size:0x10
+gVehShortNames      = 0x803433C8; // size:0x1C
+sCurTestIdx         = 0x803433E4;
+D_803509B8          = 0x803433E8;
+
+sRadarThermCirc     = 0x8035EF10; // size:0x88
+sHudState           = 0x8035EF98; // size:0xC7C
+D_8036D224          = 0x8035FC14;
+
+D_80371630          = 0x80364020; // size:0x108
+D_80371738          = 0x80364128; // size:0x144
+D_8037187C          = 0x8036426C;
+D_80371880          = 0x80364270;
+
+sRbSound_80371898   = 0x80364288; // size:0x54
+
+sScreenFadeDuration = 0x8036431C;
+sReplayTipText      = 0x80364320;
+sTipTextMissing     = 0x80364324;
+sTipTextId          = 0x80364328;
+sPtsDeductedStr     = 0x80364330;
+sTotalPointsStr     = 0x80364340;
+
+D_80373060          = 0x80365A50; // size:0x2A0
+D_80373300          = 0x80365CF0; // size:0x90
+D_80373390          = 0x80365D80; // size:0x2A0
+D_80373630          = 0x80366020; // size:0x2A0
+D_803738D0          = 0x803662C0; // size:0x2A0
+D_80373B70          = 0x80366560; // size:0x2A0
+D_80373E10          = 0x80366800;
+D_80373E14          = 0x80366804;
+D_80373E18          = 0x80366808;
+D_80373E1C          = 0x8036680C;
+
+sTextName           = 0x8036A900; // size:0x6E0
+sTextData           = 0x8036AFE0; // size:0x6DC
+sTextDataCount      = 0x8036B6BC;
+sTextNameCount      = 0x8036B6C0;
+
+D_80378CE0          = 0x8036B6D0;
+D_80378CE4          = 0x8036B6D4;
+
+gThermalCount       = 0x8036D544;
+gThermals           = 0x8036D548; // size:0x180
+
+sTestPtsStr0        = 0x8036D6D0;
+sTestPtsStr1        = 0x8036D6E0;
+sTestPtsStr2        = 0x8036D6F0;
+sTestPtsStr3        = 0x8036D700;
+sMedalName          = 0x8036D70C;
+sUnused_8037AD20    = 0x8036D710;
+sTotalPtsStr        = 0x8036D718;
+D_8037AD38          = 0x8036D728;
+D_8037AD42          = 0x8036D732;
+sMedalNameCopy      = 0x8036D738;
+
+sToyCount           = 0x8036D750;
+sToys               = 0x8036D758; // size:0x2EE0
+
+sSelMenuScreenX     = 0x80370640;
+sSelMenuScreenY     = 0x80370644;
+sStickDirX          = 0x80370648;
+sStickDirY          = 0x8037064C;
+sStickIsHeld        = 0x80370650;
+sMenuMinY           = 0x80370654;
+sMenuMinX           = 0x80370658;
+sMenuMaxY           = 0x8037065C;
+sMenuMaxX           = 0x80370660;
+D_8037DC84          = 0x80370664;
+sDrawTestPts        = 0x8037067B;

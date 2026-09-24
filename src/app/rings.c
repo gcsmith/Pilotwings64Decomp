@@ -36,11 +36,6 @@ STATIC_DATA s32 sRingModelIdLookup[2][4][5] = {
      { 0x00, 0x00, 0x00, 0x00, 0x00 } }
 };
 
-// forward declarations
-void rings_803234A4(Ring* ring);
-void rings_80323720(Ring* ring);
-s32 rings_80323FFC(s32 ringIdx);
-
 void ringsInit(void) {
     Ring* var_v1;
     s32 i;
@@ -367,7 +362,11 @@ s32 rings_80323FFC(s32 ringIdx) {
                 }
                 if (sp54 > 1) {
                     textStr = textGetDataByIdx(TEXT_LEFT_CNT);
+#if defined(VERSION_JP)
+                    textFmtIntAt(textStr, sp54 - 1, 2, 2);
+#else // VERSION_US
                     textFmtIntAt(textStr, sp54 - 1, 2, 0);
+#endif
                     hudWarningText(TEXT_LEFT_CNT, 3.0f, 8.0f);
                 }
             }
@@ -397,7 +396,11 @@ s32 rings_80323FFC(s32 ringIdx) {
         hudText_8031D8E0(TEXT_R_PASS_C, 3.0f, 8.0f);
         if (sp54 > 1) {
             textStr = textGetDataByIdx(TEXT_LEFT_CNT);
+#if defined(VERSION_JP)
+            textFmtIntAt(textStr, sp54 - 1, 2, 2);
+#else // VERSION_US
             textFmtIntAt(textStr, sp54 - 1, 2, 0);
+#endif
             hudWarningText(TEXT_LEFT_CNT, 3.0f, 8.0f);
         }
     } else {
@@ -406,7 +409,11 @@ s32 rings_80323FFC(s32 ringIdx) {
             hudText_8031D8E0(TEXT_R_PASS_N, 3.0f, 8.0f);
             if (sp54 > 1) {
                 textStr = textGetDataByIdx(TEXT_LEFT_CNT);
+#if defined(VERSION_JP)
+                textFmtIntAt(textStr, sp54 - 1, 2, 2);
+#else // VERSION_US
                 textFmtIntAt(textStr, sp54 - 1, 2, 0);
+#endif
                 hudWarningText(TEXT_LEFT_CNT, 3.0f, 8.0f);
             }
             break;
@@ -414,7 +421,11 @@ s32 rings_80323FFC(s32 ringIdx) {
             hudText_8031D8E0(TEXT_R_PASS_B, 3.0f, 8.0f);
             if (sp54 > 0) {
                 textStr = textGetDataByIdx(TEXT_LEFT_CNT);
+#if defined(VERSION_JP)
+                textFmtIntAt(textStr, sp54 - 1, 2, 2);
+#else // VERSION_US
                 textFmtIntAt(textStr, sp54 - 1, 2, 0);
+#endif
                 hudWarningText(TEXT_LEFT_CNT, 3.0f, 8.0f);
             }
             break;

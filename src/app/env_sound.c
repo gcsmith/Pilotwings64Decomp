@@ -52,8 +52,13 @@ STATIC_DATA s32 D_8034EF20 = 0;
 STATIC_DATA s32 D_8034EF24 = 0;
 STATIC_DATA s32 D_8034EF28 = 0;
 STATIC_DATA s32 sEnvSoundIsInit = FALSE;
+#if defined(VERSION_JP)
+STATIC_DATA s32 sEnvSoundModelIdLookup[28] = { 0x0D, 0x0E, 0x2A, 0x25, 0x29, 0x0D, 0x40, 0x41, 0x14, 0x47, 0x21, 0x07, 0x21, 0x21,
+                                               0x21, 0x21, 0x21, 0x21, 0x2F, 0x2F, 0x2F, 0x2F, 0x6B, 0x6B, 0x6B, 0x51, 0x6B, 0x00 };
+#else // VERSION_US
 STATIC_DATA s32 sEnvSoundModelIdLookup[28] = { 0x0D, 0x0E, 0x2A, 0x25, 0x29, 0x0D, 0x40, 0x41, 0x14, 0x47, 0x21, 0x07, 0x21, 0x21,
                                                0x21, 0x21, 0x21, 0x21, 0x2F, 0x2F, 0x2F, 0x6B, 0x6B, 0x6B, 0x6B, 0x51, 0x6B, 0x00 };
+#endif
 
 STATIC_DATA EventCallbackInfo sEnvSoundEventCb;
 STATIC_DATA EnvSoundState sEnvSoundState;
@@ -135,6 +140,10 @@ void envSound_802E2904(EnvSoundState* arg0) {
     arg0->flags = 0xFFFFFFC0;
 }
 
+#if defined(VERSION_JP)
+// https://decomp.me/scratch/V1ugW
+#pragma GLOBAL_ASM("asm/nonmatchings/app/env_sound/envSound_802E2A00.s")
+#else // VERSION_US
 void envSound_802E2A00(s32 eventType, void* arg1, s32 eventData) {
     s32 i;
     EnvSoundState* esState;
@@ -387,6 +396,7 @@ void envSound_802E2A00(s32 eventType, void* arg1, s32 eventData) {
         break;
     }
 }
+#endif
 
 void envSound_802E3250(EnvSoundState* arg0) {
     EnvSoundEmitter* var_s0;
@@ -417,6 +427,9 @@ void envSound_802E3310(EnvSoundState* arg0) {
         uvEmitterSetVol(var_s0->emitterId, var_s0->unk0);
         uvEmitterTrigger(var_s0->emitterId);
     }
+#if defined(VERSION_JP)
+    arg0->unk7F8 = (s32)D_80362690->unkC[D_80362690->unk9C].unk8;
+#endif
 }
 
 void envSound_802E3398(EnvSoundState* arg0) {
@@ -498,4 +511,3 @@ void envSoundFrameUpdate(Mtx4F* arg0) {
         }
     }
 }
-

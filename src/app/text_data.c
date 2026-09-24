@@ -16,6 +16,10 @@ STATIC_DATA s16* sTextData[439];
 STATIC_DATA s32 sTextDataCount;
 STATIC_DATA s32 sTextNameCount;
 
+#if defined(VERSION_JP)
+// https://decomp.me/scratch/BWIqE
+#pragma GLOBAL_ASM("asm/nonmatchings/app/text_data/textLoadBlock.s")
+#else // VERSION_US
 void textLoadBlock(s32 userFileIdx) {
     s32 block;
     u32 tag;
@@ -57,6 +61,7 @@ void textLoadBlock(s32 userFileIdx) {
     }
     uvFile_80223F30(block);
 }
+#endif
 
 s16* textGetDataByName(const char* needle) {
     s16* dataStr;
@@ -79,6 +84,10 @@ s16* textGetDataByIdx(s32 idx) {
     return NULL;
 }
 
+#if defined(VERSION_JP)
+// https://decomp.me/scratch/AhsTF
+#pragma GLOBAL_ASM("asm/nonmatchings/app/text_data/textFmtInt.s")
+#else // VERSION_US
 s32 textFmtInt(s16* dst, s32 val, s32 length) {
     s32 digits;
     s32 fill;
@@ -106,7 +115,12 @@ s32 textFmtInt(s16* dst, s32 val, s32 length) {
 
     return digits * 0x10;
 }
+#endif
 
+#if defined(VERSION_JP)
+// https://decomp.me/scratch/XVRFS
+#pragma GLOBAL_ASM("asm/nonmatchings/app/text_data/textFmtIntAt.s")
+#else // VERSION_US
 s32 textFmtIntAt(s16* dst, s32 val, s32 length, s32 dstOffset) {
     s32 digits;
     s32 fill;
@@ -133,3 +147,4 @@ s32 textFmtIntAt(s16* dst, s32 val, s32 length, s32 dstOffset) {
 
     return digits * 0x10;
 }
+#endif

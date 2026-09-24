@@ -484,7 +484,11 @@ void gyrocopterMovementFrame(GyrocopterData* gcData, u8 gameState) {
                 hud->power = 0.0f;
             }
             if (gcData->unkC1 != 0) {
+#if defined(VERSION_JP)
+                hudText_8031D8E0(TEXT_OFF_5, 1.5f, 8.0f);
+#else // VERSION_US
                 hudWarningText(TEXT_OFF_5, 1.5f, 8.0f);
+#endif
                 sndPlaySfx(SFX_UI_POINT_PENALTY);
             } else {
                 if ((gcData->fuel <= 0.0f) && !gcData->fuelEmpty) {

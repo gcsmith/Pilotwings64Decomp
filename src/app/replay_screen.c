@@ -34,6 +34,12 @@
 #include "whale.h"
 #include "wind_objects.h"
 
+#if defined(VERSION_JP)
+#define CONTROLLER_MSG_LEN 0x14
+#else // VERSION_US
+#define CONTROLLER_MSG_LEN 0x3C
+#endif
+
 s32 sShutterBugTestItems[] = { TEXT_CONTINUE_SGI, TEXT_CHECKMAP_SGI, TEXT_CHECK_PHOTOS_SGI, TEXT_QUIT_SGI };
 s32 sSkyDivingItems[] = { TEXT_CONTINUE_SGI, TEXT_QUIT_SGI };
 s32 sOtherItems[] = { TEXT_CONTINUE_SGI, TEXT_CHECKMAP_SGI, TEXT_QUIT_SGI };
@@ -251,7 +257,9 @@ void func_8032CC44(Unk80362690* arg0) {
     sp2C = &arg0->unkC[arg0->unk9C];
     sp1B = 1;
     func_8032D51C(0);
+#if !defined(VERSION_JP)
     whaleStateSave();
+#endif
     level_8030BA60();
     if (arg0->unkA0 == 0) {
         sp1B = 0;
@@ -339,7 +347,9 @@ void func_8032CC44(Unk80362690* arg0) {
     taskLoad();
     cannon_802D8A40(0, (CannonballData*)sp2C->vehicleData);
     hudInit();
+#if !defined(VERSION_JP)
     whaleStateRestore();
+#endif
 }
 
 s32 func_8032CF28(Unk80362690* arg0) {
@@ -551,10 +561,10 @@ void func_8032D90C(void) {
         uvFontSet(6);
         uvFontScale(1.0, 1.0);
         uvFontColor(r2, g2, b2, 0xFF);
-        uvFontPrintStr16((SCREEN_WIDTH / 2) - ((uvFontStr16Width(msg1) - 16) / 2), 155, msg1, 0x3C, 0xFFE);
-        uvFontPrintStr16((SCREEN_WIDTH / 2) - ((uvFontStr16Width(msg2) - 16) / 2), 135, msg2, 0x3C, 0xFFE);
-        uvFontPrintStr16((SCREEN_WIDTH / 2) - ((uvFontStr16Width(msg3) - 16) / 2), 115, msg3, 0x3C, 0xFFE);
-        uvFontPrintStr16((SCREEN_WIDTH / 2) - ((uvFontStr16Width(msg4) - 16) / 2), 95, msg4, 0x3C, 0xFFE);
+        uvFontPrintStr16((SCREEN_WIDTH / 2) - ((uvFontStr16Width(msg1) - 16) / 2), 155, msg1, CONTROLLER_MSG_LEN, 0xFFE);
+        uvFontPrintStr16((SCREEN_WIDTH / 2) - ((uvFontStr16Width(msg2) - 16) / 2), 135, msg2, CONTROLLER_MSG_LEN, 0xFFE);
+        uvFontPrintStr16((SCREEN_WIDTH / 2) - ((uvFontStr16Width(msg3) - 16) / 2), 115, msg3, CONTROLLER_MSG_LEN, 0xFFE);
+        uvFontPrintStr16((SCREEN_WIDTH / 2) - ((uvFontStr16Width(msg4) - 16) / 2), 95, msg4, CONTROLLER_MSG_LEN, 0xFFE);
         uvFontGenDlist();
         func_803141E4();
         uvGfxEnd();

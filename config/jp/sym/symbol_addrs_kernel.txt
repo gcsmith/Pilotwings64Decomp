@@ -1,0 +1,565 @@
+// Visit https://github.com/ethteck/splat/wiki/Adding-Symbols for documentation about this file
+
+// -----------------------------------------------------------------------------
+// Function Symbols
+// -----------------------------------------------------------------------------
+
+entrypoint           = 0x80200050; // type:func use_non_matching_label:False
+bootproc             = 0x8022E30C; // type:func
+
+// Thread_Audio        = 0x80203DD0; // type:func
+Thread_Render        = 0x8022E740; // type:func
+Thread_App           = 0x8022E7F0; // type:func
+Thread_Kernel        = 0x8022E850; // type:func
+
+uvWaitForMesg        = 0x8022E20C; // type:func
+
+func_80200308        = 0x80200308; // type:func
+uvJanimLoad          = 0x80200350; // type:func
+uvJanim_80200638     = 0x80200638; // type:func
+uvJanim_802006FC     = 0x802006FC; // type:func
+uvJanim_80200B00     = 0x80200B00; // type:func
+uvJanim_80200EC0     = 0x80200EC0; // type:func
+uvJanimPoseLine      = 0x80200B38; // type:func
+uvJanimPoseGrid      = 0x80200F00; // type:func
+
+uvEmitterPrintf      = 0x80201180; // type:func
+uvEmitterInitTable   = 0x8020119C; // type:func
+uvEmitterInit        = 0x802011F0; // type:func
+uvEmitterLookup      = 0x802012B8; // type:func
+uvEmitterFromModel   = 0x80201348; // type:func
+uvEmitterSetMatrix   = 0x802013F8; // type:func
+uvEmitterGetMatrix   = 0x80201444; // type:func
+uvEmitter_80201494   = 0x80201494; // type:func
+uvEmitterSetVol      = 0x802015D8; // type:func
+uvEmitterGetVol      = 0x80201614; // type:func
+uvEmitterSetPan      = 0x8020165C; // type:func
+uvEmitterSetPitch    = 0x80201698; // type:func
+uvEmitterSetPri      = 0x802016D4; // type:func
+uvEmitterProps       = 0x8020170C; // type:func
+uvEmitterTrigger     = 0x80201904; // type:func
+uvEmitterRelease     = 0x80201968; // type:func
+uvEmitterStatus      = 0x80201A0C; // type:func
+_uvaSoundBegin       = 0x80201B0C; // type:func
+_uvaSoundEnd         = 0x80201B7C; // type:func
+uvEmitterFlush       = 0x80201BA8; // type:func
+uvEmitter_80201D08   = 0x80201D08; // type:func
+_uvaUpdatePlayList   = 0x802021D4; // type:func
+_uvaPlaylistRemove   = 0x80202678; // type:func
+_uvaPlay             = 0x80202728; // type:func
+_uvaStartVoice       = 0x80202998; // type:func
+_uvaUpdateVoice      = 0x80202AFC; // type:func
+_uvaStopVoice        = 0x80202BB8; // type:func
+_uvaStatus           = 0x80202C5C; // type:func
+
+uvaManager_80204518  = 0x80204518; // type:func
+
+uvChan_80204A8C      = 0x80204A8C; // type:func
+uvChan_80204AB0      = 0x80204AB0; // type:func
+uvChan_80204B34      = 0x80204B34; // type:func
+uvChan_80204BD4      = 0x80204BD4; // type:func
+uvChan_80204C94      = 0x80204C94; // type:func
+uvChan_80204D94      = 0x80204D94; // type:func
+uvChan_80204EC0      = 0x80204EC0; // type:func
+uvChan_80204FC4      = 0x80204FC4; // type:func
+uvChan_80205724      = 0x80205724; // type:func
+
+uvaSeqNew            = 0x802046E0; // type:func
+uvaSeqPlay           = 0x802047A8; // type:func
+uvaSeqSetTempo       = 0x802047E8; // type:func
+uvaSeqSetVol         = 0x80204840; // type:func
+uvaSeqStop           = 0x8020489C; // type:func
+uvChanEnv            = 0x80204DEC; // type:func
+uvChanTerra          = 0x80204E5C; // type:func
+_uvSortAdd           = 0x80205814; // type:func
+
+uvClkInit            = 0x80205FD0; // type:func
+uvClkUpdate          = 0x80205FFC; // type:func
+uvClkGetSec          = 0x80206058; // type:func
+uvClkReset           = 0x80206150; // type:func
+
+_uvDbSortHits        = 0x802071CC; // type:func
+uvTerraGetBox        = 0x8020FA08; // type:func
+uvModelGetPosm       = 0x8020FA54; // type:func
+uvModelGetProps      = 0x8020FB2C; // type:func
+uvTerraGetPt         = 0x8020FCEC; // type:func
+uvTerraGetSeg        = 0x8020FF68; // type:func
+uvTerraGetColor      = 0x80210B70; // type:func
+uvTerraGetState      = 0x80210E04; // type:func
+uvTerraGetPlane      = 0x80210F18; // type:func
+_uvSurfGetNorm       = 0x8021119C; // type:func
+uvSobjGetPt          = 0x8021133C; // type:func
+uvSobjGetSeg         = 0x80211544; // type:func
+_uvSegInMboxs        = 0x80214F54; // type:func
+uvDbColorModel       = 0x80216750; // type:func
+
+uvDobjModel          = 0x802167F0; // type:func
+uvDobjProps          = 0x80216C1C; // type:func
+uvDobjPosm           = 0x80216E08; // type:func
+uvDobjGetPosm        = 0x80216FD8; // type:func
+uvDobjState          = 0x8021711C; // type:func
+uvDobjSetState       = 0x80217268; // type:func
+uvDobjClearState     = 0x802172C0; // type:func
+uvDobjAllocIdx       = 0x8021731C; // type:func
+uvDobjInit           = 0x80217398; // type:func
+_uvDobjsDraw         = 0x8021744C; // type:func
+uvDobj_8021771C      = 0x8021771C; // type:func
+// uvDobj_80217AB4     = 0x80217AB4; // type:func
+uvDobj_80217B34      = 0x80217B34; // type:func
+uvDobj_80217B4C      = 0x80217B4C; // type:func
+uvDobj_80217E24      = 0x80217E24; // type:func
+uvDobj_802180DC      = 0x802180DC; // type:func
+
+uvEnvProps           = 0x802181C0; // type:func
+uvEnvGetProps        = 0x80218470; // type:func
+uvEnvFunc            = 0x80218688; // type:func
+_uvEnvDraw           = 0x8021872C; // type:func
+
+uvSeqModel           = 0x80218D00; // type:func
+uvSeqProps           = 0x80218DB8; // type:func
+uvSeqFindFree        = 0x80218F88; // type:func
+
+uvParseTopUVFT        = 0x80219270; // type:func
+uvFontSet             = 0x802194D8; // type:func
+uvFontScale           = 0x80219550; // type:func
+uvFontColor           = 0x8021956C; // type:func
+// uvFontStrLen         = 0x802195A0; // type:func
+// uvFontStr16WidthFont = 0x802195DC; // type:func
+uvFontStr16Width      = 0x802196B0; // type:func
+// uvFontStrWidth       = 0x802196EC; // type:func
+uvFontWidth           = 0x802197EC; // type:func
+uvFontHeight          = 0x80219828; // type:func
+uvFontPrintStr16      = 0x80219874; // type:func
+uvFontPrintStr        = 0x80219A1C; // type:func
+// uvFontSpriteWidth    = 0x80219CC0; // type:func
+// uvFontMsgGenDlist    = 0x80219DA4; // type:func
+uvFontGenDlist        = 0x80219E18; // type:func
+
+uvFxProps            = 0x8021A4C0; // type:func
+uvFxGetProps         = 0x8021B4AC; // type:func
+uvModelGet           = 0x8021B950; // type:func
+_uvFxDraw            = 0x8021EC98; // type:func
+uvFx_8021EFF0        = 0x8021EF70; // type:func
+uvFx_8021A4D8        = 0x8021A458; // type:func
+uvFx_8021A304        = 0x8021A284; // type:func
+
+uvVtxInit            = 0x8021F080; // type:func
+uvVtx                = 0x8021F1E4; // type:func
+uvVtxReset           = 0x8021F28C; // type:func
+uvVtxBeginPoly       = 0x8021F2E8; // type:func
+uvBeginGrid          = 0x8021F2FC; // type:func
+uvBeginTmesh         = 0x8021F310; // type:func
+uvEndTmesh           = 0x8021F324; // type:func
+uvEndGridWide        = 0x8021F4EC; // type:func
+uvEndGrid            = 0x8021F8EC; // type:func
+uvVtxRect            = 0x802204AC; // type:func
+uvVtxEndPoly         = 0x80220640; // type:func
+
+uvGfxInit            = 0x802208E0; // type:func
+uvGfxBegin           = 0x80220B08; // type:func
+uvGfxSetFogFactor    = 0x80220C20; // type:func
+uvGfxResetState      = 0x80220D8C; // type:func
+uvGfxMtxView         = 0x80220EAC; // type:func
+uvGfxMtxProj         = 0x80220F78; // type:func
+uvGfxDisplayList     = 0x80221044; // type:func
+uvGfxStateDrawDL     = 0x80221068; // type:func
+uvGfxStateDraw       = 0x80221318; // type:func
+uvGfxPushMtxUnk      = 0x802219A4; // type:func
+uvGfxClampLook       = 0x80221A60; // type:func
+uvGfxLookAt          = 0x80221EB8; // type:func
+uvGfxMtxProjPushF    = 0x8022202C; // type:func
+uvGfxSetCallback     = 0x8022209C; // type:func
+uvGfxEnd             = 0x802220A8; // type:func
+uvGfxClearScreen     = 0x8022281C; // type:func
+uvGfx_80222A98       = 0x802229C4; // type:func
+uvGfxEnableZBuffer   = 0x80222BC0; // type:func
+uvGfxEnableCull      = 0x80222CA4; // type:func
+uvGfxEnableLighting  = 0x80222DBC; // type:func
+uvGfxClipRect        = 0x80222E14; // type:func
+uvGfxClipViewport    = 0x80222FC0; // type:func
+uvGfxSetViewport     = 0x80222FF8; // type:func
+uvGfxViewport        = 0x80223040; // type:func
+uvGfxMstackPushF     = 0x80223168; // type:func
+uvGfxMstackPushL     = 0x80223208; // type:func
+uvGfxMstackTop       = 0x802232F0; // type:func
+uvGfxSetFrameTime    = 0x80223334; // type:func
+uvGfxGetFrameTime    = 0x80223340; // type:func
+uvGfxMtxViewLoad     = 0x80223388; // type:func
+uvGfxMtxViewMul      = 0x80223420; // type:func
+uvGfx_802235A4       = 0x802234D0; // type:func
+uvGfxMtxViewPop      = 0x802235D4; // type:func
+uvGfx_802236CC       = 0x802235F8; // type:func
+uvGfxGetCnt          = 0x8022372C; // type:func
+uvGfxStatePush       = 0x80223818; // type:func
+uvGfxStatePop        = 0x80223878; // type:func
+uvGfxSetFlags        = 0x802238E0; // type:func
+uvGfxClearFlags      = 0x80223918; // type:func
+uvGfxBindTexture     = 0x80223954; // type:func
+uvGfxTextureDL       = 0x80223990; // type:func
+uvGfxWaitForMesg     = 0x80223AAC; // type:func
+uvGfxEnableGamma     = 0x80223AE4; // type:func
+uvGfxSetUnkState0    = 0x80223B20; // type:func
+uvGfx_80223C00       = 0x80223B2C; // type:func
+uvCopyFrameBuf       = 0x80223D18; // type:func
+
+uvFileReadHeader     = 0x80223DB0; // type:func
+uvFile_80223F30      = 0x80223E60; // type:func
+uvFileGetCurLength   = 0x80223E84; // type:func
+uvFileGetCurTag      = 0x80223E98; // type:func
+uvFileReadBlock      = 0x80223EAC; // type:func
+uvFile_80224170      = 0x802240A0; // type:func
+uvFile_8022427C      = 0x802241AC; // type:func
+
+uvEventPost          = 0x80203088; // type:func
+uvEventRemoveCb      = 0x80203210; // type:func
+uvEventMaxCb         = 0x80202F18; // type:func
+
+_uvScDoneGfx         = 0x8022B250; // type:func
+_uvScDoneAud         = 0x8022B348; // type:func
+_uvScRunAud          = 0x8022B3E4; // type:func
+_uvScRunGfx          = 0x8022B468; // type:func
+_uvScDlistRecover    = 0x8022B58C; // type:func
+_uvScCreateScheduler= 0x8022B6CC; // type:func
+_uvScAddClient       = 0x8022B7D8; // type:func
+_uvScGetCmdQ         = 0x8022B7EC; // type:func
+_uvScMain            = 0x8022B7F4; // type:func
+_uvScHandleRetrace   = 0x8022B8F8; // type:func
+_uvScHandleRSP       = 0x8022BC18; // type:func
+_uvScHandleRDP       = 0x8022BD5C; // type:func
+_uvScHandleNMI       = 0x8022BDBC; // type:func
+_uvScLogCpuEvent     = 0x8022BDF4; // type:func
+_uvScLogIntoRing     = 0x8022C198; // type:func
+
+uvSobjsDraw          = 0x8022C410; // type:func
+// uvSobj_8022C7B8     = 0x8022C7B8; // type:func
+uvSobj_8022C8D0      = 0x8022C800; // type:func
+uvSobj_8022CC28      = 0x8022CB58; // type:func
+uvSobjLoadTerra      = 0x8022CE28; // type:func
+uvSobjPosm           = 0x8022CEF4; // type:func
+uvSobj_8022D168      = 0x8022D098; // type:func
+uvSobj_8022D1E4      = 0x8022D114; // type:func
+uvSobjModel          = 0x8022D148; // type:func
+
+uvStrchr             = 0x8022D1E0; // type:func
+uvStrlen             = 0x8022D230; // type:func
+uvStrcmp             = 0x8022D268; // type:func
+strFormatInt         = 0x8022D404; // type:func
+strFormatFloat       = 0x8022D740; // type:func
+strDigitToChar       = 0x8022D970; // type:func
+strCharToDigit       = 0x8022D99C; // type:func
+uvSprintf            = 0x8022D9CC; // type:func
+uvAtoi               = 0x8022DD94; // type:func
+
+uvMemInitBlocks      = 0x8022A2F0; // type:func
+uvMemScanBlocks      = 0x8022A424; // type:func
+_uvJumpHeap          = 0x8022A5A4; // type:func
+_uvMediaCopy         = 0x8022A690; // type:func
+uvMemRead            = 0x8022A810; // type:func
+uvMemSet             = 0x8022A9B0; // type:func
+uvMemCmp             = 0x8022A9E4; // type:func
+_uvMemOverAlloc      = 0x8022AA3C; // type:func
+_uvMemAlloc          = 0x8022AB78; // type:func
+_uvMemFreeScratch    = 0x8022AC88; // type:func
+_uvMemGetScratch     = 0x8022ACF4; // type:func
+_uvMemGetBlocks      = 0x8022ADA0; // type:func
+uvLevelInit          = 0x8022AE34; // type:func
+_uvMemAllocAlign8    = 0x8022AFA8; // type:func
+
+uvContMesgInit             = 0x8022E950; // type:func
+uvControllerInit           = 0x802241D0; // type:func
+uvControllerCheckInserted  = 0x8022438C; // type:func
+uvIOUpdate                 = 0x802243B8; // type:func
+uvControllerGetStick       = 0x802244BC; // type:func
+uvControllerButtonCheck    = 0x802244E0; // type:func
+uvControllerGetButton      = 0x80224518; // type:func
+uvControllerButtonPress    = 0x80224534; // type:func
+uvControllerButtonRelease  = 0x80224580; // type:func
+
+uvMemInitBlockHdr    = 0x802245D0; // type:func
+uvConsumeBytes       = 0x802252C4; // type:func
+uvMemLoadDS          = 0x802249C0; // type:func
+uvMemLoadPal         = 0x80224BAC; // type:func
+uvLevelAppend        = 0x80224C10; // type:func
+_uvExpandTexture     = 0x802264E8; // type:func
+_uvExpandTextureImg  = 0x80226984; // type:func
+_uvExpandTextureCpy  = 0x80226A50; // type:func
+_uvParseUVMD         = 0x802255E8; // type:func
+_uvParseUVLT         = 0x802253A0; // type:func
+_uvParseUVEN         = 0x802253E0; // type:func
+_uvParseUVSQ         = 0x802254D0; // type:func
+_uvParseUVCT         = 0x80225EEC; // type:func
+_uvParseUVTP         = 0x80226F00; // type:func
+_uvParseUVTR         = 0x80226FEC; // type:func
+_uvParseUVBT         = 0x80227190; // type:func
+uvParseTopUVCT       = 0x80227734; // type:func
+uvParseTopUVEN       = 0x802277F0; // type:func
+uvParseTopUVLV       = 0x80227868; // type:func
+uvParseTopUVTP       = 0x802278E0; // type:func
+uvParseTopUVLT       = 0x80227958; // type:func
+uvParseTopUVMD       = 0x802279D0; // type:func
+uvParseTopUVTR       = 0x80227A8C; // type:func
+uvParseTopUVTX       = 0x80227B04; // type:func
+uvParseTopUVTI       = 0x80227BB4; // type:func
+uvParseTopUVBT       = 0x80227C64; // type:func
+uvParseTopUVSQ       = 0x80227D14; // type:func
+
+_uvDbMstackReset     = 0x80227E60; // type:func
+_uvDbMstackTop       = 0x80227E70; // type:func
+_uvDbMstackPush      = 0x80227E8C; // type:func
+_uvDbMstackPop       = 0x80227F14; // type:func
+
+uvFileWrite          = 0x8022DE20; // type:func
+uvFileRead           = 0x8022DF18; // type:func
+uvSysInit            = 0x8022E010; // type:func
+uvSysUnknownStub     = 0x8022E204; // type:func
+uvSetVideoMode       = 0x8022E29C; // type:func
+uvReadController     = 0x8022EA08; // type:func
+_uvDMA               = 0x8022EC00; // type:func
+_uvDebugPrintf       = 0x8022EBE4; // type:func
+_uvAssertMsg         = 0x8022ED2C; // type:func
+
+_uvTerraDraw         = 0x8022EF34; // type:func
+uvComputeLineEndP    = 0x8022F6B8; // type:func
+
+func_802300F0        = 0x8022FFC0; // type:func
+
+uvSprt_80230130      = 0x80230000; // type:func
+uvSprt_802301A4      = 0x80230074; // type:func
+_uvTxtDraw           = 0x802301EC; // type:func
+uvSprtFromBitmap     = 0x80230538; // type:func
+uvSprt_80230750      = 0x80230620; // type:func
+uvSprtFindFree       = 0x80230768; // type:func
+uvSprtInit           = 0x80230824; // type:func
+uvSprtDisplayList    = 0x80230A68; // type:func
+uvSprtDrawAll        = 0x80230C00; // type:func
+uvSprtDraw           = 0x80230CA4; // type:func
+uvSprtSetBlit        = 0x80230D38; // type:func
+uvSprtGetWidth       = 0x80230FF0; // type:func
+uvSprtGetHeight      = 0x8023100C; // type:func
+uvSprtProps          = 0x80231028; // type:func
+uvSprtUpdateUnk      = 0x80231320; // type:func
+uvSprtResetUnk       = 0x80231388; // type:func
+
+uvUserFileRead       = 0x802313A0; // type:func
+
+uvRandSeed           = 0x802314B0; // type:func
+uvRandF_RANLUX       = 0x802314BC; // type:func
+uvRandF_LCG          = 0x80231610; // type:func
+uvAbs                = 0x80231668; // type:func
+uvVec3Len            = 0x80231680; // type:func
+uvVec2Dot            = 0x802316C0; // type:func
+uvVec3Dot            = 0x802316E4; // type:func
+uvVec3Copy           = 0x80231714; // type:func
+uvVec3ScalarProj     = 0x80231730; // type:func
+uvVec3Cross          = 0x80231778; // type:func
+uvVec3Add            = 0x802317D0; // type:func
+uvVec3Mul            = 0x80231804; // type:func
+uvVec3Normal         = 0x80231830; // type:func
+
+// func_80231A10       = 0x80231A10; // type:func use_non_matching_label:False
+// func_80231A1C       = 0x80231A1C; // type:func use_non_matching_label:False
+mio0_decompress      = 0x802318F0; // type:func use_non_matching_label:False
+
+uvDbg_80231AC0       = 0x80231990; // type:func
+uvDbg_80231C10       = 0x80231AE0; // type:func
+uvDbg_80231C9C       = 0x80231B6C; // type:func
+uvDbg_80231F04       = 0x80231DD4; // type:func
+uvDbg_8023217C       = 0x8023204C; // type:func
+uvDbg_802323A8       = 0x80232278; // type:func
+uvDbg_80232554       = 0x80232424; // type:func
+uvDbg_80232738       = 0x80232608; // type:func
+uvDbg_8023286C       = 0x8023273C; // type:func
+uvDbg_80232EBC       = 0x80232D8C; // type:func
+uvDbg_80232ECC       = 0x80232D9C; // type:func
+uvDbg_80233310       = 0x802331E0; // type:func
+uvDbg_802333AC       = 0x8023327C; // type:func
+uvDbg_8023345C       = 0x8023332C; // type:func
+uvDbgCnt             = 0x802333B4; // type:func
+uvDbg_80233590       = 0x80233460; // type:func
+uvDbg_80233810       = 0x802336E0; // type:func
+uvDbg_80233878       = 0x80233748; // type:func
+uvDbg_802338A8       = 0x80233778; // type:func
+uvDbg_802339B0       = 0x80233880; // type:func
+uvDbg_80233A40       = 0x80233910; // type:func
+uvDbg_80233D04       = 0x80233BD4; // type:func
+uvDbg_80233DB8       = 0x80233C88; // type:func
+uvDbg_80233FC8       = 0x80233E98; // type:func
+
+// uvPathPoseLine      = 0x8031EAD0; // type:func
+
+uvMat4Copy                       = 0x80227F58; // type:func
+uvMat4CopyXYZ                    = 0x80227FDC; // type:func
+uvMat4CopyL                      = 0x80228028; // type:func
+uvMat4CopyL2F                    = 0x802280B0; // type:func
+uvMat4CopyF2L                    = 0x80228370; // type:func
+uvMat4SetIdentity                = 0x80228884; // type:func
+uvMat4SetIdentityL               = 0x802288D4; // type:func
+uvMat4Mul                        = 0x80228920; // type:func
+uvMat4MulBA                      = 0x80228D60; // type:func
+uvMat4RotateAxis                 = 0x802291A0; // type:func
+uvMat4LocalTranslate             = 0x80229588; // type:func
+uvMat4Scale                      = 0x802296C8; // type:func
+uvMat4InvertTranslationRotation  = 0x802297A8; // type:func
+uvMat4LocalToWorld               = 0x80229934; // type:func
+uvMat4UnkOp6                     = 0x802299D0; // type:func
+uvMat4SetFrustrum                = 0x80229B40; // type:func
+uvMat4SetOrtho                   = 0x80229C04; // type:func
+uvMat4SetQuaternionRotation      = 0x80229CA8; // type:func
+
+uvSqrtF              = 0x80229DD0; // type:func
+uvSinF               = 0x80229DF0; // type:func
+uvCosF               = 0x80229FB0; // type:func
+uvLength2D           = 0x8022A138; // type:func
+uvLength3D           = 0x8022A16C; // type:func
+uvAtan2F             = 0x8022A1AC; // type:func
+
+// -----------------------------------------------------------------------------
+// uCode Symbols
+// -----------------------------------------------------------------------------
+
+rspbootTextStart         = 0x802453E0; // name_end:rspbootTextEnd
+gspF3DEX_fifoTextStart   = 0x802454B0; // name_end:gspF3DEX_fifoTextEnd
+gspFast3DTextStart       = 0x802468E0; // name_end:gspFast3DTextEnd
+aspMainTextStart         = 0x80247D10; // name_end:aspMainTextEnd
+
+gspF3DEX_fifoDataStart   = 0x8024FA30; // name_end:gspF3DEX_fifoDataEnd
+gspFast3DDataStart       = 0x80250230; // name_end:gspFast3DDataEnd
+aspMainDataStart         = 0x80250A30; // name_end:aspMainDataEnd
+
+// -----------------------------------------------------------------------------
+// Data Symbols
+// -----------------------------------------------------------------------------
+
+gMatrixStackIdx           = 0x8024B100;
+gMatrixStack               = 0x802AA530;
+
+gRandLcgState              = 0x8024B170;
+gRanluxState1              = 0x8024B174;
+gRanluxState2              = 0x8024B178;
+
+gKernelThread              = 0x802B5A48;
+gKernelThreadStack         = 0x802ADFE0;
+
+gRenderThread              = 0x802B5898;
+gRenderThreadStack         = 0x802ABFE0;
+
+gAppThread                 = 0x802B56E8;
+gAppThreadStack            = 0x802AFFE0;
+
+gNmiAsserted               = 0x802ABFD0;
+
+gPiMgrCmdQ                 = 0x802B5690;
+gPiMgrCmdBuf               = 0x802B5670;
+
+gPiDmaQ                    = 0x802B5610;
+gPiDmaBuf                  = 0x802B560C;
+gPiDmaBlockReq             = 0x802B55F8;
+
+gSiContQ                   = 0x802B5638;
+gSiContBuf                 = 0x802B5628;
+gSiContStatus              = 0x802B56A8;
+gSiContPattern             = 0x802B56E4;
+
+gSchedInst                 = 0x802B5BF8;
+gSchedStack                = 0x802B5EF8;
+gSchedRspStatus            = 0x802ABFB9;
+gSchedRdpStatus            = 0x802ABFBA;
+gSchedRingIdx              = 0x802ABFC8;
+// gSchedMsgQ                = 0x802C38E8;
+
+D_8028B400                 = 0x8027D750; // size:0x5280
+gGeomVertexData            = 0x802829D0;
+gGeomVertexToggle          = 0x80288DD4;
+gGeomVertexCount           = 0x80288DD6;
+gGeomVertexPtrs            = 0x80288DD0;
+gGeomFirstTmesh            = 0x80288DD8;
+gGeomFirstPoly             = 0x80288DDA;
+gGeomFirstGrid             = 0x80288DDC;
+
+gGfxUnkPtrs                = 0x80248C80;
+sFontColorR                = 0x80248D14;
+sFontColorG                = 0x80248D18;
+sFontColorB                = 0x80248D1C;
+sFontColorA                = 0x80248D20;
+sFontScaleX                = 0x80248D2C;
+sFontScaleY                = 0x80248D30;
+sFontSprite                = 0x80248CD0; // size:0x44
+sFontCurId                 = 0x80248D34;
+// sFontCurWidth             = 0x80248E88;
+sFontMsgCount              = 0x80248D3C;
+
+gGfxDList1                = 0x80248FF0;
+gGfxDList2                = 0x80249060;
+gGfxGammaEnabled          = 0x8024909C;
+gGfxFbCurrPtr             = 0x802490A0;
+gGfxZBufferEnabled        = 0x802490A4;
+gGfxCullFrontEnabled      = 0x802490A8;
+gGfxCullBackEnabled       = 0x802490AC;
+gGfxSyncNeeded             = 0x802490B0;
+gGfxBeginFlag              = 0x802490B4;
+gGfxFogFactor              = 0x802490B8;
+gGfxFbIndex                = 0x802490BC;
+gGfxFrameCount             = 0x802490C4;
+gGfxMstackIdx              = 0x802490C8;
+gGfxFrameTimeFixed         = 0x802490CC;
+// gGfxCallback              = 0x80249230;
+gGfxTaskOutputBufferStart  = 0x8028ADF8;
+gGfxTaskOutputBufferEnd    = 0x8028ADFC;
+gGfxDisplayListHead        = 0x8028AE00;
+gGfxNumVtxTransforms       = 0x8028AE08;
+gGfxNumTriangles           = 0x8028AE10;
+gGfxNumTxtLoads            = 0x8028AE18;
+gGfxNumMtxLoads            = 0x8028AE20;
+gGfxNumMtxLoadMults        = 0x8028AE28;
+gGfxNumLooks               = 0x8028AE30;
+gGfxLooks                  = 0x8028AE38;
+gGfxStateStackData         = 0x8028B5B8;
+gGfxBoundTexture           = 0x8028B5BC;
+gGfxFbPtrs                 = 0x8028B5C0;
+gGfxDisplayListBase        = 0x8028B5D0;
+gGfxViewports              = 0x8029BC50;
+gGfxViewX0                 = 0x8029BCD0;
+gGfxViewX1                 = 0x8029BCD2;
+gGfxViewY0                 = 0x8029BCD4;
+gGfxViewY1                 = 0x8029BCD6;
+gGfxMstack                 = 0x8029BCD8;
+gGfxLookTransform          = 0x802A6BD8;
+gGfxStateStack             = 0x802A6C18;
+gGfxStateStackIdx          = 0x802A6C98;
+gGfxTaskPtr                = 0x802A6C9C;
+gGfxTasks                  = 0x802A6CA0;
+gGfxYieldData              = 0x802A6D50;
+gGfxDramStack              = 0x802AA130;
+
+gSeqPlayer                 = 0x80248B40;
+gSndPlayer                 = 0x80248B44;
+gSndEmitterTable           = 0x80250D68; // size:0xB000
+gSndVoiceTable             = 0x80261088;
+
+D_80263780                 = 0x802635F0; // size:0x1900
+D_80269B80                 = 0x802699F0; // size:0x12C
+
+gSeqStateTable             = 0x80269DC0; // size:0xF0
+
+sFontBitmaps              = 0x80269EB0; // size:0x190
+sFontDList                = 0x8026A040; // size:0x11AC0
+sFontMessages             = 0x8027BB00; // size:0x8F0
+
+osViModeTable              = 0x8024B680;
+osViModeNtscLan1           = 0x8024C350;
+osViModePalLan1            = 0x8024C3A0;
+
+gUVBlockCounts             = 0x802A7718;
+gUVBlockOffsets            = 0x802A7740; // size:0x1a40
+
+gControllerPattern         = 0x802B7F04;
+gControllerInfo            = 0x802A7660;
+
+gEepromFound               = 0x802B7F00;
+gControllerPads            = 0x802B56C0;
+
+gSprtUnkIndex              = 0x802B8820;
+gSprtUnkTable              = 0x802B8828;
+gSprtTable1                = 0x802B97C8; // size:0xBA0
+
+gLevelData                 = 0x802B3FE8;

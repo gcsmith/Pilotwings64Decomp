@@ -604,7 +604,7 @@ s32 gameUpdateStateResults(Unk80362690* arg0) {
             func_802F56B4(temp_s0->vehicleData, temp_s0->unk78);
             break;
         case VEHICLE_ROCKET_BELT:
-            func_803273C8(temp_s0->vehicleData, temp_s0->unk78);
+            rocketBelt_803273C8(temp_s0->vehicleData, temp_s0->unk78);
             break;
         case VEHICLE_CANNONBALL:
             cannonMovementFrame(temp_s0->vehicleData, arg0->state);
@@ -638,7 +638,7 @@ s32 gameUpdateStateResults(Unk80362690* arg0) {
             func_802F56B4(temp_s0->vehicleData, temp_s0->unk78);
             break;
         case VEHICLE_ROCKET_BELT:
-            func_803273C8(temp_s0->vehicleData, temp_s0->unk78);
+            rocketBelt_803273C8(temp_s0->vehicleData, temp_s0->unk78);
             break;
         case VEHICLE_CANNONBALL:
             cannonMovementFrame(temp_s0->vehicleData, arg0->state);

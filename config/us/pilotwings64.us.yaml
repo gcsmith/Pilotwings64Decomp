@@ -34,7 +34,6 @@ options:
   # auto_link_sections: [".data", ".rodata", ".bss"]
 
   symbol_addrs_path:
-    - config/us/sym/symbol_addrs.txt
     - config/us/sym/symbol_addrs_app.txt
     - config/us/sym/symbol_addrs_kernel.txt
     - config/us/sym/symbol_addrs_libultra.txt

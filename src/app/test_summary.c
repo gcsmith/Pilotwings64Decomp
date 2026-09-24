@@ -47,7 +47,7 @@ u16 D_8034F480[][2] = {
     { BLIT_ID_23, 220 },
     { BLIT_ID_24, 220 },
     { BLIT_ID_25, 220 },
-    { BLIT_ID_2D, 220 },
+    { BLIT_ID_2D, 220 }
 };
 
 // blitId, x offset
@@ -194,6 +194,10 @@ s32 func_8030C61C(void) {
     return ret;
 }
 
+#if defined(VERSION_JP)
+// https://decomp.me/scratch/JzhI1
+#pragma GLOBAL_ASM("asm/nonmatchings/app/test_summary/func_8030C6A0.s")
+#else // VERSION_US
 void func_8030C6A0(void) {
     Unk80362690_Unk0* sp74;
     s16* sp70;
@@ -259,6 +263,7 @@ void func_8030C6A0(void) {
     }
     uvFontGenDlist();
 }
+#endif
 
 void func_8030CB10(void) {
     Camera* camera = D_80362690->unkC[D_80362690->unk9C].unk70;
