@@ -228,6 +228,7 @@ s32 uvFontHeight(void) {
 }
 
 #if defined(VERSION_JP)
+// https://decomp.me/scratch/hniSQ
 #pragma GLOBAL_ASM("asm/nonmatchings/kernel/font/uvFontPrintStr16.s")
 #else // VERSION_US
 // adds str16 to messages using current font settings

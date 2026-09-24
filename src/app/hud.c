@@ -979,6 +979,7 @@ void hudDrawThrottle(s32 x, s32 y, f32 power) {
 }
 
 #if defined(VERSION_JP)
+// https://decomp.me/scratch/Y6Z9F
 #pragma GLOBAL_ASM("asm/nonmatchings/app/hud/hudDrawRadar.s")
 #else // VERSION_US
 void hudDrawRadar(s32 x, s32 y, f32 xOff, f32 yOff, f32 heading, f32 pitch, HUDRadar* radar) {
