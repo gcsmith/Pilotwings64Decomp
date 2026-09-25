@@ -128,10 +128,6 @@ void menuUtilDeinit(void) {
     sMenuUtilItems = NULL;
 }
 
-#if defined(VERSION_JP)
-// https://decomp.me/scratch/haaSh
-#pragma GLOBAL_ASM("asm/nonmatchings/app/menu_utils/menuUtilRender.s")
-#else // VERSION_US
 void menuUtilRender(void) {
     s32 temp_a3;
     s32 var_s1;
@@ -150,15 +146,25 @@ void menuUtilRender(void) {
     uvFontSet(sMenuFont);
     uvFontScale(sMenuScaleX, sMenuScaleY);
     fontHeight = uvFontHeight();
+#if defined(VERSION_JP)
+    halfWidth = (s32)(uvFontWidth("A") * 0.7f);
+    posY = ((sMenuItemCount - sMenuCurSelect) * (fontHeight + 3)) + sMenuPosY + 1;
+#else // VERSION_US
     halfWidth = (s32)(uvFontWidth("A") * 0.5f);
     posY = ((sMenuItemCount - sMenuCurSelect) * (fontHeight + 1)) + sMenuPosY + 5;
+#endif
     uvVtxBeginPoly();
     uvVtx(sMenuPosX, posY, 0, 0, 0, sMenuGfxR, sMenuGfxG, sMenuGfxB, 0xFF);
+#if defined(VERSION_JP)
+    uvVtx(sMenuPosX + halfWidth, posY + (fontHeight / 2), 0, 0, 0, sMenuGfxR, sMenuGfxG, sMenuGfxB, 0xFF);
+    uvVtx(sMenuPosX, posY + fontHeight, 0, 0, 0, sMenuGfxR, sMenuGfxG, sMenuGfxB, 0xFF);
+#else // VERSION_US
     uvVtx(sMenuPosX + halfWidth, posY + ((fontHeight - (4.0f * sMenuScaleY)) / 2), 0, 0, 0, sMenuGfxR, sMenuGfxG, sMenuGfxB, 0xFF);
     uvVtx(sMenuPosX, posY + (fontHeight - (4.0f * sMenuScaleY)), 0, 0, 0, sMenuGfxR, sMenuGfxG, sMenuGfxB, 0xFF);
+#endif
     uvVtxEndPoly();
     uvGfxMtxViewPop();
-    var_s1 = ((fontHeight + 1) * sMenuItemCount) + sMenuPosY;
+    var_s1 = ((fontHeight + 3) * sMenuItemCount) + sMenuPosY;
     for (i = 0; i < sMenuItemCount; i++) {
         if (i == sMenuCurSelect) {
             uvFontColor(sMenuFontSelR, sMenuFontSelG, sMenuFontSelB, 0xFF);
@@ -171,10 +177,13 @@ void menuUtilRender(void) {
         } else {
             uvFontPrintStr(temp_a3, var_s1, sMenuUtilItems[i]);
         }
+#if defined(VERSION_JP)
+        var_s1 -= fontHeight + 3;
+#else // VERSION_US
         var_s1 -= fontHeight + 1;
+#endif
     }
 }
-#endif
 
 s32 menuUtilGetCurItem(void) {
     return sMenuCurSelect;
