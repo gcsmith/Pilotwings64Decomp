@@ -550,10 +550,6 @@ void bird_802CFF74(BirdmanData* bmData) {
     }
 }
 
-#if defined(VERSION_JP)
-// https://decomp.me/scratch/G8dzk
-#pragma GLOBAL_ASM("asm/nonmatchings/app/birdman2/bird_802D0080.s")
-#else // VERSION_US
 void bird_802D0080(BirdmanData* bmData) {
     Vec3F sp27C;
     f32 var_fs2;
@@ -566,15 +562,14 @@ void bird_802D0080(BirdmanData* bmData) {
     f32 var_fv1;
     f32 var_fa0;
     s32 sp258;
+#if !defined(VERSION_JP)
     Vec3F sp24C;
+#endif
     Vec3F sp240;
     Vec3F sp234;
     Vec3F sp228;
     Mtx4F sp1E8;
     Unk802D3658_Unk1224 spA4;
-    f32 temp_fv0;
-    f32 temp_fv1;
-    f32 temp_fa0;
 
     for (i = 0; i < 4; i++) {
         bmData->unk140[i] = 0.0f;
@@ -620,19 +615,12 @@ void bird_802D0080(BirdmanData* bmData) {
 #if !defined(VERSION_JP)
                 uvVec3Copy(&sp24C, &bmData->unk200);
                 func_802DC074(&bmData->unk1C0, &bmData->unk200, &bmData->unk218, &temp_s1->unk34, 0.5f);
-                temp_fv0 = ABS_NOEQ(sp24C.x - bmData->unk200.x);
-                if (temp_fv0 < 0.1f) {
-                    temp_fv1 = ABS_NOEQ(sp24C.y - bmData->unk200.y);
-                    if (temp_fv1 < 0.1f) {
-                        temp_fa0 = ABS_NOEQ(sp24C.y - bmData->unk200.z);
-                        if (temp_fa0 < 0.1f) {
-                            bmData->unk200.x += temp_s1->unk34.x;
-                            bmData->unk200.y += temp_s1->unk34.y;
-                            bmData->unk200.z += temp_s1->unk34.z;
-                            uvMat4LocalToWorld(&bmData->unk1C0, &bmData->unk218, &bmData->unk200);
-                            return;
-                        }
-                    }
+                if ((FABS(sp24C.x - bmData->unk200.x) < 0.1f) && (FABS(sp24C.y - bmData->unk200.y) < 0.1f) && (FABS(sp24C.y - bmData->unk200.z) < 0.1f)) {
+                    bmData->unk200.x += temp_s1->unk34.x;
+                    bmData->unk200.y += temp_s1->unk34.y;
+                    bmData->unk200.z += temp_s1->unk34.z;
+                    uvMat4LocalToWorld(&bmData->unk1C0, &bmData->unk218, &bmData->unk200);
+                    return;
                 }
 #endif
                 bmData->unk10.m[3][0] += 0.01f * bmData->unk174.x;
@@ -735,7 +723,6 @@ void bird_802D0080(BirdmanData* bmData) {
         _uvDebugPrintf("birdman: you got stuck - forcing an instant crash\n");
     }
 }
-#endif
 
 f32 bird_802D08F8(Unk8034E824* unkState, f32 arg1, f32 arg2) {
     s32 i;
