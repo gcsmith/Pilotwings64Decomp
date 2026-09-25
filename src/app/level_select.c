@@ -17,7 +17,7 @@
 #include <uv_texture.h>
 #include <uv_vector.h>
 
-f32 D_8036A8C0; // 0x8035D2B0
+f32 D_8036A8C0;
 f32 D_8036A8C4;
 s8 D_8036A8C8;
 s8 D_8036A8C9;

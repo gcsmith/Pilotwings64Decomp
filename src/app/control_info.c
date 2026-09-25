@@ -22,111 +22,130 @@ typedef struct {
 
 STATIC_DATA s32 sControlInfoCount;
 
+// clang-format off
 STATIC_DATA ControlInfoLabel sControlInfoHangGlider[] = {
 #if defined(VERSION_JP)
-    // TODO: (J) blit IDs
-    { 222, 123, 0x41 },
-    { 224, 137, 0x42 },
-    { 243, 153, 0x43 },
-    { 229, 196, 0x44 },
-    { 220, 212, 0x45 },
-    {  63, 194, 0x46 },
-    {  46, 180, 0x47 },
+    { 222, 123, BLIT_J_41 },
+    { 224, 137, BLIT_J_42 },
+    { 243, 153, BLIT_J_43 },
+    { 229, 196, BLIT_J_44 },
+    { 220, 212, BLIT_J_45 },
+    {  63, 194, BLIT_J_46 },
+    {  46, 180, BLIT_J_47 },
 #else  // VERSION_US
     { 223, 108, BLIT_CONT_INFO_FLARE_LANDING },
     { 220, 178, BLIT_CONT_INFO_Z_BUTTON },
     { 221, 196, BLIT_CONT_INFO_SNAP_PHOTO },
-    { 46, 163, BLIT_CONT_INFO_CONTROL_VEHICLE },
+    {  46, 163, BLIT_CONT_INFO_CONTROL_VEHICLE },
 #endif
 };
 
 STATIC_DATA ControlInfoLabel sControlInfoGyrocopter[] = {
 #if defined(VERSION_JP)
-    { 0xED, 0x6B, 0x48 },
-     { 0xEC, 0x7B, 0x4A },
-     { 0xED, 0x93, 0x48 },
-     { 0xED, 0xA3, 0x49 },
-    { 0xC6, 0xC4, 0x44 },
-     { 0xBE, 0xD3, 0x4B },
-     { 0x3F, 0xC2, 0x46 },
-     { 0x2E, 0xB4, 0x47 },
+    { 237, 107, BLIT_J_48 },
+    { 236, 123, BLIT_J_4A },
+    { 237, 147, BLIT_J_48 },
+    { 237, 163, BLIT_J_49 },
+    { 198, 196, BLIT_J_44 },
+    { 190, 211, BLIT_J_4B },
+    {  63, 194, BLIT_J_46 },
+    {  46, 180, BLIT_J_47 },
 #else  // VERSION_US
-    { 227, 98, BLIT_CONT_INFO_INC_THROTTLE },   { 227, 146, BLIT_CONT_INFO_DEC_THROTTLE },   { 193, 179, BLIT_CONT_INFO_Z_BUTTON },
-    { 193, 198, BLIT_CONT_INFO_FIRE_MISSILES }, { 46, 163, BLIT_CONT_INFO_CONTROL_VEHICLE },
+    { 227,  98, BLIT_CONT_INFO_INC_THROTTLE },
+    { 227, 146, BLIT_CONT_INFO_DEC_THROTTLE },
+    { 193, 179, BLIT_CONT_INFO_Z_BUTTON },
+    { 193, 198, BLIT_CONT_INFO_FIRE_MISSILES },
+    {  46, 163, BLIT_CONT_INFO_CONTROL_VEHICLE },
 #endif
 };
 
 STATIC_DATA ControlInfoLabel sControlInfoRocketBelt[] = {
 #if defined(VERSION_JP)
-    { 0xEC, 0x7C, 0x4E },
-     { 0xFC, 0x7C, 0x4D },
-     { 0xFC, 0x9C, 0x4D },
-     { 0xEC, 0x9C, 0x4C },
-    { 0xE5, 0xC4, 0x44 },
-     { 0xDC, 0xD4, 0x4F },
-     { 0x3F, 0xC2, 0x46 },
-     { 0x2E, 0xB4, 0x47 },
+    { 236, 124, BLIT_J_4E },
+    { 252, 124, BLIT_J_4D },
+    { 252, 156, BLIT_J_4D },
+    { 236, 156, BLIT_J_4C },
+    { 229, 196, BLIT_J_44 },
+    { 220, 212, BLIT_J_4F },
+    {  63, 194, BLIT_J_46 },
+    {  46, 180, BLIT_J_47 },
 #else  // VERSION_US
-    { 230, 126, BLIT_CONT_INFO_WEAK_JET },  { 230, 104, BLIT_CONT_INFO_STRONG_JET },     { 216, 167, BLIT_CONT_INFO_Z_BUTTON },
-    { 216, 185, BLIT_CONT_INFO_AIR_BRAKE }, { 46, 163, BLIT_CONT_INFO_CONTROL_VEHICLE },
+    { 230, 126, BLIT_CONT_INFO_WEAK_JET },
+    { 230, 104, BLIT_CONT_INFO_STRONG_JET },
+    { 216, 167, BLIT_CONT_INFO_Z_BUTTON },
+    { 216, 185, BLIT_CONT_INFO_AIR_BRAKE },
+    {  46, 163, BLIT_CONT_INFO_CONTROL_VEHICLE },
 #endif
 };
 
 STATIC_DATA ControlInfoLabel sControlInfoCannonball[] = {
 #if defined(VERSION_JP)
-    { 0xEB, 0x86, 0x50 },
-    { 0x3D, 0xC4, 0x52 },
-    { 0x1C, 0xB4, 0x51 },
+    { 235, 134, BLIT_J_50 },
+    {  61, 196, BLIT_J_52 },
+    {  28, 180, BLIT_J_51 },
 #else  // VERSION_US
     { 251, 104, BLIT_CONT_INFO_FIRE },
-    { 38, 179, BLIT_CONT_INFO_ADJUST_FIRE },
+    {  38, 179, BLIT_CONT_INFO_ADJUST_FIRE },
 #endif
 };
 
 STATIC_DATA ControlInfoLabel sControlInfoSkydiving[] = {
 #if defined(VERSION_JP)
-    { 0xDE, 0x7B, 0x41 },
-     { 0xE0, 0x89, 0x42 },
-     { 0xF3, 0x99, 0x43 },
-     { 0xDC, 0xC3, 0x53 },
-    { 0xDD, 0xD3, 0x54 },
-     { 0x3C, 0xD4, 0x55 },
-     { 0x3C, 0xC0, 0x56 },
-     { 0x4C, 0xAC, 0x57 },
+    { 222, 123, BLIT_J_41 },
+    { 224, 137, BLIT_J_42 },
+    { 243, 153, BLIT_J_43 },
+    { 220, 195, BLIT_J_53 },
+    { 221, 211, BLIT_J_54 },
+    {  60, 212, BLIT_J_55 },
+    {  60, 192, BLIT_J_56 },
+    {  76, 172, BLIT_J_57 },
 #else  // VERSION_US
-    { 223, 106, BLIT_CONT_INFO_FLARE },       { 218, 161, BLIT_CONT_INFO_OPEN_CHUTE },     { 59, 200, BLIT_CONT_INFO_TILT_BACKWARD },
-    { 59, 180, BLIT_CONT_INFO_TILT_FORWARD }, { 59, 159, BLIT_CONT_INFO_TURN_LEFT_RIGHT }, { 30, 159, BLIT_CONT_INFO_LEFT_RIGHT_ARROWS },
-    { 38, 180, BLIT_CONT_INFO_UP_ARROW },     { 38, 201, BLIT_CONT_INFO_DOWN_ARROW },
+    { 223, 106, BLIT_CONT_INFO_FLARE },
+    { 218, 161, BLIT_CONT_INFO_OPEN_CHUTE },
+    {  59, 200, BLIT_CONT_INFO_TILT_BACKWARD },
+    {  59, 180, BLIT_CONT_INFO_TILT_FORWARD },
+    {  59, 159, BLIT_CONT_INFO_TURN_LEFT_RIGHT },
+    {  30, 159, BLIT_CONT_INFO_LEFT_RIGHT_ARROWS },
+    {  38, 180, BLIT_CONT_INFO_UP_ARROW },
+    {  38, 201, BLIT_CONT_INFO_DOWN_ARROW },
 #endif
 };
 
 STATIC_DATA ControlInfoLabel sControlInfoJumbleHopper[] = {
 #if defined(VERSION_JP)
-    { 0x3D, 0xD3, 0x58 },
-     { 0xDD, 0x93, 0x58 },
-     { 0x4D, 0xAB, 0x58 },
-     { 0x4D, 0xBE, 0x59 },
-     { 0x7D, 0xD4, 0x5A },
+    {  61, 211, BLIT_J_58 },
+    { 221, 147, BLIT_J_58 },
+    {  77, 171, BLIT_J_58 },
+    {  77, 190, BLIT_J_59 },
+    { 125, 212, BLIT_J_5A },
 #else  // VERSION_US
-    { 222, 104, BLIT_CONT_INFO_CHANGE_JUMP_ALTITUDE }, { 59, 179, BLIT_CONT_INFO_ADJUST_LEFT_RIGHT }, { 59, 198, BLIT_CONT_INFO_ADJUST_JUMP_ANGLES },
-    { 27, 179, BLIT_CONT_INFO_LEFT_RIGHT_ARROWS },     { 35, 195, BLIT_CONT_INFO_UP_ARROW },          { 35, 208, BLIT_CONT_INFO_DOWN_ARROW },
+    { 222, 104, BLIT_CONT_INFO_CHANGE_JUMP_ALTITUDE },
+    {  59, 179, BLIT_CONT_INFO_ADJUST_LEFT_RIGHT },
+    {  59, 198, BLIT_CONT_INFO_ADJUST_JUMP_ANGLES },
+    {  27, 179, BLIT_CONT_INFO_LEFT_RIGHT_ARROWS },
+    {  35, 195, BLIT_CONT_INFO_UP_ARROW },
+    {  35, 208, BLIT_CONT_INFO_DOWN_ARROW },
 #endif
 };
 
 STATIC_DATA ControlInfoLabel sControlInfoBirdman[] = {
 #if defined(VERSION_JP)
-    { 0xDE, 0x74, 0x5B },
-     { 0xDC, 0x8B, 0x4F },
-     { 0xE0, 0x99, 0x5C },
-     { 0xE5, 0xC4, 0x44 },
-     { 0xDC, 0xD4, 0x45 },
-     { 0x3F, 0xC2, 0x46 },
-     { 0x2E, 0xB4, 0x47 },
+    { 222, 116, BLIT_J_5B },
+    { 220, 139, BLIT_J_4F },
+    { 224, 153, BLIT_J_5C },
+    { 229, 196, BLIT_J_44 },
+    { 220, 212, BLIT_J_45 },
+    {  63, 194, BLIT_J_46 },
+    {  46, 180, BLIT_J_47 },
 #else  // VERSION_US
-    { 228, 99, BLIT_CONT_INFO_FLAP_WINGS },  { 228, 131, BLIT_CONT_INFO_BRAKE_HOVER },    { 220, 178, BLIT_CONT_INFO_Z_BUTTON },
-    { 220, 196, BLIT_CONT_INFO_SNAP_PHOTO }, { 46, 163, BLIT_CONT_INFO_CONTROL_VEHICLE },
+    { 228,  99, BLIT_CONT_INFO_FLAP_WINGS },
+    { 228, 131, BLIT_CONT_INFO_BRAKE_HOVER },
+    { 220, 178, BLIT_CONT_INFO_Z_BUTTON },
+    { 220, 196, BLIT_CONT_INFO_SNAP_PHOTO },
+    {  46, 163, BLIT_CONT_INFO_CONTROL_VEHICLE },
 #endif
 };
+// clang-format on
 
 STATIC_DATA ControlInfoLabelGroup sControlInfoVeh[] = {
     {   ARRAY_COUNT(sControlInfoHangGlider),   sControlInfoHangGlider },
@@ -156,11 +175,19 @@ typedef struct {
     Unk80341584_unk4* unk4;
 } Unk80341584;
 
-Unk80341584_unk4 D_80341524[] = { 0x01, 0x001E, 0xAA, 0x0151, 0x000B, 0x000B, 0x03, 0x002B, 0xAA, 0x0151, 0x000B, 0x000B,
-                                  0x00, 0x001E, 0xBE, 0x0151, 0x000B, 0x000B, 0x02, 0x001E, 0xD2, 0x0151, 0x000B, 0x000B };
+Unk80341584_unk4 D_80341524[] = {
+    { 0x1, 0x1E, 0xAA, 0x151, 0xB, 0xB },
+    { 0x3, 0x2B, 0xAA, 0x151, 0xB, 0xB },
+    { 0x0, 0x1E, 0xBE, 0x151, 0xB, 0xB },
+    { 0x2, 0x1E, 0xD2, 0x151, 0xB, 0xB }
+};
 
-Unk80341584_unk4 D_80341554[] = { 0x01, 0x001E, 0xAA, 0x0151, 0x000B, 0x000B, 0x03, 0x002E, 0xAA, 0x0151, 0x000B, 0x000B,
-                                  0x00, 0x001E, 0xCC, 0x0151, 0x000B, 0x000B, 0x02, 0x001E, 0xD9, 0x0151, 0x000B, 0x000B };
+Unk80341584_unk4 D_80341554[] = {
+    { 0x1, 0x1E, 0xAA, 0x151, 0xB, 0xB },
+    { 0x3, 0x2E, 0xAA, 0x151, 0xB, 0xB },
+    { 0x0, 0x1E, 0xCC, 0x151, 0xB, 0xB },
+    { 0x2, 0x1E, 0xD9, 0x151, 0xB, 0xB }
+};
 
 Unk80341584 D_80341584[] = {
     { 0x00,       NULL },
@@ -407,28 +434,28 @@ void contInfo_802CF0CC(s32 arg0) {
         temp_fs0 = (SCREEN_HEIGHT - temp_s1->unk4);
         switch (temp_s1->unk0) {
         case 0:
-            uvVtx(temp_s1->unk2, temp_fs0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
-            uvVtx(temp_s1->unk2 + temp_s1->unk8, temp_fs0, 0, temp_s1->unk8 << 5, 0, 0xFF, 0xFF, 0xFF, 0xFF);
-            uvVtx(temp_s1->unk2 + temp_s1->unk8, (temp_s1->unkA + temp_fs0), 0, temp_s1->unk8 << 5, temp_s1->unkA << 5, 0xFF, 0xFF, 0xFF, 0xFF);
-            uvVtx(temp_s1->unk2, (temp_s1->unkA + temp_fs0), 0, 0, temp_s1->unkA << 5, 0xFF, 0xFF, 0xFF, 0xFF);
+            uvVtx(temp_s1->unk2, temp_fs0, 0, 0, 0, 255, 255, 255, 255);
+            uvVtx(temp_s1->unk2 + temp_s1->unk8, temp_fs0, 0, temp_s1->unk8 << 5, 0, 255, 255, 255, 255);
+            uvVtx(temp_s1->unk2 + temp_s1->unk8, (temp_s1->unkA + temp_fs0), 0, temp_s1->unk8 << 5, temp_s1->unkA << 5, 255, 255, 255, 255);
+            uvVtx(temp_s1->unk2, (temp_s1->unkA + temp_fs0), 0, 0, temp_s1->unkA << 5, 255, 255, 255, 255);
             break;
         case 1:
-            uvVtx(temp_s1->unk2, temp_fs0, 0, 0, temp_s1->unk8 << 5, 0xFF, 0xFF, 0xFF, 0xFF);
-            uvVtx(temp_s1->unk2 + temp_s1->unkA, temp_fs0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
-            uvVtx(temp_s1->unk2 + temp_s1->unkA, (temp_s1->unk8 + temp_fs0), 0, temp_s1->unkA << 5, 0, 0xFF, 0xFF, 0xFF, 0xFF);
-            uvVtx(temp_s1->unk2, (temp_s1->unk8 + temp_fs0), 0, temp_s1->unkA << 5, temp_s1->unk8 << 5, 0xFF, 0xFF, 0xFF, 0xFF);
+            uvVtx(temp_s1->unk2, temp_fs0, 0, 0, temp_s1->unk8 << 5, 255, 255, 255, 255);
+            uvVtx(temp_s1->unk2 + temp_s1->unkA, temp_fs0, 0, 0, 0, 255, 255, 255, 255);
+            uvVtx(temp_s1->unk2 + temp_s1->unkA, (temp_s1->unk8 + temp_fs0), 0, temp_s1->unkA << 5, 0, 255, 255, 255, 255);
+            uvVtx(temp_s1->unk2, (temp_s1->unk8 + temp_fs0), 0, temp_s1->unkA << 5, temp_s1->unk8 << 5, 255, 255, 255, 255);
             break;
         case 2:
-            uvVtx(temp_s1->unk2, temp_fs0, 0, 0, temp_s1->unkA << 5, 0xFF, 0xFF, 0xFF, 0xFF);
-            uvVtx(temp_s1->unk2 + temp_s1->unk8, temp_fs0, 0, temp_s1->unk8 << 5, temp_s1->unkA << 5, 0xFF, 0xFF, 0xFF, 0xFF);
-            uvVtx(temp_s1->unk2 + temp_s1->unk8, (temp_s1->unk8 + temp_fs0), 0, temp_s1->unk8 << 5, 0, 0xFF, 0xFF, 0xFF, 0xFF);
-            uvVtx(temp_s1->unk2, (temp_s1->unk8 + temp_fs0), 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+            uvVtx(temp_s1->unk2, temp_fs0, 0, 0, temp_s1->unkA << 5, 255, 255, 255, 255);
+            uvVtx(temp_s1->unk2 + temp_s1->unk8, temp_fs0, 0, temp_s1->unk8 << 5, temp_s1->unkA << 5, 255, 255, 255, 255);
+            uvVtx(temp_s1->unk2 + temp_s1->unk8, (temp_s1->unk8 + temp_fs0), 0, temp_s1->unk8 << 5, 0, 255, 255, 255, 255);
+            uvVtx(temp_s1->unk2, (temp_s1->unk8 + temp_fs0), 0, 0, 0, 255, 255, 255, 255);
             break;
         case 3:
-            uvVtx(temp_s1->unk2, temp_fs0, 0, 0, 0, 0xFF, 0xFF, 0xFF, 0xFF);
-            uvVtx(temp_s1->unk2 + temp_s1->unkA, temp_fs0, 0, 0, temp_s1->unk8 << 5, 0xFF, 0xFF, 0xFF, 0xFF);
-            uvVtx(temp_s1->unk2 + temp_s1->unkA, (temp_s1->unk8 + temp_fs0), 0, temp_s1->unkA << 5, temp_s1->unk8 << 5, 0xFF, 0xFF, 0xFF, 0xFF);
-            uvVtx(temp_s1->unk2, (temp_s1->unk8 + temp_fs0), 0, temp_s1->unkA << 5, 0, 0xFF, 0xFF, 0xFF, 0xFF);
+            uvVtx(temp_s1->unk2, temp_fs0, 0, 0, 0, 255, 255, 255, 255);
+            uvVtx(temp_s1->unk2 + temp_s1->unkA, temp_fs0, 0, 0, temp_s1->unk8 << 5, 255, 255, 255, 255);
+            uvVtx(temp_s1->unk2 + temp_s1->unkA, (temp_s1->unk8 + temp_fs0), 0, temp_s1->unkA << 5, temp_s1->unk8 << 5, 255, 255, 255, 255);
+            uvVtx(temp_s1->unk2, (temp_s1->unk8 + temp_fs0), 0, temp_s1->unkA << 5, 0, 255, 255, 255, 255);
             break;
         }
         uvVtxEndPoly();

@@ -168,7 +168,7 @@ void fountainSetInterval(f32 interval) {
     if (sFountainObjId != 0xFFFF) {
 #if defined(VERSION_JP)
         sFountainScale = interval;
-#else
+#else // VERSION_US
         sFountainScale = interval * 0.7f;
 #endif
         fountainUpdatePose();

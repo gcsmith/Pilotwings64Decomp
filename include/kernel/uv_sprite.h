@@ -6,7 +6,7 @@
 #include <PR/sp.h>
 
 enum SpriteBlitId {
-#if defined(VERSION_JP) // TODO: JP blit IDs
+#if defined(VERSION_JP)
     BLIT_ID_04                          = 0x09,
     BLIT_ID_05                          = 0x0A,
     BLIT_ID_06                          = 0x0B,
@@ -35,6 +35,34 @@ enum SpriteBlitId {
     BLIT_ID_2B                          = 0x31,
     BLIT_ID_2C                          = 0x32,
     BLIT_ID_2D                          = 0x33,
+    BLIT_J_41                           = 0x41,
+    BLIT_J_42                           = 0x42,
+    BLIT_J_43                           = 0x43,
+    BLIT_J_44                           = 0x44,
+    BLIT_J_45                           = 0x45,
+    BLIT_J_46                           = 0x46,
+    BLIT_J_47                           = 0x47,
+    BLIT_J_48                           = 0x48,
+    BLIT_J_49                           = 0x49,
+    BLIT_J_4A                           = 0x4A,
+    BLIT_J_4B                           = 0x4B,
+    BLIT_J_4C                           = 0x4C,
+    BLIT_J_4D                           = 0x4D,
+    BLIT_J_4E                           = 0x4E,
+    BLIT_J_4F                           = 0x4F,
+    BLIT_J_50                           = 0x50,
+    BLIT_J_51                           = 0x51,
+    BLIT_J_52                           = 0x52,
+    BLIT_J_53                           = 0x53,
+    BLIT_J_54                           = 0x54,
+    BLIT_J_55                           = 0x55,
+    BLIT_J_56                           = 0x56,
+    BLIT_J_57                           = 0x57,
+    BLIT_J_58                           = 0x58,
+    BLIT_J_59                           = 0x59,
+    BLIT_J_5A                           = 0x5A,
+    BLIT_J_5B                           = 0x5B,
+    BLIT_J_5C                           = 0x5C,
     BLIT_N64_CONTROLLER_INFOGRAPHIC     = 0x5D, // N64 controller infographic
     BLIT_ID_3D                          = 0x5F,
     BLIT_ID_3E                          = 0x60,
@@ -51,59 +79,6 @@ enum SpriteBlitId {
     BLIT_ID_49                          = 0x6B,
     BLIT_ID_4A                          = 0x6C,
     BLIT_ID_4B                          = 0x6D,
-
-    BLIT_ID_09                          = 0x09,
-    BLIT_ID_0A                          = 0x0A,
-    BLIT_TEST_MENU_TOP_SCORE            = 0x0D, // "Top Score" box title
-    BLIT_TEST_MENU_BUTTON_START         = 0x0E, // "Start" button
-    BLIT_TEST_MENU_BUTTON_SCORING       = 0x0F, // "Scoring" button
-    BLIT_TEST_MENU_BUTTON_VIEW_MAP      = 0x10, // "View map" button
-    BLIT_TEST_MENU_BUTTON_CONTROL       = 0x11, // "Control" button
-    BLIT_TEST_MENU_BUTTON_HINT          = 0x12, // "Hint" button
-    BLIT_TEST_MENU_BUTTON_SAMPLE_PHOTO  = 0x13, // "Sample photo" button
-    BLIT_TEST_MENU_BUTTON_RETURN        = 0x14, // "Return" button
-    BLIT_TEST_MENU_TEST_TITLE           = 0x15, // "TEST" box title
-    BLIT_ID_1E                          = 0x1E,
-    BLIT_WAYPOINT_CURRENT_POSITION      = 0x2E, // "Current position"
-    BLIT_WAYPOINT_LANDING_POINT         = 0x2F, // "Landing point"
-    BLIT_WAYPOINT_RUNWAY                = 0x30, // "Runway"
-    BLIT_WAYPOINT_TARGET                = 0x31, // "Target"
-    BLIT_WAYPOINT_MECHA_HAWK            = 0x32, // "Mecha Hawk"
-    BLIT_WAYPOINT_GOAL                  = 0x33, // "Goal"
-    BLIT_WAYPOINT_WHALE                 = 0x34, // "Whale"
-    BLIT_WAYPOINT_SPACE_SHUTTLE         = 0x35, // "Space shuttle"
-    BLIT_WAYPOINT_PASSENGER_BOAT        = 0x36, // "Passenger boat"
-    BLIT_WAYPOINT_FOUNTAIN              = 0x37, // "Fountain"
-    BLIT_WAYPOINT_FLAME                 = 0x38, // "Flame"
-    BLIT_WAYPOINT_MISSI_THE_MONSTER     = 0x39, // "Missi the Monster"
-    BLIT_WAYPOINT_NEXT_JP               = 0x3A, // Japanese "next goal"
-    BLIT_TEST_MENU_BUTTON_VIEW_DEMO     = 0x3C, // "View demo" button
-    BLIT_WAYPOINT_NEXT                  = 0x4C, // "Next" waypoint for next ring / hover pad
-    BLIT_CONT_INFO_FLARE_LANDING        = 0x4D, // "Flare (use for air brake or landing)"
-    BLIT_CONT_INFO_Z_BUTTON             = 0x4E, // "( [Z] )" button callout
-    BLIT_CONT_INFO_SNAP_PHOTO           = 0x4F, // "Snap photo"
-    BLIT_CONT_INFO_CONTROL_VEHICLE      = 0x50, // "Control the vehicle"
-    BLIT_CONT_INFO_DEC_THROTTLE         = 0x51, // "Decrease throttle setting"
-    BLIT_CONT_INFO_INC_THROTTLE         = 0x52, // "Increase throttle setting"
-    BLIT_CONT_INFO_FIRE_MISSILES        = 0x53, // "Fire missiles"
-    BLIT_CONT_INFO_WEAK_JET             = 0x54, // "Weak jet"
-    BLIT_CONT_INFO_STRONG_JET           = 0x55, // "Strong jet"
-    BLIT_CONT_INFO_AIR_BRAKE            = 0x56, // "Air brake / Hover"
-    BLIT_CONT_INFO_FIRE                 = 0x57, // "Fire"
-    BLIT_CONT_INFO_ADJUST_FIRE          = 0x58, // "Adjust fire angle & Move cannon left / right"
-    BLIT_CONT_INFO_FLARE                = 0x59, // "Flare (Use for air brake)"
-    BLIT_CONT_INFO_OPEN_CHUTE           = 0x5A, // "Open chute"
-    BLIT_CONT_INFO_TILT_BACKWARD        = 0x5B, // "Tilt backward"
-    BLIT_CONT_INFO_TILT_FORWARD         = 0x5C, // "Tilt forward"
-    BLIT_CONT_INFO_TURN_LEFT_RIGHT      = 0x5D, // "Turn left / right"
-    BLIT_CONT_INFO_LEFT_RIGHT_ARROWS    = 0x5E, // "<- ->"
-    BLIT_CONT_INFO_UP_ARROW             = 0x5F, // "↑"
-    BLIT_CONT_INFO_DOWN_ARROW           = 0x60, // "↓"
-    BLIT_CONT_INFO_CHANGE_JUMP_ALTITUDE = 0x61, // "Change the altitude of jump"
-    BLIT_CONT_INFO_ADJUST_LEFT_RIGHT    = 0x62, // "Adjust left and right directions"
-    BLIT_CONT_INFO_ADJUST_JUMP_ANGLES   = 0x63, // "Adjust angles for jumping
-    BLIT_CONT_INFO_FLAP_WINGS           = 0x64, // "Flap the wings"
-    BLIT_CONT_INFO_BRAKE_HOVER          = 0x65, // "Brake / Hover"
 #else
     BLIT_ID_04                          = 0x04,
     BLIT_ID_05                          = 0x05,

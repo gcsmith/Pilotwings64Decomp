@@ -97,13 +97,13 @@ void fileMenu_802E8AF0(void) {
             temp_s2 = levelGetTotalPoints(temp_s6, k, j);
             temp_v0 = func_8032BE8C(temp_s6, k, j);
             if ((temp_s2 >= gMedalPointRequirements[k].gold) && (temp_v0 != 0)) {
-                texId = TEXTURE_GOLD_MEDAL; // gold medal sprite
+                texId = TEXTURE_GOLD_MEDAL;
             } else if ((temp_s2 >= gMedalPointRequirements[k].silver) && (temp_v0 != 0)) {
-                texId = TEXTURE_SILVER_MEDAL; // silver medal sprite
+                texId = TEXTURE_SILVER_MEDAL;
             } else if ((temp_s2 >= gMedalPointRequirements[k].bronze) && (temp_v0 != 0)) {
-                texId = TEXTURE_BRONZE_MEDAL; // bronze medal sprite
+                texId = TEXTURE_BRONZE_MEDAL;
             } else {
-                texId = TEXTURE_NO_MEDAL; // no medal sprite
+                texId = TEXTURE_NO_MEDAL;
             }
             uvSprtProps(k * 3 + j, SPRT_PROP_TEX_ID(texId), SPRT_PROP_END);
         }
