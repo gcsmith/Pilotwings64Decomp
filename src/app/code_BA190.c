@@ -216,10 +216,6 @@ void func_80333384(SkyDivingData* sdData) {
     sdData->unk160.z = func_80313AF4(var_fs0, sdData->unk160.z, 3.0f);
 }
 
-#if defined(VERSION_JP)
-// https://decomp.me/scratch/f2pMX
-#pragma GLOBAL_ASM("asm/nonmatchings/app/code_BA190/func_803335D0.s")
-#else // VERSION_US
 s32 func_803335D0(SkyDivingData* sdData) {
     f32 sp6C;
     f32 temp_fv0;
@@ -244,7 +240,9 @@ s32 func_803335D0(SkyDivingData* sdData) {
     sp4C.y = sdData->unk10.m[3][1];
     sp4C.z = sdData->unk10.m[3][2];
     sdData->unkBC = 1000000.0f;
+#if !defined(VERSION_JP)
     sp6C = 0.0f;
+#endif
     sp43 = db_getgnd(&sdData->unk230, &sp4C, &sdData->unk23C, &sp58, &sp6C, &sp5C);
 
     temp_fv0 = sp4C.z - sp6C;
@@ -295,4 +293,3 @@ s32 func_803335D0(SkyDivingData* sdData) {
     }
     return 1;
 }
-#endif
