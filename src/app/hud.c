@@ -978,10 +978,6 @@ void hudDrawThrottle(s32 x, s32 y, f32 power) {
     uvGfxMtxViewPop();
 }
 
-#if defined(VERSION_JP)
-// https://decomp.me/scratch/Y6Z9F
-#pragma GLOBAL_ASM("asm/nonmatchings/app/hud/hudDrawRadar.s")
-#else // VERSION_US
 void hudDrawRadar(s32 x, s32 y, f32 xOff, f32 yOff, f32 heading, f32 pitch, HUDRadar* radar) {
     Mtx4F sp108;
     Mtx4F spC8;
@@ -1169,7 +1165,11 @@ void hudDrawRadar(s32 x, s32 y, f32 xOff, f32 yOff, f32 heading, f32 pitch, HUDR
 
     D_8036D224++;
     if (D_8036D224 > 0xFD) {
+#if defined(VERSION_JP)
+        D_8036D224 = 0;
+#else // VERSION_US
         D_8036D224 = 1;
+#endif
     }
 
     for (i = 0; i < 10; i++) {
@@ -1236,7 +1236,6 @@ void hudDrawRadar(s32 x, s32 y, f32 xOff, f32 yOff, f32 heading, f32 pitch, HUDR
     uvSprtDraw(0);
     uvGfxMtxViewPop();
 }
-#endif
 
 void hudDemoContButton(s32 spriteId, s32 x, s32 y) {
     uvSprtProps(spriteId, SPRT_PROP_POS(x + 20, 200 - y), SPRT_PROP_END);
