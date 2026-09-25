@@ -521,10 +521,6 @@ void func_80329628(RocketBeltData* rbData) {
     rbData->unk204.z += rbData->unk314 * sp28.z;
 }
 
-#if defined(VERSION_JP)
-// https://decomp.me/scratch/AsbPb
-#pragma GLOBAL_ASM("asm/nonmatchings/app/rocket_belt/func_8032975C.s")
-#else // VERSION_US
 void func_8032975C(RocketBeltData* rbData) {
     Vec3F sp2AC;
     Vec3F sp2A0;
@@ -538,8 +534,7 @@ void func_8032975C(RocketBeltData* rbData) {
     s32 pad;
     u8 sp27F;
     u8 sp27E;
-    u8 sp27D;
-    u8 sp27C;
+    u8 sp27C[2];
     s32 sp278;
     s32 sp274;
     f32 temp_fv1;
@@ -552,7 +547,7 @@ void func_8032975C(RocketBeltData* rbData) {
     Mtx4F sp200;
     Unk802D3658_Unk1224 spBC;
 
-    sp27C = sp27D = 0;
+    sp27C[0] = sp27C[1] = 0;
     sp278 = -1;
     for (i = 0; i < 4; i++) {
         rbData->unkCC[i] = 0.0f;
@@ -619,10 +614,10 @@ void func_8032975C(RocketBeltData* rbData) {
                 sp274 = windObjIsLoadedId(var_s1->surfaceId);
                 if (sp274 == 0) {
                     sp278 = hoverPadGetLandedIdx(var_s1->surfaceId, rbData->unk1F4);
-                    if ((sp278 < 0) && (sp27C == 0) && (sp274 == 0)) {
+                    if ((sp278 < 0) && (sp27C[0] == 0) && (sp274 == 0)) {
                         sp29C = sp298 = ballsPopped(var_s1->surfaceId, &rbData->unk1E8, &D_80371738);
                         if (sp29C != 0.0f) {
-                            sp27C++;
+                            sp27C[0]++;
                             break;
                         }
                         return;
@@ -644,11 +639,11 @@ void func_8032975C(RocketBeltData* rbData) {
                 if (D_8037187C == 0) {
                     rbData->unk91 = var_s1->collisionType;
                 }
-                if (sp27C) {
+                if (sp27C[0]) {
                     rbData->unk91 = 0;
                 }
 
-                if ((ABS_NOEQ(sp294) > 21.8f) && (sp27C == 0)) {
+                if ((ABS_NOEQ(sp294) > 21.8f) && (sp27C[0] == 0)) {
                     rbData->unk90 = 2;
                     rbData->unk91 = 0;
                 }
@@ -656,7 +651,7 @@ void func_8032975C(RocketBeltData* rbData) {
             }
             rbData->unk64 = func_8032BE10()->unk3D;
             if (ABS_NOEQ(rbData->unk214.x) > 0.11f) {
-                sp27D = 1;
+                sp27C[1] = 1;
             }
             if (sp294 > 21.8f) {
                 rbData->unk90 = 2;
@@ -673,7 +668,7 @@ void func_8032975C(RocketBeltData* rbData) {
                     sp29C = 0.4f;
                     sp298 = 1.0f;
                 } else {
-                    if (sp27D != 0) {
+                    if (sp27C[1] != 0) {
                         sp29C = 0.2f;
                         sp298 = 0.5f;
                         if (rbData->unk78 <= 0.0f) {
@@ -700,7 +695,7 @@ void func_8032975C(RocketBeltData* rbData) {
                 rbData->unk4 &= ~4;
                 sp298 = 1.0f;
                 sp29C = 0.4f;
-            } else if (sp27D != 0) {
+            } else if (sp27C[1] != 0) {
                 sp29C = 0.2f;
                 sp298 = 0.0f;
                 if (rbData->unk78 <= 0.0f) {
@@ -710,7 +705,11 @@ void func_8032975C(RocketBeltData* rbData) {
                     rbData->unk91 = var_s1->collisionType;
                     sp29C = 0.10f;
                 }
+#if defined(VERSION_JP)
+                if ((rbData->unkF8 <= 0.0f) && (rbData->unkE9 != 0)) {
+#else
                 if ((rbData->unkF8 <= 0.0f) && (rbData->unkE9 != 0) && (rbData->unk90 != 2)) {
+#endif
                     sp29C = 0.2f;
                     sp298 = 0.5f;
                     rbData->unk90 = 4;
@@ -842,7 +841,6 @@ void func_8032975C(RocketBeltData* rbData) {
         rbData->unk90 = 0;
     }
 }
-#endif
 
 void func_8032A4A8(RocketBeltData* rbData) {
     f32 var_fs0;
