@@ -225,18 +225,15 @@ s32 uvFontHeight(void) {
     return font->bitmap[1].actualHeight * sFontScaleY;
 }
 
-#if defined(VERSION_JP)
-// https://decomp.me/scratch/hniSQ
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/font/uvFontPrintStr16.s")
-#else // VERSION_US
-// adds str16 to messages using current font settings
 s32 uvFontPrintStr16(s32 x, s32 y, s16* str16, s32 strLen, s32 end) {
-    s32 i16;
+#if !defined(VERSION_JP)
+    s32 endCh = end;
+#endif
     s32 i;
     s32 sp24;
+    s32 i16;
     s32 ret;
     ParsedUVFT* temp_v1;
-    s32 endCh = end;
 
     temp_v1 = gGfxUnkPtrs->fonts[sFontCurId];
 
@@ -250,10 +247,41 @@ s32 uvFontPrintStr16(s32 x, s32 y, s16* str16, s32 strLen, s32 end) {
     sFontMessages[sFontMsgCount].a = sFontColorA;
     sFontMessages[sFontMsgCount].scaleX = sFontScaleX;
     sFontMessages[sFontMsgCount].scaleY = sFontScaleY;
+#if !defined(VERSION_JP)
     sFontMessages[sFontMsgCount].font = gGfxUnkPtrs->fonts[sFontCurId];
+#endif
     if (strLen > FONT_MAX_MSG_LEN) {
         strLen = FONT_MAX_MSG_LEN;
     }
+
+#if defined(VERSION_JP)
+    for (i = 0, sp24 = FALSE; i < strLen; i++) {
+        if (str16[i] == end) {
+            sFontMessages[sFontMsgCount].str16[i] = -1;
+            i++;
+            break;
+        }
+        sFontMessages[sFontMsgCount].str16[i] = str16[i];
+        if (str16[i] == -1) {
+            sp24 = TRUE;
+            break;
+        }
+    }
+
+    if (i == strLen) {
+        sFontMessages[sFontMsgCount].str16[i] = -1;
+    }
+
+    sFontMessages[sFontMsgCount].font = gGfxUnkPtrs->fonts[sFontCurId];
+
+    sFontMsgCount++;
+    if (sp24 != 0) {
+        ret = -1;
+    } else {
+        ret = i;
+    }
+    return ret;
+#else // VERSION_US
     i16 = 0;
     i = 0;
     sp24 = FALSE;
@@ -296,18 +324,20 @@ s32 uvFontPrintStr16(s32 x, s32 y, s16* str16, s32 strLen, s32 end) {
             i++;
         }
     }
+
     if (i16 == strLen) {
         sFontMessages[sFontMsgCount].str16[i] = -1;
     }
+
     sFontMsgCount++;
-    if (sp24) {
+    if (sp24 != 0) {
         ret = -1;
     } else {
         ret = i16;
     }
     return ret;
-}
 #endif
+}
 
 void uvFontPrintStr(s32 x, s32 y, const char* str) {
     char* chrPos;
