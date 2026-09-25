@@ -121,7 +121,7 @@ s32 textFmtInt(s16* dst, s32 val, s32 length) {
 #if defined(VERSION_JP)
         dst[2 - i] = (val % 10);
 #else // VERSION_US
-        dst[2 - i] = (val % 10) + 0x60;
+        dst[2 - i] = (val % 10) + 0x60; // 0x60 offset for bolded font
 #endif
         val /= 10;
     }
@@ -152,7 +152,7 @@ s32 textFmtIntAt(s16* dst, s32 val, s32 length, s32 dstOffset) {
 #if defined(VERSION_JP)
         dst[digits - 1 - i] = (val % 10);
 #else // VERSION_US
-        dst[digits - 1 - i] = (val % 10) + 0x60;
+        dst[digits - 1 - i] = (val % 10) + 0x60; // 0x60 offset for bolded font
 #endif
         val /= 10;
     }

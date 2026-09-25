@@ -398,7 +398,7 @@ s32 func_80343550(void) {
 #if defined(VERSION_JP)
     case 7:
         break;
-#elif defined(VERSION_US)
+#else // VERSION_US
     case 8:
         if (uvClkGetSec(UV_CLKID_APP) >= 1.0) {
             gameState = GAME_STATE_FILE_MENU;

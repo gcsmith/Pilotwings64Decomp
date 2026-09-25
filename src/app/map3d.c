@@ -368,7 +368,7 @@ void map3dLoad(Unk80362690* arg0, s32 arg1) {
 
         if (!D_803507A0) {
             for (i = 0; i < targCount; i++) {
-#if defined(VERSION_US)
+#if !defined(VERSION_JP)
                 if ((arg1) && (sMissileTargets[i].unk46 != 0)) {
                     continue;
                 }
