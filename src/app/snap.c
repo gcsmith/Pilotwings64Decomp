@@ -1786,10 +1786,6 @@ void func_8033DFD0(s32 arg0, Unk80373060* arg1, s32 arg2) {
     func_8033A6B8();
 }
 
-#if defined(VERSION_JP)
-// https://decomp.me/scratch/igj04
-#pragma GLOBAL_ASM("asm/nonmatchings/app/snap/func_8033E3A8.s")
-#else // VERSION_US
 s32 func_8033E3A8(s32 arg0) {
     s32 spC4;
     s32 var_s0;
@@ -1804,17 +1800,23 @@ s32 func_8033E3A8(s32 arg0) {
     Mtx4F sp60;
     Camera* camera;
     s32 renderFlags;
+#if !defined(VERSION_JP)
     u8* ptr;
+#endif
     u16 classIdx;
     u16 vehIdx;
     u16 testIdx;
 
     camera = D_80362690->unkC[D_80362690->unk9C].unk70;
+#if !defined(VERSION_JP)
     ptr = taskGet_80345CB0();
+#endif
     D_80350550 = 0;
+#if !defined(VERSION_JP)
     if ((D_80362690->state != GAME_STATE_OPTIONS) && (ptr[1] == 1)) {
         snowDisable();
     }
+#endif
     if (arg0 == 3) {
         arg0 = 1;
         D_80350594 = 1;
@@ -1898,7 +1900,6 @@ s32 func_8033E3A8(s32 arg0) {
     func_8033FCD0(vehIdx);
     return D_80350550;
 }
-#endif
 
 void func_8033E784(Unk8033F050* arg0, s32 arg1, s32 arg2) {
     if (arg2 != 0) {
