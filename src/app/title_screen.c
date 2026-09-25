@@ -193,7 +193,7 @@ STATIC_FUNC void func_803427FC(void) {
     uvDobjModel(D_80378CE0->unk10, MODEL_PILOTWINGS_LOGO_FOUR);
     uvDobjPosm(D_80378CE0->unk10, 0, &D_80378CE0->unkEC);
     uvDobjState(D_80378CE0->unk10, 2);
-    
+
 #if defined(VERSION_JP)
     menuCreateItems(94, 60, 6, 1.0f, 1.0f, sMainMenuItems, 2);
 #else // VERSION_US

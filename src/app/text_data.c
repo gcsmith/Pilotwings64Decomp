@@ -49,9 +49,9 @@ void textLoadBlock(s32 userFileIdx) {
             if (var_v1 < 0) {
                 var_v1 = 0;
             }
-            
+
             ch = var_v1;
-            for (;ch < (size / 2); ch++) {
+            for (; ch < (size / 2); ch++) {
                 if (sTextData[sTextDataCount][ch] == 0xFFF) {
                     sTextData[sTextDataCount][ch] = -1;
                     break;
