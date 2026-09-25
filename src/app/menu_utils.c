@@ -164,7 +164,11 @@ void menuUtilRender(void) {
 #endif
     uvVtxEndPoly();
     uvGfxMtxViewPop();
+#if defined(VERSION_JP)
     var_s1 = ((fontHeight + 3) * sMenuItemCount) + sMenuPosY;
+#else // VERSION_US
+    var_s1 = ((fontHeight + 1) * sMenuItemCount) + sMenuPosY;
+#endif
     for (i = 0; i < sMenuItemCount; i++) {
         if (i == sMenuCurSelect) {
             uvFontColor(sMenuFontSelR, sMenuFontSelG, sMenuFontSelB, 0xFF);
