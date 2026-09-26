@@ -445,9 +445,31 @@ s32 resultMenuChoose(s32 arg0) {
 }
 
 #if defined(VERSION_JP)
-// https://decomp.me/scratch/0qA3N
-#pragma GLOBAL_ASM("asm/nonmatchings/app/results/resultDrawTally.s")
+#define BOX_X0 44
+#define BOX_X1 268
+#define BOX_Y0 124
+#define BOX_Y1 122
+#define TIP_TEXT_DY 22
+#define X_TOTAL 140
+#define Y_TOTAL 102
+#define Y_TOTAL2 80
+#define Y_START 200
+#define Y_TALLY 124
+#define TIP_STR_LEN 16
 #else // VERSION_US
+#define BOX_X0 36
+#define BOX_X1 272
+#define BOX_Y0 120
+#define BOX_Y1 119
+#define TIP_TEXT_DY 16
+#define X_TOTAL 180
+#define Y_TOTAL 100
+#define Y_TOTAL2 84
+#define Y_START 168
+#define Y_TALLY 116
+#define TIP_STR_LEN 255
+#endif
+
 void resultDrawTally(s32 arg0) {
     Unk80362690_Unk0* unkC;
     s32 alpha;
@@ -476,10 +498,10 @@ void resultDrawTally(s32 arg0) {
     if (!sReplayTipSet && (unkC->veh != VEHICLE_BIRDMAN)) {
         uvVtxBeginPoly();
         alpha = (s32)(255.0f * spAC);
-        uvVtx(36, 120, 0, 0, 0, 0xD2, 0xD2, 0xD2, alpha);
-        uvVtx(36, 119, 0, 0, 0, 0xD2, 0xD2, 0xD2, alpha);
-        uvVtx(272, 119, 0, 0, 0, 0xD2, 0xD2, 0xD2, alpha);
-        uvVtx(272, 120, 0, 0, 0, 0xD2, 0xD2, 0xD2, alpha);
+        uvVtx(BOX_X0, BOX_Y0, 0, 0, 0, 0xD2, 0xD2, 0xD2, alpha);
+        uvVtx(BOX_X0, BOX_Y1, 0, 0, 0, 0xD2, 0xD2, 0xD2, alpha);
+        uvVtx(BOX_X1, BOX_Y1, 0, 0, 0, 0xD2, 0xD2, 0xD2, alpha);
+        uvVtx(BOX_X1, BOX_Y0, 0, 0, 0, 0xD2, 0xD2, 0xD2, alpha);
         uvVtxEndPoly();
     }
     func_803141E4();
@@ -497,14 +519,13 @@ void resultDrawTally(s32 arg0) {
         alpha = (s32)(255.0f * spAC);
         uvFontColor(0xD2, 0xD2, 0xD2, alpha);
         uvFontScale(1.0, 1.0);
-
-        y = sReplayTipSet ? 168 : 180;
+        y = sReplayTipSet ? Y_START : Y_START + 12;
         x = sReplayTipSet ? 44 : 28;
 
         if (sReplayTipText != NULL) {
             do {
-                var_s2 += uvFontPrintStr16(x, y, &sReplayTipText[var_s2], 0xFF, 0xFFE);
-                y -= 16;
+                var_s2 += uvFontPrintStr16(x, y, &sReplayTipText[var_s2], TIP_STR_LEN, 0xFFE);
+                y -= TIP_TEXT_DY;
             } while (sReplayTipText[var_s2] != -1);
         } else {
             _uvDebugPrintf("Null Kanji string in screv screen\n");
@@ -516,25 +537,28 @@ void resultDrawTally(s32 arg0) {
         uvFontColor(0xD2, 0xD2, 0xD2, alpha);
         uvFontScale(1.0, 1.0);
 
-        for (i = 0, y = 116; i < ARRAY_COUNT(sPtsTallyStr); i++, y += 16) {
-            uvFontPrintStr16(180, y, sPtsTallyStr[i], 3, 0xFFE);
+        for (i = 0, y = Y_TALLY; i < ARRAY_COUNT(sPtsTallyStr); i++, y += TIP_TEXT_DY) {
+            uvFontPrintStr16(X_TOTAL, y, sPtsTallyStr[i], 3, 0xFFE);
         }
 
         if ((unkC->veh == VEHICLE_CANNONBALL) || (unkC->veh == VEHICLE_HANG_GLIDER) || (unkC->veh == VEHICLE_SKY_DIVING)) {
-            uvFontPrintStr16(180, 100, sTotalPointsStr, 3, 0xFFE);
-            uvFontPrintStr16(216, 100, sPtsLabelStr, 4, 0xFFE);
+            uvFontPrintStr16(X_TOTAL, Y_TOTAL, sTotalPointsStr, 3, 0xFFE);
+#if !defined(VERSION_JP)
+            uvFontPrintStr16(X_TOTAL + 36, 100, sPtsLabelStr, 4, 0xFFE);
+#endif
         } else {
-            uvFontPrintStr16(180, 84, sTotalPointsStr, 3, 0xFFE);
-            uvFontPrintStr16(216, 84, sPtsLabelStr, 4, 0xFFE);
+            uvFontPrintStr16(X_TOTAL, Y_TOTAL2, sTotalPointsStr, 3, 0xFFE);
+#if !defined(VERSION_JP)
+            uvFontPrintStr16(X_TOTAL + 36, Y_TOTAL2, sPtsLabelStr, 4, 0xFFE);
+#endif
         }
 
         if ((unkC->veh != VEHICLE_CANNONBALL) && (unkC->veh != VEHICLE_HANG_GLIDER) && (unkC->veh != VEHICLE_SKY_DIVING)) {
-            uvFontPrintStr16(180, 100, sPtsDeductedStr, 4, 0xFFE);
+            uvFontPrintStr16(X_TOTAL, Y_TOTAL, sPtsDeductedStr, 4, 0xFFE);
         }
     }
     uvFontGenDlist();
 }
-#endif
 
 void resultGenTipText(s32 veh) {
     s16* text;

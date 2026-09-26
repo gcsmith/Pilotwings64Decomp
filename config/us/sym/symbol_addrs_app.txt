@@ -890,6 +890,10 @@ sTaskUserFileIdxLookup    = 0x803507AC;
 
 sThermShouldDisable       = 0x803507F0;
 
+sStageMedalName           = 0x803508E0; // size:0x50
+sBonusMedalName           = 0x80350930; // size:0x14
+sTestPtsStr               = 0x80350958; // size:0x10
+
 sClassShortNames          = 0x80350988; // size:0x10
 gVehShortNames            = 0x80350998; // size:0x1C
 sCurTestIdx               = 0x803509B4;
@@ -1025,6 +1029,19 @@ sLevelTHER                = 0x8037AB50;
 gThermalCount             = 0x8037AB54;
 gThermals                 = 0x8037AB58; // size:0x180
 gThermReady               = 0x8037ACD8;
+
+sTestPtsStr0              = 0x8037ACE0; // size:0x10
+sTestPtsStr1              = 0x8037ACF0; // size:0x10
+sTestPtsStr2              = 0x8037AD00; // size:0x10
+sTestPtsStr3              = 0x8037AD10; // size:0xC
+sMedalName                = 0x8037AD1C;
+sUnused_8037AD20          = 0x8037AD20;
+sTotalPtsStr              = 0x8037AD28; // size:0xA
+sTotPtUnitStr             = 0x8037AD34;
+D_8037AD38                = 0x8037AD38;
+D_8037AD42                = 0x8037AD42;
+sTestPtUnitStr            = 0x8037AD48; // size:0x10
+sMedalNameCopy            = 0x8037AD58; // size:0x18
 
 sRefLWIN                  = 0x8037F510;
 sLocalWindCount           = 0x8037F514;

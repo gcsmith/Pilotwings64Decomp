@@ -5,10 +5,6 @@
 
 enum TextId {
 #if defined(VERSION_JP)
-    // TODO: does JP have notion of PT or PTS strings?
-    TEXT_PT  = 0x08A,
-    TEXT_PTS = 0x131,
-
     TEXT_P_BD_4_M         = 0x000,
     TEXT_B_BD_3_N         = 0x001,
     TEXT_HG_P1_S2         = 0x002,
