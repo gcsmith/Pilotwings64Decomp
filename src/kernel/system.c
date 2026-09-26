@@ -68,7 +68,7 @@ void func_8020F9F4(void);
 extern s32 gGfxSyncNeeded;
 extern s32 gNmiAsserted;
 
-s32 uvFileWrite(u8* dst, s32 offs, s32 nbytes) {
+s32 uvFileWrite(u8* dst, u32 offs, u32 nbytes) {
     if (gEepromFound == 0) {
         _uvDebugPrintf("uvFileWrite: no eeprom detected\n");
         return 0;
@@ -81,11 +81,11 @@ s32 uvFileWrite(u8* dst, s32 offs, s32 nbytes) {
         _uvDebugPrintf("uvFileWrite: nbytes needs to be a multiple of 8\n");
         return 0;
     }
-    if ((offs + nbytes) > 0x208) {
+    if ((s32)(offs + nbytes) > 0x208) {
         _uvDebugPrintf("uvFileWrite: offs [%d] + nbytes [%d]  > %d bytes\n", offs, nbytes, 0x208);
         return 0;
     }
-    offs /= 8;
+    offs = (s32)offs / 8;
     if (osEepromLongWrite(&gSiContQ, offs, dst, nbytes) != 0) {
         _uvDebugPrintf("uvFileWrite: write error\n");
         return 0;
@@ -93,7 +93,7 @@ s32 uvFileWrite(u8* dst, s32 offs, s32 nbytes) {
     return nbytes;
 }
 
-s32 uvFileRead(void* dst, s32 offs, s32 nbytes) {
+s32 uvFileRead(void* dst, u32 offs, u32 nbytes) {
     if (gEepromFound == 0) {
         _uvDebugPrintf("uvFileRead: no eeprom detected\n");
         return 0;
@@ -106,12 +106,12 @@ s32 uvFileRead(void* dst, s32 offs, s32 nbytes) {
         _uvDebugPrintf("uvFileRead: nbytes needs to be a multiple of 8\n");
         return 0;
     }
-    if (offs + nbytes > 0x208) {
+    if ((s32)(offs + nbytes) > 0x208) {
         // devs used this `uvFileWrite` string, likely from copy-paste mistake
         _uvDebugPrintf("uvFileWrite: offs [%d] + nbytes [%d]  > %d bytes\n", offs, nbytes, 0x208);
         return 0;
     }
-    offs /= 8;
+    offs = (s32)offs / 8;
     if (osEepromLongRead(&gSiContQ, offs, dst, nbytes) != 0) {
         _uvDebugPrintf("uvFileRead: read error\n");
         return 0;

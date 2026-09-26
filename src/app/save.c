@@ -77,8 +77,7 @@ s32 saveFileInit(s32 fileIdx) {
     sSaveFiles[(u32)fileIdx].magic[0] = 'p';
     sSaveFiles[(u32)fileIdx].magic[1] = 'w';
 
-    // cast sizeof to int/u16 to match?
-    return uvFileWrite(sSaveFiles[fileIdx].raw, fileIdx * (int)sizeof(PilotwingsSaveFile), sizeof(PilotwingsSaveFile)) != sizeof(PilotwingsSaveFile);
+    return uvFileWrite(sSaveFiles[fileIdx].raw, fileIdx * sizeof(PilotwingsSaveFile), sizeof(PilotwingsSaveFile)) != sizeof(PilotwingsSaveFile);
 }
 #endif
 
@@ -151,7 +150,7 @@ s32 saveFileWrite(s32 fileIdx) {
     saveFile->raw[0xFF] = sum & 0xFF;
     if (uvMemCmp(saveFile->raw, sSaveFilesMirror[fileIdx].raw, sizeof(saveFile->raw)) != 0) {
         _uvMediaCopy(sSaveFilesMirror[fileIdx].raw, saveFile->raw, sizeof(saveFile->raw));
-        if (uvFileWrite(saveFile->raw, fileIdx * 0x100, sizeof(saveFile->raw)) == 0) {
+        if (uvFileWrite(saveFile->raw, fileIdx * sizeof(PilotwingsSaveFile), sizeof(PilotwingsSaveFile)) == 0) {
             return 0;
         }
     }
@@ -224,9 +223,11 @@ int saveFileHasData(s32 fileIdx) {
 }
 
 #if defined(VERSION_JP)
-// https://decomp.me/scratch/nTviI
-// similar to US version of saveFileInit above
-#pragma GLOBAL_ASM("asm/nonmatchings/app/save/saveFileInit.s")
+s32 saveFileInit(s32 fileIdx) {
+    uvMemSet(sSaveFiles[fileIdx].raw, 0, sizeof(PilotwingsSaveFile));
+    uvFileWrite(sSaveFiles[fileIdx].raw, fileIdx * sizeof(PilotwingsSaveFile), sizeof(PilotwingsSaveFile));
+    return 0;
+}
 #endif
 
 s32 saveFile_802E89D4(s32 fileIdx) {

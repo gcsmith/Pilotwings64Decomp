@@ -214,16 +214,10 @@ u64 uvMemRead(void* vAddr, u32 nbytes) {
 }
 
 void uvMemSet(void* vAddr, u8 value, u32 nbytes) {
-    u32 count;
-    u8* dest;
-
-    count = 0;
-    if (nbytes != 0) {
-        dest = vAddr;
-        do {
-            count += 1;
-            *dest++ = value;
-        } while (count < nbytes);
+    s32 count = 0;
+    u8* dest = vAddr;
+    while (count < nbytes) {
+        dest[count++] = value;
     }
 }
 

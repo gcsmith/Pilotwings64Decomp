@@ -140,10 +140,6 @@ void envSound_802E2904(EnvSoundState* arg0) {
     arg0->flags = 0xFFFFFFC0;
 }
 
-#if defined(VERSION_JP)
-// https://decomp.me/scratch/V1ugW
-#pragma GLOBAL_ASM("asm/nonmatchings/app/env_sound/envSound_802E2A00.s")
-#else // VERSION_US
 void envSound_802E2A00(s32 eventType, void* arg1, s32 eventData) {
     s32 i;
     EnvSoundState* esState;
@@ -186,7 +182,9 @@ void envSound_802E2A00(s32 eventType, void* arg1, s32 eventData) {
         envSound_802E2904(esState);
         break;
     case 24:
+#if !defined(VERSION_JP)
         esState->unk7F8 = 0xFF;
+#endif
         envSound_802E3310(esState);
         break;
     case 13:
@@ -202,7 +200,9 @@ void envSound_802E2A00(s32 eventType, void* arg1, s32 eventData) {
             D_8034EF24 = 1;
             D_8034EF20 = 0;
             D_8034EF28 = 0;
+#if !defined(VERSION_JP)
             esState->unk7F8 = 0xFF;
+#endif
         }
         break;
     case 18:
@@ -396,7 +396,6 @@ void envSound_802E2A00(s32 eventType, void* arg1, s32 eventData) {
         break;
     }
 }
-#endif
 
 void envSound_802E3250(EnvSoundState* arg0) {
     EnvSoundEmitter* var_s0;
