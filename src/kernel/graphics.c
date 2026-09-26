@@ -228,9 +228,6 @@ void uvGfxStateDrawDL(uvGfxState_t* arg0) {
     gGfxNumTriangles[gGfxFbIndex] += arg0->triCount * 2;
 }
 
-#if defined(VERSION_JP)
-#pragma GLOBAL_ASM("asm/nonmatchings/kernel/graphics/uvGfxStateDraw.s")
-#else // VERSION_US
 void uvGfxStateDraw(uvGfxState_t* arg0) {
     u32 clearMode;
     u32 setMode;
@@ -413,11 +410,15 @@ void uvGfxStateDraw(uvGfxState_t* arg0) {
         gGfxStateStackData = var_a3;
     }
     if ((var_a3 & GFX_STATE_FOG) && ((var_a3 & renderMask) == (GFX_STATE_XLU | GFX_STATE_AA | GFX_STATE_ZBUFFER))) {
+#if !defined(VERSION_JP)
         if (textureId == GFX_STATE_TEXTURE_NONE) {
             gDPSetCombineMode(gGfxDisplayListHead++, G_CC_SHADE, G_CC_PASS2);
         } else {
+#endif
             gDPSetCombineMode(gGfxDisplayListHead++, G_CC_MODULATEIDECALA, G_CC_PASS2);
+#if !defined(VERSION_JP)
         }
+#endif
     }
     if (arg0->dlist != NULL) {
         gSPDisplayList(gGfxDisplayListHead++, arg0->dlist);
@@ -426,7 +427,6 @@ void uvGfxStateDraw(uvGfxState_t* arg0) {
         gGfxNumTriangles[gGfxFbIndex] += arg0->triCount;
     }
 }
-#endif
 
 void uvGfxPushMtxUnk(Mtx4F* arg0) {
     Mtx spC8;

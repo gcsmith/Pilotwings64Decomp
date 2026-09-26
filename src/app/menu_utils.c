@@ -59,33 +59,15 @@ void menuUtilCreate(s32 x, s32 y, s32 font, f32 xScale, f32 yScale, char** menuI
     sMenuSoundFlags = MENU_SOUND_CHANGE | MENU_SOUND_BACK | MENU_SOUND_SELECT;
 }
 
-#if defined(VERSION_JP)
-// US reordered this function
-// https://decomp.me/scratch/CqJps
-#pragma GLOBAL_ASM("asm/nonmatchings/app/menu_utils/menuUtilCheckInputs.s")
-#else // VERSION_US
 s32 menuUtilCheckInputs(void) {
     f32 stickY;
     s32 menuItemChanged;
 
     menuItemChanged = FALSE;
     demo_80323020();
-    if (demoButtonPress(D_80362690->unk9C, (sMenuButtonMode == 1) ? START_BUTTON : B_BUTTON)) {
-        if (sMenuSoundFlags & MENU_SOUND_BACK) {
-            sndPlaySfx(SFX_UI_CANCEL);
-            func_8033FB14();
-        }
-        return -1;
-    }
 
-    if (demoButtonPress(D_80362690->unk9C, (sMenuButtonMode == 1) ? A_BUTTON : START_BUTTON | A_BUTTON)) {
-        if (sMenuSoundFlags & MENU_SOUND_SELECT) {
-            sndPlaySfx(SFX_UI_CONFIRM);
-            func_8033FB14();
-        }
-        return sMenuCurSelect;
-    }
-
+// VERSION_US relocated this code block to end of function
+#if defined(VERSION_JP)
     stickY = demoGetInputs(D_80362690->unk9C, INPUT_AXIS_Y);
     sMenuAdj = 0;
     if (FABS(stickY) < 0.75f) {
@@ -115,6 +97,55 @@ s32 menuUtilCheckInputs(void) {
         }
         menuItemChanged = TRUE;
     }
+#endif
+
+    if (demoButtonPress(D_80362690->unk9C, (sMenuButtonMode == 1) ? START_BUTTON : B_BUTTON)) {
+        if (sMenuSoundFlags & MENU_SOUND_BACK) {
+            sndPlaySfx(SFX_UI_CANCEL);
+            func_8033FB14();
+        }
+        return -1;
+    }
+
+    if (demoButtonPress(D_80362690->unk9C, (sMenuButtonMode == 1) ? A_BUTTON : START_BUTTON | A_BUTTON)) {
+        if (sMenuSoundFlags & MENU_SOUND_SELECT) {
+            sndPlaySfx(SFX_UI_CONFIRM);
+            func_8033FB14();
+        }
+        return sMenuCurSelect;
+    }
+
+#if !defined(VERSION_JP)
+    stickY = demoGetInputs(D_80362690->unk9C, INPUT_AXIS_Y);
+    sMenuAdj = 0;
+    if (FABS(stickY) < 0.75f) {
+        sMenuStickCenter = FALSE;
+    } else if (!sMenuStickCenter) {
+        if (stickY > 0.75f) {
+            sMenuAdj = -1;
+            sMenuStickCenter = TRUE;
+        } else if (stickY < -0.75f) {
+            sMenuAdj = 1;
+            sMenuStickCenter = TRUE;
+        }
+    }
+
+    sMenuCurSelect += sMenuAdj;
+    if (sMenuCurSelect < 0) {
+        sMenuCurSelect = sMenuItemCount - 1;
+    }
+    if (sMenuCurSelect >= sMenuItemCount) {
+        sMenuCurSelect = 0;
+    }
+    if (sMenuCurSelect != sMenuPrevSelect) {
+        sMenuPrevSelect = sMenuCurSelect;
+        if (sMenuSoundFlags & MENU_SOUND_CHANGE) {
+            sndPlaySfxVolPitchPan(SFX_UI_MOVE_CHIME, 1.0f, 1.03f, 0);
+            func_8033FB14();
+        }
+        menuItemChanged = TRUE;
+    }
+#endif
 
     if (menuItemChanged) {
         return -3;
@@ -122,7 +153,6 @@ s32 menuUtilCheckInputs(void) {
         return -2;
     }
 }
-#endif
 
 void menuUtilDeinit(void) {
     sMenuUtilItems = NULL;

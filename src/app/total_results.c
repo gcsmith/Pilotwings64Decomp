@@ -126,25 +126,20 @@ s32 totResult_80347150(s32 arg0) {
     return -1;
 }
 
-#if defined(VERSION_JP)
-// https://decomp.me/scratch/sDEmP
-#pragma GLOBAL_ASM("asm/nonmatchings/app/total_results/totResultInit.s")
-#else // VERSION_US
 void totResultInit(void) {
     Unk80362690_Unk0* temp_s4;
     s32 temp_v0;
+    s32 var_s5;
+    u8* var_v1_3;
+    const char* var_a1;
+    s32 var_v1;
+    u8 temp_t5;
+    s32 sp50;
+    Unk80364210* sp4C;
+    s32 i;
 #if !defined(VERSION_JP)
     s32 textId;
 #endif
-    s32 var_s5;
-    const char* var_a1;
-    char* var_v0_2;
-    s32 var_v1;
-    s32 sp50;
-    Unk80364210* sp4C;
-    u8 temp_t5;
-    u8* var_v1_3;
-    s32 i;
 
     temp_s4 = &D_80362690->unkC[D_80362690->unk9C];
     var_s5 = 0;
@@ -198,7 +193,6 @@ void totResultInit(void) {
     sMedalName = textGetDataByName(var_a1);
     totResultCreateMenu();
 }
-#endif
 
 void totResultCreateMenu(void) {
 #if defined(VERSION_JP)
@@ -259,10 +253,6 @@ s32 totResultMenuChoose(void) {
 // Test 2     100 pts
 // ------------------
 // Total      200 pts
-#if defined(VERSION_JP)
-// https://decomp.me/scratch/QrBod
-#pragma GLOBAL_ASM("asm/nonmatchings/app/total_results/totResultDrawTally.s")
-#else // VERSION_US
 #if defined(__clang__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wsometimes-uninitialized"
@@ -270,6 +260,25 @@ s32 totResultMenuChoose(void) {
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
 #endif
+
+#if defined(VERSION_JP)
+#define LINE_HEIGHT 2
+#define MEDAL_Y_START 212
+#define MEDAL_DY 22
+#define MEDAL_STR_LEN 17
+#define TEST_X0 172
+#define TEST_Y0 80
+#define CANNONBALL_Y0 102
+#else // VERSION_US
+#define LINE_HEIGHT 1
+#define MEDAL_Y_START 180
+#define MEDAL_DY 16
+#define MEDAL_STR_LEN 255
+#define TEST_X0 202
+#define TEST_Y0 100
+#define CANNONBALL_Y0 116
+#endif
+
 void totResultDrawTally(void) {
     Unk80362690_Unk0* sp6C;
     s32 len;
@@ -292,16 +301,22 @@ void totResultDrawTally(void) {
     uvVtx(320, 240, 0, 0, 0, 0x00, 0x00, 0x00, 0x78);
     uvVtxEndPoly();
 
+#if defined(VERSION_JP)
+    x1 = 44;
+    x2 = 268;
+    y = 102;
+#else // VERSION_US
     x1 = 34;
     x2 = 272;
     y = 120;
+#endif
 #if !defined(VERSION_JP)
     uvGfxClearFlags(0x400000);
 #endif
     uvVtxBeginPoly();
     uvVtx(x1, y, 0, 0, 0, 0xD2, 0xD2, 0xD2, 0xFF);
-    uvVtx(x1, y - 1, 0, 0, 0, 0xD2, 0xD2, 0xD2, 0xFF);
-    uvVtx(x2, y - 1, 0, 0, 0, 0xD2, 0xD2, 0xD2, 0xFF);
+    uvVtx(x1, y - LINE_HEIGHT, 0, 0, 0, 0xD2, 0xD2, 0xD2, 0xFF);
+    uvVtx(x2, y - LINE_HEIGHT, 0, 0, 0, 0xD2, 0xD2, 0xD2, 0xFF);
     uvVtx(x2, y, 0, 0, 0, 0xD2, 0xD2, 0xD2, 0xFF);
     uvVtxEndPoly();
 
@@ -310,41 +325,45 @@ void totResultDrawTally(void) {
     uvFontColor(0xD2, 0xD2, 0xD2, 0xFF);
     uvFontScale(1.0, 1.0);
 
-    y = 180;
+    y = MEDAL_Y_START;
     if (sMedalName != NULL) {
         do {
-            len = uvFontPrintStr16(28, y, &sMedalName[offset], 0xFF, 0xFFE);
+            len = uvFontPrintStr16(28, y, &sMedalName[offset], MEDAL_STR_LEN, 0xFFE);
             offset += len;
-            y -= 16;
+            y -= MEDAL_DY;
         } while (sMedalName[offset] != -1);
     } else {
         _uvDebugPrintf("Missing or bad kanji string in level total, %s\n", sMedalNameCopy);
     }
 
     if (sp6C->veh == VEHICLE_CANNONBALL) {
-        uvFontPrintStr16(202, 116, sTotalPtsStr, 3, 0xFFE);
+        uvFontPrintStr16(TEST_X0, CANNONBALL_Y0, sTotalPtsStr, 3, 0xFFE);
 #if !defined(VERSION_JP)
-        uvFontPrintStr16(236, 116, sTotPtUnitStr, 4, 0xFFE);
+        uvFontPrintStr16(TEST_X0 + 34, CANNONBALL_Y0, sTotPtUnitStr, 4, 0xFFE);
 #endif
     } else {
         numTests = taskGetTestCount(sp6C->cls, sp6C->veh);
         for (i = 0; i < numTests; i++) {
-            y = ((numTests * 16) + 100) - 16 * i;
-            uvFontPrintStr16(202, y, sTestPtsStr[i], 3, 0xFFE);
+            y = ((numTests * MEDAL_DY) + TEST_Y0) - MEDAL_DY * i;
+            uvFontPrintStr16(TEST_X0, y, sTestPtsStr[i], 3, 0xFFE);
 #if !defined(VERSION_JP)
-            uvFontPrintStr16(236, y, sTestPtUnitStr[i], 4, 0xFFE);
+            uvFontPrintStr16(TEST_X0 + 34, y, sTestPtUnitStr[i], 4, 0xFFE);
 #endif
         }
     }
 
     if ((numTests != 1) && (sp6C->veh != VEHICLE_CANNONBALL)) {
-        uvFontPrintStr16(202, 100, sTotalPtsStr, 3, 0xFFE);
+        uvFontPrintStr16(TEST_X0, TEST_Y0, sTotalPtsStr, 3, 0xFFE);
 #if !defined(VERSION_JP)
-        uvFontPrintStr16(236, 100, sTotPtUnitStr, 4, 0xFFE);
+        uvFontPrintStr16(TEST_X0 + 34, TEST_Y0, sTotPtUnitStr, 4, 0xFFE);
 #endif
     }
     if (D_8037AD42 != 4) {
+#if defined(VERSION_JP)
+        uvFontPrintStr16(92, 36, D_8037AD38, 3, 0xFFE);
+#else // VERSION_US
         uvFontPrintStr16(128, 68, D_8037AD38, 3, 0xFFE);
+#endif
     }
     menuRender();
     uvFontGenDlist();
@@ -352,4 +371,3 @@ void totResultDrawTally(void) {
 #if defined(__GNUC__) || defined(__clang__)
 #pragma GCC diagnostic pop
 #endif
-#endif // VERSION_JP
