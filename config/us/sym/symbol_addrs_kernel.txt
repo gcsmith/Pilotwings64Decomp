@@ -7,7 +7,6 @@
 entrypoint          = 0x80200050; // type:func use_non_matching_label:False
 bootproc            = 0x8022E440; // type:func
 
-Thread_Audio        = 0x80203DD0; // type:func
 Thread_Render       = 0x8022E874; // type:func
 Thread_App          = 0x8022E920; // type:func
 Thread_Kernel       = 0x8022E980; // type:func
@@ -91,7 +90,7 @@ uvDobjAllocIdx      = 0x8021731C; // type:func
 uvDobjInit          = 0x80217398; // type:func
 _uvDobjsDraw        = 0x8021744C; // type:func
 uvDobj_8021771C     = 0x8021771C; // type:func
-uvDobj_80217AB4     = 0x80217AB4; // type:func
+uvDobjGetLODIndex   = 0x80217AB4; // type:func
 uvDobj_80217B34     = 0x80217B34; // type:func
 uvDobj_80217B4C     = 0x80217B4C; // type:func
 uvDobj_80217E24     = 0x80217E24; // type:func
@@ -214,7 +213,7 @@ _uvScLogCpuEvent    = 0x8022BEC4; // type:func
 _uvScLogIntoRing    = 0x8022C268; // type:func
 
 uvSobjsDraw         = 0x8022C4E0; // type:func
-uvSobj_8022C7B8     = 0x8022C7B8; // type:func
+uvSobjGetLODIndex   = 0x8022C7B8; // type:func
 uvSobj_8022C8D0     = 0x8022C8D0; // type:func
 uvSobj_8022CC28     = 0x8022CC28; // type:func
 uvSobjLoadTerra     = 0x8022CEF8; // type:func
@@ -365,8 +364,6 @@ uvDbg_80233D04      = 0x80233D04; // type:func
 uvDbg_80233DB8      = 0x80233DB8; // type:func
 uvDbg_80233FC8      = 0x80233FC8; // type:func
 
-uvPathPoseLine      = 0x8031EAD0; // type:func
-
 uvMat4Copy                      = 0x80228028; // type:func
 uvMat4CopyXYZ                   = 0x802280AC; // type:func
 uvMat4CopyL                     = 0x802280F8; // type:func
@@ -445,7 +442,6 @@ gSchedStack               = 0x802C3BA8;
 gSchedRspStatus           = 0x802B9C69;
 gSchedRdpStatus           = 0x802B9C6A;
 gSchedRingIdx             = 0x802B9C78;
-gSchedMsgQ                = 0x802C38E8;
 
 D_8028B400                = 0x8028B400; // size:0x5280
 gGeomVertexData           = 0x80290680;

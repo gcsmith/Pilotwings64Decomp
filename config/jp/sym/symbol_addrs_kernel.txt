@@ -7,7 +7,6 @@
 entrypoint           = 0x80200050; // type:func use_non_matching_label:False
 bootproc             = 0x8022E30C; // type:func
 
-// Thread_Audio        = 0x80203DD0; // type:func
 Thread_Render        = 0x8022E740; // type:func
 Thread_App           = 0x8022E7F0; // type:func
 Thread_Kernel        = 0x8022E850; // type:func
@@ -104,7 +103,7 @@ uvDobjAllocIdx       = 0x8021731C; // type:func
 uvDobjInit           = 0x80217398; // type:func
 _uvDobjsDraw         = 0x8021744C; // type:func
 uvDobj_8021771C      = 0x8021771C; // type:func
-// uvDobj_80217AB4     = 0x80217AB4; // type:func
+uvDobjGetLODIndex    = 0x80217AB4; // type:func
 uvDobj_80217B34      = 0x80217B34; // type:func
 uvDobj_80217B4C      = 0x80217B4C; // type:func
 uvDobj_80217E24      = 0x80217E24; // type:func
@@ -123,16 +122,16 @@ uvParseTopUVFT        = 0x80219270; // type:func
 uvFontSet             = 0x802194D8; // type:func
 uvFontScale           = 0x80219550; // type:func
 uvFontColor           = 0x8021956C; // type:func
-// uvFontStrLen         = 0x802195A0; // type:func
-// uvFontStr16WidthFont = 0x802195DC; // type:func
+uvFontStrLen          = 0x802195A0; // type:func
+uvFontStr16WidthFont  = 0x802195DC; // type:func
 uvFontStr16Width      = 0x802196B0; // type:func
-// uvFontStrWidth       = 0x802196EC; // type:func
+uvFontStrWidth        = 0x802196EC; // type:func
 uvFontWidth           = 0x802197EC; // type:func
 uvFontHeight          = 0x80219828; // type:func
 uvFontPrintStr16      = 0x80219874; // type:func
 uvFontPrintStr        = 0x80219A1C; // type:func
-// uvFontSpriteWidth    = 0x80219CC0; // type:func
-// uvFontMsgGenDlist    = 0x80219DA4; // type:func
+uvFontSpriteWidth     = 0x80219C30; // type:func
+uvFontMsgGenDlist     = 0x80219D14; // type:func
 uvFontGenDlist        = 0x80219E18; // type:func
 
 uvFxProps            = 0x8021A4C0; // type:func
@@ -231,7 +230,7 @@ _uvScLogCpuEvent     = 0x8022BDF4; // type:func
 _uvScLogIntoRing     = 0x8022C198; // type:func
 
 uvSobjsDraw          = 0x8022C410; // type:func
-// uvSobj_8022C7B8     = 0x8022C7B8; // type:func
+uvSobjGetLODIndex    = 0x8022C6E8; // type:func
 uvSobj_8022C8D0      = 0x8022C800; // type:func
 uvSobj_8022CC28      = 0x8022CB58; // type:func
 uvSobjLoadTerra      = 0x8022CE28; // type:func
@@ -356,8 +355,8 @@ uvVec3Add            = 0x802317D0; // type:func
 uvVec3Mul            = 0x80231804; // type:func
 uvVec3Normal         = 0x80231830; // type:func
 
-// func_80231A10       = 0x80231A10; // type:func use_non_matching_label:False
-// func_80231A1C       = 0x80231A1C; // type:func use_non_matching_label:False
+func_80231A10        = 0x802318E0; // type:func use_non_matching_label:False
+func_80231A1C        = 0x802318EC; // type:func use_non_matching_label:False
 mio0_decompress      = 0x802318F0; // type:func use_non_matching_label:False
 
 uvDbg_80231AC0       = 0x80231990; // type:func
@@ -384,8 +383,6 @@ uvDbg_80233A40       = 0x80233910; // type:func
 uvDbg_80233D04       = 0x80233BD4; // type:func
 uvDbg_80233DB8       = 0x80233C88; // type:func
 uvDbg_80233FC8       = 0x80233E98; // type:func
-
-// uvPathPoseLine      = 0x8031EAD0; // type:func
 
 uvMat4Copy                       = 0x80227F58; // type:func
 uvMat4CopyXYZ                    = 0x80227FDC; // type:func
@@ -430,7 +427,7 @@ aspMainDataStart         = 0x80250A30; // name_end:aspMainDataEnd
 // Data Symbols
 // -----------------------------------------------------------------------------
 
-gMatrixStackIdx           = 0x8024B100;
+gMatrixStackIdx            = 0x8024B100;
 gMatrixStack               = 0x802AA530;
 
 gRandLcgState              = 0x8024B170;
@@ -465,7 +462,6 @@ gSchedStack                = 0x802B5EF8;
 gSchedRspStatus            = 0x802ABFB9;
 gSchedRdpStatus            = 0x802ABFBA;
 gSchedRingIdx              = 0x802ABFC8;
-// gSchedMsgQ                = 0x802C38E8;
 
 D_8028B400                 = 0x8027D750; // size:0x5280
 gGeomVertexData            = 0x802829D0;
@@ -485,16 +481,16 @@ sFontScaleX                = 0x80248D2C;
 sFontScaleY                = 0x80248D30;
 sFontSprite                = 0x80248CD0; // size:0x44
 sFontCurId                 = 0x80248D34;
-// sFontCurWidth             = 0x80248E88;
+sFontCurWidth              = 0x80248D38;
 sFontMsgCount              = 0x80248D3C;
 
-gGfxDList1                = 0x80248FF0;
-gGfxDList2                = 0x80249060;
-gGfxGammaEnabled          = 0x8024909C;
-gGfxFbCurrPtr             = 0x802490A0;
-gGfxZBufferEnabled        = 0x802490A4;
-gGfxCullFrontEnabled      = 0x802490A8;
-gGfxCullBackEnabled       = 0x802490AC;
+gGfxDList1                 = 0x80248FF0;
+gGfxDList2                 = 0x80249060;
+gGfxGammaEnabled           = 0x8024909C;
+gGfxFbCurrPtr              = 0x802490A0;
+gGfxZBufferEnabled         = 0x802490A4;
+gGfxCullFrontEnabled       = 0x802490A8;
+gGfxCullBackEnabled        = 0x802490AC;
 gGfxSyncNeeded             = 0x802490B0;
 gGfxBeginFlag              = 0x802490B4;
 gGfxFogFactor              = 0x802490B8;
@@ -502,7 +498,7 @@ gGfxFbIndex                = 0x802490BC;
 gGfxFrameCount             = 0x802490C4;
 gGfxMstackIdx              = 0x802490C8;
 gGfxFrameTimeFixed         = 0x802490CC;
-// gGfxCallback              = 0x80249230;
+gGfxCallback               = 0x802490E0;
 gGfxTaskOutputBufferStart  = 0x8028ADF8;
 gGfxTaskOutputBufferEnd    = 0x8028ADFC;
 gGfxDisplayListHead        = 0x8028AE00;
@@ -541,9 +537,9 @@ D_80269B80                 = 0x802699F0; // size:0x12C
 
 gSeqStateTable             = 0x80269DC0; // size:0xF0
 
-sFontBitmaps              = 0x80269EB0; // size:0x190
-sFontDList                = 0x8026A040; // size:0x11AC0
-sFontMessages             = 0x8027BB00; // size:0x8F0
+sFontBitmaps               = 0x80269EB0; // size:0x190
+sFontDList                 = 0x8026A040; // size:0x11AC0
+sFontMessages              = 0x8027BB00; // size:0x8F0
 
 osViModeTable              = 0x8024B680;
 osViModeNtscLan1           = 0x8024C350;
