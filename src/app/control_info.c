@@ -339,7 +339,7 @@ s16 D_80341778[] = { 0x3A, 0xA6, 0x3F, 0xA6, 0x44, 0xA6, 0x2D, 0xBA, 0x32, 0xBA,
 
 s16 D_803417A4[] = { 0x3D, 0xA6, 0x42, 0xA6, 0x47, 0xA6, 0x2D, 0xCE, 0x32, 0xCE, 0x37, 0xCE, -1 };
 
-void* D_803417C0[] = { D_80341768, NULL, NULL, D_80341770, D_80341778, D_803417A4, NULL, NULL };
+s16* D_803417C0[] = { D_80341768, NULL, NULL, D_80341770, D_80341778, D_803417A4, NULL, NULL };
 #endif
 
 // forward declarations
@@ -416,8 +416,15 @@ s32 contInfoUpdate(void) {
 }
 
 #if defined(VERSION_JP)
-// https://decomp.me/scratch/HJdgY
-#pragma GLOBAL_ASM("asm/nonmatchings/app/control_info/contInfo_802CEFA8.s")
+void contInfo_802CEFA8(s32 x, s32 y) {
+    y = SCREEN_HEIGHT - y;
+    uvVtxBeginPoly();
+    uvVtx(x, y, 0, 0, 0, 200, 200, 200, 255);
+    uvVtx(x + 2, y, 0, 0, 0, 200, 200, 200, 255);
+    uvVtx(x + 2, y + 2, 0, 0, 0, 200, 200, 200, 255);
+    uvVtx(x, y + 2, 0, 0, 0, 200, 200, 200, 255);
+    uvVtxEndPoly();
+}
 
 void contInfo_802CF0CC(s32 arg0) {
     Unk80341584_unk4* temp_s1;
@@ -463,10 +470,27 @@ void contInfo_802CF0CC(s32 arg0) {
     }
 }
 
-// https://decomp.me/scratch/99x3U
-#pragma GLOBAL_ASM("asm/nonmatchings/app/control_info/contInfo_802CF758.s")
-void contInfo_802CF758(void*);
-#endif
+void contInfo_802CF758(s16* pointList) {
+    s32 pointCount;
+    s16 x;
+    s16 y;
+
+    pointCount = 0;
+    while (1) {
+        x = *pointList++;
+        if (x < 0) {
+            break;
+        }
+        y = *pointList++;
+        contInfo_802CEFA8(x, y);
+        pointCount++;
+        if (pointCount == 21) {
+            _uvDebugPrintf("Point list > 20 points encountered, probably missing -1 at end of list\n");
+            break;
+        }
+    }
+}
+#endif // VERSON_JP
 
 void contInfoDrawLineSeg(s32 x0, s32 y0, s32 x1, s32 y1) {
     f32 x_off, ux, uy, angle, length, y_off;
