@@ -475,22 +475,17 @@ void contInfo_802CF758(s16* pointList) {
     s16 x;
     s16 y;
 
-    pointCount = 0;
-    while (1) {
+    for (pointCount = 0; pointCount <= 20; pointCount++) {
         x = *pointList++;
         if (x < 0) {
-            break;
+            return;
         }
         y = *pointList++;
         contInfo_802CEFA8(x, y);
-        pointCount++;
-        if (pointCount == 21) {
-            _uvDebugPrintf("Point list > 20 points encountered, probably missing -1 at end of list\n");
-            break;
-        }
     }
+    _uvDebugPrintf("Point list > 20 points encountered, probably missing -1 at end of list\n");
 }
-#endif // VERSON_JP
+#endif // VERSION_JP
 
 void contInfoDrawLineSeg(s32 x0, s32 y0, s32 x1, s32 y1) {
     f32 x_off, ux, uy, angle, length, y_off;
