@@ -472,10 +472,10 @@ void map3dLoad(Unk80362690* arg0, s32 arg1) {
             objId = sMapObjects[sMapObjectCount] = uvDobjAllocIdx();
             uvDobjModel(objId, MODEL_GREEN_BLUE_GOAL_0);
             uvMat4SetIdentity(&sp148);
-            sp148.m[0][0] = btgtRef[i].unk10;
-            sp148.m[1][1] = btgtRef[i].unk10;
-            sp148.m[2][2] = btgtRef[i].unk14;
-            uvDobjProps(objId, 3, MAX(btgtRef[i].unk10, btgtRef[i].unk14), 0);
+            sp148.m[0][0] = btgtRef[i].radius;
+            sp148.m[1][1] = btgtRef[i].radius;
+            sp148.m[2][2] = btgtRef[i].height;
+            uvDobjProps(objId, 3, MAX(btgtRef[i].radius, btgtRef[i].height), 0);
             uvMat4Scale(&sp148, sMapGlobalScale, sMapGlobalScale, sMapGlobalScale);
             sp148.m[3][0] = btgtRef[i].pos.x * sMapGlobalScale;
             sp148.m[3][1] = btgtRef[i].pos.y * sMapGlobalScale;
@@ -483,7 +483,7 @@ void map3dLoad(Unk80362690* arg0, s32 arg1) {
             uvDobjPosm(objId, 0, &sp148);
             if (arg1) {
                 map3dAddItem(BLIT_WAYPOINT_GOAL, btgtRef[i].pos.x * sMapGlobalScale, btgtRef[i].pos.y * sMapGlobalScale,
-                             (btgtRef[i].pos.z + btgtRef[i].unk14) * sMapGlobalScale);
+                             (btgtRef[i].pos.z + btgtRef[i].height) * sMapGlobalScale);
             }
             sMapObjectCount++;
             if (sMapObjectCount >= ARRAY_COUNT(sMapObjects)) {

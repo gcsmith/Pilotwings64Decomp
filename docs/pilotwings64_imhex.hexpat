@@ -623,11 +623,11 @@ struct TaskBALS {
 
 struct TaskBTGT {
     Vec3F pos;
-    s32 unkC;
-    f32 unk10;
-    f32 unk14;
+    s32 terrainId;
+    f32 radius;
+    f32 height;
     u8 unk18;
-    u8 unk19;
+    u8 goalPoints;
     padding[2];
 } [[static]]; // size = 0x1C (padded to 0x20 in FS)
 

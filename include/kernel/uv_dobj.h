@@ -6,6 +6,8 @@
 #include <uv_matrix.h>
 #include <uv_sched.h>
 
+#define OBJ_INVALID 0xFFFF
+
 enum Models {
     MODEL_HOLIDAY_ISLAND_LOW_POLY                           = 0x000, // 0xe5138
     MODEL_WHITE_SAIL_BOAT_WITH_RED_LOGO                     = 0x001,
@@ -426,4 +428,3 @@ void uvDobj_80217E24(Unk80263780*, ParsedUVMD*, u8, f32, f32);
 void uvDobj_802180DC(s32, Unk80371120*);
 
 #endif // PILOTWINGS64_UV_DOBJ_H
-

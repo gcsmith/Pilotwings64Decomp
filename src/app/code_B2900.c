@@ -46,7 +46,7 @@ void func_8032B3D0(Unk80364210* arg0) {
                 var_s0 = &arg0->unk40[classIdx].unk0[testIdx][vehIdx];
                 var_s0->unk2C = 0x7F;
                 var_s0->unk24 = 0;
-                var_s0->unk22 = var_s0->unk24;
+                var_s0->ballTgtScore = var_s0->unk24;
                 var_s0->unk2E = var_s0->unk24;
                 var_s0->unk1A = var_s0->unk24;
                 var_s0->unk16 = var_s0->unk24;
@@ -208,9 +208,9 @@ s32 func_8032B560(Unk80364210* arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
     if (arg0->unk0 & 0x8000) {
         temp_v1->unk20 = falco_802E5818();
     }
-    temp_v1->unk22 = 0;
+    temp_v1->ballTgtScore = 0;
     if (arg0->unk0 & 0x10000) {
-        temp_v1->unk22 = ballTgtCount_59();
+        temp_v1->ballTgtScore = ballTgtGetScore();
     }
     temp_v1->unk24 = 0;
     if (arg0->unk0 & 0x20000) {
@@ -218,7 +218,7 @@ s32 func_8032B560(Unk80364210* arg0, u8 classIdx, u8 testIdx, u8 vehIdx) {
     }
 
     sp6A = temp_v1->unk8 + temp_v1->unk14 + temp_v1->unkC + temp_v1->unkA + temp_v1->unkE + temp_v1->unk12 + temp_v1->unk18 + temp_v1->unk16 + temp_v1->unk6 +
-           temp_v1->unk1A + temp_v1->unk1C + temp_v1->unk1E + temp_v1->unk20 + temp_v1->unk22 + temp_v1->unk24 + arg0->unk38;
+           temp_v1->unk1A + temp_v1->unk1C + temp_v1->unk1E + temp_v1->unk20 + temp_v1->ballTgtScore + temp_v1->unk24 + arg0->unk38;
     if (arg0->landedDist != 10000.0f) {
         temp_v1->unk4 = (sp64 * sp60) + 0.5f;
         temp_v1->unk2 = 0;
@@ -312,7 +312,7 @@ STATIC_FUNC u8 func_8032BF54(void) {
         return 0;
     }
     return (ringsGetCleared() != taskGetRNGS((TaskRNGS**)&tmp) || targets_803448F4() != taskGetTARG((TaskTARG**)&tmp) || ballsGetAllPopped() == 0 ||
-            hoverPadGetCount() != taskGetHPAD((TaskHPAD**)&tmp) || falco_802E57C4() != D_8035A5F0 || ballTgtCount_5B() != taskGetBTGT((TaskBTGT**)&tmp) ||
+            hoverPadGetCount() != taskGetHPAD((TaskHPAD**)&tmp) || falco_802E57C4() != D_8035A5F0 || ballTgtGetGoalCount() != taskGetBTGT((TaskBTGT**)&tmp) ||
             func_802FB5A0() != taskGetHOPD((TaskHOPD**)&tmp));
 }
 
@@ -328,7 +328,7 @@ u8 func_8032C080(s32* arg0) {
         }
         return 0;
     }
-    var_v1 = sp2C->unk3C4 - (ballTgtCount_5B() + (falco_802E57C4() + (hoverPadGetCount() + (targets_803448F4() + (ringsGetCleared() + func_802FB5A0())))));
+    var_v1 = sp2C->unk3C4 - (ballTgtGetGoalCount() + (falco_802E57C4() + (hoverPadGetCount() + (targets_803448F4() + (ringsGetCleared() + func_802FB5A0())))));
     if (var_v1 < 0) {
         var_v1 = 0;
     }

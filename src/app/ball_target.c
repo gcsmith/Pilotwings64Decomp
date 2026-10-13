@@ -6,23 +6,24 @@
 #include <uv_vector.h>
 #include "balls.h"
 #include "ball_target.h"
+#include "macros.h"
 #include "snd.h"
 #include "task.h"
 
+#define BALL_ID_NONE 0xFF
+
 typedef struct {
     u16 objId;
-    u8 pad2[0x2];
-    Vec3F unk4;
-    Mtx4F unk10;
-    f32 unk50;
-    f32 unk54;
+    Vec3F position;
+    Mtx4F pose;
+    f32 radius;
+    f32 height;
     u8 unk58;
-    u8 unk59;
-    u8 unk5A;
-    u8 unk5B;
-    u8 unk5C;
-    u8 unk5D;
-    u8 pad5E[0x60 - 0x5E];
+    u8 goalPoints;
+    u8 ballIdInGoal;
+    u8 isBallInGoal;
+    u8 goalInitialized;
+    u8 goalInTerra;
 } BallTarget;
 
 STATIC_DATA TaskBTGT* sRefBTGT;
@@ -32,57 +33,57 @@ STATIC_DATA BallTarget sBallTgts[5];
 void ballTgtInit(void) {
     s32 i;
     for (i = 0; i < ARRAY_COUNT(sBallTgts); i++) {
-        sBallTgts[i].objId = 0xFFFF;
-        sBallTgts[i].unk5B = 0x00;
-        sBallTgts[i].unk5C = 0x00;
-        sBallTgts[i].unk5A = 0xFF;
+        sBallTgts[i].objId = OBJ_INVALID;
+        sBallTgts[i].isBallInGoal = FALSE;
+        sBallTgts[i].goalInitialized = FALSE;
+        sBallTgts[i].ballIdInGoal = BALL_ID_NONE;
     }
 }
 
 void ballTgtUpdateState(void) {
-    BallTarget* var_s0;
+    BallTarget* target;
     s32 i;
 
     for (i = 0; i < sBallTgtCount; i++) {
-        var_s0 = &sBallTgts[i];
-        if (D_80362690->unkC[D_80362690->unk9C].unk8 == sRefBTGT[i].unkC) {
-            var_s0->unk5D = 1;
-            if (var_s0->objId != 0xFFFF) {
-                uvDobjSetState(var_s0->objId, 0x2);
+        target = &sBallTgts[i];
+        if (D_80362690->unkC[D_80362690->unk9C].unk8 == sRefBTGT[i].terra) {
+            target->goalInTerra = TRUE;
+            if (target->objId != OBJ_INVALID) {
+                uvDobjSetState(target->objId, 0x2);
             }
         } else {
             _uvDebugPrintf("btgts_terra : %d btgt not in terra\n", i);
-            var_s0->unk5D = 0;
-            if (var_s0->objId != 0xFFFF) {
-                uvDobjClearState(var_s0->objId, 0x2);
+            target->goalInTerra = FALSE;
+            if (target->objId != OBJ_INVALID) {
+                uvDobjClearState(target->objId, 0x2);
             }
         }
     }
 }
 
 void ballTgtInitDobj(BallTarget* bt) {
-    f32 var_fa0;
+    f32 dist;
     s32 modelId;
 
     bt->objId = uvDobjAllocIdx();
-    modelId = (bt->unk5B) ? MODEL_GREEN_BLUE_GOAL_0 : MODEL_GREEN_BLUE_GOAL_1;
+    modelId = (bt->isBallInGoal) ? MODEL_GREEN_BLUE_GOAL_0 : MODEL_GREEN_BLUE_GOAL_1;
     uvDobjModel(bt->objId, modelId);
-    uvMat4SetIdentity(&bt->unk10);
-    bt->unk10.m[0][0] = bt->unk50;
-    bt->unk10.m[1][1] = bt->unk50;
-    bt->unk10.m[2][2] = bt->unk54;
-    bt->unk10.m[3][0] = bt->unk4.x;
-    bt->unk10.m[3][1] = bt->unk4.y;
-    bt->unk10.m[3][2] = bt->unk4.z;
-    var_fa0 = MAX(bt->unk50, bt->unk54);
-    uvDobjProps(bt->objId, 3, var_fa0, 0);
+    uvMat4SetIdentity(&bt->pose);
+    bt->pose.m[0][0] = bt->radius;
+    bt->pose.m[1][1] = bt->radius;
+    bt->pose.m[2][2] = bt->height;
+    bt->pose.m[3][0] = bt->position.x;
+    bt->pose.m[3][1] = bt->position.y;
+    bt->pose.m[3][2] = bt->position.z;
+    dist = MAX(bt->radius, bt->height);
+    uvDobjProps(bt->objId, 3, dist, 0);
     uvDobjState(bt->objId, 2);
-    uvDobjPosm(bt->objId, 0, &bt->unk10);
+    uvDobjPosm(bt->objId, 0, &bt->pose);
 }
 
 void ballTgtLoad(void) {
     BallTarget* bt;
-    TaskBTGT* lvlBt;
+    TaskBTGT* btgt;
     s32 i;
 
     if (D_80362690->unkA0 == 0) {
@@ -90,7 +91,7 @@ void ballTgtLoad(void) {
     }
 
     sBallTgtCount = taskGetBTGT(&sRefBTGT);
-    if (sBallTgtCount > 5) {
+    if (sBallTgtCount > ARRAY_COUNT(sBallTgts)) {
         _uvDebugPrintf("btgts : too many btgts defined in level [%d]\n", sBallTgtCount);
         sBallTgtCount = 0;
         return;
@@ -99,18 +100,18 @@ void ballTgtLoad(void) {
     if (sBallTgtCount != 0) {
         uvLevelAppend(0x10);
         for (i = 0; i < sBallTgtCount; i++) {
-            lvlBt = &sRefBTGT[i];
+            btgt = &sRefBTGT[i];
             bt = &sBallTgts[i];
-            if (bt->unk5B != 0) {
+            if (bt->isBallInGoal) {
                 continue;
             }
-            if (bt->unk5C == 0) {
-                bt->unk58 = lvlBt->unk18;
-                bt->unk59 = lvlBt->unk19;
-                bt->unk50 = lvlBt->unk10;
-                bt->unk54 = lvlBt->unk14;
-                uvVec3Copy(&bt->unk4, &lvlBt->pos);
-                bt->unk5C = 1;
+            if (!bt->goalInitialized) {
+                bt->unk58 = btgt->unk18;
+                bt->goalPoints = btgt->goalPoints;
+                bt->radius = btgt->radius;
+                bt->height = btgt->height;
+                uvVec3Copy(&bt->position, &btgt->pos);
+                bt->goalInitialized = TRUE;
             }
             ballTgtInitDobj(bt);
         }
@@ -120,40 +121,40 @@ void ballTgtLoad(void) {
 
 void ballTgt_802D2C20(BallTarget* bt) {
     Ball* ball;
-    f32 temp_fa0;
+    f32 goalRadius;
     f32 dx;
     f32 dy;
     f32 dz;
     f32 dist;
-    f32 var_fv1;
-    s32 var_s2;
+    f32 ballSize;
+    s32 sfxPlayed;
     s32 i;
 
-    var_s2 = 0;
+    sfxPlayed = FALSE;
     for (i = 0; i < gBallCount + gBallSplitCount; i++) {
         ball = &gBalls[i];
-        if ((ball->hasPopped != 0) || (ball->active == 0)) {
+        if ((ball->hasPopped) || (!ball->active)) {
             continue;
         }
-        dx = bt->unk4.x - ball->pose.m[3][0];
-        dy = bt->unk4.y - ball->pose.m[3][1];
-        dz = bt->unk4.z - ball->pose.m[3][2];
+        dx = bt->position.x - ball->pose.m[3][0];
+        dy = bt->position.y - ball->pose.m[3][1];
+        dz = bt->position.z - ball->pose.m[3][2];
         dist = uvSqrtF(SQ(dx) + SQ(dy));
-        temp_fa0 = bt->unk50 - 0.25f;
-        var_fv1 = ball->scale * D_80359388;
-        if (((dist - var_fv1) <= temp_fa0) && ((var_fv1 + dist) >= temp_fa0)) {
-            var_s2 = 1;
-            sndPlaySfx(0x37);
+        goalRadius = bt->radius - 0.25f;
+        ballSize = ball->scale * D_80359388;
+        if (((dist - ballSize) <= goalRadius) && ((ballSize + dist) >= goalRadius)) {
+            sfxPlayed = TRUE;
+            sndPlaySfx(SFX_UNK_055);
             dx = -(dx / dist);
             dy = -(dy / dist);
             dist = uvSqrtF(SQ(ball->velocity.x) + SQ(ball->velocity.y));
             ball->velocity.x -= dist * dx;
             ball->velocity.y -= dist * dy;
         }
-        var_fv1 = ball->scale * D_80359388;
-        if (bt->unk54 <= (var_fv1 + dz)) {
-            if (var_s2 == 0) {
-                sndPlaySfx(0x37);
+        ballSize = ball->scale * D_80359388;
+        if (bt->height <= (ballSize + dz)) {
+            if (!sfxPlayed) {
+                sndPlaySfx(SFX_UNK_055);
             }
             ball->velocity.z = -ball->velocity.z;
         }
@@ -161,46 +162,46 @@ void ballTgt_802D2C20(BallTarget* bt) {
 }
 
 s32 ballTgtInGoal(void) {
-    BallTarget* target;
+    BallTarget* bt;
     Ball* ball;
     f32 dz;
     f32 dx;
     f32 dy;
     f32 dist;
-    s32 ret; // var_s4;
+    s32 ret;
     s32 i;
     s32 j;
 
-    ret = 0;
+    ret = FALSE;
     if (D_80362690->unkA0 == 0) {
         return ret;
     }
 
     for (i = 0; i < sBallTgtCount; i++) {
-        target = &sBallTgts[i];
-        if (target->unk5D == 0) {
+        bt = &sBallTgts[i];
+        if (!bt->goalInTerra) {
             continue;
         }
 
-        if (target->unk5B != 0) {
-            ballTgt_802D2C20(target);
+        if (bt->isBallInGoal) {
+            ballTgt_802D2C20(bt);
         } else {
             for (j = 0; j < gBallCount + gBallSplitCount; j++) {
                 ball = &gBalls[j];
-                if ((ball->hasPopped != 0) || (ball->active == 0)) {
+                if ((ball->hasPopped) || (!ball->active)) {
                     continue;
                 }
-                dx = target->unk4.x - ball->pose.m[3][0];
-                dy = target->unk4.y - ball->pose.m[3][1];
-                dz = target->unk4.z - ball->pose.m[3][2];
+                dx = bt->position.x - ball->pose.m[3][0];
+                dy = bt->position.y - ball->pose.m[3][1];
+                dz = bt->position.z - ball->pose.m[3][2];
                 dist = uvSqrtF(SQ(dx) + SQ(dy));
-                if ((dist < target->unk50) && (dz < target->unk54)) {
-                    target->unk5B = 1;
-                    ret = 1;
+                if ((dist < bt->radius) && (dz < bt->height)) {
+                    bt->isBallInGoal = TRUE;
+                    ret = TRUE;
                     sndPlaySfx(SFX_GOAL_GONG);
-                    uvDobjModel(target->objId, MODEL_WORLD);
-                    ballTgtInitDobj(target);
-                    target->unk5A = j;
+                    uvDobjModel(bt->objId, MODEL_WORLD);
+                    ballTgtInitDobj(bt);
+                    bt->ballIdInGoal = j;
                 }
             }
         }
@@ -214,33 +215,31 @@ void ballTgtDeinit(void) {
 
     for (i = 0; i < sBallTgtCount; i++) {
         bt = &sBallTgts[i];
-        if (bt->objId != 0xFFFF) {
+        if (bt->objId != OBJ_INVALID) {
             uvDobjModel(bt->objId, MODEL_WORLD);
-            bt->objId = 0xFFFF;
+            bt->objId = OBJ_INVALID;
         }
     }
 }
 
-u8 ballTgtCount_5B(void) {
+u8 ballTgtGetGoalCount(void) {
     s32 i;
-    u8 ret;
+    u8 count;
 
-    ret = 0;
+    count = 0;
     for (i = 0; i < sBallTgtCount; i++) {
-        ret += (sBallTgts[i].unk5B != 0) ? 1 : 0;
+        count += (sBallTgts[i].isBallInGoal) ? 1 : 0;
     }
-    return ret;
+    return count;
 }
 
-s16 ballTgtCount_59(void) {
-    BallTarget* bt;
-    s32 sum;
+s16 ballTgtGetScore(void) {
+    s32 scoreSum;
     s32 i;
 
-    sum = 0;
+    scoreSum = 0;
     for (i = 0; i < sBallTgtCount; i++) {
-        bt = &sBallTgts[i];
-        sum += (bt->unk5B) ? bt->unk59 : 0;
+        scoreSum += (sBallTgts[i].isBallInGoal) ? sBallTgts[i].goalPoints : 0;
     }
-    return sum;
+    return scoreSum;
 }

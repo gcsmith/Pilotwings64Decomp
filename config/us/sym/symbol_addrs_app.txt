@@ -192,8 +192,8 @@ ballTgtInitDobj     = 0x802D29FC; // type:func
 ballTgtLoad         = 0x802D2ACC; // type:func
 ballTgt_802D2C20    = 0x802D2C20; // type:func
 ballTgtInGoal       = 0x802D2E48; // type:func
-ballTgtCount_5B     = 0x802D30B4; // type:func
-ballTgtCount_59     = 0x802D3110; // type:func
+ballTgtGetGoalCount = 0x802D30B4; // type:func
+ballTgtGetScore     = 0x802D3110; // type:func
 ballTgtDeinit       = 0x802D3030; // type:func
 
 contInfoMainRender    = 0x802DCB40; // type:func

@@ -543,12 +543,12 @@ pop the balloon land and land on the designated landing area
 | Offset | Type   | Description
 |--------|--------|-----------------
 |  0x00  | Vec3F  | position
-|  0x0C  | s32    | TBD
-|  0x10  | f32    | TBD
-|  0x14  | f32    | TBD
-|  0x18  | u8     | TBD (always 0x01)
-|  0x19  | u8     | TBD
-|  0x1A  | pad[2] | TBD
+|  0x0C  | s32    | terrain ID
+|  0x10  | f32    | radius
+|  0x14  | f32    | height
+|  0x18  | u8     | unused, copied to local struct (always 0x01)
+|  0x19  | u8     | points scored for a ball in this goal
+|  0x1A  | pad[2] |
 |  0x1C  |        | **Total length**
 
 #### UPWT::CNTG / cannon targets

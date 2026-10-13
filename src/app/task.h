@@ -94,12 +94,11 @@ typedef struct {
 
 typedef struct {
     Vec3F pos;
-    s32 unkC;
-    f32 unk10;
-    f32 unk14;
+    s32 terra;
+    f32 radius;
+    f32 height;
     u8 unk18;
-    u8 unk19;
-    u8 pad1A[2];
+    u8 goalPoints;
 } TaskBTGT; // size = 0x1C
 
 typedef struct {
